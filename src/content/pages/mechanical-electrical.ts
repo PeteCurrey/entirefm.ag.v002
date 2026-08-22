@@ -1,70 +1,59 @@
 /**
  * CONTENT RECORD: /mechanical-electrical
- * ========================================
- * Route Provenance: LEGACY_VERIFIED (G1 + G2)
- * Priority: P0 — Core commercial driver
- *
- * Historic intent: Businesses searching for a single contractor to
- * handle all mechanical and electrical maintenance requirements.
- *
- * NOTE: This is NOT the same page as /hvac-contractor.
- * Both exist independently with distinct intent.
+ * =====================
+ * Provenance: LEGACY_VERIFIED
+ * Historic: Yes
+ * Protected: Yes
  */
 
 import type { ContentRecord } from '@/content/index';
 
 const record: ContentRecord = {
-  path: '/mechanical-electrical',
-  title: 'Mechanical & Electrical Services | Entire FM',
-  metaDescription:
-    'Entire FM delivers integrated mechanical and electrical services across the UK — PPM, emergency response, access control, emergency lighting, HVAC, and compliance management.',
-  h1: 'Mechanical & Electrical Services',
-  historicIntent:
-    'Businesses and facilities managers searching for a single contractor to handle all mechanical and electrical FM requirements across their estate.',
-  primaryIntent: 'M&E facilities management contractor UK',
-  secondaryIntents: [
-    'mechanical and electrical maintenance contract',
-    'M&E FM services',
-    'building mechanical electrical services',
-    'planned preventative M&E maintenance',
+  "path": "/mechanical-electrical",
+  "title": "Mechanical & Electrical Services | M&E Contractor | Entire FM",
+  "metaDescription": "Entire FM delivers integrated mechanical and electrical engineering across the UK — switchgear, HVAC, emergency lighting, gas safety, and SFG20 PPM.",
+  "h1": "Mechanical & Electrical (M&E) Services",
+  "historicIntent": "High-value search intent from businesses seeking a single accredited contractor for commercial mechanical & electrical engineering.",
+  "primaryIntent": "Mechanical and electrical contractor UK",
+  "secondaryIntents": [
+    "commercial M&E maintenance",
+    "building electrical compliance",
+    "mechanical plant servicing"
   ],
-  pageType: 'service',
-  service: 'Mechanical & Electrical',
-  sector: null,
-  location: null,
-  historicTopics: [
-    'Mechanical systems maintenance',
-    'Electrical compliance and testing',
-    'HVAC integration',
-    'Access control systems',
-    'Emergency lighting testing',
-    'Planned maintenance scheduling',
+  "pageType": "service",
+  "service": null,
+  "sector": null,
+  "location": null,
+  "historicTopics": [
+    "HV/LV switchgear",
+    "Emergency lighting BS 5266",
+    "Commercial gas & boilers",
+    "HVAC maintenance",
+    "SFG20 audits"
   ],
-  requiredSections: [
-    'Service overview',
-    'M&E services scope (full list)',
-    'Compliance and certification [PENDING VERIFICATION]',
-    'PPM and reactive maintenance approach',
-    'Geographic coverage',
-    'Contact/enquiry CTA',
+  "requiredSections": [
+    "M&E Hero",
+    "Engineering Capabilities",
+    "Key Assets Covered",
+    "Compliance Accreditations",
+    "Case Study",
+    "FAQ",
+    "Enquiry"
   ],
-  relatedRoutes: [
-    '/hvac-contractor',
-    '/ppm',
-    '/hard-services',
-    '/mechanical-electrical/emergency-light-testing',
-    '/mechanical-electrical/access-control',
-    '/plumbing-gas',
-    '/fire-emergency-systems',
+  "relatedRoutes": [
+    "/hvac-contractor",
+    "/ppm",
+    "/hard-services",
+    "/plumbing-gas",
+    "/mechanical-electrical/emergency-light-testing",
+    "/mechanical-electrical/access-control"
   ],
-  conversionGoal:
-    'Drive telephone and form enquiries from facilities managers requiring M&E maintenance contracts.',
-  verificationRequirements: [
-    'Certification claims (NICEIC, Gas Safe) must be verified before going live — see BUSINESS-CLAIMS-VERIFICATION.md',
-    'SLA response times must be confirmed before stating in copy',
-    'All compliance claims must reference verified standards only',
+  "conversionGoal": "Drive M&E maintenance contract enquiries, plant room condition audits, and tender opportunities.",
+  "verificationRequirements": [
+    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
+    "Response time SLAs must be contractually confirmed"
   ],
-  contentStatus: 'CONTENT_PENDING',
+  "contentStatus": "COMPLETE"
 };
 
 export default record;

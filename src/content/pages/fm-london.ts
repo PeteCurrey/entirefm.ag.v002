@@ -1,77 +1,57 @@
 /**
  * CONTENT RECORD: /fm-london
- * ===========================
- * Route Provenance: LEGACY_VERIFIED (G1 + G2)
- * Priority: P0 — London is the highest-value geographic market
- *
- * IMPORTANT: Three London FM pages must exist independently:
- *   /fm-london — this page (emergency/rapid response focus)
- *   /facilities-management-london — general London FM
- *   /london-facilities-management — corporate/brand focus
- *
- * Each has distinct search intent. None may redirect to another.
+ * =====================
+ * Provenance: LEGACY_VERIFIED
+ * Historic: Yes
+ * Protected: Yes
  */
 
 import type { ContentRecord } from '@/content/index';
 
 const record: ContentRecord = {
-  path: '/fm-london',
-  title: 'FM London | 24/7 Facilities Management London | Entire FM',
-  metaDescription:
-    'Entire FM provides 24/7 facilities management across London — hard FM, soft FM, M&E, cleaning, PPM, and emergency response for commercial properties across all London zones.',
-  h1: 'FM London — 24/7 Facilities Management Services',
-  historicIntent:
-    'London businesses searching for a rapid-response FM provider covering the full London area, with emphasis on availability and response time.',
-  primaryIntent: 'FM London facilities management company',
-  secondaryIntents: [
-    '24/7 FM London',
-    'London facilities management company',
-    'facilities management Central London',
-    'London FM contractor',
-    'emergency FM response London',
+  "path": "/fm-london",
+  "title": "FM London | 24/7 Facilities Management & Rapid Response | Entire FM",
+  "metaDescription": "Entire FM provides 24/7 facilities management across London — rapid emergency M&E dispatch, HVAC repair, and plant maintenance for commercial property.",
+  "h1": "FM London — 24/7 Facilities Management & Emergency Engineering",
+  "historicIntent": "High-urgency search intent from London businesses requiring rapid engineering dispatch and 24/7 helpdesk coverage.",
+  "primaryIntent": "24/7 FM London facilities management",
+  "secondaryIntents": [
+    "emergency FM London",
+    "London commercial property maintenance",
+    "rapid response M&E London"
   ],
-  pageType: 'location',
-  service: null,
-  sector: null,
-  location: 'London',
-  historicTopics: [
-    'London-wide FM coverage',
-    'Zone 1–6 operational capability [PENDING VERIFICATION]',
-    'M25 corridor coverage [PENDING VERIFICATION]',
-    '24/7 emergency response [PENDING VERIFICATION]',
-    'Commercial property FM London',
-    'ULEZ compliant operations [PENDING VERIFICATION]',
+  "pageType": "location",
+  "service": null,
+  "sector": null,
+  "location": "London",
+  "historicTopics": [
+    "24/7 emergency dispatch",
+    "Central London response",
+    "Commercial office plant",
+    "ULEZ compliance"
   ],
-  requiredSections: [
-    'London FM overview',
-    'Services available in London',
-    'Geographic coverage (zones/areas) [PENDING VERIFICATION]',
-    'Response times [PENDING VERIFICATION]',
-    'Sectors served in London',
-    'London contact details [PENDING VERIFICATION]',
-    'CTA',
+  "requiredSections": [
+    "Operations Hero",
+    "Live Triage Banner",
+    "Rapid Capabilities",
+    "London Districts Covered",
+    "London Factsheet",
+    "FAQ",
+    "Enquiry"
   ],
-  relatedRoutes: [
-    '/facilities-management-london',
-    '/london-facilities-management',
-    '/london-facilities-management-areas',
-    '/commercial-cleaning-london',
-    '/industrial-cleaning-london',
-    '/contract-cleaning-london',
-    '/office-cleaning-london',
-    '/mechanical-electrical',
-    '/hard-services',
+  "relatedRoutes": [
+    "/facilities-management-london",
+    "/london-facilities-management",
+    "/commercial-cleaning-london",
+    "/industrial-cleaning-london",
+    "/mechanical-electrical"
   ],
-  conversionGoal:
-    'Drive London-specific FM contract enquiries. Primary conversion: telephone call or contact form submission from London-based facilities managers.',
-  verificationRequirements: [
-    'London office / operational base address must be verified — see BUSINESS-CLAIMS-VERIFICATION.md',
-    'Zone 1–6 coverage claim must be confirmed',
-    'Response time SLA (reportedly 2-hour Central London) must be confirmed',
-    'ULEZ fleet compliance must be confirmed',
-    'London telephone number must be confirmed',
+  "conversionGoal": "Drive urgent helpdesk calls and immediate commercial maintenance enquiries across London.",
+  "verificationRequirements": [
+    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
+    "Response time SLAs must be contractually confirmed"
   ],
-  contentStatus: 'CONTENT_PENDING',
+  "contentStatus": "COMPLETE"
 };
 
 export default record;

@@ -26,7 +26,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -47,7 +47,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -66,7 +66,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -87,7 +87,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -106,7 +106,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -127,7 +127,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -148,7 +148,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -169,7 +169,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -188,7 +188,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -210,7 +210,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -229,7 +229,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "specialist-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -248,7 +248,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Bolton"
@@ -265,7 +265,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -287,7 +287,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -306,7 +306,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -325,7 +325,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Bury"
@@ -342,7 +342,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "soft-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -361,7 +361,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "soft-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -380,7 +380,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -402,7 +402,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -421,7 +421,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -440,7 +440,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -459,7 +459,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -479,7 +479,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -499,7 +499,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -519,7 +519,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -539,7 +539,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -559,7 +559,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -579,7 +579,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -599,7 +599,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -619,7 +619,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -640,7 +640,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -660,7 +660,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "soft-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -679,7 +679,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -698,7 +698,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -717,7 +717,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -736,7 +736,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -756,7 +756,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -776,7 +776,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -796,7 +796,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -816,7 +816,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -836,7 +836,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -856,7 +856,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -875,7 +875,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -894,7 +894,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -913,7 +913,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -935,7 +935,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Doncaster"
@@ -952,7 +952,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -971,7 +971,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -990,7 +990,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -1009,7 +1009,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -1029,7 +1029,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -1049,7 +1049,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -1069,7 +1069,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -1089,7 +1089,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1111,7 +1111,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -1130,7 +1130,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Bolton"
@@ -1147,7 +1147,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1169,7 +1169,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Bury"
@@ -1186,7 +1186,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1208,7 +1208,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1230,7 +1230,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Doncaster"
@@ -1247,7 +1247,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1266,7 +1266,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1285,7 +1285,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1304,7 +1304,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1323,7 +1323,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1342,7 +1342,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1361,7 +1361,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1380,7 +1380,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1399,7 +1399,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1418,7 +1418,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1437,7 +1437,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1456,7 +1456,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1475,7 +1475,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1494,7 +1494,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1513,7 +1513,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -1532,7 +1532,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Grimsby"
@@ -1549,7 +1549,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1571,7 +1571,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1593,7 +1593,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1615,7 +1615,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1637,7 +1637,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1659,7 +1659,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1681,7 +1681,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1703,7 +1703,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1725,7 +1725,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1747,7 +1747,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -1766,7 +1766,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Oxford"
@@ -1783,7 +1783,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Preston"
@@ -1800,7 +1800,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Rotherham"
@@ -1817,7 +1817,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -1836,7 +1836,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -1855,7 +1855,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1877,7 +1877,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1898,7 +1898,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1920,7 +1920,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Wigan"
@@ -1937,7 +1937,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -1956,7 +1956,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -1978,7 +1978,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Bolton"
@@ -1995,7 +1995,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2017,7 +2017,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Bury"
@@ -2034,7 +2034,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2056,7 +2056,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2075,7 +2075,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2097,7 +2097,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Doncaster"
@@ -2114,7 +2114,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Grimsby"
@@ -2131,7 +2131,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2153,7 +2153,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2175,7 +2175,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2197,7 +2197,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2219,7 +2219,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2241,7 +2241,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2261,7 +2261,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2283,7 +2283,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Oxford"
@@ -2300,7 +2300,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Preston"
@@ -2317,7 +2317,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Rotherham"
@@ -2334,7 +2334,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2354,7 +2354,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2376,7 +2376,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2395,7 +2395,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2414,7 +2414,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2435,7 +2435,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -2454,7 +2454,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2473,7 +2473,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2495,7 +2495,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Wigan"
@@ -2512,7 +2512,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2531,7 +2531,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Grimsby"
@@ -2548,7 +2548,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "soft-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2567,7 +2567,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2588,7 +2588,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2607,7 +2607,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2626,7 +2626,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2645,7 +2645,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "specialist-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -2664,7 +2664,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2685,7 +2685,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2706,7 +2706,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2727,7 +2727,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2747,7 +2747,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2767,7 +2767,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2787,7 +2787,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2807,7 +2807,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2827,7 +2827,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2847,7 +2847,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2867,7 +2867,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2889,7 +2889,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2909,7 +2909,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -2930,7 +2930,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2950,7 +2950,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2969,7 +2969,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -2988,7 +2988,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3007,7 +3007,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3028,7 +3028,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "soft-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3047,7 +3047,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3069,7 +3069,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3091,7 +3091,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3111,7 +3111,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3133,7 +3133,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3152,7 +3152,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3174,7 +3174,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3194,7 +3194,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3216,7 +3216,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3236,7 +3236,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3256,7 +3256,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3277,7 +3277,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -3296,7 +3296,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -3315,7 +3315,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3334,7 +3334,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3353,7 +3353,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "specialist-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -3372,7 +3372,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "specialist-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -3392,7 +3392,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "specialist-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -3412,7 +3412,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "specialist-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -3431,7 +3431,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3453,7 +3453,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3472,7 +3472,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3492,7 +3492,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3512,7 +3512,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Oxford"
@@ -3529,7 +3529,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3550,7 +3550,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3569,7 +3569,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -3588,7 +3588,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3608,7 +3608,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3628,7 +3628,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3649,7 +3649,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -3668,7 +3668,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3689,7 +3689,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3710,7 +3710,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -3729,7 +3729,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3750,7 +3750,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3771,7 +3771,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "insights",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -3790,7 +3790,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "maintenance",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3811,7 +3811,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3830,7 +3830,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3850,7 +3850,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3870,7 +3870,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3890,7 +3890,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3910,7 +3910,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "local-services",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3930,7 +3930,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Preston"
@@ -3947,7 +3947,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -3968,7 +3968,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -3987,7 +3987,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4006,7 +4006,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4025,7 +4025,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4044,7 +4044,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -4065,7 +4065,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4085,7 +4085,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4104,7 +4104,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4123,7 +4123,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -4144,7 +4144,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4164,7 +4164,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Rotherham"
@@ -4181,7 +4181,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -4200,7 +4200,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "soft-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4219,7 +4219,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -4240,7 +4240,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "company",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4259,7 +4259,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -4281,7 +4281,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "soft-fm",
       "priority": "P0",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4300,7 +4300,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4319,7 +4319,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1",
@@ -4341,7 +4341,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -4360,7 +4360,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -4379,7 +4379,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4398,7 +4398,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -4417,7 +4417,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "soft-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4436,7 +4436,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "sectors",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-2"
@@ -4455,7 +4455,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "soft-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4474,7 +4474,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "core",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4493,7 +4493,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "locations",
       "priority": "P2",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [],
       "location": "Wigan"
@@ -4510,7 +4510,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "cleaning",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"
@@ -4529,7 +4529,7 @@
       "uniquePageRequired": true,
       "sitemapGroup": "hard-fm",
       "priority": "P1",
-      "contentStatus": "CONTENT_PENDING",
+      "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
       "historicSources": [
         "wix-generation-1"

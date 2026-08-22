@@ -7,11 +7,13 @@
  * - Protected routes always produce self-referencing canonical
  * - Non-production environments always produce noindex, nofollow
  * - Production indexing requires NEXT_PUBLIC_SITE_URL to be set
+ * - Integrates with ContentRecord for unique, bespoke SEO titles & descriptions
  */
 
 import type { Metadata } from 'next';
 import type { RouteRecord } from '../routes/route-schema';
 import { getRoute } from '../routes/route-registry';
+import { getContentRecord } from '@/content/registry';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? '';
 const IS_PRODUCTION = process.env.NODE_ENV === 'production' && SITE_URL !== '';
@@ -51,7 +53,7 @@ function getCanonicalUrl(path: string): string {
 
 /**
  * Generate base metadata for any route in the registry.
- * Content records layer additional title/description on top.
+ * Automatically looks up ContentRecord for unique title and metaDescription.
  */
 export function generateRouteMetadata(
   path: string,
@@ -63,6 +65,7 @@ export function generateRouteMetadata(
   }
 ): Metadata {
   const route = getRoute(path);
+  const content = getContentRecord(path);
 
   // Fallback for unknown routes (404)
   if (!route) {
@@ -76,10 +79,11 @@ export function generateRouteMetadata(
   const canonicalUrl = getCanonicalUrl(path);
   const robots = getRobots(route);
 
-  const title = overrides?.title ?? `Page: ${path} | Entire FM`;
+  const title = overrides?.title ?? content?.title ?? `Page: ${path} | Entire FM`;
   const description =
     overrides?.description ??
-    `Entire FM facilities management services. Content specification in progress.`;
+    content?.metaDescription ??
+    `Entire FM provides facilities management, mechanical and electrical engineering, and property maintenance services for ${path}.`;
 
   return {
     title,
@@ -89,8 +93,8 @@ export function generateRouteMetadata(
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: overrides?.openGraphTitle ?? title,
-      description: overrides?.openGraphDescription ?? description,
+      title: overrides?.openGraphTitle ?? content?.title ?? title,
+      description: overrides?.openGraphDescription ?? content?.metaDescription ?? description,
       url: canonicalUrl,
       siteName: 'Entire FM',
       type: 'website',
@@ -98,8 +102,8 @@ export function generateRouteMetadata(
     },
     twitter: {
       card: 'summary_large_image',
-      title: overrides?.openGraphTitle ?? title,
-      description: overrides?.openGraphDescription ?? description,
+      title: overrides?.openGraphTitle ?? content?.title ?? title,
+      description: overrides?.openGraphDescription ?? content?.metaDescription ?? description,
     },
   };
 }

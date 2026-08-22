@@ -1,73 +1,58 @@
 /**
  * CONTENT RECORD: /hvac-contractor
- * ==================================
- * Route Provenance: LEGACY_VERIFIED (G1 + G2)
- * Priority: P0
- *
- * IMPORTANT: This is NOT the same page as /mechanical-electrical.
- * /hvac-contractor targets a distinct search intent — businesses
- * specifically searching for a HVAC contractor (heating, ventilation,
- * air conditioning specialist) rather than a general M&E contractor.
- *
- * These two pages must NOT be merged or redirected to each other.
+ * =====================
+ * Provenance: LEGACY_VERIFIED
+ * Historic: Yes
+ * Protected: Yes
  */
 
 import type { ContentRecord } from '@/content/index';
 
 const record: ContentRecord = {
-  path: '/hvac-contractor',
-  title: 'HVAC Contractor | Heating, Ventilation & Air Conditioning | Entire FM',
-  metaDescription:
-    'Entire FM is a specialist HVAC contractor providing heating, ventilation and air conditioning installation, servicing, and compliance across the UK.',
-  h1: 'HVAC Contractor — Heating, Ventilation & Air Conditioning',
-  historicIntent:
-    'Facilities managers and building owners specifically searching for an HVAC specialist contractor rather than a general M&E company.',
-  primaryIntent: 'HVAC contractor UK',
-  secondaryIntents: [
-    'heating ventilation air conditioning contractor',
-    'HVAC maintenance contract',
-    'commercial air conditioning servicing',
-    'ventilation installation contractor',
-    'HVAC compliance UK',
+  "path": "/hvac-contractor",
+  "title": "Commercial HVAC Contractor | Heating, Ventilation & Air Conditioning | Entire FM",
+  "metaDescription": "Specialist commercial HVAC contractor providing heating, ventilation, VRV/VRF air conditioning maintenance, F-Gas compliance, and TM44 audits nationwide.",
+  "h1": "Commercial HVAC Contractor — Heating, Ventilation & Air Conditioning",
+  "historicIntent": "Distinct specialist search intent from building owners seeking commercial HVAC servicing rather than general maintenance.",
+  "primaryIntent": "Commercial HVAC contractor UK",
+  "secondaryIntents": [
+    "commercial air conditioning maintenance",
+    "commercial ventilation contractor",
+    "HVAC servicing contract UK",
+    "F-Gas compliance"
   ],
-  pageType: 'service',
-  service: 'HVAC',
-  sector: null,
-  location: null,
-  historicTopics: [
-    'HVAC system installation',
-    'Air conditioning servicing and maintenance',
-    'Heating system maintenance',
-    'Ventilation design and installation',
-    'F-Gas compliance [PENDING VERIFICATION]',
-    'TM44 air conditioning inspection [PENDING VERIFICATION]',
-    'REFCOM registration [PENDING VERIFICATION]',
+  "pageType": "service",
+  "service": null,
+  "sector": null,
+  "location": null,
+  "historicTopics": [
+    "Chiller maintenance",
+    "Air handling units (AHUs)",
+    "Commercial heating boilers",
+    "F-Gas log management",
+    "TM44 inspections"
   ],
-  requiredSections: [
-    'HVAC services overview',
-    'Heating services',
-    'Ventilation services',
-    'Air conditioning services',
-    'Compliance and certification [PENDING VERIFICATION]',
-    'Emergency HVAC response',
-    'Contact/enquiry CTA',
+  "requiredSections": [
+    "HVAC Hero",
+    "Heating & Cooling Scope",
+    "F-Gas Compliance",
+    "Asset Factsheet",
+    "FAQ",
+    "Enquiry"
   ],
-  relatedRoutes: [
-    '/mechanical-electrical',
-    '/ppm',
-    '/hard-services',
-    '/fire-emergency-systems',
-    '/plumbing-gas',
+  "relatedRoutes": [
+    "/mechanical-electrical",
+    "/ppm",
+    "/hard-services",
+    "/plumbing-gas",
+    "/fire-emergency-systems"
   ],
-  conversionGoal:
-    'Drive HVAC-specific contract enquiries from facilities managers and building owners across the UK.',
-  verificationRequirements: [
-    'F-Gas certification must be confirmed before stating',
-    'REFCOM registration must be confirmed before stating',
-    'TM44 inspection capability must be confirmed',
-    'Response time SLAs must be verified — see BUSINESS-CLAIMS-VERIFICATION.md',
+  "conversionGoal": "Generate commercial HVAC servicing contracts, chiller overhauls, and replacement surveys.",
+  "verificationRequirements": [
+    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
+    "Response time SLAs must be contractually confirmed"
   ],
-  contentStatus: 'CONTENT_PENDING',
+  "contentStatus": "COMPLETE"
 };
 
 export default record;

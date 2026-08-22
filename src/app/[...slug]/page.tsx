@@ -1,6 +1,6 @@
 /**
- * DYNAMIC CATCH-ALL ROUTE — [[...slug]]/page.tsx
- * ================================================
+ * DYNAMIC CATCH-ALL ROUTE — [...slug]/page.tsx
+ * ============================================
  * Resolves every registered route through the route registry and renders
  * the corresponding approved design-system template.
  * Unknown routes return a genuine 404.
@@ -36,10 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  return generateRouteMetadata(path, {
-    title: `${path.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} | Entire FM`,
-    description: `Entire FM facilities management services, engineering maintenance, and compliance solutions for ${path}.`,
-  });
+  return generateRouteMetadata(path);
 }
 
 export default async function RegistryPage({ params }: PageProps) {

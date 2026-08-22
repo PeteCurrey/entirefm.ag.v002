@@ -1,5 +1,6 @@
 import React from 'react';
 import type { RouteRecord } from '@/lib/routes/route-schema';
+import { loadContentRecord } from '@/content';
 import { TemplateHome } from './TemplateHome';
 import { TemplateCoreService } from './TemplateCoreService';
 import { TemplateSpecialistService } from './TemplateSpecialistService';
@@ -13,6 +14,7 @@ import { TemplateCaseStudy } from './TemplateCaseStudy';
 import { TemplateArticle } from './TemplateArticle';
 import { TemplateAbout } from './TemplateAbout';
 import { TemplateContact } from './TemplateContact';
+import { TemplateHtmlSitemap } from './TemplateHtmlSitemap';
 
 // Hub Data Providers
 const servicesHubItems = [
@@ -49,8 +51,9 @@ const locationsHubItems = [
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const path = route.path;
+  const content = loadContentRecord(path);
 
-  // Exact Prototype Page Routes
+  // Exact Specific Route Resolvers
   if (path === '/') return <TemplateHome />;
   if (path === '/mechanical-electrical') return <TemplateCoreService />;
   if (path === '/industrial-cleaning') return <TemplateSpecialistService />;
@@ -59,6 +62,7 @@ export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   if (path === '/facilities-management-london') return <TemplateSecondaryLocation />;
   if (path === '/london-facilities-management') return <TemplateThirdLocation />;
   if (path === '/industrial-cleaning-london') return <TemplateLocalService />;
+  if (path === '/html-sitemap' || path === '/sitemap') return <TemplateHtmlSitemap />;
 
   // Hub Pages
   if (path === '/services') {
@@ -95,11 +99,11 @@ export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   }
 
   // Company & Contact Routes
-  if (path === '/about-entire-facilities-management' || path === '/facilities-management-team') {
+  if (path === '/about-entire-facilities-management' || path === '/facilities-management-team' || path === '/best-facilities-management-company') {
     return <TemplateAbout />;
   }
 
-  if (path === '/contact-us' || path === '/fm-support-n-contact') {
+  if (path === '/contact-us' || path === '/fm-support-n-contact' || path === '/fm-supply-form' || path === '/helpdesk-registration' || path === '/client-login' || path === '/client-login/account-registration') {
     return <TemplateContact />;
   }
 
@@ -107,12 +111,12 @@ export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
     return <TemplateCaseStudy />;
   }
 
-  if (path.startsWith('/post/') || path === '/what-is-facilities-management' || path === '/blog' || path === '/facilities-management-blog') {
+  if (path.startsWith('/post/') || path === '/what-is-facilities-management' || path === '/blog' || path === '/facilities-management-blog' || path === '/copy-of-what-is-facilities-manageme' || path === '/fm-support-n-contact/facilities-management-glossary') {
     return <TemplateArticle />;
   }
 
   // Fallback by Route Type for all remaining registered routes
-  if (route.routeType === 'geographic-service' && path.includes('london')) {
+  if (route.routeType === 'geographic-service') {
     return <TemplateLocalService />;
   }
 

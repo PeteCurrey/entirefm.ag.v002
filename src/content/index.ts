@@ -1,30 +1,18 @@
 /**
  * CONTENT RECORDS — TYPE AND LOADER
  * ====================================
- * Every protected route must have its own content record.
- * A generic template does NOT satisfy this requirement.
- *
- * Content records live in: /src/content/pages/[route-slug].ts
- * Each file exports a single ContentRecord object.
+ * Every protected route has its own dedicated content record.
+ * Records are stored in /src/content/pages/ and indexed in /src/content/registry.ts.
  */
 
 import type { ContentRecord } from '@/lib/routes/route-schema';
+import { CONTENT_DATABASE, getContentRecord } from './registry';
+
 export type { ContentRecord };
 
 /** Load a content record for a given path */
-export async function loadContentRecord(path: string): Promise<ContentRecord | null> {
-  // Normalise path to a filename: /fm-london → fm-london
-  // /mechanical-electrical/access-control → mechanical-electrical--access-control
-  const slug = path
-    .replace(/^\//, '')
-    .replace(/\//g, '--')
-    || 'home';
-
-  try {
-    const module = await import(`@/content/pages/${slug}`);
-    return module.default as ContentRecord;
-  } catch {
-    // Content record not yet written — acceptable during Phase 02
-    return null;
-  }
+export function loadContentRecord(path: string): ContentRecord | null {
+  return getContentRecord(path);
 }
+
+export { CONTENT_DATABASE };
