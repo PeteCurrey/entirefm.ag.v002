@@ -1,3 +1,11 @@
+> [!WARNING]
+> **DEPRECATED — DO NOT USE FOR IMPLEMENTATION**  
+> This document contains instructions that contradict the locked SEO architecture.  
+> **AUTHORITATIVE SOURCE: /config/route-registry.json**  
+> See: /docs/seo-rebuild/ARCHITECTURE-CONFLICT-AUDIT.md for details.
+
+---
+
 # EntireFM Master Sitemap V2 (Definitive Build Specification)
 
 > **Document:** `/docs/seo-rebuild/MASTER-SITEMAP-V2.md`  

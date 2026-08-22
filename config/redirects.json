@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","description":"EntireFM Approved Redirects Registry","version":"1.0.0","generated":"2026-08-22","authority":"/config/route-registry.json","warning":"A protected legacy URL may NEVER appear as a redirect source. Validation enforced at build time via src/lib/routes/validate-routes.ts","redirects":[]}

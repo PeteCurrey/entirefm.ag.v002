@@ -1,3 +1,8 @@
+DEPRECATED — DO NOT USE FOR IMPLEMENTATION
+AUTHORITATIVE SOURCE: /config/route-registry.json
+This file contains redirect instructions that violate the legacy URL preservation rule.
+See /docs/seo-rebuild/ARCHITECTURE-CONFLICT-AUDIT.md for full conflict documentation.
+
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "EntireFM SEO Route Registry \u2014 machine-enforceable redirect manifest",

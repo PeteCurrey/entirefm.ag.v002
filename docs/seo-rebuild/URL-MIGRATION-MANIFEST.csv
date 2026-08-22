@@ -1,3 +1,8 @@
+DEPRECATED — DO NOT USE FOR IMPLEMENTATION
+AUTHORITATIVE SOURCE: /config/route-registry.json
+This file contains redirect instructions that violate the legacy URL preservation rule.
+See /docs/seo-rebuild/ARCHITECTURE-CONFLICT-AUDIT.md for full conflict documentation.
+
 source_generation,source_url,last_modified,http_status,page_category,page_type,intent_cluster,target_g3_url,redirect_action,priority,notes
 G1,https://petercurrey.wixsite.com/efm-new,2024-12-11,200,Home,home,brand-navigation,https://entirefm.com/,301,1,Homepage — all three gens have this
 G2,https://petercurrey.wixstudio.com/efmsut17724,2025-08-30,200,Home,home,brand-navigation,https://entirefm.com/,301,1,G2 homepage redirect

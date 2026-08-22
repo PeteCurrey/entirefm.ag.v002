@@ -1,3 +1,11 @@
+> [!WARNING]
+> **DEPRECATED — DO NOT USE FOR IMPLEMENTATION**  
+> This document contains instructions that contradict the locked SEO architecture.  
+> **AUTHORITATIVE SOURCE: /config/route-registry.json**  
+> See: /docs/seo-rebuild/ARCHITECTURE-CONFLICT-AUDIT.md for details.
+
+---
+
 # EntireFM Final Sector Architecture
 
 > **Document:** `/docs/seo-rebuild/FINAL-SECTOR-ARCHITECTURE.md`  

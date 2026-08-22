@@ -1,3 +1,11 @@
+> [!WARNING]
+> **DEPRECATED — DO NOT USE FOR IMPLEMENTATION**  
+> This document contains instructions that contradict the locked SEO architecture.  
+> **AUTHORITATIVE SOURCE: /config/route-registry.json**  
+> See: /docs/seo-rebuild/ARCHITECTURE-CONFLICT-AUDIT.md for details.
+
+---
+
 # EntireFM Proposed Master Sitemap — Phase 02
 
 > Based on historic evidence only. Every proposed page is justified by at least one G1 or G2 URL.
