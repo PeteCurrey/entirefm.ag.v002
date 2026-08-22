@@ -1,0 +1,221 @@
+source_generation,source_url,last_modified,http_status,page_category,page_type,intent_cluster,target_g3_url,redirect_action,priority,notes
+G1,https://petercurrey.wixsite.com/efm-new,2024-12-11,200,Home,home,brand-navigation,https://entirefm.com/,301,1,Homepage — all three gens have this
+G2,https://petercurrey.wixstudio.com/efmsut17724,2025-08-30,200,Home,home,brand-navigation,https://entirefm.com/,301,1,G2 homepage redirect
+G1,https://petercurrey.wixsite.com/efm-new/mechanical-electrical,2024-12-11,200,Services,service,hard-fm,https://entirefm.com/mechanical-electrical,301,1,Confirmed live on G3
+G2,https://petercurrey.wixstudio.com/efmsut17724/mechanical-electrical,2025-08-30,200,Services,service,hard-fm,https://entirefm.com/mechanical-electrical,301,1,Confirmed live on G3
+G3-old,https://entirefm.com/mechanical-electrical,,200,Services,service,hard-fm,https://entirefm.com/services/me-services,301,1,G3 has /mechanical-electrical AND /services/me-services — canonical should be /services/me-services
+G1,https://petercurrey.wixsite.com/efm-new/hvac-contractor,2024-12-11,200,Services,service,hard-fm,https://entirefm.com/services/me-services,301,1,HVAC merged into M&E services
+G2,https://petercurrey.wixstudio.com/efmsut17724/hvac-contractor,2025-08-30,200,Services,service,hard-fm,https://entirefm.com/services/me-services,301,1,HVAC merged into M&E services
+G1,https://petercurrey.wixsite.com/efm-new/industrial-cleaning,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/industrial-cleaning,301,1,Core service page — high volume keyword
+G2,https://petercurrey.wixstudio.com/efmsut17724/industrial-cleaning,2025-08-30,200,Services,service,soft-fm,https://entirefm.com/services/industrial-cleaning,301,1,Core service page
+G1,https://petercurrey.wixsite.com/efm-new/hard-services,2024-12-11,200,Services,service,hard-fm,https://entirefm.com/services/hard-services,301,1,Confirmed live on G3
+G2,https://petercurrey.wixstudio.com/efmsut17724/hard-services,2025-08-30,200,Services,service,hard-fm,https://entirefm.com/services/hard-services,301,1,Confirmed live on G3
+G1,https://petercurrey.wixsite.com/efm-new/plumbing-gas,2024-12-11,200,Services,service,hard-fm,https://entirefm.com/services/plumbing-gas,301,2,Plumbing & gas — sub-service of hard FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/plumbing-gas,2025-08-30,200,Services,service,hard-fm,https://entirefm.com/services/plumbing-gas,301,2,Plumbing & gas — sub-service of hard FM
+G1,https://petercurrey.wixsite.com/efm-new/ppm,2024-12-11,200,Services,service,ppm,https://entirefm.com/services/ppm,301,1,PPM — Planned Preventative Maintenance
+G2,https://petercurrey.wixstudio.com/efmsut17724/ppm,2025-08-30,200,Services,service,ppm,https://entirefm.com/services/ppm,301,1,Confirmed live on G3
+G1,https://petercurrey.wixsite.com/efm-new/fire-emergency-systems,2024-12-11,200,Services,service,safety-compliance,https://entirefm.com/services/fire-emergency-systems,301,1,Safety critical — must not lose
+G2,https://petercurrey.wixstudio.com/efmsut17724/safety-critical-emergency-systems,2025-08-30,200,Services,service,safety-compliance,https://entirefm.com/services/fire-emergency-systems,301,1,Renamed between G1 and G2 — map both
+G1,https://petercurrey.wixsite.com/efm-new/soft-services,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/soft-fm,301,1,Soft services umbrella page
+G1,https://petercurrey.wixsite.com/efm-new/cleaning-services,2024-12-11,200,Services,service,cleaning,https://entirefm.com/services/cleaning,301,1,Broad cleaning services hub
+G1,https://petercurrey.wixsite.com/efm-new/contract-cleaning,2024-12-11,200,Services,service,cleaning,https://entirefm.com/services/contract-cleaning,301,2,Contract cleaning generic
+G1,https://petercurrey.wixsite.com/efm-new/office-cleaning,2024-12-11,200,Services,service,cleaning,https://entirefm.com/services/office-cleaning,301,2,Office cleaning
+G1,https://petercurrey.wixsite.com/efm-new/window-cleaning,2024-12-11,200,Services,service,cleaning,https://entirefm.com/services/window-cleaning,301,2,Window cleaning
+G1,https://petercurrey.wixsite.com/efm-new/pressure-washing,2024-12-11,200,Services,service,cleaning,https://entirefm.com/services/pressure-washing,301,2,Pressure washing
+G1,https://petercurrey.wixsite.com/efm-new/internal-cleaning,2024-12-11,200,Services,service,cleaning,https://entirefm.com/services/internal-cleaning,301,2,Internal cleaning service
+G1,https://petercurrey.wixsite.com/efm-new/external-cleaning-london,2024-12-11,200,Services,service-location,cleaning,https://entirefm.com/services/external-cleaning,301,2,Location-specific — external cleaning London
+G1,https://petercurrey.wixsite.com/efm-new/external-cleaning-lincoln,2024-12-11,200,Services,service-location,cleaning,https://entirefm.com/services/external-cleaning,301,3,Location-specific
+G1,https://petercurrey.wixsite.com/efm-new/external-cleaning-birmingham,2024-12-11,200,Services,service-location,cleaning,https://entirefm.com/services/external-cleaning,301,3,Location-specific
+G1,https://petercurrey.wixsite.com/efm-new/external-cleaning-manchester,2024-12-11,200,Services,service-location,cleaning,https://entirefm.com/services/external-cleaning,301,3,Location-specific
+G1,https://petercurrey.wixsite.com/efm-new/reactive-cleaning-services,2024-12-11,200,Services,service,cleaning,https://entirefm.com/services/reactive-cleaning,301,2,Reactive cleaning
+G1,https://petercurrey.wixsite.com/efm-new/medical-cleaning,2024-12-11,200,Services,service,cleaning-sector,https://entirefm.com/services/medical-cleaning,301,2,Medical/healthcare cleaning
+G1,https://petercurrey.wixsite.com/efm-new/education-cleaning,2024-12-11,200,Services,service,cleaning-sector,https://entirefm.com/services/education-cleaning,301,2,Education cleaning
+G1,https://petercurrey.wixsite.com/efm-new/retail-cleaning,2024-12-11,200,Services,service,cleaning-sector,https://entirefm.com/services/retail-cleaning,301,2,Retail cleaning
+G1,https://petercurrey.wixsite.com/efm-new/residential-cleaning,2024-12-11,200,Services,service,cleaning-sector,https://entirefm.com/services/residential-cleaning,301,2,Residential cleaning
+G1,https://petercurrey.wixsite.com/efm-new/vending-supplier,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/vending,301,3,Vending — minor service line
+G1,https://petercurrey.wixsite.com/efm-new/caretaker,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/caretaker,301,3,Caretaker service
+G1,https://petercurrey.wixsite.com/efm-new/concierge-services,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/concierge,301,2,Concierge / front of house
+G1,https://petercurrey.wixsite.com/efm-new/security-services,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/security,301,2,Security services
+G1,https://petercurrey.wixsite.com/efm-new/washroom-management,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/washroom-management,301,3,Washroom services
+G1,https://petercurrey.wixsite.com/efm-new/landscaping,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/landscaping,301,2,Landscaping/grounds
+G1,https://petercurrey.wixsite.com/efm-new/grounds-maintenance,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/grounds-maintenance,301,2,Grounds maintenance
+G1,https://petercurrey.wixsite.com/efm-new/carpark-management,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/carpark-management,301,3,Car park management
+G1,https://petercurrey.wixsite.com/efm-new/gates-barriers,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/gates-barriers,301,3,Gates and barriers
+G1,https://petercurrey.wixsite.com/efm-new/aerial-drone-building-inspection,2024-12-11,200,Services,service,inspection,https://entirefm.com/services/aerial-drone-inspection,301,2,Drone inspection — specialist service
+G2,https://petercurrey.wixstudio.com/efmsut17724/aerial-drone-building-inspection,2025-08-30,200,Services,service,inspection,https://entirefm.com/services/aerial-drone-inspection,301,2,Drone inspection
+G2,https://petercurrey.wixstudio.com/efmsut17724/building-inspecting-testing,2025-08-30,200,Services,service,inspection,https://entirefm.com/services/building-inspection,301,2,Building inspection & testing
+G1,https://petercurrey.wixsite.com/efm-new/building-maintenance,2024-12-11,200,Services,service,hard-fm,https://entirefm.com/services/building-maintenance,301,2,Building maintenance
+G1,https://petercurrey.wixsite.com/efm-new/working-at-heights,2024-12-11,200,Services,service,hard-fm,https://entirefm.com/services/working-at-heights,301,2,Working at heights
+G1,https://petercurrey.wixsite.com/efm-new/fm-supply-chain,2024-12-11,200,Services,service,procurement,https://entirefm.com/marketplace,301,2,Supply chain / marketplace
+G1,https://petercurrey.wixsite.com/efm-new/fm-technical-services,2024-12-11,200,Services,service,hard-fm,https://entirefm.com/services/hard-services,301,2,Technical services — merge into hard FM
+G1,https://petercurrey.wixsite.com/efm-new/media-digital-displays,2024-12-11,200,Services,service,soft-fm,https://entirefm.com/services/digital-displays,301,3,Digital displays / media service
+G2,https://petercurrey.wixstudio.com/efmsut17724/mechanical-electrical/access-control,2025-08-30,200,Services,service-sub,hard-fm,https://entirefm.com/services/me-services/access-control,301,2,Sub-page — access control
+G2,https://petercurrey.wixstudio.com/efmsut17724/mechanical-electrical/emergency-light-testing,2025-08-30,200,Services,service-sub,safety-compliance,https://entirefm.com/services/me-services/emergency-light-testing,301,2,Sub-page — emergency light testing
+G2,https://petercurrey.wixstudio.com/efmsut17724/mobile-crane-hire,2025-08-30,200,Services,service,specialist,https://entirefm.com/services/crane-hire,301,2,Mobile crane hire — new in G2
+G2,https://petercurrey.wixstudio.com/efmsut17724/mobile-crane-hire/sheffield,2025-08-30,200,Services,service-location,specialist,https://entirefm.com/services/crane-hire/sheffield,301,2,Crane hire Sheffield
+G2,https://petercurrey.wixstudio.com/efmsut17724/mobile-crane-hire/chesterfield,2025-08-30,200,Services,service-location,specialist,https://entirefm.com/services/crane-hire/chesterfield,301,3,Crane hire Chesterfield
+G2,https://petercurrey.wixstudio.com/efmsut17724/mobile-crane-hire/truck-mount-crane-hire,2025-08-30,200,Services,service-sub,specialist,https://entirefm.com/services/crane-hire/truck-mount,301,2,Truck mount crane hire
+G2,https://petercurrey.wixstudio.com/efmsut17724/bocker-crane-hire,2025-08-30,200,Services,service,specialist,https://entirefm.com/services/bocker-crane-hire,301,2,Bocker crane hire — specialist
+G2,https://petercurrey.wixstudio.com/efmsut17724/hot-tub-relocation,2025-08-30,200,Services,service,specialist,https://entirefm.com/services/hot-tub-relocation,301,3,Hot tub relocation — niche service
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-services,2024-12-11,200,Services,hub,brand-navigation,https://entirefm.com/services,301,1,Services hub
+G1,https://petercurrey.wixsite.com/efm-new/services,2024-12-11,200,Services,hub,brand-navigation,https://entirefm.com/services,301,1,Services hub alt URL
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-london,2024-12-11,200,Location,location,local-fm,https://entirefm.com/facilities-management-london,301,1,London FM — top tier keyword
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-london,2025-08-30,200,Location,location,local-fm,https://entirefm.com/facilities-management-london,301,1,London FM — top tier keyword
+G1,https://petercurrey.wixsite.com/efm-new/london-facilities-management,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-london,301,1,London FM alt URL — G3 has /fm-london
+G2,https://petercurrey.wixstudio.com/efmsut17724/london-facilities-management,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-london,301,1,London FM alt URL
+G1,https://petercurrey.wixsite.com/efm-new/fm-london,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-london,301,1,Confirmed live on G3
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-london,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-london,301,1,Confirmed live on G3
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-manchester,2024-12-11,200,Location,location,local-fm,https://entirefm.com/facilities-management-manchester,301,1,Manchester FM — top city
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-manchester,2025-08-30,200,Location,location,local-fm,https://entirefm.com/facilities-management-manchester,301,1,Confirmed G2 live page with good OG
+G1,https://petercurrey.wixsite.com/efm-new/manchester-facilities-managment,2024-12-11,200,Location,location,local-fm,https://entirefm.com/facilities-management-manchester,301,1,Typo in URL — still maps to Manchester
+G1,https://petercurrey.wixsite.com/efm-new/fm-manchester,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-manchester,301,1,Short FM URL for Manchester
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-manchester,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-manchester,301,1,Short FM URL
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-birmingham,2024-12-11,200,Location,location,local-fm,https://entirefm.com/facilities-management-birmingham,301,1,Birmingham FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-birmingham,2025-08-30,200,Location,location,local-fm,https://entirefm.com/facilities-management-birmingham,301,1,Birmingham FM
+G1,https://petercurrey.wixsite.com/efm-new/fm-birmingham,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-birmingham,301,1,Short FM URL
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-birmingham,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-birmingham,301,1,Short FM URL
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-chesterfield,2024-12-11,200,Location,location,local-fm,https://entirefm.com/facilities-management-chesterfield,301,1,Chesterfield FM — home base
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-chesterfield,2025-08-30,200,Location,location,local-fm,https://entirefm.com/facilities-management-chesterfield,301,1,Chesterfield FM
+G1,https://petercurrey.wixsite.com/efm-new/fm-chesterfield,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-chesterfield,301,1,Short FM URL
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-chesterfield,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-chesterfield,301,1,Short FM URL
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-derby,2024-12-11,200,Location,location,local-fm,https://entirefm.com/facilities-management-derby,301,1,Derby FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-derby,2025-08-30,200,Location,location,local-fm,https://entirefm.com/facilities-management-derby,301,1,Derby FM
+G1,https://petercurrey.wixsite.com/efm-new/fm-derby,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-derby,301,1,Short FM URL
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-derby,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-derby,301,1,Short FM URL
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-lincoln,2024-12-11,200,Location,location,local-fm,https://entirefm.com/facilities-management-lincoln,301,1,Lincoln FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-lincoln,2025-08-30,200,Location,location,local-fm,https://entirefm.com/facilities-management-lincoln,301,1,Lincoln FM
+G1,https://petercurrey.wixsite.com/efm-new/fm-lincoln,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-lincoln,301,1,Short FM URL
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-lincoln,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-lincoln,301,1,Short FM URL
+G1,https://petercurrey.wixsite.com/efm-new/fm-sheffield,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-sheffield,301,1,Sheffield FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-sheffield,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-sheffield,301,1,Sheffield FM
+G1,https://petercurrey.wixsite.com/efm-new/fm-services-sheffield,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-sheffield,301,1,Sheffield FM alt URL
+G1,https://petercurrey.wixsite.com/efm-new/fm-leeds,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-leeds,301,1,Leeds FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-leeds,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-leeds,301,1,Leeds FM
+G1,https://petercurrey.wixsite.com/efm-new/fm-liverpool,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-liverpool,301,1,Liverpool FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-liverpool,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-liverpool,301,1,Liverpool FM
+G1,https://petercurrey.wixsite.com/efm-new/fm-bradford,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-bradford,301,1,Bradford FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-bradford,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-bradford,301,1,Bradford FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-nottingham,2025-08-30,200,Location,location,local-fm,https://entirefm.com/fm-nottingham,301,1,Nottingham FM
+G1,https://petercurrey.wixsite.com/efm-new/fm-nottingham,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-nottingham,301,1,Nottingham FM
+G1,https://petercurrey.wixsite.com/efm-new/fm-matlock,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-matlock,301,2,Matlock FM — smaller location
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-bradford,2024-12-11,200,Location,location,local-fm,https://entirefm.com/facilities-management-bradford,301,1,Bradford FM long-form
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-bradford,2025-08-30,200,Location,location,local-fm,https://entirefm.com/facilities-management-bradford,301,1,Bradford FM long-form
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-in-telford,2025-08-30,200,Location,location,local-fm,https://entirefm.com/facilities-management-telford,301,2,Telford FM
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-in-telford,2024-12-11,200,Location,location,local-fm,https://entirefm.com/facilities-management-telford,301,2,Telford FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-in-the-midlands,2025-08-30,200,Location,location,local-fm,https://entirefm.com/facilities-management-midlands,301,1,Midlands FM — regional hub
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-in-the-midlands,2024-12-11,200,Location,location,local-fm,https://entirefm.com/facilities-management-midlands,301,1,Midlands FM — regional hub
+G1,https://petercurrey.wixsite.com/efm-new/lincoln-facilities-management-areas,2024-12-11,200,Location,location,local-fm,https://entirefm.com/facilities-management-lincoln,301,2,Lincoln FM areas — merge into main Lincoln
+G1,https://petercurrey.wixsite.com/efm-new/london-facilities-management-areas,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-london,301,2,London FM areas — merge into main London
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-services-lond,2024-12-11,200,Location,location,local-fm,https://entirefm.com/fm-london,301,1,London FM services — redirect to London hub
+G1,https://petercurrey.wixsite.com/efm-new/commercial-fm-lincoln,2024-12-11,200,Location,service-location,local-fm,https://entirefm.com/commercial-facilities-management/lincoln,301,2,Commercial FM Lincoln — city+sector combo
+G1,https://petercurrey.wixsite.com/efm-new/residential-fm-lincoln,2024-12-11,200,Location,service-location,local-fm,https://entirefm.com/residential-facilities-management/lincoln,301,2,Residential FM Lincoln
+G1,https://petercurrey.wixsite.com/efm-new/retail-fm-lincoln,2024-12-11,200,Location,service-location,local-fm,https://entirefm.com/retail-facilities-management/lincoln,301,2,Retail FM Lincoln
+G1,https://petercurrey.wixsite.com/efm-new/industrial-fm-lincoln,2024-12-11,200,Location,service-location,local-fm,https://entirefm.com/industrial-facilities-management/lincoln,301,2,Industrial FM Lincoln
+G1,https://petercurrey.wixsite.com/efm-new/industrial-cleaning-sheffield,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/industrial-cleaning/sheffield,301,2,Industrial cleaning Sheffield
+G1,https://petercurrey.wixsite.com/efm-new/industrial-cleaning-nottingham,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/industrial-cleaning/nottingham,301,2,Industrial cleaning Nottingham
+G2,https://petercurrey.wixstudio.com/efmsut17724/industrial-cleaning-nottingham,2025-08-30,200,Location,service-location,cleaning,https://entirefm.com/industrial-cleaning/nottingham,301,2,Industrial cleaning Nottingham — in G2 too
+G1,https://petercurrey.wixsite.com/efm-new/industrial-cleaning-manchester,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/industrial-cleaning/manchester,301,2,Industrial cleaning Manchester
+G1,https://petercurrey.wixsite.com/efm-new/industrial-cleaning-london,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/industrial-cleaning/london,301,2,Industrial cleaning London
+G1,https://petercurrey.wixsite.com/efm-new/industrial-cleaning-lincoln,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/industrial-cleaning/lincoln,301,2,Industrial cleaning Lincoln
+G1,https://petercurrey.wixsite.com/efm-new/industrial-cleaning-leeds,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/industrial-cleaning/leeds,301,2,Industrial cleaning Leeds
+G1,https://petercurrey.wixsite.com/efm-new/industrial-cleaning-derby,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/industrial-cleaning/derby,301,2,Industrial cleaning Derby
+G1,https://petercurrey.wixsite.com/efm-new/industrial-cleaning-chesterfield,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/industrial-cleaning/chesterfield,301,2,Industrial cleaning Chesterfield
+G1,https://petercurrey.wixsite.com/efm-new/industrial-cleaning-birmingham,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/industrial-cleaning/birmingham,301,2,Industrial cleaning Birmingham
+G1,https://petercurrey.wixsite.com/efm-new/commercial-cleaning-london,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/commercial-cleaning/london,301,2,Commercial cleaning London
+G1,https://petercurrey.wixsite.com/efm-new/commercial-cleaning-manchester,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/commercial-cleaning/manchester,301,2,Commercial cleaning Manchester
+G1,https://petercurrey.wixsite.com/efm-new/commercial-cleaning-nottingham,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/commercial-cleaning/nottingham,301,2,Commercial cleaning Nottingham
+G1,https://petercurrey.wixsite.com/efm-new/commercial-cleaning-sheffield,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/commercial-cleaning/sheffield,301,2,Commercial cleaning Sheffield
+G1,https://petercurrey.wixsite.com/efm-new/commercial-cleaning-lincoln,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/commercial-cleaning/lincoln,301,2,Commercial cleaning Lincoln
+G1,https://petercurrey.wixsite.com/efm-new/commercial-cleaning-leeds,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/commercial-cleaning/leeds,301,2,Commercial cleaning Leeds
+G1,https://petercurrey.wixsite.com/efm-new/commercial-cleaning-chesterfield,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/commercial-cleaning/chesterfield,301,2,Commercial cleaning Chesterfield
+G1,https://petercurrey.wixsite.com/efm-new/commercial-cleaning-birmingham,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/commercial-cleaning/birmingham,301,2,Commercial cleaning Birmingham
+G1,https://petercurrey.wixsite.com/efm-new/contract-cleaning-manchester,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/contract-cleaning/manchester,301,2,Contract cleaning Manchester
+G1,https://petercurrey.wixsite.com/efm-new/contract-cleaning-chesterfield,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/contract-cleaning/chesterfield,301,2,Contract cleaning Chesterfield
+G1,https://petercurrey.wixsite.com/efm-new/contract-cleaning-leeds,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/contract-cleaning/leeds,301,2,Contract cleaning Leeds
+G1,https://petercurrey.wixsite.com/efm-new/contract-cleaning-lincoln,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/contract-cleaning/lincoln,301,2,Contract cleaning Lincoln
+G1,https://petercurrey.wixsite.com/efm-new/contract-cleaning-london,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/contract-cleaning/london,301,2,Contract cleaning London
+G1,https://petercurrey.wixsite.com/efm-new/contract-cleaning-sheffield,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/contract-cleaning/sheffield,301,2,Contract cleaning Sheffield
+G1,https://petercurrey.wixsite.com/efm-new/office-cleaning-london,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/office-cleaning/london,301,2,Office cleaning London
+G1,https://petercurrey.wixsite.com/efm-new/office-cleaning-lincoln,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/office-cleaning/lincoln,301,2,Office cleaning Lincoln
+G1,https://petercurrey.wixsite.com/efm-new/manchester-office-cleaning,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/office-cleaning/manchester,301,2,Office cleaning Manchester
+G1,https://petercurrey.wixsite.com/efm-new/pressure-washing-manchester,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/pressure-washing/manchester,301,2,Pressure washing Manchester
+G1,https://petercurrey.wixsite.com/efm-new/pressure-washing-lincoln,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/pressure-washing/lincoln,301,2,Pressure washing Lincoln
+G1,https://petercurrey.wixsite.com/efm-new/pressure-washing-birmingham,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/pressure-washing/birmingham,301,2,Pressure washing Birmingham
+G1,https://petercurrey.wixsite.com/efm-new/pressure-washing-london,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/pressure-washing/london,301,2,Pressure washing London
+G1,https://petercurrey.wixsite.com/efm-new/pressure-washing-sheffield,2024-12-11,200,Location,service-location,cleaning,https://entirefm.com/pressure-washing/sheffield,301,2,Pressure washing Sheffield
+G1,https://petercurrey.wixsite.com/efm-new/commercial-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/commercial,301,1,Commercial FM sector hub
+G2,https://petercurrey.wixstudio.com/efmsut17724/commercial-facilities-management,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/commercial,301,1,Commercial FM
+G1,https://petercurrey.wixsite.com/efm-new/industrial-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/industrial,301,1,Industrial FM sector
+G2,https://petercurrey.wixstudio.com/efmsut17724/industrial-facilities-management,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/industrial,301,1,Industrial FM
+G1,https://petercurrey.wixsite.com/efm-new/residential-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/residential,301,1,Residential FM sector
+G2,https://petercurrey.wixstudio.com/efmsut17724/residential-facilities-management,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/residential,301,1,Residential FM
+G1,https://petercurrey.wixsite.com/efm-new/retail-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/retail,301,1,Retail FM sector
+G2,https://petercurrey.wixstudio.com/efmsut17724/retail-facilities-management,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/retail,301,1,Retail FM
+G1,https://petercurrey.wixsite.com/efm-new/hotel-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/hotel,301,1,Hotel FM sector
+G2,https://petercurrey.wixstudio.com/efmsut17724/hotel-facilities-management,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/hotel,301,1,Hotel FM
+G1,https://petercurrey.wixsite.com/efm-new/education-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/education,301,1,Education FM sector
+G1,https://petercurrey.wixsite.com/efm-new/healthcare-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/healthcare,301,1,Healthcare FM sector
+G1,https://petercurrey.wixsite.com/efm-new/public-sector-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/public-sector,301,1,Public sector FM
+G1,https://petercurrey.wixsite.com/efm-new/construction-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/construction,301,1,Construction FM
+G1,https://petercurrey.wixsite.com/efm-new/logistics-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/logistics,301,1,Logistics FM sector
+G1,https://petercurrey.wixsite.com/efm-new/restaurant-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/restaurant-hospitality,301,1,Restaurant / hospitality FM
+G1,https://petercurrey.wixsite.com/efm-new/sport-centre-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/leisure,301,1,Sport centre / leisure FM
+G1,https://petercurrey.wixsite.com/efm-new/airport-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/transport,301,1,Airport FM — part of transport sector
+G2,https://petercurrey.wixstudio.com/efmsut17724/airport-facilities-management,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/transport,301,1,Airport FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/transport-facilities-management,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/transport,301,1,Transport FM — new in G2
+G2,https://petercurrey.wixstudio.com/efmsut17724/warehouse-facilities-management,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/warehouse,301,1,Warehouse FM — new in G2
+G2,https://petercurrey.wixstudio.com/efmsut17724/service-station-fm,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/service-station,301,2,Service station FM — niche sector
+G1,https://petercurrey.wixsite.com/efm-new/service-station-fm,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/service-station,301,2,Service station FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/arena-facilities-management,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/arena-stadium,301,1,Arena / stadium FM
+G1,https://petercurrey.wixsite.com/efm-new/arena-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/arena-stadium,301,1,Arena FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/landmark-facilities-management,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/landmark,301,2,Landmark buildings FM
+G1,https://petercurrey.wixsite.com/efm-new/landmark-facilities-management,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/landmark,301,2,Landmark FM
+G2,https://petercurrey.wixstudio.com/efmsut17724/tier-one-facilities-management,2025-08-30,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/tier-one,301,2,Tier-one FM — enterprise sector
+G1,https://petercurrey.wixsite.com/efm-new/tierone-facilities-managment,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/tier-one,301,2,Tier one FM (typo in URL)
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/restaurant-%26-hospitality-facilities-management,2024-11-18,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/restaurant-hospitality,301,1,Dynamic sector page
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/logistics-%26-distribution-facilities-management,2024-11-18,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/logistics,301,1,Dynamic sector page
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/managing-agent-facilities-management,2024-11-18,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/managing-agent,301,1,Managing agent FM — new niche
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/construction-facilities-management,2024-11-18,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/construction,301,1,Construction FM dynamic
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/healthcare-facilities-management,2024-11-18,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/healthcare,301,1,Healthcare FM dynamic
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/education-%26-schools-facilities-management,2024-11-18,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/education,301,1,Education FM dynamic
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/stadium-%26-arena-facilities-management,2024-11-18,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/arena-stadium,301,1,Stadium/arena dynamic
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/leisure-centre-facilities-management,2024-11-18,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/leisure,301,1,Leisure centre dynamic
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/sports-venue-facilities-management,2024-11-18,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/leisure,301,1,Sports venue — map to leisure
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/industrial-facilities-management,2024-11-18,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/industrial,301,1,Industrial FM dynamic
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/offices%2C-corporate-%26-co-working,2024-11-04,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/commercial,301,1,Offices/corporate/co-working — map to commercial
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/warehouse-%26-distribution,2024-11-04,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/warehouse,301,1,Warehouse & distribution dynamic
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/residential-facilities-management,2024-11-04,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/residential,301,1,Residential FM dynamic
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/retail-%26-shopping-centre-facilities-management,2024-11-04,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/retail,301,1,Retail/shopping centre dynamic
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/hotels-%26-resort-facilities-management,2024-11-04,200,Sectors,sector-dynamic,sector-fm,https://entirefm.com/sectors/hotel,301,1,Hotels/resorts dynamic
+G1,https://petercurrey.wixsite.com/efm-new/about-entire-facilities-management,2024-12-11,200,About,about,brand,https://entirefm.com/about,301,1,About page
+G2,https://petercurrey.wixstudio.com/efmsut17724/about-entire-facilities-management,2025-08-30,200,About,about,brand,https://entirefm.com/about,301,1,About page G2
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-team,2024-12-11,200,About,team,brand,https://entirefm.com/about/team,301,2,Team page
+G2,https://petercurrey.wixstudio.com/efmsut17724/facilities-management-team,2025-08-30,200,About,team,brand,https://entirefm.com/about/team,301,2,Team page G2
+G1,https://petercurrey.wixsite.com/efm-new/portfolio,2024-12-11,200,About,portfolio,brand,https://entirefm.com/about/portfolio,301,2,Portfolio / case studies
+G1,https://petercurrey.wixsite.com/efm-new/what-is-facilities-management,2024-12-11,200,Resources,educational,informational,https://entirefm.com/fm-intelligence/what-is-facilities-management,301,1,High-value informational keyword
+G1,https://petercurrey.wixsite.com/efm-new/copy-of-what-is-facilities-manageme,2024-12-11,200,Resources,educational,informational,https://entirefm.com/fm-intelligence/what-is-facilities-management,301,3,Duplicate/copy page — redirect to canonical
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-support-n-contact/facilities-management-glossary,2025-08-30,200,Resources,educational,informational,https://entirefm.com/fm-intelligence/glossary,301,1,FM Glossary — high-value resource
+G1,https://petercurrey.wixsite.com/efm-new/fm-support-n-contact,2024-12-11,200,Support,contact,brand-navigation,https://entirefm.com/contact,301,1,Support & contact page
+G2,https://petercurrey.wixstudio.com/efmsut17724/fm-support-n-contact,2025-08-30,200,Support,contact,brand-navigation,https://entirefm.com/contact,301,1,Support page G2
+G1,https://petercurrey.wixsite.com/efm-new/24-7-fm-support,2024-12-11,200,Support,service,brand-navigation,https://entirefm.com/services/helpdesk,301,1,24/7 helpdesk — important service
+G1,https://petercurrey.wixsite.com/efm-new/helpdesk,2024-12-11,200,Support,helpdesk,brand-navigation,https://entirefm.com/helpdesk,301,1,Helpdesk portal
+G1,https://petercurrey.wixsite.com/efm-new/helpdesk-registration,2024-12-11,200,Support,registration,brand-navigation,https://entirefm.com/helpdesk/register,301,2,Helpdesk registration
+G1,https://petercurrey.wixsite.com/efm-new/copy-of-helpdesk-registration,2024-12-11,200,Support,registration,brand-navigation,https://entirefm.com/helpdesk/register,301,3,Copy page — redirect to canonical
+G1,https://petercurrey.wixsite.com/efm-new/fm-client-info,2024-12-11,200,Support,client-portal,brand-navigation,https://entirefm.com/client-login,301,2,Client info — redirect to login
+G2,https://petercurrey.wixstudio.com/efmsut17724/client-login,2025-08-30,200,Support,client-portal,brand-navigation,https://entirefm.com/client-login,301,1,Client login portal
+G2,https://petercurrey.wixstudio.com/efmsut17724/client-login/account-registration,2025-08-30,200,Support,registration,brand-navigation,https://entirefm.com/client-login/register,301,2,Client account registration
+G2,https://petercurrey.wixstudio.com/efmsut17724/contact-us,2025-08-30,200,Support,contact,brand-navigation,https://entirefm.com/contact,301,1,Contact page G2
+G1,https://petercurrey.wixsite.com/efm-new/best-facilities-management-company,2024-12-11,200,Brand,brand-landing,brand,https://entirefm.com/about,301,2,Brand-asserting page — redirect to about
+G1,https://petercurrey.wixsite.com/efm-new/property-manager-fm-services,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/managing-agent,301,2,Property manager FM — managing agent
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-offices,2024-12-11,200,Sectors,sector,sector-fm,https://entirefm.com/sectors/commercial,301,2,Offices FM — merge into commercial sector
+G1,https://petercurrey.wixsite.com/efm-new/facilities-management-blog,2024-12-11,200,Resources,blog,informational,https://entirefm.com/blog,301,1,Blog redirect
+G2,https://petercurrey.wixstudio.com/efmsut17724/blog,2025-08-30,200,Resources,blog,informational,https://entirefm.com/blog,301,1,Blog G2
+G1,https://petercurrey.wixsite.com/efm-new/job-board,2024-12-11,200,Jobs,careers,brand,https://entirefm.com/careers,301,2,Job board / careers
+G1,https://petercurrey.wixsite.com/efm-new/employment-portal,2024-12-11,200,Jobs,careers,brand,https://entirefm.com/careers,301,2,Employment portal
+G1,https://petercurrey.wixsite.com/efm-new/fm-supply-form,2024-12-11,200,Support,supply-form,brand-navigation,https://entirefm.com/marketplace,301,2,Supply form — redirect to marketplace
+G1,https://petercurrey.wixsite.com/efm-new/privacy-policy,2024-12-11,200,Legal,legal,brand,https://entirefm.com/privacy-policy,301,1,Privacy policy
+G2,https://petercurrey.wixstudio.com/efmsut17724/privacy-policy,2025-08-30,200,Legal,legal,brand,https://entirefm.com/privacy-policy,301,1,Privacy policy G2
+G2,https://petercurrey.wixstudio.com/efmsut17724/terms-and-conditions,2025-08-30,200,Legal,legal,brand,https://entirefm.com/terms,301,1,Terms & Conditions G2
+G2,https://petercurrey.wixstudio.com/efmsut17724/accessibility-statement,2025-08-30,200,Legal,legal,brand,https://entirefm.com/accessibility,301,1,Accessibility statement G2
+G1,https://petercurrey.wixsite.com/efm-new/items,2024-12-11,200,Other,unknown,unknown,https://entirefm.com/,301,3,Unknown page — redirect home
+G1,https://petercurrey.wixsite.com/efm-new/copy-of-industrial-cleaning,2024-12-11,200,Services,duplicate,cleaning,https://entirefm.com/services/industrial-cleaning,301,3,Duplicate — redirect to canonical

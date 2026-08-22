@@ -1,0 +1,2312 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "EntireFM SEO Route Registry \u2014 machine-enforceable redirect manifest",
+  "version": "1.0.0",
+  "generated": "2026-08-22",
+  "total_routes": 230,
+  "priority_1_count": 126,
+  "priority_2_count": 89,
+  "priority_3_count": 15,
+  "redirects": [
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new",
+      "target": "https://entirefm.com/",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Home",
+      "intent": "brand-navigation",
+      "notes": "Homepage \u2014 all three gens have this"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724",
+      "target": "https://entirefm.com/",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Home",
+      "intent": "brand-navigation",
+      "notes": "G2 homepage redirect"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/mechanical-electrical",
+      "target": "https://entirefm.com/mechanical-electrical",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Confirmed live on G3"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/mechanical-electrical",
+      "target": "https://entirefm.com/mechanical-electrical",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Confirmed live on G3"
+    },
+    {
+      "source": "https://entirefm.com/mechanical-electrical",
+      "target": "https://entirefm.com/mechanical-electrical",
+      "action": "301",
+      "priority": 1,
+      "generation": "G3-old",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "G3 has /mechanical-electrical AND /services/me-services \u2014 canonical should be /services/me-services"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/hvac-contractor",
+      "target": "https://entirefm.com/mechanical-electrical",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "HVAC merged into M&E services"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/hvac-contractor",
+      "target": "https://entirefm.com/mechanical-electrical",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "HVAC merged into M&E services"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-cleaning",
+      "target": "https://entirefm.com/industrial-cleaning",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Core service page \u2014 high volume keyword"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/industrial-cleaning",
+      "target": "https://entirefm.com/industrial-cleaning",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Core service page"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/hard-services",
+      "target": "https://entirefm.com/hard-services",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Confirmed live on G3"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/hard-services",
+      "target": "https://entirefm.com/hard-services",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Confirmed live on G3"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/plumbing-gas",
+      "target": "https://entirefm.com/services/plumbing-gas",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Plumbing & gas \u2014 sub-service of hard FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/plumbing-gas",
+      "target": "https://entirefm.com/services/plumbing-gas",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Plumbing & gas \u2014 sub-service of hard FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/ppm",
+      "target": "https://entirefm.com/ppm",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "ppm",
+      "notes": "PPM \u2014 Planned Preventative Maintenance"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/ppm",
+      "target": "https://entirefm.com/ppm",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "ppm",
+      "notes": "Confirmed live on G3"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fire-emergency-systems",
+      "target": "https://entirefm.com/services/fire-emergency-systems",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "safety-compliance",
+      "notes": "Safety critical \u2014 must not lose"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/safety-critical-emergency-systems",
+      "target": "https://entirefm.com/services/fire-emergency-systems",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "safety-compliance",
+      "notes": "Renamed between G1 and G2 \u2014 map both"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/soft-services",
+      "target": "https://entirefm.com/soft-services",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Soft services umbrella page"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/cleaning-services",
+      "target": "https://entirefm.com/services/cleaning",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Broad cleaning services hub"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/contract-cleaning",
+      "target": "https://entirefm.com/services/contract-cleaning",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Contract cleaning generic"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/office-cleaning",
+      "target": "https://entirefm.com/services/office-cleaning",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Office cleaning"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/window-cleaning",
+      "target": "https://entirefm.com/services/window-cleaning",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Window cleaning"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/pressure-washing",
+      "target": "https://entirefm.com/services/pressure-washing",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Pressure washing"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/internal-cleaning",
+      "target": "https://entirefm.com/services/internal-cleaning",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Internal cleaning service"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/external-cleaning-london",
+      "target": "https://entirefm.com/services/external-cleaning",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Location-specific \u2014 external cleaning London"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/external-cleaning-lincoln",
+      "target": "https://entirefm.com/services/external-cleaning",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Location-specific"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/external-cleaning-birmingham",
+      "target": "https://entirefm.com/services/external-cleaning",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Location-specific"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/external-cleaning-manchester",
+      "target": "https://entirefm.com/services/external-cleaning",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Location-specific"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/reactive-cleaning-services",
+      "target": "https://entirefm.com/services/reactive-cleaning",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Reactive cleaning"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/medical-cleaning",
+      "target": "https://entirefm.com/services/medical-cleaning",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning-sector",
+      "notes": "Medical/healthcare cleaning"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/education-cleaning",
+      "target": "https://entirefm.com/services/education-cleaning",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning-sector",
+      "notes": "Education cleaning"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/retail-cleaning",
+      "target": "https://entirefm.com/services/retail-cleaning",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning-sector",
+      "notes": "Retail cleaning"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/residential-cleaning",
+      "target": "https://entirefm.com/services/residential-cleaning",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning-sector",
+      "notes": "Residential cleaning"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/vending-supplier",
+      "target": "https://entirefm.com/services/vending",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Vending \u2014 minor service line"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/caretaker",
+      "target": "https://entirefm.com/services/caretaker",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Caretaker service"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/concierge-services",
+      "target": "https://entirefm.com/services/concierge",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Concierge / front of house"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/security-services",
+      "target": "https://entirefm.com/services/security",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Security services"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/washroom-management",
+      "target": "https://entirefm.com/services/washroom-management",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Washroom services"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/landscaping",
+      "target": "https://entirefm.com/services/landscaping",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Landscaping/grounds"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/grounds-maintenance",
+      "target": "https://entirefm.com/services/grounds-maintenance",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Grounds maintenance"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/carpark-management",
+      "target": "https://entirefm.com/services/carpark-management",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Car park management"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/gates-barriers",
+      "target": "https://entirefm.com/services/gates-barriers",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Gates and barriers"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/aerial-drone-building-inspection",
+      "target": "https://entirefm.com/services/aerial-drone-inspection",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "inspection",
+      "notes": "Drone inspection \u2014 specialist service"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/aerial-drone-building-inspection",
+      "target": "https://entirefm.com/services/aerial-drone-inspection",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "inspection",
+      "notes": "Drone inspection"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/building-inspecting-testing",
+      "target": "https://entirefm.com/services/building-inspection",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "inspection",
+      "notes": "Building inspection & testing"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/building-maintenance",
+      "target": "https://entirefm.com/services/building-maintenance",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Building maintenance"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/working-at-heights",
+      "target": "https://entirefm.com/services/working-at-heights",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Working at heights"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-supply-chain",
+      "target": "https://entirefm.com/marketplace",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "procurement",
+      "notes": "Supply chain / marketplace"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-technical-services",
+      "target": "https://entirefm.com/hard-services",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Technical services \u2014 merge into hard FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/media-digital-displays",
+      "target": "https://entirefm.com/services/digital-displays",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Digital displays / media service"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/mechanical-electrical/access-control",
+      "target": "https://entirefm.com/mechanical-electrical/access-control",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Sub-page \u2014 access control"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/mechanical-electrical/emergency-light-testing",
+      "target": "https://entirefm.com/mechanical-electrical/emergency-light-testing",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "safety-compliance",
+      "notes": "Sub-page \u2014 emergency light testing"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/mobile-crane-hire",
+      "target": "https://entirefm.com/services/crane-hire",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "specialist",
+      "notes": "Mobile crane hire \u2014 new in G2"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/mobile-crane-hire/sheffield",
+      "target": "https://entirefm.com/services/crane-hire/sheffield",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "specialist",
+      "notes": "Crane hire Sheffield"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/mobile-crane-hire/chesterfield",
+      "target": "https://entirefm.com/services/crane-hire/chesterfield",
+      "action": "301",
+      "priority": 3,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "specialist",
+      "notes": "Crane hire Chesterfield"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/mobile-crane-hire/truck-mount-crane-hire",
+      "target": "https://entirefm.com/services/crane-hire/truck-mount",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "specialist",
+      "notes": "Truck mount crane hire"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/bocker-crane-hire",
+      "target": "https://entirefm.com/services/bocker-crane-hire",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "specialist",
+      "notes": "Bocker crane hire \u2014 specialist"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/hot-tub-relocation",
+      "target": "https://entirefm.com/services/hot-tub-relocation",
+      "action": "301",
+      "priority": 3,
+      "generation": "G2",
+      "category": "Services",
+      "intent": "specialist",
+      "notes": "Hot tub relocation \u2014 niche service"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-services",
+      "target": "https://entirefm.com/services",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "brand-navigation",
+      "notes": "Services hub"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/services",
+      "target": "https://entirefm.com/services",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "brand-navigation",
+      "notes": "Services hub alt URL"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-london",
+      "target": "https://entirefm.com/facilities-management-london",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "London FM \u2014 top tier keyword"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-london",
+      "target": "https://entirefm.com/facilities-management-london",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "London FM \u2014 top tier keyword"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/london-facilities-management",
+      "target": "https://entirefm.com/fm-london",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "London FM alt URL \u2014 G3 has /fm-london"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/london-facilities-management",
+      "target": "https://entirefm.com/fm-london",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "London FM alt URL"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-london",
+      "target": "https://entirefm.com/fm-london",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Confirmed live on G3"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-london",
+      "target": "https://entirefm.com/fm-london",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Confirmed live on G3"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-manchester",
+      "target": "https://entirefm.com/facilities-management-manchester",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Manchester FM \u2014 top city"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-manchester",
+      "target": "https://entirefm.com/facilities-management-manchester",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Confirmed G2 live page with good OG"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/manchester-facilities-managment",
+      "target": "https://entirefm.com/facilities-management-manchester",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Typo in URL \u2014 still maps to Manchester"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-manchester",
+      "target": "https://entirefm.com/fm-manchester",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Short FM URL for Manchester"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-manchester",
+      "target": "https://entirefm.com/fm-manchester",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Short FM URL"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-birmingham",
+      "target": "https://entirefm.com/facilities-management-birmingham",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Birmingham FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-birmingham",
+      "target": "https://entirefm.com/facilities-management-birmingham",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Birmingham FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-birmingham",
+      "target": "https://entirefm.com/fm-birmingham",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Short FM URL"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-birmingham",
+      "target": "https://entirefm.com/fm-birmingham",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Short FM URL"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-chesterfield",
+      "target": "https://entirefm.com/facilities-management-chesterfield",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Chesterfield FM \u2014 home base"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-chesterfield",
+      "target": "https://entirefm.com/facilities-management-chesterfield",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Chesterfield FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-chesterfield",
+      "target": "https://entirefm.com/fm-chesterfield",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Short FM URL"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-chesterfield",
+      "target": "https://entirefm.com/fm-chesterfield",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Short FM URL"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-derby",
+      "target": "https://entirefm.com/facilities-management-derby",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Derby FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-derby",
+      "target": "https://entirefm.com/facilities-management-derby",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Derby FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-derby",
+      "target": "https://entirefm.com/fm-derby",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Short FM URL"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-derby",
+      "target": "https://entirefm.com/fm-derby",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Short FM URL"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-lincoln",
+      "target": "https://entirefm.com/facilities-management-lincoln",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Lincoln FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-lincoln",
+      "target": "https://entirefm.com/facilities-management-lincoln",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Lincoln FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-lincoln",
+      "target": "https://entirefm.com/fm-lincoln",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Short FM URL"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-lincoln",
+      "target": "https://entirefm.com/fm-lincoln",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Short FM URL"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-sheffield",
+      "target": "https://entirefm.com/fm-sheffield",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Sheffield FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-sheffield",
+      "target": "https://entirefm.com/fm-sheffield",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Sheffield FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-services-sheffield",
+      "target": "https://entirefm.com/fm-sheffield",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Sheffield FM alt URL"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-leeds",
+      "target": "https://entirefm.com/fm-leeds",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Leeds FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-leeds",
+      "target": "https://entirefm.com/fm-leeds",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Leeds FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-liverpool",
+      "target": "https://entirefm.com/fm-liverpool",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Liverpool FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-liverpool",
+      "target": "https://entirefm.com/fm-liverpool",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Liverpool FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-bradford",
+      "target": "https://entirefm.com/fm-bradford",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Bradford FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-bradford",
+      "target": "https://entirefm.com/fm-bradford",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Bradford FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-nottingham",
+      "target": "https://entirefm.com/fm-nottingham",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Nottingham FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-nottingham",
+      "target": "https://entirefm.com/fm-nottingham",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Nottingham FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-matlock",
+      "target": "https://entirefm.com/fm-matlock",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Matlock FM \u2014 smaller location"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-bradford",
+      "target": "https://entirefm.com/facilities-management-bradford",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Bradford FM long-form"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-bradford",
+      "target": "https://entirefm.com/facilities-management-bradford",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Bradford FM long-form"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-in-telford",
+      "target": "https://entirefm.com/facilities-management-telford",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Telford FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-in-telford",
+      "target": "https://entirefm.com/facilities-management-telford",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Telford FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-in-the-midlands",
+      "target": "https://entirefm.com/facilities-management-midlands",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Midlands FM \u2014 regional hub"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-in-the-midlands",
+      "target": "https://entirefm.com/facilities-management-midlands",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Midlands FM \u2014 regional hub"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/lincoln-facilities-management-areas",
+      "target": "https://entirefm.com/facilities-management-lincoln",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Lincoln FM areas \u2014 merge into main Lincoln"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/london-facilities-management-areas",
+      "target": "https://entirefm.com/fm-london",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "London FM areas \u2014 merge into main London"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-services-lond",
+      "target": "https://entirefm.com/fm-london",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "London FM services \u2014 redirect to London hub"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/commercial-fm-lincoln",
+      "target": "https://entirefm.com/commercial-facilities-management/lincoln",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Commercial FM Lincoln \u2014 city+sector combo"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/residential-fm-lincoln",
+      "target": "https://entirefm.com/residential-facilities-management/lincoln",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Residential FM Lincoln"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/retail-fm-lincoln",
+      "target": "https://entirefm.com/retail-facilities-management/lincoln",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Retail FM Lincoln"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-fm-lincoln",
+      "target": "https://entirefm.com/industrial-facilities-management/lincoln",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "local-fm",
+      "notes": "Industrial FM Lincoln"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-cleaning-sheffield",
+      "target": "https://entirefm.com/industrial-cleaning/sheffield",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Industrial cleaning Sheffield"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-cleaning-nottingham",
+      "target": "https://entirefm.com/industrial-cleaning/nottingham",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Industrial cleaning Nottingham"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/industrial-cleaning-nottingham",
+      "target": "https://entirefm.com/industrial-cleaning/nottingham",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Industrial cleaning Nottingham \u2014 in G2 too"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-cleaning-manchester",
+      "target": "https://entirefm.com/industrial-cleaning/manchester",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Industrial cleaning Manchester"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-cleaning-london",
+      "target": "https://entirefm.com/industrial-cleaning/london",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Industrial cleaning London"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-cleaning-lincoln",
+      "target": "https://entirefm.com/industrial-cleaning/lincoln",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Industrial cleaning Lincoln"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-cleaning-leeds",
+      "target": "https://entirefm.com/industrial-cleaning/leeds",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Industrial cleaning Leeds"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-cleaning-derby",
+      "target": "https://entirefm.com/industrial-cleaning/derby",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Industrial cleaning Derby"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-cleaning-chesterfield",
+      "target": "https://entirefm.com/industrial-cleaning/chesterfield",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Industrial cleaning Chesterfield"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-cleaning-birmingham",
+      "target": "https://entirefm.com/industrial-cleaning/birmingham",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Industrial cleaning Birmingham"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/commercial-cleaning-london",
+      "target": "https://entirefm.com/commercial-cleaning/london",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Commercial cleaning London"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/commercial-cleaning-manchester",
+      "target": "https://entirefm.com/commercial-cleaning/manchester",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Commercial cleaning Manchester"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/commercial-cleaning-nottingham",
+      "target": "https://entirefm.com/commercial-cleaning/nottingham",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Commercial cleaning Nottingham"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/commercial-cleaning-sheffield",
+      "target": "https://entirefm.com/commercial-cleaning/sheffield",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Commercial cleaning Sheffield"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/commercial-cleaning-lincoln",
+      "target": "https://entirefm.com/commercial-cleaning/lincoln",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Commercial cleaning Lincoln"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/commercial-cleaning-leeds",
+      "target": "https://entirefm.com/commercial-cleaning/leeds",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Commercial cleaning Leeds"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/commercial-cleaning-chesterfield",
+      "target": "https://entirefm.com/commercial-cleaning/chesterfield",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Commercial cleaning Chesterfield"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/commercial-cleaning-birmingham",
+      "target": "https://entirefm.com/commercial-cleaning/birmingham",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Commercial cleaning Birmingham"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/contract-cleaning-manchester",
+      "target": "https://entirefm.com/contract-cleaning/manchester",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Contract cleaning Manchester"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/contract-cleaning-chesterfield",
+      "target": "https://entirefm.com/contract-cleaning/chesterfield",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Contract cleaning Chesterfield"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/contract-cleaning-leeds",
+      "target": "https://entirefm.com/contract-cleaning/leeds",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Contract cleaning Leeds"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/contract-cleaning-lincoln",
+      "target": "https://entirefm.com/contract-cleaning/lincoln",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Contract cleaning Lincoln"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/contract-cleaning-london",
+      "target": "https://entirefm.com/contract-cleaning/london",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Contract cleaning London"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/contract-cleaning-sheffield",
+      "target": "https://entirefm.com/contract-cleaning/sheffield",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Contract cleaning Sheffield"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/office-cleaning-london",
+      "target": "https://entirefm.com/office-cleaning/london",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Office cleaning London"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/office-cleaning-lincoln",
+      "target": "https://entirefm.com/office-cleaning/lincoln",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Office cleaning Lincoln"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/manchester-office-cleaning",
+      "target": "https://entirefm.com/office-cleaning/manchester",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Office cleaning Manchester"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/pressure-washing-manchester",
+      "target": "https://entirefm.com/pressure-washing/manchester",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Pressure washing Manchester"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/pressure-washing-lincoln",
+      "target": "https://entirefm.com/pressure-washing/lincoln",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Pressure washing Lincoln"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/pressure-washing-birmingham",
+      "target": "https://entirefm.com/pressure-washing/birmingham",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Pressure washing Birmingham"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/pressure-washing-london",
+      "target": "https://entirefm.com/pressure-washing/london",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Pressure washing London"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/pressure-washing-sheffield",
+      "target": "https://entirefm.com/pressure-washing/sheffield",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Location",
+      "intent": "cleaning",
+      "notes": "Pressure washing Sheffield"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/commercial-facilities-management",
+      "target": "https://entirefm.com/commercial-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Commercial FM sector hub"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/commercial-facilities-management",
+      "target": "https://entirefm.com/commercial-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Commercial FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/industrial-facilities-management",
+      "target": "https://entirefm.com/industrial-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Industrial FM sector"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/industrial-facilities-management",
+      "target": "https://entirefm.com/industrial-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Industrial FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/residential-facilities-management",
+      "target": "https://entirefm.com/residential-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Residential FM sector"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/residential-facilities-management",
+      "target": "https://entirefm.com/residential-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Residential FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/retail-facilities-management",
+      "target": "https://entirefm.com/retail-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Retail FM sector"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/retail-facilities-management",
+      "target": "https://entirefm.com/retail-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Retail FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/hotel-facilities-management",
+      "target": "https://entirefm.com/hotel-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Hotel FM sector"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/hotel-facilities-management",
+      "target": "https://entirefm.com/hotel-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Hotel FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/education-facilities-management",
+      "target": "https://entirefm.com/sectors/education",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Education FM sector"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/healthcare-facilities-management",
+      "target": "https://entirefm.com/sectors/healthcare",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Healthcare FM sector"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/public-sector-facilities-management",
+      "target": "https://entirefm.com/sectors/public-sector",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Public sector FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/construction-facilities-management",
+      "target": "https://entirefm.com/sectors/construction",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Construction FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/logistics-facilities-management",
+      "target": "https://entirefm.com/sectors/logistics",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Logistics FM sector"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/restaurant-facilities-management",
+      "target": "https://entirefm.com/sectors/restaurant-hospitality",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Restaurant / hospitality FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/sport-centre-facilities-management",
+      "target": "https://entirefm.com/sectors/leisure",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Sport centre / leisure FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/airport-facilities-management",
+      "target": "https://entirefm.com/sectors/transport",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Airport FM \u2014 part of transport sector"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/airport-facilities-management",
+      "target": "https://entirefm.com/sectors/transport",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Airport FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/transport-facilities-management",
+      "target": "https://entirefm.com/sectors/transport",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Transport FM \u2014 new in G2"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/warehouse-facilities-management",
+      "target": "https://entirefm.com/sectors/warehouse",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Warehouse FM \u2014 new in G2"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/service-station-fm",
+      "target": "https://entirefm.com/sectors/service-station",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Service station FM \u2014 niche sector"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/service-station-fm",
+      "target": "https://entirefm.com/sectors/service-station",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Service station FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/arena-facilities-management",
+      "target": "https://entirefm.com/sectors/arena-stadium",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Arena / stadium FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/arena-facilities-management",
+      "target": "https://entirefm.com/sectors/arena-stadium",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Arena FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/landmark-facilities-management",
+      "target": "https://entirefm.com/sectors/landmark",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Landmark buildings FM"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/landmark-facilities-management",
+      "target": "https://entirefm.com/sectors/landmark",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Landmark FM"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/tier-one-facilities-management",
+      "target": "https://entirefm.com/sectors/tier-one",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Tier-one FM \u2014 enterprise sector"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/tierone-facilities-managment",
+      "target": "https://entirefm.com/sectors/tier-one",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Tier one FM (typo in URL)"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/restaurant-%26-hospitality-facilities-management",
+      "target": "https://entirefm.com/sectors/restaurant-hospitality",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Dynamic sector page"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/logistics-%26-distribution-facilities-management",
+      "target": "https://entirefm.com/sectors/logistics",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Dynamic sector page"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/managing-agent-facilities-management",
+      "target": "https://entirefm.com/sectors/managing-agent",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Managing agent FM \u2014 new niche"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/construction-facilities-management",
+      "target": "https://entirefm.com/sectors/construction",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Construction FM dynamic"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/healthcare-facilities-management",
+      "target": "https://entirefm.com/sectors/healthcare",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Healthcare FM dynamic"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/education-%26-schools-facilities-management",
+      "target": "https://entirefm.com/sectors/education",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Education FM dynamic"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/stadium-%26-arena-facilities-management",
+      "target": "https://entirefm.com/sectors/arena-stadium",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Stadium/arena dynamic"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/leisure-centre-facilities-management",
+      "target": "https://entirefm.com/sectors/leisure",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Leisure centre dynamic"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/sports-venue-facilities-management",
+      "target": "https://entirefm.com/sectors/leisure",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Sports venue \u2014 map to leisure"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/industrial-facilities-management",
+      "target": "https://entirefm.com/industrial-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Industrial FM dynamic"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/offices%2C-corporate-%26-co-working",
+      "target": "https://entirefm.com/commercial-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Offices/corporate/co-working \u2014 map to commercial"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/warehouse-%26-distribution",
+      "target": "https://entirefm.com/sectors/warehouse",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Warehouse & distribution dynamic"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/residential-facilities-management",
+      "target": "https://entirefm.com/residential-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Residential FM dynamic"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/retail-%26-shopping-centre-facilities-management",
+      "target": "https://entirefm.com/retail-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Retail/shopping centre dynamic"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/hotels-%26-resort-facilities-management",
+      "target": "https://entirefm.com/hotel-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Hotels/resorts dynamic"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/about-entire-facilities-management",
+      "target": "https://entirefm.com/about",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "About",
+      "intent": "brand",
+      "notes": "About page"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/about-entire-facilities-management",
+      "target": "https://entirefm.com/about",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "About",
+      "intent": "brand",
+      "notes": "About page G2"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-team",
+      "target": "https://entirefm.com/about/team",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "About",
+      "intent": "brand",
+      "notes": "Team page"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-team",
+      "target": "https://entirefm.com/about/team",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "About",
+      "intent": "brand",
+      "notes": "Team page G2"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/portfolio",
+      "target": "https://entirefm.com/about/portfolio",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "About",
+      "intent": "brand",
+      "notes": "Portfolio / case studies"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/what-is-facilities-management",
+      "target": "https://entirefm.com/fm-intelligence/what-is-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Resources",
+      "intent": "informational",
+      "notes": "High-value informational keyword"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/copy-of-what-is-facilities-manageme",
+      "target": "https://entirefm.com/fm-intelligence/what-is-facilities-management",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Resources",
+      "intent": "informational",
+      "notes": "Duplicate/copy page \u2014 redirect to canonical"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-support-n-contact/facilities-management-glossary",
+      "target": "https://entirefm.com/fm-intelligence/glossary",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Resources",
+      "intent": "informational",
+      "notes": "FM Glossary \u2014 high-value resource"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-support-n-contact",
+      "target": "https://entirefm.com/contact",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Support",
+      "intent": "brand-navigation",
+      "notes": "Support & contact page"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/fm-support-n-contact",
+      "target": "https://entirefm.com/contact",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Support",
+      "intent": "brand-navigation",
+      "notes": "Support page G2"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/24-7-fm-support",
+      "target": "https://entirefm.com/services/helpdesk",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Support",
+      "intent": "brand-navigation",
+      "notes": "24/7 helpdesk \u2014 important service"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/helpdesk",
+      "target": "https://entirefm.com/helpdesk",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Support",
+      "intent": "brand-navigation",
+      "notes": "Helpdesk portal"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/helpdesk-registration",
+      "target": "https://entirefm.com/helpdesk/register",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Support",
+      "intent": "brand-navigation",
+      "notes": "Helpdesk registration"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/copy-of-helpdesk-registration",
+      "target": "https://entirefm.com/helpdesk/register",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Support",
+      "intent": "brand-navigation",
+      "notes": "Copy page \u2014 redirect to canonical"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-client-info",
+      "target": "https://entirefm.com/client-login",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Support",
+      "intent": "brand-navigation",
+      "notes": "Client info \u2014 redirect to login"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/client-login",
+      "target": "https://entirefm.com/client-login",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Support",
+      "intent": "brand-navigation",
+      "notes": "Client login portal"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/client-login/account-registration",
+      "target": "https://entirefm.com/client-login/register",
+      "action": "301",
+      "priority": 2,
+      "generation": "G2",
+      "category": "Support",
+      "intent": "brand-navigation",
+      "notes": "Client account registration"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/contact-us",
+      "target": "https://entirefm.com/contact",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Support",
+      "intent": "brand-navigation",
+      "notes": "Contact page G2"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/best-facilities-management-company",
+      "target": "https://entirefm.com/about",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Brand",
+      "intent": "brand",
+      "notes": "Brand-asserting page \u2014 redirect to about"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/property-manager-fm-services",
+      "target": "https://entirefm.com/sectors/managing-agent",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Property manager FM \u2014 managing agent"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-offices",
+      "target": "https://entirefm.com/commercial-facilities-management",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Offices FM \u2014 merge into commercial sector"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/facilities-management-blog",
+      "target": "https://entirefm.com/blog",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Resources",
+      "intent": "informational",
+      "notes": "Blog redirect"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/blog",
+      "target": "https://entirefm.com/blog",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Resources",
+      "intent": "informational",
+      "notes": "Blog G2"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/job-board",
+      "target": "https://entirefm.com/careers",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Jobs",
+      "intent": "brand",
+      "notes": "Job board / careers"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/employment-portal",
+      "target": "https://entirefm.com/careers",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Jobs",
+      "intent": "brand",
+      "notes": "Employment portal"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/fm-supply-form",
+      "target": "https://entirefm.com/marketplace",
+      "action": "301",
+      "priority": 2,
+      "generation": "G1",
+      "category": "Support",
+      "intent": "brand-navigation",
+      "notes": "Supply form \u2014 redirect to marketplace"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/privacy-policy",
+      "target": "https://entirefm.com/privacy-policy",
+      "action": "301",
+      "priority": 1,
+      "generation": "G1",
+      "category": "Legal",
+      "intent": "brand",
+      "notes": "Privacy policy"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/privacy-policy",
+      "target": "https://entirefm.com/privacy-policy",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Legal",
+      "intent": "brand",
+      "notes": "Privacy policy G2"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/terms-and-conditions",
+      "target": "https://entirefm.com/terms",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Legal",
+      "intent": "brand",
+      "notes": "Terms & Conditions G2"
+    },
+    {
+      "source": "https://petercurrey.wixstudio.com/efmsut17724/accessibility-statement",
+      "target": "https://entirefm.com/accessibility",
+      "action": "301",
+      "priority": 1,
+      "generation": "G2",
+      "category": "Legal",
+      "intent": "brand",
+      "notes": "Accessibility statement G2"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/items",
+      "target": "https://entirefm.com/",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Other",
+      "intent": "unknown",
+      "notes": "Unknown page \u2014 redirect home"
+    },
+    {
+      "source": "https://petercurrey.wixsite.com/efm-new/copy-of-industrial-cleaning",
+      "target": "https://entirefm.com/industrial-cleaning",
+      "action": "301",
+      "priority": 3,
+      "generation": "G1",
+      "category": "Services",
+      "intent": "cleaning",
+      "notes": "Duplicate \u2014 redirect to canonical"
+    },
+    {
+      "source": "https://entirefm.com/services/me-services",
+      "target": "https://entirefm.com/mechanical-electrical",
+      "action": "301",
+      "priority": 1,
+      "generation": "G3-Retiring",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Retiring G3 cosmetic route; restored historic winner /mechanical-electrical"
+    },
+    {
+      "source": "https://entirefm.com/services/ppm",
+      "target": "https://entirefm.com/ppm",
+      "action": "301",
+      "priority": 1,
+      "generation": "G3-Retiring",
+      "category": "Services",
+      "intent": "ppm",
+      "notes": "Retiring G3 cosmetic route; restored historic winner /ppm"
+    },
+    {
+      "source": "https://entirefm.com/services/hard-services",
+      "target": "https://entirefm.com/hard-services",
+      "action": "301",
+      "priority": 1,
+      "generation": "G3-Retiring",
+      "category": "Services",
+      "intent": "hard-fm",
+      "notes": "Retiring G3 cosmetic route; restored historic winner /hard-services"
+    },
+    {
+      "source": "https://entirefm.com/services/soft-fm",
+      "target": "https://entirefm.com/soft-services",
+      "action": "301",
+      "priority": 1,
+      "generation": "G3-Retiring",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Retiring G3 cosmetic route; restored historic winner /soft-services"
+    },
+    {
+      "source": "https://entirefm.com/services/industrial-cleaning",
+      "target": "https://entirefm.com/industrial-cleaning",
+      "action": "301",
+      "priority": 1,
+      "generation": "G3-Retiring",
+      "category": "Services",
+      "intent": "soft-fm",
+      "notes": "Retiring G3 cosmetic route; restored historic winner /industrial-cleaning"
+    },
+    {
+      "source": "https://entirefm.com/sectors/commercial",
+      "target": "https://entirefm.com/commercial-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G3-Retiring",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Retiring G3 cosmetic route; restored historic winner /commercial-facilities-management"
+    },
+    {
+      "source": "https://entirefm.com/sectors/industrial",
+      "target": "https://entirefm.com/industrial-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G3-Retiring",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Retiring G3 cosmetic route; restored historic winner /industrial-facilities-management"
+    },
+    {
+      "source": "https://entirefm.com/sectors/residential",
+      "target": "https://entirefm.com/residential-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G3-Retiring",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Retiring G3 cosmetic route; restored historic winner /residential-facilities-management"
+    },
+    {
+      "source": "https://entirefm.com/sectors/retail",
+      "target": "https://entirefm.com/retail-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G3-Retiring",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Retiring G3 cosmetic route; restored historic winner /retail-facilities-management"
+    },
+    {
+      "source": "https://entirefm.com/sectors/hotel",
+      "target": "https://entirefm.com/hotel-facilities-management",
+      "action": "301",
+      "priority": 1,
+      "generation": "G3-Retiring",
+      "category": "Sectors",
+      "intent": "sector-fm",
+      "notes": "Retiring G3 cosmetic route; restored historic winner /hotel-facilities-management"
+    }
+  ]
+}
