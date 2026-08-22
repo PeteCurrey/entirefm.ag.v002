@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-for/stadium-%26-arena-facilities-management",
-  "title": "Arena & Stadium Facilities Management | Sports Venue FM | Entire FM",
+  "title": "Stadium & Arena Facilities Management | High-Capacity Venue FM | Entire FM",
   "metaDescription": "Total facilities management for sports stadiums, concert arenas, and leisure complexes. High-capacity cleaning, crowd safety systems, turnstiles, and pitch lighting.",
-  "h1": "Arena, Stadium & Sports Venue Facilities Management",
+  "h1": "Stadium & Major Arena Facilities Management",
   "eyebrow": "Sports & Entertainment Scope",
   "heroIntro": "High-capacity facilities management and building engineering built for sports stadiums, concert arenas, and entertainment complexes. Managing rapid event turnarounds, turnstiles, and crowd safety infrastructure.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

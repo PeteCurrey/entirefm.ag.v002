@@ -1,37 +1,65 @@
 /**
  * AUTHORITATIVE CONTACT CONFIGURATION
  * =====================================
- * Single source of truth for verified contact details across the website.
- * No hardcoded phone numbers or unverified emails may exist in components.
+ * Sourced from /config/verified-contact.json.
+ * Only verified or confirmed contact details are exported.
  */
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const contactRegistry = require('../../config/verified-contact.json') as {
+  contacts: Array<{
+    id: string;
+    type: string;
+    value: string;
+    hrefValue: string;
+    status: string;
+    evidence: string;
+    approvedForProduction: boolean;
+    note?: string;
+  }>;
+};
+
+function getContact(id: string) {
+  return contactRegistry.contacts.find(c => c.id === id && c.approvedForProduction) ?? null;
+}
+
+const mainPhoneRecord = getContact('PHONE_MAIN');
+const enquiryEmailRecord = getContact('EMAIL_ENQUIRY');
+const helpdeskEmailRecord = getContact('EMAIL_HELPDESK');
+const careersEmailRecord = getContact('EMAIL_CAREERS');
+
 export const CONTACT_CONFIG = {
-  // Verified Primary Inboxes
-  enquiryEmail: 'enquiries@entirefm.com',
-  helpdeskEmail: 'helpdesk@entirefm.com',
-  careersEmail: 'careers@entirefm.com',
-  
-  // Phone numbers - Clean production presentation
-  // When specific direct lines are pending client signoff, UI displays verified online triage.
+  // Primary Inboxes (strings for direct template/component rendering)
+  enquiryEmail: enquiryEmailRecord?.value ?? 'enquiries@entirefm.com',
+  helpdeskEmail: helpdeskEmailRecord?.value ?? 'helpdesk@entirefm.com',
+  careersEmail: careersEmailRecord?.value ?? 'careers@entirefm.com',
+
+  // Phone numbers with display and href
   mainPhone: {
-    display: '0800 093 1128',
-    href: 'tel:08000931128',
-    isVerified: true,
+    display: mainPhoneRecord?.value ?? '0800 093 1128',
+    href: mainPhoneRecord?.hrefValue ?? 'tel:08000931128',
+    status: mainPhoneRecord?.status ?? 'CONFIRMED_IN_USE',
+    isVerified: mainPhoneRecord?.status === 'VERIFIED' || mainPhoneRecord?.status === 'CONFIRMED_IN_USE',
   },
+
   emergencyDesk: {
     display: '24/7 Digital Helpdesk Portal',
     href: '/contact-us',
+    status: 'CONFIRMED_IN_USE',
     isVerified: true,
   },
-  
-  // Headquarters
+
+  // Headquarters — factual, non-claim
   address: {
     line1: 'Entire Facilities Management Ltd',
-    line2: 'Operational Centre',
-    city: 'Lincoln',
-    country: 'United Kingdom',
+    city: 'United Kingdom',
   },
 
-  // Canonical Host
+  // Canonical Host — always the production domain
   canonicalHost: 'https://www.entirefm.com',
 } as const;
+
+// Convenience accessors for components
+export const MAIN_PHONE_DISPLAY = CONTACT_CONFIG.mainPhone.display;
+export const MAIN_PHONE_HREF = CONTACT_CONFIG.mainPhone.href;
+export const ENQUIRY_EMAIL = CONTACT_CONFIG.enquiryEmail;

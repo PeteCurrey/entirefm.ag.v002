@@ -12,7 +12,7 @@ const record: ContentRecord = {
   "path": "/healthcare-facilities-management",
   "title": "Healthcare Facilities Management | Medical & Clinic FM | Entire FM",
   "metaDescription": "Specialist non-clinical facilities management for medical centres, private clinics, dental practices, and healthcare offices across the UK.",
-  "h1": "Healthcare Facilities Management & Clinic Maintenance",
+  "h1": "Healthcare Facilities Management & Clinical Estate Maintenance",
   "eyebrow": "Healthcare Estate Scope",
   "heroIntro": "Rigorous non-clinical facilities management and building maintenance for medical centres, outpatient clinics, care facilities, and dental practices. Ensuring strict hygiene, air quality, and statutory compliance.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

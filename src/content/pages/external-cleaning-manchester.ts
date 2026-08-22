@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/external-cleaning-manchester",
-  "title": "Contract Cleaning Manchester | Commercial Specialist Services | Entire FM",
+  "title": "External Cleaning Manchester | Cladding & Grounds Jet Wash | Entire FM",
   "metaDescription": "Professional contract cleaning across Manchester and surrounding districts. High-standard commercial premises care, scheduled contracts, and trained local teams.",
-  "h1": "Contract Cleaning in Manchester & Surrounding Districts",
+  "h1": "External Grounds, Cladding & Jet Washing in Manchester",
   "eyebrow": "Manchester Regional Service Area",
   "heroIntro": "Professional, reliable contract cleaning tailored to corporate offices, commercial facilities, and industrial premises throughout Manchester and surrounding business corridors.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

@@ -3,35 +3,27 @@
  * ===================
  * Generates Next.js Metadata objects for any route in the registry.
  *
- * Rules:
- * - Protected routes always produce self-referencing canonical
- * - Non-production environments always produce noindex, nofollow
- * - Production indexing requires NEXT_PUBLIC_SITE_URL to be set
- * - Integrates with ContentRecord for unique, bespoke SEO titles & descriptions
+ * CANONICAL URLS: Always use PRODUCTION_CANONICAL_HOST from src/config/site.ts.
+ * Do NOT derive canonical host from NEXT_PUBLIC_SITE_URL env var — that can
+ * be overridden to a staging/preview URL, leaking wrong canonicals.
+ *
+ * INDEXING GATE: Uses canIndexStaticBuild() from src/lib/indexing.ts.
+ * All three conditions must be met for any page to emit index, follow.
  */
 
 import type { Metadata } from 'next';
 import type { RouteRecord } from '../routes/route-schema';
 import { getRoute } from '../routes/route-registry';
 import { getContentRecord } from '@/content/registry';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.entirefm.com';
+import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
+import { canIndexStaticBuild } from '@/lib/indexing';
 
 /**
- * STRICT TRIPLE-GATE SEARCH INDEXATION RULE:
- * 1. ALLOW_SEARCH_INDEXING === 'true' (explicit production toggle)
- * 2. VERCEL_ENV === 'production' OR NODE_ENV === 'production' without preview flags
- * 3. SITE_URL hostname strictly matches 'www.entirefm.com'
- * 
- * If ANY condition fails (e.g. Vercel Preview, Staging, Local Dev), force noindex, nofollow.
+ * Build the canonical URL for a route.
+ * Always uses the hard-coded production host — never env var.
  */
-function isSearchIndexingAllowed(): boolean {
-  const allowFlag = process.env.ALLOW_SEARCH_INDEXING === 'true';
-  const isVercelProd = process.env.VERCEL_ENV === 'production';
-  const isNodeProd = process.env.NODE_ENV === 'production' && !process.env.VERCEL_PREVIEW_URL;
-  const isProdHost = SITE_URL.includes('www.entirefm.com');
-
-  return allowFlag && (isVercelProd || isNodeProd) && isProdHost;
+function getCanonicalUrl(path: string): string {
+  return `${PRODUCTION_CANONICAL_HOST}${path === '/' ? '' : path}`;
 }
 
 /**
@@ -40,7 +32,7 @@ function isSearchIndexingAllowed(): boolean {
  * Production gated: follows route.indexable configuration.
  */
 function getRobots(route: RouteRecord): Metadata['robots'] {
-  if (!isSearchIndexingAllowed()) {
+  if (!canIndexStaticBuild()) {
     return {
       index: false,
       follow: false,
@@ -56,15 +48,6 @@ function getRobots(route: RouteRecord): Metadata['robots'] {
       follow: route.indexable,
     },
   };
-}
-
-/**
- * Build the canonical URL for a route.
- * Protected routes are always self-canonical.
- */
-function getCanonicalUrl(path: string): string {
-  if (!SITE_URL) return path;
-  return `${SITE_URL}${path === '/' ? '' : path}`;
 }
 
 /**
@@ -128,14 +111,14 @@ export function generateRouteMetadata(
  * Site-wide default metadata (used by root layout).
  */
 export const defaultMetadata: Metadata = {
-  metadataBase: SITE_URL ? new URL(SITE_URL) : undefined,
+  metadataBase: new URL(PRODUCTION_CANONICAL_HOST),
   title: {
     default: 'Entire FM | Total Facilities Management',
     template: '%s | Entire FM',
   },
   description:
     'Entire FM provides integrated Hard FM, Soft FM, cleaning, PPM, and specialist facilities management services across the UK.',
-  robots: isSearchIndexingAllowed()
+  robots: canIndexStaticBuild()
     ? { index: true, follow: true }
     : { index: false, follow: false },
   openGraph: {

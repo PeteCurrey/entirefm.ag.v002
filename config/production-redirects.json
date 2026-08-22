@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "generated": "2026-08-22",
   "authority": "FULL-CURRENT-ESTATE-MIGRATION-MAP.csv",
   "rules": {
@@ -8,7 +8,7 @@
     "protectedSourceForbidden": true,
     "selfCanonicalDestinationRequired": true
   },
-  "totalRedirects": 428,
+  "totalRedirects": 425,
   "redirects": [
     {
       "source": "/about",
@@ -18,81 +18,81 @@
     },
     {
       "source": "/academy",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/academy/drone-inspection-guide",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/academy/fire-safety-compliance",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/academy/legionella-water-safety",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/academy/multi-site-fm-management",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/academy/understanding-ppm",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/awards",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/building-walk",
-      "destination": "/",
+      "destination": "/case-studies",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/building-walk/hotel-fm-guest-experience",
-      "destination": "/",
+      "destination": "/case-studies",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/building-walk/industrial-cleaning-before-after",
-      "destination": "/",
+      "destination": "/case-studies",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/building-walk/office-building-fm-walkthrough",
-      "destination": "/",
+      "destination": "/case-studies",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/building-walk/residential-block-fm-issues",
-      "destination": "/",
+      "destination": "/case-studies",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/building-walk/retail-unit-compliance-walkthrough",
-      "destination": "/",
+      "destination": "/case-studies",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/careers",
@@ -216,69 +216,69 @@
     },
     {
       "source": "/compare",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/compare/entirefm-vs-call-out-only",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/compare/entirefm-vs-cbre",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/compare/entirefm-vs-freelance",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/compare/entirefm-vs-in-house",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/compare/entirefm-vs-jll",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/compare/entirefm-vs-mitie",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/compare/entirefm-vs-sodexo",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/compliance-diagnostic",
-      "destination": "/",
+      "destination": "/fire-emergency-systems",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/compliance-pack",
-      "destination": "/",
+      "destination": "/safety-critical-emergency-systems",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/compliance-risk-diagnostic",
-      "destination": "/",
+      "destination": "/safety-critical-emergency-systems",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/contact",
@@ -288,21 +288,21 @@
     },
     {
       "source": "/coverage",
-      "destination": "/",
+      "destination": "/locations",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/entirecafm",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/esg",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights",
@@ -312,285 +312,285 @@
     },
     {
       "source": "/fm-insights/hard-fm-vs-soft-fm",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/how-often-emergency-lighting-tested",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/how-often-fire-alarms-tested",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-are-rams",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-a-compliance-calendar",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-a-fire-risk-assessment",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-a-ppm-planner",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-a-tm44",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-acop-l8",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-an-asset-register",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-an-eicr",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-f-gas-compliance",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-facilities-management",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-hard-fm",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-ifm",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-lock-out-tag-out",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-ppm",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-soft-fm",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-statutory-maintenance",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/what-is-tfm",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-insights/who-is-the-responsible-person",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-intelligence",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-market-report",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/asset-lifecycle",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/business-continuity",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/fm-strategy",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/helpdesk",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/knowledge-base",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/leads",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/mobilisation",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/occupier-experience",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/platform",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/ppm-delivery",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/reactive-maintenance",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/report-issue",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/fm-operations/tender-support",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/health-safety",
-      "destination": "/",
+      "destination": "/safety-critical-emergency-systems",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/innovation",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/integrations",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/integrations/concept-evolution",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/integrations/dwellant",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/integrations/elogbooks",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/integrations/mri-qube",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/integrations/mycompliance",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/integrations/planon",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/integrations/verisae",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/leadership",
@@ -600,15 +600,9 @@
     },
     {
       "source": "/link-health",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
-    },
-    {
-      "source": "/locations",
-      "destination": "/",
-      "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/locations/birmingham",
@@ -684,33 +678,33 @@
     },
     {
       "source": "/partners",
-      "destination": "/partnerships",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "Semantic intent consolidation into protected historic page"
+      "reason": "Legacy partners page → About page (partnerships destination does not exist)"
     },
     {
       "source": "/partners/commercial-surveyors",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/partners/construction-developers",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/partners/insurance-brokers",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/partners/property-management",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/privacy",
@@ -720,189 +714,177 @@
     },
     {
       "source": "/request-proposal",
-      "destination": "/",
+      "destination": "/contact-us",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
-    },
-    {
-      "source": "/resources",
-      "destination": "/blog",
-      "statusCode": 301,
-      "reason": "Semantic intent consolidation into protected historic page"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/audit-framework",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/compliance-calendar",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/compliance-calendar-2025",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/document-vault",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/eicr-manual",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/electrical-eicr-survival-manual",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/emergency-lighting-checklist",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/emergency-lighting-testing",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/energy-esg",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/engineer-standards",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/facilities-management-checklist-2025",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/fgas-tracker",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/fire-alarm-testing-frequency",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/fire-risk-assessment-guide",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/fire-risk-guide",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/hard-fm-vs-soft-fm-vs-specialist-engineering",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/legionella-governance-guide",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/legionella-guide",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/ppm-vs-reactive-maintenance",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/switch-playbook",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/tender-support",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/top-fm-providers-uk",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/what-is-a-compliance-calendar",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/what-is-a-ppm-planner",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/what-is-an-asset-register",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/what-is-integrated-facilities-management",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/resources/what-is-total-facilities-management",
-      "destination": "/",
+      "destination": "/resources",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/search",
       "destination": "/",
       "statusCode": 301,
       "reason": "Semantic intent consolidation into protected historic page"
-    },
-    {
-      "source": "/sectors",
-      "destination": "/",
-      "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
     },
     {
       "source": "/sectors/airports",
@@ -1662,9 +1644,9 @@
     },
     {
       "source": "/services/drainage-cctv-surveys",
-      "destination": "/drainage-services",
+      "destination": "/plumbing-gas",
       "statusCode": 301,
-      "reason": "Semantic intent consolidation into protected historic page"
+      "reason": "Drainage CCTV surveys → Plumbing & Gas historic page (drainage-services not in registry)"
     },
     {
       "source": "/services/drone-inspections",
@@ -2352,9 +2334,9 @@
     },
     {
       "source": "/services/water-hygiene",
-      "destination": "/water-treatment-chlorination",
+      "destination": "/plumbing-gas",
       "statusCode": 301,
-      "reason": "Semantic intent consolidation into protected historic page"
+      "reason": "Water hygiene → Plumbing & Gas historic page (water-treatment-chlorination not in registry)"
     },
     {
       "source": "/services/water-optimisation",
@@ -2424,39 +2406,39 @@
     },
     {
       "source": "/sitemap",
-      "destination": "/sitemap.xml",
+      "destination": "/services",
       "statusCode": 301,
-      "reason": "Semantic intent consolidation into protected historic page"
+      "reason": "Legacy /sitemap path → /services hub (sitemap.xml is accessible at /sitemap.xml directly)"
     },
     {
       "source": "/social-value",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/soft-services/concierge",
-      "destination": "/",
+      "destination": "/soft-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/soft-services/grounds-maintenance",
-      "destination": "/",
+      "destination": "/soft-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/soft-services/specialist-cleaning",
-      "destination": "/",
+      "destination": "/soft-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/soft-services/waste-recycling",
-      "destination": "/",
+      "destination": "/soft-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/suppliers",
@@ -2466,15 +2448,15 @@
     },
     {
       "source": "/sustainability",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/technology",
-      "destination": "/",
+      "destination": "/hard-services",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/terms",
@@ -2484,99 +2466,99 @@
     },
     {
       "source": "/tools/compliance-calendar",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/compliance-checker",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/cost-savings-calculator",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/fm-health-check",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/fm-roi-calculator",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/ppm-calculator",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/ppm-estimator",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/ppm-schedule-builder",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/risk-diagnostic",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/sla-benchmark",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/tender-brief",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/tm44-checker",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/water-risk-grader",
-      "destination": "/",
+      "destination": "/24-7-fm-support",
       "statusCode": 301,
-      "reason": "Consolidation of legacy programmatic experiment to homepage"
+      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/visual-standards",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/why-entirefm",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
       "source": "/why-switch",
-      "destination": "/",
+      "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "General legacy redirect to homepage"
+      "reason": "Intent-matched: General legacy redirect to homepage"
     }
   ]
 }

@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/industrial-cleaning-chesterfield",
-  "title": "Industrial Facilities Management | Factory & Plant Maintenance | Entire FM",
+  "title": "Industrial Cleaning Chesterfield | Factory & Workshop Cleaning | Entire FM",
   "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
-  "h1": "Industrial Facilities Management & Manufacturing Plant Maintenance",
+  "h1": "Industrial Cleaning & Plant Decontamination in Chesterfield",
   "eyebrow": "Industrial Sector Scope",
   "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

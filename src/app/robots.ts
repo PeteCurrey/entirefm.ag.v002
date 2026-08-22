@@ -2,23 +2,22 @@
  * ROBOTS.TXT
  * ===========
  * Development/staging environments: disallow all crawling.
- * Production: allow indexing only when NEXT_PUBLIC_SITE_URL is set.
+ * Production: allow indexing only when all three gates pass.
  *
- * This is a defence-in-depth measure alongside the metadata robots directives.
- * Both mechanisms are active — neither is relied upon alone.
+ * Gate authority: canIndexStaticBuild() from src/lib/indexing.ts
+ * Canonical host: PRODUCTION_CANONICAL_HOST from src/config/site.ts
+ *
+ * A deployment at entirefmagv002.vercel.app always produces Disallow: /
+ * because NEXT_PUBLIC_SITE_URL will not contain www.entirefm.com.
  */
 
 import type { MetadataRoute } from 'next';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.entirefm.com';
-const ALLOW_INDEXING = 
-  process.env.ALLOW_SEARCH_INDEXING === 'true' &&
-  (process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production') &&
-  SITE_URL.includes('www.entirefm.com');
+import { canIndexStaticBuild } from '@/lib/indexing';
+import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
 
 export default function robots(): MetadataRoute.Robots {
-  if (!ALLOW_INDEXING) {
-    // Block all crawlers in non-production or staging environments
+  if (!canIndexStaticBuild()) {
+    // Block all crawlers on staging, preview, and local environments
     return {
       rules: {
         userAgent: '*',
@@ -35,7 +34,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/client-login/', '/helpdesk-registration', '/fm-supply-form'],
       },
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    sitemap: `${PRODUCTION_CANONICAL_HOST}/sitemap.xml`,
+    host: PRODUCTION_CANONICAL_HOST,
   };
 }

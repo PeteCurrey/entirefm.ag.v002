@@ -676,6 +676,220 @@ function generateRouteContent(route) {
   }
 
   // Final content record assembly
+
+  // Exact Route Specializations for 100% Title & H1 Uniqueness
+  const uniqueMetadataMap = {
+    '/arena-facilities-management': {
+      title: 'Arena Facilities Management | Entertainment Complex FM | Entire FM',
+      h1: 'Arena & Large Entertainment Complex Facilities Management'
+    },
+    '/sport-centre-facilities-management': {
+      title: 'Sports Centre & Leisure Facilities Management | Leisure FM | Entire FM',
+      h1: 'Sports Centre & Leisure Facilities Management'
+    },
+    '/facilities-management-for/sports-venue-facilities-management': {
+      title: 'Sports Venue Facilities Management | Athletics & Stadium FM | Entire FM',
+      h1: 'Sports Venue & Athletics Facilities Management'
+    },
+    '/facilities-management-for/stadium-%26-arena-facilities-management': {
+      title: 'Stadium & Arena Facilities Management | High-Capacity Venue FM | Entire FM',
+      h1: 'Stadium & Major Arena Facilities Management'
+    },
+    '/transport-facilities-management': {
+      title: 'Transport Facilities Management | Transit Hubs & Rail Terminals | Entire FM',
+      h1: 'Transport Network & Interchange Facilities Management'
+    },
+    '/airport-facilities-management': {
+      title: 'Airport Facilities Management | Terminal & Airside Engineering | Entire FM',
+      h1: 'Airport & Aviation Terminal Facilities Management'
+    },
+    '/caretaker': {
+      title: 'On-Site Caretaker & Building Warden Services | Entire FM',
+      h1: 'On-Site Caretaking & Building Warden Services'
+    },
+    '/concierge-services': {
+      title: 'Corporate Concierge & Front-of-House Reception Services | Entire FM',
+      h1: 'Corporate Concierge & Front-of-House Reception Services'
+    },
+    '/contract-cleaning-lincoln': {
+      title: 'Contract Cleaning Lincoln | Commercial Cleaning Contractors | Entire FM',
+      h1: 'Contract Commercial Cleaning in Lincoln'
+    },
+    '/external-cleaning-lincoln': {
+      title: 'External Cleaning Lincoln | Cladding & Grounds Jet Washing | Entire FM',
+      h1: 'External Grounds, Cladding & Pressure Cleaning in Lincoln'
+    },
+    '/contract-cleaning-london': {
+      title: 'Contract Cleaning London | Commercial Office & Estate Cleaning | Entire FM',
+      h1: 'Contract Commercial Cleaning in London'
+    },
+    '/external-cleaning-london': {
+      title: 'External Cleaning London | Facade & Cladding Jet Washing | Entire FM',
+      h1: 'External Facade, Cladding & Grounds Cleaning in London'
+    },
+    '/contract-cleaning-manchester': {
+      title: 'Contract Cleaning Manchester | Commercial Cleaning Services | Entire FM',
+      h1: 'Contract Commercial Cleaning in Manchester'
+    },
+    '/external-cleaning-manchester': {
+      title: 'External Cleaning Manchester | Cladding & Grounds Jet Wash | Entire FM',
+      h1: 'External Grounds, Cladding & Jet Washing in Manchester'
+    },
+    '/industrial-facilities-management': {
+      title: 'Industrial Facilities Management | Factory & Plant Maintenance | Entire FM',
+      h1: 'Industrial Facilities Management & Manufacturing Plant Maintenance'
+    },
+    '/facilities-management-for/industrial-facilities-management': {
+      title: 'Industrial Estate Facilities Management | Heavy Plant FM | Entire FM',
+      h1: 'Industrial Estate & Factory Facilities Management'
+    },
+    '/industrial-fm-lincoln': {
+      title: 'Industrial FM Lincoln | Manufacturing & Plant Maintenance | Entire FM',
+      h1: 'Industrial Facilities Management & Factory Maintenance in Lincoln'
+    },
+    '/industrial-cleaning': {
+      title: 'Industrial Cleaning Contractors | Plant & Warehouse Decontamination | Entire FM',
+      h1: 'Industrial Cleaning & Factory Decontamination Services'
+    },
+    '/copy-of-industrial-cleaning': {
+      title: 'Specialist Industrial Cleaning Services | Factory Sanitisation | Entire FM',
+      h1: 'Specialist Industrial & Heavy Plant Cleaning'
+    },
+    '/industrial-cleaning-birmingham': {
+      title: 'Industrial Cleaning Birmingham | Factory & Plant Jet Wash | Entire FM',
+      h1: 'Industrial Cleaning & Plant Decontamination in Birmingham'
+    },
+    '/industrial-cleaning-chesterfield': {
+      title: 'Industrial Cleaning Chesterfield | Factory & Workshop Cleaning | Entire FM',
+      h1: 'Industrial Cleaning & Plant Decontamination in Chesterfield'
+    },
+    '/industrial-cleaning-derby': {
+      title: 'Industrial Cleaning Derby | Manufacturing Plant Cleaning | Entire FM',
+      h1: 'Industrial Cleaning & Plant Decontamination in Derby'
+    },
+    '/industrial-cleaning-leeds': {
+      title: 'Industrial Cleaning Leeds | Factory & Logistics Cleaning | Entire FM',
+      h1: 'Industrial Cleaning & Plant Decontamination in Leeds'
+    },
+    '/industrial-cleaning-lincoln': {
+      title: 'Industrial Cleaning Lincoln | Engineering & Workshop Cleaning | Entire FM',
+      h1: 'Industrial Cleaning & Plant Decontamination in Lincoln'
+    },
+    '/industrial-cleaning-london': {
+      title: 'Industrial Cleaning London | Industrial Unit & Plant Cleaning | Entire FM',
+      h1: 'Industrial Cleaning & Plant Decontamination in London'
+    },
+    '/industrial-cleaning-manchester': {
+      title: 'Industrial Cleaning Manchester | Manufacturing & Warehouse Cleaning | Entire FM',
+      h1: 'Industrial Cleaning & Plant Decontamination in Manchester'
+    },
+    '/industrial-cleaning-nottingham': {
+      title: 'Industrial Cleaning Nottingham | Factory & Warehouse Cleaning | Entire FM',
+      h1: 'Industrial Cleaning & Plant Decontamination in Nottingham'
+    },
+    '/industrial-cleaning-sheffield': {
+      title: 'Industrial Cleaning Sheffield | Steelworks & Manufacturing Cleaning | Entire FM',
+      h1: 'Industrial Cleaning & Plant Decontamination in Sheffield'
+    },
+    '/education-facilities-management': {
+      title: 'Education Facilities Management | School & University FM | Entire FM',
+      h1: 'Education Facilities Management & Campus Building Services'
+    },
+    '/facilities-management-for/education-%26-schools-facilities-management': {
+      title: 'Schools Facilities Management | Academy Trust Building Care | Entire FM',
+      h1: 'Schools & Multi-Academy Trust Facilities Management'
+    },
+    '/education-cleaning': {
+      title: 'Education Cleaning Services | School & College Contract Cleaning | Entire FM',
+      h1: 'Educational Campus & School Term-Time Contract Cleaning'
+    },
+    '/healthcare-facilities-management': {
+      title: 'Healthcare Facilities Management | Medical & Clinic FM | Entire FM',
+      h1: 'Healthcare Facilities Management & Clinical Estate Maintenance'
+    },
+    '/facilities-management-for/healthcare-facilities-management': {
+      title: 'Medical Clinic Facilities Management | Healthcare Estate FM | Entire FM',
+      h1: 'Medical Clinic & Health Centre Facilities Management'
+    },
+    '/hotel-facilities-management': {
+      title: 'Hotel & Hospitality Facilities Management | Guest Experience FM | Entire FM',
+      h1: 'Hotel & Hospitality Facilities Management'
+    },
+    '/facilities-management-for/hotels-%26-resort-facilities-management': {
+      title: 'Hotels & Resort Facilities Management | Luxury Estate FM | Entire FM',
+      h1: 'Resort & Luxury Hotel Facilities Management'
+    },
+    '/logistics-facilities-management': {
+      title: 'Logistics Facilities Management | Distribution Centre FM | Entire FM',
+      h1: 'Logistics Park & Distribution Centre Facilities Management'
+    },
+    '/warehouse-facilities-management': {
+      title: 'Warehouse Facilities Management | Industrial Storage Care | Entire FM',
+      h1: 'Warehouse Facilities Management & Storage Depot Maintenance'
+    },
+    '/facilities-management-for/logistics-%26-distribution-facilities-management': {
+      title: 'Logistics & Distribution Facilities Management | Supply Hub FM | Entire FM',
+      h1: 'Distribution Hub & Supply Chain Facilities Management'
+    },
+    '/facilities-management-for/warehouse-%26-distribution': {
+      title: 'Warehouse & Distribution Facilities Management | Fulfilment FM | Entire FM',
+      h1: 'High-Bay Warehouse & Fulfilment Centre Facilities Management'
+    },
+    '/property-manager-fm-services': {
+      title: 'Property Manager Facilities Management | Commercial Surveyors FM | Entire FM',
+      h1: 'Facilities Management for Property Managers & Surveyors'
+    },
+    '/facilities-management-for/managing-agent-facilities-management': {
+      title: 'Managing Agent Facilities Management | Portfolio Compliance | Entire FM',
+      h1: 'Facilities Management for Commercial Managing Agents'
+    },
+    '/residential-facilities-management': {
+      title: 'Residential Block Facilities Management | BTR & Estate FM | Entire FM',
+      h1: 'Residential Block & BTR Estate Facilities Management'
+    },
+    '/facilities-management-for/residential-facilities-management': {
+      title: 'Residential Estate Facilities Management | Gated Community FM | Entire FM',
+      h1: 'Private Residential Estate & Gated Community Facilities Management'
+    },
+    '/residential-fm-lincoln': {
+      title: 'Residential FM Lincoln | Apartment & Block Maintenance | Entire FM',
+      h1: 'Residential Block Facilities Management in Lincoln'
+    },
+    '/residential-cleaning': {
+      title: 'Residential Block Cleaning | Communal Area Contract Cleaning | Entire FM',
+      h1: 'Residential Block Communal Area Contract Cleaning'
+    },
+    '/retail-facilities-management': {
+      title: 'Retail Facilities Management | High-Footfall FM Services | Entire FM',
+      h1: 'Retail Facilities Management & Store Building Services'
+    },
+    '/facilities-management-for/retail-%26-shopping-centre-facilities-management': {
+      title: 'Shopping Centre Facilities Management | Retail Park FM | Entire FM',
+      h1: 'Shopping Centre & Retail Park Facilities Management'
+    },
+    '/retail-fm-lincoln': {
+      title: 'Retail FM Lincoln | Store & Shopping Park Maintenance | Entire FM',
+      h1: 'Retail Facilities Management in Lincoln & Surrounding Retail Parks'
+    },
+    '/retail-cleaning': {
+      title: 'Retail Cleaning Services | High-Footfall Store Cleaning | Entire FM',
+      h1: 'Retail Store & Commercial Shopping Concourse Cleaning'
+    },
+    '/fire-emergency-systems': {
+      title: 'Fire & Life Safety Emergency Systems | Alarm & Detection FM | Entire FM',
+      h1: 'Fire Alarm & Emergency Life Safety Systems Maintenance'
+    },
+    '/safety-critical-emergency-systems': {
+      title: 'Safety-Critical Emergency Systems | Compliance Engineering | Entire FM',
+      h1: 'Safety-Critical & Emergency Compliance Engineering'
+    }
+  };
+
+  if (uniqueMetadataMap[p]) {
+    title = uniqueMetadataMap[p].title;
+    h1 = uniqueMetadataMap[p].h1;
+  }
+
   return {
     path: p,
     title,

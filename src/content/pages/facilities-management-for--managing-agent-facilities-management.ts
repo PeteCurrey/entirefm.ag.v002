@@ -10,7 +10,7 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-for/managing-agent-facilities-management",
-  "title": "Facilities Management for Managing Agents | Property Portfolios | Entire FM",
+  "title": "Managing Agent Facilities Management | Portfolio Compliance | Entire FM",
   "metaDescription": "Integrated facilities management tailored for commercial managing agents and institutional landlords. Digital compliance dashboards, service charge control, and tenant liaison.",
   "h1": "Facilities Management for Commercial Managing Agents",
   "eyebrow": "Managing Agent Scope",

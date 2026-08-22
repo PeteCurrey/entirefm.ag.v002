@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/external-cleaning-london",
-  "title": "Contract Cleaning London | Commercial Specialist Services | Entire FM",
+  "title": "External Cleaning London | Facade & Cladding Jet Washing | Entire FM",
   "metaDescription": "Professional contract cleaning across London and surrounding districts. High-standard commercial premises care, scheduled contracts, and trained local teams.",
-  "h1": "Contract Cleaning in London & Surrounding Districts",
+  "h1": "External Facade, Cladding & Grounds Cleaning in London",
   "eyebrow": "London Regional Service Area",
   "heroIntro": "Professional, reliable contract cleaning tailored to corporate offices, commercial facilities, and industrial premises throughout London and surrounding business corridors.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

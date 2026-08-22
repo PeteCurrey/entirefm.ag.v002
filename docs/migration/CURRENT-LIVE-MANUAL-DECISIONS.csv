@@ -1,0 +1,659 @@
+Exact Source URL,HTTP Status,Title,H1,Primary Intent,Content Type,Historic Equivalent,Final Action,Destination,Why,Human Review Required
+/,200,,,home,home,/,KEEP_200,/,Registered 200 route — canonical final destination,NO
+/24-7-fm-support,200,,,service,service,/24-7-fm-support,KEEP_200,/24-7-fm-support,Registered 200 route — canonical final destination,NO
+/about-entire-facilities-management,200,,,company,company,/about-entire-facilities-management,KEEP_200,/about-entire-facilities-management,Registered 200 route — canonical final destination,NO
+/accessibility-statement,200,,,legal,legal,/accessibility-statement,KEEP_200,/accessibility-statement,Registered 200 route — canonical final destination,NO
+/aerial-drone-building-inspection,200,,,service,service,/aerial-drone-building-inspection,KEEP_200,/aerial-drone-building-inspection,Registered 200 route — canonical final destination,NO
+/airport-facilities-management,200,,,sector,sector,/airport-facilities-management,KEEP_200,/airport-facilities-management,Registered 200 route — canonical final destination,NO
+/arena-facilities-management,200,,,sector,sector,/arena-facilities-management,KEEP_200,/arena-facilities-management,Registered 200 route — canonical final destination,NO
+/best-facilities-management-company,200,,,company,company,/best-facilities-management-company,KEEP_200,/best-facilities-management-company,Registered 200 route — canonical final destination,NO
+/birmingham-facilities-management,200,,,location,location,/birmingham-facilities-management,KEEP_200,/birmingham-facilities-management,Registered 200 route — canonical final destination,NO
+/blog,200,,,post,post,/blog,KEEP_200,/blog,Registered 200 route — canonical final destination,NO
+/bocker-crane-hire,200,,,service,service,/bocker-crane-hire,KEEP_200,/bocker-crane-hire,Registered 200 route — canonical final destination,NO
+/bolton-facilities-management,200,,,location,location,/bolton-facilities-management,KEEP_200,/bolton-facilities-management,Registered 200 route — canonical final destination,NO
+/bradford-facilities-management,200,,,location,location,/bradford-facilities-management,KEEP_200,/bradford-facilities-management,Registered 200 route — canonical final destination,NO
+/building-inspecting-testing,200,,,service,service,/building-inspecting-testing,KEEP_200,/building-inspecting-testing,Registered 200 route — canonical final destination,NO
+/building-maintenance,200,,,service,service,/building-maintenance,KEEP_200,/building-maintenance,Registered 200 route — canonical final destination,NO
+/bury-facilities-management,200,,,location,location,/bury-facilities-management,KEEP_200,/bury-facilities-management,Registered 200 route — canonical final destination,NO
+/caretaker,200,,,service,service,/caretaker,KEEP_200,/caretaker,Registered 200 route — canonical final destination,NO
+/carpark-management,200,,,service,service,/carpark-management,KEEP_200,/carpark-management,Registered 200 route — canonical final destination,NO
+/chesterfield-facilities-management,200,,,location,location,/chesterfield-facilities-management,KEEP_200,/chesterfield-facilities-management,Registered 200 route — canonical final destination,NO
+/cleaning-services,200,,,service,service,/cleaning-services,KEEP_200,/cleaning-services,Registered 200 route — canonical final destination,NO
+/client-login,200,,,company,company,/client-login,KEEP_200,/client-login,Registered 200 route — canonical final destination,NO
+/client-login/account-registration,200,,,company,company,/client-login/account-registration,KEEP_200,/client-login/account-registration,Registered 200 route — canonical final destination,NO
+/commercial-cleaning-birmingham,200,,,geographic-service,geographic-service,/commercial-cleaning-birmingham,KEEP_200,/commercial-cleaning-birmingham,Registered 200 route — canonical final destination,NO
+/commercial-cleaning-chesterfield,200,,,geographic-service,geographic-service,/commercial-cleaning-chesterfield,KEEP_200,/commercial-cleaning-chesterfield,Registered 200 route — canonical final destination,NO
+/commercial-cleaning-leeds,200,,,geographic-service,geographic-service,/commercial-cleaning-leeds,KEEP_200,/commercial-cleaning-leeds,Registered 200 route — canonical final destination,NO
+/commercial-cleaning-lincoln,200,,,geographic-service,geographic-service,/commercial-cleaning-lincoln,KEEP_200,/commercial-cleaning-lincoln,Registered 200 route — canonical final destination,NO
+/commercial-cleaning-london,200,,,geographic-service,geographic-service,/commercial-cleaning-london,KEEP_200,/commercial-cleaning-london,Registered 200 route — canonical final destination,NO
+/commercial-cleaning-manchester,200,,,geographic-service,geographic-service,/commercial-cleaning-manchester,KEEP_200,/commercial-cleaning-manchester,Registered 200 route — canonical final destination,NO
+/commercial-cleaning-nottingham,200,,,geographic-service,geographic-service,/commercial-cleaning-nottingham,KEEP_200,/commercial-cleaning-nottingham,Registered 200 route — canonical final destination,NO
+/commercial-cleaning-sheffield,200,,,geographic-service,geographic-service,/commercial-cleaning-sheffield,KEEP_200,/commercial-cleaning-sheffield,Registered 200 route — canonical final destination,NO
+/commercial-facilities-management,200,,,sector,sector,/commercial-facilities-management,KEEP_200,/commercial-facilities-management,Registered 200 route — canonical final destination,NO
+/commercial-fm-lincoln,200,,,location,location,/commercial-fm-lincoln,KEEP_200,/commercial-fm-lincoln,Registered 200 route — canonical final destination,NO
+/concierge-services,200,,,service,service,/concierge-services,KEEP_200,/concierge-services,Registered 200 route — canonical final destination,NO
+/construction-facilities-management,200,,,sector,sector,/construction-facilities-management,KEEP_200,/construction-facilities-management,Registered 200 route — canonical final destination,NO
+/contact-us,200,,,company,company,/contact-us,KEEP_200,/contact-us,Registered 200 route — canonical final destination,NO
+/contract-cleaning,200,,,service,service,/contract-cleaning,KEEP_200,/contract-cleaning,Registered 200 route — canonical final destination,NO
+/contract-cleaning-chesterfield,200,,,geographic-service,geographic-service,/contract-cleaning-chesterfield,KEEP_200,/contract-cleaning-chesterfield,Registered 200 route — canonical final destination,NO
+/contract-cleaning-leeds,200,,,geographic-service,geographic-service,/contract-cleaning-leeds,KEEP_200,/contract-cleaning-leeds,Registered 200 route — canonical final destination,NO
+/contract-cleaning-lincoln,200,,,geographic-service,geographic-service,/contract-cleaning-lincoln,KEEP_200,/contract-cleaning-lincoln,Registered 200 route — canonical final destination,NO
+/contract-cleaning-london,200,,,geographic-service,geographic-service,/contract-cleaning-london,KEEP_200,/contract-cleaning-london,Registered 200 route — canonical final destination,NO
+/contract-cleaning-manchester,200,,,geographic-service,geographic-service,/contract-cleaning-manchester,KEEP_200,/contract-cleaning-manchester,Registered 200 route — canonical final destination,NO
+/contract-cleaning-sheffield,200,,,geographic-service,geographic-service,/contract-cleaning-sheffield,KEEP_200,/contract-cleaning-sheffield,Registered 200 route — canonical final destination,NO
+/copy-of-helpdesk-registration,200,,,company,company,/copy-of-helpdesk-registration,KEEP_200,/copy-of-helpdesk-registration,Registered 200 route — canonical final destination,NO
+/copy-of-industrial-cleaning,200,,,service,service,/copy-of-industrial-cleaning,KEEP_200,/copy-of-industrial-cleaning,Registered 200 route — canonical final destination,NO
+/copy-of-what-is-facilities-manageme,200,,,service,service,/copy-of-what-is-facilities-manageme,KEEP_200,/copy-of-what-is-facilities-manageme,Registered 200 route — canonical final destination,NO
+/derby-facilities-management,200,,,location,location,/derby-facilities-management,KEEP_200,/derby-facilities-management,Registered 200 route — canonical final destination,NO
+/doncaster-facilities-management,200,,,location,location,/doncaster-facilities-management,KEEP_200,/doncaster-facilities-management,Registered 200 route — canonical final destination,NO
+/education-cleaning,200,,,service,service,/education-cleaning,KEEP_200,/education-cleaning,Registered 200 route — canonical final destination,NO
+/education-facilities-management,200,,,sector,sector,/education-facilities-management,KEEP_200,/education-facilities-management,Registered 200 route — canonical final destination,NO
+/employment-portal,200,,,company,company,/employment-portal,KEEP_200,/employment-portal,Registered 200 route — canonical final destination,NO
+/external-cleaning-birmingham,200,,,geographic-service,geographic-service,/external-cleaning-birmingham,KEEP_200,/external-cleaning-birmingham,Registered 200 route — canonical final destination,NO
+/external-cleaning-lincoln,200,,,geographic-service,geographic-service,/external-cleaning-lincoln,KEEP_200,/external-cleaning-lincoln,Registered 200 route — canonical final destination,NO
+/external-cleaning-london,200,,,geographic-service,geographic-service,/external-cleaning-london,KEEP_200,/external-cleaning-london,Registered 200 route — canonical final destination,NO
+/external-cleaning-manchester,200,,,geographic-service,geographic-service,/external-cleaning-manchester,KEEP_200,/external-cleaning-manchester,Registered 200 route — canonical final destination,NO
+/facilities-management-birmingham,200,,,location,location,/facilities-management-birmingham,KEEP_200,/facilities-management-birmingham,Registered 200 route — canonical final destination,NO
+/facilities-management-blog,200,,,post,post,/facilities-management-blog,KEEP_200,/facilities-management-blog,Registered 200 route — canonical final destination,NO
+/facilities-management-bolton,200,,,location,location,/facilities-management-bolton,KEEP_200,/facilities-management-bolton,Registered 200 route — canonical final destination,NO
+/facilities-management-bradford,200,,,location,location,/facilities-management-bradford,KEEP_200,/facilities-management-bradford,Registered 200 route — canonical final destination,NO
+/facilities-management-bury,200,,,location,location,/facilities-management-bury,KEEP_200,/facilities-management-bury,Registered 200 route — canonical final destination,NO
+/facilities-management-chesterfield,200,,,location,location,/facilities-management-chesterfield,KEEP_200,/facilities-management-chesterfield,Registered 200 route — canonical final destination,NO
+/facilities-management-derby,200,,,location,location,/facilities-management-derby,KEEP_200,/facilities-management-derby,Registered 200 route — canonical final destination,NO
+/facilities-management-doncaster,200,,,location,location,/facilities-management-doncaster,KEEP_200,/facilities-management-doncaster,Registered 200 route — canonical final destination,NO
+/facilities-management-for/construction-facilities-management,200,,,sector,sector,/facilities-management-for/construction-facilities-management,KEEP_200,/facilities-management-for/construction-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/education-%26-schools-facilities-management,200,,,sector,sector,/facilities-management-for/education-%26-schools-facilities-management,KEEP_200,/facilities-management-for/education-%26-schools-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/healthcare-facilities-management,200,,,sector,sector,/facilities-management-for/healthcare-facilities-management,KEEP_200,/facilities-management-for/healthcare-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/hotels-%26-resort-facilities-management,200,,,sector,sector,/facilities-management-for/hotels-%26-resort-facilities-management,KEEP_200,/facilities-management-for/hotels-%26-resort-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/industrial-facilities-management,200,,,sector,sector,/facilities-management-for/industrial-facilities-management,KEEP_200,/facilities-management-for/industrial-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/leisure-centre-facilities-management,200,,,sector,sector,/facilities-management-for/leisure-centre-facilities-management,KEEP_200,/facilities-management-for/leisure-centre-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/logistics-%26-distribution-facilities-management,200,,,sector,sector,/facilities-management-for/logistics-%26-distribution-facilities-management,KEEP_200,/facilities-management-for/logistics-%26-distribution-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/managing-agent-facilities-management,200,,,sector,sector,/facilities-management-for/managing-agent-facilities-management,KEEP_200,/facilities-management-for/managing-agent-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/offices%2C-corporate-%26-co-working,200,,,sector,sector,/facilities-management-for/offices%2C-corporate-%26-co-working,KEEP_200,/facilities-management-for/offices%2C-corporate-%26-co-working,Registered 200 route — canonical final destination,NO
+/facilities-management-for/residential-facilities-management,200,,,sector,sector,/facilities-management-for/residential-facilities-management,KEEP_200,/facilities-management-for/residential-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/restaurant-%26-hospitality-facilities-management,200,,,sector,sector,/facilities-management-for/restaurant-%26-hospitality-facilities-management,KEEP_200,/facilities-management-for/restaurant-%26-hospitality-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/retail-%26-shopping-centre-facilities-management,200,,,sector,sector,/facilities-management-for/retail-%26-shopping-centre-facilities-management,KEEP_200,/facilities-management-for/retail-%26-shopping-centre-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/sports-venue-facilities-management,200,,,sector,sector,/facilities-management-for/sports-venue-facilities-management,KEEP_200,/facilities-management-for/sports-venue-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/stadium-%26-arena-facilities-management,200,,,sector,sector,/facilities-management-for/stadium-%26-arena-facilities-management,KEEP_200,/facilities-management-for/stadium-%26-arena-facilities-management,Registered 200 route — canonical final destination,NO
+/facilities-management-for/warehouse-%26-distribution,200,,,sector,sector,/facilities-management-for/warehouse-%26-distribution,KEEP_200,/facilities-management-for/warehouse-%26-distribution,Registered 200 route — canonical final destination,NO
+/facilities-management-grimsby,200,,,location,location,/facilities-management-grimsby,KEEP_200,/facilities-management-grimsby,Registered 200 route — canonical final destination,NO
+/facilities-management-in-telford,200,,,location,location,/facilities-management-in-telford,KEEP_200,/facilities-management-in-telford,Registered 200 route — canonical final destination,NO
+/facilities-management-in-the-midlands,200,,,location,location,/facilities-management-in-the-midlands,KEEP_200,/facilities-management-in-the-midlands,Registered 200 route — canonical final destination,NO
+/facilities-management-leeds,200,,,location,location,/facilities-management-leeds,KEEP_200,/facilities-management-leeds,Registered 200 route — canonical final destination,NO
+/facilities-management-lincoln,200,,,location,location,/facilities-management-lincoln,KEEP_200,/facilities-management-lincoln,Registered 200 route — canonical final destination,NO
+/facilities-management-liverpool,200,,,location,location,/facilities-management-liverpool,KEEP_200,/facilities-management-liverpool,Registered 200 route — canonical final destination,NO
+/facilities-management-london,200,,,location,location,/facilities-management-london,KEEP_200,/facilities-management-london,Registered 200 route — canonical final destination,NO
+/facilities-management-manchester,200,,,location,location,/facilities-management-manchester,KEEP_200,/facilities-management-manchester,Registered 200 route — canonical final destination,NO
+/facilities-management-midlands,200,,,location,location,/facilities-management-midlands,KEEP_200,/facilities-management-midlands,Registered 200 route — canonical final destination,NO
+/facilities-management-nottingham,200,,,location,location,/facilities-management-nottingham,KEEP_200,/facilities-management-nottingham,Registered 200 route — canonical final destination,NO
+/facilities-management-offices,200,,,sector,sector,/facilities-management-offices,KEEP_200,/facilities-management-offices,Registered 200 route — canonical final destination,NO
+/facilities-management-oxford,200,,,location,location,/facilities-management-oxford,KEEP_200,/facilities-management-oxford,Registered 200 route — canonical final destination,NO
+/facilities-management-preston,200,,,location,location,/facilities-management-preston,KEEP_200,/facilities-management-preston,Registered 200 route — canonical final destination,NO
+/facilities-management-rotherham,200,,,location,location,/facilities-management-rotherham,KEEP_200,/facilities-management-rotherham,Registered 200 route — canonical final destination,NO
+/facilities-management-services,200,,,service,service,/facilities-management-services,KEEP_200,/facilities-management-services,Registered 200 route — canonical final destination,NO
+/facilities-management-services-lond,200,,,service,service,/facilities-management-services-lond,KEEP_200,/facilities-management-services-lond,Registered 200 route — canonical final destination,NO
+/facilities-management-sheffield,200,,,location,location,/facilities-management-sheffield,KEEP_200,/facilities-management-sheffield,Registered 200 route — canonical final destination,NO
+/facilities-management-team,200,,,company,company,/facilities-management-team,KEEP_200,/facilities-management-team,Registered 200 route — canonical final destination,NO
+/facilities-management-telford,200,,,location,location,/facilities-management-telford,KEEP_200,/facilities-management-telford,Registered 200 route — canonical final destination,NO
+/facilities-management-wigan,200,,,location,location,/facilities-management-wigan,KEEP_200,/facilities-management-wigan,Registered 200 route — canonical final destination,NO
+/fire-emergency-systems,200,,,service,service,/fire-emergency-systems,KEEP_200,/fire-emergency-systems,Registered 200 route — canonical final destination,NO
+/fm-birmingham,200,,,location,location,/fm-birmingham,KEEP_200,/fm-birmingham,Registered 200 route — canonical final destination,NO
+/fm-bolton,200,,,location,location,/fm-bolton,KEEP_200,/fm-bolton,Registered 200 route — canonical final destination,NO
+/fm-bradford,200,,,location,location,/fm-bradford,KEEP_200,/fm-bradford,Registered 200 route — canonical final destination,NO
+/fm-bury,200,,,location,location,/fm-bury,KEEP_200,/fm-bury,Registered 200 route — canonical final destination,NO
+/fm-chesterfield,200,,,location,location,/fm-chesterfield,KEEP_200,/fm-chesterfield,Registered 200 route — canonical final destination,NO
+/fm-client-info,200,,,company,company,/fm-client-info,KEEP_200,/fm-client-info,Registered 200 route — canonical final destination,NO
+/fm-derby,200,,,location,location,/fm-derby,KEEP_200,/fm-derby,Registered 200 route — canonical final destination,NO
+/fm-doncaster,200,,,location,location,/fm-doncaster,KEEP_200,/fm-doncaster,Registered 200 route — canonical final destination,NO
+/fm-grimsby,200,,,location,location,/fm-grimsby,KEEP_200,/fm-grimsby,Registered 200 route — canonical final destination,NO
+/fm-leeds,200,,,location,location,/fm-leeds,KEEP_200,/fm-leeds,Registered 200 route — canonical final destination,NO
+/fm-lincoln,200,,,location,location,/fm-lincoln,KEEP_200,/fm-lincoln,Registered 200 route — canonical final destination,NO
+/fm-liverpool,200,,,location,location,/fm-liverpool,KEEP_200,/fm-liverpool,Registered 200 route — canonical final destination,NO
+/fm-london,200,,,location,location,/fm-london,KEEP_200,/fm-london,Registered 200 route — canonical final destination,NO
+/fm-manchester,200,,,location,location,/fm-manchester,KEEP_200,/fm-manchester,Registered 200 route — canonical final destination,NO
+/fm-matlock,200,,,location,location,/fm-matlock,KEEP_200,/fm-matlock,Registered 200 route — canonical final destination,NO
+/fm-nottingham,200,,,location,location,/fm-nottingham,KEEP_200,/fm-nottingham,Registered 200 route — canonical final destination,NO
+/fm-oxford,200,,,location,location,/fm-oxford,KEEP_200,/fm-oxford,Registered 200 route — canonical final destination,NO
+/fm-preston,200,,,location,location,/fm-preston,KEEP_200,/fm-preston,Registered 200 route — canonical final destination,NO
+/fm-rotherham,200,,,location,location,/fm-rotherham,KEEP_200,/fm-rotherham,Registered 200 route — canonical final destination,NO
+/fm-services-sheffield,200,,,location,location,/fm-services-sheffield,KEEP_200,/fm-services-sheffield,Registered 200 route — canonical final destination,NO
+/fm-sheffield,200,,,location,location,/fm-sheffield,KEEP_200,/fm-sheffield,Registered 200 route — canonical final destination,NO
+/fm-supply-chain,200,,,company,company,/fm-supply-chain,KEEP_200,/fm-supply-chain,Registered 200 route — canonical final destination,NO
+/fm-supply-form,200,,,company,company,/fm-supply-form,KEEP_200,/fm-supply-form,Registered 200 route — canonical final destination,NO
+/fm-support-n-contact,200,,,company,company,/fm-support-n-contact,KEEP_200,/fm-support-n-contact,Registered 200 route — canonical final destination,NO
+/fm-support-n-contact/facilities-management-glossary,200,,,company,company,/fm-support-n-contact/facilities-management-glossary,KEEP_200,/fm-support-n-contact/facilities-management-glossary,Registered 200 route — canonical final destination,NO
+/fm-technical-services,200,,,service,service,/fm-technical-services,KEEP_200,/fm-technical-services,Registered 200 route — canonical final destination,NO
+/fm-telford,200,,,location,location,/fm-telford,KEEP_200,/fm-telford,Registered 200 route — canonical final destination,NO
+/fm-wigan,200,,,location,location,/fm-wigan,KEEP_200,/fm-wigan,Registered 200 route — canonical final destination,NO
+/gates-barriers,200,,,service,service,/gates-barriers,KEEP_200,/gates-barriers,Registered 200 route — canonical final destination,NO
+/grimsby-facilities-management,200,,,location,location,/grimsby-facilities-management,KEEP_200,/grimsby-facilities-management,Registered 200 route — canonical final destination,NO
+/grounds-maintenance,200,,,service,service,/grounds-maintenance,KEEP_200,/grounds-maintenance,Registered 200 route — canonical final destination,NO
+/hard-services,200,,,service,service,/hard-services,KEEP_200,/hard-services,Registered 200 route — canonical final destination,NO
+/healthcare-facilities-management,200,,,sector,sector,/healthcare-facilities-management,KEEP_200,/healthcare-facilities-management,Registered 200 route — canonical final destination,NO
+/helpdesk,200,,,company,company,/helpdesk,KEEP_200,/helpdesk,Registered 200 route — canonical final destination,NO
+/helpdesk-registration,200,,,company,company,/helpdesk-registration,KEEP_200,/helpdesk-registration,Registered 200 route — canonical final destination,NO
+/hot-tub-relocation,200,,,service,service,/hot-tub-relocation,KEEP_200,/hot-tub-relocation,Registered 200 route — canonical final destination,NO
+/hotel-facilities-management,200,,,sector,sector,/hotel-facilities-management,KEEP_200,/hotel-facilities-management,Registered 200 route — canonical final destination,NO
+/hvac-contractor,200,,,service,service,/hvac-contractor,KEEP_200,/hvac-contractor,Registered 200 route — canonical final destination,NO
+/industrial-cleaning,200,,,service,service,/industrial-cleaning,KEEP_200,/industrial-cleaning,Registered 200 route — canonical final destination,NO
+/industrial-cleaning-birmingham,200,,,geographic-service,geographic-service,/industrial-cleaning-birmingham,KEEP_200,/industrial-cleaning-birmingham,Registered 200 route — canonical final destination,NO
+/industrial-cleaning-chesterfield,200,,,geographic-service,geographic-service,/industrial-cleaning-chesterfield,KEEP_200,/industrial-cleaning-chesterfield,Registered 200 route — canonical final destination,NO
+/industrial-cleaning-derby,200,,,geographic-service,geographic-service,/industrial-cleaning-derby,KEEP_200,/industrial-cleaning-derby,Registered 200 route — canonical final destination,NO
+/industrial-cleaning-leeds,200,,,geographic-service,geographic-service,/industrial-cleaning-leeds,KEEP_200,/industrial-cleaning-leeds,Registered 200 route — canonical final destination,NO
+/industrial-cleaning-lincoln,200,,,geographic-service,geographic-service,/industrial-cleaning-lincoln,KEEP_200,/industrial-cleaning-lincoln,Registered 200 route — canonical final destination,NO
+/industrial-cleaning-london,200,,,geographic-service,geographic-service,/industrial-cleaning-london,KEEP_200,/industrial-cleaning-london,Registered 200 route — canonical final destination,NO
+/industrial-cleaning-manchester,200,,,geographic-service,geographic-service,/industrial-cleaning-manchester,KEEP_200,/industrial-cleaning-manchester,Registered 200 route — canonical final destination,NO
+/industrial-cleaning-nottingham,200,,,geographic-service,geographic-service,/industrial-cleaning-nottingham,KEEP_200,/industrial-cleaning-nottingham,Registered 200 route — canonical final destination,NO
+/industrial-cleaning-sheffield,200,,,geographic-service,geographic-service,/industrial-cleaning-sheffield,KEEP_200,/industrial-cleaning-sheffield,Registered 200 route — canonical final destination,NO
+/industrial-facilities-management,200,,,sector,sector,/industrial-facilities-management,KEEP_200,/industrial-facilities-management,Registered 200 route — canonical final destination,NO
+/industrial-fm-lincoln,200,,,location,location,/industrial-fm-lincoln,KEEP_200,/industrial-fm-lincoln,Registered 200 route — canonical final destination,NO
+/internal-cleaning,200,,,service,service,/internal-cleaning,KEEP_200,/internal-cleaning,Registered 200 route — canonical final destination,NO
+/items,200,,,company,company,/items,KEEP_200,/items,Registered 200 route — canonical final destination,NO
+/job-board,200,,,company,company,/job-board,KEEP_200,/job-board,Registered 200 route — canonical final destination,NO
+/landmark-facilities-management,200,,,sector,sector,/landmark-facilities-management,KEEP_200,/landmark-facilities-management,Registered 200 route — canonical final destination,NO
+/landscaping,200,,,service,service,/landscaping,KEEP_200,/landscaping,Registered 200 route — canonical final destination,NO
+/leeds-facilities-management,200,,,location,location,/leeds-facilities-management,KEEP_200,/leeds-facilities-management,Registered 200 route — canonical final destination,NO
+/lincoln-facilities-management,200,,,location,location,/lincoln-facilities-management,KEEP_200,/lincoln-facilities-management,Registered 200 route — canonical final destination,NO
+/lincoln-facilities-management-areas,200,,,location,location,/lincoln-facilities-management-areas,KEEP_200,/lincoln-facilities-management-areas,Registered 200 route — canonical final destination,NO
+/liverpool-facilities-management,200,,,location,location,/liverpool-facilities-management,KEEP_200,/liverpool-facilities-management,Registered 200 route — canonical final destination,NO
+/logistics-facilities-management,200,,,sector,sector,/logistics-facilities-management,KEEP_200,/logistics-facilities-management,Registered 200 route — canonical final destination,NO
+/london-facilities-management,200,,,location,location,/london-facilities-management,KEEP_200,/london-facilities-management,Registered 200 route — canonical final destination,NO
+/london-facilities-management-areas,200,,,location,location,/london-facilities-management-areas,KEEP_200,/london-facilities-management-areas,Registered 200 route — canonical final destination,NO
+/manchester-facilities-management,200,,,location,location,/manchester-facilities-management,KEEP_200,/manchester-facilities-management,Registered 200 route — canonical final destination,NO
+/manchester-facilities-managment,200,,,service,service,/manchester-facilities-managment,KEEP_200,/manchester-facilities-managment,Registered 200 route — canonical final destination,NO
+/manchester-office-cleaning,200,,,geographic-service,geographic-service,/manchester-office-cleaning,KEEP_200,/manchester-office-cleaning,Registered 200 route — canonical final destination,NO
+/mechanical-electrical,200,,,service,service,/mechanical-electrical,KEEP_200,/mechanical-electrical,Registered 200 route — canonical final destination,NO
+/mechanical-electrical/access-control,200,,,service,service,/mechanical-electrical/access-control,KEEP_200,/mechanical-electrical/access-control,Registered 200 route — canonical final destination,NO
+/mechanical-electrical/emergency-light-testing,200,,,service,service,/mechanical-electrical/emergency-light-testing,KEEP_200,/mechanical-electrical/emergency-light-testing,Registered 200 route — canonical final destination,NO
+/media-digital-displays,200,,,service,service,/media-digital-displays,KEEP_200,/media-digital-displays,Registered 200 route — canonical final destination,NO
+/medical-cleaning,200,,,service,service,/medical-cleaning,KEEP_200,/medical-cleaning,Registered 200 route — canonical final destination,NO
+/mobile-crane-hire,200,,,service,service,/mobile-crane-hire,KEEP_200,/mobile-crane-hire,Registered 200 route — canonical final destination,NO
+/mobile-crane-hire/chesterfield,200,,,service,service,/mobile-crane-hire/chesterfield,KEEP_200,/mobile-crane-hire/chesterfield,Registered 200 route — canonical final destination,NO
+/mobile-crane-hire/sheffield,200,,,service,service,/mobile-crane-hire/sheffield,KEEP_200,/mobile-crane-hire/sheffield,Registered 200 route — canonical final destination,NO
+/mobile-crane-hire/truck-mount-crane-hire,200,,,service,service,/mobile-crane-hire/truck-mount-crane-hire,KEEP_200,/mobile-crane-hire/truck-mount-crane-hire,Registered 200 route — canonical final destination,NO
+/nottingham-facilities-management,200,,,location,location,/nottingham-facilities-management,KEEP_200,/nottingham-facilities-management,Registered 200 route — canonical final destination,NO
+/office-cleaning,200,,,service,service,/office-cleaning,KEEP_200,/office-cleaning,Registered 200 route — canonical final destination,NO
+/office-cleaning-lincoln,200,,,geographic-service,geographic-service,/office-cleaning-lincoln,KEEP_200,/office-cleaning-lincoln,Registered 200 route — canonical final destination,NO
+/office-cleaning-london,200,,,geographic-service,geographic-service,/office-cleaning-london,KEEP_200,/office-cleaning-london,Registered 200 route — canonical final destination,NO
+/oxford-facilities-management,200,,,location,location,/oxford-facilities-management,KEEP_200,/oxford-facilities-management,Registered 200 route — canonical final destination,NO
+/plumbing-gas,200,,,service,service,/plumbing-gas,KEEP_200,/plumbing-gas,Registered 200 route — canonical final destination,NO
+/portfolio,200,,,company,company,/portfolio,KEEP_200,/portfolio,Registered 200 route — canonical final destination,NO
+/post/facilities-management-in-different-sectors-similarities-differences-and-the-need-for-agility,200,,,post,post,/post/facilities-management-in-different-sectors-similarities-differences-and-the-need-for-agility,KEEP_200,/post/facilities-management-in-different-sectors-similarities-differences-and-the-need-for-agility,Registered 200 route — canonical final destination,NO
+/post/facilities-management-services-in-lincoln,200,,,post,post,/post/facilities-management-services-in-lincoln,KEEP_200,/post/facilities-management-services-in-lincoln,Registered 200 route — canonical final destination,NO
+/post/facilities-management-to-birmingham,200,,,post,post,/post/facilities-management-to-birmingham,KEEP_200,/post/facilities-management-to-birmingham,Registered 200 route — canonical final destination,NO
+/post/the-importance-of-regular-maintenance-and-inspections,200,,,post,post,/post/the-importance-of-regular-maintenance-and-inspections,KEEP_200,/post/the-importance-of-regular-maintenance-and-inspections,Registered 200 route — canonical final destination,NO
+/post/the-importance-of-regular-maintenance-and-inspections-1,200,,,post,post,/post/the-importance-of-regular-maintenance-and-inspections-1,KEEP_200,/post/the-importance-of-regular-maintenance-and-inspections-1,Registered 200 route — canonical final destination,NO
+/post/what-are-hard-services,200,,,post,post,/post/what-are-hard-services,KEEP_200,/post/what-are-hard-services,Registered 200 route — canonical final destination,NO
+/post/what-are-hard-services-in-facilities-management,200,,,post,post,/post/what-are-hard-services-in-facilities-management,KEEP_200,/post/what-are-hard-services-in-facilities-management,Registered 200 route — canonical final destination,NO
+/post/what-are-hard-services-in-facilities-management-1,200,,,post,post,/post/what-are-hard-services-in-facilities-management-1,KEEP_200,/post/what-are-hard-services-in-facilities-management-1,Registered 200 route — canonical final destination,NO
+/post/what-is-facilities-management,200,,,post,post,/post/what-is-facilities-management,KEEP_200,/post/what-is-facilities-management,Registered 200 route — canonical final destination,NO
+/post/what-is-facilities-management-1,200,,,post,post,/post/what-is-facilities-management-1,KEEP_200,/post/what-is-facilities-management-1,Registered 200 route — canonical final destination,NO
+/post/what-is-facilities-management-1-1,200,,,post,post,/post/what-is-facilities-management-1-1,KEEP_200,/post/what-is-facilities-management-1-1,Registered 200 route — canonical final destination,NO
+/ppm,200,,,service,service,/ppm,KEEP_200,/ppm,Registered 200 route — canonical final destination,NO
+/pressure-washing,200,,,service,service,/pressure-washing,KEEP_200,/pressure-washing,Registered 200 route — canonical final destination,NO
+/pressure-washing-birmingham,200,,,geographic-service,geographic-service,/pressure-washing-birmingham,KEEP_200,/pressure-washing-birmingham,Registered 200 route — canonical final destination,NO
+/pressure-washing-lincoln,200,,,geographic-service,geographic-service,/pressure-washing-lincoln,KEEP_200,/pressure-washing-lincoln,Registered 200 route — canonical final destination,NO
+/pressure-washing-london,200,,,geographic-service,geographic-service,/pressure-washing-london,KEEP_200,/pressure-washing-london,Registered 200 route — canonical final destination,NO
+/pressure-washing-manchester,200,,,geographic-service,geographic-service,/pressure-washing-manchester,KEEP_200,/pressure-washing-manchester,Registered 200 route — canonical final destination,NO
+/pressure-washing-sheffield,200,,,geographic-service,geographic-service,/pressure-washing-sheffield,KEEP_200,/pressure-washing-sheffield,Registered 200 route — canonical final destination,NO
+/preston-facilities-management,200,,,location,location,/preston-facilities-management,KEEP_200,/preston-facilities-management,Registered 200 route — canonical final destination,NO
+/privacy-policy,200,,,legal,legal,/privacy-policy,KEEP_200,/privacy-policy,Registered 200 route — canonical final destination,NO
+/property-manager-fm-services,200,,,sector,sector,/property-manager-fm-services,KEEP_200,/property-manager-fm-services,Registered 200 route — canonical final destination,NO
+/public-sector-facilities-management,200,,,sector,sector,/public-sector-facilities-management,KEEP_200,/public-sector-facilities-management,Registered 200 route — canonical final destination,NO
+/reactive-cleaning-services,200,,,service,service,/reactive-cleaning-services,KEEP_200,/reactive-cleaning-services,Registered 200 route — canonical final destination,NO
+/residential-cleaning,200,,,service,service,/residential-cleaning,KEEP_200,/residential-cleaning,Registered 200 route — canonical final destination,NO
+/residential-facilities-management,200,,,sector,sector,/residential-facilities-management,KEEP_200,/residential-facilities-management,Registered 200 route — canonical final destination,NO
+/residential-fm-lincoln,200,,,location,location,/residential-fm-lincoln,KEEP_200,/residential-fm-lincoln,Registered 200 route — canonical final destination,NO
+/restaurant-facilities-management,200,,,sector,sector,/restaurant-facilities-management,KEEP_200,/restaurant-facilities-management,Registered 200 route — canonical final destination,NO
+/retail-cleaning,200,,,service,service,/retail-cleaning,KEEP_200,/retail-cleaning,Registered 200 route — canonical final destination,NO
+/retail-facilities-management,200,,,sector,sector,/retail-facilities-management,KEEP_200,/retail-facilities-management,Registered 200 route — canonical final destination,NO
+/retail-fm-lincoln,200,,,location,location,/retail-fm-lincoln,KEEP_200,/retail-fm-lincoln,Registered 200 route — canonical final destination,NO
+/rotherham-facilities-management,200,,,location,location,/rotherham-facilities-management,KEEP_200,/rotherham-facilities-management,Registered 200 route — canonical final destination,NO
+/safety-critical-emergency-systems,200,,,service,service,/safety-critical-emergency-systems,KEEP_200,/safety-critical-emergency-systems,Registered 200 route — canonical final destination,NO
+/security-services,200,,,service,service,/security-services,KEEP_200,/security-services,Registered 200 route — canonical final destination,NO
+/service-station-fm,200,,,sector,sector,/service-station-fm,KEEP_200,/service-station-fm,Registered 200 route — canonical final destination,NO
+/services,200,,,company,company,/services,KEEP_200,/services,Registered 200 route — canonical final destination,NO
+/sheffield-facilities-management,200,,,location,location,/sheffield-facilities-management,KEEP_200,/sheffield-facilities-management,Registered 200 route — canonical final destination,NO
+/soft-services,200,,,service,service,/soft-services,KEEP_200,/soft-services,Registered 200 route — canonical final destination,NO
+/sport-centre-facilities-management,200,,,sector,sector,/sport-centre-facilities-management,KEEP_200,/sport-centre-facilities-management,Registered 200 route — canonical final destination,NO
+/telford-facilities-management,200,,,location,location,/telford-facilities-management,KEEP_200,/telford-facilities-management,Registered 200 route — canonical final destination,NO
+/terms-and-conditions,200,,,legal,legal,/terms-and-conditions,KEEP_200,/terms-and-conditions,Registered 200 route — canonical final destination,NO
+/tier-one-facilities-management,200,,,sector,sector,/tier-one-facilities-management,KEEP_200,/tier-one-facilities-management,Registered 200 route — canonical final destination,NO
+/tierone-facilities-managment,200,,,sector,sector,/tierone-facilities-managment,KEEP_200,/tierone-facilities-managment,Registered 200 route — canonical final destination,NO
+/transport-facilities-management,200,,,sector,sector,/transport-facilities-management,KEEP_200,/transport-facilities-management,Registered 200 route — canonical final destination,NO
+/vending-supplier,200,,,service,service,/vending-supplier,KEEP_200,/vending-supplier,Registered 200 route — canonical final destination,NO
+/warehouse-facilities-management,200,,,sector,sector,/warehouse-facilities-management,KEEP_200,/warehouse-facilities-management,Registered 200 route — canonical final destination,NO
+/washroom-management,200,,,service,service,/washroom-management,KEEP_200,/washroom-management,Registered 200 route — canonical final destination,NO
+/what-is-facilities-management,200,,,service,service,/what-is-facilities-management,KEEP_200,/what-is-facilities-management,Registered 200 route — canonical final destination,NO
+/wigan-facilities-management,200,,,location,location,/wigan-facilities-management,KEEP_200,/wigan-facilities-management,Registered 200 route — canonical final destination,NO
+/window-cleaning,200,,,service,service,/window-cleaning,KEEP_200,/window-cleaning,Registered 200 route — canonical final destination,NO
+/working-at-heights,200,,,service,service,/working-at-heights,KEEP_200,/working-at-heights,Registered 200 route — canonical final destination,NO
+/sectors,200,,,sector,sector,/sectors,KEEP_200,/sectors,Registered 200 route — canonical final destination,NO
+/locations,200,,,location,location,/locations,KEEP_200,/locations,Registered 200 route — canonical final destination,NO
+/case-studies,200,,,company,company,/case-studies,KEEP_200,/case-studies,Registered 200 route — canonical final destination,NO
+/resources,200,,,company,company,/resources,KEEP_200,/resources,Registered 200 route — canonical final destination,NO
+/about,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Semantic intent consolidation into protected historic page,NO
+/academy,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/academy/drone-inspection-guide,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/academy/fire-safety-compliance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/academy/legionella-water-safety,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/academy/multi-site-fm-management,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/academy/understanding-ppm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/awards,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/building-walk,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Intent-matched: General legacy redirect to homepage,NO
+/building-walk/hotel-fm-guest-experience,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/building-walk/industrial-cleaning-before-after,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/building-walk/office-building-fm-walkthrough,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/building-walk/residential-block-fm-issues,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/building-walk/retail-unit-compliance-walkthrough,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/careers,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/job-board,301_TO_TARGET,/job-board,Semantic intent consolidation into protected historic page,NO
+/case-studies/aviation,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/corporate,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/corporate-office-campus-fm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/corporate-office-london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/engineering,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/healthcare,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/hospitality,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/hotel-fm-transformation,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/industrial-cleaning-restoration,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/industrial-warehouse-sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/logistics,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/motorway-services-fm-contract,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/pbsa,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/pbsa-estate-manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/residential-estate-management,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/retail,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/retail-complex-birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/retail-estate-ppm-rollout,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/case-studies/service-stations,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/case-studies,301_TO_TARGET,/case-studies,Consolidation to case studies portfolio hub,NO
+/compare,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/compare/entirefm-vs-call-out-only,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/compare/entirefm-vs-cbre,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/compare/entirefm-vs-freelance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/compare/entirefm-vs-in-house,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/compare/entirefm-vs-jll,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/compare/entirefm-vs-mitie,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/compare/entirefm-vs-sodexo,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/compliance-diagnostic,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/fire-emergency-systems,301_TO_TARGET,/fire-emergency-systems,Intent-matched: General legacy redirect to homepage,NO
+/compliance-pack,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/safety-critical-emergency-systems,301_TO_TARGET,/safety-critical-emergency-systems,Intent-matched: General legacy redirect to homepage,NO
+/compliance-risk-diagnostic,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/safety-critical-emergency-systems,301_TO_TARGET,/safety-critical-emergency-systems,Intent-matched: General legacy redirect to homepage,NO
+/contact,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/contact-us,301_TO_TARGET,/contact-us,Semantic intent consolidation into protected historic page,NO
+/coverage,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Intent-matched: General legacy redirect to homepage,NO
+/entirecafm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/esg,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/blog,301_TO_TARGET,/blog,Semantic intent consolidation into protected historic page,NO
+/fm-insights/hard-fm-vs-soft-fm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/how-often-emergency-lighting-tested,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/how-often-fire-alarms-tested,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-are-rams,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-a-compliance-calendar,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-a-fire-risk-assessment,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-a-ppm-planner,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-a-tm44,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-acop-l8,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-an-asset-register,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-an-eicr,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-f-gas-compliance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-facilities-management,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-hard-fm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-ifm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-lock-out-tag-out,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-ppm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-soft-fm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-statutory-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/what-is-tfm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-insights/who-is-the-responsible-person,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-intelligence,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-market-report,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/asset-lifecycle,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/business-continuity,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/fm-strategy,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/helpdesk,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/knowledge-base,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/leads,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/mobilisation,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/occupier-experience,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/platform,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/ppm-delivery,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/reactive-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/report-issue,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/fm-operations/tender-support,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/health-safety,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/safety-critical-emergency-systems,301_TO_TARGET,/safety-critical-emergency-systems,Intent-matched: General legacy redirect to homepage,NO
+/innovation,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/integrations,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/integrations/concept-evolution,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/integrations/dwellant,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/integrations/elogbooks,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/integrations/mri-qube,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/integrations/mycompliance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/integrations/planon,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/integrations/verisae,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/leadership,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/facilities-management-team,301_TO_TARGET,/facilities-management-team,Semantic intent consolidation into protected historic page,NO
+/link-health,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/locations/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Consolidation of legacy nested location to location hub,NO
+/locations/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Consolidation of legacy nested location to location hub,NO
+/locations/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Consolidation of legacy nested location to location hub,NO
+/locations/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Consolidation of legacy nested location to location hub,NO
+/locations/leicester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Consolidation of legacy nested location to location hub,NO
+/locations/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Consolidation of legacy nested location to location hub,NO
+/locations/liverpool,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Consolidation of legacy nested location to location hub,NO
+/locations/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Consolidation of legacy nested location to location hub,NO
+/locations/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Consolidation of legacy nested location to location hub,NO
+/locations/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Consolidation of legacy nested location to location hub,NO
+/locations/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/locations,301_TO_TARGET,/locations,Consolidation of legacy nested location to location hub,NO
+/marketplace,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/fm-supply-form,301_TO_TARGET,/fm-supply-form,Semantic intent consolidation into protected historic page,NO
+/partners,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Legacy partners page → About page (partnerships destination does not exist),NO
+/partners/commercial-surveyors,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/partners/construction-developers,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/partners/insurance-brokers,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/partners/property-management,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/privacy,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/privacy-policy,301_TO_TARGET,/privacy-policy,Semantic intent consolidation into protected historic page,NO
+/request-proposal,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/contact-us,301_TO_TARGET,/contact-us,Intent-matched: General legacy redirect to homepage,NO
+/resources/audit-framework,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/compliance-calendar,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/compliance-calendar-2025,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/document-vault,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/eicr-manual,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/electrical-eicr-survival-manual,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/emergency-lighting-checklist,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/emergency-lighting-testing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/energy-esg,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/engineer-standards,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/facilities-management-checklist-2025,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/fgas-tracker,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/fire-alarm-testing-frequency,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/fire-risk-assessment-guide,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/fire-risk-guide,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/hard-fm-vs-soft-fm-vs-specialist-engineering,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/legionella-governance-guide,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/legionella-guide,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/ppm-vs-reactive-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/switch-playbook,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/tender-support,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/top-fm-providers-uk,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/what-is-a-compliance-calendar,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/what-is-a-ppm-planner,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/what-is-an-asset-register,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/what-is-integrated-facilities-management,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/resources/what-is-total-facilities-management,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/resources,301_TO_TARGET,/resources,Intent-matched: General legacy redirect to homepage,NO
+/search,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/,301_TO_TARGET,/,Semantic intent consolidation into protected historic page,YES
+/sectors/airports,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/aviation,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/construction-developments,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/education,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/education-facilities-management,301_TO_TARGET,/education-facilities-management,Consolidation of /sectors/* to historic root sector page,NO
+/sectors/healthcare-public,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/hospitality-leisure,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/hotels-leisure,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/industrial-logistics,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/logistics-parks,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/offices,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/offices-corporate,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/pbsa,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/residential,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/residential-facilities-management,301_TO_TARGET,/residential-facilities-management,Consolidation of /sectors/* to historic root sector page,NO
+/sectors/residential-pbsa,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/retail-hospitality,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/retail-service-stations,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/sectors/venues,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/sectors,301_TO_TARGET,/sectors,Fallback to main sectors hub,NO
+/services/abseil-rail-certification,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/access-control,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/mechanical-electrical/access-control,301_TO_TARGET,/mechanical-electrical/access-control,Semantic intent consolidation into protected historic page,NO
+/services/access-control-advanced,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/air-filtration-hepa,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/anpr-systems,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/bms-integration-testing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/bmu-cradle-servicing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/building-fabric,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/building-maintenance,301_TO_TARGET,/building-maintenance,Semantic intent consolidation into protected historic page,NO
+/services/building-inspections,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/building-inspecting-testing,301_TO_TARGET,/building-inspecting-testing,Semantic intent consolidation into protected historic page,NO
+/services/car-park-co-monitoring,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/car-park-fume-extraction,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/cctv-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/commercial-plumbing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/plumbing-gas,301_TO_TARGET,/plumbing-gas,Semantic intent consolidation into protected historic page,NO
+/services/compressor-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical-infrastructure,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/safety-critical-emergency-systems,301_TO_TARGET,/safety-critical-emergency-systems,Semantic intent consolidation into protected historic page,NO
+/services/critical/arc-flash-assessment,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/arc-flash-assessment/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/arc-flash-assessment/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/arc-flash-assessment/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/arc-flash-assessment/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/arc-flash-assessment/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/arc-flash-assessment/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/arc-flash-assessment/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/arc-flash-assessment/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/arc-flash-assessment/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/data-room-audits,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/data-room-audits/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/data-room-audits/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/data-room-audits/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/data-room-audits/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/data-room-audits/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/data-room-audits/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/data-room-audits/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/data-room-audits/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/data-room-audits/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/generator-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/generator-maintenance/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/generator-maintenance/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/generator-maintenance/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/generator-maintenance/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/generator-maintenance/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/generator-maintenance/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/generator-maintenance/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/generator-maintenance/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/generator-maintenance/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/hv-switching,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/hv-switching/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/hv-switching/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/hv-switching/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/hv-switching/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/hv-switching/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/hv-switching/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/hv-switching/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/hv-switching/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/hv-switching/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/lightning-protection,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/lightning-protection/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/lightning-protection/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/lightning-protection/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/lightning-protection/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/lightning-protection/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/lightning-protection/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/lightning-protection/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/lightning-protection/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/lightning-protection/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-quality,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-quality/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-quality/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-quality/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-quality/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-quality/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-quality/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-quality/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-quality/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-quality/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-redundancy,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-redundancy/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-redundancy/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-redundancy/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-redundancy/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-redundancy/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-redundancy/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-redundancy/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-redundancy/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/power-redundancy/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/thermal-imaging,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/thermal-imaging/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/thermal-imaging/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/thermal-imaging/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/thermal-imaging/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/thermal-imaging/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/thermal-imaging/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/thermal-imaging/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/thermal-imaging/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/thermal-imaging/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/ups-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/ups-maintenance/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/ups-maintenance/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/ups-maintenance/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/ups-maintenance/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/ups-maintenance/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/ups-maintenance/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/ups-maintenance/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/ups-maintenance/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/critical/ups-maintenance/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/data-centre-cooling-compliance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/dilapidation-compliance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/disaster-recovery,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/dock-leveller-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/drainage-cctv-surveys,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/plumbing-gas,301_TO_TARGET,/plumbing-gas,Drainage CCTV surveys → Plumbing & Gas historic page (drainage-services not in registry),NO
+/services/drone-inspections,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/aerial-drone-building-inspection,301_TO_TARGET,/aerial-drone-building-inspection,Semantic intent consolidation into protected historic page,NO
+/services/dry-riser-testing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/electrical,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/mechanical-electrical,301_TO_TARGET,/mechanical-electrical,Semantic intent consolidation into protected historic page,NO
+/services/electrical-compliance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/electrical/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/electrical/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/electrical/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/electrical/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/electrical/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/electrical/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/electrical/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/electrical/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/electrical/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/emergency-lighting,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/mechanical-electrical/emergency-light-testing,301_TO_TARGET,/mechanical-electrical/emergency-light-testing,Semantic intent consolidation into protected historic page,NO
+/services/emergency-lighting/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/emergency-lighting/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/emergency-lighting/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/emergency-lighting/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/emergency-lighting/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/emergency-lighting/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/emergency-lighting/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/emergency-lighting/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/emergency-lighting/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/emergency-response,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Semantic intent consolidation into protected historic page,NO
+/services/emergency-systems,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/safety-critical-emergency-systems,301_TO_TARGET,/safety-critical-emergency-systems,Semantic intent consolidation into protected historic page,NO
+/services/energy-audits,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/energy-optimisation,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/environmental-noise-surveys,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/evacuation-chair-servicing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/fire-alarms,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/fire-emergency-systems,301_TO_TARGET,/fire-emergency-systems,Semantic intent consolidation into protected historic page,NO
+/services/fire-compartmentation-surveys,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/fire-safety,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/fire-emergency-systems,301_TO_TARGET,/fire-emergency-systems,Semantic intent consolidation into protected historic page,NO
+/services/fire/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/fire/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/fire/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/fire/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/fire/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/fire/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/fire/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/fire/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/fire/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/front-of-house,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/fume-extraction-lev,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/gas-safety,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/plumbing-gas,301_TO_TARGET,/plumbing-gas,Semantic intent consolidation into protected historic page,NO
+/services/gas/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/gas/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/gas/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/gas/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/gas/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/gas/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/gas/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/gas/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/gas/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/general-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/building-maintenance,301_TO_TARGET,/building-maintenance,Semantic intent consolidation into protected historic page,NO
+/services/generator-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/grease-trap-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/hard-fm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Semantic intent consolidation into protected historic page,NO
+/services/hard-services,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Consolidation of /services/* subpath to root historic URL,NO
+/services/hard-services-fm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/height-safety,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/hvac,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hvac-contractor,301_TO_TARGET,/hvac-contractor,Semantic intent consolidation into protected historic page,NO
+/services/hvac-compliance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/hvac/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/hvac/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/hvac/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/hvac/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/hvac/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/hvac/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/hvac/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/hvac/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/hvac/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/indoor-air-quality-testing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/industrial-cleaning,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/industrial-cleaning,301_TO_TARGET,/industrial-cleaning,Semantic intent consolidation into protected historic page,NO
+/services/industrial-refrigeration,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/interceptor-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/leak-detection-repair,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/lifting-equipment,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/lightning-protection-testing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/load-bank-testing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/loading-bay-safety-systems,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/mansafe-testing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/me-services,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/mechanical-electrical,301_TO_TARGET,/mechanical-electrical,Semantic intent consolidation into protected historic page,NO
+/services/mewp-safety-checks,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/out-of-hours-support,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Semantic intent consolidation into protected historic page,NO
+/services/plant-room-risk-assessments,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/plumbing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/plumbing-gas,301_TO_TARGET,/plumbing-gas,Semantic intent consolidation into protected historic page,NO
+/services/power-quality-analysis,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/ppm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/ppm,301_TO_TARGET,/ppm,Semantic intent consolidation into protected historic page,NO
+/services/ppm/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/ppm/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/ppm/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/ppm/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/ppm/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/ppm/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/ppm/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/ppm/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/ppm/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/pump-room-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/pump-station-servicing,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/rising-mains,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/roller-shutter-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/roof-safety-inspections,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/security-systems-healthcheck,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/smart-building-iot,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/smoke-vent-systems,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/soft-fm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/soft-services,301_TO_TARGET,/soft-services,Semantic intent consolidation into protected historic page,NO
+/services/space-planning,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/sprinklers,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/staircase-pressurisation,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/sustainability-monitoring,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/thermal-imaging-surveys,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/total-facilities-management,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/commercial-facilities-management,301_TO_TARGET,/commercial-facilities-management,Semantic intent consolidation into protected historic page,NO
+/services/ups-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/waste-compliance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/water-hygiene,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/plumbing-gas,301_TO_TARGET,/plumbing-gas,Water hygiene → Plumbing & Gas historic page (water-treatment-chlorination not in registry),NO
+/services/water-optimisation,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/water-treatment-plant-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/water/birmingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/water/chesterfield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/water/derby,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/water/leeds,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/water/lincoln,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/water/london,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/water/manchester,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/water/nottingham,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/services/water/sheffield,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Fallback to main services hub,NO
+/sitemap,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/services,301_TO_TARGET,/services,Legacy /sitemap path → /services hub (sitemap.xml is accessible at /sitemap.xml directly),NO
+/social-value,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/soft-services/concierge,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/soft-services,301_TO_TARGET,/soft-services,Intent-matched: General legacy redirect to homepage,NO
+/soft-services/grounds-maintenance,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/soft-services,301_TO_TARGET,/soft-services,Intent-matched: General legacy redirect to homepage,NO
+/soft-services/specialist-cleaning,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/soft-services,301_TO_TARGET,/soft-services,Intent-matched: General legacy redirect to homepage,NO
+/soft-services/waste-recycling,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/soft-services,301_TO_TARGET,/soft-services,Intent-matched: General legacy redirect to homepage,NO
+/suppliers,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/fm-supply-form,301_TO_TARGET,/fm-supply-form,Semantic intent consolidation into protected historic page,NO
+/sustainability,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/technology,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/hard-services,301_TO_TARGET,/hard-services,Intent-matched: General legacy redirect to homepage,NO
+/terms,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/terms-and-conditions,301_TO_TARGET,/terms-and-conditions,Semantic intent consolidation into protected historic page,NO
+/tools/compliance-calendar,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/compliance-checker,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/cost-savings-calculator,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/fm-health-check,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/fm-roi-calculator,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/ppm-calculator,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/ppm-estimator,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/ppm-schedule-builder,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/risk-diagnostic,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/sla-benchmark,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/tender-brief,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/tm44-checker,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/tools/water-risk-grader,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/24-7-fm-support,301_TO_TARGET,/24-7-fm-support,Intent-matched: Consolidation of legacy programmatic experiment to homepage,NO
+/visual-standards,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/why-entirefm,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO
+/why-switch,UNKNOWN,,,LEGACY_REDIRECT,LEGACY,/about-entire-facilities-management,301_TO_TARGET,/about-entire-facilities-management,Intent-matched: General legacy redirect to homepage,NO

@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-for/retail-%26-shopping-centre-facilities-management",
-  "title": "Retail Facilities Management | High-Footfall FM Services | Entire FM",
+  "title": "Shopping Centre Facilities Management | Retail Park FM | Entire FM",
   "metaDescription": "Specialist retail facilities management for shopping centres, high-street chains, and retail parks. Out-of-hours maintenance, customer hygiene, and HVAC care.",
-  "h1": "Retail Facilities Management & Store Maintenance",
+  "h1": "Shopping Centre & Retail Park Facilities Management",
   "eyebrow": "Sector Specialist Scope",
   "heroIntro": "Specialist facilities management engineered for retail environments. Delivering out-of-hours maintenance, HVAC temperature stability, customer washroom hygiene, and reactive emergency support across UK retail estates.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

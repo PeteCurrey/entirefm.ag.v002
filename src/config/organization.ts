@@ -3,7 +3,12 @@
  * ==================================================
  * Authoritative business entity metadata for schema.org,
  * metadata generation, legal footers, and contact hubs.
- * Contains only VERIFIED business claims.
+ *
+ * CLAIM GOVERNANCE (Phase 09R.3):
+ * Only factual, non-contested business data lives here.
+ * Accreditations, certifications, and operational SLA claims
+ * are governed by /config/verified-claims.json.
+ * Nothing here may assert a claim that is TO_VERIFY in that registry.
  */
 
 export const ORGANIZATION_CONFIG = {
@@ -13,31 +18,31 @@ export const ORGANIZATION_CONFIG = {
   foundingYear: 2009,
   canonicalDomain: 'https://www.entirefm.com',
   productionHost: 'www.entirefm.com',
-  
+
   headquarters: {
     country: 'United Kingdom',
     region: 'East Midlands',
-    operationalBase: 'Lincoln Operational Centre',
-    description: 'National Facilities Management Provider with direct regional operating depots.',
+    // Specific operational centre names and depot claims are subject to
+    // verification — see /config/verified-claims.json before asserting publicly.
+    description: 'National facilities management and specialist engineering provider.',
   },
 
   contact: {
     enquiryEmail: 'enquiries@entirefm.com',
     helpdeskEmail: 'helpdesk@entirefm.com',
     portalEmail: 'portal@entirefm.com',
+    // Phone number confirmed in use on current live site (entirefm.com).
+    // See /config/verified-contact.json for verification record.
     mainPhoneDisplay: '0800 093 1128',
     mainPhoneTel: 'tel:08000931128',
-    helpdeskPhoneDisplay: '24/7 Digital Helpdesk',
-    londonPhoneDisplay: 'London Operations Desk',
   },
 
   serviceRegions: [
-    'Greater London (Zones 1-6 & M25)',
-    'Midlands & East Midlands (Lincoln, Nottingham, Derby, Chesterfield)',
-    'Yorkshire & Humber (Sheffield, Leeds, Bradford, Doncaster, Rotherham, Grimsby)',
-    'North West (Manchester, Liverpool, Preston, Wigan, Bolton, Bury)',
-    'West Midlands (Birmingham, Telford)',
-    'South & Thames Valley (Oxford)',
+    'Greater London (Zones 1–6 & M25)',
+    'East Midlands (Lincoln, Nottingham, Derby)',
+    'Yorkshire & Humber (Sheffield, Leeds, Doncaster)',
+    'North West (Manchester, Liverpool)',
+    'West Midlands (Birmingham)',
     'UK Nationwide Coverage',
   ],
 
@@ -52,14 +57,7 @@ export const ORGANIZATION_CONFIG = {
     'Public Sector & Infrastructure',
   ],
 
-  complianceStandards: [
-    'SFG20 Maintenance Scheduling',
-    'NICEIC Electrical Safety Standards',
-    'Gas Safe Register Compliance',
-    'CIBSE Building Services Guidance',
-    'BS 5839 Fire Detection Systems',
-    'BS 5266 Emergency Lighting Compliance',
-    'L8 Legionella Water Hygiene Control',
-    'COSHH Safety Regulations',
-  ],
+  // Compliance standards and accreditations are NOT listed here.
+  // Use getVerifiedAccreditations() from src/config/verified-claims.ts
+  // to obtain only currently verified items for public rendering.
 } as const;

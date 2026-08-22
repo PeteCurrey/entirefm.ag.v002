@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/external-cleaning-lincoln",
-  "title": "Contract Cleaning Lincoln | Commercial Specialist Services | Entire FM",
+  "title": "External Cleaning Lincoln | Cladding & Grounds Jet Washing | Entire FM",
   "metaDescription": "Professional contract cleaning across Lincoln and surrounding districts. High-standard commercial premises care, scheduled contracts, and trained local teams.",
-  "h1": "Contract Cleaning in Lincoln & Surrounding Districts",
+  "h1": "External Grounds, Cladding & Pressure Cleaning in Lincoln",
   "eyebrow": "Lincoln Regional Service Area",
   "heroIntro": "Professional, reliable contract cleaning tailored to corporate offices, commercial facilities, and industrial premises throughout Lincoln and surrounding business corridors.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

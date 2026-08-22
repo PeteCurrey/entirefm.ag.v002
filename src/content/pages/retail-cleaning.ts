@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/retail-cleaning",
-  "title": "Retail Facilities Management | High-Footfall FM Services | Entire FM",
+  "title": "Retail Cleaning Services | High-Footfall Store Cleaning | Entire FM",
   "metaDescription": "Specialist retail facilities management for shopping centres, high-street chains, and retail parks. Out-of-hours maintenance, customer hygiene, and HVAC care.",
-  "h1": "Retail Facilities Management & Store Maintenance",
+  "h1": "Retail Store & Commercial Shopping Concourse Cleaning",
   "eyebrow": "Sector Specialist Scope",
   "heroIntro": "Specialist facilities management engineered for retail environments. Delivering out-of-hours maintenance, HVAC temperature stability, customer washroom hygiene, and reactive emergency support across UK retail estates.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

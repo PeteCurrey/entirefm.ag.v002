@@ -1,69 +1,67 @@
 #!/usr/bin/env node
 /**
- * GENERATE FINAL PRODUCTION URL MANIFEST
- * =====================================
- * Authority for production cutover, accounting for all 3 URL estates:
- * - Estate A: Historic Wix URLs (205 routes)
- * - Estate B: Current Live Antigravity URLs (reconciled / mapped)
- * - Estate C: Approved Growth URLs
+ * GENERATE PRODUCTION URL MANIFEST
+ * ==================================
+ * Generates /config/production-url-manifest.json directly from
+ * /config/route-registry.json.
+ *
+ * Run: npm run generate:manifest
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const repoRoot = path.join(__dirname, '..');
-const registry = JSON.parse(fs.readFileSync(path.join(repoRoot, 'config', 'route-registry.json'), 'utf-8'));
+const REGISTRY_PATH = path.join(__dirname, '../config/route-registry.json');
+const MANIFEST_PATH = path.join(__dirname, '../config/production-url-manifest.json');
 
-let contentDb = {};
-try {
-  const contentFile = fs.readFileSync(path.join(repoRoot, 'src', 'content', 'registry.ts'), 'utf-8');
-  const jsonMatch = contentFile.match(/export const CONTENT_DATABASE: Record<string, ContentRecord> = ({[\s\S]+?});\n\nexport function/);
-  if (jsonMatch) contentDb = JSON.parse(jsonMatch[1]);
-} catch (e) {
-  console.warn('Could not parse content database TS');
-}
+const registry = JSON.parse(fs.readFileSync(REGISTRY_PATH, 'utf8'));
+const routes = registry.routes;
+
+const urls = routes.map(r => ({
+  path: r.path,
+  url: `https://www.entirefm.com${r.path === '/' ? '' : r.path}`,
+  routeType: r.routeType,
+  protected: r.protected,
+  indexable: r.indexable,
+  indexExpected: r.indexable,
+  canonicalExpected: 'self',
+  originEstate: r.historic ? 'WIX' : (r.routeProvenance === 'NEW_GROWTH' ? 'GROWTH' : 'CURRENT_LIVE'),
+  sitemapGroup: r.sitemapGroup,
+  sitemapPriority: r.sitemapPriority,
+  provenance: r.routeProvenance,
+  contentStatus: r.contentStatus,
+}));
 
 const manifest = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  description: 'EntireFM Final Production URL Manifest — Cutover Authority',
-  version: '1.0.0',
-  generated: '2026-08-22',
+  description: 'EntireFM Production URL Manifest — generated from route-registry.json. Do not edit manually.',
+  version: '3.0.0',
+  generated: new Date().toISOString().split('T')[0],
   authority: '/config/route-registry.json',
-  productionDomain: 'https://entirefm.com',
+  generatedBy: 'scripts/generate-production-manifest.js',
+  warning: 'This file is auto-generated. Edit route-registry.json and re-run npm run generate:manifest.',
   summary: {
-    totalRoutes: registry.routes.length,
-    estateA_HistoricWix: registry.routes.filter(r => r.historic).length,
-    estateB_CurrentAntigravityLive: 229,
-    estateC_NewGrowth: registry.routes.filter(r => r.routeProvenance === 'NEW_GROWTH').length,
-    status200Expected: registry.routes.filter(r => r.statusRequired === 200).length,
-    redirectsExpected: 0,
-    indexableExpected: registry.routes.filter(r => r.indexable).length,
+    total: urls.length,
+    protected: urls.filter(u => u.protected).length,
+    indexable: urls.filter(u => u.indexable).length,
+    historicWix: urls.filter(u => u.originEstate === 'WIX').length,
+    currentLive: urls.filter(u => u.originEstate === 'CURRENT_LIVE').length,
+    growth: urls.filter(u => u.originEstate === 'GROWTH').length,
   },
-  urls: registry.routes.map(r => {
-    const p = r.path;
-    const content = contentDb[p] || {};
-    return {
-      path: p,
-      originEstate: r.historic ? 'WIX' : 'NEW_GROWTH',
-      provenance: r.routeProvenance,
-      protected: r.protected,
-      productionBehaviour: 'SERVE',
-      statusExpected: 200,
-      canonicalExpected: 'self',
-      indexExpected: r.indexable,
-      redirectTarget: null,
-      sitemapGroup: r.sitemapGroup || 'core',
-      contentRecord: p === '/' ? 'home' : p.replace(/^\//, '').replace(/\//g, '--'),
-      priority: r.priority || 'P1',
-      title: content.title || `Page: ${p} | Entire FM`,
-      h1: content.h1 || p,
-    };
-  }),
+  urls,
 };
 
-fs.writeFileSync(
-  path.join(repoRoot, 'config', 'production-url-manifest.json'),
-  JSON.stringify(manifest, null, 2)
-);
+fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
 
-console.log(`Generated /config/production-url-manifest.json with ${manifest.urls.length} URLs.`);
+console.log('══════════════════════════════════════════════════════════════');
+console.log('  PRODUCTION URL MANIFEST — GENERATED');
+console.log('══════════════════════════════════════════════════════════════');
+console.log(`  Routes from registry:  ${routes.length}`);
+console.log(`  Routes in manifest:    ${urls.length}`);
+console.log(`  Protected routes:      ${manifest.summary.protected}`);
+console.log(`  Indexable routes:      ${manifest.summary.indexable}`);
+console.log(`  Historic Wix routes:   ${manifest.summary.historicWix}`);
+console.log(`  Output:                config/production-url-manifest.json`);
+console.log('══════════════════════════════════════════════════════════════');
+console.log('  ✓ MANIFEST GENERATED — no drift possible');
+console.log('══════════════════════════════════════════════════════════════');

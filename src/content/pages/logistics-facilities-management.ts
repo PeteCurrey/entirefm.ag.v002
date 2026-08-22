@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/logistics-facilities-management",
-  "title": "Logistics & Warehouse Facilities Management | Distribution FM | Entire FM",
+  "title": "Logistics Facilities Management | Distribution Centre FM | Entire FM",
   "metaDescription": "Total facilities management for distribution centres, warehouses, and logistics hubs. Dock levellers, high-bay lighting, slab maintenance, and roller shutters.",
-  "h1": "Logistics & Warehouse Facilities Management",
+  "h1": "Logistics Park & Distribution Centre Facilities Management",
   "eyebrow": "Distribution & Logistics Scope",
   "heroIntro": "Specialist facilities management built for 24/7 distribution centres, parcel hubs, and high-bay warehouses. Keeping loading bays operational, yards secure, and warehouse lighting bright.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

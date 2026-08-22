@@ -159,38 +159,13 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Accreditations and Compliance Strip */}
-        <div className="mt-12 pt-8 border-t border-brand-border-dark/80 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 text-center">
-          <div className="p-3 bg-brand-charcoal/60 border border-brand-border-dark/60 rounded-sm">
-            <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400 block">Health & Safety</span>
-            <span className="text-xs font-semibold text-slate-200 mt-1 block">SafeContractor</span>
-            <span className="text-[9px] text-slate-500">[PENDING VERIF.]</span>
-          </div>
-          <div className="p-3 bg-brand-charcoal/60 border border-brand-border-dark/60 rounded-sm">
-            <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400 block">Electrical</span>
-            <span className="text-xs font-semibold text-slate-200 mt-1 block">NICEIC Approved</span>
-            <span className="text-[9px] text-slate-500">[PENDING VERIF.]</span>
-          </div>
-          <div className="p-3 bg-brand-charcoal/60 border border-brand-border-dark/60 rounded-sm">
-            <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400 block">Gas & Heating</span>
-            <span className="text-xs font-semibold text-slate-200 mt-1 block">Gas Safe Register</span>
-            <span className="text-[9px] text-slate-500">[PENDING VERIF.]</span>
-          </div>
-          <div className="p-3 bg-brand-charcoal/60 border border-brand-border-dark/60 rounded-sm">
-            <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400 block">Building Services</span>
-            <span className="text-xs font-semibold text-slate-200 mt-1 block">BESA Member</span>
-            <span className="text-[9px] text-slate-500">[PENDING VERIF.]</span>
-          </div>
-          <div className="p-3 bg-brand-charcoal/60 border border-brand-border-dark/60 rounded-sm">
-            <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400 block">Refrigeration</span>
-            <span className="text-xs font-semibold text-slate-200 mt-1 block">REFCOM / F-Gas</span>
-            <span className="text-[9px] text-slate-500">[PENDING VERIF.]</span>
-          </div>
-          <div className="p-3 bg-brand-charcoal/60 border border-brand-border-dark/60 rounded-sm">
-            <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400 block">Quality</span>
-            <span className="text-xs font-semibold text-slate-200 mt-1 block">ISO Standards</span>
-            <span className="text-[9px] text-slate-500">[PENDING VERIF.]</span>
-          </div>
+        {/* Compliance & Quality Statement */}
+        <div className="mt-12 pt-8 border-t border-brand-border-dark/80">
+          <p className="text-[10px] text-slate-500 text-center leading-relaxed max-w-2xl mx-auto">
+            Entire FM operates under a managed quality framework covering statutory compliance,
+            planned maintenance scheduling, and building services delivery across all active contracts.
+            Accreditation and certification details are available upon request during procurement.
+          </p>
         </div>
 
         {/* Legal, Copyright & Claims Verification Notice */}

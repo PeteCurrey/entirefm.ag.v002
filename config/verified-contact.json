@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Authoritative contact verification registry for EntireFM. Only render contact details where status is VERIFIED or CONFIRMED_IN_USE and approvedForProduction is true.",
+  "version": "1.0.0",
+  "updated": "2026-08-22",
+  "contacts": [
+    {
+      "id": "PHONE_MAIN",
+      "type": "phone",
+      "value": "0800 093 1128",
+      "hrefValue": "tel:08000931128",
+      "status": "CONFIRMED_IN_USE",
+      "evidence": "Number visible on live production website entirefm.com as of 2026-08-22. Awaiting explicit business-side confirmation of active routing.",
+      "approvedForProduction": true,
+      "note": "Use status CONFIRMED_IN_USE until business owner explicitly confirms active routing. Do not self-declare isVerified=true in code."
+    },
+    {
+      "id": "EMAIL_ENQUIRY",
+      "type": "email",
+      "value": "enquiries@entirefm.com",
+      "hrefValue": "mailto:enquiries@entirefm.com",
+      "status": "CONFIRMED_IN_USE",
+      "evidence": "Email address confirmed visible on live production website entirefm.com as of 2026-08-22.",
+      "approvedForProduction": true
+    },
+    {
+      "id": "EMAIL_HELPDESK",
+      "type": "email",
+      "value": "helpdesk@entirefm.com",
+      "hrefValue": "mailto:helpdesk@entirefm.com",
+      "status": "CONFIRMED_IN_USE",
+      "evidence": "Email address confirmed visible on live production website entirefm.com as of 2026-08-22.",
+      "approvedForProduction": true
+    },
+    {
+      "id": "EMAIL_CAREERS",
+      "type": "email",
+      "value": "careers@entirefm.com",
+      "hrefValue": "mailto:careers@entirefm.com",
+      "status": "CONFIRMED_IN_USE",
+      "evidence": "Email address visible on live production website entirefm.com as of 2026-08-22.",
+      "approvedForProduction": true
+    }
+  ]
+}

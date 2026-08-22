@@ -1,6 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Building2, CheckCircle, ExternalLink } from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
+
+export type CaseStudyVerificationStatus =
+  | 'VERIFIED'
+  | 'VERIFIED_ANONYMOUS'
+  | 'DRAFT_NOT_PUBLISHABLE';
 
 export interface CaseStudyProps {
   title: string;
@@ -10,31 +15,57 @@ export interface CaseStudyProps {
   challenge: string;
   solution: string;
   results: string[];
+  verificationStatus: CaseStudyVerificationStatus;
+  publishApproved: boolean;
 }
 
-export function CaseStudyFeature({
-  title = 'Multi-Site Commercial Property Portfolio M&E Overhaul',
-  clientType = 'Commercial Managing Agent Portfolio',
-  sector = 'Commercial Property',
-  location = 'London & Home Counties',
-  challenge = 'Aging mechanical plant, fragmented contractor management, and rising compliance exposure across 14 commercial buildings.',
-  solution = 'EntireFM introduced unified SFG20 PPM schedules, centralized 24/7 helpdesk dispatch, and direct engineering delivery across all mechanical & electrical assets.',
-  results = [
-    '100% statutory compliance achieved across all sites within 90 days',
-    '32% reduction in reactive maintenance callout volume through proactive servicing',
-    'Full asset digitalization & live CAFM compliance dashboard for property managers',
-  ],
-}: Partial<CaseStudyProps>) {
+/**
+ * CASE STUDY FEATURE COMPONENT
+ * =============================
+ * Renders an approved case study only when:
+ *   verificationStatus === 'VERIFIED' | 'VERIFIED_ANONYMOUS'
+ *   AND publishApproved === true
+ *
+ * Returns null in all other states — no default/fake data is ever rendered.
+ * Phase 09R.3: All fabricated defaults (EFM-CS-042, 32% reduction, 14 buildings)
+ * have been permanently removed.
+ */
+export function CaseStudyFeature(props: Partial<CaseStudyProps>) {
+  const {
+    verificationStatus,
+    publishApproved,
+    title,
+    clientType,
+    sector,
+    location,
+    challenge,
+    solution,
+    results,
+  } = props;
+
+  // Gate: only render when explicitly verified and approved
+  if (
+    !publishApproved ||
+    (verificationStatus !== 'VERIFIED' && verificationStatus !== 'VERIFIED_ANONYMOUS')
+  ) {
+    return null;
+  }
+
+  // Type-narrowed — all fields must be present for a publishable case study
+  if (!title || !clientType || !sector || !location || !challenge || !solution || !results?.length) {
+    return null;
+  }
+
   return (
     <section className="section-padding bg-brand-navy text-white border-y border-brand-border-dark">
       <div className="container-custom">
         <div className="max-w-3xl mb-10">
           <span className="badge-gold">Operational Evidence</span>
           <h2 className="text-3xl font-bold tracking-tight text-white mt-2">
-            Engineering & Estate Management in Practice
+            Engineering &amp; Estate Management in Practice
           </h2>
           <p className="text-xs sm:text-sm text-slate-300 mt-1">
-            Proven multi-disciplinary facilities management delivering verified statutory compliance and operational cost reduction.
+            Facilities management delivery demonstrating statutory compliance and operational performance.
           </p>
         </div>
 
@@ -64,7 +95,7 @@ export function CaseStudyFeature({
           <div className="lg:col-span-5 flex flex-col justify-between p-6 bg-brand-navy border border-brand-border-dark rounded-sm">
             <div>
               <span className="text-[10px] font-mono uppercase tracking-wider text-brand-gold block mb-3 font-semibold">
-                Verified Outcomes & Value Delivered
+                Outcomes &amp; Value Delivered
               </span>
               <ul className="space-y-2.5 text-xs text-slate-200">
                 {results.map((res, i) => (
@@ -76,8 +107,7 @@ export function CaseStudyFeature({
               </ul>
             </div>
 
-            <div className="pt-6 border-t border-brand-border-dark mt-6 flex items-center justify-between">
-              <span className="text-[10px] text-slate-500 font-mono">Case Reference #EFM-CS-042</span>
+            <div className="pt-6 border-t border-brand-border-dark mt-6 flex items-center justify-end">
               <Link href="/case-studies" className="text-xs font-bold text-brand-gold hover:text-brand-gold-light flex items-center gap-1">
                 All Case Studies <ArrowRight className="w-3 h-3" />
               </Link>

@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/safety-critical-emergency-systems",
-  "title": "Fire & Emergency Safety Systems | Life Safety Maintenance | Entire FM",
+  "title": "Safety-Critical Emergency Systems | Compliance Engineering | Entire FM",
   "metaDescription": "Statutory maintenance for commercial fire alarm systems, emergency lighting, smoke vents, and safety-critical infrastructure across UK properties.",
-  "h1": "Fire & Life Safety Emergency Systems Maintenance",
+  "h1": "Safety-Critical & Emergency Compliance Engineering",
   "eyebrow": "Life Safety & Compliance",
   "heroIntro": "Complete statutory maintenance and periodic testing for commercial fire alarms, emergency lighting, automated smoke vents, and life-safety building infrastructure.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

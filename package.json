@@ -16,9 +16,12 @@
     "verify:staging-noindex": "node scripts/verify-staging-noindex.js",
     "rendered:audit": "node scripts/rendered-audit.js",
     "staging:crawl": "node scripts/crawl-staging.js",
-    "live:crawl": "node scripts/crawl-live-production-v2.js",
-    "generate:content": "node scripts/generate-rich-content-database.js",
-    "phase09r2:qa": "node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit"
+    "generate:manifest": "node scripts/generate-production-manifest.js",
+    "validate:manifest": "node scripts/validate-manifest-registry.js",
+    "validate:redirects": "node scripts/validate-redirects.js",
+    "test:encoded-routes": "node scripts/test-encoded-routes.js",
+    "phase09r2:qa": "node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit",
+    "phase09r3:qa": "node scripts/test-encoded-routes.js && node scripts/validate-manifest-registry.js && node scripts/validate-redirects.js && node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit"
   },
   "dependencies": {
     "lucide-react": "^1.33.0",

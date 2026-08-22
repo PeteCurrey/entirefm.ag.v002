@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-for/hotels-%26-resort-facilities-management",
-  "title": "Hotel & Hospitality Facilities Management | Guest Experience FM | Entire FM",
+  "title": "Hotels & Resort Facilities Management | Luxury Estate FM | Entire FM",
   "metaDescription": "Discreet facilities management for hotels, resorts, and hospitality venues. 24/7 guest comfort maintenance, kitchen extraction, HVAC, and front-of-house care.",
-  "h1": "Hotel & Hospitality Facilities Management",
+  "h1": "Resort & Luxury Hotel Facilities Management",
   "eyebrow": "Hospitality Sector Scope",
   "heroIntro": "Discreet, 24/7 facilities management and engineering maintenance for luxury hotels, boutique resorts, and hospitality venues. Protecting guest comfort, ratings, and operational continuity.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

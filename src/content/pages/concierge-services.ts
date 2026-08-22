@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/concierge-services",
-  "title": "Corporate Concierge & On-Site Caretaker Services | Entire FM",
+  "title": "Corporate Concierge & Front-of-House Reception Services | Entire FM",
   "metaDescription": "Professional corporate concierge and dedicated on-site caretakers for commercial offices, residential developments, and business parks.",
-  "h1": "Corporate Concierge & On-Site Caretaking Services",
+  "h1": "Corporate Concierge & Front-of-House Reception Services",
   "eyebrow": "Workplace & Facility Support",
   "heroIntro": "High-caliber corporate concierge, front-of-house receptionists, and on-site building caretakers managing visitor access, building security, deliveries, and day-to-day facilities tasks.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

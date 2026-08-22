@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/property-manager-fm-services",
-  "title": "Facilities Management for Managing Agents | Property Portfolios | Entire FM",
+  "title": "Property Manager Facilities Management | Commercial Surveyors FM | Entire FM",
   "metaDescription": "Integrated facilities management tailored for commercial managing agents and institutional landlords. Digital compliance dashboards, service charge control, and tenant liaison.",
-  "h1": "Facilities Management for Commercial Managing Agents",
+  "h1": "Facilities Management for Property Managers & Surveyors",
   "eyebrow": "Managing Agent Scope",
   "heroIntro": "Transparent, multi-disciplinary facilities management built specifically for commercial managing agents, surveyors, and property management companies. Digital compliance, SLA tracking, and service charge efficiency.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

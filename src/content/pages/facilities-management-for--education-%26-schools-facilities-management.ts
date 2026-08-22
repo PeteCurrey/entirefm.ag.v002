@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-for/education-%26-schools-facilities-management",
-  "title": "Education Facilities Management | School & University FM | Entire FM",
+  "title": "Schools Facilities Management | Academy Trust Building Care | Entire FM",
   "metaDescription": "Specialist facilities management for schools, colleges, and universities across the UK. DBS-vetted staff, term-time compliance, and holiday overhaul works.",
-  "h1": "Education Facilities Management & Campus Maintenance",
+  "h1": "Schools & Multi-Academy Trust Facilities Management",
   "eyebrow": "Education Sector Scope",
   "heroIntro": "Compliant, reliable facilities management supporting schools, academies, colleges, and university campuses. Ensuring safe learning environments, statutory certification, and disciplined safeguarding.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

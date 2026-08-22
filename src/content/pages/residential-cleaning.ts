@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/residential-cleaning",
-  "title": "Residential Block Facilities Management | BTR & Estate FM | Entire FM",
+  "title": "Residential Block Cleaning | Communal Area Contract Cleaning | Entire FM",
   "metaDescription": "Facilities management for residential apartment blocks, Build-to-Rent (BTR) communities, and gated estates across the UK. Communal M&E, fire doors, and cleaning.",
-  "h1": "Residential Block & BTR Estate Facilities Management",
+  "h1": "Residential Block Communal Area Contract Cleaning",
   "eyebrow": "Residential Sector Scope",
   "heroIntro": "Proactive facilities management and building maintenance for apartment developments, Build-to-Rent (BTR) portfolios, and private residential estates. Managing communal plant, life safety, and resident satisfaction.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

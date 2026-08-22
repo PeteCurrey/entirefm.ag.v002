@@ -10,9 +10,9 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-for/healthcare-facilities-management",
-  "title": "Healthcare Facilities Management | Medical & Clinic FM | Entire FM",
+  "title": "Medical Clinic Facilities Management | Healthcare Estate FM | Entire FM",
   "metaDescription": "Specialist non-clinical facilities management for medical centres, private clinics, dental practices, and healthcare offices across the UK.",
-  "h1": "Healthcare Facilities Management & Clinic Maintenance",
+  "h1": "Medical Clinic & Health Centre Facilities Management",
   "eyebrow": "Healthcare Estate Scope",
   "heroIntro": "Rigorous non-clinical facilities management and building maintenance for medical centres, outpatient clinics, care facilities, and dental practices. Ensuring strict hygiene, air quality, and statutory compliance.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
