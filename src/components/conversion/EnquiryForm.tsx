@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Send, CheckCircle2, Shield, Phone, FileText } from 'lucide-react';
 
 interface EnquiryFormProps {
   defaultService?: string;
   defaultLocation?: string;
+  pageType?: string;
+  sector?: string;
   headline?: string;
   subheadline?: string;
   ctaText?: string;
@@ -15,12 +17,28 @@ interface EnquiryFormProps {
 export function EnquiryForm({
   defaultService = 'Total Facilities Management',
   defaultLocation = 'United Kingdom',
+  pageType = 'commercial-service',
+  sector = 'Commercial Property',
   headline = 'Request a Facilities Management Proposal',
   subheadline = 'Speak with our technical engineering and estates team. We provide bespoke FM contract scopes, planned maintenance reviews, and site surveys.',
   ctaText = 'Submit Proposal Request',
   badgeText = 'Commercial Enquiry',
 }: EnquiryFormProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [formTracking, setFormTracking] = useState({
+    landing_page: '',
+    conversion_page: '',
+    page_type: pageType,
+    location: defaultLocation,
+    service: defaultService,
+    sector: sector,
+    utm_source: '',
+    utm_medium: '',
+    utm_campaign: '',
+    utm_term: '',
+    utm_content: '',
+  });
+
   const [formData, setFormData] = useState({
     fullName: '',
     company: '',
@@ -32,9 +50,41 @@ export function EnquiryForm({
     message: '',
   });
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const currentUrl = window.location.pathname;
+      const searchParams = new URLSearchParams(window.location.search);
+      
+      const storedLanding = sessionStorage.getItem('efm_landing_page') || currentUrl;
+      sessionStorage.setItem('efm_landing_page', storedLanding);
+
+      setFormTracking({
+        landing_page: storedLanding,
+        conversion_page: currentUrl,
+        page_type: pageType,
+        location: defaultLocation,
+        service: defaultService,
+        sector: sector,
+        utm_source: searchParams.get('utm_source') || '',
+        utm_medium: searchParams.get('utm_medium') || '',
+        utm_campaign: searchParams.get('utm_campaign') || '',
+        utm_term: searchParams.get('utm_term') || '',
+        utm_content: searchParams.get('utm_content') || '',
+      });
+    }
+  }, [defaultLocation, defaultService, pageType, sector]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Frontend prototype submission
+    
+    // Log conversion event with full route & UTM attribution
+    if (typeof window !== 'undefined') {
+      console.log('Enquiry Form Submitted:', {
+        ...formData,
+        tracking: formTracking,
+      });
+    }
+    
     setSubmitted(true);
   };
 
@@ -72,6 +122,11 @@ export function EnquiryForm({
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Hidden Form Attribution Fields */}
+        <input type="hidden" name="landing_page" value={formTracking.landing_page} />
+        <input type="hidden" name="conversion_page" value={formTracking.conversion_page} />
+        <input type="hidden" name="page_type" value={formTracking.page_type} />
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label htmlFor="fullName" className="block text-xs font-semibold text-slate-300 mb-1">

@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { ShieldCheck, Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 
+import Image from 'next/image';
+
 export function Footer() {
   return (
     <footer className="bg-brand-navy border-t border-brand-border-dark text-slate-300">
@@ -36,14 +38,19 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Col 1: About & Operations */}
           <div className="lg:col-span-1 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-brand-gold flex items-center justify-center font-bold text-brand-navy text-sm rounded-sm">
-                EFM
+            <Link href="/" className="flex items-center gap-3 group focus:outline-none">
+              <div className="relative w-8 h-8 shrink-0">
+                <Image
+                  src="/logos/06-crystalline-colour-mark.webp"
+                  alt="EntireFM Mark"
+                  fill
+                  className="object-contain drop-shadow-sm"
+                />
               </div>
-              <span className="font-bold text-lg tracking-tight text-white">
-                Entire <span className="text-brand-gold">FM</span>
+              <span className="font-extrabold text-lg tracking-tight text-white flex items-center">
+                ENTIRE<span className="text-brand-gold ml-1">FM</span>
               </span>
-            </div>
+            </Link>
             <p className="text-xs text-slate-400 leading-relaxed">
               Entire Facilities Management delivers single-source hard FM, mechanical & electrical, compliance testing, industrial cleaning, and specialist services across the UK.
             </p>

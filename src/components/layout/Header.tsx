@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Phone, ChevronDown, Menu, X, ArrowRight, ShieldCheck, Building2, Wrench, MapPin, Layers } from 'lucide-react';
 
+import Image from 'next/image';
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
@@ -46,13 +48,19 @@ export function Header() {
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-3 group focus:outline-none">
-            <div className="w-10 h-10 bg-brand-gold flex items-center justify-center font-bold text-brand-navy text-xl tracking-tighter rounded-sm shadow-subtle group-hover:bg-brand-gold-light transition-colors">
-              EFM
+          <Link href="/" className="flex items-center gap-3.5 group focus:outline-none">
+            <div className="relative w-10 h-10 shrink-0">
+              <Image
+                src="/logos/06-crystalline-colour-mark.webp"
+                alt="EntireFM Infinity Mark"
+                fill
+                className="object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-200"
+                priority
+              />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight text-white group-hover:text-slate-100 transition-colors">
-                Entire <span className="text-brand-gold">FM</span>
+              <span className="font-extrabold text-xl tracking-tight text-white group-hover:text-slate-100 transition-colors flex items-center">
+                ENTIRE<span className="text-brand-gold ml-1">FM</span>
               </span>
               <span className="text-[10px] tracking-widest uppercase text-slate-400 font-mono">
                 Total Facilities Management
