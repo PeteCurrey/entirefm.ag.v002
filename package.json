@@ -9,6 +9,7 @@
     "lint": "next lint",
     "validate:routes": "tsx src/lib/routes/validate-routes.ts",
     "seo:audit": "node scripts/seo-audit.js",
+    "migration:audit": "node scripts/migration-audit.js",
     "test:seo": "jest --testPathPattern=__tests__/seo"
   },
   "dependencies": {

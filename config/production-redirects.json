@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "EntireFM Approved Production Redirects Registry",
+  "version": "1.0.0",
+  "generated": "2026-08-22",
+  "authority": "/config/production-url-manifest.json",
+  "rule": "A protected historic route may NEVER be a redirect source. All redirects must resolve in exactly 1 hop.",
+  "redirects": []
+}
