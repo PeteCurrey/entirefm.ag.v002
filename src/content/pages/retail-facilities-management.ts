@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/retail-facilities-management",
-  "title": "Retail Facilities Management | Sector Specialist Services | Entire FM",
-  "metaDescription": "Specialist retail facilities management. Tailored maintenance, statutory safety compliance, cleaning, and 24/7 helpdesk support.",
-  "h1": "Retail Facilities Management & Maintenance",
-  "eyebrow": "Specialist Industry Sector Scope",
-  "heroIntro": "Engineered facilities management and maintenance frameworks designed specifically for the operational demands, compliance regulations, and uptime requirements of the retail sector.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Retail Facilities Management | High-Footfall FM Services | Entire FM",
+  "metaDescription": "Specialist retail facilities management for shopping centres, high-street chains, and retail parks. Out-of-hours maintenance, customer hygiene, and HVAC care.",
+  "h1": "Retail Facilities Management & Store Maintenance",
+  "eyebrow": "Sector Specialist Scope",
+  "heroIntro": "Specialist facilities management engineered for retail environments. Delivering out-of-hours maintenance, HVAC temperature stability, customer washroom hygiene, and reactive emergency support across UK retail estates.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for retail facilities management",
   "primaryIntent": "retail facilities management services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Tailored FM Delivery for Retail Operations",
-      "body": "Every industry sector has unique operating pressures. EntireFM builds bespoke service level agreements matching your shift patterns, compliance mandates, and budget requirements."
+      "heading": "Protecting Footfall, Brand Presentation & Trading Continuity",
+      "body": "Retail environments demand high uptime and immaculate visual standards. A failure in climate control or washroom plumbing directly harms customer dwell time and sales. EntireFM provides multi-site retail maintenance with dedicated account managers and rapid reactive support."
     }
   ],
   "capabilities": [
     {
-      "name": "Sector-Specific Compliance & Auditing",
-      "description": "Rigorous adherence to statutory health, safety, and industry regulatory frameworks governing retail.",
-      "tag": "Compliance"
+      "name": "Out-of-Hours Engineering & Store Servicing",
+      "description": "Scheduled maintenance executed during non-trading hours to prevent disruption to customer shopping and till operations.",
+      "tag": "Trading Continuity"
     },
     {
-      "name": "Planned Plant & Environmental Maintenance",
-      "description": "Preventative servicing for heating, cooling, power distribution, and specialist ventilation systems.",
-      "tag": "PPM"
+      "name": "Customer Washroom & Hygiene Services",
+      "description": "High-frequency washroom servicing, automated sanitisation, consumable replenishment, and emergency plumbing triage.",
+      "tag": "Customer Experience"
     },
     {
-      "name": "Specialist Cleaning & Hygiene Standards",
-      "description": "Bespoke cleaning protocols aligned with retail operational hours and hygiene requirements.",
-      "tag": "Hygiene"
+      "name": "Retail HVAC & Comfort Cooling Maintenance",
+      "description": "PPM servicing of VRF climate systems, air curtains, and extractors ensuring comfortable store temperatures.",
+      "tag": "Climate Control"
     },
     {
-      "name": "24/7 Critical Emergency Response",
-      "description": "Rapid engineering dispatch to protect operational continuity and prevent downtime.",
-      "tag": "24/7 Support"
+      "name": "Emergency Glazing, Doors & Roller Shutters",
+      "description": "Rapid response for broken shopfront glazing, malfunctioning automatic doors, and jammed security shutters.",
+      "tag": "Store Security"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do you adapt maintenance schedules for retail environments?",
-      "answer": "We perform intrusive engineering works out of hours or during planned operational shutdowns to guarantee zero impact on your core activities."
+      "question": "Can retail maintenance works be scheduled outside store trading hours?",
+      "answer": "Yes. The vast majority of our retail engineering and deep cleaning works are carried out early morning or overnight to ensure zero impact on shoppers."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

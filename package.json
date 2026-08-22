@@ -12,9 +12,13 @@
     "migration:audit": "node scripts/migration-audit.js",
     "test:seo": "jest --testPathPattern=__tests__/seo",
     "verify:contacts": "node scripts/verify-contacts.js",
+    "verify:lead-pipeline": "node scripts/verify-lead-pipeline.js",
+    "verify:staging-noindex": "node scripts/verify-staging-noindex.js",
     "rendered:audit": "node scripts/rendered-audit.js",
+    "staging:crawl": "node scripts/crawl-staging.js",
+    "live:crawl": "node scripts/crawl-live-production-v2.js",
     "generate:content": "node scripts/generate-rich-content-database.js",
-    "phase09r:qa": "node scripts/verify-contacts.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit"
+    "phase09r2:qa": "node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit"
   },
   "dependencies": {
     "lucide-react": "^1.33.0",

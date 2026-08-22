@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-for/residential-facilities-management",
-  "title": "Facilities Management For/Residential Facilities Management | Sector Specialist Services | Entire FM",
-  "metaDescription": "Specialist facilities management for/residential facilities management. Tailored maintenance, statutory safety compliance, cleaning, and 24/7 helpdesk support.",
-  "h1": "Facilities Management For/Residential Facilities Management & Maintenance",
-  "eyebrow": "Specialist Industry Sector Scope",
-  "heroIntro": "Engineered facilities management and maintenance frameworks designed specifically for the operational demands, compliance regulations, and uptime requirements of the facilities management for/residential sector.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Residential Block Facilities Management | BTR & Estate FM | Entire FM",
+  "metaDescription": "Facilities management for residential apartment blocks, Build-to-Rent (BTR) communities, and gated estates across the UK. Communal M&E, fire doors, and cleaning.",
+  "h1": "Residential Block & BTR Estate Facilities Management",
+  "eyebrow": "Residential Sector Scope",
+  "heroIntro": "Proactive facilities management and building maintenance for apartment developments, Build-to-Rent (BTR) portfolios, and private residential estates. Managing communal plant, life safety, and resident satisfaction.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for facilities management for/residential facilities management",
   "primaryIntent": "facilities management for/residential facilities management services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Tailored FM Delivery for Facilities Management For/Residential Operations",
-      "body": "Every industry sector has unique operating pressures. EntireFM builds bespoke service level agreements matching your shift patterns, compliance mandates, and budget requirements."
+      "heading": "Protecting Resident Wellbeing and Estate Standards",
+      "body": "Residential estates require respectful, proactive care to maintain leaseholder satisfaction and building safety. EntireFM manages communal mechanical services, fire safety, and daily cleaning across modern residential portfolios."
     }
   ],
   "capabilities": [
     {
-      "name": "Sector-Specific Compliance & Auditing",
-      "description": "Rigorous adherence to statutory health, safety, and industry regulatory frameworks governing facilities management for/residential.",
-      "tag": "Compliance"
+      "name": "Communal Area Cleaning & Waste Management",
+      "description": "Scheduled cleaning of entrance lobbies, stairwells, glass balustrades, bin stores, and external courtyard areas.",
+      "tag": "Communal Care"
     },
     {
-      "name": "Planned Plant & Environmental Maintenance",
-      "description": "Preventative servicing for heating, cooling, power distribution, and specialist ventilation systems.",
-      "tag": "PPM"
+      "name": "Residential Fire Safety & Fire Door Audits",
+      "description": "Six-monthly fire door inspections, emergency lighting tests, and dry riser inspections meeting the Building Safety Act.",
+      "tag": "Building Safety"
     },
     {
-      "name": "Specialist Cleaning & Hygiene Standards",
-      "description": "Bespoke cleaning protocols aligned with facilities management for/residential operational hours and hygiene requirements.",
-      "tag": "Hygiene"
+      "name": "Lifts & Communal Mechanical Plant Servicing",
+      "description": "Servicing of booster pumps, communal heating calorifiers, extract fans, and access control intercoms.",
+      "tag": "Communal Plant"
     },
     {
-      "name": "24/7 Critical Emergency Response",
-      "description": "Rapid engineering dispatch to protect operational continuity and prevent downtime.",
-      "tag": "24/7 Support"
+      "name": "Resident Helpdesk & Out-of-Hours Response",
+      "description": "Dedicated out-of-hours triage for communal water leaks, power failures, and gate breakdowns.",
+      "tag": "Resident Desk"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do you adapt maintenance schedules for facilities management for/residential environments?",
-      "answer": "We perform intrusive engineering works out of hours or during planned operational shutdowns to guarantee zero impact on your core activities."
+      "question": "How do you assist residential blocks with the Building Safety Act?",
+      "answer": "We conduct required periodic checks on fire doors, smoke vents, emergency lighting, and maintain digital safety case files required under recent building safety regulations."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

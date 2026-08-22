@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-for/warehouse-%26-distribution",
-  "title": "Facilities Management For/Warehouse %26 Distribution Facilities Management | Sector Specialist Services | Entire FM",
-  "metaDescription": "Specialist facilities management for/warehouse %26 distribution facilities management. Tailored maintenance, statutory safety compliance, cleaning, and 24/7 helpdesk support.",
-  "h1": "Facilities Management For/Warehouse %26 Distribution Facilities Management & Maintenance",
-  "eyebrow": "Specialist Industry Sector Scope",
-  "heroIntro": "Engineered facilities management and maintenance frameworks designed specifically for the operational demands, compliance regulations, and uptime requirements of the facilities management for/warehouse %26 distribution sector.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Logistics & Warehouse Facilities Management | Distribution FM | Entire FM",
+  "metaDescription": "Total facilities management for distribution centres, warehouses, and logistics hubs. Dock levellers, high-bay lighting, slab maintenance, and roller shutters.",
+  "h1": "Logistics & Warehouse Facilities Management",
+  "eyebrow": "Distribution & Logistics Scope",
+  "heroIntro": "Specialist facilities management built for 24/7 distribution centres, parcel hubs, and high-bay warehouses. Keeping loading bays operational, yards secure, and warehouse lighting bright.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for facilities management for/warehouse %26 distribution",
   "primaryIntent": "facilities management for/warehouse %26 distribution services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Tailored FM Delivery for Facilities Management For/Warehouse %26 Distribution Operations",
-      "body": "Every industry sector has unique operating pressures. EntireFM builds bespoke service level agreements matching your shift patterns, compliance mandates, and budget requirements."
+      "heading": "Supporting 24/7 Logistics Throughput and Supply Chain Continuity",
+      "body": "Modern distribution networks operate around the clock. When a dock leveller fails or a shutter jams, lorries queue and delivery windows are missed. EntireFM delivers dependable planned maintenance and fast reactive repairs to keep logistics hubs operating."
     }
   ],
   "capabilities": [
     {
-      "name": "Sector-Specific Compliance & Auditing",
-      "description": "Rigorous adherence to statutory health, safety, and industry regulatory frameworks governing facilities management for/warehouse %26 distribution.",
-      "tag": "Compliance"
+      "name": "Loading Bay & Dock Leveller Servicing",
+      "description": "Hydraulic servicing, lip hinge lubrication, vehicle restraint checks, and dock bumper replacements.",
+      "tag": "Loading Bays"
     },
     {
-      "name": "Planned Plant & Environmental Maintenance",
-      "description": "Preventative servicing for heating, cooling, power distribution, and specialist ventilation systems.",
-      "tag": "PPM"
+      "name": "High-Speed Industrial Roller Shutters",
+      "description": "Motor brake tests, guide track lubrication, safety bottom edge testing, and rapid breakdown response.",
+      "tag": "Roller Doors"
     },
     {
-      "name": "Specialist Cleaning & Hygiene Standards",
-      "description": "Bespoke cleaning protocols aligned with facilities management for/warehouse %26 distribution operational hours and hygiene requirements.",
-      "tag": "Hygiene"
+      "name": "High-Bay LED Lighting & Emergency Lux Audits",
+      "description": "Racking aisle lighting maintenance, sensor optimization, and annual emergency lighting battery discharge testing.",
+      "tag": "High-Bay Lighting"
     },
     {
-      "name": "24/7 Critical Emergency Response",
-      "description": "Rapid engineering dispatch to protect operational continuity and prevent downtime.",
-      "tag": "24/7 Support"
+      "name": "Warehouse Floor Scrubbing & Slab Joint Care",
+      "description": "Heavy ride-on scrubber sweepers removing tyre marks and dust, plus floor expansion joint sealant repairs.",
+      "tag": "Floor Care"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do you adapt maintenance schedules for facilities management for/warehouse %26 distribution environments?",
-      "answer": "We perform intrusive engineering works out of hours or during planned operational shutdowns to guarantee zero impact on your core activities."
+      "question": "How frequently should warehouse dock levellers and doors be serviced?",
+      "answer": "We recommend bi-annual safety servicing for loading bay equipment and roller shutters to maintain compliance with the Workplace (Health, Safety and Welfare) Regulations."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

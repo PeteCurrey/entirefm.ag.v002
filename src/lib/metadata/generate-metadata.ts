@@ -16,15 +16,31 @@ import { getRoute } from '../routes/route-registry';
 import { getContentRecord } from '@/content/registry';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.entirefm.com';
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+
+/**
+ * STRICT TRIPLE-GATE SEARCH INDEXATION RULE:
+ * 1. ALLOW_SEARCH_INDEXING === 'true' (explicit production toggle)
+ * 2. VERCEL_ENV === 'production' OR NODE_ENV === 'production' without preview flags
+ * 3. SITE_URL hostname strictly matches 'www.entirefm.com'
+ * 
+ * If ANY condition fails (e.g. Vercel Preview, Staging, Local Dev), force noindex, nofollow.
+ */
+function isSearchIndexingAllowed(): boolean {
+  const allowFlag = process.env.ALLOW_SEARCH_INDEXING === 'true';
+  const isVercelProd = process.env.VERCEL_ENV === 'production';
+  const isNodeProd = process.env.NODE_ENV === 'production' && !process.env.VERCEL_PREVIEW_URL;
+  const isProdHost = SITE_URL.includes('www.entirefm.com');
+
+  return allowFlag && (isVercelProd || isNodeProd) && isProdHost;
+}
 
 /**
  * Generate robots directives for a route.
- * NON-PRODUCTION: always noindex, nofollow.
- * PRODUCTION: follows route indexable flag.
+ * Non-production or un-gated: strictly noindex, nofollow.
+ * Production gated: follows route.indexable configuration.
  */
 function getRobots(route: RouteRecord): Metadata['robots'] {
-  if (!IS_PRODUCTION) {
+  if (!isSearchIndexingAllowed()) {
     return {
       index: false,
       follow: false,
@@ -119,7 +135,7 @@ export const defaultMetadata: Metadata = {
   },
   description:
     'Entire FM provides integrated Hard FM, Soft FM, cleaning, PPM, and specialist facilities management services across the UK.',
-  robots: IS_PRODUCTION
+  robots: isSearchIndexingAllowed()
     ? { index: true, follow: true }
     : { index: false, follow: false },
   openGraph: {

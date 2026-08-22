@@ -51,40 +51,52 @@ export function TrustBar() {
   );
 }
 
+import { getVerifiedAccreditations } from '@/config/verified-claims';
+
 export function AccreditationRail() {
-  const accreditations = [
-    { title: 'SafeContractor', category: 'Health & Safety', status: 'TO_VERIFY' },
-    { title: 'NICEIC Approved', category: 'Electrical Safety', status: 'TO_VERIFY' },
-    { title: 'Gas Safe Register', category: 'Gas & Heating', status: 'TO_VERIFY' },
-    { title: 'BESA Member', category: 'Building Engineering', status: 'TO_VERIFY' },
-    { title: 'F-Gas / REFCOM', category: 'HVAC & Refrigeration', status: 'TO_VERIFY' },
-    { title: 'CHAS Accredited', category: 'Contractor Safety', status: 'TO_VERIFY' },
-  ];
+  const verifiedAccreditations = getVerifiedAccreditations();
 
   return (
     <div className="bg-brand-charcoal border-y border-brand-border-dark py-8 text-slate-300">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
           <div>
-            <span className="badge-gold">Rigorous Operational Standards</span>
-            <h3 className="text-lg font-bold text-white mt-1">Compliance Framework & Industry Accreditations</h3>
+            <span className="badge-gold">Operational Governance</span>
+            <h3 className="text-lg font-bold text-white mt-1">Compliance Management & Quality Framework</h3>
           </div>
-          <span className="text-xs text-slate-400 font-mono">Verified standards compliant with SFG20 & CIBSE guidelines</span>
+          <span className="text-xs text-slate-400 font-mono">Structured preventative maintenance & digital audit records</span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          {accreditations.map(acc => (
-            <div key={acc.title} className="p-3 bg-brand-navy/60 border border-brand-border-dark/80 rounded-sm flex flex-col justify-between">
-              <div>
-                <span className="text-[10px] uppercase font-mono text-slate-400 block">{acc.category}</span>
-                <span className="text-xs font-bold text-white mt-1 block">{acc.title}</span>
+        {verifiedAccreditations.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {verifiedAccreditations.map(acc => (
+              <div key={acc.id} className="p-3 bg-brand-navy/60 border border-brand-border-dark/80 rounded-sm flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] uppercase font-mono text-slate-400 block">{acc.category}</span>
+                  <span className="text-xs font-bold text-white mt-1 block">{acc.claim}</span>
+                </div>
+                <span className="text-[9px] text-brand-gold mt-2 flex items-center gap-1 font-mono">
+                  <CheckCircle2 className="w-2.5 h-2.5" /> Verified
+                </span>
               </div>
-              <span className="text-[9px] text-brand-gold/80 mt-2 flex items-center gap-1 font-mono">
-                <CheckCircle2 className="w-2.5 h-2.5" /> [VERIF. PENDING]
-              </span>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="p-4 bg-brand-navy/60 border border-brand-border-dark/80 rounded-sm">
+              <span className="text-xs font-bold text-white block mb-1">Statutory Compliance Management</span>
+              <p className="text-xs text-slate-400">Periodic testing, maintenance schedules, and digital compliance archiving across building services.</p>
             </div>
-          ))}
-        </div>
+            <div className="p-4 bg-brand-navy/60 border border-brand-border-dark/80 rounded-sm">
+              <span className="text-xs font-bold text-white block mb-1">Direct Engineering Accountability</span>
+              <p className="text-xs text-slate-400">Certified mobile engineering fleet and dedicated account managers providing transparent site reporting.</p>
+            </div>
+            <div className="p-4 bg-brand-navy/60 border border-brand-border-dark/80 rounded-sm">
+              <span className="text-xs font-bold text-white block mb-1">Digital CAFM Service Logging</span>
+              <p className="text-xs text-slate-400">Live service desk ticketing, PPM completion tracking, and instant job signoff documentation.</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

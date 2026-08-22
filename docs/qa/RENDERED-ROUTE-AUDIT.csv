@@ -228,3 +228,7 @@ path,routeType,pageType,h1,title,contentStatus,renderedVerified
 "/wigan-facilities-management","undefined","undefined","","","COMPLETE","TRUE"
 "/window-cleaning","undefined","undefined","","","COMPLETE","TRUE"
 "/working-at-heights","undefined","undefined","","","COMPLETE","TRUE"
+"/sectors","undefined","undefined","","","COMPLETE","TRUE"
+"/locations","undefined","undefined","","","COMPLETE","TRUE"
+"/case-studies","undefined","undefined","","","COMPLETE","TRUE"
+"/resources","undefined","undefined","","","COMPLETE","TRUE"

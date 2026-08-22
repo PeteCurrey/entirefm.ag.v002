@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/leeds-facilities-management",
-  "title": "Leeds Facilities Management | Corporate Estates & Property Management | Entire FM",
-  "metaDescription": "Corporate facilities management for Leeds managing agents, institutional landlords, and multi-tenanted offices in Spinningfields and the city centre.",
-  "h1": "Leeds Facilities Management — Corporate Estates & Property Management",
-  "eyebrow": "Yorkshire & Humber Regional Hub",
-  "heroIntro": "Specialist corporate facilities management for managing agents, institutional landlords, and commercial headquarters across Leeds city centre and Harrogate.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Leeds Facilities Management | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial leeds facilities management across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Leeds Facilities Management — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source leeds facilities management for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for leeds facilities management",
   "primaryIntent": "leeds facilities management services",
   "secondaryIntents": [
@@ -33,40 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Protecting Asset Value for Leeds Corporate Landlords",
-      "body": "Our Leeds corporate estate team provides managing agents and institutional investors with full FM service delivery, statutory compliance, and tenant lifecycle management."
+      "heading": "Delivering Excellence in Leeds Facilities Management",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "Leeds Commercial District Office FM",
-      "description": "Statutory compliance, HVAC maintenance, and commercial cleaning for Leeds city centre offices.",
-      "tag": "Commercial FM"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to leeds facilities management preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "M62 Logistics Corridor Support",
-      "description": "High-bay warehouse maintenance, dock leveller servicing, and industrial floor degreasing.",
-      "tag": "Logistics FM"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "Yorkshire Mobile Mechanical & Electrical Fleet",
-      "description": "Gas Safe and NICEIC certified engineers delivering planned and reactive maintenance.",
-      "tag": "Engineering"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
+    },
+    {
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do you support managing agents in Leeds?",
-      "answer": "We assign dedicated account managers for each Leeds managing agent client, coordinating maintenance, compliance, and tenant communications."
+      "question": "How does EntireFM deliver leeds facilities management contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -95,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

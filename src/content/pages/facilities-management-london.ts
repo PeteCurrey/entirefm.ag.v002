@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-london",
-  "title": "Facilities Management London | Planned Maintenance (PPM) & Compliance | Entire FM",
-  "metaDescription": "Comprehensive facilities management in London. SFG20 planned preventative maintenance, statutory compliance management, and total Hard & Soft FM contracts.",
-  "h1": "Facilities Management London — Planned Maintenance (PPM) & Compliance",
-  "eyebrow": "London Planned Maintenance & Total FM",
-  "heroIntro": "Total Facilities Management and planned preventative maintenance (PPM) contracts for commercial buildings, business parks, and corporate estates across London.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Facilities Management London | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial facilities management london across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Facilities Management London — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source facilities management london for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for facilities management london",
   "primaryIntent": "facilities management london services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Proactive Estate Governance for London Building Owners",
-      "body": "Our planned maintenance contracts are engineered to eliminate operational risks, maintain strict health and safety compliance, and provide full transparency over maintenance expenditure."
+      "heading": "Delivering Excellence in Facilities Management London",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "SFG20 Maintenance Scheduling for London Assets",
-      "description": "Structured planned maintenance preventing plant failure and extending asset lifecycle across London commercial estates.",
-      "tag": "SFG20"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to facilities management london preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "Statutory Electrical & Gas Compliance Audits",
-      "description": "Periodic EICR inspections, emergency lighting 3-hour tests, and Gas Safe commercial certification logged via CAFM.",
-      "tag": "Compliance"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "Integrated Hard & Soft FM Service Delivery",
-      "description": "Consolidated single-source contract covering M&E maintenance, daily office cleaning, security, and grounds care.",
-      "tag": "Integrated FM"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
     },
     {
-      "name": "Dedicated London Account Management",
-      "description": "Assigned contract managers conducting regular SLA reviews, energy optimisation audits, and capital expenditure forecasting.",
-      "tag": "Account Care"
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "Can EntireFM manage multi-site portfolios across Greater London?",
-      "answer": "Yes. We manage multi-site commercial office, retail, and mixed-use portfolios across London with centralized CAFM reporting."
+      "question": "How does EntireFM deliver facilities management london contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

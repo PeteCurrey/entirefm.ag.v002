@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/mobile-crane-hire",
-  "title": "Specialist Mobile Crane Hire | Truck-Mounted Cranes & Hoists | Entire FM",
-  "metaDescription": "Specialist mobile crane hire and truck-mounted crane services for high-level rooftop plant replacement, HVAC lifting, and structural installations.",
-  "h1": "Specialist Mobile Crane Hire & Rooftop Plant Lifting",
-  "eyebrow": "Specialist Plant & High-Reach Lifting",
-  "heroIntro": "Certified mobile crane hire and truck-mounted crane operations supporting HVAC chiller lifts, rooftop plant replacements, and structural engineering projects.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Mobile Crane Hire | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial mobile crane hire across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Mobile Crane Hire — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source mobile crane hire for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for mobile crane hire",
   "primaryIntent": "mobile crane hire services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Safe, Compliant Contract Lifting for Building Services",
-      "body": "Replacing rooftop mechanical plant requires precision engineering, strict safety protocols, and certified lifting equipment. EntireFM provides complete contract lift packages taking full statutory responsibility from site survey to final positioning."
+      "heading": "Delivering Excellence in Mobile Crane Hire",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "Truck-Mounted Mobile Cranes",
-      "description": "Rapid-deployment compact mobile cranes ideal for urban streets, tight access courtyards, and rooftop lifts.",
-      "tag": "Mobile Cranes"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to mobile crane hire preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "HVAC Chiller & Plant Room Lifting",
-      "description": "Precision contract lifting of heavy chillers, air handling units, and boiler components onto commercial building roofs.",
-      "tag": "Contract Lifting"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "CPA Appointed Person & Lift Plans",
-      "description": "Comprehensive lift plans, risk assessments, and method statements prepared by qualified CPA Appointed Persons.",
-      "tag": "CPA Compliant"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
     },
     {
-      "name": "Road Closures & Council Permits",
-      "description": "Management of highway permits, traffic control, and pedestrian management for urban crane operations.",
-      "tag": "Permit Management"
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "What is the difference between CPA Crane Hire and a CPA Contract Lift?",
-      "answer": "In a CPA Contract Lift, EntireFM supplies the crane, operator, Appointed Person, Slinger/Signaller, prepares the lift plan, and assumes full legal liability for the operation."
+      "question": "How does EntireFM deliver mobile crane hire contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

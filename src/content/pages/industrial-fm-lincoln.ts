@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/industrial-fm-lincoln",
-  "title": "Industrial & Manufacturing Facilities Management Lincoln | Entire FM",
-  "metaDescription": "Specialist industrial & manufacturing facilities management in Lincoln and Lincolnshire. M&E maintenance, commercial cleaning, compliance, and 24/7 helpdesk.",
-  "h1": "Industrial & Manufacturing Facilities Management Lincoln",
-  "eyebrow": "Lincolnshire Operational Centre",
-  "heroIntro": "Dedicated industrial & manufacturing facilities management for properties across Lincoln and Lincolnshire, managed directly from our regional operational centre.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Industrial Facilities Management | Factory & Plant Maintenance | Entire FM",
+  "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
+  "h1": "Industrial Facilities Management & Manufacturing Plant Maintenance",
+  "eyebrow": "Industrial Sector Scope",
+  "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for industrial fm lincoln",
   "primaryIntent": "industrial fm lincoln services",
   "secondaryIntents": [
@@ -33,40 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Industrial & Manufacturing Solutions Built for Lincoln Property Owners",
-      "body": "EntireFM provides dedicated industrial & manufacturing facilities management across Lincoln, providing local accountability and direct engineering delivery."
+      "heading": "Engineered for Heavy Manufacturing and Continuous Production",
+      "body": "Industrial environments present unique health, safety, and operational challenges. Unplanned plant stoppages result in massive financial losses. EntireFM provides rigorous PPM schedules, machinery interface maintenance, and strict adherence to industrial safety standards."
     }
   ],
   "capabilities": [
     {
-      "name": "Industrial & Manufacturing Plant & Equipment PPM",
-      "description": "Tailored maintenance routines for industrial & manufacturing infrastructure in Lincoln.",
-      "tag": "Maintenance"
+      "name": "Factory Shutdown Maintenance Windows",
+      "description": "Concentrated engineering overhauls during scheduled plant closures, bank holidays, and retooling shutdowns.",
+      "tag": "Shutdown Services"
     },
     {
-      "name": "Local Lincoln Engineering Fleet",
-      "description": "Fast on-site attendance from our Lincoln operational base for scheduled and emergency works.",
-      "tag": "Local Fleet"
+      "name": "Industrial Power Distribution & Switchgear",
+      "description": "PPM maintenance for high-load electrical switchrooms, transformers, busbars, and machinery supply circuits.",
+      "tag": "Heavy Power"
     },
     {
-      "name": "Full Statutory Compliance Certification",
-      "description": "Electrical, gas, fire, and water safety testing with digital audit logging.",
-      "tag": "Compliance"
+      "name": "Industrial Extraction & Ventilation Plant",
+      "description": "Ductwork degreasing, extraction fan motor servicing, filter overhauls, and local exhaust ventilation (LEV) testing.",
+      "tag": "LEV & Extraction"
+    },
+    {
+      "name": "Factory Floor Degreasing & High-Level Cleaning",
+      "description": "High-pressure floor scrubbers, chemical degreasing, overhead crane track vacuuming, and girder cleaning.",
+      "tag": "Plant Hygiene"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "Where is EntireFM’s Lincoln operational base?",
-      "answer": "Our Lincoln operational centre manages operations across Lincolnshire, Nottinghamshire, and the East Midlands."
+      "question": "Do your engineers have experience working in active manufacturing environments?",
+      "answer": "Yes. Our industrial engineering teams are fully trained in lock-out/tag-out (LOTO) procedures, permit-to-work systems, and working around active automated production lines."
     }
   ],
   "breadcrumbs": [
@@ -95,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

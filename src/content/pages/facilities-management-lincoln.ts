@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-lincoln",
-  "title": "Total Facilities Management Lincoln | Entire FM",
-  "metaDescription": "Specialist total facilities management in Lincoln and Lincolnshire. M&E maintenance, commercial cleaning, compliance, and 24/7 helpdesk.",
-  "h1": "Total Facilities Management Lincoln",
-  "eyebrow": "Lincolnshire Operational Centre",
-  "heroIntro": "Dedicated total facilities management for properties across Lincoln and Lincolnshire, managed directly from our regional operational centre.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Facilities Management Lincoln | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial facilities management lincoln across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Facilities Management Lincoln — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source facilities management lincoln for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for facilities management lincoln",
   "primaryIntent": "facilities management lincoln services",
   "secondaryIntents": [
@@ -33,40 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Total Solutions Built for Lincoln Property Owners",
-      "body": "EntireFM provides dedicated total facilities management across Lincoln, providing local accountability and direct engineering delivery."
+      "heading": "Delivering Excellence in Facilities Management Lincoln",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "Total Plant & Equipment PPM",
-      "description": "Tailored maintenance routines for total infrastructure in Lincoln.",
-      "tag": "Maintenance"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to facilities management lincoln preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "Local Lincoln Engineering Fleet",
-      "description": "Fast on-site attendance from our Lincoln operational base for scheduled and emergency works.",
-      "tag": "Local Fleet"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "Full Statutory Compliance Certification",
-      "description": "Electrical, gas, fire, and water safety testing with digital audit logging.",
-      "tag": "Compliance"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
+    },
+    {
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "Where is EntireFM’s Lincoln operational base?",
-      "answer": "Our Lincoln operational centre manages operations across Lincolnshire, Nottinghamshire, and the East Midlands."
+      "question": "How does EntireFM deliver facilities management lincoln contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -95,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

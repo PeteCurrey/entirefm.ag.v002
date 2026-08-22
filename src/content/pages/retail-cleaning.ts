@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/retail-cleaning",
-  "title": "Retail Cleaning | Entire FM",
-  "metaDescription": "Entire FM delivers expert retail cleaning services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
-  "h1": "Retail Cleaning",
-  "eyebrow": "Facilities Management & Engineering",
-  "heroIntro": "Entire Facilities Management provides professional, single-source retail cleaning for commercial, industrial, and multi-site portfolios across the UK.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Retail Facilities Management | High-Footfall FM Services | Entire FM",
+  "metaDescription": "Specialist retail facilities management for shopping centres, high-street chains, and retail parks. Out-of-hours maintenance, customer hygiene, and HVAC care.",
+  "h1": "Retail Facilities Management & Store Maintenance",
+  "eyebrow": "Sector Specialist Scope",
+  "heroIntro": "Specialist facilities management engineered for retail environments. Delivering out-of-hours maintenance, HVAC temperature stability, customer washroom hygiene, and reactive emergency support across UK retail estates.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for retail cleaning",
   "primaryIntent": "retail cleaning services",
   "secondaryIntents": [
@@ -33,16 +34,47 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
-  "sections": [],
-  "capabilities": [],
+  "sections": [
+    {
+      "heading": "Protecting Footfall, Brand Presentation & Trading Continuity",
+      "body": "Retail environments demand high uptime and immaculate visual standards. A failure in climate control or washroom plumbing directly harms customer dwell time and sales. EntireFM provides multi-site retail maintenance with dedicated account managers and rapid reactive support."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Out-of-Hours Engineering & Store Servicing",
+      "description": "Scheduled maintenance executed during non-trading hours to prevent disruption to customer shopping and till operations.",
+      "tag": "Trading Continuity"
+    },
+    {
+      "name": "Customer Washroom & Hygiene Services",
+      "description": "High-frequency washroom servicing, automated sanitisation, consumable replenishment, and emergency plumbing triage.",
+      "tag": "Customer Experience"
+    },
+    {
+      "name": "Retail HVAC & Comfort Cooling Maintenance",
+      "description": "PPM servicing of VRF climate systems, air curtains, and extractors ensuring comfortable store temperatures.",
+      "tag": "Climate Control"
+    },
+    {
+      "name": "Emergency Glazing, Doors & Roller Shutters",
+      "description": "Rapid response for broken shopfront glazing, malfunctioning automatic doors, and jammed security shutters.",
+      "tag": "Store Security"
+    }
+  ],
   "assetTypes": [],
-  "faqs": [],
+  "faqs": [
+    {
+      "question": "Can retail maintenance works be scheduled outside store trading hours?",
+      "answer": "Yes. The vast majority of our retail engineering and deep cleaning works are carried out early morning or overnight to ensure zero impact on shoppers."
+    }
+  ],
   "breadcrumbs": [
     {
       "name": "Home",
@@ -69,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

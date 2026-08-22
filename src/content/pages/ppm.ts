@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/ppm",
-  "title": "Planned Preventative Maintenance (PPM) | SFG20 Scheduling | Entire FM",
-  "metaDescription": "Strategic Planned Preventative Maintenance (PPM) contracts aligned to SFG20 standards. Protect building assets, ensure statutory compliance, and eliminate breakdown costs.",
+  "title": "Planned Preventative Maintenance (PPM) | Structured Building Care | Entire FM",
+  "metaDescription": "Strategic Planned Preventative Maintenance (PPM) contracts. Protect building assets, ensure statutory compliance, and eliminate breakdown costs across UK commercial portfolios.",
   "h1": "Planned Preventative Maintenance (PPM) Contracts",
   "eyebrow": "Strategic Asset Management",
   "heroIntro": "Structured Planned Preventative Maintenance (PPM) engineered to preserve building fabric, extend mechanical plant lifespan, and guarantee statutory compliance across your commercial estate.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for ppm",
   "primaryIntent": "ppm services",
   "secondaryIntents": [
@@ -33,11 +34,11 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
@@ -47,9 +48,9 @@ const record: ContentRecord = {
   ],
   "capabilities": [
     {
-      "name": "SFG20 Maintenance Scheduling",
-      "description": "Standardised task schedules based on the industry-recognised SFG20 standard for all mechanical, electrical, and fabric assets.",
-      "tag": "SFG20 Standards"
+      "name": "Standardised Maintenance Scheduling",
+      "description": "Task schedules based on industry-recognised engineering standards for mechanical, electrical, and fabric assets.",
+      "tag": "Task Scheduling"
     },
     {
       "name": "Digital Asset Tagging & CAFM Tracking",
@@ -58,7 +59,7 @@ const record: ContentRecord = {
     },
     {
       "name": "Statutory Health & Safety Certification",
-      "description": "Timely execution and archiving of mandatory electrical (EICR), gas safety, fire alarm, and water hygiene inspections.",
+      "description": "Timely execution and archiving of mandatory electrical, gas safety, fire alarm, and water hygiene inspections.",
       "tag": "Compliance"
     },
     {
@@ -70,8 +71,8 @@ const record: ContentRecord = {
   "assetTypes": [],
   "faqs": [
     {
-      "question": "What is the SFG20 standard in planned maintenance?",
-      "answer": "SFG20 is the definitive standard for building maintenance specifications in the UK. It defines exact task frequencies and inspection requirements for thousands of building asset types."
+      "question": "What assets should be included in a commercial PPM schedule?",
+      "answer": "A comprehensive PPM schedule covers HVAC, heating, electrical switchboards, emergency lighting, fire safety, water hygiene, automated doors, drainage pumps, and external roof/gutter fabric."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

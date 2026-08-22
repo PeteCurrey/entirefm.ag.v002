@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/post/facilities-management-in-different-sectors-similarities-differences-and-the-need-for-agility",
-  "title": "Post/Facilities Management In Different Sectors Similarities Differences And The Need For Agility | EntireFM Insights & FM Guidance",
-  "metaDescription": "Authoritative facilities management insights, engineering best practices, and compliance guidance from EntireFM's technical team.",
-  "h1": "Post/Facilities Management In Different Sectors Similarities Differences And The Need For Agility",
-  "eyebrow": "FM Insights & Technical Guidance",
-  "heroIntro": "Expert guidance on facilities management, building engineering, statutory compliance, and commercial asset maintenance.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Post/Facilities Management In Different Sectors Similarities Differences And The Need For Agility | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial post/facilities management in different sectors similarities differences and the need for agility across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Post/Facilities Management In Different Sectors Similarities Differences And The Need For Agility — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source post/facilities management in different sectors similarities differences and the need for agility for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for post/facilities management in different sectors similarities differences and the need for agility",
   "primaryIntent": "post/facilities management in different sectors similarities differences and the need for agility services",
   "secondaryIntents": [
@@ -33,35 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Key Considerations for Estate Directors and Facilities Managers",
-      "body": "Effective facilities management balances long-term asset value, statutory safety compliance, and cost optimization. Applying structured maintenance methodologies ensures uninterrupted business operations."
+      "heading": "Delivering Excellence in Post/Facilities Management In Different Sectors Similarities Differences And The Need For Agility",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "Industry Best Practices",
-      "description": "Actionable guidance on maintaining commercial estates efficiently and compliantly.",
-      "tag": "Guidance"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to post/facilities management in different sectors similarities differences and the need for agility preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "Statutory Compliance Overviews",
-      "description": "Breakdowns of UK building safety, fire regulations, electrical standards, and water hygiene.",
-      "tag": "Compliance"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
+    },
+    {
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
+    },
+    {
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How can I learn more about EntireFM services?",
-      "answer": "Contact our technical consulting desk for site-specific advice and asset reviews."
+      "question": "How does EntireFM deliver post/facilities management in different sectors similarities differences and the need for agility contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -90,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

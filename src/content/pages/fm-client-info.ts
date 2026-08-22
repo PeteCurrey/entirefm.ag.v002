@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/fm-client-info",
-  "title": "Fm Client Info | Client Helpdesk & Portal | Entire FM",
-  "metaDescription": "Access EntireFM's 24/7 client helpdesk, log maintenance tickets, track reactive engineer callouts, and view statutory compliance certificates.",
-  "h1": "Fm Client Info",
-  "eyebrow": "24/7 Operations Desk & Client Portal",
-  "heroIntro": "Central operations hub for EntireFM contracted clients. Log maintenance tickets, monitor reactive callouts in real time, and download compliance records.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Fm Client Info | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial fm client info across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Fm Client Info — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source fm client info for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for fm client info",
   "primaryIntent": "fm client info services",
   "secondaryIntents": [
@@ -33,40 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Direct Digital Accountability for Your Estate",
-      "body": "Our client helpdesk provides full transparency over every maintenance task, SLA performance metric, and compliance milestone across your portfolio."
+      "heading": "Delivering Excellence in Fm Client Info",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "Live Ticket Logging & Triage",
-      "description": "Submit urgent or scheduled work orders directly to our 24/7 operations team.",
-      "tag": "Live Triage"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to fm client info preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "Digital Compliance Certification",
-      "description": "Access and download gas, electrical, fire, and water hygiene certificates 24/7.",
-      "tag": "Audit Logs"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "Real-Time Engineer Tracking",
-      "description": "Monitor mobile engineer dispatch status and job completion notes.",
-      "tag": "Dispatch"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
+    },
+    {
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do I obtain login credentials for the EntireFM portal?",
-      "answer": "Contracted clients are provisioned with secure portal accounts upon contract commencement. Contact your account manager or helpdesk@entirefm.com."
+      "question": "How does EntireFM deliver fm client info contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -95,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

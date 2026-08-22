@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/industrial-cleaning",
-  "title": "Industrial Cleaning Services | Factory, Warehouse & Plant Cleans | Entire FM",
-  "metaDescription": "Heavy-duty industrial cleaning services across the UK. Factory shutdowns, high-level structural cleaning, machine degreasing, and industrial floor scrubbing.",
-  "h1": "Industrial Cleaning Services — Heavy Industrial & Manufacturing",
-  "eyebrow": "Specialist Industrial Hygiene",
-  "heroIntro": "Professional industrial cleaning contractors delivering heavy-duty facility cleans, factory shutdown sanitation, high-level access cleaning, and industrial floor degreasing nationwide.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Industrial Facilities Management | Factory & Plant Maintenance | Entire FM",
+  "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
+  "h1": "Industrial Facilities Management & Manufacturing Plant Maintenance",
+  "eyebrow": "Industrial Sector Scope",
+  "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for industrial cleaning",
   "primaryIntent": "industrial cleaning services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Industrial Hygiene Engineered for High-Hazard Facilities",
-      "body": "Industrial cleaning demands rigorous health and safety compliance, specialist equipment, and experienced personnel. EntireFM provides fully managed industrial cleaning teams equipped with advanced pressure washers, high-reach vacuums, and specialised eco-compliant chemical treatments."
+      "heading": "Engineered for Heavy Manufacturing and Continuous Production",
+      "body": "Industrial environments present unique health, safety, and operational challenges. Unplanned plant stoppages result in massive financial losses. EntireFM provides rigorous PPM schedules, machinery interface maintenance, and strict adherence to industrial safety standards."
     }
   ],
   "capabilities": [
     {
-      "name": "High-Level Structural Cleaning",
-      "description": "IPAF-certified high-level vacuuming and cleaning of roof trusses, ductwork, lighting rigs, and structural steel.",
-      "tag": "High-Level Access"
-    },
-    {
-      "name": "Factory Shutdown & Line Decontamination",
-      "description": "Fast-turnaround intensive shutdown cleans of production lines, conveyors, packaging halls, and industrial machinery.",
+      "name": "Factory Shutdown Maintenance Windows",
+      "description": "Concentrated engineering overhauls during scheduled plant closures, bank holidays, and retooling shutdowns.",
       "tag": "Shutdown Services"
     },
     {
-      "name": "Industrial Floor Scrubbing & Degreasing",
-      "description": "Ride-on scrubber-dryers, rotary stripping, and chemical degreasing for high-traffic warehouse and factory flooring.",
-      "tag": "Floor Care"
+      "name": "Industrial Power Distribution & Switchgear",
+      "description": "PPM maintenance for high-load electrical switchrooms, transformers, busbars, and machinery supply circuits.",
+      "tag": "Heavy Power"
     },
     {
-      "name": "Confined Space & Tank Cleaning",
-      "description": "Trained entry teams for chemical tanks, silos, extraction plenums, and below-ground containment areas.",
-      "tag": "Confined Space"
+      "name": "Industrial Extraction & Ventilation Plant",
+      "description": "Ductwork degreasing, extraction fan motor servicing, filter overhauls, and local exhaust ventilation (LEV) testing.",
+      "tag": "LEV & Extraction"
+    },
+    {
+      "name": "Factory Floor Degreasing & High-Level Cleaning",
+      "description": "High-pressure floor scrubbers, chemical degreasing, overhead crane track vacuuming, and girder cleaning.",
+      "tag": "Plant Hygiene"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "Can EntireFM carry out industrial cleaning during night shifts or planned shutdowns?",
-      "answer": "Yes. We frequently operate 24/7 during factory closures, bank holidays, and scheduled maintenance windows to ensure zero disruption to production output."
+      "question": "Do your engineers have experience working in active manufacturing environments?",
+      "answer": "Yes. Our industrial engineering teams are fully trained in lock-out/tag-out (LOTO) procedures, permit-to-work systems, and working around active automated production lines."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

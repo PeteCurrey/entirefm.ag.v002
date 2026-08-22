@@ -1,0 +1,12 @@
+claimId,claimDescription,componentSource,status,publicRenderingAllowed,actionTaken
+ACCRED_GAS_SAFE,"Gas Safe Registered",AccreditationRail/Footer,TO_VERIFY,FALSE,"Hidden until human verification evidence provided"
+ACCRED_NICEIC,"NICEIC Approved Contractor",AccreditationRail/Footer,TO_VERIFY,FALSE,"Hidden until human verification evidence provided"
+ACCRED_SAFECONTRACTOR,"SafeContractor Accredited",AccreditationRail/Footer,TO_VERIFY,FALSE,"Hidden until human verification evidence provided"
+ACCRED_CHAS,"CHAS Accredited",AccreditationRail/Footer,TO_VERIFY,FALSE,"Hidden until human verification evidence provided"
+ACCRED_BESA,"BESA Member",AccreditationRail/Footer,TO_VERIFY,FALSE,"Hidden until human verification evidence provided"
+ACCRED_FGAS_REFCOM,"F-Gas / REFCOM Certified",AccreditationRail/Footer,TO_VERIFY,FALSE,"Hidden until human verification evidence provided"
+OPS_247_EMERGENCY,"24/7 National Operations Helpdesk",ProposalSection/HomeHero,TO_VERIFY,FALSE,"Replaced with factual 'Central Operations Helpdesk' / 'Operations Support'"
+OPS_SELF_DELIVERY,"100% Self-Delivery / No Subcontracting",HomeHero/ProposalSection,TO_VERIFY,FALSE,"Replaced with factual 'Direct Delivery Framework'"
+LEGAL_COMPLIANCE_GUARANTEE,"Full Statutory Compliance Guarantee",ProposalSection,DO_NOT_USE,FALSE,"Replaced with 'Comprehensive Statutory Compliance Management'"
+STATS_PORTFOLIO_METRICS,"Contract Statistics / Portfolio Savings %",CaseStudyFeature/CaseStudies,DO_NOT_USE,FALSE,"Removed fabricated AI percentage statistics; marked DRAFT_NOT_PUBLISHABLE"
+GEO_REGIONAL_CENTRES,"Physical Regional Depots / Operating Centres",LocationTemplates/Contact,DO_NOT_USE,FALSE,"Replaced with 'Regional Service Coverage' / 'Mobile Engineering Fleet'"

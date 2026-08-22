@@ -1,9 +1,2582 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "EntireFM Approved Production Redirects Registry",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "generated": "2026-08-22",
-  "authority": "/config/production-url-manifest.json",
-  "rule": "A protected historic route may NEVER be a redirect source. All redirects must resolve in exactly 1 hop.",
-  "redirects": []
+  "authority": "FULL-CURRENT-ESTATE-MIGRATION-MAP.csv",
+  "rules": {
+    "singleHopEnforced": true,
+    "protectedSourceForbidden": true,
+    "selfCanonicalDestinationRequired": true
+  },
+  "totalRedirects": 428,
+  "redirects": [
+    {
+      "source": "/about",
+      "destination": "/about-entire-facilities-management",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/academy",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/academy/drone-inspection-guide",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/academy/fire-safety-compliance",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/academy/legionella-water-safety",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/academy/multi-site-fm-management",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/academy/understanding-ppm",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/awards",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/building-walk",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/building-walk/hotel-fm-guest-experience",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/building-walk/industrial-cleaning-before-after",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/building-walk/office-building-fm-walkthrough",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/building-walk/residential-block-fm-issues",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/building-walk/retail-unit-compliance-walkthrough",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/careers",
+      "destination": "/job-board",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/case-studies/aviation",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/corporate",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/corporate-office-campus-fm",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/corporate-office-london",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/engineering",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/healthcare",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/hospitality",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/hotel-fm-transformation",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/industrial-cleaning-restoration",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/industrial-warehouse-sheffield",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/logistics",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/motorway-services-fm-contract",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/pbsa",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/pbsa-estate-manchester",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/residential-estate-management",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/retail",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/retail-complex-birmingham",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/retail-estate-ppm-rollout",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/case-studies/service-stations",
+      "destination": "/case-studies",
+      "statusCode": 301,
+      "reason": "Consolidation to case studies portfolio hub"
+    },
+    {
+      "source": "/compare",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/compare/entirefm-vs-call-out-only",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/compare/entirefm-vs-cbre",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/compare/entirefm-vs-freelance",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/compare/entirefm-vs-in-house",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/compare/entirefm-vs-jll",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/compare/entirefm-vs-mitie",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/compare/entirefm-vs-sodexo",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/compliance-diagnostic",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/compliance-pack",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/compliance-risk-diagnostic",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact-us",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/coverage",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/entirecafm",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/esg",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights",
+      "destination": "/blog",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/fm-insights/hard-fm-vs-soft-fm",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/how-often-emergency-lighting-tested",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/how-often-fire-alarms-tested",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-are-rams",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-a-compliance-calendar",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-a-fire-risk-assessment",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-a-ppm-planner",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-a-tm44",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-acop-l8",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-an-asset-register",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-an-eicr",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-f-gas-compliance",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-facilities-management",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-hard-fm",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-ifm",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-lock-out-tag-out",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-ppm",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-soft-fm",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-statutory-maintenance",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/what-is-tfm",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-insights/who-is-the-responsible-person",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-intelligence",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-market-report",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/asset-lifecycle",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/business-continuity",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/fm-strategy",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/helpdesk",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/knowledge-base",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/leads",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/mobilisation",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/occupier-experience",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/platform",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/ppm-delivery",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/reactive-maintenance",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/report-issue",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-operations/tender-support",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/health-safety",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/innovation",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/integrations",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/integrations/concept-evolution",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/integrations/dwellant",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/integrations/elogbooks",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/integrations/mri-qube",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/integrations/mycompliance",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/integrations/planon",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/integrations/verisae",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/leadership",
+      "destination": "/facilities-management-team",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/link-health",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/locations",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/locations/birmingham",
+      "destination": "/locations",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy nested location to location hub"
+    },
+    {
+      "source": "/locations/chesterfield",
+      "destination": "/locations",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy nested location to location hub"
+    },
+    {
+      "source": "/locations/derby",
+      "destination": "/locations",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy nested location to location hub"
+    },
+    {
+      "source": "/locations/leeds",
+      "destination": "/locations",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy nested location to location hub"
+    },
+    {
+      "source": "/locations/leicester",
+      "destination": "/locations",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy nested location to location hub"
+    },
+    {
+      "source": "/locations/lincoln",
+      "destination": "/locations",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy nested location to location hub"
+    },
+    {
+      "source": "/locations/liverpool",
+      "destination": "/locations",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy nested location to location hub"
+    },
+    {
+      "source": "/locations/london",
+      "destination": "/locations",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy nested location to location hub"
+    },
+    {
+      "source": "/locations/manchester",
+      "destination": "/locations",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy nested location to location hub"
+    },
+    {
+      "source": "/locations/nottingham",
+      "destination": "/locations",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy nested location to location hub"
+    },
+    {
+      "source": "/locations/sheffield",
+      "destination": "/locations",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy nested location to location hub"
+    },
+    {
+      "source": "/marketplace",
+      "destination": "/fm-supply-form",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/partners",
+      "destination": "/partnerships",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/partners/commercial-surveyors",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/partners/construction-developers",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/partners/insurance-brokers",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/partners/property-management",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy-policy",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/request-proposal",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources",
+      "destination": "/blog",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/resources/audit-framework",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/compliance-calendar",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/compliance-calendar-2025",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/document-vault",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/eicr-manual",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/electrical-eicr-survival-manual",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/emergency-lighting-checklist",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/emergency-lighting-testing",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/energy-esg",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/engineer-standards",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/facilities-management-checklist-2025",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/fgas-tracker",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/fire-alarm-testing-frequency",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/fire-risk-assessment-guide",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/fire-risk-guide",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/hard-fm-vs-soft-fm-vs-specialist-engineering",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/legionella-governance-guide",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/legionella-guide",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/ppm-vs-reactive-maintenance",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/switch-playbook",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/tender-support",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/top-fm-providers-uk",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/what-is-a-compliance-calendar",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/what-is-a-ppm-planner",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/what-is-an-asset-register",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/what-is-integrated-facilities-management",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/resources/what-is-total-facilities-management",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/search",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/sectors",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/sectors/airports",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/aviation",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/construction-developments",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/education",
+      "destination": "/education-facilities-management",
+      "statusCode": 301,
+      "reason": "Consolidation of /sectors/* to historic root sector page"
+    },
+    {
+      "source": "/sectors/healthcare-public",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/hospitality-leisure",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/hotels-leisure",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/industrial-logistics",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/logistics-parks",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/offices",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/offices-corporate",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/pbsa",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/residential",
+      "destination": "/residential-facilities-management",
+      "statusCode": 301,
+      "reason": "Consolidation of /sectors/* to historic root sector page"
+    },
+    {
+      "source": "/sectors/residential-pbsa",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/retail-hospitality",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/retail-service-stations",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/sectors/venues",
+      "destination": "/sectors",
+      "statusCode": 301,
+      "reason": "Fallback to main sectors hub"
+    },
+    {
+      "source": "/services/abseil-rail-certification",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/access-control",
+      "destination": "/mechanical-electrical/access-control",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/access-control-advanced",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/air-filtration-hepa",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/anpr-systems",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/bms-integration-testing",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/bmu-cradle-servicing",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/building-fabric",
+      "destination": "/building-maintenance",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/building-inspections",
+      "destination": "/building-inspecting-testing",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/car-park-co-monitoring",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/car-park-fume-extraction",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/cctv-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/commercial-plumbing",
+      "destination": "/plumbing-gas",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/compressor-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical-infrastructure",
+      "destination": "/safety-critical-emergency-systems",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/critical/arc-flash-assessment",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/arc-flash-assessment/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/arc-flash-assessment/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/arc-flash-assessment/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/arc-flash-assessment/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/arc-flash-assessment/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/arc-flash-assessment/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/arc-flash-assessment/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/arc-flash-assessment/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/arc-flash-assessment/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/data-room-audits",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/data-room-audits/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/data-room-audits/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/data-room-audits/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/data-room-audits/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/data-room-audits/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/data-room-audits/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/data-room-audits/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/data-room-audits/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/data-room-audits/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/generator-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/generator-maintenance/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/generator-maintenance/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/generator-maintenance/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/generator-maintenance/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/generator-maintenance/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/generator-maintenance/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/generator-maintenance/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/generator-maintenance/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/generator-maintenance/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/hv-switching",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/hv-switching/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/hv-switching/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/hv-switching/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/hv-switching/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/hv-switching/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/hv-switching/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/hv-switching/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/hv-switching/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/hv-switching/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/lightning-protection",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/lightning-protection/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/lightning-protection/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/lightning-protection/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/lightning-protection/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/lightning-protection/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/lightning-protection/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/lightning-protection/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/lightning-protection/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/lightning-protection/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-quality",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-quality/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-quality/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-quality/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-quality/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-quality/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-quality/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-quality/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-quality/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-quality/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-redundancy",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-redundancy/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-redundancy/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-redundancy/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-redundancy/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-redundancy/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-redundancy/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-redundancy/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-redundancy/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/power-redundancy/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/thermal-imaging",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/thermal-imaging/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/thermal-imaging/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/thermal-imaging/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/thermal-imaging/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/thermal-imaging/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/thermal-imaging/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/thermal-imaging/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/thermal-imaging/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/thermal-imaging/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/ups-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/ups-maintenance/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/ups-maintenance/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/ups-maintenance/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/ups-maintenance/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/ups-maintenance/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/ups-maintenance/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/ups-maintenance/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/ups-maintenance/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/critical/ups-maintenance/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/data-centre-cooling-compliance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/dilapidation-compliance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/disaster-recovery",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/dock-leveller-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/drainage-cctv-surveys",
+      "destination": "/drainage-services",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/drone-inspections",
+      "destination": "/aerial-drone-building-inspection",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/dry-riser-testing",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/electrical",
+      "destination": "/mechanical-electrical",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/electrical-compliance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/electrical/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/electrical/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/electrical/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/electrical/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/electrical/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/electrical/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/electrical/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/electrical/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/electrical/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/emergency-lighting",
+      "destination": "/mechanical-electrical/emergency-light-testing",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/emergency-lighting/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/emergency-lighting/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/emergency-lighting/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/emergency-lighting/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/emergency-lighting/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/emergency-lighting/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/emergency-lighting/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/emergency-lighting/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/emergency-lighting/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/emergency-response",
+      "destination": "/24-7-fm-support",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/emergency-systems",
+      "destination": "/safety-critical-emergency-systems",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/energy-audits",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/energy-optimisation",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/environmental-noise-surveys",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/evacuation-chair-servicing",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/fire-alarms",
+      "destination": "/fire-emergency-systems",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/fire-compartmentation-surveys",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/fire-safety",
+      "destination": "/fire-emergency-systems",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/fire/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/fire/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/fire/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/fire/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/fire/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/fire/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/fire/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/fire/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/fire/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/front-of-house",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/fume-extraction-lev",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/gas-safety",
+      "destination": "/plumbing-gas",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/gas/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/gas/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/gas/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/gas/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/gas/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/gas/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/gas/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/gas/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/gas/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/general-maintenance",
+      "destination": "/building-maintenance",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/generator-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/grease-trap-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/hard-fm",
+      "destination": "/hard-services",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/hard-services",
+      "destination": "/hard-services",
+      "statusCode": 301,
+      "reason": "Consolidation of /services/* subpath to root historic URL"
+    },
+    {
+      "source": "/services/hard-services-fm",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/height-safety",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/hvac",
+      "destination": "/hvac-contractor",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/hvac-compliance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/hvac/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/hvac/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/hvac/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/hvac/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/hvac/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/hvac/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/hvac/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/hvac/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/hvac/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/indoor-air-quality-testing",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/industrial-cleaning",
+      "destination": "/industrial-cleaning",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/industrial-refrigeration",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/interceptor-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/leak-detection-repair",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/lifting-equipment",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/lightning-protection-testing",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/load-bank-testing",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/loading-bay-safety-systems",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/mansafe-testing",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/me-services",
+      "destination": "/mechanical-electrical",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/mewp-safety-checks",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/out-of-hours-support",
+      "destination": "/24-7-fm-support",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/plant-room-risk-assessments",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/plumbing",
+      "destination": "/plumbing-gas",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/power-quality-analysis",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/ppm",
+      "destination": "/ppm",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/ppm/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/ppm/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/ppm/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/ppm/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/ppm/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/ppm/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/ppm/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/ppm/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/ppm/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/pump-room-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/pump-station-servicing",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/rising-mains",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/roller-shutter-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/roof-safety-inspections",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/security-systems-healthcheck",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/smart-building-iot",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/smoke-vent-systems",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/soft-fm",
+      "destination": "/soft-services",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/space-planning",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/sprinklers",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/staircase-pressurisation",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/sustainability-monitoring",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/thermal-imaging-surveys",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/total-facilities-management",
+      "destination": "/commercial-facilities-management",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/ups-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/waste-compliance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/water-hygiene",
+      "destination": "/water-treatment-chlorination",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/services/water-optimisation",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/water-treatment-plant-maintenance",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/water/birmingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/water/chesterfield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/water/derby",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/water/leeds",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/water/lincoln",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/water/london",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/water/manchester",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/water/nottingham",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/services/water/sheffield",
+      "destination": "/services",
+      "statusCode": 301,
+      "reason": "Fallback to main services hub"
+    },
+    {
+      "source": "/sitemap",
+      "destination": "/sitemap.xml",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/social-value",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/soft-services/concierge",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/soft-services/grounds-maintenance",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/soft-services/specialist-cleaning",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/soft-services/waste-recycling",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/suppliers",
+      "destination": "/fm-supply-form",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/sustainability",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/technology",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms-and-conditions",
+      "statusCode": 301,
+      "reason": "Semantic intent consolidation into protected historic page"
+    },
+    {
+      "source": "/tools/compliance-calendar",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/compliance-checker",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/cost-savings-calculator",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/fm-health-check",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/fm-roi-calculator",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/ppm-calculator",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/ppm-estimator",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/ppm-schedule-builder",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/risk-diagnostic",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/sla-benchmark",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/tender-brief",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/tm44-checker",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/tools/water-risk-grader",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "Consolidation of legacy programmatic experiment to homepage"
+    },
+    {
+      "source": "/visual-standards",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/why-entirefm",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    },
+    {
+      "source": "/why-switch",
+      "destination": "/",
+      "statusCode": 301,
+      "reason": "General legacy redirect to homepage"
+    }
+  ]
 }

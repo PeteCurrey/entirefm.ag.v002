@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/caretaker",
-  "title": "Caretaker | Entire FM",
-  "metaDescription": "Entire FM delivers expert caretaker services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
-  "h1": "Caretaker",
-  "eyebrow": "Facilities Management & Engineering",
-  "heroIntro": "Entire Facilities Management provides professional, single-source caretaker for commercial, industrial, and multi-site portfolios across the UK.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Corporate Concierge & On-Site Caretaker Services | Entire FM",
+  "metaDescription": "Professional corporate concierge and dedicated on-site caretakers for commercial offices, residential developments, and business parks.",
+  "h1": "Corporate Concierge & On-Site Caretaking Services",
+  "eyebrow": "Workplace & Facility Support",
+  "heroIntro": "High-caliber corporate concierge, front-of-house receptionists, and on-site building caretakers managing visitor access, building security, deliveries, and day-to-day facilities tasks.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for caretaker",
   "primaryIntent": "caretaker services",
   "secondaryIntents": [
@@ -33,16 +34,47 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
-  "sections": [],
-  "capabilities": [],
+  "sections": [
+    {
+      "heading": "Elevating Tenant Experience and Building Management",
+      "body": "Having a dependable on-site presence ensures that minor building issues are resolved before they escalate, visitors receive a premium welcome, and contractors are supervised effectively. EntireFM delivers vetted, trained concierge and caretaking personnel."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Front-of-House Corporate Concierge",
+      "description": "Professional reception, visitor greeting, digital sign-in, access pass issuance, and executive client support.",
+      "tag": "Front of House"
+    },
+    {
+      "name": "Dedicated On-Site Facility Caretakers",
+      "description": "Daily building walk-throughs, light bulb replacements, minor fabric repairs, contractor escorting, and parcel management.",
+      "tag": "Caretaking"
+    },
+    {
+      "name": "Opening, Closing & Security Lockups",
+      "description": "Scheduled unlocking of commercial buildings, perimeter check, alarm arming, and evening security sweeps.",
+      "tag": "Building Security"
+    },
+    {
+      "name": "Incident Logging & Helpdesk Coordination",
+      "description": "On-site reporting of maintenance defects, coordinating contractor access, and verifying work signoffs.",
+      "tag": "Site Coordination"
+    }
+  ],
   "assetTypes": [],
-  "faqs": [],
+  "faqs": [
+    {
+      "question": "Are your concierge and caretaking staff trained in emergency response?",
+      "answer": "Yes. All on-site staff receive training in building evacuation procedures, first aid basics, fire alarm response, and incident escalation."
+    }
+  ],
   "breadcrumbs": [
     {
       "name": "Home",
@@ -69,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

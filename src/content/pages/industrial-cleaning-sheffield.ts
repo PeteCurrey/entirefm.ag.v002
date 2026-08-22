@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/industrial-cleaning-sheffield",
-  "title": "Industrial Cleaning in Sheffield | Professional Services | Entire FM",
-  "metaDescription": "Specialist industrial cleaning services in Sheffield. Directly employed local teams, professional equipment, and full compliance certification.",
-  "h1": "Industrial Cleaning Sheffield",
-  "eyebrow": "Sheffield Local Service Delivery",
-  "heroIntro": "Professional industrial cleaning delivered across Sheffield and surrounding commercial districts by EntireFM’s regional operations teams.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Industrial Facilities Management | Factory & Plant Maintenance | Entire FM",
+  "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
+  "h1": "Industrial Facilities Management & Manufacturing Plant Maintenance",
+  "eyebrow": "Industrial Sector Scope",
+  "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for industrial cleaning sheffield",
   "primaryIntent": "industrial cleaning sheffield services",
   "secondaryIntents": [
@@ -33,40 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Reliable Industrial Cleaning Across Sheffield",
-      "body": "EntireFM provides dependable, high-quality industrial cleaning for commercial offices, industrial plants, retail premises, and residential developments in Sheffield."
+      "heading": "Engineered for Heavy Manufacturing and Continuous Production",
+      "body": "Industrial environments present unique health, safety, and operational challenges. Unplanned plant stoppages result in massive financial losses. EntireFM provides rigorous PPM schedules, machinery interface maintenance, and strict adherence to industrial safety standards."
     }
   ],
   "capabilities": [
     {
-      "name": "Dedicated Sheffield Service Team",
-      "description": "Experienced local operatives equipped with commercial-grade equipment and eco-compliant treatments.",
-      "tag": "Local Delivery"
+      "name": "Factory Shutdown Maintenance Windows",
+      "description": "Concentrated engineering overhauls during scheduled plant closures, bank holidays, and retooling shutdowns.",
+      "tag": "Shutdown Services"
     },
     {
-      "name": "Health & Safety Certified",
-      "description": "Fully insured, COSHH compliant, and trained to industry-leading health and safety standards.",
-      "tag": "Safety"
+      "name": "Industrial Power Distribution & Switchgear",
+      "description": "PPM maintenance for high-load electrical switchrooms, transformers, busbars, and machinery supply circuits.",
+      "tag": "Heavy Power"
     },
     {
-      "name": "Flexible Out-of-Hours Scheduling",
-      "description": "Available for early morning, evening, weekend, and shutdown operations to minimize disruption.",
-      "tag": "Flexible Hours"
+      "name": "Industrial Extraction & Ventilation Plant",
+      "description": "Ductwork degreasing, extraction fan motor servicing, filter overhauls, and local exhaust ventilation (LEV) testing.",
+      "tag": "LEV & Extraction"
+    },
+    {
+      "name": "Factory Floor Degreasing & High-Level Cleaning",
+      "description": "High-pressure floor scrubbers, chemical degreasing, overhead crane track vacuuming, and girder cleaning.",
+      "tag": "Plant Hygiene"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "Do you provide free surveys for industrial cleaning in Sheffield?",
-      "answer": "Yes. We provide on-site technical surveys and transparent written proposals for all commercial sites in Sheffield."
+      "question": "Do your engineers have experience working in active manufacturing environments?",
+      "answer": "Yes. Our industrial engineering teams are fully trained in lock-out/tag-out (LOTO) procedures, permit-to-work systems, and working around active automated production lines."
     }
   ],
   "breadcrumbs": [
@@ -95,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

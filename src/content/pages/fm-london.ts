@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/fm-london",
-  "title": "FM London | 24/7 Emergency Operations & Reactive Engineering | Entire FM",
-  "metaDescription": "24/7 emergency facilities management and rapid reactive engineering across Greater London (Zones 1-6 & M25). Urgent M&E, HVAC, power, and plumbing triage.",
-  "h1": "FM London — 24/7 Emergency Operations & Reactive Engineering Desk",
-  "eyebrow": "London Rapid Response Engineering",
-  "heroIntro": "Immediate 24/7 emergency facilities management and mobile engineering dispatch across Central London, City, Docklands, and the M25 corridor. When critical building plant fails, our live operations desk mobilises qualified engineers directly to site.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Fm London | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial fm london across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Fm London — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source fm london for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for fm london",
   "primaryIntent": "fm london services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "High-Availability Engineering for Fast-Paced London Properties",
-      "body": "London commercial real estate cannot afford prolonged downtime. EntireFM operates a dedicated London response fleet with ULEZ-compliant vans stocked with critical spares to resolve urgent incidents on the first visit."
+      "heading": "Delivering Excellence in Fm London",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "24/7 London Emergency Plant Dispatch",
-      "description": "Immediate technical helpdesk triage and mobile M&E engineering van dispatch across Zones 1–6 and the M25.",
-      "tag": "24/7 Callout"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to fm london preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "HVAC, Chiller & Boiler Breakdown Response",
-      "description": "Rapid on-site troubleshooting and parts replacement for commercial heating, VRV air conditioning, and critical cooling failures.",
-      "tag": "Critical Climate"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "Power Failure & Switchgear Emergency Support",
-      "description": "Emergency certified electricians on call for commercial power outages, distribution fault finding, and generator activation.",
-      "tag": "Emergency Power"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
     },
     {
-      "name": "Water Ingress, Pipe Bursts & Drainage Clearance",
-      "description": "Rapid commercial plumbing triage, high-pressure water jetting, and emergency valve isolation for London commercial premises.",
-      "tag": "Plumbing & Drainage"
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "What is EntireFM’s emergency callout window in Central London?",
-      "answer": "Our dedicated London helpdesk operates 24/7/365. Contractual emergency callout windows are established based on site criticality (typically 2 to 4 hours for priority commercial accounts across Zones 1–4)."
+      "question": "How does EntireFM deliver fm london contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

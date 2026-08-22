@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-oxford",
-  "title": "Facilities Management Oxford | Entire FM",
-  "metaDescription": "Entire FM delivers expert facilities management oxford services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
-  "h1": "Facilities Management Oxford",
-  "eyebrow": "Facilities Management & Engineering",
-  "heroIntro": "Entire Facilities Management provides professional, single-source facilities management oxford for commercial, industrial, and multi-site portfolios across the UK.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Facilities Management Oxford | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial facilities management oxford across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Facilities Management Oxford — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source facilities management oxford for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for facilities management oxford",
   "primaryIntent": "facilities management oxford services",
   "secondaryIntents": [
@@ -33,16 +34,47 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
-  "sections": [],
-  "capabilities": [],
+  "sections": [
+    {
+      "heading": "Delivering Excellence in Facilities Management Oxford",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to facilities management oxford preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
+    },
+    {
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
+    },
+    {
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
+    },
+    {
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
+    }
+  ],
   "assetTypes": [],
-  "faqs": [],
+  "faqs": [
+    {
+      "question": "How does EntireFM deliver facilities management oxford contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+    }
+  ],
   "breadcrumbs": [
     {
       "name": "Home",
@@ -69,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

@@ -86,8 +86,8 @@ if (contentPlaceholders.length > 0) {
   passes.push('No placeholder strings found in content database');
 }
 
-// 5. Check protected routes have contentStatus = COMPLETE
-const completeCount = (registrySource.match(/"contentStatus":\s*"COMPLETE"/g) || []).length;
+// 5. Check protected routes have contentStatus = COMPLETE or CONTENT_COMPLETE
+const completeCount = (registrySource.match(/"contentStatus":\s*"(COMPLETE|CONTENT_COMPLETE)"/g) || []).length;
 const draftCount = (registrySource.match(/"contentStatus":\s*"DRAFT"/g) || []).length;
 const pendingCount = (registrySource.match(/"contentStatus":\s*"PENDING"/g) || []).length;
 

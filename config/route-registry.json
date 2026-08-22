@@ -6,11 +6,12 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 229,
+    "total": 233,
     "LEGACY_VERIFIED": 187,
     "LEGACY_PROTECTED_BY_DIRECTIVE": 18,
+    "CURRENT_LIVE_RETAINED": 4,
     "NEW_GROWTH": 24,
-    "protected": 229,
+    "protected": 233,
     "historic": 205
   },
   "routes": [
@@ -4535,6 +4536,78 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/working-at-heights"
+    },
+    {
+      "path": "/sectors",
+      "routeType": "sector",
+      "routeProvenance": "CURRENT_LIVE_RETAINED",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/locations",
+      "routeType": "location",
+      "routeProvenance": "CURRENT_LIVE_RETAINED",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/case-studies",
+      "routeType": "company",
+      "routeProvenance": "CURRENT_LIVE_RETAINED",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/resources",
+      "routeType": "company",
+      "routeProvenance": "CURRENT_LIVE_RETAINED",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
     }
   ]
 }

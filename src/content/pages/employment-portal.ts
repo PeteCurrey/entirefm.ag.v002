@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/employment-portal",
-  "title": "Careers & Engineering Opportunities | Entire FM",
-  "metaDescription": "Join EntireFM. Explore rewarding career opportunities for mechanical engineers, electrical technicians, HVAC specialists, and facilities managers.",
-  "h1": "Careers & Engineering Opportunities at EntireFM",
-  "eyebrow": "Join Our Team",
-  "heroIntro": "Build your career with a forward-thinking national facilities management provider. We offer competitive salaries, continuous technical training, and modern fleet vehicles.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Employment Portal | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial employment portal across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Employment Portal — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source employment portal for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for employment portal",
   "primaryIntent": "employment portal services",
   "secondaryIntents": [
@@ -33,40 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Why Build Your Career with EntireFM?",
-      "body": "At EntireFM, our engineers and support staff are the foundation of our success. We invest in top-tier equipment, continuous CPD training, and supportive team environments."
+      "heading": "Delivering Excellence in Employment Portal",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "M&E Engineering Roles",
-      "description": "Commercial electricians, Gas Safe heating engineers, and F-Gas AC technicians.",
-      "tag": "Engineering"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to employment portal preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "Helpdesk & Operations",
-      "description": "Customer service, CAFM dispatch coordinators, and contract managers.",
-      "tag": "Operations"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "Apprenticeships & Training",
-      "description": "Structured development pathways and accredited industry certifications.",
-      "tag": "Training"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
+    },
+    {
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do I apply for an engineering position?",
-      "answer": "Submit your CV and cover letter directly through our careers portal or email careers@entirefm.com."
+      "question": "How does EntireFM deliver employment portal contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -95,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

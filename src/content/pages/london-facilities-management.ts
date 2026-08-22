@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/london-facilities-management",
-  "title": "London Facilities Management | Corporate Estates & Managing Agents | Entire FM",
-  "metaDescription": "Corporate facilities management services for London property managers, managing agents, and multi-tenanted office towers. High-end concierge, M&E, and compliance.",
-  "h1": "London Facilities Management — Corporate Estates & Managing Agents",
-  "eyebrow": "Corporate Real Estate & Managing Agents",
-  "heroIntro": "Specialised facilities management tailored for London managing agents, institutional landlords, and corporate headquarters requiring flawless building presentation, tenant satisfaction, and rigorous asset governance.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "London Facilities Management | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial london facilities management across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "London Facilities Management — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source london facilities management for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for london facilities management",
   "primaryIntent": "london facilities management services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Protecting Asset Value and Tenant Retention in Prime London Properties",
-      "body": "Managing institutional real estate in London requires seamless tenant communication, strict compliance governance, and exceptional front-of-house standards. EntireFM acts as a trusted operational partner to leading managing agents."
+      "heading": "Delivering Excellence in London Facilities Management",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "Managing Agent & Multi-Let Office Support",
-      "description": "Service charge budget management, common area maintenance, tenant liaison, and contractor supervision.",
-      "tag": "Managing Agents"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to london facilities management preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "High-Touch Front of House & Concierge",
-      "description": "Professional corporate receptionists, concierge services, and access control management.",
-      "tag": "Concierge"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "Executive Suite & Common Area Cleaning",
-      "description": "Pristine daily hygiene standards for corporate reception atriums, boardrooms, and end-of-trip facilities.",
-      "tag": "Corporate Hygiene"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
     },
     {
-      "name": "ESG & Energy Performance Optimisation",
-      "description": "Building energy auditing, LED lighting upgrades, and BMS scheduling to enhance commercial EPC ratings.",
-      "tag": "ESG Standards"
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do you coordinate with tenants in multi-let London office buildings?",
-      "answer": "Our site managers liaise directly with building management and tenant representatives, scheduling intrusive maintenance out-of-hours to prevent any disturbance."
+      "question": "How does EntireFM deliver london facilities management contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

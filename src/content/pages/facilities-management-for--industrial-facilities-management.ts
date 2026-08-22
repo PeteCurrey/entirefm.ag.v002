@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-for/industrial-facilities-management",
-  "title": "Facilities Management For/Industrial Facilities Management | Sector Specialist Services | Entire FM",
-  "metaDescription": "Specialist facilities management for/industrial facilities management. Tailored maintenance, statutory safety compliance, cleaning, and 24/7 helpdesk support.",
-  "h1": "Facilities Management For/Industrial Facilities Management & Maintenance",
-  "eyebrow": "Specialist Industry Sector Scope",
-  "heroIntro": "Engineered facilities management and maintenance frameworks designed specifically for the operational demands, compliance regulations, and uptime requirements of the facilities management for/industrial sector.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Industrial Facilities Management | Factory & Plant Maintenance | Entire FM",
+  "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
+  "h1": "Industrial Facilities Management & Manufacturing Plant Maintenance",
+  "eyebrow": "Industrial Sector Scope",
+  "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for facilities management for/industrial facilities management",
   "primaryIntent": "facilities management for/industrial facilities management services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Tailored FM Delivery for Facilities Management For/Industrial Operations",
-      "body": "Every industry sector has unique operating pressures. EntireFM builds bespoke service level agreements matching your shift patterns, compliance mandates, and budget requirements."
+      "heading": "Engineered for Heavy Manufacturing and Continuous Production",
+      "body": "Industrial environments present unique health, safety, and operational challenges. Unplanned plant stoppages result in massive financial losses. EntireFM provides rigorous PPM schedules, machinery interface maintenance, and strict adherence to industrial safety standards."
     }
   ],
   "capabilities": [
     {
-      "name": "Sector-Specific Compliance & Auditing",
-      "description": "Rigorous adherence to statutory health, safety, and industry regulatory frameworks governing facilities management for/industrial.",
-      "tag": "Compliance"
+      "name": "Factory Shutdown Maintenance Windows",
+      "description": "Concentrated engineering overhauls during scheduled plant closures, bank holidays, and retooling shutdowns.",
+      "tag": "Shutdown Services"
     },
     {
-      "name": "Planned Plant & Environmental Maintenance",
-      "description": "Preventative servicing for heating, cooling, power distribution, and specialist ventilation systems.",
-      "tag": "PPM"
+      "name": "Industrial Power Distribution & Switchgear",
+      "description": "PPM maintenance for high-load electrical switchrooms, transformers, busbars, and machinery supply circuits.",
+      "tag": "Heavy Power"
     },
     {
-      "name": "Specialist Cleaning & Hygiene Standards",
-      "description": "Bespoke cleaning protocols aligned with facilities management for/industrial operational hours and hygiene requirements.",
-      "tag": "Hygiene"
+      "name": "Industrial Extraction & Ventilation Plant",
+      "description": "Ductwork degreasing, extraction fan motor servicing, filter overhauls, and local exhaust ventilation (LEV) testing.",
+      "tag": "LEV & Extraction"
     },
     {
-      "name": "24/7 Critical Emergency Response",
-      "description": "Rapid engineering dispatch to protect operational continuity and prevent downtime.",
-      "tag": "24/7 Support"
+      "name": "Factory Floor Degreasing & High-Level Cleaning",
+      "description": "High-pressure floor scrubbers, chemical degreasing, overhead crane track vacuuming, and girder cleaning.",
+      "tag": "Plant Hygiene"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do you adapt maintenance schedules for facilities management for/industrial environments?",
-      "answer": "We perform intrusive engineering works out of hours or during planned operational shutdowns to guarantee zero impact on your core activities."
+      "question": "Do your engineers have experience working in active manufacturing environments?",
+      "answer": "Yes. Our industrial engineering teams are fully trained in lock-out/tag-out (LOTO) procedures, permit-to-work systems, and working around active automated production lines."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

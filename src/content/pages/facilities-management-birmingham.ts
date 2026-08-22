@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-birmingham",
-  "title": "Facilities Management Birmingham | Midlands Engineering & Total FM | Entire FM",
-  "metaDescription": "Complete facilities management across Birmingham and the West Midlands. Commercial M&E engineering, PPM maintenance, industrial cleaning, and 24/7 helpdesk.",
-  "h1": "Facilities Management Birmingham — Midlands Engineering & Total FM",
-  "eyebrow": "West Midlands Regional Hub",
-  "heroIntro": "Comprehensive facilities management for commercial properties, industrial estates, and manufacturing facilities across Birmingham, Solihull, and the wider West Midlands.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Facilities Management Birmingham | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial facilities management birmingham across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Facilities Management Birmingham — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source facilities management birmingham for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for facilities management birmingham",
   "primaryIntent": "facilities management birmingham services",
   "secondaryIntents": [
@@ -33,40 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Delivering Reliable Facilities Support in the Industrial Heart of the UK",
-      "body": "EntireFM supports Birmingham commercial property owners and manufacturers with proactive maintenance contracts, ensuring high asset availability and strict compliance."
+      "heading": "Delivering Excellence in Facilities Management Birmingham",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "West Midlands Mobile Engineering Fleet",
-      "description": "Local certified mechanical and electrical engineers delivering scheduled PPM and rapid reactive repairs.",
-      "tag": "Engineering"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to facilities management birmingham preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "Manufacturing & Automotive Sector FM",
-      "description": "Plant room servicing, compressed air maintenance, and industrial floor cleaning for Midlands factories.",
-      "tag": "Industrial FM"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "Birmingham Commercial Office Cleaning & Care",
-      "description": "Daily office cleaning, washroom hygiene, and statutory testing for city centre corporate buildings.",
-      "tag": "Corporate Care"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
+    },
+    {
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How quickly can your Birmingham mobile engineers respond to emergencies?",
-      "answer": "Our local engineering vans operate across the Birmingham and West Midlands network with contractually agreed emergency callout windows."
+      "question": "How does EntireFM deliver facilities management birmingham contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -95,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

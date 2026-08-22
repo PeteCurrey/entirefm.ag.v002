@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/cleaning-services",
-  "title": "Commercial Contract Cleaning Services | Office & Facility Cleaning | Entire FM",
-  "metaDescription": "Professional commercial contract cleaning for offices, corporate headquarters, and multi-tenanted buildings across the UK. Daily cleaning and consumables management.",
-  "h1": "Commercial Contract Cleaning Services",
-  "eyebrow": "Soft FM & Workplace Hygiene",
-  "heroIntro": "Consistent, high-standard commercial contract cleaning tailored to modern corporate offices, commercial facilities, and educational establishments.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Cleaning Services | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial cleaning services across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Cleaning Services — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source cleaning services for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for cleaning services",
   "primaryIntent": "cleaning services services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Elevating Workplace Hygiene and Professional Presentation",
-      "body": "A clean workplace directly enhances staff wellbeing, productivity, and corporate reputation. EntireFM delivers managed cleaning contracts with dedicated on-site supervisors, rigorous quality audits, and sustainable, eco-labelled cleaning products."
+      "heading": "Delivering Excellence in Cleaning Services",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "Daily Commercial Office Cleaning",
-      "description": "Scheduled early-morning or evening cleaning teams maintaining pristine workspaces, meeting suites, and common areas.",
-      "tag": "Daily Cleaning"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to cleaning services preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "Washroom & Hygiene Management",
-      "description": "Complete washroom servicing, deep sanitisation, feminine hygiene, and consumable replenishment.",
-      "tag": "Hygiene"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "Commercial Carpet & Upholstery Care",
-      "description": "Hot water extraction, dry compound carpet cleaning, and spot stain removal for corporate office environments.",
-      "tag": "Carpet Care"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
     },
     {
-      "name": "Commercial Window & Glass Cleaning",
-      "description": "Reach-and-wash purified water pole systems for external glazing up to 65ft, plus internal glass partition cleaning.",
-      "tag": "Window Cleaning"
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "Are your commercial cleaning staff vetted and trained?",
-      "answer": "Yes. All EntireFM cleaning operatives undergo comprehensive identity screening, COSHH safety training, and site-specific operational briefings."
+      "question": "How does EntireFM deliver cleaning services contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

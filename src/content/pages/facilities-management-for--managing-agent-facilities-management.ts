@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-for/managing-agent-facilities-management",
-  "title": "Facilities Management For/Managing Agent Facilities Management | Sector Specialist Services | Entire FM",
-  "metaDescription": "Specialist facilities management for/managing agent facilities management. Tailored maintenance, statutory safety compliance, cleaning, and 24/7 helpdesk support.",
-  "h1": "Facilities Management For/Managing Agent Facilities Management & Maintenance",
-  "eyebrow": "Specialist Industry Sector Scope",
-  "heroIntro": "Engineered facilities management and maintenance frameworks designed specifically for the operational demands, compliance regulations, and uptime requirements of the facilities management for/managing agent sector.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Facilities Management for Managing Agents | Property Portfolios | Entire FM",
+  "metaDescription": "Integrated facilities management tailored for commercial managing agents and institutional landlords. Digital compliance dashboards, service charge control, and tenant liaison.",
+  "h1": "Facilities Management for Commercial Managing Agents",
+  "eyebrow": "Managing Agent Scope",
+  "heroIntro": "Transparent, multi-disciplinary facilities management built specifically for commercial managing agents, surveyors, and property management companies. Digital compliance, SLA tracking, and service charge efficiency.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for facilities management for/managing agent facilities management",
   "primaryIntent": "facilities management for/managing agent facilities management services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Tailored FM Delivery for Facilities Management For/Managing Agent Operations",
-      "body": "Every industry sector has unique operating pressures. EntireFM builds bespoke service level agreements matching your shift patterns, compliance mandates, and budget requirements."
+      "heading": "Empowering Managing Agents with Total Compliance Visibility",
+      "body": "Managing agents face constant pressure to protect asset value, reduce service charges, and satisfy tenant demands. EntireFM acts as your reliable delivery partner, taking direct responsibility for statutory compliance across your entire commercial portfolio."
     }
   ],
   "capabilities": [
     {
-      "name": "Sector-Specific Compliance & Auditing",
-      "description": "Rigorous adherence to statutory health, safety, and industry regulatory frameworks governing facilities management for/managing agent.",
-      "tag": "Compliance"
+      "name": "Consolidated Multi-Property Service Charge Contracts",
+      "description": "Single-source delivery combining M&E, cleaning, security, and grounds maintenance to lower service charge overheads.",
+      "tag": "Service Charge FM"
     },
     {
-      "name": "Planned Plant & Environmental Maintenance",
-      "description": "Preventative servicing for heating, cooling, power distribution, and specialist ventilation systems.",
-      "tag": "PPM"
+      "name": "Live CAFM Compliance & Audit Dashboard",
+      "description": "Real-time property manager portal showing certificate expiry dates, job statuses, and contractor attendance.",
+      "tag": "CAFM Portal"
     },
     {
-      "name": "Specialist Cleaning & Hygiene Standards",
-      "description": "Bespoke cleaning protocols aligned with facilities management for/managing agent operational hours and hygiene requirements.",
-      "tag": "Hygiene"
+      "name": "Tenant Liaison & Helpdesk Triage",
+      "description": "Direct tenant fault reporting desk resolving occupier maintenance requests quickly and professionally.",
+      "tag": "Tenant Support"
     },
     {
-      "name": "24/7 Critical Emergency Response",
-      "description": "Rapid engineering dispatch to protect operational continuity and prevent downtime.",
-      "tag": "24/7 Support"
+      "name": "Forward Capital Planning & Asset Registers",
+      "description": "Detailed plant condition reports helping property managers forecast sinking funds and long-term capital expenditure.",
+      "tag": "Asset Registers"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do you adapt maintenance schedules for facilities management for/managing agent environments?",
-      "answer": "We perform intrusive engineering works out of hours or during planned operational shutdowns to guarantee zero impact on your core activities."
+      "question": "How do managing agents access compliance certificates and service records?",
+      "answer": "All certificates, inspection sheets, and PPM records are instantly uploaded to our secure client CAFM portal for property managers to download 24/7."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

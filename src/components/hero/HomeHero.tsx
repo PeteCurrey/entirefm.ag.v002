@@ -17,10 +17,10 @@ export function HomeHero() {
             <div className="flex flex-wrap items-center gap-2">
               <span className="badge-gold">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                National Facilities Management & Engineering
+                Facilities Management & Building Engineering
               </span>
               <span className="badge-dark text-slate-300">
-                Self-Delivered Model
+                Direct Delivery Framework
               </span>
             </div>
 
@@ -37,15 +37,15 @@ export function HomeHero() {
             <div className="grid grid-cols-3 gap-3 pt-2 max-w-lg border-y border-brand-border-dark/80 py-3 text-xs text-slate-300 font-mono">
               <div>
                 <span className="text-brand-gold font-bold block text-sm">Hard FM</span>
-                <span>M&E, HVAC, Gas</span>
+                <span>M&E & Building Plant</span>
               </div>
               <div className="border-l border-brand-border-dark/80 pl-3">
                 <span className="text-brand-gold font-bold block text-sm">PPM</span>
-                <span>SFG20 Compliance</span>
+                <span>Planned Maintenance</span>
               </div>
               <div className="border-l border-brand-border-dark/80 pl-3">
-                <span className="text-brand-gold font-bold block text-sm">24/7/365</span>
-                <span>National Helpdesk</span>
+                <span className="text-brand-gold font-bold block text-sm">Helpdesk</span>
+                <span>Operations Support</span>
               </div>
             </div>
 

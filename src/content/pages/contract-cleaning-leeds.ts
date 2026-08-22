@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/contract-cleaning-leeds",
-  "title": "Contract Cleaning in Leeds | Professional Services | Entire FM",
-  "metaDescription": "Specialist contract cleaning services in Leeds. Directly employed local teams, professional equipment, and full compliance certification.",
-  "h1": "Contract Cleaning Leeds",
-  "eyebrow": "Leeds Local Service Delivery",
-  "heroIntro": "Professional contract cleaning delivered across Leeds and surrounding commercial districts by EntireFM’s regional operations teams.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Contract Cleaning Leeds | Commercial Specialist Services | Entire FM",
+  "metaDescription": "Professional contract cleaning across Leeds and surrounding districts. High-standard commercial premises care, scheduled contracts, and trained local teams.",
+  "h1": "Contract Cleaning in Leeds & Surrounding Districts",
+  "eyebrow": "Leeds Regional Service Area",
+  "heroIntro": "Professional, reliable contract cleaning tailored to corporate offices, commercial facilities, and industrial premises throughout Leeds and surrounding business corridors.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for contract cleaning leeds",
   "primaryIntent": "contract cleaning leeds services",
   "secondaryIntents": [
@@ -33,40 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Reliable Contract Cleaning Across Leeds",
-      "body": "EntireFM provides dependable, high-quality contract cleaning for commercial offices, industrial plants, retail premises, and residential developments in Leeds."
+      "heading": "Reliable Contract Cleaning Solutions Across Leeds",
+      "body": "Maintaining high workplace presentation and hygiene standards in Leeds requires dependable, well-managed cleaning teams. EntireFM provides tailored contracts backed by local supervision, modern machinery, and proactive account managers."
     }
   ],
   "capabilities": [
     {
-      "name": "Dedicated Leeds Service Team",
-      "description": "Experienced local operatives equipped with commercial-grade equipment and eco-compliant treatments.",
-      "tag": "Local Delivery"
+      "name": "Dedicated Leeds Mobile Cleaning Team",
+      "description": "Locally deployed cleaning operatives delivering scheduled daily, weekly, or periodic deep cleaning contracts across Leeds.",
+      "tag": "Leeds Local Team"
     },
     {
-      "name": "Health & Safety Certified",
-      "description": "Fully insured, COSHH compliant, and trained to industry-leading health and safety standards.",
-      "tag": "Safety"
+      "name": "Eco-Friendly Chemicals & COSHH Compliance",
+      "description": "Sustainable, non-toxic cleaning products with full safety data sheets (SDS) and strict COSHH management.",
+      "tag": "Eco Compliance"
     },
     {
-      "name": "Flexible Out-of-Hours Scheduling",
-      "description": "Available for early morning, evening, weekend, and shutdown operations to minimize disruption.",
-      "tag": "Flexible Hours"
+      "name": "Specialist Machine Floor Care & Scrubbing",
+      "description": "Industrial rotary scrubbers, scrubber-dryers, and high-pressure jetting for hard floors, workshops, and car parks.",
+      "tag": "Floor Care"
+    },
+    {
+      "name": "Supervisor Audits & Quality Scoring",
+      "description": "Regular unannounced quality inspections and digital KPI scoring logged directly to your client portal.",
+      "tag": "Quality Audits"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "Do you provide free surveys for contract cleaning in Leeds?",
-      "answer": "Yes. We provide on-site technical surveys and transparent written proposals for all commercial sites in Leeds."
+      "question": "What types of properties do you service in Leeds?",
+      "answer": "In Leeds, we clean corporate headquarters, multi-tenanted business centres, manufacturing warehouses, medical clinics, and retail parks."
     }
   ],
   "breadcrumbs": [
@@ -95,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

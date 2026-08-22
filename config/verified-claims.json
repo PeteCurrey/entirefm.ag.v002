@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "title": "EntireFM Verified Claims Authority",
+  "authority": "BUSINESS-CLAIMS-VERIFICATION.md",
+  "updatedAt": "2026-08-22",
+  "rules": {
+    "renderingPolicy": "Only claims with status === 'VERIFIED' may be rendered in user-facing components. Claims marked 'TO_VERIFY' or 'DO_NOT_USE' must never render publicly, nor display '[VERIF. PENDING]' badges."
+  },
+  "claims": [
+    {
+      "id": "ACCRED_GAS_SAFE",
+      "claim": "Gas Safe Registered",
+      "category": "Accreditation",
+      "status": "TO_VERIFY",
+      "evidence": null,
+      "approvedWording": null,
+      "approvedContexts": [],
+      "verifiedBy": null,
+      "verifiedDate": null
+    },
+    {
+      "id": "ACCRED_NICEIC",
+      "claim": "NICEIC Approved Contractor",
+      "category": "Accreditation",
+      "status": "TO_VERIFY",
+      "evidence": null,
+      "approvedWording": null,
+      "approvedContexts": [],
+      "verifiedBy": null,
+      "verifiedDate": null
+    },
+    {
+      "id": "ACCRED_SAFECONTRACTOR",
+      "claim": "SafeContractor Accredited",
+      "category": "Accreditation",
+      "status": "TO_VERIFY",
+      "evidence": null,
+      "approvedWording": null,
+      "approvedContexts": [],
+      "verifiedBy": null,
+      "verifiedDate": null
+    },
+    {
+      "id": "ACCRED_CHAS",
+      "claim": "CHAS Accredited",
+      "category": "Accreditation",
+      "status": "TO_VERIFY",
+      "evidence": null,
+      "approvedWording": null,
+      "approvedContexts": [],
+      "verifiedBy": null,
+      "verifiedDate": null
+    },
+    {
+      "id": "ACCRED_BESA",
+      "claim": "BESA Member",
+      "category": "Accreditation",
+      "status": "TO_VERIFY",
+      "evidence": null,
+      "approvedWording": null,
+      "approvedContexts": [],
+      "verifiedBy": null,
+      "verifiedDate": null
+    },
+    {
+      "id": "ACCRED_FGAS_REFCOM",
+      "claim": "F-Gas / REFCOM Certified",
+      "category": "Accreditation",
+      "status": "TO_VERIFY",
+      "evidence": null,
+      "approvedWording": null,
+      "approvedContexts": [],
+      "verifiedBy": null,
+      "verifiedDate": null
+    },
+    {
+      "id": "ACCRED_ISO_9001",
+      "claim": "ISO 9001 Quality Management",
+      "category": "Accreditation",
+      "status": "TO_VERIFY",
+      "evidence": null,
+      "approvedWording": null,
+      "approvedContexts": [],
+      "verifiedBy": null,
+      "verifiedDate": null
+    },
+    {
+      "id": "OPS_247_EMERGENCY",
+      "claim": "24/7 National Operations Helpdesk",
+      "category": "Operations",
+      "status": "TO_VERIFY",
+      "evidence": null,
+      "approvedWording": "Centralized Helpdesk & Emergency Operations Support",
+      "approvedContexts": ["Helpdesk", "Contact"],
+      "verifiedBy": null,
+      "verifiedDate": null
+    },
+    {
+      "id": "OPS_SELF_DELIVERY",
+      "claim": "100% Self-Delivery / No Subcontracting",
+      "category": "Operations",
+      "status": "TO_VERIFY",
+      "evidence": null,
+      "approvedWording": "Direct Engineering Delivery & Dedicated Account Management",
+      "approvedContexts": ["Service Delivery"],
+      "verifiedBy": null,
+      "verifiedDate": null
+    },
+    {
+      "id": "LEGAL_COMPLIANCE_GUARANTEE",
+      "claim": "Full Statutory Compliance Guarantee",
+      "category": "Legal",
+      "status": "DO_NOT_USE",
+      "evidence": null,
+      "approvedWording": "Comprehensive Statutory Compliance Management",
+      "approvedContexts": ["Compliance"],
+      "verifiedBy": null,
+      "verifiedDate": null
+    },
+    {
+      "id": "STATS_PORTFOLIO_METRICS",
+      "claim": "Contract Statistics / Portfolio Savings Percentages",
+      "category": "Performance",
+      "status": "DO_NOT_USE",
+      "evidence": null,
+      "approvedWording": null,
+      "approvedContexts": [],
+      "verifiedBy": null,
+      "verifiedDate": null
+    },
+    {
+      "id": "GEO_REGIONAL_CENTRES",
+      "claim": "Physical Regional Depots / Operating Centres in London/Regional Cities",
+      "category": "Geographic",
+      "status": "DO_NOT_USE",
+      "evidence": null,
+      "approvedWording": "Regional Service Coverage & Mobile Engineering Fleet",
+      "approvedContexts": ["Locations"],
+      "verifiedBy": null,
+      "verifiedDate": null
+    }
+  ]
+}

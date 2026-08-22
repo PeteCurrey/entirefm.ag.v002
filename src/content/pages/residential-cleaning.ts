@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/residential-cleaning",
-  "title": "Residential Cleaning | Entire FM",
-  "metaDescription": "Entire FM delivers expert residential cleaning services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
-  "h1": "Residential Cleaning",
-  "eyebrow": "Facilities Management & Engineering",
-  "heroIntro": "Entire Facilities Management provides professional, single-source residential cleaning for commercial, industrial, and multi-site portfolios across the UK.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Residential Block Facilities Management | BTR & Estate FM | Entire FM",
+  "metaDescription": "Facilities management for residential apartment blocks, Build-to-Rent (BTR) communities, and gated estates across the UK. Communal M&E, fire doors, and cleaning.",
+  "h1": "Residential Block & BTR Estate Facilities Management",
+  "eyebrow": "Residential Sector Scope",
+  "heroIntro": "Proactive facilities management and building maintenance for apartment developments, Build-to-Rent (BTR) portfolios, and private residential estates. Managing communal plant, life safety, and resident satisfaction.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for residential cleaning",
   "primaryIntent": "residential cleaning services",
   "secondaryIntents": [
@@ -33,16 +34,47 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
-  "sections": [],
-  "capabilities": [],
+  "sections": [
+    {
+      "heading": "Protecting Resident Wellbeing and Estate Standards",
+      "body": "Residential estates require respectful, proactive care to maintain leaseholder satisfaction and building safety. EntireFM manages communal mechanical services, fire safety, and daily cleaning across modern residential portfolios."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Communal Area Cleaning & Waste Management",
+      "description": "Scheduled cleaning of entrance lobbies, stairwells, glass balustrades, bin stores, and external courtyard areas.",
+      "tag": "Communal Care"
+    },
+    {
+      "name": "Residential Fire Safety & Fire Door Audits",
+      "description": "Six-monthly fire door inspections, emergency lighting tests, and dry riser inspections meeting the Building Safety Act.",
+      "tag": "Building Safety"
+    },
+    {
+      "name": "Lifts & Communal Mechanical Plant Servicing",
+      "description": "Servicing of booster pumps, communal heating calorifiers, extract fans, and access control intercoms.",
+      "tag": "Communal Plant"
+    },
+    {
+      "name": "Resident Helpdesk & Out-of-Hours Response",
+      "description": "Dedicated out-of-hours triage for communal water leaks, power failures, and gate breakdowns.",
+      "tag": "Resident Desk"
+    }
+  ],
   "assetTypes": [],
-  "faqs": [],
+  "faqs": [
+    {
+      "question": "How do you assist residential blocks with the Building Safety Act?",
+      "answer": "We conduct required periodic checks on fire doors, smoke vents, emergency lighting, and maintain digital safety case files required under recent building safety regulations."
+    }
+  ],
   "breadcrumbs": [
     {
       "name": "Home",
@@ -69,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

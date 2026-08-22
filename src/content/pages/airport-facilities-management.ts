@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/airport-facilities-management",
-  "title": "Airport Facilities Management | Sector Specialist Services | Entire FM",
-  "metaDescription": "Specialist airport facilities management. Tailored maintenance, statutory safety compliance, cleaning, and 24/7 helpdesk support.",
-  "h1": "Airport Facilities Management & Maintenance",
-  "eyebrow": "Specialist Industry Sector Scope",
-  "heroIntro": "Engineered facilities management and maintenance frameworks designed specifically for the operational demands, compliance regulations, and uptime requirements of the airport sector.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Airport & Transport Facilities Management | Transport Hubs | Entire FM",
+  "metaDescription": "Specialist facilities management for airports, train stations, and transport hubs. Security-vetted engineering, passenger flow cleaning, and critical power.",
+  "h1": "Airport & Transport Hub Facilities Management",
+  "eyebrow": "Transport Sector Scope",
+  "heroIntro": "High-security facilities management and engineering support designed for airports, train stations, bus interchanges, and multimodal transport hubs. Supporting passenger flow, security compliance, and continuous power uptime.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for airport facilities management",
   "primaryIntent": "airport facilities management services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Tailored FM Delivery for Airport Operations",
-      "body": "Every industry sector has unique operating pressures. EntireFM builds bespoke service level agreements matching your shift patterns, compliance mandates, and budget requirements."
+      "heading": "High-Security Operational Discipline for Transport Infrastructure",
+      "body": "Transport hubs must maintain uninterrupted passenger flow and adhere to strict aviation and rail safety regulations. EntireFM provides security-cleared personnel and rapid engineering support to maintain terminal operations."
     }
   ],
   "capabilities": [
     {
-      "name": "Sector-Specific Compliance & Auditing",
-      "description": "Rigorous adherence to statutory health, safety, and industry regulatory frameworks governing airport.",
-      "tag": "Compliance"
+      "name": "Airside & Landside Vetted Engineering Teams",
+      "description": "Security-cleared technicians delivering mechanical, electrical, and fabric maintenance in restricted aviation zones.",
+      "tag": "Security Vetted"
     },
     {
-      "name": "Planned Plant & Environmental Maintenance",
-      "description": "Preventative servicing for heating, cooling, power distribution, and specialist ventilation systems.",
-      "tag": "PPM"
+      "name": "High-Footfall Passenger Concourse Cleaning",
+      "description": "24/7 continuous cleaning, automated floor scrubbers, spill response, and washroom sanitisation across terminals.",
+      "tag": "Concourse Hygiene"
     },
     {
-      "name": "Specialist Cleaning & Hygiene Standards",
-      "description": "Bespoke cleaning protocols aligned with airport operational hours and hygiene requirements.",
-      "tag": "Hygiene"
+      "name": "Baggage Handling & Conveyor Power Distribution",
+      "description": "PPM maintenance for electrical feeds, motor control centers (MCC), and emergency stop safety loops.",
+      "tag": "Conveyor Power"
     },
     {
-      "name": "24/7 Critical Emergency Response",
-      "description": "Rapid engineering dispatch to protect operational continuity and prevent downtime.",
-      "tag": "24/7 Support"
+      "name": "Emergency Backup Generators & UPS Care",
+      "description": "Routine load testing, diesel fuel polishing, and automated transfer switch servicing for critical terminal operations.",
+      "tag": "Resilient Power"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do you adapt maintenance schedules for airport environments?",
-      "answer": "We perform intrusive engineering works out of hours or during planned operational shutdowns to guarantee zero impact on your core activities."
+      "question": "Can EntireFM provide airside-cleared facilities staff for UK airports?",
+      "answer": "Yes. We supply fully airside-badged and vetted engineering technicians and cleaning operatives for airport estate operations."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

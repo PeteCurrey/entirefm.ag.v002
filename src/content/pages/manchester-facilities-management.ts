@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/manchester-facilities-management",
-  "title": "Manchester Facilities Management | Corporate Estates & Managing Agents | Entire FM",
-  "metaDescription": "Professional facilities management in Manchester and Greater Manchester. Commercial M&E, planned maintenance, industrial cleaning, and 24/7 helpdesk across Trafford Park, City Centre, and Salford.",
-  "h1": "Manchester Facilities Management — Corporate Estates & Property Management",
-  "eyebrow": "Greater Manchester Regional Operations",
-  "heroIntro": "EntireFM provides full-service Facilities Management across Greater Manchester, Salford Quays, Trafford Park, and the M60/M62 commercial corridors. Direct mobile engineering vans and local cleaning teams.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Manchester Facilities Management | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial manchester facilities management across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Manchester Facilities Management — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source manchester facilities management for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for manchester facilities management",
   "primaryIntent": "manchester facilities management services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Strategic Facilities Management Across Greater Manchester",
-      "body": "Manchester is a premier commercial and industrial hub. EntireFM provides direct engineering and facilities management to manufacturing plants in Trafford Park, corporate offices in Spinningfields, and logistics hubs along the M62 corridor."
+      "heading": "Delivering Excellence in Manchester Facilities Management",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "Greater Manchester M&E Engineering Fleet",
-      "description": "Directly employed mobile engineers servicing HVAC, electrical switchboards, commercial boilers, and lighting across Manchester.",
-      "tag": "M&E Engineering"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to manchester facilities management preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "Industrial & Logistics Facility Management",
-      "description": "Specialist maintenance and high-level cleaning for Trafford Park and North West distribution warehouses.",
-      "tag": "Logistics FM"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "City Centre Corporate Office Maintenance",
-      "description": "Planned maintenance and premium cleaning for Manchester commercial office towers and financial district premises.",
-      "tag": "Office FM"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
     },
     {
-      "name": "24/7 North West Regional Helpdesk",
-      "description": "Guaranteed emergency response for power failures, plumbing leaks, and HVAC breakdowns across Greater Manchester.",
-      "tag": "24/7 Response"
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "What areas of Greater Manchester do you cover?",
-      "answer": "We cover the entire Greater Manchester region including Manchester City Centre, Salford, Trafford, Stockport, Bolton, Bury, Oldham, Rochdale, and Wigan."
+      "question": "How does EntireFM deliver manchester facilities management contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

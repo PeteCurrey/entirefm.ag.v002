@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/residential-fm-lincoln",
-  "title": "Residential Block Facilities Management Lincoln | Entire FM",
-  "metaDescription": "Specialist residential block facilities management in Lincoln and Lincolnshire. M&E maintenance, commercial cleaning, compliance, and 24/7 helpdesk.",
-  "h1": "Residential Block Facilities Management Lincoln",
-  "eyebrow": "Lincolnshire Operational Centre",
-  "heroIntro": "Dedicated residential block facilities management for properties across Lincoln and Lincolnshire, managed directly from our regional operational centre.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Residential Block Facilities Management | BTR & Estate FM | Entire FM",
+  "metaDescription": "Facilities management for residential apartment blocks, Build-to-Rent (BTR) communities, and gated estates across the UK. Communal M&E, fire doors, and cleaning.",
+  "h1": "Residential Block & BTR Estate Facilities Management",
+  "eyebrow": "Residential Sector Scope",
+  "heroIntro": "Proactive facilities management and building maintenance for apartment developments, Build-to-Rent (BTR) portfolios, and private residential estates. Managing communal plant, life safety, and resident satisfaction.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for residential fm lincoln",
   "primaryIntent": "residential fm lincoln services",
   "secondaryIntents": [
@@ -33,40 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Residential Block Solutions Built for Lincoln Property Owners",
-      "body": "EntireFM provides dedicated residential block facilities management across Lincoln, providing local accountability and direct engineering delivery."
+      "heading": "Protecting Resident Wellbeing and Estate Standards",
+      "body": "Residential estates require respectful, proactive care to maintain leaseholder satisfaction and building safety. EntireFM manages communal mechanical services, fire safety, and daily cleaning across modern residential portfolios."
     }
   ],
   "capabilities": [
     {
-      "name": "Residential Block Plant & Equipment PPM",
-      "description": "Tailored maintenance routines for residential block infrastructure in Lincoln.",
-      "tag": "Maintenance"
+      "name": "Communal Area Cleaning & Waste Management",
+      "description": "Scheduled cleaning of entrance lobbies, stairwells, glass balustrades, bin stores, and external courtyard areas.",
+      "tag": "Communal Care"
     },
     {
-      "name": "Local Lincoln Engineering Fleet",
-      "description": "Fast on-site attendance from our Lincoln operational base for scheduled and emergency works.",
-      "tag": "Local Fleet"
+      "name": "Residential Fire Safety & Fire Door Audits",
+      "description": "Six-monthly fire door inspections, emergency lighting tests, and dry riser inspections meeting the Building Safety Act.",
+      "tag": "Building Safety"
     },
     {
-      "name": "Full Statutory Compliance Certification",
-      "description": "Electrical, gas, fire, and water safety testing with digital audit logging.",
-      "tag": "Compliance"
+      "name": "Lifts & Communal Mechanical Plant Servicing",
+      "description": "Servicing of booster pumps, communal heating calorifiers, extract fans, and access control intercoms.",
+      "tag": "Communal Plant"
+    },
+    {
+      "name": "Resident Helpdesk & Out-of-Hours Response",
+      "description": "Dedicated out-of-hours triage for communal water leaks, power failures, and gate breakdowns.",
+      "tag": "Resident Desk"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "Where is EntireFM’s Lincoln operational base?",
-      "answer": "Our Lincoln operational centre manages operations across Lincolnshire, Nottinghamshire, and the East Midlands."
+      "question": "How do you assist residential blocks with the Building Safety Act?",
+      "answer": "We conduct required periodic checks on fire doors, smoke vents, emergency lighting, and maintain digital safety case files required under recent building safety regulations."
     }
   ],
   "breadcrumbs": [
@@ -95,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-for/healthcare-facilities-management",
-  "title": "Facilities Management For/Healthcare Facilities Management | Sector Specialist Services | Entire FM",
-  "metaDescription": "Specialist facilities management for/healthcare facilities management. Tailored maintenance, statutory safety compliance, cleaning, and 24/7 helpdesk support.",
-  "h1": "Facilities Management For/Healthcare Facilities Management & Maintenance",
-  "eyebrow": "Specialist Industry Sector Scope",
-  "heroIntro": "Engineered facilities management and maintenance frameworks designed specifically for the operational demands, compliance regulations, and uptime requirements of the facilities management for/healthcare sector.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Healthcare Facilities Management | Medical & Clinic FM | Entire FM",
+  "metaDescription": "Specialist non-clinical facilities management for medical centres, private clinics, dental practices, and healthcare offices across the UK.",
+  "h1": "Healthcare Facilities Management & Clinic Maintenance",
+  "eyebrow": "Healthcare Estate Scope",
+  "heroIntro": "Rigorous non-clinical facilities management and building maintenance for medical centres, outpatient clinics, care facilities, and dental practices. Ensuring strict hygiene, air quality, and statutory compliance.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for facilities management for/healthcare facilities management",
   "primaryIntent": "facilities management for/healthcare facilities management services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Tailored FM Delivery for Facilities Management For/Healthcare Operations",
-      "body": "Every industry sector has unique operating pressures. EntireFM builds bespoke service level agreements matching your shift patterns, compliance mandates, and budget requirements."
+      "heading": "Maintaining Safe, Hygienic Environments for Patient Care",
+      "body": "Healthcare buildings require heightened hygiene, clean indoor air, and flawless compliance documentation. EntireFM provides specialized non-clinical estate support tailored to medical practices and health centres."
     }
   ],
   "capabilities": [
     {
-      "name": "Sector-Specific Compliance & Auditing",
-      "description": "Rigorous adherence to statutory health, safety, and industry regulatory frameworks governing facilities management for/healthcare.",
-      "tag": "Compliance"
+      "name": "Infection-Controlled Environmental Cleaning",
+      "description": "Colour-coded microfibre systems, medical-grade disinfectants, and strict adherence to clinical hygiene protocols.",
+      "tag": "Hygiene Standards"
     },
     {
-      "name": "Planned Plant & Environmental Maintenance",
-      "description": "Preventative servicing for heating, cooling, power distribution, and specialist ventilation systems.",
-      "tag": "PPM"
+      "name": "Statutory Water Hygiene & Legionella Control",
+      "description": "Rigorous temperature profiling, weekly outlet flushes, and scheduled TMV servicing to protect vulnerable patients.",
+      "tag": "Water Safety"
     },
     {
-      "name": "Specialist Cleaning & Hygiene Standards",
-      "description": "Bespoke cleaning protocols aligned with facilities management for/healthcare operational hours and hygiene requirements.",
-      "tag": "Hygiene"
+      "name": "HVAC Air Filtration & Ventilation Compliance",
+      "description": "HEPA filter changes, airflow balancing, and positive/negative pressure checks for treatment and consultation suites.",
+      "tag": "Air Quality"
     },
     {
-      "name": "24/7 Critical Emergency Response",
-      "description": "Rapid engineering dispatch to protect operational continuity and prevent downtime.",
-      "tag": "24/7 Support"
+      "name": "Emergency Power & Backup System Servicing",
+      "description": "UPS battery testing, emergency generator checks, and critical circuit inspection for treatment equipment uptime.",
+      "tag": "Critical Power"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do you adapt maintenance schedules for facilities management for/healthcare environments?",
-      "answer": "We perform intrusive engineering works out of hours or during planned operational shutdowns to guarantee zero impact on your core activities."
+      "question": "Do you provide water safety compliance tailored to medical clinics?",
+      "answer": "Yes. We deliver full ACoP L8 and HTM-aligned water hygiene monitoring, including temperature testing, scalding protection (TMVs), and microbiological sampling."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

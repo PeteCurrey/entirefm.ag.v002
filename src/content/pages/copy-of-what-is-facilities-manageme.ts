@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/copy-of-what-is-facilities-manageme",
-  "title": "Copy Of What Is Facilities Manageme | Entire FM",
-  "metaDescription": "Entire FM delivers expert copy of what is facilities manageme services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
-  "h1": "Copy Of What Is Facilities Manageme",
-  "eyebrow": "Facilities Management & Engineering",
-  "heroIntro": "Entire Facilities Management provides professional, single-source copy of what is facilities manageme for commercial, industrial, and multi-site portfolios across the UK.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Copy Of What Is Facilities Manageme | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial copy of what is facilities manageme across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Copy Of What Is Facilities Manageme — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source copy of what is facilities manageme for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for copy of what is facilities manageme",
   "primaryIntent": "copy of what is facilities manageme services",
   "secondaryIntents": [
@@ -33,16 +34,47 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
-  "sections": [],
-  "capabilities": [],
+  "sections": [
+    {
+      "heading": "Delivering Excellence in Copy Of What Is Facilities Manageme",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to copy of what is facilities manageme preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
+    },
+    {
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
+    },
+    {
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
+    },
+    {
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
+    }
+  ],
   "assetTypes": [],
-  "faqs": [],
+  "faqs": [
+    {
+      "question": "How does EntireFM deliver copy of what is facilities manageme contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+    }
+  ],
   "breadcrumbs": [
     {
       "name": "Home",
@@ -69,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

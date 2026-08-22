@@ -91,9 +91,9 @@ export function ProposalSection({
               <div className="flex items-start gap-3 p-4 bg-brand-charcoal border border-brand-border-dark rounded-sm">
                 <ShieldCheck className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">Full Statutory Compliance Guarantee</h4>
+                  <h4 className="text-sm font-bold text-white">Comprehensive Statutory Compliance Management</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    SFG20 maintenance scheduling, NICEIC electrical signoffs, Gas Safe certification, and digital audit logs.
+                    Structured PPM scheduling, periodic engineering testing, statutory record keeping, and digital audit logs.
                   </p>
                 </div>
               </div>
@@ -101,9 +101,9 @@ export function ProposalSection({
               <div className="flex items-start gap-3 p-4 bg-brand-charcoal border border-brand-border-dark rounded-sm">
                 <Clock className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">24/7 National Operations Helpdesk</h4>
+                  <h4 className="text-sm font-bold text-white">Central Operations Helpdesk</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Live helpdesk triage, engineer dispatch tracking, and guaranteed emergency response windows.
+                    Direct helpdesk triage, reactive engineer dispatch, and clear SLA performance tracking.
                   </p>
                 </div>
               </div>

@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/fm-birmingham",
-  "title": "FM Birmingham | 24/7 Emergency Engineering & Rapid Response | Entire FM",
-  "metaDescription": "24/7 emergency facilities management and mobile engineering across Birmingham and West Midlands. Urgent M&E, HVAC, power, and plumbing triage.",
-  "h1": "FM Birmingham — 24/7 Emergency Engineering & Rapid Response",
-  "eyebrow": "West Midlands Regional Hub",
-  "heroIntro": "Immediate 24/7 emergency facilities management and mobile engineering dispatch across Birmingham, Solihull, and the M42 corridor. Direct engineering vans on call.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Fm Birmingham | Facilities Management & Engineering | Entire FM",
+  "metaDescription": "Specialist commercial fm birmingham across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+  "h1": "Fm Birmingham — Facilities Management & Engineering",
+  "eyebrow": "Commercial Estate Operations",
+  "heroIntro": "Entire Facilities Management provides single-source fm birmingham for commercial property owners, managing agents, and industrial estates nationwide.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for fm birmingham",
   "primaryIntent": "fm birmingham services",
   "secondaryIntents": [
@@ -33,40 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "24/7 Emergency Engineering Support Across Birmingham",
-      "body": "EntireFM operates a dedicated Birmingham emergency engineering fleet providing 24/7 mechanical, electrical, plumbing, and HVAC rapid response across the West Midlands."
+      "heading": "Delivering Excellence in Fm Birmingham",
+      "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
     }
   ],
   "capabilities": [
     {
-      "name": "West Midlands Mobile Engineering Fleet",
-      "description": "Local certified mechanical and electrical engineers delivering scheduled PPM and rapid reactive repairs.",
-      "tag": "Engineering"
+      "name": "Planned Preventative Asset Care",
+      "description": "Structured maintenance schedules tailored to fm birmingham preserving building assets and preventing breakdowns.",
+      "tag": "Preventative Care"
     },
     {
-      "name": "Manufacturing & Automotive Sector FM",
-      "description": "Plant room servicing, compressed air maintenance, and industrial floor cleaning for Midlands factories.",
-      "tag": "Industrial FM"
+      "name": "Statutory Compliance Record Keeping",
+      "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+      "tag": "Statutory Compliance"
     },
     {
-      "name": "Birmingham Commercial Office Cleaning & Care",
-      "description": "Daily office cleaning, washroom hygiene, and statutory testing for city centre corporate buildings.",
-      "tag": "Corporate Care"
+      "name": "Direct Engineering & Helpdesk Delivery",
+      "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+      "tag": "Direct Delivery"
+    },
+    {
+      "name": "Dedicated Client Account Management",
+      "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+      "tag": "Account Support"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How quickly can your Birmingham emergency team respond?",
-      "answer": "Our Birmingham helpdesk operates 24/7/365 with contractual emergency response windows for reactive callouts across the West Midlands."
+      "question": "How does EntireFM deliver fm birmingham contracts?",
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
     }
   ],
   "breadcrumbs": [
@@ -95,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

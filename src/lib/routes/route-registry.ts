@@ -29,13 +29,25 @@ export const ALL_ROUTES: RouteRecord[] = registryData.routes;
 export const ROUTE_COUNTS = registryData.counts;
 
 /** Fast lookup: path → RouteRecord */
-const routeMap = new Map<string, RouteRecord>(
-  ALL_ROUTES.map(r => [r.path, r])
-);
+const routeMap = new Map<string, RouteRecord>();
+for (const r of ALL_ROUTES) {
+  routeMap.set(r.path, r);
+  try {
+    routeMap.set(decodeURIComponent(r.path), r);
+    routeMap.set(encodeURI(r.path), r);
+  } catch {}
+}
 
-/** Lookup a single route by exact path */
+/** Lookup a single route by exact path (or decoded/encoded variant) */
 export function getRoute(path: string): RouteRecord | undefined {
-  return routeMap.get(path);
+  if (routeMap.has(path)) return routeMap.get(path);
+  try {
+    const decoded = decodeURIComponent(path);
+    if (routeMap.has(decoded)) return routeMap.get(decoded);
+    const encoded = encodeURI(path);
+    if (routeMap.has(encoded)) return routeMap.get(encoded);
+  } catch {}
+  return undefined;
 }
 
 /** All protected routes */

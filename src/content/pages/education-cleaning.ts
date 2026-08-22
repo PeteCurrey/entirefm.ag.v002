@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/education-cleaning",
-  "title": "Education Cleaning | Entire FM",
-  "metaDescription": "Entire FM delivers expert education cleaning services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
-  "h1": "Education Cleaning",
-  "eyebrow": "Facilities Management & Engineering",
-  "heroIntro": "Entire Facilities Management provides professional, single-source education cleaning for commercial, industrial, and multi-site portfolios across the UK.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Education Facilities Management | School & University FM | Entire FM",
+  "metaDescription": "Specialist facilities management for schools, colleges, and universities across the UK. DBS-vetted staff, term-time compliance, and holiday overhaul works.",
+  "h1": "Education Facilities Management & Campus Maintenance",
+  "eyebrow": "Education Sector Scope",
+  "heroIntro": "Compliant, reliable facilities management supporting schools, academies, colleges, and university campuses. Ensuring safe learning environments, statutory certification, and disciplined safeguarding.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for education cleaning",
   "primaryIntent": "education cleaning services",
   "secondaryIntents": [
@@ -33,16 +34,47 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
-  "sections": [],
-  "capabilities": [],
+  "sections": [
+    {
+      "heading": "Safe, Compliant Learning Environments for Students and Staff",
+      "body": "Educational institutions require absolute rigor in safeguarding, statutory compliance, and budget accountability. EntireFM works closely with school business leaders and estate directors to maintain safe, inspiring learning environments."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Holiday Maintenance & Deep Clean Windows",
+      "description": "Intensive mechanical servicing, classroom painting, sports hall floor resealing, and deep cleans during school breaks.",
+      "tag": "Holiday Works"
+    },
+    {
+      "name": "Statutory Safety Certification & Auditing",
+      "description": "Periodic electrical testing (EICR), gas safety inspections, water hygiene Legionella monitoring, and fire door checks.",
+      "tag": "School Safety"
+    },
+    {
+      "name": "Daily School Cleaning & Sanitisation",
+      "description": "Early morning and twilight cleaning schedules using non-toxic, eco-friendly products to maintain clean learning spaces.",
+      "tag": "Campus Hygiene"
+    },
+    {
+      "name": "Heating & Boiler Plant for Classrooms",
+      "description": "Proactive winter boiler servicing and heating control zoning to ensure classroom temperature comfort standards are met.",
+      "tag": "Classroom Climate"
+    }
+  ],
   "assetTypes": [],
-  "faqs": [],
+  "faqs": [
+    {
+      "question": "Are your engineers and cleaning operatives DBS-checked?",
+      "answer": "Yes. All personnel assigned to educational sites undergo Enhanced DBS screening and receive explicit safeguarding briefings prior to attending site."
+    }
+  ],
   "breadcrumbs": [
     {
       "name": "Home",
@@ -69,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

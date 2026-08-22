@@ -1,14 +1,19 @@
 /**
  * ENQUIRY SUBMISSION API ENDPOINT — /api/enquiry
  * ===============================================
- * Real server-side lead ingestion pipeline with validation,
- * session attribution capture, and persistence.
+ * Production-grade durable lead delivery pipeline.
+ *
+ * Requirements:
+ * 1. Zod schema validation
+ * 2. Attribution & tracking metadata capture
+ * 3. Durable email delivery via Resend API (when RESEND_API_KEY is configured)
+ *    or Webhook delivery (when LEAD_WEBHOOK_URL is configured)
+ * 4. FAIL-CLOSED ARCHITECTURE: Never returns success: true if lead was not durably accepted.
  */
 
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import fs from 'fs';
-import path from 'path';
+import { CONTACT_CONFIG } from '@/config/contact';
 
 const EnquirySchema = z.object({
   name: z.string().min(2, 'Full name is required (min 2 characters)'),
@@ -42,7 +47,7 @@ export async function POST(request: Request) {
         {
           success: false,
           errors: result.error.flatten().fieldErrors,
-          message: 'Validation failed. Please check required fields.',
+          message: 'Validation failed. Please complete all required fields.',
         },
         { status: 400 }
       );
@@ -56,26 +61,109 @@ export async function POST(request: Request) {
       ...data,
     };
 
-    // Persist lead locally in runtime data log if directory available
-    try {
-      const dataDir = path.join(process.cwd(), '.runtime-leads');
-      if (!fs.existsSync(dataDir)) {
-        fs.mkdirSync(dataDir, { recursive: true });
+    const resendApiKey = process.env.RESEND_API_KEY;
+    const webhookUrl = process.env.LEAD_WEBHOOK_URL;
+    const leadDeliveryEmail = process.env.LEAD_DELIVERY_EMAIL || CONTACT_CONFIG.enquiryEmail;
+
+    let deliveredDurable = false;
+    let deliveryMethod = 'none';
+
+    // Method 1: Resend Transactional Email Delivery
+    if (resendApiKey) {
+      try {
+        const emailRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${resendApiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'EntireFM Commercial Portal <enquiries@entirefm.com>',
+            to: [leadDeliveryEmail],
+            reply_to: data.email,
+            subject: `[NEW PROPOSAL REQUEST] ${data.service} — ${data.company || data.name} (${data.location})`,
+            html: `
+              <h2>New Commercial Enquiry / Proposal Request</h2>
+              <p><strong>Enquiry ID:</strong> ${enquiryId}</p>
+              <hr />
+              <h3>Contact Details</h3>
+              <p><strong>Name:</strong> ${data.name}</p>
+              <p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
+              <p><strong>Phone:</strong> ${data.phone || 'Not provided'}</p>
+              <p><strong>Company:</strong> ${data.company || 'Not provided'}</p>
+              <hr />
+              <h3>Requirement</h3>
+              <p><strong>Service:</strong> ${data.service}</p>
+              <p><strong>Location:</strong> ${data.location}</p>
+              <p><strong>Message / Scope:</strong></p>
+              <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #c59b27;">
+                ${data.message.replace(/\n/g, '<br />')}
+              </blockquote>
+              <hr />
+              <h3>Attribution Metadata</h3>
+              <p><strong>Conversion Page:</strong> ${data.conversion_page || 'N/A'}</p>
+              <p><strong>Landing Page:</strong> ${data.landing_page || 'N/A'}</p>
+              <p><strong>UTM Source / Campaign:</strong> ${data.utm_source || 'direct'} / ${data.utm_campaign || 'none'}</p>
+              <p><strong>Referrer:</strong> ${data.referrer || 'none'}</p>
+              <p><strong>Timestamp:</strong> ${leadRecord.receivedAt}</p>
+            `,
+          }),
+        });
+
+        if (emailRes.ok) {
+          deliveredDurable = true;
+          deliveryMethod = 'resend_email';
+        }
+      } catch (e) {
+        console.error('[LEAD_DELIVERY_ERROR: Resend API failed]', e);
       }
-      fs.appendFileSync(
-        path.join(dataDir, 'enquiries.jsonl'),
-        JSON.stringify(leadRecord) + '\n'
+    }
+
+    // Method 2: Webhook / CRM Ingestion Endpoint
+    if (!deliveredDurable && webhookUrl) {
+      try {
+        const hookRes = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(leadRecord),
+        });
+
+        if (hookRes.ok) {
+          deliveredDurable = true;
+          deliveryMethod = 'crm_webhook';
+        }
+      } catch (e) {
+        console.error('[LEAD_DELIVERY_ERROR: Webhook ingestion failed]', e);
+      }
+    }
+
+    // In local dev environment only, allow mock delivery with explicit log
+    const isDev = process.env.NODE_ENV === 'development';
+    if (!deliveredDurable && isDev) {
+      console.log('[DEV_MODE_LEAD_CAPTURE]', JSON.stringify(leadRecord, null, 2));
+      deliveredDurable = true;
+      deliveryMethod = 'local_dev_mock';
+    }
+
+    // FAIL-CLOSED: If production environment cannot guarantee durable storage/delivery
+    if (!deliveredDurable) {
+      console.error('[CRITICAL: LEAD PERSISTENCE FAILED — NO DURABLE SINK AVAILABLE]', JSON.stringify(leadRecord));
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'LEAD_DISPATCH_UNAVAILABLE',
+          message: `Our online portal is undergoing scheduled maintenance. Please contact our commercial operations desk directly on ${CONTACT_CONFIG.mainPhone.display} or email ${CONTACT_CONFIG.enquiryEmail}.`,
+        },
+        { status: 503 }
       );
-    } catch {
-      // In read-only serverless edge environments, log to stdout
-      console.log('[LEAD INGESTION]', JSON.stringify(leadRecord));
     }
 
     return NextResponse.json(
       {
         success: true,
         enquiryId,
-        message: 'Your proposal request has been received by our commercial desk.',
+        deliveryMethod,
+        message: 'Your proposal request has been successfully received by our commercial operations desk.',
       },
       { status: 200 }
     );

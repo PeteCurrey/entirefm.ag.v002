@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/retail-fm-lincoln",
-  "title": "Retail & Shopping Facilities Management Lincoln | Entire FM",
-  "metaDescription": "Specialist retail & shopping facilities management in Lincoln and Lincolnshire. M&E maintenance, commercial cleaning, compliance, and 24/7 helpdesk.",
-  "h1": "Retail & Shopping Facilities Management Lincoln",
-  "eyebrow": "Lincolnshire Operational Centre",
-  "heroIntro": "Dedicated retail & shopping facilities management for properties across Lincoln and Lincolnshire, managed directly from our regional operational centre.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Retail Facilities Management | High-Footfall FM Services | Entire FM",
+  "metaDescription": "Specialist retail facilities management for shopping centres, high-street chains, and retail parks. Out-of-hours maintenance, customer hygiene, and HVAC care.",
+  "h1": "Retail Facilities Management & Store Maintenance",
+  "eyebrow": "Sector Specialist Scope",
+  "heroIntro": "Specialist facilities management engineered for retail environments. Delivering out-of-hours maintenance, HVAC temperature stability, customer washroom hygiene, and reactive emergency support across UK retail estates.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for retail fm lincoln",
   "primaryIntent": "retail fm lincoln services",
   "secondaryIntents": [
@@ -33,40 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Retail & Shopping Solutions Built for Lincoln Property Owners",
-      "body": "EntireFM provides dedicated retail & shopping facilities management across Lincoln, providing local accountability and direct engineering delivery."
+      "heading": "Protecting Footfall, Brand Presentation & Trading Continuity",
+      "body": "Retail environments demand high uptime and immaculate visual standards. A failure in climate control or washroom plumbing directly harms customer dwell time and sales. EntireFM provides multi-site retail maintenance with dedicated account managers and rapid reactive support."
     }
   ],
   "capabilities": [
     {
-      "name": "Retail & Shopping Plant & Equipment PPM",
-      "description": "Tailored maintenance routines for retail & shopping infrastructure in Lincoln.",
-      "tag": "Maintenance"
+      "name": "Out-of-Hours Engineering & Store Servicing",
+      "description": "Scheduled maintenance executed during non-trading hours to prevent disruption to customer shopping and till operations.",
+      "tag": "Trading Continuity"
     },
     {
-      "name": "Local Lincoln Engineering Fleet",
-      "description": "Fast on-site attendance from our Lincoln operational base for scheduled and emergency works.",
-      "tag": "Local Fleet"
+      "name": "Customer Washroom & Hygiene Services",
+      "description": "High-frequency washroom servicing, automated sanitisation, consumable replenishment, and emergency plumbing triage.",
+      "tag": "Customer Experience"
     },
     {
-      "name": "Full Statutory Compliance Certification",
-      "description": "Electrical, gas, fire, and water safety testing with digital audit logging.",
-      "tag": "Compliance"
+      "name": "Retail HVAC & Comfort Cooling Maintenance",
+      "description": "PPM servicing of VRF climate systems, air curtains, and extractors ensuring comfortable store temperatures.",
+      "tag": "Climate Control"
+    },
+    {
+      "name": "Emergency Glazing, Doors & Roller Shutters",
+      "description": "Rapid response for broken shopfront glazing, malfunctioning automatic doors, and jammed security shutters.",
+      "tag": "Store Security"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "Where is EntireFM’s Lincoln operational base?",
-      "answer": "Our Lincoln operational centre manages operations across Lincolnshire, Nottinghamshire, and the East Midlands."
+      "question": "Can retail maintenance works be scheduled outside store trading hours?",
+      "answer": "Yes. The vast majority of our retail engineering and deep cleaning works are carried out early morning or overnight to ensure zero impact on shoppers."
     }
   ],
   "breadcrumbs": [
@@ -95,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

@@ -12,7 +12,17 @@ export type { ContentRecord };
 
 /** Load a content record for a given path */
 export function loadContentRecord(path: string): ContentRecord | null {
-  return getContentRecord(path);
+  const rec = getContentRecord(path);
+  if (rec) return rec;
+  try {
+    const decoded = decodeURIComponent(path);
+    const recDecoded = getContentRecord(decoded);
+    if (recDecoded) return recDecoded;
+    const encoded = encodeURI(path);
+    const recEncoded = getContentRecord(encoded);
+    if (recEncoded) return recEncoded;
+  } catch {}
+  return null;
 }
 
 export { CONTENT_DATABASE };

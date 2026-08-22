@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/hot-tub-relocation",
-  "title": "Hot Tub Relocation | Entire FM",
-  "metaDescription": "Entire FM delivers expert hot tub relocation services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
-  "h1": "Hot Tub Relocation",
-  "eyebrow": "Facilities Management & Engineering",
-  "heroIntro": "Entire Facilities Management provides professional, single-source hot tub relocation for commercial, industrial, and multi-site portfolios across the UK.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Commercial Spa & Hot Tub Relocation Services | Entire FM",
+  "metaDescription": "Specialist commercial hot tub and spa relocation services. Precision crane lifts, transport, disconnection, and reconnection across the UK.",
+  "h1": "Commercial Spa & Hot Tub Relocation Services",
+  "eyebrow": "Specialist Plant Relocation",
+  "heroIntro": "Specialist crane lifting, transport, and decommissioning services for commercial hot tubs, swim spas, and hydrotherapy plant across hotels, holiday parks, and leisure facilities.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for hot tub relocation",
   "primaryIntent": "hot tub relocation services",
   "secondaryIntents": [
@@ -33,16 +34,47 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
-  "sections": [],
-  "capabilities": [],
+  "sections": [
+    {
+      "heading": "Expert Handling for Heavy Commercial Spa Assets",
+      "body": "Moving large hot tubs and commercial swim spas requires specialist lifting equipment, heavy transport, and qualified electrical disconnection. EntireFM provides complete turnkey relocation services with full insurance coverage."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Precision Mobile Crane Spas Lifting",
+      "description": "Contract lifting over walls, fences, and onto raised decks using specialized lifting straps and spreader bars.",
+      "tag": "Crane Lifting"
+    },
+    {
+      "name": "Electrical & Plumbing Safe Disconnection",
+      "description": "Qualified isolation of 32A/16A electrical feeds, pump drain downs, and winterisation prep prior to transport.",
+      "tag": "Decommissioning"
+    },
+    {
+      "name": "Specialist Air-Ride Spa Transport",
+      "description": "Custom trailers and spa sledges designed to transport heavy fiberglass shells without structural flexing or shell damage.",
+      "tag": "Transport"
+    },
+    {
+      "name": "Site Re-Commissioning & Water Prep",
+      "description": "Positioning, levelling, electrical reconnection, water filling, and initial chemical shock treatment.",
+      "tag": "Recommissioning"
+    }
+  ],
   "assetTypes": [],
-  "faqs": [],
+  "faqs": [
+    {
+      "question": "Can a hot tub be lifted over a building with a crane?",
+      "answer": "Yes. We utilize compact truck-mounted cranes and mobile cranes to lift hot tubs over rooftops, boundary walls, and into courtyard gardens safely."
+    }
+  ],
   "breadcrumbs": [
     {
       "name": "Home",
@@ -69,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

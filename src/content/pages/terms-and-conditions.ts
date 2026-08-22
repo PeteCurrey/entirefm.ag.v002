@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/terms-and-conditions",
-  "title": "Terms And Conditions | Legal & Compliance | Entire FM",
-  "metaDescription": "Official terms and conditions and corporate compliance information for Entire Facilities Management Ltd.",
+  "title": "Terms And Conditions | Entire FM",
+  "metaDescription": "Official terms and conditions documentation and legal governance for Entire Facilities Management Ltd.",
   "h1": "Terms And Conditions",
-  "eyebrow": "Corporate Governance",
-  "heroIntro": "Official corporate and regulatory policies for Entire Facilities Management Ltd.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "eyebrow": "Legal & Corporate Governance",
+  "heroIntro": "Official statutory and corporate policies governing Entire Facilities Management Ltd operations, data privacy, and service delivery standards.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for terms and conditions",
   "primaryIntent": "terms and conditions services",
   "secondaryIntents": [
@@ -33,35 +34,35 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Policy Statement",
-      "body": "Entire Facilities Management Ltd operates under strict corporate governance, adhering to all UK statutory regulations, data protection legislation, and fair commercial trading practices."
+      "heading": "Corporate Transparency & Governance",
+      "body": "Entire Facilities Management Ltd operates under rigorous legal compliance frameworks ensuring transparent customer service and high ethical standards."
     }
   ],
   "capabilities": [
     {
-      "name": "Data Protection & Privacy",
-      "description": "Commitment to GDPR, data confidentiality, and secure information processing.",
-      "tag": "Privacy"
+      "name": "Statutory Data Protection & GDPR",
+      "description": "Strict compliance with UK GDPR and Data Protection Act 2018 standards.",
+      "tag": "GDPR"
     },
     {
-      "name": "Accessibility Standards",
-      "description": "Commitment to digital accessibility standards (WCAG 2.1 AA) across our website.",
+      "name": "Digital Service Accessibility",
+      "description": "Ensuring digital portals and web documents meet WCAG 2.1 AA accessibility guidelines.",
       "tag": "Accessibility"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "Who can I contact regarding legal or compliance queries?",
-      "answer": "Please email enquiries@entirefm.com with your specific legal or compliance enquiry."
+      "question": "Who is the Data Protection Officer for EntireFM?",
+      "answer": "Our Data Protection compliance team can be contacted directly at privacy@entirefm.com for any subject access or data inquiries."
     }
   ],
   "breadcrumbs": [
@@ -90,7 +91,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

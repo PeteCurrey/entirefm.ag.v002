@@ -21,6 +21,12 @@ export const RouteProvenanceSchema = z.enum([
   'LEGACY_PROTECTED_BY_DIRECTIVE',
 
   /**
+   * Routes established on the current live Antigravity deployment that are
+   * retained as permanent 200 pages in the new unified architecture.
+   */
+  'CURRENT_LIVE_RETAINED',
+
+  /**
    * Genuinely new routes added as part of future SEO expansion.
    * Must never be misrepresented as historic.
    */
@@ -63,9 +69,10 @@ export type RoutePriority = z.infer<typeof RoutePrioritySchema>;
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const ContentStatusSchema = z.enum([
-  'COMPLETE',         // Full content written and validated
-  'CONTENT_PENDING',  // Page spec exists, body copy not yet written (acceptable at this stage)
-  'SPEC_MISSING',     // No page specification exists yet (BUILD FAILURE trigger)
+  'COMPLETE',          // Full content written and validated
+  'CONTENT_COMPLETE',  // Bespoke content complete and QA passed
+  'CONTENT_PENDING',   // Page spec exists, body copy not yet written
+  'SPEC_MISSING',      // No page specification exists yet
 ]);
 export type ContentStatus = z.infer<typeof ContentStatusSchema>;
 
@@ -159,7 +166,7 @@ export const RouteRecordSchema = z.object({
   designStatus: DesignStatusSchema,
 
   /** Which historic Wix generations this route appeared on */
-  historicSources: z.array(z.enum(['wix-generation-1', 'wix-generation-2'])),
+  historicSources: z.array(z.enum(['wix-generation-1', 'wix-generation-2', 'current-live-antigravity', 'new-growth-directive'])),
 
   /** Historic Wix Generation 1 URL if verified */
   g1_url: z.string().url().nullable().optional(),

@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/hotel-facilities-management",
-  "title": "Hotel Facilities Management | Sector Specialist Services | Entire FM",
-  "metaDescription": "Specialist hotel facilities management. Tailored maintenance, statutory safety compliance, cleaning, and 24/7 helpdesk support.",
-  "h1": "Hotel Facilities Management & Maintenance",
-  "eyebrow": "Specialist Industry Sector Scope",
-  "heroIntro": "Engineered facilities management and maintenance frameworks designed specifically for the operational demands, compliance regulations, and uptime requirements of the hotel sector.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Hotel & Hospitality Facilities Management | Guest Experience FM | Entire FM",
+  "metaDescription": "Discreet facilities management for hotels, resorts, and hospitality venues. 24/7 guest comfort maintenance, kitchen extraction, HVAC, and front-of-house care.",
+  "h1": "Hotel & Hospitality Facilities Management",
+  "eyebrow": "Hospitality Sector Scope",
+  "heroIntro": "Discreet, 24/7 facilities management and engineering maintenance for luxury hotels, boutique resorts, and hospitality venues. Protecting guest comfort, ratings, and operational continuity.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for hotel facilities management",
   "primaryIntent": "hotel facilities management services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Tailored FM Delivery for Hotel Operations",
-      "body": "Every industry sector has unique operating pressures. EntireFM builds bespoke service level agreements matching your shift patterns, compliance mandates, and budget requirements."
+      "heading": "Flawless Guest Experiences Powered by Invisible Engineering",
+      "body": "In hospitality, maintenance issues directly affect online reviews and revenue. EntireFM operates around the clock to ensure plant runs quietly, public spaces look immaculate, and guest rooms remain comfortable."
     }
   ],
   "capabilities": [
     {
-      "name": "Sector-Specific Compliance & Auditing",
-      "description": "Rigorous adherence to statutory health, safety, and industry regulatory frameworks governing hotel.",
-      "tag": "Compliance"
+      "name": "24/7 Guest Room Climate & Plumbing Triage",
+      "description": "Rapid, discreet response for air conditioning faults, hot water failures, and sanitary issues with minimal guest disturbance.",
+      "tag": "Guest Comfort"
     },
     {
-      "name": "Planned Plant & Environmental Maintenance",
-      "description": "Preventative servicing for heating, cooling, power distribution, and specialist ventilation systems.",
-      "tag": "PPM"
+      "name": "Commercial Kitchen Extract & Duct Cleaning",
+      "description": "Certified TR19 grease extraction cleaning, canopy filter servicing, and fire damper testing for hotel kitchens.",
+      "tag": "TR19 Kitchens"
     },
     {
-      "name": "Specialist Cleaning & Hygiene Standards",
-      "description": "Bespoke cleaning protocols aligned with hotel operational hours and hygiene requirements.",
-      "tag": "Hygiene"
+      "name": "Public Area & Event Space Maintenance",
+      "description": "Ballroom lighting repairs, chandelier cleaning, marble floor polishing, and decorative fabric upkeep.",
+      "tag": "Event Spaces"
     },
     {
-      "name": "24/7 Critical Emergency Response",
-      "description": "Rapid engineering dispatch to protect operational continuity and prevent downtime.",
-      "tag": "24/7 Support"
+      "name": "Spa, Leisure & Pool Plant Room Servicing",
+      "description": "Water circulation pump maintenance, chemical dosing check, sauna heater servicing, and filtration backwashing.",
+      "tag": "Spa & Wellness"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do you adapt maintenance schedules for hotel environments?",
-      "answer": "We perform intrusive engineering works out of hours or during planned operational shutdowns to guarantee zero impact on your core activities."
+      "question": "How do your engineers operate in live guest areas?",
+      "answer": "Our hospitality teams work discreetly, adhering to strict noise curfews, smart dress standards, and service corridor routing to protect guest privacy."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;

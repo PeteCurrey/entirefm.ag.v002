@@ -10,12 +10,13 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/education-facilities-management",
-  "title": "Education Facilities Management | Sector Specialist Services | Entire FM",
-  "metaDescription": "Specialist education facilities management. Tailored maintenance, statutory safety compliance, cleaning, and 24/7 helpdesk support.",
-  "h1": "Education Facilities Management & Maintenance",
-  "eyebrow": "Specialist Industry Sector Scope",
-  "heroIntro": "Engineered facilities management and maintenance frameworks designed specifically for the operational demands, compliance regulations, and uptime requirements of the education sector.",
-  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "title": "Education Facilities Management | School & University FM | Entire FM",
+  "metaDescription": "Specialist facilities management for schools, colleges, and universities across the UK. DBS-vetted staff, term-time compliance, and holiday overhaul works.",
+  "h1": "Education Facilities Management & Campus Maintenance",
+  "eyebrow": "Education Sector Scope",
+  "heroIntro": "Compliant, reliable facilities management supporting schools, academies, colleges, and university campuses. Ensuring safe learning environments, statutory certification, and disciplined safeguarding.",
+  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+  "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for education facilities management",
   "primaryIntent": "education facilities management services",
   "secondaryIntents": [
@@ -33,45 +34,45 @@ const record: ContentRecord = {
     "Contract management"
   ],
   "requiredSections": [
-    "Hero",
-    "Capabilities",
-    "Body Copy",
-    "FAQ",
-    "Conversion"
+    "hero",
+    "capabilities",
+    "body",
+    "faq",
+    "cta"
   ],
   "sections": [
     {
-      "heading": "Tailored FM Delivery for Education Operations",
-      "body": "Every industry sector has unique operating pressures. EntireFM builds bespoke service level agreements matching your shift patterns, compliance mandates, and budget requirements."
+      "heading": "Safe, Compliant Learning Environments for Students and Staff",
+      "body": "Educational institutions require absolute rigor in safeguarding, statutory compliance, and budget accountability. EntireFM works closely with school business leaders and estate directors to maintain safe, inspiring learning environments."
     }
   ],
   "capabilities": [
     {
-      "name": "Sector-Specific Compliance & Auditing",
-      "description": "Rigorous adherence to statutory health, safety, and industry regulatory frameworks governing education.",
-      "tag": "Compliance"
+      "name": "Holiday Maintenance & Deep Clean Windows",
+      "description": "Intensive mechanical servicing, classroom painting, sports hall floor resealing, and deep cleans during school breaks.",
+      "tag": "Holiday Works"
     },
     {
-      "name": "Planned Plant & Environmental Maintenance",
-      "description": "Preventative servicing for heating, cooling, power distribution, and specialist ventilation systems.",
-      "tag": "PPM"
+      "name": "Statutory Safety Certification & Auditing",
+      "description": "Periodic electrical testing (EICR), gas safety inspections, water hygiene Legionella monitoring, and fire door checks.",
+      "tag": "School Safety"
     },
     {
-      "name": "Specialist Cleaning & Hygiene Standards",
-      "description": "Bespoke cleaning protocols aligned with education operational hours and hygiene requirements.",
-      "tag": "Hygiene"
+      "name": "Daily School Cleaning & Sanitisation",
+      "description": "Early morning and twilight cleaning schedules using non-toxic, eco-friendly products to maintain clean learning spaces.",
+      "tag": "Campus Hygiene"
     },
     {
-      "name": "24/7 Critical Emergency Response",
-      "description": "Rapid engineering dispatch to protect operational continuity and prevent downtime.",
-      "tag": "24/7 Support"
+      "name": "Heating & Boiler Plant for Classrooms",
+      "description": "Proactive winter boiler servicing and heating control zoning to ensure classroom temperature comfort standards are met.",
+      "tag": "Classroom Climate"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "How do you adapt maintenance schedules for education environments?",
-      "answer": "We perform intrusive engineering works out of hours or during planned operational shutdowns to guarantee zero impact on your core activities."
+      "question": "Are your engineers and cleaning operatives DBS-checked?",
+      "answer": "Yes. All personnel assigned to educational sites undergo Enhanced DBS screening and receive explicit safeguarding briefings prior to attending site."
     }
   ],
   "breadcrumbs": [
@@ -100,7 +101,7 @@ const record: ContentRecord = {
     "No placeholder contact strings in rendered content",
     "No unverified statistics"
   ],
-  "contentStatus": "COMPLETE"
+  "contentStatus": "CONTENT_COMPLETE"
 };
 
 export default record;
