@@ -203,23 +203,64 @@ export type RouteRegistry = z.infer<typeof RouteRegistrySchema>;
 // A generic template does NOT satisfy this requirement.
 // ─────────────────────────────────────────────────────────────────────────────
 
+export const ContentSectionSchema = z.object({
+  heading: z.string(),
+  body: z.string(),
+  bullets: z.array(z.string()).optional(),
+  image: z.string().optional(),
+  icon: z.string().optional(),
+});
+
+export const CapabilityItemSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+  tag: z.string().optional(),
+  icon: z.string().optional(),
+});
+
+export const FAQItemSchema = z.object({
+  question: z.string(),
+  answer: z.string(),
+});
+
+export const RelatedLinkItemSchema = z.object({
+  title: z.string(),
+  path: z.string(),
+  category: z.string().optional(),
+  description: z.string().optional(),
+});
+
+export const BreadcrumbItemSchema = z.object({
+  name: z.string(),
+  url: z.string(),
+});
+
 export const ContentRecordSchema = z.object({
   /** Must match the route path exactly */
   path: z.string().startsWith('/'),
 
   /** Unique page <title> tag */
-  title: z.string().min(10).max(70),
+  title: z.string().min(10).max(85),
 
   /** Unique meta description */
-  metaDescription: z.string().min(50).max(160),
+  metaDescription: z.string().min(50).max(180),
 
   /** Unique H1 heading */
   h1: z.string().min(5),
 
-  /**
-   * The historic search intent this page was designed to capture.
-   * Cannot be generic.
-   */
+  /** Optional subtitle or eyebrow tag */
+  eyebrow: z.string().optional(),
+
+  /** Hero introduction paragraph */
+  heroIntro: z.string().optional(),
+
+  /** Extended hero overview */
+  heroDescription: z.string().optional(),
+
+  /** Hero image path */
+  heroImage: z.string().optional(),
+
+  /** The historic search intent this page was designed to capture */
   historicIntent: z.string().min(10),
 
   /** The primary commercial search intent this page targets */
@@ -246,6 +287,33 @@ export const ContentRecordSchema = z.object({
   /** Content sections that must appear on this page */
   requiredSections: z.array(z.string()).min(1),
 
+  /** Rendered body content sections */
+  sections: z.array(ContentSectionSchema).optional(),
+
+  /** Capabilities / Feature pillars */
+  capabilities: z.array(CapabilityItemSchema).optional(),
+
+  /** Asset types or equipment managed */
+  assetTypes: z.array(CapabilityItemSchema).optional(),
+
+  /** FAQs for this specific route */
+  faqs: z.array(FAQItemSchema).optional(),
+
+  /** Related links / Hub cards */
+  relatedLinks: z.array(RelatedLinkItemSchema).optional(),
+
+  /** Breadcrumb navigation */
+  breadcrumbs: z.array(BreadcrumbItemSchema).optional(),
+
+  /** Primary CTA button */
+  primaryCTA: z.object({ text: z.string(), href: z.string() }).optional(),
+
+  /** Secondary CTA button */
+  secondaryCTA: z.object({ text: z.string(), href: z.string() }).optional(),
+
+  /** Custom page data */
+  customData: z.record(z.any()).optional(),
+
   /**
    * Related routes for internal linking.
    * Must be explicit — no automated keyword matching.
@@ -263,6 +331,11 @@ export const ContentRecordSchema = z.object({
 });
 
 export type ContentRecord = z.infer<typeof ContentRecordSchema>;
+export type ContentSection = z.infer<typeof ContentSectionSchema>;
+export type CapabilityItem = z.infer<typeof CapabilityItemSchema>;
+export type FAQItem = z.infer<typeof FAQItemSchema>;
+export type RelatedLinkItem = z.infer<typeof RelatedLinkItemSchema>;
+export type BreadcrumbItem = z.infer<typeof BreadcrumbItemSchema>;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // REDIRECT RECORD

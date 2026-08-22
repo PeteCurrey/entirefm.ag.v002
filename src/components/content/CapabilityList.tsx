@@ -4,24 +4,29 @@ import React, { useState } from 'react';
 import { ChevronDown, CheckCircle2, ShieldCheck, HelpCircle } from 'lucide-react';
 
 export function CapabilityList({
-  title = 'Core Engineering & Maintenance Capabilities',
-  subtitle = 'Technical services delivered under certified compliance standards.',
+  title,
+  subtitle,
   items,
+  capabilities,
 }: {
   title?: string;
   subtitle?: string;
-  items: Array<{ name: string; description: string; tag?: string }>;
+  items?: Array<{ name: string; description: string; tag?: string }>;
+  capabilities?: Array<{ name: string; description: string; tag?: string }>;
 }) {
+  const displayItems = capabilities || items || [];
   return (
     <div className="my-10">
-      <div className="mb-6">
-        <span className="badge-technical">Technical Capabilities</span>
-        <h3 className="text-2xl font-bold tracking-tight text-brand-navy mt-1">{title}</h3>
-        <p className="text-xs text-slate-600 mt-1">{subtitle}</p>
-      </div>
+      {(title || subtitle) && (
+        <div className="mb-6">
+          {title && <span className="badge-technical">Technical Capabilities</span>}
+          {title && <h3 className="text-2xl font-bold tracking-tight text-brand-navy mt-1">{title}</h3>}
+          {subtitle && <p className="text-xs text-slate-600 mt-1">{subtitle}</p>}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {items.map((item, idx) => (
+        {displayItems.map((item, idx) => (
           <div key={idx} className="p-5 bg-brand-surface border border-brand-border rounded-sm flex items-start gap-3 shadow-subtle">
             <CheckCircle2 className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
             <div>
@@ -41,6 +46,7 @@ export function CapabilityList({
     </div>
   );
 }
+
 
 export function FAQAccordion({
   title = 'Frequently Asked Questions',

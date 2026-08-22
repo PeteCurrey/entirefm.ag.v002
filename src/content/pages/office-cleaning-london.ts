@@ -6,46 +6,94 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/office-cleaning-london",
-  "title": "Office Cleaning London | Specialist Commercial Services | Entire FM",
-  "metaDescription": "Professional office cleaning across London — specialist equipment, certified operatives, and tailored commercial service schedules.",
+  "title": "Office Cleaning in London | Professional Services | Entire FM",
+  "metaDescription": "Specialist office cleaning services in London. Directly employed local teams, professional equipment, and full compliance certification.",
   "h1": "Office Cleaning London",
-  "historicIntent": "Hyper-targeted local service search intent combining Office Cleaning with London commercial properties.",
-  "primaryIntent": "office cleaning London",
+  "eyebrow": "London Local Service Delivery",
+  "heroIntro": "Professional office cleaning delivered across London and surrounding commercial districts by EntireFM’s regional operations teams.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for office cleaning london",
+  "primaryIntent": "office cleaning london services",
   "secondaryIntents": [
-    "commercial office cleaning London",
-    "contract office cleaning London"
+    "commercial office cleaning london",
+    "office cleaning london contractor UK"
   ],
   "pageType": "geographic-service",
   "service": null,
   "sector": null,
   "location": "London",
   "historicTopics": [
-    "Office Cleaning delivery across London",
-    "Site types served: Prime commercial office towers, corporate headquarters, retail arenas, and high-density residential blocks",
-    "RAMS and health & safety compliance",
-    "Out-of-hours scheduling"
+    "Office Cleaning London overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Local Service Hero",
-    "Service Scope",
-    "Districts Covered",
-    "Safety Standards",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Reliable Office Cleaning Across London",
+      "body": "EntireFM provides dependable, high-quality office cleaning for commercial offices, industrial plants, retail premises, and residential developments in London."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Dedicated London Service Team",
+      "description": "Experienced local operatives equipped with commercial-grade equipment and eco-compliant treatments.",
+      "tag": "Local Delivery"
+    },
+    {
+      "name": "Health & Safety Certified",
+      "description": "Fully insured, COSHH compliant, and trained to industry-leading health and safety standards.",
+      "tag": "Safety"
+    },
+    {
+      "name": "Flexible Out-of-Hours Scheduling",
+      "description": "Available for early morning, evening, weekend, and shutdown operations to minimize disruption.",
+      "tag": "Flexible Hours"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "Do you provide free surveys for office cleaning in London?",
+      "answer": "Yes. We provide on-site technical surveys and transparent written proposals for all commercial sites in London."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Local Services",
+      "url": "/locations"
+    },
+    {
+      "name": "Office Cleaning London",
+      "url": "/office-cleaning-london"
+    }
   ],
   "relatedRoutes": [
-    "/industrial-cleaning",
-    "/cleaning-services",
-    "/facilities-management-london"
+    "/mechanical-electrical",
+    "/ppm",
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate office cleaning quotations and site survey bookings in London.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for office cleaning london.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

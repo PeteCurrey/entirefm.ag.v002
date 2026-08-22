@@ -1,204 +1,203 @@
 import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { LocationHero } from '@/components/hero/LocationHero';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
 import { CapabilityList, FAQAccordion } from '@/components/content/CapabilityList';
-import { ProposalSection, InlineCTA, PhoneCTA } from '@/components/conversion/PhoneCTA';
+import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { RelatedLinks } from '@/components/content/CaseStudyFeature';
-import { Clock, ShieldAlert, Zap, Wrench, CheckCircle2, Phone, MapPin, Building } from 'lucide-react';
+import { Phone, CheckCircle2, ArrowRight, MapPin } from 'lucide-react';
+import { BrandIcon } from '@/components/ui/BrandIcon';
+import type { TemplateProps } from './types';
+import { CONTACT_CONFIG } from '@/config/contact';
+import Link from 'next/link';
 
-export function TemplatePrimaryLocation() {
-  const breadcrumbs = [
+export function TemplatePrimaryLocation({ route, content }: TemplateProps) {
+  const city = content.location || 'Regional';
+  const breadcrumbs = content.breadcrumbs || [
+    { name: 'Home', url: '/' },
     { name: 'Locations', url: '/locations' },
-    { name: 'London Hub', url: '/fm-london' },
+    { name: content.h1, url: route.path },
   ];
 
-  const londonRapidCapabilities = [
-    {
-      name: '24/7 London Emergency Plant & Engineering Dispatch',
-      description: 'Immediate technical helpdesk triage and mobile M&E engineering van dispatch across Zones 1–6 and the M25 corridor.',
-      tag: '24/7 Callout',
-    },
-    {
-      name: 'HVAC, Chiller & Boiler Breakdown Response',
-      description: 'Rapid on-site troubleshooting and parts replacement for commercial heating, VRV air conditioning, and critical cooling failures.',
-      tag: 'Critical Climate',
-    },
-    {
-      name: 'Power Failure & Switchgear Emergency Support',
-      description: 'Emergency NICEIC-certified electricians on call for commercial power outages, distribution fault finding, and generator activation.',
-      tag: 'Emergency Power',
-    },
-    {
-      name: 'Water Ingress, Pipe Bursts & Drainage Clearance',
-      description: 'Rapid commercial plumbing triage, high-pressure water jetting, and emergency valve isolation for London commercial premises.',
-      tag: 'Plumbing & Drainage',
-    },
-    {
-      name: 'Access Control & Security Door Failures',
-      description: 'Urgent repairs to electronic access gates, mag-locks, automated commercial entrances, and security shutters.',
-      tag: 'Site Security',
-    },
-    {
-      name: 'Post-Incident Rapid Cleaning & Decontamination',
-      description: 'Emergency extraction, flood response, biohazard sanitisation, and rapid floor restoration for London offices and retail units.',
-      tag: 'Rapid Cleaning',
-    },
-  ];
+  const capabilities = (content.capabilities && content.capabilities.length > 0)
+    ? content.capabilities
+    : [
+        {
+          name: `24/7 ${city} Emergency Engineering Dispatch`,
+          description: `Rapid mobile engineering attendance for commercial power, HVAC, plumbing, and plant breakdowns in ${city}.`,
+          tag: '24/7 Callout',
+        },
+        {
+          name: `${city} Commercial Property Maintenance`,
+          description: `SFG20 maintenance scheduling, statutory testing, and total facilities management across ${city}.`,
+          tag: 'Maintenance',
+        },
+      ];
 
-  const londonFaqs = [
-    {
-      question: 'What is EntireFM’s emergency callout SLA in Central London?',
-      answer: 'Our dedicated London helpdesk operates 24/7/365. Contractual emergency callout windows are established based on site criticality (typically 2 to 4 hours for priority commercial accounts across Zones 1–4).'
-    },
-    {
-      question: 'How do your mobile engineering vans navigate ULEZ and London traffic?',
-      answer: 'Our entire London operations fleet is ULEZ-compliant, equipped with live GPS route tracking, and stocked with universal critical replacement components to resolve first-time fixes rapidly.'
-    },
-    {
-      question: 'Do you cover outer London boroughs and the M25 ring?',
-      answer: 'Yes. EntireFM deploys mobile engineers across all 32 London boroughs, the City of London, Canary Wharf, and adjacent Home Counties business parks along the M25 corridor.'
-    },
-    {
-      question: 'How does /fm-london differ from your planned FM services in London?',
-      answer: 'This page represents our rapid-response operations and emergency helpdesk infrastructure in London. For scheduled preventative maintenance (PPM) and statutory compliance scopes, explore our Facilities Management London hub.'
-    },
-  ];
+  const faqs = (content.faqs && content.faqs.length > 0)
+    ? content.faqs
+    : [
+        {
+          question: `What emergency response times does EntireFM offer in ${city}?`,
+          answer: `Our dedicated regional helpdesk operates 24/7/365 with contractual emergency callout windows established for contracted clients across ${city}.`,
+        },
+      ];
 
-  const relatedLinks = [
-    { path: '/facilities-management-london', label: 'Facilities Management London (Planned Maintenance Hub)' },
-    { path: '/london-facilities-management', label: 'London Facilities Management (Corporate & Managing Agents)' },
-    { path: '/london-facilities-management-areas', label: 'London Coverage Areas & Borough Directory' },
-    { path: '/commercial-cleaning-london', label: 'Commercial Office Cleaning London' },
-    { path: '/industrial-cleaning-london', label: 'Industrial & Specialist Cleaning London' },
-    { path: '/contract-cleaning-london', label: 'Contract Cleaning London Services' },
-  ];
+  const relatedLinks = (content.relatedRoutes || ['/locations', '/services', '/ppm', '/contact-us']).map(r => ({
+    title: r.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    path: r,
+    category: `${city} Service`,
+    description: `Explore EntireFM capabilities for ${r.replace(/^\//, '').replace(/-/g, ' ')}.`,
+  }));
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
-      <main className="flex-1">
-        <div className="bg-brand-navy border-b border-brand-border-dark/60">
+      <main className="flex-grow">
+        <Breadcrumbs items={breadcrumbs} />
+
+        {/* Dynamic Location Hero */}
+        <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
           <div className="container-custom">
-            <Breadcrumbs items={breadcrumbs} />
-          </div>
-        </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-8 space-y-4">
+                <div className="flex items-center gap-2">
+                  <span className="badge-gold">
+                    <MapPin className="w-3 h-3 inline mr-1" />
+                    {city} Operations Centre
+                  </span>
+                  <span className="badge-technical text-slate-300">
+                    {content.eyebrow || 'Regional Operations'}
+                  </span>
+                </div>
 
-        {/* Rapid-Response / Operations-First Hero */}
-        <LocationHero
-          city="London"
-          title="FM London — 24/7 Facilities Management & Emergency Engineering"
-          subtitle="High-availability mobile engineering teams, 24/7 helpdesk dispatch, and emergency plant maintenance across Central London, City, Canary Wharf, and all 32 boroughs."
-          badge="24/7 Rapid Response & Operations Hub"
-          coverageZones="Zones 1–6, City of London & M25 Corridor"
-          responseSLA="Priority Emergency Callout [SLA TO VERIFY]"
-          intentVariant="rapid-response"
-        />
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                  {content.h1}
+                </h1>
+                <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+                  {content.heroIntro || content.metaDescription}
+                </p>
 
-        <TrustBar />
-
-        {/* Operational Triage Banner */}
-        <div className="bg-brand-charcoal text-white py-6 border-b border-brand-border-dark">
-          <div className="container-custom">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse shrink-0"></div>
-                <div>
-                  <span className="text-xs font-mono uppercase tracking-wider text-brand-gold font-bold block">Live London Operations Desk</span>
-                  <span className="text-sm text-slate-200">Mobile engineering vans on call across Greater London & Home Counties</span>
+                <div className="flex flex-wrap items-center gap-4 pt-4">
+                  <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold shadow-command">
+                    Request {city} Proposal <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
+                    <Phone className="w-3.5 h-3.5 text-brand-gold" />
+                    <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
+                  </a>
                 </div>
               </div>
-              <a href="tel:0800000000" className="btn-phone text-xs py-2 px-4 shrink-0">
-                <Phone className="w-3.5 h-3.5" />
-                <span>Call London Helpdesk: [PHONE TO VERIFY]</span>
-              </a>
-            </div>
-          </div>
-        </div>
 
-        <section className="section-padding bg-white">
-          <div className="container-custom">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-8 space-y-8">
-                <div>
-                  <span className="badge-technical">High-Availability Operations</span>
-                  <h2 className="text-3xl font-bold tracking-tight text-brand-navy mt-2">
-                    London Commercial Property Maintenance & Critical Engineering
-                  </h2>
-                  <p className="text-sm sm:text-base text-slate-700 mt-3 leading-relaxed">
-                    Operating commercial property in London demands immediate responsiveness. A boiler breakdown, cooling outage during peak summer, or electrical fault cannot wait for delayed multi-tier subcontracts. EntireFM delivers direct engineering triage and dedicated van packs to solve building emergencies fast.
-                  </p>
-                </div>
-
-                <CapabilityList
-                  title="London Rapid-Response & Reactive Scope"
-                  subtitle="Delivered by mobile certified engineers equipped for fast first-time resolution."
-                  items={londonRapidCapabilities}
-                />
-
-                {/* London Borough Coverage Grid */}
-                <div className="p-6 bg-brand-surface border border-brand-border rounded-sm">
-                  <h3 className="text-base font-bold text-brand-navy mb-3 flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-brand-gold" />
-                    Key London Commercial Districts Covered Daily
-                  </h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-slate-700">
-                    <div className="p-2 bg-white border border-brand-border rounded-sm">City of London & EC Postal</div>
-                    <div className="p-2 bg-white border border-brand-border rounded-sm">Canary Wharf & Docklands (E14)</div>
-                    <div className="p-2 bg-white border border-brand-border rounded-sm">West End & Mayfair (W1)</div>
-                    <div className="p-2 bg-white border border-brand-border rounded-sm">South Bank & London Bridge (SE1)</div>
-                    <div className="p-2 bg-white border border-brand-border rounded-sm">Park Royal & West London (NW10)</div>
-                    <div className="p-2 bg-white border border-brand-border rounded-sm">Croydon & South London Hubs</div>
+              <div className="lg:col-span-4 hidden lg:block">
+                <div className="p-6 bg-brand-charcoal border border-brand-border-dark rounded-sm space-y-4 shadow-command">
+                  <div className="flex items-center gap-3">
+                    <BrandIcon name="nationwideCoverage" size={32} />
+                    <span className="text-xs font-mono uppercase tracking-wider text-brand-gold block">{city} Hub Factsheet</span>
                   </div>
-                </div>
-
-                <InlineCTA
-                  title="Need an emergency callout or London maintenance contract?"
-                  description="Consult directly with our London operations team for urgent site dispatch or structured commercial maintenance SLAs."
-                  buttonText="Contact London Team"
-                  buttonLink="#enquiry"
-                />
-              </div>
-
-              <div className="lg:col-span-4 space-y-6">
-                <div className="p-6 bg-brand-charcoal border border-brand-border-dark rounded-sm text-white space-y-4 shadow-command">
-                  <span className="text-xs font-mono uppercase tracking-wider text-brand-gold font-bold block">London Operations Factsheet</span>
-                  <h3 className="text-base font-bold text-white">Why London Estate Managers Choose EntireFM</h3>
-                  <div className="space-y-3 text-xs text-slate-300 pt-2 border-t border-brand-border-dark">
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">Response SLA:</span>
-                      <span className="text-brand-gold font-semibold">[2-4 Hr Central London]</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">Fleet Standard:</span>
-                      <span className="text-white font-semibold">100% ULEZ Compliant</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">Helpdesk:</span>
-                      <span className="text-white font-semibold">24/7 In-House Operations</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">CAFM Access:</span>
-                      <span className="text-white font-semibold">Live Job Tracking</span>
-                    </div>
-                  </div>
+                  <h3 className="text-base font-bold text-white">Direct Local Delivery</h3>
+                  <ul className="space-y-2 text-xs text-slate-300">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <span>Assigned local mobile engineering fleet</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <span>24/7/365 direct emergency desk</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <span>Comprehensive statutory certification</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <AccreditationRail />
-        <FAQAccordion faqs={londonFaqs} />
-        <RelatedLinks links={relatedLinks} title="Explore EntireFM’s Interconnected London Estate" />
+        <TrustBar />
 
+        {/* Dynamic Capabilities Grid */}
+        <section className="section-padding bg-white">
+          <div className="container-custom">
+            <div className="max-w-3xl mb-12">
+              <span className="badge-technical">Regional Services</span>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-navy mt-2">
+                Specialist Facilities Management Across {city}
+              </h2>
+              <p className="text-slate-600 text-sm mt-2">
+                Delivering responsive engineering, planned maintenance, and statutory safety across {city}.
+              </p>
+            </div>
+
+            <CapabilityList capabilities={capabilities} />
+          </div>
+        </section>
+
+        {/* Rendered Body Sections */}
+        {content.sections && content.sections.length > 0 && (
+          <section className="section-padding bg-brand-surface border-y border-brand-border">
+            <div className="container-custom max-w-4xl space-y-10">
+              {content.sections.map((sec, idx) => (
+                <div key={idx} className="space-y-4">
+                  <h2 className="text-2xl font-bold text-brand-navy">{sec.heading}</h2>
+                  <p className="text-slate-700 leading-relaxed text-sm sm:text-base">{sec.body}</p>
+                  {sec.bullets && sec.bullets.length > 0 && (
+                    <ul className="space-y-2 pt-2">
+                      {sec.bullets.map((b, bIdx) => (
+                        <li key={bIdx} className="flex items-start gap-2.5 text-sm text-slate-700">
+                          <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Accreditations */}
+        <section className="py-12 bg-white">
+          <div className="container-custom">
+            <AccreditationRail />
+          </div>
+        </section>
+
+        {/* FAQs */}
+        <section className="section-padding bg-brand-surface border-t border-brand-border">
+          <div className="container-custom max-w-4xl">
+            <div className="mb-8">
+              <span className="badge-technical">Local FAQs</span>
+              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+                {city} Facilities Management — Common Questions
+              </h2>
+            </div>
+            <FAQAccordion faqs={faqs} />
+          </div>
+        </section>
+
+        {/* Related Links */}
+        <section className="section-padding bg-white border-t border-brand-border">
+          <div className="container-custom">
+            <div className="mb-8">
+              <span className="badge-technical">Regional Network</span>
+              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+                Explore Local Services & Coverage
+              </h2>
+            </div>
+            <RelatedLinks links={relatedLinks} />
+          </div>
+        </section>
+
+        {/* Proposal / Conversion Section */}
         <ProposalSection
-          defaultLocation="London (Zones 1-6)"
-          defaultService="Total Facilities Management"
-          headline="Request a London Facilities Management Proposal"
-          subheadline="Speak with our London operations director regarding your commercial building maintenance, rapid callout contracts, or plant audits."
+          defaultLocation={city}
+          headline={`Request a Facilities Proposal for ${city}`}
+          subheadline={`Consult with our ${city} regional operations team for planned maintenance contracts, compliance audits, or site surveys.`}
         />
       </main>
       <Footer />

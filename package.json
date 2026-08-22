@@ -10,7 +10,11 @@
     "validate:routes": "tsx src/lib/routes/validate-routes.ts",
     "seo:audit": "node scripts/seo-audit.js",
     "migration:audit": "node scripts/migration-audit.js",
-    "test:seo": "jest --testPathPattern=__tests__/seo"
+    "test:seo": "jest --testPathPattern=__tests__/seo",
+    "verify:contacts": "node scripts/verify-contacts.js",
+    "rendered:audit": "node scripts/rendered-audit.js",
+    "generate:content": "node scripts/generate-rich-content-database.js",
+    "phase09r:qa": "node scripts/verify-contacts.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit"
   },
   "dependencies": {
     "lucide-react": "^1.33.0",

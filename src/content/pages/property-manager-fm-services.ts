@@ -6,47 +6,99 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/property-manager-fm-services",
-  "title": "Property Manager Fm Services Facilities Management Solutions | Entire FM",
-  "metaDescription": "Specialized facilities management for the property manager fm services sector — statutory compliance, asset uptime, M&E engineering, and cleaning.",
-  "h1": "Property Manager Fm Services Facilities Management",
-  "historicIntent": "Sector-specific procurement intent from property manager fm services operations directors seeking experienced FM contractors.",
-  "primaryIntent": "property manager fm services facilities management",
+  "title": "Property Manager Fm Services Facilities Management | Sector Specialist Services | Entire FM",
+  "metaDescription": "Specialist property manager fm services facilities management. Tailored maintenance, statutory safety compliance, cleaning, and 24/7 helpdesk support.",
+  "h1": "Property Manager Fm Services Facilities Management & Maintenance",
+  "eyebrow": "Specialist Industry Sector Scope",
+  "heroIntro": "Engineered facilities management and maintenance frameworks designed specifically for the operational demands, compliance regulations, and uptime requirements of the property manager fm services sector.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for property manager fm services",
+  "primaryIntent": "property manager fm services services",
   "secondaryIntents": [
-    "property manager fm services building maintenance",
-    "property manager fm services FM contractor"
+    "commercial property manager fm services",
+    "property manager fm services contractor UK"
   ],
   "pageType": "sector",
   "service": null,
   "sector": null,
   "location": null,
   "historicTopics": [
-    "Operational continuity in property manager fm services estates",
-    "Sector-specific statutory compliance",
-    "Plant room and mechanical maintenance",
-    "Specialist hygiene and safety standards"
+    "Property Manager Fm Services overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Sector Hero",
-    "Sector Delivery Scope",
-    "Critical Assets Managed",
-    "Case Evidence",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Tailored FM Delivery for Property Manager Fm Services Operations",
+      "body": "Every industry sector has unique operating pressures. EntireFM builds bespoke service level agreements matching your shift patterns, compliance mandates, and budget requirements."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Sector-Specific Compliance & Auditing",
+      "description": "Rigorous adherence to statutory health, safety, and industry regulatory frameworks governing property manager fm services.",
+      "tag": "Compliance"
+    },
+    {
+      "name": "Planned Plant & Environmental Maintenance",
+      "description": "Preventative servicing for heating, cooling, power distribution, and specialist ventilation systems.",
+      "tag": "PPM"
+    },
+    {
+      "name": "Specialist Cleaning & Hygiene Standards",
+      "description": "Bespoke cleaning protocols aligned with property manager fm services operational hours and hygiene requirements.",
+      "tag": "Hygiene"
+    },
+    {
+      "name": "24/7 Critical Emergency Response",
+      "description": "Rapid engineering dispatch to protect operational continuity and prevent downtime.",
+      "tag": "24/7 Support"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "How do you adapt maintenance schedules for property manager fm services environments?",
+      "answer": "We perform intrusive engineering works out of hours or during planned operational shutdowns to guarantee zero impact on your core activities."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Sectors",
+      "url": "/sectors"
+    },
+    {
+      "name": "Property Manager Fm Services",
+      "url": "/property-manager-fm-services"
+    }
   ],
   "relatedRoutes": [
     "/mechanical-electrical",
     "/ppm",
-    "/industrial-cleaning",
-    "/sectors"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Drive sector-specific commercial proposals and estate maintenance consultations.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for property manager fm services.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

@@ -6,49 +6,99 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-manchester",
-  "title": "Manchester Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Manchester — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Manchester Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Manchester and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Manchester",
+  "title": "Facilities Management Manchester | Planned Maintenance & Total FM | Entire FM",
+  "metaDescription": "Professional facilities management in Manchester and Greater Manchester. Commercial M&E, planned maintenance, industrial cleaning, and 24/7 helpdesk across Trafford Park, City Centre, and Salford.",
+  "h1": "Facilities Management Manchester — Total FM & Planned Maintenance",
+  "eyebrow": "Greater Manchester Regional Operations",
+  "heroIntro": "EntireFM provides full-service Facilities Management across Greater Manchester, Salford Quays, Trafford Park, and the M60/M62 commercial corridors. Direct mobile engineering vans and local cleaning teams.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for facilities management manchester",
+  "primaryIntent": "facilities management manchester services",
   "secondaryIntents": [
-    "Manchester commercial property maintenance",
-    "FM company Manchester",
-    "building maintenance Manchester"
+    "commercial facilities management manchester",
+    "facilities management manchester contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Manchester",
   "historicTopics": [
-    "Manchester commercial coverage: Spinningfields, MediaCityUK, Trafford Park, Northern Quarter, and Salford Quays",
-    "Local operational challenges: High-volume logistics corridors (M60/M62), rapid commercial expansion, manufacturing plant conversions",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Facilities Management Manchester overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Strategic Facilities Management Across Greater Manchester",
+      "body": "Manchester is a premier commercial and industrial hub. EntireFM provides direct engineering and facilities management to manufacturing plants in Trafford Park, corporate offices in Spinningfields, and logistics hubs along the M62 corridor."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Greater Manchester M&E Engineering Fleet",
+      "description": "Directly employed mobile engineers servicing HVAC, electrical switchboards, commercial boilers, and lighting across Manchester.",
+      "tag": "M&E Engineering"
+    },
+    {
+      "name": "Industrial & Logistics Facility Management",
+      "description": "Specialist maintenance and high-level cleaning for Trafford Park and North West distribution warehouses.",
+      "tag": "Logistics FM"
+    },
+    {
+      "name": "City Centre Corporate Office Maintenance",
+      "description": "Planned maintenance and premium cleaning for Manchester commercial office towers and financial district premises.",
+      "tag": "Office FM"
+    },
+    {
+      "name": "24/7 North West Regional Helpdesk",
+      "description": "Guaranteed emergency response for power failures, plumbing leaks, and HVAC breakdowns across Greater Manchester.",
+      "tag": "24/7 Response"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "What areas of Greater Manchester do you cover?",
+      "answer": "We cover the entire Greater Manchester region including Manchester City Centre, Salford, Trafford, Stockport, Bolton, Bury, Oldham, Rochdale, and Wigan."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Facilities Management Manchester",
+      "url": "/facilities-management-manchester"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Manchester.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for facilities management manchester.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

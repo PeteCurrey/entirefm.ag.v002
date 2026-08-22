@@ -1,10 +1,9 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Phone, ChevronDown, Menu, X, ArrowRight, ShieldCheck, Building2, Wrench, MapPin, Layers } from 'lucide-react';
-
 import Image from 'next/image';
+import { CONTACT_CONFIG } from '@/config/contact';
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -34,9 +33,9 @@ export function Header() {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-slate-400">Emergency & Operations:</span>
-            <a href="tel:0800000000" className="text-brand-gold font-semibold hover:text-brand-gold-light transition-colors flex items-center gap-1">
+            <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-gold font-semibold hover:text-brand-gold-light transition-colors flex items-center gap-1">
               <Phone className="w-3 h-3" />
-              [0800 NUMBER TO VERIFY]
+              {CONTACT_CONFIG.mainPhone.display}
             </a>
             <span className="text-slate-500">|</span>
             <Link href="/client-login" className="hover:text-white transition-colors">Client Portal</Link>
@@ -304,12 +303,12 @@ export function Header() {
           {/* Header Action CTAs */}
           <div className="hidden lg:flex items-center gap-3">
             <a
-              href="tel:0800000000"
+              href={CONTACT_CONFIG.mainPhone.href}
               className="btn-phone text-xs"
               title="Call Entire FM Operations"
             >
               <Phone className="w-3.5 h-3.5 text-brand-gold" />
-              <span>[PHONE TO VERIFY]</span>
+              <span>{CONTACT_CONFIG.mainPhone.display}</span>
             </a>
             <Link href="/contact-us#proposal" className="btn-primary text-xs py-2.5 px-4">
               Request Proposal
@@ -319,7 +318,7 @@ export function Header() {
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center gap-2">
             <a
-              href="tel:0800000000"
+              href={CONTACT_CONFIG.mainPhone.href}
               className="p-2 text-brand-gold bg-brand-charcoal border border-brand-border-dark rounded-sm"
               aria-label="Call EntireFM"
             >
@@ -403,10 +402,10 @@ export function Header() {
               Request Proposal
             </Link>
             <a
-              href="tel:0800000000"
+              href={CONTACT_CONFIG.mainPhone.href}
               className="btn-phone w-full py-2.5 text-center text-xs"
             >
-              Call [PHONE TO VERIFY]
+              Call {CONTACT_CONFIG.mainPhone.display}
             </a>
           </div>
         </div>

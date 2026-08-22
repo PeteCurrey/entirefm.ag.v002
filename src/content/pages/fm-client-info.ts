@@ -6,43 +6,94 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/fm-client-info",
-  "title": "Fm Client Info | Entire FM",
-  "metaDescription": "Entire FM — Fm Client Info. Dedicated facilities management, mechanical & electrical engineering, and property maintenance services.",
+  "title": "Fm Client Info | Client Helpdesk & Portal | Entire FM",
+  "metaDescription": "Access EntireFM's 24/7 client helpdesk, log maintenance tickets, track reactive engineer callouts, and view statutory compliance certificates.",
   "h1": "Fm Client Info",
-  "historicIntent": "Commercial navigation or reference intent for Entire FM's fm client info.",
-  "primaryIntent": "fm client info entire fm",
+  "eyebrow": "24/7 Operations Desk & Client Portal",
+  "heroIntro": "Central operations hub for EntireFM contracted clients. Log maintenance tickets, monitor reactive callouts in real time, and download compliance records.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for fm client info",
+  "primaryIntent": "fm client info services",
   "secondaryIntents": [
-    "entire facilities management",
-    "commercial building services UK"
+    "commercial fm client info",
+    "fm client info contractor UK"
   ],
   "pageType": "company",
   "service": null,
   "sector": null,
   "location": null,
   "historicTopics": [
-    "EntireFM capabilities",
-    "Operating standards",
-    "Client support & contact"
+    "Fm Client Info overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
     "Hero",
-    "Overview",
-    "Operational Standards",
-    "Contact & CTA"
+    "Capabilities",
+    "Body Copy",
+    "FAQ",
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Direct Digital Accountability for Your Estate",
+      "body": "Our client helpdesk provides full transparency over every maintenance task, SLA performance metric, and compliance milestone across your portfolio."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Live Ticket Logging & Triage",
+      "description": "Submit urgent or scheduled work orders directly to our 24/7 operations team.",
+      "tag": "Live Triage"
+    },
+    {
+      "name": "Digital Compliance Certification",
+      "description": "Access and download gas, electrical, fire, and water hygiene certificates 24/7.",
+      "tag": "Audit Logs"
+    },
+    {
+      "name": "Real-Time Engineer Tracking",
+      "description": "Monitor mobile engineer dispatch status and job completion notes.",
+      "tag": "Dispatch"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "How do I obtain login credentials for the EntireFM portal?",
+      "answer": "Contracted clients are provisioned with secure portal accounts upon contract commencement. Contact your account manager or helpdesk@entirefm.com."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Company",
+      "url": "/about-entire-facilities-management"
+    },
+    {
+      "name": "Fm Client Info",
+      "url": "/fm-client-info"
+    }
   ],
   "relatedRoutes": [
-    "/services",
-    "/contact-us",
-    "/about-entire-facilities-management"
+    "/mechanical-electrical",
+    "/ppm",
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Provide clear company information, portal access, or commercial contact pathways.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for fm client info.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

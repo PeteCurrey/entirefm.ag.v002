@@ -6,43 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/fm-supply-form",
   "title": "Fm Supply Form | Entire FM",
-  "metaDescription": "Entire FM — Fm Supply Form. Dedicated facilities management, mechanical & electrical engineering, and property maintenance services.",
+  "metaDescription": "Entire FM delivers expert fm supply form services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
   "h1": "Fm Supply Form",
-  "historicIntent": "Commercial navigation or reference intent for Entire FM's fm supply form.",
-  "primaryIntent": "fm supply form entire fm",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source fm supply form for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for fm supply form",
+  "primaryIntent": "fm supply form services",
   "secondaryIntents": [
-    "entire facilities management",
-    "commercial building services UK"
+    "commercial fm supply form",
+    "fm supply form contractor UK"
   ],
   "pageType": "company",
   "service": null,
   "sector": null,
   "location": null,
   "historicTopics": [
-    "EntireFM capabilities",
-    "Operating standards",
-    "Client support & contact"
+    "Fm Supply Form overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
     "Hero",
-    "Overview",
-    "Operational Standards",
-    "Contact & CTA"
+    "Capabilities",
+    "Body Copy",
+    "FAQ",
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Company",
+      "url": "/about-entire-facilities-management"
+    },
+    {
+      "name": "Fm Supply Form",
+      "url": "/fm-supply-form"
+    }
   ],
   "relatedRoutes": [
-    "/services",
-    "/contact-us",
-    "/about-entire-facilities-management"
+    "/mechanical-electrical",
+    "/ppm",
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Provide clear company information, portal access, or commercial contact pathways.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for fm supply form.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

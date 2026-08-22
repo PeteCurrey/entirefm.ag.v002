@@ -15,8 +15,8 @@ import type { RouteRecord } from '../routes/route-schema';
 import { getRoute } from '../routes/route-registry';
 import { getContentRecord } from '@/content/registry';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? '';
-const IS_PRODUCTION = process.env.NODE_ENV === 'production' && SITE_URL !== '';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.entirefm.com';
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 /**
  * Generate robots directives for a route.

@@ -6,49 +6,94 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/birmingham-facilities-management",
-  "title": "Birmingham Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Birmingham — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Birmingham Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Birmingham and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Birmingham",
+  "title": "Birmingham Facilities Management | Corporate Estates & Managing Agents | Entire FM",
+  "metaDescription": "Corporate facilities management for Birmingham managing agents, institutional landlords, and headquarters estates. High-touch, compliant, and accountable.",
+  "h1": "Birmingham Facilities Management — Corporate Estates & Managing Agents",
+  "eyebrow": "West Midlands Regional Hub",
+  "heroIntro": "Specialist corporate facilities management for managing agents and institutional landlords across Birmingham city centre, Edgbaston, and Brindleyplace.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for birmingham facilities management",
+  "primaryIntent": "birmingham facilities management services",
   "secondaryIntents": [
-    "Birmingham commercial property maintenance",
-    "FM company Birmingham",
-    "building maintenance Birmingham"
+    "commercial birmingham facilities management",
+    "birmingham facilities management contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Birmingham",
   "historicTopics": [
-    "Birmingham commercial coverage: Colmore Business District, Digbeth, Jewellery Quarter, Solihull commercial parks, and NEC corridor",
-    "Local operational challenges: Central England transport hub logistics, Clean Air Zone (CAZ) compliance, heavy manufacturing supply chain maintenance",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Birmingham Facilities Management overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Protecting Asset Value for Birmingham Corporate Landlords",
+      "body": "Our corporate estate team provides managing agents and institutional investors with full FM service delivery, statutory compliance, and tenant lifecycle management."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "West Midlands Mobile Engineering Fleet",
+      "description": "Local certified mechanical and electrical engineers delivering scheduled PPM and rapid reactive repairs.",
+      "tag": "Engineering"
+    },
+    {
+      "name": "Manufacturing & Automotive Sector FM",
+      "description": "Plant room servicing, compressed air maintenance, and industrial floor cleaning for Midlands factories.",
+      "tag": "Industrial FM"
+    },
+    {
+      "name": "Birmingham Commercial Office Cleaning & Care",
+      "description": "Daily office cleaning, washroom hygiene, and statutory testing for city centre corporate buildings.",
+      "tag": "Corporate Care"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "How do you support managing agents in Birmingham?",
+      "answer": "We assign dedicated account managers for each Birmingham managing agent client, coordinating maintenance, compliance, and tenant communications."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Birmingham Facilities Management",
+      "url": "/birmingham-facilities-management"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Birmingham.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for birmingham facilities management.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

@@ -6,49 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-oxford",
-  "title": "Oxford Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Oxford — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Oxford Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Oxford and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Oxford",
+  "title": "Facilities Management Oxford | Entire FM",
+  "metaDescription": "Entire FM delivers expert facilities management oxford services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
+  "h1": "Facilities Management Oxford",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source facilities management oxford for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for facilities management oxford",
+  "primaryIntent": "facilities management oxford services",
   "secondaryIntents": [
-    "Oxford commercial property maintenance",
-    "FM company Oxford",
-    "building maintenance Oxford"
+    "commercial facilities management oxford",
+    "facilities management oxford contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Oxford",
   "historicTopics": [
-    "Oxford commercial coverage: Oxford Science Park, Begbroke Science Park, Cowley industrial corridor, and City Centre commercial estates",
-    "Local operational challenges: Zero Emission Zone (ZEZ) compliance, stringent bio-science cleanroom standards, heritage fabric care",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Facilities Management Oxford overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Facilities Management Oxford",
+      "url": "/facilities-management-oxford"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Oxford.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for facilities management oxford.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

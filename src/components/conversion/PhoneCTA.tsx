@@ -2,8 +2,17 @@ import React from 'react';
 import Link from 'next/link';
 import { Phone, ArrowRight, Clock, ShieldCheck } from 'lucide-react';
 import { EnquiryForm } from './EnquiryForm';
+import { CONTACT_CONFIG } from '@/config/contact';
 
-export function PhoneCTA({ location = 'National', phone = '[PHONE NUMBER TO VERIFY]' }: { location?: string; phone?: string }) {
+export function PhoneCTA({
+  location = 'National',
+  phone = CONTACT_CONFIG.mainPhone.display,
+  tel = CONTACT_CONFIG.mainPhone.href,
+}: {
+  location?: string;
+  phone?: string;
+  tel?: string;
+}) {
   return (
     <div className="bg-brand-charcoal border border-brand-border-dark p-6 rounded-sm text-white flex flex-col sm:flex-row items-center justify-between gap-4">
       <div className="flex items-center gap-4">
@@ -17,7 +26,7 @@ export function PhoneCTA({ location = 'National', phone = '[PHONE NUMBER TO VERI
         </div>
       </div>
       <div className="flex items-center gap-3 w-full sm:w-auto">
-        <a href="tel:0800000000" className="btn-phone w-full sm:w-auto text-center">
+        <a href={tel} className="btn-phone w-full sm:w-auto text-center">
           <Phone className="w-3.5 h-3.5" />
           <span>{phone}</span>
         </a>
@@ -102,7 +111,7 @@ export function ProposalSection({
 
             <div className="p-4 border border-dashed border-brand-border-dark rounded-sm bg-brand-charcoal/40 text-xs text-slate-400">
               <span className="text-brand-gold font-semibold block mb-1">Direct Technical Consultation:</span>
-              Speak directly with an operations director or regional engineering manager on <strong className="text-white font-mono">[PHONE TO VERIFY]</strong>.
+              Speak directly with an operations director or regional engineering manager on <a href={CONTACT_CONFIG.mainPhone.href} className="text-white font-mono font-bold hover:text-brand-gold">{CONTACT_CONFIG.mainPhone.display}</a>.
             </div>
           </div>
 

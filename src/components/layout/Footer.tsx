@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { ShieldCheck, Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
-
 import Image from 'next/image';
+import { CONTACT_CONFIG } from '@/config/contact';
 
 export function Footer() {
   return (
@@ -21,9 +21,9 @@ export function Footer() {
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3 shrink-0">
-              <a href="tel:0800000000" className="btn-phone text-xs py-3 px-4">
+              <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone text-xs py-3 px-4">
                 <Phone className="w-3.5 h-3.5 text-brand-gold" />
-                <span>Call [PHONE TO VERIFY]</span>
+                <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
               </a>
               <Link href="/contact-us#proposal" className="btn-primary text-xs py-3 px-5">
                 Request Estate Proposal
@@ -61,11 +61,15 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-                <span>[MAIN NUMBER TO VERIFY]</span>
+                <a href={CONTACT_CONFIG.mainPhone.href} className="hover:text-white transition-colors">
+                  {CONTACT_CONFIG.mainPhone.display}
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-                <span>[OFFICIAL EMAIL TO VERIFY]</span>
+                <a href={`mailto:${CONTACT_CONFIG.enquiryEmail}`} className="hover:text-white transition-colors">
+                  {CONTACT_CONFIG.enquiryEmail}
+                </a>
               </div>
             </div>
           </div>

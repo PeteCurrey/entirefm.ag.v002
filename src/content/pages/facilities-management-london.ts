@@ -6,50 +6,99 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-london",
-  "title": "Facilities Management London | Planned Maintenance & Compliance | Entire FM",
-  "metaDescription": "Structured planned preventative maintenance (PPM), statutory compliance, and integrated hard & soft FM for London commercial property portfolios.",
-  "h1": "Facilities Management London — Total Estate Maintenance & Compliance",
-  "historicIntent": "Procurement search intent from London facilities managers seeking comprehensive planned maintenance contracts and statutory governance.",
-  "primaryIntent": "Facilities management London planned maintenance",
+  "title": "Facilities Management London | Planned Maintenance (PPM) & Compliance | Entire FM",
+  "metaDescription": "Comprehensive facilities management in London. SFG20 planned preventative maintenance, statutory compliance management, and total Hard & Soft FM contracts.",
+  "h1": "Facilities Management London — Planned Maintenance (PPM) & Compliance",
+  "eyebrow": "London Planned Maintenance & Total FM",
+  "heroIntro": "Total Facilities Management and planned preventative maintenance (PPM) contracts for commercial buildings, business parks, and corporate estates across London.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for facilities management london",
+  "primaryIntent": "facilities management london services",
   "secondaryIntents": [
-    "London commercial PPM contracts",
-    "statutory compliance London buildings",
-    "total FM services London"
+    "commercial facilities management london",
+    "facilities management london contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "London",
   "historicTopics": [
-    "SFG20 maintenance scheduling",
-    "Statutory compliance audits",
-    "Consolidated FM contracts",
-    "CAFM portal"
+    "Facilities Management London overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Planned Hero",
-    "Governance Scope",
-    "Compliance Checklist",
-    "Contract Benefits",
-    "Case Study",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Proactive Estate Governance for London Building Owners",
+      "body": "Our planned maintenance contracts are engineered to eliminate operational risks, maintain strict health and safety compliance, and provide full transparency over maintenance expenditure."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "SFG20 Maintenance Scheduling for London Assets",
+      "description": "Structured planned maintenance preventing plant failure and extending asset lifecycle across London commercial estates.",
+      "tag": "SFG20"
+    },
+    {
+      "name": "Statutory Electrical & Gas Compliance Audits",
+      "description": "Periodic EICR inspections, emergency lighting 3-hour tests, and Gas Safe commercial certification logged via CAFM.",
+      "tag": "Compliance"
+    },
+    {
+      "name": "Integrated Hard & Soft FM Service Delivery",
+      "description": "Consolidated single-source contract covering M&E maintenance, daily office cleaning, security, and grounds care.",
+      "tag": "Integrated FM"
+    },
+    {
+      "name": "Dedicated London Account Management",
+      "description": "Assigned contract managers conducting regular SLA reviews, energy optimisation audits, and capital expenditure forecasting.",
+      "tag": "Account Care"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "Can EntireFM manage multi-site portfolios across Greater London?",
+      "answer": "Yes. We manage multi-site commercial office, retail, and mixed-use portfolios across London with centralized CAFM reporting."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Facilities Management London",
+      "url": "/facilities-management-london"
+    }
   ],
   "relatedRoutes": [
-    "/fm-london",
-    "/london-facilities-management",
     "/mechanical-electrical",
     "/ppm",
-    "/commercial-cleaning-london"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate planned FM contract reviews, tender invitations, and estate asset audits in London.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for facilities management london.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

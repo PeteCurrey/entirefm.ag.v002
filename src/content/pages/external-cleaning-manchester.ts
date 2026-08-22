@@ -6,46 +6,94 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/external-cleaning-manchester",
-  "title": "External Cleaning Manchester | Specialist Commercial Services | Entire FM",
-  "metaDescription": "Professional external cleaning across Manchester — specialist equipment, certified operatives, and tailored commercial service schedules.",
+  "title": "External Cleaning in Manchester | Professional Services | Entire FM",
+  "metaDescription": "Specialist external cleaning services in Manchester. Directly employed local teams, professional equipment, and full compliance certification.",
   "h1": "External Cleaning Manchester",
-  "historicIntent": "Hyper-targeted local service search intent combining External Cleaning with Manchester commercial properties.",
-  "primaryIntent": "external cleaning Manchester",
+  "eyebrow": "Manchester Local Service Delivery",
+  "heroIntro": "Professional external cleaning delivered across Manchester and surrounding commercial districts by EntireFM’s regional operations teams.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for external cleaning manchester",
+  "primaryIntent": "external cleaning manchester services",
   "secondaryIntents": [
-    "commercial external cleaning Manchester",
-    "contract external cleaning Manchester"
+    "commercial external cleaning manchester",
+    "external cleaning manchester contractor UK"
   ],
   "pageType": "geographic-service",
   "service": null,
   "sector": null,
   "location": "Manchester",
   "historicTopics": [
-    "External Cleaning delivery across Manchester",
-    "Site types served: Commercial office complexes, digital/media tech hubs, distribution centres, and industrial estates",
-    "RAMS and health & safety compliance",
-    "Out-of-hours scheduling"
+    "External Cleaning Manchester overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Local Service Hero",
-    "Service Scope",
-    "Districts Covered",
-    "Safety Standards",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Reliable External Cleaning Across Manchester",
+      "body": "EntireFM provides dependable, high-quality external cleaning for commercial offices, industrial plants, retail premises, and residential developments in Manchester."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Dedicated Manchester Service Team",
+      "description": "Experienced local operatives equipped with commercial-grade equipment and eco-compliant treatments.",
+      "tag": "Local Delivery"
+    },
+    {
+      "name": "Health & Safety Certified",
+      "description": "Fully insured, COSHH compliant, and trained to industry-leading health and safety standards.",
+      "tag": "Safety"
+    },
+    {
+      "name": "Flexible Out-of-Hours Scheduling",
+      "description": "Available for early morning, evening, weekend, and shutdown operations to minimize disruption.",
+      "tag": "Flexible Hours"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "Do you provide free surveys for external cleaning in Manchester?",
+      "answer": "Yes. We provide on-site technical surveys and transparent written proposals for all commercial sites in Manchester."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Local Services",
+      "url": "/locations"
+    },
+    {
+      "name": "External Cleaning Manchester",
+      "url": "/external-cleaning-manchester"
+    }
   ],
   "relatedRoutes": [
-    "/industrial-cleaning",
-    "/cleaning-services",
-    "/facilities-management-manchester"
+    "/mechanical-electrical",
+    "/ppm",
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate external cleaning quotations and site survey bookings in Manchester.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for external cleaning manchester.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

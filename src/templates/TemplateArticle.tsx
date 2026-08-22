@@ -3,48 +3,47 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar } from '@/components/trust/TrustBar';
-import { ProposalSection, InlineCTA } from '@/components/conversion/PhoneCTA';
+import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { RelatedLinks } from '@/components/content/CaseStudyFeature';
-import { Calendar, User, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Calendar, User, Clock, CheckCircle2, ArrowRight } from 'lucide-react';
+import type { TemplateProps } from './types';
 import Link from 'next/link';
 
-export function TemplateArticle() {
-  const breadcrumbs = [
+export function TemplateArticle({ route, content }: TemplateProps) {
+  const breadcrumbs = content.breadcrumbs || [
     { name: 'Home', url: '/' },
     { name: 'Insights', url: '/blog' },
-    { name: 'What is Facilities Management?', url: '/what-is-facilities-management' },
+    { name: content.h1, url: route.path },
   ];
 
-  const relatedLinks = [
-    { path: '/hard-services', label: 'What are Hard FM Services?' },
-    { path: '/ppm', label: 'Planned Preventative Maintenance Guide' },
-    { path: '/mechanical-electrical', label: 'Mechanical & Electrical Services' },
-    { path: '/services', label: 'Explore All FM Capabilities' },
-  ];
+  const relatedLinks = (content.relatedRoutes || ['/services', '/ppm', '/contact-us']).map(r => ({
+    title: r.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    path: r,
+    category: 'Related Guide',
+    description: `Read more about EntireFM's capabilities for ${r.replace(/^\//, '').replace(/-/g, ' ')}.`,
+  }));
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
-      <main className="flex-1">
-        <div className="bg-brand-navy border-b border-brand-border-dark/60">
-          <div className="container-custom">
-            <Breadcrumbs items={breadcrumbs} />
-          </div>
-        </div>
+      <main className="flex-grow">
+        <Breadcrumbs items={breadcrumbs} />
 
         {/* Article Header */}
-        <section className="bg-brand-navy text-white py-14 sm:py-18 border-b border-brand-border-dark">
-          <div className="container-narrow space-y-4">
-            <span className="badge-gold">FM Intelligence & Industry Guides</span>
-
+        <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+          <div className="container-custom max-w-4xl space-y-4">
+            <span className="badge-gold">{content.eyebrow || 'FM Insights & Technical Guidance'}</span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-              What is Facilities Management? A Complete Guide for UK Property & Estate Managers
+              {content.h1}
             </h1>
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+              {content.heroIntro || content.metaDescription}
+            </p>
 
             <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 pt-2 border-t border-brand-border-dark/80">
               <span className="flex items-center gap-1.5 text-slate-300">
                 <User className="w-3.5 h-3.5 text-brand-gold" />
-                EntireFM Technical Editorial Team
+                EntireFM Technical Editorial
               </span>
               <span>·</span>
               <span className="flex items-center gap-1.5 text-slate-300">
@@ -54,7 +53,7 @@ export function TemplateArticle() {
               <span>·</span>
               <span className="flex items-center gap-1.5 text-slate-300">
                 <Clock className="w-3.5 h-3.5 text-brand-gold" />
-                6 Min Read
+                Technical Article
               </span>
             </div>
           </div>
@@ -62,57 +61,56 @@ export function TemplateArticle() {
 
         <TrustBar />
 
-        {/* Article Editorial Body */}
-        <article className="section-padding bg-white">
-          <div className="container-narrow space-y-6 text-slate-700 leading-relaxed">
-            <p className="text-base sm:text-lg font-medium text-brand-navy leading-relaxed">
-              Facilities Management (FM) is the multidisciplinary practice of ensuring that the physical environment, mechanical infrastructure, and support services of a building operate efficiently, safely, and in full compliance with UK statutory law.
-            </p>
+        {/* Article Body */}
+        <section className="section-padding bg-white">
+          <div className="container-custom max-w-4xl space-y-8">
+            <div className="prose prose-slate max-w-none text-slate-700 space-y-6 text-sm sm:text-base leading-relaxed">
+              {content.sections && content.sections.map((sec, idx) => (
+                <div key={idx} className="space-y-4">
+                  <h2 className="text-2xl font-bold text-brand-navy">{sec.heading}</h2>
+                  <p>{sec.body}</p>
+                  {sec.bullets && (
+                    <ul className="space-y-2 pt-2">
+                      {sec.bullets.map((b, bIdx) => (
+                        <li key={bIdx} className="flex items-start gap-2.5">
+                          <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
 
-            <h2 className="text-2xl font-bold tracking-tight text-brand-navy pt-4">1. Hard FM vs Soft FM: The Core Distinction</h2>
-            <p className="text-sm">
-              In commercial property, facilities management is broadly divided into two primary disciplines:
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
-              <div className="p-5 bg-brand-surface border border-brand-border rounded-sm">
-                <strong className="text-brand-navy block text-sm font-bold mb-1">Hard Facilities Management</strong>
-                <p className="text-xs text-slate-600">
-                  Relates to physical, structural, and engineering assets: HVAC, mechanical heating, electrical distribution, fire alarms, and emergency lighting.
-                </p>
-              </div>
-              <div className="p-5 bg-brand-surface border border-brand-border rounded-sm">
-                <strong className="text-brand-navy block text-sm font-bold mb-1">Soft Facilities Management</strong>
-                <p className="text-xs text-slate-600">
-                  Relates to services that enhance user well-being and workspace functionality: commercial cleaning, security guarding, grounds maintenance, and waste disposal.
-                </p>
-              </div>
+              {!content.sections?.length && (
+                <div className="space-y-4">
+                  <h2 className="text-2xl font-bold text-brand-navy">Overview & Practical Guidance</h2>
+                  <p>
+                    Effective estate governance and planned facilities management balance operational safety, regulatory compliance, and lifecycle asset care. EntireFM’s technical teams work directly with building managers to maintain continuous building availability.
+                  </p>
+                </div>
+              )}
             </div>
-
-            <h2 className="text-2xl font-bold tracking-tight text-brand-navy pt-4">2. The Strategic Value of Planned Preventative Maintenance (PPM)</h2>
-            <p className="text-sm">
-              Relying purely on reactive callouts when equipment fails results in exorbitant emergency repair bills, extended tenant downtime, and premature capital asset degradation. A modern FM strategy deploys SFG20-aligned planned preventative maintenance to service plant equipment before failure occurs.
-            </p>
-
-            <InlineCTA
-              title="Need professional guidance on structuring your FM contract?"
-              description="Our senior surveyors assess building condition, audit compliance registers, and recommend optimized maintenance frequencies."
-              buttonText="Request FM Consultation"
-              buttonLink="#enquiry"
-            />
-
-            <h2 className="text-2xl font-bold tracking-tight text-brand-navy pt-4">3. Ensuring Statutory Compliance</h2>
-            <p className="text-sm">
-              Building owners and managing agents bear non-delegable legal responsibilities under UK Health & Safety legislation. Professional facilities management ensures all mandatory inspections — including EICR electrical testing, Gas Safety certification, and Legionella control — are executed on schedule.
-            </p>
           </div>
-        </article>
+        </section>
 
-        <RelatedLinks links={relatedLinks} title="Further Facilities Management Reading & Service Guides" />
+        {/* Related Articles & Services */}
+        <section className="section-padding bg-brand-surface border-t border-brand-border">
+          <div className="container-custom max-w-4xl">
+            <div className="mb-8">
+              <span className="badge-technical">Further Reading</span>
+              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+                Related Services & FM Intelligence
+              </h2>
+            </div>
+            <RelatedLinks links={relatedLinks} />
+          </div>
+        </section>
 
+        {/* Conversion Section */}
         <ProposalSection
-          headline="Request an Estate Review with EntireFM"
-          subheadline="Consult with our engineering directors regarding single-site or portfolio maintenance scopes, compliance audits, or reactive helpdesk support."
+          headline="Discuss Your Estate Requirements with Our Technical Team"
+          subheadline="Our engineering directors provide comprehensive facilities reviews, planned maintenance audits, and single-source FM proposals."
         />
       </main>
       <Footer />

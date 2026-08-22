@@ -6,49 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/london-facilities-management-areas",
-  "title": "London Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across London — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "London Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in London and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management London",
+  "title": "London Facilities Management Areas | Entire FM",
+  "metaDescription": "Entire FM delivers expert london facilities management areas services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
+  "h1": "London Facilities Management Areas",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source london facilities management areas for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for london facilities management areas",
+  "primaryIntent": "london facilities management areas services",
   "secondaryIntents": [
-    "London commercial property maintenance",
-    "FM company London",
-    "building maintenance London"
+    "commercial london facilities management areas",
+    "london facilities management areas contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "London",
   "historicTopics": [
-    "London commercial coverage: City of London, Canary Wharf, West End, South Bank, Park Royal, and Croydon",
-    "Local operational challenges: High congestion zones, ULEZ emissions compliance, multi-tenant corporate leases, out-of-hours plant room access constraints",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "London Facilities Management Areas overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "London Facilities Management Areas",
+      "url": "/london-facilities-management-areas"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across London.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for london facilities management areas.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

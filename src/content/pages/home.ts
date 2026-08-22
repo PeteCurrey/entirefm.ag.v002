@@ -6,53 +6,64 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/",
-  "title": "Entire FM | Total Facilities Management Services UK",
-  "metaDescription": "Entire FM delivers integrated Hard FM, Soft FM, mechanical & electrical engineering, scheduled PPM, and specialist facilities services across the UK.",
-  "h1": "Total Facilities Management & Engineering Precision",
-  "historicIntent": "Homepage gateway for commercial property owners and facilities managers seeking an accountable national FM provider.",
-  "primaryIntent": "Facilities management company UK",
+  "title": "Home | Entire FM",
+  "metaDescription": "Entire FM delivers expert home services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
+  "h1": "Home",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source home for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for home",
+  "primaryIntent": "home services",
   "secondaryIntents": [
-    "total facilities management",
-    "hard and soft FM services",
-    "commercial property maintenance UK"
+    "commercial home",
+    "home contractor UK"
   ],
   "pageType": "home",
   "service": null,
   "sector": null,
   "location": null,
   "historicTopics": [
-    "National FM delivery",
-    "Mechanical & Electrical",
-    "PPM maintenance",
-    "Industrial cleaning",
-    "24/7 helpdesk"
+    "Home overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Hero & Trust",
-    "Core Capabilities",
-    "Accreditations",
-    "Sectors",
-    "Regional Hubs",
-    "Case Study",
-    "Enquiry Form"
+    "Hero",
+    "Capabilities",
+    "Body Copy",
+    "FAQ",
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "",
+      "url": "/"
+    }
   ],
   "relatedRoutes": [
-    "/services",
-    "/sectors",
-    "/locations",
     "/mechanical-electrical",
     "/ppm",
-    "/industrial-cleaning",
-    "/fm-london"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Drive commercial estate enquiries, proposal requests, and direct telephone calls.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for home.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

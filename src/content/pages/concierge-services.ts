@@ -6,43 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/concierge-services",
   "title": "Concierge Services | Entire FM",
-  "metaDescription": "Entire FM — Concierge Services. Dedicated facilities management, mechanical & electrical engineering, and property maintenance services.",
+  "metaDescription": "Entire FM delivers expert concierge services services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
   "h1": "Concierge Services",
-  "historicIntent": "Commercial navigation or reference intent for Entire FM's concierge services.",
-  "primaryIntent": "concierge services entire fm",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source concierge services for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for concierge services",
+  "primaryIntent": "concierge services services",
   "secondaryIntents": [
-    "entire facilities management",
-    "commercial building services UK"
+    "commercial concierge services",
+    "concierge services contractor UK"
   ],
   "pageType": "service",
   "service": null,
   "sector": null,
   "location": null,
   "historicTopics": [
-    "EntireFM capabilities",
-    "Operating standards",
-    "Client support & contact"
+    "Concierge Services overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
     "Hero",
-    "Overview",
-    "Operational Standards",
-    "Contact & CTA"
+    "Capabilities",
+    "Body Copy",
+    "FAQ",
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Services",
+      "url": "/services"
+    },
+    {
+      "name": "Concierge Services",
+      "url": "/concierge-services"
+    }
   ],
   "relatedRoutes": [
-    "/services",
-    "/contact-us",
-    "/about-entire-facilities-management"
+    "/mechanical-electrical",
+    "/ppm",
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Provide clear company information, portal access, or commercial contact pathways.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for concierge services.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

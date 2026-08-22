@@ -1,167 +1,104 @@
 import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { ServiceHero } from '@/components/hero/HomeHero';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
 import { CapabilityList, FAQAccordion } from '@/components/content/CapabilityList';
-import { ProposalSection, InlineCTA } from '@/components/conversion/PhoneCTA';
+import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { RelatedLinks } from '@/components/content/CaseStudyFeature';
-import { Sparkles, Shield, AlertTriangle, CheckCircle2, Factory, Truck } from 'lucide-react';
+import { Phone, CheckCircle2, ArrowRight } from 'lucide-react';
+import { BrandIcon } from '@/components/ui/BrandIcon';
+import type { TemplateProps } from './types';
+import { CONTACT_CONFIG } from '@/config/contact';
+import Link from 'next/link';
 
-export function TemplateSpecialistService() {
-  const breadcrumbs = [
+export function TemplateSpecialistService({ route, content }: TemplateProps) {
+  const breadcrumbs = content.breadcrumbs || [
+    { name: 'Home', url: '/' },
     { name: 'Services', url: '/services' },
-    { name: 'Industrial Cleaning', url: '/industrial-cleaning' },
+    { name: content.h1, url: route.path },
   ];
 
-  const specialistCapabilities = [
-    {
-      name: 'High-Level Structural & Truss Cleaning',
-      description: 'IPAF-certified high-access cleaning of steel beams, overhead conduit, cable trays, ductwork, and warehouse purlins.',
-      tag: 'IPAF / High Access',
-    },
-    {
-      name: 'Factory Shutdown & Production Line Deep Cleans',
-      description: 'Scheduled intensive decontamination of manufacturing machinery, conveyor systems, degreasing, and production floor stripping.',
-      tag: 'Planned Shutdowns',
-    },
-    {
-      name: 'Confined Space & Silo Decontamination',
-      description: 'Certified atmospheric monitoring, safety rescue teams, and deep extraction cleaning inside silos, tanks, and duct systems.',
-      tag: 'City & Guilds Confined Space',
-    },
-    {
-      name: 'Heavy Industrial Floor Scrubbing & Re-Sealing',
-      description: 'Industrial ride-on sweepers, scrubbing machinery, chemical degreasing, and epoxy floor preparation for logistics facilities.',
-      tag: 'Heavy Duty Scrubbing',
-    },
-    {
-      name: 'External Cladding & Pressure Washing',
-      description: 'Rotary surface cleaners, hot water pressure washing, and chemical biocidal washes for commercial building facades and yards.',
-      tag: 'Hot Water Pressure Wash',
-    },
-    {
-      name: 'Post-Construction & Fit-Out Sparkle Cleans',
-      description: 'Builder handover cleans, mastic removal, window detailing, and dust elimination for newly developed commercial and industrial units.',
-      tag: 'Handover Sparkle',
-    },
-  ];
+  const capabilities = (content.capabilities && content.capabilities.length > 0)
+    ? content.capabilities
+    : [
+        {
+          name: 'Specialist Equipment & Access',
+          description: 'High-reach access, heavy-duty machinery, and certified operatives.',
+          tag: 'Specialist',
+        },
+        {
+          name: 'Health & Safety Certified',
+          description: 'Comprehensive risk assessments, method statements, and safety compliance.',
+          tag: 'Safety',
+        },
+      ];
 
-  const cleaningFaqs = [
-    {
-      question: 'What health and safety documentation do you provide for industrial cleaning projects?',
-      answer: 'Before commencing work, EntireFM produces comprehensive site-specific Risk Assessments and Method Statements (RAMS), COSHH data sheets, and operative training logs (IPAF, PASMA, Confined Space).'
-    },
-    {
-      question: 'Can industrial cleaning work be scheduled out-of-hours or during plant shutdowns?',
-      answer: 'Yes. The majority of our manufacturing and logistics cleaning operations occur overnight, during weekend plant shutdowns, or scheduled holiday maintenance windows to eliminate production downtime.'
-    },
-    {
-      question: 'What access equipment do your industrial cleaning operatives use?',
-      answer: 'Our teams are fully IPAF and PASMA certified to operate boom lifts, scissor lifts, spider access machinery, and specialized long-reach hot water pole systems.'
-    },
-    {
-      question: 'Do you provide nationwide industrial cleaning coverage?',
-      answer: 'Yes. We deploy industrial cleaning teams from our regional hubs covering London, Sheffield, Manchester, Birmingham, Leeds, Lincoln, and surrounding manufacturing corridors.'
-    },
-  ];
+  const faqs = (content.faqs && content.faqs.length > 0)
+    ? content.faqs
+    : [
+        {
+          question: `What standards govern EntireFM’s ${content.h1}?`,
+          answer: 'All specialist operations adhere to relevant UK statutory health and safety regulations, environmental guidelines, and industry certifications.',
+        },
+      ];
 
-  const relatedLinks = [
-    { path: '/industrial-cleaning-london', label: 'Industrial Cleaning London' },
-    { path: '/industrial-cleaning-manchester', label: 'Industrial Cleaning Manchester' },
-    { path: '/industrial-cleaning-birmingham', label: 'Industrial Cleaning Birmingham' },
-    { path: '/industrial-cleaning-sheffield', label: 'Industrial Cleaning Sheffield' },
-    { path: '/cleaning-services', label: 'Commercial Contract Cleaning Services' },
-    { path: '/industrial-facilities-management', label: 'Industrial Facilities Management Solutions' },
-  ];
+  const relatedLinks = (content.relatedRoutes || ['/services', '/ppm', '/contact-us']).map(r => ({
+    title: r.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    path: r,
+    category: 'Specialist Service',
+    description: `Explore EntireFM capabilities for ${r.replace(/^\//, '').replace(/-/g, ' ')}.`,
+  }));
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
-      <main className="flex-1">
-        <div className="bg-brand-navy border-b border-brand-border-dark/60">
+      <main className="flex-grow">
+        <Breadcrumbs items={breadcrumbs} />
+
+        {/* Dynamic Specialist Hero */}
+        <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
           <div className="container-custom">
-            <Breadcrumbs items={breadcrumbs} />
-          </div>
-        </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-8 space-y-4">
+                <span className="badge-gold">{content.eyebrow || 'Specialist Services'}</span>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                  {content.h1}
+                </h1>
+                <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+                  {content.heroIntro || content.metaDescription}
+                </p>
 
-        <ServiceHero
-          title="Specialist Industrial Cleaning Services"
-          subtitle="Heavy-duty factory deep cleans, high-level structural cleaning, plant shutdown hygiene, and industrial floor degreasing across the UK."
-          category="Specialist Cleaning Operations"
-          bulletPoints={[
-            'IPAF & PASMA certified high-access operatives & machinery',
-            'Factory shutdown cleans, de-greasing & confined space entry',
-            'Full RAMS, COSHH compliance, and out-of-hours deployment',
-          ]}
-          defaultService="Industrial Cleaning"
-        />
-
-        <TrustBar />
-
-        <section className="section-padding bg-white">
-          <div className="container-custom">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-8 space-y-8">
-                <div>
-                  <span className="badge-technical">High-Hazard Operations</span>
-                  <h2 className="text-3xl font-bold tracking-tight text-brand-navy mt-2">
-                    Engineered Industrial Cleaning for Demanding Facilities
-                  </h2>
-                  <p className="text-sm sm:text-base text-slate-700 mt-3 leading-relaxed">
-                    Industrial environments accumulate heavy oils, combustible dust, chemical residues, and operational grime that standard commercial cleaning teams cannot safely address. EntireFM provides specialist industrial cleaning utilizing heavy plant machinery, hot water pressure extraction, and rigorous safety protocols.
-                  </p>
-                  <p className="text-sm text-slate-600 mt-3 leading-relaxed">
-                    Whether managing an urgent plant audit cleanup or an annual factory shutdown overhaul, our trained crews operate seamlessly within manufacturing plants, warehouses, food processing facilities, and waste management sites.
-                  </p>
+                <div className="flex flex-wrap items-center gap-4 pt-4">
+                  <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold shadow-command">
+                    Request Specialist Proposal <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
+                    <Phone className="w-3.5 h-3.5 text-brand-gold" />
+                    <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
+                  </a>
                 </div>
-
-                <CapabilityList
-                  title="Specialist Industrial Cleaning Scope"
-                  subtitle="Delivered by certified teams utilizing heavy access plant and industrial extraction equipment."
-                  items={specialistCapabilities}
-                />
-
-                {/* Safety & Compliance Highlight Box */}
-                <div className="p-6 bg-brand-charcoal border border-brand-border-dark rounded-sm text-white space-y-3">
-                  <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4 text-brand-gold" />
-                    Rigorous Industrial Health & Safety Protocols
-                  </h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    All industrial cleaning projects include comprehensive RAMS, COSHH assessments, and task-specific PPE. Our supervisors maintain strict compliance with HSE guidelines, working-at-height regulations, and environmental disposal standards.
-                  </p>
-                </div>
-
-                <InlineCTA
-                  title="Need an industrial cleaning site survey or shutdown quote?"
-                  description="We conduct rapid on-site surveys to assess access requirements, chemical specifications, and schedule out-of-hours cleaning shifts."
-                  buttonText="Request Industrial Survey"
-                  buttonLink="#enquiry"
-                />
               </div>
 
-              <div className="lg:col-span-4 space-y-6">
-                <div className="p-6 bg-brand-surface border border-brand-border rounded-sm space-y-4 shadow-subtle">
-                  <span className="text-xs font-mono uppercase tracking-wider text-brand-gold font-bold block">Environments Cleaned</span>
-                  <h3 className="text-base font-bold text-brand-navy">Industrial Facilities Supported</h3>
-                  <ul className="space-y-2 text-xs text-slate-700">
+              <div className="lg:col-span-4 hidden lg:block">
+                <div className="p-6 bg-brand-charcoal border border-brand-border-dark rounded-sm space-y-4 shadow-command">
+                  <div className="flex items-center gap-3">
+                    <BrandIcon name="integratedServices" size={32} />
+                    <span className="text-xs font-mono uppercase tracking-wider text-brand-gold block">Specialist Factsheet</span>
+                  </div>
+                  <h3 className="text-base font-bold text-white">Certified Delivery</h3>
+                  <ul className="space-y-2 text-xs text-slate-300">
                     <li className="flex items-center gap-2">
-                      <Factory className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-                      <span>Manufacturing & Heavy Engineering Plants</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Truck className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-                      <span>Logistics, Fulfilment & High-Bay Warehouses</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <span>Specialist plant & certified operators</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-                      <span>Automotive & Aerospace Workshops</span>
+                      <span>Full statutory RAMS & method statements</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-                      <span>Food Processing & Packaging Environments</span>
+                      <span>National mobilization capability</span>
                     </li>
                   </ul>
                 </div>
@@ -170,14 +107,87 @@ export function TemplateSpecialistService() {
           </div>
         </section>
 
-        <AccreditationRail />
-        <FAQAccordion faqs={cleaningFaqs} />
-        <RelatedLinks links={relatedLinks} title="Related Industrial Cleaning & Regional Services" />
+        <TrustBar />
 
+        {/* Capabilities Grid */}
+        <section className="section-padding bg-white">
+          <div className="container-custom">
+            <div className="max-w-3xl mb-12">
+              <span className="badge-technical">Capabilities</span>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-navy mt-2">
+                Specialist Scope & Methodologies
+              </h2>
+              <p className="text-slate-600 text-sm mt-2">
+                Engineered for complex environments requiring specialized plant and strict safety procedures.
+              </p>
+            </div>
+
+            <CapabilityList capabilities={capabilities} />
+          </div>
+        </section>
+
+        {/* Rendered Body Sections */}
+        {content.sections && content.sections.length > 0 && (
+          <section className="section-padding bg-brand-surface border-y border-brand-border">
+            <div className="container-custom max-w-4xl space-y-10">
+              {content.sections.map((sec, idx) => (
+                <div key={idx} className="space-y-4">
+                  <h2 className="text-2xl font-bold text-brand-navy">{sec.heading}</h2>
+                  <p className="text-slate-700 leading-relaxed text-sm sm:text-base">{sec.body}</p>
+                  {sec.bullets && sec.bullets.length > 0 && (
+                    <ul className="space-y-2 pt-2">
+                      {sec.bullets.map((b, bIdx) => (
+                        <li key={bIdx} className="flex items-start gap-2.5 text-sm text-slate-700">
+                          <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Accreditations */}
+        <section className="py-12 bg-white">
+          <div className="container-custom">
+            <AccreditationRail />
+          </div>
+        </section>
+
+        {/* FAQs */}
+        <section className="section-padding bg-brand-surface border-t border-brand-border">
+          <div className="container-custom max-w-4xl">
+            <div className="mb-8">
+              <span className="badge-technical">Frequently Asked Questions</span>
+              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+                {content.h1} — Common Questions
+              </h2>
+            </div>
+            <FAQAccordion faqs={faqs} />
+          </div>
+        </section>
+
+        {/* Related Links */}
+        <section className="section-padding bg-white border-t border-brand-border">
+          <div className="container-custom">
+            <div className="mb-8">
+              <span className="badge-technical">Related Services</span>
+              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+                Explore Specialist Solutions
+              </h2>
+            </div>
+            <RelatedLinks links={relatedLinks} />
+          </div>
+        </section>
+
+        {/* Proposal / Conversion Section */}
         <ProposalSection
-          defaultService="Industrial Cleaning"
-          headline="Request an Industrial Cleaning Quotation"
-          subheadline="Provide your facility dimensions, cleaning scope, or shutdown window for an exact technical proposal and site survey."
+          defaultService={content.service || content.h1}
+          headline={`Request a Proposal for ${content.h1}`}
+          subheadline="Consult with our technical operations team for project surveys, method statements, and specialist contract pricing."
         />
       </main>
       <Footer />

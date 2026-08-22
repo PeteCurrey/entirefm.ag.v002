@@ -14,127 +14,182 @@ import { TemplateCaseStudy } from './TemplateCaseStudy';
 import { TemplateArticle } from './TemplateArticle';
 import { TemplateAbout } from './TemplateAbout';
 import { TemplateContact } from './TemplateContact';
+import { TemplateLegal } from './TemplateLegal';
+import { TemplateCareers } from './TemplateCareers';
+import { TemplateHelpdesk } from './TemplateHelpdesk';
+import { TemplateSupplyChain } from './TemplateSupplyChain';
 import { TemplateHtmlSitemap } from './TemplateHtmlSitemap';
-
-// Hub Data Providers
-const servicesHubItems = [
-  { title: 'Mechanical & Electrical (M&E)', path: '/mechanical-electrical', category: 'Hard FM', description: 'Comprehensive building M&E engineering, electrical distribution, power systems, and statutory testing.' },
-  { title: 'HVAC & Air Conditioning', path: '/hvac-contractor', category: 'Hard FM', description: 'Heating, ventilation, air conditioning installation, maintenance, F-Gas compliance, and TM44 audits.' },
-  { title: 'Planned Preventative Maintenance (PPM)', path: '/ppm', category: 'Hard FM', description: 'SFG20 maintenance scheduling protecting building assets and preventing costly downtime.' },
-  { title: 'Hard Facilities Management', path: '/hard-services', category: 'Hard FM', description: 'Complete fabric and structural maintenance, plumbing, gas, and life-safety systems.' },
-  { title: 'Commercial Plumbing & Gas', path: '/plumbing-gas', category: 'Hard FM', description: 'Commercial boiler maintenance, gas safety inspections, and water hygiene management.' },
-  { title: 'Fire & Emergency Systems', path: '/fire-emergency-systems', category: 'Hard FM', description: 'Fire alarms, suppression systems, emergency lighting, and life-safety compliance.' },
-  { title: 'Industrial Cleaning', path: '/industrial-cleaning', category: 'Specialist Cleaning', description: 'Heavy-duty industrial cleaning, factory shutdowns, high-level access, and floor degreasing.' },
-  { title: 'Commercial Contract Cleaning', path: '/cleaning-services', category: 'Soft FM', description: 'Daily commercial office cleaning, hygiene services, and washroom replenishment.' },
-  { title: 'Specialist Mobile Crane Hire', path: '/mobile-crane-hire', category: 'Specialist Services', description: 'Truck-mounted mobile cranes and specialist hoists for high-level rooftop plant lifting.' },
-];
-
-const sectorsHubItems = [
-  { title: 'Industrial & Manufacturing', path: '/industrial-facilities-management', category: 'Manufacturing', description: 'Heavy engineering plant rooms, production lines, 24/7 uptime requirements, and safety protocols.' },
-  { title: 'Commercial & Corporate Offices', path: '/commercial-facilities-management', category: 'Corporate', description: 'Prime office towers, multi-tenanted commercial estates, executive HVAC, and concierge.' },
-  { title: 'Logistics & Warehousing', path: '/logistics-facilities-management', category: 'Logistics', description: 'High-bay distribution centres, dock levellers, fast-turnaround PPM, and floor care.' },
-  { title: 'Retail Parks & Shopping Arenas', path: '/retail-facilities-management', category: 'Retail', description: 'High-footfall customer environments, emergency lighting, reactive maintenance, and cleaning.' },
-  { title: 'Education & Campuses', path: '/education-facilities-management', category: 'Education', description: 'Multi-building university campuses, term-time maintenance, statutory compliance, and DBS staff.' },
-  { title: 'Healthcare & Clinical', path: '/healthcare-facilities-management', category: 'Healthcare', description: 'Stringent clinical hygiene, backup power generator testing, and hospital-grade compliance.' },
-];
-
-const locationsHubItems = [
-  { title: 'FM London (24/7 Response)', path: '/fm-london', category: 'London Hub', description: 'Rapid-response emergency engineering desk covering Greater London Zones 1–6 and M25.' },
-  { title: 'Facilities Management London', path: '/facilities-management-london', category: 'London Hub', description: 'Planned preventative maintenance (SFG20), compliance management, and total FM contracts.' },
-  { title: 'London Facilities Management', path: '/london-facilities-management', category: 'London Hub', description: 'Corporate headquarters, commercial managing agents, and prime property portfolio governance.' },
-  { title: 'Manchester Facilities Management', path: '/facilities-management-manchester', category: 'North West Hub', description: 'Serving commercial, logistics, and corporate estates across Greater Manchester.' },
-  { title: 'Birmingham Facilities Management', path: '/facilities-management-birmingham', category: 'Midlands Hub', description: 'Regional engineering fleet covering Birmingham, West Midlands, and central corridors.' },
-  { title: 'Sheffield Facilities Management', path: '/facilities-management-sheffield', category: 'Yorkshire Hub', description: 'Direct engineering base supporting South Yorkshire manufacturing and commercial property.' },
-  { title: 'Leeds Facilities Management', path: '/facilities-management-leeds', category: 'Yorkshire Hub', description: 'Total facilities management across Leeds financial district and M62 commercial belt.' },
-  { title: 'Lincoln Facilities Management', path: '/facilities-management-lincoln', category: 'East Midlands Hub', description: 'Regional operational centre providing M&E, commercial cleaning, and property maintenance.' },
-];
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const path = route.path;
   const content = loadContentRecord(path);
 
-  // Exact Specific Route Resolvers
-  if (path === '/') return <TemplateHome />;
-  if (path === '/mechanical-electrical') return <TemplateCoreService />;
-  if (path === '/industrial-cleaning') return <TemplateSpecialistService />;
-  if (path === '/industrial-facilities-management') return <TemplateSector />;
-  if (path === '/fm-london') return <TemplatePrimaryLocation />;
-  if (path === '/facilities-management-london') return <TemplateSecondaryLocation />;
-  if (path === '/london-facilities-management') return <TemplateThirdLocation />;
-  if (path === '/industrial-cleaning-london') return <TemplateLocalService />;
-  if (path === '/html-sitemap' || path === '/sitemap') return <TemplateHtmlSitemap />;
-
-  // Hub Pages
-  if (path === '/services') {
-    return (
-      <TemplateHub
-        hubType="services"
-        title="Facilities Management & Engineering Services"
-        subtitle="Explore EntireFM’s integrated capabilities across Hard FM, M&E engineering, statutory compliance, specialist cleaning, and asset management."
-        items={servicesHubItems}
-      />
+  if (!content) {
+    throw new Error(
+      `MISSING_PROTECTED_PAGE_CONTENT: No valid ContentRecord found for registered route "${path}". Every route requires an explicit content record.`
     );
   }
 
-  if (path === '/sectors') {
-    return (
-      <TemplateHub
-        hubType="sectors"
-        title="Industry Sectors & Specialist Environments"
-        subtitle="Specialized facilities management frameworks tailored to the operational demands and regulatory compliance of your industry."
-        items={sectorsHubItems}
-      />
-    );
+  // 1. Homepage
+  if (path === '/') {
+    return <TemplateHome />;
   }
 
-  if (path === '/locations') {
-    return (
-      <TemplateHub
-        hubType="locations"
-        title="Regional Operations & City FM Hubs"
-        subtitle="Direct mobile engineering fleets operating from regional depots across all primary commercial centres in the United Kingdom."
-        items={locationsHubItems}
-      />
-    );
+  // 2. HTML Sitemap
+  if (path === '/html-sitemap' || path === '/sitemap') {
+    return <TemplateHtmlSitemap />;
   }
 
-  // Company & Contact Routes
-  if (path === '/about-entire-facilities-management' || path === '/facilities-management-team' || path === '/best-facilities-management-company') {
-    return <TemplateAbout />;
+  // 3. Legal Routes
+  if (
+    route.routeType === 'legal' ||
+    path === '/privacy-policy' ||
+    path === '/terms-and-conditions' ||
+    path === '/accessibility-statement'
+  ) {
+    return <TemplateLegal route={route} content={content} />;
   }
 
-  if (path === '/contact-us' || path === '/fm-support-n-contact' || path === '/fm-supply-form' || path === '/helpdesk-registration' || path === '/client-login' || path === '/client-login/account-registration') {
+  // 4. Careers Routes
+  if (
+    path === '/careers' ||
+    path === '/job-board' ||
+    path === '/employment-portal'
+  ) {
+    return <TemplateCareers route={route} content={content} />;
+  }
+
+  // 5. Helpdesk & Portal Routes
+  if (
+    path === '/helpdesk' ||
+    path === '/helpdesk-registration' ||
+    path === '/fm-client-info' ||
+    path === '/copy-of-helpdesk-registration' ||
+    path === '/client-login' ||
+    path === '/client-login/account-registration'
+  ) {
+    return <TemplateHelpdesk route={route} content={content} />;
+  }
+
+  // 6. Supply Chain & Marketplace
+  if (
+    path === '/fm-supply-chain' ||
+    path === '/fm-supply-form' ||
+    path === '/marketplace'
+  ) {
+    return <TemplateSupplyChain route={route} content={content} />;
+  }
+
+  // 7. Directory Hub Pages
+  if (
+    path === '/services' ||
+    path === '/sectors' ||
+    path === '/locations' ||
+    path === '/items' ||
+    path === '/resources'
+  ) {
+    return <TemplateHub route={route} content={content} />;
+  }
+
+  // 8. Case Studies & Portfolio
+  if (path === '/case-studies' || path === '/portfolio') {
+    return <TemplateCaseStudy route={route} content={content} />;
+  }
+
+  // 9. Contact Routes
+  if (path === '/contact-us' || path === '/fm-support-n-contact') {
     return <TemplateContact />;
   }
 
-  if (path === '/case-studies' || path === '/portfolio') {
-    return <TemplateCaseStudy />;
+  // 10. About & Corporate Information
+  if (
+    path === '/about-entire-facilities-management' ||
+    path === '/facilities-management-team' ||
+    path === '/best-facilities-management-company'
+  ) {
+    return <TemplateAbout route={route} content={content} />;
   }
 
-  if (path.startsWith('/post/') || path === '/what-is-facilities-management' || path === '/blog' || path === '/facilities-management-blog' || path === '/copy-of-what-is-facilities-manageme' || path === '/fm-support-n-contact/facilities-management-glossary') {
-    return <TemplateArticle />;
+  // 11. Blog, Post & Glossary Articles
+  if (
+    route.routeType === 'post' ||
+    path.startsWith('/post/') ||
+    path === '/what-is-facilities-management' ||
+    path === '/blog' ||
+    path === '/facilities-management-blog' ||
+    path === '/copy-of-what-is-facilities-manageme' ||
+    path === '/fm-support-n-contact/facilities-management-glossary'
+  ) {
+    return <TemplateArticle route={route} content={content} />;
   }
 
-  // Fallback by Route Type for all remaining registered routes
-  if (route.routeType === 'geographic-service') {
-    return <TemplateLocalService />;
+  // 12. City Differentiation Clusters (London, Manchester, Birmingham, Leeds, Sheffield, Lincoln)
+  if (
+    path === '/fm-london' ||
+    path === '/fm-manchester' ||
+    path === '/fm-birmingham' ||
+    path === '/fm-leeds'
+  ) {
+    return <TemplatePrimaryLocation route={route} content={content} />;
   }
 
-  if (route.routeType === 'location') {
-    return <TemplatePrimaryLocation />;
+  if (
+    path === '/facilities-management-london' ||
+    path === '/facilities-management-manchester' ||
+    path === '/facilities-management-birmingham' ||
+    path === '/facilities-management-leeds' ||
+    path === '/facilities-management-sheffield' ||
+    path === '/facilities-management-chesterfield' ||
+    path === '/facilities-management-lincoln'
+  ) {
+    return <TemplateSecondaryLocation route={route} content={content} />;
   }
 
+  if (
+    path === '/london-facilities-management' ||
+    path === '/manchester-facilities-management' ||
+    path === '/birmingham-facilities-management' ||
+    path === '/leeds-facilities-management'
+  ) {
+    return <TemplateThirdLocation route={route} content={content} />;
+  }
+
+  // 13. Sector Routes
   if (route.routeType === 'sector') {
-    return <TemplateSector />;
+    return <TemplateSector route={route} content={content} />;
   }
 
+  // 14. Geographic Local Services
+  if (
+    route.routeType === 'geographic-service' ||
+    path.startsWith('/commercial-fm-lincoln') ||
+    path.startsWith('/industrial-fm-lincoln') ||
+    path.startsWith('/residential-fm-lincoln') ||
+    path.startsWith('/retail-fm-lincoln') ||
+    path.includes('-cleaning-') ||
+    path.includes('-facilities-management-')
+  ) {
+    return <TemplateLocalService route={route} content={content} />;
+  }
+
+  // 15. General Location Routes
+  if (route.routeType === 'location') {
+    return <TemplatePrimaryLocation route={route} content={content} />;
+  }
+
+  // 16. Services (Specialist vs Core M&E)
   if (route.routeType === 'service') {
-    if (path.includes('cleaning') || path.includes('washing')) {
-      return <TemplateSpecialistService />;
+    if (
+      path.includes('cleaning') ||
+      path.includes('washing') ||
+      path.includes('crane') ||
+      path.includes('mobile-crane')
+    ) {
+      return <TemplateSpecialistService route={route} content={content} />;
     }
-    return <TemplateCoreService />;
+    return <TemplateCoreService route={route} content={content} />;
   }
 
-  // Default fallback to Homepage archetype
-  return <TemplateHome />;
+  // Default fallback for any remaining registered route
+  return <TemplateCoreService route={route} content={content} />;
 }

@@ -1,176 +1,193 @@
 import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { SectorHero } from '@/components/hero/LocationHero';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
 import { CapabilityList, FAQAccordion } from '@/components/content/CapabilityList';
-import { ProposalSection, InlineCTA } from '@/components/conversion/PhoneCTA';
-import { CaseStudyFeature, RelatedLinks } from '@/components/content/CaseStudyFeature';
-import { Factory, ShieldCheck, Zap, Wrench, CheckCircle2, Clock } from 'lucide-react';
+import { ProposalSection } from '@/components/conversion/PhoneCTA';
+import { RelatedLinks } from '@/components/content/CaseStudyFeature';
+import { ShieldCheck, CheckCircle2, Phone, ArrowRight } from 'lucide-react';
+import { BrandIcon } from '@/components/ui/BrandIcon';
+import type { TemplateProps } from './types';
+import { CONTACT_CONFIG } from '@/config/contact';
+import Link from 'next/link';
 
-export function TemplateSector() {
-  const breadcrumbs = [
+export function TemplateSector({ route, content }: TemplateProps) {
+  const breadcrumbs = content.breadcrumbs || [
+    { name: 'Home', url: '/' },
     { name: 'Sectors', url: '/sectors' },
-    { name: 'Industrial Facilities Management', url: '/industrial-facilities-management' },
+    { name: content.h1, url: route.path },
   ];
 
-  const sectorServices = [
-    {
-      name: 'High-Voltage Switchgear & Power Continuity',
-      description: 'Planned servicing of main transformers, switchgear, UPS systems, and standby diesel generators to prevent catastrophic power cuts.',
-      tag: 'Critical Power',
-    },
-    {
-      name: 'Compressed Air & Process Mechanical Services',
-      description: 'Pipework testing, pneumatic compressor maintenance, water chillers, and hydraulic line inspections.',
-      tag: 'Process Mechanical',
-    },
-    {
-      name: 'Plant Room & Heavy Machinery PPM',
-      description: 'Structured SFG20 maintenance for boiler plant, heat exchangers, cooling towers, and industrial extraction fans.',
-      tag: 'SFG20 Maintenance',
-    },
-    {
-      name: 'Factory Hygiene & Confined Space Cleaning',
-      description: 'Specialist degreasing, high-level structural cleaning, silo extraction, and scheduled factory shutdown cleans.',
-      tag: 'Specialist Hygiene',
-    },
-    {
-      name: 'Statutory Fire & Life-Safety Compliance',
-      description: 'Fire suppression maintenance, aspirating smoke detection, emergency lighting, and ATEX zone compliance audits.',
-      tag: 'Life Safety',
-    },
-    {
-      name: 'Industrial Grounds & Secure Perimeter Management',
-      description: 'Automated HGV access gates, perimeter fencing, external yard pressure washing, and winter gritting.',
-      tag: 'Perimeter & Yard',
-    },
-  ];
+  const capabilities = (content.capabilities && content.capabilities.length > 0)
+    ? content.capabilities
+    : [
+        {
+          name: 'Sector-Specific Compliance Audits',
+          description: 'Rigorous health, safety, and environmental statutory compliance.',
+          tag: 'Compliance',
+        },
+        {
+          name: 'Planned Plant Maintenance & Uptime',
+          description: 'SFG20 maintenance routines preventing costly operational disruptions.',
+          tag: 'Maintenance',
+        },
+      ];
 
-  const sectorFaqs = [
-    {
-      question: 'How does EntireFM prevent operational downtime in manufacturing facilities?',
-      answer: 'We implement predictive and preventative maintenance (PPM) schedules, schedule intrusive maintenance during planned plant downtime or night shifts, and provide 24/7 dedicated engineering emergency callouts.'
-    },
-    {
-      question: 'Are your engineers trained for high-hazard industrial and ATEX environments?',
-      answer: 'Yes. Our engineers hold relevant certifications including IOSH/NEBOSH, Confined Space Entry, IPAF, PASMA, NICEIC hazardous areas, and Gas Safe commercial tickets.'
-    },
-    {
-      question: 'Can you provide a single FM contract combining both Hard Engineering and Industrial Cleaning?',
-      answer: 'Yes. EntireFM specializes in total facilities management, bundling electrical, mechanical, HVAC, compliance, and industrial deep cleaning under a unified SLA and CAFM dashboard.'
-    },
-  ];
+  const faqs = (content.faqs && content.faqs.length > 0)
+    ? content.faqs
+    : [
+        {
+          question: `How does EntireFM deliver facilities management for ${content.h1}?`,
+          answer: 'We develop bespoke maintenance frameworks matching your sector operating hours, hygiene standards, and regulatory mandates.',
+        },
+      ];
 
-  const relatedLinks = [
-    { path: '/mechanical-electrical', label: 'Mechanical & Electrical Services' },
-    { path: '/industrial-cleaning', label: 'Industrial Cleaning & Factory Deep Cleans' },
-    { path: '/ppm', label: 'Planned Preventative Maintenance (SFG20)' },
-    { path: '/logistics-facilities-management', label: 'Logistics & Warehousing FM' },
-    { path: '/commercial-facilities-management', label: 'Commercial Property FM' },
-    { path: '/sectors', label: 'All Sector Frameworks Hub' },
-  ];
+  const relatedLinks = (content.relatedRoutes || ['/sectors', '/ppm', '/contact-us']).map(r => ({
+    title: r.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    path: r,
+    category: 'Sector Solution',
+    description: `Learn more about EntireFM's capabilities for ${r.replace(/^\//, '').replace(/-/g, ' ')}.`,
+  }));
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
-      <main className="flex-1">
-        <div className="bg-brand-navy border-b border-brand-border-dark/60">
+      <main className="flex-grow">
+        <Breadcrumbs items={breadcrumbs} />
+
+        {/* Dynamic Sector Hero */}
+        <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
           <div className="container-custom">
-            <Breadcrumbs items={breadcrumbs} />
-          </div>
-        </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-8 space-y-4">
+                <span className="badge-gold">{content.eyebrow || 'Industry Sector Scope'}</span>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                  {content.h1}
+                </h1>
+                <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+                  {content.heroIntro || content.metaDescription}
+                </p>
 
-        <SectorHero
-          sectorName="Industrial & Manufacturing"
-          title="Industrial Facilities Management Solutions"
-          subtitle="Engineering precision, statutory compliance, and plant room maintenance engineered for factories, chemical sites, and manufacturing plants."
-          criticalAssets={[
-            'High-Voltage Switchboards & UPS',
-            'Commercial Boilers & Steam Systems',
-            'Chillers & Industrial Extraction',
-            'Automated High-Bay Access Gates',
-          ]}
-        />
-
-        <TrustBar />
-
-        <section className="section-padding bg-white">
-          <div className="container-custom">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-8 space-y-8">
-                <div>
-                  <span className="badge-technical">Operational Continuity</span>
-                  <h2 className="text-3xl font-bold tracking-tight text-brand-navy mt-2">
-                    Ensuring 24/7 Operational Uptime in High-Demand Industrial Estates
-                  </h2>
-                  <p className="text-sm sm:text-base text-slate-700 mt-3 leading-relaxed">
-                    Industrial and manufacturing facilities cannot afford equipment failures or compliance bottlenecks. Unplanned plant downtime directly impacts production revenue. EntireFM provides comprehensive facilities management designed specifically around industrial operational workflows.
-                  </p>
-                  <p className="text-sm text-slate-600 mt-3 leading-relaxed">
-                    Our self-delivered engineering model combines technical M&E maintenance, statutory audits, emergency callout response, and specialist cleaning into a coordinated estate management framework.
-                  </p>
+                <div className="flex flex-wrap items-center gap-4 pt-4">
+                  <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold shadow-command">
+                    Request Sector Proposal <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
+                    <Phone className="w-3.5 h-3.5 text-brand-gold" />
+                    <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
+                  </a>
                 </div>
-
-                <CapabilityList
-                  title="Industrial FM Scope of Delivery"
-                  subtitle="Integrated engineering, compliance, and specialist hygiene delivered by certified technical operatives."
-                  items={sectorServices}
-                />
-
-                <InlineCTA
-                  title="Need an industrial facilities management review?"
-                  description="Our senior engineering team conducts full estate surveys to identify compliance gaps, optimize asset lifecycles, and streamline maintenance costs."
-                  buttonText="Request Industrial Estate Survey"
-                  buttonLink="#enquiry"
-                />
               </div>
 
-              <div className="lg:col-span-4 space-y-6">
-                <div className="p-6 bg-brand-charcoal border border-brand-border-dark rounded-sm text-white space-y-4 shadow-command">
-                  <span className="text-xs font-mono uppercase tracking-wider text-brand-gold font-bold block">Industrial SLA Metrics</span>
-                  <h3 className="text-base font-bold text-white">Engineered For Heavy Industry</h3>
-                  <div className="space-y-3 text-xs text-slate-300 pt-2 border-t border-brand-border-dark">
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">Emergency Dispatch:</span>
-                      <span className="text-brand-gold font-semibold">24/7/365 Helpdesk</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">Safety Standards:</span>
-                      <span className="text-white font-semibold">Full RAMS / IOSH Certified</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">Asset Management:</span>
-                      <span className="text-white font-semibold">Live Digital CAFM Logs</span>
-                    </div>
+              <div className="lg:col-span-4 hidden lg:block">
+                <div className="p-6 bg-brand-charcoal border border-brand-border-dark rounded-sm space-y-4 shadow-command">
+                  <div className="flex items-center gap-3">
+                    <BrandIcon name="commercialBuildings" size={32} />
+                    <span className="text-xs font-mono uppercase tracking-wider text-brand-gold block">Sector Focus</span>
                   </div>
+                  <h3 className="text-base font-bold text-white">Engineered for Reliability</h3>
+                  <ul className="space-y-2 text-xs text-slate-300">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <span>Out-of-hours & shutdown maintenance</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <span>Full statutory safety certification</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <span>Dedicated sector contract managers</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <AccreditationRail />
-        <CaseStudyFeature
-          title="Manufacturing Plant M&E and Shutdown Hygiene Overhaul"
-          sector="Industrial Manufacturing"
-          location="Midlands Engineering Corridor"
-          challenge="Multi-building factory experiencing intermittent power tripping and neglected overhead ductwork hygiene."
-          solution="EntireFM deployed certified electrical engineers for thermal imaging and switchgear refurbishment, alongside an out-of-hours high-level industrial cleaning crew."
-          results={[
-            'Zero unplanned power shutdowns in 12 consecutive months',
-            'Full statutory EICR and gas safety compliance certification issued',
-            'Combined M&E and cleaning contract saved client 22% against split supplier costs',
-          ]}
-        />
-        <FAQAccordion faqs={sectorFaqs} />
-        <RelatedLinks links={relatedLinks} title="Related Industrial Services & Sectors" />
+        <TrustBar />
 
+        {/* Capabilities Grid */}
+        <section className="section-padding bg-white">
+          <div className="container-custom">
+            <div className="max-w-3xl mb-12">
+              <span className="badge-technical">Sector Capabilities</span>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-navy mt-2">
+                Specialist Management for {content.h1}
+              </h2>
+              <p className="text-slate-600 text-sm mt-2">
+                Engineered to meet specific regulatory frameworks and operational challenges.
+              </p>
+            </div>
+
+            <CapabilityList capabilities={capabilities} />
+          </div>
+        </section>
+
+        {/* Rendered Body Sections */}
+        {content.sections && content.sections.length > 0 && (
+          <section className="section-padding bg-brand-surface border-y border-brand-border">
+            <div className="container-custom max-w-4xl space-y-10">
+              {content.sections.map((sec, idx) => (
+                <div key={idx} className="space-y-4">
+                  <h2 className="text-2xl font-bold text-brand-navy">{sec.heading}</h2>
+                  <p className="text-slate-700 leading-relaxed text-sm sm:text-base">{sec.body}</p>
+                  {sec.bullets && sec.bullets.length > 0 && (
+                    <ul className="space-y-2 pt-2">
+                      {sec.bullets.map((b, bIdx) => (
+                        <li key={bIdx} className="flex items-start gap-2.5 text-sm text-slate-700">
+                          <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Accreditations */}
+        <section className="py-12 bg-white">
+          <div className="container-custom">
+            <AccreditationRail />
+          </div>
+        </section>
+
+        {/* FAQs */}
+        <section className="section-padding bg-brand-surface border-t border-brand-border">
+          <div className="container-custom max-w-4xl">
+            <div className="mb-8">
+              <span className="badge-technical">Sector Questions</span>
+              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+                {content.h1} — Frequently Asked Questions
+              </h2>
+            </div>
+            <FAQAccordion faqs={faqs} />
+          </div>
+        </section>
+
+        {/* Related Links */}
+        <section className="section-padding bg-white border-t border-brand-border">
+          <div className="container-custom">
+            <div className="mb-8">
+              <span className="badge-technical">Related Sectors</span>
+              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+                Explore Industry Environments
+              </h2>
+            </div>
+            <RelatedLinks links={relatedLinks} />
+          </div>
+        </section>
+
+        {/* Proposal / Conversion Section */}
         <ProposalSection
-          defaultService="Total Facilities Management"
-          headline="Request an Industrial FM Contract Proposal"
-          subheadline="Consult with our industrial engineering team to structure a customized maintenance scope for your manufacturing facility or distribution hub."
+          defaultService={content.h1}
+          headline={`Request a Proposal for ${content.h1}`}
+          subheadline="Consult with our sector specialists. We develop comprehensive SLA proposals tailored to your facility operations and compliance demands."
         />
       </main>
       <Footer />

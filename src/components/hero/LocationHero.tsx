@@ -1,51 +1,51 @@
 import React from 'react';
 import Link from 'next/link';
-import { Phone, ArrowRight, MapPin, ShieldCheck, Clock, Building2, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Phone, Shield, Clock, MapPin, Building } from 'lucide-react';
+import { CONTACT_CONFIG } from '@/config/contact';
 
 interface LocationHeroProps {
   city: string;
-  title: string;
-  subtitle: string;
+  heroH1?: string;
   badge?: string;
+  intro?: string;
   coverageZones?: string;
   responseSLA?: string;
-  intentVariant?: 'rapid-response' | 'total-fm' | 'corporate-estates';
+  supportedProperties?: string[];
+  primaryCTA?: string;
 }
 
 export function LocationHero({
-  city,
-  title,
-  subtitle,
+  city = 'London',
+  heroH1,
   badge = 'Regional Operations Hub',
-  coverageZones = 'Greater London & M25 Corridor',
-  responseSLA = 'Guaranteed Rapid Response [SLA PENDING VERIF.]',
-  intentVariant = 'total-fm',
+  intro,
+  coverageZones = 'Greater London (Zones 1-6 & M25)',
+  responseSLA = '2-4 Hour Emergency Window',
+  supportedProperties = [
+    'Commercial Office Towers & Business Parks',
+    'Industrial Units & Logistics Warehouses',
+    'Retail Parks & High-Footfall Complexes',
+    'Residential Blocks & Managing Agent Portfolios',
+  ],
+  primaryCTA = '#enquiry',
 }: LocationHeroProps) {
+  const h1Text = heroH1 || `${city} Facilities Management & 24/7 Operations`;
+  const defaultIntro = intro || `EntireFM provides comprehensive Hard & Soft Facilities Management across ${city}. Our certified mobile engineering fleet and 24/7 helpdesk deliver planned maintenance, statutory compliance, and emergency reactive support.`;
+
   return (
-    <section className="bg-brand-navy text-white relative overflow-hidden border-b border-brand-border-dark py-14 sm:py-20">
-      <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-8 space-y-5">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="badge-gold">
-                <MapPin className="w-3.5 h-3.5" />
-                {city} Regional Centre
-              </span>
-              <span className="badge-dark text-slate-300">
-                {badge}
-              </span>
-            </div>
-
+    <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+      <div className="container-custom">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-8 space-y-4">
+            <span className="badge-gold">{badge}</span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-              {title}
+              {h1Text}
             </h1>
-
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl">
-              {subtitle}
+            <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+              {defaultIntro}
             </p>
 
-            {/* Regional Capabilities Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs font-mono text-slate-300 border-y border-brand-border-dark py-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs text-slate-300 font-mono">
               <div>
                 <span className="text-slate-400 block">Coverage Scope:</span>
                 <span className="text-white font-semibold text-sm">{coverageZones}</span>
@@ -61,12 +61,12 @@ export function LocationHero({
             </div>
 
             <div className="flex flex-wrap items-center gap-4 pt-4">
-              <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold">
+              <Link href={primaryCTA} className="btn-primary py-3 px-6 text-xs font-bold">
                 Request {city} Proposal <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="tel:0800000000" className="btn-phone py-3 px-4 text-xs font-semibold">
+              <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
                 <Phone className="w-3.5 h-3.5" />
-                <span>Call [REGIONAL PHONE TO VERIFY]</span>
+                <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
               </a>
             </div>
           </div>
@@ -76,27 +76,16 @@ export function LocationHero({
               <span className="text-xs font-mono uppercase tracking-wider text-brand-gold block">{city} Hub Factsheet</span>
               <h3 className="text-base font-bold text-white">Commercial Properties Supported</h3>
               <ul className="space-y-2 text-xs text-slate-300">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-                  <span>Central commercial office blocks & HQs</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-                  <span>Logistics hubs, warehouses & trade parks</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-                  <span>Retail parks & leisure complexes</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-                  <span>Industrial & manufacturing facilities</span>
-                </li>
+                {supportedProperties.map((prop, idx) => (
+                  <li key={idx} className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                    <span>{prop}</span>
+                  </li>
+                ))}
               </ul>
-              <div className="pt-3 border-t border-brand-border-dark">
-                <span className="text-[10px] text-slate-500 font-mono block">
-                  *All regional SLAs contractually guaranteed.
-                </span>
+              <div className="pt-2 border-t border-brand-border-dark/60 text-xs text-slate-400">
+                <span className="text-white font-semibold block">Direct Regional Helpdesk:</span>
+                Live dispatch tracking and digital CAFM reporting.
               </div>
             </div>
           </div>
@@ -107,36 +96,38 @@ export function LocationHero({
 }
 
 export function SectorHero({
-  sectorName,
-  title,
-  subtitle,
-  criticalAssets = ['Plant Rooms & HVAC Systems', 'High-Voltage Switchgear & Distribution', 'Statutory Fire & Life Safety Systems'],
+  sectorName = 'Industrial & Manufacturing',
+  heroH1,
+  badge = 'Industry Sector Scope',
+  intro,
+  criticalAssets = [
+    'Heavy Machinery Plant Rooms',
+    'High-Voltage Switchgear & Distribution',
+    'Compressed Air & Process Mechanical',
+    'Factory Extraction & Ventilation',
+    'Confined Space & Shutdown Cleaning',
+    'Site Security & Automated Gate Barriers',
+  ],
 }: {
-  sectorName: string;
-  title: string;
-  subtitle: string;
+  sectorName?: string;
+  heroH1?: string;
+  badge?: string;
+  intro?: string;
   criticalAssets?: string[];
 }) {
+  const h1Text = heroH1 || `${sectorName} Facilities Management & Maintenance`;
+  const defaultIntro = intro || `Specialist facilities management engineered for the operational intensity, statutory safety standards, and 24/7 uptime requirements of the ${sectorName.toLowerCase()} sector.`;
+
   return (
-    <section className="bg-brand-navy text-white relative overflow-hidden border-b border-brand-border-dark py-14 sm:py-20">
-      <div className="container-custom relative z-10">
-        <div className="max-w-4xl space-y-5">
-          <div className="flex items-center gap-2">
-            <span className="badge-gold">
-              <Building2 className="w-3.5 h-3.5" />
-              Sector Solutions
-            </span>
-            <span className="badge-dark text-slate-300">
-              {sectorName}
-            </span>
-          </div>
-
+    <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+      <div className="container-custom">
+        <div className="max-w-4xl space-y-4">
+          <span className="badge-gold">{badge}</span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-            {title}
+            {h1Text}
           </h1>
-
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            {subtitle}
+          <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+            {defaultIntro}
           </p>
 
           <div className="pt-2">
@@ -154,9 +145,9 @@ export function SectorHero({
             <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold">
               Request Sector Proposal <ArrowRight className="w-4 h-4" />
             </Link>
-            <a href="tel:0800000000" className="btn-phone py-3 px-4 text-xs font-semibold">
+            <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
               <Phone className="w-3.5 h-3.5" />
-              <span>Call [PHONE TO VERIFY]</span>
+              <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
             </a>
           </div>
         </div>

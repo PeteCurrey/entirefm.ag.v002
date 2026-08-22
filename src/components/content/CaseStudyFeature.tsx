@@ -94,7 +94,7 @@ export function RelatedLinks({
   links,
 }: {
   title?: string;
-  links: Array<{ path: string; label: string; context?: string }>;
+  links: Array<{ path: string; label?: string; title?: string; category?: string; description?: string; context?: string }>;
 }) {
   if (!links || links.length === 0) return null;
 
@@ -104,16 +104,25 @@ export function RelatedLinks({
         <span className="badge-technical mb-2">Interconnected Architecture</span>
         <h3 className="text-lg font-bold text-brand-navy mt-1 mb-4">{title}</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {links.map(link => (
-            <Link
-              key={link.path}
-              href={link.path}
-              className="p-3 bg-brand-surface border border-brand-border rounded-sm text-xs font-semibold text-brand-navy hover:text-brand-gold hover:border-brand-gold/60 transition-all flex items-center justify-between group shadow-subtle"
-            >
-              <span>{link.label}</span>
-              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-gold group-hover:translate-x-0.5 transition-all" />
-            </Link>
-          ))}
+          {links.map(link => {
+            const displayTitle = link.title || link.label || link.path;
+            const displayCategory = link.category || link.context;
+            return (
+              <Link
+                key={link.path}
+                href={link.path}
+                className="p-3 bg-brand-surface border border-brand-border rounded-sm text-xs font-semibold text-brand-navy hover:text-brand-gold hover:border-brand-gold/60 transition-all flex flex-col gap-1 shadow-subtle group"
+              >
+                {displayCategory && (
+                  <span className="text-[10px] font-mono text-brand-gold/80 uppercase tracking-wider">{displayCategory}</span>
+                )}
+                <div className="flex items-center justify-between">
+                  <span>{displayTitle}</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-gold group-hover:translate-x-0.5 transition-all shrink-0" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -6,49 +6,94 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/leeds-facilities-management",
-  "title": "Leeds Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Leeds — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Leeds Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Leeds and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Leeds",
+  "title": "Leeds Facilities Management | Corporate Estates & Property Management | Entire FM",
+  "metaDescription": "Corporate facilities management for Leeds managing agents, institutional landlords, and multi-tenanted offices in Spinningfields and the city centre.",
+  "h1": "Leeds Facilities Management — Corporate Estates & Property Management",
+  "eyebrow": "Yorkshire & Humber Regional Hub",
+  "heroIntro": "Specialist corporate facilities management for managing agents, institutional landlords, and commercial headquarters across Leeds city centre and Harrogate.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for leeds facilities management",
+  "primaryIntent": "leeds facilities management services",
   "secondaryIntents": [
-    "Leeds commercial property maintenance",
-    "FM company Leeds",
-    "building maintenance Leeds"
+    "commercial leeds facilities management",
+    "leeds facilities management contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Leeds",
   "historicTopics": [
-    "Leeds commercial coverage: Leeds Financial Quarter, Holbeck Urban Village, Aire Valley Enterprise Zone, and Thorpe Park",
-    "Local operational challenges: Financial & professional services uptime requirements, M62 trans-Pennine logistics access",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Leeds Facilities Management overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Protecting Asset Value for Leeds Corporate Landlords",
+      "body": "Our Leeds corporate estate team provides managing agents and institutional investors with full FM service delivery, statutory compliance, and tenant lifecycle management."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Leeds Commercial District Office FM",
+      "description": "Statutory compliance, HVAC maintenance, and commercial cleaning for Leeds city centre offices.",
+      "tag": "Commercial FM"
+    },
+    {
+      "name": "M62 Logistics Corridor Support",
+      "description": "High-bay warehouse maintenance, dock leveller servicing, and industrial floor degreasing.",
+      "tag": "Logistics FM"
+    },
+    {
+      "name": "Yorkshire Mobile Mechanical & Electrical Fleet",
+      "description": "Gas Safe and NICEIC certified engineers delivering planned and reactive maintenance.",
+      "tag": "Engineering"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "How do you support managing agents in Leeds?",
+      "answer": "We assign dedicated account managers for each Leeds managing agent client, coordinating maintenance, compliance, and tenant communications."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Leeds Facilities Management",
+      "url": "/leeds-facilities-management"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Leeds.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for leeds facilities management.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

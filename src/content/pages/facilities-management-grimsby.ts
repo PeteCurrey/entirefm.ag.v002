@@ -6,49 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-grimsby",
-  "title": "Grimsby Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Grimsby — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Grimsby Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Grimsby and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Grimsby",
+  "title": "Facilities Management Grimsby | Entire FM",
+  "metaDescription": "Entire FM delivers expert facilities management grimsby services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
+  "h1": "Facilities Management Grimsby",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source facilities management grimsby for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for facilities management grimsby",
+  "primaryIntent": "facilities management grimsby services",
   "secondaryIntents": [
-    "Grimsby commercial property maintenance",
-    "FM company Grimsby",
-    "building maintenance Grimsby"
+    "commercial facilities management grimsby",
+    "facilities management grimsby contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Grimsby",
   "historicTopics": [
-    "Grimsby commercial coverage: Europarc, Grimsby Docks, Humber Bank industrial complex, and Pyewipe",
-    "Local operational challenges: Renewable energy & offshore wind support maintenance, cold-storage refrigeration, food hygiene standards",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Facilities Management Grimsby overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Facilities Management Grimsby",
+      "url": "/facilities-management-grimsby"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Grimsby.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for facilities management grimsby.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

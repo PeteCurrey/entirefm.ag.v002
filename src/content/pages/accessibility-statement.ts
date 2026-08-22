@@ -6,43 +6,89 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/accessibility-statement",
-  "title": "Accessibility Statement | Entire FM",
-  "metaDescription": "Entire FM — Accessibility Statement. Dedicated facilities management, mechanical & electrical engineering, and property maintenance services.",
+  "title": "Accessibility Statement | Legal & Compliance | Entire FM",
+  "metaDescription": "Official accessibility statement and corporate compliance information for Entire Facilities Management Ltd.",
   "h1": "Accessibility Statement",
-  "historicIntent": "Commercial navigation or reference intent for Entire FM's accessibility statement.",
-  "primaryIntent": "accessibility statement entire fm",
+  "eyebrow": "Corporate Governance",
+  "heroIntro": "Official corporate and regulatory policies for Entire Facilities Management Ltd.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for accessibility statement",
+  "primaryIntent": "accessibility statement services",
   "secondaryIntents": [
-    "entire facilities management",
-    "commercial building services UK"
+    "commercial accessibility statement",
+    "accessibility statement contractor UK"
   ],
   "pageType": "legal",
   "service": null,
   "sector": null,
   "location": null,
   "historicTopics": [
-    "EntireFM capabilities",
-    "Operating standards",
-    "Client support & contact"
+    "Accessibility Statement overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
     "Hero",
-    "Overview",
-    "Operational Standards",
-    "Contact & CTA"
+    "Capabilities",
+    "Body Copy",
+    "FAQ",
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Policy Statement",
+      "body": "Entire Facilities Management Ltd operates under strict corporate governance, adhering to all UK statutory regulations, data protection legislation, and fair commercial trading practices."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Data Protection & Privacy",
+      "description": "Commitment to GDPR, data confidentiality, and secure information processing.",
+      "tag": "Privacy"
+    },
+    {
+      "name": "Accessibility Standards",
+      "description": "Commitment to digital accessibility standards (WCAG 2.1 AA) across our website.",
+      "tag": "Accessibility"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "Who can I contact regarding legal or compliance queries?",
+      "answer": "Please email enquiries@entirefm.com with your specific legal or compliance enquiry."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Legal",
+      "url": "/privacy-policy"
+    },
+    {
+      "name": "Accessibility Statement",
+      "url": "/accessibility-statement"
+    }
   ],
   "relatedRoutes": [
-    "/services",
-    "/contact-us",
-    "/about-entire-facilities-management"
+    "/mechanical-electrical",
+    "/ppm",
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Provide clear company information, portal access, or commercial contact pathways.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for accessibility statement.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

@@ -6,49 +6,94 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-sheffield",
-  "title": "Sheffield Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Sheffield — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Sheffield Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Sheffield and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Sheffield",
+  "title": "Facilities Management Sheffield | Regional Engineering & Maintenance | Entire FM",
+  "metaDescription": "Comprehensive facilities management in Sheffield and South Yorkshire. Mechanical & electrical engineering, industrial cleaning, and statutory compliance.",
+  "h1": "Facilities Management Sheffield — Engineering & Total FM",
+  "eyebrow": "South Yorkshire Regional Hub",
+  "heroIntro": "Direct facilities management and building engineering services across Sheffield, Rotherham, and the Advanced Manufacturing Innovation District.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for facilities management sheffield",
+  "primaryIntent": "facilities management sheffield services",
   "secondaryIntents": [
-    "Sheffield commercial property maintenance",
-    "FM company Sheffield",
-    "building maintenance Sheffield"
+    "commercial facilities management sheffield",
+    "facilities management sheffield contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Sheffield",
   "historicTopics": [
-    "Sheffield commercial coverage: Don Valley Industrial Corridor, Sheffield City Centre, Meadowhall commercial zone, and Advanced Manufacturing Park",
-    "Local operational challenges: Heavy engineering legacy plant, specialized fabrication site safety, steep topography transport",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Facilities Management Sheffield overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Local Engineering Excellence in Sheffield",
+      "body": "With deep roots in South Yorkshire and Derbyshire, EntireFM delivers self-delivered engineering and facilities services with rapid local response times."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Advanced Manufacturing & Heavy Industrial FM",
+      "description": "Specialist maintenance for manufacturing plant, extraction systems, and industrial power distribution.",
+      "tag": "Industrial"
+    },
+    {
+      "name": "Commercial Property PPM & Compliance",
+      "description": "SFG20 maintenance scheduling, emergency lighting tests, and commercial boiler servicing.",
+      "tag": "Compliance"
+    },
+    {
+      "name": "Specialist Mobile Crane & Plant Lifting",
+      "description": "Local crane hire and contract lifting for rooftop mechanical plant replacements.",
+      "tag": "Plant Lifting"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "What services do you self-deliver in Sheffield?",
+      "answer": "We self-deliver M&E engineering, HVAC maintenance, commercial plumbing, statutory compliance testing, and industrial cleaning."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Facilities Management Sheffield",
+      "url": "/facilities-management-sheffield"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Sheffield.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for facilities management sheffield.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

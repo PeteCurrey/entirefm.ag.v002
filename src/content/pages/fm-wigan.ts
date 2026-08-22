@@ -6,49 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/fm-wigan",
-  "title": "Wigan Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Wigan — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Wigan Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Wigan and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Wigan",
+  "title": "Fm Wigan | Entire FM",
+  "metaDescription": "Entire FM delivers expert fm wigan services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
+  "h1": "Fm Wigan",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source fm wigan for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for fm wigan",
+  "primaryIntent": "fm wigan services",
   "secondaryIntents": [
-    "Wigan commercial property maintenance",
-    "FM company Wigan",
-    "building maintenance Wigan"
+    "commercial fm wigan",
+    "fm wigan contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Wigan",
   "historicTopics": [
-    "Wigan commercial coverage: Pemberton, Martland Park, Westwood Park, and M6 logistics corridor",
-    "Local operational challenges: High-throughput freight warehouse maintenance, fast-response industrial door & dock repairs",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Fm Wigan overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Fm Wigan",
+      "url": "/fm-wigan"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Wigan.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for fm wigan.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

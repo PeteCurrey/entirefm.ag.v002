@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Phone, ArrowRight, ShieldCheck, CheckCircle2, Wrench, Building2, MapPin } from 'lucide-react';
+import { CONTACT_CONFIG } from '@/config/contact';
 
 export function HomeHero() {
   return (
@@ -53,9 +54,9 @@ export function HomeHero() {
               <Link href="#enquiry" className="btn-primary py-3.5 px-6 text-sm font-bold shadow-command">
                 Request Estate Proposal <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="tel:0800000000" className="btn-phone py-3.5 px-5 text-xs font-semibold">
+              <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3.5 px-5 text-xs font-semibold">
                 <Phone className="w-4 h-4 text-brand-gold" />
-                <span>Call [PHONE TO VERIFY]</span>
+                <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
               </a>
             </div>
 
@@ -138,9 +139,9 @@ export function ServiceHero({
               <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold">
                 Request Service Proposal <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="tel:0800000000" className="btn-phone py-3 px-4 text-xs font-semibold">
+              <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
                 <Phone className="w-3.5 h-3.5" />
-                <span>Call [PHONE TO VERIFY]</span>
+                <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
               </a>
             </div>
           </div>

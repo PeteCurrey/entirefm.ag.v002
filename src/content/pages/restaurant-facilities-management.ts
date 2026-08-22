@@ -6,47 +6,99 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/restaurant-facilities-management",
-  "title": "Restaurant Facilities Management Solutions | Entire FM",
-  "metaDescription": "Specialized facilities management for the restaurant sector — statutory compliance, asset uptime, M&E engineering, and cleaning.",
-  "h1": "Restaurant Facilities Management",
-  "historicIntent": "Sector-specific procurement intent from restaurant operations directors seeking experienced FM contractors.",
-  "primaryIntent": "restaurant facilities management",
+  "title": "Restaurant Facilities Management | Sector Specialist Services | Entire FM",
+  "metaDescription": "Specialist restaurant facilities management. Tailored maintenance, statutory safety compliance, cleaning, and 24/7 helpdesk support.",
+  "h1": "Restaurant Facilities Management & Maintenance",
+  "eyebrow": "Specialist Industry Sector Scope",
+  "heroIntro": "Engineered facilities management and maintenance frameworks designed specifically for the operational demands, compliance regulations, and uptime requirements of the restaurant sector.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for restaurant facilities management",
+  "primaryIntent": "restaurant facilities management services",
   "secondaryIntents": [
-    "restaurant building maintenance",
-    "restaurant FM contractor"
+    "commercial restaurant facilities management",
+    "restaurant facilities management contractor UK"
   ],
   "pageType": "sector",
   "service": null,
   "sector": null,
   "location": null,
   "historicTopics": [
-    "Operational continuity in restaurant estates",
-    "Sector-specific statutory compliance",
-    "Plant room and mechanical maintenance",
-    "Specialist hygiene and safety standards"
+    "Restaurant Facilities Management overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Sector Hero",
-    "Sector Delivery Scope",
-    "Critical Assets Managed",
-    "Case Evidence",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Tailored FM Delivery for Restaurant Operations",
+      "body": "Every industry sector has unique operating pressures. EntireFM builds bespoke service level agreements matching your shift patterns, compliance mandates, and budget requirements."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Sector-Specific Compliance & Auditing",
+      "description": "Rigorous adherence to statutory health, safety, and industry regulatory frameworks governing restaurant.",
+      "tag": "Compliance"
+    },
+    {
+      "name": "Planned Plant & Environmental Maintenance",
+      "description": "Preventative servicing for heating, cooling, power distribution, and specialist ventilation systems.",
+      "tag": "PPM"
+    },
+    {
+      "name": "Specialist Cleaning & Hygiene Standards",
+      "description": "Bespoke cleaning protocols aligned with restaurant operational hours and hygiene requirements.",
+      "tag": "Hygiene"
+    },
+    {
+      "name": "24/7 Critical Emergency Response",
+      "description": "Rapid engineering dispatch to protect operational continuity and prevent downtime.",
+      "tag": "24/7 Support"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "How do you adapt maintenance schedules for restaurant environments?",
+      "answer": "We perform intrusive engineering works out of hours or during planned operational shutdowns to guarantee zero impact on your core activities."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Sectors",
+      "url": "/sectors"
+    },
+    {
+      "name": "Restaurant Facilities Management",
+      "url": "/restaurant-facilities-management"
+    }
   ],
   "relatedRoutes": [
     "/mechanical-electrical",
     "/ppm",
-    "/industrial-cleaning",
-    "/sectors"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Drive sector-specific commercial proposals and estate maintenance consultations.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for restaurant facilities management.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

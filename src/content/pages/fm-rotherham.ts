@@ -6,49 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/fm-rotherham",
-  "title": "Rotherham Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Rotherham — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Rotherham Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Rotherham and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Rotherham",
+  "title": "Fm Rotherham | Entire FM",
+  "metaDescription": "Entire FM delivers expert fm rotherham services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
+  "h1": "Fm Rotherham",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source fm rotherham for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for fm rotherham",
+  "primaryIntent": "fm rotherham services",
   "secondaryIntents": [
-    "Rotherham commercial property maintenance",
-    "FM company Rotherham",
-    "building maintenance Rotherham"
+    "commercial fm rotherham",
+    "fm rotherham contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Rotherham",
   "historicTopics": [
-    "Rotherham commercial coverage: Advanced Manufacturing Park (AMP), Templeborough, and Barbot Hall Industrial Estate",
-    "Local operational challenges: Heavy metallurgy, advanced manufacturing research facility uptime, high-load electrical supply",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Fm Rotherham overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Fm Rotherham",
+      "url": "/fm-rotherham"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Rotherham.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for fm rotherham.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

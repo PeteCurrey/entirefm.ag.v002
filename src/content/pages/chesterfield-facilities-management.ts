@@ -6,49 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/chesterfield-facilities-management",
-  "title": "Chesterfield Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Chesterfield — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Chesterfield Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Chesterfield and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Chesterfield",
+  "title": "Chesterfield Facilities Management | Entire FM",
+  "metaDescription": "Entire FM delivers expert chesterfield facilities management services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
+  "h1": "Chesterfield Facilities Management",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source chesterfield facilities management for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for chesterfield facilities management",
+  "primaryIntent": "chesterfield facilities management services",
   "secondaryIntents": [
-    "Chesterfield commercial property maintenance",
-    "FM company Chesterfield",
-    "building maintenance Chesterfield"
+    "commercial chesterfield facilities management",
+    "chesterfield facilities management contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Chesterfield",
   "historicTopics": [
-    "Chesterfield commercial coverage: Chesterfield Town Centre, Sheepbridge Industrial Estate, Dunston Technology Park, and Peak District fringes",
-    "Local operational challenges: Light industrial plant maintenance, regional logistics connectivity via M1 Corridor",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Chesterfield Facilities Management overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Chesterfield Facilities Management",
+      "url": "/chesterfield-facilities-management"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Chesterfield.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for chesterfield facilities management.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

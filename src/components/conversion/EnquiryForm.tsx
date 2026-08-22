@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Send, CheckCircle2, Shield, Phone, FileText } from 'lucide-react';
+import { Send, CheckCircle2, Shield, AlertCircle, Loader2 } from 'lucide-react';
+import { CONTACT_CONFIG } from '@/config/contact';
 
 interface EnquiryFormProps {
   defaultService?: string;
@@ -25,6 +26,10 @@ export function EnquiryForm({
   badgeText = 'Commercial Enquiry',
 }: EnquiryFormProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [enquiryId, setEnquiryId] = useState<string>('');
+
   const [formTracking, setFormTracking] = useState({
     landing_page: '',
     conversion_page: '',
@@ -74,18 +79,44 @@ export function EnquiryForm({
     }
   }, [defaultLocation, defaultService, pageType, sector]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Log conversion event with full route & UTM attribution
-    if (typeof window !== 'undefined') {
-      console.log('Enquiry Form Submitted:', {
-        ...formData,
-        tracking: formTracking,
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    const payload = {
+      name: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      company: formData.company,
+      message: formData.message || `Requirement for ${formData.serviceRequired} at ${formData.siteLocation}`,
+      ...formTracking,
+      service: formData.serviceRequired,
+      location: formData.siteLocation,
+      timestamp: new Date().toISOString(),
+    };
+
+    try {
+      const res = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || 'Submission failed. Please try again.');
+      }
+
+      setEnquiryId(data.enquiryId || '');
+      setSubmitted(true);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Network error. Please check your connection.';
+      setErrorMessage(msg);
+    } finally {
+      setIsSubmitting(false);
     }
-    
-    setSubmitted(true);
   };
 
   if (submitted) {
@@ -95,12 +126,17 @@ export function EnquiryForm({
           <CheckCircle2 className="w-6 h-6" />
         </div>
         <h3 className="text-xl font-bold text-white mb-2">Proposal Request Received</h3>
-        <p className="text-sm text-slate-300 max-w-md mx-auto mb-6">
+        <p className="text-sm text-slate-300 max-w-md mx-auto mb-4">
           Thank you. An EntireFM technical surveyor or regional account manager will review your estate requirements and contact you promptly.
         </p>
+        {enquiryId && (
+          <p className="text-xs text-brand-gold font-mono mb-6">
+            Reference: {enquiryId}
+          </p>
+        )}
         <div className="p-4 bg-brand-navy border border-brand-border-dark rounded-sm text-xs text-slate-400 max-w-sm mx-auto">
-          For urgent facilities engineering assistance, call our 24/7 helpdesk directly: <br />
-          <strong className="text-brand-gold font-mono text-sm">[PHONE NUMBER TO VERIFY]</strong>
+          For urgent facilities engineering assistance, contact our central helpdesk: <br />
+          <strong className="text-brand-gold font-mono text-sm">{CONTACT_CONFIG.mainPhone.display}</strong>
         </div>
       </div>
     );
@@ -120,6 +156,13 @@ export function EnquiryForm({
           {subheadline}
         </p>
       </div>
+
+      {errorMessage && (
+        <div className="mb-4 p-3 bg-red-950/60 border border-red-500/50 rounded-sm flex items-center gap-3 text-red-200 text-sm">
+          <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+          <span>{errorMessage}</span>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Hidden Form Attribution Fields */}
@@ -251,10 +294,20 @@ export function EnquiryForm({
 
           <button
             type="submit"
-            className="btn-primary w-full sm:w-auto px-8 py-3.5 text-sm font-bold shadow-command"
+            disabled={isSubmitting}
+            className="btn-primary w-full sm:w-auto px-8 py-3.5 text-sm font-bold shadow-command disabled:opacity-50 flex items-center justify-center gap-2"
           >
-            <Send className="w-4 h-4" />
-            {ctaText}
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>Processing...</span>
+              </>
+            ) : (
+              <>
+                <Send className="w-4 h-4" />
+                <span>{ctaText}</span>
+              </>
+            )}
           </button>
         </div>
       </form>

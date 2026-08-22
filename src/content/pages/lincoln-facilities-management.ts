@@ -6,49 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/lincoln-facilities-management",
-  "title": "Lincoln Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Lincoln — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Lincoln Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Lincoln and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Lincoln",
+  "title": "Lincoln Facilities Management | Entire FM",
+  "metaDescription": "Entire FM delivers expert lincoln facilities management services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
+  "h1": "Lincoln Facilities Management",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source lincoln facilities management for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for lincoln facilities management",
+  "primaryIntent": "lincoln facilities management services",
   "secondaryIntents": [
-    "Lincoln commercial property maintenance",
-    "FM company Lincoln",
-    "building maintenance Lincoln"
+    "commercial lincoln facilities management",
+    "lincoln facilities management contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Lincoln",
   "historicTopics": [
-    "Lincoln commercial coverage: Lincoln City Centre, Allenby Industrial Estate, Teal Park, and surrounding Lincolnshire agricultural & engineering corridors",
-    "Local operational challenges: Dispersed regional estate logistics, historic building fabric maintenance, agricultural manufacturing hygiene",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Lincoln Facilities Management overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Lincoln Facilities Management",
+      "url": "/lincoln-facilities-management"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Lincoln.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for lincoln facilities management.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

@@ -4,7 +4,8 @@ import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { EnquiryForm } from '@/components/conversion/EnquiryForm';
-import { Phone, Mail, MapPin, Clock, ShieldCheck, HelpCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { CONTACT_CONFIG } from '@/config/contact';
 
 export function TemplateContact() {
   const breadcrumbs = [
@@ -52,7 +53,9 @@ export function TemplateContact() {
                       <Phone className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-white block text-sm">24/7 Operations Desk</strong>
-                        <span className="text-brand-gold font-mono text-sm">[PHONE NUMBER TO VERIFY]</span>
+                        <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-gold font-mono text-sm font-bold hover:underline">
+                          {CONTACT_CONFIG.mainPhone.display}
+                        </a>
                         <p className="text-slate-400 mt-0.5">For urgent plant breakdowns, emergency M&E triage, and contractor callout.</p>
                       </div>
                     </div>
@@ -61,7 +64,9 @@ export function TemplateContact() {
                       <Mail className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-white block text-sm">Commercial Enquiries</strong>
-                        <span className="text-slate-300 font-mono">[OFFICIAL EMAIL TO VERIFY]</span>
+                        <a href={`mailto:${CONTACT_CONFIG.enquiryEmail}`} className="text-slate-300 font-mono hover:text-white">
+                          {CONTACT_CONFIG.enquiryEmail}
+                        </a>
                         <p className="text-slate-400 mt-0.5">Tenders, RFQs, framework proposals, and estate surveys.</p>
                       </div>
                     </div>
@@ -78,13 +83,17 @@ export function TemplateContact() {
                     <div className="p-3 bg-white border border-brand-border rounded-sm">
                       <strong className="text-brand-navy block">London & South Operations Desk</strong>
                       <span>Greater London, City, M25 Corridor & Home Counties</span>
-                      <span className="block text-slate-400 font-mono mt-1">[LONDON DIRECT LINE TO VERIFY]</span>
+                      <a href={CONTACT_CONFIG.mainPhone.href} className="block text-brand-navy font-mono font-bold mt-1 hover:underline">
+                        {CONTACT_CONFIG.mainPhone.display}
+                      </a>
                     </div>
 
                     <div className="p-3 bg-white border border-brand-border rounded-sm">
                       <strong className="text-brand-navy block">North & Midlands Regional Base</strong>
                       <span>Lincoln, Sheffield, Manchester, Birmingham & Leeds</span>
-                      <span className="block text-slate-400 font-mono mt-1">[REGIONAL DIRECT LINE TO VERIFY]</span>
+                      <a href={CONTACT_CONFIG.mainPhone.href} className="block text-brand-navy font-mono font-bold mt-1 hover:underline">
+                        {CONTACT_CONFIG.mainPhone.display}
+                      </a>
                     </div>
                   </div>
                 </div>

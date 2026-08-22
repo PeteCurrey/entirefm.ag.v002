@@ -6,49 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-derby",
-  "title": "Derby Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Derby — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Derby Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Derby and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Derby",
+  "title": "Facilities Management Derby | Entire FM",
+  "metaDescription": "Entire FM delivers expert facilities management derby services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
+  "h1": "Facilities Management Derby",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source facilities management derby for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for facilities management derby",
+  "primaryIntent": "facilities management derby services",
   "secondaryIntents": [
-    "Derby commercial property maintenance",
-    "FM company Derby",
-    "building maintenance Derby"
+    "commercial facilities management derby",
+    "facilities management derby contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Derby",
   "historicTopics": [
-    "Derby commercial coverage: Pride Park, Infinity Park Derby, Raynesway industrial area, and City Centre commercial core",
-    "Local operational challenges: Aerospace & rail supply chain precision compliance, high-voltage electrical distribution security",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Facilities Management Derby overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Facilities Management Derby",
+      "url": "/facilities-management-derby"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Derby.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for facilities management derby.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

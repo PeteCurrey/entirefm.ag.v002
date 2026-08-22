@@ -6,46 +6,94 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/industrial-cleaning-derby",
-  "title": "Industrial Cleaning Derby | Specialist Commercial Services | Entire FM",
-  "metaDescription": "Professional industrial cleaning across Derby — specialist equipment, certified operatives, and tailored commercial service schedules.",
+  "title": "Industrial Cleaning in Derby | Professional Services | Entire FM",
+  "metaDescription": "Specialist industrial cleaning services in Derby. Directly employed local teams, professional equipment, and full compliance certification.",
   "h1": "Industrial Cleaning Derby",
-  "historicIntent": "Hyper-targeted local service search intent combining Industrial Cleaning with Derby commercial properties.",
-  "primaryIntent": "industrial cleaning Derby",
+  "eyebrow": "Derby Local Service Delivery",
+  "heroIntro": "Professional industrial cleaning delivered across Derby and surrounding commercial districts by EntireFM’s regional operations teams.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for industrial cleaning derby",
+  "primaryIntent": "industrial cleaning derby services",
   "secondaryIntents": [
-    "commercial industrial cleaning Derby",
-    "contract industrial cleaning Derby"
+    "commercial industrial cleaning derby",
+    "industrial cleaning derby contractor UK"
   ],
   "pageType": "geographic-service",
   "service": null,
   "sector": null,
   "location": "Derby",
   "historicTopics": [
-    "Industrial Cleaning delivery across Derby",
-    "Site types served: High-tech manufacturing plants, advanced engineering workshops, and commercial corporate parks",
-    "RAMS and health & safety compliance",
-    "Out-of-hours scheduling"
+    "Industrial Cleaning Derby overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Local Service Hero",
-    "Service Scope",
-    "Districts Covered",
-    "Safety Standards",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Reliable Industrial Cleaning Across Derby",
+      "body": "EntireFM provides dependable, high-quality industrial cleaning for commercial offices, industrial plants, retail premises, and residential developments in Derby."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Dedicated Derby Service Team",
+      "description": "Experienced local operatives equipped with commercial-grade equipment and eco-compliant treatments.",
+      "tag": "Local Delivery"
+    },
+    {
+      "name": "Health & Safety Certified",
+      "description": "Fully insured, COSHH compliant, and trained to industry-leading health and safety standards.",
+      "tag": "Safety"
+    },
+    {
+      "name": "Flexible Out-of-Hours Scheduling",
+      "description": "Available for early morning, evening, weekend, and shutdown operations to minimize disruption.",
+      "tag": "Flexible Hours"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "Do you provide free surveys for industrial cleaning in Derby?",
+      "answer": "Yes. We provide on-site technical surveys and transparent written proposals for all commercial sites in Derby."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Local Services",
+      "url": "/locations"
+    },
+    {
+      "name": "Industrial Cleaning Derby",
+      "url": "/industrial-cleaning-derby"
+    }
   ],
   "relatedRoutes": [
-    "/industrial-cleaning",
-    "/cleaning-services",
-    "/facilities-management-derby"
+    "/mechanical-electrical",
+    "/ppm",
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate industrial cleaning quotations and site survey bookings in Derby.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for industrial cleaning derby.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

@@ -6,43 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/about-entire-facilities-management",
   "title": "About Entire Facilities Management | Entire FM",
-  "metaDescription": "Entire FM — About Entire Facilities Management. Dedicated facilities management, mechanical & electrical engineering, and property maintenance services.",
+  "metaDescription": "Entire FM delivers expert about entire facilities management services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
   "h1": "About Entire Facilities Management",
-  "historicIntent": "Commercial navigation or reference intent for Entire FM's about entire facilities management.",
-  "primaryIntent": "about entire facilities management entire fm",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source about entire facilities management for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for about entire facilities management",
+  "primaryIntent": "about entire facilities management services",
   "secondaryIntents": [
-    "entire facilities management",
-    "commercial building services UK"
+    "commercial about entire facilities management",
+    "about entire facilities management contractor UK"
   ],
   "pageType": "company",
   "service": null,
   "sector": null,
   "location": null,
   "historicTopics": [
-    "EntireFM capabilities",
-    "Operating standards",
-    "Client support & contact"
+    "About Entire Facilities Management overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
     "Hero",
-    "Overview",
-    "Operational Standards",
-    "Contact & CTA"
+    "Capabilities",
+    "Body Copy",
+    "FAQ",
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Company",
+      "url": "/about-entire-facilities-management"
+    },
+    {
+      "name": "About Entire Facilities Management",
+      "url": "/about-entire-facilities-management"
+    }
   ],
   "relatedRoutes": [
-    "/services",
-    "/contact-us",
-    "/about-entire-facilities-management"
+    "/mechanical-electrical",
+    "/ppm",
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Provide clear company information, portal access, or commercial contact pathways.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for about entire facilities management.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

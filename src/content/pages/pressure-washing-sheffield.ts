@@ -6,46 +6,94 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/pressure-washing-sheffield",
-  "title": "Pressure Washing Sheffield | Specialist Commercial Services | Entire FM",
-  "metaDescription": "Professional pressure washing across Sheffield — specialist equipment, certified operatives, and tailored commercial service schedules.",
+  "title": "Pressure Washing in Sheffield | Professional Services | Entire FM",
+  "metaDescription": "Specialist pressure washing services in Sheffield. Directly employed local teams, professional equipment, and full compliance certification.",
   "h1": "Pressure Washing Sheffield",
-  "historicIntent": "Hyper-targeted local service search intent combining Pressure Washing with Sheffield commercial properties.",
-  "primaryIntent": "pressure washing Sheffield",
+  "eyebrow": "Sheffield Local Service Delivery",
+  "heroIntro": "Professional pressure washing delivered across Sheffield and surrounding commercial districts by EntireFM’s regional operations teams.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for pressure washing sheffield",
+  "primaryIntent": "pressure washing sheffield services",
   "secondaryIntents": [
-    "commercial pressure washing Sheffield",
-    "contract pressure washing Sheffield"
+    "commercial pressure washing sheffield",
+    "pressure washing sheffield contractor UK"
   ],
   "pageType": "geographic-service",
   "service": null,
   "sector": null,
   "location": "Sheffield",
   "historicTopics": [
-    "Pressure Washing delivery across Sheffield",
-    "Site types served: Heavy engineering factories, precision manufacturing facilities, commercial offices, and educational campuses",
-    "RAMS and health & safety compliance",
-    "Out-of-hours scheduling"
+    "Pressure Washing Sheffield overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Local Service Hero",
-    "Service Scope",
-    "Districts Covered",
-    "Safety Standards",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Reliable Pressure Washing Across Sheffield",
+      "body": "EntireFM provides dependable, high-quality pressure washing for commercial offices, industrial plants, retail premises, and residential developments in Sheffield."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Dedicated Sheffield Service Team",
+      "description": "Experienced local operatives equipped with commercial-grade equipment and eco-compliant treatments.",
+      "tag": "Local Delivery"
+    },
+    {
+      "name": "Health & Safety Certified",
+      "description": "Fully insured, COSHH compliant, and trained to industry-leading health and safety standards.",
+      "tag": "Safety"
+    },
+    {
+      "name": "Flexible Out-of-Hours Scheduling",
+      "description": "Available for early morning, evening, weekend, and shutdown operations to minimize disruption.",
+      "tag": "Flexible Hours"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "Do you provide free surveys for pressure washing in Sheffield?",
+      "answer": "Yes. We provide on-site technical surveys and transparent written proposals for all commercial sites in Sheffield."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Local Services",
+      "url": "/locations"
+    },
+    {
+      "name": "Pressure Washing Sheffield",
+      "url": "/pressure-washing-sheffield"
+    }
   ],
   "relatedRoutes": [
-    "/industrial-cleaning",
-    "/cleaning-services",
-    "/facilities-management-sheffield"
+    "/mechanical-electrical",
+    "/ppm",
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate pressure washing quotations and site survey bookings in Sheffield.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for pressure washing sheffield.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

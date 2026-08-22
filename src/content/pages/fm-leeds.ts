@@ -6,49 +6,94 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/fm-leeds",
-  "title": "Leeds Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Leeds — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Leeds Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Leeds and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Leeds",
+  "title": "FM Leeds | 24/7 Emergency Engineering & Yorkshire Rapid Response | Entire FM",
+  "metaDescription": "24/7 emergency facilities management and mobile engineering across Leeds, Bradford, and West Yorkshire. Urgent M&E, HVAC, power, and plumbing triage.",
+  "h1": "FM Leeds — 24/7 Emergency Engineering & Yorkshire Rapid Response",
+  "eyebrow": "Yorkshire & Humber Regional Hub",
+  "heroIntro": "Immediate 24/7 emergency facilities management and mobile engineering dispatch across Leeds, Bradford, and the M62 corridor.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for fm leeds",
+  "primaryIntent": "fm leeds services",
   "secondaryIntents": [
-    "Leeds commercial property maintenance",
-    "FM company Leeds",
-    "building maintenance Leeds"
+    "commercial fm leeds",
+    "fm leeds contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Leeds",
   "historicTopics": [
-    "Leeds commercial coverage: Leeds Financial Quarter, Holbeck Urban Village, Aire Valley Enterprise Zone, and Thorpe Park",
-    "Local operational challenges: Financial & professional services uptime requirements, M62 trans-Pennine logistics access",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Fm Leeds overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "24/7 Emergency Engineering Support Across Yorkshire",
+      "body": "EntireFM operates a dedicated Yorkshire emergency engineering fleet providing 24/7 mechanical, electrical, plumbing, and HVAC rapid response across Leeds and West Yorkshire."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Leeds Commercial District Office FM",
+      "description": "Statutory compliance, HVAC maintenance, and commercial cleaning for Leeds city centre offices.",
+      "tag": "Commercial FM"
+    },
+    {
+      "name": "M62 Logistics Corridor Support",
+      "description": "High-bay warehouse maintenance, dock leveller servicing, and industrial floor degreasing.",
+      "tag": "Logistics FM"
+    },
+    {
+      "name": "Yorkshire Mobile Mechanical & Electrical Fleet",
+      "description": "Gas Safe and NICEIC certified engineers delivering planned and reactive maintenance.",
+      "tag": "Engineering"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "How quickly can your Leeds emergency team respond?",
+      "answer": "Our Leeds regional helpdesk operates 24/7/365 with contractual emergency response windows for reactive callouts across Yorkshire."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Fm Leeds",
+      "url": "/fm-leeds"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Leeds.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for fm leeds.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

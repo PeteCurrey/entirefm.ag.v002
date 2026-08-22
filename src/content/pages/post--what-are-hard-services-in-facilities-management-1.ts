@@ -6,45 +6,89 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/post/what-are-hard-services-in-facilities-management-1",
-  "title": "What Are Hard Services In Facilities Management 1 | Facilities Management Insights | Entire FM",
-  "metaDescription": "Read Entire FM’s comprehensive industry guide on what are hard services in facilities management 1 for UK commercial property and estate managers.",
-  "h1": "What Are Hard Services In Facilities Management 1",
-  "historicIntent": "Informational search intent from property professionals researching FM industry best practices and compliance.",
-  "primaryIntent": "what are hard services in facilities management 1",
+  "title": "Post/What Are Hard Services In Facilities Management 1 | EntireFM Insights & FM Guidance",
+  "metaDescription": "Authoritative facilities management insights, engineering best practices, and compliance guidance from EntireFM's technical team.",
+  "h1": "Post/What Are Hard Services In Facilities Management 1",
+  "eyebrow": "FM Insights & Technical Guidance",
+  "heroIntro": "Expert guidance on facilities management, building engineering, statutory compliance, and commercial asset maintenance.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for post/what are hard services in facilities management 1",
+  "primaryIntent": "post/what are hard services in facilities management 1 services",
   "secondaryIntents": [
-    "facilities management guide",
-    "commercial building maintenance advice"
+    "commercial post/what are hard services in facilities management 1",
+    "post/what are hard services in facilities management 1 contractor UK"
   ],
   "pageType": "post",
   "service": null,
   "sector": null,
   "location": null,
   "historicTopics": [
-    "Industry best practices",
-    "Statutory compliance guidance",
-    "Cost optimization in building maintenance"
+    "Post/What Are Hard Services In Facilities Management 1 overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Article Header",
-    "Editorial Content",
-    "Technical Key Takeaways",
-    "Related Services",
-    "Enquiry"
+    "Hero",
+    "Capabilities",
+    "Body Copy",
+    "FAQ",
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Key Considerations for Estate Directors and Facilities Managers",
+      "body": "Effective facilities management balances long-term asset value, statutory safety compliance, and cost optimization. Applying structured maintenance methodologies ensures uninterrupted business operations."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Industry Best Practices",
+      "description": "Actionable guidance on maintaining commercial estates efficiently and compliantly.",
+      "tag": "Guidance"
+    },
+    {
+      "name": "Statutory Compliance Overviews",
+      "description": "Breakdowns of UK building safety, fire regulations, electrical standards, and water hygiene.",
+      "tag": "Compliance"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "How can I learn more about EntireFM services?",
+      "answer": "Contact our technical consulting desk for site-specific advice and asset reviews."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Insights",
+      "url": "/blog"
+    },
+    {
+      "name": "Post/What Are Hard Services In Facilities Management 1",
+      "url": "/post/what-are-hard-services-in-facilities-management-1"
+    }
   ],
   "relatedRoutes": [
     "/mechanical-electrical",
     "/ppm",
     "/hard-services",
-    "/services"
+    "/contact-us"
   ],
-  "conversionGoal": "Educate property managers and direct informational traffic to relevant commercial service pages.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for post/what are hard services in facilities management 1.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

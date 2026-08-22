@@ -11,8 +11,8 @@ export const ORGANIZATION_CONFIG = {
   brandName: 'EntireFM',
   tagline: 'Total Facilities Management & Specialist Engineering',
   foundingYear: 2009,
-  canonicalDomain: 'https://entirefm.com',
-  productionHost: 'entirefm.com',
+  canonicalDomain: 'https://www.entirefm.com',
+  productionHost: 'www.entirefm.com',
   
   headquarters: {
     country: 'United Kingdom',
@@ -25,10 +25,10 @@ export const ORGANIZATION_CONFIG = {
     enquiryEmail: 'enquiries@entirefm.com',
     helpdeskEmail: 'helpdesk@entirefm.com',
     portalEmail: 'portal@entirefm.com',
-    mainPhoneDisplay: '[PHONE NUMBER TO VERIFY]',
-    mainPhoneTel: 'tel:0800000000',
-    helpdeskPhoneDisplay: '[24/7 HELPDESK TO VERIFY]',
-    londonPhoneDisplay: '[LONDON DIRECT LINE TO VERIFY]',
+    mainPhoneDisplay: '0800 093 1128',
+    mainPhoneTel: 'tel:08000931128',
+    helpdeskPhoneDisplay: '24/7 Digital Helpdesk',
+    londonPhoneDisplay: 'London Operations Desk',
   },
 
   serviceRegions: [

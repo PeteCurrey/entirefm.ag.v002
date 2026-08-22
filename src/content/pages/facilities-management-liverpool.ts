@@ -6,49 +6,68 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/facilities-management-liverpool",
-  "title": "Liverpool Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Liverpool — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Liverpool Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Liverpool and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Liverpool",
+  "title": "Facilities Management Liverpool | Entire FM",
+  "metaDescription": "Entire FM delivers expert facilities management liverpool services across the UK. Certified engineering, statutory compliance, and dedicated client management.",
+  "h1": "Facilities Management Liverpool",
+  "eyebrow": "Facilities Management & Engineering",
+  "heroIntro": "Entire Facilities Management provides professional, single-source facilities management liverpool for commercial, industrial, and multi-site portfolios across the UK.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for facilities management liverpool",
+  "primaryIntent": "facilities management liverpool services",
   "secondaryIntents": [
-    "Liverpool commercial property maintenance",
-    "FM company Liverpool",
-    "building maintenance Liverpool"
+    "commercial facilities management liverpool",
+    "facilities management liverpool contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Liverpool",
   "historicTopics": [
-    "Liverpool commercial coverage: Liverpool Commercial District, Baltic Triangle, Knowsley Industrial Park, and Mersey Port logistics corridor",
-    "Local operational challenges: Maritime climate corrosion protection, port logistics operational schedules, historic commercial building fabric",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Facilities Management Liverpool overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [],
+  "capabilities": [],
+  "assetTypes": [],
+  "faqs": [],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Facilities Management Liverpool",
+      "url": "/facilities-management-liverpool"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Liverpool.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for facilities management liverpool.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

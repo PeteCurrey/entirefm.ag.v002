@@ -6,49 +6,94 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/fm-birmingham",
-  "title": "Birmingham Facilities Management | Commercial Property Maintenance | Entire FM",
-  "metaDescription": "Entire FM provides dedicated facilities management across Birmingham — hard FM, M&E engineering, PPM, cleaning, and 24/7 reactive callout support.",
-  "h1": "Birmingham Facilities Management & Building Maintenance",
-  "historicIntent": "Regional commercial search intent for facilities management services in Birmingham and surrounding commercial corridors.",
-  "primaryIntent": "Facilities management Birmingham",
+  "title": "FM Birmingham | 24/7 Emergency Engineering & Rapid Response | Entire FM",
+  "metaDescription": "24/7 emergency facilities management and mobile engineering across Birmingham and West Midlands. Urgent M&E, HVAC, power, and plumbing triage.",
+  "h1": "FM Birmingham — 24/7 Emergency Engineering & Rapid Response",
+  "eyebrow": "West Midlands Regional Hub",
+  "heroIntro": "Immediate 24/7 emergency facilities management and mobile engineering dispatch across Birmingham, Solihull, and the M42 corridor. Direct engineering vans on call.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for fm birmingham",
+  "primaryIntent": "fm birmingham services",
   "secondaryIntents": [
-    "Birmingham commercial property maintenance",
-    "FM company Birmingham",
-    "building maintenance Birmingham"
+    "commercial fm birmingham",
+    "fm birmingham contractor UK"
   ],
   "pageType": "location",
   "service": null,
   "sector": null,
   "location": "Birmingham",
   "historicTopics": [
-    "Birmingham commercial coverage: Colmore Business District, Digbeth, Jewellery Quarter, Solihull commercial parks, and NEC corridor",
-    "Local operational challenges: Central England transport hub logistics, Clean Air Zone (CAZ) compliance, heavy manufacturing supply chain maintenance",
-    "Hard FM & M&E delivery",
-    "Commercial cleaning & hygiene",
-    "24/7 emergency response"
+    "Fm Birmingham overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
-    "Location Hero",
-    "Regional Delivery Scope",
-    "Districts Covered",
-    "Engineering Factsheet",
+    "Hero",
+    "Capabilities",
+    "Body Copy",
     "FAQ",
-    "Enquiry"
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "24/7 Emergency Engineering Support Across Birmingham",
+      "body": "EntireFM operates a dedicated Birmingham emergency engineering fleet providing 24/7 mechanical, electrical, plumbing, and HVAC rapid response across the West Midlands."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "West Midlands Mobile Engineering Fleet",
+      "description": "Local certified mechanical and electrical engineers delivering scheduled PPM and rapid reactive repairs.",
+      "tag": "Engineering"
+    },
+    {
+      "name": "Manufacturing & Automotive Sector FM",
+      "description": "Plant room servicing, compressed air maintenance, and industrial floor cleaning for Midlands factories.",
+      "tag": "Industrial FM"
+    },
+    {
+      "name": "Birmingham Commercial Office Cleaning & Care",
+      "description": "Daily office cleaning, washroom hygiene, and statutory testing for city centre corporate buildings.",
+      "tag": "Corporate Care"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "How quickly can your Birmingham emergency team respond?",
+      "answer": "Our Birmingham helpdesk operates 24/7/365 with contractual emergency response windows for reactive callouts across the West Midlands."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Locations",
+      "url": "/locations"
+    },
+    {
+      "name": "Fm Birmingham",
+      "url": "/fm-birmingham"
+    }
   ],
   "relatedRoutes": [
-    "/services",
     "/mechanical-electrical",
     "/ppm",
-    "/cleaning-services"
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Generate commercial facilities management enquiries and site survey requests across Birmingham.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for fm birmingham.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };

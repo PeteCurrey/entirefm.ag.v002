@@ -6,43 +6,99 @@
  * Protected: Yes
  */
 
-import type { ContentRecord } from '@/content/index';
+import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/cleaning-services",
-  "title": "Cleaning Services | Entire FM",
-  "metaDescription": "Entire FM — Cleaning Services. Dedicated facilities management, mechanical & electrical engineering, and property maintenance services.",
-  "h1": "Cleaning Services",
-  "historicIntent": "Commercial navigation or reference intent for Entire FM's cleaning services.",
-  "primaryIntent": "cleaning services entire fm",
+  "title": "Commercial Contract Cleaning Services | Office & Facility Cleaning | Entire FM",
+  "metaDescription": "Professional commercial contract cleaning for offices, corporate headquarters, and multi-tenanted buildings across the UK. Daily cleaning and consumables management.",
+  "h1": "Commercial Contract Cleaning Services",
+  "eyebrow": "Soft FM & Workplace Hygiene",
+  "heroIntro": "Consistent, high-standard commercial contract cleaning tailored to modern corporate offices, commercial facilities, and educational establishments.",
+  "heroDescription": "Our certified engineering teams and dedicated operations desk ensure statutory compliance, asset reliability, and proactive maintenance standards tailored to your operational requirements.",
+  "historicIntent": "Historic commercial search intent for cleaning services",
+  "primaryIntent": "cleaning services services",
   "secondaryIntents": [
-    "entire facilities management",
-    "commercial building services UK"
+    "commercial cleaning services",
+    "cleaning services contractor UK"
   ],
   "pageType": "service",
   "service": null,
   "sector": null,
   "location": null,
   "historicTopics": [
-    "EntireFM capabilities",
-    "Operating standards",
-    "Client support & contact"
+    "Cleaning Services overview",
+    "Statutory compliance",
+    "Preventative maintenance",
+    "Contract management"
   ],
   "requiredSections": [
     "Hero",
-    "Overview",
-    "Operational Standards",
-    "Contact & CTA"
+    "Capabilities",
+    "Body Copy",
+    "FAQ",
+    "Conversion"
+  ],
+  "sections": [
+    {
+      "heading": "Elevating Workplace Hygiene and Professional Presentation",
+      "body": "A clean workplace directly enhances staff wellbeing, productivity, and corporate reputation. EntireFM delivers managed cleaning contracts with dedicated on-site supervisors, rigorous quality audits, and sustainable, eco-labelled cleaning products."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Daily Commercial Office Cleaning",
+      "description": "Scheduled early-morning or evening cleaning teams maintaining pristine workspaces, meeting suites, and common areas.",
+      "tag": "Daily Cleaning"
+    },
+    {
+      "name": "Washroom & Hygiene Management",
+      "description": "Complete washroom servicing, deep sanitisation, feminine hygiene, and consumable replenishment.",
+      "tag": "Hygiene"
+    },
+    {
+      "name": "Commercial Carpet & Upholstery Care",
+      "description": "Hot water extraction, dry compound carpet cleaning, and spot stain removal for corporate office environments.",
+      "tag": "Carpet Care"
+    },
+    {
+      "name": "Commercial Window & Glass Cleaning",
+      "description": "Reach-and-wash purified water pole systems for external glazing up to 65ft, plus internal glass partition cleaning.",
+      "tag": "Window Cleaning"
+    }
+  ],
+  "assetTypes": [],
+  "faqs": [
+    {
+      "question": "Are your commercial cleaning staff vetted and trained?",
+      "answer": "Yes. All EntireFM cleaning operatives undergo comprehensive identity screening, COSHH safety training, and site-specific operational briefings."
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Services",
+      "url": "/services"
+    },
+    {
+      "name": "Cleaning Services",
+      "url": "/cleaning-services"
+    }
   ],
   "relatedRoutes": [
-    "/services",
-    "/contact-us",
-    "/about-entire-facilities-management"
+    "/mechanical-electrical",
+    "/ppm",
+    "/hard-services",
+    "/contact-us"
   ],
-  "conversionGoal": "Provide clear company information, portal access, or commercial contact pathways.",
+  "conversionGoal": "Generate commercial enquiries and survey requests for cleaning services.",
   "verificationRequirements": [
-    "Certification claims must follow BUSINESS-CLAIMS-VERIFICATION.md",
-    "Response time SLAs must be contractually confirmed"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+    "No placeholder contact strings in rendered content",
+    "No unverified statistics"
   ],
   "contentStatus": "COMPLETE"
 };
