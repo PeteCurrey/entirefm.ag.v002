@@ -20,6 +20,8 @@ export interface ProtectedRoute {
   statusRequired: 200;
   canonical: 'self';
   uniquePageRequired: boolean;
+  g1_url?: string | null;
+  g2_url?: string | null;
 }
 
 export const PROTECTED_LEGACY_ROUTES: ProtectedRoute[] = [

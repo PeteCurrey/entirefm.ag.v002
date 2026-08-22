@@ -1,17 +1,98 @@
-/* 
- * GLOBAL CSS — PHASE 02 STRUCTURAL SKELETON
- * No visual design at this stage.
- * Placeholder styles only.
- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-*, *::before, *::after {
-  box-sizing: border-box;
+@layer base {
+  :root {
+    --brand-navy: #0A1118;
+    --brand-charcoal: #121A24;
+    --brand-slate: #1E293B;
+    --brand-gold: #C59B27;
+    --brand-gold-light: #DFB743;
+    --brand-border: #E2E8F0;
+    --brand-surface: #F8FAFC;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-white text-brand-charcoal font-sans antialiased selection:bg-brand-gold/20 selection:text-brand-navy;
+  }
+
+  /* Accessibility Focus Rings */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-brand-gold ring-offset-2 ring-offset-white;
+  }
 }
 
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  line-height: 1.5;
-  color: #111;
-  background: #fff;
+@layer components {
+  /* Architectural Containers */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-wide {
+    @apply max-w-8xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6;
+  }
+
+  /* Technical Badge / Eyebrow */
+  .badge-technical {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold tracking-wider uppercase bg-brand-surface text-brand-slate border border-brand-border rounded-sm;
+  }
+
+  .badge-gold {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold tracking-wider uppercase bg-brand-gold/10 text-brand-gold-dark border border-brand-gold/30 rounded-sm;
+  }
+
+  .badge-dark {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold tracking-wider uppercase bg-brand-navy text-white border border-brand-border-dark rounded-sm;
+  }
+
+  /* Button Systems */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold tracking-wide text-brand-navy bg-brand-gold hover:bg-brand-gold-light transition-colors duration-150 rounded-sm shadow-subtle focus-visible:ring-2 focus-visible:ring-brand-gold;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold tracking-wide text-white bg-brand-navy hover:bg-brand-charcoal border border-brand-border-dark transition-colors duration-150 rounded-sm shadow-subtle;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold tracking-wide text-brand-charcoal bg-white hover:bg-brand-surface border border-brand-border transition-colors duration-150 rounded-sm;
+  }
+
+  .btn-outline-white {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold tracking-wide text-white bg-transparent hover:bg-white/10 border border-white/30 transition-colors duration-150 rounded-sm;
+  }
+
+  .btn-phone {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold tracking-wide text-brand-navy bg-brand-gold/15 hover:bg-brand-gold/25 border border-brand-gold/40 text-brand-charcoal transition-colors duration-150 rounded-sm;
+  }
+
+  /* Section Spacing */
+  .section-padding {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .section-padding-compact {
+    @apply py-12 sm:py-16;
+  }
+
+  /* Verified Claims Notice */
+  .verified-disclaimer {
+    @apply text-xs text-slate-500 italic mt-2;
+  }
 }
