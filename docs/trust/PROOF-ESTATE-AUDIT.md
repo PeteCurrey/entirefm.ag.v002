@@ -5,7 +5,7 @@ This audit catalogues every historic and existing proof asset (clients, logos, a
 
 In accordance with strict claims governance:
 - **`VERIFIED`**: Genuine verified entity data, confirmed phone/email, validated legal structure (`Alkota Group Limited t/a EntireFM`), and live technical route infrastructure.
-- **`AWAITING_VERIFICATION`**: Historic client names (NHS, Greggs, Cushman & Wakefield, Costa, HSBC, Burger King, Moto, NatWest, Balfour Beatty, Royal Enfield) and accreditations (NICEIC, Gas Safe, SafeContractor, CHAS, BESA, F-Gas/REFCOM, ISO 9001, BICSc, IWFM, IFMA). **None are rendered as live public claims until explicit written certificates or client approvals are supplied.**
+- **`AWAITING_VERIFICATION`**: Historic client names (NHS, Greggs, Cushman & Wakefield, Costa, HSBC, Burger King, Moto, NatWest, Balfour Beatty, Royal Enfield, Lambert Smith Hampton) and accreditations (NICEIC, Gas Safe, SafeContractor, CHAS, BESA, F-Gas/REFCOM, ISO 9001, BICSc, IWFM, IFMA). **None are rendered as live public claims until explicit written certificates or client approvals are supplied.**
 - **`ANONYMISED_OPERATIONAL_PROOF`**: Substantive commercial and engineering case studies rendered with factual environmental and technical detail without fabricating client names.
 
 ---

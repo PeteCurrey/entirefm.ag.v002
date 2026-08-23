@@ -67,7 +67,7 @@ const VERIFICATION_REGISTER: VerificationItem[] = [
   },
   {
     id: 'v6',
-    name: 'Historic Client Logos (NHS, Greggs, Costa, etc.)',
+    name: 'Historic Client Logos (NHS, Greggs, Costa, Lambert Smith Hampton, etc.)',
     category: 'CLIENT',
     status: 'AWAITING_VERIFICATION',
     evidence: 'Historic Wix design legacy',
