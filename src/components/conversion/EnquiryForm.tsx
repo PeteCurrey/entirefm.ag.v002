@@ -104,6 +104,35 @@ export function EnquiryForm({
     setIsSubmitting(true);
     setErrorMessage(null);
 
+    // Pull full multi-touch journey attribution safely from session memory
+    let attribution = {
+      first_touch_url: '',
+      first_touch_referrer: '',
+      last_touch_url: '',
+      journey_trail: [] as any[],
+      assisted_pages: [] as string[],
+    };
+
+    if (typeof window !== 'undefined') {
+      try {
+        const firstTouch = sessionStorage.getItem('efm_first_touch') || sessionStorage.getItem('efm_landing_page') || window.location.pathname;
+        const firstRef = sessionStorage.getItem('efm_first_referrer') || document.referrer || '';
+        const rawTrail = JSON.parse(sessionStorage.getItem('efm_journey_trail') || '[]');
+        const currentPath = window.location.pathname;
+        const assisted = rawTrail.map((t: any) => t.path).filter((p: string) => p !== currentPath && p !== firstTouch);
+
+        attribution = {
+          first_touch_url: firstTouch,
+          first_touch_referrer: firstRef,
+          last_touch_url: currentPath,
+          journey_trail: rawTrail,
+          assisted_pages: Array.from(new Set(assisted)),
+        };
+      } catch {
+        // Fallback
+      }
+    }
+
     const payload = {
       name: formData.fullName,
       email: formData.email,
@@ -111,6 +140,7 @@ export function EnquiryForm({
       company: formData.company,
       message: formData.message || `Requirement for ${formData.serviceRequired} at ${formData.siteLocation}`,
       ...formTracking,
+      ...attribution,
       service: formData.serviceRequired,
       location: formData.siteLocation || 'United Kingdom',
       timestamp: new Date().toISOString(),

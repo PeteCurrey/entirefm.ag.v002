@@ -41,6 +41,19 @@ export interface LeadInput {
   landing_page?: string;
   conversion_page?: string;
   page_type?: string;
+  first_touch_url?: string;
+  last_touch_url?: string;
+  first_touch_referrer?: string;
+  last_touch_referrer?: string;
+  journey_trail?: any[];
+  assisted_pages?: string[];
+  gclid?: string;
+  msclkid?: string;
+  session_id?: string;
+  form_id?: string;
+  form_page?: string;
+  sector_interest?: string;
+  location_interest?: string;
   utm_source?: string;
   utm_medium?: string;
   utm_campaign?: string;
@@ -95,6 +108,19 @@ export async function saveLead(lead: LeadInput): Promise<boolean> {
     landing_page: lead.landing_page ?? '',
     conversion_page: lead.conversion_page ?? '',
     page_type: lead.page_type ?? '',
+    first_touch_url: lead.first_touch_url ?? '',
+    last_touch_url: lead.last_touch_url ?? '',
+    first_touch_referrer: lead.first_touch_referrer ?? '',
+    last_touch_referrer: lead.last_touch_referrer ?? '',
+    journey_trail: lead.journey_trail ?? [],
+    assisted_pages: lead.assisted_pages ?? [],
+    gclid: lead.gclid ?? '',
+    msclkid: lead.msclkid ?? '',
+    session_id: lead.session_id ?? '',
+    form_id: lead.form_id ?? 'enquiry-form',
+    form_page: lead.form_page ?? '',
+    sector_interest: lead.sector_interest ?? '',
+    location_interest: lead.location_interest ?? '',
     utm_source: lead.utm_source ?? '',
     utm_medium: lead.utm_medium ?? '',
     utm_campaign: lead.utm_campaign ?? '',
