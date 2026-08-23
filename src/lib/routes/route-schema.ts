@@ -47,6 +47,7 @@ export const RouteTypeSchema = z.enum([
   'post',
   'company',
   'legal',
+  'glossary',
 ]);
 export type RouteType = z.infer<typeof RouteTypeSchema>;
 
@@ -104,6 +105,7 @@ export const SitemapGroupSchema = z.enum([
   'local-services',
   'insights',
   'company',
+  'glossary',
 ]);
 export type SitemapGroup = z.infer<typeof SitemapGroupSchema>;
 

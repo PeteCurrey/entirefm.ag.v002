@@ -2,7 +2,7 @@
  * SEGMENTED SITEMAP ROUTE HANDLER
  * =================================
  * Serves /sitemaps/[group].xml for each sitemap group.
- * Generated from /config/route-registry.json.
+ * Generated deterministically from /config/route-registry.json.
  * Uses PRODUCTION_CANONICAL_HOST from src/config/site.ts as the single authority.
  *
  * Example: GET /sitemaps/locations.xml returns all location routes.
@@ -11,9 +11,7 @@
 import { NextResponse } from 'next/server';
 import { getRoutesByGroup } from '@/lib/routes/route-registry';
 import type { SitemapGroup } from '@/lib/routes/route-schema';
-import { isIndexableByTier } from '@/config/indexation';
 import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
-import { canIndexStaticBuild } from '@/lib/indexing';
 
 const VALID_GROUPS: SitemapGroup[] = [
   'core',
@@ -27,6 +25,7 @@ const VALID_GROUPS: SitemapGroup[] = [
   'local-services',
   'insights',
   'company',
+  'glossary',
 ];
 
 export async function GET(
@@ -34,21 +33,12 @@ export async function GET(
   { params }: { params: Promise<{ group: string }> }
 ) {
   const rawGroup = (await params).group;
-  // Strip .xml extension — the sitemap index references /sitemaps/core.xml
+  // Safely strip .xml extension — the sitemap index references /sitemaps/core.xml
   // but the [group] dynamic segment receives the full string including .xml
   const group = rawGroup.replace(/\.xml$/i, '');
 
   if (!VALID_GROUPS.includes(group as SitemapGroup)) {
     return new NextResponse('Sitemap group not found', { status: 404 });
-  }
-
-  if (!canIndexStaticBuild()) {
-    return new NextResponse(
-      '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>',
-      {
-        headers: { 'Content-Type': 'application/xml' },
-      }
-    );
   }
 
   const routes = getRoutesByGroup(group as SitemapGroup).filter(
@@ -73,7 +63,7 @@ ${urls}
 
   return new NextResponse(xml, {
     headers: {
-      'Content-Type': 'application/xml',
+      'Content-Type': 'application/xml; charset=utf-8',
       'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
     },
   });

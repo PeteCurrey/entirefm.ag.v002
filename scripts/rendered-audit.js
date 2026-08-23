@@ -27,6 +27,12 @@ const CONTENT_SOURCES = [
   path.join(repoRoot, 'src', 'content', 'locations', 'build-tier1.ts'),
   path.join(repoRoot, 'src', 'content', 'locations', 'recovered-pages.ts'),
   path.join(repoRoot, 'src', 'content', 'locations', 'tier1-cities.ts'),
+  path.join(repoRoot, 'src', 'content', 'glossary', 'records.ts'),
+  path.join(repoRoot, 'src', 'content', 'compliance', 'records.ts'),
+  path.join(repoRoot, 'src', 'content', 'compliance', 'topics.ts'),
+  path.join(repoRoot, 'src', 'content', 'company', 'utility.ts'),
+  path.join(repoRoot, 'src', 'content', 'company', 'about.ts'),
+  path.join(repoRoot, 'src', 'content', 'blog', 'records.ts'),
 ];
 const registrySource = CONTENT_SOURCES.filter(fs.existsSync)
   .map((f) => fs.readFileSync(f, 'utf-8'))
@@ -87,7 +93,9 @@ const contentMatches = (registrySource.match(/"path":\s*"([^"]+)"/g) || []).map(
 const hasContentFor = (p) =>
   registrySource.includes(`"path": "${p}"`) ||
   registrySource.includes(`'${p}':`) ||
+  registrySource.includes(`"${p}":`) ||
   registrySource.includes(`path: '${p}'`) ||
+  (p.startsWith('/compliance/') && (registrySource.includes(`slug: '${p.replace('/compliance/', '')}'`) || registrySource.includes(`slug: "${p.replace('/compliance/', '')}"`))) ||
   // A page that rendered real HTML demonstrably has a content record —
   // the template resolver throws without one.
   RENDERED.has(p);

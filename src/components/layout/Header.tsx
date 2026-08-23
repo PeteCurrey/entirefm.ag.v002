@@ -321,7 +321,13 @@ function MegaMenu({
         <div className="facet-rule pointer-events-none absolute inset-0 opacity-60" />
         <div className="rule-spectrum absolute inset-x-0 top-0" />
 
-        <div className="container-custom relative grid gap-10 py-10 md:grid-cols-[1fr_1fr_minmax(260px,340px)]">
+        <div
+          className={`container-custom relative grid gap-8 py-9 ${
+            section.columns.length >= 3
+              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.05fr_1.05fr_1.05fr_minmax(260px,310px)]'
+              : 'grid-cols-1 md:grid-cols-[1fr_1fr_minmax(260px,340px)]'
+          }`}
+        >
           {section.columns.map((column) => (
             <div key={column.heading}>
               <p className="eyebrow eyebrow-dark mb-5">{column.heading}</p>

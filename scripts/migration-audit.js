@@ -31,6 +31,12 @@ try {
 const OVERRIDE_SOURCES = [
   path.join(repoRoot, 'src', 'content', 'locations', 'build-tier1.ts'),
   path.join(repoRoot, 'src', 'content', 'locations', 'recovered-pages.ts'),
+  path.join(repoRoot, 'src', 'content', 'glossary', 'records.ts'),
+  path.join(repoRoot, 'src', 'content', 'compliance', 'records.ts'),
+  path.join(repoRoot, 'src', 'content', 'compliance', 'topics.ts'),
+  path.join(repoRoot, 'src', 'content', 'blog', 'records.ts'),
+  path.join(repoRoot, 'src', 'content', 'company', 'utility.ts'),
+  path.join(repoRoot, 'src', 'content', 'company', 'about.ts'),
 ]
   .filter(fs.existsSync)
   .map((f) => fs.readFileSync(f, 'utf-8'))
@@ -39,7 +45,11 @@ const OVERRIDE_SOURCES = [
 const TIER1_CITIES_LIST = ['london', 'manchester', 'sheffield', 'leeds', 'birmingham', 'derby', 'nottingham', 'lincoln', 'liverpool'];
 
 function hasOverrideContent(routePath) {
-  if (OVERRIDE_SOURCES.includes(`'${routePath}'`)) return true;
+  if (OVERRIDE_SOURCES.includes(`'${routePath}'`) || OVERRIDE_SOURCES.includes(`"${routePath}"`)) return true;
+  if (routePath.startsWith('/compliance/')) {
+    const slug = routePath.replace('/compliance/', '');
+    if (OVERRIDE_SOURCES.includes(`slug: '${slug}'`) || OVERRIDE_SOURCES.includes(`slug: "${slug}"`)) return true;
+  }
   // Tier 1 records are built from templates rather than written out literally.
   return TIER1_CITIES_LIST.some((c) =>
     [`/fm-${c}`, `/facilities-management-${c}`, `/${c}-facilities-management`, `/${c}-facilities-management-areas`, `/fm-services-${c}`].includes(routePath)

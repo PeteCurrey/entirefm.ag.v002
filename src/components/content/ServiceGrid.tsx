@@ -238,57 +238,210 @@ export function ServiceGrid() {
 
 /* ── Sectors ────────────────────────────────────────────────────────────── */
 
-const SECTORS = [
-  { title: 'Industrial & Manufacturing', path: '/industrial-facilities-management', imageKey: 'hvac-plant-deck', desc: 'Process plant, LEV thorough examination, high-load electrical distribution and maintenance windows set by production rather than office hours.' },
-  { title: 'Commercial Offices', path: '/commercial-facilities-management', imageKey: 'engineers-office-testing', desc: 'Multi-tenant estates where response times and common-part presentation are written into the lease, and service charge is examined line by line.' },
-  { title: 'Logistics & Warehousing', path: '/logistics-facilities-management', imageKey: 'external-distribution-dusk', desc: 'Dock levellers, shutters, yard lighting and three-phase power on sites where failure is measured in lost distribution hours.' },
-  { title: 'Retail & Shopping Centres', path: '/retail-facilities-management', imageKey: 'access-control-install', desc: 'Extensive public realm, long trading hours and presentation standards that are part of the customer experience, not back-of-house.' },
-  { title: 'Education & Campuses', path: '/education-facilities-management', imageKey: 'hvac-cassette-service', desc: 'Multi-building estates where a year of statutory testing and repair compresses into short vacation turnaround windows.' },
-  { title: 'Healthcare & Clinical', path: '/healthcare-facilities-management', imageKey: 'plumbing-booster-set', desc: 'Ventilation validation, water hygiene and infection control in buildings that never close and cannot tolerate an unplanned outage.' },
+interface SectorItem {
+  title: string;
+  category: string;
+  path: string;
+  imageKey: string;
+  desc: string;
+  isPrimary?: boolean;
+}
+
+const SECTORS: SectorItem[] = [
+  // 4 Primary Visual Anchors
+  {
+    title: 'Industrial & Manufacturing',
+    category: 'Process & Production',
+    path: '/industrial-facilities-management',
+    imageKey: 'hvac-plant-deck',
+    desc: 'Process plant, heavy mechanical services, LEV examination, and maintenance windows controlled by production shifts rather than office hours.',
+    isPrimary: true,
+  },
+  {
+    title: 'Commercial Offices & Corporate',
+    category: 'Workplace & Portfolios',
+    path: '/commercial-facilities-management',
+    imageKey: 'corporate-corridor',
+    desc: 'Multi-tenant estates where response times, statutory compliance, and common-part presentation must satisfy rigorous service charge scrutiny.',
+    isPrimary: true,
+  },
+  {
+    title: 'Logistics & Distribution Centres',
+    category: 'Supply Chain Hubs',
+    path: '/logistics-facilities-management',
+    imageKey: 'external-distribution-dusk',
+    desc: 'Dock levellers, high-speed shutters, yard lighting, and high-load three-phase distribution where asset failure stops freight movement.',
+    isPrimary: true,
+  },
+  {
+    title: 'Retail & Shopping Centres',
+    category: 'Public Realm & Trading',
+    path: '/retail-facilities-management',
+    imageKey: 'access-control-install',
+    desc: 'Public realm presentation, footfall safety, HVAC comfort, and maintenance delivered around trading windows and tenant covenants.',
+    isPrimary: true,
+  },
+
+  // 11 Secondary Specialist Sectors
+  {
+    title: 'Warehousing & Bulk Storage',
+    category: 'Logistics',
+    path: '/warehouse-facilities-management',
+    imageKey: 'hvac-plantroom-pumps',
+    desc: 'High-bay lighting, environmental control, building fabric, and statutory life safety on sites running 24/7 continuous intake.',
+  },
+  {
+    title: 'Healthcare & Clinical Environments',
+    category: 'Clinical Governance',
+    path: '/healthcare-facilities-management',
+    imageKey: 'plumbing-booster-set',
+    desc: 'Airflow validation, water hygiene, statutory testing, and infection control across premises where unscheduled plant downtime is unacceptable.',
+  },
+  {
+    title: 'Education & University Campuses',
+    category: 'Education & Public',
+    path: '/education-facilities-management',
+    imageKey: 'hvac-cassette-service',
+    desc: 'Multi-building academic estates where an entire year of disruptive testing, PPM, and fabric repair compresses into vacation turnaround.',
+  },
+  {
+    title: 'Residential Blocks & Managing Agents',
+    category: 'Residential Portfolios',
+    path: '/residential-facilities-management',
+    imageKey: 'reception',
+    desc: 'Communal M&E, smoke ventilation, access control, and statutory compliance reporting directly supporting managing agent covenants.',
+  },
+  {
+    title: 'Hotels & Hospitality',
+    category: 'Guest Experience',
+    path: '/hotel-facilities-management',
+    imageKey: 'hero-headquarters',
+    desc: 'Guest comfort, acoustic plant isolation, commercial kitchen extraction, and rapid reactive engineering executed without guest disruption.',
+  },
+  {
+    title: 'Transport, Rail & Depots',
+    category: 'Transport Infrastructure',
+    path: '/transport-facilities-management',
+    imageKey: 'site-arrival',
+    desc: 'Safety-critical infrastructure, depot lighting, automated gates, and heavy-use passenger terminal facilities maintenance.',
+  },
+  {
+    title: 'Aviation & Airport Facilities',
+    category: 'Aviation Hubs',
+    path: '/airport-facilities-management',
+    imageKey: 'london-aerial-poster',
+    desc: 'Airside and landside terminal services, perimeter lighting, secure access gates, and stringent statutory compliance protocols.',
+  },
+  {
+    title: 'Construction & Site Mobilisation',
+    category: 'Developments',
+    path: '/construction-facilities-management',
+    imageKey: 'switchroom-survey',
+    desc: 'Site accommodation power, temporary utility infrastructure, perimeter security, and phased pre-handover commissioning support.',
+  },
+  {
+    title: 'Service Stations & Forecourts',
+    category: 'Forecourt & Retail',
+    path: '/service-station-fm',
+    imageKey: 'ev-charging',
+    desc: 'Forecourt lighting, canopy maintenance, EV infrastructure, customer washrooms, and high-footfall 24/7 roadside retail support.',
+  },
+  {
+    title: 'Stadiums, Arenas & Sports Venues',
+    category: 'Event Venues',
+    path: '/arena-facilities-management',
+    imageKey: 'switchgear-inspection',
+    desc: 'Event-day standby engineering, crowd life safety systems, turnstile access, and major plant overhauls timed between event schedules.',
+  },
+  {
+    title: 'Restaurants & Commercial Leisure',
+    category: 'Hospitality',
+    path: '/restaurant-facilities-management',
+    imageKey: 'plumbing-pressure-test',
+    desc: 'Gas safety certification, refrigeration, grease management, drainage, and emergency response protecting kitchen trading hours.',
+  },
 ];
 
 export function SectorGrid() {
+  const primarySectors = SECTORS.filter((s) => s.isPrimary);
+  const secondarySectors = SECTORS.filter((s) => !s.isPrimary);
+
   return (
     <section className="section border-y border-brand-edge bg-brand-surface">
       <div className="container-custom">
         <GridHeading
           eyebrow="Sectors"
           title="The trades are the same. The consequences are not."
-          intro="A two-hour outage is a nuisance in a warehouse and an incident in a clinical building. Sector experience is what tells the two apart before the contract is written."
+          intro="A two-hour plant outage is a minor inconvenience in a warehouse and a critical disruption in a manufacturing line or clinical environment. Sector experience is what tells them apart before the contract is written."
           href="/sectors"
           cta="All sectors"
         />
 
-        <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-edge-dark md:grid-cols-2 lg:grid-cols-3">
-          {SECTORS.map((sector, i) => (
-            <li
+        {/* Primary Large Feature Grid (4 Pillars) */}
+        <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+          {primarySectors.map((sector, i) => (
+            <Link
               key={sector.path}
+              href={sector.path}
               data-reveal
-              style={{ '--reveal-delay': `${(i % 3) * 80}ms` } as React.CSSProperties}
+              style={{ '--reveal-delay': `${i * 90}ms` } as React.CSSProperties}
+              className="on-dark group relative isolate flex min-h-[16rem] sm:min-h-[18rem] flex-col justify-between overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-graphite p-7 transition-all duration-300 hover:border-brand-pink/50"
             >
-              <Link
-                href={sector.path}
-                className="on-dark group relative isolate flex h-full flex-col justify-between bg-brand-graphite p-7"
-              >
-                <CardBackdrop imageKey={sector.imageKey} />
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
-                />
-                <div>
-                  <h3 className="text-[1.0625rem] font-semibold leading-snug tracking-tight text-white">
-                    {sector.title}
-                  </h3>
-                  <p className="mt-3 text-[13.5px] leading-relaxed text-brand-mist/70">{sector.desc}</p>
-                </div>
-                <span className="mt-6 inline-flex items-center gap-1.5 border-t border-white/12 pt-4 text-[12.5px] font-semibold text-white transition-colors duration-300 group-hover:text-brand-electric-bright">
-                  View sector
-                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </span>
-              </Link>
-            </li>
+              <CardBackdrop imageKey={sector.imageKey} />
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-hero-pink-gradient transition-transform duration-500 ease-brand group-hover:scale-x-100"
+              />
+              <div>
+                <span className="eyebrow eyebrow-dark text-brand-pink-light font-bold">{sector.category}</span>
+                <h3 className="mt-2 text-xl font-bold tracking-tight text-white group-hover:text-brand-pink-light transition-colors">
+                  {sector.title}
+                </h3>
+                <p className="mt-3 max-w-xl text-[13.5px] leading-relaxed text-brand-mist/80">
+                  {sector.desc}
+                </p>
+              </div>
+              <span className="mt-6 inline-flex items-center gap-1.5 border-t border-white/12 pt-4 text-xs font-bold uppercase tracking-wider text-white transition-colors duration-300 group-hover:text-brand-pink-light">
+                Explore sector capability
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
+            </Link>
           ))}
-        </ul>
+        </div>
+
+        {/* Secondary Sectors Grid (11 Sectors in 3-column asymmetric layout) */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {secondarySectors.map((sector, i) => (
+            <Link
+              key={sector.path}
+              href={sector.path}
+              data-reveal
+              style={{ '--reveal-delay': `${(i % 3) * 60}ms` } as React.CSSProperties}
+              className="on-dark group relative isolate flex flex-col justify-between overflow-hidden rounded-sm border border-brand-edge-dark/80 bg-brand-graphite/90 p-5 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-brand-carbon"
+            >
+              <CardBackdrop imageKey={sector.imageKey} />
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
+              />
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-brand-mist/50">
+                  {sector.category}
+                </span>
+                <h4 className="mt-1.5 text-base font-semibold text-white group-hover:text-brand-electric-bright transition-colors">
+                  {sector.title}
+                </h4>
+                <p className="mt-2 text-xs leading-relaxed text-brand-mist/70">
+                  {sector.desc}
+                </p>
+              </div>
+              <span className="mt-4 inline-flex items-center gap-1 text-[11.5px] font-semibold text-brand-mist/60 group-hover:text-white transition-colors">
+                View scope
+                <ArrowUpRight className="h-3 w-3 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

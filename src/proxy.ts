@@ -15,7 +15,7 @@ const PRODUCTION_HOSTNAME = 'www.entirefm.com';
  *    NEVER be indexed by search engines.
  *
  * 3. Production Environment Gate:
- *    If ALLOW_SEARCH_INDEXING !== 'true', even production requests receive noindex protection.
+ *    If ALLOW_SEARCH_INDEXING !== 'true', non-sitemap production requests receive noindex protection.
  */
 export function proxy(request: NextRequest) {
   const host = request.headers.get('host') || '';
@@ -38,8 +38,9 @@ export function proxy(request: NextRequest) {
   // 2. Hostname-Aware Search Indexing Protection
   const isProductionHost = hostname === PRODUCTION_HOSTNAME;
   const isIndexingAllowed = process.env.ALLOW_SEARCH_INDEXING === 'true';
+  const isSitemapOrRobots = pathname === '/robots.txt' || pathname === '/sitemap.xml' || pathname.startsWith('/sitemaps/');
 
-  if (!isProductionHost || !isIndexingAllowed) {
+  if (!isProductionHost || (!isIndexingAllowed && !isSitemapOrRobots)) {
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
   }
 

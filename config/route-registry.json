@@ -6,13 +6,13 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 260,
-    "LEGACY_VERIFIED": 202,
-    "LEGACY_PROTECTED_BY_DIRECTIVE": 18,
-    "CURRENT_LIVE_RETAINED": 4,
-    "NEW_GROWTH": 36,
-    "protected": 260,
-    "historic": 220
+    "total": 291,
+    "LEGACY_VERIFIED": 200,
+    "LEGACY_PROTECTED_BY_DIRECTIVE": 28,
+    "CURRENT_LIVE_RETAINED": 5,
+    "NEW_GROWTH": 58,
+    "protected": 291,
+    "historic": 228
   },
   "routes": [
     {
@@ -75,6 +75,25 @@
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/about-entire-facilities-management",
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/about-entire-facilities-management"
+    },
+    {
+      "path": "/academy",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "wix-generation-2",
+        "current-live-antigravity"
+      ]
     },
     {
       "path": "/access-control",
@@ -376,6 +395,25 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/building-maintenance"
+    },
+    {
+      "path": "/building-walk",
+      "routeType": "post",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "wix-generation-2",
+        "current-live-antigravity"
+      ]
     },
     {
       "path": "/bury-facilities-management",
@@ -1833,24 +1871,420 @@
     },
     {
       "path": "/facilities-management-glossary",
-      "routeType": "post",
-      "routeProvenance": "LEGACY_VERIFIED",
-      "historic": true,
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
       "protected": true,
       "indexable": true,
       "statusRequired": 200,
       "canonical": "self",
       "uniquePageRequired": true,
-      "sitemapGroup": "insights",
-      "priority": "P2",
-      "contentStatus": "CONTENT_COMPLETE",
-      "designStatus": "NOT_STARTED",
+      "sitemapGroup": "glossary",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
       "historicSources": [
-        "wix-generation-2"
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/facilities-management-glossary-birmingham",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
       ],
-      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-glossary",
-      "recoveryNote": "Flat form of /fm-support-n-contact/facilities-management-glossary.",
-      "discoveredVia": "wix-internal-page-manifest"
+      "location": "Birmingham"
+    },
+    {
+      "path": "/facilities-management-glossary-bolton",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bolton"
+    },
+    {
+      "path": "/facilities-management-glossary-bradford",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bradford"
+    },
+    {
+      "path": "/facilities-management-glossary-bury",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bury"
+    },
+    {
+      "path": "/facilities-management-glossary-chesterfield",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Chesterfield"
+    },
+    {
+      "path": "/facilities-management-glossary-derby",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Derby"
+    },
+    {
+      "path": "/facilities-management-glossary-doncaster",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Doncaster"
+    },
+    {
+      "path": "/facilities-management-glossary-grimsby",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Grimsby"
+    },
+    {
+      "path": "/facilities-management-glossary-leeds",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Leeds"
+    },
+    {
+      "path": "/facilities-management-glossary-lincoln",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Lincoln"
+    },
+    {
+      "path": "/facilities-management-glossary-liverpool",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Liverpool"
+    },
+    {
+      "path": "/facilities-management-glossary-london",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "London"
+    },
+    {
+      "path": "/facilities-management-glossary-manchester",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Manchester"
+    },
+    {
+      "path": "/facilities-management-glossary-matlock",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Matlock"
+    },
+    {
+      "path": "/facilities-management-glossary-nottingham",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Nottingham"
+    },
+    {
+      "path": "/facilities-management-glossary-oxford",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Oxford"
+    },
+    {
+      "path": "/facilities-management-glossary-preston",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Preston"
+    },
+    {
+      "path": "/facilities-management-glossary-rotherham",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Rotherham"
+    },
+    {
+      "path": "/facilities-management-glossary-sheffield",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Sheffield"
+    },
+    {
+      "path": "/facilities-management-glossary-telford",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Telford"
+    },
+    {
+      "path": "/facilities-management-glossary-wigan",
+      "routeType": "glossary",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Wigan"
     },
     {
       "path": "/facilities-management-grimsby",
@@ -2473,6 +2907,25 @@
       "location": "Grimsby"
     },
     {
+      "path": "/fm-intelligence",
+      "routeType": "post",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "wix-generation-2",
+        "current-live-antigravity"
+      ]
+    },
+    {
       "path": "/fm-leeds",
       "routeType": "location",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -2775,25 +3228,6 @@
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/fm-support-n-contact",
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/fm-support-n-contact"
-    },
-    {
-      "path": "/fm-support-n-contact/facilities-management-glossary",
-      "routeType": "company",
-      "routeProvenance": "LEGACY_VERIFIED",
-      "historic": true,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "NOT_STARTED",
-      "historicSources": [
-        "wix-generation-2"
-      ],
-      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/fm-support-n-contact/facilities-management-glossary"
     },
     {
       "path": "/fm-technical-services",
@@ -4585,6 +5019,25 @@
       ]
     },
     {
+      "path": "/resources/document-vault",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "wix-generation-2",
+        "current-live-antigravity"
+      ]
+    },
+    {
       "path": "/restaurant-facilities-management",
       "routeType": "sector",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -4956,6 +5409,138 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/tierone-facilities-managment"
+    },
+    {
+      "path": "/tools",
+      "routeType": "company",
+      "routeProvenance": "CURRENT_LIVE_RETAINED",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/tools/compliance-calendar",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "wix-generation-2",
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/tools/fm-health-check",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "wix-generation-2",
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/tools/fm-roi-calculator",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "wix-generation-2",
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/tools/ppm-estimator",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "wix-generation-2",
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/tools/ppm-schedule-builder",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "wix-generation-2",
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/tools/tender-brief",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "wix-generation-2",
+        "current-live-antigravity"
+      ]
     },
     {
       "path": "/transport-facilities-management",

@@ -24,6 +24,8 @@ import aboutRecord from './company/about';
 import { COMPLIANCE_CONTENT } from './compliance/records';
 import { BLOG_CONTENT } from './blog/records';
 import { UTILITY_CONTENT } from './company/utility';
+import { GLOSSARY_CONTENT } from './glossary/records';
+import { RESOURCES_CONTENT } from './resources/records';
 
 export type { ContentRecord };
 
@@ -53,6 +55,10 @@ export const COMPANY_CONTENT: Record<string, ContentRecord> = {
   // HTML sitemap, and distinct identities for the four Wix homepage
   // artefacts that were all serving one title string.
   ...UTILITY_CONTENT,
+  // FM Glossary estate: national A–Z hub and 21 location-specific glossary pages.
+  ...GLOSSARY_CONTENT,
+  // Restored & upgraded interactive FM tools, resource hubs, Academy & Intelligence.
+  ...RESOURCES_CONTENT,
 };
 
 /** Paths currently served by bespoke Tier 1 content. */

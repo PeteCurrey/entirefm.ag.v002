@@ -8,7 +8,7 @@
     "protectedSourceForbidden": true,
     "selfCanonicalDestinationRequired": true
   },
-  "totalRedirects": 424,
+  "totalRedirects": 414,
   "redirects": [
     {
       "source": "/about",
@@ -17,38 +17,32 @@
       "reason": "Semantic intent consolidation into protected historic page"
     },
     {
-      "source": "/academy",
-      "destination": "/resources",
-      "statusCode": 301,
-      "reason": "Intent-matched: General legacy redirect to homepage"
-    },
-    {
       "source": "/academy/drone-inspection-guide",
-      "destination": "/resources",
+      "destination": "/academy",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/academy/fire-safety-compliance",
-      "destination": "/resources",
+      "destination": "/compliance/fire-risk-assessment",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/academy/legionella-water-safety",
-      "destination": "/resources",
+      "destination": "/compliance/legionella-water-hygiene",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/academy/multi-site-fm-management",
-      "destination": "/resources",
+      "destination": "/academy",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/academy/understanding-ppm",
-      "destination": "/resources",
+      "destination": "/ppm",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
@@ -59,38 +53,32 @@
       "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
-      "source": "/building-walk",
-      "destination": "/case-studies",
-      "statusCode": 301,
-      "reason": "Intent-matched: General legacy redirect to homepage"
-    },
-    {
       "source": "/building-walk/hotel-fm-guest-experience",
-      "destination": "/case-studies",
+      "destination": "/building-walk",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/building-walk/industrial-cleaning-before-after",
-      "destination": "/case-studies",
+      "destination": "/building-walk",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/building-walk/office-building-fm-walkthrough",
-      "destination": "/case-studies",
+      "destination": "/building-walk",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/building-walk/residential-block-fm-issues",
-      "destination": "/case-studies",
+      "destination": "/building-walk",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/building-walk/retail-unit-compliance-walkthrough",
-      "destination": "/case-studies",
+      "destination": "/building-walk",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
@@ -437,14 +425,8 @@
       "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
-      "source": "/fm-intelligence",
-      "destination": "/resources",
-      "statusCode": 301,
-      "reason": "Intent-matched: General legacy redirect to homepage"
-    },
-    {
       "source": "/fm-market-report",
-      "destination": "/resources",
+      "destination": "/fm-intelligence",
       "statusCode": 301,
       "reason": "Intent-matched: General legacy redirect to homepage"
     },
@@ -680,7 +662,7 @@
       "source": "/partners",
       "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "Legacy partners page \u2192 About page (partnerships destination does not exist)"
+      "reason": "Legacy partners page → About page (partnerships destination does not exist)"
     },
     {
       "source": "/partners/commercial-surveyors",
@@ -732,12 +714,6 @@
     },
     {
       "source": "/resources/compliance-calendar-2025",
-      "destination": "/resources",
-      "statusCode": 301,
-      "reason": "Intent-matched: General legacy redirect to homepage"
-    },
-    {
-      "source": "/resources/document-vault",
       "destination": "/resources",
       "statusCode": 301,
       "reason": "Intent-matched: General legacy redirect to homepage"
@@ -1640,7 +1616,7 @@
       "source": "/services/drainage-cctv-surveys",
       "destination": "/plumbing-gas",
       "statusCode": 301,
-      "reason": "Drainage CCTV surveys \u2192 Plumbing & Gas historic page (drainage-services not in registry)"
+      "reason": "Drainage CCTV surveys → Plumbing & Gas historic page (drainage-services not in registry)"
     },
     {
       "source": "/services/drone-inspections",
@@ -2330,7 +2306,7 @@
       "source": "/services/water-hygiene",
       "destination": "/plumbing-gas",
       "statusCode": 301,
-      "reason": "Water hygiene \u2192 Plumbing & Gas historic page (water-treatment-chlorination not in registry)"
+      "reason": "Water hygiene → Plumbing & Gas historic page (water-treatment-chlorination not in registry)"
     },
     {
       "source": "/services/water-optimisation",
@@ -2402,7 +2378,7 @@
       "source": "/sitemap",
       "destination": "/services",
       "statusCode": 301,
-      "reason": "Legacy /sitemap path \u2192 /services hub (sitemap.xml is accessible at /sitemap.xml directly)"
+      "reason": "Legacy /sitemap path → /services hub (sitemap.xml is accessible at /sitemap.xml directly)"
     },
     {
       "source": "/social-value",
@@ -2459,80 +2435,44 @@
       "reason": "Semantic intent consolidation into protected historic page"
     },
     {
-      "source": "/tools/compliance-calendar",
-      "destination": "/24-7-fm-support",
-      "statusCode": 301,
-      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
-    },
-    {
       "source": "/tools/compliance-checker",
-      "destination": "/24-7-fm-support",
+      "destination": "/tools/compliance-calendar",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/cost-savings-calculator",
-      "destination": "/24-7-fm-support",
-      "statusCode": 301,
-      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
-    },
-    {
-      "source": "/tools/fm-health-check",
-      "destination": "/24-7-fm-support",
-      "statusCode": 301,
-      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
-    },
-    {
-      "source": "/tools/fm-roi-calculator",
-      "destination": "/24-7-fm-support",
+      "destination": "/tools/fm-roi-calculator",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/ppm-calculator",
-      "destination": "/24-7-fm-support",
-      "statusCode": 301,
-      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
-    },
-    {
-      "source": "/tools/ppm-estimator",
-      "destination": "/24-7-fm-support",
-      "statusCode": 301,
-      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
-    },
-    {
-      "source": "/tools/ppm-schedule-builder",
-      "destination": "/24-7-fm-support",
+      "destination": "/tools/ppm-schedule-builder",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/risk-diagnostic",
-      "destination": "/24-7-fm-support",
+      "destination": "/tools/fm-health-check",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/sla-benchmark",
-      "destination": "/24-7-fm-support",
-      "statusCode": 301,
-      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
-    },
-    {
-      "source": "/tools/tender-brief",
-      "destination": "/24-7-fm-support",
+      "destination": "/tools/tender-brief",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/tm44-checker",
-      "destination": "/24-7-fm-support",
+      "destination": "/compliance",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/water-risk-grader",
-      "destination": "/24-7-fm-support",
+      "destination": "/compliance/legionella-water-hygiene",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },

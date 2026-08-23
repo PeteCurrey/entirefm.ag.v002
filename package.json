@@ -32,6 +32,7 @@
     "brand:favicon": "tsx scripts/generate-favicon.ts",
     "test:encoded-routes": "node scripts/test-encoded-routes.js",
     "verify:historic-routes": "node scripts/verify-historic-wix-restoration.js",
+    "verify:sitemap": "node scripts/verify-sitemap.js",
     "seo:geo-audit": "node scripts/generate-geo-strengthening-audit.js",
     "phase09r2:qa": "node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit",
     "phase09r3:qa": "node scripts/test-encoded-routes.js && node scripts/validate-manifest-registry.js && node scripts/validate-redirects.js && node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit"

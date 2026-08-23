@@ -1,0 +1,22 @@
+City,Slug,Region,Target Route,Primary Focus,Local Terms Count,Status
+London,london,London & South East,/facilities-management-glossary-london,ULEZ & Congestion Logistics / Multi-Let Service Charge,4,COMPLETE
+Manchester,manchester,North West,/facilities-management-glossary-manchester,Heritage Mill Fabric / Trafford Park HV Power,3,COMPLETE
+Birmingham,birmingham,Midlands,/facilities-management-glossary-birmingham,Clean Air Zone / Automotive JIT Maintenance Windows,3,COMPLETE
+Leeds,leeds,Yorkshire,/facilities-management-glossary-leeds,BREEAM ESG Auditing / River Aire Drainage,2,COMPLETE
+Sheffield,sheffield,South Yorkshire,/facilities-management-glossary-sheffield,AMP Precision Machining / LEV Extraction Systems,2,COMPLETE
+Liverpool,liverpool,North West,/facilities-management-glossary-liverpool,Coastal Saline HVAC Protection / Pharma Cleanrooms,2,COMPLETE
+Nottingham,nottingham,East Midlands,/facilities-management-glossary-nottingham,BioCity Lab Extraction / Workplace Parking Levy,2,COMPLETE
+Derby,derby,East Midlands,/facilities-management-glossary-derby,Aerospace High-Integrity Power / Rail Workshops,2,COMPLETE
+Chesterfield,chesterfield,East Midlands,/facilities-management-glossary-chesterfield,Markham Vale Dock Levellers / Water Descaling,2,COMPLETE
+Lincoln,lincoln,East Midlands,/facilities-management-glossary-lincoln,Distributed Portfolio Optimization / Agritech Hygiene,3,COMPLETE
+Doncaster,doncaster,Yorkshire,/facilities-management-glossary-doncaster,iPort Rail Freight / High-Bay Lighting Discharges,2,COMPLETE
+Rotherham,rotherham,Yorkshire,/facilities-management-glossary-rotherham,AMRC Cleanroom Tolerances / Factory Decontamination,2,COMPLETE
+Bradford,bradford,Yorkshire,/facilities-management-glossary-bradford,Chemical ATEX Hazardous Areas / Mill Masonry,2,COMPLETE
+Bolton,bolton,North West,/facilities-management-glossary-bolton,Logistics North Switchgear / Multi-Tenant Sub-Metering,2,COMPLETE
+Bury,bury,North West,/facilities-management-glossary-bury,Retail Public Realm Fire Egress / Irwell Valley Drainage,2,COMPLETE
+Preston,preston,North West,/facilities-management-glossary-preston,Student Block Compliance / Aerospace Cleanrooms,2,COMPLETE
+Wigan,wigan,North West,/facilities-management-glossary-wigan,Food Cold-Store Refrigeration / M6 Rapid Dispatch,2,COMPLETE
+Oxford,oxford,South East,/facilities-management-glossary-oxford,Biotech Lab Containment / Heritage College Fabric,2,COMPLETE
+Telford,telford,Midlands,/facilities-management-glossary-telford,Plastics Process Cooling / M54 Engineering Fleet,2,COMPLETE
+Grimsby,grimsby,East Midlands,/facilities-management-glossary-grimsby,Seafood Ammonia PSSR / Offshore Wind Bases,2,COMPLETE
+Matlock,matlock,East Midlands,/facilities-management-glossary-matlock,Derbyshire Dales Civic / Limestone Breathability,2,COMPLETE

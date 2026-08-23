@@ -22,6 +22,9 @@ import { TemplateHelpdesk } from './TemplateHelpdesk';
 import { TemplateSupplyChain } from './TemplateSupplyChain';
 import { TemplateHtmlSitemap } from './TemplateHtmlSitemap';
 import { TemplateComplianceHub, TemplateComplianceTopic } from './TemplateCompliance';
+import { TemplateGlossaryNational } from './TemplateGlossaryNational';
+import { TemplateGlossaryLocation } from './TemplateGlossaryLocation';
+import { LOCATION_GLOSSARY_DATA } from '@/data/glossary/location-terms';
 import { ServiceMechanicalElectrical } from './services/ServiceMechanicalElectrical';
 import { ServiceHvac } from './services/ServiceHvac';
 import { ServicePpm } from './services/ServicePpm';
@@ -108,6 +111,18 @@ function selectTemplate(
   }
   if (path.startsWith('/compliance/')) {
     return <TemplateComplianceTopic route={route} content={content} />;
+  }
+
+  // 6c. Facilities Management Glossary Estate
+  if (path === '/facilities-management-glossary') {
+    return <TemplateGlossaryNational />;
+  }
+  if (path.startsWith('/facilities-management-glossary-')) {
+    const citySlug = path.replace('/facilities-management-glossary-', '');
+    const locationData = LOCATION_GLOSSARY_DATA[citySlug];
+    if (locationData) {
+      return <TemplateGlossaryLocation data={locationData} />;
+    }
   }
 
   // 7. Directory Hub Pages

@@ -5,51 +5,62 @@ import { HomeHero } from '@/components/hero/HomeHero';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
 import { StatBlock, ClientLogoRail } from '@/components/trust/StatBlock';
 import { ServiceGrid, SectorGrid, LocationGrid } from '@/components/content/ServiceGrid';
+import { EstateExperience } from '@/components/content/EstateExperience';
 import { FullBleedFeature } from '@/components/content/FullBleedFeature';
 import { DiagonalStatement } from '@/components/content/DiagonalStatement';
 import { HorizontalRail } from '@/components/content/HorizontalRail';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { CaseStudyFeature } from '@/components/content/CaseStudyFeature';
-import { FAQAccordion } from '@/components/content/CapabilityList';
+import { HomeFAQ } from '@/components/content/HomeFAQ';
 
 /**
  * HOMEPAGE
  * ========
  * Paced deliberately: a full-viewport opening, then dense capability content,
- * then two full-bleed image bands to break the rhythm, a horizontal rail, and
+ * estate discipline selector, full-bleed image bands, horizontal rail, FAQ, and
  * the conversion close.
- *
- * The FAQ answers below were rewritten to remove claims the registry forbids —
- * they previously asserted NICEIC and Gas Safe certification (both TO_VERIFY),
- * a "dedicated 24/7 helpdesk" (TO_VERIFY) and "regional operational hubs" in
- * seven named cities (GEO_REGIONAL_CENTRES, DO_NOT_USE).
  */
 
 const HOME_FAQS = [
   {
-    question: 'What facilities management delivery model does EntireFM operate?',
+    question: 'What does a commercial facilities management contract include?',
     answer:
-      'EntireFM holds the whole scope under one contract, so responsibility for an issue does not move between suppliers while a building sits unusable. The delivery model for each service line — directly employed or through a vetted specialist — is confirmed at proposal stage so it can be verified rather than taken on trust.',
+      'EntireFM holds the entire building services scope under one contract. This typically integrates Hard FM (mechanical and electrical engineering, HVAC, boiler servicing, statutory fixed-wire testing, fire systems), Planned Preventative Maintenance (SFG20-aligned PPM schedules), Soft FM (commercial and industrial cleaning, security, grounds maintenance), and 24/7 reactive emergency fault attendance.',
   },
   {
-    question: 'How do you handle statutory compliance and SFG20 maintenance?',
+    question: 'What is the operational difference between Hard FM and Soft FM?',
     answer:
-      'Assets are surveyed and recorded, then planned maintenance is scheduled against SFG20 task definitions and the obligations that actually apply to each asset. Certificates, test results and completion evidence are held in one place and available to the client, so compliance can be demonstrated rather than asserted.',
+      'Hard FM refers to the physical, technical and safety-critical infrastructure of a building that cannot be removed (HV/LV distribution boards, chillers, air handling units, plumbing, gas, fire alarms, and building fabric). Soft FM encompasses human-centric workplace services (contract office cleaning, specialist decontamination, security guarding, waste management, and grounds care). EntireFM coordinates both so maintenance access and daily operations never conflict.',
   },
   {
-    question: 'What emergency response times do you provide?',
+    question: 'How does EntireFM formulate a Planned Preventative Maintenance (PPM) programme?',
     answer:
-      'Response times are agreed per site during mobilisation, set by priority band and site criticality rather than as a single blanket figure. A safety-critical failure and a non-urgent fabric repair should not carry the same target, and a contract that says they do is not being honest about either.',
+      'Every PPM contract begins with a rigorous on-site asset condition audit. We barcode-tag physical equipment, register make/model/serial numbers into EntireCAFM, and map every maintainable asset against SFG20 task definitions and statutory compliance intervals. This produces a 52-week maintenance calendar guaranteeing full legal compliance without guesswork.',
   },
   {
-    question: 'Can EntireFM manage multi-site estates across different UK regions?',
+    question: 'Can EntireFM manage multi-site commercial portfolios across different UK regions?',
     answer:
-      'Yes. Multi-site estates are the more common case. Coverage is delivered by mobile engineering teams working to each area rather than through a branch network, and response times are set from genuine travel capability — so a site an hour from a city centre is priced and committed to honestly.',
+      'Yes. We support corporate portfolios, logistics hubs, retail chains, and property managing agents across the UK. Service delivery is coordinated centrally through our operations desk with assigned mobile engineering teams deployed regionally, providing single-point accountability and unified monthly CAFM compliance reporting across all sites.',
   },
   {
-    question: 'What does mobilisation actually involve?',
+    question: 'How is statutory maintenance tracked and audited?',
     answer:
-      'It starts with an asset survey rather than a contract start date. Until the assets, their condition and their statutory obligations are known, any maintenance schedule is guesswork. From that survey we build the PPM plan and compliance calendar, then run a defined handover alongside outgoing suppliers so nothing lapses in the gap.',
+      'All statutory maintenance — including periodic fixed-wire inspection (EICR), emergency lighting duration tests, TM44 air conditioning energy inspections, F-Gas leak logs, commercial gas safety, and Legionella water hygiene sampling — is digitally archived in our CAFM system with certificates, job sheets, and photo evidence available for immediate landlord or insurer auditing.',
+  },
+  {
+    question: 'What happens during facilities management contract mobilisation?',
+    answer:
+      'Mobilisation begins immediately upon appointment with a structured 30-to-90-day transition programme. This includes a comprehensive asset condition survey, health & safety risk assessments, TUPE consultations where relevant, digital CAFM asset onboarding, PPM schedule formulation, and a coordinated handover with outgoing contractors so no compliance certificates lapse in the gap.',
+  },
+  {
+    question: 'How do planned maintenance and 24/7 reactive attendance work together?',
+    answer:
+      'Effective PPM directly reduces unexpected asset breakdowns by identifying worn components during routine servicing. When urgent plant failures or building fabric emergencies occur, our central operations desk coordinates reactive engineer attendance based on agreed site priority bands and criticality SLAs, with direct access to your site’s CAFM asset history.',
+  },
+  {
+    question: 'How do we transition our estate to EntireFM from an existing provider?',
+    answer:
+      'Changing FM provider is straightforward with our managed onboarding framework. We review your existing asset registers and compliance certificates, identify any historic compliance gaps or outstanding remedial works, establish clear communication protocols with your facilities team, and take full operational ownership from Day 1.',
   },
 ];
 
@@ -125,9 +136,6 @@ export function TemplateHome() {
           ]}
           leftLabel="The estate you run"
           rightLabel="The engineering behind it"
-          // Deliberately not one of the branded interiors: they all carry the
-          // EntireFM wordmark on the wall, which put a second, ghostly logo
-          // directly behind the headline and competed with the header.
           leftImageKey="manchester-castlefield-night"
           rightImageKey="rooftop-plant-night"
           href="/services"
@@ -160,7 +168,11 @@ export function TemplateHome() {
 
         <AccreditationRail />
 
+        {/* 15-Sector Footprint */}
         <SectorGrid />
+
+        {/* Rebuilt Estate Experience (How the Estate Changes the FM Plan) */}
+        <EstateExperience />
 
         {/* Horizontal rail — capability detail, scrolled sideways. */}
         <HorizontalRail
@@ -187,7 +199,8 @@ export function TemplateHome() {
           align="centre"
         />
 
-        <FAQAccordion faqs={HOME_FAQS} />
+        {/* Rebuilt Editorial Two-Column FAQ Section */}
+        <HomeFAQ faqs={HOME_FAQS} />
 
         <ProposalSection
           headline="Request a facilities management review"

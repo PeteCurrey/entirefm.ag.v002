@@ -20,6 +20,7 @@ const SITEMAP_GROUPS = [
   'local-services',
   'insights',
   'company',
+  'glossary',
 ] as const;
 
 export async function GET() {
@@ -37,7 +38,7 @@ ${sitemaps}
 
   return new NextResponse(xml, {
     headers: {
-      'Content-Type': 'application/xml',
+      'Content-Type': 'application/xml; charset=utf-8',
       'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
     },
   });
