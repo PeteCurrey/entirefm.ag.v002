@@ -48,6 +48,12 @@ type EditorialManifest = {
 
 const IMAGES = (editorial as EditorialManifest).editorial ?? {};
 
+/**
+ * Where the pinned panel latches. The header is fixed and overlays the page,
+ * so sticking at 0 would slide the first row of cards underneath it.
+ */
+const STICK_OFFSET = 84;
+
 export interface RailItem {
   imageKey: string;
   eyebrow: string;
@@ -94,11 +100,16 @@ export function HorizontalRail({ eyebrow, title, intro, items }: HorizontalRailP
 
     let ticking = false;
 
-    /** How far the track must travel for its last card to reach the right edge. */
+    /**
+     * How far the track must travel for its last card to reach the right edge,
+     * and therefore how tall the wrapper has to be: one panel height plus that
+     * distance. The extra height is the scroll budget the sideways movement
+     * spends.
+     */
     const measure = () => {
       const overflow = Math.max(0, track.scrollWidth - window.innerWidth + 80);
       distanceRef.current = overflow;
-      wrapper.style.height = `${window.innerHeight + overflow}px`;
+      wrapper.style.height = `${window.innerHeight - STICK_OFFSET + overflow}px`;
     };
 
     const update = () => {
@@ -106,9 +117,11 @@ export function HorizontalRail({ eyebrow, title, intro, items }: HorizontalRailP
       const rect = wrapper.getBoundingClientRect();
       const travel = distanceRef.current;
       if (travel <= 0) return setProgress(0);
-      // 0 when the top of the wrapper reaches the top of the viewport,
-      // 1 when the wrapper has been scrolled through entirely.
-      const p = Math.min(1, Math.max(0, -rect.top / travel));
+      // Progress is measured from the point the sticky panel latches to the
+      // top of the viewport, not from the wrapper's own top. Those are the
+      // same number only when the panel is full height and starts at zero —
+      // which it is not, because it is offset by the header.
+      const p = Math.min(1, Math.max(0, (-rect.top + STICK_OFFSET) / travel));
       setProgress(p);
     };
 
@@ -239,7 +252,15 @@ export function HorizontalRail({ eyebrow, title, intro, items }: HorizontalRailP
 
   return (
     <div ref={wrapperRef} className="relative">
-      <section className="on-dark grain sticky top-0 flex h-screen flex-col justify-center overflow-hidden bg-brand-void">
+      {/* The pinned panel. `top` and the height below must both agree with
+          STICK_OFFSET — the measurement uses it to work out how much scroll
+          budget the sideways travel gets, and if the CSS latches somewhere
+          else the track finishes early and the section keeps scrolling while
+          the cards have already stopped. */}
+      <section
+        className="on-dark grain sticky flex flex-col justify-center overflow-hidden bg-brand-void"
+        style={{ top: `${STICK_OFFSET}px`, height: `calc(100vh - ${STICK_OFFSET}px)` }}
+      >
         <div className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
 
         <div className="container-wide relative">{heading}</div>

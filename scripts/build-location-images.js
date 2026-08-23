@@ -35,9 +35,10 @@ const EDITORIAL_OUT = path.join(ROOT, 'public', 'images', 'editorial');
  * Same rule as the city selection: the descriptor states what is actually in
  * the frame, because it becomes the alt text.
  *
- * Only Electrical and Branded Building hold images — Images/HVAC and
- * Images/Plumbing are empty directories, so those trades have no photography
- * yet and no section pretends otherwise.
+ * Electrical, HVAC, Plumbing, Branded Building and Authentic all hold images.
+ * HVAC and Plumbing were empty when this was first written and the comment
+ * said so; the photography arrived later, so those trades now have their own
+ * frames rather than borrowing the electrical set.
  */
 const EDITORIAL = {
   Electrical: [
@@ -49,6 +50,8 @@ const EDITORIAL = {
     { index: 9, slug: 'switchroom-survey', alt: 'Two EntireFM engineers surveying switchgear in a plant room' },
     { index: 8, slug: 'ev-charging', alt: 'EntireFM engineer servicing electric vehicle charging equipment at a commercial car park' },
     { index: 7, slug: 'access-control-install', alt: 'EntireFM engineer installing access control equipment in a corridor' },
+    { index: 1, slug: 'engineers-office-testing', alt: 'Two EntireFM engineers arriving with test equipment in a commercial office' },
+    { index: 3, slug: 'external-distribution-dusk', alt: 'EntireFM engineer working at an external distribution enclosure at dusk' },
   ],
   // Genuine EntireFM photography recovered from the legacy Wix estates. These
   // are real photographs of real people and real premises, which is why they
@@ -57,6 +60,24 @@ const EDITORIAL = {
     { index: 2, slug: 'sheffield-rooftop-survey', alt: 'Two EntireFM staff on a rooftop above Sheffield, looking out over the city', hero: true },
     { index: 1, slug: 'manchester-castlefield-night', alt: 'Manchester Castlefield basin at night, with the Beetham Tower behind', hero: true },
     { index: 0, slug: 'entirefm-premises-vans', alt: 'EntireFM premises with branded vans parked outside' },
+  ],
+  // Air conditioning, ventilation and refrigeration. Deliberately spans the
+  // range the service actually covers: rooftop condensers, an indoor cassette,
+  // an AHU, plantroom pumps, and the refrigerant gauges that appear on the
+  // F-Gas compliance page.
+  HVAC: [
+    { index: 0, slug: 'hvac-rooftop-condensers', alt: 'Two EntireFM engineers inspecting rooftop condenser units at dusk above a city skyline', hero: true },
+    { index: 2, slug: 'hvac-cassette-service', alt: 'EntireFM engineer servicing a ceiling cassette air conditioning unit in a commercial office' },
+    { index: 4, slug: 'hvac-thermal-survey', alt: 'EntireFM engineer thermal imaging ductwork on an air handling unit' },
+    { index: 8, slug: 'hvac-refrigerant-check', alt: 'Two EntireFM engineers checking refrigerant pressures on an air handling unit with manifold gauges' },
+    { index: 7, slug: 'hvac-plant-deck', alt: 'Two EntireFM engineers walking a rooftop plant deck between air handling units at dusk' },
+    { index: 1, slug: 'hvac-plantroom-pumps', alt: 'EntireFM engineers surveying pumps and pipework in a commercial plant room' },
+  ],
+  // Commercial plumbing, drainage and gas.
+  Plumbing: [
+    { index: 0, slug: 'plumbing-pressure-test', alt: 'EntireFM engineers checking pressure on copper pipework in a commercial plant room' },
+    { index: 2, slug: 'plumbing-booster-set', alt: 'EntireFM engineer inspecting a pressurisation and booster pump set' },
+    { index: 1, slug: 'plumbing-callout-arrival', alt: 'EntireFM branded van at a commercial unit with an engineer arriving on site' },
   ],
   'Branded Building': [
     // The homepage hero. Wide, cinematic, and dark on the left where the

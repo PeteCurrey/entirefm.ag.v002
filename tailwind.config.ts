@@ -63,16 +63,23 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-jakarta)', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
-        display: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        display: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       fontSize: {
         // Display scale for hero and section headings.
-        'display-xl': ['clamp(2.75rem, 6vw, 5rem)', { lineHeight: '1.02', letterSpacing: '-0.035em', fontWeight: '700' }],
-        'display-lg': ['clamp(2.25rem, 4.5vw, 3.75rem)', { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '700' }],
-        'display-md': ['clamp(1.75rem, 3vw, 2.75rem)', { lineHeight: '1.1', letterSpacing: '-0.025em', fontWeight: '600' }],
-        'display-sm': ['clamp(1.375rem, 2.2vw, 1.875rem)', { lineHeight: '1.15', letterSpacing: '-0.02em', fontWeight: '600' }],
+        //
+        // Set to match entirefm.com: extra-light, set tight, and much smaller
+        // than a conventional display scale. The live site runs its h1 at 48px
+        // with -0.05em tracking and a line-height of exactly 1, which is what
+        // gives the headings their quiet, architectural feel. Weight is doing
+        // the work here, not size — heavy type at these sizes would read as a
+        // completely different brand.
+        'display-xl': ['clamp(2.25rem, 3.7vw, 3.25rem)', { lineHeight: '1', letterSpacing: '-0.05em', fontWeight: '200' }],
+        'display-lg': ['clamp(2rem, 3.1vw, 2.75rem)', { lineHeight: '1.02', letterSpacing: '-0.045em', fontWeight: '200' }],
+        'display-md': ['clamp(1.625rem, 2.4vw, 2.125rem)', { lineHeight: '1.08', letterSpacing: '-0.04em', fontWeight: '300' }],
+        'display-sm': ['clamp(1.25rem, 1.8vw, 1.5rem)', { lineHeight: '1.2', letterSpacing: '-0.03em', fontWeight: '300' }],
         // Uppercase eyebrow / label.
         eyebrow: ['0.6875rem', { lineHeight: '1', letterSpacing: '0.18em', fontWeight: '600' }],
       },

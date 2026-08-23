@@ -6,14 +6,28 @@
  * Requirements:
  * 1. Zod schema validation
  * 2. Attribution & tracking metadata capture
- * 3. Durable email delivery via Resend API (when RESEND_API_KEY is configured)
- *    or Webhook delivery (when LEAD_WEBHOOK_URL is configured)
+ * 3. Durable storage, tried in order:
+ *      a. Supabase `leads` table  — the primary sink, and what /admin reads
+ *      b. Resend transactional email (RESEND_API_KEY)
+ *      c. CRM webhook (LEAD_WEBHOOK_URL)
  * 4. FAIL-CLOSED ARCHITECTURE: Never returns success: true if lead was not durably accepted.
+ *
+ * WHY DATABASE FIRST
+ * ------------------
+ * Email is a notification, not a record. If the inbox rule moves it, or the
+ * send silently fails, the enquiry is gone and nothing can tell you it
+ * existed. Writing the row first means every enquiry is recoverable and
+ * countable by conversion page — which is the whole point of rebuilding the
+ * geo landing pages. Email still goes out, as an alert on top of the record.
+ *
+ * More than one sink can succeed; the first success is what unblocks the
+ * response, and the rest are attempted regardless.
  */
 
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { CONTACT_CONFIG } from '@/config/contact';
+import { saveLead, leadStoreConfigured } from '@/lib/leads/store';
 
 const EnquirySchema = z.object({
   name: z.string().min(2, 'Full name is required (min 2 characters)'),
@@ -68,7 +82,17 @@ export async function POST(request: Request) {
     let deliveredDurable = false;
     let deliveryMethod = 'none';
 
-    // Method 1: Resend Transactional Email Delivery
+    // Method 0: Supabase — the durable record, and the source /admin reads.
+    if (leadStoreConfigured()) {
+      const stored = await saveLead({ ...data, enquiryId });
+      if (stored) {
+        deliveredDurable = true;
+        deliveryMethod = 'supabase';
+      }
+    }
+
+    // Method 1: Resend — an alert on top of the record, not a substitute for
+    // it. Runs whether or not the row was written.
     if (resendApiKey) {
       try {
         const emailRes = await fetch('https://api.resend.com/emails', {
@@ -96,7 +120,7 @@ export async function POST(request: Request) {
               <p><strong>Service:</strong> ${data.service}</p>
               <p><strong>Location:</strong> ${data.location}</p>
               <p><strong>Message / Scope:</strong></p>
-              <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #c59b27;">
+              <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #2563eb;">
                 ${data.message.replace(/\n/g, '<br />')}
               </blockquote>
               <hr />
@@ -111,8 +135,9 @@ export async function POST(request: Request) {
         });
 
         if (emailRes.ok) {
+          if (!deliveredDurable) deliveryMethod = 'resend_email';
+          else deliveryMethod = `${deliveryMethod}+email`;
           deliveredDurable = true;
-          deliveryMethod = 'resend_email';
         }
       } catch (e) {
         console.error('[LEAD_DELIVERY_ERROR: Resend API failed]', e);
@@ -147,6 +172,8 @@ export async function POST(request: Request) {
 
     // FAIL-CLOSED: If production environment cannot guarantee durable storage/delivery
     if (!deliveredDurable) {
+      // Logged in full so the enquiry is at least recoverable from the
+      // platform logs while the sink is fixed. Better than losing it.
       console.error('[CRITICAL: LEAD PERSISTENCE FAILED — NO DURABLE SINK AVAILABLE]', JSON.stringify(leadRecord));
       return NextResponse.json(
         {

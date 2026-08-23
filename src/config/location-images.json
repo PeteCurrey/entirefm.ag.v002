@@ -373,6 +373,26 @@
       },
       "src": "/images/editorial/entirefm-access-control-install-2000w.webp"
     },
+    "engineers-office-testing": {
+      "alt": "Two EntireFM engineers arriving with test equipment in a commercial office",
+      "source": "entire facilities management electrical services Image Aug 22, 2026, 07_17_54 PM (2).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-engineers-office-testing-800w.webp",
+        "1200": "/images/editorial/entirefm-engineers-office-testing-1200w.webp",
+        "2000": "/images/editorial/entirefm-engineers-office-testing-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-engineers-office-testing-2000w.webp"
+    },
+    "external-distribution-dusk": {
+      "alt": "EntireFM engineer working at an external distribution enclosure at dusk",
+      "source": "entire facilities management electrical services Image Aug 22, 2026, 07_17_54 PM (4).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-external-distribution-dusk-800w.webp",
+        "1200": "/images/editorial/entirefm-external-distribution-dusk-1200w.webp",
+        "2000": "/images/editorial/entirefm-external-distribution-dusk-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-external-distribution-dusk-2000w.webp"
+    },
     "sheffield-rooftop-survey": {
       "alt": "Two EntireFM staff on a rooftop above Sheffield, looking out over the city",
       "source": "sheffield-rooftop-survey.jpg",
@@ -404,6 +424,97 @@
         "2000": "/images/editorial/entirefm-entirefm-premises-vans-2000w.webp"
       },
       "src": "/images/editorial/entirefm-entirefm-premises-vans-2000w.webp"
+    },
+    "hvac-rooftop-condensers": {
+      "alt": "Two EntireFM engineers inspecting rooftop condenser units at dusk above a city skyline",
+      "source": "entire facilities management hvac air con Image Aug 22, 2026, 08_20_35 PM (1).png",
+      "widths": {
+        "900": "/images/editorial/entirefm-hvac-rooftop-condensers-900w.webp",
+        "1280": "/images/editorial/entirefm-hvac-rooftop-condensers-1280w.webp",
+        "1920": "/images/editorial/entirefm-hvac-rooftop-condensers-1920w.webp",
+        "2560": "/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp"
+      },
+      "src": "/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp"
+    },
+    "hvac-cassette-service": {
+      "alt": "EntireFM engineer servicing a ceiling cassette air conditioning unit in a commercial office",
+      "source": "entire facilities management hvac air con Image Aug 22, 2026, 08_20_37 PM (3).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-hvac-cassette-service-800w.webp",
+        "1200": "/images/editorial/entirefm-hvac-cassette-service-1200w.webp",
+        "2000": "/images/editorial/entirefm-hvac-cassette-service-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-hvac-cassette-service-2000w.webp"
+    },
+    "hvac-thermal-survey": {
+      "alt": "EntireFM engineer thermal imaging ductwork on an air handling unit",
+      "source": "entire facilities management hvac air con Image Aug 22, 2026, 08_20_38 PM (5).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-hvac-thermal-survey-800w.webp",
+        "1200": "/images/editorial/entirefm-hvac-thermal-survey-1200w.webp",
+        "2000": "/images/editorial/entirefm-hvac-thermal-survey-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-hvac-thermal-survey-2000w.webp"
+    },
+    "hvac-refrigerant-check": {
+      "alt": "Two EntireFM engineers checking refrigerant pressures on an air handling unit with manifold gauges",
+      "source": "entire facilities management hvac air con Image Aug 22, 2026, 08_20_39 PM (9).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-hvac-refrigerant-check-800w.webp",
+        "1200": "/images/editorial/entirefm-hvac-refrigerant-check-1200w.webp",
+        "2000": "/images/editorial/entirefm-hvac-refrigerant-check-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-hvac-refrigerant-check-2000w.webp"
+    },
+    "hvac-plant-deck": {
+      "alt": "Two EntireFM engineers walking a rooftop plant deck between air handling units at dusk",
+      "source": "entire facilities management hvac air con Image Aug 22, 2026, 08_20_39 PM (8).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-hvac-plant-deck-800w.webp",
+        "1200": "/images/editorial/entirefm-hvac-plant-deck-1200w.webp",
+        "2000": "/images/editorial/entirefm-hvac-plant-deck-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-hvac-plant-deck-2000w.webp"
+    },
+    "hvac-plantroom-pumps": {
+      "alt": "EntireFM engineers surveying pumps and pipework in a commercial plant room",
+      "source": "entire facilities management hvac air con Image Aug 22, 2026, 08_20_37 PM (2).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-hvac-plantroom-pumps-800w.webp",
+        "1200": "/images/editorial/entirefm-hvac-plantroom-pumps-1200w.webp",
+        "2000": "/images/editorial/entirefm-hvac-plantroom-pumps-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-hvac-plantroom-pumps-2000w.webp"
+    },
+    "plumbing-pressure-test": {
+      "alt": "EntireFM engineers checking pressure on copper pipework in a commercial plant room",
+      "source": "ChatGPT Image Aug 22, 2026, 09_34_14 PM.png",
+      "widths": {
+        "800": "/images/editorial/entirefm-plumbing-pressure-test-800w.webp",
+        "1200": "/images/editorial/entirefm-plumbing-pressure-test-1200w.webp",
+        "2000": "/images/editorial/entirefm-plumbing-pressure-test-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-plumbing-pressure-test-2000w.webp"
+    },
+    "plumbing-booster-set": {
+      "alt": "EntireFM engineer inspecting a pressurisation and booster pump set",
+      "source": "entire facilities management plumbing Image Aug 22, 2026, 09_33_58 PM.png",
+      "widths": {
+        "800": "/images/editorial/entirefm-plumbing-booster-set-800w.webp",
+        "1200": "/images/editorial/entirefm-plumbing-booster-set-1200w.webp",
+        "2000": "/images/editorial/entirefm-plumbing-booster-set-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-plumbing-booster-set-2000w.webp"
+    },
+    "plumbing-callout-arrival": {
+      "alt": "EntireFM branded van at a commercial unit with an engineer arriving on site",
+      "source": "entire facilities management plumbing Image Aug 22, 2026, 09_33_40 PM.png",
+      "widths": {
+        "800": "/images/editorial/entirefm-plumbing-callout-arrival-800w.webp",
+        "1200": "/images/editorial/entirefm-plumbing-callout-arrival-1200w.webp",
+        "2000": "/images/editorial/entirefm-plumbing-callout-arrival-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-plumbing-callout-arrival-2000w.webp"
     },
     "hero-headquarters": {
       "alt": "EntireFM headquarters at dusk, illuminated signage along the building facade",

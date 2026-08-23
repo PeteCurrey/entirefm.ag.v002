@@ -1,7 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, Wrench, Wind, ShieldAlert, Sparkles, Building, Truck } from 'lucide-react';
+import Image from 'next/image';
 import { TIER1_CITY_LIST } from '@/content/locations/tier1-cities';
+import editorial from '@/config/location-images.json';
 
 /**
  * CONTENT GRIDS
@@ -16,6 +18,22 @@ import { TIER1_CITY_LIST } from '@/content/locations/tier1-cities';
  *     DOM at all times so it stays crawlable and available to screen readers
  *   · staggered scroll reveals, so a row resolves left to right
  *
+ * CARD BACKGROUNDS
+ * ----------------
+ * Service and sector cards carry photography behind them, faint at rest and
+ * stronger on hover — the treatment the Wix estate used, rebuilt.
+ *
+ * The cards had to go dark to do it. A photograph behind dark text on white
+ * either washes out to nothing or destroys the contrast; there is no setting
+ * in between. On a graphite ground the image can sit at 18% and still read as
+ * an image, then come up to 55% on hover without the copy ever becoming hard
+ * to read.
+ *
+ * The images are decorative and carry `alt=""` deliberately. A photograph of
+ * rooftop plant behind a card headed "Industrial Cleaning" is a background,
+ * not a depiction, and giving it descriptive alt text would put a false
+ * statement into the accessibility tree.
+ *
  * CLAIM GOVERNANCE
  * ----------------
  * Copy here previously asserted "self-delivered technical teams" (TO_VERIFY),
@@ -25,6 +43,37 @@ import { TIER1_CITY_LIST } from '@/content/locations/tier1-cities';
  * counted "15+ Sectors" and "22+ Locations", which are trivially checkable
  * and were wrong. None of that survives.
  */
+
+type EditorialManifest = { editorial: Record<string, { src: string; alt: string }> };
+const IMAGES = (editorial as EditorialManifest).editorial ?? {};
+
+/**
+ * Photographic ground for a card. Decorative: no alt, aria-hidden, and it
+ * renders nothing at all if the key is missing, so a card never collapses
+ * because an image was renamed.
+ */
+function CardBackdrop({ imageKey }: { imageKey: string }) {
+  const image = IMAGES[imageKey];
+  if (!image) return null;
+  return (
+    <span aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
+      <Image
+        src={image.src}
+        alt=""
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className="scale-105 object-cover opacity-[0.26] transition-all duration-[900ms] ease-brand group-hover:scale-110 group-hover:opacity-[0.62]"
+      />
+      <span
+        className="absolute inset-0 transition-opacity duration-[900ms] ease-brand group-hover:opacity-90"
+        style={{
+          background:
+            'linear-gradient(to top, rgba(11,18,32,.95) 12%, rgba(11,18,32,.74) 52%, rgba(11,18,32,.54) 100%)',
+        }}
+      />
+    </span>
+  );
+}
 
 /* ── Section heading, shared by all three grids ─────────────────────────── */
 
@@ -62,6 +111,7 @@ const SERVICES = [
   {
     title: 'Mechanical & Electrical',
     path: '/mechanical-electrical',
+    imageKey: 'switchgear-inspection',
     desc: 'Power distribution, lighting, switchgear and fixed-wire testing, with the statutory record kept alongside the work.',
     icon: Wrench,
     category: 'Hard FM',
@@ -70,6 +120,7 @@ const SERVICES = [
   {
     title: 'HVAC & Air Conditioning',
     path: '/hvac-contractor',
+    imageKey: 'hvac-rooftop-condensers',
     desc: 'Heating, ventilation and cooling across commercial plant — from split systems to chillers and air handling units.',
     icon: Wind,
     category: 'Hard FM',
@@ -78,6 +129,7 @@ const SERVICES = [
   {
     title: 'Planned Maintenance',
     path: '/ppm',
+    imageKey: 'switchroom-survey',
     desc: 'Schedules built from an actual asset survey rather than a generic template, so the plan matches what is installed.',
     icon: ShieldAlert,
     category: 'Hard FM',
@@ -86,6 +138,7 @@ const SERVICES = [
   {
     title: 'Industrial Cleaning',
     path: '/industrial-cleaning',
+    imageKey: 'hvac-plantroom-pumps',
     desc: 'Factory shutdowns, high-level structural cleaning, de-greasing and process plant hygiene.',
     icon: Sparkles,
     category: 'Specialist',
@@ -94,6 +147,7 @@ const SERVICES = [
   {
     title: 'Commercial Cleaning',
     path: '/cleaning-services',
+    imageKey: 'reception',
     desc: 'Daily office cleaning, floor maintenance, washroom services and scheduled sanitisation across corporate estates.',
     icon: Building,
     category: 'Soft FM',
@@ -102,6 +156,7 @@ const SERVICES = [
   {
     title: 'Crane Hire & Lifting',
     path: '/mobile-crane-hire',
+    imageKey: 'external-distribution-dusk',
     desc: 'Truck-mounted cranes for rooftop plant replacement and restricted-access lifts, planned and supervised.',
     icon: Truck,
     category: 'Specialist',
@@ -121,7 +176,7 @@ export function ServiceGrid() {
           cta="All services"
         />
 
-        <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge bg-brand-edge md:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-edge-dark md:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((service, i) => {
             const Icon = service.icon;
             return (
@@ -132,22 +187,23 @@ export function ServiceGrid() {
               >
                 <Link
                   href={service.path}
-                  className="group relative flex h-full flex-col bg-white p-7 transition-colors duration-500 ease-brand hover:bg-brand-surface"
+                  className="on-dark group relative isolate flex h-full flex-col bg-brand-graphite p-7"
                 >
+                  <CardBackdrop imageKey={service.imageKey} />
                   <span
                     aria-hidden="true"
                     className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
                   />
 
                   <div className="mb-6 flex items-start justify-between gap-4">
-                    <span className="eyebrow">{service.category}</span>
-                    <Icon className="h-5 w-5 shrink-0 text-brand-silver transition-colors duration-500 group-hover:text-brand-electric" />
+                    <span className="eyebrow eyebrow-dark">{service.category}</span>
+                    <Icon className="h-5 w-5 shrink-0 text-brand-mist/50 transition-colors duration-500 group-hover:text-brand-electric-bright" />
                   </div>
 
-                  <h3 className="text-[1.0625rem] font-semibold leading-snug tracking-tight text-brand-graphite">
+                  <h3 className="text-[1.0625rem] font-semibold leading-snug tracking-tight text-white">
                     {service.title}
                   </h3>
-                  <p className="mt-3 flex-1 text-[13.5px] leading-relaxed text-brand-silver">
+                  <p className="mt-3 flex-1 text-[13.5px] leading-relaxed text-brand-mist/70">
                     {service.desc}
                   </p>
 
@@ -155,10 +211,10 @@ export function ServiceGrid() {
                   <div className="reveal-on-hover">
                     <ul className="space-y-1.5 pt-4">
                       {service.features.map((f) => (
-                        <li key={f} className="flex items-start gap-2 text-[12.5px] text-brand-silver">
+                        <li key={f} className="flex items-start gap-2 text-[12.5px] text-brand-mist/70">
                           <span
                             aria-hidden="true"
-                            className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-brand-electric"
+                            className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-brand-electric-bright"
                           />
                           {f}
                         </li>
@@ -166,7 +222,7 @@ export function ServiceGrid() {
                     </ul>
                   </div>
 
-                  <span className="mt-6 inline-flex items-center gap-1.5 border-t border-brand-edge pt-4 text-[12.5px] font-semibold text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
+                  <span className="mt-6 inline-flex items-center gap-1.5 border-t border-white/12 pt-4 text-[12.5px] font-semibold text-white transition-colors duration-300 group-hover:text-brand-electric-bright">
                     Explore this service
                     <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
@@ -183,12 +239,12 @@ export function ServiceGrid() {
 /* ── Sectors ────────────────────────────────────────────────────────────── */
 
 const SECTORS = [
-  { title: 'Industrial & Manufacturing', path: '/industrial-facilities-management', desc: 'Process plant, LEV thorough examination, high-load electrical distribution and maintenance windows set by production rather than office hours.' },
-  { title: 'Commercial Offices', path: '/commercial-facilities-management', desc: 'Multi-tenant estates where response times and common-part presentation are written into the lease, and service charge is examined line by line.' },
-  { title: 'Logistics & Warehousing', path: '/logistics-facilities-management', desc: 'Dock levellers, shutters, yard lighting and three-phase power on sites where failure is measured in lost distribution hours.' },
-  { title: 'Retail & Shopping Centres', path: '/retail-facilities-management', desc: 'Extensive public realm, long trading hours and presentation standards that are part of the customer experience, not back-of-house.' },
-  { title: 'Education & Campuses', path: '/education-facilities-management', desc: 'Multi-building estates where a year of statutory testing and repair compresses into short vacation turnaround windows.' },
-  { title: 'Healthcare & Clinical', path: '/healthcare-facilities-management', desc: 'Ventilation validation, water hygiene and infection control in buildings that never close and cannot tolerate an unplanned outage.' },
+  { title: 'Industrial & Manufacturing', path: '/industrial-facilities-management', imageKey: 'hvac-plant-deck', desc: 'Process plant, LEV thorough examination, high-load electrical distribution and maintenance windows set by production rather than office hours.' },
+  { title: 'Commercial Offices', path: '/commercial-facilities-management', imageKey: 'engineers-office-testing', desc: 'Multi-tenant estates where response times and common-part presentation are written into the lease, and service charge is examined line by line.' },
+  { title: 'Logistics & Warehousing', path: '/logistics-facilities-management', imageKey: 'external-distribution-dusk', desc: 'Dock levellers, shutters, yard lighting and three-phase power on sites where failure is measured in lost distribution hours.' },
+  { title: 'Retail & Shopping Centres', path: '/retail-facilities-management', imageKey: 'access-control-install', desc: 'Extensive public realm, long trading hours and presentation standards that are part of the customer experience, not back-of-house.' },
+  { title: 'Education & Campuses', path: '/education-facilities-management', imageKey: 'hvac-cassette-service', desc: 'Multi-building estates where a year of statutory testing and repair compresses into short vacation turnaround windows.' },
+  { title: 'Healthcare & Clinical', path: '/healthcare-facilities-management', imageKey: 'plumbing-booster-set', desc: 'Ventilation validation, water hygiene and infection control in buildings that never close and cannot tolerate an unplanned outage.' },
 ];
 
 export function SectorGrid() {
@@ -203,7 +259,7 @@ export function SectorGrid() {
           cta="All sectors"
         />
 
-        <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge bg-brand-edge md:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-edge-dark md:grid-cols-2 lg:grid-cols-3">
           {SECTORS.map((sector, i) => (
             <li
               key={sector.path}
@@ -212,19 +268,20 @@ export function SectorGrid() {
             >
               <Link
                 href={sector.path}
-                className="group relative flex h-full flex-col justify-between bg-white p-7 transition-colors duration-500 ease-brand hover:bg-brand-surface-muted"
+                className="on-dark group relative isolate flex h-full flex-col justify-between bg-brand-graphite p-7"
               >
+                <CardBackdrop imageKey={sector.imageKey} />
                 <span
                   aria-hidden="true"
                   className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
                 />
                 <div>
-                  <h3 className="text-[1.0625rem] font-semibold leading-snug tracking-tight text-brand-graphite">
+                  <h3 className="text-[1.0625rem] font-semibold leading-snug tracking-tight text-white">
                     {sector.title}
                   </h3>
-                  <p className="mt-3 text-[13.5px] leading-relaxed text-brand-silver">{sector.desc}</p>
+                  <p className="mt-3 text-[13.5px] leading-relaxed text-brand-mist/70">{sector.desc}</p>
                 </div>
-                <span className="mt-6 inline-flex items-center gap-1.5 border-t border-brand-edge pt-4 text-[12.5px] font-semibold text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
+                <span className="mt-6 inline-flex items-center gap-1.5 border-t border-white/12 pt-4 text-[12.5px] font-semibold text-white transition-colors duration-300 group-hover:text-brand-electric-bright">
                   View sector
                   <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>

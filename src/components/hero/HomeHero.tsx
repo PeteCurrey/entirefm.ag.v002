@@ -52,8 +52,8 @@ const HERO = (editorial as EditorialManifest).editorial?.['london-aerial-poster'
  * supportable — the layout is the thing worth keeping.
  */
 const PROOF = [
-  { figure: 'Out-of-hours', label: 'Cover for contracted sites' },
-  { figure: 'UK-wide', label: 'National coverage, regional operations' },
+  { figure: 'Out-of-hours', label: 'Contracted site cover' },
+  { figure: 'UK-wide', label: 'Regional operations' },
   { figure: 'Planned', label: '& reactive maintenance' },
   { figure: 'Compliance', label: 'Led FM delivery' },
 ];
@@ -193,7 +193,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
         within what is left, which puts the headline optically in the middle
         of the visible area rather than in the middle of the section.
       */}
-      <div className="container-wide relative flex flex-1 items-center pb-16 pt-[calc(var(--header-h)+3rem)]">
+      <div className="container-wide relative flex flex-1 flex-col justify-center pb-16 pt-[calc(var(--header-h)+3rem)]">
         <div className="max-w-3xl">
           <p className="eyebrow eyebrow-dark" data-reveal>
             {/* Dropped on the narrowest screens: the eyebrow already wraps to
@@ -245,24 +245,37 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
             </a>
           </div>
 
-          <dl
-            className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10 lg:grid-cols-4"
-            data-reveal
-            style={{ '--reveal-delay': '320ms' } as React.CSSProperties}
-          >
-            {PROOF.map((item) => (
-              <div
-                key={item.figure}
-                className="group bg-brand-graphite/72 px-5 py-4 backdrop-blur-md transition-colors duration-500 ease-brand hover:bg-brand-graphite/90"
-              >
-                <dt className="text-[14px] font-bold tracking-tight text-white">{item.figure}</dt>
-                <dd className="mt-1 text-[11.5px] leading-snug text-brand-mist/60 transition-colors duration-500 group-hover:text-brand-mist/90">
-                  {item.label}
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
+
+        {/*
+            Four separated glass cards, matching entirefm.com: the panels float
+            over the photograph rather than sitting in a bordered grid, and the
+            frosting is what makes the copy readable over moving video without
+            another scrim flattening the image behind it.
+
+            The figure is set large and light in the accent colour with the
+            label small, uppercase and widely tracked beneath — the contrast in
+            size and weight is what carries the hierarchy, not a rule or a box.
+          */}
+        <dl
+          className="mt-12 grid max-w-5xl grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4"
+          data-reveal
+          style={{ '--reveal-delay': '320ms' } as React.CSSProperties}
+        >
+          {PROOF.map((item) => (
+            <div
+              key={item.figure}
+              className="group rounded-sm border border-white/[0.09] bg-white/[0.06] px-6 py-7 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]"
+            >
+              <dt className="whitespace-nowrap text-[1.75rem] font-extralight leading-none tracking-[-0.035em] text-brand-electric-bright transition-colors duration-500 group-hover:text-white">
+                {item.figure}
+              </dt>
+              <dd className="mt-3.5 text-[10.5px] font-medium uppercase leading-snug tracking-[0.16em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
+                {item.label}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
 
       {/* Scroll cue — absolutely placed so it does not push the copy off centre. */}

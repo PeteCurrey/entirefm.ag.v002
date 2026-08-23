@@ -65,8 +65,28 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Smooth scrolling for anchors, in-page jumps and the rail's keyboard
+     reachability. Wheel and trackpad scrolling are untouched — this only
+     affects programmatic scrolls. Off under reduced motion, where a long
+     animated jump is exactly what the setting exists to prevent. */
+  html {
+    scroll-behavior: smooth;
+    /* Anchor targets clear the fixed header instead of landing under it. */
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     @apply bg-white text-brand-graphite font-sans antialiased;
+    /* Light body weight, matching entirefm.com. Inter at 400 reads heavier
+       than it looks in a spec, and against 200-weight display type it makes
+       the page feel bottom-heavy. */
+    font-weight: 300;
     font-feature-settings: 'ss01', 'cv01';
     selection: auto;
   }

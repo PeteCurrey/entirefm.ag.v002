@@ -31,7 +31,16 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/client-login/', '/helpdesk-registration', '/fm-supply-form'],
+        // /admin is the enquiry list. It is noindex in its own metadata too,
+        // but robots keeps crawlers off it in the first place rather than
+        // relying on them to fetch it and then obey the tag.
+        disallow: [
+          '/api/',
+          '/admin',
+          '/client-login/',
+          '/helpdesk-registration',
+          '/fm-supply-form',
+        ],
       },
     ],
     sitemap: `${PRODUCTION_CANONICAL_HOST}/sitemap.xml`,

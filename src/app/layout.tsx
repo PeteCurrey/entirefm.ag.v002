@@ -1,19 +1,31 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { defaultMetadata } from '@/lib/metadata/generate-metadata';
 import { RevealProvider } from '@/components/motion/RevealProvider';
 import './globals.css';
 
 /**
- * Plus Jakarta Sans is the official EntireFM typeface, specified in the brand
- * guidelines as "Clean. Contemporary. Confident." The full weight range is
- * loaded because the design uses it: 200 for large display numerals through
- * 800 for headline emphasis.
+ * TYPEFACE
+ * ========
+ * Inter, matching what entirefm.com actually ships — the business asked for
+ * the live site's type, and this is it: Inter at weight 200 for display, 300
+ * for body, with tight negative tracking on the large sizes.
+ *
+ * WORTH KNOWING
+ * -------------
+ * The brand guidelines in /Branding name Plus Jakarta Sans, so this is a
+ * deliberate departure from that document rather than an oversight. The two
+ * are close cousins — both geometric humanist sans — and at the weights used
+ * here the difference is small. It is recorded because a future reader
+ * comparing the site against the guidelines will otherwise think it is a bug.
+ *
+ * The full weight range is loaded because the design uses it: 200 for display
+ * through 700 where a heading needs to carry real emphasis.
  */
-const jakarta = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-jakarta',
+  variable: '--font-inter',
   weight: ['200', '300', '400', '500', '600', '700', '800'],
 });
 
@@ -25,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-GB" className={jakarta.variable}>
+    <html lang="en-GB" className={inter.variable}>
       <body>
         <a
           href="#main"
