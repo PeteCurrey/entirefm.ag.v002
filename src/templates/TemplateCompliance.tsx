@@ -14,7 +14,35 @@ import {
   COMPLIANCE_DISCLAIMER,
   type RequirementLevel,
 } from '@/content/compliance/topics';
+import { PRIMARY_NAV, FOOTER_NAV } from '@/config/navigation';
 import type { TemplateProps } from './types';
+
+/**
+ * Human labels for the related-service links.
+ *
+ * These were being titleised from the slug, which rendered `/ppm` as "Ppm"
+ * and `/mechanical-electrical` as "Mechanical Electrical" — while the
+ * navigation two hundred pixels away called the same pages "Planned
+ * Maintenance (PPM)" and "Mechanical & Electrical". The navigation already
+ * holds the real names, so use those and fall back to the slug only for a
+ * page the navigation does not list.
+ */
+const NAV_LABELS: Record<string, string> = Object.fromEntries(
+  [...PRIMARY_NAV.flatMap((s) => s.columns.flatMap((c) => c.links)), ...FOOTER_NAV.flatMap((c) => c.links)].map(
+    (link) => [link.href, link.label]
+  )
+);
+
+function serviceLabel(href: string) {
+  return (
+    NAV_LABELS[href] ??
+    href
+      .replace(/^\//, '')
+      .replace(/\//g, ' · ')
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, (c) => c.toUpperCase())
+  );
+}
 
 /**
  * COMPLIANCE CENTRE
@@ -334,8 +362,7 @@ export function TemplateComplianceTopic({ route, content }: TemplateProps) {
                     {topic.relatedServices.map((href) => (
                       <li key={href}>
                         <Link href={href} className="link-underline text-[13.5px]">
-                          {href.replace(/^\//, '').replace(/\//g, ' · ').replace(/-/g, ' ')
-                            .replace(/\b\w/g, (c) => c.toUpperCase())}
+                          {serviceLabel(href)}
                         </Link>
                       </li>
                     ))}
