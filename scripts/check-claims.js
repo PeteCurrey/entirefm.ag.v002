@@ -183,6 +183,16 @@ const EXEMPTIONS = [
       reason: 'Lists certifications funded for engineers as a benefit — not a claim EntireFM holds them.',
     }))
   ),
+  // The Compliance Centre explains what the LAW requires of whoever does the
+  // work. "Anyone working on a gas fitting must be Gas Safe registered" is a
+  // statement about the duty holder's contractor, not a claim EntireFM holds
+  // the registration — the page never says we do.
+  {
+    route: '/compliance/commercial-gas-safety',
+    claim: 'ACCRED_GAS_SAFE',
+    reason:
+      'States the legal registration requirement placed on anyone carrying out gas work. Explanatory, not a claim EntireFM is registered.',
+  },
   // Supply-chain pages state what EntireFM *requires of subcontractors*.
   // Again a requirement placed on others, not a claim about EntireFM.
   ...['/fm-supply-chain', '/fm-supply-form', '/marketplace'].flatMap((route) =>

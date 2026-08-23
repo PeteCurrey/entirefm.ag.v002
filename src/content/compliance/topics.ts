@@ -613,7 +613,472 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
     relatedServices: ['/building-maintenance', '/building-inspecting-testing', '/ppm'],
     imageKey: 'access-control-install',
   },
-];
+  // ── Gas safety ──────────────────────────────────────────────────────────
+  {
+    slug: 'commercial-gas-safety',
+    name: 'Commercial Gas Safety',
+    shortName: 'Commercial gas safety',
+    metaTitle: 'Commercial Gas Safety Requirements | Duties & Frequency | EntireFM',
+    metaDescription:
+      'What the law requires for gas safety in commercial premises — why the annual certificate is a domestic letting duty, and what non-domestic buildings must actually do.',
+    h1: 'Commercial gas safety: the certificate that is not required',
+    answer:
+      'In non-domestic premises there is no statutory annual gas certificate. The legal duty is that gas appliances, pipework and flues under your control are maintained in a safe condition, and that anyone working on them is registered. The familiar annual check with a dated record is a duty on landlords of domestic rented property, and it is routinely assumed to apply to commercial buildings when it does not.',
+    intro:
+      'Gas is where a duty that genuinely exists gets attached to the wrong buildings. Almost everyone in property has heard of the annual gas safety certificate, and almost everyone assumes it covers their office, factory or retail unit. What actually applies to commercial premises is a continuing duty to maintain — harder to evidence than a dated certificate, and far easier to let slip, because nothing arrives in the post to prompt it.',
+    dutyHolder:
+      'Under the Gas Safety (Installation and Use) Regulations 1998 the duty to maintain non-domestic gas fittings falls on the employer or self-employed person in control of the premises. Where a building is let, the duty follows control rather than title, so a full repairing lease can move it to the tenant — the lease has to be read, not assumed. The separate annual duty under regulation 36 sits with landlords of relevant domestic premises, which catches mixed-use estates with flats above.',
+    requirements: [
+      {
+        level: 'LEGAL',
+        statement:
+          'Ensure gas appliances, installation pipework and flues in non-domestic premises under your control are maintained in a safe condition.',
+        source: 'Gas Safety (Installation and Use) Regulations 1998, Regulation 35',
+        note: 'A continuing duty with no interval attached to it. This is the core commercial obligation, and the one most often missed precisely because nothing prompts it.',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Anyone carrying out work on a gas fitting must be competent and registered with the approved body — currently Gas Safe Register.',
+        source: 'Gas Safety (Installation and Use) Regulations 1998, Regulation 3',
+        note: 'This is a duty on the person or business doing the work. It says nothing about the building owner holding any registration themselves.',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Landlords of relevant domestic premises must have an annual safety check on gas appliances and flues, and give the record to the tenant within 28 days.',
+        source: 'Gas Safety (Installation and Use) Regulations 1998, Regulation 36',
+        note: 'This is the annual certificate everyone has heard of. It is a domestic letting duty, not a commercial building duty.',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Where gas creates a risk of fire or explosion, assess it, control it, and classify hazardous areas where the assessment calls for it.',
+        source: 'Dangerous Substances and Explosive Atmospheres Regulations 2002, Regulations 5 to 7',
+      },
+      {
+        level: 'STANDARD',
+        statement:
+          'Commercial installation, testing, purging and commissioning work follows the IGEM Utilization Procedures — principally IGEM/UP/1B for testing and purging and IGEM/UP/2 for installation pipework.',
+        source: 'IGEM Utilization Procedures',
+      },
+      {
+        level: 'PRACTICE',
+        statement:
+          'An annual commercial gas inspection, recorded on the relevant CP-series certificate, is what most competent providers do and what most insurers expect to see.',
+        source: 'Common industry practice',
+        note: 'Sensible and near-universal — and not the same thing as a legal interval. The law asks whether the installation is safe, not whether it was inspected within the last twelve months.',
+      },
+      {
+        level: 'RISK',
+        statement:
+          'Catering kitchens, boiler houses and process plant justify more attention than a single office boiler, particularly where ventilation and gas interlocks are involved.',
+        source: 'Risk-proportionate approach, HSE guidance',
+      },
+    ],
+    evidence: [
+      'An inventory of gas appliances, pipework runs, meters and isolation points',
+      'Inspection and service records naming the engineer and their registration number',
+      'Soundness test and commissioning records for any new or altered installation',
+      'Ventilation, interlock and gas detection test records in catering kitchens and plant rooms',
+      'Evidence that defects raised at inspection were rectified, with the date each was closed',
+      'For any residential element on a mixed-use site, the annual record issued under regulation 36',
+    ],
+    consequences:
+      'The Health and Safety Executive enforces, and gas offences are treated seriously because the failure mode is fatal rather than expensive. Improvement and prohibition notices can take an installation out of use immediately, and offences carry unlimited fines and, in serious cases, imprisonment. Gas escapes and carbon monoxide incidents are reportable under RIDDOR, and an appliance a registered engineer classifies as immediately dangerous will be disconnected on the spot, whatever it is serving.',
+    commonFailings: [
+      'Assuming the annual domestic certificate applies to a commercial building, and doing nothing else',
+      'Assuming it applies nowhere, on a mixed-use site that contains residential flats',
+      'A lease that moved the duty to or from the tenant which nobody has actually read',
+      'Catering ventilation and gas interlocks treated as separate from gas safety when they are part of it',
+      'Work done by a competent-looking contractor whose registration was never checked or recorded',
+      'Appliances left in service after an inspection classified them at risk, because nobody owned the follow-up',
+    ],
+    faqs: [
+      {
+        question: 'Do commercial premises need an annual gas safety certificate?',
+        answer:
+          'Not as a matter of law. The annual check and record is a duty on landlords of domestic rented property. In commercial premises the duty is to keep gas fittings maintained in a safe condition, with no stated interval. Annual inspection is a sensible way to discharge that and is what most insurers expect, but it is practice rather than statute.',
+      },
+      {
+        question: 'Who is responsible for gas safety in a leased commercial building?',
+        answer:
+          'Whoever has control of the premises or the relevant plant, which the lease determines. A full repairing and insuring lease commonly places it with the tenant; a managed multi-let building commonly leaves central plant with the landlord and appliances with the occupier. The duty follows control, so the document has to be read rather than assumed.',
+      },
+      {
+        question: 'Does the engineer have to be registered?',
+        answer:
+          'Yes. Anyone carrying out work on a gas fitting must be competent and registered with the approved body. That is a duty on the person or business doing the work, and the registration number belongs on every certificate you keep — a certificate without one proves very little.',
+      },
+      {
+        question: 'What about commercial catering equipment?',
+        answer:
+          'It falls under the same maintenance duty, and it is where most commercial gas risk actually sits. Ventilation, gas interlocks and the condition of flexible connections matter as much as the appliance, and a kitchen inspection that ignores them has not covered the risk.',
+      },
+    ],
+    relatedServices: ['/plumbing-gas', '/ppm', '/building-inspecting-testing'],
+    imageKey: 'entirefm-premises-vans',
+  },
+
+  // ── F-Gas ───────────────────────────────────────────────────────────────
+  {
+    slug: 'f-gas-regulations',
+    name: 'F-Gas and Refrigerant Compliance',
+    shortName: 'F-Gas compliance',
+    metaTitle: 'F-Gas Regulations UK | Leak Check Frequency & Duties | EntireFM',
+    metaDescription:
+      'F-Gas duties for air conditioning and refrigeration in Great Britain — who counts as the operator, how leak check intervals follow CO2 equivalent, and what records to keep.',
+    h1: 'F-Gas: an interval that genuinely is the law',
+    answer:
+      'F-Gas leak checking is one of the few compliance intervals set by legislation rather than guidance, and it is not a fixed period — it is calculated from the CO2 equivalent of the refrigerant charge in each individual system. Five tonnes CO2e or more requires a check at least every twelve months, fifty tonnes at least every six, and five hundred tonnes at least every three with an automatic leak detection system fitted. Where such a system is installed, each of those periods doubles. The duty sits with the operator of the equipment, which is normally the building owner or occupier — not the maintenance contractor.',
+    intro:
+      'F-Gas is the mirror image of the rest of this section. Elsewhere the problem is guidance being quoted as law; here a genuine legal interval gets treated as somebody else’s business. Two things follow. The duty stays with you when the maintenance contract changes hands, and an interval you cannot state from memory is an interval you probably are not meeting — because it depends on a charge figure most duty holders have never been given.',
+    dutyHolder:
+      'The operator: the person with actual power over the technical functioning of the equipment. In practice that is the building owner, or the occupier who controls the plant. It is not transferred by employing an air conditioning contractor, however well certificated they are. Where no one with actual control can be identified, the duty falls back to the owner.',
+    requirements: [
+      {
+        level: 'LEGAL',
+        statement:
+          'Check equipment containing five tonnes CO2 equivalent or more of fluorinated gas for leaks at least every twelve months.',
+        source: 'Retained Regulation (EU) No 517/2014, Article 4; Fluorinated Greenhouse Gases Regulations 2015',
+        note: 'Extending to twenty-four months where a working automatic leak detection system is fitted.',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Fifty tonnes CO2 equivalent or more: at least every six months. Five hundred tonnes or more: at least every three months, and an automatic leak detection system is mandatory.',
+        source: 'Retained Regulation (EU) No 517/2014, Articles 4 and 5',
+        note: 'Each interval doubles where a leak detection system is fitted — and the detection system itself must then be checked at least every twelve months.',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Hermetically sealed equipment holding less than ten tonnes CO2 equivalent and labelled as hermetically sealed is outside the leak checking requirement.',
+        source: 'Retained Regulation (EU) No 517/2014, Article 4(2)',
+        note: 'An exemption in the legislation, not an assumption to start from. You still need the charge figure to know it applies.',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Repair any detected leak without undue delay, and re-check the system within one month of the repair.',
+        source: 'Retained Regulation (EU) No 517/2014, Article 3',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Keep records for each system: charge quantity and type, gas added or recovered, checks carried out and by whom. Retain them for at least five years.',
+        source: 'Retained Regulation (EU) No 517/2014, Article 6',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Installation, servicing, leak checking and recovery must be carried out by certificated personnel, and companies doing this work on stationary equipment must hold company certification.',
+        source: 'Retained Regulation (EU) No 517/2014, Article 10; Fluorinated Greenhouse Gases Regulations 2015',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Recover refrigerant properly when equipment is decommissioned, rather than venting it.',
+        source: 'Retained Regulation (EU) No 517/2014, Article 8',
+      },
+      {
+        level: 'PRACTICE',
+        statement:
+          'Leak checks are usually run on the same visit as planned maintenance, which is efficient but lets the interval drift past its legal maximum whenever a visit slips.',
+        source: 'Common industry practice',
+        note: 'The legal interval is a ceiling, not a target. A schedule that aims exactly at it has no margin.',
+      },
+      {
+        level: 'RISK',
+        statement:
+          'Great Britain retains the 2014 regime. The European Union replaced it in 2024 and Northern Ireland follows the EU rules, so an estate spanning both needs its Northern Irish sites assessed separately.',
+        source: 'Assimilated law position, Great Britain',
+        note: 'Worth confirming before assuming one refrigerant policy covers the whole of the UK.',
+      },
+    ],
+    evidence: [
+      'An asset register listing every system, its refrigerant type, and its charge in both kilograms and tonnes CO2e',
+      'The F-Gas logbook or equivalent record for each system, retained for at least five years',
+      'Certification details for the personnel and the company carrying out the work',
+      'Test records for any leak detection system relied on to extend an interval',
+      'Repair records showing the one-month re-check was carried out',
+      'End-of-life recovery documentation for decommissioned plant',
+    ],
+    consequences:
+      'The Environment Agency regulates in England, with SEPA in Scotland and Natural Resources Wales in Wales. Enforcement runs from information notices through to civil penalties, and published guidance puts the maximum civil penalty at £200,000. The commercial exposure is usually larger than the regulatory one: an uncontrolled leak is a plant failure in progress, refrigerant is expensive to replace, and a system that keeps losing charge is telling you something about its remaining life.',
+    commonFailings: [
+      'Assuming the duty sits with the air conditioning contractor because they hold the certification',
+      'No charge figures on record, so nobody can say which interval applies to which system',
+      'One interval set for a whole site, when the calculation is made system by system',
+      'A leak detection system used to justify a longer interval, but never itself tested',
+      'Leaks topped up repeatedly rather than repaired, which is a breach as well as a false economy',
+      'Records not handed over when the maintenance contract changes provider, breaking the five-year trail',
+    ],
+    faqs: [
+      {
+        question: 'How often must F-Gas leak checks be carried out?',
+        answer:
+          'It depends on the CO2 equivalent charge of each system rather than on the calendar. Five tonnes CO2e or more requires checks at least every twelve months, fifty tonnes at least every six months, and five hundred tonnes at least every three months with an automatic leak detection system fitted. Where a working leak detection system is installed, each of those periods doubles.',
+      },
+      {
+        question: 'Who is legally responsible — us or our maintenance contractor?',
+        answer:
+          'The operator, meaning whoever has actual power over the technical functioning of the equipment. That is normally the building owner or the occupier controlling the plant. Employing a certificated contractor is how the duty gets discharged; it is not how it gets transferred.',
+      },
+      {
+        question: 'How do I work out the CO2 equivalent of a system?',
+        answer:
+          'Multiply the refrigerant charge in tonnes by the global warming potential of that refrigerant. A system holding 10kg of R410A, which has a GWP of 2088, is 0.01 x 2088 = 20.88 tonnes CO2e — above the five tonne threshold, so at least twelve-monthly checking, and below fifty tonnes, so not six-monthly. The charge should be on the equipment label or the commissioning record.',
+      },
+      {
+        question: 'Is R22 covered by the F-Gas rules?',
+        answer:
+          'No. R22 is an HCFC controlled under the ozone-depleting substances regime rather than F-Gas, and its use in servicing has been banned since 2015. Systems still running on it cannot lawfully be topped up, which in practice turns any significant leak into a replacement decision.',
+      },
+      {
+        question: 'Do small split air conditioning units need leak checks?',
+        answer:
+          'Only where they reach the five tonne CO2e threshold, and hermetically sealed equipment below ten tonnes CO2e that is labelled as such is exempt. Plenty of small splits fall below the line — but that is a conclusion you reach from the charge figure, not a starting assumption.',
+      },
+    ],
+    relatedServices: ['/hvac-contractor', '/mechanical-electrical', '/ppm'],
+    imageKey: 'rooftop-plant-night',
+  },
+
+  // ── Work at height ──────────────────────────────────────────────────────
+  {
+    slug: 'work-at-height',
+    name: 'Work at Height',
+    shortName: 'Work at height',
+    metaTitle: 'Work at Height Regulations | Duties, Myths & Inspection | EntireFM',
+    metaDescription:
+      'What the Work at Height Regulations 2005 actually require — there is no two-metre rule, ladders are not banned, and the duty reaches whoever controls the work.',
+    h1: 'Work at height: there is no two-metre rule',
+    answer:
+      'The Work at Height Regulations 2005 apply wherever a person could fall a distance liable to cause personal injury. There is no minimum height, no two-metre threshold, and no ban on ladders. What the law requires is a hierarchy: avoid work at height where the job can be done another way, prevent falls where it cannot, and minimise the distance and consequences of a fall where a risk still remains.',
+    intro:
+      'Two beliefs do most of the damage here. The first is that the Regulations start at two metres, which leaves low-level work — standing on a chair to change a lamp, stepping onto a loading bay edge — treated as outside the rules entirely. The second is that ladders are banned, which is not only untrue but counterproductive, because it pushes people into hiring access equipment for two-minute jobs and improvising when they cannot get it. Neither belief appears anywhere in the legislation.',
+    dutyHolder:
+      'Employers, the self-employed, and — the part that matters most in facilities management — any person who controls the work of others. Instructing a contractor to clear a gutter or survey a roof makes you a duty holder to the extent of what you control, including the information you give them about the building. Premises duties for roof access and fragile surfaces sit alongside this under the Workplace Regulations and occupiers’ liability.',
+    requirements: [
+      {
+        level: 'LEGAL',
+        statement:
+          'Avoid work at height where it is reasonably practicable to carry out the work safely other than at height.',
+        source: 'Work at Height Regulations 2005, Regulation 6(2)',
+        note: 'The first question is not which equipment to use. It is whether anyone needs to go up at all.',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Where work at height cannot be avoided, prevent falls using an existing safe place of work or suitable work equipment; where a risk of a fall remains, minimise the distance and the consequences.',
+        source: 'Work at Height Regulations 2005, Regulation 6(3) to (5)',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Plan and supervise the work, have it carried out by competent people, and do not work in weather conditions that endanger health or safety.',
+        source: 'Work at Height Regulations 2005, Regulations 4 and 5',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Take suitable and sufficient steps to prevent anyone falling through a fragile surface, including warning notices where a fragile surface is approached.',
+        source: 'Work at Height Regulations 2005, Regulation 9',
+        note: 'Rooflights and cement sheet roofs account for a persistent share of fatal falls in building maintenance.',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Scaffolding must be inspected before first use, at intervals not exceeding seven days while it remains in place, and after anything liable to affect its strength or stability.',
+        source: 'Work at Height Regulations 2005, Regulation 12 and Schedule 7',
+        note: 'One of the few genuine calendar intervals in this area, and one that is regularly allowed to lapse partway through a long job.',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'A mobile elevating work platform used to lift people requires a thorough examination at least every six months.',
+        source: 'Lifting Operations and Lifting Equipment Regulations 1998, Regulation 9(3)',
+        note: 'Genuinely statutory, and set out in full on the LOLER page.',
+      },
+      {
+        level: 'STANDARD',
+        statement:
+          'Fall arrest harnesses and lanyards need a pre-use check every time they are worn, plus a detailed inspection by a competent person at the interval the manufacturer sets — commonly no more than twelve months, and shorter in arduous use.',
+        source: 'Manufacturer instructions; HSE guidance INDG367',
+      },
+      {
+        level: 'PRACTICE',
+        statement:
+          'A permit-to-work system for roof access, and a roof plan naming fragile areas and anchor points, are standard on managed estates.',
+        source: 'Common industry practice',
+        note: 'Not named in the Regulations, but the most reliable way to discharge the planning duty on a building other people visit.',
+      },
+      {
+        level: 'RISK',
+        statement:
+          'Ladders and step ladders remain lawful for low-risk, short-duration work where the assessment shows heavier access equipment is not justified.',
+        source: 'Work at Height Regulations 2005, Schedule 6; HSE ladder guidance',
+        note: 'HSE has said repeatedly that ladders are not banned. Blanket bans tend to produce worse improvisation, not safer work.',
+      },
+    ],
+    evidence: [
+      'A work at height risk assessment for the actual task and location, not a generic template',
+      'A roof plan identifying fragile surfaces, anchor points and safe access routes',
+      'Scaffold inspection records at intervals not exceeding seven days, and after any alteration',
+      'Thorough examination reports for MEWPs and anything else used to lift people',
+      'Harness and lanyard inspection records, with pre-use checks recorded where the system requires it',
+      'Test and certification records for anchor points and mansafe systems',
+      'Contractor competence records — and evidence they were told what is on the roof before they went up',
+    ],
+    consequences:
+      'Falls from height remain the single largest cause of workplace fatalities in Great Britain, and enforcement reflects that. HSE can issue improvement and prohibition notices, and sentencing guidelines set fines against turnover rather than against the harm that happened to be avoided. Where a client controlled the work and told a contractor nothing about a fragile roof, liability does not stop at the contractor.',
+    commonFailings: [
+      'A two-metre threshold applied in practice, leaving step ladders and low-level work unassessed',
+      'A blanket ladder ban that gets quietly ignored whenever access equipment is not available',
+      'Fragile rooflights not identified to the contractor who was sent up there',
+      'Anchor points and mansafe lines installed once and never re-tested',
+      'Scaffold inspection records that stop partway through a longer job',
+      'Harnesses in use with no inspection history, or stored badly between uses',
+      'Roof access handed to a contractor with no permit, no plan and no induction',
+    ],
+    faqs: [
+      {
+        question: 'Is there a minimum height for the Work at Height Regulations?',
+        answer:
+          'No. The Regulations apply wherever a person could fall a distance liable to cause personal injury. The two-metre rule is a myth carried over from older legislation, and it has left a great deal of genuinely risky low-level work unassessed.',
+      },
+      {
+        question: 'Are ladders banned?',
+        answer:
+          'No, and HSE has said so repeatedly. Ladders and step ladders are lawful for low-risk, short-duration work where a risk assessment shows heavier access equipment is not justified. The duty is to select equipment appropriate to the task, not to escalate every task to the largest available platform.',
+      },
+      {
+        question: 'How often must scaffolding be inspected?',
+        answer:
+          'Before it is first used, at intervals not exceeding seven days while it remains in place, and after any event liable to have affected its strength or stability — severe weather, an impact, or an alteration. That seven-day interval is written into the Regulations, which makes it unusual in this field.',
+      },
+      {
+        question: 'Does the duty apply to us if a contractor does the work?',
+        answer:
+          'Yes, to the extent that you control it. Anyone who controls the work of others carries duties under the Regulations, and in facilities management that means the information you give about the building, the access arrangements you set, and the competence you checked before letting anyone onto the roof.',
+      },
+      {
+        question: 'How often should a safety harness be inspected?',
+        answer:
+          'A pre-use check every time it is worn, plus a detailed inspection by a competent person at the interval the manufacturer specifies — commonly no more than twelve months, and shortened for frequent or arduous use. That comes from the manufacturer and from guidance, not from a stated legal interval.',
+      },
+    ],
+    relatedServices: ['/aerial-drone-building-inspection', '/building-maintenance', '/mobile-crane-hire'],
+    imageKey: 'sheffield-rooftop-survey',
+  },
+
+  // ── PAT testing ─────────────────────────────────────────────────────────
+  {
+    slug: 'pat-testing',
+    name: 'PAT Testing and In-Service Inspection',
+    shortName: 'PAT testing',
+    metaTitle: 'Is PAT Testing a Legal Requirement? | What the Law Says | EntireFM',
+    metaDescription:
+      'PAT testing is not named in UK legislation and has no legal interval. What the Electricity at Work Regulations actually require, and how intervals should be set by risk.',
+    h1: 'PAT testing: the requirement that is not in the law',
+    answer:
+      'The phrase "PAT testing" appears in no UK legislation, and no statute sets an interval for it. What the law requires is that electrical systems and work equipment are maintained so as to prevent danger. Inspection and testing is one recognised way of demonstrating that, and the intervals everyone quotes come from an IET code of practice which sets them by risk — with HSE stating plainly that in low-risk offices, routine testing of every appliance is rarely necessary.',
+    intro:
+      'This is the clearest example in the whole section of habit hardening into assumed law. Annual testing of everything in the building is widely purchased, widely invoiced, and required by no statute. Meanwhile the checks that actually find faults — someone looking at a cable before plugging it in, a formal visual inspection of the plug and flex — cost almost nothing, catch most defects, and are the part most often skipped.',
+    dutyHolder:
+      'The employer, and any person in control of premises to the extent of matters within their control, under the Electricity at Work Regulations 1989. In a multi-let building that divides: the landlord for common parts and for equipment supplied to tenants, each occupier for their own. Equipment brought in by a contractor stays their employer’s responsibility, though a building can reasonably require evidence before it comes through the door.',
+    requirements: [
+      {
+        level: 'LEGAL',
+        statement:
+          'Maintain electrical systems, so far as is reasonably practicable, so as to prevent danger.',
+        source: 'Electricity at Work Regulations 1989, Regulation 4(2)',
+        note: 'The entire legal basis for what the industry calls PAT testing. It names no appliance, no test and no interval.',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'Ensure work equipment is maintained in an efficient state, in efficient working order and in good repair.',
+        source: 'Provision and Use of Work Equipment Regulations 1998, Regulation 5',
+      },
+      {
+        level: 'LEGAL',
+        statement:
+          'In Scotland, the private rented sector repairing standard requires landlord-supplied appliances to be tested, with the associated guidance setting a five-yearly interval alongside the electrical installation report.',
+        source: 'Housing (Scotland) Act 2006, repairing standard',
+        note: 'A genuine statutory difference. There is no equivalent appliance-testing requirement in England and Wales.',
+      },
+      {
+        level: 'STANDARD',
+        statement:
+          'Suggested starting intervals for user checks, formal visual inspection, and combined inspection and testing come from the IET Code of Practice for In-Service Inspection and Testing of Electrical Equipment.',
+        source: 'IET Code of Practice for In-Service Inspection and Testing of Electrical Equipment',
+        note: 'Explicitly a starting point to be adjusted by risk and by what the results keep showing — not a schedule to be applied unchanged for a decade.',
+      },
+      {
+        level: 'RISK',
+        statement:
+          'Frequency should follow the environment and the equipment. A construction site transformer, a hired floor scrubber and a desktop monitor do not belong on the same schedule.',
+        source: 'Risk-based approach, HSE guidance INDG236',
+        note: 'HSE has stated that in low-risk environments such as offices, routine testing of every item is rarely required and visual inspection finds most faults.',
+      },
+      {
+        level: 'PRACTICE',
+        statement:
+          'Annual testing of all portable equipment, with a dated label applied to each item.',
+        source: 'Common industry practice',
+        note: 'Neither the interval nor the label is a legal requirement. Labels are useful management information and nothing more than that.',
+      },
+    ],
+    evidence: [
+      'An equipment register, so it is possible to say what was covered and what was not',
+      'A record of the interval chosen for each category of equipment, and the reasoning behind it',
+      'Formal visual inspection records — the part that finds the majority of faults',
+      'Combined inspection and test results showing measured values, not simply pass or fail',
+      'Fault, repair and removal-from-service records',
+      'For hired or contractor-supplied equipment, evidence obtained at the point it arrived on site',
+    ],
+    consequences:
+      'HSE and local authorities enforce, and an electrical injury traced to unmaintained equipment is investigated against the duty to maintain rather than against a testing schedule. The realistic exposure runs both ways: under-inspecting misses the damaged flexes and poor connections that cause most incidents, while over-testing spends money across a low-risk estate to produce a label that proves less than the visual inspection did.',
+    commonFailings: [
+      'A schedule set once and never adjusted, whatever the results kept showing',
+      'Testing carried out diligently while user checks and visual inspection were never established',
+      'Fixed equipment tested as though portable, or genuinely high-risk portable equipment missed entirely',
+      'No equipment register, so coverage cannot be demonstrated and new items never enter the cycle',
+      'Failed items labelled and left in place, because nobody owned removal from service',
+      'Hired-in and contractor equipment sitting outside the system altogether',
+    ],
+    faqs: [
+      {
+        question: 'Is PAT testing a legal requirement?',
+        answer:
+          'Not as such. No UK legislation mentions PAT testing and no statute sets an interval for it. The Electricity at Work Regulations 1989 require electrical systems to be maintained so as to prevent danger, and inspection and testing is one recognised way of showing that duty was met. Scotland’s private rented sector is the notable exception, where testing of landlord-supplied appliances is required.',
+      },
+      {
+        question: 'How often should PAT testing be done?',
+        answer:
+          'At an interval justified by risk. The IET Code of Practice suggests starting points by equipment type and environment, and those should then be adjusted according to what the results show. An office estate returning no faults across three cycles is being tested more often than it needs; a site with repeat failures is not being tested often enough.',
+      },
+      {
+        question: 'Do we need to label every appliance?',
+        answer:
+          'No. Labelling is not a legal requirement. It is useful management information, and a label showing a passed test proves very little on its own if there is no underlying record and no register saying what should have been covered in the first place.',
+      },
+      {
+        question: 'Does it apply in a low-risk office?',
+        answer:
+          'The duty to maintain applies everywhere. HSE has been explicit that in low-risk environments such as offices, routine testing of every item is rarely necessary, and that user checks plus periodic visual inspection will find most faults. Testing everything annually in an office is a purchasing decision rather than a compliance one.',
+      },
+      {
+        question: 'Who is responsible in a multi-let building?',
+        answer:
+          'It divides with control. The landlord holds it for common parts and any equipment supplied to tenants, each occupier holds it for their own equipment, and contractors remain responsible for what they bring on site — though the building can require evidence before it arrives.',
+      },
+    ],
+    relatedServices: ['/mechanical-electrical', '/building-inspecting-testing', '/ppm'],
+    imageKey: 'distribution-board-testing',
+  },];
 
 export const COMPLIANCE_TOPIC_BY_SLUG: Record<string, ComplianceTopic> = Object.fromEntries(
   COMPLIANCE_TOPICS.map((t) => [t.slug, t])

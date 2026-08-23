@@ -7,12 +7,12 @@
   "generatedBy": "scripts/generate-production-manifest.js",
   "warning": "This file is auto-generated. Edit route-registry.json and re-run npm run generate:manifest.",
   "summary": {
-    "total": 255,
-    "protected": 255,
-    "indexable": 255,
+    "total": 259,
+    "protected": 259,
+    "indexable": 259,
     "historicWix": 220,
     "currentLive": 4,
-    "growth": 31
+    "growth": 35
   },
   "urls": [
     {
@@ -523,8 +523,34 @@
       "contentStatus": "CONTENT_COMPLETE"
     },
     {
+      "path": "/compliance/commercial-gas-safety",
+      "url": "https://www.entirefm.com/compliance/commercial-gas-safety",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
       "path": "/compliance/emergency-lighting-testing",
       "url": "https://www.entirefm.com/compliance/emergency-lighting-testing",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
+      "path": "/compliance/f-gas-regulations",
+      "url": "https://www.entirefm.com/compliance/f-gas-regulations",
       "routeType": "company",
       "protected": true,
       "indexable": true,
@@ -577,6 +603,32 @@
     {
       "path": "/compliance/lifting-equipment-loler",
       "url": "https://www.entirefm.com/compliance/lifting-equipment-loler",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
+      "path": "/compliance/pat-testing",
+      "url": "https://www.entirefm.com/compliance/pat-testing",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
+      "path": "/compliance/work-at-height",
+      "url": "https://www.entirefm.com/compliance/work-at-height",
       "routeType": "company",
       "protected": true,
       "indexable": true,
