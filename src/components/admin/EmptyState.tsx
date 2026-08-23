@@ -7,6 +7,7 @@ interface EmptyStateProps {
   actionText?: string;
   actionHref?: string;
   iconType?: 'work' | 'estate' | 'compliance' | 'supply' | 'commercial' | 'ai' | 'general';
+  icon?: any;
 }
 
 export function EmptyState({
@@ -15,6 +16,7 @@ export function EmptyState({
   actionText,
   actionHref,
   iconType = 'general',
+  icon,
 }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center rounded-lg border border-brand-edge-dark/60 bg-brand-carbon/40 p-10 text-center backdrop-blur-sm">
@@ -48,3 +50,5 @@ export function EmptyState({
     </div>
   );
 }
+
+export default EmptyState;

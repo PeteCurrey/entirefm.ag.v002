@@ -30,11 +30,13 @@ const NAV_GROUPS: NavGroup[] = [
   {
     title: 'OPERATIONS',
     items: [
+      { name: 'Control Centre', href: '/admin/operations' },
+      { name: "Today's Exceptions", href: '/admin/operations/today' },
+      { name: 'Live Contracts', href: '/admin/operations/contracts' },
       { name: 'Live Helpdesk', href: '/admin/operations/helpdesk' },
       { name: 'Service Requests', href: '/admin/operations/service-requests' },
       { name: 'Work Orders', href: '/admin/operations/work-orders' },
       { name: 'Dispatch', href: '/admin/operations/dispatch' },
-      { name: 'Schedule', href: '/admin/operations/schedule' },
       { name: 'SLA Control', href: '/admin/operations/sla' },
       { name: 'Escalations', href: '/admin/operations/escalations' },
     ],

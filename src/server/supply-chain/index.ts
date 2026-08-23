@@ -190,3 +190,130 @@ export async function listProviderRestrictions(providerOrgId: string): Promise<P
   );
   return data || [];
 }
+
+// ─────────────────────────────────────────────────────────────
+// PHASE 0C: CONTRACTOR PORTAL OPERATIONS
+// ─────────────────────────────────────────────────────────────
+
+import { UserSession } from '../identity';
+import { recordAuditEvent } from '../audit';
+
+export interface ContractorDashboardMetrics {
+  offersAwaitingResponse: number;
+  activeAssignments: number;
+  visitsToday: number;
+  slaAtRisk: number;
+  complianceWarnings: number;
+  completionsPendingReview: number;
+}
+
+export async function acceptAssignmentOffer(
+  assignmentId: string,
+  session: UserSession
+): Promise<{ success: boolean; error?: string }> {
+  if (!session) return { success: false, error: 'Authentication required' };
+  const now = new Date().toISOString();
+  const { error } = await dbQuery<any>(`work_assignments?id=eq.${assignmentId}`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status: 'ACCEPTED', accepted_at: now, updated_at: now }),
+  });
+  if (error) return { success: false, error: String(error) };
+  await recordAuditEvent({ event_type: 'ASSIGNMENT_ACCEPTED', object_type: 'work_assignments', object_id: assignmentId, actor_id: session.personId, after_state: { status: 'ACCEPTED' } });
+  return { success: true };
+}
+
+export async function declineAssignmentOffer(
+  assignmentId: string,
+  reason: string,
+  notes: string | null,
+  session: UserSession
+): Promise<{ success: boolean; error?: string }> {
+  if (!session) return { success: false, error: 'Authentication required' };
+  const now = new Date().toISOString();
+  const { error } = await dbQuery<any>(`work_assignments?id=eq.${assignmentId}`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status: 'REJECTED', rejection_reason: reason, rejection_notes: notes, rejected_at: now, updated_at: now }),
+  });
+  if (error) return { success: false, error: String(error) };
+  await recordAuditEvent({ event_type: 'ASSIGNMENT_REJECTED', object_type: 'work_assignments', object_id: assignmentId, actor_id: session.personId, after_state: { status: 'REJECTED', reason } });
+  return { success: true };
+}
+
+export async function assignProviderResource(
+  assignmentId: string,
+  engineerPersonId: string,
+  session: UserSession
+): Promise<{ success: boolean; error?: string }> {
+  if (!session) return { success: false, error: 'Authentication required' };
+  // Verify the engineer belongs to this contractor org
+  const { data: resource } = await dbQuery<any[]>(
+    `provider_resources?person_id=eq.${engineerPersonId}&provider_org_id=eq.${session.orgId}&is_active=eq.true&select=id`
+  );
+  if (!resource || resource.length === 0) {
+    return { success: false, error: 'Engineer does not belong to your organisation or is not active' };
+  }
+  const now = new Date().toISOString();
+  const { error } = await dbQuery<any>(`work_assignments?id=eq.${assignmentId}`, {
+    method: 'PATCH',
+    body: JSON.stringify({ assigned_person_id: engineerPersonId, updated_at: now }),
+  });
+  if (error) return { success: false, error: String(error) };
+  await recordAuditEvent({ event_type: 'ASSIGNMENT_RESOURCE_ASSIGNED', object_type: 'work_assignments', object_id: assignmentId, actor_id: session.personId, after_state: { assigned_person_id: engineerPersonId } });
+  return { success: true };
+}
+
+export async function getContractorDashboardMetrics(
+  orgId: string,
+  _session: UserSession
+): Promise<ContractorDashboardMetrics> {
+  // These queries return real counts from DB. If DB unavailable, return zeros gracefully.
+  const today = new Date().toISOString().split('T')[0];
+  const [offers, active, visits] = await Promise.all([
+    dbQuery<any[]>(`work_assignments?provider_org_id=eq.${orgId}&status=eq.OFFERED&select=id`),
+    dbQuery<any[]>(`work_assignments?provider_org_id=eq.${orgId}&status=in.(ACCEPTED,IN_PROGRESS)&select=id`),
+    dbQuery<any[]>(`visits?provider_org_id=eq.${orgId}&scheduled_date=eq.${today}&select=id`),
+  ]);
+  return {
+    offersAwaitingResponse: offers.data?.length ?? 0,
+    activeAssignments: active.data?.length ?? 0,
+    visitsToday: visits.data?.length ?? 0,
+    slaAtRisk: 0,         // Computed by SLA engine in full implementation
+    complianceWarnings: 0, // Driven by contractor_compliance_documents expiry
+    completionsPendingReview: 0,
+  };
+}
+
+export async function listContractorAssignments(orgId: string, status?: string, _session?: UserSession): Promise<any[]> {
+  let endpoint = `work_assignments?provider_org_id=eq.${orgId}&order=created_at.desc&select=*`;
+  if (status) endpoint += `&status=eq.${encodeURIComponent(status)}`;
+  const { data } = await dbQuery<any[]>(endpoint);
+  return data || [];
+}
+
+export async function listContractorComplianceDocuments(orgId: string, _session: UserSession): Promise<any[]> {
+  const { data } = await dbQuery<any[]>(
+    `contractor_compliance_documents?provider_organisation_id=eq.${orgId}&order=created_at.desc&select=*`
+  );
+  return data || [];
+}
+
+export async function saveContractorComplianceDocument(
+  data: { orgId: string; documentType: string; documentTitle: string; storagePath: string; fileSizeBytes?: number; mimeType?: string; expiryDate?: string; uploadedByPersonId: string },
+  session: UserSession
+): Promise<{ id: string | null; error?: string }> {
+  if (!session) return { id: null, error: 'Authentication required' };
+  const record = {
+    provider_organisation_id: data.orgId,
+    document_type: data.documentType,
+    document_title: data.documentTitle,
+    storage_path: data.storagePath,
+    file_size_bytes: data.fileSizeBytes || null,
+    mime_type: data.mimeType || null,
+    expiry_date: data.expiryDate || null,
+    uploaded_by_person_id: data.uploadedByPersonId,
+    review_status: 'PENDING',
+  };
+  const { data: result, error } = await dbQuery<any[]>('contractor_compliance_documents?select=id', { method: 'POST', body: JSON.stringify(record) });
+  if (error) return { id: null, error: String(error) };
+  return { id: result?.[0]?.id ?? null };
+}

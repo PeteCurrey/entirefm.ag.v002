@@ -14,7 +14,9 @@ export type StorageBucket =
   | 'quotes'
   | 'invoices'
   | 'site-documents'
-  | 'accreditations';
+  | 'accreditations'
+  | 'voice-captures'
+  | 'signatures';
 
 export interface StorageUploadResult {
   path: string;
@@ -32,6 +34,14 @@ const ALLOWED_MIME_TYPES = [
   'text/plain',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  // Phase 0C: field voice and video captures
+  'audio/webm',
+  'audio/mp4',
+  'audio/wav',
+  'audio/mpeg',
+  'audio/ogg',
+  'video/mp4',
+  'video/webm',
 ];
 
 const MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024; // 25 MB
