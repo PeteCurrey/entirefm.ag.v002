@@ -16,6 +16,8 @@
     "test:operations-hardening": "tsx scripts/test-operations-hardening.ts",
     "test:field-contractor": "tsx scripts/test-field-contractor.ts",
     "test:field-intelligence": "tsx scripts/test-field-intelligence.ts",
+    "test:ppm-autopilot": "tsx scripts/test-ppm-autopilot.ts",
+    "test:commercial-intelligence": "tsx scripts/test-commercial-intelligence.ts",
     "test:seo": "jest --testPathPattern=__tests__/seo",
     "verify:contacts": "node scripts/verify-contacts.js",
     "verify:lead-pipeline": "node scripts/verify-lead-pipeline.js",

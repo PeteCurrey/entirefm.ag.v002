@@ -1,0 +1,7 @@
+Resource URL,Topic,Intent Stage,Primary Next Step,Secondary Next Step,Commercial Parent,Tool,CTA,Conversion Event,Status
+/resources/guides/ppm-guide,Planned Preventative Maintenance,LEARNING,/tools/ppm-schedule-builder,/resources/guides/asset-register-guide,/ppm,PPM Schedule Builder,Launch Schedule Builder,tool_start,ACTIVE
+/resources/guides/asset-register-guide,Asset Hierarchy & Registers,LEARNING,/tools/fm-health-check,/resources/guides/ppm-guide,/services,FM Health Check,Run Asset Diagnostic,tool_start,ACTIVE
+/resources/guides/fm-tender-guide,FM Procurement & Tendering,PLANNING,/tools/tender-brief,/resources/guides/facilities-management-guide,/contact-us,Tender Brief Generator,Generate Tender Scope,tool_start,ACTIVE
+/resources/guides/facilities-management-guide,FM Fundamentals,LEARNING,/resources/guides/ppm-guide,/services,/hard-services,FM Health Check,Explore Core Services,service_click,ACTIVE
+/resources/ai-in-facilities-management,AI in Facilities Management,LEARNING,/resources/guides/ppm-guide,/tools/fm-health-check,/services,FM Health Check,Review Operational AI,guide_click,ACTIVE
+/compliance,Statutory Compliance Centre,LEARNING,/compliance/fixed-wire-testing-eicr,/resources/guides/ppm-guide,/mechanical-electrical,Compliance Calendar,Check Compliance Baseline,service_click,ACTIVE
