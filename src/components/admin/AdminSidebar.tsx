@@ -48,7 +48,7 @@ const NAV_GROUPS: NavGroup[] = [
       { name: 'Sites', href: '/admin/estate/sites' },
       { name: 'Buildings & Spaces', href: '/admin/estate/spaces' },
       { name: 'Assets', href: '/admin/estate/assets' },
-      { name: 'Mobilisations', href: '/admin/estate/mobilisations' },
+      { name: 'Mobilisations', href: '/admin/mobilisations' },
       { name: 'Imports', href: '/admin/estate/imports' },
     ],
   },
