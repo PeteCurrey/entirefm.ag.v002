@@ -174,13 +174,13 @@ export function TemplateContact() {
               </div>
 
               {/* H1 Heading */}
-              <h1 className="text-display-xl text-white font-extrabold tracking-tight">
+              <h1 className="text-display-xl text-white">
                 Let&apos;s Talk About{' '}
                 <span className="text-hero-pink">Your Estate.</span>
               </h1>
 
               {/* Supporting Copy */}
-              <p className="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-brand-mist/85 font-normal">
+              <p className="mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80">
                 Whether you need a single-source FM partner, specialist maintenance support, a comprehensive site survey, or assistance with an existing contract, speak directly with the EntireFM team.
               </p>
 

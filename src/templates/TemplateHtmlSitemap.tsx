@@ -37,10 +37,10 @@ export function TemplateHtmlSitemap() {
           <div className="container-custom">
             <div className="max-w-3xl space-y-4">
               <span className="badge-gold">Website Navigation Directory</span>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+              <h1 className="text-display-xl text-white">
                 EntireFM Website Directory & HTML Sitemap
               </h1>
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
+              <p className="max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80">
                 Explore our full organic architecture across facilities management services, sector frameworks, regional hubs, and specialist engineering pages.
               </p>
             </div>

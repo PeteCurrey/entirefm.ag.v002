@@ -33,7 +33,7 @@ export function ServiceHero({
   serviceFacts = [],
 }: ServiceHeroProps) {
   return (
-    <section className="on-dark relative isolate flex min-h-[36rem] lg:min-h-[42rem] w-full flex-col overflow-hidden bg-brand-graphite">
+    <section className="on-dark relative isolate flex min-h-screen min-h-[100svh] w-full flex-col justify-between overflow-hidden bg-brand-graphite">
       {/* Photographic Background */}
       <div className="absolute inset-0 -z-20">
         <Image
@@ -82,7 +82,7 @@ export function ServiceHero({
           </div>
 
           {/* Single clear H1 */}
-          <h1 className="text-display-xl text-white font-extrabold tracking-tight">
+          <h1 className="text-display-xl text-white">
             {title}{' '}
             {highlightedTitle && (
               <span className="text-hero-pink">{highlightedTitle}</span>
@@ -90,7 +90,7 @@ export function ServiceHero({
           </h1>
 
           {/* Commercial Intro */}
-          <p className="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-brand-mist/85 font-normal">
+          <p className="mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80">
             {intro}
           </p>
 

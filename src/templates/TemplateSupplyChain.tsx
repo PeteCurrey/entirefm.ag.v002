@@ -25,10 +25,10 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="max-w-3xl space-y-4">
               <span className="badge-gold">{content.eyebrow || 'Supply Chain & Procurement'}</span>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+              <h1 className="text-display-xl text-white">
                 {content.h1}
               </h1>
-              <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+              <p className="max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80">
                 {content.heroIntro || content.metaDescription}
               </p>
             </div>

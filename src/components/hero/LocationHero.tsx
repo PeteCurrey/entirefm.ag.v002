@@ -38,10 +38,10 @@ export function LocationHero({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-4">
             <span className="badge-gold">{badge}</span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            <h1 className="text-display-xl text-white">
               {h1Text}
             </h1>
-            <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+            <p className="max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80">
               {defaultIntro}
             </p>
 
@@ -123,10 +123,10 @@ export function SectorHero({
       <div className="container-custom">
         <div className="max-w-4xl space-y-4">
           <span className="badge-gold">{badge}</span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+          <h1 className="text-display-xl text-white">
             {h1Text}
           </h1>
-          <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+          <p className="max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80">
             {defaultIntro}
           </p>
 

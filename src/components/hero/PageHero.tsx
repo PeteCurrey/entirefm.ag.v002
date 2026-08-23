@@ -160,7 +160,7 @@ export function PageHero({
           )}
 
           <h1
-            className="mt-6 text-display-lg text-white"
+            className="mt-6 text-display-xl text-white"
             data-reveal
             style={{ '--reveal-delay': '80ms' } as React.CSSProperties}
           >
@@ -169,7 +169,7 @@ export function PageHero({
 
           {intro && (
             <p
-              className="mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-brand-mist/80"
+              className="mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80"
               data-reveal
               style={{ '--reveal-delay': '160ms' } as React.CSSProperties}
             >
