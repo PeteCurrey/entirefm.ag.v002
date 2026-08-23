@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Phone, ArrowDown } from 'lucide-react';
@@ -40,7 +40,9 @@ type EditorialManifest = {
   editorial: Record<string, { src: string; alt: string; widths: Record<string, string> }>;
 };
 
-const HERO = (editorial as EditorialManifest).editorial?.['hero-headquarters'];
+/** London aerial timelapse, recovered from the legacy Wix homepage. */
+const HERO_VIDEO = '/video/entirefm-london-aerial.mp4';
+const HERO = (editorial as EditorialManifest).editorial?.['london-aerial-poster'];
 
 const PROOF = [
   { figure: 'Hard FM', label: 'M&E, HVAC and building plant' },
@@ -49,12 +51,44 @@ const PROOF = [
 ];
 
 interface HomeHeroProps {
-  /** Optional video source. Falls back to the still if absent or unplayable. */
+  /** Override the background video. Defaults to the London aerial. */
   videoSrc?: string;
 }
 
-export function HomeHero({ videoSrc }: HomeHeroProps) {
+export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
   const mediaRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+
+  /**
+   * The poster carries the first paint and the video fades in over it once it
+   * can actually play. Loading is deferred to idle and skipped entirely under
+   * reduced motion or Save-Data, so a 3.4MB background never competes with the
+   * content for bandwidth.
+   */
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (connection?.saveData) return;
+
+    const start = () => {
+      video.src = videoSrc;
+      video.load();
+      video.play().catch(() => {
+        /* Autoplay refused — the poster stays, which is a fine outcome. */
+      });
+    };
+
+    const idle =
+      (window as Window & { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback;
+    const handle = idle ? idle(start) : window.setTimeout(start, 900);
+    return () => {
+      if (!idle) clearTimeout(handle as number);
+    };
+  }, [videoSrc]);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -84,19 +118,8 @@ export function HomeHero({ videoSrc }: HomeHeroProps) {
       {/* Media layer */}
       <div ref={mediaRef} className="absolute inset-0 -z-20 will-change-transform">
         <div className="hero-drift absolute inset-0">
-          {videoSrc ? (
-            <video
-              className="h-full w-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster={HERO?.src}
-              aria-hidden="true"
-            >
-              <source src={videoSrc} />
-            </video>
-          ) : HERO ? (
+          {/* Poster first — this is the LCP image and it must not wait on video. */}
+          {HERO && (
             <Image
               src={HERO.src}
               alt={HERO.alt}
@@ -105,7 +128,19 @@ export function HomeHero({ videoSrc }: HomeHeroProps) {
               sizes="100vw"
               className="object-cover object-center"
             />
-          ) : null}
+          )}
+          {/* Video fades in over the poster once it can play. */}
+          <video
+            ref={videoRef}
+            className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-brand"
+            style={{ opacity: videoReady ? 1 : 0 }}
+            muted
+            loop
+            playsInline
+            preload="none"
+            aria-hidden="true"
+            onCanPlay={() => setVideoReady(true)}
+          />
         </div>
       </div>
 

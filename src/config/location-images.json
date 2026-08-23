@@ -373,6 +373,38 @@
       },
       "src": "/images/editorial/entirefm-access-control-install-2000w.webp"
     },
+    "sheffield-rooftop-survey": {
+      "alt": "Two EntireFM staff on a rooftop above Sheffield, looking out over the city",
+      "source": "sheffield-rooftop-survey.jpg",
+      "widths": {
+        "900": "/images/editorial/entirefm-sheffield-rooftop-survey-900w.webp",
+        "1280": "/images/editorial/entirefm-sheffield-rooftop-survey-1280w.webp",
+        "1920": "/images/editorial/entirefm-sheffield-rooftop-survey-1920w.webp",
+        "2560": "/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp"
+      },
+      "src": "/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp"
+    },
+    "manchester-castlefield-night": {
+      "alt": "Manchester Castlefield basin at night, with the Beetham Tower behind",
+      "source": "manchester-castlefield-night.jpg",
+      "widths": {
+        "900": "/images/editorial/entirefm-manchester-castlefield-night-900w.webp",
+        "1280": "/images/editorial/entirefm-manchester-castlefield-night-1280w.webp",
+        "1920": "/images/editorial/entirefm-manchester-castlefield-night-1920w.webp",
+        "2560": "/images/editorial/entirefm-manchester-castlefield-night-2560w.webp"
+      },
+      "src": "/images/editorial/entirefm-manchester-castlefield-night-2560w.webp"
+    },
+    "entirefm-premises-vans": {
+      "alt": "EntireFM premises with branded vans parked outside",
+      "source": "entirefm-premises-vans.jpg",
+      "widths": {
+        "800": "/images/editorial/entirefm-entirefm-premises-vans-800w.webp",
+        "1200": "/images/editorial/entirefm-entirefm-premises-vans-1200w.webp",
+        "2000": "/images/editorial/entirefm-entirefm-premises-vans-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-entirefm-premises-vans-2000w.webp"
+    },
     "hero-headquarters": {
       "alt": "EntireFM headquarters at dusk, illuminated signage along the building facade",
       "source": "a642cbea-b3d4-4ab3-9e2c-652172921bb8.png",
@@ -403,6 +435,17 @@
         "2000": "/images/editorial/entirefm-reception-2000w.webp"
       },
       "src": "/images/editorial/entirefm-reception-2000w.webp"
+    },
+    "london-aerial-poster": {
+      "alt": "Aerial view over London at dusk, with Tower Bridge and the Thames",
+      "source": "legacy Wix homepage background video",
+      "widths": {
+        "1280": "/images/editorial/entirefm-london-aerial-poster-1280w.webp",
+        "1920": "/images/editorial/entirefm-london-aerial-poster-1920w.webp",
+        "2560": "/images/editorial/entirefm-london-aerial-poster-2560w.webp"
+      },
+      "src": "/images/editorial/entirefm-london-aerial-poster-2560w.webp",
+      "video": "/video/entirefm-london-aerial.mp4"
     }
   }
 }

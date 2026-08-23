@@ -38,6 +38,15 @@ interface MarkCanvasProps {
   onAssembled?: () => void;
   /** Skip the assembly and render the settled mark. */
   assembled?: boolean;
+  /**
+   * Ease the mark to a front-on orientation and stop all drift.
+   *
+   * The intro crossfades this render into the flat logo artwork before flying
+   * it to the header. The artwork is front-on, so unless the 3D mark stops at
+   * exactly zero rotation the crossfade reads as a jump. Setting this a beat
+   * before the crossfade lets the two states line up.
+   */
+  settle?: boolean;
 }
 
 const VERT = `#version 300 es
@@ -186,9 +195,15 @@ export function MarkCanvas({
   onFallback,
   onAssembled,
   assembled = false,
+  settle = false,
 }: MarkCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [failed, setFailed] = useState(false);
+
+  // The animation loop is set up once and never re-created, so prop changes
+  // reach it through a ref rather than through the effect's closure.
+  const settleRef = useRef(settle);
+  settleRef.current = settle;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -364,12 +379,17 @@ export function MarkCanvas({
       }
 
       // Ambient drift plus a little pointer lean, eased so it never snaps.
+      // When settling, both targets go to zero — front-on, matching the flat
+      // artwork the intro is about to crossfade to — and the easing is firmer
+      // so it arrives inside the crossfade window.
+      const settling = settleRef.current;
       const ambientY = reduced ? 0.34 : 0.34 + Math.sin(elapsed * 0.18) * 0.16;
       const ambientX = reduced ? -0.16 : -0.16 + Math.cos(elapsed * 0.13) * 0.07;
-      const targetY = ambientY + pointer.x * 0.2;
-      const targetX = ambientX + pointer.y * 0.14;
-      rotY += (targetY - rotY) * 0.045;
-      rotX += (targetX - rotX) * 0.045;
+      const targetY = settling ? 0 : ambientY + pointer.x * 0.2;
+      const targetX = settling ? 0 : ambientX + pointer.y * 0.14;
+      const ease = settling ? 0.16 : 0.045;
+      rotY += (targetY - rotY) * ease;
+      rotX += (targetX - rotX) * ease;
 
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);

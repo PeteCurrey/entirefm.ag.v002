@@ -50,6 +50,14 @@ const EDITORIAL = {
     { index: 8, slug: 'ev-charging', alt: 'EntireFM engineer servicing electric vehicle charging equipment at a commercial car park' },
     { index: 7, slug: 'access-control-install', alt: 'EntireFM engineer installing access control equipment in a corridor' },
   ],
+  // Genuine EntireFM photography recovered from the legacy Wix estates. These
+  // are real photographs of real people and real premises, which is why they
+  // carry the About page — the rest of the library is brand imagery.
+  Authentic: [
+    { index: 2, slug: 'sheffield-rooftop-survey', alt: 'Two EntireFM staff on a rooftop above Sheffield, looking out over the city', hero: true },
+    { index: 1, slug: 'manchester-castlefield-night', alt: 'Manchester Castlefield basin at night, with the Beetham Tower behind', hero: true },
+    { index: 0, slug: 'entirefm-premises-vans', alt: 'EntireFM premises with branded vans parked outside' },
+  ],
   'Branded Building': [
     // The homepage hero. Wide, cinematic, and dark on the left where the
     // headline sits — which is why this frame rather than the tighter ones.
@@ -204,6 +212,22 @@ async function main() {
       manifest.editorial[pick.slug] = entry;
     }
     console.log(`${folder.padEnd(18)} ${picks.length} editorial images`);
+  }
+
+  // The London aerial poster is produced from the video, not from a source
+  // folder, so it is registered here rather than generated above.
+  if (fs.existsSync(path.join(EDITORIAL_OUT, 'entirefm-london-aerial-poster-2560w.webp'))) {
+    manifest.editorial['london-aerial-poster'] = {
+      alt: 'Aerial view over London at dusk, with Tower Bridge and the Thames',
+      source: 'legacy Wix homepage background video',
+      widths: {
+        2560: '/images/editorial/entirefm-london-aerial-poster-2560w.webp',
+        1920: '/images/editorial/entirefm-london-aerial-poster-1920w.webp',
+        1280: '/images/editorial/entirefm-london-aerial-poster-1280w.webp',
+      },
+      src: '/images/editorial/entirefm-london-aerial-poster-2560w.webp',
+      video: '/video/entirefm-london-aerial.mp4',
+    };
   }
 
   fs.writeFileSync(

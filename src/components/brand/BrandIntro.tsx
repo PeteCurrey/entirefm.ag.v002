@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useState, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { MarkCanvas } from './MarkCanvas';
 
@@ -48,13 +48,26 @@ import { MarkCanvas } from './MarkCanvas';
 
 const SESSION_KEY = 'efm.intro.seen';
 const ASSEMBLE_MS = 2600;
-const SETTLE_MS = 420;
+// Long enough for the 3D mark to ease to front-on before the artwork fades in.
+const SETTLE_ROTATE_MS = 260;
+const SETTLE_MS = 620;
 const FLY_MS = 900;
 
 type Phase = 'idle' | 'playing' | 'settling' | 'flying' | 'done';
 
+/**
+ * useLayoutEffect warns when it runs during server rendering. The overlay is
+ * server-rendered by design, so fall back to useEffect there — the layout
+ * effect only matters in the browser, where it prevents a visible flash.
+ */
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 export function BrandIntro() {
-  const [phase, setPhase] = useState<Phase>('idle');
+  // Starts at 'playing' so the overlay is present in the server-rendered
+  // HTML. Mounting at 'idle' meant the homepage painted first and the intro
+  // appeared over it a moment later — a visible flash of the page underneath.
+  const [phase, setPhase] = useState<Phase>('playing');
   const markRef = useRef<HTMLDivElement>(null);
   const [flight, setFlight] = useState<React.CSSProperties>({});
 
@@ -63,18 +76,22 @@ export function BrandIntro() {
   // while the first pass's cleanup has already torn down shared state.
   const started = useRef(false);
 
-  useEffect(() => {
+  // useLayoutEffect so a visitor who should not see the intro loses it before
+  // the next paint, rather than watching it appear and then vanish.
+  useIsomorphicLayoutEffect(() => {
     if (started.current) return;
     started.current = true;
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const skip = () => setPhase('done');
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return skip();
     try {
-      if (sessionStorage.getItem(SESSION_KEY)) return;
+      if (sessionStorage.getItem(SESSION_KEY)) return skip();
       sessionStorage.setItem(SESSION_KEY, '1');
     } catch {
-      // Storage unavailable — play once and move on.
+      // Storage unavailable — play it once and move on.
     }
-    setPhase('playing');
+    // Already 'playing' from the server render; nothing more to do.
   }, []);
 
   // The header's mark stays hidden for exactly as long as the intro owns one.
@@ -168,13 +185,13 @@ export function BrandIntro() {
 
   if (phase === 'idle' || phase === 'done') return null;
 
-  const settled = phase === 'settling' || phase === 'flying';
+  const settling = phase === 'settling' || phase === 'flying';
   const flying = phase === 'flying';
 
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-[200] overflow-hidden"
+      className="brand-intro fixed inset-0 z-[200] overflow-hidden"
       style={{ pointerEvents: flying ? 'none' : 'auto' }}
     >
       {/* Backdrop — fades independently so the mark stays visible in flight. */}
@@ -199,12 +216,20 @@ export function BrandIntro() {
             ...flight,
           }}
         >
-          {/* Procedural mark, assembling. */}
+          {/*
+            Two states of the same mark. The 3D render eases to front-on first
+            (`settle`), then the artwork fades in on top of it — so the shape,
+            angle and colour are already identical at the moment of the swap.
+          */}
           <div
             className="absolute inset-0 transition-opacity ease-brand"
-            style={{ opacity: settled ? 0 : 1, transitionDuration: `${SETTLE_MS}ms` }}
+            style={{
+              opacity: settling ? 0 : 1,
+              transitionDuration: `${SETTLE_MS - SETTLE_ROTATE_MS}ms`,
+              transitionDelay: settling ? `${SETTLE_ROTATE_MS}ms` : '0ms',
+            }}
           >
-            <MarkCanvas delay={0.15} />
+            <MarkCanvas delay={0.15} settle={settling} />
           </div>
 
           {/* The supplied artwork — what actually lands in the header. */}
@@ -215,7 +240,11 @@ export function BrandIntro() {
             priority
             sizes="36rem"
             className="object-contain transition-opacity ease-brand"
-            style={{ opacity: settled ? 1 : 0, transitionDuration: `${SETTLE_MS}ms` }}
+            style={{
+              opacity: settling ? 1 : 0,
+              transitionDuration: `${SETTLE_MS - SETTLE_ROTATE_MS}ms`,
+              transitionDelay: settling ? `${SETTLE_ROTATE_MS}ms` : '0ms',
+            }}
           />
         </div>
 
@@ -250,6 +279,15 @@ export function BrandIntro() {
       </button>
 
       <style>{`
+        /* The overlay ships in the server-rendered HTML, so it must be able to
+           remove itself without React: no scripting means nothing would ever
+           dismiss it, and reduced motion should never see it at all. */
+        @media (scripting: none) {
+          .brand-intro { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .brand-intro { display: none; }
+        }
         .intro-wordmark {
           opacity: 0;
           animation: introWordmark 800ms cubic-bezier(0.22, 0.61, 0.36, 1) 1400ms forwards;
