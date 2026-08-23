@@ -17,13 +17,16 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
  *     the extra mile
  *   · A responsible employer that supports the communities it works in
  *
- * ONE THING DELIBERATELY LEFT OUT
- * -------------------------------
- * Both Wix estates state that EntireFM "has various regional offices" / a
- * "network of regional offices". That is exactly the claim
- * `GEO_REGIONAL_CENTRES` marks DO_NOT_USE in /config/verified-claims.json,
- * so it is not repeated here. If the offices are real, verify them in the
- * registry and this page can say so — the claim guard will stop it until then.
+ * HOW THE GEOGRAPHIC CLAIM IS HANDLED
+ * -----------------------------------
+ * Both Wix estates state that EntireFM "has various regional offices". The
+ * business confirmed on 2026-08-23 that this is accurate but uneven — some
+ * locations are offices, some are storage depots — so the honest claim is the
+ * operating model, not a building in a named town.
+ *
+ * `GEO_NATIONAL_REGIONAL_OPS` is therefore VERIFIED and used here: national
+ * coverage delivered through regional operations. `GEO_REGIONAL_CENTRES`
+ * stays DO_NOT_USE, so no page names a facility in a specific city.
  *
  * The structure is expanded well beyond the original: the story is told as a
  * sequence rather than four paragraphs, the ethos is turned into concrete
@@ -99,7 +102,7 @@ const record: ContentRecord = {
     },
     {
       heading: 'Where we work',
-      body: 'EntireFM maintains commercial property across the UK, with concentrations in London, the North West, Yorkshire, the Midlands and Lincolnshire. Coverage is delivered by mobile engineering teams working to each area, and response times are set from genuine travel capability rather than from a marketing radius — a site an hour from a city centre is priced and committed to honestly.',
+      body: 'EntireFM maintains commercial property across the UK. The business runs nationally through regional operations — a mix of offices, storage and mobile engineering teams working to each area — with concentrations in London, the North West, Yorkshire, the Midlands and Lincolnshire. What matters commercially is not where a building sits on a map but whether the response time can actually be met, so those are set from genuine travel capability rather than from a marketing radius.',
     },
   ],
 
@@ -121,7 +124,7 @@ const record: ContentRecord = {
     },
     {
       name: 'Nationwide coverage',
-      description: 'Mobile engineering teams working to each area, with response agreed per site.',
+      description: 'National reach run as regional operations, with response agreed per site.',
       tag: 'Coverage',
     },
   ],

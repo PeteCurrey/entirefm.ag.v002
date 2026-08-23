@@ -7,11 +7,21 @@
  *
  * WHY THIS EXISTS
  * ---------------
- * /config/verified-claims.json marks three claims DO_NOT_USE and nine
- * TO_VERIFY, but nothing enforced it — the templates asserted regional
- * depots, "100% Audit-Ready", "Guaranteed Compliance", universal
- * self-delivery and unqualified 24/7 availability across 54 pages. A registry
- * that nothing checks is a document, not a control.
+ * /config/verified-claims.json marks claims DO_NOT_USE or TO_VERIFY, but
+ * nothing enforced it — the templates asserted regional depots, "100%
+ * Audit-Ready", "Guaranteed Compliance", universal self-delivery and
+ * unqualified 24/7 availability across 54 pages. A registry that nothing
+ * checks is a document, not a control.
+ *
+ * GEOGRAPHIC CLAIMS ARE A PAIR
+ * ----------------------------
+ * `GEO_NATIONAL_REGIONAL_OPS` is VERIFIED: national coverage delivered
+ * through regional operations. `GEO_REGIONAL_CENTRES` stays DO_NOT_USE:
+ * a facility in a *named city*. Some locations are offices and some are
+ * storage depots, so the operating model can be described but a specific
+ * city cannot be given a building. The patterns below are city-bound for
+ * exactly that reason — "regional operations" passes, "Manchester depot"
+ * does not.
  *
  * Tested against rendered HTML rather than source, because source comments
  * legitimately discuss the forbidden wording while explaining why it was
@@ -30,20 +40,46 @@ const BUILD_DIR = path.join(ROOT, '.next', 'server', 'app');
  * Each pattern maps to the registry entry that forbids it.
  * Keep the `why` short — it is printed as the failure explanation.
  */
+/** Cities the site has pages for — used to catch city-bound premises claims. */
+const CITIES = [
+  'London', 'Manchester', 'Sheffield', 'Leeds', 'Birmingham', 'Nottingham',
+  'Derby', 'Lincoln', 'Liverpool', 'Bradford', 'Chesterfield', 'Doncaster',
+  'Rotherham', 'Telford', 'Oxford', 'Bolton', 'Bury', 'Wigan', 'Preston',
+  'Grimsby', 'Matlock',
+];
+
 const FORBIDDEN = [
   {
     claim: 'GEO_REGIONAL_CENTRES',
     status: 'DO_NOT_USE',
-    why: 'Asserts physical premises in a city. EntireFM has no verified regional depots or offices.',
+    why:
+      'Asserts a facility in a named city. Some locations are offices and some are storage ' +
+      'depots, so a per-city premises claim cannot be made. The verified position is ' +
+      'GEO_NATIONAL_REGIONAL_OPS — national coverage through regional operations — which ' +
+      'describes the operating model without pinning a facility to a city.',
     patterns: [
-      /\bregional (?:engineering )?depots?\b/i,
-      /\boperations centre\b/i,
+      // City-bound premises. Deliberately narrow: the noun has to be one that
+      // only makes sense as *our* facility.
+      //
+      // `office` and bare `centre` are excluded because they produce false
+      // positives on things that are not claims at all — "older London office
+      // stock" describes a client's buildings, "Manchester Office Cleaning" is
+      // a service, and "Manchester city centre" is a place.
+      new RegExp(
+        `\\b(?:${CITIES.join('|')})\\s+` +
+          `(?:FM\\s+centre|operations?\\s+centre|depot|branch|hub|yard)\\b`,
+        'i'
+      ),
+      // The same claim reversed: "depot in Manchester", "hub across Leeds".
+      new RegExp(
+        `\\b(?:depot|branch|hub|operations?\\s+centre|FM\\s+centre)s?\\s+` +
+          `(?:in|at|across|throughout)\\s+(?:${CITIES.join('|')})\\b`,
+        'i'
+      ),
+      // First-person premises anywhere.
+      /\bour\s+(?:local\s+)?(?:office|depot|branch|premises|facility|yard)\s+(?:in|at)\b/i,
+      /\bregional (?:engineering |operating )?depots?\b/i,
       /\bregional operating centres?\b/i,
-      /\b(?:fm|regional|operational|city|local)\s+(?:operational\s+)?hubs?\b/i,
-      /\bhubs? in [A-Z]/,
-      /\b[A-Z][a-z]+ FM Centre\b/,
-      /\bregional centre\b/i,
-      /\bour (?:office|depot|branch) in\b/i,
     ],
   },
   {
@@ -160,6 +196,68 @@ const EXEMPTIONS = [
 
 const isExempt = (route, claim) =>
   EXEMPTIONS.some((e) => e.route === route && e.claim === claim);
+
+/**
+ * SELF-TEST
+ * ---------
+ * The geographic patterns are narrow by necessity — "London office stock"
+ * describes a client's buildings, "Manchester Office Cleaning" is a service,
+ * "Manchester city centre" is a place, and none of them is a premises claim.
+ * Narrowing patterns to remove false positives can quietly disarm a guard, so
+ * these fixtures assert both directions. Run with `--self-test`.
+ */
+const SELF_TEST = {
+  mustCatch: [
+    'Visit our Manchester depot for collections',
+    'Our London FM Centre handles the southern estate',
+    'We operate a depot in Sheffield and a hub in Leeds',
+    'Our office in Birmingham is open weekdays',
+    'Regional engineering depots across the UK',
+    'Our Regional Operating Centres provide cover',
+    'The Leeds hub dispatches engineers each morning',
+    'Guaranteed compliance across every site',
+    '100% audit-ready records',
+    'Our 24/7/365 helpdesk',
+    'We are NICEIC approved',
+  ],
+  mustPass: [
+    'older London office stock, often on tenanted floors',
+    'Manchester Office Cleaning services for corporate estates',
+    'Manchester city centre and Spinningfields',
+    'EntireFM runs nationally through regional operations',
+    'National coverage, delivered through regional operations',
+    'a mix of offices, storage and engineering teams working to each area',
+    'Sheffield city centre and Lower Don Valley',
+    'Out-of-hours cover for contracted sites',
+  ],
+};
+
+function runSelfTest() {
+  const hit = (text) => FORBIDDEN.some((r) => r.patterns.some((p) => p.test(text)));
+  let failures = 0;
+
+  console.log('Claim guard self-test\n');
+  for (const text of SELF_TEST.mustCatch) {
+    const ok = hit(text);
+    if (!ok) failures++;
+    console.log(`  ${ok ? 'caught ' : 'MISSED '} ${text}`);
+  }
+  console.log('');
+  for (const text of SELF_TEST.mustPass) {
+    const ok = !hit(text);
+    if (!ok) failures++;
+    console.log(`  ${ok ? 'passed ' : 'FLAGGED'} ${text}`);
+  }
+
+  if (failures) {
+    console.error(`\nFAIL: ${failures} self-test case(s) wrong.`);
+    process.exit(1);
+  }
+  console.log('\nPASS: guard catches violations and clears legitimate phrasing.');
+  process.exit(0);
+}
+
+if (process.argv.includes('--self-test')) runSelfTest();
 
 function visibleText(html) {
   return html

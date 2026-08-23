@@ -15,11 +15,13 @@
  *
  * CLAIM GOVERNANCE
  * ----------------
- * GEO_REGIONAL_CENTRES is DO_NOT_USE in /config/verified-claims.json —
- * EntireFM has no verified premises in these cities. Nothing here may claim a
- * depot, branch, office or "operations centre" in a city. Coverage is
- * described as what it is: mobile engineering teams working to the area from
- * a national operation.
+ * Two geographic claims, and the difference matters.
+ * `GEO_NATIONAL_REGIONAL_OPS` is VERIFIED — EntireFM runs nationally through
+ * regional operations, which is a mix of offices, storage bases and
+ * engineering teams working to each area. `GEO_REGIONAL_CENTRES` stays
+ * DO_NOT_USE — no page may name a facility in a specific city, because the
+ * provision is uneven and a per-city premises claim cannot be supported.
+ * Describe the operating model; never give a named town a building.
  *
  * `searchDemand` figures are measured, from the Google Search Console export
  * for 2026-05-07 → 2026-08-20 (docs/seo-rebuild/verified/).

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "title": "EntireFM Verified Claims Authority",
   "authority": "BUSINESS-CLAIMS-VERIFICATION.md",
-  "updatedAt": "2026-08-22",
+  "updatedAt": "2026-08-23",
   "rules": {
     "renderingPolicy": "Only claims with status === 'VERIFIED' may be rendered in user-facing components. Claims marked 'TO_VERIFY' or 'DO_NOT_USE' must never render publicly, nor display '[VERIF. PENDING]' badges."
   },
@@ -92,7 +92,10 @@
       "status": "TO_VERIFY",
       "evidence": null,
       "approvedWording": "Centralized Helpdesk & Emergency Operations Support",
-      "approvedContexts": ["Helpdesk", "Contact"],
+      "approvedContexts": [
+        "Helpdesk",
+        "Contact"
+      ],
       "verifiedBy": null,
       "verifiedDate": null
     },
@@ -103,7 +106,9 @@
       "status": "TO_VERIFY",
       "evidence": null,
       "approvedWording": "Direct Engineering Delivery & Dedicated Account Management",
-      "approvedContexts": ["Service Delivery"],
+      "approvedContexts": [
+        "Service Delivery"
+      ],
       "verifiedBy": null,
       "verifiedDate": null
     },
@@ -114,7 +119,9 @@
       "status": "DO_NOT_USE",
       "evidence": null,
       "approvedWording": "Comprehensive Statutory Compliance Management",
-      "approvedContexts": ["Compliance"],
+      "approvedContexts": [
+        "Compliance"
+      ],
       "verifiedBy": null,
       "verifiedDate": null
     },
@@ -131,14 +138,35 @@
     },
     {
       "id": "GEO_REGIONAL_CENTRES",
-      "claim": "Physical Regional Depots / Operating Centres in London/Regional Cities",
+      "claim": "Named physical premises in a specific city (e.g. \"our Manchester depot\", \"London FM Centre\")",
       "category": "Geographic",
       "status": "DO_NOT_USE",
       "evidence": null,
       "approvedWording": "Regional Service Coverage & Mobile Engineering Fleet",
-      "approvedContexts": ["Locations"],
+      "approvedContexts": [
+        "Locations"
+      ],
       "verifiedBy": null,
-      "verifiedDate": null
+      "verifiedDate": null,
+      "note": "Remains DO_NOT_USE. Some locations have offices and some have storage depots, so a blanket per-city premises claim cannot be made and is not the point \u2014 see GEO_NATIONAL_REGIONAL_OPS for the verified position. Never state or imply a facility in a named city on a geographic landing page.",
+      "supersededInPartBy": "GEO_NATIONAL_REGIONAL_OPS"
+    },
+    {
+      "id": "GEO_NATIONAL_REGIONAL_OPS",
+      "claim": "National coverage delivered through regional operations",
+      "category": "Geographic",
+      "status": "VERIFIED",
+      "evidence": "Stated on both legacy Wix estates (\"EntireFM now has various regional offices\", \"operates with a network of regional offices\") and confirmed by the business owner on 2026-08-23: some locations are offices, some are storage depots, and the accurate framing is national coverage with regional operations rather than a facility in any named city.",
+      "approvedWording": "National coverage, delivered through regional operations",
+      "approvedContexts": [
+        "Locations",
+        "About",
+        "Coverage",
+        "Footer"
+      ],
+      "verifiedBy": "Business owner",
+      "verifiedDate": "2026-08-23",
+      "note": "Speak about the operating model, never about a specific site. \"Regional operations\" and \"regional offices\" are approved; \"our Manchester depot\" is not \u2014 that is GEO_REGIONAL_CENTRES and stays DO_NOT_USE."
     }
   ]
 }

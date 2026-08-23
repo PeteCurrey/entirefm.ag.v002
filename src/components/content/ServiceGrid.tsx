@@ -254,12 +254,12 @@ export function LocationGrid() {
           <div className="max-w-2xl">
             <p className="eyebrow eyebrow-dark">Coverage</p>
             <h2 className="mt-5 text-display-md text-white">
-              Local knowledge, without a branch on every corner
+              National coverage, run as regional operations
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-brand-mist/60">
-              We work through mobile engineering teams rather than a depot network, and say so.
-              What makes a city page useful is knowing how buildings there actually operate —
-              not a postcode on a letterhead.
+              EntireFM runs nationally through regional operations, with mobile engineering
+              teams working to each area. What makes a city page useful is knowing how buildings
+              there actually operate — not a postcode on a letterhead.
             </p>
           </div>
           <Link

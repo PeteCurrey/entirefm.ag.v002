@@ -104,9 +104,9 @@ export function Footer() {
                 <li className="flex items-start gap-2.5 text-brand-mist/50">
                   <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-silver" />
                   <span>
-                    Nationwide coverage
+                    National coverage
                     <span className="mt-0.5 block text-[11.5px] text-brand-mist/35">
-                      Mobile engineering teams · response agreed per site
+                      Regional operations · response agreed per site
                     </span>
                   </span>
                 </li>

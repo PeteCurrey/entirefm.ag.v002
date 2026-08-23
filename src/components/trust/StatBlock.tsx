@@ -26,7 +26,7 @@ const CAPABILITIES = [
   {
     label: 'Coverage',
     value: 'Nationwide',
-    detail: 'Mobile engineering teams working to the area, with response times agreed per site.',
+    detail: 'Regional operations covering the UK, with response times agreed per site.',
     icon: Building2,
   },
   {

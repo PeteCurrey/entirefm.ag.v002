@@ -23,6 +23,7 @@
     "verify:legacy-estate:prod": "node scripts/verify-legacy-estate.js --production",
     "check:similarity": "node scripts/check-page-similarity.js",
     "check:claims": "node scripts/check-claims.js",
+    "check:claims:self-test": "node scripts/check-claims.js --self-test",
     "build:location-images": "node scripts/build-location-images.js",
     "seo:location-strategy": "tsx scripts/generate-location-seo-strategy.ts",
     "tiers:generate": "node scripts/generate-indexation-tiers.js",

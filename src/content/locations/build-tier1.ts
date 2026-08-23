@@ -182,7 +182,7 @@ function buildShortForm(city: Tier1City, registryPaths: Set<string>): ContentRec
     relatedRoutes: relatedFor(city, path, registryPaths),
     conversionGoal: `Generate a contracted FM proposal enquiry for a ${city.name} estate`,
     verificationRequirements: [
-      'No claim of physical premises, depot or operations centre in the city',
+      'No facility claimed in a named city — GEO_REGIONAL_CENTRES stays DO_NOT_USE',
       'No unverified accreditation or SLA claim',
       'Distinct from the head-term and regional variants for this city',
     ],
@@ -254,7 +254,7 @@ function buildHeadTerm(city: Tier1City, registryPaths: Set<string>): ContentReco
     faqs: [
       {
         question: `Which areas of ${city.name} does EntireFM cover?`,
-        answer: `${city.travelPattern} Coverage is delivered by mobile engineering teams working to the area — EntireFM does not claim a depot in every city it serves, and response planning is based on genuine travel capability.`,
+        answer: `${city.travelPattern} EntireFM runs nationally through regional operations, with engineering teams working to the area, and response planning is based on genuine travel capability rather than a marketing radius.`,
       },
       {
         question: `What are the main compliance obligations for commercial buildings in ${city.name}?`,
@@ -278,7 +278,7 @@ function buildHeadTerm(city: Tier1City, registryPaths: Set<string>): ContentReco
     conversionGoal: `Generate a commercial FM enquiry or site survey request from ${city.name}`,
     verificationRequirements: [
       'Operating conditions must be factually accurate for this city',
-      'No claim of physical premises, depot or operations centre in the city',
+      'No facility claimed in a named city — GEO_REGIONAL_CENTRES stays DO_NOT_USE',
       'No unverified accreditation or SLA claim',
       'Structurally distinct from the short-form and regional variants',
     ],
@@ -376,7 +376,7 @@ function buildRegional(city: Tier1City, registryPaths: Set<string>): ContentReco
     conversionGoal: `Generate a multi-site estate FM enquiry across ${city.region}`,
     verificationRequirements: [
       'District descriptions must be factually accurate',
-      'No claim of physical premises, depot or operations centre in the city',
+      'No facility claimed in a named city — GEO_REGIONAL_CENTRES stays DO_NOT_USE',
       'Structurally distinct from the short-form and head-term variants',
     ],
     contentStatus: 'CONTENT_COMPLETE',
@@ -423,7 +423,7 @@ function buildAreas(city: Tier1City, registryPaths: Set<string>): ContentRecord 
       },
       {
         heading: 'How coverage actually works',
-        body: `EntireFM does not maintain a depot in every city it serves, and says so. Coverage is delivered by mobile engineering teams working to the area, with response times agreed per site during mobilisation based on genuine travel capability rather than a marketing radius. Where a site needs guaranteed short-notice attendance, that is designed into the contract explicitly.`,
+        body: `EntireFM operates nationally through regional operations. What that means in practice varies by area — some locations are staffed offices, some are storage and equipment bases, and all are supported by engineering teams working to the region. What matters commercially is not which of those sits nearest to you, but whether the response time can actually be met: those are agreed per site during mobilisation from genuine travel capability. Where a site needs guaranteed short-notice attendance, that is designed into the contract explicitly.`,
       },
     ],
     faqs: [
@@ -432,8 +432,8 @@ function buildAreas(city: Tier1City, registryPaths: Set<string>): ContentRecord 
         answer: `${city.travelPattern} If a site sits outside that pattern it can usually still be covered — it just needs to be priced honestly for travel rather than absorbed into a headline response time that would not be met.`,
       },
       {
-        question: 'Do you have an office or depot in the city?',
-        answer: 'No. EntireFM operates nationally with mobile engineering teams rather than a branch network, and does not claim local premises it does not have. What matters for service is response capability and accountability, both of which are set contractually per site.',
+        question: 'How is the region actually resourced?',
+        answer: 'Through regional operations rather than a uniform branch network — a mix of offices, storage and equipment bases, and engineering teams working to the area. Rather than publish a map of buildings, we agree the response time for your specific site and commit to it contractually, because that is the part that affects you.',
       },
       {
         question: 'How are response times set for outlying sites?',
@@ -444,7 +444,7 @@ function buildAreas(city: Tier1City, registryPaths: Set<string>): ContentRecord 
     relatedRoutes: relatedFor(city, path, registryPaths),
     conversionGoal: `Confirm coverage and generate a site enquiry within ${city.region}`,
     verificationRequirements: [
-      'Explicitly states no local depot — consistent with GEO_REGIONAL_CENTRES DO_NOT_USE',
+      'Describes regional operations without naming a facility in this city',
       'District list must be factually accurate',
     ],
     contentStatus: 'CONTENT_COMPLETE',
@@ -550,7 +550,7 @@ function buildServiceCatalogue(city: Tier1City, registryPaths: Set<string>): Con
     conversionGoal: `Generate a scoped service enquiry from ${city.name}`,
     verificationRequirements: [
       'No universal self-delivery claim — OPS_SELF_DELIVERY is TO_VERIFY',
-      'No claim of physical premises in the city',
+      'No facility claimed in a named city',
     ],
     contentStatus: 'CONTENT_COMPLETE',
   };

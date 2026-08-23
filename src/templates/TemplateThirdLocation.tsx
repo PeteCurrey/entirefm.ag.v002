@@ -54,7 +54,7 @@ export function TemplateThirdLocation({ route, content }: TemplateProps) {
   }));
 
   const heroFacts = [
-    { figure: 'Coverage', label: `Mobile engineering teams working to ${city}` },
+    { figure: 'Coverage', label: `National reach, regional operations covering ${city}` },
     { figure: 'Response', label: 'Out-of-hours cover for contracted sites' },
     { figure: 'Compliance', label: 'Statutory testing, certified and recorded' },
   ];
