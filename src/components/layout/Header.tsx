@@ -163,23 +163,6 @@ export function Header({ solid = false }: HeaderProps) {
           }}
         />
       )}
-      {/* Utility bar — collapses away on scroll to give the nav more presence. */}
-      <div
-        className={`hidden lg:block overflow-hidden border-b border-white/[0.06] transition-all duration-500 ease-brand ${
-          scrolled ? 'max-h-0 opacity-0' : 'max-h-10 opacity-100'
-        }`}
-      >
-        <div className="container-custom flex h-9 items-center justify-between text-[11px] tracking-wide text-brand-mist/60">
-          <p>Facilities Management. Evolved.</p>
-          <div className="flex items-center gap-5">
-            <span>Out-of-hours support for contracted sites</span>
-            <span className="h-3 w-px bg-white/15" />
-            <Link href="/client-login" className="transition-colors hover:text-white">
-              Client Portal
-            </Link>
-          </div>
-        </div>
-      </div>
 
       <div className="container-wide" ref={navRef}>
         <div className="flex h-[72px] items-center justify-between gap-4">

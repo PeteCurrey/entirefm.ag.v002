@@ -173,6 +173,7 @@ export const FOOTER_NAV: NavColumn[] = [
       { label: 'Resources', href: '/resources' },
       { label: 'Careers', href: '/job-board' },
       { label: 'Supply Chain', href: '/fm-supply-chain' },
+      { label: 'Client Portal', href: '/client-login' },
       { label: 'Contact', href: '/contact-us' },
     ],
   },
@@ -182,5 +183,7 @@ export const LEGAL_NAV: NavLink[] = [
   { label: 'Privacy Policy', href: '/privacy-policy' },
   { label: 'Terms & Conditions', href: '/terms-and-conditions' },
   { label: 'Accessibility', href: '/accessibility-statement' },
-  { label: 'Sitemap', href: '/sitemap' },
+  // /sitemap is not a route — production-redirects.json 308s it to /services,
+  // so this link sent every visitor who clicked "Sitemap" to the services page.
+  { label: 'Sitemap', href: '/html-sitemap' },
 ];

@@ -2,11 +2,11 @@
  * TRUE SITEMAP INDEX ROUTE HANDLER — /sitemap.xml
  * ================================================
  * Generates an authentic <sitemapindex> pointing to segmented child sitemaps.
+ * Uses PRODUCTION_CANONICAL_HOST from src/config/site.ts as the single authority.
  */
 
 import { NextResponse } from 'next/server';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.entirefm.com';
+import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
 
 const SITEMAP_GROUPS = [
   'core',
@@ -25,7 +25,7 @@ const SITEMAP_GROUPS = [
 export async function GET() {
   const sitemaps = SITEMAP_GROUPS.map(
     group => `  <sitemap>
-    <loc>${SITE_URL}/sitemaps/${group}.xml</loc>
+    <loc>${PRODUCTION_CANONICAL_HOST}/sitemaps/${group}.xml</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
   </sitemap>`
   ).join('\n');

@@ -7,12 +7,12 @@
   "generatedBy": "scripts/generate-production-manifest.js",
   "warning": "This file is auto-generated. Edit route-registry.json and re-run npm run generate:manifest.",
   "summary": {
-    "total": 259,
-    "protected": 259,
-    "indexable": 259,
+    "total": 260,
+    "protected": 260,
+    "indexable": 260,
     "historicWix": 220,
     "currentLive": 4,
-    "growth": 35
+    "growth": 36
   },
   "urls": [
     {
@@ -2068,6 +2068,19 @@
       "sitemapGroup": "sectors",
       "provenance": "LEGACY_VERIFIED",
       "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/html-sitemap",
+      "url": "https://www.entirefm.com/html-sitemap",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "core",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "CONTENT_COMPLETE"
     },
     {
       "path": "/hvac-contractor",

@@ -200,7 +200,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
                 two lines there, and the greeting pushes the positioning line
                 onto a third with a slash stranded on its own. */}
             <span
-              className="hidden text-brand-electric-bright transition-opacity duration-700 ease-brand sm:inline"
+              className="hidden text-brand-pink-light transition-opacity duration-700 ease-brand sm:inline"
               style={{ opacity: greeting ? 1 : 0 }}
             >
               {greeting ?? 'Good day'}
@@ -216,7 +216,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
           >
             Facilities management,
             <br />
-            <span className="text-spectrum">without the friction.</span>
+            <span className="text-hero-pink">without the friction.</span>
           </h1>
 
           <p
@@ -235,12 +235,12 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
             data-reveal
             style={{ '--reveal-delay': '240ms' } as React.CSSProperties}
           >
-            <Link href="/contact-us" className="btn-primary">
+            <Link href="/contact-us" className="btn-hero-pink">
               Request a proposal
               <ArrowRight className="btn-arrow h-4 w-4" />
             </Link>
             <a href={CONTACT_CONFIG.mainPhone.href} className="btn-ghost-light">
-              <Phone className="h-4 w-4 text-brand-electric-bright" />
+              <Phone className="h-4 w-4 text-brand-pink-light" />
               {CONTACT_CONFIG.mainPhone.display}
             </a>
           </div>
@@ -267,7 +267,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
               key={item.figure}
               className="group rounded-sm border border-white/[0.09] bg-white/[0.06] px-6 py-7 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]"
             >
-              <dt className="whitespace-nowrap text-[1.75rem] font-extralight leading-none tracking-[-0.035em] text-brand-electric-bright transition-colors duration-500 group-hover:text-white">
+              <dt className="whitespace-nowrap text-[1.75rem] font-extralight leading-none tracking-[-0.035em] text-brand-pink-light transition-colors duration-500 group-hover:text-white">
                 {item.figure}
               </dt>
               <dd className="mt-3.5 text-[10.5px] font-medium uppercase leading-snug tracking-[0.16em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
@@ -286,7 +286,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
         </div>
       </div>
 
-      <div aria-hidden="true" className="rule-spectrum absolute inset-x-0 bottom-0" />
+      <div aria-hidden="true" className="rule-hero-pink absolute inset-x-0 bottom-0" />
 
       <style>{`
         .hero-drift {

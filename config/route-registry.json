@@ -6,12 +6,12 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 259,
+    "total": 260,
     "LEGACY_VERIFIED": 202,
     "LEGACY_PROTECTED_BY_DIRECTIVE": 18,
     "CURRENT_LIVE_RETAINED": 4,
-    "NEW_GROWTH": 35,
-    "protected": 259,
+    "NEW_GROWTH": 36,
+    "protected": 260,
     "historic": 220
   },
   "routes": [
@@ -3109,6 +3109,23 @@
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/hotel-facilities-management",
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/hotel-facilities-management"
+    },
+    {
+      "path": "/html-sitemap",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P3",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [],
+      "note": "HTML sitemap — crawl path to every route, including those held at noindex."
     },
     {
       "path": "/hvac-contractor",

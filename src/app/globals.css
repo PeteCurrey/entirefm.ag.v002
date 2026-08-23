@@ -46,12 +46,12 @@
     --surface: #f6f8fc;
 
     --spectrum: linear-gradient(100deg, #2563eb 0%, #4f46e5 38%, #7c3aed 70%, #a855f7 100%);
-  }
 
-  @media (min-width: 1024px) {
-    :root {
-      --header-h: 108px;
-    }
+    /* Brand Pink / Magenta Accent Tokens (Historic Accent Restoration) */
+    --brand-pink-light: #ff3e9d;
+    --brand-pink: #ed3899;
+    --brand-magenta: #c026d3;
+    --hero-pink-gradient: linear-gradient(100deg, #ff3e9d 0%, #ed3899 50%, #c026d3 100%);
   }
 
   * {
@@ -345,6 +345,40 @@
     color: transparent;
   }
 
+  /* ── Hero Pink Accent Classes (Homepage Hero Specific) ──────────────── */
+  .text-hero-pink {
+    background: var(--hero-pink-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .btn-hero-pink {
+    @apply btn text-white shadow-subtle;
+    background: var(--hero-pink-gradient);
+    background-size: 160% 100%;
+    background-position: 0% 50%;
+  }
+  .btn-hero-pink:hover {
+    background-position: 100% 50%;
+    @apply -translate-y-0.5 shadow-glow-pink;
+  }
+  .btn-hero-pink:active {
+    @apply translate-y-0;
+  }
+
+  .rule-hero-pink {
+    @apply h-px w-full border-0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(255 62 157 / 0.5) 20%,
+      rgb(237 56 153 / 0.5) 50%,
+      rgb(192 38 211 / 0.5) 80%,
+      transparent 100%
+    );
+  }
+
   .prose-brand {
     @apply text-[0.975rem] leading-[1.75] text-brand-silver;
   }
@@ -367,6 +401,28 @@
   .on-dark h3,
   .on-dark h4 {
     @apply text-white;
+  }
+
+  /* ── Legacy badge classes ───────────────────────────────────────────── */
+  /* `badge-gold` and `badge-technical` are survivors of the discarded gold
+     design system. The migration removed the gold *tokens* but left these two
+     class names in eleven components, and because nothing defined them they
+     were rendering as unstyled inline text — an eyebrow label that looked
+     like a stray sentence, on legal pages, FAQs, enquiry forms and every
+     location hero.
+
+     Aliased onto the brand eyebrow rather than swept out of eleven files on
+     the day of a launch. The sweep is worth doing; doing it under time
+     pressure is not. */
+
+  .badge-gold,
+  .badge-technical {
+    @apply eyebrow inline-block;
+  }
+
+  .on-dark .badge-gold,
+  .on-dark .badge-technical {
+    @apply eyebrow-dark;
   }
 
   /* ── Header mark ────────────────────────────────────────────────────── */

@@ -10,8 +10,8 @@
   },
   "summary": {
     "total": 259,
-    "indexable": 131,
-    "awaitingDifferentiation": 128
+    "indexable": 137,
+    "awaitingDifferentiation": 122
   },
   "tiers": {
     "/": {
@@ -374,88 +374,16 @@
     "/blog": {
       "indexable": true,
       "tier": "CLUSTER_REPRESENTATIVE",
-      "reason": "Strongest page in a 11-page near-duplicate cluster (0 clicks, 0 impressions)",
-      "peakSimilarity": 0.93,
-      "clusterSize": 11
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.921,
+      "clusterSize": 2
     },
     "/facilities-management-blog": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "93.0% similar to /blog. Page remains live and returns 200 — noindex only until it carries distinct content.",
-      "peakSimilarity": 0.93,
-      "clusterSize": 11,
-      "representative": "/blog"
-    },
-    "/post/facilities-management-in-different-sectors-similarities-differences-and-the-need-for-agility": {
-      "indexable": false,
-      "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.5% similar to /blog. Page remains live and returns 200 — noindex only until it carries distinct content.",
-      "peakSimilarity": 0.895,
-      "clusterSize": 11,
-      "representative": "/blog"
-    },
-    "/post/the-importance-of-regular-maintenance-and-inspections": {
-      "indexable": false,
-      "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "92.0% similar to /post/the-importance-of-regular-maintenance-and-inspections-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
-      "peakSimilarity": 0.92,
-      "clusterSize": 11,
-      "representative": "/blog"
-    },
-    "/post/the-importance-of-regular-maintenance-and-inspections-1": {
-      "indexable": false,
-      "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "92.0% similar to /post/the-importance-of-regular-maintenance-and-inspections. Page remains live and returns 200 — noindex only until it carries distinct content.",
-      "peakSimilarity": 0.92,
-      "clusterSize": 11,
-      "representative": "/blog"
-    },
-    "/post/what-are-hard-services": {
-      "indexable": false,
-      "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "91.5% similar to /blog. Page remains live and returns 200 — noindex only until it carries distinct content.",
-      "peakSimilarity": 0.915,
-      "clusterSize": 11,
-      "representative": "/blog"
-    },
-    "/post/what-are-hard-services-in-facilities-management": {
-      "indexable": false,
-      "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "92.0% similar to /post/what-are-hard-services-in-facilities-management-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
-      "peakSimilarity": 0.92,
-      "clusterSize": 11,
-      "representative": "/blog"
-    },
-    "/post/what-are-hard-services-in-facilities-management-1": {
-      "indexable": false,
-      "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "92.0% similar to /post/what-are-hard-services-in-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
-      "peakSimilarity": 0.92,
-      "clusterSize": 11,
-      "representative": "/blog"
-    },
-    "/post/what-is-facilities-management": {
-      "indexable": false,
-      "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "92.1% similar to /post/what-is-facilities-management-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "92.1% similar to /blog. Page remains live and returns 200 — noindex only until it carries distinct content.",
       "peakSimilarity": 0.921,
-      "clusterSize": 11,
-      "representative": "/blog"
-    },
-    "/post/what-is-facilities-management-1": {
-      "indexable": false,
-      "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "93.0% similar to /post/what-is-facilities-management-1-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
-      "peakSimilarity": 0.93,
-      "clusterSize": 11,
-      "representative": "/blog"
-    },
-    "/post/what-is-facilities-management-1-1": {
-      "indexable": false,
-      "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "93.0% similar to /post/what-is-facilities-management-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
-      "peakSimilarity": 0.93,
-      "clusterSize": 11,
+      "clusterSize": 2,
       "representative": "/blog"
     },
     "/bolton-facilities-management": {
@@ -967,7 +895,7 @@
       "indexable": true,
       "tier": "UNIQUE",
       "reason": "No near-duplicate above threshold",
-      "peakSimilarity": 0.473
+      "peakSimilarity": 0.479
     },
     "/compliance/asbestos-management": {
       "indexable": true,
@@ -985,7 +913,7 @@
       "indexable": true,
       "tier": "UNIQUE",
       "reason": "No near-duplicate above threshold",
-      "peakSimilarity": 0.418
+      "peakSimilarity": 0.416
     },
     "/compliance/f-gas-regulations": {
       "indexable": true,
@@ -1015,7 +943,7 @@
       "indexable": true,
       "tier": "UNIQUE",
       "reason": "No near-duplicate above threshold",
-      "peakSimilarity": 0.427
+      "peakSimilarity": 0.422
     },
     "/compliance/pat-testing": {
       "indexable": true,
@@ -1062,8 +990,8 @@
     "/copy-of-what-is-facilities-manageme": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.0% similar to /what-is-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
-      "peakSimilarity": 0.89,
+      "reason": "89.5% similar to /what-is-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.895,
       "clusterSize": 2,
       "representative": "/what-is-facilities-management"
     },
@@ -1071,7 +999,7 @@
       "indexable": true,
       "tier": "CLUSTER_REPRESENTATIVE",
       "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
-      "peakSimilarity": 0.89,
+      "peakSimilarity": 0.895,
       "clusterSize": 2
     },
     "/derby-facilities-management": {
@@ -1282,7 +1210,7 @@
       "indexable": true,
       "tier": "UNIQUE",
       "reason": "No near-duplicate above threshold",
-      "peakSimilarity": 0.563
+      "peakSimilarity": 0.523
     },
     "/facilities-management-grimsby": {
       "indexable": false,
@@ -1578,7 +1506,7 @@
       "indexable": true,
       "tier": "UNIQUE",
       "reason": "No near-duplicate above threshold",
-      "peakSimilarity": 0.626
+      "peakSimilarity": 0.6
     },
     "/gates-barriers": {
       "indexable": true,
@@ -1802,6 +1730,12 @@
       "reason": "No near-duplicate above threshold",
       "peakSimilarity": 0.664
     },
+    "/post/facilities-management-in-different-sectors-similarities-differences-and-the-need-for-agility": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.561
+    },
     "/post/facilities-management-services-in-lincoln": {
       "indexable": true,
       "tier": "UNIQUE",
@@ -1813,6 +1747,63 @@
       "tier": "UNIQUE",
       "reason": "No near-duplicate above threshold",
       "peakSimilarity": 0
+    },
+    "/post/the-importance-of-regular-maintenance-and-inspections": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.918,
+      "clusterSize": 2
+    },
+    "/post/the-importance-of-regular-maintenance-and-inspections-1": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.8% similar to /post/the-importance-of-regular-maintenance-and-inspections. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.918,
+      "clusterSize": 2,
+      "representative": "/post/the-importance-of-regular-maintenance-and-inspections"
+    },
+    "/post/what-are-hard-services": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.615
+    },
+    "/post/what-are-hard-services-in-facilities-management": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.938,
+      "clusterSize": 2
+    },
+    "/post/what-are-hard-services-in-facilities-management-1": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "93.8% similar to /post/what-are-hard-services-in-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.938,
+      "clusterSize": 2,
+      "representative": "/post/what-are-hard-services-in-facilities-management"
+    },
+    "/post/what-is-facilities-management": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.489
+    },
+    "/post/what-is-facilities-management-1": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.979,
+      "clusterSize": 2
+    },
+    "/post/what-is-facilities-management-1-1": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "97.9% similar to /post/what-is-facilities-management-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.979,
+      "clusterSize": 2,
+      "representative": "/post/what-is-facilities-management-1"
     },
     "/ppm": {
       "indexable": true,

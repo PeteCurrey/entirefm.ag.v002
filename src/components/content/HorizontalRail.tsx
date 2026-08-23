@@ -54,6 +54,16 @@ const IMAGES = (editorial as EditorialManifest).editorial ?? {};
  */
 const STICK_OFFSET = 84;
 
+/** Breathing room past the last card, so it is not flush to the viewport edge. */
+const RIGHT_MARGIN = 80;
+
+/**
+ * How long the finished row stays pinned after the track stops moving,
+ * as a fraction of the panel's height. Without it the section releases on the
+ * same frame the last card lands.
+ */
+const DWELL_FRACTION = 0.55;
+
 export interface RailItem {
   imageKey: string;
   eyebrow: string;
@@ -101,15 +111,35 @@ export function HorizontalRail({ eyebrow, title, intro, items }: HorizontalRailP
     let ticking = false;
 
     /**
-     * How far the track must travel for its last card to reach the right edge,
-     * and therefore how tall the wrapper has to be: one panel height plus that
-     * distance. The extra height is the scroll budget the sideways movement
-     * spends.
+     * How far the track must travel, and therefore how tall the wrapper has to
+     * be.
+     *
+     * TRAVEL is measured from real geometry rather than from the track width
+     * alone. The track starts inset by the container's left padding, so
+     * `scrollWidth - viewportWidth` understates the distance by exactly that
+     * inset and leaves the final card clipped at the right edge.
+     *
+     * DWELL is the fix for the complaint that the section scrolls away before
+     * the last cards can be read. Previously the wrapper was exactly tall
+     * enough for the travel, so the track reached its end at the same instant
+     * the pin released — the final cards arrived and were immediately gone.
+     * The wrapper is now taller than the travel needs, and progress is clamped
+     * to 1 across the surplus, so the completed row holds still and readable
+     * before the page moves on.
      */
     const measure = () => {
-      const overflow = Math.max(0, track.scrollWidth - window.innerWidth + 80);
-      distanceRef.current = overflow;
-      wrapper.style.height = `${window.innerHeight - STICK_OFFSET + overflow}px`;
+      const panelHeight = window.innerHeight - STICK_OFFSET;
+      // Read the inset from the track's container, not the track itself: the
+      // track carries the translateX, so measuring it during a re-measure
+      // would fold the current offset back into the distance.
+      const inset = track.parentElement
+        ? parseFloat(getComputedStyle(track.parentElement).paddingLeft) || 0
+        : 0;
+      const travel = Math.max(0, inset + track.scrollWidth - window.innerWidth + RIGHT_MARGIN);
+      const dwell = travel > 0 ? Math.round(panelHeight * DWELL_FRACTION) : 0;
+
+      distanceRef.current = travel;
+      wrapper.style.height = `${panelHeight + travel + dwell}px`;
     };
 
     const update = () => {

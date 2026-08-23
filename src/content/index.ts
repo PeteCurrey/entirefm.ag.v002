@@ -22,6 +22,8 @@ import { buildTier1Records } from './locations/build-tier1';
 import { RECOVERED_PAGES } from './locations/recovered-pages';
 import aboutRecord from './company/about';
 import { COMPLIANCE_CONTENT } from './compliance/records';
+import { BLOG_CONTENT } from './blog/records';
+import { UTILITY_CONTENT } from './company/utility';
 
 export type { ContentRecord };
 
@@ -44,6 +46,13 @@ export const RECOVERED_CONTENT: Record<string, ContentRecord> = RECOVERED_PAGES;
 export const COMPANY_CONTENT: Record<string, ContentRecord> = {
   [aboutRecord.path]: aboutRecord,
   ...COMPLIANCE_CONTENT,
+  // The seventeen legacy blog and post URLs. Every one of them was serving a
+  // titleised-slug placeholder before this: thin, near-identical pages under
+  // URLs Google had indexed since 2019.
+  ...BLOG_CONTENT,
+  // HTML sitemap, and distinct identities for the four Wix homepage
+  // artefacts that were all serving one title string.
+  ...UTILITY_CONTENT,
 };
 
 /** Paths currently served by bespoke Tier 1 content. */

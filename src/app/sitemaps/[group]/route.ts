@@ -3,6 +3,7 @@
  * =================================
  * Serves /sitemaps/[group].xml for each sitemap group.
  * Generated from /config/route-registry.json.
+ * Uses PRODUCTION_CANONICAL_HOST from src/config/site.ts as the single authority.
  *
  * Example: GET /sitemaps/locations.xml returns all location routes.
  */
@@ -11,9 +12,8 @@ import { NextResponse } from 'next/server';
 import { getRoutesByGroup } from '@/lib/routes/route-registry';
 import type { SitemapGroup } from '@/lib/routes/route-schema';
 import { isIndexableByTier } from '@/config/indexation';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? '';
-const IS_PRODUCTION = process.env.NODE_ENV === 'production' && SITE_URL !== '';
+import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
+import { canIndexStaticBuild } from '@/lib/indexing';
 
 const VALID_GROUPS: SitemapGroup[] = [
   'core',
@@ -39,7 +39,7 @@ export async function GET(
     return new NextResponse('Sitemap group not found', { status: 404 });
   }
 
-  if (!IS_PRODUCTION || !SITE_URL) {
+  if (!canIndexStaticBuild()) {
     return new NextResponse(
       '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>',
       {
@@ -59,7 +59,7 @@ export async function GET(
     .map(
       r => `
   <url>
-    <loc>${SITE_URL}${r.path}</loc>
+    <loc>${PRODUCTION_CANONICAL_HOST}${r.path}</loc>
     <changefreq>weekly</changefreq>
     <priority>${r.priority === 'P0' ? '1.0' : r.priority === 'P1' ? '0.8' : r.priority === 'P2' ? '0.6' : '0.4'}</priority>
   </url>`

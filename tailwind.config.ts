@@ -60,6 +60,11 @@ const config: Config = {
           // Brighter electric for small text on dark grounds, where #2563EB
           // alone does not carry enough contrast.
           'electric-bright': '#5B8DEF',
+
+          // ── Brand Pink / Magenta Accent System (Historic Accent Restoration) ──
+          'pink-light': '#FF3E9D',
+          pink: '#ED3899',
+          magenta: '#C026D3',
         },
       },
       fontFamily: {
@@ -98,11 +103,13 @@ const config: Config = {
         // Illuminated edge, echoing the lit facets of the brand mark.
         glow: '0 0 0 1px rgb(37 99 235 / 0.35), 0 8px 32px -8px rgb(79 70 229 / 0.45)',
         'glow-lg': '0 0 0 1px rgb(124 58 237 / 0.40), 0 20px 60px -12px rgb(124 58 237 / 0.50)',
+        'glow-pink': '0 0 0 1px rgb(237 56 153 / 0.40), 0 10px 30px -6px rgb(237 56 153 / 0.45)',
       },
       backgroundImage: {
         // The brand's signature gradient, in its canonical direction.
         'brand-spectrum': 'linear-gradient(100deg, #2563EB 0%, #4F46E5 38%, #7C3AED 70%, #A855F7 100%)',
         'brand-spectrum-soft': 'linear-gradient(100deg, rgb(37 99 235 / 0.14) 0%, rgb(124 58 237 / 0.14) 60%, rgb(168 85 247 / 0.14) 100%)',
+        'hero-pink-gradient': 'linear-gradient(100deg, #FF3E9D 0%, #ED3899 50%, #C026D3 100%)',
       },
       maxWidth: {
         '8xl': '88rem',

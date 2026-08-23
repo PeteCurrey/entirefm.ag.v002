@@ -21,7 +21,7 @@ const path = require('path');
 
 const repoRoot = path.join(__dirname, '..');
 const registry = JSON.parse(fs.readFileSync(path.join(repoRoot, 'config', 'route-registry.json'), 'utf-8'));
-const redirects = JSON.parse(fs.readFileSync(path.join(repoRoot, 'config', 'redirects.json'), 'utf-8'));
+const redirects = JSON.parse(fs.readFileSync(path.join(repoRoot, 'config', 'production-redirects.json'), 'utf-8'));
 const legacy = JSON.parse(fs.readFileSync(path.join(repoRoot, 'docs', 'seo', 'legacy-url-registry.json'), 'utf-8'));
 
 // Content Database
@@ -83,10 +83,22 @@ for (const r of historicRoutes) {
   // 6. Content record verification
   const content = contentDb[p];
   if (!content) {
-    // Check if individual file exists in src/content/pages
+    // Check if individual file exists in src/content/pages or recovered/modular content
     const slug = p === '/' ? 'home' : p.replace(/^\//, '').replace(/\//g, '--');
     const pageFile = path.join(repoRoot, 'src', 'content', 'pages', `${slug}.ts`);
-    if (!fs.existsSync(pageFile)) {
+    const recoveredFile = path.join(repoRoot, 'src', 'content', 'locations', 'recovered-pages.ts');
+    const complianceFile = path.join(repoRoot, 'src', 'content', 'compliance', 'records.ts');
+    const blogFile = path.join(repoRoot, 'src', 'content', 'blog', 'records.ts');
+    const utilityFile = path.join(repoRoot, 'src', 'content', 'company', 'utility.ts');
+    const aboutFile = path.join(repoRoot, 'src', 'content', 'company', 'about.ts');
+
+    const inRecovered = fs.existsSync(recoveredFile) && fs.readFileSync(recoveredFile, 'utf-8').includes(`'${p}'`);
+    const inCompliance = fs.existsSync(complianceFile) && fs.readFileSync(complianceFile, 'utf-8').includes(`'${p}'`);
+    const inBlog = fs.existsSync(blogFile) && fs.readFileSync(blogFile, 'utf-8').includes(`'${p}'`);
+    const inUtility = fs.existsSync(utilityFile) && fs.readFileSync(utilityFile, 'utf-8').includes(`'${p}'`);
+    const inAbout = fs.existsSync(aboutFile) && fs.readFileSync(aboutFile, 'utf-8').includes(`'${p}'`);
+
+    if (!fs.existsSync(pageFile) && !inRecovered && !inCompliance && !inBlog && !inUtility && !inAbout) {
       missingContent.push(p);
     }
   } else {
