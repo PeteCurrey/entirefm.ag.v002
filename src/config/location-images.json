@@ -1,0 +1,397 @@
+{
+  "generated": "2026-08-22",
+  "cities": {
+    "london": {
+      "city": "London",
+      "images": [
+        {
+          "alt": "EntireFM facilities management van on a City of London street at dusk, with the Gherkin behind",
+          "source": "entire facilities london 001.png",
+          "widths": {
+            "800": "/images/locations/london/facilities-management-london-city-of-london-skyline-800w.webp",
+            "1600": "/images/locations/london/facilities-management-london-city-of-london-skyline-1600w.webp"
+          },
+          "src": "/images/locations/london/facilities-management-london-city-of-london-skyline-1600w.webp"
+        },
+        {
+          "alt": "EntireFM engineer inspecting rooftop plant on a London commercial building, the Shard on the skyline",
+          "source": "entire facilities london 003.png",
+          "widths": {
+            "800": "/images/locations/london/facilities-management-london-rooftop-plant-inspection-800w.webp",
+            "1600": "/images/locations/london/facilities-management-london-rooftop-plant-inspection-1600w.webp"
+          },
+          "src": "/images/locations/london/facilities-management-london-rooftop-plant-inspection-1600w.webp"
+        },
+        {
+          "alt": "EntireFM mobile engineering van beside the Thames at Tower Bridge, London",
+          "source": "entire facilities london 005.png",
+          "widths": {
+            "800": "/images/locations/london/facilities-management-london-tower-bridge-response-800w.webp",
+            "1600": "/images/locations/london/facilities-management-london-tower-bridge-response-1600w.webp"
+          },
+          "src": "/images/locations/london/facilities-management-london-tower-bridge-response-1600w.webp"
+        },
+        {
+          "alt": "Two EntireFM engineers on a London rooftop reviewing plant data, St Paul’s Cathedral behind them",
+          "source": "entire facilities london 007.png",
+          "widths": {
+            "800": "/images/locations/london/facilities-management-london-engineers-st-pauls-800w.webp",
+            "1600": "/images/locations/london/facilities-management-london-engineers-st-pauls-1600w.webp"
+          },
+          "src": "/images/locations/london/facilities-management-london-engineers-st-pauls-1600w.webp"
+        }
+      ]
+    },
+    "manchester": {
+      "city": "Manchester",
+      "images": [
+        {
+          "alt": "EntireFM facilities management van on a wet Manchester city-centre street at dusk",
+          "source": "entire facilities management manchester Image Aug 22, 2026, 05_51_45 PM (1).png",
+          "widths": {
+            "800": "/images/locations/manchester/facilities-management-manchester-deansgate-city-centre-800w.webp",
+            "1600": "/images/locations/manchester/facilities-management-manchester-deansgate-city-centre-1600w.webp"
+          },
+          "src": "/images/locations/manchester/facilities-management-manchester-deansgate-city-centre-1600w.webp"
+        },
+        {
+          "alt": "EntireFM van beside the Castlefield canal basin and railway viaducts, Manchester",
+          "source": "entire facilities management manchester Image Aug 22, 2026, 05_51_47 PM (3).png",
+          "widths": {
+            "800": "/images/locations/manchester/facilities-management-manchester-castlefield-viaduct-800w.webp",
+            "1600": "/images/locations/manchester/facilities-management-manchester-castlefield-viaduct-1600w.webp"
+          },
+          "src": "/images/locations/manchester/facilities-management-manchester-castlefield-viaduct-1600w.webp"
+        },
+        {
+          "alt": "EntireFM engineers carrying out rooftop plant checks above the Manchester skyline",
+          "source": "entire facilities management manchester Image Aug 22, 2026, 05_51_53 PM (10).png",
+          "widths": {
+            "800": "/images/locations/manchester/facilities-management-manchester-rooftop-plant-engineers-800w.webp",
+            "1600": "/images/locations/manchester/facilities-management-manchester-rooftop-plant-engineers-1600w.webp"
+          },
+          "src": "/images/locations/manchester/facilities-management-manchester-rooftop-plant-engineers-1600w.webp"
+        },
+        {
+          "alt": "EntireFM branded reception area inside a Manchester commercial building",
+          "source": "entire facilities management manchester Image Aug 22, 2026, 05_51_50 PM (6).png",
+          "widths": {
+            "800": "/images/locations/manchester/facilities-management-manchester-reception-front-of-house-800w.webp",
+            "1600": "/images/locations/manchester/facilities-management-manchester-reception-front-of-house-1600w.webp"
+          },
+          "src": "/images/locations/manchester/facilities-management-manchester-reception-front-of-house-1600w.webp"
+        }
+      ]
+    },
+    "birmingham": {
+      "city": "Birmingham",
+      "images": [
+        {
+          "alt": "EntireFM facilities management van outside a Birmingham city-centre office building at dusk",
+          "source": "entire facilities management birmingham Image Aug 22, 2026, 06_27_28 PM.png",
+          "widths": {
+            "800": "/images/locations/birmingham/facilities-management-birmingham-city-centre-offices-800w.webp",
+            "1600": "/images/locations/birmingham/facilities-management-birmingham-city-centre-offices-1600w.webp"
+          },
+          "src": "/images/locations/birmingham/facilities-management-birmingham-city-centre-offices-1600w.webp"
+        },
+        {
+          "alt": "EntireFM van beside the Birmingham canal network at Gas Street Basin",
+          "source": "entire facilities management birmingham Image Aug 22, 2026, 06_27_43 PM.png",
+          "widths": {
+            "800": "/images/locations/birmingham/facilities-management-birmingham-gas-street-canal-800w.webp",
+            "1600": "/images/locations/birmingham/facilities-management-birmingham-gas-street-canal-1600w.webp"
+          },
+          "src": "/images/locations/birmingham/facilities-management-birmingham-gas-street-canal-1600w.webp"
+        },
+        {
+          "alt": "EntireFM engineers in hi-vis surveying industrial plant on a Birmingham site at night",
+          "source": "entire facilities management birmingham Image Aug 22, 2026, 06_28_02 PM.png",
+          "widths": {
+            "800": "/images/locations/birmingham/facilities-management-birmingham-industrial-plant-survey-800w.webp",
+            "1600": "/images/locations/birmingham/facilities-management-birmingham-industrial-plant-survey-1600w.webp"
+          },
+          "src": "/images/locations/birmingham/facilities-management-birmingham-industrial-plant-survey-1600w.webp"
+        },
+        {
+          "alt": "EntireFM van on a Birmingham street with the Library of Birmingham illuminated behind",
+          "source": "entire facilities management birmingham Image Aug 22, 2026, 06_28_37 PM.png",
+          "widths": {
+            "800": "/images/locations/birmingham/facilities-management-birmingham-library-of-birmingham-800w.webp",
+            "1600": "/images/locations/birmingham/facilities-management-birmingham-library-of-birmingham-1600w.webp"
+          },
+          "src": "/images/locations/birmingham/facilities-management-birmingham-library-of-birmingham-1600w.webp"
+        }
+      ]
+    },
+    "sheffield": {
+      "city": "Sheffield",
+      "images": [
+        {
+          "alt": "EntireFM facilities management van in Sheffield city centre at dusk",
+          "source": "entire facilities management sheffield Image Aug 22, 2026, 06_39_14 PM (1).png",
+          "widths": {
+            "800": "/images/locations/sheffield/facilities-management-sheffield-city-centre-response-800w.webp",
+            "1600": "/images/locations/sheffield/facilities-management-sheffield-city-centre-response-1600w.webp"
+          },
+          "src": "/images/locations/sheffield/facilities-management-sheffield-city-centre-response-1600w.webp"
+        },
+        {
+          "alt": "EntireFM engineer walking past the Sheffield Winter Garden glasshouse in Millennium Square",
+          "source": "entire facilities management sheffield Image Aug 22, 2026, 06_39_16 PM (6).png",
+          "widths": {
+            "800": "/images/locations/sheffield/facilities-management-sheffield-winter-garden-800w.webp",
+            "1600": "/images/locations/sheffield/facilities-management-sheffield-winter-garden-1600w.webp"
+          },
+          "src": "/images/locations/sheffield/facilities-management-sheffield-winter-garden-1600w.webp"
+        },
+        {
+          "alt": "EntireFM engineers carrying out rooftop plant checks above Sheffield",
+          "source": "entire facilities management sheffield Image Aug 22, 2026, 06_39_16 PM (5).png",
+          "widths": {
+            "800": "/images/locations/sheffield/facilities-management-sheffield-rooftop-plant-checks-800w.webp",
+            "1600": "/images/locations/sheffield/facilities-management-sheffield-rooftop-plant-checks-1600w.webp"
+          },
+          "src": "/images/locations/sheffield/facilities-management-sheffield-rooftop-plant-checks-1600w.webp"
+        },
+        {
+          "alt": "EntireFM van at a Sheffield industrial unit loading bay",
+          "source": "entire facilities management sheffield Image Aug 22, 2026, 06_39_17 PM (8).png",
+          "widths": {
+            "800": "/images/locations/sheffield/facilities-management-sheffield-industrial-unit-800w.webp",
+            "1600": "/images/locations/sheffield/facilities-management-sheffield-industrial-unit-1600w.webp"
+          },
+          "src": "/images/locations/sheffield/facilities-management-sheffield-industrial-unit-1600w.webp"
+        }
+      ]
+    },
+    "nottingham": {
+      "city": "Nottingham",
+      "images": [
+        {
+          "alt": "EntireFM facilities management van in Old Market Square, Nottingham, outside the Council House",
+          "source": "entire facilities management nottingham Image Aug 22, 2026, 07_04_54 PM (1).png",
+          "widths": {
+            "800": "/images/locations/nottingham/facilities-management-nottingham-old-market-square-800w.webp",
+            "1600": "/images/locations/nottingham/facilities-management-nottingham-old-market-square-1600w.webp"
+          },
+          "src": "/images/locations/nottingham/facilities-management-nottingham-old-market-square-1600w.webp"
+        },
+        {
+          "alt": "EntireFM engineers on a Nottingham rooftop with the Council House dome on the skyline",
+          "source": "entire facilities management nottingham Image Aug 22, 2026, 07_04_55 PM (3).png",
+          "widths": {
+            "800": "/images/locations/nottingham/facilities-management-nottingham-rooftop-city-view-800w.webp",
+            "1600": "/images/locations/nottingham/facilities-management-nottingham-rooftop-city-view-1600w.webp"
+          },
+          "src": "/images/locations/nottingham/facilities-management-nottingham-rooftop-city-view-1600w.webp"
+        },
+        {
+          "alt": "EntireFM engineer maintaining pump plant in a Nottingham commercial plant room",
+          "source": "entire facilities management nottingham Image Aug 22, 2026, 07_04_55 PM (4).png",
+          "widths": {
+            "800": "/images/locations/nottingham/facilities-management-nottingham-plant-room-maintenance-800w.webp",
+            "1600": "/images/locations/nottingham/facilities-management-nottingham-plant-room-maintenance-1600w.webp"
+          },
+          "src": "/images/locations/nottingham/facilities-management-nottingham-plant-room-maintenance-1600w.webp"
+        },
+        {
+          "alt": "EntireFM operations centre monitoring live building performance data",
+          "source": "entire facilities management nottingham Image Aug 22, 2026, 07_04_56 PM (8).png",
+          "widths": {
+            "800": "/images/locations/nottingham/facilities-management-nottingham-operations-centre-800w.webp",
+            "1600": "/images/locations/nottingham/facilities-management-nottingham-operations-centre-1600w.webp"
+          },
+          "src": "/images/locations/nottingham/facilities-management-nottingham-operations-centre-1600w.webp"
+        }
+      ]
+    },
+    "derby": {
+      "city": "Derby",
+      "images": [
+        {
+          "alt": "EntireFM facilities management van in Derby’s Cathedral Quarter at dusk",
+          "source": "entire facilities management derby Image Aug 22, 2026, 06_46_09 PM (1).png",
+          "widths": {
+            "800": "/images/locations/derby/facilities-management-derby-cathedral-quarter-800w.webp",
+            "1600": "/images/locations/derby/facilities-management-derby-cathedral-quarter-1600w.webp"
+          },
+          "src": "/images/locations/derby/facilities-management-derby-cathedral-quarter-1600w.webp"
+        },
+        {
+          "alt": "EntireFM engineers carrying out a rooftop survey above Derby city centre",
+          "source": "entire facilities management derby Image Aug 22, 2026, 06_46_12 PM (5).png",
+          "widths": {
+            "800": "/images/locations/derby/facilities-management-derby-rooftop-survey-800w.webp",
+            "1600": "/images/locations/derby/facilities-management-derby-rooftop-survey-1600w.webp"
+          },
+          "src": "/images/locations/derby/facilities-management-derby-rooftop-survey-1600w.webp"
+        },
+        {
+          "alt": "EntireFM van at a Derby industrial estate loading bay at night",
+          "source": "entire facilities management derby Image Aug 22, 2026, 06_46_12 PM (4).png",
+          "widths": {
+            "800": "/images/locations/derby/facilities-management-derby-industrial-estate-800w.webp",
+            "1600": "/images/locations/derby/facilities-management-derby-industrial-estate-1600w.webp"
+          },
+          "src": "/images/locations/derby/facilities-management-derby-industrial-estate-1600w.webp"
+        },
+        {
+          "alt": "EntireFM van beside Derby’s historic riverside mill buildings",
+          "source": "entire facilities management derby Image Aug 22, 2026, 06_46_15 PM (10).png",
+          "widths": {
+            "800": "/images/locations/derby/facilities-management-derby-riverside-mills-800w.webp",
+            "1600": "/images/locations/derby/facilities-management-derby-riverside-mills-1600w.webp"
+          },
+          "src": "/images/locations/derby/facilities-management-derby-riverside-mills-1600w.webp"
+        }
+      ]
+    },
+    "liverpool": {
+      "city": "Liverpool",
+      "images": [
+        {
+          "alt": "EntireFM facilities management van at the Pier Head with the Royal Liver Building behind, Liverpool",
+          "source": "entire facilities management liverpool Image Aug 22, 2026, 07_10_51 PM (1).png",
+          "widths": {
+            "800": "/images/locations/liverpool/facilities-management-liverpool-pier-head-liver-building-800w.webp",
+            "1600": "/images/locations/liverpool/facilities-management-liverpool-pier-head-liver-building-1600w.webp"
+          },
+          "src": "/images/locations/liverpool/facilities-management-liverpool-pier-head-liver-building-1600w.webp"
+        },
+        {
+          "alt": "EntireFM engineer working in a plant room overlooking the Liverpool waterfront",
+          "source": "entire facilities management liverpool Image Aug 22, 2026, 07_10_52 PM (5).png",
+          "widths": {
+            "800": "/images/locations/liverpool/facilities-management-liverpool-waterfront-plant-room-800w.webp",
+            "1600": "/images/locations/liverpool/facilities-management-liverpool-waterfront-plant-room-1600w.webp"
+          },
+          "src": "/images/locations/liverpool/facilities-management-liverpool-waterfront-plant-room-1600w.webp"
+        },
+        {
+          "alt": "EntireFM engineers reviewing rooftop plant above the Liverpool waterfront",
+          "source": "entire facilities management liverpool Image Aug 22, 2026, 07_10_52 PM (4).png",
+          "widths": {
+            "800": "/images/locations/liverpool/facilities-management-liverpool-rooftop-waterfront-800w.webp",
+            "1600": "/images/locations/liverpool/facilities-management-liverpool-rooftop-waterfront-1600w.webp"
+          },
+          "src": "/images/locations/liverpool/facilities-management-liverpool-rooftop-waterfront-1600w.webp"
+        },
+        {
+          "alt": "EntireFM engineers entering a commercial building in Liverpool’s business district",
+          "source": "entire facilities management liverpool Image Aug 22, 2026, 07_10_53 PM (7).png",
+          "widths": {
+            "800": "/images/locations/liverpool/facilities-management-liverpool-commercial-district-800w.webp",
+            "1600": "/images/locations/liverpool/facilities-management-liverpool-commercial-district-1600w.webp"
+          },
+          "src": "/images/locations/liverpool/facilities-management-liverpool-commercial-district-1600w.webp"
+        }
+      ]
+    }
+  },
+  "excluded": {
+    "Leeds": "Source folder is byte-identical to Sheffield and the identifiable landmarks are Sheffield. Needs genuine Leeds photography before it can be published."
+  },
+  "editorial": {
+    "switchgear-inspection": {
+      "alt": "EntireFM engineer testing a distribution board in a commercial switch room",
+      "source": "entire facilities management electrical services Image Aug 22, 2026, 07_17_53 PM (1).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-switchgear-inspection-800w.webp",
+        "1200": "/images/editorial/entirefm-switchgear-inspection-1200w.webp",
+        "2000": "/images/editorial/entirefm-switchgear-inspection-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-switchgear-inspection-2000w.webp"
+    },
+    "distribution-board-testing": {
+      "alt": "EntireFM engineer working on live distribution equipment with test instruments",
+      "source": "entire facilities management electrical services Image Aug 22, 2026, 07_17_54 PM (5).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-distribution-board-testing-800w.webp",
+        "1200": "/images/editorial/entirefm-distribution-board-testing-1200w.webp",
+        "2000": "/images/editorial/entirefm-distribution-board-testing-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-distribution-board-testing-2000w.webp"
+    },
+    "rooftop-plant-night": {
+      "alt": "EntireFM engineer working on rooftop plant at night above a lit city skyline",
+      "source": "entire facilities management electrical services Image Aug 22, 2026, 07_17_54 PM (3).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-rooftop-plant-night-800w.webp",
+        "1200": "/images/editorial/entirefm-rooftop-plant-night-1200w.webp",
+        "2000": "/images/editorial/entirefm-rooftop-plant-night-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-rooftop-plant-night-2000w.webp"
+    },
+    "client-review": {
+      "alt": "EntireFM engineer reviewing building performance data with a client in an operations room",
+      "source": "entire facilities management electrical services Image Aug 22, 2026, 07_17_55 PM (6).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-client-review-800w.webp",
+        "1200": "/images/editorial/entirefm-client-review-1200w.webp",
+        "2000": "/images/editorial/entirefm-client-review-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-client-review-2000w.webp"
+    },
+    "site-arrival": {
+      "alt": "EntireFM van and engineer arriving at a commercial site at dusk",
+      "source": "entire facilities management electrical services Image Aug 22, 2026, 07_17_55 PM (7).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-site-arrival-800w.webp",
+        "1200": "/images/editorial/entirefm-site-arrival-1200w.webp",
+        "2000": "/images/editorial/entirefm-site-arrival-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-site-arrival-2000w.webp"
+    },
+    "switchroom-survey": {
+      "alt": "Two EntireFM engineers surveying switchgear in a plant room",
+      "source": "entire facilities management electrical services Image Aug 22, 2026, 07_17_56 PM (10).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-switchroom-survey-800w.webp",
+        "1200": "/images/editorial/entirefm-switchroom-survey-1200w.webp",
+        "2000": "/images/editorial/entirefm-switchroom-survey-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-switchroom-survey-2000w.webp"
+    },
+    "ev-charging": {
+      "alt": "EntireFM engineer servicing electric vehicle charging equipment at a commercial car park",
+      "source": "entire facilities management electrical services Image Aug 22, 2026, 07_17_55 PM (9).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-ev-charging-800w.webp",
+        "1200": "/images/editorial/entirefm-ev-charging-1200w.webp",
+        "2000": "/images/editorial/entirefm-ev-charging-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-ev-charging-2000w.webp"
+    },
+    "access-control-install": {
+      "alt": "EntireFM engineer installing access control equipment in a corridor",
+      "source": "entire facilities management electrical services Image Aug 22, 2026, 07_17_55 PM (8).png",
+      "widths": {
+        "800": "/images/editorial/entirefm-access-control-install-800w.webp",
+        "1200": "/images/editorial/entirefm-access-control-install-1200w.webp",
+        "2000": "/images/editorial/entirefm-access-control-install-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-access-control-install-2000w.webp"
+    },
+    "headquarters-exterior": {
+      "alt": "EntireFM branded signage on a modern commercial building exterior at dusk",
+      "source": "EntireFM 01.png",
+      "widths": {
+        "800": "/images/editorial/entirefm-headquarters-exterior-800w.webp",
+        "1200": "/images/editorial/entirefm-headquarters-exterior-1200w.webp",
+        "2000": "/images/editorial/entirefm-headquarters-exterior-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-headquarters-exterior-2000w.webp"
+    },
+    "reception": {
+      "alt": "EntireFM branded reception area inside a commercial building",
+      "source": "0c21ecde-cc89-4509-951a-5d9d65a7a8be.png",
+      "widths": {
+        "800": "/images/editorial/entirefm-reception-800w.webp",
+        "1200": "/images/editorial/entirefm-reception-1200w.webp",
+        "2000": "/images/editorial/entirefm-reception-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-reception-2000w.webp"
+    }
+  }
+}

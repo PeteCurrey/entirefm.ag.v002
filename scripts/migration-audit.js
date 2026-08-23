@@ -22,6 +22,40 @@ try {
   console.warn('Could not parse content database TS');
 }
 
+/**
+ * Content records also live outside the generated database: bespoke Tier 1 city
+ * records and recovered orphan Wix pages both supersede or supplement it at
+ * load time. Checking only the generated database reports live pages as
+ * missing, so the override modules and the rendered output are consulted too.
+ */
+const OVERRIDE_SOURCES = [
+  path.join(repoRoot, 'src', 'content', 'locations', 'build-tier1.ts'),
+  path.join(repoRoot, 'src', 'content', 'locations', 'recovered-pages.ts'),
+]
+  .filter(fs.existsSync)
+  .map((f) => fs.readFileSync(f, 'utf-8'))
+  .join('\n');
+
+const TIER1_CITIES_LIST = ['london', 'manchester', 'sheffield', 'leeds', 'birmingham', 'derby', 'nottingham', 'lincoln', 'liverpool'];
+
+function hasOverrideContent(routePath) {
+  if (OVERRIDE_SOURCES.includes(`'${routePath}'`)) return true;
+  // Tier 1 records are built from templates rather than written out literally.
+  return TIER1_CITIES_LIST.some((c) =>
+    [`/fm-${c}`, `/facilities-management-${c}`, `/${c}-facilities-management`, `/${c}-facilities-management-areas`, `/fm-services-${c}`].includes(routePath)
+  );
+}
+
+/** A page that rendered HTML necessarily had a content record — the resolver throws otherwise. */
+function hasRenderedPage(routePath) {
+  const rel = routePath === '/' ? '/index' : routePath;
+  for (const candidate of new Set([rel, decodeURIComponent(rel)])) {
+    if (fs.existsSync(path.join(repoRoot, '.next', 'server', 'app', `${candidate}.html`))) return true;
+  }
+  return false;
+}
+
+const missingContentPaths = [];
 const redirectSources = new Set(redirects.redirects.map(r => r.source));
 const urls = manifest.urls;
 const historicUrls = urls.filter(u => u.originEstate === 'WIX');
@@ -47,11 +81,12 @@ for (const u of urls) {
   if (!u.sitemapGroup) {
     sitemapErrors++;
   }
-  if (!contentDb[u.path]) {
+  if (!contentDb[u.path] && !hasOverrideContent(u.path) && !hasRenderedPage(u.path)) {
     const slug = u.path === '/' ? 'home' : u.path.replace(/^\//, '').replace(/\//g, '--');
     const pagePath = path.join(repoRoot, 'src', 'content', 'pages', `${slug}.ts`);
     if (!fs.existsSync(pagePath)) {
       missingContent++;
+      missingContentPaths.push(u.path);
     }
   }
 }
@@ -74,7 +109,8 @@ console.log(`  Protected historic redirecting:        ${redirectingProtected} �
 console.log(`  Protected canonical conflicts:         ${canonicalErrors} ✓`);
 console.log(`  Protected noindex errors:              ${noindexErrors} ✓`);
 console.log(`  Protected sitemap omissions:           ${sitemapErrors} ✓`);
-console.log(`  Missing content records:               ${missingContent} ✓`);
+console.log(`  Missing content records:               ${missingContent} ${missingContent === 0 ? '✓' : '✗'}`);
+if (missingContentPaths.length) console.log(`      ${missingContentPaths.slice(0, 10).join(', ')}`);
 console.log(`  Redirect chains detected:              ${redirectChains} ✓`);
 console.log('');
 

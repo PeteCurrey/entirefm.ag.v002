@@ -72,7 +72,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver home contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -163,7 +163,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver 24 7 fm support contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -258,7 +258,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver about entire facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -723,7 +723,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver best facilities management company contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -818,7 +818,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver birmingham facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -913,7 +913,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver blog contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -1008,7 +1008,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver bocker crane hire contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -1103,7 +1103,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver bolton facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -1198,7 +1198,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver bradford facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -1293,7 +1293,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver building inspecting testing contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -1483,7 +1483,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver bury facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -1673,7 +1673,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver carpark management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -1768,7 +1768,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver chesterfield facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -1863,7 +1863,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver cleaning services contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -1958,7 +1958,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver client login contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -2053,7 +2053,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver client login/account registration contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -2908,7 +2908,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver commercial facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -3003,7 +3003,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver commercial fm lincoln contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -3193,7 +3193,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver construction facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -3288,7 +3288,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver contact us contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -3383,7 +3383,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver contract cleaning contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -4048,7 +4048,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver copy of helpdesk registration contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -4238,7 +4238,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver copy of what is facilities manageme contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -4333,7 +4333,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver derby facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -4428,7 +4428,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver doncaster facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -4713,7 +4713,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver employment portal contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -5188,7 +5188,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management birmingham contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -5283,7 +5283,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management blog contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -5378,7 +5378,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management bolton contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -5473,7 +5473,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management bradford contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -5568,7 +5568,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management bury contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -5663,7 +5663,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management chesterfield contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -5758,7 +5758,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management derby contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -5853,7 +5853,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management doncaster contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -5948,7 +5948,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management for/construction facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -6423,7 +6423,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management for/leisure centre facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -6708,7 +6708,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management for/offices%2c corporate %26 co working contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -6898,7 +6898,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management for/restaurant %26 hospitality facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -7373,7 +7373,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management grimsby contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -7468,7 +7468,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management in telford contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -7563,7 +7563,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management in the midlands contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -7658,7 +7658,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management leeds contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -7753,7 +7753,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management lincoln contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -7848,7 +7848,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management liverpool contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -7943,7 +7943,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management london contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -8038,7 +8038,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management manchester contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -8133,7 +8133,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management midlands contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -8228,7 +8228,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management nottingham contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -8323,7 +8323,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management offices contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -8418,7 +8418,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management oxford contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -8513,7 +8513,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management preston contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -8608,7 +8608,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management rotherham contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -8703,7 +8703,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management services contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -8798,7 +8798,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management services lond contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -8893,7 +8893,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management sheffield contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -8988,7 +8988,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management team contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -9083,7 +9083,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management telford contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -9178,7 +9178,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver facilities management wigan contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -9368,7 +9368,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm birmingham contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -9463,7 +9463,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm bolton contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -9558,7 +9558,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm bradford contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -9653,7 +9653,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm bury contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -9748,7 +9748,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm chesterfield contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -9843,7 +9843,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm client info contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -9938,7 +9938,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm derby contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -10033,7 +10033,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm doncaster contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -10128,7 +10128,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm grimsby contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -10223,7 +10223,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm leeds contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -10318,7 +10318,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm lincoln contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -10413,7 +10413,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm liverpool contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -10508,7 +10508,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm london contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -10603,7 +10603,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm manchester contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -10698,7 +10698,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm matlock contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -10793,7 +10793,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm nottingham contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -10888,7 +10888,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm oxford contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -10983,7 +10983,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm preston contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -11078,7 +11078,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm rotherham contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -11173,7 +11173,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm services sheffield contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -11268,7 +11268,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm sheffield contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -11363,7 +11363,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm supply chain contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -11458,7 +11458,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm supply form contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -11553,7 +11553,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm support n contact contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -11648,7 +11648,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm support n contact/facilities management glossary contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -11743,7 +11743,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm technical services contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -11838,7 +11838,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm telford contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -11933,7 +11933,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver fm wigan contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -12123,7 +12123,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver grimsby facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -12218,7 +12218,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver grounds maintenance contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -12313,7 +12313,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver hard services contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -12503,7 +12503,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver helpdesk contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -12598,7 +12598,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver helpdesk registration contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -14138,7 +14138,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver internal cleaning contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -14233,7 +14233,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver items contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -14328,7 +14328,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver job board contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -14423,7 +14423,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver landmark facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -14518,7 +14518,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver landscaping contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -14613,7 +14613,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver leeds facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -14708,7 +14708,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver lincoln facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -14803,7 +14803,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver lincoln facilities management areas contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -14898,7 +14898,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver liverpool facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -15088,7 +15088,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver london facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -15183,7 +15183,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver london facilities management areas contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -15278,7 +15278,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver manchester facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -15373,7 +15373,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver manchester facilities managment contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -15686,7 +15686,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver mechanical electrical/access control contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -15781,7 +15781,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver mechanical electrical/emergency light testing contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -15876,7 +15876,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver media digital displays contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -15971,7 +15971,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver medical cleaning contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -16066,7 +16066,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver mobile crane hire contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -16161,7 +16161,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver mobile crane hire/chesterfield contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -16256,7 +16256,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver mobile crane hire/sheffield contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -16351,7 +16351,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver mobile crane hire/truck mount crane hire contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -16446,7 +16446,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver nottingham facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -16541,7 +16541,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver office cleaning contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -16826,7 +16826,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver oxford facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -17021,7 +17021,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver portfolio contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -17116,7 +17116,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver post/facilities management in different sectors similarities differences and the need for agility contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -17211,7 +17211,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver post/facilities management services in lincoln contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -17306,7 +17306,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver post/facilities management to birmingham contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -17401,7 +17401,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver post/the importance of regular maintenance and inspections contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -17496,7 +17496,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver post/the importance of regular maintenance and inspections 1 contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -17591,7 +17591,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver post/what are hard services contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -17686,7 +17686,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver post/what are hard services in facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -17781,7 +17781,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver post/what are hard services in facilities management 1 contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -17876,7 +17876,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver post/what is facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -17971,7 +17971,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver post/what is facilities management 1 contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -18066,7 +18066,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver post/what is facilities management 1 1 contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -18256,7 +18256,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver pressure washing contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -18826,7 +18826,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver preston facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -19101,7 +19101,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver public sector facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -19196,7 +19196,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver reactive cleaning services contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -19576,7 +19576,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver restaurant facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -19956,7 +19956,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver rotherham facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -20146,7 +20146,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver security services contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -20241,7 +20241,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver service station fm contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -20336,7 +20336,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver services contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -20431,7 +20431,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver sheffield facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -20526,7 +20526,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver soft services contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -20716,7 +20716,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver telford facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -20896,7 +20896,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver tier one facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -20991,7 +20991,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver tierone facilities managment contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -21181,7 +21181,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver vending supplier contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -21371,7 +21371,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver washroom management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -21466,7 +21466,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver what is facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -21561,7 +21561,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver wigan facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -21656,7 +21656,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver window cleaning contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -21751,7 +21751,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver working at heights contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -21846,7 +21846,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver sectors contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -21941,7 +21941,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver locations contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -22036,7 +22036,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver case studies contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -22131,7 +22131,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "How does EntireFM deliver resources contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [

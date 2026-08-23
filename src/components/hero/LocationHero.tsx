@@ -33,7 +33,7 @@ export function LocationHero({
   const defaultIntro = intro || `EntireFM provides comprehensive Hard & Soft Facilities Management across ${city}. Our certified mobile engineering fleet and 24/7 helpdesk deliver planned maintenance, statutory compliance, and emergency reactive support.`;
 
   return (
-    <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+    <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-4">
@@ -50,11 +50,11 @@ export function LocationHero({
                 <span className="text-slate-400 block">Coverage Scope:</span>
                 <span className="text-white font-semibold text-sm">{coverageZones}</span>
               </div>
-              <div className="sm:border-l sm:border-brand-border-dark sm:pl-3">
+              <div className="sm:border-l sm:border-brand-edge-dark sm:pl-3">
                 <span className="text-slate-400 block">Emergency Response:</span>
-                <span className="text-brand-gold font-semibold text-sm">{responseSLA}</span>
+                <span className="text-brand-electric font-semibold text-sm">{responseSLA}</span>
               </div>
-              <div className="sm:border-l sm:border-brand-border-dark sm:pl-3">
+              <div className="sm:border-l sm:border-brand-edge-dark sm:pl-3">
                 <span className="text-slate-400 block">Engineering Base:</span>
                 <span className="text-white font-semibold text-sm">Direct Regional Fleet</span>
               </div>
@@ -72,18 +72,18 @@ export function LocationHero({
           </div>
 
           <div className="lg:col-span-4 hidden lg:block">
-            <div className="p-6 bg-brand-charcoal border border-brand-border-dark rounded-sm space-y-4 shadow-command">
-              <span className="text-xs font-mono uppercase tracking-wider text-brand-gold block">{city} Hub Factsheet</span>
+            <div className="p-6 bg-brand-carbon border border-brand-edge-dark rounded-sm space-y-4 shadow-elevated">
+              <span className="text-xs font-mono uppercase tracking-wider text-brand-electric block">{city} Service Summary</span>
               <h3 className="text-base font-bold text-white">Commercial Properties Supported</h3>
               <ul className="space-y-2 text-xs text-slate-300">
                 {supportedProperties.map((prop, idx) => (
                   <li key={idx} className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
                     <span>{prop}</span>
                   </li>
                 ))}
               </ul>
-              <div className="pt-2 border-t border-brand-border-dark/60 text-xs text-slate-400">
+              <div className="pt-2 border-t border-brand-edge-dark/60 text-xs text-slate-400">
                 <span className="text-white font-semibold block">Direct Regional Helpdesk:</span>
                 Live dispatch tracking and digital CAFM reporting.
               </div>
@@ -119,7 +119,7 @@ export function SectorHero({
   const defaultIntro = intro || `Specialist facilities management engineered for the operational intensity, statutory safety standards, and 24/7 uptime requirements of the ${sectorName.toLowerCase()} sector.`;
 
   return (
-    <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+    <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
       <div className="container-custom">
         <div className="max-w-4xl space-y-4">
           <span className="badge-gold">{badge}</span>
@@ -134,7 +134,7 @@ export function SectorHero({
             <span className="text-xs font-mono uppercase text-slate-400 block mb-2">Critical Assets & Environments Managed:</span>
             <div className="flex flex-wrap gap-2">
               {criticalAssets.map((asset, idx) => (
-                <span key={idx} className="px-3 py-1 bg-brand-charcoal border border-brand-border-dark rounded-sm text-xs font-mono text-brand-gold">
+                <span key={idx} className="px-3 py-1 bg-brand-carbon border border-brand-edge-dark rounded-sm text-xs font-mono text-brand-electric">
                   {asset}
                 </span>
               ))}

@@ -17,8 +17,53 @@ const path = require('path');
 const repoRoot = path.join(__dirname, '..');
 const registry = JSON.parse(fs.readFileSync(path.join(repoRoot, 'config', 'route-registry.json'), 'utf-8'));
 
-// Load the content database from the generated registry
-const registrySource = fs.readFileSync(path.join(repoRoot, 'src', 'content', 'registry.ts'), 'utf-8');
+// Content records come from three places, and all three must be considered:
+//   1. the generated database (src/content/registry.ts)
+//   2. bespoke Tier 1 city records that supersede it
+//   3. recovered orphan Wix pages, which exist nowhere else
+// Reading only the generated database reports live pages as missing.
+const CONTENT_SOURCES = [
+  path.join(repoRoot, 'src', 'content', 'registry.ts'),
+  path.join(repoRoot, 'src', 'content', 'locations', 'build-tier1.ts'),
+  path.join(repoRoot, 'src', 'content', 'locations', 'recovered-pages.ts'),
+  path.join(repoRoot, 'src', 'content', 'locations', 'tier1-cities.ts'),
+];
+const registrySource = CONTENT_SOURCES.filter(fs.existsSync)
+  .map((f) => fs.readFileSync(f, 'utf-8'))
+  .join('\n');
+
+// Rendered output is ground truth for title/H1 uniqueness — source records can
+// be superseded at load time, so auditing the source alone checks stale data.
+const BUILD_DIR = path.join(repoRoot, '.next', 'server', 'app');
+function renderedHtml(routePath) {
+  const rel = routePath === '/' ? '/index' : routePath;
+  for (const candidate of new Set([rel, decodeURIComponent(rel)])) {
+    const file = path.join(BUILD_DIR, `${candidate}.html`);
+    if (fs.existsSync(file)) return fs.readFileSync(file, 'utf-8');
+  }
+  return null;
+}
+const RENDERED = new Map();
+for (const route of registry.routes) {
+  const html = renderedHtml(route.path);
+  if (html) RENDERED.set(route.path, html);
+}
+const haveRendered = RENDERED.size > 0;
+
+// Title and H1 uniqueness only matters for pages offered for indexing.
+// Deliberate duplicates that are held noindex — the four retained Wix homepage
+// variants, for instance — are live URLs by design, not collisions to fix.
+let tierGate = null;
+try {
+  tierGate = JSON.parse(
+    fs.readFileSync(path.join(repoRoot, 'config', 'indexation-tiers.json'), 'utf-8')
+  ).tiers;
+} catch {
+  /* tiers not generated yet — fall back to auditing everything */
+}
+const INDEXABLE_RENDERED = new Map(
+  [...RENDERED].filter(([p]) => (tierGate?.[p] ? tierGate[p].indexable : true))
+);
 
 // Extract all routes
 const routes = registry.routes;
@@ -39,7 +84,13 @@ console.log('');
 
 // 1. Check all routes are in the content database
 const contentMatches = (registrySource.match(/"path":\s*"([^"]+)"/g) || []).map(m => m.replace(/"path":\s*"/, '').replace(/"$/, ''));
-const hasContentFor = (p) => registrySource.includes(`"path": "${p}"`);
+const hasContentFor = (p) =>
+  registrySource.includes(`"path": "${p}"`) ||
+  registrySource.includes(`'${p}':`) ||
+  registrySource.includes(`path: '${p}'`) ||
+  // A page that rendered real HTML demonstrably has a content record —
+  // the template resolver throws without one.
+  RENDERED.has(p);
 
 let missingContent = [];
 for (const route of routes) {
@@ -54,8 +105,15 @@ if (missingContent.length > 0) {
   passes.push(`All ${totalRoutes} registered routes have content records`);
 }
 
-// 2. Check for duplicate H1s
-const h1Matches = [...registrySource.matchAll(/"h1":\s*"([^"]+)"/g)].map(m => m[1]);
+// 2. Check for duplicate H1s — from rendered HTML where available
+const h1Matches = haveRendered
+  ? [...INDEXABLE_RENDERED.values()]
+      .map((h) => {
+        const m = h.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);
+        return m ? m[1].replace(/<[^>]+>/g, '').trim() : null;
+      })
+      .filter(Boolean)
+  : [...registrySource.matchAll(/"h1":\s*"([^"]+)"/g)].map(m => m[1]);
 const h1Dupes = h1Matches.filter((v, i, arr) => arr.indexOf(v) !== i);
 if (h1Dupes.length > 0) {
   warnings.push(`DUPLICATE_H1s: ${h1Dupes.length} duplicate H1 values found: ${h1Dupes.slice(0,3).join(', ')}`);
@@ -64,7 +122,14 @@ if (h1Dupes.length > 0) {
 }
 
 // 3. Check for duplicate titles
-const titleMatches = [...registrySource.matchAll(/"title":\s*"([^"]+)"/g)].map(m => m[1]);
+const titleMatches = haveRendered
+  ? [...INDEXABLE_RENDERED.values()]
+      .map((h) => {
+        const m = h.match(/<title>([\s\S]*?)<\/title>/);
+        return m ? m[1].trim() : null;
+      })
+      .filter(Boolean)
+  : [...registrySource.matchAll(/"title":\s*"([^"]+)"/g)].map(m => m[1]);
 const titleDupes = titleMatches.filter((v, i, arr) => arr.indexOf(v) !== i);
 if (titleDupes.length > 0) {
   warnings.push(`DUPLICATE_TITLES: ${titleDupes.length} duplicate page titles found: ${titleDupes.slice(0,3).join(', ')}`);
@@ -72,11 +137,25 @@ if (titleDupes.length > 0) {
   passes.push(`All page titles are unique (${titleMatches.length} routes audited)`);
 }
 
-// 4. Check for placeholder strings remaining in content records
+// 4. Check for placeholder strings reaching the rendered page.
+// Tested against rendered HTML, not source: 'TO_VERIFY' and 'DO_NOT_USE' are
+// legitimate claim-registry status values that appear in source comments
+// explaining why a claim must NOT be rendered. Scanning source flags the
+// safeguard as the violation. What matters is whether a visitor sees them.
 const FORBIDDEN = ['[PHONE TO VERIFY]', '[EMAIL TO VERIFY]', '[0800', 'tel:0800000000', 'TO_VERIFY', 'DO_NOT_USE'];
 let contentPlaceholders = [];
+const renderedCorpus = haveRendered
+  ? [...RENDERED.values()]
+      .map((h) =>
+        h
+          .replace(/<script[\s\S]*?<\/script>/g, ' ')
+          .replace(/<style[\s\S]*?<\/style>/g, ' ')
+          .replace(/<[^>]+>/g, ' ')
+      )
+      .join(' ')
+  : registrySource;
 for (const forbidden of FORBIDDEN) {
-  if (registrySource.includes(forbidden)) {
+  if (renderedCorpus.includes(forbidden)) {
     contentPlaceholders.push(forbidden);
   }
 }

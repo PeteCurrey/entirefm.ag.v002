@@ -1,177 +1,149 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Phone, ArrowRight, ShieldCheck, CheckCircle2, Wrench, Building2, MapPin } from 'lucide-react';
+import { ArrowRight, Phone, ArrowDown } from 'lucide-react';
 import { CONTACT_CONFIG } from '@/config/contact';
+import { MarkCanvas } from '@/components/brand/MarkCanvas';
+
+/**
+ * HOME HERO — FULL VIEWPORT
+ * =========================
+ * A full-height opening built around the mark rendered in 3D. The mark
+ * assembles from fragments on load, then drifts slowly and leans toward the
+ * pointer.
+ *
+ * Height is `100svh` rather than `100vh` so mobile browsers do not push the
+ * call to action under the address bar, with a `min-height` floor so the copy
+ * never crushes on a short laptop screen.
+ *
+ * If WebGL2 is unavailable the canvas reports back and the supplied logo image
+ * takes its place — the hero is never empty.
+ */
+
+const PROOF = [
+  { figure: 'Hard FM', label: 'M&E, HVAC and building plant' },
+  { figure: 'PPM', label: 'Schedules built from real asset surveys' },
+  { figure: 'Compliance', label: 'Statutory testing, certified and recorded' },
+];
 
 export function HomeHero() {
+  const [webglFailed, setWebglFailed] = useState(false);
+
   return (
-    <section className="bg-brand-navy text-white relative overflow-hidden border-b border-brand-border-dark">
-      {/* Background Architectural Grid Effect */}
-      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#C59B27_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+    <section className="on-dark grain relative isolate flex min-h-[42rem] w-full flex-col overflow-hidden bg-brand-graphite [height:100svh]">
+      {/* Ambient light pools in the brand hues. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-[18%] -top-[30%] h-[46rem] w-[46rem] animate-drift rounded-full opacity-[0.32] blur-[120px]"
+        style={{ background: 'radial-gradient(circle, #2563EB 0%, transparent 68%)' }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-[30%] right-[-12%] h-[42rem] w-[42rem] animate-drift rounded-full opacity-[0.28] blur-[120px]"
+        style={{
+          background: 'radial-gradient(circle, #7C3AED 0%, transparent 68%)',
+          animationDelay: '-13s',
+        }}
+      />
+      <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 opacity-70" />
 
-      <div className="container-custom py-16 sm:py-24 lg:py-28 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Core Positioning */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="badge-gold">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                Facilities Management & Building Engineering
-              </span>
-              <span className="badge-dark text-slate-300">
-                Direct Delivery Framework
-              </span>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
-              Total Facilities Management <br className="hidden sm:block" />
-              <span className="text-brand-gold">& Engineering Precision</span>
-            </h1>
-
-            <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
-              EntireFM delivers integrated hard FM, mechanical & electrical engineering, scheduled PPM, and specialist facilities services across London, Manchester, Birmingham, and nationwide commercial portfolios.
+      <div className="container-custom relative flex flex-1 items-center py-16">
+        <div className="grid w-full items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16">
+          {/* Copy */}
+          <div className="max-w-2xl">
+            <p className="eyebrow eyebrow-dark" data-reveal>
+              Total Facilities Management
             </p>
 
-            {/* Quick Metrics / Key Capabilities Bar */}
-            <div className="grid grid-cols-3 gap-3 pt-2 max-w-lg border-y border-brand-border-dark/80 py-3 text-xs text-slate-300 font-mono">
-              <div>
-                <span className="text-brand-gold font-bold block text-sm">Hard FM</span>
-                <span>M&E & Building Plant</span>
-              </div>
-              <div className="border-l border-brand-border-dark/80 pl-3">
-                <span className="text-brand-gold font-bold block text-sm">PPM</span>
-                <span>Planned Maintenance</span>
-              </div>
-              <div className="border-l border-brand-border-dark/80 pl-3">
-                <span className="text-brand-gold font-bold block text-sm">Helpdesk</span>
-                <span>Operations Support</span>
-              </div>
-            </div>
+            <h1
+              className="mt-6 text-display-xl text-white"
+              data-reveal
+              style={{ '--reveal-delay': '80ms' } as React.CSSProperties}
+            >
+              Facilities management,
+              <br />
+              <span className="text-spectrum">without the friction.</span>
+            </h1>
 
-            {/* Primary Action Group */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Link href="#enquiry" className="btn-primary py-3.5 px-6 text-sm font-bold shadow-command">
-                Request Estate Proposal <ArrowRight className="w-4 h-4" />
+            <p
+              className="prose-brand mt-7 max-w-xl text-[1.0625rem]"
+              data-reveal
+              style={{ '--reveal-delay': '160ms' } as React.CSSProperties}
+            >
+              EntireFM maintains commercial property across the UK — planned maintenance,
+              mechanical and electrical engineering, statutory compliance and reactive
+              cover, held under one contract so responsibility never moves between
+              suppliers while a building sits unusable.
+            </p>
+
+            <div
+              className="mt-10 flex flex-wrap items-center gap-3"
+              data-reveal
+              style={{ '--reveal-delay': '240ms' } as React.CSSProperties}
+            >
+              <Link href="/contact-us" className="btn-primary">
+                Request a proposal
+                <ArrowRight className="btn-arrow h-4 w-4" />
               </Link>
-              <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3.5 px-5 text-xs font-semibold">
-                <Phone className="w-4 h-4 text-brand-gold" />
-                <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
+              <a href={CONTACT_CONFIG.mainPhone.href} className="btn-ghost-light">
+                <Phone className="h-4 w-4 text-brand-electric-bright" />
+                {CONTACT_CONFIG.mainPhone.display}
               </a>
             </div>
 
-            <p className="text-[11px] text-slate-400 flex items-center gap-1.5 pt-1">
-              <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold" />
-              Direct access to engineering directors and regional operations managers.
-            </p>
-          </div>
-
-          {/* Right Column: Hero Visual Asset Card */}
-          <div className="lg:col-span-5">
-            <div className="relative border border-brand-border-dark rounded-sm overflow-hidden bg-brand-charcoal shadow-command p-2">
-              <div className="relative h-72 sm:h-96 w-full rounded-sm overflow-hidden bg-brand-navy">
-                <Image
-                  src="/branding/EntireFM Branding 001.png"
-                  alt="Entire FM Commercial Facilities Management Operations"
-                  fill
-                  priority
-                  className="object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/30 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 right-4 p-4 bg-brand-charcoal/90 backdrop-blur-sm border border-brand-border-dark/80 rounded-sm">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] uppercase font-mono tracking-wider text-brand-gold block">Technical Capability</span>
-                      <span className="text-sm font-bold text-white block">Multi-Site FM Contract Delivery</span>
-                    </div>
-                    <span className="text-xs text-slate-400 font-mono">UK-Wide</span>
-                  </div>
+            <dl
+              className="mt-12 grid max-w-2xl grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-edge-dark sm:grid-cols-3"
+              data-reveal
+              style={{ '--reveal-delay': '320ms' } as React.CSSProperties}
+            >
+              {PROOF.map((item) => (
+                <div
+                  key={item.figure}
+                  className="group bg-brand-graphite/80 px-5 py-4 backdrop-blur-sm transition-colors duration-500 ease-brand hover:bg-brand-carbon"
+                >
+                  <dt className="text-[14px] font-bold tracking-tight text-white">{item.figure}</dt>
+                  <dd className="mt-1 text-[11.5px] leading-snug text-brand-mist/55 transition-colors duration-500 group-hover:text-brand-mist/85">
+                    {item.label}
+                  </dd>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function ServiceHero({
-  title,
-  subtitle,
-  category = 'Hard FM & Building Services',
-  bulletPoints = [
-    'Scheduled Planned Preventative Maintenance (SFG20)',
-    'Certified engineers & statutory compliance audits',
-    '24/7 reactive emergency triage & callout',
-  ],
-  defaultService,
-}: {
-  title: string;
-  subtitle: string;
-  category?: string;
-  bulletPoints?: string[];
-  defaultService?: string;
-}) {
-  return (
-    <section className="bg-brand-navy text-white relative overflow-hidden border-b border-brand-border-dark py-14 sm:py-20">
-      <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-8 space-y-5">
-            <span className="badge-gold">{category}</span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-              {title}
-            </h1>
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl">
-              {subtitle}
-            </p>
-
-            <ul className="space-y-2 pt-2 text-sm text-slate-200">
-              {bulletPoints.map((bp, idx) => (
-                <li key={idx} className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
-                  <span>{bp}</span>
-                </li>
               ))}
-            </ul>
-
-            <div className="flex flex-wrap items-center gap-4 pt-4">
-              <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold">
-                Request Service Proposal <ArrowRight className="w-4 h-4" />
-              </Link>
-              <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
-                <Phone className="w-3.5 h-3.5" />
-                <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
-              </a>
-            </div>
+            </dl>
           </div>
 
-          <div className="lg:col-span-4 hidden lg:block">
-            <div className="p-6 bg-brand-charcoal border border-brand-border-dark rounded-sm space-y-4">
-              <span className="text-xs font-mono uppercase tracking-wider text-brand-gold block">Commercial Factsheet</span>
-              <h3 className="text-base font-bold text-white">Direct Technical Delivery</h3>
-              <div className="space-y-3 text-xs text-slate-300 pt-2 border-t border-brand-border-dark">
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Delivery Model:</span>
-                  <span className="font-semibold text-white">Self-Delivered Engineers</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Helpdesk:</span>
-                  <span className="font-semibold text-white">24/7/365 Operations</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Reporting:</span>
-                  <span className="font-semibold text-white">Digital CAFM & Asset Logs</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Coverage:</span>
-                  <span className="font-semibold text-white">UK Nationwide</span>
-                </div>
-              </div>
-            </div>
+          {/* The mark, in 3D */}
+          <div className="relative hidden h-[34rem] lg:block">
+            <div
+              aria-hidden="true"
+              className="absolute inset-[14%] rounded-full opacity-40 blur-[80px]"
+              style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 70%)' }}
+            />
+            {webglFailed ? (
+              <Image
+                src="/logos/06-crystalline-colour-mark.webp"
+                alt="The EntireFM mark — a faceted infinity form"
+                fill
+                priority
+                sizes="(max-width: 1024px) 0px, 34rem"
+                className="relative object-contain drop-shadow-[0_0_60px_rgba(124,58,237,0.35)]"
+              />
+            ) : (
+              <MarkCanvas delay={0.35} onFallback={() => setWebglFailed(true)} />
+            )}
           </div>
         </div>
       </div>
+
+      {/* Scroll cue */}
+      <div className="container-custom relative pb-8">
+        <div className="flex items-center gap-3 text-[10.5px] uppercase tracking-[0.2em] text-brand-mist/35">
+          <ArrowDown className="h-3.5 w-3.5 animate-bounce" style={{ animationDuration: '2.4s' }} />
+          Scroll
+        </div>
+      </div>
+
+      <div aria-hidden="true" className="rule-spectrum absolute inset-x-0 bottom-0" />
     </section>
   );
 }

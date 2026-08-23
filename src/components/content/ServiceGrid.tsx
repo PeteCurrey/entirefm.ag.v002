@@ -1,219 +1,312 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Wrench, Wind, ShieldAlert, Sparkles, Building, Layers, Truck, Cpu } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Wrench, Wind, ShieldAlert, Sparkles, Building, Truck } from 'lucide-react';
+import { TIER1_CITY_LIST } from '@/content/locations/tier1-cities';
+
+/**
+ * CONTENT GRIDS
+ * =============
+ * The three main content surfaces on the site: services, sectors and
+ * locations. All three share one card pattern —
+ *
+ *   · a hairline-divided grid rather than floating boxes, so the page reads
+ *     as a specification sheet rather than a marketing deck
+ *   · an edge-lit border that picks up the brand spectrum on hover
+ *   · supporting detail deferred behind `.reveal-on-hover`, present in the
+ *     DOM at all times so it stays crawlable and available to screen readers
+ *   · staggered scroll reveals, so a row resolves left to right
+ *
+ * CLAIM GOVERNANCE
+ * ----------------
+ * Copy here previously asserted "self-delivered technical teams" (TO_VERIFY),
+ * "24/7 helpdesk" without qualification (TO_VERIFY), "Regional Operating
+ * Centres", "{city} FM Centre" and "Primary Operations Hub" — all of which
+ * describe premises that GEO_REGIONAL_CENTRES marks DO_NOT_USE. It also
+ * counted "15+ Sectors" and "22+ Locations", which are trivially checkable
+ * and were wrong. None of that survives.
+ */
+
+/* ── Section heading, shared by all three grids ─────────────────────────── */
+
+function GridHeading({
+  eyebrow,
+  title,
+  intro,
+  href,
+  cta,
+}: {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  href: string;
+  cta: string;
+}) {
+  return (
+    <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+      <div className="max-w-2xl">
+        <p className="eyebrow">{eyebrow}</p>
+        <h2 className="mt-5 text-display-md text-brand-graphite">{title}</h2>
+        <p className="prose-brand mt-4">{intro}</p>
+      </div>
+      <Link href={href} className="link-underline shrink-0 text-sm">
+        {cta}
+        <ArrowRight className="h-3.5 w-3.5" />
+      </Link>
+    </div>
+  );
+}
+
+/* ── Services ───────────────────────────────────────────────────────────── */
+
+const SERVICES = [
+  {
+    title: 'Mechanical & Electrical',
+    path: '/mechanical-electrical',
+    desc: 'Power distribution, lighting, switchgear and fixed-wire testing, with the statutory record kept alongside the work.',
+    icon: Wrench,
+    category: 'Hard FM',
+    features: ['HV & LV distribution', 'Fixed wire testing (EICR)', 'Access control integration'],
+  },
+  {
+    title: 'HVAC & Air Conditioning',
+    path: '/hvac-contractor',
+    desc: 'Heating, ventilation and cooling across commercial plant — from split systems to chillers and air handling units.',
+    icon: Wind,
+    category: 'Hard FM',
+    features: ['TM44 inspections', 'F-Gas records and leak checks', 'AHU and ductwork servicing'],
+  },
+  {
+    title: 'Planned Maintenance',
+    path: '/ppm',
+    desc: 'Schedules built from an actual asset survey rather than a generic template, so the plan matches what is installed.',
+    icon: ShieldAlert,
+    category: 'Hard FM',
+    features: ['SFG20-aligned scheduling', 'Asset register and tagging', 'Statutory compliance calendar'],
+  },
+  {
+    title: 'Industrial Cleaning',
+    path: '/industrial-cleaning',
+    desc: 'Factory shutdowns, high-level structural cleaning, de-greasing and process plant hygiene.',
+    icon: Sparkles,
+    category: 'Specialist',
+    features: ['Confined space entry', 'Shutdown deep cleans', 'High-level access cleaning'],
+  },
+  {
+    title: 'Commercial Cleaning',
+    path: '/cleaning-services',
+    desc: 'Daily office cleaning, floor maintenance, washroom services and scheduled sanitisation across corporate estates.',
+    icon: Building,
+    category: 'Soft FM',
+    features: ['Daily contract cleaning', 'COSHH compliant', 'Vetted site teams'],
+  },
+  {
+    title: 'Crane Hire & Lifting',
+    path: '/mobile-crane-hire',
+    desc: 'Truck-mounted cranes for rooftop plant replacement and restricted-access lifts, planned and supervised.',
+    icon: Truck,
+    category: 'Specialist',
+    features: ['Contract lifts under BS 7121', 'Appointed person supervision', 'Restricted-access set-up'],
+  },
+];
 
 export function ServiceGrid() {
-  const services = [
-    {
-      title: 'Mechanical & Electrical (M&E)',
-      path: '/mechanical-electrical',
-      desc: 'Complete building mechanical and electrical services including power distribution, lighting systems, switchgear, and statutory compliance.',
-      icon: Wrench,
-      category: 'Hard FM',
-      features: ['HV & LV Distribution', 'Emergency Lighting Testing', 'Access Control Integration'],
-    },
-    {
-      title: 'HVAC & Air Conditioning',
-      path: '/hvac-contractor',
-      desc: 'Commercial heating, ventilation, VRV/VRF air conditioning maintenance, chiller servicing, and F-Gas compliance management.',
-      icon: Wind,
-      category: 'Hard FM',
-      features: ['TM44 Inspections', 'F-Gas Log Maintenance', 'AHU & Ductwork Servicing'],
-    },
-    {
-      title: 'Planned Maintenance (PPM)',
-      path: '/ppm',
-      desc: 'Structured preventative maintenance schedules aligned with SFG20 standards to protect building assets and maintain manufacturer warranties.',
-      icon: ShieldAlert,
-      category: 'Hard FM',
-      features: ['SFG20 Scheduling', 'Digital Asset Tagging', 'Statutory Compliance Audits'],
-    },
-    {
-      title: 'Industrial Cleaning',
-      path: '/industrial-cleaning',
-      desc: 'Heavy-duty industrial cleaning, factory shutdowns, high-level structural cleaning, de-greasing, and manufacturing plant hygiene.',
-      icon: Sparkles,
-      category: 'Specialist Cleaning',
-      features: ['Confined Space Entry', 'Factory Deep Cleans', 'High-Level Access Cleaning'],
-    },
-    {
-      title: 'Commercial Cleaning',
-      path: '/cleaning-services',
-      desc: 'Daily office cleaning, commercial floor maintenance, washroom replenishment, and scheduled sanitisation across corporate estates.',
-      icon: Building,
-      category: 'Soft FM',
-      features: ['Daily Contract Cleans', 'COSHH Compliant', 'DBS-Checked Staff'],
-    },
-    {
-      title: 'Specialist Crane & Access Hire',
-      path: '/mobile-crane-hire',
-      desc: 'Truck-mounted mobile cranes and specialist Böcker hoists for rooftop plant replacement, HVAC installation, and high-level lifts.',
-      icon: Truck,
-      category: 'Specialist Engineering',
-      features: ['CPA Contract Lifts', 'Appointed Person Supervision', 'Compact Urban Setup'],
-    },
-  ];
-
   return (
-    <section className="section-padding bg-white">
+    <section className="section bg-white">
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-          <div>
-            <span className="badge-technical">Direct Engineering & Operations</span>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-brand-navy mt-2">
-              Integrated Facilities Management Capabilities
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mt-1">
-              Delivering full-spectrum estate maintenance through self-delivered technical teams and dedicated 24/7 helpdesk management.
-            </p>
-          </div>
-          <Link href="/services" className="text-xs font-bold text-brand-charcoal hover:text-brand-gold flex items-center gap-1.5 shrink-0 border-b border-brand-charcoal hover:border-brand-gold pb-0.5 transition-colors">
-            View All Services Hub <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
+        <GridHeading
+          eyebrow="Capabilities"
+          title="Everything a building needs, under one contract"
+          intro="Hard and soft services coordinated by a single provider, so planned maintenance, statutory testing and reactive response are not competing for the same access window."
+          href="/services"
+          cta="All services"
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map(s => {
-            const Icon = s.icon;
+        <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge bg-brand-edge md:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map((service, i) => {
+            const Icon = service.icon;
             return (
-              <div key={s.path} className="p-6 bg-brand-surface border border-brand-border rounded-sm hover:border-brand-gold/60 transition-all flex flex-col justify-between group shadow-subtle">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] uppercase font-mono tracking-wider font-semibold text-brand-slate bg-white px-2 py-1 border border-brand-border rounded-sm">
-                      {s.category}
-                    </span>
-                    <Icon className="w-5 h-5 text-brand-gold group-hover:scale-110 transition-transform" />
-                  </div>
-                  <h3 className="text-lg font-bold text-brand-navy mb-2 group-hover:text-brand-gold-dark transition-colors">
-                    {s.title}
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                    {s.desc}
-                  </p>
-                  <ul className="space-y-1.5 text-xs text-slate-700 font-mono mb-6 pt-3 border-t border-brand-border/60">
-                    {s.features.map((f, i) => (
-                      <li key={i} className="flex items-center gap-1.5">
-                        <span className="w-1 h-1 bg-brand-gold rounded-full"></span>
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <li
+                key={service.path}
+                data-reveal
+                style={{ '--reveal-delay': `${(i % 3) * 80}ms` } as React.CSSProperties}
+              >
+                <Link
+                  href={service.path}
+                  className="group relative flex h-full flex-col bg-white p-7 transition-colors duration-500 ease-brand hover:bg-brand-surface"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
+                  />
 
-                <Link href={s.path} className="inline-flex items-center gap-1 text-xs font-bold text-brand-navy group-hover:text-brand-gold transition-colors pt-2 border-t border-brand-border">
-                  <span>Explore Service Specifications</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-brand-gold group-hover:translate-x-1 transition-transform" />
+                  <div className="mb-6 flex items-start justify-between gap-4">
+                    <span className="eyebrow">{service.category}</span>
+                    <Icon className="h-5 w-5 shrink-0 text-brand-silver transition-colors duration-500 group-hover:text-brand-electric" />
+                  </div>
+
+                  <h3 className="text-[1.0625rem] font-semibold leading-snug tracking-tight text-brand-graphite">
+                    {service.title}
+                  </h3>
+                  <p className="mt-3 flex-1 text-[13.5px] leading-relaxed text-brand-silver">
+                    {service.desc}
+                  </p>
+
+                  {/* Detail is always present; only its presentation is deferred. */}
+                  <div className="reveal-on-hover">
+                    <ul className="space-y-1.5 pt-4">
+                      {service.features.map((f) => (
+                        <li key={f} className="flex items-start gap-2 text-[12.5px] text-brand-silver">
+                          <span
+                            aria-hidden="true"
+                            className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-brand-electric"
+                          />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <span className="mt-6 inline-flex items-center gap-1.5 border-t border-brand-edge pt-4 text-[12.5px] font-semibold text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
+                    Explore this service
+                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </Link>
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );
 }
+
+/* ── Sectors ────────────────────────────────────────────────────────────── */
+
+const SECTORS = [
+  { title: 'Industrial & Manufacturing', path: '/industrial-facilities-management', desc: 'Process plant, LEV thorough examination, high-load electrical distribution and maintenance windows set by production rather than office hours.' },
+  { title: 'Commercial Offices', path: '/commercial-facilities-management', desc: 'Multi-tenant estates where response times and common-part presentation are written into the lease, and service charge is examined line by line.' },
+  { title: 'Logistics & Warehousing', path: '/logistics-facilities-management', desc: 'Dock levellers, shutters, yard lighting and three-phase power on sites where failure is measured in lost distribution hours.' },
+  { title: 'Retail & Shopping Centres', path: '/retail-facilities-management', desc: 'Extensive public realm, long trading hours and presentation standards that are part of the customer experience, not back-of-house.' },
+  { title: 'Education & Campuses', path: '/education-facilities-management', desc: 'Multi-building estates where a year of statutory testing and repair compresses into short vacation turnaround windows.' },
+  { title: 'Healthcare & Clinical', path: '/healthcare-facilities-management', desc: 'Ventilation validation, water hygiene and infection control in buildings that never close and cannot tolerate an unplanned outage.' },
+];
 
 export function SectorGrid() {
-  const sectors = [
-    { title: 'Industrial & Manufacturing', path: '/industrial-facilities-management', desc: 'Heavy engineering plant rooms, production lines, 24/7 uptime requirements, and high-hazard safety protocols.' },
-    { title: 'Commercial & Corporate Offices', path: '/commercial-facilities-management', desc: 'Prime office towers, multi-tenanted commercial estates, executive HVAC management, and concierge services.' },
-    { title: 'Logistics & Warehousing', path: '/logistics-facilities-management', desc: 'High-bay distribution centres, dock leveller maintenance, fast-turnaround PPM, and warehouse floor care.' },
-    { title: 'Retail Parks & Shopping Arenas', path: '/retail-facilities-management', desc: 'High-footfall customer environments, emergency lighting, reactive maintenance, and public area cleaning.' },
-    { title: 'Education & Universities', path: '/education-facilities-management', desc: 'Multi-building university campuses, term-time maintenance schedules, statutory compliance, and DBS-vetted staff.' },
-    { title: 'Healthcare & Clinical', path: '/healthcare-facilities-management', desc: 'Stringent clinical hygiene standards, backup power generator testing, and critical medical environment compliance.' },
-  ];
-
   return (
-    <section className="section-padding bg-brand-surface border-y border-brand-border">
+    <section className="section border-y border-brand-edge bg-brand-surface">
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-          <div>
-            <span className="badge-technical">Specialist Environments</span>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-brand-navy mt-2">
-              Sector-Specific Facilities Engineering
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mt-1">
-              Every building sector presents unique regulatory, operational, and asset lifecycle challenges.
-            </p>
-          </div>
-          <Link href="/sectors" className="text-xs font-bold text-brand-charcoal hover:text-brand-gold flex items-center gap-1.5 shrink-0 border-b border-brand-charcoal hover:border-brand-gold pb-0.5 transition-colors">
-            View All 15+ Sectors Hub <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
+        <GridHeading
+          eyebrow="Sectors"
+          title="The trades are the same. The consequences are not."
+          intro="A two-hour outage is a nuisance in a warehouse and an incident in a clinical building. Sector experience is what tells the two apart before the contract is written."
+          href="/sectors"
+          cta="All sectors"
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sectors.map(sec => (
-            <div key={sec.path} className="p-6 bg-white border border-brand-border rounded-sm hover:border-brand-gold/60 transition-all flex flex-col justify-between shadow-subtle group">
-              <div>
-                <h3 className="text-lg font-bold text-brand-navy mb-2 group-hover:text-brand-gold-dark transition-colors">
-                  {sec.title}
-                </h3>
-                <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                  {sec.desc}
-                </p>
-              </div>
-              <Link href={sec.path} className="inline-flex items-center gap-1 text-xs font-bold text-brand-navy group-hover:text-brand-gold transition-colors pt-3 border-t border-brand-border">
-                <span>View Sector Framework</span>
-                <ArrowRight className="w-3.5 h-3.5 text-brand-gold group-hover:translate-x-1 transition-transform" />
+        <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge bg-brand-edge md:grid-cols-2 lg:grid-cols-3">
+          {SECTORS.map((sector, i) => (
+            <li
+              key={sector.path}
+              data-reveal
+              style={{ '--reveal-delay': `${(i % 3) * 80}ms` } as React.CSSProperties}
+            >
+              <Link
+                href={sector.path}
+                className="group relative flex h-full flex-col justify-between bg-white p-7 transition-colors duration-500 ease-brand hover:bg-brand-surface-muted"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
+                />
+                <div>
+                  <h3 className="text-[1.0625rem] font-semibold leading-snug tracking-tight text-brand-graphite">
+                    {sector.title}
+                  </h3>
+                  <p className="mt-3 text-[13.5px] leading-relaxed text-brand-silver">{sector.desc}</p>
+                </div>
+                <span className="mt-6 inline-flex items-center gap-1.5 border-t border-brand-edge pt-4 text-[12.5px] font-semibold text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
+                  View sector
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
               </Link>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
 }
 
+/* ── Locations ──────────────────────────────────────────────────────────── */
+
+/**
+ * Drawn from the Tier 1 city dataset so the cities shown, their regions and
+ * their operating conditions cannot drift from the location pages themselves.
+ */
 export function LocationGrid() {
-  const locations = [
-    { city: 'London', path: '/fm-london', altPath: '/facilities-management-london', subtitle: 'Greater London & All Zones' },
-    { city: 'Manchester', path: '/facilities-management-manchester', altPath: '/fm-manchester', subtitle: 'Greater Manchester & North West' },
-    { city: 'Birmingham', path: '/facilities-management-birmingham', altPath: '/fm-birmingham', subtitle: 'West Midlands & Central UK' },
-    { city: 'Sheffield', path: '/facilities-management-sheffield', altPath: '/fm-sheffield', subtitle: 'South Yorkshire Engineering Hub' },
-    { city: 'Leeds', path: '/facilities-management-leeds', altPath: '/fm-leeds', subtitle: 'West Yorkshire & M62 Corridor' },
-    { city: 'Lincoln', path: '/facilities-management-lincoln', altPath: '/lincoln-facilities-management', subtitle: 'East Midlands Regional Base' },
-    { city: 'Liverpool', path: '/facilities-management-liverpool', altPath: '/fm-liverpool', subtitle: 'Merseyside & Coastal Operations' },
-    { city: 'Chesterfield', path: '/facilities-management-chesterfield', altPath: '/chesterfield-facilities-management', subtitle: 'Derbyshire & Peak District' },
-  ];
+  const cities = TIER1_CITY_LIST.filter((c) => c.slug !== 'liverpool').slice(0, 8);
 
   return (
-    <section className="section-padding bg-white">
-      <div className="container-custom">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-          <div>
-            <span className="badge-technical">National Reach</span>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-brand-navy mt-2">
-              Regional Operating Centres & City FM Hubs
+    <section className="on-dark grain relative overflow-hidden bg-brand-graphite">
+      <div className="facet-rule pointer-events-none absolute inset-0 opacity-50" />
+      <div className="container-custom relative section">
+        <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+          <div className="max-w-2xl">
+            <p className="eyebrow eyebrow-dark">Coverage</p>
+            <h2 className="mt-5 text-display-md text-white">
+              Local knowledge, without a branch on every corner
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mt-1">
-              Direct mobile engineering fleets operating from regional depots across all primary commercial centres.
+            <p className="mt-4 text-[15px] leading-relaxed text-brand-mist/60">
+              We work through mobile engineering teams rather than a depot network, and say so.
+              What makes a city page useful is knowing how buildings there actually operate —
+              not a postcode on a letterhead.
             </p>
           </div>
-          <Link href="/locations" className="text-xs font-bold text-brand-charcoal hover:text-brand-gold flex items-center gap-1.5 shrink-0 border-b border-brand-charcoal hover:border-brand-gold pb-0.5 transition-colors">
-            View All 22+ Locations Hub <ArrowRight className="w-3.5 h-3.5" />
+          <Link
+            href="/locations"
+            className="link-underline shrink-0 text-sm text-brand-electric-bright"
+          >
+            All locations
+            <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {locations.map(loc => (
-            <div key={loc.city} className="p-5 bg-brand-surface border border-brand-border rounded-sm hover:border-brand-gold transition-colors flex flex-col justify-between shadow-subtle">
-              <div>
-                <span className="text-xs font-mono uppercase text-brand-gold font-semibold block">{loc.subtitle}</span>
-                <h3 className="text-base font-bold text-brand-navy mt-1">{loc.city} FM Centre</h3>
-              </div>
-              <div className="pt-3 border-t border-brand-border mt-3 space-y-1 text-xs">
-                <Link href={loc.path} className="text-brand-charcoal hover:text-brand-gold font-semibold block">
-                  → Primary Operations Hub
-                </Link>
-                {loc.altPath && (
-                  <Link href={loc.altPath} className="text-slate-500 hover:text-brand-gold block">
-                    → Planned Maintenance & Total FM
-                  </Link>
-                )}
-              </div>
-            </div>
+        <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-edge-dark sm:grid-cols-2 lg:grid-cols-4">
+          {cities.map((city, i) => (
+            <li
+              key={city.slug}
+              data-reveal
+              style={{ '--reveal-delay': `${(i % 4) * 70}ms` } as React.CSSProperties}
+            >
+              <Link
+                href={`/facilities-management-${city.slug}`}
+                className="group relative flex h-full flex-col justify-between bg-brand-graphite p-6 transition-colors duration-500 ease-brand hover:bg-brand-carbon"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
+                />
+                <div>
+                  <h3 className="text-base font-semibold tracking-tight text-white">{city.name}</h3>
+                  <p className="mt-1 text-[11.5px] uppercase tracking-wider text-brand-mist/40">
+                    {city.region}
+                  </p>
+
+                  {/* The one thing that makes this city different. */}
+                  <div className="reveal-on-hover">
+                    <p className="pt-3 text-[12px] leading-relaxed text-brand-mist/60">
+                      {city.operatingConditions[0].title}
+                    </p>
+                  </div>
+                </div>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-[12px] font-semibold text-brand-electric-bright">
+                  Facilities management
+                  <ArrowUpRight className="h-3 w-3 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

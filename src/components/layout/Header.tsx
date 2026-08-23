@@ -1,415 +1,408 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import { Phone, ChevronDown, Menu, X, ArrowRight, ShieldCheck, Building2, Wrench, MapPin, Layers } from 'lucide-react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { Phone, ChevronDown, Menu, X, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { CONTACT_CONFIG } from '@/config/contact';
+import { PRIMARY_NAV, SECONDARY_NAV } from '@/config/navigation';
+
+/**
+ * SITE HEADER
+ * ===========
+ * Dark, restrained, and quiet until used — the header should feel like the
+ * frame around the content rather than competing with it.
+ *
+ * Behaviour worth knowing about:
+ *
+ *  · The header keeps a solid graphite ground and gains blur plus elevation
+ *    once the page scrolls. It is sticky rather than fixed, so it sits above
+ *    the hero rather than over it — a transparent ground would simply show
+ *    the white page behind it.
+ *
+ *  · Mega-menus open on hover for pointer users and on click for everyone
+ *    else. Hover-only menus are unusable by keyboard and touch, so the
+ *    trigger is a real <button> with aria-expanded and the panel closes on
+ *    Escape and on focus leaving it.
+ *
+ *  · The close-on-leave is delayed slightly. Menus that vanish the instant
+ *    the cursor crosses a gap feel broken, and the diagonal path from trigger
+ *    to panel content crosses exactly such a gap.
+ */
+
+const CLOSE_DELAY_MS = 140;
 
 export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
+  const pathname = usePathname();
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Route change closes everything.
+  useEffect(() => {
+    setOpenMenu(null);
+    setMobileOpen(false);
+  }, [pathname]);
+
+  // Escape closes the open menu and returns focus to its trigger.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      if (openMenu) {
+        const trigger = navRef.current?.querySelector<HTMLButtonElement>(
+          `[data-menu-trigger="${openMenu}"]`
+        );
+        setOpenMenu(null);
+        trigger?.focus();
+      }
+      setMobileOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [openMenu]);
+
+  // The mobile drawer is a full-screen overlay; the page beneath must not scroll.
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
+  const cancelClose = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  }, []);
+
+  const scheduleClose = useCallback(() => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => setOpenMenu(null), CLOSE_DELAY_MS);
+  }, [cancelClose]);
+
+  const isActive = (href: string) =>
+    pathname === href || (href !== '/' && pathname.startsWith(`${href}/`));
+
   return (
-    <header className={`sticky top-0 z-50 transition-all duration-200 ${scrolled ? 'bg-brand-navy/95 backdrop-blur-md shadow-elevated border-b border-brand-border-dark' : 'bg-brand-navy border-b border-brand-border-dark'}`}>
-      {/* Top Utility Bar */}
-      <div className="hidden lg:block bg-brand-charcoal border-b border-brand-border-dark/60 text-slate-300 text-xs py-1.5">
-        <div className="container-custom flex justify-between items-center">
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5 text-slate-300">
-              <ShieldCheck className="w-3.5 h-3.5 text-brand-gold" />
-              National Facilities Management & Engineering
-            </span>
-            <span className="text-slate-400">|</span>
-            <span className="text-slate-300">24/7 Operations Helpdesk Available</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="text-slate-400">Emergency & Operations:</span>
-            <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-gold font-semibold hover:text-brand-gold-light transition-colors flex items-center gap-1">
-              <Phone className="w-3 h-3" />
-              {CONTACT_CONFIG.mainPhone.display}
-            </a>
-            <span className="text-slate-500">|</span>
-            <Link href="/client-login" className="hover:text-white transition-colors">Client Portal</Link>
+    <header
+      className={`on-dark sticky top-0 z-50 bg-brand-graphite transition-all duration-500 ease-brand ${
+        scrolled
+          ? 'bg-brand-graphite/92 shadow-elevated backdrop-blur-xl'
+          : ''
+      } border-b border-brand-edge-dark`}
+    >
+      {/* Utility bar — collapses away on scroll to give the nav more presence. */}
+      <div
+        className={`hidden lg:block overflow-hidden border-b border-white/[0.06] transition-all duration-500 ease-brand ${
+          scrolled ? 'max-h-0 opacity-0' : 'max-h-10 opacity-100'
+        }`}
+      >
+        <div className="container-custom flex h-9 items-center justify-between text-[11px] tracking-wide text-brand-mist/60">
+          <p>Facilities Management. Evolved.</p>
+          <div className="flex items-center gap-5">
+            <span>Out-of-hours support for contracted sites</span>
+            <span className="h-3 w-px bg-white/15" />
+            <Link href="/client-login" className="transition-colors hover:text-white">
+              Client Portal
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
-      <div className="container-custom">
-        <div className="flex items-center justify-between h-20">
-          {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-3.5 group focus:outline-none">
-            <div className="relative w-10 h-10 shrink-0">
+      <div className="container-wide" ref={navRef}>
+        <div className="flex h-[72px] items-center justify-between gap-4">
+          {/* Brand */}
+          <Link href="/" className="group flex shrink-0 items-center gap-3" aria-label="EntireFM — home">
+            <span className="relative block h-9 w-9">
               <Image
                 src="/logos/06-crystalline-colour-mark.webp"
-                alt="EntireFM Infinity Mark"
+                alt=""
                 fill
-                className="object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-200"
+                sizes="36px"
                 priority
+                className="object-contain transition-transform duration-500 ease-brand group-hover:scale-105"
               />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-xl tracking-tight text-white group-hover:text-slate-100 transition-colors flex items-center">
-                ENTIRE<span className="text-brand-gold ml-1">FM</span>
+            </span>
+            <span className="flex flex-col leading-none">
+              <span className="text-[19px] font-extrabold tracking-[-0.02em] text-white">
+                ENTIRE<span className="text-spectrum">FM</span>
               </span>
-              <span className="text-[10px] tracking-widest uppercase text-slate-400 font-mono">
-                Total Facilities Management
+              <span className="mt-1 hidden text-[9px] font-medium uppercase tracking-[0.18em] text-brand-mist/45 2xl:block">
+                Facilities Management. Evolved.
               </span>
-            </div>
+            </span>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1" aria-label="Main Navigation">
-            {/* Services Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveMegaMenu('services')}
-              onMouseLeave={() => setActiveMegaMenu(null)}
-            >
-              <button
-                className={`flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium transition-colors ${activeMegaMenu === 'services' ? 'text-brand-gold' : 'text-slate-200 hover:text-white'}`}
-                aria-expanded={activeMegaMenu === 'services'}
-              >
-                Services
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeMegaMenu === 'services' ? 'rotate-180 text-brand-gold' : 'text-slate-400'}`} />
-              </button>
+          {/* Desktop navigation */}
+          <nav className="hidden min-w-0 items-center lg:flex" aria-label="Main">
+            {PRIMARY_NAV.map((section) => {
+              const open = openMenu === section.label;
+              return (
+                <div
+                  key={section.label}
+                  className="relative"
+                  onMouseEnter={() => {
+                    cancelClose();
+                    setOpenMenu(section.label);
+                  }}
+                  onMouseLeave={scheduleClose}
+                >
+                  <button
+                    type="button"
+                    data-menu-trigger={section.label}
+                    aria-expanded={open}
+                    aria-haspopup="true"
+                    onClick={() => setOpenMenu(open ? null : section.label)}
+                    className={`flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                      open || isActive(section.href) ? 'text-white' : 'text-brand-mist/75 hover:text-white'
+                    }`}
+                  >
+                    {section.label}
+                    <ChevronDown
+                      className={`h-3.5 w-3.5 transition-transform duration-300 ease-brand ${
+                        open ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
 
-              {activeMegaMenu === 'services' && (
-                <div className="absolute top-full left-0 w-[640px] bg-brand-charcoal border border-brand-border-dark shadow-command p-6 rounded-b-sm grid grid-cols-2 gap-6 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div>
-                    <h3 className="text-xs font-bold tracking-wider uppercase text-brand-gold mb-3 flex items-center gap-1.5">
-                      <Wrench className="w-3.5 h-3.5" /> Hard FM & Engineering
-                    </h3>
-                    <ul className="space-y-2 text-sm text-slate-300">
-                      <li>
-                        <Link href="/mechanical-electrical" className="hover:text-white hover:translate-x-0.5 transition-all flex items-center justify-between group">
-                          <span>Mechanical & Electrical</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-brand-gold transition-opacity" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/hvac-contractor" className="hover:text-white hover:translate-x-0.5 transition-all flex items-center justify-between group">
-                          <span>HVAC & Air Conditioning</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-brand-gold transition-opacity" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/ppm" className="hover:text-white hover:translate-x-0.5 transition-all flex items-center justify-between group">
-                          <span>Planned Maintenance (PPM)</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-brand-gold transition-opacity" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/hard-services" className="hover:text-white hover:translate-x-0.5 transition-all flex items-center justify-between group">
-                          <span>Hard FM Services</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-brand-gold transition-opacity" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/plumbing-gas" className="hover:text-white hover:translate-x-0.5 transition-all flex items-center justify-between group">
-                          <span>Commercial Plumbing & Gas</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-brand-gold transition-opacity" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/fire-emergency-systems" className="hover:text-white hover:translate-x-0.5 transition-all flex items-center justify-between group">
-                          <span>Fire & Emergency Systems</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-brand-gold transition-opacity" />
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xs font-bold tracking-wider uppercase text-brand-gold mb-3 flex items-center gap-1.5">
-                      <Layers className="w-3.5 h-3.5" /> Soft FM & Specialist Services
-                    </h3>
-                    <ul className="space-y-2 text-sm text-slate-300">
-                      <li>
-                        <Link href="/industrial-cleaning" className="hover:text-white hover:translate-x-0.5 transition-all flex items-center justify-between group">
-                          <span>Industrial Cleaning</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-brand-gold transition-opacity" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/cleaning-services" className="hover:text-white hover:translate-x-0.5 transition-all flex items-center justify-between group">
-                          <span>Commercial Cleaning</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-brand-gold transition-opacity" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/soft-services" className="hover:text-white hover:translate-x-0.5 transition-all flex items-center justify-between group">
-                          <span>Soft FM Solutions</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-brand-gold transition-opacity" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/security-services" className="hover:text-white hover:translate-x-0.5 transition-all flex items-center justify-between group">
-                          <span>Security & Access Control</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-brand-gold transition-opacity" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/mobile-crane-hire" className="hover:text-white hover:translate-x-0.5 transition-all flex items-center justify-between group">
-                          <span>Specialist Crane Hire</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-brand-gold transition-opacity" />
-                        </Link>
-                      </li>
-                    </ul>
-                    <div className="mt-4 pt-3 border-t border-brand-border-dark">
-                      <Link href="/services" className="text-xs font-semibold text-brand-gold hover:text-brand-gold-light flex items-center gap-1">
-                        View All Services Hub <ArrowRight className="w-3 h-3" />
-                      </Link>
-                    </div>
-                  </div>
+                  <MegaMenu section={section} open={open} onClose={() => setOpenMenu(null)} />
                 </div>
-              )}
-            </div>
+              );
+            })}
 
-            {/* Sectors Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveMegaMenu('sectors')}
-              onMouseLeave={() => setActiveMegaMenu(null)}
-            >
-              <button
-                className={`flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium transition-colors ${activeMegaMenu === 'sectors' ? 'text-brand-gold' : 'text-slate-200 hover:text-white'}`}
-                aria-expanded={activeMegaMenu === 'sectors'}
+            {SECONDARY_NAV.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                data-active={isActive(link.href)}
+                className="nav-link whitespace-nowrap px-3 py-2"
               >
-                Sectors
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeMegaMenu === 'sectors' ? 'rotate-180 text-brand-gold' : 'text-slate-400'}`} />
-              </button>
-
-              {activeMegaMenu === 'sectors' && (
-                <div className="absolute top-full left-0 w-[420px] bg-brand-charcoal border border-brand-border-dark shadow-command p-6 rounded-b-sm animate-in fade-in slide-in-from-top-2 duration-150">
-                  <h3 className="text-xs font-bold tracking-wider uppercase text-brand-gold mb-3 flex items-center gap-1.5">
-                    <Building2 className="w-3.5 h-3.5" /> Sector Expertise
-                  </h3>
-                  <div className="grid grid-cols-2 gap-2 text-sm text-slate-300">
-                    <Link href="/industrial-facilities-management" className="hover:text-white hover:text-brand-gold py-1">Industrial & Manufacturing</Link>
-                    <Link href="/commercial-facilities-management" className="hover:text-white hover:text-brand-gold py-1">Commercial & Corporate</Link>
-                    <Link href="/logistics-facilities-management" className="hover:text-white hover:text-brand-gold py-1">Logistics & Warehousing</Link>
-                    <Link href="/retail-facilities-management" className="hover:text-white hover:text-brand-gold py-1">Retail & Shopping Centres</Link>
-                    <Link href="/education-facilities-management" className="hover:text-white hover:text-brand-gold py-1">Education & Campuses</Link>
-                    <Link href="/healthcare-facilities-management" className="hover:text-white hover:text-brand-gold py-1">Healthcare & Medical</Link>
-                    <Link href="/public-sector-facilities-management" className="hover:text-white hover:text-brand-gold py-1">Public Sector & Civic</Link>
-                    <Link href="/residential-facilities-management" className="hover:text-white hover:text-brand-gold py-1">Block & Residential FM</Link>
-                  </div>
-                  <div className="mt-4 pt-3 border-t border-brand-border-dark">
-                    <Link href="/sectors" className="text-xs font-semibold text-brand-gold hover:text-brand-gold-light flex items-center gap-1">
-                      View All Sectors Hub <ArrowRight className="w-3 h-3" />
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Locations Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveMegaMenu('locations')}
-              onMouseLeave={() => setActiveMegaMenu(null)}
-            >
-              <button
-                className={`flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium transition-colors ${activeMegaMenu === 'locations' ? 'text-brand-gold' : 'text-slate-200 hover:text-white'}`}
-                aria-expanded={activeMegaMenu === 'locations'}
-              >
-                Locations
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeMegaMenu === 'locations' ? 'rotate-180 text-brand-gold' : 'text-slate-400'}`} />
-              </button>
-
-              {activeMegaMenu === 'locations' && (
-                <div className="absolute top-full left-0 w-[540px] bg-brand-charcoal border border-brand-border-dark shadow-command p-6 rounded-b-sm animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <h3 className="text-xs font-bold tracking-wider uppercase text-brand-gold mb-3 flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5" /> London FM Hubs
-                      </h3>
-                      <ul className="space-y-1.5 text-sm text-slate-300">
-                        <li>
-                          <Link href="/fm-london" className="hover:text-white block">
-                            <span className="font-semibold text-white">FM London</span>
-                            <span className="block text-xs text-slate-400">24/7 Operations & Rapid Response</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="/facilities-management-london" className="hover:text-white block">
-                            <span className="font-semibold text-white">Facilities Management London</span>
-                            <span className="block text-xs text-slate-400">Total FM & Planned Maintenance</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="/london-facilities-management" className="hover:text-white block">
-                            <span className="font-semibold text-white">London Facilities Management</span>
-                            <span className="block text-xs text-slate-400">Corporate & Managing Agents</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="/industrial-cleaning-london" className="hover:text-white text-xs text-slate-400 hover:text-brand-gold">
-                            → London Industrial Cleaning
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h3 className="text-xs font-bold tracking-wider uppercase text-brand-gold mb-3 flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5" /> Regional Hubs
-                      </h3>
-                      <div className="grid grid-cols-2 gap-2 text-sm text-slate-300">
-                        <Link href="/facilities-management-manchester" className="hover:text-brand-gold">Manchester</Link>
-                        <Link href="/facilities-management-birmingham" className="hover:text-brand-gold">Birmingham</Link>
-                        <Link href="/facilities-management-sheffield" className="hover:text-brand-gold">Sheffield</Link>
-                        <Link href="/facilities-management-leeds" className="hover:text-brand-gold">Leeds</Link>
-                        <Link href="/facilities-management-lincoln" className="hover:text-brand-gold">Lincoln</Link>
-                        <Link href="/facilities-management-liverpool" className="hover:text-brand-gold">Liverpool</Link>
-                        <Link href="/facilities-management-nottingham" className="hover:text-brand-gold">Nottingham</Link>
-                        <Link href="/facilities-management-chesterfield" className="hover:text-brand-gold">Chesterfield</Link>
-                      </div>
-                      <div className="mt-4 pt-3 border-t border-brand-border-dark">
-                        <Link href="/locations" className="text-xs font-semibold text-brand-gold hover:text-brand-gold-light flex items-center gap-1">
-                          View All 22+ Locations Hub <ArrowRight className="w-3 h-3" />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <Link href="/case-studies" className="px-3.5 py-2 text-sm font-medium text-slate-200 hover:text-white transition-colors">
-              Case Studies
-            </Link>
-            <Link href="/blog" className="px-3.5 py-2 text-sm font-medium text-slate-200 hover:text-white transition-colors">
-              Insights
-            </Link>
-            <Link href="/about-entire-facilities-management" className="px-3.5 py-2 text-sm font-medium text-slate-200 hover:text-white transition-colors">
-              About
-            </Link>
-            <Link href="/contact-us" className="px-3.5 py-2 text-sm font-medium text-slate-200 hover:text-white transition-colors">
-              Contact
-            </Link>
+                {link.label}
+              </Link>
+            ))}
           </nav>
 
-          {/* Header Action CTAs */}
-          <div className="hidden lg:flex items-center gap-3">
+          {/* Actions */}
+          <div className="flex shrink-0 items-center gap-2">
             <a
               href={CONTACT_CONFIG.mainPhone.href}
-              className="btn-phone text-xs"
-              title="Call Entire FM Operations"
+              className="hidden items-center gap-2 rounded-sm border border-white/12 px-3.5 py-2.5 text-sm font-semibold text-white transition-all duration-300 ease-brand hover:border-brand-electric/60 hover:bg-white/[0.05] 2xl:inline-flex"
             >
-              <Phone className="w-3.5 h-3.5 text-brand-gold" />
-              <span>{CONTACT_CONFIG.mainPhone.display}</span>
+              <Phone className="h-3.5 w-3.5 text-brand-electric-bright" />
+              {CONTACT_CONFIG.mainPhone.display}
             </a>
-            <Link href="/contact-us#proposal" className="btn-primary text-xs py-2.5 px-4">
-              Request Proposal
+            <Link href="/contact-us" className="btn-primary hidden py-2.5 text-[13px] sm:inline-flex">
+              Get a proposal
+              <ArrowRight className="btn-arrow h-3.5 w-3.5" />
             </Link>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center gap-2">
-            <a
-              href={CONTACT_CONFIG.mainPhone.href}
-              className="p-2 text-brand-gold bg-brand-charcoal border border-brand-border-dark rounded-sm"
-              aria-label="Call EntireFM"
-            >
-              <Phone className="w-5 h-5" />
-            </a>
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-200 hover:text-white bg-brand-charcoal border border-brand-border-dark rounded-sm focus:outline-none"
-              aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Navigation Menu'}
+              type="button"
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-expanded={mobileOpen}
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-white/12 text-white transition-colors hover:bg-white/[0.06] lg:hidden"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 text-brand-gold" />}
+              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-brand-charcoal border-b border-brand-border-dark px-4 pt-3 pb-8 space-y-4 animate-in slide-in-from-top-4 duration-200">
-          <div className="space-y-1 border-b border-brand-border-dark/60 pb-3">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-2 text-base font-semibold text-white hover:text-brand-gold"
-            >
-              Home
-            </Link>
-            <Link
-              href="/services"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-2 text-base font-semibold text-white hover:text-brand-gold"
-            >
-              Services & Capabilities
-            </Link>
-            <div className="pl-3 border-l border-brand-border-dark space-y-1 text-sm text-slate-300">
-              <Link href="/mechanical-electrical" onClick={() => setMobileMenuOpen(false)} className="block py-1">Mechanical & Electrical</Link>
-              <Link href="/hvac-contractor" onClick={() => setMobileMenuOpen(false)} className="block py-1">HVAC Contractor</Link>
-              <Link href="/ppm" onClick={() => setMobileMenuOpen(false)} className="block py-1">Planned Maintenance (PPM)</Link>
-              <Link href="/industrial-cleaning" onClick={() => setMobileMenuOpen(false)} className="block py-1">Industrial Cleaning</Link>
-            </div>
-
-            <Link
-              href="/sectors"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-2 text-base font-semibold text-white hover:text-brand-gold pt-2"
-            >
-              Sectors
-            </Link>
-            <div className="pl-3 border-l border-brand-border-dark space-y-1 text-sm text-slate-300">
-              <Link href="/industrial-facilities-management" onClick={() => setMobileMenuOpen(false)} className="block py-1">Industrial & Logistics</Link>
-              <Link href="/commercial-facilities-management" onClick={() => setMobileMenuOpen(false)} className="block py-1">Commercial & Corporate</Link>
-            </div>
-
-            <Link
-              href="/locations"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-2 text-base font-semibold text-white hover:text-brand-gold pt-2"
-            >
-              Locations (UK Coverage)
-            </Link>
-            <div className="pl-3 border-l border-brand-border-dark space-y-1 text-sm text-slate-300">
-              <Link href="/fm-london" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-brand-gold">FM London (24/7 Operations)</Link>
-              <Link href="/facilities-management-london" onClick={() => setMobileMenuOpen(false)} className="block py-1">Facilities Management London</Link>
-              <Link href="/london-facilities-management" onClick={() => setMobileMenuOpen(false)} className="block py-1">London FM (Corporate)</Link>
-              <Link href="/facilities-management-manchester" onClick={() => setMobileMenuOpen(false)} className="block py-1">Manchester</Link>
-              <Link href="/facilities-management-birmingham" onClick={() => setMobileMenuOpen(false)} className="block py-1">Birmingham</Link>
-            </div>
-
-            <Link href="/case-studies" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-base font-semibold text-white hover:text-brand-gold">Case Studies</Link>
-            <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-base font-semibold text-white hover:text-brand-gold">Insights</Link>
-            <Link href="/about-entire-facilities-management" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-base font-semibold text-white hover:text-brand-gold">About</Link>
-            <Link href="/contact-us" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-base font-semibold text-white hover:text-brand-gold">Contact</Link>
-          </div>
-
-          <div className="pt-2 flex flex-col gap-2.5">
-            <Link
-              href="/contact-us#proposal"
-              onClick={() => setMobileMenuOpen(false)}
-              className="btn-primary w-full py-3 text-center"
-            >
-              Request Proposal
-            </Link>
-            <a
-              href={CONTACT_CONFIG.mainPhone.href}
-              className="btn-phone w-full py-2.5 text-center text-xs"
-            >
-              Call {CONTACT_CONFIG.mainPhone.display}
-            </a>
-          </div>
-        </div>
-      )}
+      <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />
     </header>
+  );
+}
+
+/* ── Mega-menu ─────────────────────────────────────────────────────────── */
+
+function MegaMenu({
+  section,
+  open,
+  onClose,
+}: {
+  section: (typeof PRIMARY_NAV)[number];
+  open: boolean;
+  onClose: () => void;
+}) {
+  return (
+    <div
+      // Kept mounted so the close transition can run and so the links remain
+      // in the document for crawlers; visibility is what changes.
+      className={`absolute left-1/2 top-full z-50 w-[min(56rem,calc(100vw-3rem))] -translate-x-1/2 pt-3 transition-all duration-300 ease-brand ${
+        open
+          ? 'pointer-events-auto translate-y-0 opacity-100'
+          : 'pointer-events-none -translate-y-1 opacity-0'
+      }`}
+      aria-hidden={!open}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) onClose();
+      }}
+    >
+      <div className="grain relative overflow-hidden rounded-md border border-brand-edge-dark bg-brand-carbon shadow-glow-lg">
+        <div className="facet-rule pointer-events-none absolute inset-0 opacity-60" />
+        <div className="rule-spectrum absolute inset-x-0 top-0" />
+
+        <div className="relative grid gap-8 p-8 md:grid-cols-[1fr_1fr_minmax(200px,240px)]">
+          {section.columns.map((column) => (
+            <div key={column.heading}>
+              <p className="eyebrow eyebrow-dark mb-5">{column.heading}</p>
+              <ul className="space-y-0.5">
+                {column.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      tabIndex={open ? 0 : -1}
+                      className="group/item block rounded-sm px-3 py-2 -mx-3 transition-colors duration-200 hover:bg-white/[0.04]"
+                    >
+                      <span className="flex items-center justify-between gap-2">
+                        <span className="text-[13.5px] font-medium text-brand-mist transition-colors duration-200 group-hover/item:text-white">
+                          {link.label}
+                        </span>
+                        <ArrowUpRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-electric-bright opacity-0 transition-all duration-300 ease-brand group-hover/item:translate-x-0 group-hover/item:opacity-100" />
+                      </span>
+                      {link.detail && (
+                        <span className="mt-0.5 block text-[11.5px] leading-snug text-brand-silver transition-colors duration-200 group-hover/item:text-brand-mist/70">
+                          {link.detail}
+                        </span>
+                      )}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {section.feature && (
+            <Link
+              href={section.feature.href}
+              tabIndex={open ? 0 : -1}
+              className="edge-lit group/feature relative flex flex-col justify-between overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-graphite p-6"
+            >
+              <div
+                className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-40 blur-3xl transition-opacity duration-700 group-hover/feature:opacity-70"
+                style={{ background: 'radial-gradient(circle, #7C3AED 0%, transparent 70%)' }}
+              />
+              <div className="relative">
+                <p className="eyebrow eyebrow-dark mb-4">{section.feature.eyebrow}</p>
+                <p className="text-[15px] font-semibold leading-snug text-white">
+                  {section.feature.title}
+                </p>
+                <p className="mt-2.5 text-[12.5px] leading-relaxed text-brand-mist/60">
+                  {section.feature.body}
+                </p>
+              </div>
+              <span className="relative mt-6 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-brand-electric-bright">
+                {section.feature.cta}
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover/feature:translate-x-1" />
+              </span>
+            </Link>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Mobile drawer ─────────────────────────────────────────────────────── */
+
+function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [section, setSection] = useState<string | null>(null);
+
+  return (
+    <div
+      className={`on-dark fixed inset-x-0 top-[72px] bottom-0 z-40 overflow-y-auto border-t border-brand-edge-dark bg-brand-graphite transition-all duration-400 ease-brand lg:hidden ${
+        open ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
+      }`}
+      aria-hidden={!open}
+    >
+      <div className="container-custom py-7">
+        <nav aria-label="Mobile">
+          {PRIMARY_NAV.map((item) => {
+            const expanded = section === item.label;
+            return (
+              <div key={item.label} className="border-b border-brand-edge-dark">
+                <button
+                  type="button"
+                  onClick={() => setSection(expanded ? null : item.label)}
+                  aria-expanded={expanded}
+                  tabIndex={open ? 0 : -1}
+                  className="flex w-full items-center justify-between py-4 text-left text-base font-semibold text-white"
+                >
+                  {item.label}
+                  <ChevronDown
+                    className={`h-4 w-4 text-brand-mist/50 transition-transform duration-300 ease-brand ${
+                      expanded ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                <div
+                  className={`grid transition-all duration-400 ease-brand ${
+                    expanded ? 'grid-rows-[1fr] pb-4 opacity-100' : 'grid-rows-[0fr] opacity-0'
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    {item.columns.map((column) => (
+                      <div key={column.heading} className="mb-4">
+                        <p className="eyebrow eyebrow-dark mb-3">{column.heading}</p>
+                        <ul className="space-y-1">
+                          {column.links.map((link) => (
+                            <li key={link.href}>
+                              <Link
+                                href={link.href}
+                                onClick={onClose}
+                                tabIndex={open && expanded ? 0 : -1}
+                                className="block py-1.5 text-sm text-brand-mist/80"
+                              >
+                                {link.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+
+          {SECONDARY_NAV.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={onClose}
+              tabIndex={open ? 0 : -1}
+              className="block border-b border-brand-edge-dark py-4 text-base font-semibold text-white"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="mt-8 space-y-3">
+          <Link href="/contact-us" onClick={onClose} tabIndex={open ? 0 : -1} className="btn-primary w-full">
+            Request a proposal
+            <ArrowRight className="btn-arrow h-4 w-4" />
+          </Link>
+          <a
+            href={CONTACT_CONFIG.mainPhone.href}
+            tabIndex={open ? 0 : -1}
+            className="btn-ghost-light w-full"
+          >
+            <Phone className="h-4 w-4 text-brand-electric-bright" />
+            {CONTACT_CONFIG.mainPhone.display}
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }

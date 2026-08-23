@@ -20,7 +20,7 @@ export function TemplateAbout({ route, content }: TemplateProps) {
         <Breadcrumbs items={breadcrumbs} />
 
         {/* About Hero */}
-        <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+        <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
           <div className="container-custom max-w-4xl space-y-4">
             <span className="badge-gold">{content.eyebrow || 'Engineering & Estate Governance'}</span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
@@ -40,7 +40,7 @@ export function TemplateAbout({ route, content }: TemplateProps) {
             <div className="space-y-6 text-slate-700 leading-relaxed text-sm sm:text-base">
               <div>
                 <span className="badge-technical">Direct Accountability</span>
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-navy mt-2">
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-graphite mt-2">
                   National Scale with Direct Regional Delivery
                 </h2>
                 <p className="mt-3">
@@ -53,14 +53,14 @@ export function TemplateAbout({ route, content }: TemplateProps) {
 
               {content.sections && content.sections.map((sec, idx) => (
                 <div key={idx} className="pt-4 space-y-3">
-                  <h2 className="text-2xl font-bold text-brand-navy">{sec.heading}</h2>
+                  <h2 className="text-2xl font-bold text-brand-graphite">{sec.heading}</h2>
                   <p>{sec.body}</p>
                 </div>
               ))}
             </div>
 
             {/* Accreditations Rail */}
-            <div className="pt-8 border-t border-brand-border">
+            <div className="pt-8 border-t border-brand-edge">
               <AccreditationRail />
             </div>
           </div>

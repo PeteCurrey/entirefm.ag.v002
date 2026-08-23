@@ -58,7 +58,7 @@ export function TemplateLocalService({ route, content }: TemplateProps) {
         <Breadcrumbs items={breadcrumbs} />
 
         {/* Local Service Hero */}
-        <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+        <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8 space-y-4">
@@ -80,34 +80,34 @@ export function TemplateLocalService({ route, content }: TemplateProps) {
                 </p>
 
                 <div className="flex flex-wrap items-center gap-4 pt-4">
-                  <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold shadow-command">
+                  <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold shadow-elevated">
                     Request Local Quote <ArrowRight className="w-4 h-4" />
                   </Link>
                   <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
-                    <Phone className="w-3.5 h-3.5 text-brand-gold" />
+                    <Phone className="w-3.5 h-3.5 text-brand-electric" />
                     <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
                   </a>
                 </div>
               </div>
 
               <div className="lg:col-span-4 hidden lg:block">
-                <div className="p-6 bg-brand-charcoal border border-brand-border-dark rounded-sm space-y-4 shadow-command">
+                <div className="p-6 bg-brand-carbon border border-brand-edge-dark rounded-sm space-y-4 shadow-elevated">
                   <div className="flex items-center gap-3">
                     <BrandIcon name="sustainableSolutions" size={32} />
-                    <span className="text-xs font-mono uppercase tracking-wider text-brand-gold block">Service Scope</span>
+                    <span className="text-xs font-mono uppercase tracking-wider text-brand-electric block">Service Scope</span>
                   </div>
-                  <h3 className="text-base font-bold text-white">Direct Local Delivery</h3>
+                  <h3 className="text-base font-bold text-white">How Coverage Works</h3>
                   <ul className="space-y-2 text-xs text-slate-300">
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
                       <span>Commercial-grade equipment & tooling</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
                       <span>Fully insured & certified operatives</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
                       <span>Flexible out-of-hours scheduling</span>
                     </li>
                   </ul>
@@ -124,7 +124,7 @@ export function TemplateLocalService({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="max-w-3xl mb-12">
               <span className="badge-technical">Service Capabilities</span>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-navy mt-2">
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-graphite mt-2">
                 Specialist Scope & Standards
               </h2>
               <p className="text-slate-600 text-sm mt-2">
@@ -138,17 +138,17 @@ export function TemplateLocalService({ route, content }: TemplateProps) {
 
         {/* Rendered Body Sections */}
         {content.sections && content.sections.length > 0 && (
-          <section className="section-padding bg-brand-surface border-y border-brand-border">
+          <section className="section-padding bg-brand-surface border-y border-brand-edge">
             <div className="container-custom max-w-4xl space-y-10">
               {content.sections.map((sec, idx) => (
                 <div key={idx} className="space-y-4">
-                  <h2 className="text-2xl font-bold text-brand-navy">{sec.heading}</h2>
+                  <h2 className="text-2xl font-bold text-brand-graphite">{sec.heading}</h2>
                   <p className="text-slate-700 leading-relaxed text-sm sm:text-base">{sec.body}</p>
                   {sec.bullets && sec.bullets.length > 0 && (
                     <ul className="space-y-2 pt-2">
                       {sec.bullets.map((b, bIdx) => (
                         <li key={bIdx} className="flex items-start gap-2.5 text-sm text-slate-700">
-                          <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-brand-electric shrink-0 mt-0.5" />
                           <span>{b}</span>
                         </li>
                       ))}
@@ -168,11 +168,11 @@ export function TemplateLocalService({ route, content }: TemplateProps) {
         </section>
 
         {/* FAQs */}
-        <section className="section-padding bg-brand-surface border-t border-brand-border">
+        <section className="section-padding bg-brand-surface border-t border-brand-edge">
           <div className="container-custom max-w-4xl">
             <div className="mb-8">
               <span className="badge-technical">Frequently Asked Questions</span>
-              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+              <h2 className="text-2xl font-bold text-brand-graphite mt-2">
                 {content.h1} — Common Inquiries
               </h2>
             </div>
@@ -181,11 +181,11 @@ export function TemplateLocalService({ route, content }: TemplateProps) {
         </section>
 
         {/* Related Links */}
-        <section className="section-padding bg-white border-t border-brand-border">
+        <section className="section-padding bg-white border-t border-brand-edge">
           <div className="container-custom">
             <div className="mb-8">
               <span className="badge-technical">Explore More</span>
-              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+              <h2 className="text-2xl font-bold text-brand-graphite mt-2">
                 Related Regional & Cleaning Services
               </h2>
             </div>

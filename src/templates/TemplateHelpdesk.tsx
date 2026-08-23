@@ -21,7 +21,7 @@ export function TemplateHelpdesk({ route, content }: TemplateProps) {
         <Breadcrumbs items={breadcrumbs} />
 
         {/* Helpdesk Hero */}
-        <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+        <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
           <div className="container-custom">
             <div className="max-w-3xl space-y-4">
               <span className="badge-gold">{content.eyebrow || '24/7 Operations Desk'}</span>
@@ -42,27 +42,27 @@ export function TemplateHelpdesk({ route, content }: TemplateProps) {
           <div className="container-custom max-w-4xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Card 1: Existing Client Login */}
-              <div className="p-8 bg-brand-surface border border-brand-border rounded-sm space-y-6">
-                <div className="w-12 h-12 bg-brand-navy text-brand-gold rounded-sm flex items-center justify-center">
+              <div className="p-8 bg-brand-surface border border-brand-edge rounded-sm space-y-6">
+                <div className="w-12 h-12 bg-brand-graphite text-brand-electric rounded-sm flex items-center justify-center">
                   <Lock className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-brand-navy">Client Portal Access</h3>
+                  <h3 className="text-xl font-bold text-brand-graphite">Client Portal Access</h3>
                   <p className="text-sm text-slate-600 mt-1">
                     Existing contracted clients: Access live CAFM work orders, statutory compliance certificates, and real-time engineer tracking.
                   </p>
                 </div>
-                <div className="p-4 bg-white border border-brand-border rounded-sm text-xs text-slate-600 space-y-2">
+                <div className="p-4 bg-white border border-brand-edge rounded-sm text-xs text-slate-600 space-y-2">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-brand-electric shrink-0" />
                     <span>Real-time work order logging</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-brand-electric shrink-0" />
                     <span>Compliance certificate downloads</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-brand-electric shrink-0" />
                     <span>SLA performance dashboards</span>
                   </div>
                 </div>
@@ -75,8 +75,8 @@ export function TemplateHelpdesk({ route, content }: TemplateProps) {
               </div>
 
               {/* Card 2: 24/7 Operations Desk Support */}
-              <div className="p-8 bg-brand-charcoal border border-brand-border-dark rounded-sm text-white space-y-6">
-                <div className="w-12 h-12 bg-brand-gold/20 text-brand-gold rounded-sm flex items-center justify-center border border-brand-gold/30">
+              <div className="p-8 bg-brand-carbon border border-brand-edge-dark rounded-sm text-white space-y-6">
+                <div className="w-12 h-12 bg-brand-electric/20 text-brand-electric rounded-sm flex items-center justify-center border border-brand-electric/30">
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
@@ -85,16 +85,16 @@ export function TemplateHelpdesk({ route, content }: TemplateProps) {
                     For emergency plant failures, urgent M&E triage, or out-of-hours facilities assistance.
                   </p>
                 </div>
-                <div className="space-y-4 pt-2 border-t border-brand-border-dark text-xs">
+                <div className="space-y-4 pt-2 border-t border-brand-edge-dark text-xs">
                   <div>
                     <span className="text-slate-400 block">Emergency Helpdesk Line:</span>
-                    <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-gold font-mono text-base font-bold hover:underline">
+                    <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-electric font-mono text-base font-bold hover:underline">
                       {CONTACT_CONFIG.mainPhone.display}
                     </a>
                   </div>
                   <div>
                     <span className="text-slate-400 block">Operations Email:</span>
-                    <a href={`mailto:${CONTACT_CONFIG.helpdeskEmail}`} className="text-white font-mono hover:text-brand-gold">
+                    <a href={`mailto:${CONTACT_CONFIG.helpdeskEmail}`} className="text-white font-mono hover:text-brand-electric">
                       {CONTACT_CONFIG.helpdeskEmail}
                     </a>
                   </div>

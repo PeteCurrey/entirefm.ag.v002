@@ -8,7 +8,7 @@
     "protectedSourceForbidden": true,
     "selfCanonicalDestinationRequired": true
   },
-  "totalRedirects": 425,
+  "totalRedirects": 424,
   "redirects": [
     {
       "source": "/about",
@@ -680,7 +680,7 @@
       "source": "/partners",
       "destination": "/about-entire-facilities-management",
       "statusCode": 301,
-      "reason": "Legacy partners page → About page (partnerships destination does not exist)"
+      "reason": "Legacy partners page \u2192 About page (partnerships destination does not exist)"
     },
     {
       "source": "/partners/commercial-surveyors",
@@ -879,12 +879,6 @@
       "destination": "/resources",
       "statusCode": 301,
       "reason": "Intent-matched: General legacy redirect to homepage"
-    },
-    {
-      "source": "/search",
-      "destination": "/",
-      "statusCode": 301,
-      "reason": "Semantic intent consolidation into protected historic page"
     },
     {
       "source": "/sectors/airports",
@@ -1646,7 +1640,7 @@
       "source": "/services/drainage-cctv-surveys",
       "destination": "/plumbing-gas",
       "statusCode": 301,
-      "reason": "Drainage CCTV surveys → Plumbing & Gas historic page (drainage-services not in registry)"
+      "reason": "Drainage CCTV surveys \u2192 Plumbing & Gas historic page (drainage-services not in registry)"
     },
     {
       "source": "/services/drone-inspections",
@@ -2336,7 +2330,7 @@
       "source": "/services/water-hygiene",
       "destination": "/plumbing-gas",
       "statusCode": 301,
-      "reason": "Water hygiene → Plumbing & Gas historic page (water-treatment-chlorination not in registry)"
+      "reason": "Water hygiene \u2192 Plumbing & Gas historic page (water-treatment-chlorination not in registry)"
     },
     {
       "source": "/services/water-optimisation",
@@ -2408,7 +2402,7 @@
       "source": "/sitemap",
       "destination": "/services",
       "statusCode": 301,
-      "reason": "Legacy /sitemap path → /services hub (sitemap.xml is accessible at /sitemap.xml directly)"
+      "reason": "Legacy /sitemap path \u2192 /services hub (sitemap.xml is accessible at /sitemap.xml directly)"
     },
     {
       "source": "/social-value",
@@ -2559,6 +2553,16 @@
       "destination": "/about-entire-facilities-management",
       "statusCode": 301,
       "reason": "Intent-matched: General legacy redirect to homepage"
+    }
+  ],
+  "changeLog": [
+    {
+      "date": "2026-08-22",
+      "change": "Removed 1 redirect(s) whose source is now a restored legacy Wix page.",
+      "detail": "These paths were found in the Wix internal page manifest and are real legacy URLs. A legacy URL must return 200 with its own page, never a redirect.",
+      "sources": [
+        "/search"
+      ]
     }
   ]
 }

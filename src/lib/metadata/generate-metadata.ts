@@ -14,9 +14,10 @@
 import type { Metadata } from 'next';
 import type { RouteRecord } from '../routes/route-schema';
 import { getRoute } from '../routes/route-registry';
-import { getContentRecord } from '@/content/registry';
+import { loadContentRecord } from '@/content';
 import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
 import { canIndexStaticBuild } from '@/lib/indexing';
+import { isIndexableByTier } from '@/config/indexation';
 
 /**
  * Build the canonical URL for a route.
@@ -40,11 +41,18 @@ function getRobots(route: RouteRecord): Metadata['robots'] {
     };
   }
 
+  // Two gates must both pass. The registry says whether a route is eligible at
+  // all; the indexation tier says whether it is differentiated enough yet.
+  //
+  // `follow` stays true even when a page is held: the page is live, linked and
+  // passes equity onward. Only the invitation to index is withheld.
+  const eligible = route.indexable && isIndexableByTier(route.path);
+
   return {
-    index: route.indexable,
+    index: eligible,
     follow: route.indexable,
     googleBot: {
-      index: route.indexable,
+      index: eligible,
       follow: route.indexable,
     },
   };
@@ -64,7 +72,9 @@ export function generateRouteMetadata(
   }
 ): Metadata {
   const route = getRoute(path);
-  const content = getContentRecord(path);
+  // loadContentRecord, not the raw registry — bespoke Tier 1 city records
+  // supersede the generated ones and must drive metadata too.
+  const content = loadContentRecord(path);
 
   // Fallback for unknown routes (404)
   if (!route) {
@@ -85,7 +95,10 @@ export function generateRouteMetadata(
     `Entire FM provides facilities management, mechanical and electrical engineering, and property maintenance services for ${path}.`;
 
   return {
-    title,
+    // `absolute` bypasses the root layout's '%s | Entire FM' template.
+    // Content titles already carry the brand, and letting the template also
+    // apply produced a doubled '| Entire FM | Entire FM' suffix sitewide.
+    title: { absolute: title },
     description,
     robots,
     alternates: {

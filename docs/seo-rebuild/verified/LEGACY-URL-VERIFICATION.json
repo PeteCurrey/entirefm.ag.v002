@@ -1,0 +1,28 @@
+{
+  "generated": "2026-08-22",
+  "method": "Direct XML sitemap crawl of both Wix estates + HTTP status probe of production",
+  "sources": {
+    "wixGeneration1": "https://petercurrey.wixsite.com/efm-new/sitemap.xml",
+    "wixGeneration2": "https://petercurrey.wixstudio.com/efmsut17724/sitemap.xml",
+    "production": "https://www.entirefm.com/sitemap.xml"
+  },
+  "counts": {
+    "wixG1Urls": 148,
+    "wixG2Urls": 92,
+    "wixUnionReal": 187,
+    "wixTemplateJunkExcluded": 5,
+    "productionSitemapUrls": 156,
+    "production404": 138,
+    "production200": 35,
+    "production30x": 14,
+    "rebuildRegistryRoutes": 233,
+    "rebuildRendersLegacy": 187
+  },
+  "excludedTemplateJunk": [
+    "/fm/epic-battle-montage",
+    "/fm/good-morning-london",
+    "/fm/hero-squad-interview",
+    "/fm/training-session-with-master",
+    "/fm/villain-showdown-finale"
+  ]
+}

@@ -8,7 +8,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '404 — Page Not Found | Entire FM',
+  // absolute — the brand suffix is already present; the root layout
+  // template would otherwise append a second one.
+  title: { absolute: '404 — Page Not Found | Entire FM' },
   robots: { index: false, follow: false },
 };
 

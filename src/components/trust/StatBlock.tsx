@@ -1,32 +1,79 @@
 import React from 'react';
-import { Building2, Award, Clock, ShieldCheck, CheckCircle } from 'lucide-react';
+import { Building2, Clock, Layers, ClipboardCheck } from 'lucide-react';
+
+/**
+ * CAPABILITY BLOCK
+ * ================
+ * Four statements of what EntireFM actually does, presented as a single
+ * hairline-divided band rather than four floating boxes — closer to a
+ * specification sheet than a feature grid.
+ *
+ * CLAIM GOVERNANCE
+ * ----------------
+ * The previous version of this component asserted four things the claims
+ * registry does not support:
+ *   "Regional engineering hubs across UK"  → GEO_REGIONAL_CENTRES  DO_NOT_USE
+ *   "Self-Delivered"                       → OPS_SELF_DELIVERY     TO_VERIFY
+ *   "100% Audit-Ready"                     → LEGAL_COMPLIANCE_GUARANTEE DO_NOT_USE
+ *   "24/7/365"                             → OPS_247_EMERGENCY     TO_VERIFY
+ *
+ * Each has been replaced with a description of the service that is true as
+ * written. "Nationwide coverage" is a statement of where we work; "regional
+ * engineering hubs" is a claim about premises we cannot evidence.
+ */
+
+const CAPABILITIES = [
+  {
+    label: 'Coverage',
+    value: 'Nationwide',
+    detail: 'Mobile engineering teams working to the area, with response times agreed per site.',
+    icon: Building2,
+  },
+  {
+    label: 'Response',
+    value: 'Out of hours',
+    detail: 'Emergency cover for contracted sites, by agreed priority band.',
+    icon: Clock,
+  },
+  {
+    label: 'Scope',
+    value: 'Hard & soft FM',
+    detail: 'Engineering, compliance and support services under a single contract.',
+    icon: Layers,
+  },
+  {
+    label: 'Records',
+    value: 'Evidenced',
+    detail: 'Statutory testing, certification and job history held in one place.',
+    icon: ClipboardCheck,
+  },
+];
 
 export function StatBlock() {
-  const stats = [
-    { label: 'FM & Maintenance Coverage', value: 'National', subtext: 'Regional engineering hubs across UK', icon: Building2 },
-    { label: 'Helpdesk & Emergency Response', value: '24/7/365', subtext: 'Rapid callout dispatch & SLA tracking', icon: Clock },
-    { label: 'Delivery Model', value: 'Self-Delivered', subtext: 'Direct engineering & specialist teams', icon: Award },
-    { label: 'Statutory Compliance', value: '100% Audit-Ready', subtext: 'Full digital CAFM recordkeeping', icon: ShieldCheck },
-  ];
-
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {stats.map(item => {
+    <div className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge bg-brand-edge sm:grid-cols-2 lg:grid-cols-4">
+      {CAPABILITIES.map((item, i) => {
         const Icon = item.icon;
         return (
-          <div key={item.label} className="p-6 bg-white border border-brand-border rounded-sm shadow-subtle flex flex-col justify-between hover:border-brand-gold/50 transition-colors">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-mono uppercase tracking-wider text-slate-500">{item.label}</span>
-              <Icon className="w-5 h-5 text-brand-gold" />
+          <div
+            key={item.label}
+            className="group relative bg-white p-7 transition-colors duration-500 ease-brand hover:bg-brand-surface"
+            data-reveal
+            style={{ '--reveal-delay': `${i * 70}ms` } as React.CSSProperties}
+          >
+            {/* A gradient tick that grows along the top edge on hover. */}
+            <span
+              aria-hidden="true"
+              className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
+            />
+            <div className="mb-6 flex items-start justify-between">
+              <span className="eyebrow">{item.label}</span>
+              <Icon className="h-4 w-4 shrink-0 text-brand-silver transition-colors duration-500 group-hover:text-brand-electric" />
             </div>
-            <div>
-              <span className="text-2xl sm:text-3xl font-extrabold text-brand-navy tracking-tight block">
-                {item.value}
-              </span>
-              <span className="text-xs text-slate-600 mt-1 block">
-                {item.subtext}
-              </span>
-            </div>
+            <p className="text-[1.375rem] font-bold leading-tight tracking-tight text-brand-graphite">
+              {item.value}
+            </p>
+            <p className="mt-2.5 text-[13px] leading-relaxed text-brand-silver">{item.detail}</p>
           </div>
         );
       })}
@@ -34,35 +81,52 @@ export function StatBlock() {
   );
 }
 
-export function ClientLogoRail() {
-  const sectors = [
-    { name: 'Commercial Property Portfolios', note: 'Prime Office & Headquarters' },
-    { name: 'Logistics & Distribution Parks', note: 'High-Volume Freight Centres' },
-    { name: 'Industrial & Manufacturing Facilities', note: 'Heavy Plant & Engineering' },
-    { name: 'Retail Parks & Shopping Arenas', note: 'High-Footfall Estates' },
-    { name: 'Education & Public Sector Estates', note: 'Compliance-Critical Campuses' },
-  ];
+/**
+ * SECTOR RAIL
+ * ===========
+ * The estate types EntireFM works across. Each reveals its supporting line on
+ * hover — the detail is always in the DOM, only its presentation is deferred.
+ */
 
+const SECTORS = [
+  { name: 'Commercial offices', note: 'Multi-tenant estates and managing agents' },
+  { name: 'Logistics & distribution', note: 'Dock levellers, shutters and yard lighting' },
+  { name: 'Industrial & manufacturing', note: 'Process plant, LEV and high-load power' },
+  { name: 'Retail & shopping centres', note: 'Public realm and long trading hours' },
+  { name: 'Education & public sector', note: 'Campus estates and vacation turnaround' },
+];
+
+export function ClientLogoRail() {
   return (
-    <div className="bg-brand-surface border-y border-brand-border py-10">
+    <section className="section-tight border-y border-brand-edge bg-brand-surface">
       <div className="container-custom">
-        <div className="text-center max-w-xl mx-auto mb-8">
-          <span className="badge-technical">Estate Experience</span>
-          <h3 className="text-xl font-bold text-brand-navy mt-2">Trusted Across Complex Property & Engineering Environments</h3>
-          <p className="text-xs text-slate-500 mt-1">
-            Proven facilities management frameworks across single sites and nationwide portfolios.
+        <div className="mb-10 max-w-2xl" data-reveal>
+          <p className="eyebrow">Estate experience</p>
+          <h2 className="mt-5 text-display-sm text-brand-graphite">
+            Built around the estate, not around a standard package
+          </h2>
+          <p className="prose-brand mt-3">
+            The trades are broadly the same across sectors. What changes is the maintenance
+            window, the evidence required and the consequence of a failure.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {sectors.map(s => (
-            <div key={s.name} className="p-4 bg-white border border-brand-border rounded-sm text-center flex flex-col justify-center items-center shadow-subtle">
-              <span className="text-xs font-bold text-brand-charcoal">{s.name}</span>
-              <span className="text-[11px] text-slate-500 mt-1">{s.note}</span>
-            </div>
+        <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge bg-brand-edge sm:grid-cols-2 lg:grid-cols-5">
+          {SECTORS.map((sector, i) => (
+            <li
+              key={sector.name}
+              className="group bg-white p-6 transition-colors duration-500 ease-brand hover:bg-brand-surface-muted"
+              data-reveal
+              style={{ '--reveal-delay': `${i * 60}ms` } as React.CSSProperties}
+            >
+              <p className="text-sm font-semibold leading-snug text-brand-graphite">{sector.name}</p>
+              <div className="reveal-on-hover">
+                <p className="pt-2 text-[12px] leading-snug text-brand-silver">{sector.note}</p>
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,6 +1,8 @@
 import React from 'react';
-import type { RouteRecord } from '@/lib/routes/route-schema';
+import type { RouteRecord, ContentRecord } from '@/lib/routes/route-schema';
 import { loadContentRecord } from '@/content';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { buildPageGraph } from '@/lib/seo/page-schema';
 import { TemplateHome } from './TemplateHome';
 import { TemplateCoreService } from './TemplateCoreService';
 import { TemplateSpecialistService } from './TemplateSpecialistService';
@@ -21,14 +23,29 @@ import { TemplateSupplyChain } from './TemplateSupplyChain';
 import { TemplateHtmlSitemap } from './TemplateHtmlSitemap';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
-  const path = route.path;
-  const content = loadContentRecord(path);
+  const content = loadContentRecord(route.path);
 
   if (!content) {
     throw new Error(
-      `MISSING_PROTECTED_PAGE_CONTENT: No valid ContentRecord found for registered route "${path}". Every route requires an explicit content record.`
+      `MISSING_PROTECTED_PAGE_CONTENT: No valid ContentRecord found for registered route "${route.path}". Every route requires an explicit content record.`
     );
   }
+
+  // Every page carries structured data. Selecting the template and describing
+  // it to search engines are the same decision, so they happen in one place.
+  return (
+    <>
+      <JsonLd graph={buildPageGraph(route, content)} />
+      {selectTemplate(route, content)}
+    </>
+  );
+}
+
+function selectTemplate(
+  route: RouteRecord,
+  content: ContentRecord
+): React.ReactElement {
+  const path = route.path;
 
   // 1. Homepage
   if (path === '/') {

@@ -2,15 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * ENTIREFM — GLOBAL STYLESHEET
+ * ============================
+ * Built on the official brand guidelines in /Branding.
+ *
+ * The visual language is taken from the brand mark itself: an isometric
+ * faceted infinity form, lit along its edges, sitting on near-black. Three
+ * motifs carry that through the interface —
+ *
+ *   .facet-rule   thin 60° hairlines echoing the mark's isometric geometry
+ *   .edge-lit     a gradient hairline border that illuminates on hover
+ *   .spectrum-*   the blue → indigo → violet → purple gradient, used sparingly
+ *
+ * Motion is restrained: short rises on reveal, a 2px lift on hover, one slow
+ * ambient drift behind the hero. Nothing bounces, nothing spins, and every
+ * animation is disabled under prefers-reduced-motion.
+ */
+
 @layer base {
   :root {
-    --brand-navy: #0A1118;
-    --brand-charcoal: #121A24;
-    --brand-slate: #1E293B;
-    --brand-gold: #C59B27;
-    --brand-gold-light: #DFB743;
-    --brand-border: #E2E8F0;
-    --brand-surface: #F8FAFC;
+    /* Official palette */
+    --electric: #2563eb;
+    --indigo: #4f46e5;
+    --violet: #7c3aed;
+    --purple: #a855f7;
+    --graphite: #0b1220;
+    --slate: #1e293b;
+    --silver: #475569;
+    --mist: #cbd5e1;
+
+    /* Derived */
+    --void: #060a14;
+    --carbon: #111a2e;
+    --edge-dark: #1f2a44;
+    --edge: #e3e8f0;
+    --surface: #f6f8fc;
+
+    --spectrum: linear-gradient(100deg, #2563eb 0%, #4f46e5 38%, #7c3aed 70%, #a855f7 100%);
+  }
+
+  * {
+    border-color: theme('colors.brand.edge');
   }
 
   html {
@@ -21,78 +54,357 @@
   }
 
   body {
-    @apply bg-white text-brand-charcoal font-sans antialiased selection:bg-brand-gold/20 selection:text-brand-navy;
+    @apply bg-white text-brand-graphite font-sans antialiased;
+    font-feature-settings: 'ss01', 'cv01';
+    selection: auto;
   }
 
-  /* Accessibility Focus Rings */
+  ::selection {
+    background: rgb(37 99 235 / 0.22);
+    color: theme('colors.brand.graphite');
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Focus is always visible and always uses the interaction colour. */
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
   select:focus-visible,
-  textarea:focus-visible {
-    @apply outline-none ring-2 ring-brand-gold ring-offset-2 ring-offset-white;
+  textarea:focus-visible,
+  [tabindex]:focus-visible {
+    @apply outline-none ring-2 ring-brand-electric ring-offset-2 ring-offset-white rounded-sm;
+  }
+
+  .on-dark a:focus-visible,
+  .on-dark button:focus-visible,
+  .on-dark [tabindex]:focus-visible {
+    @apply ring-brand-electric-bright ring-offset-brand-graphite;
   }
 }
 
 @layer components {
-  /* Architectural Containers */
+  /* ── Containers ─────────────────────────────────────────────────────── */
+
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-10;
   }
-
   .container-wide {
-    @apply max-w-8xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-8xl mx-auto px-5 sm:px-8 lg:px-10;
   }
-
   .container-narrow {
-    @apply max-w-4xl mx-auto px-4 sm:px-6;
+    @apply max-w-3xl mx-auto px-5 sm:px-8;
   }
 
-  /* Technical Badge / Eyebrow */
-  .badge-technical {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold tracking-wider uppercase bg-brand-surface text-brand-slate border border-brand-border rounded-sm;
+  .section {
+    @apply py-20 sm:py-28 lg:py-32;
+  }
+  .section-tight {
+    @apply py-14 sm:py-20;
   }
 
-  .badge-gold {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold tracking-wider uppercase bg-brand-gold/10 text-brand-gold-dark border border-brand-gold/30 rounded-sm;
+  /* Long-standing alias used throughout the templates. */
+  .section-padding {
+    @apply py-20 sm:py-28 lg:py-32;
   }
 
-  .badge-dark {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold tracking-wider uppercase bg-brand-navy text-white border border-brand-border-dark rounded-sm;
+  /* ── Eyebrow / label ────────────────────────────────────────────────── */
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-eyebrow uppercase text-brand-silver;
+  }
+  .on-dark .eyebrow,
+  .eyebrow-dark {
+    @apply text-brand-mist/70;
   }
 
-  /* Button Systems */
+  /* A short gradient tick preceding an eyebrow — the smallest expression
+     of the brand spectrum, used to mark the start of a section. */
+  .eyebrow::before {
+    content: '';
+    @apply block h-px w-7 shrink-0;
+    background: var(--spectrum);
+  }
+
+  /* ── Buttons ────────────────────────────────────────────────────────── */
+
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 px-6 py-3.5
+           text-sm font-semibold tracking-tight rounded-sm
+           transition-all duration-300 ease-brand
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  /* Primary sits on the brand spectrum and lifts very slightly on hover. */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold tracking-wide text-brand-navy bg-brand-gold hover:bg-brand-gold-light transition-colors duration-150 rounded-sm shadow-subtle focus-visible:ring-2 focus-visible:ring-brand-gold;
+    @apply btn text-white shadow-subtle;
+    background: var(--spectrum);
+    background-size: 160% 100%;
+    background-position: 0% 50%;
+  }
+  .btn-primary:hover {
+    background-position: 100% 50%;
+    @apply -translate-y-0.5 shadow-glow;
+  }
+  .btn-primary:active {
+    @apply translate-y-0;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold tracking-wide text-white bg-brand-navy hover:bg-brand-charcoal border border-brand-border-dark transition-colors duration-150 rounded-sm shadow-subtle;
+    @apply btn bg-brand-graphite text-white border border-brand-edge-dark;
+  }
+  .btn-secondary:hover {
+    @apply -translate-y-0.5 border-brand-electric/60 shadow-elevated;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold tracking-wide text-brand-charcoal bg-white hover:bg-brand-surface border border-brand-border transition-colors duration-150 rounded-sm;
+    @apply btn bg-transparent text-brand-graphite border border-brand-edge;
+  }
+  .btn-outline:hover {
+    @apply border-brand-electric/50 bg-brand-surface -translate-y-0.5;
   }
 
-  .btn-outline-white {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold tracking-wide text-white bg-transparent hover:bg-white/10 border border-white/30 transition-colors duration-150 rounded-sm;
+  .btn-ghost-light {
+    @apply btn bg-white/[0.04] text-white border border-white/15 backdrop-blur-sm;
+  }
+  .btn-ghost-light:hover {
+    @apply bg-white/[0.09] border-white/30 -translate-y-0.5;
   }
 
-  .btn-phone {
-    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold tracking-wide text-brand-navy bg-brand-gold/15 hover:bg-brand-gold/25 border border-brand-gold/40 text-brand-charcoal transition-colors duration-150 rounded-sm;
+  /* Arrow inside a button slides on hover. */
+  .btn .btn-arrow {
+    @apply transition-transform duration-300 ease-brand;
+  }
+  .btn:hover .btn-arrow {
+    @apply translate-x-1;
   }
 
-  /* Section Spacing */
-  .section-padding {
-    @apply py-16 sm:py-20 lg:py-24;
+  /* ── Facet rules ────────────────────────────────────────────────────── */
+  /* Thin 60° hairlines echoing the isometric geometry of the brand mark.
+     Used as ambient texture on dark panels, never as decoration on content. */
+
+  .facet-rule {
+    background-image: repeating-linear-gradient(
+      60deg,
+      rgb(203 213 225 / 0.06) 0px,
+      rgb(203 213 225 / 0.06) 1px,
+      transparent 1px,
+      transparent 22px
+    );
   }
 
-  .section-padding-compact {
-    @apply py-12 sm:py-16;
+  .facet-rule-accent {
+    background-image: repeating-linear-gradient(
+      60deg,
+      rgb(124 58 237 / 0.10) 0px,
+      rgb(124 58 237 / 0.10) 1px,
+      transparent 1px,
+      transparent 34px
+    );
   }
 
-  /* Verified Claims Notice */
-  .verified-disclaimer {
-    @apply text-xs text-slate-500 italic mt-2;
+  /* ── Edge-lit surfaces ──────────────────────────────────────────────── */
+  /* A hairline border that picks up the brand spectrum on hover, echoing
+     the way light runs along the edges of the mark's facets. */
+
+  .edge-lit {
+    @apply relative rounded-sm transition-all duration-500 ease-brand;
+  }
+  .edge-lit::after {
+    content: '';
+    @apply absolute inset-0 rounded-sm pointer-events-none opacity-0
+           transition-opacity duration-500 ease-brand;
+    padding: 1px;
+    background: var(--spectrum);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  .edge-lit:hover::after,
+  .edge-lit:focus-within::after {
+    @apply opacity-100;
+  }
+
+  /* ── Cards ──────────────────────────────────────────────────────────── */
+
+  .card {
+    @apply edge-lit bg-white border border-brand-edge p-7;
+  }
+  .card:hover {
+    @apply -translate-y-1 shadow-elevated;
+  }
+
+  .card-dark {
+    @apply edge-lit bg-brand-carbon border border-brand-edge-dark p-7;
+  }
+  .card-dark:hover {
+    @apply -translate-y-1 shadow-glow;
+  }
+
+  /* ── Hover reveal ───────────────────────────────────────────────────── */
+  /* Secondary detail that appears on hover or keyboard focus. Content is
+     present in the DOM at all times so it stays available to search engines
+     and assistive technology — only its presentation is deferred. */
+
+  .reveal-on-hover {
+    @apply grid grid-rows-[0fr] opacity-0
+           transition-all duration-500 ease-brand;
+  }
+  .group:hover .reveal-on-hover,
+  .group:focus-within .reveal-on-hover {
+    @apply grid-rows-[1fr] opacity-100;
+  }
+  .reveal-on-hover > * {
+    @apply overflow-hidden min-h-0;
+  }
+
+  /* ── Links ──────────────────────────────────────────────────────────── */
+
+  /* Underline grows from the left rather than fading in. */
+  .link-underline {
+    @apply relative inline-flex items-center gap-1.5 font-medium
+           text-brand-electric transition-colors duration-300;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0
+           transition-transform duration-400 ease-brand;
+    background: var(--spectrum);
+  }
+  .link-underline:hover::after {
+    @apply scale-x-100;
+  }
+
+  .nav-link {
+    @apply relative text-sm font-medium text-brand-slate
+           transition-colors duration-200 hover:text-brand-graphite;
+  }
+  .on-dark .nav-link {
+    @apply text-brand-mist/80 hover:text-white;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0
+           transition-transform duration-300 ease-brand;
+    background: var(--spectrum);
+  }
+  .nav-link:hover::after,
+  .nav-link[data-active='true']::after {
+    @apply scale-x-100;
+  }
+
+  /* ── Typographic helpers ────────────────────────────────────────────── */
+
+  .text-spectrum {
+    background: var(--spectrum);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .prose-brand {
+    @apply text-[0.975rem] leading-[1.75] text-brand-silver;
+  }
+  .on-dark .prose-brand {
+    @apply text-brand-mist/75;
+  }
+
+  .stat-figure {
+    @apply text-display-md font-bold tracking-tight;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Dark section wrapper ───────────────────────────────────────────── */
+
+  .on-dark {
+    @apply bg-brand-graphite text-white;
+  }
+  .on-dark h1,
+  .on-dark h2,
+  .on-dark h3,
+  .on-dark h4 {
+    @apply text-white;
+  }
+
+  /* ── Hairline divider carrying the spectrum ─────────────────────────── */
+
+  .rule-spectrum {
+    @apply h-px w-full border-0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(37 99 235 / 0.5) 20%,
+      rgb(124 58 237 / 0.5) 55%,
+      transparent 100%
+    );
+  }
+}
+
+@layer utilities {
+  /* Scroll reveal.
+     Guarded behind `@media (scripting: enabled)` so the hidden start state
+     only ever applies where the observer that reveals it can actually run.
+     Without scripting — or in a browser that does not support the query —
+     the rule never matches and every element simply renders visible.
+     This replaces the older `.no-js` approach, which needed a blocking inline
+     script and produced a server/client class mismatch on hydration. */
+  @media (scripting: enabled) {
+    [data-reveal] {
+      opacity: 0;
+      transform: translate3d(0, 14px, 0);
+      transition:
+        opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    [data-reveal][data-revealed='true'] {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  }
+
+  .grain::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none opacity-[0.035] mix-blend-overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────── */
+/* Everything above degrades to an instant, static presentation. Reveals
+   resolve to fully visible rather than staying hidden. */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .btn:hover,
+  .card:hover,
+  .card-dark:hover {
+    transform: none !important;
   }
 }

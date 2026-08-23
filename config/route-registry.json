@@ -6,13 +6,13 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 233,
-    "LEGACY_VERIFIED": 187,
+    "total": 248,
+    "LEGACY_VERIFIED": 202,
     "LEGACY_PROTECTED_BY_DIRECTIVE": 18,
     "CURRENT_LIVE_RETAINED": 4,
     "NEW_GROWTH": 24,
-    "protected": 233,
-    "historic": 205
+    "protected": 248,
+    "historic": 220
   },
   "routes": [
     {
@@ -77,6 +77,27 @@
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/about-entire-facilities-management"
     },
     {
+      "path": "/access-control",
+      "routeType": "service",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "hard-fm",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/access-control",
+      "recoveryNote": "Flat form of the service. Wix served this alongside /mechanical-electrical/access-control; both existed, so both are restored.",
+      "discoveredVia": "wix-internal-page-manifest"
+    },
+    {
       "path": "/accessibility-statement",
       "routeType": "legal",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -94,6 +115,27 @@
         "wix-generation-2"
       ],
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/accessibility-statement"
+    },
+    {
+      "path": "/account-registration",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/account-registration",
+      "recoveryNote": "Flat form of /client-login/account-registration.",
+      "discoveredVia": "wix-internal-page-manifest"
     },
     {
       "path": "/aerial-drone-building-inspection",
@@ -157,6 +199,27 @@
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/arena-facilities-management",
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/arena-facilities-management"
+    },
+    {
+      "path": "/arena-facilities-management-1",
+      "routeType": "sector",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "sectors",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/arena-facilities-management-1",
+      "recoveryNote": "Wix duplicate of /arena-facilities-management, kept live as its own URL.",
+      "discoveredVia": "wix-internal-page-manifest"
     },
     {
       "path": "/best-facilities-management-company",
@@ -368,6 +431,45 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/carpark-management"
+    },
+    {
+      "path": "/case-studies",
+      "routeType": "company",
+      "routeProvenance": "CURRENT_LIVE_RETAINED",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/chesterfield",
+      "routeType": "geographic-service",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/chesterfield",
+      "recoveryNote": "Crane hire landing page. Flat form of /mobile-crane-hire/chesterfield.",
+      "discoveredVia": "wix-internal-page-manifest"
     },
     {
       "path": "/chesterfield-facilities-management",
@@ -980,6 +1082,27 @@
       "g1_url": "https://petercurrey.wixsite.com/efm-new/education-facilities-management"
     },
     {
+      "path": "/emergency-light-testing",
+      "routeType": "service",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "hard-fm",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/emergency-light-testing",
+      "recoveryNote": "Flat form of /mechanical-electrical/emergency-light-testing.",
+      "discoveredVia": "wix-internal-page-manifest"
+    },
+    {
       "path": "/employment-portal",
       "routeType": "company",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -1522,6 +1645,27 @@
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-for/warehouse-%26-distribution"
     },
     {
+      "path": "/facilities-management-glossary",
+      "routeType": "post",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-glossary",
+      "recoveryNote": "Flat form of /fm-support-n-contact/facilities-management-glossary.",
+      "discoveredVia": "wix-internal-page-manifest"
+    },
+    {
       "path": "/facilities-management-grimsby",
       "routeType": "location",
       "routeProvenance": "NEW_GROWTH",
@@ -1581,6 +1725,27 @@
       "g1_url": "https://petercurrey.wixsite.com/efm-new/facilities-management-in-the-midlands",
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-in-the-midlands",
       "location": "Midlands"
+    },
+    {
+      "path": "/facilities-management-industries",
+      "routeType": "sector",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "sectors",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/facilities-management-industries",
+      "recoveryNote": "Sector index page. Wix manifest title read \"Login\", which appears to be an editor labelling error — the page renders sector content.",
+      "discoveredVia": "wix-internal-page-manifest"
     },
     {
       "path": "/facilities-management-leeds",
@@ -2635,6 +2800,90 @@
       "g1_url": "https://petercurrey.wixsite.com/efm-new/helpdesk-registration"
     },
     {
+      "path": "/home",
+      "routeType": "home",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-1"
+      ],
+      "g1_url": "https://petercurrey.wixsite.com/efm-new/home",
+      "recoveryNote": "Homepage variant on the older estate. Duplicate of / — live, expected noindex.",
+      "discoveredVia": "wix-internal-page-manifest"
+    },
+    {
+      "path": "/home-1-1",
+      "routeType": "home",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/home-1-1",
+      "recoveryNote": "Homepage variant retained by Wix. Duplicate of / — restored as a live page, expected to be held noindex by the tier gate.",
+      "discoveredVia": "wix-internal-page-manifest"
+    },
+    {
+      "path": "/home-1-1-1",
+      "routeType": "home",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/home-1-1-1",
+      "recoveryNote": "Later homepage design variant. Duplicate of / — live, expected noindex.",
+      "discoveredVia": "wix-internal-page-manifest"
+    },
+    {
+      "path": "/homeab",
+      "routeType": "home",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-1"
+      ],
+      "g1_url": "https://petercurrey.wixsite.com/efm-new/homeab",
+      "recoveryNote": "A/B homepage variant. Duplicate of / — live, expected noindex.",
+      "discoveredVia": "wix-internal-page-manifest"
+    },
+    {
       "path": "/hot-tub-relocation",
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -3123,6 +3372,24 @@
       "location": "Liverpool"
     },
     {
+      "path": "/locations",
+      "routeType": "location",
+      "routeProvenance": "CURRENT_LIVE_RETAINED",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
       "path": "/logistics-facilities-management",
       "routeType": "sector",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -3538,6 +3805,27 @@
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/plumbing-gas",
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/plumbing-gas"
+    },
+    {
+      "path": "/portal",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/portal",
+      "recoveryNote": "Client portal entry point.",
+      "discoveredVia": "wix-internal-page-manifest"
     },
     {
       "path": "/portfolio",
@@ -4075,6 +4363,24 @@
       "location": "Lincoln"
     },
     {
+      "path": "/resources",
+      "routeType": "company",
+      "routeProvenance": "CURRENT_LIVE_RETAINED",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
       "path": "/restaurant-facilities-management",
       "routeType": "sector",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -4190,6 +4496,45 @@
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/safety-critical-emergency-systems"
     },
     {
+      "path": "/search",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-1"
+      ],
+      "g1_url": "https://petercurrey.wixsite.com/efm-new/search",
+      "recoveryNote": "Site search results page. Live, but search-results pages should not be indexed.",
+      "discoveredVia": "wix-internal-page-manifest"
+    },
+    {
+      "path": "/sectors",
+      "routeType": "sector",
+      "routeProvenance": "CURRENT_LIVE_RETAINED",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
       "path": "/security-services",
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -4247,6 +4592,27 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/services"
+    },
+    {
+      "path": "/sheffield",
+      "routeType": "geographic-service",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/sheffield",
+      "recoveryNote": "Crane hire landing page, not a general FM city page. Flat form of /mobile-crane-hire/sheffield.",
+      "discoveredVia": "wix-internal-page-manifest"
     },
     {
       "path": "/sheffield-facilities-management",
@@ -4407,6 +4773,27 @@
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/transport-facilities-management"
     },
     {
+      "path": "/truck-mount-crane-hire",
+      "routeType": "service",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P2",
+      "contentStatus": "CONTENT_COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-2"
+      ],
+      "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/truck-mount-crane-hire",
+      "recoveryNote": "Flat form of /mobile-crane-hire/truck-mount-crane-hire.",
+      "discoveredVia": "wix-internal-page-manifest"
+    },
+    {
       "path": "/vending-supplier",
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -4536,78 +4923,59 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/working-at-heights"
-    },
-    {
-      "path": "/sectors",
-      "routeType": "sector",
-      "routeProvenance": "CURRENT_LIVE_RETAINED",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "sectors",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "NOT_STARTED",
-      "historicSources": [
-        "current-live-antigravity"
-      ]
-    },
-    {
-      "path": "/locations",
-      "routeType": "location",
-      "routeProvenance": "CURRENT_LIVE_RETAINED",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "NOT_STARTED",
-      "historicSources": [
-        "current-live-antigravity"
-      ]
-    },
-    {
-      "path": "/case-studies",
-      "routeType": "company",
-      "routeProvenance": "CURRENT_LIVE_RETAINED",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "NOT_STARTED",
-      "historicSources": [
-        "current-live-antigravity"
-      ]
-    },
-    {
-      "path": "/resources",
-      "routeType": "company",
-      "routeProvenance": "CURRENT_LIVE_RETAINED",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P2",
-      "contentStatus": "COMPLETE",
-      "designStatus": "NOT_STARTED",
-      "historicSources": [
-        "current-live-antigravity"
-      ]
     }
-  ]
+  ],
+  "orphanRecovery": {
+    "generated": "2026-08-22",
+    "method": "Wix internal pageUriSEO manifest, extracted from rendered HTML on both estates",
+    "recovered": 15,
+    "excluded": {
+      "dynamic-page templates": {
+        "reason": "Wix editor templates for dynamic pages, not addressable URLs. All return the Wix 404 page.",
+        "paths": [
+          "/blank",
+          "/blank-1",
+          "/blank-2",
+          "/blank-4",
+          "/blank-5",
+          "/geo-landing-pages-title",
+          "/fm-industries-item",
+          "/hero-section-video-rotation-item"
+        ]
+      },
+      "members-area system pages": {
+        "reason": "Wix Members Area routes for an app that was never installed. All return the Wix 404 page.",
+        "paths": [
+          "/my-account",
+          "/my-drafts",
+          "/notifications",
+          "/followers",
+          "/settings",
+          "/profile-1",
+          "/profile/admin/profile",
+          "/blog-comments",
+          "/blog-likes",
+          "/blog-posts"
+        ]
+      },
+      "platform routes": {
+        "reason": "Wix platform internals. /error404 is the 404 page itself; /post is a bare router that returns 404.",
+        "paths": [
+          "/error404",
+          "/post",
+          "/fullscreen-page"
+        ]
+      },
+      "wix demo content": {
+        "reason": "Unused Wix template demo pages. Never EntireFM content — recommend 410 Gone.",
+        "paths": [
+          "/fm/epic-battle-montage",
+          "/fm/good-morning-london",
+          "/fm/hero-squad-interview",
+          "/fm/training-session-with-master",
+          "/fm/villain-showdown-finale"
+        ]
+      }
+    }
+  }
 }

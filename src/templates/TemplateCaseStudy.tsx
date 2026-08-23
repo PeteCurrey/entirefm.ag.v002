@@ -30,7 +30,7 @@ export function TemplateCaseStudy({ route, content }: TemplateProps) {
         <Breadcrumbs items={breadcrumbs} />
 
         {/* Case Study Hero */}
-        <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+        <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
           <div className="container-custom max-w-4xl space-y-4">
             <span className="badge-gold">{content.eyebrow || 'Commercial Estate Case Study'}</span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
@@ -50,7 +50,7 @@ export function TemplateCaseStudy({ route, content }: TemplateProps) {
             <div className="space-y-6 text-slate-700 leading-relaxed text-sm sm:text-base">
               <div>
                 <span className="badge-technical">Operational Challenge</span>
-                <h2 className="text-2xl font-bold text-brand-navy mt-2">
+                <h2 className="text-2xl font-bold text-brand-graphite mt-2">
                   Client Estate & Operational Scope
                 </h2>
                 <p className="mt-2 text-slate-600">
@@ -60,17 +60,17 @@ export function TemplateCaseStudy({ route, content }: TemplateProps) {
 
               <div>
                 <span className="badge-technical">Engineering Solution</span>
-                <h2 className="text-2xl font-bold text-brand-navy mt-2">
+                <h2 className="text-2xl font-bold text-brand-graphite mt-2">
                   Transition to Structured SFG20 Maintenance
                 </h2>
                 <p className="mt-2 text-slate-600">
-                  Our engineering team conducted comprehensive asset verification surveys, logged all plant infrastructure into our digital CAFM portal, and deployed dedicated mobile engineers for scheduled PPM and 24/7 reactive response.
+                  Our engineering team conducted comprehensive asset verification surveys, logged all plant infrastructure into our digital CAFM portal, and deployed dedicated mobile engineers for scheduled PPM and out-of-hours reactive response.
                 </p>
               </div>
 
               {content.sections && content.sections.map((sec, idx) => (
                 <div key={idx} className="pt-4 space-y-3">
-                  <h2 className="text-2xl font-bold text-brand-navy">{sec.heading}</h2>
+                  <h2 className="text-2xl font-bold text-brand-graphite">{sec.heading}</h2>
                   <p>{sec.body}</p>
                 </div>
               ))}
@@ -79,11 +79,11 @@ export function TemplateCaseStudy({ route, content }: TemplateProps) {
         </section>
 
         {/* Related Links */}
-        <section className="section-padding bg-brand-surface border-t border-brand-border">
+        <section className="section-padding bg-brand-surface border-t border-brand-edge">
           <div className="container-custom max-w-4xl">
             <div className="mb-8">
               <span className="badge-technical">Related Capabilities</span>
-              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+              <h2 className="text-2xl font-bold text-brand-graphite mt-2">
                 Explore Relevant Services & Sectors
               </h2>
             </div>

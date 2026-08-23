@@ -7,10 +7,10 @@
   "generatedBy": "scripts/generate-production-manifest.js",
   "warning": "This file is auto-generated. Edit route-registry.json and re-run npm run generate:manifest.",
   "summary": {
-    "total": 233,
-    "protected": 233,
-    "indexable": 233,
-    "historicWix": 205,
+    "total": 248,
+    "protected": 248,
+    "indexable": 248,
+    "historicWix": 220,
     "currentLive": 4,
     "growth": 24
   },
@@ -55,6 +55,19 @@
       "contentStatus": "COMPLETE"
     },
     {
+      "path": "/access-control",
+      "url": "https://www.entirefm.com/access-control",
+      "routeType": "service",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "hard-fm",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
       "path": "/accessibility-statement",
       "url": "https://www.entirefm.com/accessibility-statement",
       "routeType": "legal",
@@ -66,6 +79,19 @@
       "sitemapGroup": "core",
       "provenance": "LEGACY_VERIFIED",
       "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/account-registration",
+      "url": "https://www.entirefm.com/account-registration",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "company",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
     },
     {
       "path": "/aerial-drone-building-inspection",
@@ -105,6 +131,19 @@
       "sitemapGroup": "sectors",
       "provenance": "LEGACY_VERIFIED",
       "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/arena-facilities-management-1",
+      "url": "https://www.entirefm.com/arena-facilities-management-1",
+      "routeType": "sector",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "sectors",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
     },
     {
       "path": "/best-facilities-management-company",
@@ -248,6 +287,32 @@
       "sitemapGroup": "soft-fm",
       "provenance": "LEGACY_VERIFIED",
       "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/case-studies",
+      "url": "https://www.entirefm.com/case-studies",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "CURRENT_LIVE",
+      "sitemapGroup": "company",
+      "provenance": "CURRENT_LIVE_RETAINED",
+      "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/chesterfield",
+      "url": "https://www.entirefm.com/chesterfield",
+      "routeType": "geographic-service",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "local-services",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
     },
     {
       "path": "/chesterfield-facilities-management",
@@ -653,6 +718,19 @@
       "contentStatus": "COMPLETE"
     },
     {
+      "path": "/emergency-light-testing",
+      "url": "https://www.entirefm.com/emergency-light-testing",
+      "routeType": "service",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "hard-fm",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
       "path": "/employment-portal",
       "url": "https://www.entirefm.com/employment-portal",
       "routeType": "company",
@@ -1017,6 +1095,19 @@
       "contentStatus": "COMPLETE"
     },
     {
+      "path": "/facilities-management-glossary",
+      "url": "https://www.entirefm.com/facilities-management-glossary",
+      "routeType": "post",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "insights",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
       "path": "/facilities-management-grimsby",
       "url": "https://www.entirefm.com/facilities-management-grimsby",
       "routeType": "location",
@@ -1054,6 +1145,19 @@
       "sitemapGroup": "locations",
       "provenance": "LEGACY_VERIFIED",
       "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/facilities-management-industries",
+      "url": "https://www.entirefm.com/facilities-management-industries",
+      "routeType": "sector",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "sectors",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
     },
     {
       "path": "/facilities-management-leeds",
@@ -1745,6 +1849,58 @@
       "contentStatus": "COMPLETE"
     },
     {
+      "path": "/home",
+      "url": "https://www.entirefm.com/home",
+      "routeType": "home",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "core",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
+      "path": "/home-1-1",
+      "url": "https://www.entirefm.com/home-1-1",
+      "routeType": "home",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "core",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
+      "path": "/home-1-1-1",
+      "url": "https://www.entirefm.com/home-1-1-1",
+      "routeType": "home",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "core",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
+      "path": "/homeab",
+      "url": "https://www.entirefm.com/homeab",
+      "routeType": "home",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "core",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
       "path": "/hot-tub-relocation",
       "url": "https://www.entirefm.com/hot-tub-relocation",
       "routeType": "service",
@@ -2057,6 +2213,19 @@
       "contentStatus": "COMPLETE"
     },
     {
+      "path": "/locations",
+      "url": "https://www.entirefm.com/locations",
+      "routeType": "location",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "CURRENT_LIVE",
+      "sitemapGroup": "locations",
+      "provenance": "CURRENT_LIVE_RETAINED",
+      "contentStatus": "COMPLETE"
+    },
+    {
       "path": "/logistics-facilities-management",
       "url": "https://www.entirefm.com/logistics-facilities-management",
       "routeType": "sector",
@@ -2328,6 +2497,19 @@
       "sitemapGroup": "hard-fm",
       "provenance": "LEGACY_VERIFIED",
       "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/portal",
+      "url": "https://www.entirefm.com/portal",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "company",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
     },
     {
       "path": "/portfolio",
@@ -2681,6 +2863,19 @@
       "contentStatus": "COMPLETE"
     },
     {
+      "path": "/resources",
+      "url": "https://www.entirefm.com/resources",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "CURRENT_LIVE",
+      "sitemapGroup": "company",
+      "provenance": "CURRENT_LIVE_RETAINED",
+      "contentStatus": "COMPLETE"
+    },
+    {
       "path": "/restaurant-facilities-management",
       "url": "https://www.entirefm.com/restaurant-facilities-management",
       "routeType": "sector",
@@ -2759,6 +2954,32 @@
       "contentStatus": "COMPLETE"
     },
     {
+      "path": "/search",
+      "url": "https://www.entirefm.com/search",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "company",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
+      "path": "/sectors",
+      "url": "https://www.entirefm.com/sectors",
+      "routeType": "sector",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "CURRENT_LIVE",
+      "sitemapGroup": "sectors",
+      "provenance": "CURRENT_LIVE_RETAINED",
+      "contentStatus": "COMPLETE"
+    },
+    {
       "path": "/security-services",
       "url": "https://www.entirefm.com/security-services",
       "routeType": "service",
@@ -2796,6 +3017,19 @@
       "sitemapGroup": "company",
       "provenance": "LEGACY_VERIFIED",
       "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/sheffield",
+      "url": "https://www.entirefm.com/sheffield",
+      "routeType": "geographic-service",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "local-services",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
     },
     {
       "path": "/sheffield-facilities-management",
@@ -2902,6 +3136,19 @@
       "contentStatus": "COMPLETE"
     },
     {
+      "path": "/truck-mount-crane-hire",
+      "url": "https://www.entirefm.com/truck-mount-crane-hire",
+      "routeType": "service",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "WIX",
+      "sitemapGroup": "specialist-services",
+      "provenance": "LEGACY_VERIFIED",
+      "contentStatus": "CONTENT_COMPLETE"
+    },
+    {
       "path": "/vending-supplier",
       "url": "https://www.entirefm.com/vending-supplier",
       "routeType": "service",
@@ -2990,58 +3237,6 @@
       "originEstate": "WIX",
       "sitemapGroup": "hard-fm",
       "provenance": "LEGACY_VERIFIED",
-      "contentStatus": "COMPLETE"
-    },
-    {
-      "path": "/sectors",
-      "url": "https://www.entirefm.com/sectors",
-      "routeType": "sector",
-      "protected": true,
-      "indexable": true,
-      "indexExpected": true,
-      "canonicalExpected": "self",
-      "originEstate": "CURRENT_LIVE",
-      "sitemapGroup": "sectors",
-      "provenance": "CURRENT_LIVE_RETAINED",
-      "contentStatus": "COMPLETE"
-    },
-    {
-      "path": "/locations",
-      "url": "https://www.entirefm.com/locations",
-      "routeType": "location",
-      "protected": true,
-      "indexable": true,
-      "indexExpected": true,
-      "canonicalExpected": "self",
-      "originEstate": "CURRENT_LIVE",
-      "sitemapGroup": "locations",
-      "provenance": "CURRENT_LIVE_RETAINED",
-      "contentStatus": "COMPLETE"
-    },
-    {
-      "path": "/case-studies",
-      "url": "https://www.entirefm.com/case-studies",
-      "routeType": "company",
-      "protected": true,
-      "indexable": true,
-      "indexExpected": true,
-      "canonicalExpected": "self",
-      "originEstate": "CURRENT_LIVE",
-      "sitemapGroup": "company",
-      "provenance": "CURRENT_LIVE_RETAINED",
-      "contentStatus": "COMPLETE"
-    },
-    {
-      "path": "/resources",
-      "url": "https://www.entirefm.com/resources",
-      "routeType": "company",
-      "protected": true,
-      "indexable": true,
-      "indexExpected": true,
-      "canonicalExpected": "self",
-      "originEstate": "CURRENT_LIVE",
-      "sitemapGroup": "company",
-      "provenance": "CURRENT_LIVE_RETAINED",
       "contentStatus": "COMPLETE"
     }
   ]

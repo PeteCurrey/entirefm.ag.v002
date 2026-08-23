@@ -21,7 +21,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
         <Breadcrumbs items={breadcrumbs} />
 
         {/* Supply Chain Hero */}
-        <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+        <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
           <div className="container-custom">
             <div className="max-w-3xl space-y-4">
               <span className="badge-gold">{content.eyebrow || 'Supply Chain & Procurement'}</span>
@@ -42,7 +42,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
           <div className="container-custom max-w-4xl space-y-8">
             <div className="space-y-4">
               <span className="badge-technical">Compliance Criteria</span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-brand-navy">
+              <h2 className="text-2xl sm:text-3xl font-bold text-brand-graphite">
                 Supply Chain Accreditation & Standards
               </h2>
               <p className="text-slate-600 text-sm leading-relaxed">
@@ -51,19 +51,19 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 bg-brand-surface border border-brand-border rounded-sm space-y-2">
-                <FileCheck className="w-5 h-5 text-brand-gold" />
-                <h4 className="text-sm font-bold text-brand-navy">Insurance Verification</h4>
+              <div className="p-4 bg-brand-surface border border-brand-edge rounded-sm space-y-2">
+                <FileCheck className="w-5 h-5 text-brand-electric" />
+                <h4 className="text-sm font-bold text-brand-graphite">Insurance Verification</h4>
                 <p className="text-xs text-slate-600">Minimum £5M Public Liability and £10M Employers Liability coverage required.</p>
               </div>
-              <div className="p-4 bg-brand-surface border border-brand-border rounded-sm space-y-2">
-                <ShieldCheck className="w-5 h-5 text-brand-gold" />
-                <h4 className="text-sm font-bold text-brand-navy">Health & Safety Certification</h4>
+              <div className="p-4 bg-brand-surface border border-brand-edge rounded-sm space-y-2">
+                <ShieldCheck className="w-5 h-5 text-brand-electric" />
+                <h4 className="text-sm font-bold text-brand-graphite">Health & Safety Certification</h4>
                 <p className="text-xs text-slate-600">SSIP accreditation (CHAS, SafeContractor) and documented RAMS required.</p>
               </div>
             </div>
 
-            <div className="p-8 bg-brand-charcoal border border-brand-border-dark rounded-sm text-white space-y-4">
+            <div className="p-8 bg-brand-carbon border border-brand-edge-dark rounded-sm text-white space-y-4">
               <h3 className="text-lg font-bold text-white">Subcontractor Registration Form</h3>
               <p className="text-xs text-slate-300">
                 To apply for our approved contractor network, please submit your company details, certifications, and insurance documents to our procurement desk.

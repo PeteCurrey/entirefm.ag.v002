@@ -14,13 +14,13 @@ export function PhoneCTA({
   tel?: string;
 }) {
   return (
-    <div className="bg-brand-charcoal border border-brand-border-dark p-6 rounded-sm text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div className="bg-brand-carbon border border-brand-edge-dark p-6 rounded-sm text-white flex flex-col sm:flex-row items-center justify-between gap-4">
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-sm bg-brand-gold/20 text-brand-gold flex items-center justify-center shrink-0 border border-brand-gold/30">
+        <div className="w-12 h-12 rounded-sm bg-brand-electric/20 text-brand-electric flex items-center justify-center shrink-0 border border-brand-electric/30">
           <Phone className="w-6 h-6" />
         </div>
         <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-brand-gold block">{location} Engineering & Helpdesk</span>
+          <span className="text-xs font-mono uppercase tracking-wider text-brand-electric block">{location} Engineering & Helpdesk</span>
           <span className="text-lg font-bold text-white block mt-0.5">Speak with our Operations Team</span>
           <span className="text-xs text-slate-400">Direct technical triage and emergency contractor dispatch</span>
         </div>
@@ -47,10 +47,10 @@ export function InlineCTA({
   buttonLink?: string;
 }) {
   return (
-    <div className="bg-brand-surface border border-brand-border p-8 rounded-sm text-brand-navy my-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    <div className="bg-brand-surface border border-brand-edge p-8 rounded-sm text-brand-graphite my-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
       <div className="max-w-2xl">
         <span className="badge-technical mb-2">Operational Review</span>
-        <h3 className="text-xl font-bold tracking-tight text-brand-navy mt-1">{title}</h3>
+        <h3 className="text-xl font-bold tracking-tight text-brand-graphite mt-1">{title}</h3>
         <p className="text-sm text-slate-600 mt-1">{description}</p>
       </div>
       <div className="shrink-0 flex flex-wrap gap-3">
@@ -74,7 +74,7 @@ export function ProposalSection({
   subheadline?: string;
 }) {
   return (
-    <section id="enquiry" className="section-padding bg-brand-navy border-t border-brand-border-dark text-white relative">
+    <section id="enquiry" className="section-padding bg-brand-graphite border-t border-brand-edge-dark text-white relative">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Commercial Context */}
@@ -88,8 +88,8 @@ export function ProposalSection({
             </p>
 
             <div className="space-y-4 pt-2">
-              <div className="flex items-start gap-3 p-4 bg-brand-charcoal border border-brand-border-dark rounded-sm">
-                <ShieldCheck className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3 p-4 bg-brand-carbon border border-brand-edge-dark rounded-sm">
+                <ShieldCheck className="w-5 h-5 text-brand-electric shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-sm font-bold text-white">Comprehensive Statutory Compliance Management</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
@@ -98,8 +98,8 @@ export function ProposalSection({
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 p-4 bg-brand-charcoal border border-brand-border-dark rounded-sm">
-                <Clock className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3 p-4 bg-brand-carbon border border-brand-edge-dark rounded-sm">
+                <Clock className="w-5 h-5 text-brand-electric shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-sm font-bold text-white">Central Operations Helpdesk</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
@@ -109,9 +109,9 @@ export function ProposalSection({
               </div>
             </div>
 
-            <div className="p-4 border border-dashed border-brand-border-dark rounded-sm bg-brand-charcoal/40 text-xs text-slate-400">
-              <span className="text-brand-gold font-semibold block mb-1">Direct Technical Consultation:</span>
-              Speak directly with an operations director or regional engineering manager on <a href={CONTACT_CONFIG.mainPhone.href} className="text-white font-mono font-bold hover:text-brand-gold">{CONTACT_CONFIG.mainPhone.display}</a>.
+            <div className="p-4 border border-dashed border-brand-edge-dark rounded-sm bg-brand-carbon/40 text-xs text-slate-400">
+              <span className="text-brand-electric font-semibold block mb-1">Direct Technical Consultation:</span>
+              Speak directly with an operations director or regional engineering manager on <a href={CONTACT_CONFIG.mainPhone.href} className="text-white font-mono font-bold hover:text-brand-electric">{CONTACT_CONFIG.mainPhone.display}</a>.
             </div>
           </div>
 

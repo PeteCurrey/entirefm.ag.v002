@@ -19,6 +19,14 @@
     "generate:manifest": "node scripts/generate-production-manifest.js",
     "validate:manifest": "node scripts/validate-manifest-registry.js",
     "validate:redirects": "node scripts/validate-redirects.js",
+    "verify:legacy-estate": "node scripts/verify-legacy-estate.js",
+    "verify:legacy-estate:prod": "node scripts/verify-legacy-estate.js --production",
+    "check:similarity": "node scripts/check-page-similarity.js",
+    "check:claims": "node scripts/check-claims.js",
+    "build:location-images": "node scripts/build-location-images.js",
+    "seo:location-strategy": "tsx scripts/generate-location-seo-strategy.ts",
+    "tiers:generate": "node scripts/generate-indexation-tiers.js",
+    "recover:orphans": "node scripts/recover-orphan-wix-pages.js",
     "test:encoded-routes": "node scripts/test-encoded-routes.js",
     "phase09r2:qa": "node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit",
     "phase09r3:qa": "node scripts/test-encoded-routes.js && node scripts/validate-manifest-registry.js && node scripts/validate-redirects.js && node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit"
@@ -41,6 +49,7 @@
     "postcss": "^8.5.26",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.19.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "ws": "^8.21.3"
   }
 }

@@ -10,6 +10,7 @@
 import { NextResponse } from 'next/server';
 import { getRoutesByGroup } from '@/lib/routes/route-registry';
 import type { SitemapGroup } from '@/lib/routes/route-schema';
+import { isIndexableByTier } from '@/config/indexation';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? '';
 const IS_PRODUCTION = process.env.NODE_ENV === 'production' && SITE_URL !== '';
@@ -47,7 +48,12 @@ export async function GET(
     );
   }
 
-  const routes = getRoutesByGroup(group as SitemapGroup).filter(r => r.indexable);
+  // A sitemap is a request to index, so it must agree with the robots tag.
+  // Pages held for differentiation stay live and internally linked, but are
+  // not advertised for indexing.
+  const routes = getRoutesByGroup(group as SitemapGroup).filter(
+    r => r.indexable && isIndexableByTier(r.path)
+  );
 
   const urls = routes
     .map(

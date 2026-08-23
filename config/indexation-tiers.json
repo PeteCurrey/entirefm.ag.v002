@@ -1,0 +1,1813 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Indexation tiers. Controls noindex only — never routing. Every path here is a live 200 page regardless of its indexable value. Regenerate with: npm run tiers:generate",
+  "generated": "2026-08-23",
+  "method": "8-word shingle Jaccard within route type, threshold 0.7",
+  "guarantees": {
+    "noRedirects": true,
+    "no404s": true,
+    "allLegacyUrlsReturn200": true
+  },
+  "summary": {
+    "total": 248,
+    "indexable": 116,
+    "awaitingDifferentiation": 132
+  },
+  "tiers": {
+    "/": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.369
+    },
+    "/24-7-fm-support": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "88.6% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.886,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/bocker-crane-hire": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.3% similar to /mobile-crane-hire. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.903,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/building-inspecting-testing": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.1% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.891,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/building-maintenance": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "70.1% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.701,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/carpark-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.1% similar to /washroom-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.901,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/cleaning-services": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "88.8% similar to /contract-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.888,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/contract-cleaning": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.1% similar to /internal-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.901,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/facilities-management-services": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.6% similar to /facilities-management-services-lond. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.906,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/facilities-management-services-lond": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.6% similar to /facilities-management-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.906,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/fm-technical-services": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.6% similar to /hard-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.896,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/grounds-maintenance": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.6% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.896,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/hard-services": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 29-page near-duplicate cluster (2 clicks, 6315 impressions)",
+      "peakSimilarity": 0.901,
+      "clusterSize": 29
+    },
+    "/internal-cleaning": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.1% similar to /contract-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.901,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/landscaping": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.6% similar to /carpark-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.896,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/mechanical-electrical/access-control": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.1% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.891,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/mechanical-electrical/emergency-light-testing": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "88.7% similar to /building-inspecting-testing. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.887,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/media-digital-displays": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.1% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.891,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/medical-cleaning": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.1% similar to /contract-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.901,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/mobile-crane-hire": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.9% similar to /mobile-crane-hire/truck-mount-crane-hire. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.909,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/mobile-crane-hire/truck-mount-crane-hire": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.9% similar to /mobile-crane-hire. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.909,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/office-cleaning": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.1% similar to /contract-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.901,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/pressure-washing": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "88.8% similar to /cleaning-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.888,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/reactive-cleaning-services": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "73.9% similar to /cleaning-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.739,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/security-services": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.1% similar to /hard-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.901,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/soft-services": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.1% similar to /hard-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.901,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/vending-supplier": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.6% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.896,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/washroom-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.1% similar to /carpark-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.901,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/window-cleaning": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.1% similar to /contract-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.901,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/working-at-heights": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.1% similar to /landscaping. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.891,
+      "clusterSize": 29,
+      "representative": "/hard-services"
+    },
+    "/about-entire-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "92.3% similar to /facilities-management-team. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.923,
+      "clusterSize": 3,
+      "representative": "/facilities-management-team"
+    },
+    "/best-facilities-management-company": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "92.3% similar to /facilities-management-team. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.923,
+      "clusterSize": 3,
+      "representative": "/facilities-management-team"
+    },
+    "/facilities-management-team": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.923,
+      "clusterSize": 3
+    },
+    "/access-control": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.598
+    },
+    "/accessibility-statement": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "95.8% similar to /privacy-policy. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.958,
+      "clusterSize": 3,
+      "representative": "/privacy-policy"
+    },
+    "/privacy-policy": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.958,
+      "clusterSize": 3
+    },
+    "/terms-and-conditions": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "95.5% similar to /accessibility-statement. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.955,
+      "clusterSize": 3,
+      "representative": "/privacy-policy"
+    },
+    "/account-registration": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "76.0% similar to /search. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.76,
+      "clusterSize": 2,
+      "representative": "/search"
+    },
+    "/search": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.76,
+      "clusterSize": 2
+    },
+    "/aerial-drone-building-inspection": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.694
+    },
+    "/airport-facilities-management": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.672
+    },
+    "/arena-facilities-management": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 5-page near-duplicate cluster (4 clicks, 788 impressions)",
+      "peakSimilarity": 0.907,
+      "clusterSize": 5
+    },
+    "/facilities-management-for/sports-venue-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.0% similar to /sport-centre-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.91,
+      "clusterSize": 5,
+      "representative": "/arena-facilities-management"
+    },
+    "/facilities-management-for/stadium-%26-arena-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.6% similar to /facilities-management-for/sports-venue-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.906,
+      "clusterSize": 5,
+      "representative": "/arena-facilities-management"
+    },
+    "/sport-centre-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.0% similar to /facilities-management-for/sports-venue-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.91,
+      "clusterSize": 5,
+      "representative": "/arena-facilities-management"
+    },
+    "/transport-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.6% similar to /arena-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.906,
+      "clusterSize": 5,
+      "representative": "/arena-facilities-management"
+    },
+    "/arena-facilities-management-1": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.591
+    },
+    "/birmingham-facilities-management": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.401
+    },
+    "/blog": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 11-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.938,
+      "clusterSize": 11
+    },
+    "/facilities-management-blog": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "93.8% similar to /blog. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.938,
+      "clusterSize": 11,
+      "representative": "/blog"
+    },
+    "/post/facilities-management-in-different-sectors-similarities-differences-and-the-need-for-agility": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.7% similar to /blog. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.907,
+      "clusterSize": 11,
+      "representative": "/blog"
+    },
+    "/post/the-importance-of-regular-maintenance-and-inspections": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "92.9% similar to /post/the-importance-of-regular-maintenance-and-inspections-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.929,
+      "clusterSize": 11,
+      "representative": "/blog"
+    },
+    "/post/the-importance-of-regular-maintenance-and-inspections-1": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "92.9% similar to /post/the-importance-of-regular-maintenance-and-inspections. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.929,
+      "clusterSize": 11,
+      "representative": "/blog"
+    },
+    "/post/what-are-hard-services": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "92.5% similar to /blog. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.925,
+      "clusterSize": 11,
+      "representative": "/blog"
+    },
+    "/post/what-are-hard-services-in-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "92.9% similar to /post/what-are-hard-services-in-facilities-management-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.929,
+      "clusterSize": 11,
+      "representative": "/blog"
+    },
+    "/post/what-are-hard-services-in-facilities-management-1": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "92.9% similar to /post/what-are-hard-services-in-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.929,
+      "clusterSize": 11,
+      "representative": "/blog"
+    },
+    "/post/what-is-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "93.0% similar to /post/what-is-facilities-management-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.93,
+      "clusterSize": 11,
+      "representative": "/blog"
+    },
+    "/post/what-is-facilities-management-1": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "93.8% similar to /post/what-is-facilities-management-1-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.938,
+      "clusterSize": 11,
+      "representative": "/blog"
+    },
+    "/post/what-is-facilities-management-1-1": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "93.8% similar to /post/what-is-facilities-management-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.938,
+      "clusterSize": 11,
+      "representative": "/blog"
+    },
+    "/bolton-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.8% similar to /fm-bolton. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.908,
+      "clusterSize": 3,
+      "representative": "/fm-bolton"
+    },
+    "/facilities-management-bolton": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.7% similar to /fm-bolton. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3,
+      "representative": "/fm-bolton"
+    },
+    "/fm-bolton": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3
+    },
+    "/bradford-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.8% similar to /fm-bradford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.908,
+      "clusterSize": 3,
+      "representative": "/facilities-management-bradford"
+    },
+    "/facilities-management-bradford": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (3 clicks, 1535 impressions)",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3
+    },
+    "/fm-bradford": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.7% similar to /facilities-management-bradford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3,
+      "representative": "/facilities-management-bradford"
+    },
+    "/bury-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.8% similar to /fm-bury. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.908,
+      "clusterSize": 3,
+      "representative": "/fm-bury"
+    },
+    "/facilities-management-bury": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.7% similar to /fm-bury. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3,
+      "representative": "/fm-bury"
+    },
+    "/fm-bury": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3
+    },
+    "/caretaker": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.926,
+      "clusterSize": 2
+    },
+    "/concierge-services": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "92.6% similar to /caretaker. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.926,
+      "clusterSize": 2,
+      "representative": "/caretaker"
+    },
+    "/case-studies": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 1245 impressions)",
+      "peakSimilarity": 0.938,
+      "clusterSize": 3
+    },
+    "/fm-support-n-contact/facilities-management-glossary": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "73.2% similar to /portfolio. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.732,
+      "clusterSize": 3,
+      "representative": "/case-studies"
+    },
+    "/portfolio": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "93.8% similar to /case-studies. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.938,
+      "clusterSize": 3,
+      "representative": "/case-studies"
+    },
+    "/chesterfield": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.587
+    },
+    "/chesterfield-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.8% similar to /fm-chesterfield. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.908,
+      "clusterSize": 3,
+      "representative": "/fm-chesterfield"
+    },
+    "/facilities-management-chesterfield": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "73.2% similar to /fm-chesterfield. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.732,
+      "clusterSize": 3,
+      "representative": "/fm-chesterfield"
+    },
+    "/fm-chesterfield": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (8 clicks, 704 impressions)",
+      "peakSimilarity": 0.908,
+      "clusterSize": 3
+    },
+    "/client-login": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "94.1% similar to /helpdesk. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.941,
+      "clusterSize": 10,
+      "representative": "/fm-supply-chain"
+    },
+    "/client-login/account-registration": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "93.9% similar to /helpdesk-registration. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.939,
+      "clusterSize": 10,
+      "representative": "/fm-supply-chain"
+    },
+    "/copy-of-helpdesk-registration": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "94.1% similar to /helpdesk-registration. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.941,
+      "clusterSize": 10,
+      "representative": "/fm-supply-chain"
+    },
+    "/employment-portal": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "94.2% similar to /job-board. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.942,
+      "clusterSize": 10,
+      "representative": "/fm-supply-chain"
+    },
+    "/fm-client-info": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "93.6% similar to /helpdesk. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.936,
+      "clusterSize": 10,
+      "representative": "/fm-supply-chain"
+    },
+    "/fm-supply-chain": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 10-page near-duplicate cluster (0 clicks, 6 impressions)",
+      "peakSimilarity": 0.938,
+      "clusterSize": 10
+    },
+    "/fm-supply-form": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "93.8% similar to /fm-supply-chain. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.938,
+      "clusterSize": 10,
+      "representative": "/fm-supply-chain"
+    },
+    "/helpdesk": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "94.6% similar to /helpdesk-registration. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.946,
+      "clusterSize": 10,
+      "representative": "/fm-supply-chain"
+    },
+    "/helpdesk-registration": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "94.6% similar to /helpdesk. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.946,
+      "clusterSize": 10,
+      "representative": "/fm-supply-chain"
+    },
+    "/job-board": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "94.2% similar to /employment-portal. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.942,
+      "clusterSize": 10,
+      "representative": "/fm-supply-chain"
+    },
+    "/commercial-cleaning-birmingham": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.1% similar to /external-cleaning-birmingham. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.911,
+      "clusterSize": 3,
+      "representative": "/pressure-washing-birmingham"
+    },
+    "/external-cleaning-birmingham": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.1% similar to /commercial-cleaning-birmingham. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.911,
+      "clusterSize": 3,
+      "representative": "/pressure-washing-birmingham"
+    },
+    "/pressure-washing-birmingham": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.888,
+      "clusterSize": 3
+    },
+    "/commercial-cleaning-chesterfield": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.1% similar to /contract-cleaning-chesterfield. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.911,
+      "clusterSize": 2,
+      "representative": "/contract-cleaning-chesterfield"
+    },
+    "/contract-cleaning-chesterfield": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.911,
+      "clusterSize": 2
+    },
+    "/commercial-cleaning-leeds": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.1% similar to /contract-cleaning-leeds. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.911,
+      "clusterSize": 2,
+      "representative": "/contract-cleaning-leeds"
+    },
+    "/contract-cleaning-leeds": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.911,
+      "clusterSize": 2
+    },
+    "/commercial-cleaning-lincoln": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.1% similar to /office-cleaning-lincoln. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.911,
+      "clusterSize": 5,
+      "representative": "/office-cleaning-lincoln"
+    },
+    "/contract-cleaning-lincoln": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.2% similar to /external-cleaning-lincoln. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.912,
+      "clusterSize": 5,
+      "representative": "/office-cleaning-lincoln"
+    },
+    "/external-cleaning-lincoln": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.2% similar to /contract-cleaning-lincoln. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.912,
+      "clusterSize": 5,
+      "representative": "/office-cleaning-lincoln"
+    },
+    "/office-cleaning-lincoln": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 5-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.911,
+      "clusterSize": 5
+    },
+    "/pressure-washing-lincoln": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "88.8% similar to /commercial-cleaning-lincoln. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.888,
+      "clusterSize": 5,
+      "representative": "/office-cleaning-lincoln"
+    },
+    "/commercial-cleaning-london": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.1% similar to /office-cleaning-london. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.911,
+      "clusterSize": 5,
+      "representative": "/office-cleaning-london"
+    },
+    "/contract-cleaning-london": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.0% similar to /external-cleaning-london. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.91,
+      "clusterSize": 5,
+      "representative": "/office-cleaning-london"
+    },
+    "/external-cleaning-london": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.0% similar to /contract-cleaning-london. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.91,
+      "clusterSize": 5,
+      "representative": "/office-cleaning-london"
+    },
+    "/office-cleaning-london": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 5-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.911,
+      "clusterSize": 5
+    },
+    "/pressure-washing-london": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "88.8% similar to /commercial-cleaning-london. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.888,
+      "clusterSize": 5,
+      "representative": "/office-cleaning-london"
+    },
+    "/commercial-cleaning-manchester": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.9% similar to /manchester-office-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.909,
+      "clusterSize": 5,
+      "representative": "/external-cleaning-manchester"
+    },
+    "/contract-cleaning-manchester": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.6% similar to /external-cleaning-manchester. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.906,
+      "clusterSize": 5,
+      "representative": "/external-cleaning-manchester"
+    },
+    "/external-cleaning-manchester": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 5-page near-duplicate cluster (0 clicks, 2 impressions)",
+      "peakSimilarity": 0.906,
+      "clusterSize": 5
+    },
+    "/manchester-office-cleaning": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.9% similar to /commercial-cleaning-manchester. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.909,
+      "clusterSize": 5,
+      "representative": "/external-cleaning-manchester"
+    },
+    "/pressure-washing-manchester": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "88.8% similar to /commercial-cleaning-manchester. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.888,
+      "clusterSize": 5,
+      "representative": "/external-cleaning-manchester"
+    },
+    "/commercial-cleaning-nottingham": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.657
+    },
+    "/commercial-cleaning-sheffield": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.1% similar to /contract-cleaning-sheffield. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.911,
+      "clusterSize": 3,
+      "representative": "/pressure-washing-sheffield"
+    },
+    "/contract-cleaning-sheffield": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.1% similar to /commercial-cleaning-sheffield. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.911,
+      "clusterSize": 3,
+      "representative": "/pressure-washing-sheffield"
+    },
+    "/pressure-washing-sheffield": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.888,
+      "clusterSize": 3
+    },
+    "/commercial-facilities-management": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 13-page near-duplicate cluster (2 clicks, 526 impressions)",
+      "peakSimilarity": 0.894,
+      "clusterSize": 13
+    },
+    "/construction-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.4% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.894,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/facilities-management-for/construction-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.3% similar to /facilities-management-for/leisure-centre-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.893,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/facilities-management-for/leisure-centre-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.3% similar to /facilities-management-for/construction-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.893,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/facilities-management-for/offices%2C-corporate-%26-co-working": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "87.2% similar to /facilities-management-offices. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.872,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/facilities-management-for/restaurant-%26-hospitality-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "88.8% similar to /facilities-management-for/construction-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.888,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/facilities-management-offices": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "88.1% similar to /facilities-management-for/construction-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.881,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/landmark-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.4% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.894,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/public-sector-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "88.9% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.889,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/restaurant-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.4% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.894,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/service-station-fm": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "86.7% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.867,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/tier-one-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "88.9% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.889,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/tierone-facilities-managment": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "86.7% similar to /commercial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.867,
+      "clusterSize": 13,
+      "representative": "/commercial-facilities-management"
+    },
+    "/commercial-fm-lincoln": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.666
+    },
+    "/contact-us": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.993,
+      "clusterSize": 2
+    },
+    "/fm-support-n-contact": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "99.3% similar to /contact-us. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.993,
+      "clusterSize": 2,
+      "representative": "/contact-us"
+    },
+    "/copy-of-industrial-cleaning": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.7% similar to /industrial-cleaning. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.917,
+      "clusterSize": 2,
+      "representative": "/industrial-cleaning"
+    },
+    "/industrial-cleaning": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 153 impressions)",
+      "peakSimilarity": 0.917,
+      "clusterSize": 2
+    },
+    "/copy-of-what-is-facilities-manageme": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.2% similar to /what-is-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.902,
+      "clusterSize": 2,
+      "representative": "/what-is-facilities-management"
+    },
+    "/what-is-facilities-management": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.902,
+      "clusterSize": 2
+    },
+    "/derby-facilities-management": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.484
+    },
+    "/doncaster-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.8% similar to /fm-doncaster. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.908,
+      "clusterSize": 3,
+      "representative": "/fm-doncaster"
+    },
+    "/facilities-management-doncaster": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.7% similar to /fm-doncaster. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3,
+      "representative": "/fm-doncaster"
+    },
+    "/fm-doncaster": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3
+    },
+    "/education-cleaning": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.685
+    },
+    "/education-facilities-management": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.893,
+      "clusterSize": 2
+    },
+    "/facilities-management-for/education-%26-schools-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.3% similar to /education-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.893,
+      "clusterSize": 2,
+      "representative": "/education-facilities-management"
+    },
+    "/emergency-light-testing": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.599
+    },
+    "/facilities-management-birmingham": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.44
+    },
+    "/facilities-management-derby": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.516
+    },
+    "/facilities-management-for/healthcare-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.3% similar to /healthcare-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.893,
+      "clusterSize": 2,
+      "representative": "/healthcare-facilities-management"
+    },
+    "/healthcare-facilities-management": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.893,
+      "clusterSize": 2
+    },
+    "/facilities-management-for/hotels-%26-resort-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.0% similar to /hotel-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.91,
+      "clusterSize": 2,
+      "representative": "/hotel-facilities-management"
+    },
+    "/hotel-facilities-management": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (1 clicks, 878 impressions)",
+      "peakSimilarity": 0.91,
+      "clusterSize": 2
+    },
+    "/facilities-management-for/industrial-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.9% similar to /industrial-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.899,
+      "clusterSize": 2,
+      "representative": "/industrial-facilities-management"
+    },
+    "/industrial-facilities-management": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (1 clicks, 2558 impressions)",
+      "peakSimilarity": 0.899,
+      "clusterSize": 2
+    },
+    "/facilities-management-for/logistics-%26-distribution-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.4% similar to /facilities-management-for/warehouse-%26-distribution. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.904,
+      "clusterSize": 4,
+      "representative": "/warehouse-facilities-management"
+    },
+    "/facilities-management-for/warehouse-%26-distribution": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.1% similar to /logistics-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.911,
+      "clusterSize": 4,
+      "representative": "/warehouse-facilities-management"
+    },
+    "/logistics-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.1% similar to /facilities-management-for/warehouse-%26-distribution. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.911,
+      "clusterSize": 4,
+      "representative": "/warehouse-facilities-management"
+    },
+    "/warehouse-facilities-management": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 4-page near-duplicate cluster (2 clicks, 1857 impressions)",
+      "peakSimilarity": 0.895,
+      "clusterSize": 4
+    },
+    "/facilities-management-for/managing-agent-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.7% similar to /property-manager-fm-services. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.907,
+      "clusterSize": 2,
+      "representative": "/property-manager-fm-services"
+    },
+    "/property-manager-fm-services": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.907,
+      "clusterSize": 2
+    },
+    "/facilities-management-for/residential-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.4% similar to /residential-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.904,
+      "clusterSize": 2,
+      "representative": "/residential-facilities-management"
+    },
+    "/residential-facilities-management": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.904,
+      "clusterSize": 2
+    },
+    "/facilities-management-for/retail-%26-shopping-centre-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "89.2% similar to /retail-facilities-management. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.892,
+      "clusterSize": 2,
+      "representative": "/retail-facilities-management"
+    },
+    "/retail-facilities-management": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (4 clicks, 5016 impressions)",
+      "peakSimilarity": 0.892,
+      "clusterSize": 2
+    },
+    "/facilities-management-glossary": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.598
+    },
+    "/facilities-management-grimsby": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.7% similar to /fm-grimsby. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3,
+      "representative": "/fm-grimsby"
+    },
+    "/fm-grimsby": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3
+    },
+    "/grimsby-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.8% similar to /fm-grimsby. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.908,
+      "clusterSize": 3,
+      "representative": "/fm-grimsby"
+    },
+    "/facilities-management-in-telford": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "92.4% similar to /facilities-management-telford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.924,
+      "clusterSize": 4,
+      "representative": "/fm-telford"
+    },
+    "/facilities-management-telford": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "92.4% similar to /facilities-management-in-telford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.924,
+      "clusterSize": 4,
+      "representative": "/fm-telford"
+    },
+    "/fm-telford": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 4-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.917,
+      "clusterSize": 4
+    },
+    "/telford-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.8% similar to /fm-telford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.908,
+      "clusterSize": 4,
+      "representative": "/fm-telford"
+    },
+    "/facilities-management-in-the-midlands": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.9% similar to /facilities-management-midlands. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.919,
+      "clusterSize": 2,
+      "representative": "/facilities-management-midlands"
+    },
+    "/facilities-management-midlands": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.919,
+      "clusterSize": 2
+    },
+    "/facilities-management-industries": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.628
+    },
+    "/facilities-management-leeds": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.441
+    },
+    "/facilities-management-lincoln": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.473
+    },
+    "/facilities-management-liverpool": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.52
+    },
+    "/facilities-management-london": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.443
+    },
+    "/facilities-management-manchester": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.436
+    },
+    "/facilities-management-nottingham": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.524
+    },
+    "/facilities-management-oxford": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.7% similar to /fm-oxford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3,
+      "representative": "/fm-oxford"
+    },
+    "/fm-oxford": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3
+    },
+    "/oxford-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.8% similar to /fm-oxford. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.908,
+      "clusterSize": 3,
+      "representative": "/fm-oxford"
+    },
+    "/facilities-management-preston": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.7% similar to /fm-preston. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3,
+      "representative": "/fm-preston"
+    },
+    "/fm-preston": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3
+    },
+    "/preston-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.8% similar to /fm-preston. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.908,
+      "clusterSize": 3,
+      "representative": "/fm-preston"
+    },
+    "/facilities-management-rotherham": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.7% similar to /fm-rotherham. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3,
+      "representative": "/fm-rotherham"
+    },
+    "/fm-rotherham": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3
+    },
+    "/rotherham-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.8% similar to /fm-rotherham. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.908,
+      "clusterSize": 3,
+      "representative": "/fm-rotherham"
+    },
+    "/facilities-management-sheffield": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.448
+    },
+    "/facilities-management-wigan": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.7% similar to /fm-wigan. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3,
+      "representative": "/fm-wigan"
+    },
+    "/fm-wigan": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.917,
+      "clusterSize": 3
+    },
+    "/wigan-facilities-management": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "90.8% similar to /fm-wigan. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.908,
+      "clusterSize": 3,
+      "representative": "/fm-wigan"
+    },
+    "/fire-emergency-systems": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "91.4% similar to /safety-critical-emergency-systems. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.914,
+      "clusterSize": 2,
+      "representative": "/safety-critical-emergency-systems"
+    },
+    "/safety-critical-emergency-systems": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 2-page near-duplicate cluster (0 clicks, 301 impressions)",
+      "peakSimilarity": 0.914,
+      "clusterSize": 2
+    },
+    "/fm-birmingham": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.44
+    },
+    "/fm-derby": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.516
+    },
+    "/fm-leeds": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.441
+    },
+    "/fm-lincoln": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.443
+    },
+    "/fm-liverpool": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.52
+    },
+    "/fm-london": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.443
+    },
+    "/fm-manchester": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.436
+    },
+    "/fm-matlock": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0
+    },
+    "/fm-nottingham": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.524
+    },
+    "/fm-services-sheffield": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.503
+    },
+    "/fm-sheffield": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.468
+    },
+    "/gates-barriers": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.689
+    },
+    "/home": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 4-page near-duplicate cluster (0 clicks, 0 impressions)",
+      "peakSimilarity": 0.986,
+      "clusterSize": 4
+    },
+    "/home-1-1": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "98.6% similar to /home-1-1-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.986,
+      "clusterSize": 4,
+      "representative": "/home"
+    },
+    "/home-1-1-1": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "98.6% similar to /home-1-1. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.986,
+      "clusterSize": 4,
+      "representative": "/home"
+    },
+    "/homeab": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "98.6% similar to /home. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.986,
+      "clusterSize": 4,
+      "representative": "/home"
+    },
+    "/hot-tub-relocation": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.69
+    },
+    "/hvac-contractor": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.644
+    },
+    "/industrial-cleaning-birmingham": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.656
+    },
+    "/industrial-cleaning-chesterfield": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.657
+    },
+    "/industrial-cleaning-derby": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0
+    },
+    "/industrial-cleaning-leeds": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.657
+    },
+    "/industrial-cleaning-lincoln": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.666
+    },
+    "/industrial-cleaning-london": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.666
+    },
+    "/industrial-cleaning-manchester": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.666
+    },
+    "/industrial-cleaning-nottingham": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.657
+    },
+    "/industrial-cleaning-sheffield": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.657
+    },
+    "/industrial-fm-lincoln": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.665
+    },
+    "/items": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "96.4% similar to /resources. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.964,
+      "clusterSize": 3,
+      "representative": "/services"
+    },
+    "/resources": {
+      "indexable": false,
+      "tier": "AWAITING_DIFFERENTIATION",
+      "reason": "96.4% similar to /items. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "peakSimilarity": 0.964,
+      "clusterSize": 3,
+      "representative": "/services"
+    },
+    "/services": {
+      "indexable": true,
+      "tier": "CLUSTER_REPRESENTATIVE",
+      "reason": "Strongest page in a 3-page near-duplicate cluster (0 clicks, 25 impressions)",
+      "peakSimilarity": 0.964,
+      "clusterSize": 3
+    },
+    "/leeds-facilities-management": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.411
+    },
+    "/lincoln-facilities-management": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.497
+    },
+    "/lincoln-facilities-management-areas": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.587
+    },
+    "/liverpool-facilities-management": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.483
+    },
+    "/locations": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0
+    },
+    "/london-facilities-management": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.505
+    },
+    "/london-facilities-management-areas": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.505
+    },
+    "/manchester-facilities-management": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.401
+    },
+    "/manchester-facilities-managment": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0
+    },
+    "/mechanical-electrical": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.63
+    },
+    "/mobile-crane-hire/chesterfield": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0
+    },
+    "/mobile-crane-hire/sheffield": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0
+    },
+    "/nottingham-facilities-management": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.483
+    },
+    "/plumbing-gas": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.677
+    },
+    "/portal": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.696
+    },
+    "/post/facilities-management-services-in-lincoln": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0
+    },
+    "/post/facilities-management-to-birmingham": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0
+    },
+    "/ppm": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.693
+    },
+    "/residential-cleaning": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.684
+    },
+    "/residential-fm-lincoln": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.666
+    },
+    "/retail-cleaning": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.679
+    },
+    "/retail-fm-lincoln": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.659
+    },
+    "/sectors": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.51
+    },
+    "/sheffield": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.587
+    },
+    "/sheffield-facilities-management": {
+      "indexable": true,
+      "tier": "TIER_1",
+      "reason": "Bespoke city content",
+      "peakSimilarity": 0.503
+    },
+    "/truck-mount-crane-hire": {
+      "indexable": true,
+      "tier": "UNIQUE",
+      "reason": "No near-duplicate above threshold",
+      "peakSimilarity": 0.596
+    }
+  }
+}

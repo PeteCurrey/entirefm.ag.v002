@@ -1,103 +1,131 @@
 import React from 'react';
-import { ShieldCheck, Clock, Award, Building, Wrench, CheckCircle2 } from 'lucide-react';
+import { Clock, ShieldCheck, Building, Layers, CheckCircle2 } from 'lucide-react';
+import { getVerifiedAccreditations } from '@/config/verified-claims';
+
+/**
+ * TRUST BAR
+ * =========
+ * A narrow band beneath the hero stating what EntireFM is, in four facts.
+ * Deliberately quiet — it sits between the hero and the first content section
+ * and should read as a caption, not a second headline.
+ */
+
+const FACTS = [
+  { label: 'Response', value: 'Out-of-hours cover', icon: Clock },
+  { label: 'Compliance', value: 'Statutory testing & records', icon: ShieldCheck },
+  { label: 'Estates', value: 'Commercial & industrial', icon: Building },
+  { label: 'Scope', value: 'Hard & soft services', icon: Layers },
+];
 
 export function TrustBar() {
   return (
-    <div className="border-y border-brand-border bg-brand-surface py-5">
+    <div className="border-b border-brand-edge bg-white">
       <div className="container-custom">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-sm bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold shrink-0">
-              <Clock className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="block text-xs font-mono uppercase tracking-wider text-slate-500">Response & Helpdesk</span>
-              <span className="text-sm font-bold text-brand-charcoal">24/7 National Operations</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-sm bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold shrink-0">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="block text-xs font-mono uppercase tracking-wider text-slate-500">Compliance & Safety</span>
-              <span className="text-sm font-bold text-brand-charcoal">Multi-Discipline Engineering</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-sm bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold shrink-0">
-              <Building className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="block text-xs font-mono uppercase tracking-wider text-slate-500">Estate Management</span>
-              <span className="text-sm font-bold text-brand-charcoal">Commercial & Industrial</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-sm bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold shrink-0">
-              <Award className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="block text-xs font-mono uppercase tracking-wider text-slate-500">Delivery Model</span>
-              <span className="text-sm font-bold text-brand-charcoal">Direct Engineering & Tech</span>
-            </div>
-          </div>
-        </div>
+        <ul className="grid grid-cols-2 gap-x-8 gap-y-6 py-7 lg:grid-cols-4">
+          {FACTS.map((fact) => {
+            const Icon = fact.icon;
+            return (
+              <li key={fact.label} className="group flex items-start gap-3.5">
+                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-brand-edge bg-brand-surface text-brand-silver transition-all duration-500 ease-brand group-hover:border-brand-electric/40 group-hover:text-brand-electric">
+                  <Icon className="h-4 w-4" />
+                </span>
+                <span className="min-w-0">
+                  <span className="eyebrow">{fact.label}</span>
+                  <span className="mt-1.5 block text-[13.5px] font-semibold leading-snug text-brand-graphite">
+                    {fact.value}
+                  </span>
+                </span>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
 }
 
-import { getVerifiedAccreditations } from '@/config/verified-claims';
+/**
+ * GOVERNANCE RAIL
+ * ===============
+ * Accreditations render only once /config/verified-claims.json marks them
+ * VERIFIED. Until then this shows how compliance is managed rather than
+ * asserting membership of schemes we cannot yet evidence — which is why the
+ * fallback describes process, not credentials.
+ *
+ * The previous fallback claimed a "certified mobile engineering fleet";
+ * certification is exactly what is unverified, so that wording is gone.
+ */
+
+const GOVERNANCE = [
+  {
+    title: 'Statutory compliance management',
+    body: 'Periodic testing, maintenance schedules and digital compliance archiving across building services, held in one calendar rather than spread between suppliers.',
+  },
+  {
+    title: 'Named engineering accountability',
+    body: 'A named account manager and a defined escalation route, so an issue has an owner rather than a queue.',
+  },
+  {
+    title: 'Digital service logging',
+    body: 'Service desk ticketing, PPM completion tracking and job sign-off documentation available to the client, not just to us.',
+  },
+];
 
 export function AccreditationRail() {
-  const verifiedAccreditations = getVerifiedAccreditations();
+  const verified = getVerifiedAccreditations();
 
   return (
-    <div className="bg-brand-charcoal border-y border-brand-border-dark py-8 text-slate-300">
-      <div className="container-custom">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+    <section className="on-dark grain relative overflow-hidden border-y border-brand-edge-dark bg-brand-carbon">
+      <div className="facet-rule pointer-events-none absolute inset-0 opacity-50" />
+      <div className="container-custom relative py-14">
+        <div className="mb-9 flex flex-col gap-3 md:flex-row md:items-end md:justify-between" data-reveal>
           <div>
-            <span className="badge-gold">Operational Governance</span>
-            <h3 className="text-lg font-bold text-white mt-1">Compliance Management & Quality Framework</h3>
+            <p className="eyebrow eyebrow-dark">Operational governance</p>
+            <h2 className="mt-4 text-display-sm text-white">
+              How compliance is actually managed
+            </h2>
           </div>
-          <span className="text-xs text-slate-400 font-mono">Structured preventative maintenance & digital audit records</span>
+          <p className="max-w-sm text-[13px] leading-relaxed text-brand-mist/50">
+            Structured preventative maintenance with a digital audit record behind every
+            completed task.
+          </p>
         </div>
 
-        {verifiedAccreditations.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            {verifiedAccreditations.map(acc => (
-              <div key={acc.id} className="p-3 bg-brand-navy/60 border border-brand-border-dark/80 rounded-sm flex flex-col justify-between">
+        {verified.length > 0 ? (
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {verified.map((acc, i) => (
+              <li
+                key={acc.id}
+                className="edge-lit flex flex-col justify-between rounded-sm border border-brand-edge-dark bg-brand-graphite/70 p-4"
+                data-reveal
+                style={{ '--reveal-delay': `${i * 50}ms` } as React.CSSProperties}
+              >
                 <div>
-                  <span className="text-[10px] uppercase font-mono text-slate-400 block">{acc.category}</span>
-                  <span className="text-xs font-bold text-white mt-1 block">{acc.claim}</span>
+                  <span className="eyebrow eyebrow-dark">{acc.category}</span>
+                  <span className="mt-2 block text-[13px] font-semibold text-white">{acc.claim}</span>
                 </div>
-                <span className="text-[9px] text-brand-gold mt-2 flex items-center gap-1 font-mono">
-                  <CheckCircle2 className="w-2.5 h-2.5" /> Verified
+                <span className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-brand-electric-bright">
+                  <CheckCircle2 className="h-3 w-3" /> Verified
                 </span>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-4 bg-brand-navy/60 border border-brand-border-dark/80 rounded-sm">
-              <span className="text-xs font-bold text-white block mb-1">Statutory Compliance Management</span>
-              <p className="text-xs text-slate-400">Periodic testing, maintenance schedules, and digital compliance archiving across building services.</p>
-            </div>
-            <div className="p-4 bg-brand-navy/60 border border-brand-border-dark/80 rounded-sm">
-              <span className="text-xs font-bold text-white block mb-1">Direct Engineering Accountability</span>
-              <p className="text-xs text-slate-400">Certified mobile engineering fleet and dedicated account managers providing transparent site reporting.</p>
-            </div>
-            <div className="p-4 bg-brand-navy/60 border border-brand-border-dark/80 rounded-sm">
-              <span className="text-xs font-bold text-white block mb-1">Digital CAFM Service Logging</span>
-              <p className="text-xs text-slate-400">Live service desk ticketing, PPM completion tracking, and instant job signoff documentation.</p>
-            </div>
-          </div>
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {GOVERNANCE.map((item, i) => (
+              <li
+                key={item.title}
+                className="edge-lit rounded-sm border border-brand-edge-dark bg-brand-graphite/70 p-6"
+                data-reveal
+                style={{ '--reveal-delay': `${i * 80}ms` } as React.CSSProperties}
+              >
+                <h3 className="text-[14px] font-semibold text-white">{item.title}</h3>
+                <p className="mt-2.5 text-[12.5px] leading-relaxed text-brand-mist/55">{item.body}</p>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
-    </div>
+    </section>
   );
 }

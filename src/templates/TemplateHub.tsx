@@ -55,7 +55,7 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
         <Breadcrumbs items={breadcrumbs} />
 
         {/* Hub Hero */}
-        <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+        <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
           <div className="container-custom max-w-4xl space-y-4">
             <span className="badge-gold flex items-center gap-1.5 w-fit">
               <Layers className="w-3.5 h-3.5" />
@@ -80,22 +80,22 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                 <Link
                   key={idx}
                   href={item.path}
-                  className="p-6 bg-white border border-brand-border rounded-sm hover:border-brand-gold hover:shadow-elevated transition-all duration-200 flex flex-col justify-between group"
+                  className="p-6 bg-white border border-brand-edge rounded-sm hover:border-brand-electric hover:shadow-elevated transition-all duration-200 flex flex-col justify-between group"
                 >
                   <div className="space-y-3">
                     {item.category && (
-                      <span className="text-xs font-mono uppercase text-brand-gold block font-semibold">
+                      <span className="text-xs font-mono uppercase text-brand-electric block font-semibold">
                         {item.category}
                       </span>
                     )}
-                    <h3 className="text-lg font-bold text-brand-navy group-hover:text-brand-gold transition-colors">
+                    <h3 className="text-lg font-bold text-brand-graphite group-hover:text-brand-electric transition-colors">
                       {item.title}
                     </h3>
                     <p className="text-xs text-slate-600 leading-relaxed">
                       {item.description}
                     </p>
                   </div>
-                  <div className="pt-4 mt-4 border-t border-brand-border flex items-center gap-1 text-xs font-bold text-brand-navy group-hover:text-brand-gold">
+                  <div className="pt-4 mt-4 border-t border-brand-edge flex items-center gap-1 text-xs font-bold text-brand-graphite group-hover:text-brand-electric">
                     <span>View Capability Details</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>

@@ -6,6 +6,7 @@ import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
 import { CapabilityList, FAQAccordion } from '@/components/content/CapabilityList';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { RelatedLinks } from '@/components/content/CaseStudyFeature';
+import { LocationImage, altForImage } from '@/components/content/LocationImage';
 import { Phone, CheckCircle2, ArrowRight, Building, MapPin } from 'lucide-react';
 import { BrandIcon } from '@/components/ui/BrandIcon';
 import type { TemplateProps } from './types';
@@ -58,7 +59,7 @@ export function TemplateThirdLocation({ route, content }: TemplateProps) {
         <Breadcrumbs items={breadcrumbs} />
 
         {/* Corporate Estates Hero */}
-        <section className="bg-brand-navy border-b border-brand-border-dark text-white py-12 sm:py-16 relative overflow-hidden">
+        <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8 space-y-4">
@@ -80,34 +81,37 @@ export function TemplateThirdLocation({ route, content }: TemplateProps) {
                 </p>
 
                 <div className="flex flex-wrap items-center gap-4 pt-4">
-                  <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold shadow-command">
+                  <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold shadow-elevated">
                     Request Portfolio Proposal <ArrowRight className="w-4 h-4" />
                   </Link>
                   <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
-                    <Phone className="w-3.5 h-3.5 text-brand-gold" />
+                    <Phone className="w-3.5 h-3.5 text-brand-electric" />
                     <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
                   </a>
                 </div>
               </div>
 
-              <div className="lg:col-span-4 hidden lg:block">
-                <div className="p-6 bg-brand-charcoal border border-brand-border-dark rounded-sm space-y-4 shadow-command">
+              <div className="lg:col-span-4 hidden lg:block space-y-4">
+                {altForImage(content.heroImage) && (
+                  <LocationImage src={content.heroImage} priority className="aspect-[16/10] shadow-elevated" />
+                )}
+                <div className="p-6 bg-brand-carbon border border-brand-edge-dark rounded-sm space-y-4 shadow-elevated">
                   <div className="flex items-center gap-3">
                     <BrandIcon name="commercialBuildings" size={32} />
-                    <span className="text-xs font-mono uppercase tracking-wider text-brand-gold block">Corporate Governance</span>
+                    <span className="text-xs font-mono uppercase tracking-wider text-brand-electric block">Corporate Governance</span>
                   </div>
                   <h3 className="text-base font-bold text-white">Protecting Asset Value</h3>
                   <ul className="space-y-2 text-xs text-slate-300">
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
                       <span>Managing agent service charge alignment</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
                       <span>Dedicated tenant liaison and reporting</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
                       <span>High-touch front-of-house standards</span>
                     </li>
                   </ul>
@@ -124,7 +128,7 @@ export function TemplateThirdLocation({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="max-w-3xl mb-12">
               <span className="badge-technical">Corporate Scope</span>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-navy mt-2">
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-graphite mt-2">
                 Corporate Real Estate & Managing Agent Services
               </h2>
               <p className="text-slate-600 text-sm mt-2">
@@ -138,17 +142,17 @@ export function TemplateThirdLocation({ route, content }: TemplateProps) {
 
         {/* Rendered Body Sections */}
         {content.sections && content.sections.length > 0 && (
-          <section className="section-padding bg-brand-surface border-y border-brand-border">
+          <section className="section-padding bg-brand-surface border-y border-brand-edge">
             <div className="container-custom max-w-4xl space-y-10">
               {content.sections.map((sec, idx) => (
                 <div key={idx} className="space-y-4">
-                  <h2 className="text-2xl font-bold text-brand-navy">{sec.heading}</h2>
+                  <h2 className="text-2xl font-bold text-brand-graphite">{sec.heading}</h2>
                   <p className="text-slate-700 leading-relaxed text-sm sm:text-base">{sec.body}</p>
                   {sec.bullets && sec.bullets.length > 0 && (
                     <ul className="space-y-2 pt-2">
                       {sec.bullets.map((b, bIdx) => (
                         <li key={bIdx} className="flex items-start gap-2.5 text-sm text-slate-700">
-                          <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-brand-electric shrink-0 mt-0.5" />
                           <span>{b}</span>
                         </li>
                       ))}
@@ -168,11 +172,11 @@ export function TemplateThirdLocation({ route, content }: TemplateProps) {
         </section>
 
         {/* FAQs */}
-        <section className="section-padding bg-brand-surface border-t border-brand-border">
+        <section className="section-padding bg-brand-surface border-t border-brand-edge">
           <div className="container-custom max-w-4xl">
             <div className="mb-8">
               <span className="badge-technical">Governance FAQs</span>
-              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+              <h2 className="text-2xl font-bold text-brand-graphite mt-2">
                 {city} Corporate FM — Frequently Asked Questions
               </h2>
             </div>
@@ -181,11 +185,11 @@ export function TemplateThirdLocation({ route, content }: TemplateProps) {
         </section>
 
         {/* Related Links */}
-        <section className="section-padding bg-white border-t border-brand-border">
+        <section className="section-padding bg-white border-t border-brand-edge">
           <div className="container-custom">
             <div className="mb-8">
               <span className="badge-technical">Related Solutions</span>
-              <h2 className="text-2xl font-bold text-brand-navy mt-2">
+              <h2 className="text-2xl font-bold text-brand-graphite mt-2">
                 Explore Corporate & Commercial Solutions
               </h2>
             </div>

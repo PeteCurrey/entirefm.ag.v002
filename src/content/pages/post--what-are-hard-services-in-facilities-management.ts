@@ -72,7 +72,7 @@ const record: ContentRecord = {
   "faqs": [
     {
       "question": "How does EntireFM deliver post/what are hard services in facilities management contracts?",
-      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide 24/7 helpdesk support for all contracted sites."
+      "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
     }
   ],
   "breadcrumbs": [

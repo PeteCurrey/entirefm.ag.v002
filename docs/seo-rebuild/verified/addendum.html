@@ -1,0 +1,639 @@
+<title>EntireFM Recovery Addendum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+  :root {
+    --paper:      #F1F3F2;
+    --panel:      #E6EAE8;
+    --panel-deep: #DCE2DF;
+    --rule:       #C6CFCB;
+    --ink:        #151B1D;
+    --ink-soft:   #4B565A;
+    --ink-faint:  #6E797D;
+    --steel:      #2E5C61;
+    --signal:     #B26A15;
+    --critical:   #9E3527;
+    --positive:   #3D6647;
+    --shadow:     rgba(21, 27, 29, .09);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #101517;
+      --panel:      #171E21;
+      --panel-deep: #1E272A;
+      --rule:       #2E3A3D;
+      --ink:        #E8EDEB;
+      --ink-soft:   #A3AFB2;
+      --ink-faint:  #7C888C;
+      --steel:      #6FB3B8;
+      --signal:     #E0A155;
+      --critical:   #E37B6C;
+      --positive:   #7FB78D;
+      --shadow:     rgba(0, 0, 0, .4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #101517;
+    --panel:      #171E21;
+    --panel-deep: #1E272A;
+    --rule:       #2E3A3D;
+    --ink:        #E8EDEB;
+    --ink-soft:   #A3AFB2;
+    --ink-faint:  #7C888C;
+    --steel:      #6FB3B8;
+    --signal:     #E0A155;
+    --critical:   #E37B6C;
+    --positive:   #7FB78D;
+    --shadow:     rgba(0, 0, 0, .4);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.62;
+    margin: 0;
+    padding: 0 clamp(18px, 5vw, 56px) 120px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 820px; margin: 0 auto; }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    padding: clamp(48px, 9vw, 96px) 0 34px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .stamp {
+    font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--signal);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin-bottom: 26px;
+  }
+  .stamp span:not(:first-child) { color: var(--ink-faint); }
+  h1 {
+    font-family: Archivo, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
+    font-size: clamp(34px, 6.4vw, 58px);
+    line-height: 1.04;
+    letter-spacing: -.022em;
+    margin: 0 0 20px;
+    text-wrap: balance;
+  }
+  .standfirst {
+    font-size: clamp(18px, 2.4vw, 21px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 62ch;
+  }
+
+  /* ---------- verdict strip ---------- */
+  .verdict {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 8px;
+  }
+  .verdict div { background: var(--paper); padding: 20px 18px; }
+  .verdict dt {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 9px;
+  }
+  .verdict dd {
+    font-family: Archivo, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -.02em;
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .verdict .bad dd { color: var(--critical); }
+  .verdict .good dd { color: var(--positive); }
+  .verdict small {
+    display: block;
+    font-family: "Source Serif 4", serif;
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin-top: 7px;
+    line-height: 1.35;
+  }
+  .caption {
+    font-size: 13.5px;
+    color: var(--ink-faint);
+    margin: 0 0 56px;
+    font-style: italic;
+  }
+
+  /* ---------- sections ---------- */
+  section { margin: 0 0 8px; padding: 44px 0 0; }
+  .sec-head { display: flex; gap: 16px; align-items: baseline; margin-bottom: 6px; }
+  .sec-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--signal);
+    letter-spacing: .06em;
+    flex: 0 0 auto;
+    padding-top: 4px;
+  }
+  h2 {
+    font-family: Archivo, sans-serif;
+    font-weight: 600;
+    font-size: clamp(23px, 3.4vw, 30px);
+    line-height: 1.18;
+    letter-spacing: -.014em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .amends {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: .05em;
+    color: var(--ink-faint);
+    margin: 0 0 20px 44px;
+    padding-left: 11px;
+    border-left: 2px solid var(--rule);
+  }
+  .amends b { color: var(--steel); font-weight: 500; }
+
+  section > p, section > ul, section > ol, section > .note { margin-left: 44px; max-width: 66ch; }
+  @media (max-width: 620px) {
+    .amends, section > p, section > ul, section > ol, section > .note { margin-left: 0; }
+    .sec-head { gap: 11px; }
+  }
+
+  p { margin: 0 0 17px; }
+  h3 {
+    font-family: Archivo, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .01em;
+    margin: 30px 0 12px 44px;
+    color: var(--steel);
+  }
+  @media (max-width: 620px) { h3 { margin-left: 0; } }
+
+  ul, ol { padding-left: 20px; margin: 0 0 17px; }
+  li { margin-bottom: 9px; }
+  li::marker { color: var(--ink-faint); }
+
+  strong { font-weight: 600; }
+  code, .m {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: .85em;
+    background: var(--panel);
+    padding: 1.5px 5px;
+    border-radius: 2px;
+    color: var(--steel);
+  }
+
+  /* ---------- evidence blocks ---------- */
+  .evidence {
+    background: var(--panel);
+    border-left: 3px solid var(--signal);
+    padding: 22px 24px;
+    margin: 26px 0 26px 44px;
+    max-width: none;
+    overflow-x: auto;
+  }
+  @media (max-width: 620px) { .evidence { margin-left: 0; } }
+  .evidence .lbl {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin: 0 0 14px;
+  }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td {
+    text-align: left;
+    padding: 8px 14px 8px 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border-bottom: 1.5px solid var(--ink-soft);
+    white-space: nowrap;
+  }
+  tr:last-child td { border-bottom: none; }
+  td.n {
+    font-family: "JetBrains Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  td.path { font-family: "JetBrains Mono", monospace; font-size: 12.5px; }
+  .crit { color: var(--critical); font-weight: 700; }
+  .pos  { color: var(--positive); font-weight: 700; }
+
+  .note {
+    background: var(--panel-deep);
+    padding: 18px 22px;
+    margin: 24px 0 24px 44px;
+    font-size: 15.5px;
+    border-radius: 2px;
+  }
+  @media (max-width: 620px) { .note { margin-left: 0; } }
+  .note p:last-child { margin-bottom: 0; }
+  .note .lbl {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin: 0 0 9px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 52px 0 0;
+  }
+
+  /* ---------- action list ---------- */
+  .actions { counter-reset: act; list-style: none; padding: 0; margin-left: 44px; }
+  @media (max-width: 620px) { .actions { margin-left: 0; } }
+  .actions li {
+    counter-increment: act;
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 14px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--rule);
+    margin: 0;
+  }
+  .actions li::before {
+    content: counter(act, decimal-leading-zero);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--signal);
+    padding-top: 3px;
+  }
+  .actions b { font-family: Archivo, sans-serif; font-size: 15.5px; display: block; margin-bottom: 3px; }
+  .actions span { color: var(--ink-soft); font-size: 15px; }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 22px;
+    border-top: 2px solid var(--ink);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    letter-spacing: .04em;
+    color: var(--ink-faint);
+    line-height: 1.9;
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="stamp">
+      <span>Addendum 01</span>
+      <span>22 August 2026</span>
+      <span>Amends: SEO Dominance Plan + Technology &amp; AI Blueprint</span>
+    </div>
+    <h1>Restoring the Estate Without Rebuilding the Problem</h1>
+    <p class="standfirst">
+      The two plans are sound and the URL recovery work is finished. This addendum records the
+      measured cause of the collapse, and the seven things that will decide whether the recovery
+      holds once the pages are back.
+    </p>
+  </header>
+
+  <dl class="verdict">
+    <div class="bad">
+      <dt>Legacy URLs 404ing</dt>
+      <dd>138</dd>
+      <small>of 187, in production right now</small>
+    </div>
+    <div class="good">
+      <dt>Restored in rebuild</dt>
+      <dd>187</dd>
+      <small>all render real HTML at build</small>
+    </div>
+    <div class="bad">
+      <dt>Location page overlap</dt>
+      <dd>74%</dd>
+      <small>median similarity, page to page</small>
+    </div>
+    <div class="bad">
+      <dt>Pages with schema</dt>
+      <dd>0</dd>
+      <small>of 235 built pages</small>
+    </div>
+  </dl>
+  <p class="caption">
+    Measured 22 Aug 2026 — direct sitemap crawl of both Wix estates, HTTP probe of every legacy
+    path against production, and 8-gram analysis of the rebuild's own output.
+  </p>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">00</span><h2>The collapse has a measured cause, and it is not a penalty</h2></div>
+    <p class="amends">New finding — <b>neither source document had this evidence</b></p>
+
+    <p>
+      Both Wix sitemaps are machine-readable. The SEO plan recorded them as unparseable and left
+      completeness as an open release gate; they only fail through a rendering browser, because
+      Wix serves them as raw XML. Fetched directly they parse cleanly. That closes the gate:
+      the legacy estate is <strong>187 real URLs</strong>, plus five Wix template demo pages
+      (<span class="m">/fm/villain-showdown-finale</span> and siblings) that were never EntireFM content.
+    </p>
+    <p>
+      Every one of those 187 was probed against production:
+    </p>
+
+    <div class="evidence">
+      <p class="lbl">Production response — 187 legacy URLs</p>
+      <table>
+        <tr><th>Response</th><th>Count</th><th>Share</th><th>Meaning</th></tr>
+        <tr><td class="crit">404 Not Found</td><td class="n crit">138</td><td class="n">73.8%</td><td>Ranking history and link equity discarded</td></tr>
+        <tr><td>200 OK</td><td class="n">35</td><td class="n">18.7%</td><td>Survived the migration</td></tr>
+        <tr><td>301 / 307 / 308</td><td class="n">14</td><td class="n">7.5%</td><td>Redirected, direction inconsistent</td></tr>
+      </table>
+    </div>
+
+    <p>
+      This is the whole story. Google has not demoted the site — three-quarters of the pages that
+      earned the enquiries stopped existing. A 404 sheds everything the URL had accumulated.
+      The enquiries stopped because the landing pages stopped.
+    </p>
+    <p>
+      The geographic estate, which produced most of those enquiries, was hit hardest and
+      incoherently. Paired city variants were collapsed to one survivor each, and the direction
+      of collapse changes city by city:
+    </p>
+
+    <div class="evidence">
+      <p class="lbl">Geographic estate — actual production behaviour</p>
+      <table>
+        <tr><th>Legacy URL</th><th>Production</th><th>Result</th></tr>
+        <tr><td class="path">/london-facilities-management</td><td class="n crit">404</td><td>Third London variant dropped outright</td></tr>
+        <tr><td class="path">/facilities-management-london</td><td class="n">308</td><td>Folds into <span class="m">/fm-london</span></td></tr>
+        <tr><td class="path">/facilities-management-birmingham</td><td class="n">308</td><td>Folds into <span class="m">/fm-birmingham</span></td></tr>
+        <tr><td class="path">/fm-manchester</td><td class="n">308</td><td>Folds the <em>other way</em>, into the long form</td></tr>
+      </table>
+    </div>
+
+    <p>
+      London and Birmingham fold toward the short form; Manchester folds toward the long one.
+      Nothing chose that — it is an artefact of the rebuild. Roughly half the geographic footprint
+      was discarded either way.
+    </p>
+
+    <div class="note">
+      <p class="lbl">The good news</p>
+      <p>
+        The rebuild in this repository already restores all 187, including 84 URLs the plan's
+        Appendix A never captured — the original typos preserved intact
+        (<span class="m">/manchester-facilities-managment</span>), the <span class="m">/facilities-management-for/*</span>
+        collection, and the <span class="m">/mobile-crane-hire/*</span> tree. Coverage is complete
+        and verifiable on demand with <span class="m">npm run verify:legacy-estate</span>.
+      </p>
+    </div>
+  </section>
+
+  <hr>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>The restored pages are 74% identical to each other</h2></div>
+    <p class="amends">Amends <b>SEO Plan §4.3</b> — "what makes a location page genuinely local"</p>
+
+    <p>
+      This is the single largest risk to the recovery, and it is a risk the rebuild creates rather
+      than inherits. The plan is explicit that location pages must not be built by city-name
+      swapping. The implementation does exactly that.
+    </p>
+
+    <div class="evidence">
+      <p class="lbl">8-gram similarity across the 72 location pages</p>
+      <table>
+        <tr><th>Measure</th><th>Value</th></tr>
+        <tr><td>Median similarity, any two location pages</td><td class="n crit">73.9%</td></tr>
+        <tr><td>90th percentile</td><td class="n crit">75.3%</td></tr>
+        <tr><td><span class="m">/fm-oxford</span> vs <span class="m">/facilities-management-oxford</span></td><td class="n crit">88.4%</td></tr>
+        <tr><td><span class="m">/fm-sheffield</span> vs <span class="m">/fm-services-sheffield</span></td><td class="n crit">89.6%</td></tr>
+      </table>
+    </div>
+
+    <p>
+      Every paired city variant sits near 88% identical. The differentiating content is the city
+      name substituted into otherwise fixed sentences — including mid-sentence, where it reads as
+      keyword insertion rather than English: <em>"single-source facilities management manchester
+      for commercial property owners"</em>.
+    </p>
+    <p>
+      Publishing 187 URLs in this state converts a recoverable technical problem into a quality
+      problem, which is far harder to reverse. The 404s cost rankings; a site-wide doorway-page
+      assessment costs the domain.
+    </p>
+
+    <h3>Recommendation: restore all 187, index them in tiers</h3>
+    <p>
+      URL restoration and indexation are separate decisions, and the plan conflates them. Serve
+      every legacy URL a 200 immediately — that recovers the links and the history. Then earn
+      indexation:
+    </p>
+    <ul>
+      <li><strong>Tier 1 — the cities that actually produced enquiries.</strong> Genuinely written, not generated. Local operating conditions, named districts and estates, real nearby proof, city-specific FAQs. Target under 30% overlap with any sibling. Index at launch.</li>
+      <li><strong>Tier 2 — secondary cities.</strong> Index once each page carries at least one piece of evidence that exists nowhere else on the site. Batch of five to eight per week is a realistic rate for content anyone would actually read.</li>
+      <li><strong>Tier 3 — the long tail and near-duplicate variants.</strong> 200 and reachable, <span class="m">noindex</span> until differentiated. A <span class="m">noindex</span> page still passes links and still converts a visitor who lands on it.</li>
+    </ul>
+    <p>
+      Tier assignment should come from Search Console history, not intuition — see §06.
+    </p>
+
+    <div class="note">
+      <p class="lbl">Test before publishing, not after</p>
+      <p>
+        Add a similarity gate to the QA suite: fail the build when any two indexable pages exceed
+        a set overlap. It is the only way a 187-page estate stays honest as it grows, and it makes
+        the plan's "no city-name swapping" rule enforceable rather than aspirational.
+      </p>
+    </div>
+  </section>
+
+  <hr>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>There is no structured data anywhere</h2></div>
+    <p class="amends">Gap in <b>both documents</b> — neither mentions schema</p>
+
+    <p>
+      Zero JSON-LD blocks across all 235 built pages. For a business whose demand is
+      local and service-shaped, this is a large, cheap, entirely mechanical win — and it is the
+      layer that decides whether the site is legible to AI answer engines (§05).
+    </p>
+    <ul>
+      <li><span class="m">Organization</span> once, sitewide, with real registration and contact detail.</li>
+      <li><span class="m">ProfessionalService</span> per location page, with genuine <span class="m">areaServed</span> — not a copied national radius.</li>
+      <li><span class="m">Service</span> per service page, tied back to the organisation.</li>
+      <li><span class="m">FAQPage</span> on the pages that carry real FAQs — the templates already have the section.</li>
+      <li><span class="m">BreadcrumbList</span> everywhere, which also forces the internal-link hierarchy to be decided.</li>
+      <li><span class="m">Article</span> on the restored <span class="m">/post/*</span> pages, with original publication dates preserved.</li>
+    </ul>
+    <p>
+      Preserving the original dates matters: these posts have history, and re-dating them to the
+      migration date throws it away for no gain.
+    </p>
+  </section>
+
+  <hr>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Neither plan says how to perform the cutover</h2></div>
+    <p class="amends">Missing from <b>SEO Plan §11</b> — the roadmap starts after this step</p>
+
+    <p>
+      The roadmap covers what to build and what to do in the first 90 days, but not the switch
+      itself. The site being replaced is live and already damaged, so the cutover carries real
+      risk and deserves a written sequence.
+    </p>
+    <ol>
+      <li><strong>Freeze the current site.</strong> No further URL changes to production until cutover. Every change now adds a second migration to unpick.</li>
+      <li><strong>Export Search Console first.</strong> Sixteen months of landing pages and queries, before anything moves. This data is the tier assignment, the redirect-direction evidence, and the only baseline against which recovery can be measured. It cannot be recovered later.</li>
+      <li><strong>Verify against staging.</strong> <span class="m">npm run verify:legacy-estate:prod</span> pointed at the staging host — all 187 must return 200 before DNS moves.</li>
+      <li><strong>Confirm the indexing gate.</strong> The build already blocks crawling anywhere other than the canonical host. Verify it releases correctly on the production host, and that staging never became indexable.</li>
+      <li><strong>Cut over, then submit.</strong> Sitemap resubmission and manual inspection of the twenty highest-value legacy URLs on day one.</li>
+      <li><strong>Watch daily for fourteen days.</strong> Search Console Pages, crawl stats, and server 404 logs. Any legacy path returning a 404 post-cutover is a release defect.</li>
+      <li><strong>Keep a rollback.</strong> The current deployment stays revertible for the full window. Define in advance what triggers a revert, so it is not argued about under pressure.</li>
+    </ol>
+
+    <div class="note">
+      <p class="lbl">Do not wait for design</p>
+      <p>
+        The instinct to launch once it looks finished is the expensive one here. Each week of
+        404s is another week of decay on 138 URLs. A plain, fast, correctly-routed site
+        restores the estate; design improves it afterwards, at no SEO cost. Structure first
+        is the right call — hold that line.
+      </p>
+    </div>
+  </section>
+
+  <hr>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>The local entity layer is absent from the strategy</h2></div>
+    <p class="amends">Gap in <b>SEO Plan §4</b> — treats geography as purely on-page</p>
+
+    <p>
+      The plan builds the geographic estate entirely from page content. For a business chasing
+      city-level commercial intent, roughly half of local visibility sits outside the website
+      altogether, and none of it is mentioned:
+    </p>
+    <ul>
+      <li><strong>Google Business Profile</strong> — the primary local entity. Categories, service areas, and posts, kept current.</li>
+      <li><strong>Name, address and phone consistency</strong> across the site and every external directory. The rebuild has a verified-contact config; that same record should be the single source everywhere.</li>
+      <li><strong>Citations and trade registers</strong> — the FM and building-services directories that carry real referral weight, not volume link-building.</li>
+      <li><strong>Reviews</strong>, which influence local ranking directly and are the proof the location pages currently lack most.</li>
+    </ul>
+    <p>
+      This matters for a second reason: it is the cheapest source of the genuine local evidence
+      §01 requires. Real reviews and real named local work are exactly the material that makes a
+      city page differentiated rather than generated.
+    </p>
+  </section>
+
+  <hr>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>The two documents should meet at answer-engine visibility</h2></div>
+    <p class="amends">Bridges <b>AI Blueprint §13</b> and <b>SEO Plan §6</b></p>
+
+    <p>
+      The AI Blueprint is about running the business with AI. The SEO plan is about ranking in
+      Google. Neither addresses being <em>cited by</em> AI assistants — which is where a growing
+      share of FM procurement research now begins, and where a mid-market operator can outrank
+      its size.
+    </p>
+    <p>
+      The Blueprint's public tools — the compliance checker, the PPM planner, the cost benchmark —
+      are treated there as a product-led funnel. They are also the strongest link-earning and
+      citation-earning assets in either plan, and the SEO plan under-weights them badly. A tool
+      that returns a genuinely useful answer gets referenced; a service page does not.
+    </p>
+    <p>What this needs concretely:</p>
+    <ul>
+      <li>Answer the question in the first paragraph, then support it. Extractable structure beats narrative build-up for both featured snippets and AI citation.</li>
+      <li>A stated position on AI crawlers, made deliberately. Blocking them protects nothing here and removes the site from the answers.</li>
+      <li>The Compliance Centre distinction the Blueprint already specifies — legal requirement versus guidance versus typical practice — is exactly what makes content quotable and safe to cite. It belongs in the SEO plan's §6.2 as a content requirement, not just a product spec.</li>
+      <li>Schema (§02) is the mechanical half of this. Entity-clear pages are the ones that get resolved and cited correctly.</li>
+    </ul>
+  </section>
+
+  <hr>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Two release gates are still open</h2></div>
+    <p class="amends">Amends <b>SEO Plan §10.3</b> — sitemap gate now closed, two remain</p>
+
+    <p>
+      The sitemap half of the plan's release gate is closed and evidenced. Two inputs remain, and
+      both require account access this work cannot reach:
+    </p>
+    <ul>
+      <li><strong>Search Console history</strong> — sixteen months of landing pages and queries. The only source that reveals URLs which earned traffic without appearing in any sitemap, and the only basis for ranking recovery by measured value rather than inference.</li>
+      <li><strong>Backlink data</strong> — which legacy URLs are externally linked. A 404 on a linked page wastes the link entirely; these deserve priority regardless of their own traffic.</li>
+    </ul>
+    <p>
+      Until both are loaded, three decisions are being made on inference rather than evidence:
+      the indexation tiers in §01, the redirect direction for each city pair, and which of the
+      35 surviving URLs are worth protecting hardest. None of that blocks the cutover — coverage
+      is complete either way — but it does mean the sequencing is provisional, and it should be
+      revisited the week the data arrives.
+    </p>
+  </section>
+
+  <hr>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">07</span><h2>The week ahead</h2></div>
+    <p class="amends">Reorders <b>SEO Plan §11</b> against a live site that is currently bleeding</p>
+
+    <ol class="actions">
+      <li><b>Export Search Console, today</b><span>Sixteen months, landing pages and queries. Everything downstream depends on it and the window is always closing.</span></li>
+      <li><b>Freeze production URLs</b><span>No further changes to the live site until cutover.</span></li>
+      <li><b>Add schema to the templates</b><span>Mechanical, low-risk, and needed before launch rather than after. §02.</span></li>
+      <li><b>Decide redirect direction per city pair</b><span>From Search Console data once it lands, not from the current arbitrary pattern.</span></li>
+      <li><b>Differentiate the Tier 1 cities</b><span>The handful that produced the enquiries. Written properly, by someone who knows the operating conditions.</span></li>
+      <li><b>Set the rest to noindex and ship</b><span>All 187 live and returning 200. Indexation earned in batches afterwards.</span></li>
+      <li><b>Serve 410 on the five Wix demo URLs</b><span>Never EntireFM content. Clean removal beats a 404 or a redirect.</span></li>
+    </ol>
+  </section>
+
+  <footer>
+    EntireFM Recovery Addendum 01 · 22 August 2026<br>
+    Evidence: docs/seo-rebuild/verified/ · Re-run: npm run verify:legacy-estate<br>
+    Amends: EntireFM Digital Rebuild &amp; SEO Dominance Plan · EntireFM Technology &amp; AI Blueprint 2026
+  </footer>
+
+</div>

@@ -57,7 +57,7 @@ export function CaseStudyFeature(props: Partial<CaseStudyProps>) {
   }
 
   return (
-    <section className="section-padding bg-brand-navy text-white border-y border-brand-border-dark">
+    <section className="section-padding bg-brand-graphite text-white border-y border-brand-edge-dark">
       <div className="container-custom">
         <div className="max-w-3xl mb-10">
           <span className="badge-gold">Operational Evidence</span>
@@ -69,46 +69,46 @@ export function CaseStudyFeature(props: Partial<CaseStudyProps>) {
           </p>
         </div>
 
-        <div className="p-8 bg-brand-charcoal border border-brand-border-dark rounded-sm shadow-command grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="p-8 bg-brand-carbon border border-brand-edge-dark rounded-sm shadow-elevated grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-7 space-y-4">
             <div className="flex flex-wrap gap-2 text-xs font-mono text-slate-400">
-              <span className="px-2 py-0.5 bg-brand-navy border border-brand-border-dark rounded-sm text-brand-gold">{sector}</span>
-              <span className="px-2 py-0.5 bg-brand-navy border border-brand-border-dark rounded-sm text-slate-300">{location}</span>
-              <span className="px-2 py-0.5 bg-brand-navy border border-brand-border-dark rounded-sm text-slate-300">{clientType}</span>
+              <span className="px-2 py-0.5 bg-brand-graphite border border-brand-edge-dark rounded-sm text-brand-electric">{sector}</span>
+              <span className="px-2 py-0.5 bg-brand-graphite border border-brand-edge-dark rounded-sm text-slate-300">{location}</span>
+              <span className="px-2 py-0.5 bg-brand-graphite border border-brand-edge-dark rounded-sm text-slate-300">{clientType}</span>
             </div>
 
             <h3 className="text-xl font-bold text-white leading-snug">{title}</h3>
 
-            <div className="space-y-3 text-xs text-slate-300 pt-2 border-t border-brand-border-dark">
+            <div className="space-y-3 text-xs text-slate-300 pt-2 border-t border-brand-edge-dark">
               <div>
-                <strong className="text-brand-gold uppercase tracking-wider font-mono block text-[10px] mb-0.5">The Challenge</strong>
+                <strong className="text-brand-electric uppercase tracking-wider font-mono block text-[10px] mb-0.5">The Challenge</strong>
                 <p className="leading-relaxed">{challenge}</p>
               </div>
 
               <div>
-                <strong className="text-brand-gold uppercase tracking-wider font-mono block text-[10px] mb-0.5">EntireFM Solution</strong>
+                <strong className="text-brand-electric uppercase tracking-wider font-mono block text-[10px] mb-0.5">EntireFM Solution</strong>
                 <p className="leading-relaxed">{solution}</p>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-5 flex flex-col justify-between p-6 bg-brand-navy border border-brand-border-dark rounded-sm">
+          <div className="lg:col-span-5 flex flex-col justify-between p-6 bg-brand-graphite border border-brand-edge-dark rounded-sm">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-gold block mb-3 font-semibold">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-electric block mb-3 font-semibold">
                 Outcomes &amp; Value Delivered
               </span>
               <ul className="space-y-2.5 text-xs text-slate-200">
                 {results.map((res, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                    <CheckCircle className="w-4 h-4 text-brand-electric shrink-0 mt-0.5" />
                     <span>{res}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="pt-6 border-t border-brand-border-dark mt-6 flex items-center justify-end">
-              <Link href="/case-studies" className="text-xs font-bold text-brand-gold hover:text-brand-gold-light flex items-center gap-1">
+            <div className="pt-6 border-t border-brand-edge-dark mt-6 flex items-center justify-end">
+              <Link href="/case-studies" className="text-xs font-bold text-brand-electric hover:text-brand-purple flex items-center gap-1">
                 All Case Studies <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
@@ -129,10 +129,10 @@ export function RelatedLinks({
   if (!links || links.length === 0) return null;
 
   return (
-    <section className="py-12 bg-white border-t border-brand-border">
+    <section className="py-12 bg-white border-t border-brand-edge">
       <div className="container-custom">
         <span className="badge-technical mb-2">Interconnected Architecture</span>
-        <h3 className="text-lg font-bold text-brand-navy mt-1 mb-4">{title}</h3>
+        <h3 className="text-lg font-bold text-brand-graphite mt-1 mb-4">{title}</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {links.map(link => {
             const displayTitle = link.title || link.label || link.path;
@@ -141,14 +141,14 @@ export function RelatedLinks({
               <Link
                 key={link.path}
                 href={link.path}
-                className="p-3 bg-brand-surface border border-brand-border rounded-sm text-xs font-semibold text-brand-navy hover:text-brand-gold hover:border-brand-gold/60 transition-all flex flex-col gap-1 shadow-subtle group"
+                className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-semibold text-brand-graphite hover:text-brand-electric hover:border-brand-electric/60 transition-all flex flex-col gap-1 shadow-subtle group"
               >
                 {displayCategory && (
-                  <span className="text-[10px] font-mono text-brand-gold/80 uppercase tracking-wider">{displayCategory}</span>
+                  <span className="text-[10px] font-mono text-brand-electric/80 uppercase tracking-wider">{displayCategory}</span>
                 )}
                 <div className="flex items-center justify-between">
                   <span>{displayTitle}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-gold group-hover:translate-x-0.5 transition-all shrink-0" />
+                  <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-electric group-hover:translate-x-0.5 transition-all shrink-0" />
                 </div>
               </Link>
             );

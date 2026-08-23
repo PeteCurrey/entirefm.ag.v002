@@ -17,14 +17,14 @@ export function TemplateContact() {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
       <main className="flex-1">
-        <div className="bg-brand-navy border-b border-brand-border-dark/60">
+        <div className="bg-brand-graphite border-b border-brand-edge-dark/60">
           <div className="container-custom">
             <Breadcrumbs items={breadcrumbs} />
           </div>
         </div>
 
         {/* Contact Hero */}
-        <section className="bg-brand-navy text-white relative overflow-hidden border-b border-brand-border-dark py-14 sm:py-20">
+        <section className="bg-brand-graphite text-white relative overflow-hidden border-b border-brand-edge-dark py-14 sm:py-20">
           <div className="container-custom relative z-10">
             <div className="max-w-3xl space-y-4">
               <span className="badge-gold">Commercial & Operational Contact</span>
@@ -32,7 +32,7 @@ export function TemplateContact() {
                 Contact Entire Facilities Management
               </h1>
               <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-                Connect with our technical engineering directors, regional operations managers, or 24/7 helpdesk for new contract proposals and emergency support.
+                Connect with our technical engineering directors, operations managers, or the out-of-hours helpdesk for new contract proposals and emergency support.
               </p>
             </div>
           </div>
@@ -45,15 +45,15 @@ export function TemplateContact() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
               {/* Left Column: Direct Operations & Regional Desks */}
               <div className="lg:col-span-5 space-y-6">
-                <div className="p-6 bg-brand-charcoal border border-brand-border-dark rounded-sm text-white space-y-4 shadow-command">
+                <div className="p-6 bg-brand-carbon border border-brand-edge-dark rounded-sm text-white space-y-4 shadow-elevated">
                   <span className="badge-gold">Immediate Assistance</span>
                   <h3 className="text-xl font-bold text-white">Direct Operations & Emergency Helpdesk</h3>
-                  <div className="space-y-4 text-xs text-slate-300 pt-2 border-t border-brand-border-dark">
+                  <div className="space-y-4 text-xs text-slate-300 pt-2 border-t border-brand-edge-dark">
                     <div className="flex items-start gap-3">
-                      <Phone className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                      <Phone className="w-4 h-4 text-brand-electric shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-white block text-sm">24/7 Operations Desk</strong>
-                        <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-gold font-mono text-sm font-bold hover:underline">
+                        <strong className="text-white block text-sm">Out-of-Hours Operations Desk</strong>
+                        <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-electric font-mono text-sm font-bold hover:underline">
                           {CONTACT_CONFIG.mainPhone.display}
                         </a>
                         <p className="text-slate-400 mt-0.5">For urgent plant breakdowns, emergency M&E triage, and contractor callout.</p>
@@ -61,7 +61,7 @@ export function TemplateContact() {
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <Mail className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                      <Mail className="w-4 h-4 text-brand-electric shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-white block text-sm">Commercial Enquiries</strong>
                         <a href={`mailto:${CONTACT_CONFIG.enquiryEmail}`} className="text-slate-300 font-mono hover:text-white">
@@ -74,24 +74,24 @@ export function TemplateContact() {
                 </div>
 
                 {/* Regional Operations Directory */}
-                <div className="p-6 bg-brand-surface border border-brand-border rounded-sm space-y-4">
-                  <h4 className="text-sm font-bold text-brand-navy flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-brand-gold" />
+                <div className="p-6 bg-brand-surface border border-brand-edge rounded-sm space-y-4">
+                  <h4 className="text-sm font-bold text-brand-graphite flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-brand-electric" />
                     Regional Operations Desks
                   </h4>
                   <div className="space-y-3 text-xs text-slate-600">
-                    <div className="p-3 bg-white border border-brand-border rounded-sm">
-                      <strong className="text-brand-navy block">London & South Operations Desk</strong>
+                    <div className="p-3 bg-white border border-brand-edge rounded-sm">
+                      <strong className="text-brand-graphite block">London & South Operations Desk</strong>
                       <span>Greater London, City, M25 Corridor & Home Counties</span>
-                      <a href={CONTACT_CONFIG.mainPhone.href} className="block text-brand-navy font-mono font-bold mt-1 hover:underline">
+                      <a href={CONTACT_CONFIG.mainPhone.href} className="block text-brand-graphite font-mono font-bold mt-1 hover:underline">
                         {CONTACT_CONFIG.mainPhone.display}
                       </a>
                     </div>
 
-                    <div className="p-3 bg-white border border-brand-border rounded-sm">
-                      <strong className="text-brand-navy block">North & Midlands Regional Base</strong>
+                    <div className="p-3 bg-white border border-brand-edge rounded-sm">
+                      <strong className="text-brand-graphite block">North & Midlands Regional Base</strong>
                       <span>Lincoln, Sheffield, Manchester, Birmingham & Leeds</span>
-                      <a href={CONTACT_CONFIG.mainPhone.href} className="block text-brand-navy font-mono font-bold mt-1 hover:underline">
+                      <a href={CONTACT_CONFIG.mainPhone.href} className="block text-brand-graphite font-mono font-bold mt-1 hover:underline">
                         {CONTACT_CONFIG.mainPhone.display}
                       </a>
                     </div>
