@@ -76,6 +76,7 @@ export function TemplateAbout({ route, content }: TemplateProps) {
           imageAlt={hero?.alt}
           breadcrumbs={breadcrumbs}
           primaryCta={{ label: 'Request a proposal', href: '/contact-us' }}
+          fullScreen={true}
         />
 
         {/* ── The story, alternating with photography ────────────────────── */}

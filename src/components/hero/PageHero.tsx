@@ -65,6 +65,8 @@ interface PageHeroProps {
   primaryCta?: { label: string; href: string };
   /** Short supporting facts shown along the bottom of the hero. */
   facts?: Array<{ figure: string; label: string }>;
+  /** When true, hero stretches to full viewport height (100svh / min-h-screen). */
+  fullScreen?: boolean;
 }
 
 export function PageHero({
@@ -77,6 +79,7 @@ export function PageHero({
   breadcrumbs,
   primaryCta = { label: 'Request a proposal', href: '/contact-us' },
   facts = [],
+  fullScreen = false,
 }: PageHeroProps) {
   const mediaRef = useRef<HTMLDivElement>(null);
 
@@ -108,7 +111,13 @@ export function PageHero({
   }, []);
 
   return (
-    <section className="on-dark relative isolate flex min-h-[34rem] w-full flex-col overflow-hidden bg-brand-graphite [height:88svh]">
+    <section
+      className={`on-dark relative isolate flex w-full flex-col overflow-hidden bg-brand-graphite ${
+        fullScreen
+          ? 'min-h-[40rem] min-h-screen [height:100svh]'
+          : 'min-h-[34rem] [height:88svh]'
+      }`}
+    >
       <div ref={mediaRef} className="absolute inset-0 -z-20 will-change-transform">
         <div className="page-hero-drift absolute inset-0">
           {resolved && (

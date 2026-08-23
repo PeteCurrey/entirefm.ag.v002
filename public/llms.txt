@@ -1,20 +1,27 @@
 # EntireFM — Summary for LLMs & AI Answer Engines
 
-> Entire Facilities Management Ltd (EntireFM) is a nationwide UK provider of commercial facilities management, mechanical & electrical engineering (M&E), planned preventative maintenance (PPM), and building maintenance services.
+> Entire Facilities Management Ltd (EntireFM) is a UK provider of commercial facilities management, mechanical & electrical engineering (M&E), planned preventative maintenance (PPM), and building maintenance services.
 
-## Core Services
-- **Hard FM & Engineering**: Mechanical & Electrical maintenance, commercial HVAC & air conditioning, statutory compliance, commercial plumbing, gas safety, and fabric repairs.
-- **Soft FM Services**: Contract commercial cleaning, industrial cleaning, security guarding, grounds maintenance, and drone surveys.
-- **Total Facilities Management (TFM)**: Consolidated single-contract delivery across single buildings and nationwide commercial property portfolios.
-- **Technology & Telemetry**: EntireCAFM proprietary computer-aided facilities management system and building performance telemetry.
+## Core Service Capabilities (Derived from Verified Route Registry)
+- **Hard FM & Building Engineering**: Mechanical & Electrical maintenance, commercial HVAC & air conditioning, statutory compliance, commercial plumbing, gas safety, and building fabric maintenance.
+- **Specialist Maintenance**: Planned Preventative Maintenance (PPM) schedule design, asset surveying, and reactive repair coordination.
+- **Soft FM & Site Services**: Commercial office and contract cleaning, industrial cleaning, security guarding, grounds maintenance, and aerial drone building inspections.
+- **Total Facilities Management (TFM)**: Consolidated single-contract delivery across commercial, industrial, and logistics property portfolios.
+- **Technology Integration**: Delivery supported by EntireCAFM, EntireFM's computer-aided facilities management system and building performance telemetry.
+
+## Verified Operational Entity Facts
+- **Entity**: Entire Facilities Management Ltd
+- **Trading Name**: EntireFM
+- **Primary Website**: https://www.entirefm.com
+- **Operating Model**: Mobile regional engineering and FM delivery teams operating across UK commercial estates, with response times agreed per site.
 
 ## Key Public Resources & Canonical References
-- **Facilities Management Overview**: https://www.entirefm.com/resources/guides/facilities-management-guide
-- **Planned Maintenance (PPM) Guide**: https://www.entirefm.com/resources/guides/ppm-guide
+- **FM Knowledge & Guides**: https://www.entirefm.com/resources/guides/facilities-management-guide
+- **Planned Preventative Maintenance (PPM) Guide**: https://www.entirefm.com/resources/guides/ppm-guide
 - **Asset Register Guide**: https://www.entirefm.com/resources/guides/asset-register-guide
-- **FM Tender Guide**: https://www.entirefm.com/resources/guides/fm-tender-guide
-- **AI in Facilities Management Pillar**: https://www.entirefm.com/resources/ai-in-facilities-management
+- **FM Tender & Procurement Guide**: https://www.entirefm.com/resources/guides/fm-tender-guide
+- **AI in Facilities Management**: https://www.entirefm.com/resources/ai-in-facilities-management
 - **Statutory Compliance Centre**: https://www.entirefm.com/compliance
-- **Facilities Management Glossary**: https://www.entirefm.com/facilities-management-glossary
-- **Interactive FM Tools**: https://www.entirefm.com/tools
-- **Official Media Centre**: https://www.entirefm.com/media
+- **Facilities Management Glossary (A–Z)**: https://www.entirefm.com/facilities-management-glossary
+- **Interactive FM Tools Hub**: https://www.entirefm.com/tools
+- **Media & Press Enquiries**: https://www.entirefm.com/media
