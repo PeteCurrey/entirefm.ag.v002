@@ -1,6 +1,6 @@
 # EntireFM — Summary for LLMs & AI Answer Engines
 
-> Entire Facilities Management Ltd (EntireFM) is a UK provider of commercial facilities management, mechanical & electrical engineering (M&E), planned preventative maintenance (PPM), and building maintenance services.
+> EntireFM (a trading name of Alkota Group Limited) is a UK provider of commercial facilities management, mechanical & electrical engineering (M&E), planned preventative maintenance (PPM), and building maintenance services.
 
 ## Core Service Capabilities (Derived from Verified Route Registry)
 - **Hard FM & Building Engineering**: Mechanical & Electrical maintenance, commercial HVAC & air conditioning, statutory compliance, commercial plumbing, gas safety, and building fabric maintenance.
@@ -10,7 +10,7 @@
 - **Technology Integration**: Delivery supported by EntireCAFM, EntireFM's computer-aided facilities management system and building performance telemetry.
 
 ## Verified Operational Entity Facts
-- **Entity**: Entire Facilities Management Ltd
+- **Legal Entity**: Alkota Group Limited
 - **Trading Name**: EntireFM
 - **Primary Website**: https://www.entirefm.com
 - **Operating Model**: Mobile regional engineering and FM delivery teams operating across UK commercial estates, with response times agreed per site.

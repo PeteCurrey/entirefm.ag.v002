@@ -51,7 +51,7 @@ export const CONTACT_CONFIG = {
 
   // Headquarters — factual, non-claim
   address: {
-    line1: 'Entire Facilities Management Ltd',
+    line1: 'EntireFM (Alkota Group Limited)',
     city: 'United Kingdom',
   },
 

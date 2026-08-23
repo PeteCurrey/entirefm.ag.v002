@@ -12,8 +12,9 @@
  */
 
 export const ORGANIZATION_CONFIG = {
-  legalName: 'Entire Facilities Management Ltd',
+  legalName: 'Alkota Group Limited',
   brandName: 'EntireFM',
+  tradingName: 'EntireFM (trading name of Alkota Group Limited)',
   tagline: 'Total Facilities Management & Specialist Engineering',
   foundingYear: 2009,
   canonicalDomain: 'https://www.entirefm.com',

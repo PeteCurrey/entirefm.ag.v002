@@ -1,8 +1,9 @@
 # EntireFM Canonical Entity Model & Knowledge Graph
 
 ## 1. Verified Brand Entity
-- **Legal Entity**: Entire Facilities Management Ltd
-- **Trading Name**: EntireFM
+- **Legal Entity**: Alkota Group Limited
+- **Trading Name**: EntireFM (trading name of Alkota Group Limited)
+- **Brand / Consumer Identity**: EntireFM
 - **Canonical Website**: `https://www.entirefm.com`
 - **Core Entity Type**: Nationwide UK Facilities Management, Mechanical & Electrical Engineering, and Building Maintenance Provider.
 - **Technology Platform**: EntireCAFM (Proprietary live CAFM and building telemetry system operated by EntireFM).

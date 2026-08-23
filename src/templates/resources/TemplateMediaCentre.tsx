@@ -87,7 +87,7 @@ export function TemplateMediaCentre({ route, content }: TemplateMediaCentreProps
             <ul className="text-xs text-zinc-300 space-y-3 divide-y divide-zinc-800">
               <li className="pt-2 flex justify-between">
                 <span className="text-zinc-500 font-mono">Entity</span>
-                <strong className="text-white">Entire Facilities Management Ltd</strong>
+                <strong className="text-white text-right">EntireFM (trading name of Alkota Group Limited)</strong>
               </li>
               <li className="pt-2 flex justify-between">
                 <span className="text-zinc-500 font-mono">Services</span>

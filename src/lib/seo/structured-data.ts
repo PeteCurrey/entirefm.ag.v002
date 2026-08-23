@@ -66,6 +66,7 @@ export function generateOrganizationSchema(): Node {
     '@id': SCHEMA_IDS.organization,
     name: ORGANIZATION_CONFIG.brandName,
     legalName: ORGANIZATION_CONFIG.legalName,
+    alternateName: ['EntireFM', 'Entire Facilities Management', 'Alkota Group Limited t/a EntireFM'],
     url: SITE,
     description: ORGANIZATION_CONFIG.headquarters.description,
     foundingDate: String(ORGANIZATION_CONFIG.foundingYear),
