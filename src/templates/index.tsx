@@ -21,6 +21,7 @@ import { TemplateCareers } from './TemplateCareers';
 import { TemplateHelpdesk } from './TemplateHelpdesk';
 import { TemplateSupplyChain } from './TemplateSupplyChain';
 import { TemplateHtmlSitemap } from './TemplateHtmlSitemap';
+import { TemplateComplianceHub, TemplateComplianceTopic } from './TemplateCompliance';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const content = loadContentRecord(route.path);
@@ -95,6 +96,14 @@ function selectTemplate(
     path === '/marketplace'
   ) {
     return <TemplateSupplyChain route={route} content={content} />;
+  }
+
+  // 6b. Compliance Centre
+  if (path === '/compliance') {
+    return <TemplateComplianceHub route={route} content={content} />;
+  }
+  if (path.startsWith('/compliance/')) {
+    return <TemplateComplianceTopic route={route} content={content} />;
   }
 
   // 7. Directory Hub Pages

@@ -123,8 +123,8 @@ export const PRIMARY_NAV: NavSection[] = [
  */
 export const SECONDARY_NAV: NavLink[] = [
   { label: 'Locations', href: '/locations' },
+  { label: 'Compliance', href: '/compliance' },
   { label: 'Case Studies', href: '/case-studies' },
-  { label: 'Resources', href: '/resources' },
   { label: 'About', href: '/about-entire-facilities-management' },
   { label: 'Contact', href: '/contact-us' },
 ];
@@ -168,6 +168,7 @@ export const FOOTER_NAV: NavColumn[] = [
     heading: 'Company',
     links: [
       { label: 'About EntireFM', href: '/about-entire-facilities-management' },
+      { label: 'Compliance Centre', href: '/compliance' },
       { label: 'Case Studies', href: '/case-studies' },
       { label: 'Resources', href: '/resources' },
       { label: 'Careers', href: '/job-board' },

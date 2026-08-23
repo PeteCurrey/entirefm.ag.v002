@@ -21,6 +21,7 @@ import { CONTENT_DATABASE, getContentRecord } from './registry';
 import { buildTier1Records } from './locations/build-tier1';
 import { RECOVERED_PAGES } from './locations/recovered-pages';
 import aboutRecord from './company/about';
+import { COMPLIANCE_CONTENT } from './compliance/records';
 
 export type { ContentRecord };
 
@@ -42,6 +43,7 @@ export const RECOVERED_CONTENT: Record<string, ContentRecord> = RECOVERED_PAGES;
  */
 export const COMPANY_CONTENT: Record<string, ContentRecord> = {
   [aboutRecord.path]: aboutRecord,
+  ...COMPLIANCE_CONTENT,
 };
 
 /** Paths currently served by bespoke Tier 1 content. */
