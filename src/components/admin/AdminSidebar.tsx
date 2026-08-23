@@ -65,6 +65,19 @@ const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    title: 'ENERGY & PERFORMANCE',
+    items: [
+      { name: 'Energy Overview', href: '/admin/energy' },
+      { name: 'Portfolio Performance', href: '/admin/energy/portfolio' },
+      { name: 'Meters & Feeds', href: '/admin/energy/meters' },
+      { name: 'Baseload & Out-of-Hours', href: '/admin/energy/baseload' },
+      { name: 'HVAC Intelligence', href: '/admin/energy/hvac' },
+      { name: 'Anomalies', href: '/admin/energy/anomalies' },
+      { name: 'M&V Projects', href: '/admin/energy/projects' },
+      { name: 'Carbon & Factors', href: '/admin/energy/carbon' },
+    ],
+  },
+  {
     title: 'COMPLIANCE',
     items: [
       { name: 'Compliance Command', href: '/admin/compliance/command' },

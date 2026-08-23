@@ -50,23 +50,27 @@ async function runTests() {
   const engineerSession: UserSession = {
     personId: 'eng-person-001',
     orgId: 'org-entirefm',
+    orgName: 'EntireFM',
+    orgType: 'ENTIREFM',
     email: 'engineer@entirefm.com',
     role: 'HELP_DESK_OPERATOR',
-    displayName: 'Test Engineer',
-    permissions: ['field:execute'],
-    accessibleSiteIds: [],
-    accessibleClientAccountIds: [],
+    name: 'Test Engineer',
+    permissions: ['field:execute'] as any,
+    scopes: [],
+    expiresAt: Date.now() + 86400000,
   };
 
   const contractorSession: UserSession = {
     personId: 'contractor-person-001',
     orgId: 'provider-org-hvac',
+    orgName: 'HVAC Solutions Ltd',
+    orgType: 'PROVIDER',
     email: 'dispatcher@hvac-solutions.co.uk',
     role: 'HELP_DESK_OPERATOR',
-    displayName: 'HVAC Solutions Dispatch',
-    permissions: ['contractor:manage'],
-    accessibleSiteIds: [],
-    accessibleClientAccountIds: [],
+    name: 'HVAC Solutions Dispatch',
+    permissions: ['contractor:manage'] as any,
+    scopes: [],
+    expiresAt: Date.now() + 86400000,
   };
 
   // --------------------------------------------------------------------------
@@ -212,28 +216,22 @@ async function runTests() {
   // --------------------------------------------------------------------------
   console.log('\n--- Scenario 4: Field Storage Buckets & MIME Types ---');
   const voiceUploadValid = validateStorageUpload(
-    'voice-captures',
     'audio/webm',
-    1024 * 500, // 500 KB
-    contractorSession
+    1024 * 500  // 500 KB
   );
-  assert(voiceUploadValid.valid, 'Audio WebM upload to voice-captures bucket approved');
+  assert(voiceUploadValid.valid, 'Audio WebM MIME type approved for voice-captures bucket');
 
   const signatureUploadValid = validateStorageUpload(
-    'signatures',
     'image/png',
-    1024 * 100, // 100 KB
-    contractorSession
+    1024 * 100  // 100 KB
   );
-  assert(signatureUploadValid.valid, 'PNG upload to signatures bucket approved');
+  assert(signatureUploadValid.valid, 'PNG image MIME type approved for signatures bucket');
 
   const invalidMimeUpload = validateStorageUpload(
-    'voice-captures',
     'application/x-executable',
-    1024,
-    contractorSession
+    1024
   );
-  assert(!invalidMimeUpload.valid, 'Executable upload rejected by storage validator');
+  assert(!invalidMimeUpload.valid, 'Executable MIME type correctly rejected by storage validator');
 
   console.log('\n======================================================');
   console.log('✅ ALL PHASE 0C TESTS PASSED SUCCESSFULLY (16/16)');
