@@ -207,6 +207,7 @@ const NAV_GROUPS: NavGroup[] = [
       { name: 'Distribution', href: '/admin/blog/distribution' },
       { name: 'SEO Health', href: '/admin/blog/seo' },
       { name: 'AI Search & Citations', href: '/admin/seo/ai-search' },
+      { name: 'Trust & Proof Register', href: '/admin/content/trust' },
       { name: 'External Sources', href: '/admin/blog/sources' },
       { name: 'Automation Settings', href: '/admin/blog/automation' },
       { name: 'Automation Jobs', href: '/admin/blog/automation/jobs' },

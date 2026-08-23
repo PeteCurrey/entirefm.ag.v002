@@ -9,6 +9,39 @@
 import type { ContentRecord } from '@/lib/routes/route-schema';
 
 export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
+  '/case-studies': {
+    path: '/case-studies',
+    title: 'Facilities Management Case Studies & Project Proof | EntireFM',
+    metaDescription: 'Explore verified commercial facilities management case studies and engineering project reviews from EntireFM across UK commercial property and industrial estates.',
+    h1: 'Real Estates. Real Engineering Challenges. Real FM Delivery.',
+    eyebrow: 'Proven Operational Delivery',
+    heroIntro: 'Explore how EntireFM solves complex commercial maintenance, statutory compliance, and building engineering challenges across UK commercial, retail, and industrial estates.',
+    heroDescription: 'Verifiable project reviews detailing asset surveys, PPM restructuring, mechanical remedials, and statutory compliance management.',
+    heroImage: '/images/editorial/entirefm-client-review-2000w.webp',
+    historicIntent: 'Commercial FM case studies and project proof search intent',
+    primaryIntent: 'facilities management case studies',
+    secondaryIntents: ['fm project reviews', 'commercial maintenance proof', 'm&e case studies uk'],
+    pageType: 'company',
+    historicTopics: ['Case studies', 'Project proof', 'PPM delivery', 'Commercial HVAC overhaul', 'Compliance audits'],
+    requiredSections: ['hero', 'case-studies-grid', 'trust-bar', 'cta'],
+    sections: [
+      {
+        heading: 'Documented Engineering & FM Outcomes',
+        body: 'Every case study reflects physical engineering works, baseline asset audits, and structured maintenance schedules delivered across commercial, logistics, and retail estates.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Case Studies', url: '/case-studies' }
+    ],
+    relatedRoutes: ['/services', '/ppm', '/mechanical-electrical', '/compliance'],
+    conversionGoal: 'Demonstrate tangible operational proof to commercial buyers, managing agents, and procurement teams.',
+    verificationRequirements: [
+      'Anonymised operational facts verified against real engineering scopes',
+      'Zero synthetic savings percentages or unverified client claims'
+    ],
+    contentStatus: 'COMPLETE'
+  },
   '/media': {
     path: '/media',
     title: 'Media Centre & Press Enquiries | EntireFM',

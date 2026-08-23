@@ -46,6 +46,7 @@ import { TemplateAiGuide } from './resources/TemplateAiGuide';
 import { TemplateGuidesHub } from './resources/TemplateGuidesHub';
 import { TemplateEvergreenGuide } from './resources/TemplateEvergreenGuide';
 import { TemplateMediaCentre } from './resources/TemplateMediaCentre';
+import { TemplateCaseStudiesHub } from './resources/TemplateCaseStudiesHub';
 import { TemplateFmBriefing } from './resources/TemplateFmBriefing';
 import { TemplateUnsubscribe } from './resources/TemplateUnsubscribe';
 
@@ -194,6 +195,9 @@ function selectTemplate(
   }
   if (path === '/media') {
     return <TemplateMediaCentre route={route} content={content} />;
+  }
+  if (path === '/case-studies') {
+    return <TemplateCaseStudiesHub route={route} content={content} />;
   }
   if (path === '/building-walk') {
     return <TemplateBuildingWalk route={route} content={content} />;
