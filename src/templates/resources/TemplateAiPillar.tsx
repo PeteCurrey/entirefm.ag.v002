@@ -4,8 +4,22 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { RouteRecord, ContentRecord } from '@/lib/routes/route-schema';
-import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
+import { TrustBar } from '@/components/trust/TrustBar';
+import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { NewsletterSignupSection } from '@/components/newsletter/NewsletterSignupSection';
+import { ResourceHero } from '@/components/resources/ResourceHero';
+import { ResourceSectionNav } from '@/components/resources/ResourceSectionNav';
+import { EditorialImageBreak } from '@/components/resources/EditorialImageBreak';
+import { ProcessFlow, CafmLayeredArchitecture } from '@/components/resources/TechnicalDiagram';
+import { TelemetryChart } from '@/components/resources/TelemetryChart';
+import { ComparisonVisual } from '@/components/resources/ComparisonVisual';
+import { CapabilityMatrix } from '@/components/resources/CapabilityMatrix';
+import { ExecutiveSummary } from '@/components/resources/ExecutiveSummary';
+import { AnnotatedTechnicalImage } from '@/components/resources/AnnotatedTechnicalImage';
+import { RelatedResourceGrid } from '@/components/resources/RelatedResourceGrid';
+import { CheckCircle2, Cpu, Wrench, Shield, ArrowRight, UserCheck, HardHat, FileCheck, Layers } from 'lucide-react';
 
 interface TemplateAiPillarProps {
   route: RouteRecord;
@@ -111,675 +125,452 @@ const WORK_ORDER_STEPS: WorkOrderStep[] = [
   }
 ];
 
-const AI_TECHNOLOGIES = [
+const AI_TECHNOLOGIES_SPECTRUM = [
   {
-    name: 'Machine Learning (ML)',
-    category: 'Statistical Analytics',
-    description: 'Supervised and unsupervised algorithms trained on numerical sensor telemetry, run hours, and temperature logs to spot deviation patterns.',
-    practicalExample: 'Detecting subtle vibration frequency shifts in a chiller compressor before bearing seizure.',
-    readiness: 'High (Production Ready)'
+    name: 'Predictive Analytics & Anomaly Detection',
+    maturity: 'Established Practice',
+    maturityTier: 'High (Production)',
+    category: 'Telemetry & Vibration',
+    description: 'Time-series mathematical forecasting and FFT harmonic vibration analysis identifying equipment degradation before failure.',
+    application: 'Chiller compressors, AHU supply fans, primary heating pumps, and condenser banks.',
+    accent: 'border-emerald-500/40 bg-emerald-950/20 text-emerald-300',
   },
   {
     name: 'Natural Language Processing (NLP / LLMs)',
-    category: 'Generative & Language AI',
-    description: 'Large language models fine-tuned to parse unstructured text, understand engineering phrasing, and extract technical entities from reports.',
-    practicalExample: 'Translating vague occupant complaint emails into structured, asset-mapped work order tickets.',
-    readiness: 'High (Production Ready)'
+    maturity: 'Operational Standard',
+    maturityTier: 'High (Production)',
+    category: 'Helpdesk & Documents',
+    description: 'Extracting structured trade categories, room coordinates, and SLA urgency tags from raw occupant emails and PDF inspection logs.',
+    application: 'Helpdesk triage, spatial CAFM mapping, and contractor certificate OCR ingestion.',
+    accent: 'border-blue-500/40 bg-blue-950/20 text-blue-300',
   },
   {
-    name: 'Computer Vision',
-    category: 'Visual & Radiometric AI',
-    description: 'Convolutional neural networks trained to detect anomalies in high-resolution photography, drone photogrammetry, and infrared thermography.',
-    practicalExample: 'Automating cladding defect tagging and thermal heat loss identification on multi-storey facades.',
-    readiness: 'Medium-High (Operational)'
+    name: 'Computer Vision & Thermography',
+    maturity: 'Operational Standard',
+    maturityTier: 'Medium-High (Active)',
+    category: 'Visual & Radiometric',
+    description: 'Convolutional neural networks analyzing drone photogrammetry, facade imagery, and switchgear thermal scans for defect heat spots.',
+    application: 'Roof leak mapping, cladding inspections, and electrical distribution hotspot detection.',
+    accent: 'border-pink-500/40 bg-pink-950/20 text-pink-300',
   },
   {
-    name: 'Predictive Analytics',
-    category: 'Mathematical Forecasting',
-    description: 'Time-series regression models forecasting Mean Time Between Failures (MTBF) and seasonal energy load demand curves.',
-    practicalExample: 'Forecasting boiler gas consumption requirements 48 hours in advance based on degree-day weather models.',
-    readiness: 'High (Established Practice)'
+    name: 'Autonomous Task Agents',
+    maturity: 'Supervised Emerging',
+    maturityTier: 'Medium (Human-in-the-Loop)',
+    category: 'Workflow Automation',
+    description: 'Chained algorithmic agents executing multi-step administrative tasks like contractor insurance chasing and SLA countdown monitoring.',
+    application: 'Supply-chain compliance chasing, invoice matching, and PPM schedule auto-levelling.',
+    accent: 'border-amber-500/40 bg-amber-950/20 text-amber-300',
   },
   {
-    name: 'Autonomous AI Agents',
-    category: 'Goal-Directed Automation',
-    description: 'Multi-step software agents executing chained tasks using APIs, document lookups, and schedule adjustments under human guardrails.',
-    practicalExample: 'Agent cross-checking subcontractor accreditation databases and chasing expiring insurance certificates.',
-    readiness: 'Emerging (Requires Human Oversight)'
+    name: 'Digital Twins & Dynamic BIM',
+    maturity: 'High-Capital Specialist',
+    maturityTier: 'Specialist Estates',
+    category: 'Spatial & Telemetry',
+    description: 'Real-time 3D spatial models unifying static BIM geometry with live IoT sensor telemetry and historical maintenance work orders.',
+    application: 'Complex hospital campuses, mission-critical datacentres, and multi-tenant headquarters.',
+    accent: 'border-purple-500/40 bg-purple-950/20 text-purple-300',
   },
-  {
-    name: 'Digital Twins',
-    category: 'Spatial & Telemetry Integration',
-    description: 'Dynamic virtual models unifying 3D BIM spatial data with real-time IoT sensors and historical maintenance records.',
-    practicalExample: 'Simulating thermal dispersion and airflow changes prior to reconfiguring server room floor plans.',
-    readiness: 'Specialist / High-Capital Estates'
-  }
 ];
 
-const USE_CASE_AREAS = [
+const SUPPORTING_GUIDES = [
   {
-    title: 'Asset Engineering & Maintenance',
-    icon: 'wrench',
-    points: [
-      'Condition-based vibration and thermal monitoring on critical primary plant',
-      'Automated mean-time-between-failure (MTBF) tracking across asset classes',
-      'Predictive wear calculations balancing run hours against manufacturer thresholds',
-      'Correlation of weather extremes with chiller and boiler thermal strain'
-    ],
-    link: '/resources/ai-in-facilities-management/predictive-maintenance',
-    linkText: 'Predictive Maintenance Guide →'
+    title: 'AI Predictive Maintenance Guide',
+    href: '/resources/ai-in-facilities-management/predictive-maintenance',
+    category: 'Condition Monitoring',
+    description: 'Condition-based monitoring, IoT vibration sensors, BMS telemetry, and PPM optimization across commercial chillers and pumps.',
+    imageSrc: '/images/editorial/entirefm-hvac-rooftop-condensers-1280w.webp',
+    readingTime: '9 min read',
   },
   {
-    title: 'Helpdesk & Service Desk',
-    icon: 'headset',
-    points: [
-      'Instant parsing and entity extraction from free-text emails and portal tickets',
-      'Automated spatial mapping matching reported room names to exact CAFM asset tags',
-      'Cluster deduplication merging multiple occupant reports of the same building event',
-      'Skill and accreditation matching for rapid mobile engineer dispatch'
-    ],
-    link: '/resources/ai-in-facilities-management/ai-helpdesk-work-orders',
-    linkText: 'AI Helpdesk & Work Orders →'
+    title: 'AI and Next-Gen CAFM Software',
+    href: '/resources/ai-in-facilities-management/ai-cafm',
+    category: 'Software & Data',
+    description: 'Vector asset search, automated scheduling, predictive SLA risk scoring, and EntireCAFM technology.',
+    imageSrc: '/images/editorial/entirefm-client-review-2000w.webp',
+    readingTime: '10 min read',
   },
   {
-    title: 'Energy & Environmental Controls',
-    icon: 'bolt',
-    points: [
-      'Multi-variable regression tuning BMS setpoints against ambient weather forecasts',
-      'Automated detection of simultaneous heating and cooling valve conflicts',
-      'Dynamic occupancy-driven deadband adjustments across vacant office floor plates',
-      'Peak electricity tariff load shedding and thermal pre-cooling cycles'
-    ],
-    link: '/resources/ai-in-facilities-management/energy-optimisation',
-    linkText: 'Energy Optimisation Guide →'
+    title: 'AI in the FM Helpdesk & Work Orders',
+    href: '/resources/ai-in-facilities-management/ai-helpdesk-work-orders',
+    category: 'Helpdesk & Triage',
+    description: 'Natural language ticket triage, spatial asset mapping, automated dispatch and human safety safeguards.',
+    imageSrc: '/images/editorial/entirefm-engineers-office-testing-1200w.webp',
+    readingTime: '8 min read',
   },
   {
-    title: 'Statutory Compliance & Auditing',
-    icon: 'shield',
-    points: [
-      'Automated extraction of inspection dates, re-test due dates, and accreditation numbers from PDF certificates',
-      'EICR defect code parsing pulling C1/C2 items immediately into remedial job queues',
-      'Portfolio-wide statutory gap analysis identifying missing water hygiene or gas records',
-      'Verification of contractor competency and accreditation badge validity'
-    ],
-    link: '/resources/ai-in-facilities-management/ai-compliance',
-    linkText: 'AI & Compliance Guide →'
+    title: 'Energy Optimisation via AI & BMS',
+    href: '/resources/ai-in-facilities-management/energy-optimisation',
+    category: 'Energy & Sustainability',
+    description: 'Dynamic BMS setpoint tuning, weather degree-day forecasting, and occupancy-driven deadband widening.',
+    imageSrc: '/images/editorial/entirefm-hvac-plant-deck-1200w.webp',
+    readingTime: '11 min read',
   },
   {
-    title: 'Software & CAFM Architecture',
-    icon: 'server',
-    points: [
-      'Natural-language vector search querying thousands of asset records in plain English',
-      'Predictive SLA risk scoring flagging work orders before contract breach occurs',
-      'Automated OCR reconciliation matching contractor invoices against approved rates',
-      'Automated client KPI reporting compiling monthly executive summaries'
-    ],
-    link: '/resources/ai-in-facilities-management/ai-cafm',
-    linkText: 'AI & CAFM Systems →'
+    title: 'Digital Twins in Building Management',
+    href: '/resources/ai-in-facilities-management/digital-twins',
+    category: 'Spatial Technology',
+    description: 'Spatial hierarchy, real-time telemetry binding, and BIM integration across complex commercial property portfolios.',
+    imageSrc: '/images/editorial/entirefm-switchroom-survey-2000w.webp',
+    readingTime: '12 min read',
   },
   {
-    title: 'Governance, Privacy & Risk',
-    icon: 'lock',
-    points: [
-      'Air-gapped OT network controls preventing cloud AI from modifying life-safety plant',
-      'Cryptographic audit logging recording every algorithmic recommendation and override',
-      'GDPR compliance anonymising occupancy sensor data and computer vision feeds',
-      'Supplier risk evaluation for third-party AI software vendors'
-    ],
-    link: '/resources/ai-in-facilities-management/ai-governance',
-    linkText: 'AI Governance & Security →'
-  }
+    title: 'Computer Vision & Thermal Inspections',
+    href: '/resources/ai-in-facilities-management/computer-vision',
+    category: 'Visual Inspection',
+    description: 'Radiometric infrared thermography, drone facade surveys, and automated electrical switchgear defect tagging.',
+    imageSrc: '/images/editorial/entirefm-hvac-thermal-survey-1200w.webp',
+    readingTime: '9 min read',
+  },
+  {
+    title: 'AI in Statutory Compliance & Auditing',
+    href: '/resources/ai-in-facilities-management/ai-compliance',
+    category: 'Compliance & Safety',
+    description: 'Automated certificate OCR ingestion, EICR C1/C2 defect extraction, and 100% audit-ready digital logbooks.',
+    imageSrc: '/images/editorial/entirefm-distribution-board-testing-1200w.webp',
+    readingTime: '10 min read',
+  },
+  {
+    title: 'Is Your FM Data Ready for AI?',
+    href: '/resources/ai-in-facilities-management/fm-data-readiness',
+    category: 'Data Infrastructure',
+    description: 'Asset register standardization, spatial hierarchy taxonomy, and the 5-step AI readiness pathway.',
+    imageSrc: '/images/editorial/entirefm-corporate-corridor-1200w.webp',
+    readingTime: '8 min read',
+  },
+  {
+    title: 'AI Governance, Security & OT Safeguards',
+    href: '/resources/ai-in-facilities-management/ai-governance',
+    category: 'Risk & Cybersecurity',
+    description: 'Air-gapping life-safety building plant, cryptographic audit logging, and human-in-the-loop permission matrices.',
+    imageSrc: '/images/editorial/entirefm-switchgear-inspection-1200w.webp',
+    readingTime: '9 min read',
+  },
+  {
+    title: 'Autonomous AI Agents in FM',
+    href: '/resources/ai-in-facilities-management/ai-agents',
+    category: 'Automation',
+    description: 'Multi-step autonomous agents for contractor accreditation chasing, invoice reconciliation, and schedule leveling.',
+    imageSrc: '/images/editorial/entirefm-site-arrival-2000w.webp',
+    readingTime: '10 min read',
+  },
+];
+
+const PAGE_SECTIONS = [
+  { id: 'summary', number: '01', label: 'Executive Summary' },
+  { id: 'landscape', number: '02', label: 'Technology Landscape' },
+  { id: 'telemetry', number: '03', label: 'Plant Telemetry' },
+  { id: 'workflow', number: '04', label: 'Work Order Workflow' },
+  { id: 'matrix', number: '05', label: 'Discipline Matrix' },
+  { id: 'architecture', number: '06', label: 'CAFM Architecture' },
+  { id: 'boundary', number: '07', label: 'Human Boundary' },
+  { id: 'roadmap', number: '08', label: 'Implementation Steps' },
+  { id: 'guides', number: '09', label: 'Specialist Guides' },
 ];
 
 export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
   const [activeStep, setActiveStep] = useState<number>(1);
   const currentStepData = WORK_ORDER_STEPS.find(s => s.id === activeStep) || WORK_ORDER_STEPS[0];
 
+  const breadcrumbs = content.breadcrumbs || [
+    { name: 'Home', url: '/' },
+    { name: 'Resources', url: '/resources' },
+    { name: 'AI in Facilities Management', url: '/resources/ai-in-facilities-management' },
+  ];
+
   return (
-    <div className="bg-[#0b1320] text-slate-100 min-h-screen">
-      {/* 1. HERO SECTION */}
-      <section className="relative pt-28 pb-20 overflow-hidden bg-gradient-to-b from-[#060c16] via-[#0b1320] to-[#0f172a] border-b border-slate-800">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ec4899_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="mb-6">
-            <Breadcrumbs items={content.breadcrumbs || []} />
-          </div>
+    <div className="bg-[#080e18] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-pink-500 selection:text-white">
+      <Header solid />
+      <main id="main" className="flex-grow">
+        {/* 1. EDITORIAL RESOURCE HERO */}
+        <ResourceHero
+          breadcrumbs={breadcrumbs}
+          category="AI &amp; Engineering Intelligence"
+          categoryHref="/resources"
+          title="AI in Facilities Management: Practical Engineering &amp; Operational Reality"
+          intro="A comprehensive, engineering-led examination of artificial intelligence in commercial estate management — moving beyond software vendor hype into real-world plant telemetry, CAFM automation, and statutory compliance."
+          readingTime="14 min read"
+          technicalTier="Level 3 · Strategy &amp; Engineering"
+          audience="Estates Directors, Commercial Landlords &amp; Operations Teams"
+          standard="2026 Authoritative Standard"
+          visualType="telemetry"
+          systemMetrics={[
+            { label: 'BMS Telemetry Protocol', value: 'BACnet / Modbus TCP', status: 'normal' },
+            { label: 'EntireCAFM Dispatch Bus', value: 'Zero-Latency Event Stream', status: 'active' },
+            { label: 'OT Safety Guardrail', value: 'Air-Gapped Life Safety', status: 'normal' },
+          ]}
+        />
 
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-pink-500/10 text-pink-400 border border-pink-500/20 mb-6">
-              <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
-              Technical & Operational Whitepaper • 2026 Edition
-            </div>
+        {/* 2. TRUST & ACCREDITATION STRIP */}
+        <TrustBar />
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 leading-[1.1]">
-              AI in Facilities Management
-            </h1>
+        {/* 3. MAIN CONTENT CONTAINER WITH STICKY NAVIGATION */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="flex gap-12 items-start">
+            {/* Sticky Desktop Navigation Rail */}
+            <ResourceSectionNav sections={PAGE_SECTIONS} />
 
-            <p className="text-xl sm:text-2xl text-slate-300 font-light leading-relaxed mb-8">
-              A practical, engineering-led examination of artificial intelligence in commercial estate operations, building maintenance, and CAFM workflows.
-            </p>
+            {/* Main Reading Flow */}
+            <div className="flex-1 min-w-0 space-y-16">
+              {/* SECTION 01: EXECUTIVE SUMMARY */}
+              <section id="summary" className="scroll-mt-32">
+                <ExecutiveSummary
+                  title="Executive Summary: The Practical State of AI in FM"
+                  badge="2026 Briefing"
+                  takeaways={[
+                    'Artificial intelligence in facilities management is not about replacing mechanical engineers — it is about accelerating triage, extracting signal from sensor telemetry, and eliminating administrative drag.',
+                    'Statutory compliance (Gas Safe, LOLER, EICR, Fire Safety) remains an immutable legal responsibility that requires certified, licensed human engineer execution on site.',
+                    'The highest financial returns from AI stem from three operational areas: condition-based predictive maintenance on critical chillers/pumps, automated helpdesk triage with spatial CAFM mapping, and BMS deadband energy optimization.',
+                    'AI without structured asset data fails. Establishing clean asset hierarchies and SFG20 task coding is the prerequisite for any automated intelligence deployment.',
+                  ]}
+                  statutoryReference="Building Safety Act 2022 · BS 7671 · ACOP L8 · SFG20 Task Library"
+                  operationalOutcome="15–25% reduction in reactive emergency callouts · 12–18% HVAC energy demand reduction"
+                />
+              </section>
 
-            <div className="flex flex-wrap gap-4 pt-2 border-t border-slate-800/80 text-sm text-slate-400">
-              <div className="flex items-center gap-2">
-                <span className="text-slate-500">Focus:</span>
-                <span className="text-white font-medium">Commercial Estates & FM Teams</span>
-              </div>
-              <div className="w-px h-5 bg-slate-800 hidden sm:block" />
-              <div className="flex items-center gap-2">
-                <span className="text-slate-500">Methodology:</span>
-                <span className="text-white font-medium">Operational & Technical Reality</span>
-              </div>
-              <div className="w-px h-5 bg-slate-800 hidden sm:block" />
-              <div className="flex items-center gap-2">
-                <span className="text-slate-500">Published:</span>
-                <span className="text-white font-medium">2026 Authoritative Standard</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. WHAT AI ACTUALLY MEANS — DEFINITIONS MATRIX */}
-      <section className="py-20 bg-[#0f172a] border-b border-slate-800">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-pink-400 mb-2">
-              Technology Demystification
-            </h2>
-            <p className="text-3xl font-bold text-white mb-4">
-              What AI Actually Means in Building Management
-            </p>
-            <p className="text-slate-400 leading-relaxed">
-              Software vendors often label standard rules-based automation and basic database queries as "AI". To make informed procurement decisions, facilities leaders must distinguish genuine machine learning capabilities from conventional software features.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {AI_TECHNOLOGIES.map((tech) => (
-              <div
-                key={tech.name}
-                className="bg-slate-900/90 border border-slate-800 rounded-xl p-6 hover:border-pink-500/40 transition-all group flex flex-col justify-between"
-              >
+              {/* SECTION 02: TECHNOLOGY LANDSCAPE SPECTRUM */}
+              <section id="landscape" className="scroll-mt-32 space-y-6">
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-xs font-semibold px-2.5 py-1 rounded bg-slate-800 text-pink-300 border border-slate-700">
-                      {tech.category}
-                    </span>
-                    <span className="text-xs text-slate-400 font-mono">
-                      {tech.readiness}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-pink-300 transition-colors">
-                    {tech.name}
-                  </h3>
-                  <p className="text-sm text-slate-300 mb-4 leading-relaxed">
-                    {tech.description}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-slate-800/80">
-                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-                    FM Application:
+                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+                    Technology Demystification
                   </span>
-                  <p className="text-xs text-slate-300 italic">
-                    "{tech.practicalExample}"
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. FLAGSHIP INTERACTIVE MODULE: THE AI-ENABLED WORK ORDER */}
-      <section className="py-24 bg-[#060c16] border-b border-slate-800 relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs font-bold uppercase tracking-widest text-pink-400 mb-2 block">
-              Interactive Operational Walkthrough
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              The AI-Enabled Work Order: Request to Resolution
-            </h2>
-            <p className="text-slate-400 text-base sm:text-lg">
-              Explore how artificial intelligence, IoT telemetry, and human engineering checkpoints work in harmony to triage, scope, and resolve commercial building faults.
-            </p>
-          </div>
-
-          {/* Interactive Step Navigator */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 mb-10">
-            {WORK_ORDER_STEPS.map((step) => {
-              const isSelected = step.id === activeStep;
-              const isPast = step.id < activeStep;
-              return (
-                <button
-                  key={step.id}
-                  onClick={() => setActiveStep(step.id)}
-                  className={`p-3 rounded-lg border text-left transition-all ${
-                    isSelected
-                      ? 'bg-pink-950/40 border-pink-500 text-white shadow-lg shadow-pink-950/30'
-                      : isPast
-                      ? 'bg-slate-900/90 border-slate-700 text-slate-300 hover:border-slate-600'
-                      : 'bg-slate-900/40 border-slate-800 text-slate-500 hover:border-slate-700 hover:text-slate-300'
-                  }`}
-                >
-                  <span className="text-[10px] font-mono block font-bold text-pink-400 mb-1">
-                    STEP {step.id}
-                  </span>
-                  <span className="text-xs font-semibold block truncate leading-tight">
-                    {step.title}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active Step Detail Card */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-10 relative overflow-hidden shadow-2xl">
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-800">
-              <div>
-                <span className="text-xs font-mono font-bold text-pink-400 uppercase tracking-widest block mb-1">
-                  {currentStepData.stage}
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-bold text-white">
-                  {currentStepData.title}
-                </h3>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <span className="text-xs text-slate-400">Primary Actor:</span>
-                <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                  currentStepData.actorType === 'checkpoint'
-                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse'
-                    : currentStepData.actorType === 'ai'
-                    ? 'bg-pink-500/20 text-pink-300 border border-pink-500/40'
-                    : currentStepData.actorType === 'human'
-                    ? 'bg-blue-500/20 text-blue-300 border border-blue-500/40'
-                    : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                }`}>
-                  {currentStepData.actor}
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              <div className="lg:col-span-7 space-y-6">
-                <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                    Operational Description
-                  </h4>
-                  <p className="text-base sm:text-lg text-slate-200 leading-relaxed">
-                    {currentStepData.description}
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                    What AI Actually Means in Building Operations
+                  </h2>
+                  <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
+                    Software vendors frequently market standard database searches or basic calendar reminders as "AI". To make informed procurement decisions, property leaders must distinguish established mathematical modeling from generative language tools and specialist spatial systems.
                   </p>
                 </div>
 
-                <div className="bg-slate-950/70 rounded-xl p-5 border border-slate-800">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                    Underlying Engineering Detail
-                  </h4>
-                  <p className="text-sm text-slate-300 leading-relaxed">
-                    {currentStepData.detail}
-                  </p>
-                </div>
-
-                {currentStepData.checkpoint && (
-                  <div className="bg-amber-950/40 border border-amber-500/50 rounded-xl p-4 flex items-start gap-3">
-                    <span className="text-amber-400 text-lg">⚠️</span>
-                    <div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-amber-300 block mb-1">
-                        Critical Compliance Safeguard
-                      </span>
-                      <p className="text-xs text-amber-200/90 leading-relaxed">
-                        {currentStepData.checkpoint}
+                {/* Visual Technology Spectrum */}
+                <div className="space-y-3 pt-2">
+                  {AI_TECHNOLOGIES_SPECTRUM.map((tech, idx) => (
+                    <div
+                      key={idx}
+                      className={`p-5 rounded-xl border ${tech.accent} transition-all hover:scale-[1.01]`}
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-pink-500" />
+                          <h3 className="font-bold text-base text-white">{tech.name}</h3>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-400">
+                            {tech.category}
+                          </span>
+                          <span className="text-[10px] font-mono font-bold text-pink-300">
+                            {tech.maturityTier}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs sm:text-sm text-slate-300 mb-2 leading-relaxed">
+                        {tech.description}
                       </p>
+                      <div className="text-xs font-mono text-slate-400 pt-2 border-t border-slate-800/80">
+                        <span className="text-slate-500">FM Target Assets:</span> <strong className="text-slate-200 font-normal">{tech.application}</strong>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* SECTION 03: REAL-WORLD ENGINEERING VISUAL BREAK */}
+              <section id="telemetry" className="scroll-mt-32">
+                <AnnotatedTechnicalImage
+                  imageSrc="/images/editorial/entirefm-hvac-rooftop-condensers-1920w.webp"
+                  imageAlt="EntireFM engineers inspecting commercial rooftop chiller and condenser plant with live telemetry overlay"
+                  caption="Primary Commercial Chiller Plant (450kW) — Vibration velocity and thermodynamic delta-T telemetry nodes attached to EntireCAFM event bus."
+                />
+              </section>
+
+              {/* SECTION 04: FLAGSHIP INTERACTIVE WORK ORDER WALKTHROUGH */}
+              <section id="workflow" className="scroll-mt-32 space-y-6">
+                <div>
+                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+                    Flagship Interactive Simulation
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                    The AI-Enabled Work Order: Request to Resolution
+                  </h2>
+                  <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
+                    Step through an end-to-end commercial building fault journey to see how NLP triage, spatial CAFM mapping, BMS telemetry, mandatory human engineering checkpoints, and post-resolution pattern intelligence operate in harmony.
+                  </p>
+                </div>
+
+                {/* Step Selector Horizontal Strip */}
+                <div className="p-2 rounded-xl bg-slate-950 border border-slate-800 flex overflow-x-auto gap-1.5 scrollbar-none">
+                  {WORK_ORDER_STEPS.map((step) => {
+                    const isSelected = activeStep === step.id;
+                    return (
+                      <button
+                        key={step.id}
+                        onClick={() => setActiveStep(step.id)}
+                        className={`flex-1 min-w-[130px] p-2.5 rounded-lg text-left transition-all text-xs font-mono ${
+                          isSelected
+                            ? 'bg-pink-950 text-pink-300 border border-pink-500/50 shadow-md font-bold'
+                            : 'bg-slate-900/60 text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                        }`}
+                      >
+                        <span className={`block text-[10px] ${isSelected ? 'text-pink-400' : 'text-slate-500'}`}>
+                          Step 0{step.id}
+                        </span>
+                        <span className="truncate block mt-0.5">{step.actor}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Active Step Showcase Card */}
+                <div className="p-6 sm:p-8 rounded-2xl bg-slate-950 border border-slate-800 shadow-xl space-y-6">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-4">
+                    <div>
+                      <span className="text-xs font-mono font-bold text-pink-400 uppercase tracking-widest block">
+                        {currentStepData.stage}
+                      </span>
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
+                        {currentStepData.title}
+                      </h3>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-mono text-slate-400">Executing Actor:</span>
+                      <span className={`text-xs font-mono font-bold px-2.5 py-1 rounded border uppercase ${
+                        currentStepData.actorType === 'ai'
+                          ? 'bg-pink-950 text-pink-300 border-pink-700'
+                          : currentStepData.actorType === 'checkpoint'
+                          ? 'bg-amber-950 text-amber-300 border-amber-600'
+                          : currentStepData.actorType === 'human'
+                          ? 'bg-blue-950 text-blue-300 border-blue-700'
+                          : 'bg-slate-900 text-slate-300 border-slate-700'
+                      }`}>
+                        {currentStepData.actor}
+                      </span>
                     </div>
                   </div>
-                )}
-              </div>
 
-              <div className="lg:col-span-5 bg-slate-950 border border-slate-800 rounded-xl p-6">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-pink-400 mb-4 flex items-center justify-between">
-                  <span>System Telemetry & Metadata</span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                </h4>
-
-                {currentStepData.systemData ? (
                   <div className="space-y-4">
-                    {currentStepData.systemData.map((item, idx) => (
-                      <div key={idx} className="flex items-center justify-between pb-3 border-b border-slate-800/80 last:border-0 last:pb-0">
-                        <span className="text-xs text-slate-400">{item.label}</span>
-                        <span className="text-xs font-mono font-bold text-white bg-slate-900 px-2 py-1 rounded border border-slate-800">
-                          {item.value}
-                        </span>
+                    <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-light">
+                      {currentStepData.description}
+                    </p>
+                    <p className="text-xs sm:text-sm text-slate-400 leading-relaxed bg-slate-900/80 p-4 rounded-xl border border-slate-800/80">
+                      <strong>Technical Mechanism:</strong> {currentStepData.detail}
+                    </p>
+                  </div>
+
+                  {currentStepData.checkpoint && (
+                    <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-500/50 flex items-start gap-3 text-amber-200 text-xs font-mono">
+                      <HardHat className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                      <span>{currentStepData.checkpoint}</span>
+                    </div>
+                  )}
+
+                  {currentStepData.systemData && currentStepData.systemData.length > 0 && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                      {currentStepData.systemData.map((d, idx) => (
+                        <div key={idx} className="p-3 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono">
+                          <span className="text-slate-500 block text-[10px] uppercase">{d.label}</span>
+                          <span className="text-pink-300 font-bold mt-0.5 block">{d.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="flex items-center justify-between pt-4 border-t border-slate-800/80">
+                    <button
+                      onClick={() => setActiveStep(Math.max(1, activeStep - 1))}
+                      disabled={activeStep === 1}
+                      className="px-4 py-2 rounded bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none"
+                    >
+                      &larr; Previous Stage
+                    </button>
+                    <span className="text-xs font-mono text-slate-500">
+                      Step {activeStep} of {WORK_ORDER_STEPS.length}
+                    </span>
+                    <button
+                      onClick={() => setActiveStep(Math.min(WORK_ORDER_STEPS.length, activeStep + 1))}
+                      disabled={activeStep === WORK_ORDER_STEPS.length}
+                      className="px-4 py-2 rounded bg-pink-600 hover:bg-pink-500 text-xs font-mono font-bold text-white disabled:opacity-30 disabled:pointer-events-none"
+                    >
+                      Next Stage &rarr;
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              {/* SECTION 05: CAPABILITY MATRIX */}
+              <section id="matrix" className="scroll-mt-32">
+                <CapabilityMatrix />
+              </section>
+
+              {/* SECTION 06: CAFM LAYERED ARCHITECTURE */}
+              <section id="architecture" className="scroll-mt-32">
+                <CafmLayeredArchitecture />
+              </section>
+
+              {/* SECTION 07: HUMAN VS AI BOUNDARY */}
+              <section id="boundary" className="scroll-mt-32">
+                <ComparisonVisual
+                  type="ai-vs-human"
+                  title="The Operational Division of Responsibility"
+                  subtitle="Defining the immutable boundary between algorithmic triage speed and mandatory on-site certified engineering execution."
+                />
+              </section>
+
+              {/* SECTION 08: 5-STEP IMPLEMENTATION ROADMAP */}
+              <section id="roadmap" className="scroll-mt-32 space-y-6">
+                <div>
+                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+                    Pragmatic Deployment Pathway
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                    The 5-Step FM AI Readiness Roadmap
+                  </h2>
+                  <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
+                    Deploying artificial intelligence in property operations requires sequential foundations. Attempting predictive algorithms on disorganized asset registers yields false alarms and wasted engineer hours.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                  {[
+                    { num: '01', title: 'Asset Data Cleanse', desc: 'Standardize asset taxonomy, tag primary plant, and align maintenance tasks to SFG20 specifications.' },
+                    { num: '02', title: 'Helpdesk Normalization', desc: 'Implement structured intake forms and train NLP models on historical ticket categories.' },
+                    { num: '03', title: 'Targeted IoT Sensors', desc: 'Deploy high-frequency vibration and temperature telemetry on high-criticality primary plant only.' },
+                    { num: '04', title: 'Document Digitization', desc: 'Convert legacy PDF certificates (Gas, EICR, LOLER) into structured searchable compliance data.' },
+                    { num: '05', title: 'Governance & Audits', desc: 'Establish air-gapped OT controls and define human-in-the-loop sign-off matrices.' },
+                  ].map((step, idx) => (
+                    <div key={idx} className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex flex-col justify-between">
+                      <div>
+                        <span className="text-lg font-mono font-bold text-pink-400 block mb-2">{step.num}</span>
+                        <h4 className="text-xs font-bold text-white mb-2 leading-snug">{step.title}</h4>
+                        <p className="text-[11px] text-slate-400 leading-relaxed">{step.desc}</p>
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-xs text-slate-400 italic py-4">
-                    Standard human interaction step. No algorithmic telemetry logged for this stage.
-                  </div>
-                )}
-
-                <div className="mt-6 pt-4 border-t border-slate-800 flex justify-between items-center text-xs">
-                  <button
-                    onClick={() => setActiveStep(prev => Math.max(1, prev - 1))}
-                    disabled={activeStep === 1}
-                    className="px-3 py-1.5 rounded bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none"
-                  >
-                    ← Previous Step
-                  </button>
-                  <span className="text-slate-400 font-mono">
-                    {activeStep} of {WORK_ORDER_STEPS.length}
-                  </span>
-                  <button
-                    onClick={() => setActiveStep(prev => Math.min(WORK_ORDER_STEPS.length, prev + 1))}
-                    disabled={activeStep === WORK_ORDER_STEPS.length}
-                    className="px-3 py-1.5 rounded bg-pink-600 text-white font-semibold hover:bg-pink-500 disabled:opacity-30 disabled:pointer-events-none"
-                  >
-                    Next Step →
-                  </button>
+                    </div>
+                  ))}
                 </div>
-              </div>
+              </section>
+
+              {/* SECTION 09: SPECIALIST SUPPORTING GUIDES */}
+              <section id="guides" className="scroll-mt-32">
+                <RelatedResourceGrid
+                  eyebrow="Specialist Technical Guides"
+                  title="Explore the Complete FM AI Knowledge Series"
+                  intro="In-depth architectural guides detailing specific applications of machine learning, condition monitoring, and CAFM engineering."
+                  resources={SUPPORTING_GUIDES}
+                />
+              </section>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* 4. AI USE CASE MAP */}
-      <section className="py-20 bg-[#0f172a] border-b border-slate-800">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <span className="text-xs font-bold uppercase tracking-widest text-pink-400 mb-2 block">
-              Estate-Wide Capabilities
-            </span>
-            <h2 className="text-3xl font-bold text-white mb-4">
-              AI Use-Case Matrix across Estate Functions
-            </h2>
-            <p className="text-slate-400 leading-relaxed">
-              Explore in-depth technical guides for each major domain of commercial building management.
-            </p>
-          </div>
+        {/* 4. CONVERSION & PROPOSAL SECTION */}
+        <ProposalSection
+          headline="Discuss an AI-Enabled Maintenance Contract for Your Estate"
+          subheadline="Speak directly with our technical operations team about deploying EntireCAFM, condition monitoring, and planned preventative maintenance across your commercial property portfolio."
+        />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {USE_CASE_AREAS.map((area) => (
-              <div
-                key={area.title}
-                className="bg-slate-900/80 border border-slate-800 rounded-xl p-6 flex flex-col justify-between hover:border-pink-500/40 transition-all group"
-              >
-                <div>
-                  <h3 className="text-lg font-bold text-white mb-4 group-hover:text-pink-300 transition-colors">
-                    {area.title}
-                  </h3>
-                  <ul className="space-y-2.5 mb-6">
-                    {area.points.map((pt, i) => (
-                      <li key={i} className="text-xs text-slate-300 flex items-start gap-2 leading-relaxed">
-                        <span className="text-pink-400 mt-0.5">•</span>
-                        <span>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="pt-4 border-t border-slate-800">
-                  <Link
-                    href={area.link}
-                    className="text-xs font-bold text-pink-400 hover:text-pink-300 flex items-center justify-between"
-                  >
-                    <span>Read Technical Guide</span>
-                    <span>→</span>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. WHITE EDITORIAL SECTION: WHAT AI CANNOT DO WELL */}
-      <section className="py-20 bg-slate-100 text-slate-900 border-b border-slate-300">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <span className="text-xs font-bold uppercase tracking-widest text-pink-700 mb-2 block">
-              Commercial & Operational Balance
-            </span>
-            <h2 className="text-3xl font-bold text-slate-950 mb-4">
-              What AI Cannot Do Well in Facilities Management
-            </h2>
-            <p className="text-slate-700 leading-relaxed">
-              Successful FM technology strategy requires understanding the hard boundaries of machine learning. The following tasks require human craftsmanship, legal accreditation, and physical presence.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-              <span className="text-2xl mb-3 block">⚖️</span>
-              <h3 className="text-base font-bold text-slate-950 mb-2">
-                Statutory Certification
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                UK law requires a human Competent Person (e.g. Gas Safe, NICEIC, BAFE) to inspect and sign off safety certificates. AI algorithms cannot legally certify compliance.
-              </p>
-            </div>
-
-            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-              <span className="text-2xl mb-3 block">🔧</span>
-              <h3 className="text-base font-bold text-slate-950 mb-2">
-                Physical Craftsmanship
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Software can detect a pump bearing fault, but it cannot strip the casing, replace the mechanical seal, or align the coupling. Hands-on engineering remains essential.
-              </p>
-            </div>
-
-            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-              <span className="text-2xl mb-3 block">🚨</span>
-              <h3 className="text-base font-bold text-slate-950 mb-2">
-                Emergency Judgement
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                In building emergencies (gas leaks, major water ingress, structural movement), automated rules fail. Human duty managers must evaluate site risk and coordinate emergency services.
-              </p>
-            </div>
-
-            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-              <span className="text-2xl mb-3 block">🤝</span>
-              <h3 className="text-base font-bold text-slate-950 mb-2">
-                Tenant Relationship Care
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                De-escalating frustrated commercial tenants, resolving complex lease boundary disputes, and negotiating contractor rates requires human empathy and commercial tact.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. AI READINESS CHECKLIST */}
-      <section className="py-20 bg-[#0b1320] border-b border-slate-800">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <span className="text-xs font-bold uppercase tracking-widest text-pink-400 mb-2 block">
-              Prerequisites & Strategy
-            </span>
-            <h2 className="text-3xl font-bold text-white mb-4">
-              The 5-Step AI Readiness Pathway for Estates
-            </h2>
-            <p className="text-slate-400 leading-relaxed">
-              Before investing in AI software or predictive sensors, estates directors should follow a structured readiness sequence to avoid costly failed implementations.
-            </p>
-          </div>
-
-          <div className="space-y-4 max-w-4xl">
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <span className="text-xs font-mono font-bold text-pink-400 uppercase">Phase 1</span>
-                <h3 className="text-base font-bold text-white">Clean & Standardise the Asset Register</h3>
-                <p className="text-xs text-slate-300 mt-1">Audit serial numbers, map parent-child spatial hierarchies, and adopt SFG20 asset codes.</p>
-              </div>
-              <Link href="/resources/ai-in-facilities-management/fm-data-readiness" className="text-xs font-bold text-pink-400 hover:text-pink-300 shrink-0">
-                Data Readiness Guide →
-              </Link>
-            </div>
-
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <span className="text-xs font-mono font-bold text-pink-400 uppercase">Phase 2</span>
-                <h3 className="text-base font-bold text-white">Consolidate Helpdesk & CAFM Workflow</h3>
-                <p className="text-xs text-slate-300 mt-1">Enforce standardised failure cause codes rather than free-text notes across all engineer mobile apps.</p>
-              </div>
-              <Link href="/resources/ai-in-facilities-management/ai-cafm" className="text-xs font-bold text-pink-400 hover:text-pink-300 shrink-0">
-                CAFM Guide →
-              </Link>
-            </div>
-
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <span className="text-xs font-mono font-bold text-pink-400 uppercase">Phase 3</span>
-                <h3 className="text-base font-bold text-white">Deploy Pilot IoT on Critical Assets Only</h3>
-                <p className="text-xs text-slate-300 mt-1">Install vibration and temperature sensors on top-criticality plant (chillers, main pumps, primary AHUs).</p>
-              </div>
-              <Link href="/resources/ai-in-facilities-management/predictive-maintenance" className="text-xs font-bold text-pink-400 hover:text-pink-300 shrink-0">
-                Predictive Maintenance →
-              </Link>
-            </div>
-
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <span className="text-xs font-mono font-bold text-pink-400 uppercase">Phase 4</span>
-                <h3 className="text-base font-bold text-white">Implement Automated Document Intelligence</h3>
-                <p className="text-xs text-slate-300 mt-1">Use document AI to parse historical compliance certificates, extract remedials, and verify contractor accreditations.</p>
-              </div>
-              <Link href="/resources/ai-in-facilities-management/ai-compliance" className="text-xs font-bold text-pink-400 hover:text-pink-300 shrink-0">
-                Compliance AI Guide →
-              </Link>
-            </div>
-
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <span className="text-xs font-mono font-bold text-pink-400 uppercase">Phase 5</span>
-                <h3 className="text-base font-bold text-white">Establish Cybersecurity & Governance Guardrails</h3>
-                <p className="text-xs text-slate-300 mt-1">Air-gap building OT networks and audit third-party AI software vendors with standard security questionnaires.</p>
-              </div>
-              <Link href="/resources/ai-in-facilities-management/ai-governance" className="text-xs font-bold text-pink-400 hover:text-pink-300 shrink-0">
-                Governance Framework →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. ALL 10 SUB-GUIDE DIRECTORY */}
-      <section className="py-20 bg-[#0f172a] border-b border-slate-800">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <span className="text-xs font-bold uppercase tracking-widest text-pink-400 mb-2 block">
-              Complete Knowledge Cluster
-            </span>
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Explore the 10 Supporting AI in FM Guides
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {[
-              { title: 'Predictive Maintenance', path: '/resources/ai-in-facilities-management/predictive-maintenance', tag: 'Plant Reliability' },
-              { title: 'Helpdesk & Work Orders', path: '/resources/ai-in-facilities-management/ai-helpdesk-work-orders', tag: 'Service Desk' },
-              { title: 'AI + CAFM Software', path: '/resources/ai-in-facilities-management/ai-cafm', tag: 'Technology' },
-              { title: 'Energy Optimisation', path: '/resources/ai-in-facilities-management/energy-optimisation', tag: 'Sustainability' },
-              { title: 'Digital Twins', path: '/resources/ai-in-facilities-management/digital-twins', tag: 'Spatial Data' },
-              { title: 'AI Agents in FM', path: '/resources/ai-in-facilities-management/ai-agents', tag: 'Workflows' },
-              { title: 'Computer Vision', path: '/resources/ai-in-facilities-management/computer-vision', tag: 'Visual Surveys' },
-              { title: 'AI & Compliance', path: '/resources/ai-in-facilities-management/ai-compliance', tag: 'Statutory Safety' },
-              { title: 'FM Data Readiness', path: '/resources/ai-in-facilities-management/fm-data-readiness', tag: 'Asset Registers' },
-              { title: 'AI Governance & Risk', path: '/resources/ai-in-facilities-management/ai-governance', tag: 'Cybersecurity' },
-            ].map((guide) => (
-              <Link
-                key={guide.path}
-                href={guide.path}
-                className="bg-slate-900 border border-slate-800 rounded-xl p-4 hover:border-pink-500/60 hover:bg-slate-800/80 transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <span className="text-[10px] font-semibold text-pink-400 uppercase tracking-wider block mb-2">
-                    {guide.tag}
-                  </span>
-                  <h3 className="text-sm font-bold text-white group-hover:text-pink-300 transition-colors">
-                    {guide.title}
-                  </h3>
-                </div>
-                <span className="text-xs text-slate-400 mt-4 block group-hover:text-pink-400">
-                  Read guide →
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8. FAQ SECTION */}
-      <section className="py-20 bg-[#0b1320] border-b border-slate-800">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <span className="text-xs font-bold uppercase tracking-widest text-pink-400 mb-2 block">
-              Common Questions
-            </span>
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Frequently Asked Questions on FM Artificial Intelligence
-            </h2>
-          </div>
-
-          <div className="max-w-4xl space-y-6">
-            {(content.faqs || []).map((faq, idx) => (
-              <div key={idx} className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-                <h3 className="text-base font-bold text-white mb-3">
-                  {faq.question}
-                </h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
-                  {faq.answer}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter Signup */}
-      <NewsletterSignupSection
-        signupPage="/resources/ai-in-facilities-management"
-        sourceContext="ai_pillar_hub"
-      />
-
-      {/* 9. CONTEXTUAL COMMERCIAL CTA */}
-      <section className="py-20 bg-gradient-to-r from-pink-950/40 via-slate-900 to-slate-900 border-t border-pink-500/20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <span className="text-xs font-bold uppercase tracking-widest text-pink-400 mb-2 block">
-              Commercial Partnership
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Looking for a Technology-Enabled Facilities Partner?
-            </h2>
-            <p className="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed">
-              EntireFM combines self-delivered multi-skilled engineering with modern CAFM software, transparent client reporting, and structured statutory compliance management across UK commercial property.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/contact-us"
-                className="px-8 py-4 rounded-xl bg-pink-600 text-white font-bold hover:bg-pink-500 transition-all shadow-lg shadow-pink-600/30"
-              >
-                Discuss Your Estate Requirements
-              </Link>
-              <Link
-                href="/tools/ppm-schedule-builder"
-                className="px-8 py-4 rounded-xl bg-slate-800 text-slate-200 font-bold hover:bg-slate-700 border border-slate-700 transition-all"
-              >
-                Build a PPM Schedule Online
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+        {/* 5. NEWSLETTER SIGNUP */}
+        <NewsletterSignupSection />
+      </main>
+      <Footer />
     </div>
   );
 }
