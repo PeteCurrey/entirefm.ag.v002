@@ -52,7 +52,17 @@ function fetchProductionUrl(urlPath) {
         const h1 = (data.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i) || [])[1]?.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() || '';
         const metaDesc = (data.match(/<meta[^>]+name=[\"']description[\"'][^>]+content=[\"']([^\"']*)[\"']/i) || [])[1] || '';
         const canonical = (data.match(/<link[^>]+rel=[\"']canonical[\"'][^>]+href=[\"']([^\"']*)[\"']/i) || [])[1] || '';
-        const robots = res.headers['x-robots-tag'] || (data.match(/<meta[^>]+name=[\"']robots[\"'][^>]+content=[\"']([^\"']*)[\"']/i) || [])[1] || 'index, follow';
+        
+        let robots = res.headers['x-robots-tag'] || '';
+        if (!robots) {
+          const metaRobots = data.match(/<meta[^>]+name=[\"']robots[\"'][^>]*>/i) || data.match(/<meta[^>]+content=[\"'][^\"']*[\"'][^>]+name=[\"']robots[\"'][^>]*>/i);
+          if (metaRobots) {
+            const contentMatch = metaRobots[0].match(/content=[\"']([^\"']+)[\"']/i);
+            robots = contentMatch ? contentMatch[1] : 'index, follow';
+          } else {
+            robots = 'index, follow';
+          }
+        }
         const hasMainBody = data.includes('<main') && data.length > 5000;
 
         resolve({
