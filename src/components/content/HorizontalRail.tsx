@@ -32,9 +32,14 @@ import editorial from '@/config/location-images.json';
  * a card scrolls the page to the point where that card is centred, so tabbing
  * moves through the rail exactly as it appears to.
  *
- * Under `prefers-reduced-motion` — and on small screens, where a tall pinned
- * section is miserable — the whole mechanism is dropped and the cards render
- * as an ordinary responsive grid.
+ * FALLBACK
+ * --------
+ * Under `prefers-reduced-motion`, and on screens below 1024px where a tall
+ * pinned section is miserable, the pinning is dropped — but the horizontal
+ * layout stays. The row becomes a native scroller with snap points, so it
+ * still reads as a rail and still works with a trackpad, arrow keys, a touch
+ * drag or a screen reader. Reduced motion should mean less scroll-linked
+ * movement, not a different design.
  */
 
 type EditorialManifest = {
@@ -155,7 +160,7 @@ export function HorizontalRail({ eyebrow, title, intro, items }: HorizontalRailP
       className={
         pinned
           ? 'flex gap-6 will-change-transform'
-          : 'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'
+          : 'flex snap-x snap-mandatory gap-6'
       }
       style={
         pinned
@@ -168,7 +173,7 @@ export function HorizontalRail({ eyebrow, title, intro, items }: HorizontalRailP
         return (
           <li
             key={item.href + item.imageKey}
-            className={pinned ? 'w-[24rem] shrink-0' : ''}
+            className={pinned ? 'w-[24rem] shrink-0' : 'w-[80vw] shrink-0 snap-start sm:w-[22rem]'}
             data-reveal={pinned ? undefined : ''}
             style={pinned ? undefined : ({ '--reveal-delay': `${(i % 3) * 80}ms` } as React.CSSProperties)}
           >
@@ -219,13 +224,13 @@ export function HorizontalRail({ eyebrow, title, intro, items }: HorizontalRailP
     </div>
   );
 
-  // Static fallback: small screens and reduced motion get an ordinary grid.
+  // Fallback: no pinning, but still a horizontal rail — scrolled natively.
   if (!pinned) {
     return (
       <section className="on-dark grain relative overflow-hidden bg-brand-void py-20 sm:py-28">
         <div className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
-        <div className="container-custom relative">
-          {heading}
+        <div className="container-wide relative">{heading}</div>
+        <div className="relative overflow-x-auto pb-4 pl-[max(1.25rem,calc((100vw-88rem)/2+2.5rem))] pr-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {cards}
         </div>
       </section>
@@ -237,16 +242,16 @@ export function HorizontalRail({ eyebrow, title, intro, items }: HorizontalRailP
       <section className="on-dark grain sticky top-0 flex h-screen flex-col justify-center overflow-hidden bg-brand-void">
         <div className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
 
-        <div className="container-custom relative">{heading}</div>
+        <div className="container-wide relative">{heading}</div>
 
         {/* The track starts at the container's left edge and bleeds right, so
             the row reads as continuing past the viewport. */}
-        <div className="relative overflow-hidden pl-[max(1.25rem,calc((100vw-80rem)/2+2.5rem))] pr-10">
+        <div className="relative overflow-hidden pl-[max(1.25rem,calc((100vw-88rem)/2+2.5rem))] pr-10">
           {cards}
         </div>
 
         {/* Progress rail — the only affordance that says this section moves. */}
-        <div className="container-custom relative mt-10">
+        <div className="container-wide relative mt-10">
           <div className="h-px w-full max-w-md overflow-hidden bg-white/10">
             <div
               className="h-full origin-left bg-brand-spectrum transition-transform duration-150 ease-out"

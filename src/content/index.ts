@@ -20,6 +20,7 @@ import { getAllPaths } from '@/lib/routes/route-registry';
 import { CONTENT_DATABASE, getContentRecord } from './registry';
 import { buildTier1Records } from './locations/build-tier1';
 import { RECOVERED_PAGES } from './locations/recovered-pages';
+import aboutRecord from './company/about';
 
 export type { ContentRecord };
 
@@ -35,12 +36,21 @@ export const TIER1_CONTENT: Record<string, ContentRecord> = buildTier1Records(RE
  */
 export const RECOVERED_CONTENT: Record<string, ContentRecord> = RECOVERED_PAGES;
 
+/**
+ * Bespoke company pages, written from the legacy Wix copy the business
+ * confirmed as accurate. Same precedence as the Tier 1 city records.
+ */
+export const COMPANY_CONTENT: Record<string, ContentRecord> = {
+  [aboutRecord.path]: aboutRecord,
+};
+
 /** Paths currently served by bespoke Tier 1 content. */
 export const TIER1_PATHS: ReadonlySet<string> = new Set(Object.keys(TIER1_CONTENT));
 
 /** Load a content record for a given path */
 export function loadContentRecord(path: string): ContentRecord | null {
   if (TIER1_CONTENT[path]) return TIER1_CONTENT[path];
+  if (COMPANY_CONTENT[path]) return COMPANY_CONTENT[path];
   if (RECOVERED_CONTENT[path]) return RECOVERED_CONTENT[path];
 
   const rec = getContentRecord(path);
@@ -49,6 +59,7 @@ export function loadContentRecord(path: string): ContentRecord | null {
   try {
     const decoded = decodeURIComponent(path);
     if (TIER1_CONTENT[decoded]) return TIER1_CONTENT[decoded];
+    if (COMPANY_CONTENT[decoded]) return COMPANY_CONTENT[decoded];
     if (RECOVERED_CONTENT[decoded]) return RECOVERED_CONTENT[decoded];
     const recDecoded = getContentRecord(decoded);
     if (recDecoded) return recDecoded;

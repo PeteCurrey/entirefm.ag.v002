@@ -92,14 +92,17 @@
 @layer components {
   /* ── Containers ─────────────────────────────────────────────────────── */
 
+  /* `w-full` matters: `mx-auto` on a flex item suppresses cross-axis stretch,
+     so without it these shrink to fit their content and the max-width never
+     applies — which silently pushed hero copy inward by ~330px. */
   .container-custom {
-    @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-10;
+    @apply w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-10;
   }
   .container-wide {
-    @apply max-w-8xl mx-auto px-5 sm:px-8 lg:px-10;
+    @apply w-full max-w-8xl mx-auto px-5 sm:px-8 lg:px-10;
   }
   .container-narrow {
-    @apply max-w-3xl mx-auto px-5 sm:px-8;
+    @apply w-full max-w-3xl mx-auto px-5 sm:px-8;
   }
 
   .section {

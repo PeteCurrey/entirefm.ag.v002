@@ -145,7 +145,7 @@ export function PageHero({
         </div>
       )}
 
-      <div className="container-custom relative flex flex-1 items-center py-14">
+      <div className="container-wide relative flex flex-1 items-center py-14">
         <div className="max-w-2xl">
           {eyebrow && (
             <p className="eyebrow eyebrow-dark" data-reveal>
@@ -208,7 +208,8 @@ export function PageHero({
         </div>
       </div>
 
-      <div className="container-custom relative pb-7">
+      {/* Scroll cue — absolutely placed so it does not push the copy off centre. */}
+      <div className="container-wide pointer-events-none absolute inset-x-0 bottom-7">
         <div className="flex items-center gap-3 text-[10.5px] uppercase tracking-[0.2em] text-brand-mist/35">
           <ArrowDown className="h-3.5 w-3.5 animate-bounce" style={{ animationDuration: '2.4s' }} />
           Scroll

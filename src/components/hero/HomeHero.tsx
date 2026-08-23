@@ -127,7 +127,7 @@ export function HomeHero({ videoSrc }: HomeHeroProps) {
       <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-40" />
 
       {/* Copy */}
-      <div className="container-custom relative flex flex-1 items-center py-16">
+      <div className="container-wide relative flex flex-1 items-center py-16">
         <div className="max-w-2xl">
           <p className="eyebrow eyebrow-dark" data-reveal>
             Total Facilities Management
@@ -189,8 +189,8 @@ export function HomeHero({ videoSrc }: HomeHeroProps) {
         </div>
       </div>
 
-      {/* Scroll cue */}
-      <div className="container-custom relative pb-8">
+      {/* Scroll cue — absolutely placed so it does not push the copy off centre. */}
+      <div className="container-wide pointer-events-none absolute inset-x-0 bottom-8">
         <div className="flex items-center gap-3 text-[10.5px] uppercase tracking-[0.2em] text-brand-mist/40">
           <ArrowDown className="h-3.5 w-3.5 animate-bounce" style={{ animationDuration: '2.4s' }} />
           Scroll
