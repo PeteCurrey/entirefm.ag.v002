@@ -32,6 +32,12 @@
     --silver: #475569;
     --mist: #cbd5e1;
 
+    /* Header height, published so the full-bleed heroes can offset their copy
+       by it. The header is fixed and transparent over the hero, so without
+       this the headline sits behind the navigation rather than optically
+       centred below it. The utility bar only exists from `lg` up. */
+    --header-h: 72px;
+
     /* Derived */
     --void: #060a14;
     --carbon: #111a2e;
@@ -40,6 +46,12 @@
     --surface: #f6f8fc;
 
     --spectrum: linear-gradient(100deg, #2563eb 0%, #4f46e5 38%, #7c3aed 70%, #a855f7 100%);
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --header-h: 108px;
+    }
   }
 
   * {
@@ -337,18 +349,14 @@
     @apply text-white;
   }
 
-  /* ── Intro handover ─────────────────────────────────────────────────── */
-  /* While the first-visit intro is running, the header's own mark is hidden.
-     The intro flies a mark into this exact position and then removes
-     `data-intro-running`, at which point this one fades in and takes over.
-     Only ever one mark on screen. */
+  /* ── Header mark ────────────────────────────────────────────────────── */
+  /* The arrival animation lands its plates on top of this element, so it must
+     hold its position and size exactly. It is no longer hidden during the
+     animation: the wireframe underneath is the point — the plates lock into
+     something that is already there. */
 
-  html[data-intro-running] .brand-mark {
-    opacity: 0;
-  }
   .brand-mark {
-    opacity: 1;
-    transition: opacity 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    line-height: 0;
   }
 
   /* ── Hairline divider carrying the spectrum ─────────────────────────── */

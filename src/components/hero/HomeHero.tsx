@@ -44,11 +44,26 @@ type EditorialManifest = {
 const HERO_VIDEO = '/video/entirefm-london-aerial.mp4';
 const HERO = (editorial as EditorialManifest).editorial?.['london-aerial-poster'];
 
+/**
+ * The four-up strip low in the hero, mirroring the arrangement on the live
+ * site. The wording is not mirrored: the live site's first pill reads "24/7
+ * helpdesk support", which is a claim the register has as TO_VERIFY, and its
+ * second promises a contractor network. Both are restated to what is
+ * supportable — the layout is the thing worth keeping.
+ */
 const PROOF = [
-  { figure: 'Hard FM', label: 'M&E, HVAC and building plant' },
-  { figure: 'PPM', label: 'Schedules built from real asset surveys' },
-  { figure: 'Compliance', label: 'Statutory testing, certified and recorded' },
+  { figure: 'Out-of-hours', label: 'Cover for contracted sites' },
+  { figure: 'UK-wide', label: 'National coverage, regional operations' },
+  { figure: 'Planned', label: '& reactive maintenance' },
+  { figure: 'Compliance', label: 'Led FM delivery' },
 ];
+
+/** Matches the greeting on the live site. Hours are the visitor's own. */
+function greetingFor(hour: number) {
+  if (hour < 12) return 'Good morning';
+  if (hour < 18) return 'Good afternoon';
+  return 'Good evening';
+}
 
 interface HomeHeroProps {
   /** Override the background video. Defaults to the London aerial. */
@@ -59,6 +74,16 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
   const mediaRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
+
+  /**
+   * Resolved after mount, never during render. The server has no idea what
+   * time it is where the visitor is, so rendering a greeting in the HTML
+   * would either be wrong or would mismatch on hydration. Until it resolves
+   * the eyebrow reads as the positioning line alone, which is a complete
+   * sentence on its own — the greeting is an addition, not a dependency.
+   */
+  const [greeting, setGreeting] = useState<string | null>(null);
+  useEffect(() => setGreeting(greetingFor(new Date().getHours())), []);
 
   /**
    * The poster carries the first paint and the video fades in over it once it
@@ -151,7 +176,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'linear-gradient(96deg, rgba(11,18,32,.95) 0%, rgba(11,18,32,.86) 32%, rgba(11,18,32,.52) 62%, rgba(11,18,32,.34) 100%)',
+            'linear-gradient(96deg, rgba(11,18,32,.92) 0%, rgba(11,18,32,.78) 34%, rgba(11,18,32,.40) 64%, rgba(11,18,32,.22) 100%)',
         }}
       />
       <div
@@ -162,9 +187,25 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
       <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-40" />
 
       {/* Copy */}
-      <div className="container-wide relative flex flex-1 items-center py-16">
-        <div className="max-w-2xl">
+      {/*
+        The header is fixed and transparent over this hero, so the top padding
+        has to clear it. Padding rather than a margin: the copy is centred
+        within what is left, which puts the headline optically in the middle
+        of the visible area rather than in the middle of the section.
+      */}
+      <div className="container-wide relative flex flex-1 items-center pb-16 pt-[calc(var(--header-h)+3rem)]">
+        <div className="max-w-3xl">
           <p className="eyebrow eyebrow-dark" data-reveal>
+            {/* Dropped on the narrowest screens: the eyebrow already wraps to
+                two lines there, and the greeting pushes the positioning line
+                onto a third with a slash stranded on its own. */}
+            <span
+              className="hidden text-brand-electric-bright transition-opacity duration-700 ease-brand sm:inline"
+              style={{ opacity: greeting ? 1 : 0 }}
+            >
+              {greeting ?? 'Good day'}
+              <span className="mx-2 text-brand-mist/30">/</span>
+            </span>
             Total Facilities Management
           </p>
 
@@ -179,7 +220,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
           </h1>
 
           <p
-            className="mt-7 max-w-xl text-[1.0625rem] leading-relaxed text-brand-mist/80"
+            className="mt-7 max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80"
             data-reveal
             style={{ '--reveal-delay': '160ms' } as React.CSSProperties}
           >
@@ -205,7 +246,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
           </div>
 
           <dl
-            className="mt-12 grid max-w-2xl grid-cols-1 gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10 sm:grid-cols-3"
+            className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10 lg:grid-cols-4"
             data-reveal
             style={{ '--reveal-delay': '320ms' } as React.CSSProperties}
           >

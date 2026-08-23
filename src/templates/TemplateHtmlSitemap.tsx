@@ -26,7 +26,7 @@ export function TemplateHtmlSitemap() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header />
+      <Header solid />
       <main className="flex-1">
         <div className="bg-brand-graphite border-b border-brand-edge-dark/60">
           <div className="container-custom">

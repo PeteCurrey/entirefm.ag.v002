@@ -139,13 +139,19 @@ export function PageHero({
       />
       <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-40" />
 
+      {/* Cleared past the fixed, transparent header. Without the offset the
+          breadcrumbs render underneath the navigation bar. */}
       {breadcrumbs && breadcrumbs.length > 0 && (
-        <div className="relative">
+        <div className="relative pt-[var(--header-h)]">
           <Breadcrumbs items={breadcrumbs} />
         </div>
       )}
 
-      <div className="container-wide relative flex flex-1 items-center py-14">
+      <div
+        className={`container-wide relative flex flex-1 items-center pb-14 ${
+          breadcrumbs && breadcrumbs.length > 0 ? 'pt-6' : 'pt-[calc(var(--header-h)+2.5rem)]'
+        }`}
+      >
         <div className="max-w-2xl">
           {eyebrow && (
             <p className="eyebrow eyebrow-dark" data-reveal>

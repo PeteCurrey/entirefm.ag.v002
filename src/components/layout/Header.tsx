@@ -8,6 +8,8 @@ import { Phone, ChevronDown, Menu, X, ArrowRight, ArrowUpRight } from 'lucide-re
 import { CONTACT_CONFIG } from '@/config/contact';
 import { PRIMARY_NAV, SECONDARY_NAV } from '@/config/navigation';
 import editorial from '@/config/location-images.json';
+import { BrandMark } from '@/components/brand/BrandMark';
+import { MarkAssembly } from '@/components/brand/MarkAssembly';
 
 type EditorialManifest = {
   editorial: Record<string, { src: string; alt: string }>;
@@ -22,10 +24,24 @@ const IMAGES = (editorial as EditorialManifest).editorial ?? {};
  *
  * Behaviour worth knowing about:
  *
- *  · The header keeps a solid graphite ground and gains blur plus elevation
- *    once the page scrolls. It is sticky rather than fixed, so it sits above
- *    the hero rather than over it — a transparent ground would simply show
- *    the white page behind it.
+ *  · The header overlays the hero. It is fixed, transparent at the top of the
+ *    page, and takes on a graphite ground with blur and elevation once the
+ *    page scrolls — so the opening image runs edge to edge and full height,
+ *    with the navigation floating on it.
+ *
+ *    `solid` opts out, for the handful of templates that have no full-bleed
+ *    hero. Those pages get the header back in normal flow, because a
+ *    transparent bar over white body copy is unreadable. It is a prop rather
+ *    than something sniffed from the DOM so it is decided at render time and
+ *    cannot flash the wrong state.
+ *
+ *  · The logo is inline SVG, not the supplied raster. Every supplied logo
+ *    file has a dark, noisy background baked into it, which is invisible on a
+ *    graphite bar and unmissable over a photograph. See `BrandMark`.
+ *
+ *  · On the first page of a session the mark starts as a wireframe and the
+ *    coloured plates fly in and lock into it. Nothing blocks, nothing is
+ *    covered, and the page is usable throughout. See `MarkAssembly`.
  *
  *  · Mega-menus open on hover for pointer users and on click for everyone
  *    else. Hover-only menus are unusable by keyboard and touch, so the
@@ -39,13 +55,36 @@ const IMAGES = (editorial as EditorialManifest).editorial ?? {};
 
 const CLOSE_DELAY_MS = 140;
 
-export function Header() {
+interface HeaderProps {
+  /** Opt out of the overlay: for pages with no full-bleed hero beneath. */
+  solid?: boolean;
+}
+
+export function Header({ solid = false }: HeaderProps) {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
+  const markRef = useRef<HTMLSpanElement>(null);
+
+  // The mark is assembled by default and only starts as a wireframe once the
+  // assembly has decided it is actually going to run. Getting this the wrong
+  // way round would show a wireframe logo to everyone whose browser never
+  // executes the animation.
+  const [assembled, setAssembled] = useState(true);
+  const [assembling, setAssembling] = useState(false);
+
+  useEffect(() => {
+    setAssembled(false);
+    setAssembling(true);
+  }, []);
+
+  const onLanded = useCallback(() => {
+    setAssembled(true);
+    setAssembling(false);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -97,14 +136,33 @@ export function Header() {
   const isActive = (href: string) =>
     pathname === href || (href !== '/' && pathname.startsWith(`${href}/`));
 
+  // An open mega-menu forces the ground on regardless of scroll position: the
+  // panel below it is opaque, and a transparent bar sitting on top of an
+  // opaque panel reads as a rendering fault.
+  const opaque = solid || scrolled || openMenu !== null || mobileOpen;
+
   return (
     <header
-      className={`on-dark sticky top-0 z-50 bg-brand-graphite transition-all duration-500 ease-brand ${
-        scrolled
-          ? 'bg-brand-graphite/92 shadow-elevated backdrop-blur-xl'
-          : ''
-      } border-b border-brand-edge-dark`}
+      className={`on-dark z-50 transition-all duration-500 ease-brand ${
+        solid ? 'sticky top-0' : 'fixed inset-x-0 top-0'
+      } ${
+        opaque
+          ? 'border-b border-brand-edge-dark bg-brand-graphite/92 shadow-elevated backdrop-blur-xl'
+          : 'border-b border-transparent bg-transparent'
+      }`}
     >
+      {/* A transparent bar over a bright patch of sky is unreadable. This is a
+          gradient rather than a tint so the top of the hero image still reads
+          as an image, while the nav keeps its contrast. */}
+      {!opaque && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(11,18,32,.72) 0%, rgba(11,18,32,.34) 58%, transparent 100%)',
+          }}
+        />
+      )}
       {/* Utility bar — collapses away on scroll to give the nav more presence. */}
       <div
         className={`hidden lg:block overflow-hidden border-b border-white/[0.06] transition-all duration-500 ease-brand ${
@@ -128,20 +186,17 @@ export function Header() {
           {/* Brand */}
           <Link href="/" className="group flex shrink-0 items-center gap-3" aria-label="EntireFM — home">
             {/*
-              The landing target for the intro animation. BrandIntro measures
-              this rect to fly the mark here, and hides it via
-              `data-intro-running` on the root element until the flight lands —
-              so the two marks are never on screen at the same time.
+              The landing target. MarkAssembly measures this rect and maps the
+              mark's model space onto it, so the plates arrive pixel-accurate
+              whatever size the logo renders at. It stays visible throughout:
+              the wireframe is what they lock into.
             */}
-            <span data-brand-mark className="brand-mark relative block h-9 w-9">
-              <Image
-                src="/logos/06-crystalline-colour-mark.webp"
-                alt=""
-                fill
-                sizes="36px"
-                priority
-                className="object-contain transition-transform duration-500 ease-brand group-hover:scale-105"
-              />
+            <span
+              ref={markRef}
+              data-brand-mark
+              className="brand-mark relative block w-11 text-brand-mist/55 transition-transform duration-500 ease-brand group-hover:scale-105"
+            >
+              <BrandMark state={assembled ? 'solid' : 'wire'} className="block w-full" />
             </span>
             <span className="flex flex-col leading-none">
               <span className="text-[19px] font-extrabold tracking-[-0.02em] text-white">
@@ -247,6 +302,8 @@ export function Header() {
       </div>
 
       <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />
+
+      {assembling && <MarkAssembly target={markRef} onLanded={onLanded} />}
     </header>
   );
 }

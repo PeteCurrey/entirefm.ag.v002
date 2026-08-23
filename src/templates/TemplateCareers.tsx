@@ -38,7 +38,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header />
+      <Header solid />
       <main className="flex-grow">
         <Breadcrumbs items={breadcrumbs} />
 

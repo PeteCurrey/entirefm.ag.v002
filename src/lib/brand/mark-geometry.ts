@@ -191,3 +191,102 @@ export function spectrumAt(t: number): [number, number, number] {
   }
   return stops[stops.length - 1].rgb;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   FLAT PLATES — the mark as 2D SVG geometry
+   ─────────────────────────────────────────────────────────────────────────
+   The header needs the mark as inline SVG rather than as the supplied
+   raster. Two reasons, both practical:
+
+     · The supplied .png/.webp/.svg files all carry a baked dark, noisy
+       background. Invisible at 36px on a graphite header — and a grubby
+       dark rectangle the moment that header goes transparent over a
+       photograph, which is exactly what the design now does.
+
+     · Fragments cannot fly in from artwork that has no vector geometry.
+       These plates are the fragments.
+
+   SHADING
+   -------
+   A flat triangle in the z=0 plane has no normal variation, so lighting it
+   the way the 3D renderer does would give one flat colour. The crystalline
+   read in the artwork comes from the bevel, so it is emulated here: each of
+   the twelve ribbon segments is shaded by the direction of its own edge
+   against a fixed light, which gives the six hexagon directions six
+   distinct brightnesses. The two triangles within a segment are then
+   separated slightly, so the quad reads as a folded pair rather than a
+   flat parallelogram — which is what the artwork actually shows.
+   ───────────────────────────────────────────────────────────────────────── */
+
+export interface Plate {
+  /** Triangle corners, in model space. */
+  points: Array<[number, number]>;
+  /** Final fill, already shaded. */
+  fill: string;
+  /** Stable index — drives the assembly stagger. */
+  index: number;
+  /** Centroid, used to throw the fragment outward from the mark. */
+  centroid: [number, number];
+}
+
+/** Light direction for the faux bevel. Up and slightly to the left. */
+const LIGHT: [number, number] = [-0.36, 0.93];
+
+function shadeHex(rgb: [number, number, number], amount: number): string {
+  const clamp = (v: number) => Math.max(0, Math.min(255, Math.round(v)));
+  // Above 1 lifts towards white rather than simply clipping, which keeps the
+  // bright facets looking like lit glass instead of blown-out flat colour.
+  const mix = (c: number) =>
+    amount <= 1 ? c * amount : c + (255 - c) * (amount - 1);
+  return (
+    '#' +
+    rgb
+      .map((c) => clamp(mix(c)).toString(16).padStart(2, '0'))
+      .join('')
+  );
+}
+
+export function buildMarkPlates(): Plate[] {
+  const outer = ribbonLoop(OUTER_RADIUS).map(squash);
+  const inner = ribbonLoop(INNER_RADIUS).map(squash);
+  const span = 2 * (LOBE_OFFSET + OUTER_RADIUS) * SQUASH;
+
+  const plates: Plate[] = [];
+  let index = 0;
+
+  for (let i = 0; i < outer.length; i++) {
+    const j = (i + 1) % outer.length;
+    const O1 = outer[i];
+    const O2 = outer[j];
+    const I1 = inner[i];
+    const I2 = inner[j];
+
+    // Normal of this segment's run, used as the stand-in surface direction.
+    const dx = O2[0] - O1[0];
+    const dy = O2[1] - O1[1];
+    const len = Math.hypot(dx, dy) || 1;
+    const normal: [number, number] = [-dy / len, dx / len];
+    const lit = Math.abs(normal[0] * LIGHT[0] + normal[1] * LIGHT[1]);
+
+    const triangles: Array<[Array<[number, number]>, number]> = [
+      // Outer triangle catches more light than the inner one, so the quad
+      // folds visually instead of reading as one flat face.
+      [[O1, O2, I1], 1.06],
+      [[O2, I2, I1], 0.9],
+    ];
+
+    for (const [points, bias] of triangles) {
+      const cx = (points[0][0] + points[1][0] + points[2][0]) / 3;
+      const cy = (points[0][1] + points[1][1] + points[2][1]) / 3;
+      const t = Math.min(1, Math.max(0, (cx + span / 2) / span));
+      plates.push({
+        points,
+        fill: shadeHex(spectrumAt(t), (0.66 + 0.62 * lit) * bias),
+        index: index++,
+        centroid: [cx, cy],
+      });
+    }
+  }
+
+  return plates;
+}

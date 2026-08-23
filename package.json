@@ -29,6 +29,7 @@
     "tiers:generate": "node scripts/generate-indexation-tiers.js",
     "recover:orphans": "node scripts/recover-orphan-wix-pages.js",
     "generate:compliance-routes": "node scripts/generate-compliance-routes.js",
+    "brand:favicon": "tsx scripts/generate-favicon.ts",
     "test:encoded-routes": "node scripts/test-encoded-routes.js",
     "phase09r2:qa": "node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit",
     "phase09r3:qa": "node scripts/test-encoded-routes.js && node scripts/validate-manifest-registry.js && node scripts/validate-redirects.js && node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit"

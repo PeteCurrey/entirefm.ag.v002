@@ -2,11 +2,11 @@ import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { HomeHero } from '@/components/hero/HomeHero';
-import { BrandIntro } from '@/components/brand/BrandIntro';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
 import { StatBlock, ClientLogoRail } from '@/components/trust/StatBlock';
 import { ServiceGrid, SectorGrid, LocationGrid } from '@/components/content/ServiceGrid';
 import { FullBleedFeature } from '@/components/content/FullBleedFeature';
+import { DiagonalStatement } from '@/components/content/DiagonalStatement';
 import { HorizontalRail } from '@/components/content/HorizontalRail';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { CaseStudyFeature } from '@/components/content/CaseStudyFeature';
@@ -103,9 +103,36 @@ export function TemplateHome() {
     <div className="flex min-h-screen flex-col bg-white">
       <Header />
       <main id="main" className="flex-1">
-        <BrandIntro />
         <HomeHero />
         <TrustBar />
+
+        {/*
+          The positioning statement, on the diagonal treatment carried over
+          from the Wix Studio estate. It sits immediately after the hero for
+          the same reason it did there: the hero says what we sell, and this
+          says what it is like to buy it. Everything below is detail.
+        */}
+        <DiagonalStatement
+          eyebrow="What we do"
+          title="Your space."
+          titleAccent="Our expertise."
+          body="EntireFM has maintained commercial property since 2009 — offices and multi-let estates, motorway services, distribution and manufacturing, supermarkets and retail. The approach is consistent; the service is not. What separates us is how well we understand each client's operation, which is why the schedule for a distribution centre looks nothing like the schedule for a managing agent's portfolio."
+          points={[
+            'A named account manager and a defined escalation route',
+            'Every maintenance plan built from an asset survey, not a template',
+            'Statutory testing, certificates and evidence held in one place',
+            'Response times agreed per site by priority band',
+          ]}
+          leftLabel="The estate you run"
+          rightLabel="The engineering behind it"
+          // Deliberately not one of the branded interiors: they all carry the
+          // EntireFM wordmark on the wall, which put a second, ghostly logo
+          // directly behind the headline and competed with the header.
+          leftImageKey="manchester-castlefield-night"
+          rightImageKey="rooftop-plant-night"
+          href="/services"
+          cta="What we do"
+        />
 
         <section className="section-tight bg-brand-surface">
           <div className="container-custom">
