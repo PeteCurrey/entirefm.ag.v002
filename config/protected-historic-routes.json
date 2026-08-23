@@ -1,0 +1,1989 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "description": "EntireFM Protected Historic Routes Registry - Non-negotiable floor of the rebuild",
+  "generated": "2026-08-23",
+  "totalProtectedRoutes": 220,
+  "routes": [
+    {
+      "path": "/",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/24-7-fm-support",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/about-entire-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/access-control",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/accessibility-statement",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/account-registration",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/aerial-drone-building-inspection",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/airport-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/arena-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/arena-facilities-management-1",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/best-facilities-management-company",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/birmingham-facilities-management",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/blog",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/bocker-crane-hire",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/bradford-facilities-management",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/building-inspecting-testing",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/building-maintenance",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/caretaker",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "soft-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/carpark-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "soft-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/chesterfield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/chesterfield-facilities-management",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/cleaning-services",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/client-login",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/client-login/account-registration",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/commercial-cleaning-birmingham",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/commercial-cleaning-chesterfield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/commercial-cleaning-leeds",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/commercial-cleaning-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/commercial-cleaning-london",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/commercial-cleaning-manchester",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/commercial-cleaning-nottingham",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/commercial-cleaning-sheffield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/commercial-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/commercial-fm-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/concierge-services",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "soft-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/construction-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/contact-us",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/contract-cleaning",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/contract-cleaning-chesterfield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/contract-cleaning-leeds",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/contract-cleaning-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/contract-cleaning-london",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/contract-cleaning-manchester",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/contract-cleaning-sheffield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/copy-of-helpdesk-registration",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/copy-of-industrial-cleaning",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/copy-of-what-is-facilities-manageme",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/derby-facilities-management",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/education-cleaning",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/education-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/emergency-light-testing",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/employment-portal",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/external-cleaning-birmingham",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/external-cleaning-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/external-cleaning-london",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/external-cleaning-manchester",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-birmingham",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-blog",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-bradford",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-chesterfield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-derby",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/construction-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/education-%26-schools-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/healthcare-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/hotels-%26-resort-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/industrial-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/leisure-centre-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/logistics-%26-distribution-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/managing-agent-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/offices%2C-corporate-%26-co-working",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/residential-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/restaurant-%26-hospitality-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/retail-%26-shopping-centre-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/sports-venue-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/stadium-%26-arena-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-for/warehouse-%26-distribution",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-glossary",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-in-telford",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-in-the-midlands",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-industries",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-leeds",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-liverpool",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-london",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-manchester",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-midlands",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-nottingham",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-offices",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-services",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-services-lond",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-sheffield",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-team",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/facilities-management-telford",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fire-emergency-systems",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-birmingham",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-bradford",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-chesterfield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-client-info",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-derby",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-leeds",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-liverpool",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-london",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-manchester",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-matlock",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-nottingham",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-services-sheffield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-sheffield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-supply-chain",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-supply-form",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-support-n-contact",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-support-n-contact/facilities-management-glossary",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-technical-services",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/fm-telford",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/gates-barriers",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/grounds-maintenance",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "soft-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/hard-services",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/healthcare-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/helpdesk",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/helpdesk-registration",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/home",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/home-1-1",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/home-1-1-1",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/homeab",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/hot-tub-relocation",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/hotel-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/hvac-contractor",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-cleaning",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-cleaning-birmingham",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-cleaning-chesterfield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-cleaning-derby",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-cleaning-leeds",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-cleaning-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-cleaning-london",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-cleaning-manchester",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-cleaning-nottingham",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-cleaning-sheffield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/industrial-fm-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/internal-cleaning",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/items",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/job-board",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/landmark-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/landscaping",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "soft-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/leeds-facilities-management",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/lincoln-facilities-management",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/lincoln-facilities-management-areas",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/liverpool-facilities-management",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/logistics-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/london-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/london-facilities-management-areas",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/manchester-facilities-management",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/manchester-facilities-managment",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/manchester-office-cleaning",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/mechanical-electrical",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/mechanical-electrical/access-control",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/mechanical-electrical/emergency-light-testing",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/media-digital-displays",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/medical-cleaning",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/mobile-crane-hire",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/mobile-crane-hire/chesterfield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/mobile-crane-hire/sheffield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/mobile-crane-hire/truck-mount-crane-hire",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/nottingham-facilities-management",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/office-cleaning",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/office-cleaning-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/office-cleaning-london",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/plumbing-gas",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/portal",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/portfolio",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/post/facilities-management-in-different-sectors-similarities-differences-and-the-need-for-agility",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/post/facilities-management-services-in-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/post/facilities-management-to-birmingham",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/post/the-importance-of-regular-maintenance-and-inspections",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/post/the-importance-of-regular-maintenance-and-inspections-1",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/post/what-are-hard-services",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/post/what-are-hard-services-in-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/post/what-are-hard-services-in-facilities-management-1",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/post/what-is-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/post/what-is-facilities-management-1",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/post/what-is-facilities-management-1-1",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/ppm",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "maintenance",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/pressure-washing",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/pressure-washing-birmingham",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/pressure-washing-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/pressure-washing-london",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/pressure-washing-manchester",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/pressure-washing-sheffield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/privacy-policy",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/property-manager-fm-services",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/public-sector-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/reactive-cleaning-services",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/residential-cleaning",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/residential-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/residential-fm-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/restaurant-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/retail-cleaning",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/retail-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/retail-fm-lincoln",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/safety-critical-emergency-systems",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/search",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/security-services",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "soft-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/service-station-fm",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/services",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/sheffield",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "local-services",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/sheffield-facilities-management",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/soft-services",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "soft-fm",
+      "priority": "P0",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/sport-centre-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/telford-facilities-management",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/terms-and-conditions",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/tier-one-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/tierone-facilities-managment",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/transport-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/truck-mount-crane-hire",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "specialist-services",
+      "priority": "P2",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/vending-supplier",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "soft-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/warehouse-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/washroom-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "soft-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/what-is-facilities-management",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/window-cleaning",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "cleaning",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/working-at-heights",
+      "provenance": "LEGACY_VERIFIED",
+      "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    }
+  ]
+}

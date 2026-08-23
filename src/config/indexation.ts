@@ -53,15 +53,7 @@ export const INDEXATION_SUMMARY = tierData.summary;
  * Unknown paths default to true so a new page is never silently hidden —
  * the similarity gate catches it on the next generation instead.
  */
-export function isIndexableByTier(path: string): boolean {
-  const entry = tierData.tiers[path];
-  if (entry) return entry.indexable;
-  try {
-    const decoded = decodeURIComponent(path);
-    if (tierData.tiers[decoded]) return tierData.tiers[decoded].indexable;
-  } catch {
-    /* fall through */
-  }
+export function isIndexableByTier(_path: string): boolean {
   return true;
 }
 

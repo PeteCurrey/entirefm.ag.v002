@@ -41,18 +41,11 @@ function getRobots(route: RouteRecord): Metadata['robots'] {
     };
   }
 
-  // Two gates must both pass. The registry says whether a route is eligible at
-  // all; the indexation tier says whether it is differentiated enough yet.
-  //
-  // `follow` stays true even when a page is held: the page is live, linked and
-  // passes equity onward. Only the invitation to index is withheld.
-  const eligible = route.indexable && isIndexableByTier(route.path);
-
   return {
-    index: eligible,
+    index: route.indexable,
     follow: route.indexable,
     googleBot: {
-      index: eligible,
+      index: route.indexable,
       follow: route.indexable,
     },
   };

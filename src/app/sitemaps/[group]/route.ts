@@ -51,11 +51,8 @@ export async function GET(
     );
   }
 
-  // A sitemap is a request to index, so it must agree with the robots tag.
-  // Pages held for differentiation stay live and internally linked, but are
-  // not advertised for indexing.
   const routes = getRoutesByGroup(group as SitemapGroup).filter(
-    r => r.indexable && isIndexableByTier(r.path)
+    r => r.indexable
   );
 
   const urls = routes

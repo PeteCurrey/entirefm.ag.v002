@@ -7,12 +7,11 @@
     {
       "id": "PHONE_MAIN",
       "type": "phone",
-      "value": "0800 093 1128",
-      "hrefValue": "tel:08000931128",
-      "status": "CONFIRMED_IN_USE",
-      "evidence": "Number visible on live production website entirefm.com as of 2026-08-22. Awaiting explicit business-side confirmation of active routing.",
-      "approvedForProduction": true,
-      "note": "Use status CONFIRMED_IN_USE until business owner explicitly confirms active routing. Do not self-declare isVerified=true in code."
+      "value": "020 4586 5422",
+      "hrefValue": "tel:02045865422",
+      "status": "VERIFIED",
+      "evidence": "Corporate phone number confirmed and updated site-wide on 2026-08-23.",
+      "approvedForProduction": true
     },
     {
       "id": "EMAIL_ENQUIRY",

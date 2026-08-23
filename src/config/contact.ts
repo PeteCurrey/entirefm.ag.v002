@@ -36,9 +36,9 @@ export const CONTACT_CONFIG = {
 
   // Phone numbers with display and href
   mainPhone: {
-    display: mainPhoneRecord?.value ?? '0800 093 1128',
-    href: mainPhoneRecord?.hrefValue ?? 'tel:08000931128',
-    status: mainPhoneRecord?.status ?? 'CONFIRMED_IN_USE',
+    display: mainPhoneRecord?.value ?? '020 4586 5422',
+    href: mainPhoneRecord?.hrefValue ?? 'tel:02045865422',
+    status: mainPhoneRecord?.status ?? 'VERIFIED',
     isVerified: mainPhoneRecord?.status === 'VERIFIED' || mainPhoneRecord?.status === 'CONFIRMED_IN_USE',
   },
 

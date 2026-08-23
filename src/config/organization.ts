@@ -31,10 +31,10 @@ export const ORGANIZATION_CONFIG = {
     enquiryEmail: 'enquiries@entirefm.com',
     helpdeskEmail: 'helpdesk@entirefm.com',
     portalEmail: 'portal@entirefm.com',
-    // Phone number confirmed in use on current live site (entirefm.com).
+    // Phone number confirmed in use for EntireFM.
     // See /config/verified-contact.json for verification record.
-    mainPhoneDisplay: '0800 093 1128',
-    mainPhoneTel: 'tel:08000931128',
+    mainPhoneDisplay: '020 4586 5422',
+    mainPhoneTel: 'tel:02045865422',
   },
 
   serviceRegions: [
