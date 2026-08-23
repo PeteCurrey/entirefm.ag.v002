@@ -9,10 +9,9 @@ const PRODUCTION_HOSTNAME = 'www.entirefm.com';
  *    Permanently redirects (301) all traffic on 'entirefm.com' to 'www.entirefm.com'
  *    preserving path and query parameters in a single hop.
  *
- * 2. Hostname-Aware Search Indexing Protection:
- *    Ensures all staging, Vercel preview, and alias hosts (e.g. entirefmagv002.vercel.app)
- *    strictly receive 'X-Robots-Tag: noindex, nofollow' response headers so they can
- *    NEVER be indexed by search engines.
+ * 2. Hostname-Aware & Private Route Search Indexing Protection:
+ *    Ensures all private application routes (/admin, /client, /contractor, /engineer, /login, /api)
+ *    and non-production environments strictly receive 'X-Robots-Tag: noindex, nofollow, noarchive'.
  *
  * 3. Production Environment Gate:
  *    If ALLOW_SEARCH_INDEXING !== 'true', non-sitemap production requests receive noindex protection.
@@ -35,10 +34,25 @@ export function proxy(request: NextRequest) {
 
   const response = NextResponse.next();
 
-  // 2. Hostname-Aware Search Indexing Protection
+  // 2. Private routes must NEVER be indexed in any environment
+  const isPrivateRoute =
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/client') ||
+    pathname.startsWith('/contractor') ||
+    pathname.startsWith('/engineer') ||
+    pathname.startsWith('/login') ||
+    pathname.startsWith('/api');
+
+  if (isPrivateRoute) {
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    return response;
+  }
+
+  // 3. Hostname-Aware Search Indexing Protection for Public Routes
   const isProductionHost = hostname === PRODUCTION_HOSTNAME;
   const isIndexingAllowed = process.env.ALLOW_SEARCH_INDEXING === 'true';
-  const isSitemapOrRobots = pathname === '/robots.txt' || pathname === '/sitemap.xml' || pathname.startsWith('/sitemaps/');
+  const isSitemapOrRobots =
+    pathname === '/robots.txt' || pathname === '/sitemap.xml' || pathname.startsWith('/sitemaps/');
 
   if (!isProductionHost || (!isIndexingAllowed && !isSitemapOrRobots)) {
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');

@@ -1,0 +1,24 @@
+URL,Name,Old Build,Current Build,Page Type,Functional,Needs Rebuild,Indexable,Canonical,Sitemap,Internal Links,Current Data Reviewed,Compliance Reviewed,Status
+/resources,Resources Hub,Yes,Yes,Hub,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/tools,FM Tools Directory,Yes,Yes,Hub,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/tools/fm-health-check,FM Building Health Check,Yes,Yes,Diagnostic Tool,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/tools/ppm-schedule-builder,PPM Schedule Builder,Yes,Yes,Planning Matrix,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/tools/compliance-calendar,Compliance Calendar Builder,Yes,Yes,Statutory Planner,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/tools/ppm-estimator,PPM Cost Estimator,Yes,Yes,Financial Estimator,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/tools/fm-roi-calculator,FM ROI & TCO Calculator,Yes,Yes,Financial Model,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/tools/tender-brief,FM Tender Brief Generator,Yes,Yes,Procurement Specification,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/facilities-management-glossary,FM Glossary National A-Z,Yes,Yes,Glossary Directory,Yes,No,Yes,self,glossary,Yes,Yes,Yes,COMPLETE
+/fm-intelligence,FM Intelligence & Market Analysis 2026,Yes,Yes,Market Analysis,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/academy,EntireFM Academy,Yes,Yes,Training Curriculum,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/resources/document-vault,FM Document Vault,Yes,Yes,Template Downloads,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/building-walk,The Building Walk,Yes,Yes,Engineering Walkthroughs,Yes,No,Yes,self,insights,Yes,Yes,Yes,COMPLETE
+/compliance,Compliance Centre Hub,Yes,Yes,Statutory Authority,Yes,No,Yes,self,core,Yes,Yes,Yes,COMPLETE
+/compliance/fire-risk-assessment,Fire Risk Assessment Guide,Yes,Yes,Statutory Topic,Yes,No,Yes,self,core,Yes,Yes,Yes,COMPLETE
+/compliance/fixed-wire-testing-eicr,Fixed Wire Testing & EICR Guide,Yes,Yes,Statutory Topic,Yes,No,Yes,self,core,Yes,Yes,Yes,COMPLETE
+/compliance/emergency-lighting-testing,Emergency Lighting Guide,Yes,Yes,Statutory Topic,Yes,No,Yes,self,core,Yes,Yes,Yes,COMPLETE
+/compliance/legionella-water-hygiene,Legionella & Water Hygiene Guide,Yes,Yes,Statutory Topic,Yes,No,Yes,self,core,Yes,Yes,Yes,COMPLETE
+/compliance/commercial-gas-safety,Commercial Gas Safety Guide,Yes,Yes,Statutory Topic,Yes,No,Yes,self,core,Yes,Yes,Yes,COMPLETE
+/compliance/f-gas-regulations,F-Gas Compliance Guide,Yes,Yes,Statutory Topic,Yes,No,Yes,self,core,Yes,Yes,Yes,COMPLETE
+/compliance/work-at-height,Work at Height Safety Guide,Yes,Yes,Statutory Topic,Yes,No,Yes,self,core,Yes,Yes,Yes,COMPLETE
+/compliance/pat-testing,PAT Testing Guide,Yes,Yes,Statutory Topic,Yes,No,Yes,self,core,Yes,Yes,Yes,COMPLETE
+/case-studies,Case Studies & Estate Profiles,Yes,Yes,Portfolio Hub,Yes,No,Yes,self,company,Yes,Yes,Yes,COMPLETE

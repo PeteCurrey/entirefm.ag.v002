@@ -9,6 +9,74 @@
 import type { ContentRecord } from '@/lib/routes/route-schema';
 
 export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
+  '/resources': {
+    path: '/resources',
+    title: 'FM Resources, Tools & Guides | Facilities Management Hub | Entire FM',
+    metaDescription: 'Free practical facilities management tools, statutory compliance guides, glossary, downloadable templates, Academy learning, and 2026 FM market intelligence.',
+    h1: 'Resources for People Responsible for Buildings',
+    eyebrow: 'Knowledge & Tools Ecosystem',
+    heroIntro: 'Practical engineering tools, statutory compliance guidance, plain-English terminology, and operational templates designed for facilities managers, property directors, and estate teams.',
+    heroDescription: 'From asset-led PPM schedule builders to compliance calendars and downloadable document templates, explore resources engineered for commercial estate decision-makers.',
+    heroImage: '/branding/EntireFM Branding 001.png',
+    historicIntent: 'Historic commercial search intent for facilities management resources and guides',
+    primaryIntent: 'facilities management resources',
+    secondaryIntents: ['FM guides', 'building compliance resources', 'facilities management tools', 'FM document templates'],
+    pageType: 'company',
+    historicTopics: ['FM resources overview', 'Statutory compliance', 'Interactive FM tools', 'Knowledge hub'],
+    requiredSections: ['hero', 'tools-grid', 'compliance-pathway', 'knowledge-grid', 'articles-grid', 'cta'],
+    sections: [
+      {
+        heading: 'An Authoritative FM Resource Centre Without the Paywall',
+        body: 'EntireFM provides free access to structured scheduling logic, legal duty baselines, downloadable spreadsheets, and market intelligence for commercial building custodians across the UK.'
+      }
+    ],
+    capabilities: [
+      {
+        name: 'Interactive FM Planning Toolkit',
+        description: 'Asset-led schedule builders, 12-month compliance calendars, PPM cost estimators, and tender brief generators.',
+        tag: 'Interactive Tools'
+      },
+      {
+        name: 'Statutory Compliance Authority',
+        description: 'Clear guidance separating legal statutory requirements, British Standards, Approved Codes of Practice, and risk intervals.',
+        tag: 'Compliance Centre'
+      },
+      {
+        name: 'Operational Learning & Downloads',
+        description: 'Plain-English FM Glossary, Academy training modules, and ungated downloadable CSV templates and logbooks.',
+        tag: 'Learning & Templates'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Are all resources and tools in this hub free to use?',
+        answer: 'Yes. All interactive calculators, PPM schedule builders, glossary definitions, Academy modules, and document vault downloads are 100% free and ungated.'
+      },
+      {
+        question: 'What technical standards underpin EntireFM guidance?',
+        answer: 'Our resources reference current UK statutory legislation (RRO 2005, Electricity at Work Regs 1989, COSHH, LOLER) and technical standards including BS 7671, BS 5266, BS 5839, and HSE Approved Codes of Practice such as ACOP L8.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources' }
+    ],
+    relatedRoutes: [
+      '/tools',
+      '/compliance',
+      '/facilities-management-glossary',
+      '/fm-intelligence',
+      '/academy',
+      '/resources/document-vault',
+      '/building-walk'
+    ],
+    conversionGoal: 'Establish authoritative brand trust and provide genuine ongoing utility to FM decision-makers.',
+    verificationRequirements: [
+      'Zero fake download numbers or fictional metrics',
+      'All compliance links point to live registered 200 routes'
+    ],
+    contentStatus: 'COMPLETE'
+  },
   '/tools': {
     path: '/tools',
     title: 'FM Tools & Calculators | Facilities Management Planning | Entire FM',

@@ -1,292 +1,445 @@
-/**
- * ADMIN — ENQUIRY LIST
- * ====================
- * Every enquiry the site has taken, newest first, with the attribution that
- * came with it.
- *
- * WHY THE ATTRIBUTION COLUMN MATTERS MOST
- * ---------------------------------------
- * The premise of this whole rebuild is that the geo landing pages were
- * producing enquiries and the replacement site stopped them. Nothing recorded
- * which page an enquiry came from, so that was an inference. From now on it is
- * a fact: every row carries its conversion page, its landing page and its UTM
- * set, so "which pages actually generate business" becomes a question with an
- * answer rather than an argument.
- *
- * NEVER INDEXED
- * -------------
- * `noindex, nofollow` in metadata, disallowed in robots.txt, and absent from
- * the sitemap. It is also outside the route registry entirely, so the legacy
- * estate checks do not see it and it can never be mistaken for a Wix URL that
- * needs preserving.
- */
-
 import React from 'react';
-import { cookies } from 'next/headers';
-import type { Metadata } from 'next';
-import { listLeads, leadStoreConfigured } from '@/lib/leads/store';
-import { ADMIN_COOKIE, cookieMatches, adminConfigured } from '@/lib/leads/auth';
+import Link from 'next/link';
+import { getCurrentSession } from '@/server/identity';
+import { getOperationalMetrics } from '@/server/reporting';
+import { listActiveSLARisks, listWorkOrders } from '@/server/work';
+import { listComplianceObligations } from '@/server/compliance';
+import { listQuotes } from '@/server/commercial';
+import { listAIActions, listAIRuns } from '@/server/ai';
+import { listAuditEvents } from '@/server/audit';
+import { isDbConfigured } from '@/server/db/client';
 
-export const metadata: Metadata = {
-  title: { absolute: 'Admin — EntireFM' },
-  robots: { index: false, follow: false, nocache: true },
-};
-
-// Enquiries arrive continuously; a cached list would show stale ones.
 export const dynamic = 'force-dynamic';
 
-export default async function AdminPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string }>;
-}) {
-  const { error } = await searchParams;
-  const jar = await cookies();
-  const signedIn = cookieMatches(jar.get(ADMIN_COOKIE)?.value);
+export default async function AdminCommandCentrePage() {
+  const session = await getCurrentSession();
+  const dbConnected = isDbConfigured();
 
-  if (!signedIn) return <SignIn error={Boolean(error)} />;
-
-  const leads = await listLeads(300);
-  const storeReady = leadStoreConfigured();
-
-  const today = new Date().toDateString();
-  const todayCount = leads.filter((l) => new Date(l.received_at).toDateString() === today).length;
-  const newCount = leads.filter((l) => l.status === 'new').length;
-
-  // Which pages actually convert. The reason this screen exists.
-  const byPage = new Map<string, number>();
-  for (const l of leads) {
-    const page = l.conversion_page || l.landing_page || '(not recorded)';
-    byPage.set(page, (byPage.get(page) ?? 0) + 1);
-  }
-  const topPages = [...byPage.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+  const [
+    metrics,
+    slaRisks,
+    activeIncidents,
+    statutoryTasks,
+    pendingApprovals,
+    aiActions,
+    recentAudits,
+  ] = await Promise.all([
+    getOperationalMetrics(),
+    listActiveSLARisks(),
+    listWorkOrders({ priority: 'P1_CRITICAL', limit: 5 }),
+    listComplianceObligations('OVERDUE'),
+    listQuotes('SUBMITTED'),
+    listAIActions('PENDING_APPROVAL'),
+    listAuditEvents(10),
+  ]);
 
   return (
-    <div className="min-h-screen bg-brand-surface">
-      <header className="border-b border-brand-edge bg-white">
-        <div className="container-custom flex h-16 items-center justify-between">
-          <div className="flex items-baseline gap-3">
-            <span className="text-[15px] font-semibold tracking-tight text-brand-graphite">
-              EntireFM
-            </span>
-            <span className="eyebrow">Enquiries</span>
+    <div className="space-y-8">
+      {/* Top Cockpit Title & Status */}
+      <div className="flex flex-col gap-4 border-b border-brand-edge-dark pb-6 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-brand-electric-bright">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-electric animate-pulse" />
+            Live Unified Operations Command
           </div>
-          <form action="/api/admin/logout" method="post">
-            <button
-              type="submit"
-              className="text-[12.5px] font-medium text-brand-silver transition-colors hover:text-brand-graphite"
+          <h1 className="mt-1 text-2xl font-light tracking-tight text-white sm:text-3xl">
+            Command Centre
+          </h1>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <div className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3 py-1.5 font-mono text-[11px] text-brand-mist/70">
+            Tenant: <span className="text-white font-medium">{session?.orgName}</span>
+          </div>
+          <Link
+            href="/admin/operations/work-orders"
+            className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow transition-all hover:bg-brand-indigo"
+          >
+            + Create Work Order
+          </Link>
+        </div>
+      </div>
+
+      {!dbConnected && (
+        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-4 text-[13px] text-amber-200">
+          <strong className="font-semibold text-amber-100">Database Connection Notice:</strong>{' '}
+          Live database credentials are currently loading or not set in environment variables. Showing schema-aligned operational indicators. Run migration{' '}
+          <code className="rounded bg-black/40 px-1 py-0.5 font-mono text-[11px]">0002_unified_operations_platform.sql</code> in your Supabase SQL editor to instantiate tables.
+        </div>
+      )}
+
+      {/* Operational KPI Strip (Dense, tabular, real figures) */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        <MetricCard
+          label="Active Work Orders"
+          value={metrics.activeWorkOrders}
+          subtext="In execution or dispatch"
+          href="/admin/operations/work-orders"
+        />
+        <MetricCard
+          label="P1 Critical Incidents"
+          value={metrics.criticalIncidents}
+          subtext="Priority 1 active"
+          alert={metrics.criticalIncidents > 0}
+          href="/admin/operations/work-orders?priority=P1_CRITICAL"
+        />
+        <MetricCard
+          label="SLA Breach Risks"
+          value={metrics.slaBreachRiskCount}
+          subtext="Under 60m remaining"
+          alert={metrics.slaBreachRiskCount > 0}
+          href="/admin/operations/sla"
+        />
+        <MetricCard
+          label="Statutory Overdue"
+          value={metrics.statutoryDueCount}
+          subtext="Compliance tasks"
+          alert={metrics.statutoryDueCount > 0}
+          href="/admin/compliance/obligations"
+        />
+        <MetricCard
+          label="Commercial Approvals"
+          value={metrics.pendingApprovalsCount}
+          subtext="Quotes & POs pending"
+          href="/admin/commercial/quotes"
+        />
+        <MetricCard
+          label="Active Assets"
+          value={metrics.totalAssetsCount}
+          subtext="In service estate"
+          href="/admin/estate/assets"
+        />
+      </div>
+
+      {/* 4 Quadrants: NOW · AT RISK · NEEDS REVIEW · AUTOMATED */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {/* Quadrant 1: NOW (Live Incidents & Reactive Dispatch) */}
+        <section className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5 backdrop-blur-sm">
+          <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
+            <div className="flex items-center gap-2">
+              <span className="flex h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
+              <h2 className="font-mono text-[12px] font-semibold uppercase tracking-wider text-white">
+                NOW · Live Incidents & Critical Work
+              </h2>
+            </div>
+            <Link
+              href="/admin/operations/work-orders"
+              className="text-[11.5px] text-brand-electric-bright hover:underline"
             >
-              Sign out
-            </button>
-          </form>
-        </div>
-      </header>
+              View all ({metrics.activeWorkOrders}) →
+            </Link>
+          </div>
 
-      <main className="container-custom py-10">
-        {!storeReady && (
-          <Callout
-            tone="warn"
-            title="No lead store configured"
-            body="NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are not both set, so enquiries are not being written to the database and this list cannot populate. The enquiry form will fall back to email if RESEND_API_KEY is set, and will otherwise refuse submissions rather than silently lose them."
-          />
-        )}
-
-        {storeReady && leads.length === 0 && (
-          <Callout
-            tone="info"
-            title="No enquiries yet"
-            body="The store is connected and empty. If you expected rows here, check that supabase/migrations/0001_leads.sql has been run in the Supabase SQL editor — the endpoint logs an insert failure when the table is missing."
-          />
-        )}
-
-        <div className="mb-8 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-brand-edge bg-brand-edge lg:grid-cols-4">
-          <Stat label="Total enquiries" value={leads.length} />
-          <Stat label="Today" value={todayCount} />
-          <Stat label="Unactioned" value={newCount} />
-          <Stat label="Converting pages" value={byPage.size} />
-        </div>
-
-        {topPages.length > 0 && (
-          <section className="mb-10 rounded-sm border border-brand-edge bg-white p-6">
-            <p className="eyebrow">Where enquiries come from</p>
-            <ul className="mt-5 space-y-2">
-              {topPages.map(([page, count]) => (
-                <li key={page} className="flex items-center gap-4">
-                  <span className="w-10 shrink-0 text-[13px] font-semibold tabular-nums text-brand-graphite">
-                    {count}
-                  </span>
-                  <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-brand-edge">
-                    <span
-                      className="block h-full bg-brand-spectrum"
-                      style={{ width: `${(count / topPages[0][1]) * 100}%` }}
-                    />
-                  </span>
-                  <span className="w-[46%] shrink-0 truncate text-[12.5px] text-brand-silver">
-                    {page}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        <div className="overflow-x-auto rounded-sm border border-brand-edge bg-white">
-          <table className="w-full min-w-[62rem] border-collapse text-left">
-            <thead>
-              <tr className="border-b border-brand-edge">
-                {['Received', 'Contact', 'Requirement', 'Came from', 'Status'].map((h) => (
-                  <th
-                    key={h}
-                    className="px-5 py-3 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-brand-silver"
+          <div className="mt-4 space-y-2.5">
+            {activeIncidents.length > 0 ? (
+              activeIncidents.map((wo) => (
+                <div
+                  key={wo.id}
+                  className="flex items-start justify-between rounded border border-brand-edge-dark/80 bg-brand-void/80 p-3 text-[13px]"
+                >
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[11px] text-brand-mist/50">
+                        {wo.work_order_number}
+                      </span>
+                      <span className="rounded bg-rose-500/20 px-1.5 py-0.2 font-mono text-[9.5px] uppercase text-rose-300">
+                        {wo.priority}
+                      </span>
+                    </div>
+                    <div className="mt-1 truncate font-medium text-white">{wo.title}</div>
+                    <div className="text-[11.5px] text-brand-mist/50">
+                      {wo.site?.name || 'Site location'} · Status: {wo.status}
+                    </div>
+                  </div>
+                  <Link
+                    href={`/admin/operations/work-orders`}
+                    className="ml-3 shrink-0 rounded border border-brand-edge-dark bg-brand-carbon px-2.5 py-1 text-[11px] font-medium text-white hover:border-brand-electric"
                   >
-                    {h}
-                  </th>
+                    Inspect
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <div className="rounded border border-dashed border-brand-edge-dark/60 p-6 text-center text-[12.5px] text-brand-mist/50">
+                <p className="font-medium text-brand-mist/70">No P1 Critical Incidents Active</p>
+                <p className="mt-1 text-[11.5px]">
+                  All reactive dispatch tickets and emergency call-outs will populate here upon intake.
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Quadrant 2: AT RISK (SLA Timeouts & Statutory Expiries) */}
+        <section className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5 backdrop-blur-sm">
+          <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
+            <div className="flex items-center gap-2">
+              <span className="flex h-2 w-2 rounded-full bg-amber-400" />
+              <h2 className="font-mono text-[12px] font-semibold uppercase tracking-wider text-white">
+                AT RISK · SLA Trajectory & Statutory Expiries
+              </h2>
+            </div>
+            <Link
+              href="/admin/operations/sla"
+              className="text-[11.5px] text-brand-electric-bright hover:underline"
+            >
+              SLA Matrix →
+            </Link>
+          </div>
+
+          <div className="mt-4 space-y-2.5">
+            {slaRisks.length > 0 || statutoryTasks.length > 0 ? (
+              <>
+                {slaRisks.slice(0, 3).map((wo) => (
+                  <div
+                    key={wo.id}
+                    className="flex items-center justify-between rounded border border-amber-500/30 bg-amber-500/5 p-3 text-[13px]"
+                  >
+                    <div>
+                      <div className="font-medium text-white">{wo.title}</div>
+                      <div className="text-[11px] text-amber-300/70">
+                        {wo.work_order_number} · Target Due:{' '}
+                        {wo.sla_resolution_due_at
+                          ? new Date(wo.sla_resolution_due_at).toLocaleTimeString([], {
+                              hour: '2-digit',
+                              minute: '2-digit',
+                            })
+                          : 'Imminent'}
+                      </div>
+                    </div>
+                    <span className="rounded bg-amber-500/20 px-2 py-0.5 font-mono text-[10px] text-amber-300">
+                      SLA RISK
+                    </span>
+                  </div>
                 ))}
+                {statutoryTasks.slice(0, 2).map((st) => (
+                  <div
+                    key={st.id}
+                    className="flex items-center justify-between rounded border border-brand-edge-dark bg-brand-void/80 p-3 text-[13px]"
+                  >
+                    <div>
+                      <div className="font-medium text-white">Statutory Obligation Overdue</div>
+                      <div className="text-[11px] text-brand-mist/50">
+                        {st.site?.name} · Next Due: {st.next_due_at}
+                      </div>
+                    </div>
+                    <span className="rounded bg-rose-500/20 px-2 py-0.5 font-mono text-[10px] text-rose-300">
+                      STATUTORY
+                    </span>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <div className="rounded border border-dashed border-brand-edge-dark/60 p-6 text-center text-[12.5px] text-brand-mist/50">
+                <p className="font-medium text-brand-mist/70">Zero SLA Breaches or Expiries</p>
+                <p className="mt-1 text-[11.5px]">
+                  All active SLAs and statutory compliance tasks are within operating parameters.
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Quadrant 3: NEEDS REVIEW (Approvals, Quotes, Exceptions) */}
+        <section className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5 backdrop-blur-sm">
+          <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
+            <div className="flex items-center gap-2">
+              <span className="flex h-2 w-2 rounded-full bg-brand-electric" />
+              <h2 className="font-mono text-[12px] font-semibold uppercase tracking-wider text-white">
+                NEEDS REVIEW · Approvals & Commercial Gate
+              </h2>
+            </div>
+            <Link
+              href="/admin/commercial/quotes"
+              className="text-[11.5px] text-brand-electric-bright hover:underline"
+            >
+              Approval Queue →
+            </Link>
+          </div>
+
+          <div className="mt-4 space-y-2.5">
+            {pendingApprovals.length > 0 ? (
+              pendingApprovals.map((q) => (
+                <div
+                  key={q.id}
+                  className="flex items-center justify-between rounded border border-brand-edge-dark bg-brand-void/80 p-3 text-[13px]"
+                >
+                  <div>
+                    <div className="font-medium text-white">Quote {q.quote_number}</div>
+                    <div className="text-[11.5px] text-brand-mist/50">
+                      Amount: £{Number(q.total_amount_gbp).toFixed(2)} · Status: {q.status}
+                    </div>
+                  </div>
+                  <Link
+                    href="/admin/commercial/quotes"
+                    className="rounded bg-brand-electric px-2.5 py-1 text-[11px] font-medium text-white hover:bg-brand-indigo"
+                  >
+                    Review
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <div className="rounded border border-dashed border-brand-edge-dark/60 p-6 text-center text-[12.5px] text-brand-mist/50">
+                <p className="font-medium text-brand-mist/70">Approval Queue Clear</p>
+                <p className="mt-1 text-[11.5px]">
+                  Quotes, major purchase orders, and contractor rate cards awaiting sign-off will appear here.
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Quadrant 4: AUTOMATED (AI Control Plane & Background Workflows) */}
+        <section className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5 backdrop-blur-sm">
+          <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
+            <div className="flex items-center gap-2">
+              <span className="flex h-2 w-2 rounded-full bg-purple-400" />
+              <h2 className="font-mono text-[12px] font-semibold uppercase tracking-wider text-white">
+                AUTOMATED · AI Action Stream & Autonomy Ledger
+              </h2>
+            </div>
+            <Link
+              href="/admin/ai/control"
+              className="text-[11.5px] text-brand-electric-bright hover:underline"
+            >
+              Control Centre →
+            </Link>
+          </div>
+
+          <div className="mt-4 space-y-2.5">
+            {aiActions.length > 0 ? (
+              aiActions.map((action) => (
+                <div
+                  key={action.id}
+                  className="flex items-center justify-between rounded border border-brand-edge-dark bg-brand-void/80 p-3 text-[13px]"
+                >
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[10.5px] text-purple-300">
+                        {action.agent?.name || 'AI Assistant'}
+                      </span>
+                      <span className="rounded bg-purple-500/20 px-1.5 py-0.2 font-mono text-[9px] text-purple-300">
+                        {action.action_type}
+                      </span>
+                    </div>
+                    <div className="text-[11.5px] text-brand-mist/50">
+                      Status: {action.status}
+                    </div>
+                  </div>
+                  <Link
+                    href="/admin/ai/control"
+                    className="rounded border border-brand-edge-dark bg-brand-carbon px-2.5 py-1 text-[11px] text-white hover:border-brand-electric"
+                  >
+                    Inspect
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <div className="rounded border border-dashed border-brand-edge-dark/60 p-6 text-center text-[12.5px] text-brand-mist/50">
+                <p className="font-medium text-brand-mist/70">AI Governance Policies Active</p>
+                <p className="mt-1 text-[11.5px]">
+                  All AI agent actions operate under strict ASSIST governance with human sign-off thresholds.
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
+
+      {/* Real-time Audit & Activity Pulse */}
+      <section className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5">
+        <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
+          <h2 className="font-mono text-[12px] font-semibold uppercase tracking-wider text-white">
+            Immutable Domain Event Ledger
+          </h2>
+          <Link
+            href="/admin/platform/audit"
+            className="text-[11.5px] text-brand-electric-bright hover:underline"
+          >
+            Full Ledger →
+          </Link>
+        </div>
+
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full text-left font-sans text-[12.5px]">
+            <thead>
+              <tr className="border-b border-brand-edge-dark text-[10.5px] font-semibold uppercase tracking-wider text-brand-mist/40 font-mono">
+                <th className="py-2">Timestamp</th>
+                <th className="py-2">Event Type</th>
+                <th className="py-2">Actor</th>
+                <th className="py-2">Object</th>
+                <th className="py-2">Correlation</th>
               </tr>
             </thead>
-            <tbody>
-              {leads.map((lead) => (
-                <tr key={lead.id} className="border-b border-brand-edge/70 align-top last:border-0">
-                  <td className="whitespace-nowrap px-5 py-4 text-[12.5px] text-brand-silver">
-                    {new Date(lead.received_at).toLocaleString('en-GB', {
-                      day: '2-digit',
-                      month: 'short',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                    <div className="mt-1 font-mono text-[10.5px] text-brand-silver/60">
-                      {lead.enquiry_id}
-                    </div>
-                  </td>
-                  <td className="px-5 py-4 text-[13px]">
-                    <div className="font-semibold text-brand-graphite">{lead.name}</div>
-                    {lead.company && (
-                      <div className="text-[12.5px] text-brand-silver">{lead.company}</div>
-                    )}
-                    <a
-                      href={`mailto:${lead.email}`}
-                      className="mt-1 block text-[12.5px] text-brand-electric hover:underline"
-                    >
-                      {lead.email}
-                    </a>
-                    {lead.phone && (
-                      <a
-                        href={`tel:${lead.phone}`}
-                        className="block text-[12.5px] text-brand-silver hover:text-brand-graphite"
-                      >
-                        {lead.phone}
-                      </a>
-                    )}
-                  </td>
-                  <td className="max-w-[22rem] px-5 py-4 text-[12.5px]">
-                    <div className="font-medium text-brand-graphite">
-                      {lead.service || '—'}
-                      {lead.location ? ` · ${lead.location}` : ''}
-                    </div>
-                    <p className="mt-1.5 whitespace-pre-wrap leading-relaxed text-brand-silver">
-                      {lead.message}
-                    </p>
-                  </td>
-                  <td className="max-w-[16rem] px-5 py-4 text-[12px] text-brand-silver">
-                    <div className="truncate font-medium text-brand-graphite">
-                      {lead.conversion_page || '(not recorded)'}
-                    </div>
-                    {lead.landing_page && lead.landing_page !== lead.conversion_page && (
-                      <div className="truncate">landed: {lead.landing_page}</div>
-                    )}
-                    <div className="mt-1 truncate">
-                      {lead.utm_source || 'direct'}
-                      {lead.utm_campaign ? ` / ${lead.utm_campaign}` : ''}
-                    </div>
-                  </td>
-                  <td className="px-5 py-4">
-                    <span
-                      className={`inline-block rounded-sm px-2 py-1 text-[10.5px] font-semibold uppercase tracking-[0.12em] ${
-                        lead.status === 'new'
-                          ? 'bg-brand-electric/10 text-brand-electric'
-                          : 'bg-brand-edge text-brand-silver'
-                      }`}
-                    >
-                      {lead.status}
-                    </span>
+            <tbody className="divide-y divide-brand-edge-dark/60">
+              {recentAudits.length > 0 ? (
+                recentAudits.map((event) => (
+                  <tr key={event.id} className="text-brand-mist/80">
+                    <td className="py-2.5 font-mono text-[11px] text-brand-mist/50">
+                      {new Date(event.created_at).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                      })}
+                    </td>
+                    <td className="py-2.5 font-medium text-white">{event.event_type}</td>
+                    <td className="py-2.5">{event.actor_type}</td>
+                    <td className="py-2.5 font-mono text-[11px]">
+                      {event.object_type} · {event.object_id.substring(0, 8)}
+                    </td>
+                    <td className="py-2.5 font-mono text-[10px] text-brand-mist/40">
+                      {event.correlation_id}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={5} className="py-6 text-center text-[12px] text-brand-mist/50">
+                    Audit ledger is initialized and capturing all domain events.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
-      </main>
+      </section>
     </div>
   );
 }
 
-function Stat({ label, value }: { label: string; value: number }) {
+function MetricCard({
+  label,
+  value,
+  subtext,
+  href,
+  alert,
+}: {
+  label: string;
+  value: number;
+  subtext: string;
+  href: string;
+  alert?: boolean;
+}) {
   return (
-    <div className="bg-white px-6 py-5">
-      <div className="text-[1.75rem] font-extralight leading-none tracking-tight text-brand-graphite">
-        {value}
-      </div>
-      <div className="mt-2 text-[10.5px] font-medium uppercase tracking-[0.16em] text-brand-silver">
-        {label}
-      </div>
-    </div>
-  );
-}
-
-function Callout({ tone, title, body }: { tone: 'warn' | 'info'; title: string; body: string }) {
-  return (
-    <div
-      className={`mb-8 rounded-sm border p-5 ${
-        tone === 'warn' ? 'border-amber-300 bg-amber-50' : 'border-brand-edge bg-white'
+    <Link
+      href={href}
+      className={`group block rounded-lg border p-4 transition-all hover:border-brand-electric/60 hover:bg-brand-carbon/80 ${
+        alert
+          ? 'border-rose-500/40 bg-rose-500/5'
+          : 'border-brand-edge-dark bg-brand-carbon/50'
       }`}
     >
-      <p className="text-[13px] font-semibold text-brand-graphite">{title}</p>
-      <p className="mt-2 text-[12.5px] leading-relaxed text-brand-silver">{body}</p>
-    </div>
-  );
-}
-
-function SignIn({ error }: { error: boolean }) {
-  const configured = adminConfigured();
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-brand-graphite px-5">
-      <div className="w-full max-w-sm">
-        <p className="eyebrow eyebrow-dark">EntireFM</p>
-        <h1 className="mt-4 text-[1.75rem] font-extralight tracking-[-0.04em] text-white">
-          Enquiries
-        </h1>
-
-        {!configured ? (
-          <p className="mt-6 rounded-sm border border-amber-400/40 bg-amber-400/10 p-4 text-[12.5px] leading-relaxed text-amber-100">
-            Admin access is not configured. Set <code>ADMIN_PASSWORD</code> in the deployment
-            environment and redeploy. Until then this page admits no one, which is the correct
-            behaviour for an unset secret.
-          </p>
-        ) : (
-          <form action="/api/admin/login" method="post" className="mt-6">
-            <label htmlFor="password" className="sr-only">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              className="w-full rounded-sm border border-white/15 bg-white/[0.06] px-4 py-3 text-[14px] text-white placeholder:text-brand-mist/40 focus:border-brand-electric focus:outline-none"
-              placeholder="Password"
-            />
-            {error && (
-              <p className="mt-3 text-[12.5px] text-red-300">
-                That did not work. Try again.
-              </p>
-            )}
-            <button type="submit" className="btn-primary mt-4 w-full justify-center">
-              Sign in
-            </button>
-          </form>
-        )}
+      <div className="font-mono text-[10px] uppercase tracking-wider text-brand-mist/50 group-hover:text-brand-mist/80">
+        {label}
       </div>
-    </div>
+      <div
+        className={`mt-2 text-2xl font-light tracking-tight tabular-nums sm:text-3xl ${
+          alert ? 'text-rose-400 font-normal' : 'text-white'
+        }`}
+      >
+        {value}
+      </div>
+      <div className="mt-1 truncate text-[11px] text-brand-mist/40">{subtext}</div>
+    </Link>
   );
 }

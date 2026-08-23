@@ -18,7 +18,7 @@ const args = process.argv.slice(2);
 const targetHost = args.find(a => a.startsWith('http')) || 'https://www.entirefm.com';
 
 const protectedHistoric = JSON.parse(fs.readFileSync(path.join(repoRoot, 'config', 'protected-historic-routes.json'), 'utf-8'));
-const historicPaths = new Set(protectedHistoric.historicRoutes);
+const historicPaths = new Set(protectedHistoric.routes ? protectedHistoric.routes.map(r => r.path) : []);
 
 function fetchUrl(url, userAgent = 'EntireFM-Sitemap-Verifier/1.0') {
   return new Promise((resolve) => {

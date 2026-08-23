@@ -29,6 +29,18 @@ import { ServiceMechanicalElectrical } from './services/ServiceMechanicalElectri
 import { ServiceHvac } from './services/ServiceHvac';
 import { ServicePpm } from './services/ServicePpm';
 import { ServiceIndustrialCleaning } from './services/ServiceIndustrialCleaning';
+import { TemplateToolsHub } from './tools/TemplateToolsHub';
+import { TemplateHealthCheck } from './tools/TemplateHealthCheck';
+import { TemplatePpmBuilder } from './tools/TemplatePpmBuilder';
+import { TemplateComplianceCalendar } from './tools/TemplateComplianceCalendar';
+import { TemplatePpmEstimator } from './tools/TemplatePpmEstimator';
+import { TemplateRoiCalculator } from './tools/TemplateRoiCalculator';
+import { TemplateTenderBrief } from './tools/TemplateTenderBrief';
+import { TemplateResourcesHub } from './resources/TemplateResourcesHub';
+import { TemplateFmIntelligence } from './resources/TemplateFmIntelligence';
+import { TemplateAcademy } from './resources/TemplateAcademy';
+import { TemplateDocumentVault } from './resources/TemplateDocumentVault';
+import { TemplateBuildingWalk } from './resources/TemplateBuildingWalk';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const content = loadContentRecord(route.path);
@@ -125,13 +137,52 @@ function selectTemplate(
     }
   }
 
+  // 6d. Interactive FM Tools
+  if (path === '/tools') {
+    return <TemplateToolsHub route={route} content={content} />;
+  }
+  if (path === '/tools/fm-health-check') {
+    return <TemplateHealthCheck route={route} content={content} />;
+  }
+  if (path === '/tools/ppm-schedule-builder') {
+    return <TemplatePpmBuilder route={route} content={content} />;
+  }
+  if (path === '/tools/compliance-calendar') {
+    return <TemplateComplianceCalendar route={route} content={content} />;
+  }
+  if (path === '/tools/ppm-estimator') {
+    return <TemplatePpmEstimator route={route} content={content} />;
+  }
+  if (path === '/tools/fm-roi-calculator') {
+    return <TemplateRoiCalculator route={route} content={content} />;
+  }
+  if (path === '/tools/tender-brief') {
+    return <TemplateTenderBrief route={route} content={content} />;
+  }
+
+  // 6e. Knowledge & Intelligence Hubs
+  if (path === '/resources') {
+    return <TemplateResourcesHub route={route} content={content} />;
+  }
+  if (path === '/fm-intelligence') {
+    return <TemplateFmIntelligence route={route} content={content} />;
+  }
+  if (path === '/academy') {
+    return <TemplateAcademy route={route} content={content} />;
+  }
+  if (path === '/resources/document-vault') {
+    return <TemplateDocumentVault route={route} content={content} />;
+  }
+  if (path === '/building-walk') {
+    return <TemplateBuildingWalk route={route} content={content} />;
+  }
+
   // 7. Directory Hub Pages
   if (
     path === '/services' ||
     path === '/sectors' ||
     path === '/locations' ||
-    path === '/items' ||
-    path === '/resources'
+    path === '/items'
   ) {
     return <TemplateHub route={route} content={content} />;
   }

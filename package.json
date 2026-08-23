@@ -10,6 +10,7 @@
     "validate:routes": "tsx src/lib/routes/validate-routes.ts",
     "seo:audit": "node scripts/seo-audit.js",
     "migration:audit": "node scripts/migration-audit.js",
+    "test:foundation": "tsx scripts/test-foundation.ts",
     "test:seo": "jest --testPathPattern=__tests__/seo",
     "verify:contacts": "node scripts/verify-contacts.js",
     "verify:lead-pipeline": "node scripts/verify-lead-pipeline.js",

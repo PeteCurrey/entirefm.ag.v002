@@ -3230,6 +3230,25 @@
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/fm-support-n-contact"
     },
     {
+      "path": "/fm-support-n-contact/facilities-management-glossary",
+      "routeType": "glossary",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "glossary",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "NOT_STARTED",
+      "historicSources": [
+        "wix-generation-1"
+      ],
+      "g1_url": "https://petercurrey.wixsite.com/efm-new/fm-support-n-contact/facilities-management-glossary"
+    },
+    {
       "path": "/fm-technical-services",
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",

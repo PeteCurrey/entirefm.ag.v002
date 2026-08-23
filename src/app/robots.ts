@@ -31,12 +31,18 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        // /admin is the enquiry list. It is noindex in its own metadata too,
-        // but robots keeps crawlers off it in the first place rather than
-        // relying on them to fetch it and then obey the tag.
+        // Private application and operational routes are strictly disallowed from crawlers
         disallow: [
           '/api/',
           '/admin',
+          '/admin/',
+          '/client',
+          '/client/',
+          '/contractor',
+          '/contractor/',
+          '/engineer',
+          '/engineer/',
+          '/login',
           '/client-login/',
           '/helpdesk-registration',
           '/fm-supply-form',
