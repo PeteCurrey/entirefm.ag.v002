@@ -3,29 +3,42 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import editorial from '@/config/location-images.json';
 
 /**
- * HORIZONTAL RAIL
- * ===============
- * A horizontally scrolling band of image cards.
+ * SCROLL-DRIVEN HORIZONTAL RAIL
+ * =============================
+ * The section pins to the viewport and the card track travels sideways as the
+ * visitor scrolls down normally. No sideways scrolling, no wheel hijacking.
  *
- * WHY THIS IS A REAL SCROLLER, NOT A HIJACKED PAGE
- * ------------------------------------------------
- * The common version of this pattern pins the section and converts vertical
- * wheel movement into horizontal travel. That breaks the scrollbar, breaks
- * keyboard paging, traps people on touchpads and is unusable on a screen
- * reader. This uses a native overflow container instead: it scrolls with a
- * trackpad swipe, a shift-wheel, arrow keys, a touch drag and the buttons —
- * because all of that is free when the browser does the scrolling.
+ * HOW IT WORKS
+ * ------------
+ * The outer wrapper is made tall — one viewport height plus the horizontal
+ * distance the track needs to cover. Inside it, a `position: sticky` panel
+ * holds the cards. As the wrapper scrolls through, the fraction of it
+ * consumed maps directly to the track's `translateX`.
  *
- * Snap points keep cards aligned; the buttons page by one card and disable
- * themselves at either end.
+ * This is not scroll hijacking. Nothing intercepts the wheel, nothing calls
+ * `preventDefault`, and the scrollbar stays truthful — the page really is that
+ * tall, and scroll position always means what it says. Scroll up and it
+ * reverses; flick past it and it behaves; the browser's own scrolling is
+ * untouched.
+ *
+ * ACCESSIBILITY
+ * -------------
+ * Sticky-translate sections are usually unreachable by keyboard, because
+ * focusing an off-screen card does not advance the page scroll. Here, focusing
+ * a card scrolls the page to the point where that card is centred, so tabbing
+ * moves through the rail exactly as it appears to.
+ *
+ * Under `prefers-reduced-motion` — and on small screens, where a tall pinned
+ * section is miserable — the whole mechanism is dropped and the cards render
+ * as an ordinary responsive grid.
  */
 
 type EditorialManifest = {
-  editorial: Record<string, { src: string; alt: string; widths: Record<string, string> }>;
+  editorial: Record<string, { src: string; alt: string }>;
 };
 
 const IMAGES = (editorial as EditorialManifest).editorial ?? {};
@@ -46,130 +59,202 @@ interface HorizontalRailProps {
 }
 
 export function HorizontalRail({ eyebrow, title, intro, items }: HorizontalRailProps) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLUListElement>(null);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const distanceRef = useRef(0);
 
   const available = items.filter((item) => IMAGES[item.imageKey]);
 
   useEffect(() => {
+    const query = window.matchMedia('(min-width: 1024px)');
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const decide = () => setPinned(query.matches && !motion.matches);
+    decide();
+    query.addEventListener('change', decide);
+    motion.addEventListener('change', decide);
+    return () => {
+      query.removeEventListener('change', decide);
+      motion.removeEventListener('change', decide);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!pinned) return;
+    const wrapper = wrapperRef.current;
     const track = trackRef.current;
-    if (!track) return;
+    if (!wrapper || !track) return;
+
+    let ticking = false;
+
+    /** How far the track must travel for its last card to reach the right edge. */
+    const measure = () => {
+      const overflow = Math.max(0, track.scrollWidth - window.innerWidth + 80);
+      distanceRef.current = overflow;
+      wrapper.style.height = `${window.innerHeight + overflow}px`;
+    };
 
     const update = () => {
-      const { scrollLeft, scrollWidth, clientWidth } = track;
-      setAtStart(scrollLeft < 8);
-      setAtEnd(scrollLeft + clientWidth >= scrollWidth - 8);
+      ticking = false;
+      const rect = wrapper.getBoundingClientRect();
+      const travel = distanceRef.current;
+      if (travel <= 0) return setProgress(0);
+      // 0 when the top of the wrapper reaches the top of the viewport,
+      // 1 when the wrapper has been scrolled through entirely.
+      const p = Math.min(1, Math.max(0, -rect.top / travel));
+      setProgress(p);
     };
 
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    measure();
     update();
-    track.addEventListener('scroll', update, { passive: true });
-    const observer = new ResizeObserver(update);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      measure();
+      update();
+    });
+    const observer = new ResizeObserver(() => {
+      measure();
+      update();
+    });
     observer.observe(track);
-    return () => {
-      track.removeEventListener('scroll', update);
-      observer.disconnect();
-    };
-  }, [available.length]);
 
-  const page = (direction: 1 | -1) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const card = track.querySelector('li');
-    const step = card ? card.getBoundingClientRect().width + 20 : track.clientWidth * 0.8;
-    track.scrollBy({ left: step * direction, behavior: 'smooth' });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      observer.disconnect();
+      wrapper.style.height = '';
+    };
+  }, [pinned, available.length]);
+
+  /**
+   * Keyboard reachability: bring the focused card into view by moving the page
+   * scroll, since the card's own position is a transform the browser will not
+   * scroll to on its own.
+   */
+  const onCardFocus = (index: number) => {
+    if (!pinned) return;
+    const wrapper = wrapperRef.current;
+    if (!wrapper || distanceRef.current <= 0) return;
+    const fraction = available.length > 1 ? index / (available.length - 1) : 0;
+    const top = wrapper.offsetTop + distanceRef.current * fraction;
+    window.scrollTo({ top, behavior: 'smooth' });
   };
 
   if (!available.length) return null;
 
+  const cards = (
+    <ul
+      ref={trackRef}
+      className={
+        pinned
+          ? 'flex gap-6 will-change-transform'
+          : 'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'
+      }
+      style={
+        pinned
+          ? { transform: `translate3d(-${(progress * distanceRef.current).toFixed(1)}px, 0, 0)` }
+          : undefined
+      }
+    >
+      {available.map((item, i) => {
+        const image = IMAGES[item.imageKey];
+        return (
+          <li
+            key={item.href + item.imageKey}
+            className={pinned ? 'w-[24rem] shrink-0' : ''}
+            data-reveal={pinned ? undefined : ''}
+            style={pinned ? undefined : ({ '--reveal-delay': `${(i % 3) * 80}ms` } as React.CSSProperties)}
+          >
+            <Link
+              href={item.href}
+              onFocus={() => onCardFocus(i)}
+              className="edge-lit group relative flex h-full flex-col overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-carbon"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 24rem"
+                  className="object-cover transition-transform duration-[900ms] ease-brand group-hover:scale-[1.06]"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-brand-carbon via-brand-carbon/25 to-transparent"
+                />
+              </div>
+
+              <div className="flex flex-1 flex-col p-6">
+                <p className="eyebrow eyebrow-dark">{item.eyebrow}</p>
+                <h3 className="mt-4 text-[1.0625rem] font-semibold leading-snug tracking-tight text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-3 flex-1 text-[13.5px] leading-relaxed text-brand-mist/60">
+                  {item.body}
+                </p>
+                <span className="mt-6 inline-flex items-center gap-1.5 border-t border-brand-edge-dark pt-4 text-[12.5px] font-semibold text-brand-electric-bright">
+                  Explore
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+              </div>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+
+  const heading = (
+    <div className="mb-10 max-w-2xl" data-reveal>
+      <p className="eyebrow eyebrow-dark">{eyebrow}</p>
+      <h2 className="mt-5 text-display-md text-white">{title}</h2>
+      <p className="mt-4 text-[15px] leading-relaxed text-brand-mist/60">{intro}</p>
+    </div>
+  );
+
+  // Static fallback: small screens and reduced motion get an ordinary grid.
+  if (!pinned) {
+    return (
+      <section className="on-dark grain relative overflow-hidden bg-brand-void py-20 sm:py-28">
+        <div className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
+        <div className="container-custom relative">
+          {heading}
+          {cards}
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="on-dark grain relative overflow-hidden bg-brand-void py-20 sm:py-28">
-      <div className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
+    <div ref={wrapperRef} className="relative">
+      <section className="on-dark grain sticky top-0 flex h-screen flex-col justify-center overflow-hidden bg-brand-void">
+        <div className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
 
-      <div className="container-custom relative">
-        <div className="mb-11 flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
-          <div className="max-w-2xl">
-            <p className="eyebrow eyebrow-dark">{eyebrow}</p>
-            <h2 className="mt-5 text-display-md text-white">{title}</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-brand-mist/60">{intro}</p>
-          </div>
+        <div className="container-custom relative">{heading}</div>
 
-          <div className="flex shrink-0 gap-2">
-            <button
-              type="button"
-              onClick={() => page(-1)}
-              disabled={atStart}
-              aria-label="Previous"
-              className="flex h-11 w-11 items-center justify-center rounded-sm border border-brand-edge-dark text-brand-mist transition-all duration-300 ease-brand hover:border-brand-electric/60 hover:bg-white/[0.05] disabled:pointer-events-none disabled:opacity-30"
-            >
-              <ArrowLeft className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => page(1)}
-              disabled={atEnd}
-              aria-label="Next"
-              className="flex h-11 w-11 items-center justify-center rounded-sm border border-brand-edge-dark text-brand-mist transition-all duration-300 ease-brand hover:border-brand-electric/60 hover:bg-white/[0.05] disabled:pointer-events-none disabled:opacity-30"
-            >
-              <ArrowRight className="h-4 w-4" />
-            </button>
+        {/* The track starts at the container's left edge and bleeds right, so
+            the row reads as continuing past the viewport. */}
+        <div className="relative overflow-hidden pl-[max(1.25rem,calc((100vw-80rem)/2+2.5rem))] pr-10">
+          {cards}
+        </div>
+
+        {/* Progress rail — the only affordance that says this section moves. */}
+        <div className="container-custom relative mt-10">
+          <div className="h-px w-full max-w-md overflow-hidden bg-white/10">
+            <div
+              className="h-full origin-left bg-brand-spectrum transition-transform duration-150 ease-out"
+              style={{ transform: `scaleX(${Math.max(0.04, progress)})` }}
+            />
           </div>
         </div>
-      </div>
-
-      {/* The track bleeds to the right edge so the row reads as continuing
-          past the viewport rather than stopping at the container. */}
-      <ul
-        ref={trackRef}
-        tabIndex={0}
-        aria-label={title}
-        className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4 pl-[max(1.25rem,calc((100vw-80rem)/2+2.5rem))] pr-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {available.map((item, i) => {
-          const image = IMAGES[item.imageKey];
-          return (
-            <li
-              key={item.href + item.imageKey}
-              className="w-[78vw] shrink-0 snap-start sm:w-[54vw] lg:w-[26rem]"
-              data-reveal
-              style={{ '--reveal-delay': `${Math.min(i, 4) * 70}ms` } as React.CSSProperties}
-            >
-              <Link
-                href={item.href}
-                className="edge-lit group relative flex h-full flex-col overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-carbon"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes="(max-width: 640px) 78vw, (max-width: 1024px) 54vw, 26rem"
-                    className="object-cover transition-transform duration-[900ms] ease-brand group-hover:scale-[1.06]"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-brand-carbon via-brand-carbon/25 to-transparent"
-                  />
-                </div>
-
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="eyebrow eyebrow-dark">{item.eyebrow}</p>
-                  <h3 className="mt-4 text-[1.0625rem] font-semibold leading-snug tracking-tight text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 flex-1 text-[13.5px] leading-relaxed text-brand-mist/60">
-                    {item.body}
-                  </p>
-                  <span className="mt-6 inline-flex items-center gap-1.5 border-t border-brand-edge-dark pt-4 text-[12.5px] font-semibold text-brand-electric-bright">
-                    Explore
-                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </span>
-                </div>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
+      </section>
+    </div>
   );
 }

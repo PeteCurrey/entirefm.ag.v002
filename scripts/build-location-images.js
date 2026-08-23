@@ -51,6 +51,9 @@ const EDITORIAL = {
     { index: 7, slug: 'access-control-install', alt: 'EntireFM engineer installing access control equipment in a corridor' },
   ],
   'Branded Building': [
+    // The homepage hero. Wide, cinematic, and dark on the left where the
+    // headline sits — which is why this frame rather than the tighter ones.
+    { index: 5, slug: 'hero-headquarters', alt: 'EntireFM headquarters at dusk, illuminated signage along the building facade', hero: true },
     { index: 3, slug: 'headquarters-exterior', alt: 'EntireFM branded signage on a modern commercial building exterior at dusk' },
     { index: 0, slug: 'reception', alt: 'EntireFM branded reception area inside a commercial building' },
   ],
@@ -180,7 +183,10 @@ async function main() {
       const src = files[pick.index];
       if (!src) { console.warn(`! ${folder}: no file at index ${pick.index}`); continue; }
       const entry = { alt: pick.alt, source: src, widths: {} };
-      for (const w of [2000, 1200, 800]) {
+      // Hero images are rendered edge to edge on large displays, so they need
+      // a wider top size than the in-page editorial imagery.
+      const widths = pick.hero ? [2560, 1920, 1280, 900] : [2000, 1200, 800];
+      for (const w of widths) {
         const name = `entirefm-${pick.slug}-${w}w.webp`;
         const dest = path.join(EDITORIAL_OUT, name);
         if (force || !fs.existsSync(dest)) {
@@ -192,7 +198,9 @@ async function main() {
         }
         entry.widths[w] = `/images/editorial/${name}`;
       }
-      entry.src = entry.widths[2000];
+      // Widest rendition is the canonical src. Previously hard-coded to 2000,
+      // which produced an empty string for hero images that top out at 2560.
+      entry.src = entry.widths[widths[0]];
       manifest.editorial[pick.slug] = entry;
     }
     console.log(`${folder.padEnd(18)} ${picks.length} editorial images`);

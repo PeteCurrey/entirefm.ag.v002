@@ -139,7 +139,7 @@ export function TemplateHome() {
         <HorizontalRail
           eyebrow="Capability"
           title="What we actually do on site"
-          intro="Six of the disciplines that make up a typical contract. Scroll sideways, or use the arrows."
+          intro="Six of the disciplines that make up a typical contract. Keep scrolling."
           items={RAIL_ITEMS}
         />
 

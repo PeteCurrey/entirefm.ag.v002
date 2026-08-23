@@ -1,5 +1,7 @@
 import React from 'react';
 import { Header } from '@/components/layout/Header';
+import { PageHero } from '@/components/hero/PageHero';
+import { altForImage } from '@/components/content/LocationImage';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
@@ -51,71 +53,27 @@ export function TemplateLocalService({ route, content }: TemplateProps) {
     description: `Explore EntireFM capabilities for ${r.replace(/^\//, '').replace(/-/g, ' ')}.`,
   }));
 
+  const heroFacts = [
+    { figure: 'Coverage', label: `Mobile engineering teams working to ${city}` },
+    { figure: 'Response', label: 'Out-of-hours cover for contracted sites' },
+    { figure: 'Compliance', label: 'Statutory testing, certified and recorded' },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
       <main className="flex-grow">
-        <Breadcrumbs items={breadcrumbs} />
-
-        {/* Local Service Hero */}
-        <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
-          <div className="container-custom">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-8 space-y-4">
-                <div className="flex items-center gap-2">
-                  <span className="badge-gold">
-                    <MapPin className="w-3 h-3 inline mr-1" />
-                    {city} Service
-                  </span>
-                  <span className="badge-technical text-slate-300">
-                    {content.eyebrow || 'Local Service Delivery'}
-                  </span>
-                </div>
-
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                  {content.h1}
-                </h1>
-                <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
-                  {content.heroIntro || content.metaDescription}
-                </p>
-
-                <div className="flex flex-wrap items-center gap-4 pt-4">
-                  <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold shadow-elevated">
-                    Request Local Quote <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
-                    <Phone className="w-3.5 h-3.5 text-brand-electric" />
-                    <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="lg:col-span-4 hidden lg:block">
-                <div className="p-6 bg-brand-carbon border border-brand-edge-dark rounded-sm space-y-4 shadow-elevated">
-                  <div className="flex items-center gap-3">
-                    <BrandIcon name="sustainableSolutions" size={32} />
-                    <span className="text-xs font-mono uppercase tracking-wider text-brand-electric block">Service Scope</span>
-                  </div>
-                  <h3 className="text-base font-bold text-white">How Coverage Works</h3>
-                  <ul className="space-y-2 text-xs text-slate-300">
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
-                      <span>Commercial-grade equipment & tooling</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
-                      <span>Fully insured & certified operatives</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
-                      <span>Flexible out-of-hours scheduling</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={content.eyebrow || 'Facilities Management'}
+          title={content.h1}
+          intro={content.heroIntro || content.metaDescription}
+          path={route.path}
+          imageSrc={altForImage(content.heroImage) ? content.heroImage : undefined}
+          imageAlt={altForImage(content.heroImage) ?? undefined}
+          breadcrumbs={breadcrumbs}
+          primaryCta={{ label: `Request a ${city} proposal`, href: '#enquiry' }}
+          facts={heroFacts}
+        />
 
         <TrustBar />
 

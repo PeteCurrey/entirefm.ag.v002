@@ -1,5 +1,6 @@
 import React from 'react';
 import { Header } from '@/components/layout/Header';
+import { PageHero } from '@/components/hero/PageHero';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
@@ -54,58 +55,14 @@ export function TemplateCoreService({ route, content }: TemplateProps) {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
       <main className="flex-grow">
-        <Breadcrumbs items={breadcrumbs} />
-
-        {/* Dynamic Service Hero */}
-        <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
-          <div className="container-custom">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-8 space-y-4">
-                <span className="badge-gold">{content.eyebrow || 'Hard FM & Building Engineering'}</span>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                  {content.h1}
-                </h1>
-                <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
-                  {content.heroIntro || content.metaDescription}
-                </p>
-
-                <div className="flex flex-wrap items-center gap-4 pt-4">
-                  <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold shadow-elevated">
-                    Request Service Proposal <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
-                    <Phone className="w-3.5 h-3.5 text-brand-electric" />
-                    <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="lg:col-span-4 hidden lg:block">
-                <div className="p-6 bg-brand-carbon border border-brand-edge-dark rounded-sm space-y-4 shadow-elevated">
-                  <div className="flex items-center gap-3">
-                    <BrandIcon name="operationalExcellence" size={32} />
-                    <span className="text-xs font-mono uppercase tracking-wider text-brand-electric block">Technical Factsheet</span>
-                  </div>
-                  <h3 className="text-base font-bold text-white">Direct Engineering Delivery</h3>
-                  <ul className="space-y-2 text-xs text-slate-300">
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
-                      <span>Certified engineers with direct van stock</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
-                      <span>Digital CAFM certification & reporting</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-electric shrink-0" />
-                      <span>Out of hours national operations helpdesk</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={content.eyebrow || content.service || 'Engineering'}
+          title={content.h1}
+          intro={content.heroIntro || content.metaDescription}
+          path={route.path}
+          breadcrumbs={breadcrumbs}
+          primaryCta={{ label: 'Request a proposal', href: '#enquiry' }}
+        />
 
         <TrustBar />
 

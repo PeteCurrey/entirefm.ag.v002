@@ -1,5 +1,6 @@
 import React from 'react';
 import { Header } from '@/components/layout/Header';
+import { PageHero } from '@/components/hero/PageHero';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
@@ -17,20 +18,14 @@ export function TemplateAbout({ route, content }: TemplateProps) {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
       <main className="flex-grow">
-        <Breadcrumbs items={breadcrumbs} />
-
-        {/* About Hero */}
-        <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
-          <div className="container-custom max-w-4xl space-y-4">
-            <span className="badge-gold">{content.eyebrow || 'Engineering & Estate Governance'}</span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-              {content.h1}
-            </h1>
-            <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
-              {content.heroIntro || content.metaDescription}
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={content.eyebrow || 'About EntireFM'}
+          title={content.h1}
+          intro={content.heroIntro || content.metaDescription}
+          path={route.path}
+          breadcrumbs={breadcrumbs}
+          primaryCta={{ label: 'Request a proposal', href: '#enquiry' }}
+        />
 
         <TrustBar />
 

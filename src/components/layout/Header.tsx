@@ -7,6 +7,12 @@ import { usePathname } from 'next/navigation';
 import { Phone, ChevronDown, Menu, X, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { CONTACT_CONFIG } from '@/config/contact';
 import { PRIMARY_NAV, SECONDARY_NAV } from '@/config/navigation';
+import editorial from '@/config/location-images.json';
+
+type EditorialManifest = {
+  editorial: Record<string, { src: string; alt: string }>;
+};
+const IMAGES = (editorial as EditorialManifest).editorial ?? {};
 
 /**
  * SITE HEADER
@@ -121,7 +127,13 @@ export function Header() {
         <div className="flex h-[72px] items-center justify-between gap-4">
           {/* Brand */}
           <Link href="/" className="group flex shrink-0 items-center gap-3" aria-label="EntireFM — home">
-            <span className="relative block h-9 w-9">
+            {/*
+              The landing target for the intro animation. BrandIntro measures
+              this rect to fly the mark here, and hides it via
+              `data-intro-running` on the root element until the flight lands —
+              so the two marks are never on screen at the same time.
+            */}
+            <span data-brand-mark className="brand-mark relative block h-9 w-9">
               <Image
                 src="/logos/06-crystalline-colour-mark.webp"
                 alt=""
@@ -173,7 +185,6 @@ export function Header() {
                     />
                   </button>
 
-                  <MegaMenu section={section} open={open} onClose={() => setOpenMenu(null)} />
                 </div>
               );
             })}
@@ -217,6 +228,24 @@ export function Header() {
         </div>
       </div>
 
+      {/* One full-width panel rather than one per trigger. Anchoring a wide
+          panel to a trigger near the left of the bar pushes it off-screen; a
+          full-bleed panel also gives the imagery room to work. */}
+      <div
+        onMouseEnter={cancelClose}
+        onMouseLeave={scheduleClose}
+        className="absolute inset-x-0 top-full hidden lg:block"
+      >
+        {PRIMARY_NAV.map((section) => (
+          <MegaMenu
+            key={section.label}
+            section={section}
+            open={openMenu === section.label}
+            onClose={() => setOpenMenu(null)}
+          />
+        ))}
+      </div>
+
       <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />
     </header>
   );
@@ -237,21 +266,23 @@ function MegaMenu({
     <div
       // Kept mounted so the close transition can run and so the links remain
       // in the document for crawlers; visibility is what changes.
-      className={`absolute left-1/2 top-full z-50 w-[min(56rem,calc(100vw-3rem))] -translate-x-1/2 pt-3 transition-all duration-300 ease-brand ${
+      className={`absolute inset-x-0 top-0 z-50 transition-all duration-300 ease-brand ${
         open
           ? 'pointer-events-auto translate-y-0 opacity-100'
-          : 'pointer-events-none -translate-y-1 opacity-0'
+          : 'pointer-events-none -translate-y-2 opacity-0'
       }`}
       aria-hidden={!open}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget as Node)) onClose();
       }}
     >
-      <div className="grain relative overflow-hidden rounded-md border border-brand-edge-dark bg-brand-carbon shadow-glow-lg">
+      <div // Fully opaque: at 97% the hero bled through and made the middle
+        // column unreadable. A mega-menu is a surface, not a scrim.
+        className="grain relative overflow-hidden border-b border-brand-edge-dark bg-brand-carbon shadow-glow-lg">
         <div className="facet-rule pointer-events-none absolute inset-0 opacity-60" />
         <div className="rule-spectrum absolute inset-x-0 top-0" />
 
-        <div className="relative grid gap-8 p-8 md:grid-cols-[1fr_1fr_minmax(200px,240px)]">
+        <div className="container-custom relative grid gap-10 py-10 md:grid-cols-[1fr_1fr_minmax(260px,340px)]">
           {section.columns.map((column) => (
             <div key={column.heading}>
               <p className="eyebrow eyebrow-dark mb-5">{column.heading}</p>
@@ -281,31 +312,46 @@ function MegaMenu({
             </div>
           ))}
 
-          {section.feature && (
-            <Link
-              href={section.feature.href}
-              tabIndex={open ? 0 : -1}
-              className="edge-lit group/feature relative flex flex-col justify-between overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-graphite p-6"
-            >
-              <div
-                className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-40 blur-3xl transition-opacity duration-700 group-hover/feature:opacity-70"
-                style={{ background: 'radial-gradient(circle, #7C3AED 0%, transparent 70%)' }}
-              />
-              <div className="relative">
-                <p className="eyebrow eyebrow-dark mb-4">{section.feature.eyebrow}</p>
-                <p className="text-[15px] font-semibold leading-snug text-white">
-                  {section.feature.title}
-                </p>
-                <p className="mt-2.5 text-[12.5px] leading-relaxed text-brand-mist/60">
-                  {section.feature.body}
-                </p>
-              </div>
-              <span className="relative mt-6 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-brand-electric-bright">
-                {section.feature.cta}
-                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover/feature:translate-x-1" />
-              </span>
-            </Link>
-          )}
+          {section.feature && (() => {
+            const image = IMAGES[section.feature.imageKey];
+            return (
+              <Link
+                href={section.feature.href}
+                tabIndex={open ? 0 : -1}
+                className="edge-lit group/feature relative flex min-h-[17rem] flex-col justify-end overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-graphite"
+              >
+                {image && (
+                  <>
+                    <Image
+                      src={image.src}
+                      alt=""
+                      fill
+                      sizes="340px"
+                      className="object-cover transition-transform duration-[900ms] ease-brand group-hover/feature:scale-105"
+                    />
+                    {/* Scrim keeps the copy legible over any frame. */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-gradient-to-t from-brand-graphite via-brand-graphite/80 to-brand-graphite/25"
+                    />
+                  </>
+                )}
+                <span className="relative block p-6">
+                  <span className="eyebrow eyebrow-dark">{section.feature.eyebrow}</span>
+                  <span className="mt-3.5 block text-[15px] font-semibold leading-snug text-white">
+                    {section.feature.title}
+                  </span>
+                  <span className="mt-2.5 block text-[12.5px] leading-relaxed text-brand-mist/65">
+                    {section.feature.body}
+                  </span>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-brand-electric-bright">
+                    {section.feature.cta}
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover/feature:translate-x-1" />
+                  </span>
+                </span>
+              </Link>
+            );
+          })()}
         </div>
       </div>
     </div>

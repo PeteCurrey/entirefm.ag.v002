@@ -1,59 +1,107 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
+import Image from 'next/image';
 import { MarkCanvas } from './MarkCanvas';
 
 /**
  * FIRST-VISIT INTRO
  * =================
- * A short overlay in which the mark assembles from scattered fragments, the
- * wordmark resolves beneath it, and the panel lifts away to reveal the page.
+ * The mark assembles from scattered fragments, resolves into the real logo
+ * artwork, then shrinks and flies into its resting place in the header.
  *
- * RULES IT FOLLOWS
- * ----------------
- *  · Once per session. Returning to the homepage mid-visit does not replay it —
- *    an intro you cannot get past is a nuisance, not a brand moment.
- *  · Always skippable. Any click, key or scroll dismisses it immediately, and
- *    there is a visible Skip control.
- *  · Never blocks the page. The real content is rendered and in the DOM
- *    underneath; this sits on top and is `aria-hidden`, so assistive tech and
- *    crawlers see the page, not the animation.
- *  · Honours `prefers-reduced-motion` by not mounting at all.
- *  · Never runs on a fresh server render, so it cannot cause a hydration
- *    mismatch — the decision to show it is made after mount.
+ * FOUR PHASES
+ * -----------
+ *   playing   fragments converge into the assembled mark (WebGL)
+ *   settling  the WebGL render crossfades to the supplied logo file
+ *   flying    that logo shrinks and travels to the header, backdrop fades
+ *   done      unmounted; the header's own logo takes over
+ *
+ * WHY IT LANDS ON THE REAL ASSET
+ * ------------------------------
+ * The WebGL mark is a procedural reconstruction — close, but not the artwork.
+ * Crossfading to `/logos/06-crystalline-colour-mark.webp` before the flight
+ * means the thing that arrives in the header is the genuine file, with its
+ * exact facet colouring and silver edges. The end state cannot drift from the
+ * brand asset because it *is* the brand asset.
+ *
+ * THE FLIGHT
+ * ----------
+ * A FLIP transform: measure where the logo is, measure the header target,
+ * transform between them. The target is found via `[data-brand-mark]` on the
+ * header, and the header's own mark stays hidden (`data-intro-running` on the
+ * root element) until the flight lands, so only one mark is ever visible.
+ *
+ * If the header target cannot be found — a page without a header, or a layout
+ * change — the flight is skipped and the overlay simply fades. The intro
+ * never blocks the page.
+ *
+ * RULES
+ * -----
+ *  · Once per session, and never under `prefers-reduced-motion`.
+ *  · Always skippable: any click, key, scroll or touch dismisses it.
+ *  · The real page is rendered underneath; this is `aria-hidden` throughout,
+ *    so crawlers and assistive tech see the page, not the animation.
+ *  · The decision to play is made after mount, so it cannot cause a
+ *    hydration mismatch.
  */
 
 const SESSION_KEY = 'efm.intro.seen';
-const HOLD_MS = 3100;
-const LIFT_MS = 700;
+const ASSEMBLE_MS = 2600;
+const SETTLE_MS = 420;
+const FLY_MS = 900;
+
+type Phase = 'idle' | 'playing' | 'settling' | 'flying' | 'done';
 
 export function BrandIntro() {
-  const [phase, setPhase] = useState<'idle' | 'playing' | 'lifting'>('idle');
+  const [phase, setPhase] = useState<Phase>('idle');
+  const markRef = useRef<HTMLDivElement>(null);
+  const [flight, setFlight] = useState<React.CSSProperties>({});
+
+  // React StrictMode invokes effects twice in development. Without this guard
+  // the second pass reads the session key it just wrote and short-circuits,
+  // while the first pass's cleanup has already torn down shared state.
+  const started = useRef(false);
 
   useEffect(() => {
+    if (started.current) return;
+    started.current = true;
+
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     try {
       if (sessionStorage.getItem(SESSION_KEY)) return;
       sessionStorage.setItem(SESSION_KEY, '1');
     } catch {
-      // Private mode or storage disabled — play it once and move on.
+      // Storage unavailable — play once and move on.
     }
     setPhase('playing');
   }, []);
 
+  // The header's mark stays hidden for exactly as long as the intro owns one.
+  // Driven off `phase` rather than mount/unmount so a double-invoked effect
+  // cannot leave the header permanently blank.
+  useEffect(() => {
+    const active = phase === 'playing' || phase === 'settling' || phase === 'flying';
+    if (active) {
+      document.documentElement.dataset.introRunning = 'true';
+    } else {
+      delete document.documentElement.dataset.introRunning;
+    }
+  }, [phase]);
+
+  /** Begin the wind-down, from wherever we currently are. */
   const dismiss = useCallback(() => {
-    setPhase((current) => (current === 'playing' ? 'lifting' : current));
+    setPhase((current) => (current === 'playing' ? 'settling' : current));
   }, []);
 
-  // Auto-advance, and let anything the visitor does cut it short.
+  // Phase: playing → hold, then settle. Any interaction cuts it short.
   useEffect(() => {
     if (phase !== 'playing') return;
 
-    const timer = setTimeout(dismiss, HOLD_MS);
+    const timer = setTimeout(dismiss, ASSEMBLE_MS);
     const events: Array<keyof WindowEventMap> = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
     events.forEach((e) => window.addEventListener(e, dismiss, { passive: true, once: true }));
 
-    // The page must not scroll behind a full-screen overlay.
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
@@ -64,55 +112,139 @@ export function BrandIntro() {
     };
   }, [phase, dismiss]);
 
+  // Phase: settling → measure, then fly.
   useEffect(() => {
-    if (phase !== 'lifting') return;
-    const timer = setTimeout(() => setPhase('idle'), LIFT_MS);
+    if (phase !== 'settling') return;
+
+    const timer = setTimeout(() => {
+      const source = markRef.current?.getBoundingClientRect();
+      const target = document
+        .querySelector('[data-brand-mark]')
+        ?.getBoundingClientRect();
+
+      if (source && target && target.width > 0) {
+        // The logo image is `contain`ed inside its box, so the visible mark is
+        // narrower than the box it sits in. Scaling box-to-box would land it
+        // too large; comparing the rendered heights is the closer match.
+        const scale = target.height / source.height;
+        const dx = target.left + target.width / 2 - (source.left + source.width / 2);
+        const dy = target.top + target.height / 2 - (source.top + source.height / 2);
+        setFlight({ transform: `translate3d(${dx}px, ${dy}px, 0) scale(${scale})` });
+      }
+      setPhase('flying');
+    }, SETTLE_MS);
+
     return () => clearTimeout(timer);
   }, [phase]);
 
-  if (phase === 'idle') return null;
+  // Phase: flying → finish and hand over to the header.
+  useEffect(() => {
+    if (phase !== 'flying') return;
+    const timer = setTimeout(() => {
+      delete document.documentElement.dataset.introRunning;
+      setPhase('done');
+    }, FLY_MS);
+    return () => clearTimeout(timer);
+  }, [phase]);
 
-  const lifting = phase === 'lifting';
+  // Whatever happens, never leave the page unscrollable.
+  useEffect(
+    () => () => {
+      delete document.documentElement.dataset.introRunning;
+      document.body.style.overflow = '';
+    },
+    []
+  );
+
+  // Flight distance is measured from the live layout, so a resize mid-flight
+  // would land the mark in the wrong place. Finishing early is better than
+  // finishing wrong.
+  useEffect(() => {
+    if (phase !== 'flying') return;
+    const onResize = () => setPhase('done');
+    window.addEventListener('resize', onResize, { once: true });
+    return () => window.removeEventListener('resize', onResize);
+  }, [phase]);
+
+  if (phase === 'idle' || phase === 'done') return null;
+
+  const settled = phase === 'settling' || phase === 'flying';
+  const flying = phase === 'flying';
 
   return (
     <div
       aria-hidden="true"
-      className={`fixed inset-0 z-[200] flex flex-col items-center justify-center bg-brand-graphite transition-all ease-brand ${
-        lifting ? 'pointer-events-none opacity-0' : 'opacity-100'
-      }`}
-      style={{ transitionDuration: `${LIFT_MS}ms` }}
+      className="fixed inset-0 z-[200] overflow-hidden"
+      style={{ pointerEvents: flying ? 'none' : 'auto' }}
     >
-      {/* Ambient pools, matching the hero so the transition feels continuous. */}
+      {/* Backdrop — fades independently so the mark stays visible in flight. */}
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-[120px]"
-        style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 68%)' }}
-      />
-      <div className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
-
-      <div
-        className={`relative h-[42vmin] w-[76vmin] max-w-[44rem] transition-transform ease-brand ${
-          lifting ? 'scale-[1.06]' : 'scale-100'
-        }`}
-        style={{ transitionDuration: `${LIFT_MS}ms` }}
+        className="absolute inset-0 bg-brand-graphite transition-opacity ease-brand"
+        style={{ opacity: flying ? 0 : 1, transitionDuration: `${FLY_MS * 0.8}ms` }}
       >
-        <MarkCanvas delay={0.15} />
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-[120px]"
+          style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 68%)' }}
+        />
+        <div className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
       </div>
 
-      {/* Wordmark resolves after the fragments have mostly landed. */}
-      <div className="intro-wordmark relative mt-8 text-center">
-        <p className="text-[clamp(1.5rem,4vw,2.5rem)] font-extrabold tracking-[-0.02em] text-white">
-          ENTIRE<span className="text-spectrum">FM</span>
-        </p>
-        <p className="mt-3 text-[10px] font-medium uppercase tracking-[0.34em] text-brand-mist/45">
-          Facilities Management. Evolved.
-        </p>
+      {/* The mark. Positioned where it starts; the flight is a transform. */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div
+          ref={markRef}
+          className="relative h-[34vmin] w-[62vmin] max-w-[36rem] will-change-transform"
+          style={{
+            transition: `transform ${FLY_MS}ms cubic-bezier(0.62, 0.03, 0.28, 1)`,
+            ...flight,
+          }}
+        >
+          {/* Procedural mark, assembling. */}
+          <div
+            className="absolute inset-0 transition-opacity ease-brand"
+            style={{ opacity: settled ? 0 : 1, transitionDuration: `${SETTLE_MS}ms` }}
+          >
+            <MarkCanvas delay={0.15} />
+          </div>
+
+          {/* The supplied artwork — what actually lands in the header. */}
+          <Image
+            src="/logos/06-crystalline-colour-mark.webp"
+            alt=""
+            fill
+            priority
+            sizes="36rem"
+            className="object-contain transition-opacity ease-brand"
+            style={{ opacity: settled ? 1 : 0, transitionDuration: `${SETTLE_MS}ms` }}
+          />
+        </div>
+
+        {/* Wordmark resolves under the mark, then clears before the flight. */}
+        {/*
+          `animation-fill-mode: forwards` wins over an inline opacity, so the
+          fade-out is a class swap rather than a style override — otherwise the
+          wordmark stays on screen through the flight.
+        */}
+        <div
+          className={`absolute top-[calc(50%+20vmin)] text-center ${
+            flying ? 'intro-wordmark-out' : 'intro-wordmark'
+          }`}
+        >
+          <p className="text-[clamp(1.4rem,3.6vw,2.25rem)] font-extrabold tracking-[-0.02em] text-white">
+            ENTIRE<span className="text-spectrum">FM</span>
+          </p>
+          <p className="mt-3 text-[10px] font-medium uppercase tracking-[0.34em] text-brand-mist/45">
+            Facilities Management. Evolved.
+          </p>
+        </div>
       </div>
 
       <button
         type="button"
         onClick={dismiss}
         tabIndex={-1}
-        className="absolute bottom-8 right-8 text-[11px] uppercase tracking-[0.18em] text-brand-mist/35 transition-colors hover:text-brand-mist/80"
+        className="absolute bottom-8 right-8 text-[11px] uppercase tracking-[0.18em] text-brand-mist/35 transition-opacity hover:text-brand-mist/80"
+        style={{ opacity: flying ? 0 : 1 }}
       >
         Skip
       </button>
@@ -120,11 +252,16 @@ export function BrandIntro() {
       <style>{`
         .intro-wordmark {
           opacity: 0;
-          transform: translateY(10px);
-          animation: introWordmark 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 1500ms forwards;
+          animation: introWordmark 800ms cubic-bezier(0.22, 0.61, 0.36, 1) 1400ms forwards;
+        }
+        .intro-wordmark-out {
+          animation: none;
+          opacity: 0;
+          transition: opacity 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
         }
         @keyframes introWordmark {
-          to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </div>

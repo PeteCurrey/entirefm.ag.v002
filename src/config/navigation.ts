@@ -27,13 +27,15 @@ export interface NavSection {
   label: string;
   href: string;
   columns: NavColumn[];
-  /** Promoted panel shown alongside the columns. */
+  /** Promoted image panel shown alongside the columns. */
   feature?: {
     eyebrow: string;
     title: string;
     body: string;
     href: string;
     cta: string;
+    /** Key into the editorial image manifest. */
+    imageKey: string;
   };
 }
 
@@ -71,6 +73,7 @@ export const PRIMARY_NAV: NavSection[] = [
       body: 'Hard and soft services under a single provider, so responsibility never moves between suppliers while a building sits unusable.',
       href: '/hard-services',
       cta: 'How it works',
+      imageKey: 'switchgear-inspection',
     },
   },
   {
@@ -104,45 +107,22 @@ export const PRIMARY_NAV: NavSection[] = [
       body: 'A two-hour outage is a nuisance in a warehouse and an incident in a clinical building. Sector experience is what tells the two apart.',
       href: '/sectors',
       cta: 'All sectors',
-    },
-  },
-  {
-    label: 'Locations',
-    href: '/locations',
-    columns: [
-      {
-        heading: 'Primary markets',
-        links: [
-          { label: 'London', href: '/facilities-management-london', detail: 'ULEZ, permits and tall-building water systems' },
-          { label: 'Manchester', href: '/facilities-management-manchester', detail: 'Mill conversions and Trafford Park' },
-          { label: 'Sheffield', href: '/facilities-management-sheffield', detail: 'Heavy industrial and advanced manufacturing' },
-          { label: 'Leeds', href: '/facilities-management-leeds', detail: 'Multi-tenant offices and the Aire Valley' },
-          { label: 'Birmingham', href: '/facilities-management-birmingham', detail: 'Clean Air Zone and listed city-centre stock' },
-        ],
-      },
-      {
-        heading: 'Midlands & regions',
-        links: [
-          { label: 'Nottingham', href: '/facilities-management-nottingham', detail: 'Workplace Parking Levy and Lace Market stock' },
-          { label: 'Derby', href: '/facilities-management-derby', detail: 'Aerospace and advanced engineering' },
-          { label: 'Lincoln', href: '/facilities-management-lincoln', detail: 'County-wide coverage and food production' },
-          { label: 'Liverpool', href: '/facilities-management-liverpool', detail: 'Salt-air exposure and waterfront fabric' },
-          { label: 'All locations', href: '/locations', detail: 'Full UK coverage map' },
-        ],
-      },
-    ],
-    feature: {
-      eyebrow: 'Coverage',
-      title: 'Mobile teams, not a branch network',
-      body: 'We do not claim a depot in every city. Response times are agreed per site from genuine travel capability.',
-      href: '/locations',
-      cta: 'How coverage works',
+      imageKey: 'rooftop-plant-night',
     },
   },
 ];
 
-/** Flat links that sit alongside the mega-menu sections. */
+/**
+ * Flat links alongside the mega-menu sections.
+ *
+ * Locations is a single link to the hub rather than a dropdown. The legacy
+ * geographic pages carried over from Wix are search landing pages — they earn
+ * their traffic from Google, not from someone browsing the navigation — and
+ * listing 70+ of them in the header would bury the pages people actually
+ * navigate to. The hub lists them all.
+ */
 export const SECONDARY_NAV: NavLink[] = [
+  { label: 'Locations', href: '/locations' },
   { label: 'Case Studies', href: '/case-studies' },
   { label: 'Resources', href: '/resources' },
   { label: 'About', href: '/about-entire-facilities-management' },

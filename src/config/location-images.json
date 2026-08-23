@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-22",
+  "generated": "2026-08-23",
   "cities": {
     "london": {
       "city": "London",
@@ -372,6 +372,17 @@
         "2000": "/images/editorial/entirefm-access-control-install-2000w.webp"
       },
       "src": "/images/editorial/entirefm-access-control-install-2000w.webp"
+    },
+    "hero-headquarters": {
+      "alt": "EntireFM headquarters at dusk, illuminated signage along the building facade",
+      "source": "a642cbea-b3d4-4ab3-9e2c-652172921bb8.png",
+      "widths": {
+        "900": "/images/editorial/entirefm-hero-headquarters-900w.webp",
+        "1280": "/images/editorial/entirefm-hero-headquarters-1280w.webp",
+        "1920": "/images/editorial/entirefm-hero-headquarters-1920w.webp",
+        "2560": "/images/editorial/entirefm-hero-headquarters-2560w.webp"
+      },
+      "src": "/images/editorial/entirefm-hero-headquarters-2560w.webp"
     },
     "headquarters-exterior": {
       "alt": "EntireFM branded signage on a modern commercial building exterior at dusk",

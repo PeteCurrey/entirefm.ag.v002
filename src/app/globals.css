@@ -334,6 +334,20 @@
     @apply text-white;
   }
 
+  /* ── Intro handover ─────────────────────────────────────────────────── */
+  /* While the first-visit intro is running, the header's own mark is hidden.
+     The intro flies a mark into this exact position and then removes
+     `data-intro-running`, at which point this one fades in and takes over.
+     Only ever one mark on screen. */
+
+  html[data-intro-running] .brand-mark {
+    opacity: 0;
+  }
+  .brand-mark {
+    opacity: 1;
+    transition: opacity 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
   /* ── Hairline divider carrying the spectrum ─────────────────────────── */
 
   .rule-spectrum {
