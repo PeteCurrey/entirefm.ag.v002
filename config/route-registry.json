@@ -6147,6 +6147,38 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/working-at-heights"
+    },
+    {
+      "path": "/fm-briefing",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
+    },
+    {
+      "path": "/fm-briefing/unsubscribe",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
     }
   ],
   "orphanRecovery": {

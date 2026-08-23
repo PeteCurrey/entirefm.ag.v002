@@ -672,5 +672,59 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
       'No placeholder videos presented as finished production material'
     ],
     contentStatus: 'COMPLETE'
+  },
+  '/fm-briefing': {
+    path: '/fm-briefing',
+    title: 'The FM Briefing | Practical Facilities Management Intelligence | EntireFM',
+    metaDescription: 'Get The FM Briefing: a concise weekly facilities management publication covering maintenance, compliance, engineering, and building technology.',
+    h1: 'THE FM BRIEFING — Practical Intelligence for People Responsible for Buildings',
+    eyebrow: 'Recurring FM Publication',
+    heroIntro: 'A concise weekly editorial briefing on maintenance, statutory compliance, engineering, AI & technology, and property operations. No marketing noise.',
+    heroDescription: 'Delivered every Tuesday: the week that matters in UK facilities management, practical compliance guidance, and useful operational tools.',
+    heroImage: '/branding/EntireFM Branding 001.png',
+    historicIntent: 'FM briefing newsletter subscription intent',
+    primaryIntent: 'the fm briefing newsletter',
+    secondaryIntents: ['facilities management newsletter', 'FM industry briefing UK', 'building maintenance intelligence'],
+    pageType: 'company',
+    historicTopics: ['FM newsletter', 'The FM Briefing', 'Industry updates'],
+    requiredSections: ['hero', 'pillars', 'preview', 'cta'],
+    sections: [
+      {
+        heading: 'Facilities-Management Intelligence Without the Noise',
+        body: 'The FM Briefing is engineered for estate directors, facilities managers, property operations heads, and building engineers who need actionable signal, not vendor noise.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources' },
+      { name: 'The FM Briefing', url: '/fm-briefing' }
+    ],
+    relatedRoutes: ['/blog', '/resources', '/compliance', '/tools'],
+    conversionGoal: 'Grow opted-in readership of property decision-makers.',
+    verificationRequirements: ['Opt-in consent must be recorded distinctly from contact enquiries'],
+    contentStatus: 'COMPLETE'
+  },
+  '/fm-briefing/unsubscribe': {
+    path: '/fm-briefing/unsubscribe',
+    title: 'Unsubscribe | The FM Briefing | EntireFM',
+    metaDescription: 'Manage your subscription preferences or unsubscribe from The FM Briefing.',
+    h1: 'Unsubscribe & Preference Centre',
+    eyebrow: 'Subscription Preferences',
+    heroIntro: 'Manage your email preferences or opt out of recurring editorial communications.',
+    pageType: 'company',
+    historicIntent: 'FM briefing newsletter unsubscribe and preference management',
+    primaryIntent: 'unsubscribe from fm briefing',
+    secondaryIntents: ['manage email preferences', 'opt out FM newsletter', 'fm briefing subscription settings'],
+    historicTopics: ['newsletter unsubscribe', 'email preferences', 'subscription management'],
+    requiredSections: ['unsubscribe-form'],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'The FM Briefing', url: '/fm-briefing' },
+      { name: 'Unsubscribe', url: '/fm-briefing/unsubscribe' }
+    ],
+    relatedRoutes: ['/fm-briefing', '/privacy-policy'],
+    conversionGoal: 'Provide compliant, one-click unsubscribe mechanism.',
+    verificationRequirements: ['Immediate suppression list update upon token submission'],
+    contentStatus: 'COMPLETE'
   }
 };

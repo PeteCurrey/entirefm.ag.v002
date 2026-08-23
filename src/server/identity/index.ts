@@ -1,12 +1,13 @@
 /**
- * ENTIREFM IDENTITY & ACCESS DOMAIN MODULE (Phase 0A-R Hardened)
- * ==============================================================
+ * ENTIREFM IDENTITY & ACCESS DOMAIN MODULE (Phase 0B-R Operational Hardening)
+ * ==========================================================================
  * Implements:
  * 1. Supabase Auth Token verification & UserIdentity resolution
  * 2. Organisation Membership & Multi-tenant tenancy
  * 3. Role & Granular Permissions ("What can they do?")
  * 4. Object Scopes via membership_scopes ("Where can they do it?")
- * 5. Server-side security & RLS alignment
+ * 5. Instant Session Revocation check against Database state
+ * 6. Server-side security & RLS alignment
  */
 
 import { createHmac, timingSafeEqual } from 'node:crypto';
@@ -300,6 +301,45 @@ export function verifySessionToken(token: string | undefined | null): UserSessio
 }
 
 /**
+ * Validates session validity against the live database to prevent stale authorization
+ */
+export async function validateLiveSession(session: UserSession | null): Promise<UserSession | null> {
+  if (!session) return null;
+  
+  // If bootstrap account, allow
+  if (session.email === 'admin@entirefm.com' || session.email === 'ops@entirefm.com') {
+    return session;
+  }
+
+  // Check if person exists and is ACTIVE
+  const { data: persons } = await dbQuery<Person[]>(
+    `persons?id=eq.${encodeURIComponent(session.personId)}&status=eq.ACTIVE&select=*`
+  );
+  if (!persons || persons.length === 0) {
+    return null; // Person revoked or suspended
+  }
+
+  // Check active membership
+  const { data: memberships } = await dbQuery<any[]>(
+    `organisation_memberships?person_id=eq.${encodeURIComponent(session.personId)}&organisation_id=eq.${encodeURIComponent(session.orgId)}&status=eq.ACTIVE&select=*,scopes:membership_scopes(*)`
+  );
+  if (!memberships || memberships.length === 0) {
+    return null; // Membership revoked
+  }
+
+  // Refresh live scopes from database
+  const liveScopes = (memberships[0].scopes || []).map((s: any) => ({
+    type: s.scope_type as ScopeType,
+    id: s.scope_id,
+  }));
+
+  return {
+    ...session,
+    scopes: liveScopes,
+  };
+}
+
+/**
  * Get current authenticated user session from Next.js server cookie context
  */
 export async function getCurrentSession(): Promise<UserSession | null> {
@@ -307,11 +347,9 @@ export async function getCurrentSession(): Promise<UserSession | null> {
   const token = jar.get(AUTH_COOKIE_NAME)?.value || jar.get('efm_admin')?.value;
   if (!token) return null;
 
-  // Handle standard session token
   const session = verifySessionToken(token);
   if (session) return session;
 
-  // Backward compatibility with legacy admin password token
   const legacySecret = process.env.ADMIN_PASSWORD;
   if (legacySecret) {
     const expectedLegacyToken = createHmac('sha256', legacySecret).update('efm-admin-session-v1').digest('hex');
@@ -334,41 +372,29 @@ export async function getCurrentSession(): Promise<UserSession | null> {
   return null;
 }
 
-/**
- * Verify whether a session has a specific permission code ("What can they do?")
- */
 export function hasPermission(session: UserSession | null, permission: PermissionCode): boolean {
   if (!session) return false;
   if (session.role === 'CEO' || session.role === 'ADMINISTRATOR') return true;
   return session.permissions.includes(permission);
 }
 
-/**
- * Verify whether a session has object scope over a specific estate target ("Where can they do it?")
- */
 export function hasScope(
   session: UserSession | null,
   scopeType: ScopeType,
   targetScopeId: string
 ): boolean {
   if (!session) return false;
-  // EntireFM internal staff have global scope over their tenant
   if (session.orgType === 'ENTIREFM' && (session.role === 'CEO' || session.role === 'ADMINISTRATOR')) {
     return true;
   }
-  // Check if session has full organisation scope
   const hasOrgScope = session.scopes?.some(
     (s) => s.type === 'ORGANISATION' && s.id === session.orgId
   );
   if (hasOrgScope && scopeType !== 'ORGANISATION') return true;
 
-  // Check specific object scope matching
   return session.scopes?.some((s) => s.type === scopeType && s.id === targetScopeId) ?? false;
 }
 
-/**
- * Determine default destination portal based on user role and org type
- */
 export function getPostLoginRedirect(role: RoleCode, orgType: OrgType): string {
   if (role === 'ENGINEER' || role === 'CONTRACTOR_ENGINEER') {
     return '/engineer';
@@ -385,9 +411,6 @@ export function getPostLoginRedirect(role: RoleCode, orgType: OrgType): string {
   return '/admin';
 }
 
-/**
- * Get permission list for any given role
- */
 export function getRolePermissions(role: RoleCode): PermissionCode[] {
   return DEFAULT_ROLE_PERMISSIONS[role] || [];
 }

@@ -11,6 +11,7 @@ import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { POSTS_BY_DATE, POST_BY_PATH, readingTime } from '@/content/blog/posts';
 import { PRIMARY_NAV, FOOTER_NAV } from '@/config/navigation';
 import editorial from '@/config/location-images.json';
+import { NewsletterSignupSection, NewsletterInlineCard } from '@/components/newsletter/NewsletterSignupSection';
 import type { TemplateProps } from './types';
 
 /**
@@ -410,6 +411,13 @@ function Article({ route, content }: TemplateProps) {
                   </ul>
                 </div>
               )}
+
+              {/* In-Article Newsletter Briefing Card */}
+              <NewsletterInlineCard
+                title="Read EntireFM without checking EntireFM"
+                subtitle="A concise weekly briefing covering the facilities management developments worth knowing about."
+                signupPage={route.path}
+              />
             </div>
           </div>
 
@@ -442,6 +450,12 @@ function Article({ route, content }: TemplateProps) {
             </section>
           )}
         </article>
+
+        {/* Blog Article Footer Newsletter Signup */}
+        <NewsletterSignupSection
+          signupPage={route.path}
+          sourceContext="article_footer"
+        />
 
         <ProposalSection
           headline="Request a facilities management review"

@@ -141,6 +141,20 @@ const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    title: 'MARKETING & NEWSLETTER',
+    items: [
+      { name: 'Newsletter Dashboard', href: '/admin/newsletter' },
+      { name: 'Campaigns', href: '/admin/newsletter/campaigns' },
+      { name: 'New Campaign', href: '/admin/newsletter/new' },
+      { name: 'Subscribers', href: '/admin/newsletter/subscribers' },
+      { name: 'Audience & Growth', href: '/admin/newsletter/audience' },
+      { name: 'Automation & Briefing', href: '/admin/newsletter/automation' },
+      { name: 'Automation Jobs', href: '/admin/newsletter/automation/jobs' },
+      { name: 'Analytics', href: '/admin/newsletter/analytics' },
+      { name: 'Suppression List', href: '/admin/newsletter/suppression' },
+    ],
+  },
+  {
     title: 'WEBSITE & GROWTH',
     items: [
       { name: 'Enquiries', href: '/admin/growth/enquiries' },

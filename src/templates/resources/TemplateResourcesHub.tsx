@@ -25,6 +25,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
+import { NewsletterSignupSection } from '@/components/newsletter/NewsletterSignupSection';
 import { POSTS_BY_DATE } from '@/content/blog/posts';
 import type { TemplateProps } from '../types';
 

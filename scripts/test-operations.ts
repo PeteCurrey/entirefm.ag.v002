@@ -51,7 +51,7 @@ assert(p1Targets.resolutionDueAt.getTime() > p1Targets.attendanceDueAt.getTime()
 // Check SLA radar status calculations
 const pastDue = new Date(Date.now() - 1000 * 60 * 30); // 30 mins ago
 const urgentDue = new Date(Date.now() + 1000 * 60 * 45); // 45 mins from now
-const safeDue = new Date(Date.now() + 1000 * 60 * 300); // 5 hours from now
+const safeDue = new Date(Date.now() + 1000 * 60 * 60 * 36); // 36 hours from now (75% remaining of 48h)
 
 assert(computeSlaStatus(pastDue).status === 'BREACHED', 'Past target correctly flagged as BREACHED');
 assert(computeSlaStatus(urgentDue).status === 'AT_RISK', '45m remaining correctly flagged as AT_RISK (<60m)');

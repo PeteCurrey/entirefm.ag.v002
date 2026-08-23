@@ -43,6 +43,8 @@ import { TemplateDocumentVault } from './resources/TemplateDocumentVault';
 import { TemplateBuildingWalk } from './resources/TemplateBuildingWalk';
 import { TemplateAiPillar } from './resources/TemplateAiPillar';
 import { TemplateAiGuide } from './resources/TemplateAiGuide';
+import { TemplateFmBriefing } from './resources/TemplateFmBriefing';
+import { TemplateUnsubscribe } from './resources/TemplateUnsubscribe';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const content = loadContentRecord(route.path);
@@ -183,6 +185,12 @@ function selectTemplate(
   }
   if (path === '/building-walk') {
     return <TemplateBuildingWalk route={route} content={content} />;
+  }
+  if (path === '/fm-briefing') {
+    return <TemplateFmBriefing route={route} content={content} />;
+  }
+  if (path === '/fm-briefing/unsubscribe') {
+    return <TemplateUnsubscribe route={route} content={content} />;
   }
 
   // 7. Directory Hub Pages

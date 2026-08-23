@@ -16,7 +16,7 @@ const record: ContentRecord = {
   "eyebrow": "Commercial Estate Operations",
   "heroIntro": "Entire Facilities Management provides single-source manchester facilities managment for commercial property owners, managing agents, and industrial estates nationwide.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-  "heroImage": "/branding/EntireFM Branding 001.png",
+  "heroImage": "/images/locations/manchester/facilities-management-manchester-hero-2000w.webp",
   "historicIntent": "Historic commercial search intent for manchester facilities managment",
   "primaryIntent": "manchester facilities managment services",
   "secondaryIntents": [

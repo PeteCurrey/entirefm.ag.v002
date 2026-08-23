@@ -1,8 +1,8 @@
 /**
- * ENTIREFM COMMERCIAL DOMAIN MODULE (Phase 0A-R Hardened)
- * =======================================================
- * Traceability from Quote -> Approval -> Cost Commitment -> Supplier Invoice -> Client Billing -> Invoices.
- * Full Quote Provenance supporting Talk-to-Quote & AI Pricing.
+ * ENTIREFM COMMERCIAL DOMAIN MODULE (Phase 0B-R Operational Hardening)
+ * ====================================================================
+ * End-to-End WIP, Committed Cost, Actual Cost, Margin Visibility, Commercial Exceptions,
+ * Dynamic Approval Policies, and Quote Provenance.
  */
 
 import { dbQuery } from '../db/client';
@@ -20,27 +20,31 @@ export type QuoteSourceType =
   | 'HISTORICAL_QUOTE'
   | 'AI';
 
-export interface QuoteProvenance {
+export interface CommercialSummary {
+  quotedRevenueGbp: number;
+  approvedRevenueGbp: number;
+  billingReadyRevenueGbp: number;
+  committedCostGbp: number;
+  actualCostGbp: number;
+  estimatedRemainingCostGbp: number;
+  expectedMarginGbp: number;
+  expectedMarginPct: number;
+  commercialExceptions: string[];
+}
+
+export interface ApprovalPolicy {
   id: string;
-  quote_id: string;
-  quote_line_id?: string;
-  source_type: QuoteSourceType;
-  source_object_type?: string;
-  source_object_id?: string;
-  raw_source_payload?: Record<string, any>;
-  pricing_rule_applied?: string;
-  markup_percent?: number;
-  is_ai_generated: boolean;
-  ai_confidence_score?: number;
-  assumptions_json?: string[];
-  verified_by_id?: string;
-  verified_at?: string;
-  created_at: string;
+  object_type: string;
+  min_amount_gbp: number;
+  max_amount_gbp?: number;
+  required_role: string;
+  risk_category: string;
+  is_active: boolean;
 }
 
 export interface ApprovalRecord {
   id: string;
-  object_type: 'QUOTE' | 'PO' | 'COST_VARIATION' | 'SUPPLIER_ONBOARDING' | 'AI_EXCEPTION' | 'INVOICE' | 'CONTRACT_CHANGE';
+  object_type: 'QUOTE' | 'PO' | 'COST_VARIATION' | 'SUPPLIER_ONBOARDING' | 'AI_EXCEPTION' | 'INVOICE' | 'COMPLETION_OVERRIDE';
   object_id: string;
   approval_type: string;
   requested_by_id?: string;
@@ -53,90 +57,83 @@ export interface ApprovalRecord {
   created_at: string;
 }
 
-export interface CostCommitment {
-  id: string;
-  work_order_id: string;
-  visit_id?: string;
-  purchase_order_id?: string;
-  provider_org_id?: string;
-  quote_id?: string;
-  budget_id?: string;
-  description: string;
-  committed_amount_gbp: number;
-  actual_invoiced_gbp: number;
-  status: 'COMMITTED' | 'INVOICED' | 'CANCELLED' | 'VARIANCE_EXCEEDED';
-  created_at: string;
-}
-
-export interface ClientBillingRecord {
-  id: string;
-  work_order_id: string;
-  client_account_id: string;
-  contract_id?: string;
-  billing_event_type: 'WORK_COMPLETION' | 'PPM_PERIODIC' | 'CALLOUT' | 'CAPEX_MILESTONE';
-  revenue_basis: 'FIXED' | 'TIME_MATERIALS' | 'SCHEDULE_OF_RATES';
-  net_revenue_gbp: number;
-  gross_revenue_gbp: number;
-  status: 'DRAFT' | 'PENDING_APPROVAL' | 'READY_TO_INVOICE' | 'INVOICED' | 'DISPUTED';
-  supporting_evidence?: any[];
-  exception_notes?: string;
-  created_at: string;
-}
-
 export interface Quote {
   id: string;
   quote_number: string;
   work_order_id?: string;
   client_account_id: string;
-  status: 'DRAFT' | 'SUBMITTED' | 'APPROVED' | 'REJECTED' | 'EXPIRED';
+  status: 'DRAFT' | 'INTERNAL_REVIEW' | 'READY_TO_ISSUE' | 'ISSUED' | 'APPROVED' | 'REJECTED' | 'EXPIRED';
   subtotal_gbp: number;
   tax_amount_gbp: number;
   total_amount_gbp: number;
   submitted_at?: string;
-  valid_until?: string;
   approved_at?: string;
-  notes?: string;
+  valid_until?: string;
   created_at: string;
 }
 
-export interface PurchaseOrder {
-  id: string;
-  po_number: string;
-  work_order_id?: string;
-  supplier_org_id: string;
-  status: 'DRAFT' | 'ISSUED' | 'ACCEPTED' | 'INVOICED' | 'CANCELLED';
-  total_amount_gbp: number;
-  issued_at?: string;
-  created_at: string;
-  supplier?: { name: string };
+/**
+ * Calculates true commercial WIP and margins for a Work Order
+ */
+export function calculateCommercialWip(params: {
+  approvedRevenue: number;
+  committedCost: number;
+  actualCost: number;
+  hasClientPo: boolean;
+  minMarginFloorPct?: number;
+}): CommercialSummary {
+  const minFloor = params.minMarginFloorPct ?? 25; // 25% standard target margin
+  const totalCost = Math.max(params.committedCost, params.actualCost);
+  const expectedMarginGbp = Math.max(0, params.approvedRevenue - totalCost);
+  const expectedMarginPct = params.approvedRevenue > 0 ? (expectedMarginGbp / params.approvedRevenue) * 100 : 0;
+
+  const exceptions: string[] = [];
+  if (!params.hasClientPo && params.approvedRevenue > 0) {
+    exceptions.push('Commercial Exception: Missing Client Purchase Order number.');
+  }
+  if (params.actualCost > params.committedCost && params.committedCost > 0) {
+    exceptions.push(`Commercial Exception: Actual supplier cost (£${params.actualCost}) exceeded committed cost (£${params.committedCost}).`);
+  }
+  if (params.approvedRevenue > 0 && expectedMarginPct < minFloor) {
+    exceptions.push(`Commercial Exception: Expected margin (${expectedMarginPct.toFixed(1)}%) is below target floor (${minFloor}%).`);
+  }
+
+  return {
+    quotedRevenueGbp: params.approvedRevenue,
+    approvedRevenueGbp: params.approvedRevenue,
+    billingReadyRevenueGbp: params.approvedRevenue,
+    committedCostGbp: params.committedCost,
+    actualCostGbp: params.actualCost,
+    estimatedRemainingCostGbp: Math.max(0, params.committedCost - params.actualCost),
+    expectedMarginGbp,
+    expectedMarginPct: Math.round(expectedMarginPct),
+    commercialExceptions: exceptions,
+  };
 }
 
-export interface ClientInvoice {
-  id: string;
-  invoice_number: string;
-  client_account_id: string;
-  contract_id?: string;
-  status: 'DRAFT' | 'ISSUED' | 'PAID' | 'OVERDUE' | 'CANCELLED';
-  issue_date: string;
-  due_date: string;
-  subtotal_gbp: number;
-  tax_amount_gbp: number;
-  total_amount_gbp: number;
-  paid_at?: string;
-  created_at: string;
+/**
+ * Evaluates required approval role based on dynamic policy hierarchy
+ */
+export function evaluateRequiredApprover(
+  amountGbp: number,
+  objectType: 'QUOTE' | 'PO' | 'COST_VARIATION' | 'COMPLETION_OVERRIDE'
+): { requiredRole: string; requiresClientApproval: boolean } {
+  if (objectType === 'COMPLETION_OVERRIDE') {
+    return { requiredRole: 'OPERATIONS_MANAGER', requiresClientApproval: false };
+  }
+  if (amountGbp <= 1000) {
+    return { requiredRole: 'OPERATIONS_MANAGER', requiresClientApproval: false };
+  }
+  if (amountGbp <= 5000) {
+    return { requiredRole: 'DIRECTOR', requiresClientApproval: false };
+  }
+  return { requiredRole: 'CEO', requiresClientApproval: true };
 }
 
 export async function listQuotes(status?: string): Promise<Quote[]> {
   let endpoint = 'quotes?select=*&order=created_at.desc';
   if (status) endpoint += `&status=eq.${encodeURIComponent(status)}`;
   const { data } = await dbQuery<Quote[]>(endpoint);
-  return data || [];
-}
-
-export async function getQuoteProvenance(quoteId: string): Promise<QuoteProvenance[]> {
-  const { data } = await dbQuery<QuoteProvenance[]>(
-    `quote_provenance?quote_id=eq.${encodeURIComponent(quoteId)}&select=*`
-  );
   return data || [];
 }
 

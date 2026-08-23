@@ -34,3 +34,6 @@ export async function listThreads(status?: string): Promise<CommunicationThread[
   const { data } = await dbQuery<CommunicationThread[]>(endpoint);
   return data || [];
 }
+
+/** Canonical export used by admin communications page */
+export const listCommunicationThreads = listThreads;

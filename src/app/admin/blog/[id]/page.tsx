@@ -99,6 +99,12 @@ export default function EditPostPage() {
           >
             Preview Live ↗
           </a>
+          <Link
+            href={`/admin/blog/distribution`}
+            className="text-xs bg-pink-950/60 hover:bg-pink-900/60 text-pink-300 border border-pink-800/60 px-3 py-2 rounded-lg font-medium"
+          >
+            Distribute ↗
+          </Link>
           <button
             onClick={() => handleSave()}
             disabled={saving}

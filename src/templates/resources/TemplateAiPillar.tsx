@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { RouteRecord, ContentRecord } from '@/lib/routes/route-schema';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
+import { NewsletterSignupSection } from '@/components/newsletter/NewsletterSignupSection';
 
 interface TemplateAiPillarProps {
   route: RouteRecord;
@@ -741,6 +742,12 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
           </div>
         </div>
       </section>
+
+      {/* Newsletter Signup */}
+      <NewsletterSignupSection
+        signupPage="/resources/ai-in-facilities-management"
+        sourceContext="ai_pillar_hub"
+      />
 
       {/* 9. CONTEXTUAL COMMERCIAL CTA */}
       <section className="py-20 bg-gradient-to-r from-pink-950/40 via-slate-900 to-slate-900 border-t border-pink-500/20">

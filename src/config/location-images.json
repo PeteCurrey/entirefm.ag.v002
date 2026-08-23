@@ -46,13 +46,14 @@
       "city": "Manchester",
       "images": [
         {
-          "alt": "EntireFM facilities management van on a wet Manchester city-centre street at dusk",
-          "source": "entire facilities management manchester Image Aug 22, 2026, 05_51_45 PM (1).png",
+          "alt": "EntireFM facilities management van and engineers outside a modern glass commercial building in Manchester at dusk",
+          "source": "media_1787518460552.jpg",
           "widths": {
-            "800": "/images/locations/manchester/facilities-management-manchester-deansgate-city-centre-800w.webp",
-            "1600": "/images/locations/manchester/facilities-management-manchester-deansgate-city-centre-1600w.webp"
+            "800": "/images/locations/manchester/facilities-management-manchester-hero-800w.webp",
+            "1200": "/images/locations/manchester/facilities-management-manchester-hero-1200w.webp",
+            "2000": "/images/locations/manchester/facilities-management-manchester-hero-2000w.webp"
           },
-          "src": "/images/locations/manchester/facilities-management-manchester-deansgate-city-centre-1600w.webp"
+          "src": "/images/locations/manchester/facilities-management-manchester-hero-2000w.webp"
         },
         {
           "alt": "EntireFM liveried vans parked outside company premises ready for deployment across Manchester and the North West",
