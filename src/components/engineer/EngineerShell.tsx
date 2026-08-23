@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { Home, Briefcase, Mic, User, Wifi, WifiOff, RefreshCw, AlertTriangle } from 'lucide-react';
+import { Home, Briefcase, Mic, User, Wifi, WifiOff, RefreshCw, AlertTriangle, ArrowDownCircle } from 'lucide-react';
 import { getSyncStatus, syncQueue, getPendingCount, type SyncStatus } from '@/lib/field/offline-store';
 
 interface EngineerShellProps {
@@ -69,8 +69,45 @@ function SyncBadge({ personId }: { personId: string }) {
 }
 
 export default function EngineerShell({ children, session }: EngineerShellProps) {
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+      navigator.serviceWorker.register('/sw.js').then((reg) => {
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          if (newWorker) {
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                setUpdateAvailable(true);
+              }
+            });
+          }
+        });
+      }).catch((err) => {
+        console.warn('[PWA] Service worker registration error:', err);
+      });
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-brand-void flex flex-col" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+      {/* Update notification */}
+      {updateAvailable && (
+        <div className="bg-brand-electric text-black px-4 py-2 text-xs font-bold flex items-center justify-between z-50">
+          <div className="flex items-center gap-1.5">
+            <ArrowDownCircle className="w-4 h-4 shrink-0" />
+            <span>EntireFM Field update available</span>
+          </div>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-black text-white px-2.5 py-1 rounded text-[11px] font-semibold"
+          >
+            Update Now
+          </button>
+        </div>
+      )}
+
       {/* Top bar */}
       <header className="sticky top-0 z-50 bg-brand-carbon border-b border-brand-edge-dark safe-area-inset-top">
         <div className="flex items-center justify-between px-4 py-3" style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }}>

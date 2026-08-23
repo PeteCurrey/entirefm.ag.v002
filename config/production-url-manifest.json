@@ -7,12 +7,12 @@
   "generatedBy": "scripts/generate-production-manifest.js",
   "warning": "This file is auto-generated. Edit route-registry.json and re-run npm run generate:manifest.",
   "summary": {
-    "total": 325,
-    "protected": 325,
-    "indexable": 325,
+    "total": 326,
+    "protected": 326,
+    "indexable": 326,
     "historicWix": 229,
     "currentLive": 7,
-    "growth": 89
+    "growth": 90
   },
   "urls": [
     {
@@ -4237,6 +4237,19 @@
       "canonicalExpected": "self",
       "originEstate": "GROWTH",
       "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/media",
+      "url": "https://www.entirefm.com/media",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "company",
       "provenance": "NEW_GROWTH",
       "contentStatus": "COMPLETE"
     }

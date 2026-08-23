@@ -45,6 +45,7 @@ import { TemplateAiPillar } from './resources/TemplateAiPillar';
 import { TemplateAiGuide } from './resources/TemplateAiGuide';
 import { TemplateGuidesHub } from './resources/TemplateGuidesHub';
 import { TemplateEvergreenGuide } from './resources/TemplateEvergreenGuide';
+import { TemplateMediaCentre } from './resources/TemplateMediaCentre';
 import { TemplateFmBriefing } from './resources/TemplateFmBriefing';
 import { TemplateUnsubscribe } from './resources/TemplateUnsubscribe';
 
@@ -190,6 +191,9 @@ function selectTemplate(
   }
   if (path === '/resources/document-vault') {
     return <TemplateDocumentVault route={route} content={content} />;
+  }
+  if (path === '/media') {
+    return <TemplateMediaCentre route={route} content={content} />;
   }
   if (path === '/building-walk') {
     return <TemplateBuildingWalk route={route} content={content} />;

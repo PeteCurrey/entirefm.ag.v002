@@ -193,6 +193,7 @@ const NAV_GROUPS: NavGroup[] = [
       { name: 'All Posts', href: '/admin/blog/posts' },
       { name: 'New Post', href: '/admin/blog/new' },
       { name: 'Editorial Calendar', href: '/admin/blog/calendar' },
+      { name: 'Digital PR & Promotion', href: '/admin/content/pr' },
       { name: 'AI Draft Queue', href: '/admin/blog/ai-queue' },
       { name: 'Topic Opportunities', href: '/admin/blog/topics' },
       { name: 'Categories', href: '/admin/blog/categories' },

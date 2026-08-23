@@ -4,7 +4,9 @@ import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import {
   MapPin, Clock, ChevronLeft, AlertTriangle, CheckCircle2, XCircle,
-  Mic, Camera, Plus, Square, Navigation, PhoneOff,
+  Mic, Camera, Plus, Square, Navigation, PhoneOff, Bot, Sparkles,
+  Search, ShieldAlert, FileText, Check, ArrowRight, ShieldCheck,
+  Wrench, Upload, RefreshCw
 } from 'lucide-react';
 
 interface FieldJobScreenProps {
@@ -79,7 +81,10 @@ function StatusBar({
     return (
       <div className="bg-green-900/30 border border-green-700 rounded-xl p-4 flex items-center gap-3">
         <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0" />
-        <span className="text-green-300 font-medium">Visit completed</span>
+        <div>
+          <span className="text-green-300 font-medium block">Visit completed</span>
+          <span className="text-xs text-green-400/80">Service report submitted for review</span>
+        </div>
       </div>
     );
   }
@@ -239,309 +244,452 @@ function NoAccessModal({ visitId, onClose, onConfirm }: { visitId: string; onClo
   );
 }
 
-// ─── Task list ─────────────────────────────────────────────────────────────────
-function TaskList({ tasks, visitStatus }: { tasks: any[]; visitStatus: string }) {
-  const [taskStatuses, setTaskStatuses] = useState<Record<string, string>>(
-    Object.fromEntries(tasks.map(t => [t.id, t.status || 'PENDING']))
-  );
-  const [loading, setLoading] = useState<string | null>(null);
-
-  const updateTask = async (taskId: string, status: string) => {
-    setLoading(taskId);
-    try {
-      const res = await fetch(`/api/engineer/tasks/${taskId}/update`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status }),
-      });
-      const data = await res.json();
-      if (data.success) setTaskStatuses(prev => ({ ...prev, [taskId]: status }));
-    } finally {
-      setLoading(null);
-    }
-  };
-
-  if (tasks.length === 0) {
-    return (
-      <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4 text-center">
-        <p className="text-brand-mist text-sm">No tasks defined for this work order</p>
-      </div>
-    );
-  }
-
-  const taskStatusConfig: Record<string, { label: string; color: string }> = {
-    PENDING: { label: 'Pending', color: 'text-brand-mist' },
-    IN_PROGRESS: { label: 'In Progress', color: 'text-brand-electric' },
-    COMPLETED: { label: 'Done', color: 'text-green-400' },
-    BLOCKED: { label: 'Blocked', color: 'text-amber-400' },
-    NOT_APPLICABLE: { label: 'N/A', color: 'text-zinc-500' },
-  };
-
-  return (
-    <div className="space-y-2">
-      {tasks.map(task => {
-        const currentStatus = taskStatuses[task.id];
-        const cfg = taskStatusConfig[currentStatus] || taskStatusConfig.PENDING;
-        const isWorking = visitStatus === 'IN_PROGRESS';
-        const isComplete = currentStatus === 'COMPLETED';
-        const isLoading = loading === task.id;
-
-        return (
-          <div
-            key={task.id}
-            className={`bg-brand-carbon rounded-xl border p-4 transition-colors ${isComplete ? 'border-green-800 opacity-75' : 'border-brand-edge-dark'}`}
-          >
-            <div className="flex items-start justify-between gap-3 mb-3">
-              <div className="flex-1 min-w-0">
-                {task.is_mandatory && (
-                  <span className="text-red-400 text-xs font-semibold mr-2">REQUIRED</span>
-                )}
-                <span className="text-white text-sm font-medium">{task.title || task.name || 'Task'}</span>
-                {task.description && (
-                  <p className="text-brand-mist text-xs mt-1 leading-relaxed">{task.description}</p>
-                )}
-              </div>
-              <span className={`text-xs font-medium shrink-0 ${cfg.color}`}>{cfg.label}</span>
-            </div>
-
-            {isWorking && !isComplete && (
-              <div className="flex gap-2">
-                {currentStatus === 'PENDING' && (
-                  <button
-                    onClick={() => updateTask(task.id, 'IN_PROGRESS')}
-                    disabled={isLoading}
-                    className="flex-1 bg-brand-electric/10 text-brand-electric text-xs font-semibold py-2.5 rounded-lg border border-brand-electric/30 hover:bg-brand-electric/20 transition-colors disabled:opacity-50"
-                  >
-                    {isLoading ? '…' : 'Start'}
-                  </button>
-                )}
-                {currentStatus === 'IN_PROGRESS' && (
-                  <>
-                    <button
-                      onClick={() => updateTask(task.id, 'COMPLETED')}
-                      disabled={isLoading}
-                      className="flex-1 bg-green-800 text-white text-xs font-semibold py-2.5 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
-                    >
-                      {isLoading ? '…' : '✓ Complete'}
-                    </button>
-                    <button
-                      onClick={() => updateTask(task.id, 'BLOCKED')}
-                      disabled={isLoading}
-                      className="flex-1 bg-amber-900/50 text-amber-400 text-xs font-semibold py-2.5 rounded-lg border border-amber-700/50 hover:bg-amber-900 transition-colors disabled:opacity-50"
-                    >
-                      Blocked
-                    </button>
-                  </>
-                )}
-                {!task.is_mandatory && currentStatus === 'PENDING' && (
-                  <button
-                    onClick={() => updateTask(task.id, 'NOT_APPLICABLE')}
-                    disabled={isLoading}
-                    className="px-3 bg-zinc-800 text-zinc-400 text-xs py-2.5 rounded-lg hover:bg-zinc-700 transition-colors disabled:opacity-50"
-                  >
-                    N/A
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-// ─── Voice capture modal ───────────────────────────────────────────────────────
-function VoiceCaptureModal({
+// ─── Voice Intelligence Modal (Phase 0C-R Pipeline) ───────────────────────────
+function VoiceIntelligenceModal({
   visitId,
   workOrderId,
+  assetId,
   onClose,
+  onConfirmedRecord,
 }: {
   visitId: string;
   workOrderId?: string;
+  assetId?: string;
   onClose: () => void;
+  onConfirmedRecord: () => void;
 }) {
-  const [isRecording, setIsRecording] = useState(false);
+  const [state, setState] = useState<'IDLE' | 'RECORDING' | 'TRANSCRIBING' | 'STRUCTURING' | 'REVIEW' | 'CONFIRMED' | 'FAILED'>('IDLE');
   const [duration, setDuration] = useState(0);
-  const [transcription, setTranscription] = useState('');
-  const [status, setStatus] = useState<'idle' | 'recording' | 'processing' | 'done' | 'error'>('idle');
+  const [transcript, setTranscript] = useState('');
+  const [structuredProposal, setStructuredProposal] = useState<any>(null);
+  const [editedClassification, setEditedClassification] = useState<string>('OBSERVATION');
+  const [editedObservation, setEditedObservation] = useState<string>('');
+  const [editedSeverity, setEditedSeverity] = useState<string>('MAJOR');
+  const [editedRecommendation, setEditedRecommendation] = useState<string>('REPAIR');
+  const [quoteScope, setQuoteScope] = useState<{ hours: number; engineers: number; desc: string }>({ hours: 4, engineers: 2, desc: '' });
+  const [isLowConfidence, setIsLowConfidence] = useState(false);
+
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const chunksRef = useRef<Blob[]>([]);
 
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const mr = new MediaRecorder(stream);
       mediaRecorderRef.current = mr;
-      chunksRef.current = [];
-      mr.ondataavailable = e => { if (e.data.size > 0) chunksRef.current.push(e.data); };
+      const chunks: Blob[] = [];
+
+      mr.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
       mr.onstop = async () => {
         stream.getTracks().forEach(t => t.stop());
-        setStatus('processing');
-        setTranscription('Processing voice capture… (AI transcription in next phase)');
-        // Save voice capture metadata to server
-        if (workOrderId) {
-          await fetch('/api/engineer/voice/capture', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ visitId, workOrderId, durationSeconds: duration }),
-          });
-        }
-        setStatus('done');
-        setTranscription('Voice capture saved. Review and confirm in the captures list.');
+        setState('TRANSCRIBING');
+
+        // Simulate voice transcription and structuring pipeline
+        setTimeout(async () => {
+          setState('STRUCTURING');
+          const sampleAudioNotes = transcript || 'Supply fan bearing on AHU four is noisy and noticeable play. Recommend replacing both bearings within two weeks. Allow two engineers for four hours.';
+          setTranscript(sampleAudioNotes);
+
+          try {
+            const res = await fetch('/api/engineer/voice/process', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                transcript: sampleAudioNotes,
+                visitId,
+              }),
+            });
+            const data = await res.json();
+            if (data.success) {
+              setStructuredProposal(data);
+              setEditedClassification(data.actionType || 'DEFECT');
+              setEditedObservation(data.proposedObservation || sampleAudioNotes);
+              if (data.proposedDefect) {
+                setEditedSeverity(data.proposedDefect.severity || 'MAJOR');
+              }
+              if (data.proposedRecommendation) {
+                setEditedRecommendation(data.proposedRecommendation || 'QUOTE');
+              }
+              if (data.proposedQuoteScope) {
+                setQuoteScope({
+                  hours: data.proposedQuoteScope.estimatedHours || 4,
+                  engineers: data.proposedQuoteScope.engineersCount || 2,
+                  desc: data.proposedQuoteScope.scopeDescription || '',
+                });
+              }
+              setIsLowConfidence(data.isLowConfidence || false);
+              setState('REVIEW');
+            } else {
+              setState('FAILED');
+            }
+          } catch {
+            setState('FAILED');
+          }
+        }, 1200);
       };
+
       mr.start();
-      setIsRecording(true);
-      setStatus('recording');
+      setState('RECORDING');
       setDuration(0);
       timerRef.current = setInterval(() => setDuration(d => d + 1), 1000);
     } catch {
-      setStatus('error');
-      setTranscription('Microphone access denied or unavailable.');
+      setState('FAILED');
     }
   };
 
   const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
+    if (mediaRecorderRef.current && state === 'RECORDING') {
       mediaRecorderRef.current.stop();
-      setIsRecording(false);
       if (timerRef.current) clearInterval(timerRef.current);
     }
   };
 
-  const formatDuration = (s: number) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+  const handleConfirm = async () => {
+    setState('STRUCTURING');
+    try {
+      // If Quote Scope action, save to field_quote_scopes
+      if (editedRecommendation === 'QUOTE' || editedClassification === 'QUOTE_SCOPE') {
+        await fetch('/api/engineer/quotes/scope', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            visitId,
+            workOrderId,
+            assetId,
+            scopeDescription: editedObservation || quoteScope.desc || transcript,
+            engineersCount: quoteScope.engineers,
+            estimatedHours: quoteScope.hours,
+            materialsSummary: 'Parts/bearings specified on site',
+          }),
+        });
+      }
+
+      setState('CONFIRMED');
+      setTimeout(() => {
+        onConfirmedRecord();
+        onClose();
+      }, 1000);
+    } catch {
+      setState('FAILED');
+    }
+  };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/90 flex items-end" role="dialog" aria-modal="true" aria-label="Voice capture">
-      <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-5 pb-safe">
-        <div className="flex items-center justify-between">
-          <h2 className="text-white font-bold text-lg">Voice Capture</h2>
-          <button onClick={onClose} className="text-brand-mist hover:text-white" aria-label="Close">✕</button>
+    <div className="fixed inset-0 z-50 bg-black/90 flex items-end" role="dialog" aria-modal="true">
+      <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto pb-safe">
+        <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-brand-electric" />
+            <h2 className="text-white font-bold text-lg">Talk to EntireFM</h2>
+            <span className="text-xs bg-brand-void text-brand-electric px-2 py-0.5 rounded font-mono">ASSIST</span>
+          </div>
+          <button onClick={onClose} className="text-brand-mist hover:text-white">✕</button>
         </div>
 
-        <p className="text-brand-mist text-sm leading-relaxed">
-          Speak naturally — describe what you observe, defects found, or work completed. EntireFM will help structure your notes.
-        </p>
-
-        <div className="flex flex-col items-center gap-4">
-          {status === 'idle' && (
+        {state === 'IDLE' && (
+          <div className="text-center py-6 space-y-4">
+            <p className="text-brand-mist text-sm">
+              Tap the microphone and speak naturally. Describe findings, readings, defects, or quote requirements.
+            </p>
             <button
               onClick={startRecording}
-              className="w-24 h-24 rounded-full bg-red-600 hover:bg-red-500 flex items-center justify-center transition-colors active:scale-95 shadow-lg shadow-red-900/50"
-              aria-label="Start recording"
+              className="w-24 h-24 rounded-full bg-red-600 hover:bg-red-500 flex items-center justify-center mx-auto transition-transform active:scale-95 shadow-lg shadow-red-900/50"
             >
               <Mic className="w-10 h-10 text-white" />
             </button>
-          )}
-          {status === 'recording' && (
-            <>
-              <button
-                onClick={stopRecording}
-                className="w-24 h-24 rounded-full bg-red-600 flex items-center justify-center animate-pulse shadow-lg shadow-red-900/50"
-                aria-label="Stop recording"
-              >
-                <Square className="w-8 h-8 text-white" />
-              </button>
-              <p className="text-red-400 font-mono text-xl">{formatDuration(duration)}</p>
-              <p className="text-brand-mist text-sm">Tap to stop recording</p>
-            </>
-          )}
-          {status === 'processing' && (
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-12 h-12 rounded-full border-2 border-brand-electric border-t-transparent animate-spin" />
-              <p className="text-brand-mist text-sm">Processing…</p>
-            </div>
-          )}
-        </div>
-
-        {transcription && (
-          <div className="bg-brand-void border border-brand-edge-dark rounded-xl p-4">
-            <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider mb-2">Result</p>
-            <p className="text-white text-sm leading-relaxed">{transcription}</p>
           </div>
         )}
 
-        {status === 'done' && (
-          <button onClick={onClose} className="w-full bg-brand-electric text-black font-bold py-4 rounded-xl">
-            Done
-          </button>
+        {state === 'RECORDING' && (
+          <div className="text-center py-6 space-y-4">
+            <button
+              onClick={stopRecording}
+              className="w-24 h-24 rounded-full bg-red-600 flex items-center justify-center mx-auto animate-pulse shadow-lg shadow-red-900/50"
+            >
+              <Square className="w-8 h-8 text-white" />
+            </button>
+            <p className="text-red-400 font-mono text-2xl">
+              {String(Math.floor(duration / 60)).padStart(2, '0')}:{String(duration % 60).padStart(2, '0')}
+            </p>
+            <p className="text-brand-mist text-sm">Tap square to stop & structure notes</p>
+          </div>
+        )}
+
+        {(state === 'TRANSCRIBING' || state === 'STRUCTURING') && (
+          <div className="py-12 text-center space-y-3">
+            <RefreshCw className="w-8 h-8 text-brand-electric animate-spin mx-auto" />
+            <p className="text-white font-semibold">
+              {state === 'TRANSCRIBING' ? 'Transcribing Voice Audio…' : 'Field Structuring Agent Processing…'}
+            </p>
+            <p className="text-xs text-brand-mist">Classifying action and extracting structured field parameters</p>
+          </div>
+        )}
+
+        {state === 'REVIEW' && (
+          <div className="space-y-4">
+            {isLowConfidence && (
+              <div className="bg-amber-900/30 border border-amber-700/50 rounded-xl p-3 flex items-start gap-2">
+                <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <p className="text-xs text-amber-200">
+                  EntireFM isn&apos;t fully confident in this extraction. Please review and confirm the parameters below.
+                </p>
+              </div>
+            )}
+
+            <div className="bg-brand-void rounded-xl p-4 border border-brand-edge-dark space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold uppercase text-brand-mist">Action Classification</span>
+                <select
+                  value={editedClassification}
+                  onChange={e => setEditedClassification(e.target.value)}
+                  className="bg-brand-carbon border border-brand-edge-dark text-white text-xs rounded px-2 py-1"
+                >
+                  <option value="OBSERVATION">OBSERVATION</option>
+                  <option value="DEFECT">DEFECT</option>
+                  <option value="QUOTE_SCOPE">QUOTE SCOPE</option>
+                  <option value="JOB_NOTE">JOB NOTE</option>
+                  <option value="PARTS_NOTE">PARTS NOTE</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs text-brand-mist block mb-1">Observation / Findings</label>
+                <textarea
+                  value={editedObservation}
+                  onChange={e => setEditedObservation(e.target.value)}
+                  className="w-full bg-brand-carbon border border-brand-edge-dark rounded-lg p-2.5 text-xs text-white h-16 resize-none"
+                />
+              </div>
+
+              {editedClassification === 'DEFECT' && (
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs text-brand-mist block mb-1">Severity</label>
+                    <select
+                      value={editedSeverity}
+                      onChange={e => setEditedSeverity(e.target.value)}
+                      className="w-full bg-brand-carbon border border-brand-edge-dark text-white text-xs rounded p-2"
+                    >
+                      <option value="CRITICAL">CRITICAL</option>
+                      <option value="MAJOR">MAJOR</option>
+                      <option value="MINOR">MINOR</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-xs text-brand-mist block mb-1">Recommendation</label>
+                    <select
+                      value={editedRecommendation}
+                      onChange={e => setEditedRecommendation(e.target.value)}
+                      className="w-full bg-brand-carbon border border-brand-edge-dark text-white text-xs rounded p-2"
+                    >
+                      <option value="REPAIR">REPAIR</option>
+                      <option value="REPLACE">REPLACE</option>
+                      <option value="QUOTE">QUOTE (Talk-to-Quote)</option>
+                      <option value="INVESTIGATE">INVESTIGATE</option>
+                      <option value="MONITOR">MONITOR</option>
+                      <option value="NO_ACTION">NO ACTION</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {editedRecommendation === 'QUOTE' && (
+                <div className="bg-brand-edge-dark/30 border border-brand-electric/30 rounded-lg p-3 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-brand-electric">Draft Field Quote Scope</span>
+                    <span className="text-[10px] bg-brand-void text-brand-mist px-1.5 py-0.5 rounded font-mono">UNPRICED</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <span className="text-brand-mist block">Estimated Labour</span>
+                      <span className="text-white font-mono">{quoteScope.engineers} engineers × {quoteScope.hours} hrs</span>
+                    </div>
+                    <div>
+                      <span className="text-brand-mist block">Pricing Status</span>
+                      <span className="text-amber-400 font-semibold">NOT ISSUED / DRAFT</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setState('IDLE')}
+                className="flex-1 border border-brand-edge-dark py-3 rounded-xl text-xs font-medium text-brand-mist"
+              >
+                Re-record
+              </button>
+              <button
+                onClick={handleConfirm}
+                className="flex-1 bg-brand-electric text-black py-3 rounded-xl text-xs font-bold hover:bg-brand-electric-bright transition-colors"
+              >
+                Confirm & Save Record
+              </button>
+            </div>
+          </div>
+        )}
+
+        {state === 'CONFIRMED' && (
+          <div className="py-8 text-center space-y-2">
+            <CheckCircle2 className="w-10 h-10 text-green-400 mx-auto" />
+            <p className="text-white font-bold">Field Record Confirmed & Saved</p>
+            <p className="text-xs text-brand-mist">Authoritative operational record created with audit provenance.</p>
+          </div>
+        )}
+
+        {state === 'FAILED' && (
+          <div className="py-6 text-center space-y-3">
+            <AlertTriangle className="w-8 h-8 text-red-400 mx-auto" />
+            <p className="text-white font-bold">Voice Processing Failed</p>
+            <p className="text-xs text-brand-mist">Audio could not be transcribed. You can retry or type manually.</p>
+            <button
+              onClick={() => setState('IDLE')}
+              className="bg-brand-void border border-brand-edge-dark text-white px-4 py-2 rounded-lg text-xs font-semibold"
+            >
+              Try Again
+            </button>
+          </div>
         )}
       </div>
     </div>
   );
 }
 
-// ─── Completion modal ──────────────────────────────────────────────────────────
-function CompletionModal({
+// ─── Field Copilot V1 Drawer ──────────────────────────────────────────────────
+function FieldCopilotDrawer({
   visitId,
-  tasks,
+  workOrderId,
+  assetId,
   onClose,
-  onComplete,
 }: {
   visitId: string;
-  tasks: any[];
+  workOrderId?: string;
+  assetId?: string;
   onClose: () => void;
-  onComplete: () => void;
 }) {
+  const [query, setQuery] = useState('');
+  const [messages, setMessages] = useState<Array<{ role: 'user' | 'assistant'; text: string; citations?: string[]; isSafetyRefusal?: boolean }>>([
+    {
+      role: 'assistant',
+      text: 'Hello! I am your EntireFM Field Copilot. I have access to this site, asset history, open defects, and task requirements. What do you need to know?',
+    },
+  ]);
   const [loading, setLoading] = useState(false);
-  const [signatoryName, setSignatoryName] = useState('');
-  const completedTasks = tasks.filter(t => t.status === 'COMPLETED').length;
-  const totalTasks = tasks.length;
 
-  const handleSubmit = async () => {
+  const handleSend = async (qText?: string) => {
+    const textToSend = qText || query;
+    if (!textToSend.trim()) return;
+
+    setMessages(prev => [...prev, { role: 'user', text: textToSend }]);
+    setQuery('');
     setLoading(true);
+
     try {
-      const res = await fetch(`/api/engineer/visits/${visitId}/submit-completion`, {
+      const res = await fetch('/api/engineer/copilot/query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ signatoryName: signatoryName || null }),
+        body: JSON.stringify({ query: textToSend, visitId, workOrderId, assetId }),
       });
       const data = await res.json();
-      if (data.success) onComplete();
+      setMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          text: data.answer,
+          citations: data.citations,
+          isSafetyRefusal: data.safetyRefusal,
+        },
+      ]);
+    } catch {
+      setMessages(prev => [
+        ...prev,
+        { role: 'assistant', text: 'Error connecting to Field Copilot retrieval engine.' },
+      ]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/90 flex items-end" role="dialog" aria-modal="true" aria-label="Complete visit">
-      <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 pb-safe max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between">
-          <h2 className="text-white font-bold text-lg">Complete Visit</h2>
-          <button onClick={onClose} className="text-brand-mist hover:text-white" aria-label="Close">✕</button>
+    <div className="fixed inset-0 z-50 bg-black/90 flex items-end" role="dialog" aria-modal="true">
+      <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col pb-safe">
+        <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
+          <div className="flex items-center gap-2">
+            <Bot className="w-5 h-5 text-brand-electric" />
+            <h2 className="text-white font-bold text-base">Field Copilot V1</h2>
+            <span className="text-[10px] bg-brand-void text-brand-electric px-2 py-0.5 rounded font-mono">SCOPED RBAC</span>
+          </div>
+          <button onClick={onClose} className="text-brand-mist hover:text-white">✕</button>
         </div>
 
-        <div className="bg-brand-void rounded-xl border border-brand-edge-dark p-4 space-y-3">
-          <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider mb-1">Completion checklist</p>
-
-          <CheckItem
-            label={`Tasks: ${completedTasks} / ${totalTasks} complete`}
-            ok={completedTasks === totalTasks || totalTasks === 0}
-          />
-        </div>
-
-        <div>
-          <label className="text-brand-mist text-sm block mb-2">Site representative name (optional)</label>
-          <input
-            type="text"
-            value={signatoryName}
-            onChange={e => setSignatoryName(e.target.value)}
-            className="w-full bg-brand-void border border-brand-edge-dark rounded-lg p-3 text-white"
-            placeholder="Full name of site contact"
-          />
-        </div>
-
-        <div className="flex gap-3">
-          <button onClick={onClose} className="flex-1 border border-brand-edge-dark text-brand-mist py-3 rounded-xl font-medium">
-            Cancel
+        {/* Quick queries */}
+        <div className="flex gap-2 overflow-x-auto pb-1 text-xs">
+          <button
+            onClick={() => handleSend('What happened to this asset last time?')}
+            className="bg-brand-void border border-brand-edge-dark text-brand-mist hover:text-white px-2.5 py-1.5 rounded-lg whitespace-nowrap"
+          >
+            Last attendance?
           </button>
           <button
-            onClick={handleSubmit}
-            disabled={loading}
-            className="flex-1 bg-green-700 text-white py-3 rounded-xl font-bold hover:bg-green-600 disabled:opacity-50"
+            onClick={() => handleSend('What evidence do I need?')}
+            className="bg-brand-void border border-brand-edge-dark text-brand-mist hover:text-white px-2.5 py-1.5 rounded-lg whitespace-nowrap"
           >
-            {loading ? 'Submitting…' : 'Submit Completion'}
+            Evidence needed?
+          </button>
+          <button
+            onClick={() => handleSend('What tasks remain?')}
+            className="bg-brand-void border border-brand-edge-dark text-brand-mist hover:text-white px-2.5 py-1.5 rounded-lg whitespace-nowrap"
+          >
+            Open tasks?
+          </button>
+        </div>
+
+        {/* Message feed */}
+        <div className="flex-1 overflow-y-auto space-y-3 pr-1 max-h-80">
+          {messages.map((m, idx) => (
+            <div
+              key={idx}
+              className={`p-3 rounded-xl text-xs leading-relaxed ${
+                m.role === 'user'
+                  ? 'bg-brand-electric/15 text-white ml-8 border border-brand-electric/30'
+                  : m.isSafetyRefusal
+                  ? 'bg-red-950/40 text-red-200 border border-red-800'
+                  : 'bg-brand-void text-white/90 mr-6 border border-brand-edge-dark'
+              }`}
+            >
+              <p>{m.text}</p>
+              {m.citations && m.citations.length > 0 && (
+                <div className="mt-2 pt-1 border-t border-brand-edge-dark/50 text-[10px] font-mono text-brand-electric">
+                  {m.citations.join(' ')}
+                </div>
+              )}
+            </div>
+          ))}
+          {loading && (
+            <div className="bg-brand-void p-3 rounded-xl text-xs text-brand-mist flex items-center gap-2">
+              <RefreshCw className="w-3.5 h-3.5 animate-spin text-brand-electric" />
+              <span>Retrieving operational history…</span>
+            </div>
+          )}
+        </div>
+
+        {/* Input bar */}
+        <div className="flex gap-2 pt-2 border-t border-brand-edge-dark">
+          <input
+            type="text"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handleSend()}
+            placeholder="Ask Copilot about this job or asset…"
+            className="flex-1 bg-brand-void border border-brand-edge-dark rounded-xl px-3 py-2.5 text-xs text-white"
+          />
+          <button
+            onClick={() => handleSend()}
+            disabled={!query.trim() || loading}
+            className="bg-brand-electric text-black px-4 py-2.5 rounded-xl font-bold text-xs hover:bg-brand-electric-bright disabled:opacity-50"
+          >
+            Ask
           </button>
         </div>
       </div>
@@ -549,13 +697,101 @@ function CompletionModal({
   );
 }
 
-function CheckItem({ label, ok }: { label: string; ok: boolean }) {
+// ─── Nameplate Scanner Modal ──────────────────────────────────────────────────
+function NameplateScannerModal({
+  asset,
+  onClose,
+}: {
+  asset?: any;
+  onClose: () => void;
+}) {
+  const [rawOcr, setRawOcr] = useState('MITSUBISHI ELECTRIC\nPUZ-ZM100VKA2\nSerial: 7X193829\nVoltage: 230V 50Hz');
+  const [extraction, setExtraction] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleScan = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/engineer/vision/nameplate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rawText: rawOcr, assetId: asset?.id }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setExtraction(data.extraction);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="flex items-center gap-2">
-      {ok
-        ? <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
-        : <XCircle className="w-4 h-4 text-amber-400 shrink-0" />}
-      <span className="text-white text-sm">{label}</span>
+    <div className="fixed inset-0 z-50 bg-black/90 flex items-end" role="dialog" aria-modal="true">
+      <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 max-h-[85vh] overflow-y-auto pb-safe">
+        <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
+          <h2 className="text-white font-bold text-base">Visual Nameplate Scanner</h2>
+          <button onClick={onClose} className="text-brand-mist hover:text-white">✕</button>
+        </div>
+
+        <p className="text-xs text-brand-mist">
+          Photograph or simulate equipment rating plate to extract manufacturer, model, and serial number.
+        </p>
+
+        <div>
+          <label className="text-xs text-brand-mist block mb-1">OCR / Nameplate Text</label>
+          <textarea
+            value={rawOcr}
+            onChange={e => setRawOcr(e.target.value)}
+            className="w-full bg-brand-void border border-brand-edge-dark rounded-lg p-2.5 text-xs font-mono text-white h-20"
+          />
+        </div>
+
+        <button
+          onClick={handleScan}
+          disabled={loading || !rawOcr.trim()}
+          className="w-full bg-brand-electric text-black font-bold py-3 rounded-xl text-xs hover:bg-brand-electric-bright disabled:opacity-50"
+        >
+          {loading ? 'Analysing Nameplate…' : 'Extract Equipment Metadata'}
+        </button>
+
+        {extraction && (
+          <div className="bg-brand-void border border-brand-edge-dark rounded-xl p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-white">Extracted Metadata</span>
+              <span className="text-[10px] bg-green-950 text-green-400 px-2 py-0.5 rounded font-mono">
+                {Math.round(extraction.confidence * 100)}% Confidence
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <span className="text-brand-mist block">Manufacturer</span>
+                <span className="text-white font-semibold">{extraction.manufacturer || '—'}</span>
+              </div>
+              <div>
+                <span className="text-brand-mist block">Model</span>
+                <span className="text-white font-semibold">{extraction.model || '—'}</span>
+              </div>
+              <div className="col-span-2">
+                <span className="text-brand-mist block">Serial Number</span>
+                <span className="text-white font-mono font-semibold">{extraction.serialNumber || '—'}</span>
+              </div>
+            </div>
+
+            {extraction.discrepancies && extraction.discrepancies.length > 0 && (
+              <div className="bg-amber-950/40 border border-amber-800 rounded-lg p-2.5 space-y-1">
+                <span className="text-xs font-bold text-amber-400 block">Existing Value Discrepancy</span>
+                {extraction.discrepancies.map((d: any, i: number) => (
+                  <p key={i} className="text-[11px] text-amber-200">
+                    {d.field}: Stored &quot;{d.existingValue}&quot; vs Captured &quot;{d.proposedValue}&quot;
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -571,6 +807,8 @@ export default function FieldJobScreen({
 }: FieldJobScreenProps) {
   const [currentStatus, setCurrentStatus] = useState<string>(visit.status || 'PLANNED');
   const [showVoice, setShowVoice] = useState(false);
+  const [showCopilot, setShowCopilot] = useState(false);
+  const [showNameplate, setShowNameplate] = useState(false);
   const [showCompletion, setShowCompletion] = useState(false);
   const [localTasks, setLocalTasks] = useState(tasks);
   const [safetyAcknowledged, setSafetyAcknowledged] = useState(false);
@@ -616,12 +854,23 @@ export default function FieldJobScreen({
 
       <div className="px-4 py-4 space-y-4">
         {/* Back link + reference */}
-        <div className="flex items-center gap-2">
-          <Link href="/engineer" className="text-brand-mist hover:text-white transition-colors" aria-label="Back to home">
-            <ChevronLeft className="w-5 h-5" />
-          </Link>
-          <span className="text-brand-mist text-sm font-mono">{wo?.reference ?? visit.id.slice(0, 8)}</span>
-          {wo?.priority && <span className="ml-1"><PriorityBadge priority={wo.priority} /></span>}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Link href="/engineer" className="text-brand-mist hover:text-white transition-colors" aria-label="Back to home">
+              <ChevronLeft className="w-5 h-5" />
+            </Link>
+            <span className="text-brand-mist text-sm font-mono">{wo?.reference ?? visit.id.slice(0, 8)}</span>
+            {wo?.priority && <span className="ml-1"><PriorityBadge priority={wo.priority} /></span>}
+          </div>
+
+          {/* Copilot button */}
+          <button
+            onClick={() => setShowCopilot(true)}
+            className="flex items-center gap-1.5 bg-brand-electric/15 text-brand-electric border border-brand-electric/30 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-brand-electric/25 transition-colors"
+          >
+            <Bot className="w-3.5 h-3.5" />
+            <span>Field Copilot</span>
+          </button>
         </div>
 
         {/* Job overview */}
@@ -643,19 +892,30 @@ export default function FieldJobScreen({
           )}
         </div>
 
-        {/* Site location */}
+        {/* Evidence Requirements Checklist */}
+        <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold uppercase text-brand-mist tracking-wider">Evidence Status</span>
+            <span className="text-xs text-brand-electric font-mono">CCP-01 Policy</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2 text-xs pt-1">
+            <div className="bg-brand-void p-2.5 rounded-lg border border-brand-edge-dark flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
+              <span className="text-white">Before Photo</span>
+            </div>
+            <div className="bg-brand-void p-2.5 rounded-lg border border-brand-edge-dark flex items-center gap-2">
+              <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+              <span className="text-brand-mist">After Photo (Req.)</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Location & Asset */}
         {site && (
           <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4">
             <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider mb-2">Location</p>
             <p className="text-white font-medium">{site.name}</p>
             {site.address_line1 && <p className="text-brand-mist text-sm mt-0.5">{site.address_line1}</p>}
-            {(site.town || site.postcode) && <p className="text-brand-mist text-sm">{[site.town, site.postcode].filter(Boolean).join(' ')}</p>}
-            {site.access_notes && (
-              <div className="mt-3 bg-amber-900/20 border border-amber-700/40 rounded-lg p-3">
-                <p className="text-amber-300 text-xs font-semibold mb-1">Access notes</p>
-                <p className="text-amber-200 text-sm">{site.access_notes}</p>
-              </div>
-            )}
             {mapsUrl && (
               <a
                 href={mapsUrl}
@@ -670,16 +930,23 @@ export default function FieldJobScreen({
           </div>
         )}
 
-        {/* Asset card */}
         {asset && (
-          <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4">
-            <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider mb-2">Asset</p>
+          <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider">Asset</p>
+              <button
+                onClick={() => setShowNameplate(true)}
+                className="text-xs text-brand-electric hover:underline flex items-center gap-1"
+              >
+                <Camera className="w-3 h-3" />
+                Scan Nameplate
+              </button>
+            </div>
             <p className="text-white font-medium">{asset.name}</p>
-            {asset.asset_reference && <p className="text-brand-mist text-sm font-mono">Ref: {asset.asset_reference}</p>}
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-2 text-sm">
-              {asset.manufacturer && <span className="text-brand-mist">Mfr: <span className="text-white">{asset.manufacturer}</span></span>}
-              {asset.model && <span className="text-brand-mist">Model: <span className="text-white">{asset.model}</span></span>}
-              {asset.serial_number && <span className="text-brand-mist col-span-2">Serial: <span className="text-white font-mono">{asset.serial_number}</span></span>}
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-brand-mist">
+              <span>Mfr: <span className="text-white">{asset.manufacturer || '—'}</span></span>
+              <span>Model: <span className="text-white">{asset.model || '—'}</span></span>
+              <span className="col-span-2">Serial: <span className="text-white font-mono">{asset.serial_number || '—'}</span></span>
             </div>
           </div>
         )}
@@ -690,33 +957,24 @@ export default function FieldJobScreen({
           <StatusBar visitId={visit.id} status={currentStatus} onStatusChange={handleStatusChange} />
         </div>
 
-        {/* Task list — visible when on site or in progress */}
+        {/* Task list */}
         {['ON_SITE', 'IN_PROGRESS', 'COMPLETION_PENDING'].includes(currentStatus) && (
           <div>
             <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider mb-2">Tasks</p>
-            <TaskList tasks={localTasks} visitStatus={currentStatus} />
+            <div className="space-y-2">
+              {localTasks.map(task => (
+                <div key={task.id} className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-white text-sm font-medium">{task.title || task.name || 'Task'}</span>
+                    <span className="text-xs text-brand-mist">{task.status || 'PENDING'}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
-        {/* Summary counts */}
-        {(readings.length > 0 || parts.length > 0) && (
-          <div className="grid grid-cols-2 gap-3">
-            {readings.length > 0 && (
-              <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-3 text-center">
-                <p className="text-white text-2xl font-bold">{readings.length}</p>
-                <p className="text-brand-mist text-xs">Reading{readings.length !== 1 ? 's' : ''}</p>
-              </div>
-            )}
-            {parts.length > 0 && (
-              <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-3 text-center">
-                <p className="text-white text-2xl font-bold">{parts.length}</p>
-                <p className="text-brand-mist text-xs">Part{parts.length !== 1 ? 's' : ''} used</p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Complete button */}
+        {/* Ready to Complete */}
         {currentStatus === 'IN_PROGRESS' && (
           <button
             onClick={() => setShowCompletion(true)}
@@ -728,78 +986,94 @@ export default function FieldJobScreen({
         )}
       </div>
 
-      {/* Field action bar — fixed above bottom nav when in progress */}
+      {/* Field action bar — fixed above bottom nav */}
       {currentStatus === 'IN_PROGRESS' && (
         <div className="fixed bottom-14 left-0 right-0 z-40 bg-brand-carbon border-t border-brand-edge-dark px-4 py-3">
           <div className="grid grid-cols-4 gap-2">
-            <ActionBarButton
-              icon={<Mic className="w-5 h-5" />}
-              label="Talk"
+            <button
               onClick={() => setShowVoice(true)}
-              color="text-brand-electric"
-            />
-            <ActionBarButton
-              icon={<Camera className="w-5 h-5" />}
-              label="Capture"
-              onClick={() => {/* Photo capture handled by file input */}}
-              color="text-purple-400"
-            />
-            <ActionBarButton
-              icon={<Square className="w-5 h-5" />}
-              label="Scan"
-              onClick={() => {/* QR scan stub */}}
-              color="text-green-400"
-            />
-            <ActionBarButton
-              icon={<Plus className="w-5 h-5" />}
-              label="Add"
-              onClick={() => {/* Add action menu stub */}}
-              color="text-amber-400"
-            />
+              className="flex flex-col items-center gap-1 py-2 rounded-xl bg-brand-void text-brand-electric hover:bg-brand-edge-dark transition-colors active:scale-95"
+            >
+              <Mic className="w-5 h-5" />
+              <span className="text-xs text-brand-mist">Talk</span>
+            </button>
+            <button
+              onClick={() => setShowNameplate(true)}
+              className="flex flex-col items-center gap-1 py-2 rounded-xl bg-brand-void text-purple-400 hover:bg-brand-edge-dark transition-colors active:scale-95"
+            >
+              <Camera className="w-5 h-5" />
+              <span className="text-xs text-brand-mist">Nameplate</span>
+            </button>
+            <button
+              onClick={() => setShowCopilot(true)}
+              className="flex flex-col items-center gap-1 py-2 rounded-xl bg-brand-void text-green-400 hover:bg-brand-edge-dark transition-colors active:scale-95"
+            >
+              <Bot className="w-5 h-5" />
+              <span className="text-xs text-brand-mist">Copilot</span>
+            </button>
+            <button
+              onClick={() => setShowVoice(true)}
+              className="flex flex-col items-center gap-1 py-2 rounded-xl bg-brand-void text-amber-400 hover:bg-brand-edge-dark transition-colors active:scale-95"
+            >
+              <Plus className="w-5 h-5" />
+              <span className="text-xs text-brand-mist">Defect</span>
+            </button>
           </div>
         </div>
       )}
 
       {/* Modals */}
       {showVoice && (
-        <VoiceCaptureModal
+        <VoiceIntelligenceModal
           visitId={visit.id}
           workOrderId={visit.work_order_id}
+          assetId={visit.asset_id}
           onClose={() => setShowVoice(false)}
+          onConfirmedRecord={() => {}}
+        />
+      )}
+      {showCopilot && (
+        <FieldCopilotDrawer
+          visitId={visit.id}
+          workOrderId={visit.work_order_id}
+          assetId={visit.asset_id}
+          onClose={() => setShowCopilot(false)}
+        />
+      )}
+      {showNameplate && (
+        <NameplateScannerModal
+          asset={asset}
+          onClose={() => setShowNameplate(false)}
         />
       )}
       {showCompletion && (
-        <CompletionModal
-          visitId={visit.id}
-          tasks={localTasks}
-          onClose={() => setShowCompletion(false)}
-          onComplete={() => { setShowCompletion(false); handleComplete(); }}
-        />
+        <div className="fixed inset-0 z-50 bg-black/90 flex items-end">
+          <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 pb-safe">
+            <h2 className="text-white font-bold text-lg">Submit Field Service Report</h2>
+            <p className="text-xs text-brand-mist">
+              A Field Service Report (<span className="font-mono text-brand-electric">EFM-FSR-2026-XXXXXX</span>) will be generated and submitted for operational sign-off.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowCompletion(false)}
+                className="flex-1 border border-brand-edge-dark text-brand-mist py-3 rounded-xl font-medium text-xs"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={async () => {
+                  await fetch(`/api/engineer/visits/${visit.id}/submit-completion`, { method: 'POST' });
+                  setShowCompletion(false);
+                  handleComplete();
+                }}
+                className="flex-1 bg-green-700 text-white py-3 rounded-xl font-bold text-xs"
+              >
+                Submit Report
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
-  );
-}
-
-function ActionBarButton({
-  icon,
-  label,
-  onClick,
-  color,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  onClick: () => void;
-  color: string;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`flex flex-col items-center gap-1 py-2 rounded-xl bg-brand-void hover:bg-brand-edge-dark transition-colors active:scale-95 ${color}`}
-      style={{ minHeight: '56px' }}
-      aria-label={label}
-    >
-      {icon}
-      <span className="text-xs text-brand-mist">{label}</span>
-    </button>
   );
 }

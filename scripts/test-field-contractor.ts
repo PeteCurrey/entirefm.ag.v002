@@ -249,7 +249,7 @@ async function runTests() {
 
     const draftRes = await generateDraftServiceReport(testVisitId, engineerSession);
     assert(draftRes.report !== null, 'Draft service report generated from real field data');
-    assert(draftRes.report?.report_number?.startsWith('EFM-SR-') === true, 'Report number has correct EFM-SR-YYYY-NNNNNN format');
+    assert(draftRes.report?.report_number?.startsWith('EFM-FSR-') === true, 'Report number has correct EFM-FSR-YYYY-NNNNNN format');
 
     const reportNumber = draftRes.report!.report_number!;
     const yearStr = new Date().getFullYear().toString();
@@ -262,7 +262,7 @@ async function runTests() {
     const draftRes = await generateDraftServiceReport('visit-offline-test', offlineSession);
     // Will return empty counts since no DB, but should not throw
     assert(draftRes.report !== null, 'Draft report generated even without DB (graceful empty state)');
-    assert(draftRes.report?.report_number?.startsWith('EFM-SR-') === true, 'Report number format correct');
+    assert(draftRes.report?.report_number?.startsWith('EFM-FSR-') === true, 'Report number format correct');
     passed += 2;
 
     skip('Journey start state transition (requires DB)');

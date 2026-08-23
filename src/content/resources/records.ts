@@ -9,6 +9,39 @@
 import type { ContentRecord } from '@/lib/routes/route-schema';
 
 export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
+  '/media': {
+    path: '/media',
+    title: 'Media Centre & Press Enquiries | EntireFM',
+    metaDescription: 'Official media centre for EntireFM: press enquiries, verified company facts, brand assets, and expert commentary on UK facilities management.',
+    h1: 'EntireFM Press & Media Centre',
+    eyebrow: 'News & Media Resources',
+    heroIntro: 'Official company facts, media contact pathways, approved brand assets, and practical facilities management commentary for journalists and editors.',
+    heroDescription: 'Access verified company background, interview requests with EntireFM technical leadership, and citations from our research library.',
+    heroImage: '/images/editorial/entirefm-client-review-2000w.webp',
+    historicIntent: 'Media and press enquiries search intent',
+    primaryIntent: 'facilities management media centre',
+    secondaryIntents: ['entirefm press office', 'fm media enquiries', 'facilities management press kit'],
+    pageType: 'company',
+    historicTopics: ['Media centre', 'Press office', 'Company facts', 'Brand assets'],
+    requiredSections: ['hero', 'contact', 'company-facts', 'linkable-assets', 'cta'],
+    sections: [
+      {
+        heading: 'Official Press & Media Enquiries',
+        body: 'EntireFM provides fast-turnaround technical commentary, data citations, and expert perspectives across commercial maintenance, statutory compliance, energy, and AI in building operations.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Media Centre', url: '/media' }
+    ],
+    relatedRoutes: ['/about-entire-facilities-management', '/resources', '/resources/guides', '/contact'],
+    conversionGoal: 'Provide clear, credible media contact and fact sheet for UK property and trade journalists.',
+    verificationRequirements: [
+      'Verified media@entirefm.com contact routing',
+      'Fact sheet verified against registered company profile'
+    ],
+    contentStatus: 'COMPLETE'
+  },
   '/resources/guides': {
     path: '/resources/guides',
     title: 'Practical Facilities Management Guides & Knowledge Library | EntireFM',
