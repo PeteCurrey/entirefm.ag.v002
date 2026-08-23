@@ -33,7 +33,10 @@ export async function GET(
   _request: Request,
   { params }: { params: Promise<{ group: string }> }
 ) {
-  const { group } = await params;
+  const rawGroup = (await params).group;
+  // Strip .xml extension — the sitemap index references /sitemaps/core.xml
+  // but the [group] dynamic segment receives the full string including .xml
+  const group = rawGroup.replace(/\.xml$/i, '');
 
   if (!VALID_GROUPS.includes(group as SitemapGroup)) {
     return new NextResponse('Sitemap group not found', { status: 404 });
