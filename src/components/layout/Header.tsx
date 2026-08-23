@@ -251,10 +251,6 @@ export function Header({ solid = false }: HeaderProps) {
               <Phone className="h-3.5 w-3.5 text-brand-electric-bright" />
               {CONTACT_CONFIG.mainPhone.display}
             </a>
-            <Link href="/contact-us" className="btn-primary hidden py-2.5 text-[13px] sm:inline-flex">
-              Get a proposal
-              <ArrowRight className="btn-arrow h-3.5 w-3.5" />
-            </Link>
 
             <button
               type="button"
@@ -478,10 +474,6 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
         </nav>
 
         <div className="mt-8 space-y-3">
-          <Link href="/contact-us" onClick={onClose} tabIndex={open ? 0 : -1} className="btn-primary w-full">
-            Request a proposal
-            <ArrowRight className="btn-arrow h-4 w-4" />
-          </Link>
           <a
             href={CONTACT_CONFIG.mainPhone.href}
             tabIndex={open ? 0 : -1}
