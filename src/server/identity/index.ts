@@ -51,6 +51,12 @@ export type PermissionCode =
   | 'supply_chain:write'
   | 'commercial:read'
   | 'commercial:write'
+  // Phase 0H — Finance granular permissions
+  | 'finance:read'           // View invoices, billing records, credit notes
+  | 'finance:write'          // Create/update supplier invoice records, billing items
+  | 'finance:approve'        // Approve supplier invoices (subject to segregation of duties)
+  | 'finance:billing'        // Prepare and issue client invoices
+  | 'finance:admin'          // Tolerance policies, accounting sync configuration, credit notes
   | 'comms:access'
   | 'ai:control'
   | 'reporting:view'
@@ -134,6 +140,11 @@ const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'supply_chain:write',
     'commercial:read',
     'commercial:write',
+    'finance:read',
+    'finance:write',
+    'finance:approve',
+    'finance:billing',
+    'finance:admin',
     'comms:access',
     'ai:control',
     'reporting:view',
@@ -151,6 +162,10 @@ const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'supply_chain:read',
     'commercial:read',
     'commercial:write',
+    'finance:read',
+    'finance:write',
+    'finance:approve',
+    'finance:billing',
     'comms:access',
     'ai:control',
     'reporting:view',
@@ -206,8 +221,14 @@ const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'command:access',
     'commercial:read',
     'commercial:write',
+    'finance:read',
+    'finance:write',
+    'finance:approve',
+    'finance:billing',
+    'finance:admin',
     'reporting:view',
     'operations:read',
+    'supply_chain:read',
     'audit:read',
   ],
   ENGINEER: [
@@ -232,6 +253,11 @@ const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'supply_chain:write',
     'commercial:read',
     'commercial:write',
+    'finance:read',
+    'finance:write',
+    'finance:approve',
+    'finance:billing',
+    'finance:admin',
     'comms:access',
     'ai:control',
     'reporting:view',

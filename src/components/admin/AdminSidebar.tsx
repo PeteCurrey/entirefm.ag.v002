@@ -121,6 +121,18 @@ const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    title: 'FINANCE & INVOICING',
+    items: [
+      { name: 'Finance Command', href: '/admin/finance' },
+      { name: 'Supplier Invoices', href: '/admin/finance/supplier-invoices' },
+      { name: 'Billing Ready', href: '/admin/finance/billing-ready' },
+      { name: 'Client Invoices', href: '/admin/finance/client-invoices' },
+      { name: 'Credit Notes', href: '/admin/finance/credit-notes' },
+      { name: 'Exceptions & Alerts', href: '/admin/finance/exceptions' },
+      { name: 'Accounting Sync', href: '/admin/finance/accounting' },
+    ],
+  },
+  {
     title: 'COMMUNICATIONS',
     items: [
       { name: 'Unified Inbox', href: '/admin/communications/inbox' },

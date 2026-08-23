@@ -90,7 +90,7 @@ export function Footer() {
                   />
                 </span>
                 <span className="text-[19px] font-extrabold tracking-[-0.02em] text-white">
-                  ENTIRE<span className="text-spectrum">FM</span>
+                  Entire<span className="text-spectrum">FM</span>
                 </span>
               </Link>
 

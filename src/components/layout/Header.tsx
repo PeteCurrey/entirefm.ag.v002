@@ -183,9 +183,9 @@ export function Header({ solid = false }: HeaderProps) {
             </span>
             <span className="flex flex-col leading-none">
               <span className="text-[19px] font-extrabold tracking-[-0.02em] text-white">
-                ENTIRE<span className="text-spectrum">FM</span>
+                Entire<span className="text-spectrum">FM</span>
               </span>
-              <span className="mt-1 hidden text-[9px] font-medium uppercase tracking-[0.18em] text-brand-mist/45 2xl:block">
+              <span className="mt-1 hidden text-[9px] font-medium tracking-[0.18em] text-brand-mist/45 2xl:block">
                 Facilities Management. Evolved.
               </span>
             </span>
