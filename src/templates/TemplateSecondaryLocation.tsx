@@ -160,7 +160,9 @@ export function TemplateSecondaryLocation({ route, content }: TemplateProps) {
           points={[
             'Single digital compliance dashboard and calendar',
             'Full remedial works tracking with transparent quotes',
-            'Qualified engineers certified for Gas Safe, F-Gas and electrical works',
+            // Naming the schemes asserted registrations the register holds as
+            // TO_VERIFY. The duty is real and can be stated without claiming it.
+            'Statutory work carried out by engineers holding the registration each discipline requires',
             'Documented audit trail for insurers and local authorities',
           ]}
           href="/compliance"

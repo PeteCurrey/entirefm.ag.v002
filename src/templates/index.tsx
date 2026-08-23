@@ -22,6 +22,10 @@ import { TemplateHelpdesk } from './TemplateHelpdesk';
 import { TemplateSupplyChain } from './TemplateSupplyChain';
 import { TemplateHtmlSitemap } from './TemplateHtmlSitemap';
 import { TemplateComplianceHub, TemplateComplianceTopic } from './TemplateCompliance';
+import { ServiceMechanicalElectrical } from './services/ServiceMechanicalElectrical';
+import { ServiceHvac } from './services/ServiceHvac';
+import { ServicePpm } from './services/ServicePpm';
+import { ServiceIndustrialCleaning } from './services/ServiceIndustrialCleaning';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const content = loadContentRecord(route.path);
@@ -203,8 +207,20 @@ function selectTemplate(
     return <TemplatePrimaryLocation route={route} content={content} />;
   }
 
-  // 16. Services (Specialist vs Core M&E)
+  // 16. Services (Specialist vs Core M&E vs Dedicated Prototypes)
   if (route.routeType === 'service') {
+    if (path === '/mechanical-electrical') {
+      return <ServiceMechanicalElectrical route={route} content={content} />;
+    }
+    if (path === '/hvac-contractor') {
+      return <ServiceHvac route={route} content={content} />;
+    }
+    if (path === '/ppm') {
+      return <ServicePpm route={route} content={content} />;
+    }
+    if (path === '/industrial-cleaning') {
+      return <ServiceIndustrialCleaning route={route} content={content} />;
+    }
     if (
       path.includes('cleaning') ||
       path.includes('washing') ||
