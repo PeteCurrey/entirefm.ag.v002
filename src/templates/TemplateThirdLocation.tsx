@@ -2,161 +2,233 @@ import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { PageHero } from '@/components/hero/PageHero';
 import { Footer } from '@/components/layout/Footer';
-import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
-import { CapabilityList, FAQAccordion } from '@/components/content/CapabilityList';
+import { DiagonalStatement } from '@/components/content/DiagonalStatement';
+import { FullBleedFeature } from '@/components/content/FullBleedFeature';
+import { HorizontalRail } from '@/components/content/HorizontalRail';
+import { FAQAccordion } from '@/components/content/CapabilityList';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { RelatedLinks } from '@/components/content/CaseStudyFeature';
-import { LocationImage, altForImage } from '@/components/content/LocationImage';
-import { Phone, CheckCircle2, ArrowRight, Building, MapPin } from 'lucide-react';
-import { BrandIcon } from '@/components/ui/BrandIcon';
+import { 
+  LocationServiceGrid, 
+  LocationSectorGrid, 
+  LocationCoverageGrid, 
+  WhyChooseLocationGrid 
+} from '@/components/content/LocationSectionViews';
+import { TIER1_CITIES } from '@/content/locations/tier1-cities';
 import type { TemplateProps } from './types';
-import { CONTACT_CONFIG } from '@/config/contact';
-import Link from 'next/link';
 
 export function TemplateThirdLocation({ route, content }: TemplateProps) {
   const city = content.location || 'Regional';
+  const citySlug = city.toLowerCase().replace(/\s+/g, '-');
+  const cityData = TIER1_CITIES[citySlug];
+
   const breadcrumbs = content.breadcrumbs || [
     { name: 'Home', url: '/' },
     { name: 'Locations', url: '/locations' },
     { name: content.h1, url: route.path },
   ];
 
-  const capabilities = (content.capabilities && content.capabilities.length > 0)
-    ? content.capabilities
-    : [
-        {
-          name: 'Managing Agent & Multi-Let Estate Care',
-          description: 'Common parts maintenance, tenant liaison, and service charge management.',
-          tag: 'Managing Agents',
-        },
-        {
-          name: 'Corporate Reception & Workplace Hygiene',
-          description: 'High-standard daily office cleaning, washroom servicing, and front-of-house support.',
-          tag: 'Corporate Care',
-        },
-      ];
+  const heroFacts = [
+    { figure: 'Portfolios', label: `Multi-tenant & multi-site estate management in ${city}` },
+    { figure: 'Reporting', label: 'Itemized cost & service charge transparent billing' },
+    { figure: 'Operations', label: 'Seamless contractor integration & concierge services' },
+  ];
+
+  const estatePoints = [
+    `Single point of contact for managing agents and commercial landlords across ${city}`,
+    'Transparent service charge accounting and site-by-site spend reporting',
+    'Common-parts maintenance, front of house, security and daily janitorial',
+    `Rapid emergency response across all ${city} commercial districts and business parks`,
+  ];
+
+  const railItems = [
+    {
+      imageKey: 'client-review',
+      eyebrow: 'Portfolio Management',
+      title: `Service charge reporting for ${city} estates`,
+      body: 'Itemized maintenance, reactive repair and compliance spending reported per property to satisfy tenant and auditor scrutiny.',
+      href: '/client-login',
+    },
+    {
+      imageKey: 'access-control-install',
+      eyebrow: 'Front of House & Security',
+      title: `Access control and reception support in ${city}`,
+      body: 'Concierge services, intercom systems, barrier maintenance and perimeter security tailored to multi-tenant commercial offices.',
+      href: '/access-control',
+    },
+    {
+      imageKey: 'switchroom-survey',
+      eyebrow: 'Landlord & Tenant',
+      title: `Common-parts M&E and fabric care across ${city}`,
+      body: 'Maintaining shared HVAC risers, lift lobbies, stairwells and washrooms to prime commercial presentation standards.',
+      href: '/building-maintenance',
+    },
+    {
+      imageKey: 'distribution-board-testing',
+      eyebrow: 'Statutory Safety',
+      title: `Estate compliance certification in ${city}`,
+      body: 'Centralized statutory certificates for landlord plant, emergency lighting and water hygiene available 24/7 on our portal.',
+      href: '/compliance',
+    },
+  ];
 
   const faqs = (content.faqs && content.faqs.length > 0)
     ? content.faqs
     : [
         {
-          question: `How do you support managing agents in ${city}?`,
-          answer: 'We provide structured service delivery, transparent billing, and dedicated tenant communication to maintain property value and high tenant satisfaction.',
+          question: `How does EntireFM support managing agents and landlords in ${city}?`,
+          answer: `We provide an integrated FM service covering common parts M&E, statutory compliance, contract cleaning, grounds maintenance, and out-of-hours reactive cover. Our digital CAFM platform delivers transparent service-charge breakdown by site.`,
+        },
+        {
+          question: `Can you manage facilities across multiple disparate buildings in ${city}?`,
+          answer: `Yes. We specialise in multi-site estate management. Mobile engineering units and dedicated contract managers service properties across all commercial corridors in ${city} under unified service level agreements.`,
+        },
+        {
+          question: `How are tenant reactive requests handled?`,
+          answer: `Tenants and property managers can log jobs via our 24/7 digital helpdesk or direct telephone hotline. Jobs are dispatched to mobile engineers with tracking and real-time status updates.`,
+        },
+        {
+          question: `Do you provide energy auditing and sustainability reporting?`,
+          answer: `Yes. We support MEES and EPC improvement programmes, monitoring plant efficiency, recommending LED/HVAC upgrades, and providing data for ESG and service charge reporting.`,
         },
       ];
 
-  const relatedLinks = (content.relatedRoutes || ['/locations', '/services', '/contact-us']).map(r => ({
+  const relatedLinks = (content.relatedRoutes || ['/locations', '/commercial-facilities-management', '/ppm', '/contact-us']).map(r => ({
     title: r.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
     path: r,
-    category: `${city} Corporate`,
+    category: `${city} Commercial Estates`,
     description: `Explore EntireFM capabilities for ${r.replace(/^\//, '').replace(/-/g, ' ')}.`,
   }));
 
-  const heroFacts = [
-    { figure: 'Coverage', label: `National reach, regional operations covering ${city}` },
-    { figure: 'Response', label: 'Out-of-hours cover for contracted sites' },
-    { figure: 'Compliance', label: 'Statutory testing, certified and recorded' },
+  const districts = cityData?.districts || [
+    { name: `${city} Central Commercial Core`, note: 'High-density commercial offices, retail and multi-tenant estates.' },
+    { name: `${city} Industrial & Business Parks`, note: 'Manufacturing, warehousing, trade counters and logistics facilities.' },
+    { name: `${city} Regional Corridors`, note: 'Arterial transport routes and neighbouring commercial centres.' },
+    { name: `${city} Public Realm & Civic Estates`, note: 'Education, healthcare and public-sector property portfolios.' },
   ];
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
-      <main className="flex-grow">
+      <main id="main" className="flex-grow">
+        {/* 1. LOCATION-SPECIFIC HERO */}
         <PageHero
-          eyebrow={content.eyebrow || 'Facilities Management'}
+          eyebrow={content.eyebrow || `Commercial Estate FM · ${city}`}
           title={content.h1}
           intro={content.heroIntro || content.metaDescription}
           path={route.path}
-          imageSrc={altForImage(content.heroImage) ? content.heroImage : undefined}
-          imageAlt={altForImage(content.heroImage) ?? undefined}
+          imageSrc={content.heroImage}
+          imageAlt={content.heroImage ? `EntireFM commercial property management in ${city}` : undefined}
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: `Request a ${city} proposal`, href: '#enquiry' }}
+          primaryCta={{ label: `Request an estate proposal for ${city}`, href: '#enquiry' }}
           facts={heroFacts}
         />
 
+        {/* 2. LOCAL TRUST / CAPABILITY STRIP */}
         <TrustBar />
 
-        {/* Capabilities Grid */}
-        <section className="section-padding bg-white">
-          <div className="container-custom">
-            <div className="max-w-3xl mb-12">
-              <span className="badge-technical">Corporate Scope</span>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-graphite mt-2">
-                Corporate Real Estate & Managing Agent Services
-              </h2>
-              <p className="text-slate-600 text-sm mt-2">
-                Elevating commercial building presentation, tenant satisfaction, and statutory governance across {city}.
-              </p>
-            </div>
+        {/* 3. ESTATE FM IN [LOCATION] — DIAGONAL STATEMENT */}
+        <DiagonalStatement
+          eyebrow={`Estate Management · ${city}`}
+          title={`Managing commercial portfolios in ${city}.`}
+          titleAccent="Transparent and dependable."
+          body={
+            `EntireFM partners with commercial landlords, property directors, and managing agents across ${city}, delivering seamless common-parts maintenance, statutory compliance, daily cleaning, and tenant satisfaction.`
+          }
+          points={estatePoints}
+          leftLabel={`${city} Portfolio Services`}
+          rightLabel="Integrated FM Account"
+          leftImageKey="manchester-castlefield-night"
+          rightImageKey="switchgear-inspection"
+          href="/commercial-facilities-management"
+          cta="Commercial estate FM"
+        />
 
-            <CapabilityList capabilities={capabilities} />
-          </div>
-        </section>
+        {/* 4. SERVICES WE PROVIDE IN [LOCATION] */}
+        <LocationServiceGrid city={city} />
 
-        {/* Rendered Body Sections */}
-        {content.sections && content.sections.length > 0 && (
-          <section className="section-padding bg-brand-surface border-y border-brand-edge">
-            <div className="container-custom max-w-4xl space-y-10">
-              {content.sections.map((sec, idx) => (
-                <div key={idx} className="space-y-4">
-                  <h2 className="text-2xl font-bold text-brand-graphite">{sec.heading}</h2>
-                  <p className="text-slate-700 leading-relaxed text-sm sm:text-base">{sec.body}</p>
-                  {sec.bullets && sec.bullets.length > 0 && (
-                    <ul className="space-y-2 pt-2">
-                      {sec.bullets.map((b, bIdx) => (
-                        <li key={bIdx} className="flex items-start gap-2.5 text-sm text-slate-700">
-                          <CheckCircle2 className="w-4 h-4 text-brand-electric shrink-0 mt-0.5" />
-                          <span>{b}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+        {/* 5. SECTORS WE SUPPORT IN [LOCATION] */}
+        <LocationSectorGrid city={city} sectors={cityData?.sectors} />
 
-        {/* Accreditations */}
-        <section className="py-12 bg-white">
-          <div className="container-custom">
+        {/* 6. LOCAL / REGIONAL OPERATING CONTEXT — FULL BLEED FEATURE */}
+        <FullBleedFeature
+          imageKey="headquarters-exterior"
+          eyebrow={`Commercial Property · ${city}`}
+          title={`Protecting asset value across ${city} business estates`}
+          body={`Multi-tenant offices, retail developments and business parks require an FM partner that acts as an extension of the property management team — maintaining professional standards, controlling costs, and resolving reactive issues before they affect tenants.`}
+          points={[
+            'Dedicated property account manager and transparent escalation',
+            'Full statutory testing and digital compliance certification',
+            'Contracted cleaning, grounds maintenance and security',
+            'Detailed service charge reporting with evidence',
+          ]}
+          href="/contact-us"
+          cta="Request a proposal"
+          align="centre"
+        />
+
+        {/* 7. RELEVANT SPECIALIST SERVICES — HORIZONTAL CAPABILITY RAIL */}
+        <HorizontalRail
+          eyebrow="Estate Disciplines"
+          title={`Integrated property services across ${city}`}
+          intro="Comprehensive Hard & Soft FM services designed for property managers and commercial landlords."
+          items={railItems}
+        />
+
+        {/* 8. NEARBY AREAS / SERVICE COVERAGE */}
+        <LocationCoverageGrid
+          city={city}
+          region={cityData?.region}
+          districts={districts}
+          travelPattern={cityData?.travelPattern}
+        />
+
+        {/* 9. ACCREDITATIONS & COMPLIANCE */}
+        <section className="py-14 bg-white border-t border-brand-edge">
+          <div className="container-wide">
             <AccreditationRail />
           </div>
         </section>
 
-        {/* FAQs */}
+        {/* 10. WHY BUSINESSES IN [LOCATION] USE ENTIREFM */}
+        <WhyChooseLocationGrid city={city} />
+
+        {/* 11. LOCATION-SPECIFIC FAQ */}
         <section className="section-padding bg-brand-surface border-t border-brand-edge">
           <div className="container-custom max-w-4xl">
-            <div className="mb-8">
-              <span className="badge-technical">Governance FAQs</span>
-              <h2 className="text-2xl font-bold text-brand-graphite mt-2">
-                {city} Corporate FM — Frequently Asked Questions
+            <div className="mb-10 text-center">
+              <span className="badge-technical">Property Management FAQs</span>
+              <h2 className="text-display-md text-brand-graphite mt-3">
+                {city} Commercial Property FM — Common Questions
               </h2>
+              <p className="mt-3 text-sm text-slate-600">
+                Key questions for managing agents, landlords and commercial portfolio directors in {city}.
+              </p>
             </div>
             <FAQAccordion faqs={faqs} />
           </div>
         </section>
 
-        {/* Related Links */}
+        {/* 12. STRONG LOCATION-SPECIFIC CONVERSION SECTION */}
+        <ProposalSection
+          defaultLocation={city}
+          headline={`Request an Estate Proposal for ${city}`}
+          subheadline={`Speak with our team about single-site or portfolio facilities management contracts across ${city}.`}
+        />
+
+        {/* 13. RELATED LOCATION / SERVICE LINKS */}
         <section className="section-padding bg-white border-t border-brand-edge">
-          <div className="container-custom">
-            <div className="mb-8">
-              <span className="badge-technical">Related Solutions</span>
-              <h2 className="text-2xl font-bold text-brand-graphite mt-2">
-                Explore Corporate & Commercial Solutions
+          <div className="container-wide">
+            <div className="max-w-2xl mb-8">
+              <span className="badge-technical">Regional Network</span>
+              <h2 className="text-display-sm text-brand-graphite mt-2">
+                Explore Local Services & Regional Coverage
               </h2>
             </div>
             <RelatedLinks links={relatedLinks} />
           </div>
         </section>
-
-        {/* Proposal / Conversion Section */}
-        <ProposalSection
-          defaultLocation={city}
-          headline={`Request a Portfolio Proposal for ${city}`}
-          subheadline={`Consult with our commercial estates team. We provide tailored SLA frameworks, common area maintenance scopes, and site survey reviews.`}
-        />
       </main>
       <Footer />
     </div>
