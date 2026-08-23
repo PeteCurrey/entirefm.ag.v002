@@ -7,12 +7,12 @@
   "generatedBy": "scripts/generate-production-manifest.js",
   "warning": "This file is auto-generated. Edit route-registry.json and re-run npm run generate:manifest.",
   "summary": {
-    "total": 320,
-    "protected": 320,
-    "indexable": 320,
+    "total": 325,
+    "protected": 325,
+    "indexable": 325,
     "historicWix": 229,
     "currentLive": 7,
-    "growth": 84
+    "growth": 89
   },
   "urls": [
     {
@@ -4173,6 +4173,71 @@
       "originEstate": "CURRENT_LIVE",
       "sitemapGroup": "insights",
       "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/resources/guides",
+      "url": "https://www.entirefm.com/resources/guides",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/resources/guides/facilities-management-guide",
+      "url": "https://www.entirefm.com/resources/guides/facilities-management-guide",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/resources/guides/ppm-guide",
+      "url": "https://www.entirefm.com/resources/guides/ppm-guide",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/resources/guides/asset-register-guide",
+      "url": "https://www.entirefm.com/resources/guides/asset-register-guide",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
+      "contentStatus": "COMPLETE"
+    },
+    {
+      "path": "/resources/guides/fm-tender-guide",
+      "url": "https://www.entirefm.com/resources/guides/fm-tender-guide",
+      "routeType": "company",
+      "protected": true,
+      "indexable": true,
+      "indexExpected": true,
+      "canonicalExpected": "self",
+      "originEstate": "GROWTH",
+      "sitemapGroup": "insights",
+      "provenance": "NEW_GROWTH",
       "contentStatus": "COMPLETE"
     }
   ]

@@ -43,6 +43,8 @@ import { TemplateDocumentVault } from './resources/TemplateDocumentVault';
 import { TemplateBuildingWalk } from './resources/TemplateBuildingWalk';
 import { TemplateAiPillar } from './resources/TemplateAiPillar';
 import { TemplateAiGuide } from './resources/TemplateAiGuide';
+import { TemplateGuidesHub } from './resources/TemplateGuidesHub';
+import { TemplateEvergreenGuide } from './resources/TemplateEvergreenGuide';
 import { TemplateFmBriefing } from './resources/TemplateFmBriefing';
 import { TemplateUnsubscribe } from './resources/TemplateUnsubscribe';
 
@@ -165,6 +167,12 @@ function selectTemplate(
   }
 
   // 6e. Knowledge & Intelligence Hubs
+  if (path === '/resources/guides') {
+    return <TemplateGuidesHub route={route} content={content} />;
+  }
+  if (path.startsWith('/resources/guides/')) {
+    return <TemplateEvergreenGuide route={route} content={content} />;
+  }
   if (path === '/resources/ai-in-facilities-management') {
     return <TemplateAiPillar route={route} content={content} />;
   }

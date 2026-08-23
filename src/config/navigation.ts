@@ -129,6 +129,7 @@ export const PRIMARY_NAV: NavSection[] = [
       {
         heading: 'Guides & Knowledge',
         links: [
+          { label: 'FM Guides Library', href: '/resources/guides', detail: 'Authoritative evergreen facilities management guides' },
           { label: 'Resource Hub', href: '/resources', detail: 'Central knowledge, guides and practical FM tools' },
           { label: 'AI in Facilities Management', href: '/resources/ai-in-facilities-management', detail: 'Comprehensive operational & technical guide' },
           { label: 'Predictive Maintenance', href: '/resources/ai-in-facilities-management/predictive-maintenance', detail: 'IoT condition monitoring & failure models' },

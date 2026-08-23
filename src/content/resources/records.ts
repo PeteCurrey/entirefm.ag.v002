@@ -9,6 +9,212 @@
 import type { ContentRecord } from '@/lib/routes/route-schema';
 
 export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
+  '/resources/guides': {
+    path: '/resources/guides',
+    title: 'Practical Facilities Management Guides & Knowledge Library | EntireFM',
+    metaDescription: 'Authoritative, practical FM guides covering Hard vs Soft FM, planned maintenance, asset registers, commercial tendering, and statutory compliance.',
+    h1: 'Practical Facilities Management Guides',
+    eyebrow: 'Knowledge & Guidance Library',
+    heroIntro: 'Detailed, practical guidance engineered for people responsible for commercial buildings, statutory maintenance, asset compliance, procurement, and FM strategy.',
+    heroDescription: 'From asset registers to tender procurement and planned maintenance frameworks, explore evergreen resources written by practicing FM engineers.',
+    heroImage: '/images/editorial/entirefm-client-review-2000w.webp',
+    historicIntent: 'Educational search intent for facilities management guides and best practices',
+    primaryIntent: 'facilities management guides',
+    secondaryIntents: ['FM guides UK', 'commercial maintenance guide', 'facilities management best practices'],
+    pageType: 'company',
+    historicTopics: ['FM guides', 'PPM guide', 'Asset register guide', 'FM tender guide'],
+    requiredSections: ['hero', 'featured-guide', 'guides-grid', 'cta'],
+    sections: [
+      {
+        heading: 'Authoritative FM Knowledge Engineered for Practice',
+        body: 'Our guides provide deep technical clarity across commercial maintenance, statutory obligations, estate asset registers, and procurement without fluff or generic SaaS marketing.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources' },
+      { name: 'Guides', url: '/resources/guides' }
+    ],
+    relatedRoutes: ['/resources', '/tools', '/compliance', '/ppm'],
+    conversionGoal: 'Provide high-authority educational gateway and structured routing into specific FM guides and tools.',
+    verificationRequirements: [
+      'Zero broken outbound internal links',
+      'Accurate summary cards for all flagship guides'
+    ],
+    contentStatus: 'COMPLETE'
+  },
+  '/resources/guides/facilities-management-guide': {
+    path: '/resources/guides/facilities-management-guide',
+    title: 'The Complete Guide to Facilities Management (2026) | EntireFM',
+    metaDescription: 'The definitive guide to UK facilities management: Hard FM engineering, Soft FM services, Total FM delivery, statutory compliance, and CAFM operations.',
+    h1: 'The Complete Guide to Facilities Management',
+    eyebrow: 'FM Fundamentals & Strategy',
+    heroIntro: 'An exhaustive, practical guide to commercial facilities management in the UK: Hard vs Soft FM, delivery models, statutory compliance baselines, and CAFM architecture.',
+    heroDescription: 'Explore the full spectrum of modern facilities management, from building engineering and plant maintenance to contractor governance and service SLAs.',
+    heroImage: '/images/editorial/entirefm-client-review-2000w.webp',
+    historicIntent: 'Broad educational intent for what is facilities management and how FM works',
+    primaryIntent: 'facilities management guide',
+    secondaryIntents: ['what is facilities management', 'hard vs soft fm', 'total facilities management guide', 'commercial fm overview'],
+    pageType: 'company',
+    historicTopics: ['Facilities management fundamentals', 'Hard FM', 'Soft FM', 'Service delivery models', 'Statutory compliance'],
+    requiredSections: ['hero', 'intro', 'hard-soft-fm', 'delivery-models', 'compliance', 'cafm', 'cta'],
+    sections: [
+      {
+        heading: '1. What is Facilities Management?',
+        body: 'Facilities management (FM) is the multidisciplinary practice of ensuring the built environment functions efficiently, safely, and sustainably. It integrates people, place, process, and technology across commercial real estate, industrial sites, and institutional estates.'
+      },
+      {
+        heading: '2. Hard FM vs Soft FM vs Integrated Total FM',
+        body: 'Hard FM encompasses the physical infrastructure, mechanical and electrical engineering plant, fabric maintenance, and statutory life-safety systems. Soft FM covers occupational and workplace services such as contract cleaning, security guarding, grounds maintenance, and waste management. Integrated or Total FM consolidates all disciplines under a single accountable provider.'
+      },
+      {
+        heading: '3. Statutory Compliance & Asset Governance',
+        body: 'Commercial duty holders must comply with non-negotiable statutory duties including the Regulatory Reform (Fire Safety) Order 2005, Electricity at Work Regulations 1989, and ACOP L8 Legionella controls. Structured FM ensures every inspection is executed on cycle with verified digital certification.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources' },
+      { name: 'Guides', url: '/resources/guides' },
+      { name: 'Facilities Management Guide', url: '/resources/guides/facilities-management-guide' }
+    ],
+    relatedRoutes: ['/services', '/hard-services', '/soft-services', '/ppm', '/compliance'],
+    conversionGoal: 'Establish broad top-of-funnel FM educational authority with contextual links to Hard/Soft FM services.',
+    verificationRequirements: [
+      'Grounded in IWFM and ISO 41001 principles',
+      'Zero unsupported commercial claims'
+    ],
+    contentStatus: 'COMPLETE'
+  },
+  '/resources/guides/ppm-guide': {
+    path: '/resources/guides/ppm-guide',
+    title: 'The Complete Guide to Planned Preventative Maintenance (PPM) | EntireFM',
+    metaDescription: 'How to structure an asset-led planned preventative maintenance (PPM) programme, balance legal vs manufacturer tasks, and eliminate reactive plant failure.',
+    h1: 'The Complete Guide to Planned Preventative Maintenance (PPM)',
+    eyebrow: 'Maintenance Strategy & Execution',
+    heroIntro: 'A comprehensive engineering guide to planned preventative maintenance (PPM): asset registers, statutory intervals, SFG20 task schedules, and remedial workflows.',
+    heroDescription: 'Learn how to transition from reactive firefighting to a structured, asset-led maintenance strategy that protects asset life, ensures compliance, and lowers lifecycle costs.',
+    heroImage: '/images/editorial/entirefm-hvac-rooftop-condensers-1280w.webp',
+    historicIntent: 'Educational search intent for planned preventative maintenance guide and PPM planning',
+    primaryIntent: 'planned preventative maintenance guide',
+    secondaryIntents: ['ppm guide', 'ppm maintenance schedules', 'planned maintenance best practices', 'ppm vs reactive maintenance'],
+    pageType: 'company',
+    historicTopics: ['PPM fundamentals', 'Statutory vs standard maintenance', 'Asset registers', 'Scheduling', 'Remedial workflows'],
+    requiredSections: ['hero', 'intro', 'statutory-vs-manufacturer', 'schedule-design', 'evidence-remedials', 'cta'],
+    sections: [
+      {
+        heading: '1. What is Planned Preventative Maintenance (PPM)?',
+        body: 'Planned Preventative Maintenance (PPM) is the scheduled, proactive servicing of building assets, mechanical plant, and electrical distribution systems to prevent unexpected failure, preserve manufacturer warranties, and satisfy mandatory UK statutory testing duties.'
+      },
+      {
+        heading: '2. Categorising Maintenance: Statutory vs Standard vs Discretionary',
+        body: 'PPM tasks must be strictly prioritised. Statutory tasks (e.g. annual Gas Safety CP12, 5-yearly EICR, monthly emergency lighting discharge) are legally mandated. Standard tasks (quarterly AHU filter replacement, annual chiller refrigeration service) preserve operating efficiency. Discretionary tasks provide aesthetic upkeep.'
+      },
+      {
+        heading: '3. Digital Evidence & Remedial Management',
+        body: 'A PPM task is only complete when verified engineering evidence—such as refrigerant pressures, insulation resistance megger readings, and photos—is captured in the CAFM. Discovered defects must immediately spawn tracked remedial work orders with clear C1/C2 criticality classifications.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources' },
+      { name: 'Guides', url: '/resources/guides' },
+      { name: 'PPM Guide', url: '/resources/guides/ppm-guide' }
+    ],
+    relatedRoutes: ['/ppm', '/tools/ppm-schedule-builder', '/compliance', '/hvac-contractor'],
+    conversionGoal: 'Drive qualified commercial engagement towards EntireFM PPM services and interactive schedule builder tool.',
+    verificationRequirements: [
+      'SFG20 & CIBSE Guide M referenced accurately',
+      'Direct link to PPM Schedule Builder tool'
+    ],
+    contentStatus: 'COMPLETE'
+  },
+  '/resources/guides/asset-register-guide': {
+    path: '/resources/guides/asset-register-guide',
+    title: 'How to Build an FM Asset Register (ISO 55000 / Uniclass) | EntireFM',
+    metaDescription: 'Step-by-step guidance on establishing an ISO 55000 / Uniclass 2015 asset hierarchy, field tagging, condition scoring, and CAFM data hygiene.',
+    h1: 'How to Build a Facilities Management Asset Register',
+    eyebrow: 'Engineering Data & Asset Governance',
+    heroIntro: 'Step-by-step guidance on creating a structured, auditable commercial asset register: spatial hierarchy, Uniclass classification, criticality scoring, and field verification.',
+    heroDescription: 'Understand how accurate asset data underpins successful maintenance planning, statutory compliance tracking, lifecycle budgeting, and AI-assisted CAFM operations.',
+    heroImage: '/images/editorial/entirefm-switchgear-inspection-2000w.webp',
+    historicIntent: 'Educational search intent for building an asset register in facilities management',
+    primaryIntent: 'how to build asset register',
+    secondaryIntents: ['fm asset register guide', 'asset register template', 'uniclass asset tagging', 'cafm asset hierarchy'],
+    pageType: 'company',
+    historicTopics: ['Asset hierarchy', 'Uniclass classification', 'Condition scoring', 'Field surveys', 'CAFM import'],
+    requiredSections: ['hero', 'intro', 'hierarchy', 'naming-standards', 'condition-criticality', 'cta'],
+    sections: [
+      {
+        heading: '1. Why an Asset Register is the Foundation of FM',
+        body: 'Without an accurate, granular asset register, facilities managers cannot price PPM contracts accurately, ensure statutory compliance coverage, or forecast capital lifecycle replacements. Maintenance schedules built without an asset baseline inevitably lead to missed plant items and unmanaged risk.'
+      },
+      {
+        heading: '2. Structuring the Spatial & System Hierarchy',
+        body: 'Adopt a standard hierarchy: Estate &rarr; Site &rarr; Building &rarr; Floor/Zone &rarr; Room/Space &rarr; System &rarr; Asset Parent &rarr; Sub-component. Aligning naming conventions with Uniclass 2015 ensures interoperability across BIM models, CAFM databases, and contractor work orders.'
+      },
+      {
+        heading: '3. Asset Criticality and Condition Scoring',
+        body: 'Score assets across Business Criticality (Life Safety, Operational Shutdown, Secondary Comfort) and Physical Condition (1: Good/New to 5: End of Life / Failure Imminent). This matrix informs maintenance frequency and capital expenditure priorities.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources' },
+      { name: 'Guides', url: '/resources/guides' },
+      { name: 'Asset Register Guide', url: '/resources/guides/asset-register-guide' }
+    ],
+    relatedRoutes: ['/mechanical-electrical', '/ppm', '/tools/fm-health-check', '/resources/document-vault'],
+    conversionGoal: 'Demonstrate EntireFM engineering rigour and drive interest in asset discovery surveys and CAFM onboarding.',
+    verificationRequirements: [
+      'ISO 55000 and Uniclass standards referenced correctly',
+      'Downloadable asset template available in Document Vault'
+    ],
+    contentStatus: 'COMPLETE'
+  },
+  '/resources/guides/fm-tender-guide': {
+    path: '/resources/guides/fm-tender-guide',
+    title: 'Facilities Management Tender & RFP Procurement Guide | EntireFM',
+    metaDescription: 'How to structure an FM tender: drafting output specifications, establishing estate baselines, evaluating pricing models, and scoring bidder proposals.',
+    h1: 'Facilities Management Tender & RFP Procurement Guide',
+    eyebrow: 'Procurement & Commercial Strategy',
+    heroIntro: 'How to specify, tender, and evaluate commercial facilities management contracts: defining scope, asset baselines, SLA frameworks, pricing mechanisms, and bidder evaluation.',
+    heroDescription: 'A practical, objective procurement guide for property directors, procurement managers, and estate custodians preparing an FM request for proposal (RFP).',
+    heroImage: '/images/editorial/entirefm-facilities-management-meeting-1200w.webp',
+    historicIntent: 'Commercial and educational intent for tendering facilities management contracts',
+    primaryIntent: 'facilities management tender guide',
+    secondaryIntents: ['fm rfp guide', 'how to tender facilities management', 'fm procurement toolkit', 'fm tender questions'],
+    pageType: 'company',
+    historicTopics: ['Tender specification', 'Estate data', 'SLA / KPI frameworks', 'Pricing models', 'Bidder evaluation'],
+    requiredSections: ['hero', 'intro', 'specification', 'pricing-models', 'evaluation-scoring', 'cta'],
+    sections: [
+      {
+        heading: '1. Structuring the FM Specification: Input vs Output Based',
+        body: 'Input-based specifications dictate the exact headcount and hours, whereas output-based specifications define the required performance standard (e.g. plant availability, SLA response times, statutory audit compliance). Output specifications incentivise efficiency and technological innovation.'
+      },
+      {
+        heading: '2. Accurate Estate Data: The Antidote to Post-Award Variations',
+        body: 'The single largest cause of post-contract commercial friction is deficient asset data during tender. Providing verified asset counts, floor areas, maintenance history, and statutory certificate registers prevents bidders from inserting large contingency risk premiums or submitting costly post-award variations.'
+      },
+      {
+        heading: '3. Evaluating Pricing and Technical Capability',
+        body: 'Score tenders across Quality (60%) and Commercial (40%). Scrutinise direct labour vs subcontracting models, CAFM transparency, mobilisation governance, and contractor audit regimes rather than simply accepting the lowest headline price.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources' },
+      { name: 'Guides', url: '/resources/guides' },
+      { name: 'FM Tender Guide', url: '/resources/guides/fm-tender-guide' }
+    ],
+    relatedRoutes: ['/tools/tender-brief', '/services', '/ppm', '/tools/fm-roi-calculator'],
+    conversionGoal: 'Position EntireFM as a transparent, high-capability bidder and drive adoption of the Tender Brief Generator tool.',
+    verificationRequirements: [
+      'Grounded in Crown Commercial Service & IWFM procurement best practices',
+      'Direct link to Tender Brief Generator tool'
+    ],
+    contentStatus: 'COMPLETE'
+  },
   '/resources': {
     path: '/resources',
     title: 'FM Resources, Tools & Guides | Facilities Management Hub | Entire FM',
