@@ -160,7 +160,7 @@ export function FullBleedFeature({
             {title}
           </h2>
           <p
-            className="mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-brand-mist/75"
+            className={`mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-brand-mist/75 ${align === 'centre' ? 'mx-auto' : ''}`}
             data-reveal
             style={{ '--reveal-delay': '150ms' } as React.CSSProperties}
           >

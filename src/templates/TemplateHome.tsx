@@ -178,7 +178,7 @@ export function TemplateHome() {
 
         {/* Second full-bleed break — the brand, before the close. */}
         <FullBleedFeature
-          imageKey="headquarters-exterior"
+          imageKey="corporate-corridor"
           eyebrow="Facilities Management. Evolved."
           title="One estate. One contract. One accountable provider."
           body="Fragmented supply is expensive in ways that never appear on a single invoice: compliance gaps between providers who each assume someone else holds the certificate, reactive costs that rise because nobody owns the recurring fault, and management time spent chasing rather than deciding."

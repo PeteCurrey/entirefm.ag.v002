@@ -547,6 +547,26 @@
       },
       "src": "/images/editorial/entirefm-reception-2000w.webp"
     },
+    "corporate-corridor": {
+      "alt": "EntireFM branding along modern commercial office corridor and directory sign",
+      "source": "entirefm-corporate-corridor.jpg",
+      "widths": {
+        "800": "/images/editorial/entirefm-corporate-corridor-800w.webp",
+        "1200": "/images/editorial/entirefm-corporate-corridor-1200w.webp",
+        "2000": "/images/editorial/entirefm-corporate-corridor-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-corporate-corridor-2000w.webp"
+    },
+    "totem-headquarters": {
+      "alt": "EntireFM illuminated corporate totem signage outside a modern commercial facility at dusk",
+      "source": "entirefm-totem-headquarters.jpg",
+      "widths": {
+        "800": "/images/editorial/entirefm-totem-headquarters-800w.webp",
+        "1200": "/images/editorial/entirefm-totem-headquarters-1200w.webp",
+        "2000": "/images/editorial/entirefm-totem-headquarters-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-totem-headquarters-2000w.webp"
+    },
     "london-aerial-poster": {
       "alt": "Aerial view over London at dusk, with Tower Bridge and the Thames",
       "source": "legacy Wix homepage background video",
@@ -560,3 +580,5 @@
     }
   }
 }
+
+

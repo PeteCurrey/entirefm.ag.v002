@@ -123,13 +123,13 @@ export function TemplateContact() {
 
       <main className="flex-1">
         {/* =========================================================================
-            1. CINEMATIC CONTACT HERO
+            1. CINEMATIC FULL-PAGE CONTACT HERO
             ========================================================================= */}
-        <section className="on-dark relative isolate flex min-h-[38rem] lg:min-h-[42rem] w-full flex-col overflow-hidden bg-brand-graphite">
+        <section className="on-dark relative isolate flex min-h-screen min-h-[100svh] w-full flex-col justify-between overflow-hidden bg-brand-graphite">
           {/* Photographic Background */}
           <div className="absolute inset-0 -z-20">
             <Image
-              src="/images/EntireFM 01.png"
+              src="/images/editorial/entirefm-totem-headquarters-2000w.webp"
               alt="EntireFM Commercial Operations Facility"
               fill
               priority
@@ -144,7 +144,7 @@ export function TemplateContact() {
             className="absolute inset-0 -z-10"
             style={{
               background:
-                'linear-gradient(96deg, rgba(11,18,32,0.96) 0%, rgba(11,18,32,0.90) 42%, rgba(11,18,32,0.68) 78%, rgba(11,18,32,0.48) 100%)',
+                'linear-gradient(96deg, rgba(11,18,32,0.95) 0%, rgba(11,18,32,0.85) 45%, rgba(11,18,32,0.60) 78%, rgba(11,18,32,0.40) 100%)',
             }}
           />
           <div
