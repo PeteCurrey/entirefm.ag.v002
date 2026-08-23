@@ -29,9 +29,7 @@ export function TemplateHtmlSitemap() {
       <Header solid />
       <main className="flex-1">
         <div className="bg-brand-graphite border-b border-brand-edge-dark/60">
-          <div className="container-custom">
-            <Breadcrumbs items={breadcrumbs} />
-          </div>
+          <Breadcrumbs items={breadcrumbs} />
         </div>
 
         {/* HTML Sitemap Hero */}

@@ -9,11 +9,12 @@ export interface BreadcrumbItem {
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[];
+  className?: string;
 }
 
-export function Breadcrumbs({ items }: BreadcrumbsProps) {
+export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
   return (
-    <nav aria-label="Breadcrumb" className="py-3 text-xs text-slate-500">
+    <nav aria-label="Breadcrumb" className={`container-wide py-3 text-xs text-slate-500 ${className}`.trim()}>
       <ol className="flex items-center flex-wrap gap-1.5 list-none p-0 m-0">
         <li className="flex items-center">
           <Link href="/" className="text-slate-400 hover:text-brand-electric transition-colors flex items-center gap-1">

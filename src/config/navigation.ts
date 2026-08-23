@@ -110,21 +110,48 @@ export const PRIMARY_NAV: NavSection[] = [
       imageKey: 'rooftop-plant-night',
     },
   },
+  {
+    label: 'Resources',
+    href: '/resources',
+    columns: [
+      {
+        heading: 'Compliance & Safety',
+        links: [
+          { label: 'Compliance Centre', href: '/compliance', detail: 'Statutory testing and legal obligations' },
+          { label: 'Fire Risk Assessment', href: '/compliance/fire-risk-assessment', detail: 'RRO 2005 duties and review triggers' },
+          { label: 'Fixed Wire Testing (EICR)', href: '/compliance/fixed-wire-testing-eicr', detail: 'BS 7671 periodic inspection intervals' },
+          { label: 'Emergency Lighting', href: '/compliance/emergency-lighting-testing', detail: 'BS 5266 monthly and annual testing' },
+          { label: 'Water Hygiene & Legionella', href: '/compliance/legionella-water-hygiene', detail: 'ACOP L8 written scheme of control' },
+          { label: 'Commercial Gas Safety', href: '/compliance/commercial-gas-safety', detail: 'Non-domestic gas installation duties' },
+        ],
+      },
+      {
+        heading: 'Case Studies & Locations',
+        links: [
+          { label: 'Case Studies', href: '/case-studies', detail: 'Real-world estate maintenance profiles' },
+          { label: 'UK Locations Directory', href: '/locations', detail: 'Explore regional service hubs across the UK' },
+          { label: 'London Facilities Management', href: '/facilities-management-london', detail: 'Commercial facilities across Greater London' },
+          { label: 'Manchester Facilities Management', href: '/facilities-management-manchester', detail: 'City centre estates and regional coverage' },
+          { label: 'Sheffield & Yorkshire', href: '/facilities-management-sheffield', detail: 'Sheffield, Leeds and Northern operations' },
+          { label: 'Birmingham & Midlands', href: '/facilities-management-birmingham', detail: 'Birmingham and Midlands commercial coverage' },
+        ],
+      },
+    ],
+    feature: {
+      eyebrow: 'Knowledge & Guidance',
+      title: 'Evidence-based estate operations',
+      body: 'Statutory compliance guidance, nationwide regional coverage, and real estate management profiles.',
+      href: '/resources',
+      cta: 'Explore resources',
+      imageKey: 'client-review',
+    },
+  },
 ];
 
 /**
  * Flat links alongside the mega-menu sections.
- *
- * Locations is a single link to the hub rather than a dropdown. The legacy
- * geographic pages carried over from Wix are search landing pages — they earn
- * their traffic from Google, not from someone browsing the navigation — and
- * listing 70+ of them in the header would bury the pages people actually
- * navigate to. The hub lists them all.
  */
 export const SECONDARY_NAV: NavLink[] = [
-  { label: 'Locations', href: '/locations' },
-  { label: 'Compliance', href: '/compliance' },
-  { label: 'Case Studies', href: '/case-studies' },
   { label: 'About', href: '/about-entire-facilities-management' },
   { label: 'Contact', href: '/contact-us' },
 ];

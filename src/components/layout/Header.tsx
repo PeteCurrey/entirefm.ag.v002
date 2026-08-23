@@ -195,6 +195,9 @@ export function Header({ solid = false }: HeaderProps) {
           <nav className="hidden min-w-0 items-center lg:flex" aria-label="Main">
             {PRIMARY_NAV.map((section) => {
               const open = openMenu === section.label;
+              const isSectionActive =
+                isActive(section.href) ||
+                section.columns.some((col) => col.links.some((link) => isActive(link.href)));
               return (
                 <div
                   key={section.label}
@@ -212,7 +215,7 @@ export function Header({ solid = false }: HeaderProps) {
                     aria-haspopup="true"
                     onClick={() => setOpenMenu(open ? null : section.label)}
                     className={`flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                      open || isActive(section.href) ? 'text-white' : 'text-brand-mist/75 hover:text-white'
+                      open || isSectionActive ? 'text-white' : 'text-brand-mist/75 hover:text-white'
                     }`}
                   >
                     {section.label}
