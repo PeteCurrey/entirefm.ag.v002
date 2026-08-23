@@ -66,17 +66,17 @@ export function ServiceHero({
       />
 
       {/* Breadcrumbs offset past header */}
-      <div className="relative pt-[calc(var(--header-h)+0.5rem)]">
+      <div className="relative pt-[calc(var(--header-h)+0.25rem)]">
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
       {/* Hero Content */}
-      <div className="container-wide relative flex flex-1 items-center pb-16 pt-6">
+      <div className="container-wide relative flex flex-1 flex-col justify-center py-6">
         <div className="max-w-3xl">
           {/* Eyebrow badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-white/[0.07] border border-white/15 backdrop-blur-sm mb-6">
-            <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-pink-light">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/[0.07] border border-white/15 backdrop-blur-sm mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-pink animate-pulse" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-brand-pink-light">
               {eyebrow}
             </span>
           </div>
@@ -90,12 +90,12 @@ export function ServiceHero({
           </h1>
 
           {/* Commercial Intro */}
-          <p className="mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80">
+          <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80">
             {intro}
           </p>
 
           {/* Action CTAs */}
-          <div className="mt-9 flex flex-wrap items-center gap-4">
+          <div className="mt-6 flex flex-wrap items-center gap-3">
             <a
               href={primaryCta.href}
               onClick={(e) => {
@@ -115,19 +115,26 @@ export function ServiceHero({
               <span>{CONTACT_CONFIG.mainPhone.display}</span>
             </a>
           </div>
-
-          {/* Service Facts Row */}
-          {serviceFacts.length > 0 && (
-            <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10">
-              {serviceFacts.map((fact, idx) => (
-                <div key={idx} className="bg-brand-graphite/75 px-5 py-3.5 backdrop-blur-md">
-                  <div className="text-xs font-bold text-white uppercase tracking-wider">{fact.value}</div>
-                  <div className="text-xs text-brand-mist/70 mt-0.5">{fact.label}</div>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
+
+        {/* Proof / Service Facts Row (Glass Cards matching homepage design) */}
+        {serviceFacts.length > 0 && (
+          <dl className="mt-8 grid max-w-5xl grid-cols-1 gap-2.5 sm:grid-cols-3 lg:gap-3.5">
+            {serviceFacts.map((fact, idx) => (
+              <div
+                key={idx}
+                className="group rounded-sm border border-white/[0.09] bg-white/[0.06] px-5 py-4 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]"
+              >
+                <dt className="whitespace-nowrap text-base sm:text-lg font-semibold tracking-tight text-white transition-colors duration-500 group-hover:text-brand-pink-light">
+                  {fact.value}
+                </dt>
+                <dd className="mt-1 text-[10.5px] font-medium uppercase tracking-[0.14em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
+                  {fact.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
       </div>
 
       <div aria-hidden="true" className="rule-hero-pink absolute inset-x-0 bottom-0" />
