@@ -206,7 +206,7 @@ function buildHeadTerm(city: Tier1City, registryPaths: Set<string>): ContentReco
     eyebrow: 'Commercial FM',
     heroIntro: city.positioning,
     heroDescription: `EntireFM maintains commercial property across ${city.name} — planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover, scheduled around the constraints that apply here rather than a national template.`,
-    heroImage: cityImage(city, 1) ?? cityImage(city, 0),
+    heroImage: city.slug === 'manchester' ? '/images/editorial/entirefm-entirefm-premises-vans-2000w.webp' : (cityImage(city, 1) ?? cityImage(city, 0)),
     historicIntent: `Historic head-term commercial search intent for facilities management in ${city.name}`,
     primaryIntent: `facilities management ${city.slug}`,
     secondaryIntents: [

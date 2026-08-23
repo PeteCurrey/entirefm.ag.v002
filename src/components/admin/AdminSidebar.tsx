@@ -154,6 +154,27 @@ const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    title: 'BLOG & INSIGHTS',
+    items: [
+      { name: 'Editorial Dashboard', href: '/admin/blog' },
+      { name: 'Content Intelligence', href: '/admin/blog/intelligence' },
+      { name: 'Weekly Briefing', href: '/admin/blog/intelligence/weekly' },
+      { name: 'All Posts', href: '/admin/blog/posts' },
+      { name: 'New Post', href: '/admin/blog/new' },
+      { name: 'Editorial Calendar', href: '/admin/blog/calendar' },
+      { name: 'AI Draft Queue', href: '/admin/blog/ai-queue' },
+      { name: 'Topic Opportunities', href: '/admin/blog/topics' },
+      { name: 'Categories', href: '/admin/blog/categories' },
+      { name: 'Authors', href: '/admin/blog/authors' },
+      { name: 'Media Library', href: '/admin/blog/media' },
+      { name: 'Distribution', href: '/admin/blog/distribution' },
+      { name: 'SEO Health', href: '/admin/blog/seo' },
+      { name: 'External Sources', href: '/admin/blog/sources' },
+      { name: 'Automation Settings', href: '/admin/blog/automation' },
+      { name: 'Automation Jobs', href: '/admin/blog/automation/jobs' },
+    ],
+  },
+  {
     title: 'PLATFORM',
     items: [
       { name: 'Users', href: '/admin/platform/users' },

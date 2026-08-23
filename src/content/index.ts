@@ -26,6 +26,7 @@ import { BLOG_CONTENT } from './blog/records';
 import { UTILITY_CONTENT } from './company/utility';
 import { GLOSSARY_CONTENT } from './glossary/records';
 import { RESOURCES_CONTENT } from './resources/records';
+import { AI_RESOURCES_CONTENT } from './resources/ai-records';
 
 export type { ContentRecord };
 
@@ -59,6 +60,8 @@ export const COMPANY_CONTENT: Record<string, ContentRecord> = {
   ...GLOSSARY_CONTENT,
   // Restored & upgraded interactive FM tools, resource hubs, Academy & Intelligence.
   ...RESOURCES_CONTENT,
+  // AI in Facilities Management Resource Centre & supporting guides.
+  ...AI_RESOURCES_CONTENT,
 };
 
 /** Paths currently served by bespoke Tier 1 content. */

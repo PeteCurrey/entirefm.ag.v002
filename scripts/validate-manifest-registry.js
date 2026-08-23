@@ -19,7 +19,8 @@ const registry = JSON.parse(fs.readFileSync(REGISTRY_PATH, 'utf8'));
 const manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
 
 const registryPaths = new Set(registry.routes.map(r => r.path));
-const manifestPaths = new Set(manifest.urls.map(u => u.path));
+const manifestList = manifest.urls || manifest.routes || [];
+const manifestPaths = new Set(manifestList.map(u => u.path));
 
 const inRegistryNotManifest = [...registryPaths].filter(p => !manifestPaths.has(p));
 const inManifestNotRegistry = [...manifestPaths].filter(p => !registryPaths.has(p));

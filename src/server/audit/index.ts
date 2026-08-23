@@ -1,8 +1,8 @@
 /**
- * ENTIREFM IMMUTABLE AUDIT & EVENT LEDGER
- * =======================================
- * Records every state transition, user action, and AI execution.
- * Outbox pattern enables event-driven automation.
+ * ENTIREFM IMMUTABLE AUDIT & EVENT LEDGER (Phase 0A-R Hardened)
+ * =============================================================
+ * Immutability enforced by PostgreSQL trigger (prevent_audit_mutation).
+ * Full forensic tracking with correlation and causation IDs.
  */
 
 import { dbQuery } from '../db/client';
@@ -11,6 +11,7 @@ export interface AuditEvent {
   id: string;
   event_type: string;
   correlation_id: string;
+  causation_id?: string;
   actor_id?: string;
   actor_type: 'HUMAN' | 'SYSTEM' | 'AI_AGENT' | 'CRON';
   organisation_id?: string;
@@ -29,6 +30,7 @@ export interface AuditEvent {
 export async function recordAuditEvent(event: {
   event_type: string;
   correlation_id?: string;
+  causation_id?: string;
   actor_id?: string;
   actor_type?: 'HUMAN' | 'SYSTEM' | 'AI_AGENT' | 'CRON';
   organisation_id?: string;
@@ -43,6 +45,7 @@ export async function recordAuditEvent(event: {
   const row = {
     event_type: event.event_type,
     correlation_id: event.correlation_id || `corr_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+    causation_id: event.causation_id,
     actor_id: event.actor_id,
     actor_type: event.actor_type || 'SYSTEM',
     organisation_id: event.organisation_id,

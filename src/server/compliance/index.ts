@@ -1,10 +1,62 @@
 /**
- * ENTIREFM COMPLIANCE DOMAIN MODULE
- * =================================
- * Versioned compliance rules, statutory obligations tracking, certificates, and expiries.
+ * ENTIREFM COMPLIANCE DOMAIN MODULE (Phase 0A-R Hardened)
+ * =======================================================
+ * Versioned compliance rules, statutory obligations, applicability assessments,
+ * recurring compliance tasks, and exception management.
  */
 
 import { dbQuery } from '../db/client';
+
+export interface ApplicabilityAssessment {
+  id: string;
+  client_account_id?: string;
+  site_id?: string;
+  building_id?: string;
+  asset_id?: string;
+  system_id?: string;
+  compliance_rule_id: string;
+  rule_version_id?: string;
+  is_applicable: 'YES' | 'NO' | 'UNKNOWN';
+  input_facts_json?: Record<string, any>;
+  reasoning: string;
+  assessed_by_id?: string;
+  assessed_at: string;
+}
+
+export interface ComplianceTask {
+  id: string;
+  compliance_obligation_id: string;
+  work_order_id?: string;
+  task_type: 'INSPECTION' | 'TEST' | 'SERVICE' | 'AUDIT' | 'CERTIFICATE_RENEWAL' | 'REVIEW';
+  target_due_date: string;
+  status: 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'OVERDUE' | 'CANCELLED';
+  passed?: boolean;
+  engineer_notes?: string;
+  completed_at?: string;
+}
+
+export interface ComplianceException {
+  id: string;
+  compliance_obligation_id?: string;
+  site_id: string;
+  asset_id?: string;
+  exception_type:
+    | 'INACCESSIBLE_ASSET'
+    | 'MISSING_EVIDENCE'
+    | 'OVERDUE_STATUTORY'
+    | 'FAILED_INSPECTION'
+    | 'INVALID_CERTIFICATE'
+    | 'CONTRACTOR_COMPETENCY';
+  severity: 'CRITICAL' | 'MAJOR' | 'MINOR';
+  reason: string;
+  mitigation_plan?: string;
+  remediation_due_date?: string;
+  owner_person_id?: string;
+  status: 'OPEN' | 'MITIGATED' | 'RESOLVED';
+  resolved_at?: string;
+  resolution_notes?: string;
+  created_at: string;
+}
 
 export interface ComplianceSource {
   id: string;
@@ -61,20 +113,16 @@ export interface Certificate {
 }
 
 export async function listComplianceObligations(status?: string): Promise<ComplianceObligation[]> {
-  let endpoint = 'compliance_obligations?select=*,site:sites(name,site_code),asset:assets(name,asset_reference)&order=next_due_at.asc';
+  let endpoint =
+    'compliance_obligations?select=*,site:sites(name,site_code),asset:assets(name,asset_reference)&order=next_due_at.asc';
   if (status) endpoint += `&status=eq.${encodeURIComponent(status)}`;
   const { data } = await dbQuery<ComplianceObligation[]>(endpoint);
   return data || [];
 }
 
-export async function listCertificates(status?: string): Promise<Certificate[]> {
-  let endpoint = 'certificates?select=*,site:sites(name,site_code)&order=expiry_date.asc';
-  if (status) endpoint += `&status=eq.${encodeURIComponent(status)}`;
-  const { data } = await dbQuery<Certificate[]>(endpoint);
-  return data || [];
-}
-
-export async function listComplianceSources(): Promise<ComplianceSource[]> {
-  const { data } = await dbQuery<ComplianceSource[]>('compliance_sources?select=*&order=name.asc');
+export async function listComplianceExceptions(status = 'OPEN'): Promise<ComplianceException[]> {
+  const { data } = await dbQuery<ComplianceException[]>(
+    `compliance_exceptions?status=eq.${encodeURIComponent(status)}&select=*&order=created_at.desc`
+  );
   return data || [];
 }

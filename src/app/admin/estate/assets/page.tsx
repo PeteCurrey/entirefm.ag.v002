@@ -42,7 +42,7 @@ export default async function AssetsPage() {
                   <td className="px-5 py-4">
                     <div className="font-semibold text-white">{a.name}</div>
                     <div className="text-[11.5px] text-brand-mist/50">
-                      {a.category} · {a.manufacturer || 'OEM'} {a.model || ''}
+                      {a.category} · {a.manufacturer || 'OEM'} {a.model_number || ''}
                     </div>
                   </td>
                   <td className="px-5 py-4">

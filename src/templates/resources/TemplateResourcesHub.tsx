@@ -56,13 +56,18 @@ const ALL_SEARCHABLE_RESOURCES: SearchableResource[] = [
   // Knowledge & Learning
   { title: 'FM Glossary A–Z', href: '/facilities-management-glossary', category: 'Glossary', type: 'Glossary', description: 'Plain-English definitions of over 50 essential FM technical terms from PPM to CAFM.' },
   { title: 'FM Intelligence & Market Trends 2026', href: '/fm-intelligence', category: 'Industry Intelligence', type: 'Guide', description: 'Curated quarterly market analysis, engineering wage rates, and regulatory updates.' },
-  { title: 'EntireFM Academy', href: '/academy', category: 'Learning', type: 'Learning', description: 'Free operational learning modules covering building services and statutory compliance.' },
-  { title: 'FM Document Vault', href: '/resources/document-vault', category: 'Templates & Checklists', type: 'Document', description: 'Downloadable CSV asset registers, compliance logbooks, and maintenance audit sheets.' },
-  { title: 'The Building Walk', href: '/building-walk', category: 'Site Walkthroughs', type: 'Guide', description: 'Step-by-step visual plantroom and commercial building engineering walkthroughs.' },
+  // AI in FM
+  { title: 'AI in Facilities Management: Practical Guide', href: '/resources/ai-in-facilities-management', category: 'AI & Technology', type: 'Guide', description: 'Comprehensive guide to AI in commercial FM: predictive maintenance, CAFM automation, energy tuning and governance.' },
+  { title: 'AI Predictive Maintenance Guide', href: '/resources/ai-in-facilities-management/predictive-maintenance', category: 'AI & Technology', type: 'Guide', description: 'Condition-based monitoring, IoT vibration sensors, BMS telemetry, and PPM optimization.' },
+  { title: 'AI in the FM Helpdesk', href: '/resources/ai-in-facilities-management/ai-helpdesk-work-orders', category: 'AI & Technology', type: 'Guide', description: 'Natural language ticket triage, spatial asset mapping, automated dispatch and human safety safeguards.' },
+  { title: 'AI and Next-Gen CAFM Software', href: '/resources/ai-in-facilities-management/ai-cafm', category: 'AI & Technology', type: 'Guide', description: 'Vector asset search, automated scheduling, predictive SLA risk scoring, and EntireCAFM technology.' },
+  { title: 'AI Agents in Facilities Management', href: '/resources/ai-in-facilities-management/ai-agents', category: 'AI & Technology', type: 'Guide', description: 'Goal-directed autonomous agents for triage, planning, compliance verification, and contractor coordination.' },
+  { title: 'Is Your FM Data Ready for AI?', href: '/resources/ai-in-facilities-management/fm-data-readiness', category: 'AI & Technology', type: 'Guide', description: 'Asset register quality, spatial hierarchy, failure coding, and the 5-step AI readiness pathway.' },
 ];
 
 const TAXONOMY_CATEGORIES = [
   'All Topics',
+  'AI & Technology',
   'FM Fundamentals',
   'Maintenance & PPM',
   'Compliance & Safety',
@@ -333,6 +338,111 @@ export function TemplateResourcesHub({ route, content }: TemplateProps) {
                   <p className="text-xs text-brand-mist/60 mt-1">Written scheme of control, sentinel temperatures, and 5-year records.</p>
                 </Link>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 3b. AI & THE FUTURE OF FM */}
+        <section className="py-20 bg-gradient-to-b from-brand-graphite to-brand-void border-b border-brand-edge-dark relative overflow-hidden">
+          <div className="absolute right-0 top-0 w-96 h-96 bg-pink-500/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="container-custom relative z-10">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+              <div className="max-w-2xl">
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-pink-500/10 text-pink-400 border border-pink-500/20 mb-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-pink-500 animate-pulse" />
+                  Engineering & Operational Technology
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold text-white">
+                  AI & the Future of Facilities Management
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-brand-mist/70">
+                  Practical, fluff-free guidance on machine learning, CAFM automation, predictive maintenance, and data readiness for UK commercial building operators.
+                </p>
+              </div>
+              <Link
+                href="/resources/ai-in-facilities-management"
+                className="btn-primary py-2.5 px-4 text-xs inline-flex shrink-0 items-center gap-1.5"
+              >
+                Explore AI Pillar Hub <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              <Link
+                href="/resources/ai-in-facilities-management"
+                className="p-6 rounded-xl border border-pink-500/30 bg-pink-950/20 hover:border-pink-500/60 transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  <span className="text-[10px] font-mono uppercase font-bold text-pink-400">Pillar Whitepaper</span>
+                  <h3 className="text-base font-bold text-white mt-1 group-hover:text-pink-300 transition-colors">
+                    AI in Facilities Management: Complete Guide
+                  </h3>
+                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
+                    Demystifying ML, NLP, digital twins, and autonomous agents with an interactive request-to-resolution work order diagram.
+                  </p>
+                </div>
+                <div className="mt-6 pt-3 border-t border-pink-500/20 text-xs font-semibold text-pink-400 group-hover:text-pink-300 flex items-center justify-between">
+                  <span>Read Complete Guide</span>
+                  <span>→</span>
+                </div>
+              </Link>
+
+              <Link
+                href="/resources/ai-in-facilities-management/predictive-maintenance"
+                className="p-6 rounded-xl border border-brand-edge-dark bg-brand-graphite hover:border-pink-500/40 transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  <span className="text-[10px] font-mono uppercase font-bold text-slate-400">Plant Reliability</span>
+                  <h3 className="text-base font-bold text-white mt-1 group-hover:text-pink-300 transition-colors">
+                    Predictive Maintenance
+                  </h3>
+                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
+                    How IoT vibration sensors, BMS telemetry, and failure pattern models optimize critical plant alongside statutory PPM.
+                  </p>
+                </div>
+                <div className="mt-6 pt-3 border-t border-brand-edge-dark text-xs font-semibold text-slate-400 group-hover:text-pink-400 flex items-center justify-between">
+                  <span>Explore Guide</span>
+                  <span>→</span>
+                </div>
+              </Link>
+
+              <Link
+                href="/resources/ai-in-facilities-management/ai-cafm"
+                className="p-6 rounded-xl border border-brand-edge-dark bg-brand-graphite hover:border-pink-500/40 transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  <span className="text-[10px] font-mono uppercase font-bold text-slate-400">Software Architecture</span>
+                  <h3 className="text-base font-bold text-white mt-1 group-hover:text-pink-300 transition-colors">
+                    AI + CAFM Systems
+                  </h3>
+                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
+                    Natural language search, automated scheduling, predictive SLA risk scoring, and EntireCAFM software.
+                  </p>
+                </div>
+                <div className="mt-6 pt-3 border-t border-brand-edge-dark text-xs font-semibold text-slate-400 group-hover:text-pink-400 flex items-center justify-between">
+                  <span>Explore Guide</span>
+                  <span>→</span>
+                </div>
+              </Link>
+
+              <Link
+                href="/resources/ai-in-facilities-management/fm-data-readiness"
+                className="p-6 rounded-xl border border-brand-edge-dark bg-brand-graphite hover:border-pink-500/40 transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  <span className="text-[10px] font-mono uppercase font-bold text-slate-400">Asset Data Hygiene</span>
+                  <h3 className="text-base font-bold text-white mt-1 group-hover:text-pink-300 transition-colors">
+                    FM Data Readiness
+                  </h3>
+                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
+                    Asset register auditing, spatial hierarchy, standardized failure coding, and the 5-step AI readiness pathway.
+                  </p>
+                </div>
+                <div className="mt-6 pt-3 border-t border-brand-edge-dark text-xs font-semibold text-slate-400 group-hover:text-pink-400 flex items-center justify-between">
+                  <span>Explore Guide</span>
+                  <span>→</span>
+                </div>
+              </Link>
             </div>
           </div>
         </section>

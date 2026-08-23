@@ -41,6 +41,8 @@ import { TemplateFmIntelligence } from './resources/TemplateFmIntelligence';
 import { TemplateAcademy } from './resources/TemplateAcademy';
 import { TemplateDocumentVault } from './resources/TemplateDocumentVault';
 import { TemplateBuildingWalk } from './resources/TemplateBuildingWalk';
+import { TemplateAiPillar } from './resources/TemplateAiPillar';
+import { TemplateAiGuide } from './resources/TemplateAiGuide';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const content = loadContentRecord(route.path);
@@ -161,6 +163,12 @@ function selectTemplate(
   }
 
   // 6e. Knowledge & Intelligence Hubs
+  if (path === '/resources/ai-in-facilities-management') {
+    return <TemplateAiPillar route={route} content={content} />;
+  }
+  if (path.startsWith('/resources/ai-in-facilities-management/')) {
+    return <TemplateAiGuide route={route} content={content} />;
+  }
   if (path === '/resources') {
     return <TemplateResourcesHub route={route} content={content} />;
   }

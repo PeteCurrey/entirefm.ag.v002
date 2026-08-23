@@ -38,6 +38,7 @@ export async function POST(request: Request) {
         orgName: 'EntireFM Internal Operations',
         orgType: 'ENTIREFM' as OrgType,
         permissions: getRolePermissions('CEO'),
+        scopes: [{ type: 'ORGANISATION' as const, id: '00000000-0000-0000-0000-000000000000' }],
         expiresAt: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days
       };
 
@@ -74,6 +75,7 @@ export async function POST(request: Request) {
         orgName: 'EntireFM Headquarters',
         orgType: 'ENTIREFM' as OrgType,
         permissions: getRolePermissions('ADMINISTRATOR'),
+        scopes: [{ type: 'ORGANISATION' as const, id: '00000000-0000-0000-0000-000000000000' }],
         expiresAt: Date.now() + 1000 * 60 * 60 * 24 * 7,
       };
 
@@ -92,7 +94,7 @@ export async function POST(request: Request) {
 
     // Try database identity lookup
     const { data: identities } = await dbQuery<any[]>(
-      `user_identities?email=eq.${encodeURIComponent(emailOrUsername)}&select=*,person:persons(*,memberships:organisation_memberships(*,role:roles(*),organisation:organisations(*)))`
+      `user_identities?email=eq.${encodeURIComponent(emailOrUsername)}&select=*,person:persons(*,memberships:organisation_memberships(*,role:roles(*),organisation:organisations(*),scopes:membership_scopes(*)))`
     );
 
     if (identities && identities.length > 0) {
@@ -102,6 +104,10 @@ export async function POST(request: Request) {
       const orgType = (membership?.organisation?.org_type || 'ENTIREFM') as OrgType;
       const orgName = membership?.organisation?.name || 'EntireFM';
       const orgId = membership?.organisation_id || '00000000-0000-0000-0000-000000000000';
+      const scopes = (membership?.scopes || []).map((s: any) => ({
+        type: s.scope_type,
+        id: s.scope_id,
+      }));
 
       const session = {
         personId: user.person_id,
@@ -112,6 +118,7 @@ export async function POST(request: Request) {
         orgName,
         orgType,
         permissions: getRolePermissions(roleCode),
+        scopes,
         expiresAt: Date.now() + 1000 * 60 * 60 * 24 * 7,
       };
 

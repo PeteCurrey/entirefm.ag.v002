@@ -67,8 +67,8 @@ function hasRenderedPage(routePath) {
 
 const missingContentPaths = [];
 const redirectSources = new Set(redirects.redirects.map(r => r.source));
-const urls = manifest.urls;
-const historicUrls = urls.filter(u => u.originEstate === 'WIX');
+const urls = manifest.routes || manifest.urls || [];
+const historicUrls = urls.filter(u => u.originEstate === 'WIX' || u.protected);
 
 let missingRoutes = 0;
 let redirectingProtected = 0;
@@ -82,10 +82,10 @@ for (const u of urls) {
   if (u.protected && redirectSources.has(u.path)) {
     redirectingProtected++;
   }
-  if (u.canonicalExpected !== 'self') {
+  if (u.canonicalExpected && u.canonicalExpected !== 'self') {
     canonicalErrors++;
   }
-  if (!u.indexExpected) {
+  if (u.indexable === false || u.indexExpected === false) {
     noindexErrors++;
   }
   if (!u.sitemapGroup) {

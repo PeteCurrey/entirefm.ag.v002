@@ -1,8 +1,12 @@
 /**
- * ENTIREFM IDENTITY & ACCESS DOMAIN MODULE
- * ========================================
- * Implements Person, UserIdentity, Organisation, Membership, Roles, and Granular Permissions.
- * Server-enforced security boundaries.
+ * ENTIREFM IDENTITY & ACCESS DOMAIN MODULE (Phase 0A-R Hardened)
+ * ==============================================================
+ * Implements:
+ * 1. Supabase Auth Token verification & UserIdentity resolution
+ * 2. Organisation Membership & Multi-tenant tenancy
+ * 3. Role & Granular Permissions ("What can they do?")
+ * 4. Object Scopes via membership_scopes ("Where can they do it?")
+ * 5. Server-side security & RLS alignment
  */
 
 import { createHmac, timingSafeEqual } from 'node:crypto';
@@ -81,8 +85,27 @@ export interface Organisation {
   updated_at: string;
 }
 
+export type ScopeType =
+  | 'ORGANISATION'
+  | 'CLIENT_ACCOUNT'
+  | 'CONTRACT'
+  | 'PORTFOLIO'
+  | 'SITE'
+  | 'BUILDING';
+
+export interface MembershipScope {
+  id: string;
+  membership_id: string;
+  person_id: string;
+  organisation_id: string;
+  scope_type: ScopeType;
+  scope_id: string;
+  created_at: string;
+}
+
 export interface UserSession {
   personId: string;
+  authUserId?: string;
   email: string;
   name: string;
   role: RoleCode;
@@ -90,6 +113,7 @@ export interface UserSession {
   orgName: string;
   orgType: OrgType;
   permissions: PermissionCode[];
+  scopes: Array<{ type: ScopeType; id: string }>;
   expiresAt: number;
 }
 
@@ -301,6 +325,7 @@ export async function getCurrentSession(): Promise<UserSession | null> {
         orgName: 'EntireFM Internal Operations',
         orgType: 'ENTIREFM',
         permissions: DEFAULT_ROLE_PERMISSIONS.CEO,
+        scopes: [{ type: 'ORGANISATION', id: '00000000-0000-0000-0000-000000000000' }],
         expiresAt: Date.now() + 1000 * 60 * 60 * 24,
       };
     }
@@ -310,12 +335,35 @@ export async function getCurrentSession(): Promise<UserSession | null> {
 }
 
 /**
- * Verify whether a session has a specific permission code
+ * Verify whether a session has a specific permission code ("What can they do?")
  */
 export function hasPermission(session: UserSession | null, permission: PermissionCode): boolean {
   if (!session) return false;
   if (session.role === 'CEO' || session.role === 'ADMINISTRATOR') return true;
   return session.permissions.includes(permission);
+}
+
+/**
+ * Verify whether a session has object scope over a specific estate target ("Where can they do it?")
+ */
+export function hasScope(
+  session: UserSession | null,
+  scopeType: ScopeType,
+  targetScopeId: string
+): boolean {
+  if (!session) return false;
+  // EntireFM internal staff have global scope over their tenant
+  if (session.orgType === 'ENTIREFM' && (session.role === 'CEO' || session.role === 'ADMINISTRATOR')) {
+    return true;
+  }
+  // Check if session has full organisation scope
+  const hasOrgScope = session.scopes?.some(
+    (s) => s.type === 'ORGANISATION' && s.id === session.orgId
+  );
+  if (hasOrgScope && scopeType !== 'ORGANISATION') return true;
+
+  // Check specific object scope matching
+  return session.scopes?.some((s) => s.type === scopeType && s.id === targetScopeId) ?? false;
 }
 
 /**
