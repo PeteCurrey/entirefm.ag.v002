@@ -1,0 +1,13 @@
+URL,Route Type,Historic / Current,Inlinks Count,Primary Hub Inlink,Footer Inlink,XML Sitemap Inlink,Status,Action
+/,Home,LEGACY_VERIFIED,326,Direct Header Logo,Sitewide,sitemaps/core.xml,HEALTHY,None Required
+/services,Directory,CURRENT_LIVE_RETAINED,240,Header Main Nav,Sitewide,sitemaps/core.xml,HEALTHY,None Required
+/sectors,Directory,CURRENT_LIVE_RETAINED,210,Header Main Nav,Sitewide,sitemaps/core.xml,HEALTHY,None Required
+/locations,Directory,CURRENT_LIVE_RETAINED,260,Header Main Nav,Sitewide,sitemaps/core.xml,HEALTHY,None Required
+/ppm,Service,LEGACY_VERIFIED,180,/services Dropdown,Footer Hard FM,sitemaps/core.xml,HEALTHY,None Required
+/mechanical-electrical,Service,LEGACY_VERIFIED,165,/services Dropdown,Footer Hard FM,sitemaps/core.xml,HEALTHY,None Required
+/facilities-management-london,Head Geo,LEGACY_VERIFIED,95,/locations Hub,Footer Key Cities,sitemaps/locations.xml,HEALTHY,None Required
+/fm-london,Commercial Geo,LEGACY_VERIFIED,85,/locations Hub,Footer Key Cities,sitemaps/locations.xml,HEALTHY,None Required
+/resources/guides/ppm-guide,Guide,NEW_GROWTH,145,/resources Hub & /ppm,Footer Insights,sitemaps/insights.xml,HEALTHY,None Required
+/compliance,Compliance Hub,NEW_GROWTH,160,/resources Hub,Footer Insights,sitemaps/insights.xml,HEALTHY,None Required
+/tools/tender-brief,Tool,NEW_GROWTH,120,/resources Hub & Header CTA,Footer Tools,sitemaps/insights.xml,HEALTHY,None Required
+/case-studies,Case Studies Hub,CURRENT_LIVE_RETAINED,195,Header Main Nav,Sitewide,sitemaps/insights.xml,HEALTHY,None Required

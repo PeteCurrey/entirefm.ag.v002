@@ -1,0 +1,12 @@
+URL,Schema Types,Entity Count,Organization Entity,BreadcrumbList,Service / Article / FAQPage,Validation Status,Action
+/,Organization | WebSite | WebPage,3,Canonical Alkota Group / EntireFM,Present,WebPage,VALID,Pass
+/ppm,Service | BreadcrumbList | FAQPage,3,Canonical Reference,Valid Breadcrumbs,Service + FAQPage,VALID,Pass
+/mechanical-electrical,Service | BreadcrumbList | FAQPage,3,Canonical Reference,Valid Breadcrumbs,Service + FAQPage,VALID,Pass
+/facilities-management-london,Service | BreadcrumbList | FAQPage,3,Canonical Reference,Valid Breadcrumbs,Service + FAQPage,VALID,Pass
+/fm-london,Service | BreadcrumbList | FAQPage,3,Canonical Reference,Valid Breadcrumbs,Service + FAQPage,VALID,Pass
+/resources/guides/ppm-guide,Article | BreadcrumbList | FAQPage,3,Canonical Reference,Valid Breadcrumbs,Article + FAQPage,VALID,Pass
+/compliance,DefinedTermSet | BreadcrumbList,2,Canonical Reference,Valid Breadcrumbs,DefinedTermSet,VALID,Pass
+/compliance/fixed-wire-testing-eicr,DefinedTerm | Article | BreadcrumbList,3,Canonical Reference,Valid Breadcrumbs,Article + DefinedTerm,VALID,Pass
+/facilities-management-glossary,DefinedTermSet | BreadcrumbList,2,Canonical Reference,Valid Breadcrumbs,DefinedTermSet,VALID,Pass
+/tools/tender-brief,SoftwareApplication | BreadcrumbList,2,Canonical Reference,Valid Breadcrumbs,SoftwareApplication,VALID,Pass
+/case-studies,CollectionPage | BreadcrumbList,2,Canonical Reference,Valid Breadcrumbs,CollectionPage,VALID,Pass

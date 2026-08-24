@@ -34,6 +34,15 @@ import { roundMoney } from '@/server/finance';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
+export type MetricBasis =
+  | 'NET_REVENUE'
+  | 'NET_COST'
+  | 'NET_MARGIN'
+  | 'GROSS_CASH'
+  | 'GROSS_LEGAL_BALANCE'
+  | 'NET_WIP'
+  | 'NOT_APPLICABLE';
+
 export type MetricId =
   | 'EXPECTED_REVENUE'
   | 'APPROVED_REVENUE'
@@ -64,6 +73,7 @@ export interface MetricDefinition {
   unit: 'GBP' | 'PERCENT' | 'AGEING_BUCKETS';
   category: 'REVENUE' | 'COST' | 'MARGIN' | 'LIQUIDITY';
   taxBasis: 'NET' | 'GROSS' | 'NOT_APPLICABLE';
+  basis: MetricBasis;
   /** If true, calculated directly from pure underlying database entities */
   pureQuery: boolean;
   /** Semantic version of the definition */
@@ -92,8 +102,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'REVENUE',
     taxBasis: 'NET',
+    basis: 'NET_REVENUE',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   APPROVED_REVENUE: {
     id: 'APPROVED_REVENUE',
@@ -103,8 +114,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'REVENUE',
     taxBasis: 'NET',
+    basis: 'NET_REVENUE',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   BILLING_READY_REVENUE: {
     id: 'BILLING_READY_REVENUE',
@@ -114,8 +126,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'REVENUE',
     taxBasis: 'NET',
+    basis: 'NET_REVENUE',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   INVOICED_REVENUE: {
     id: 'INVOICED_REVENUE',
@@ -125,30 +138,33 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'REVENUE',
     taxBasis: 'NET',
+    basis: 'NET_REVENUE',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   CASH_RECEIVED: {
     id: 'CASH_RECEIVED',
-    label: 'Cash Received',
-    description: 'Actual customer payments collected against client invoices (gross cash).',
+    label: 'Cash Received (Gross)',
+    description: 'Actual customer payments collected against client invoices (gross cash received).',
     derivation: "sum(client_invoices.paid_amount_gbp) WHERE payment_status IN ('PAID','PART_PAID')",
     unit: 'GBP',
     category: 'LIQUIDITY',
     taxBasis: 'GROSS',
+    basis: 'GROSS_CASH',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   PAID_REVENUE: {
     id: 'PAID_REVENUE',
-    label: 'Paid Revenue (Alias)',
-    description: 'Canonical alias for CASH_RECEIVED representing gross cash collected from clients.',
-    derivation: "sum(client_invoices.paid_amount_gbp) WHERE payment_status IN ('PAID','PART_PAID') — canonical alias for CASH_RECEIVED",
+    label: 'Paid Revenue (Fully Settled Net)',
+    description: 'Net invoiced revenue attributable to fully settled (paid in full) client invoices. Partially paid invoices contribute £0 until settled in full.',
+    derivation: "sum(client_invoices.subtotal_gbp) WHERE payment_status = 'PAID' AND status NOT IN ('VOID','DRAFT')",
     unit: 'GBP',
-    category: 'LIQUIDITY',
-    taxBasis: 'GROSS',
+    category: 'REVENUE',
+    taxBasis: 'NET',
+    basis: 'NET_REVENUE',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   EXPECTED_COST: {
     id: 'EXPECTED_COST',
@@ -158,8 +174,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'COST',
     taxBasis: 'NET',
+    basis: 'NET_COST',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   COMMITTED_COST: {
     id: 'COMMITTED_COST',
@@ -169,8 +186,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'COST',
     taxBasis: 'NET',
+    basis: 'NET_COST',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   ACTUAL_COST: {
     id: 'ACTUAL_COST',
@@ -180,8 +198,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'COST',
     taxBasis: 'NET',
+    basis: 'NET_COST',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   MATCHED_ACTUAL_COST: {
     id: 'MATCHED_ACTUAL_COST',
@@ -191,8 +210,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'COST',
     taxBasis: 'NET',
+    basis: 'NET_COST',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   UNALLOCATED_ACTUAL_COST: {
     id: 'UNALLOCATED_ACTUAL_COST',
@@ -202,8 +222,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'COST',
     taxBasis: 'NET',
+    basis: 'NET_COST',
     pureQuery: false,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   REMAINING_EXPECTED_COST: {
     id: 'REMAINING_EXPECTED_COST',
@@ -213,8 +234,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'COST',
     taxBasis: 'NET',
+    basis: 'NET_COST',
     pureQuery: false,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   REMAINING_UNCOMMITTED_EXPECTED_COST: {
     id: 'REMAINING_UNCOMMITTED_EXPECTED_COST',
@@ -224,8 +246,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'COST',
     taxBasis: 'NET',
+    basis: 'NET_COST',
     pureQuery: false,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   EXPECTED_GROSS_MARGIN: {
     id: 'EXPECTED_GROSS_MARGIN',
@@ -235,8 +258,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'MARGIN',
     taxBasis: 'NET',
+    basis: 'NET_MARGIN',
     pureQuery: false,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   ACTUAL_GROSS_MARGIN: {
     id: 'ACTUAL_GROSS_MARGIN',
@@ -246,8 +270,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'MARGIN',
     taxBasis: 'NET',
+    basis: 'NET_MARGIN',
     pureQuery: false,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   UNBILLED_WIP: {
     id: 'UNBILLED_WIP',
@@ -257,8 +282,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'LIQUIDITY',
     taxBasis: 'NET',
+    basis: 'NET_WIP',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   BILLING_BLOCKED_VALUE: {
     id: 'BILLING_BLOCKED_VALUE',
@@ -268,8 +294,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'GBP',
     category: 'LIQUIDITY',
     taxBasis: 'NET',
+    basis: 'NET_WIP',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   ACCOUNTS_RECEIVABLE: {
     id: 'ACCOUNTS_RECEIVABLE',
@@ -279,8 +306,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'AGEING_BUCKETS',
     category: 'LIQUIDITY',
     taxBasis: 'GROSS',
+    basis: 'GROSS_LEGAL_BALANCE',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
   SUPPLIER_PAYABLES: {
     id: 'SUPPLIER_PAYABLES',
@@ -290,8 +318,9 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     unit: 'AGEING_BUCKETS',
     category: 'LIQUIDITY',
     taxBasis: 'GROSS',
+    basis: 'GROSS_LEGAL_BALANCE',
     pureQuery: true,
-    version: '3.0.0',
+    version: '3.0.1',
   },
 };
 
@@ -314,6 +343,7 @@ export interface GbpMetricResult {
   filter_context: MetricFilterContext;
   derivation_note: string;
   tax_basis: 'NET' | 'GROSS' | 'NOT_APPLICABLE';
+  basis: MetricBasis;
   coverage_pct?: number;
   status_flag?: 'OK' | 'MARGIN_INCOMPLETE' | 'ESTIMATED';
 }
@@ -333,6 +363,7 @@ export interface AgeingMetricResult {
   computed_at: string;
   filter_context: MetricFilterContext;
   tax_basis: 'GROSS';
+  basis: 'GROSS_LEGAL_BALANCE';
 }
 
 // ─── Query helpers ─────────────────────────────────────────────────────────────
@@ -474,6 +505,11 @@ async function computeInvoicedRevenue(ctx: MetricFilterContext): Promise<number>
   return roundMoney(gross - clientCreditNotes);
 }
 
+/**
+ * Cash Received (Gross):
+ * Actual customer cash payments collected against client invoices.
+ * Basis: GROSS_CASH.
+ */
 async function computeCashReceived(ctx: MetricFilterContext): Promise<number> {
   const orgF = buildOrgFilter(ctx);
   const dateF = buildDateFilter('paid_at', ctx);
@@ -481,6 +517,22 @@ async function computeCashReceived(ctx: MetricFilterContext): Promise<number> {
     `client_invoices?payment_status=in.(PAID,PART_PAID)&select=paid_amount_gbp${orgF}${dateF}`
   );
   const sum = (data || []).reduce((acc, r) => acc + (Number(r.paid_amount_gbp) || 0), 0);
+  return roundMoney(sum);
+}
+
+/**
+ * Paid Revenue (Option A):
+ * Net invoiced revenue attributable to fully settled (paid in full) client invoices.
+ * Partially paid invoices contribute £0 until fully settled.
+ * Basis: NET_REVENUE.
+ */
+async function computePaidRevenue(ctx: MetricFilterContext): Promise<number> {
+  const orgF = buildOrgFilter(ctx);
+  const dateF = buildDateFilter('paid_at', ctx);
+  const { data } = await dbQuery<Array<{ subtotal_gbp: number | string }>>(
+    `client_invoices?payment_status=eq.PAID&status=not.in.(VOID,DRAFT)&select=subtotal_gbp${orgF}${dateF}`
+  );
+  const sum = (data || []).reduce((acc, r) => acc + (Number(r.subtotal_gbp) || 0), 0);
   return roundMoney(sum);
 }
 
@@ -632,34 +684,75 @@ function buildAgeingBuckets(rows: Array<{ overdue_days: number; outstanding: num
 }
 
 /**
- * Accounts Receivable: Legal Gross Outstanding Balance
- * (Invoice Total GBP [incl VAT] - Cash Received)
+ * Accounts Receivable: Legal Gross Outstanding Balance Due from Clients
+ * (Invoice Gross [incl VAT] - Paid Gross Cash - Client Credit Notes Gross)
+ * Basis: GROSS_LEGAL_BALANCE.
  */
 async function computeAccountsReceivable(ctx: MetricFilterContext): Promise<AgeingBucket[]> {
   const orgF = buildOrgFilter(ctx);
-  const { data } = await dbQuery<Array<{ total_gbp?: number | string; subtotal_gbp: number | string; tax_amount_gbp?: number | string; paid_amount_gbp: number | string; due_date: string }>>(
-    `client_invoices?payment_status=not.in.(PAID,VOID)&status=not.in.(VOID,DRAFT)&select=total_gbp,subtotal_gbp,tax_amount_gbp,paid_amount_gbp,due_date${orgF}`
-  );
+  const [invsRes, creditsRes] = await Promise.all([
+    dbQuery<Array<{ id: string; total_gbp?: number | string; subtotal_gbp: number | string; tax_amount_gbp?: number | string; paid_amount_gbp: number | string; due_date: string }>>(
+      `client_invoices?payment_status=not.in.(PAID,VOID)&status=not.in.(VOID,DRAFT)&select=id,total_gbp,subtotal_gbp,tax_amount_gbp,paid_amount_gbp,due_date${orgF}`
+    ),
+    dbQuery<Array<{ client_invoice_id?: string; total_gbp?: number | string; gross_amount_gbp?: number | string; subtotal_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
+      `credit_notes?status=not.in.(VOID,DRAFT)&select=client_invoice_id,total_gbp,gross_amount_gbp,subtotal_gbp,credit_note_type,credit_type${orgF}`
+    ),
+  ]);
+
+  const clientCredits = (creditsRes.data || []).filter((c) => (c.credit_note_type || c.credit_type) === 'CLIENT');
+  const creditByInv: Record<string, number> = {};
+  for (const c of clientCredits) {
+    if (c.client_invoice_id) {
+      const grossCred = Number(c.total_gbp) || Number(c.gross_amount_gbp) || Number(c.subtotal_gbp) || 0;
+      creditByInv[c.client_invoice_id] = (creditByInv[c.client_invoice_id] || 0) + grossCred;
+    }
+  }
+
   const now = Date.now();
-  const rows = (data || []).map((r) => {
+  const rows = (invsRes.data || []).map((r) => {
     const due = r.due_date ? new Date(r.due_date).getTime() : now;
     const diffDays = Math.max(0, Math.floor((now - due) / (1000 * 60 * 60 * 24)));
     const grossTotal = Number(r.total_gbp) || (Number(r.subtotal_gbp) + (Number(r.tax_amount_gbp) || 0));
-    const out = Math.max(0, grossTotal - (Number(r.paid_amount_gbp) || 0));
+    const paid = Number(r.paid_amount_gbp) || 0;
+    const credited = creditByInv[r.id] || 0;
+    const out = Math.max(0, grossTotal - credited - paid);
     return { overdue_days: diffDays, outstanding: out };
   });
   return buildAgeingBuckets(rows);
 }
 
+/**
+ * Supplier Payables: Legal Gross Unpaid Liability Due to Suppliers
+ * (Supplier Invoice Gross [incl VAT] - Paid Gross Cash - Supplier Credit Notes Gross)
+ * Basis: GROSS_LEGAL_BALANCE.
+ */
 async function computeSupplierPayables(_ctx: MetricFilterContext): Promise<AgeingBucket[]> {
-  const { data } = await dbQuery<Array<{ total_gbp: number | string; amount_paid_gbp: number | string; due_date: string }>>(
-    `supplier_invoices?approval_status=eq.APPROVED&payment_status=not.in.(PAID,VOID)&select=total_gbp,amount_paid_gbp,due_date`
-  );
+  const [invsRes, creditsRes] = await Promise.all([
+    dbQuery<Array<{ id: string; total_gbp?: number | string; subtotal_gbp?: number | string; tax_amount_gbp?: number | string; amount_paid_gbp: number | string; due_date: string }>>(
+      `supplier_invoices?approval_status=eq.APPROVED&payment_status=not.in.(PAID,VOID)&select=id,total_gbp,subtotal_gbp,tax_amount_gbp,amount_paid_gbp,due_date`
+    ),
+    dbQuery<Array<{ supplier_invoice_id?: string; total_gbp?: number | string; gross_amount_gbp?: number | string; subtotal_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
+      `credit_notes?status=not.in.(VOID,DRAFT)&select=supplier_invoice_id,total_gbp,gross_amount_gbp,subtotal_gbp,credit_note_type,credit_type`
+    ),
+  ]);
+
+  const supplierCredits = (creditsRes.data || []).filter((c) => (c.credit_note_type || c.credit_type) === 'SUPPLIER');
+  const creditByInv: Record<string, number> = {};
+  for (const c of supplierCredits) {
+    if (c.supplier_invoice_id) {
+      const grossCred = Number(c.total_gbp) || Number(c.gross_amount_gbp) || Number(c.subtotal_gbp) || 0;
+      creditByInv[c.supplier_invoice_id] = (creditByInv[c.supplier_invoice_id] || 0) + grossCred;
+    }
+  }
+
   const now = Date.now();
-  const rows = (data || []).map((r) => {
+  const rows = (invsRes.data || []).map((r) => {
     const due = r.due_date ? new Date(r.due_date).getTime() : now;
     const diffDays = Math.max(0, Math.floor((now - due) / (1000 * 60 * 60 * 24)));
-    const out = Math.max(0, (Number(r.total_gbp) || 0) - (Number(r.amount_paid_gbp) || 0));
+    const grossTotal = Number(r.total_gbp) || ((Number(r.subtotal_gbp) || 0) + (Number(r.tax_amount_gbp) || 0));
+    const paid = Number(r.amount_paid_gbp) || 0;
+    const credited = creditByInv[r.id] || 0;
+    const out = Math.max(0, grossTotal - credited - paid);
     return { overdue_days: diffDays, outstanding: out };
   });
   return buildAgeingBuckets(rows);
@@ -679,8 +772,8 @@ export async function getMetric(metricId: MetricId, ctx: MetricFilterContext = {
     case 'APPROVED_REVENUE':      value_gbp = await computeApprovedRevenue(ctx); break;
     case 'BILLING_READY_REVENUE': value_gbp = await computeBillingReadyRevenue(ctx); break;
     case 'INVOICED_REVENUE':      value_gbp = await computeInvoicedRevenue(ctx); break;
-    case 'CASH_RECEIVED':
-    case 'PAID_REVENUE':          value_gbp = await computeCashReceived(ctx); break;
+    case 'CASH_RECEIVED':         value_gbp = await computeCashReceived(ctx); break;
+    case 'PAID_REVENUE':          value_gbp = await computePaidRevenue(ctx); break;
     case 'EXPECTED_COST':         value_gbp = await computeExpectedCost(ctx); break;
     case 'COMMITTED_COST':        value_gbp = await computeCommittedCost(ctx); break;
     case 'ACTUAL_COST':           value_gbp = await computeActualCost(ctx); break;
@@ -743,6 +836,7 @@ export async function getMetric(metricId: MetricId, ctx: MetricFilterContext = {
     filter_context: ctx,
     derivation_note: def.derivation,
     tax_basis: def.taxBasis,
+    basis: def.basis,
     coverage_pct,
     status_flag,
   };
@@ -763,6 +857,7 @@ export async function getAgeingMetric(
     computed_at: computedAt,
     filter_context: ctx,
     tax_basis: 'GROSS',
+    basis: 'GROSS_LEGAL_BALANCE',
   };
 }
 
@@ -809,6 +904,8 @@ export async function getMarginBreakdown(ctx: MetricFilterContext = {}) {
     actual_margin_pct: ir.value_gbp > 0 ? roundMoney((agm.value_gbp / ir.value_gbp) * 100) : null,
     attribution_coverage_pct: matchedInfo.coveragePct,
     attribution_status: matchedInfo.status === 'OK' ? 'FULL' : 'INCOMPLETE',
+    tax_basis: 'NET' as const,
+    basis: 'NET_MARGIN' as const,
     computed_at: new Date().toISOString(),
     filter_context: ctx,
   };

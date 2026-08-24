@@ -1,0 +1,13 @@
+URL,Content Type,Word Count,Information Gain,Specific Assets Mentioned,Commercial Clarity,Proof Integration,Quality Rating,Status,Action
+/ppm,Service,1850,HIGH,"HVAC, Switchgear, Emergency Lighting, Boilers, Chillers",HIGH,HIGH,STRONG,OPTIMISED,Maintain Commercial Anchor
+/mechanical-electrical,Service,1920,HIGH,"Fixed Wire Testing, HV/LV Distribution, Controls, Pumps",HIGH,HIGH,STRONG,OPTIMISED,Maintain Commercial Anchor
+/hvac-contractor,Service,1780,HIGH,"Chillers, AHUs, Condensers, Heat Pumps, F-Gas Logbooks",HIGH,HIGH,STRONG,OPTIMISED,Maintain Commercial Anchor
+/industrial-cleaning,Service,1640,HIGH,"Silos, ATEX Environments, High-Level Decontamination, Degreasing",HIGH,HIGH,STRONG,OPTIMISED,Maintain Commercial Anchor
+/commercial-cleaning,Service,1520,HIGH,"Daily Office Janitorial, Washroom Consumables, Floor Scrubbing",HIGH,HIGH,STRONG,OPTIMISED,Maintain Commercial Anchor
+/facilities-management-london,Head Geo,1650,HIGH,"Canary Wharf, City of London, Tall-Building Water Regimes, ULEZ",HIGH,HIGH,STRONG,OPTIMISED,Maintain Head Authority
+/fm-london,Commercial Geo,1580,HIGH,"Managing Agents, Multi-Tenant Consolidation, Service Charges",HIGH,HIGH,STRONG,OPTIMISED,Maintain Commercial Anchor
+/industrial-facilities-management,Sector,1820,HIGH,"Heavy Engineering, Food & Beverage, Automotive, Chemical Plants",HIGH,HIGH,STRONG,OPTIMISED,Maintain Sector Blueprint
+/commercial-facilities-management,Sector,1750,HIGH,"Grade A Offices, Business Parks, Landlord-Controlled Common Parts",HIGH,HIGH,STRONG,OPTIMISED,Maintain Sector Blueprint
+/resources/guides/ppm-guide,Guide,3450,VERY_HIGH,"SFG20 Standards, Statutory Regimes, Asset Lifecycle Calculations",EDUCATIONAL,HIGH,STRONG,OPTIMISED,Maintain Flagship Guide
+/tools/tender-brief,Interactive Tool,950,VERY_HIGH,"Multi-Step Specification Builder, SLA Tiering, Export Formats",BUYER_TOOL,HIGH,STRONG,OPTIMISED,Maintain Buyer Gateway
+/compliance,Compliance Hub,2100,VERY_HIGH,"EICR, LOLER, ACOP L8, Gas Safety, Fire Safety Order",REGULATORY,HIGH,STRONG,OPTIMISED,Maintain Compliance Anchor

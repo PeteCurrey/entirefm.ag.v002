@@ -1,0 +1,7 @@
+ID,Priority,URL,Issue,Evidence,Recommended Fix,Historic Protected,Automatic / Human Review,Status
+ISS-001,P0,/,Root Schema Missing,"Crawl identified homepage schema output missing direct Organization entity JSON-LD block in raw HTML",Verify and inject root Organization schema in layout,YES,Automatic,RESOLVED
+ISS-002,P1,/fm-london,Search Intent Differentiating with /facilities-management-london,Parallel historic URLs in same city cluster,Maintain distinct commercial outsourcing copy and single-contract focus,YES,Human Review,OPTIMISED
+ISS-003,P1,/fm-manchester,Search Intent Differentiating with /facilities-management-manchester,Parallel historic URLs in same city cluster,Maintain distinct reactive triage / PPM schedule focus,YES,Human Review,OPTIMISED
+ISS-004,P1,/birmingham-facilities-management,Search Intent Differentiating with /facilities-management-birmingham,Parallel historic URLs in same city cluster,Maintain distinct industrial corridor / transport focus,YES,Human Review,OPTIMISED
+ISS-005,P2,/resources/guides/ppm-guide,Educational Guide Ranking for Commercial Service Query,Ensure guide links into /ppm commercial quote request,Keep guide informational and link to /ppm commercial anchor,NO,Automatic,OPTIMISED
+ISS-006,P2,/compliance/fixed-wire-testing-eicr,Regulatory Guidance Linking to M&E Service,High-ranking compliance query,Link compliance article to /mechanical-electrical commercial service,NO,Automatic,OPTIMISED

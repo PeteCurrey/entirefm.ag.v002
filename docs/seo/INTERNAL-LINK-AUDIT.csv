@@ -1,0 +1,11 @@
+Source URL,Anchor Text,Target URL,Context,Link Type,Status,Action
+/,Planned Preventative Maintenance,/ppm,Core Hard FM capabilities,In-Content,HEALTHY,Pass
+/,Mechanical & Electrical Engineering,/mechanical-electrical,Core Hard FM capabilities,In-Content,HEALTHY,Pass
+/,Explore London FM Operations,/facilities-management-london,Regional coverage grid,Card Link,HEALTHY,Pass
+/,Explore Manchester FM Operations,/facilities-management-manchester,Regional coverage grid,Card Link,HEALTHY,Pass
+/ppm,Download FM Tender Guide,/resources/guides/fm-tender-guide,Procurement CTA,In-Content,HEALTHY,Pass
+/ppm,Launch Interactive PPM Builder,/tools/ppm-schedule-builder,Interactive tool feature,Button Link,HEALTHY,Pass
+/resources/guides/ppm-guide,Request a PPM Maintenance Quote,/ppm,Commercial conversion pathway,Banner CTA,HEALTHY,Pass
+/compliance,Fixed Wire Testing & EICR Guidelines,/compliance/fixed-wire-testing-eicr,Compliance hub list,Card Link,HEALTHY,Pass
+/compliance/fixed-wire-testing-eicr,Commercial M&E Electrical Services,/mechanical-electrical,Service pathway,In-Content,HEALTHY,Pass
+/tools/tender-brief,Complete FM Procurement Guide,/resources/guides/fm-tender-guide,Educational link,In-Content,HEALTHY,Pass

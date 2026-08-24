@@ -3,18 +3,16 @@ import { NextResponse, type NextRequest } from 'next/server';
 const PRODUCTION_HOSTNAME = 'www.entirefm.com';
 
 /**
- * PRODUCTION PROXY / EDGE MIDDLEWARE (Next.js 16)
- * ================================================
- * 1. Non-WWW Canonical Redirect:
- *    Permanently redirects (301) all traffic on 'entirefm.com' to 'www.entirefm.com'
- *    preserving path and query parameters in a single hop.
- *
- * 2. Hostname-Aware & Private Route Search Indexing Protection:
- *    Ensures all private application routes (/admin, /client, /contractor, /engineer, /login, /api)
- *    and non-production environments strictly receive 'X-Robots-Tag: noindex, nofollow, noarchive'.
- *
- * 3. Production Environment Gate:
- *    If ALLOW_SEARCH_INDEXING !== 'true', non-sitemap production requests receive noindex protection.
+ * ENTIREFM UNIFIED EDGE PROXY & MIDDLEWARE (Next.js 16)
+ * ====================================================
+ * Combines:
+ * 1. Non-WWW Canonical 301 Redirect:
+ *    Permanently redirects all traffic on 'entirefm.com' to 'www.entirefm.com'.
+ * 2. Legacy /client to /clients 308 Redirect.
+ * 3. Portal Security & Role-Based Session Gating:
+ *    Restricts /admin, /clients, /contractor, and /engineer.
+ * 4. Search Indexing Protection:
+ *    Enforces 'X-Robots-Tag: noindex, nofollow, noarchive' across private routes.
  */
 export function proxy(request: NextRequest) {
   const host = request.headers.get('host') || '';
@@ -32,23 +30,106 @@ export function proxy(request: NextRequest) {
     });
   }
 
-  const response = NextResponse.next();
+  // 2. Controlled migration for legacy /client route -> /clients (308)
+  if (pathname === '/client' || pathname.startsWith('/client/')) {
+    const canonicalPath = pathname.replace(/^\/client/, '/clients');
+    const redirectUrl = new URL(canonicalPath, request.url);
+    redirectUrl.search = request.nextUrl.search;
+    return NextResponse.redirect(redirectUrl, { status: 308 });
+  }
 
-  // 2. Private routes must NEVER be indexed in any environment
-  const isPrivateRoute =
-    pathname.startsWith('/admin') ||
-    pathname.startsWith('/client') ||
-    pathname.startsWith('/contractor') ||
-    pathname.startsWith('/engineer') ||
-    pathname.startsWith('/login') ||
-    pathname.startsWith('/api');
+  // 3. Skip public static assets and API auth endpoints
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api/auth') ||
+    pathname.startsWith('/api/enquiry') ||
+    pathname.startsWith('/api/newsletter') ||
+    pathname.startsWith('/branding') ||
+    pathname === '/favicon.ico' ||
+    pathname === '/robots.txt' ||
+    pathname === '/sitemap.xml' ||
+    pathname === '/manifest.json'
+  ) {
+    return NextResponse.next();
+  }
 
-  if (isPrivateRoute) {
+  // 4. Inspect session cookie for private portal paths
+  const isPrivateAdmin = pathname === '/admin' || pathname.startsWith('/admin/');
+  const isPrivateClients = pathname === '/clients' || pathname.startsWith('/clients/');
+  const isPrivateContractor = pathname === '/contractor' || pathname.startsWith('/contractor/');
+  const isPrivateEngineer = pathname === '/engineer' || pathname.startsWith('/engineer/');
+
+  if (isPrivateAdmin || isPrivateClients || isPrivateContractor || isPrivateEngineer) {
+    const token = request.cookies.get('efm_session')?.value || request.cookies.get('efm_admin')?.value;
+
+    if (!token) {
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('redirect', pathname);
+      const response = NextResponse.redirect(loginUrl);
+      response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return response;
+    }
+
+    // Decode token payload (format: base64urlPayload.signature)
+    try {
+      const parts = token.split('.');
+      if (parts.length === 2) {
+        const payloadStr = Buffer.from(parts[0], 'base64url').toString('utf8');
+        const session = JSON.parse(payloadStr);
+
+        // Check token expiry
+        if (session.expiresAt && session.expiresAt < Date.now()) {
+          const loginUrl = new URL('/login?error=expired', request.url);
+          return NextResponse.redirect(loginUrl);
+        }
+
+        const isViewAs = !!session.viewAsContext?.isViewAs;
+
+        // /admin is STRICTLY INTERNAL EntireFM
+        if (isPrivateAdmin) {
+          if (session.orgType !== 'ENTIREFM') {
+            const forbiddenUrl = new URL('/login?error=forbidden_admin', request.url);
+            return NextResponse.redirect(forbiddenUrl);
+          }
+        }
+
+        // /clients is STRICTLY CLIENT (or internal View-As)
+        if (isPrivateClients) {
+          if (session.orgType !== 'CLIENT' && !isViewAs) {
+            const forbiddenUrl = new URL('/login?error=forbidden_client', request.url);
+            return NextResponse.redirect(forbiddenUrl);
+          }
+        }
+
+        // /contractor is STRICTLY CONTRACTOR (or internal View-As)
+        if (isPrivateContractor) {
+          if (session.orgType !== 'CONTRACTOR' && !isViewAs) {
+            const forbiddenUrl = new URL('/login?error=forbidden_contractor', request.url);
+            return NextResponse.redirect(forbiddenUrl);
+          }
+        }
+
+        // /engineer is STRICTLY FIELD ENGINEER
+        if (isPrivateEngineer) {
+          const isEngineerRole = session.role === 'ENGINEER' || session.role === 'CONTRACTOR_ENGINEER';
+          if (!isEngineerRole && !isViewAs && session.orgType !== 'ENTIREFM') {
+            const forbiddenUrl = new URL('/login?error=forbidden_engineer', request.url);
+            return NextResponse.redirect(forbiddenUrl);
+          }
+        }
+      }
+    } catch {
+      const loginUrl = new URL('/login?error=invalid_session', request.url);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    const response = NextResponse.next();
     response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
     return response;
   }
 
-  // 3. Hostname-Aware Search Indexing Protection for Public Routes
+  // 5. Hostname-Aware Search Indexing Protection for Public Routes
+  const response = NextResponse.next();
   const isProductionHost = hostname === PRODUCTION_HOSTNAME;
   const isIndexingAllowed = process.env.ALLOW_SEARCH_INDEXING === 'true';
   const isSitemapOrRobots =

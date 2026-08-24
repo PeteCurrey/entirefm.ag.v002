@@ -1,0 +1,16 @@
+URL,Route Type,Indexable,Robots Meta,X-Robots-Tag,Canonical URL,Canonical Status,Sitemap Inclusion,Indexability Status,Action
+/,Home,true,index follow,None,https://www.entirefm.com,CORRECT,sitemaps/core.xml,INDEXABLE,Pass
+/services,Directory,true,index follow,None,https://www.entirefm.com/services,CORRECT,sitemaps/core.xml,INDEXABLE,Pass
+/sectors,Directory,true,index follow,None,https://www.entirefm.com/sectors,CORRECT,sitemaps/core.xml,INDEXABLE,Pass
+/locations,Directory,true,index follow,None,https://www.entirefm.com/locations,CORRECT,sitemaps/core.xml,INDEXABLE,Pass
+/ppm,Service,true,index follow,None,https://www.entirefm.com/ppm,CORRECT,sitemaps/core.xml,INDEXABLE,Pass
+/mechanical-electrical,Service,true,index follow,None,https://www.entirefm.com/mechanical-electrical,CORRECT,sitemaps/core.xml,INDEXABLE,Pass
+/facilities-management-london,Head Geo,true,index follow,None,https://www.entirefm.com/facilities-management-london,CORRECT,sitemaps/locations.xml,INDEXABLE,Pass
+/fm-london,Commercial Geo,true,index follow,None,https://www.entirefm.com/fm-london,CORRECT,sitemaps/locations.xml,INDEXABLE,Pass
+/resources/guides/ppm-guide,Guide,true,index follow,None,https://www.entirefm.com/resources/guides/ppm-guide,CORRECT,sitemaps/insights.xml,INDEXABLE,Pass
+/tools/tender-brief,Tool,true,index follow,None,https://www.entirefm.com/tools/tender-brief,CORRECT,sitemaps/insights.xml,INDEXABLE,Pass
+/admin,Private App,false,noindex nofollow,noindex nofollow noarchive,None,PROTECTED,EXCLUDED,NON_INDEXABLE,Pass
+/clients,Private Portal,false,noindex nofollow,noindex nofollow noarchive,None,PROTECTED,EXCLUDED,NON_INDEXABLE,Pass
+/contractor,Private Portal,false,noindex nofollow,noindex nofollow noarchive,None,PROTECTED,EXCLUDED,NON_INDEXABLE,Pass
+/engineer,Private Portal,false,noindex nofollow,noindex nofollow noarchive,None,PROTECTED,EXCLUDED,NON_INDEXABLE,Pass
+/login,Auth,false,noindex nofollow,noindex nofollow noarchive,None,PROTECTED,EXCLUDED,NON_INDEXABLE,Pass

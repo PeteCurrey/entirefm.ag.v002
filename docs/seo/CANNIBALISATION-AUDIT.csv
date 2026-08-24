@@ -1,0 +1,8 @@
+Query Family,URL A,URL B,Intent A,Intent B,Cannibalisation Risk,Mitigation Strategy,Status
+PPM Maintenance,/ppm,/resources/guides/ppm-guide,Commercial Service Quote,Informational Guide & SFG20,LOW,/resources/guides/ppm-guide links prominently into /ppm quote CTA,RESOLVED
+M&E Services,/mechanical-electrical,/compliance/fixed-wire-testing-eicr,Commercial Engineering,Statutory Compliance Requirements,LOW,Compliance page provides regulatory context and links to /mechanical-electrical,RESOLVED
+London FM,/facilities-management-london,/fm-london,Head Commercial Authority,Managing Agent Contract Consolidation,LOW,Distinct H1 and target keywords assigned in build-tier1.ts,RESOLVED
+Manchester FM,/facilities-management-manchester,/fm-manchester,Head Commercial Authority,Commercial Maintenance & Reactive Triage,LOW,Distinct H1 and target keywords assigned in build-tier1.ts,RESOLVED
+Birmingham FM,/facilities-management-birmingham,/birmingham-facilities-management,Head Commercial Authority,Regional Logistics & Manufacturing Estates,LOW,Distinct H1 and target keywords assigned in build-tier1.ts,RESOLVED
+Leeds FM,/facilities-management-leeds,/fm-leeds,Head Commercial Authority,Commercial Maintenance Schedules,LOW,Distinct H1 and target keywords assigned in build-tier1.ts,RESOLVED
+Industrial FM,/industrial-facilities-management,/industrial-cleaning,Complete Industrial Sector FM,Specific Cleaning Capability,LOW,Sector page links to cleaning service as a sub-discipline,RESOLVED

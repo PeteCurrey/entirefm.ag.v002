@@ -154,7 +154,7 @@ async function run() {
 
   // 9. Metric categories correctly assigned
   await test('Revenue metrics have REVENUE category', () => {
-    const revenueMetrics: MetricId[] = ['EXPECTED_REVENUE','APPROVED_REVENUE','BILLING_READY_REVENUE','INVOICED_REVENUE'];
+    const revenueMetrics: MetricId[] = ['EXPECTED_REVENUE','APPROVED_REVENUE','BILLING_READY_REVENUE','INVOICED_REVENUE','PAID_REVENUE'];
     for (const id of revenueMetrics) {
       assertEqual(METRIC_DEFINITIONS[id].category, 'REVENUE', `Metric "${id}" should be REVENUE category`);
     }
@@ -176,7 +176,7 @@ async function run() {
 
   await test('Liquidity metrics have LIQUIDITY category', () => {
     const liquidityMetrics: MetricId[] = [
-      'PAID_REVENUE','UNBILLED_WIP','BILLING_BLOCKED_VALUE','ACCOUNTS_RECEIVABLE','SUPPLIER_PAYABLES',
+      'CASH_RECEIVED','UNBILLED_WIP','BILLING_BLOCKED_VALUE','ACCOUNTS_RECEIVABLE','SUPPLIER_PAYABLES',
     ];
     for (const id of liquidityMetrics) {
       assertEqual(METRIC_DEFINITIONS[id].category, 'LIQUIDITY', `Metric "${id}" should be LIQUIDITY category`);
