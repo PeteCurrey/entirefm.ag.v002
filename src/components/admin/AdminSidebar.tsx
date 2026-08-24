@@ -398,14 +398,18 @@ export function AdminSidebar({ session }: { session: UserSession }) {
       {/* User Session Bar */}
       <div className="border-t border-[#E4E4E1] bg-[#F5F5F3] p-3">
         <div className="flex items-center justify-between">
-          <div className="min-w-0 flex-1 pr-2">
-            <div className="truncate text-[12px] font-medium text-[#101010]">
+          <Link
+            href="/admin/platform/settings"
+            title="Edit Profile & System Settings"
+            className="min-w-0 flex-1 pr-2 group block"
+          >
+            <div className="truncate text-[12px] font-medium text-[#101010] group-hover:text-[#FF6B24] transition-colors">
               {session.name}
             </div>
-            <div className="truncate font-mono text-[10px] text-[#686866]">
+            <div className="truncate font-mono text-[10px] text-[#686866] group-hover:text-[#101010] transition-colors">
               {session.role} · {session.orgName}
             </div>
-          </div>
+          </Link>
           <form action="/api/auth/logout" method="post">
             <button
               type="submit"
