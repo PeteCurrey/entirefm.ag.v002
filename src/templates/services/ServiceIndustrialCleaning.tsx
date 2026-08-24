@@ -76,7 +76,7 @@ export function ServiceIndustrialCleaning({ route, content }: TemplateProps) {
         'ATEX-certified explosion-proof vacuum systems',
         'Overhead crane gantry and busbar de-dusting',
       ],
-      href: '/working-at-heights',
+      href: '/working-at-height-rope-access-bmu',
     },
     {
       name: 'Factory Shutdown Maintenance Windows',
@@ -168,7 +168,7 @@ export function ServiceIndustrialCleaning({ route, content }: TemplateProps) {
     },
   ];
 
-  const relatedLinks = (content.relatedRoutes || ['/cleaning-services', '/contract-cleaning', '/pressure-washing', '/working-at-heights']).map(r => ({
+  const relatedLinks = (content.relatedRoutes || ['/cleaning-services', '/contract-cleaning', '/pressure-washing', '/working-at-height-rope-access-bmu']).map(r => ({
     title: r.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
     path: r,
     category: 'Specialist Cleaning Discipline',

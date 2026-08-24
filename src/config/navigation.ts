@@ -58,6 +58,7 @@ export const PRIMARY_NAV: NavSection[] = [
       {
         heading: 'Soft FM & Specialist',
         links: [
+          { label: 'Working at Height & Rope Access', href: '/working-at-height-rope-access-bmu', detail: 'Rope access, BMU & façade maintenance' },
           { label: 'Commercial Cleaning', href: '/cleaning-services', detail: 'Office, retail and contract cleaning' },
           { label: 'Industrial Cleaning', href: '/industrial-cleaning', detail: 'Process, plant and high-level cleaning' },
           { label: 'Security Services', href: '/security-services', detail: 'Guarding, CCTV and access control' },
@@ -181,6 +182,7 @@ export const FOOTER_NAV: NavColumn[] = [
       { label: 'Mechanical & Electrical', href: '/mechanical-electrical' },
       { label: 'Planned Maintenance', href: '/ppm' },
       { label: 'HVAC', href: '/hvac-contractor' },
+      { label: 'Working at Height', href: '/working-at-height-rope-access-bmu' },
       { label: 'Commercial Cleaning', href: '/commercial-cleaning-services' },
       { label: 'Building Fabric', href: '/building-maintenance' },
       { label: 'Compliance Management', href: '/compliance' },

@@ -344,7 +344,7 @@ SIM-S501,SIM-C201,"Leeds Distribution Centre","1 Railway Lane",Leeds,LS1 1BA`;
     // Simulate manual edit
     await pgClient.query(`
       UPDATE public.sites
-      SET notes = 'Manual site access notes added by FM supervisor',
+      SET address_line2 = 'Supervisor Notes: Gate key required',
           updated_at = NOW() + INTERVAL '2 minutes'
       WHERE external_id = 'SIM-S501'
     `);
@@ -385,11 +385,11 @@ SIM-S601,SIM-C201,"Birmingham Hub","5 Colmore Row",Birmingham,B3 2BJ`;
     // Create a real Work Order against this site
     const woInsert = await pgClient.query(`
       INSERT INTO public.work_orders (
-        work_order_number, site_id, title, description, priority, status, created_at, updated_at
+        work_order_number, organisation_id, site_id, title, description, priority, status, created_at, updated_at
       ) VALUES (
-        'WO-SAFETY-001', $1, 'Emergency Boiler Repair', 'Heating failure in main building', 'P1', 'OPEN', NOW(), NOW()
+        'WO-SAFETY-001', $1, $2, 'Emergency Boiler Repair', 'Heating failure in main building', 'P1', 'OPEN', NOW(), NOW()
       ) RETURNING id
-    `, [siteWOId]);
+    `, [ADMIN_ORG_ID, siteWOId]);
     const woId = woInsert.rows[0].id;
 
     // Attempt rollback of site batch
@@ -429,9 +429,9 @@ SIM-S701,SIM-C201,"Newcastle Depot","8 Quay Street",Newcastle,NE1 3DE`;
     // Create an Asset against this site
     const assetInsert = await pgClient.query(`
       INSERT INTO public.assets (
-        asset_number, site_id, name, category, criticality, status, created_at, updated_at
+        asset_reference, site_id, name, category, criticality, status, created_at, updated_at
       ) VALUES (
-        'AST-SAFETY-001', $1, 'Main Air Handling Unit 1', 'HVAC', 'CRITICAL', 'OPERATIONAL', NOW(), NOW()
+        'AST-SAFETY-001', $1, 'Main Air Handling Unit 1', 'HVAC', 'CRITICAL', 'IN_SERVICE', NOW(), NOW()
       ) RETURNING id
     `, [siteAssetId]);
     const assetId = assetInsert.rows[0].id;

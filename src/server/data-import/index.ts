@@ -1248,12 +1248,6 @@ export async function rollbackImport(
           dependencyReason = `Site has downstream Assets. Cannot automatically remove.`;
         }
       }
-      if (!dependencyReason) {
-        const ppmRes = await dbQuery<any[]>(`ppm_plans?site_id=eq.${entityId}&select=id&limit=1`);
-        if ((ppmRes.data || []).length > 0) {
-          dependencyReason = `Site has downstream PPM Plans. Cannot automatically remove.`;
-        }
-      }
     } else if (batch.entity_type === 'CLIENT') {
       const siteRes = await dbQuery<any[]>(`sites?organisation_id=eq.${entityId}&select=id&limit=1`);
       if ((siteRes.data || []).length > 0) {

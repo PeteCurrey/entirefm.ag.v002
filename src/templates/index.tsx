@@ -55,6 +55,7 @@ import { TemplateClientPortal } from './client-portal/TemplateClientPortal';
 import { TemplateRealTimeOperations } from './client-portal/TemplateRealTimeOperations';
 import { TemplateComplianceReporting } from './client-portal/TemplateComplianceReporting';
 import { TemplateSite360 } from './client-portal/TemplateSite360';
+import { ServiceWorkingAtHeight } from './services/ServiceWorkingAtHeight';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const content = loadContentRecord(route.path);
@@ -134,6 +135,14 @@ function selectTemplate(
   }
   if (path === '/client-portal/site-360') {
     return <TemplateSite360 />;
+  }
+
+  // 5c. Working at Height, Rope Access & BMU Specialist Services
+  if (
+    path === '/working-at-height-rope-access-bmu' ||
+    path === '/working-at-heights'
+  ) {
+    return <ServiceWorkingAtHeight route={route} content={content} />;
   }
 
   // 6. Supply Chain, Marketplace & Partner Network

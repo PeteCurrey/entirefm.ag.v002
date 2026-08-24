@@ -28,6 +28,7 @@ import { GLOSSARY_CONTENT } from './glossary/records';
 import { RESOURCES_CONTENT } from './resources/records';
 import { AI_RESOURCES_CONTENT } from './resources/ai-records';
 import { CLIENT_PORTAL_CONTENT } from './client-portal/records';
+import { WORKING_AT_HEIGHT_CONTENT } from './services/working-at-height';
 
 export type { ContentRecord };
 
@@ -65,6 +66,8 @@ export const COMPANY_CONTENT: Record<string, ContentRecord> = {
   ...AI_RESOURCES_CONTENT,
   // EntireCAFM Client Portal pages & interactive tour architecture
   ...CLIENT_PORTAL_CONTENT,
+  // Working at Height, Rope Access & BMU Services
+  ...WORKING_AT_HEIGHT_CONTENT,
 };
 
 /** Paths currently served by bespoke Tier 1 content. */

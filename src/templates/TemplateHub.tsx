@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { ArrowRight, MapPin, ChevronRight, CheckCircle2, ShieldCheck, Building, Wrench } from 'lucide-react';
 import type { RouteRecord, ContentRecord } from '@/lib/routes/route-schema';
 import { ALL_ROUTES } from '@/lib/routes/route-registry';
+import { loadContentRecord } from '@/content';
 
 interface HubItem {
   title: string;
@@ -290,12 +291,22 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
         if (determinedType === 'sectors') return r.routeType === 'sector';
         if (determinedType === 'locations') return r.routeType === 'location';
         return r.path !== '/' && r.protected;
-      }).slice(0, 24).map(r => ({
-        title: r.path.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
-        path: r.path,
-        category: r.sitemapGroup,
-        description: `Explore EntireFM's capabilities and service specifications for ${r.path.replace(/^\//, '').replace(/-/g, ' ')}.`,
-      }));
+      }).slice(0, 30).map(r => {
+        const record = loadContentRecord(r.path);
+        const title = r.path === '/working-at-height-rope-access-bmu'
+          ? 'Working at Height & Rope Access'
+          : (record?.h1 || r.path.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()));
+        const description = r.path === '/working-at-height-rope-access-bmu'
+          ? 'Rope access, BMU and specialist high-level access for inspection, maintenance, façade works, reactive repairs and cleaning across complex commercial buildings.'
+          : (record?.heroIntro || record?.metaDescription || `Explore EntireFM's capabilities and service specifications for ${r.path.replace(/^\//, '').replace(/-/g, ' ')}.`);
+
+        return {
+          title,
+          path: r.path,
+          category: r.sitemapGroup,
+          description,
+        };
+      });
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
