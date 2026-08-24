@@ -33,18 +33,18 @@ export function LeadPipelineWidget({ leads }: LeadPipelineWidgetProps) {
   };
 
   return (
-    <div className="rounded-[16px] border border-[#E4E4E1] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
+    <div className="rounded-[10px] border border-[#E8E8E5] bg-[#FFFFFF] overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[#E4E4E1] bg-[#F9F9F8] px-5 py-3.5">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#FF3E9D] text-white">
-            <Mail className="h-3.5 w-3.5" />
+      <div className="flex items-center justify-between border-b border-[#E8E8E5] bg-[#FAFAF8] px-4 py-3">
+        <div className="flex items-center gap-2">
+          <div className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#111111] text-white">
+            <Mail className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
-              INBOUND LEADS &amp; PIPELINE
+            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+              Inbound Leads &amp; Pipeline
             </h2>
-            <p className="text-[11.5px] text-[#686866]">
+            <p className="text-[11px] text-[#6D6D68]">
               {newLeads.length > 0
                 ? `${newLeads.length} new commercial enquir${newLeads.length === 1 ? 'y' : 'ies'} awaiting response`
                 : 'All inbound leads acknowledged'}
@@ -54,30 +54,31 @@ export function LeadPipelineWidget({ leads }: LeadPipelineWidgetProps) {
 
         <Link
           href="/admin/growth/leads"
-          className="text-[11.5px] font-semibold text-[#FF3E9D] hover:underline inline-flex items-center gap-1"
+          className="text-[11.5px] font-medium text-[#EA580C] hover:underline inline-flex items-center gap-1"
         >
-          <span>Open Leads Directory</span>
-          <ArrowRight className="h-3.5 w-3.5" />
+          <span>Leads Hub</span>
+          <ArrowRight className="h-3 w-3" />
         </Link>
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 border-b border-[#E4E4E1] divide-x divide-[#E4E4E1] bg-[#FBFBFA]">
-        <div className="p-3.5 text-center">
-          <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">New Leads</span>
-          <span className="text-xl font-bold text-[#101010] mt-0.5 block">{newLeads.length}</span>
+      <div className="grid grid-cols-2 sm:grid-cols-4 border-b border-[#E8E8E5] divide-x divide-[#E8E8E5] bg-[#FAFAF8]">
+        <div className="p-3 text-center">
+          <span className="text-[10px] uppercase font-medium text-[#6D6D68] block">New Leads</span>
+          <span className="text-xl font-semibold text-[#111111] mt-0.5 block">{newLeads.length}</span>
         </div>
-        <div className="p-3.5 text-center">
-          <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">In Pipeline</span>
-          <span className="text-xl font-bold text-[#101010] mt-0.5 block">{leads.length}</span>
+        <div className="p-3 text-center">
+          <span className="text-[10px] uppercase font-medium text-[#6D6D68] block">In Pipeline</span>
+          <span className="text-xl font-semibold text-[#111111] mt-0.5 block">{leads.length}</span>
         </div>
-        <div className="p-3.5 text-center">
-          <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">Qualified</span>
-          <span className="text-xl font-bold text-[#15803D] mt-0.5 block">{qualifiedLeads.length}</span>
+        <div className="p-3 text-center">
+          <span className="text-[10px] uppercase font-medium text-[#6D6D68] block">Qualified</span>
+          <span className="text-xl font-semibold text-[#15803D] mt-0.5 block">{qualifiedLeads.length}</span>
         </div>
-        <div className="p-3.5 text-center">
-          <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">Target SLA</span>
-          <span className="text-xl font-bold text-[#FF3E9D] mt-0.5 block">&lt; 15m</span>
+        <div className="p-3 text-center">
+          <span className="text-[10px] uppercase font-medium text-[#6D6D68] block">Target SLA</span>
+          <span className="text-xl font-semibold text-[#EA580C] mt-0.5 block">{'< 15m'}</span>
+
         </div>
       </div>
 

@@ -1,31 +1,37 @@
 /**
- * ENTIREFM CAFM DESIGN SYSTEM (DESIGN RESET 01)
- * =============================================
- * Architectural control-room palette & precision utilities.
- * Canvas: #F5F5F3 | Surface: #FFFFFF | Border: #E4E4E1
- * Orange Accent: #FF6B24 (Live state, primary action, active selection)
+ * ENTIRECAFM PRECISION DESIGN SYSTEM
+ * ===================================
+ * Swiss precision × Bloomberg operational density × High-end industrial control
+ *
+ * Core Principles:
+ * - Pure White Canvas: #FFFFFF (Minimal #FAFAF8 secondary surface)
+ * - Restrained Hairline Grid: #E8E8E5 dividers (1px)
+ * - Typographic Hierarchy: #111111 primary, #6D6D68 secondary, #9A9A95 muted
+ * - Surgical Orange Accent: #EA580C / #FF6B24
+ * - Restrained Semantic States: Green (#15803D), Red (#DC2626), Amber (#D97706)
+ * - Object-centric presentation: no floating card spam or bubble pills
  */
 
 :root {
   /* Canvas & Surfaces */
-  --cafm-canvas: #F5F5F3;
+  --cafm-canvas: #FFFFFF;
   --cafm-surface: #FFFFFF;
-  --cafm-surface-subtle: #F0F0EE;
+  --cafm-surface-subtle: #FAFAF8;
   --cafm-surface-elevated: #FFFFFF;
-  --cafm-border: #E4E4E1;
-  --cafm-border-strong: #D1D1CD;
+  --cafm-border: #E8E8E5;
+  --cafm-border-strong: #D4D4D0;
 
   /* Typography */
-  --cafm-text-primary: #101010;
-  --cafm-text-secondary: #686866;
-  --cafm-text-muted: #9B9B97;
+  --cafm-text-primary: #111111;
+  --cafm-text-secondary: #6D6D68;
+  --cafm-text-muted: #9A9A95;
   --cafm-text-inverse: #FFFFFF;
 
-  /* Operational Accent */
-  --cafm-orange: #FF6B24;
-  --cafm-orange-hover: #E9540F;
-  --cafm-orange-subtle: rgba(255, 107, 36, 0.08);
-  --cafm-orange-border: rgba(255, 107, 36, 0.3);
+  /* Operational Accent (Surgical Orange) */
+  --cafm-orange: #EA580C;
+  --cafm-orange-hover: #C2410C;
+  --cafm-orange-subtle: #FFF7ED;
+  --cafm-orange-border: #FED7AA;
 
   /* Semantic Operational States */
   --cafm-green: #15803D;
@@ -52,17 +58,17 @@
   --cafm-neutral-bg: #F8FAFC;
   --cafm-neutral-border: #E2E8F0;
 
-  /* Radii */
-  --cafm-radius-sm: 8px;
-  --cafm-radius-md: 14px;
-  --cafm-radius-lg: 20px;
+  /* Machined Radii */
+  --cafm-radius-sm: 6px;
+  --cafm-radius-md: 8px;
+  --cafm-radius-lg: 12px;
 }
 
-/* Base ground class for CAFM */
+/* Base application wrapper */
 .cafm-app {
   background-color: var(--cafm-canvas);
   color: var(--cafm-text-primary);
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'tnum';
 }
 
 /* Hairline border utilities */
@@ -74,53 +80,53 @@
   border-color: var(--cafm-border-strong);
 }
 
-/* Tabular data formatting */
+/* Tabular numeric alignment for finance, timestamps, IDs */
 .cafm-tabular {
   font-variant-numeric: tabular-nums lining-nums;
 }
 
 /* Precision scrollbar */
 .cafm-scroll::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
 }
 .cafm-scroll::-webkit-scrollbar-track {
   background: transparent;
 }
 .cafm-scroll::-webkit-scrollbar-thumb {
   background: var(--cafm-border-strong);
-  border-radius: 9999px;
+  border-radius: 4px;
 }
 .cafm-scroll::-webkit-scrollbar-thumb:hover {
   background: var(--cafm-text-muted);
 }
 
-/* Gliding active indicator */
-.cafm-active-glide {
+/* Precision active indicator line */
+.cafm-active-indicator {
   position: relative;
 }
-.cafm-active-glide::after {
+.cafm-active-indicator::before {
   content: '';
   position: absolute;
   left: 0;
   top: 4px;
   bottom: 4px;
-  width: 3px;
+  width: 2.5px;
   background-color: var(--cafm-orange);
-  border-radius: 0 2px 2px 0;
+  border-radius: 1px;
 }
 
-/* Precision tool button */
+/* Tool button */
 .cafm-tool-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 120ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .cafm-tool-btn:hover {
   border-color: var(--cafm-border-strong);
   background-color: var(--cafm-surface-subtle);
 }
 .cafm-tool-btn:active {
-  transform: translateY(1px);
+  transform: translateY(0.5px);
 }

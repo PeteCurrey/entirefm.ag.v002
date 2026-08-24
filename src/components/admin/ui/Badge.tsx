@@ -21,8 +21,8 @@ export function Badge({
     red: 'bg-[#FEF2F2] text-[#B91C1C] border-[#FECACA]',
     blue: 'bg-[#EFF6FF] text-[#1D4ED8] border-[#BFDBFE]',
     orange: 'bg-[#FFF7ED] text-[#C2410C] border-[#FED7AA]',
-    neutral: 'bg-[#F0F0EE] text-[#686866] border-[#E4E4E1]',
-    dark: 'bg-[#101010] text-[#FFFFFF] border-[#101010]',
+    neutral: 'bg-[#FAFAF8] text-[#6D6D68] border-[#E8E8E5]',
+    dark: 'bg-[#111111] text-[#FFFFFF] border-[#111111]',
   };
 
   const dotStyles = {
@@ -30,15 +30,15 @@ export function Badge({
     amber: 'bg-[#D97706]',
     red: 'bg-[#DC2626]',
     blue: 'bg-[#2563EB]',
-    orange: 'bg-[#FF6B24]',
-    neutral: 'bg-[#9B9B97]',
+    orange: 'bg-[#EA580C]',
+    neutral: 'bg-[#9A9A95]',
     dark: 'bg-[#FFFFFF]',
   };
 
   const sizeStyles = {
-    xs: 'px-1.5 py-0.5 text-[9.5px] rounded-[5px]',
-    sm: 'px-2 py-0.5 text-[11px] rounded-[6px]',
-    md: 'px-2.5 py-1 text-[12px] rounded-[7px]',
+    xs: 'px-1.5 py-0.5 text-[9.5px] rounded-[3px]',
+    sm: 'px-2 py-0.5 text-[11px] rounded-[4px]',
+    md: 'px-2.5 py-1 text-[12px] rounded-[4px]',
   };
 
   return (

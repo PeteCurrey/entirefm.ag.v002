@@ -39,51 +39,61 @@ export function FieldPresencePanel({ summary, exceptions, onEngineerClick }: Fie
   const hasData = summary !== null;
 
   return (
-    <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
-      <div className="flex items-center justify-between border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3">
+    <div className="rounded-[10px] border border-[#E8E8E5] bg-[#FFFFFF] overflow-hidden">
+      <div className="flex items-center justify-between border-b border-[#E8E8E5] bg-[#FAFAF8] px-4 py-3">
         <div className="flex items-center gap-2">
-          <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#1D4ED8] text-white">
-            <Users className="h-3.5 w-3.5" />
+          <div className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#111111] text-white">
+            <Users className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
-              FIELD PRESENCE
+            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+              Field Presence
             </h2>
-            <p className="text-[11.5px] text-[#686866]">
+            <p className="text-[11px] text-[#6D6D68]">
               {hasData
                 ? `${summary!.onSite} on site · ${summary!.travelling} travelling`
-                : 'Live engineer presence status'}
+                : 'Mobile engineering deployment'}
             </p>
           </div>
         </div>
-        <Link href="/admin/operations/dispatch" className="text-[11.5px] font-medium text-[#686866] hover:text-[#101010] transition-colors">
-          Dispatch →
+        <Link href="/admin/operations/dispatch" className="text-[11.5px] font-medium text-[#6D6D68] hover:text-[#111111] transition-colors">
+          Dispatch Matrix →
         </Link>
       </div>
 
       {!hasData ? (
-        <div className="flex flex-col items-center justify-center p-10 text-center gap-3">
-          <Users className="h-7 w-7 text-[#D0D0CD]" />
-          <p className="font-medium text-[#686866] text-[13px]">No field activity data</p>
-          <p className="text-[12px] text-[#9B9B97]">
-            Engineer check-ins and dispatch events will appear here.
+        <div className="flex flex-col items-center justify-center p-8 text-center gap-2">
+          <Truck className="h-6 w-6 text-[#9A9A95]" />
+          <p className="font-medium text-[#111111] text-[13px]">No active engineer telemetry</p>
+          <p className="text-[12px] text-[#6D6D68]">
+            Engineer GPS arrivals and travel statuses appear automatically.
           </p>
+          <Link
+            href="/admin/supply-chain/engineers"
+            className="mt-2 inline-flex items-center gap-1.5 rounded-[4px] bg-[#111111] px-3 py-1.5 text-[11.5px] font-medium text-white hover:bg-[#252525] transition-colors"
+          >
+            Manage Engineers
+          </Link>
         </div>
       ) : (
-        <div className="p-5 space-y-4">
-          {/* Summary Strip */}
-          <div className="grid grid-cols-4 gap-2 font-mono text-center">
-            {[
-              { label: 'On Site', value: summary!.onSite, color: 'text-[#15803D]' },
-              { label: 'Travelling', value: summary!.travelling, color: 'text-[#1D4ED8]' },
-              { label: 'Available', value: summary!.available, color: 'text-[#686866]' },
-              { label: 'Late', value: summary!.runningLate, color: summary!.runningLate > 0 ? 'text-[#D97706]' : 'text-[#9B9B97]' },
-            ].map(({ label, value, color }) => (
-              <div key={label} className="rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] p-2.5">
-                <div className={`text-[18px] font-light tabular-nums ${color}`}>{value}</div>
-                <div className="text-[9.5px] uppercase text-[#9B9B97] mt-0.5">{label}</div>
-              </div>
-            ))}
+        <div className="p-4 space-y-4">
+          <div className="grid grid-cols-4 gap-2 text-center text-[12px]">
+            <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-2">
+              <div className="text-[10px] uppercase font-medium text-[#6D6D68]">On Site</div>
+              <div className="text-base font-semibold text-[#15803D] mt-0.5">{summary!.onSite}</div>
+            </div>
+            <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-2">
+              <div className="text-[10px] uppercase font-medium text-[#6D6D68]">Travelling</div>
+              <div className="text-base font-semibold text-[#1D4ED8] mt-0.5">{summary!.travelling}</div>
+            </div>
+            <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-2">
+              <div className="text-[10px] uppercase font-medium text-[#6D6D68]">Available</div>
+              <div className="text-base font-semibold text-[#111111] mt-0.5">{summary!.available}</div>
+            </div>
+            <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-2">
+              <div className="text-[10px] uppercase font-medium text-[#6D6D68]">Delayed</div>
+              <div className="text-base font-semibold text-[#DC2626] mt-0.5">{summary!.runningLate}</div>
+            </div>
           </div>
 
           {/* Exception Items */}

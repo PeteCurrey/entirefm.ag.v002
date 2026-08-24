@@ -304,22 +304,25 @@ export function AdminSidebar({ session }: { session: UserSession }) {
   };
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r border-[#E4E4E1] bg-[#FFFFFF] text-[#101010] select-none">
+    <aside className="fixed left-0 top-0 z-30 flex h-screen w-64 flex-col border-r border-[#E8E8E5] bg-[#FFFFFF]">
       {/* Brand Header */}
-      <div className="flex h-14 shrink-0 items-center justify-between border-b border-[#E4E4E1] px-5 bg-[#FFFFFF]">
-        <Link href="/admin" className="flex items-center gap-3 group min-w-0">
-          <CafmBrandMark className="h-6 w-auto shrink-0 transition-transform duration-200 group-hover:scale-105" />
-          <div className="flex items-center min-w-0">
-            <span className="text-[16px] font-light tracking-tight text-[#101010] truncate">
-              Entire<span className="font-semibold text-[#FF6B24]">CAFM</span>
+      <div className="flex h-14 items-center justify-between border-b border-[#E8E8E5] px-4">
+        <Link href="/admin" className="flex items-center gap-2.5">
+          <CafmBrandMark size="sm" />
+          <div className="flex flex-col">
+            <span className="text-[13px] font-semibold text-[#111111] tracking-tight leading-none">
+              EntireCAFM
+            </span>
+            <span className="text-[10px] text-[#6D6D68] leading-tight mt-0.5">
+              Control Desk
             </span>
           </div>
         </Link>
       </div>
 
       {/* Navigation List */}
-      <div className="flex-1 overflow-y-auto px-3 py-3.5 cafm-scroll">
-        <div className="space-y-4">
+      <div className="flex-1 overflow-y-auto px-3 py-3 cafm-scroll">
+        <div className="space-y-3.5">
           {NAV_GROUPS.filter((group) => {
             if (!group.permission) return true;
             const perms = session.permissions as string[];
@@ -338,16 +341,16 @@ export function AdminSidebar({ session }: { session: UserSession }) {
                 <button
                   type="button"
                   onClick={() => toggleGroup(group.title)}
-                  className="flex w-full items-center justify-between px-2 py-1 text-left font-mono text-[10px] font-semibold uppercase tracking-wider text-[#9B9B97] hover:text-[#101010] transition-colors rounded-[6px]"
+                  className="flex w-full items-center justify-between px-2 py-1 text-left text-[11px] font-medium text-[#6D6D68] hover:text-[#111111] transition-colors rounded-[6px]"
                 >
                   <div className="flex items-center gap-1.5">
-                    <GroupIcon className="h-3 w-3 text-[#9B9B97]" />
+                    <GroupIcon className="h-3.5 w-3.5 text-[#9A9A95]" />
                     <span>{group.title}</span>
                   </div>
                   {isCollapsed ? (
-                    <ChevronRight className="h-3 w-3 text-[#9B9B97]" />
+                    <ChevronRight className="h-3 w-3 text-[#9A9A95]" />
                   ) : (
-                    <ChevronDown className="h-3 w-3 text-[#9B9B97]" />
+                    <ChevronDown className="h-3 w-3 text-[#9A9A95]" />
                   )}
                 </button>
 
@@ -364,19 +367,19 @@ export function AdminSidebar({ session }: { session: UserSession }) {
                         <Link
                           key={item.href}
                           href={item.href}
-                          className={`flex items-center justify-between rounded-[8px] px-2.5 py-1.5 text-[12.5px] transition-all duration-150 relative ${
+                          className={`flex items-center justify-between rounded-[6px] px-2.5 py-1.5 text-[12.5px] transition-all duration-120 relative ${
                             isActive
-                              ? 'bg-[#FF6B24] text-white font-medium shadow-[0_1px_3px_rgba(255,107,36,0.25)]'
-                              : 'text-[#686866] hover:bg-[#F0F0EE] hover:text-[#101010]'
+                              ? 'bg-[#FAFAF8] text-[#111111] font-semibold border-l-[3px] border-[#EA580C] pl-2'
+                              : 'text-[#6D6D68] hover:bg-[#FAFAF8] hover:text-[#111111]'
                           }`}
                         >
                           <span className="truncate">{item.name}</span>
                           {item.badge && (
                             <span
-                              className={`rounded-[4px] px-1.5 py-0.2 font-mono text-[9px] ${
+                              className={`rounded-[4px] px-1.5 py-0.2 font-mono text-[9px] font-medium ${
                                 isActive
-                                  ? 'bg-white/20 text-white'
-                                  : 'bg-[#F0F0EE] text-[#686866]'
+                                  ? 'bg-[#EA580C]/10 text-[#EA580C]'
+                                  : 'bg-[#F0F0EE] text-[#6D6D68]'
                               }`}
                             >
                               {item.badge}
@@ -393,26 +396,28 @@ export function AdminSidebar({ session }: { session: UserSession }) {
         </div>
       </div>
 
-      {/* User Session Bar */}
-      <div className="border-t border-[#E4E4E1] bg-[#F5F5F3] p-3">
+      {/* Account Footer */}
+      <div className="border-t border-[#E8E8E5] p-3 bg-[#FFFFFF]">
         <div className="flex items-center justify-between">
-          <Link
-            href="/admin/platform/settings"
-            title="Edit Profile & System Settings"
-            className="min-w-0 flex-1 pr-2 group block"
-          >
-            <div className="truncate text-[12px] font-medium text-[#101010] group-hover:text-[#FF6B24] transition-colors">
-              {session.name}
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[6px] bg-[#111111] text-white text-[11.5px] font-semibold">
+              {session.name ? session.name.charAt(0) : 'U'}
             </div>
-            <div className="truncate font-mono text-[10px] text-[#686866] group-hover:text-[#101010] transition-colors">
-              {session.role} · {session.orgName}
+            <div className="min-w-0">
+              <div className="truncate text-[12px] font-medium text-[#111111] leading-tight">
+                {session.name || 'User'}
+              </div>
+              <div className="text-[10px] text-[#6D6D68] leading-tight">
+                {session.role}
+              </div>
             </div>
-          </Link>
-          <form action="/api/auth/logout" method="post">
+          </div>
+
+          <form action="/api/auth/logout" method="POST">
             <button
               type="submit"
-              title="Sign Out"
-              className="rounded-[6px] p-1.5 text-[#9B9B97] transition-colors hover:bg-[#E4E4E1] hover:text-[#101010]"
+              title="Sign out"
+              className="rounded-[6px] p-1.5 text-[#9A9A95] hover:bg-[#FAFAF8] hover:text-[#111111] transition-colors"
             >
               <LogOut className="h-3.5 w-3.5" />
             </button>

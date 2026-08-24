@@ -52,7 +52,7 @@ export function DataTable<T extends { id?: string | number }>({
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           {searchFilter && (
             <div className="relative w-full max-w-sm">
-              <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9B9B97]" />
+              <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9A9A95]" />
               <input
                 type="text"
                 value={search}
@@ -61,13 +61,13 @@ export function DataTable<T extends { id?: string | number }>({
                   setCurrentPage(1);
                 }}
                 placeholder={searchPlaceholder}
-                className="w-full rounded-[8px] border border-[#E4E4E1] bg-[#FFFFFF] pl-9 pr-3 py-1.5 text-[12.5px] text-[#101010] placeholder-[#9B9B97] focus:border-[#FF6B24] focus:outline-none focus:ring-1 focus:ring-[#FF6B24]"
+                className="w-full rounded-[6px] border border-[#E8E8E5] bg-[#FFFFFF] pl-9 pr-3 py-1.5 text-[12.5px] text-[#111111] placeholder-[#9A9A95] focus:border-[#EA580C] focus:outline-none"
               />
             </div>
           )}
           <div className="flex items-center gap-3 ml-auto">
             {toolbarActions}
-            <div className="font-mono text-[11px] text-[#686866]">
+            <div className="text-[11.5px] text-[#6D6D68]">
               {filteredData.length} {filteredData.length === 1 ? 'record' : 'records'}
             </div>
           </div>
@@ -76,34 +76,34 @@ export function DataTable<T extends { id?: string | number }>({
 
       {/* Table Surface */}
       {paginatedData.length > 0 ? (
-        <div className="overflow-x-auto rounded-[12px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+        <div className="overflow-x-auto rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF]">
           <table className="w-full min-w-[50rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-[#E4E4E1] bg-[#F0F0EE] font-mono text-[10.5px] uppercase tracking-wider text-[#686866]">
+              <tr className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[11px] font-semibold text-[#6D6D68] uppercase tracking-wide">
                 {columns.map((col, idx) => (
-                  <th key={idx} className={`px-4 py-3 font-semibold ${col.className || ''}`}>
+                  <th key={idx} className={`px-4 py-3 ${col.className || ''}`}>
                     {col.header}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E4E4E1]">
+            <tbody className="divide-y divide-[#E8E8E5]">
               {paginatedData.map((row, rowIdx) => (
                 <tr
                   key={row.id || rowIdx}
                   onClick={() => onRowClick && onRowClick(row)}
-                  className={`text-[#101010] transition-colors ${
+                  className={`text-[#111111] transition-colors ${
                     onRowClick
-                      ? 'cursor-pointer hover:bg-[#F5F5F3]'
-                      : 'hover:bg-[#FAFAFA]'
+                      ? 'cursor-pointer hover:bg-[#FAFAF8]'
+                      : 'hover:bg-[#FAFAF8]'
                   }`}
                 >
-                  {columns.map((col, colIdx) => (
-                    <td key={colIdx} className={`px-4 py-3 ${col.className || ''}`}>
+                  {columns.map((col, cIdx) => (
+                    <td key={cIdx} className={`px-4 py-3 ${col.className || ''}`}>
                       {typeof col.accessor === 'function'
                         ? col.accessor(row)
                         : col.accessor
-                        ? (row[col.accessor] as unknown as React.ReactNode)
+                        ? (row[col.accessor] as React.ReactNode)
                         : null}
                     </td>
                   ))}

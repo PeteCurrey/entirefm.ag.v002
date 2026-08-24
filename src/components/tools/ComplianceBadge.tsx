@@ -1,88 +1,74 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ComplianceClassification, getClassificationLabel, getClassificationColor } from '@/lib/tools/compliance-taxonomy';
-import { HelpCircle } from 'lucide-react';
+import { ComplianceClassification } from '@/lib/tools/compliance-taxonomy';
 
-const CLASSIFICATION_EXPLANATIONS: Record<ComplianceClassification, { title: string; desc: string }> = {
+interface ComplianceBadgeProps {
+  classification: ComplianceClassification;
+  showBasisPopover?: boolean;
+}
+
+const CLASSIFICATION_CONFIG: Record<
+  ComplianceClassification,
+  {
+    label: string;
+    borderClass: string;
+    textClass: string;
+    explanation: string;
+  }
+> = {
   LEGAL_STATUTORY_DUTY: {
-    title: 'Statutory Duty (Strict Liability)',
-    desc: 'Direct legal mandate under UK Acts of Parliament or Statutory Instruments. Non-compliance constitutes a criminal offense and invalidates insurance.',
+    label: 'LEGAL',
+    borderClass: 'border-rose-700/80',
+    textClass: 'text-rose-300',
+    explanation: 'Mandatory criminal statute or statutory regulation (e.g. Health & Safety at Work Act 1974, RRO 2005, EAWR 1989). Non-compliance creates immediate corporate and personal director liability.',
   },
   BRITISH_INDUSTRY_STANDARD: {
-    title: 'British / Industry Standard',
-    desc: 'Formally codified engineering standard (e.g. BS 5839, BS 5266, BS 7671) representing statutory benchmark for good engineering practice and evidence.',
+    label: 'STANDARD',
+    borderClass: 'border-blue-700/80',
+    textClass: 'text-blue-300',
+    explanation: 'Recognised British / European Standard (e.g. BS 5839, BS 5266, BS 7671). Expected by property insurers, warranty providers, and fire authorities during formal audits.',
   },
   SFG20_PLANNED_PRACTICE: {
-    title: 'SFG20 Planned Maintenance Standard',
-    desc: 'Industry benchmark specification for building engineering services maintenance, optimising operational life, energy efficiency, and plant reliability.',
+    label: 'PRACTICE',
+    borderClass: 'border-emerald-700/80',
+    textClass: 'text-emerald-300',
+    explanation: 'Industry standard planned preventative maintenance schedule defined by the Building Engineering Services Association (BESA). Prevents premature plant degradation.',
   },
   MANUFACTURER_REQUIREMENT: {
-    title: 'Manufacturer Specification (OEM)',
-    desc: 'Servicing intervals and procedures required to maintain equipment warranties, design efficiency, and prevent premature component failure.',
+    label: 'OEM',
+    borderClass: 'border-amber-700/80',
+    textClass: 'text-amber-300',
+    explanation: 'Mandatory maintenance task stipulated by the Original Equipment Manufacturer to maintain equipment warranty and design performance efficiency.',
   },
   RISK_BASED_SITE_SPECIFIC: {
-    title: 'Risk-Based / Duty-Holder Assessment',
-    desc: 'Interval and inspection scope determined by building risk profile, occupancy density, environmental factors, or formal specialist risk assessment.',
+    label: 'RISK',
+    borderClass: 'border-purple-700/80',
+    textClass: 'text-purple-300',
+    explanation: 'Task frequency or scope determined by on-site risk assessment and equipment duty cycle rather than a rigid calendar interval.',
   },
   INDUSTRY_BEST_PRACTICE: {
-    title: 'Industry Good Practice',
-    desc: 'Recommended engineering and fabric care practice exceeding baseline requirements to protect asset asset valuation and tenant experience.',
+    label: 'BEST PRACTICE',
+    borderClass: 'border-slate-700',
+    textClass: 'text-slate-300',
+    explanation: 'Discretionary engineering maintenance task recommended for optimal asset longevity, energy efficiency, and operational reliability.',
   },
 };
 
-export function ComplianceBadge({
-  classification,
-  showExplanation = false,
-  className = '',
-}: {
-  classification: ComplianceClassification;
-  showExplanation?: boolean;
-  className?: string;
-}) {
-  const [open, setOpen] = useState(false);
-  const label = getClassificationLabel(classification);
-  const color = getClassificationColor(classification);
-  const info = CLASSIFICATION_EXPLANATIONS[classification];
+export function ComplianceBadge({ classification }: ComplianceBadgeProps) {
+  const config = CLASSIFICATION_CONFIG[classification] || {
+    label: 'PRACTICE',
+    borderClass: 'border-slate-700',
+    textClass: 'text-slate-400',
+    explanation: 'Standard maintenance practice.',
+  };
 
   return (
-    <div className="relative inline-flex items-center">
-      <span
-        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-medium border tracking-tight ${color.badge} ${className}`}
-      >
-        <span>{label}</span>
-        {showExplanation && (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpen(!open);
-            }}
-            className="hover:opacity-80 focus:outline-none ml-0.5 text-current"
-            title="Click to view regulatory basis"
-          >
-            <HelpCircle className="w-2.5 h-2.5" />
-          </button>
-        )}
-      </span>
-
-      {open && (
-        <div
-          className="absolute left-0 bottom-full mb-2 z-50 w-64 p-3 rounded-lg bg-slate-900 border border-slate-700 shadow-2xl text-left"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="text-xs font-bold text-white mb-1 flex items-center justify-between">
-            <span>{info.title}</span>
-            <button
-              onClick={() => setOpen(false)}
-              className="text-slate-400 hover:text-white text-xs px-1"
-            >
-              ✕
-            </button>
-          </div>
-          <p className="text-[11px] text-slate-300 leading-relaxed">{info.desc}</p>
-        </div>
-      )}
-    </div>
+    <span
+      title={config.explanation}
+      className={`inline-block px-1.5 py-0.5 border ${config.borderClass} ${config.textClass} text-[10px] font-mono font-semibold tracking-wider uppercase rounded-[2px]`}
+    >
+      {config.label}
+    </span>
   );
 }

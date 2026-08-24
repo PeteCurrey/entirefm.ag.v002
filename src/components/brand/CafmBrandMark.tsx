@@ -113,10 +113,19 @@ const CAFM_PLATES = buildCafmPlates();
 
 interface CafmBrandMarkProps {
   className?: string;
-  size?: number;
+  size?: number | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
+const SIZE_MAP: Record<string, number> = {
+  xs: 18,
+  sm: 24,
+  md: 32,
+  lg: 40,
+  xl: 48,
+};
+
 export function CafmBrandMark({ className = 'h-7 w-auto', size }: CafmBrandMarkProps) {
+  const pixelSize = typeof size === 'number' ? size : size ? SIZE_MAP[size] : undefined;
   return (
     <svg
       viewBox={VIEW_BOX}
@@ -124,8 +133,9 @@ export function CafmBrandMark({ className = 'h-7 w-auto', size }: CafmBrandMarkP
       role="img"
       aria-label="EntireFM CAFM"
       shapeRendering="geometricPrecision"
-      style={size ? { width: size, height: size } : undefined}
+      style={pixelSize ? { width: pixelSize, height: pixelSize } : undefined}
     >
+
       <defs>
         {/* Gradients for each orange crystalline facet */}
         {CAFM_PLATES.map((plate) => (

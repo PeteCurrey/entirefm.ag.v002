@@ -79,38 +79,50 @@ export function EstatePulseStrip({
   ];
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-      {metrics.map((m) => {
-        const Icon = m.icon;
-        const isActive = activeMetric === m.key;
-        const isNoData = (m as any).noData;
-        return (
-          <button
-            key={m.key}
-            onClick={() => onMetricClick?.(m.key)}
-            className={`rounded-[14px] border p-3.5 text-left transition-all ${
-              isActive
-                ? 'border-[#FF6B24] bg-[#FFF7F3] shadow-[0_0_0_2px_rgba(255,107,36,0.15)]'
-                : 'border-[#E4E4E1] bg-[#FFFFFF] hover:border-[#D0D0CD]'
-            }`}
-          >
-            <div className="flex items-center gap-1.5 mb-2">
-              <Icon className={`h-3.5 w-3.5 ${m.alert ? 'text-red-500' : 'text-[#686866]'}`} />
-              <span className="font-mono text-[9.5px] uppercase tracking-wider text-[#9B9B97]">
-                {m.label}
-              </span>
-            </div>
-            <div className={`font-mono text-[18px] font-light tabular-nums ${
-              isNoData ? 'text-[#B0B0AD]' : m.alert ? 'text-red-500' : 'text-[#101010]'
-            }`}>
-              {m.value}
-            </div>
-            <div className="text-[10.5px] text-[#9B9B97] mt-0.5 leading-tight">
-              {m.subtext}
-            </div>
-          </button>
-        );
-      })}
+    <div className="rounded-[10px] border border-[#E8E8E5] bg-[#FFFFFF] overflow-hidden">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-[#E8E8E5]">
+        {metrics.map((m) => {
+          const Icon = m.icon;
+          const isActive = activeMetric === m.key;
+          const isNoData = (m as any).noData;
+          return (
+            <button
+              key={m.key}
+              onClick={() => onMetricClick?.(m.key)}
+              className={`p-4 text-left transition-all relative ${
+                isActive
+                  ? 'bg-[#FAFAF8] shadow-[inset_0_-2px_0_#EA580C]'
+                  : 'hover:bg-[#FAFAF8]'
+              }`}
+            >
+              <div className="flex items-center justify-between gap-1.5 mb-1.5">
+                <span className="text-[11px] font-medium text-[#6D6D68] uppercase tracking-wide">
+                  {m.label}
+                </span>
+                <Icon className={`h-3.5 w-3.5 ${m.alert ? 'text-[#DC2626]' : 'text-[#9A9A95]'}`} />
+              </div>
+
+              <div className="flex items-baseline gap-2">
+                <span
+                  className={`text-2xl lg:text-3xl font-light tracking-tight ${
+                    isNoData
+                      ? 'text-[#9A9A95]'
+                      : m.alert
+                      ? 'text-[#DC2626] font-normal'
+                      : 'text-[#111111] font-normal'
+                  }`}
+                >
+                  {m.value}
+                </span>
+              </div>
+
+              <div className="mt-1 text-[11.5px] text-[#6D6D68] truncate">
+                {m.subtext}
+              </div>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

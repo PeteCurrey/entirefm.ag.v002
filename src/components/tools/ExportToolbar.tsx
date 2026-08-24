@@ -7,8 +7,6 @@ import {
   Calendar,
   Copy,
   Check,
-  Printer,
-  Sparkles,
 } from 'lucide-react';
 
 export interface ExportToolbarProps {
@@ -43,23 +41,23 @@ export function ExportToolbar({
   extraActions,
 }: ExportToolbarProps) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl bg-slate-900 border border-slate-800 text-white shadow-xl">
+    <div className="flex flex-wrap items-center justify-between gap-4 py-4 px-5 border border-slate-800 bg-[#09101f] text-slate-200 rounded-[4px]">
       <div className="flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-[#FF3E9D] animate-pulse" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[#FF3E9D]" />
         <span className="font-mono text-xs uppercase tracking-wider text-slate-300 font-semibold">
-          Export Document &amp; Data Options
+          Export Document &amp; Data
         </span>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2.5">
         {onDownloadPdf && (
           <button
             type="button"
             onClick={onDownloadPdf}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-gradient-to-r from-[#FF3E9D] to-[#D91B7D] hover:opacity-95 text-white font-medium text-xs shadow-md transition-all active:scale-95"
-            title="Generate high-resolution printable EntireFM report"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs rounded-[3px] border border-slate-700 transition-colors"
+            title="Generate high-resolution printable EntireFM PDF"
           >
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-3.5 h-3.5 text-[#FF3E9D]" />
             <span>{pdfLabel}</span>
           </button>
         )}
@@ -68,10 +66,10 @@ export function ExportToolbar({
           <button
             type="button"
             onClick={onDownloadCsv}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-medium text-xs transition-all active:scale-95"
-            title="Download full machine-readable table"
+            className="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-medium text-xs rounded-[3px] border border-slate-800 hover:border-slate-700 transition-colors"
+            title="Export CSV spreadsheet matrix"
           >
-            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-400" />
+            <FileSpreadsheet className="w-3.5 h-3.5 text-slate-400" />
             <span>{csvLabel}</span>
           </button>
         )}
@@ -80,10 +78,10 @@ export function ExportToolbar({
           <button
             type="button"
             onClick={onDownloadIcs}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-medium text-xs transition-all active:scale-95"
-            title="Export statutory inspection timetable with 7-day reminder alarms"
+            className="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-medium text-xs rounded-[3px] border border-slate-800 hover:border-slate-700 transition-colors"
+            title="Export RFC 5545 iCalendar (.ics)"
           >
-            <Calendar className="w-3.5 h-3.5 text-blue-400" />
+            <Calendar className="w-3.5 h-3.5 text-slate-400" />
             <span>{icsLabel}</span>
           </button>
         )}
@@ -92,9 +90,9 @@ export function ExportToolbar({
           <button
             type="button"
             onClick={onDownloadMarkdown}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-medium text-xs transition-all active:scale-95"
+            className="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-medium text-xs rounded-[3px] border border-slate-800 hover:border-slate-700 transition-colors"
           >
-            <Download className="w-3.5 h-3.5 text-purple-400" />
+            <Download className="w-3.5 h-3.5 text-slate-400" />
             <span>{markdownLabel}</span>
           </button>
         )}
@@ -103,16 +101,16 @@ export function ExportToolbar({
           <button
             type="button"
             onClick={onCopyContent}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-medium text-xs transition-all active:scale-95"
+            className="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-medium text-xs rounded-[3px] border border-slate-800 hover:border-slate-700 transition-colors"
           >
             {isCopied ? (
               <>
                 <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-emerald-400">Copied to Clipboard!</span>
+                <span className="text-emerald-300">Copied</span>
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5 text-amber-400" />
+                <Copy className="w-3.5 h-3.5 text-slate-400" />
                 <span>{copyLabel}</span>
               </>
             )}

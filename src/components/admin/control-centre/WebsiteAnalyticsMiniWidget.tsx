@@ -31,29 +31,29 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
   };
 
   return (
-    <div className="rounded-[16px] border border-[#E4E4E1] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
+    <div className="rounded-[10px] border border-[#E8E8E5] bg-[#FFFFFF] overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[#E4E4E1] bg-[#F9F9F8] px-5 py-3.5">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#101010] text-white">
-            <BarChart3 className="h-3.5 w-3.5" />
+      <div className="flex items-center justify-between border-b border-[#E8E8E5] bg-[#FAFAF8] px-4 py-3">
+        <div className="flex items-center gap-2">
+          <div className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#111111] text-white">
+            <BarChart3 className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
-              WEBSITE &amp; COMMERCIAL CONVERSION
+            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+              Website &amp; Conversion Analytics
             </h2>
-            <p className="text-[11.5px] text-[#686866]">
-              Real website traffic and enquiry conversion performance (Last 30 Days)
+            <p className="text-[11px] text-[#6D6D68]">
+              Real-time inbound digital telemetry (30 Days)
             </p>
           </div>
         </div>
 
         <Link
           href="/admin/analytics"
-          className="text-[11.5px] font-semibold text-[#101010] hover:text-[#FF3E9D] inline-flex items-center gap-1 transition-colors"
+          className="text-[11.5px] font-medium text-[#EA580C] hover:underline inline-flex items-center gap-1 transition-colors"
         >
-          <span>Executive Dashboard</span>
-          <ArrowRight className="h-3.5 w-3.5" />
+          <span>Analytics Hub</span>
+          <ArrowRight className="h-3 w-3" />
         </Link>
       </div>
 

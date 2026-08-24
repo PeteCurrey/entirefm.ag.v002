@@ -29,14 +29,14 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F5F3] text-[#101010] selection:bg-[#FF6B24]/20 selection:text-[#101010] cafm-app font-sans">
+    <div className="min-h-screen bg-[#FFFFFF] text-[#111111] selection:bg-[#EA580C]/20 selection:text-[#111111] cafm-app font-sans">
       {/* Precision Navigation Rail */}
       <AdminSidebar session={session} />
 
       {/* Main Content Area */}
       <div className="pl-64 flex flex-col min-h-screen">
         <AdminHeader session={session} />
-        <main className="flex-1 p-6 lg:p-8 max-w-[1720px] w-full mx-auto">
+        <main className="flex-1 p-6 lg:p-8 max-w-[1760px] w-full mx-auto">
           {children}
         </main>
       </div>

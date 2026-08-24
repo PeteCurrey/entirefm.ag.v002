@@ -102,43 +102,42 @@ export function LiveEstateWorkspace({
   }
 
   return (
-    <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
+    <div className="rounded-[10px] border border-[#E8E8E5] bg-[#FFFFFF] overflow-hidden">
       {/* Workspace Header & Mode Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E8E8E5] bg-[#FAFAF8] px-4 py-3 gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#FF6B24] text-white">
-            <Building2 className="h-3.5 w-3.5" />
+          <div className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#111111] text-white">
+            <Building2 className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
-              LIVE ESTATE WORKSPACE
+            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+              Live Estate Workspace
             </h2>
-            <p className="text-[11.5px] text-[#686866]">
+            <p className="text-[11px] text-[#6D6D68]">
               {filtered.length} managed facilities
-
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           {/* Mode Switcher */}
-          <div className="flex items-center rounded-[7px] border border-[#E4E4E1] bg-[#FFFFFF] p-0.5">
+          <div className="flex items-center rounded-[4px] border border-[#E8E8E5] bg-[#FFFFFF] p-0.5">
             <button
               onClick={() => setViewMode('CANVAS')}
-              className={`rounded-[5px] px-2.5 py-1 text-[11px] font-medium transition-all ${
+              className={`rounded-[3px] px-2.5 py-1 text-[11px] font-medium transition-all ${
                 viewMode === 'CANVAS'
-                  ? 'bg-[#101010] text-white shadow-sm'
-                  : 'text-[#686866] hover:text-[#101010]'
+                  ? 'bg-[#111111] text-white'
+                  : 'text-[#6D6D68] hover:text-[#111111]'
               }`}
             >
               Estate Canvas
             </button>
             <button
               onClick={() => setViewMode('MAP')}
-              className={`rounded-[5px] px-2.5 py-1 text-[11px] font-medium transition-all ${
+              className={`rounded-[3px] px-2.5 py-1 text-[11px] font-medium transition-all ${
                 viewMode === 'MAP'
-                  ? 'bg-[#101010] text-white shadow-sm'
-                  : 'text-[#686866] hover:text-[#101010]'
+                  ? 'bg-[#111111] text-white'
+                  : 'text-[#6D6D68] hover:text-[#111111]'
               }`}
             >
               UK Telemetry Map
@@ -147,7 +146,7 @@ export function LiveEstateWorkspace({
 
           <Link
             href="/admin/estate/sites"
-            className="inline-flex items-center gap-1 text-[11.5px] font-medium text-[#FF6B24] hover:text-[#E9540F] transition-colors ml-2"
+            className="inline-flex items-center gap-1 text-[11.5px] font-medium text-[#EA580C] hover:underline ml-2"
           >
             <span>All Sites</span>
             <ArrowUpRight className="h-3.5 w-3.5" />
@@ -157,8 +156,8 @@ export function LiveEstateWorkspace({
 
       {/* Main Estate Workspace View */}
       {viewMode === 'CANVAS' ? (
-        <div className="p-5 bg-[#F5F5F3]">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className="p-4 bg-[#FFFFFF]">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3.5">
             {filtered.map((site) => {
               const isSelected = selectedSiteId === site.id;
 
@@ -166,47 +165,47 @@ export function LiveEstateWorkspace({
                 <div
                   key={site.id}
                   onClick={() => onSelectSite(site)}
-                  className={`group relative rounded-[14px] border bg-[#FFFFFF] overflow-hidden transition-all duration-200 cursor-pointer ${
+                  className={`group relative rounded-[8px] border bg-[#FFFFFF] overflow-hidden transition-all duration-150 cursor-pointer ${
                     isSelected
-                      ? 'border-[#FF6B24] ring-2 ring-[#FF6B24] shadow-[0_8px_24px_rgba(255,107,36,0.12)]'
-                      : 'border-[#E4E4E1] hover:border-[#D1D1CD] hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:-translate-y-0.5'
+                      ? 'border-[#EA580C] ring-1 ring-[#EA580C]'
+                      : 'border-[#E8E8E5] hover:border-[#D4D4D0]'
                   }`}
                 >
                   {/* Site Hero Image */}
-                  <div className="relative h-40 w-full bg-[#F0F0EE] overflow-hidden">
+                  <div className="relative h-36 w-full bg-[#FAFAF8] overflow-hidden">
                     <Image
                       src={site.heroImageUrl || SITE_HERO_IMAGES.default}
                       alt={site.name}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="object-cover transition-transform duration-300 group-hover:scale-102"
                       sizes="(max-width: 768px) 100vw, 25vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
                     {/* Top Overlay Badges */}
-                    <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between">
-                      <span className="rounded-[5px] bg-[#101010]/80 backdrop-blur-md px-2 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-white font-medium">
+                    <div className="absolute top-2 left-2 right-2 flex items-center justify-between">
+                      <span className="rounded-[4px] bg-[#111111]/80 backdrop-blur-md px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-white font-medium">
                         {site.site_code}
                       </span>
                       {site.healthStatus === 'CRITICAL' ? (
-                        <span className="rounded-[5px] bg-[#FEF2F2] border border-[#FECACA] px-2 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-[#B91C1C] font-semibold flex items-center gap-1">
-                          <span className="h-1.5 w-1.5 rounded-full bg-[#DC2626] animate-ping" />
+                        <span className="rounded-[4px] bg-[#FEF2F2] border border-[#FECACA] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#B91C1C] font-semibold flex items-center gap-1">
+                          <span className="h-1.5 w-1.5 rounded-full bg-[#DC2626] animate-pulse" />
                           P1 Critical
                         </span>
                       ) : site.healthStatus === 'WARNING' ? (
-                        <span className="rounded-[5px] bg-[#FFFBEB] border border-[#FDE68A] px-2 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-[#B45309] font-medium">
+                        <span className="rounded-[4px] bg-[#FFFBEB] border border-[#FDE68A] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#B45309] font-medium">
                           Attention
                         </span>
                       ) : (
-                        <span className="rounded-[5px] bg-[#F0FDF4] border border-[#BBF7D0] px-2 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-[#15803D] font-medium">
+                        <span className="rounded-[4px] bg-[#F0FDF4] border border-[#BBF7D0] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#15803D] font-medium">
                           Nominal
                         </span>
                       )}
                     </div>
 
                     {/* Bottom Image Caption */}
-                    <div className="absolute bottom-2.5 left-3 right-3 text-white">
-                      <div className="flex items-center gap-1 text-[11px] text-white/80">
+                    <div className="absolute bottom-2 left-2.5 right-2.5 text-white">
+                      <div className="flex items-center gap-1 text-[11px] text-white/90">
                         <MapPin className="h-3 w-3 text-white/70" />
                         <span className="truncate">{site.city}, {site.postcode}</span>
                       </div>
@@ -214,33 +213,33 @@ export function LiveEstateWorkspace({
                   </div>
 
                   {/* Site Content Body */}
-                  <div className="p-4 space-y-3">
+                  <div className="p-3 space-y-2.5">
                     <div>
-                      <h3 className="font-medium text-[14px] text-[#101010] line-clamp-1 group-hover:text-[#FF6B24] transition-colors">
+                      <h3 className="font-medium text-[13px] text-[#111111] line-clamp-1 group-hover:text-[#EA580C] transition-colors">
                         {site.name}
                       </h3>
-                      <div className="font-mono text-[10.5px] text-[#686866] uppercase mt-0.5">
+                      <div className="text-[10.5px] text-[#6D6D68] uppercase mt-0.5">
                         {site.site_type.replace(/_/g, ' ')}
                       </div>
                     </div>
 
                     {/* Telemetry Micro-Indicators */}
-                    <div className="grid grid-cols-3 gap-1.5 pt-1 border-t border-[#E4E4E1] font-mono text-[11px]">
-                      <div className="bg-[#F5F5F3] rounded-[6px] p-1.5 text-center">
-                        <div className="text-[9.5px] text-[#686866] uppercase">Open</div>
-                        <div className={`font-semibold tabular-nums ${(site.openJobsCount || 0) > 0 ? 'text-[#101010]' : 'text-[#9B9B97]'}`}>
+                    <div className="grid grid-cols-3 gap-1 pt-1 border-t border-[#E8E8E5] text-[11px]">
+                      <div className="bg-[#FAFAF8] rounded-[4px] p-1 text-center">
+                        <div className="text-[9px] text-[#6D6D68] uppercase font-medium">Open</div>
+                        <div className={`font-semibold ${(site.openJobsCount || 0) > 0 ? 'text-[#111111]' : 'text-[#9A9A95]'}`}>
                           {site.openJobsCount}
                         </div>
                       </div>
-                      <div className="bg-[#F5F5F3] rounded-[6px] p-1.5 text-center">
-                        <div className="text-[9.5px] text-[#686866] uppercase">SLA</div>
-                        <div className="font-semibold tabular-nums text-[#15803D]">
+                      <div className="bg-[#FAFAF8] rounded-[4px] p-1 text-center">
+                        <div className="text-[9px] text-[#6D6D68] uppercase font-medium">SLA</div>
+                        <div className="font-semibold text-[#15803D]">
                           {site.compliancePercent?.toFixed(0)}%
                         </div>
                       </div>
-                      <div className="bg-[#F5F5F3] rounded-[6px] p-1.5 text-center">
-                        <div className="text-[9.5px] text-[#686866] uppercase">Techs</div>
-                        <div className="font-semibold tabular-nums text-[#FF6B24]">
+                      <div className="bg-[#FAFAF8] rounded-[4px] p-1 text-center">
+                        <div className="text-[9px] text-[#6D6D68] uppercase font-medium">Techs</div>
+                        <div className="font-semibold text-[#EA580C]">
                           {site.engineersPresent}
                         </div>
                       </div>
@@ -248,13 +247,14 @@ export function LiveEstateWorkspace({
 
                     {/* Bottom CTA bar */}
                     <div className="flex items-center justify-between pt-1">
-                      <span className="text-[11px] text-[#686866] font-medium">
-                        {isSelected ? 'Currently Inspected' : 'Click to inspect'}
+
+                      <span className="text-[11px] text-[#6D6D68] font-medium">
+                        {isSelected ? 'Inspected' : 'Click to inspect'}
                       </span>
                       <Link
                         href={`/admin/estate/sites/${site.id}`}
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 rounded-[6px] bg-[#F0F0EE] hover:bg-[#FF6B24] hover:text-white px-2 py-1 font-mono text-[10px] font-medium text-[#101010] transition-colors"
+                        className="inline-flex items-center gap-1 rounded-[4px] bg-[#FAFAF8] hover:bg-[#EA580C] hover:text-white px-2 py-1 text-[11px] font-medium text-[#111111] transition-colors border border-[#E8E8E5]"
                       >
                         <span>Site 360</span>
                         <ArrowUpRight className="h-3 w-3" />
@@ -268,14 +268,14 @@ export function LiveEstateWorkspace({
         </div>
       ) : (
         /* Telemetry Geographic Map Representation */
-        <div className="relative h-96 w-full bg-[#E4E4E1] flex items-center justify-center p-6 overflow-hidden">
-          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#101010_1px,transparent_1px)] [background-size:16px_16px]" />
-          
+        <div className="relative h-96 w-full bg-[#FAFAF8] flex items-center justify-center p-6 overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#111111_1px,transparent_1px)] [background-size:16px_16px]" />
+
           {/* Simulated Geographic Grid with Site Pins */}
-          <div className="relative w-full max-w-xl h-full border border-[#D1D1CD] rounded-[12px] bg-[#FFFFFF]/80 backdrop-blur-sm p-6 flex flex-col justify-between">
-            <div className="flex items-center justify-between font-mono text-[11px] text-[#686866]">
-              <span>UK & IRELAND SPATIAL OPERATIONAL MATRIX</span>
-              <span>GRID REF: OSGB36</span>
+          <div className="relative w-full max-w-xl h-full border border-[#E8E8E5] rounded-[8px] bg-[#FFFFFF] p-5 flex flex-col justify-between">
+            <div className="flex items-center justify-between text-[11px] text-[#6D6D68]">
+              <span className="font-medium">UK &amp; Ireland Spatial Matrix</span>
+              <span className="font-mono text-[10px]">OSGB36</span>
             </div>
 
             <div className="relative flex-1 my-4">
@@ -289,14 +289,14 @@ export function LiveEstateWorkspace({
                     key={s.id}
                     onClick={() => onSelectSite(s)}
                     style={{ top: `${topPos}%`, left: `${leftPos}%` }}
-                    className={`absolute -translate-x-1/2 -translate-y-1/2 flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11.5px] font-medium transition-all shadow-md ${
+                    className={`absolute -translate-x-1/2 -translate-y-1/2 flex items-center gap-1.5 rounded-[4px] border px-2.5 py-1 text-[11.5px] font-medium transition-all ${
                       isSelected
-                        ? 'bg-[#FF6B24] border-[#FF6B24] text-white ring-4 ring-[#FF6B24]/20 scale-110 z-10'
-                        : 'bg-[#FFFFFF] border-[#E4E4E1] text-[#101010] hover:border-[#FF6B24]'
+                        ? 'bg-[#EA580C] border-[#EA580C] text-white z-10'
+                        : 'bg-[#FFFFFF] border-[#E8E8E5] text-[#111111] hover:border-[#EA580C]'
                     }`}
                   >
                     <span
-                      className={`h-2 w-2 rounded-full ${
+                      className={`h-1.5 w-1.5 rounded-full ${
                         s.healthStatus === 'CRITICAL'
                           ? 'bg-[#DC2626] animate-pulse'
                           : s.healthStatus === 'WARNING'
@@ -304,15 +304,15 @@ export function LiveEstateWorkspace({
                           : 'bg-[#16A34A]'
                       }`}
                     />
-                    <span className="font-mono text-[10.5px]">{s.city}</span>
+                    <span className="text-[11px] font-medium">{s.city}</span>
                   </button>
                 );
               })}
             </div>
 
-            <div className="flex items-center justify-between text-[11.5px] text-[#686866] pt-2 border-t border-[#E4E4E1]">
-              <span>Click site marker to trigger contextual inspector</span>
-              <span className="font-mono text-[10px] text-[#15803D]">ALL GPS BEACONS ONLINE</span>
+            <div className="flex items-center justify-between text-[11.5px] text-[#6D6D68] pt-2 border-t border-[#E8E8E5]">
+              <span>Click site marker to inspect</span>
+              <span className="text-[11px] text-[#15803D] font-medium">GPS Live</span>
             </div>
           </div>
         </div>

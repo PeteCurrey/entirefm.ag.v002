@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Check, ChevronRight } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 export interface WizardStep {
   id: number | string;
@@ -20,78 +20,84 @@ export function WizardProgress({
 }) {
   return (
     <div className="w-full mb-8">
-      {/* Desktop Stepper */}
-      <div className="hidden sm:grid grid-cols-4 gap-2 bg-slate-900/60 p-1.5 rounded-xl border border-slate-800/80 shadow-inner">
-        {steps.map((step, idx) => {
-          const isDone = idx < currentStep;
-          const isCurrent = idx === currentStep;
-          const isClickable = onSelectStep && isDone;
+      {/* Desktop Architectural Stepper */}
+      <nav aria-label="Progress" className="hidden md:block border-b border-slate-800 pb-4">
+        <ol className="flex items-center justify-between gap-2">
+          {steps.map((step, idx) => {
+            const isDone = idx < currentStep;
+            const isCurrent = idx === currentStep;
+            const isClickable = Boolean(onSelectStep && isDone);
+            const stepNum = idx + 1 < 10 ? `0${idx + 1}` : `${idx + 1}`;
 
-          return (
-            <button
-              key={step.id}
-              type="button"
-              disabled={!isClickable}
-              onClick={() => isClickable && onSelectStep(idx)}
-              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-left transition-all duration-200 ${
-                isCurrent
-                  ? 'bg-slate-800 text-white shadow-sm border border-slate-700/80'
-                  : isDone
-                  ? 'text-slate-300 hover:bg-slate-800/50 cursor-pointer'
-                  : 'text-slate-500 cursor-default opacity-60'
-              }`}
-            >
-              <div
-                className={`w-6 h-6 rounded-md flex items-center justify-center font-mono text-[11px] font-bold shrink-0 transition-colors ${
-                  isDone
-                    ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                    : isCurrent
-                    ? 'bg-[#FF3E9D]/20 text-[#FF3E9D] border border-[#FF3E9D]/40'
-                    : 'bg-slate-800 text-slate-500 border border-slate-700'
-                }`}
-              >
-                {isDone ? <Check className="w-3.5 h-3.5" /> : `0${idx + 1}`}
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="text-xs font-semibold tracking-tight truncate leading-none">
-                  {step.title}
-                </div>
-                {step.subtitle && (
-                  <div className="text-[10px] text-slate-400 truncate mt-1 leading-none font-normal">
-                    {step.subtitle}
-                  </div>
+            return (
+              <li key={step.id} className="flex-1 flex items-center min-w-0">
+                <button
+                  type="button"
+                  disabled={!isClickable}
+                  onClick={() => isClickable && onSelectStep?.(idx)}
+                  className={`group flex items-center gap-2.5 text-left transition-colors ${
+                    isClickable ? 'cursor-pointer hover:text-slate-200' : 'cursor-default'
+                  }`}
+                >
+                  <span
+                    className={`text-xs font-mono font-bold transition-colors ${
+                      isCurrent
+                        ? 'text-white border-b-2 border-[#FF3E9D] pb-0.5'
+                        : isDone
+                        ? 'text-emerald-400'
+                        : 'text-slate-400'
+                    }`}
+                  >
+                    {isDone ? (
+                      <span className="inline-flex items-center gap-1">
+                        <Check className="w-3 h-3 stroke-[2.5]" />
+                        {stepNum}
+                      </span>
+                    ) : (
+                      stepNum
+                    )}
+                  </span>
+                  <span
+                    className={`text-xs font-semibold tracking-wide uppercase transition-colors truncate ${
+                      isCurrent
+                        ? 'text-white'
+                        : isDone
+                        ? 'text-slate-300'
+                        : 'text-slate-400'
+                    }`}
+                  >
+                    {step.title.replace(/^\d+\s*/, '')}
+                  </span>
+                </button>
+                {idx < steps.length - 1 && (
+                  <div className="flex-1 h-px bg-slate-800 mx-3" />
                 )}
-              </div>
-            </button>
-          );
-        })}
-      </div>
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
 
-      {/* Mobile compact Stepper */}
-      <div className="sm:hidden flex items-center justify-between bg-slate-900/80 px-4 py-3 rounded-xl border border-slate-800">
-        <div className="flex items-center gap-2.5">
-          <span className="w-6 h-6 rounded-md bg-[#FF3E9D]/20 text-[#FF3E9D] border border-[#FF3E9D]/40 flex items-center justify-center font-mono text-xs font-bold">
-            0{currentStep + 1}
+      {/* Mobile Compact Progress */}
+      <div className="md:hidden border-b border-slate-800 pb-3 flex items-center justify-between">
+        <div>
+          <span className="text-[10px] font-mono tracking-wider text-slate-400 uppercase">
+            Step {currentStep + 1} of {steps.length}
           </span>
-          <div>
-            <div className="text-xs font-bold text-white leading-none">
-              {steps[currentStep]?.title}
-            </div>
-            <div className="text-[10px] text-slate-400 mt-0.5">
-              Step {currentStep + 1} of {steps.length}
-            </div>
+          <div className="text-sm font-bold text-white mt-0.5">
+            {steps[currentStep]?.title.replace(/^\d+\s*/, '')}
           </div>
         </div>
-        <div className="flex gap-1">
-          {steps.map((_, i) => (
+        <div className="flex items-center gap-1">
+          {steps.map((_, idx) => (
             <div
-              key={i}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === currentStep
+              key={idx}
+              className={`h-1 rounded-full transition-all ${
+                idx === currentStep
                   ? 'w-6 bg-[#FF3E9D]'
-                  : i < currentStep
-                  ? 'w-2.5 bg-emerald-500'
-                  : 'w-2.5 bg-slate-800'
+                  : idx < currentStep
+                  ? 'w-2 bg-emerald-400'
+                  : 'w-2 bg-slate-800'
               }`}
             />
           ))}
