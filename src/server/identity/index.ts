@@ -135,7 +135,14 @@ export type PermissionCode =
   | 'platform:view_as'
   | 'users:view'
   | 'users:manage'
-  | 'audit:export';
+  | 'audit:export'
+  // Data Import
+  | 'data_import:view'
+  | 'data_import:create'
+  | 'data_import:map'
+  | 'data_import:commit'
+  | 'data_import:rollback'
+  | 'data_import:admin';
 
 export interface Person {
   id: string;
@@ -236,6 +243,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'platform:admin', 'audit:read',
     'client:admin', 'contractor:admin',
     'platform:users_manage', 'platform:view_as', 'users:view', 'users:manage', 'audit:export',
+    'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
   ],
   CEO: [
     'command:access', 'command:ceo', 'operations:read', 'operations:write', 'operations:dispatch',
@@ -245,6 +253,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'supply_chain:read', 'supply_chain:write', 'commercial:read', 'commercial:write',
     'finance:read', 'finance:write', 'finance:approve', 'finance:billing', 'finance:admin',
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'platform:admin', 'audit:read',
+    'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
   ],
   DIRECTOR: [
     'command:access', 'operations:read', 'operations:write', 'estate:read', 'ppm:manage',
