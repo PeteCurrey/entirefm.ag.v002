@@ -194,9 +194,9 @@ async function main() {
   // ═════════════════════════════════════════════════════════════════════════════
   const SEC_METRICS = '2. Canonical Financial Metrics Registry';
 
-  await runTest(SEC_METRICS, 'All 17 Canonical Metric IDs are registered with metadata', () => {
+  await runTest(SEC_METRICS, 'All 19 Canonical Metric IDs are registered with metadata', () => {
     const defs = listMetricDefinitions();
-    assertEqual(defs.length, 17, '17 definitions');
+    assertEqual(defs.length, 19, '19 definitions');
     for (const def of defs) {
       assert(def.label.length > 0, `Metric ${def.id} has label`);
       assert(def.derivation.length > 0, `Metric ${def.id} has derivation`);

@@ -1,0 +1,28 @@
+URL,Location,Region,Provenance,Page Type,Primary Intent,Content Depth,Similarity Risk,Proof Link,Status,Recommended Action
+/fm-london,London,Greater London,LEGACY_VERIFIED,PRIMARY_CITY_FM,commercial fm london / contract fm,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Commercial Anchor
+/facilities-management-london,London,Greater London,LEGACY_VERIFIED,HEAD_TERM_FM,facilities management london,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Head Authority
+/london-facilities-management,London,Greater London,LEGACY_VERIFIED,REGIONAL_DISTRICTS,london facilities management estates,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Estate & Districts
+/fm-manchester,Manchester,North West,LEGACY_VERIFIED,PRIMARY_CITY_FM,fm manchester / commercial outsourcing,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Commercial Anchor
+/facilities-management-manchester,Manchester,North West,LEGACY_VERIFIED,HEAD_TERM_FM,facilities management manchester,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Head Authority
+/manchester-facilities-management,Manchester,North West,LEGACY_VERIFIED,REGIONAL_DISTRICTS,manchester facilities management provider,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Industrial & Corridors
+/fm-birmingham,Birmingham,West Midlands,LEGACY_VERIFIED,PRIMARY_CITY_FM,fm birmingham / commercial fm,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Commercial Anchor
+/facilities-management-birmingham,Birmingham,West Midlands,LEGACY_VERIFIED,HEAD_TERM_FM,facilities management birmingham,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Head Authority
+/birmingham-facilities-management,Birmingham,West Midlands,LEGACY_VERIFIED,REGIONAL_DISTRICTS,birmingham facilities management estates,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Logistics & Manufacturing
+/fm-leeds,Leeds,Yorkshire,LEGACY_VERIFIED,PRIMARY_CITY_FM,fm leeds / outsourced fm,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Commercial Anchor
+/facilities-management-leeds,Leeds,Yorkshire,LEGACY_VERIFIED,HEAD_TERM_FM,facilities management leeds,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Head Authority
+/leeds-facilities-management,Leeds,Yorkshire,LEGACY_VERIFIED,REGIONAL_DISTRICTS,leeds facilities management estates,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Commercial & Financial
+/fm-liverpool,Liverpool,North West,LEGACY_VERIFIED,PRIMARY_CITY_FM,fm liverpool / commercial facilities,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Commercial Anchor
+/facilities-management-liverpool,Liverpool,North West,LEGACY_VERIFIED,HEAD_TERM_FM,facilities management liverpool,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Head Authority
+/liverpool-facilities-management,Liverpool,North West,LEGACY_VERIFIED,REGIONAL_DISTRICTS,liverpool facilities management estates,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Port & Commercial
+/fm-sheffield,Sheffield,Yorkshire,LEGACY_VERIFIED,PRIMARY_CITY_FM,fm sheffield / commercial maintenance,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Commercial Anchor
+/facilities-management-sheffield,Sheffield,Yorkshire,LEGACY_VERIFIED,HEAD_TERM_FM,facilities management sheffield,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Head Authority
+/sheffield-facilities-management,Sheffield,Yorkshire,LEGACY_VERIFIED,REGIONAL_DISTRICTS,sheffield facilities management estates,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Advanced Manufacturing
+/fm-derby,Derby,East Midlands,LEGACY_VERIFIED,PRIMARY_CITY_FM,fm derby / commercial fm,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Commercial Anchor
+/facilities-management-derby,Derby,East Midlands,LEGACY_VERIFIED,HEAD_TERM_FM,facilities management derby,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Head Authority
+/derby-facilities-management,Derby,East Midlands,LEGACY_VERIFIED,REGIONAL_DISTRICTS,derby facilities management estates,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Engineering & Pride Park
+/fm-nottingham,Nottingham,East Midlands,LEGACY_VERIFIED,PRIMARY_CITY_FM,fm nottingham / commercial fm,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Commercial Anchor
+/facilities-management-nottingham,Nottingham,East Midlands,LEGACY_VERIFIED,HEAD_TERM_FM,facilities management nottingham,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Head Authority
+/nottingham-facilities-management,Nottingham,East Midlands,LEGACY_VERIFIED,REGIONAL_DISTRICTS,nottingham facilities management estates,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Science & Commercial
+/fm-oxford,Oxford,South East,LEGACY_VERIFIED,PRIMARY_CITY_FM,fm oxford / commercial fm,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Science & Tech Anchor
+/facilities-management-oxford,Oxford,South East,LEGACY_VERIFIED,HEAD_TERM_FM,facilities management oxford,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Head Authority
+/oxford-facilities-management,Oxford,South East,LEGACY_VERIFIED,REGIONAL_DISTRICTS,oxford facilities management estates,DEEP,LOW,/case-studies,OPTIMISED,Tier 1 Science Parks

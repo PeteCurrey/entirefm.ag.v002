@@ -22,6 +22,7 @@
     "test:finance-truth": "tsx scripts/test-finance-truth.ts",
     "test:finance-verification": "tsx scripts/test-finance-verification.ts",
     "test:finance-closeout": "tsx scripts/test-finance-closeout.ts",
+    "test:finance-semantic-patch": "tsx scripts/test-finance-semantic-patch.ts",
     "test:access-hardening": "tsx scripts/test-access-hardening.ts",
     "test:seo": "jest --testPathPattern=__tests__/seo",
     "verify:contacts": "node scripts/verify-contacts.js",

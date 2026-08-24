@@ -69,12 +69,14 @@ function assertIncludes<T>(arr: T[], value: T, msg: string) {
 async function run() {
   console.log('\n🔬 Phase 0H-R: Finance Truth & Integration Verification\n');
 
-  // 1. All 17 metric IDs present in METRIC_DEFINITIONS
-  await test('All 17 MetricId entries exist in METRIC_DEFINITIONS', () => {
+  // 1. All 19 metric IDs present in METRIC_DEFINITIONS
+  await test('All 19 MetricId entries exist in METRIC_DEFINITIONS', () => {
     const ids: MetricId[] = [
       'EXPECTED_REVENUE', 'APPROVED_REVENUE', 'BILLING_READY_REVENUE',
       'INVOICED_REVENUE', 'CASH_RECEIVED', 'PAID_REVENUE',
-      'EXPECTED_COST', 'COMMITTED_COST', 'ACTUAL_COST', 'REMAINING_EXPECTED_COST',
+      'EXPECTED_COST', 'COMMITTED_COST', 'ACTUAL_COST',
+      'MATCHED_ACTUAL_COST', 'UNALLOCATED_ACTUAL_COST',
+      'REMAINING_EXPECTED_COST',
       'REMAINING_UNCOMMITTED_EXPECTED_COST',
       'EXPECTED_GROSS_MARGIN', 'ACTUAL_GROSS_MARGIN',
       'UNBILLED_WIP', 'BILLING_BLOCKED_VALUE',
@@ -83,7 +85,7 @@ async function run() {
     for (const id of ids) {
       assert(id in METRIC_DEFINITIONS, `MetricId "${id}" missing from METRIC_DEFINITIONS`);
     }
-    assertEqual(Object.keys(METRIC_DEFINITIONS).length, 17, 'Expected exactly 17 metric definitions');
+    assertEqual(Object.keys(METRIC_DEFINITIONS).length, 19, 'Expected exactly 19 metric definitions');
   });
 
   // 2. Every metric has a non-empty derivation and label
@@ -141,10 +143,10 @@ async function run() {
     }
   });
 
-  // 8. listMetricDefinitions() returns all 17
-  await test('listMetricDefinitions() returns all 17 definitions', () => {
+  // 8. listMetricDefinitions() returns all 19
+  await test('listMetricDefinitions() returns all 19 definitions', () => {
     const defs = listMetricDefinitions();
-    assertEqual(defs.length, 17, 'listMetricDefinitions() should return 17 definitions');
+    assertEqual(defs.length, 19, 'listMetricDefinitions() should return 19 definitions');
     for (const def of defs) {
       assert('id' in def && 'label' in def && 'derivation' in def, `Definition missing fields: ${JSON.stringify(def)}`);
     }

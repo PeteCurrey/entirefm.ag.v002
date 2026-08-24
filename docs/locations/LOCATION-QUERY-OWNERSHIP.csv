@@ -1,0 +1,13 @@
+Location,Query Family,Primary URL,Supporting URL,Assigned Intent,Cannibalisation Mitigation,Action
+London,Head FM,"facilities management london",/facilities-management-london,/fm-london,Broad commercial head term,H1 & Meta tailored to complete FM scope,MAINTAIN_DIFFERENTIATED
+London,Commercial & Contract,"fm london / commercial fm london",/fm-london,/london-facilities-management,Commercial outsourcing & multi-building procurement,Focus on commercial procurement and single contract,MAINTAIN_DIFFERENTIATED
+London,Districts & Estates,"london facilities management / city of london fm",/london-facilities-management,/facilities-management-london,Estate-specific & sub-district coverage,Focus on EC2/EC3/E14 access and building stock,MAINTAIN_DIFFERENTIATED
+Manchester,Head FM,"facilities management manchester",/facilities-management-manchester,/fm-manchester,Head commercial search,H1 focused on local operating conditions & compliance,MAINTAIN_DIFFERENTIATED
+Manchester,Commercial & Contract,"fm manchester / commercial maintenance manchester",/fm-manchester,/manchester-facilities-management,Commercial contract consolidation & PPM,Focus on commercial PPM and reactive triage,MAINTAIN_DIFFERENTIATED
+Manchester,Districts & Industrial,"manchester facilities management / trafford park fm",/manchester-facilities-management,/facilities-management-manchester,Regional corridors & manufacturing hubs,Focus on Trafford Park and North West logistics,MAINTAIN_DIFFERENTIATED
+Birmingham,Head FM,"facilities management birmingham",/facilities-management-birmingham,/fm-birmingham,Head commercial search,Focus on West Midlands commercial infrastructure,MAINTAIN_DIFFERENTIATED
+Birmingham,Commercial & Contract,"fm birmingham / commercial fm birmingham",/fm-birmingham,/birmingham-facilities-management,Commercial outsourcing,Focus on central core offices and retail,MAINTAIN_DIFFERENTIATED
+Birmingham,Districts & Logistics,"birmingham facilities management / industrial fm",/birmingham-facilities-management,/facilities-management-birmingham,Regional manufacturing and transport logistics,Focus on Aston/Minworth/M6 corridor,MAINTAIN_DIFFERENTIATED
+Leeds,Head FM,"facilities management leeds",/facilities-management-leeds,/fm-leeds,Head commercial search,Focus on regional Yorkshire commercial hub,MAINTAIN_DIFFERENTIATED
+Leeds,Commercial & Contract,"fm leeds / leeds fm services",/fm-leeds,/leeds-facilities-management,Commercial FM and office maintenance,Focus on legal & financial office core,MAINTAIN_DIFFERENTIATED
+Leeds,Districts & Regional,"leeds facilities management / west yorkshire fm",/leeds-facilities-management,/facilities-management-leeds,M62 corridor and multi-site estates,Focus on Aireborough/South Leeds logistics,MAINTAIN_DIFFERENTIATED

@@ -232,7 +232,7 @@ async function runSuite() {
     const coveragePct = roundMoney((matchedCost / totalCost) * 100);
     const status = coveragePct < 100 ? 'MARGIN_INCOMPLETE' : 'OK';
 
-    assertEqual(coveragePct, 66.7, 'Attribution coverage is 66.7%');
+    assertEqual(coveragePct, 66.67, 'Attribution coverage is 66.67%');
     assertEqual(status, 'MARGIN_INCOMPLETE', 'Status reflects incomplete cost attribution');
   });
 
