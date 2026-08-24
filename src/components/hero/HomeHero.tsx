@@ -28,11 +28,18 @@ const PROOF = [
   { figure: 'Compliance', label: 'Led FM delivery' },
 ];
 
-/** Matches the greeting on the live site. Hours are the visitor's own. */
-function greetingFor(hour: number) {
-  if (hour < 12) return 'Good morning';
-  if (hour < 18) return 'Good afternoon';
-  return 'Good evening';
+/**
+ * Resolves a context-aware greeting based on the visitor's local hour:
+ * - 05:00 – 11:59: Good morning
+ * - 12:00 – 17:59: Good afternoon
+ * - 18:00 – 21:59: Good evening
+ * - 22:00 – 04:59: Working late? (night shift / out-of-hours cover)
+ */
+function greetingFor(hour: number): string {
+  if (hour >= 5 && hour < 12) return 'Good morning';
+  if (hour >= 12 && hour < 18) return 'Good afternoon';
+  if (hour >= 18 && hour < 22) return 'Good evening';
+  return 'Working late?';
 }
 
 interface HomeHeroProps {
