@@ -194,6 +194,7 @@ const NAV_GROUPS: NavGroup[] = [
       { name: 'Service Performance', href: '/admin/growth/services' },
       { name: 'Location Performance', href: '/admin/growth/locations' },
       { name: 'Sector Performance', href: '/admin/growth/sectors' },
+      { name: 'Sector Content & Authority', href: '/admin/content/sectors' },
       { name: 'Tools & Resources', href: '/admin/growth/tools' },
       { name: 'Conversion Funnels', href: '/admin/growth/funnels' },
       { name: 'Content CRO & Journeys', href: '/admin/content/conversion' },

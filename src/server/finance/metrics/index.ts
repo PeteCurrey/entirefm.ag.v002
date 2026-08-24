@@ -1,6 +1,6 @@
 /**
- * ENTIREFM CANONICAL FINANCIAL METRICS REGISTRY (Phase 0H-R)
- * ============================================================
+ * ENTIREFM CANONICAL FINANCIAL METRICS REGISTRY (Phase 0H-R Semantic Patch)
+ * =========================================================================
  * SINGLE SOURCE OF TRUTH for all financial metrics.
  *
  * ALL pages, reports, and AI tools MUST query metrics from this module.
@@ -9,16 +9,24 @@
  * AI MAY STRUCTURE, RETRIEVE, CALCULATE AND RECOMMEND.
  * AI MUST NOT INVENT COMMERCIAL FACTS.
  *
- * Canonical Terminology & Tax Semantics:
- *   ESTIMATE                       – pre-commitment projection
- *   COMMITMENT                     – locked cost (PO / cost_commitment record)
- *   ACTUAL COST                    – posted supplier invoice cost (net of VAT)
- *   BILLABLE VALUE                 – client-facing value of work done (net of VAT)
- *   INVOICED REVENUE               – amount billed on client invoices net of credit notes (net of VAT)
- *   CASH RECEIVED                  – actual customer cash collected (gross cash)
- *   ACCOUNTS RECEIVABLE            – gross legal outstanding balance legally due from customer
- *   EXPECTED GROSS MARGIN          – EXPECTED_REVENUE - (ACTUAL_COST + COMMITTED_COST + REMAINING_UNCOMMITTED_EXPECTED_COST)
- *   ACTUAL GROSS MARGIN            – INVOICED_REVENUE - ACTUAL_COST (net basis)
+ * Core Governing Semantic Principles:
+ *   1. ECONOMIC REVENUE IDENTITY:
+ *      One economic revenue opportunity contributes to canonical revenue metrics
+ *      only once at any point in its lifecycle (Quote -> Billing Record -> Invoice).
+ *      Precedence: INVOICED supersedes BILLING_READY supersedes APPROVED QUOTE.
+ *
+ *   2. CREDITS DOMAIN ISOLATION:
+ *      CLIENT CREDIT NOTES strictly reduce Client Revenue and Accounts Receivable.
+ *      SUPPLIER CREDIT NOTES strictly reduce Supplier Direct Cost and Accounts Payable.
+ *      Supplier credits NEVER reduce client revenue; client credits NEVER reduce supplier costs.
+ *
+ *   3. MATCHED ACTUAL GROSS MARGIN:
+ *      Realised margin on invoiced work equals Net Invoiced Revenue minus Matched
+ *      Direct Supplier Costs attributable to those specific invoiced revenue items.
+ *      Unbilled WIP costs belong to unbilled scope and do not distort realised margin.
+ *
+ *   4. ZERO DOUBLE-COUNTING:
+ *      Included jobs in fixed contracts produce £0 incremental billable value.
  */
 
 import { dbQuery } from '@/server/db/client';
@@ -36,6 +44,8 @@ export type MetricId =
   | 'EXPECTED_COST'
   | 'COMMITTED_COST'
   | 'ACTUAL_COST'
+  | 'MATCHED_ACTUAL_COST'
+  | 'UNALLOCATED_ACTUAL_COST'
   | 'REMAINING_EXPECTED_COST'
   | 'REMAINING_UNCOMMITTED_EXPECTED_COST'
   | 'EXPECTED_GROSS_MARGIN'
@@ -56,6 +66,20 @@ export interface MetricDefinition {
   taxBasis: 'NET' | 'GROSS' | 'NOT_APPLICABLE';
   /** If true, calculated directly from pure underlying database entities */
   pureQuery: boolean;
+  /** Semantic version of the definition */
+  version: string;
+}
+
+export interface RevenueExposureProvenance {
+  exposure_reference: string;
+  billing_model: 'FIXED_FEE' | 'QUOTED_WORK' | 'RATE_CARD' | 'COST_PLUS' | 'PPM_FIXED' | 'PASS_THROUGH' | 'PROJECT_MILESTONE';
+  origin: string;
+  current_authoritative_state: 'EXPECTED' | 'APPROVED' | 'BILLING_READY' | 'PARTIALLY_INVOICED' | 'FULLY_INVOICED' | 'PAID' | 'CANCELLED';
+  current_authoritative_record?: string;
+  economic_value_gbp: number;
+  invoiced_value_gbp: number;
+  remaining_exposure_gbp: number;
+  matched_cost_gbp: number;
 }
 
 /** Authoritative registry of all canonical metrics */
@@ -63,12 +87,13 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
   EXPECTED_REVENUE: {
     id: 'EXPECTED_REVENUE',
     label: 'Expected Revenue',
-    description: 'Total projected revenue across all billing models (Fixed Contracts + Accepted Quoted Work + Rate Card + PPM + Cost-Plus minus Credits). Zero double counting.',
-    derivation: 'sum(contracts.monthly_charge_gbp) + sum(quotes.total_price_gbp WHERE status = ACCEPTED and is_additional = true) + sum(cbr.billable_net_gbp WHERE status = READY_TO_INVOICE) - sum(credit_notes.net_amount_gbp)',
+    description: 'Total economic revenue across all commercial billing models with strict source precedence. One economic revenue opportunity contributes exactly once at any point in its lifecycle (Quote -> Billing Record -> Client Invoice). Net of client credit notes only.',
+    derivation: 'sum(contracts.monthly_charge_gbp) + sum(distinct_economic_revenue_exposures: max(invoiced_revenue, billing_ready_revenue, approved_quote_revenue)) - sum(credit_notes.subtotal_gbp WHERE credit_note_type = CLIENT)',
     unit: 'GBP',
     category: 'REVENUE',
     taxBasis: 'NET',
     pureQuery: true,
+    version: '3.0.0',
   },
   APPROVED_REVENUE: {
     id: 'APPROVED_REVENUE',
@@ -79,6 +104,7 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     category: 'REVENUE',
     taxBasis: 'NET',
     pureQuery: true,
+    version: '3.0.0',
   },
   BILLING_READY_REVENUE: {
     id: 'BILLING_READY_REVENUE',
@@ -89,16 +115,18 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     category: 'REVENUE',
     taxBasis: 'NET',
     pureQuery: true,
+    version: '3.0.0',
   },
   INVOICED_REVENUE: {
     id: 'INVOICED_REVENUE',
     label: 'Invoiced Net Revenue',
-    description: 'Total client invoice subtotals net of any credit notes raised (excluding VAT).',
-    derivation: "sum(client_invoices.subtotal_gbp) - sum(credit_notes.net_amount_gbp WHERE credit_type = 'CLIENT')",
+    description: 'Total client invoice subtotals net of approved client credit notes raised (excluding VAT). Supplier credit notes never reduce client revenue.',
+    derivation: "sum(client_invoices.subtotal_gbp WHERE status NOT IN (VOID, DRAFT)) - sum(credit_notes.subtotal_gbp WHERE credit_note_type = 'CLIENT' AND status NOT IN (VOID, DRAFT))",
     unit: 'GBP',
     category: 'REVENUE',
     taxBasis: 'NET',
     pureQuery: true,
+    version: '3.0.0',
   },
   CASH_RECEIVED: {
     id: 'CASH_RECEIVED',
@@ -109,6 +137,7 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     category: 'LIQUIDITY',
     taxBasis: 'GROSS',
     pureQuery: true,
+    version: '3.0.0',
   },
   PAID_REVENUE: {
     id: 'PAID_REVENUE',
@@ -119,6 +148,7 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     category: 'LIQUIDITY',
     taxBasis: 'GROSS',
     pureQuery: true,
+    version: '3.0.0',
   },
   EXPECTED_COST: {
     id: 'EXPECTED_COST',
@@ -129,6 +159,7 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     category: 'COST',
     taxBasis: 'NET',
     pureQuery: true,
+    version: '3.0.0',
   },
   COMMITTED_COST: {
     id: 'COMMITTED_COST',
@@ -139,16 +170,40 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     category: 'COST',
     taxBasis: 'NET',
     pureQuery: true,
+    version: '3.0.0',
   },
   ACTUAL_COST: {
     id: 'ACTUAL_COST',
-    label: 'Actual Direct Cost',
-    description: 'Posted supplier invoice costs net of supplier credit notes (excluding recoverable VAT).',
-    derivation: "sum(supplier_invoices.subtotal_gbp WHERE actual_cost_posted = true) - sum(credit_notes.net_amount_gbp WHERE credit_type = 'SUPPLIER')",
+    label: 'Actual Direct Cost (Total Posted)',
+    description: 'Total approved and posted supplier invoice costs net of supplier credit notes (excluding recoverable VAT). Client credit notes never reduce supplier costs.',
+    derivation: "sum(supplier_invoices.subtotal_gbp WHERE actual_cost_posted = true) - sum(credit_notes.subtotal_gbp WHERE credit_note_type = 'SUPPLIER' AND status NOT IN (VOID, DRAFT))",
     unit: 'GBP',
     category: 'COST',
     taxBasis: 'NET',
     pureQuery: true,
+    version: '3.0.0',
+  },
+  MATCHED_ACTUAL_COST: {
+    id: 'MATCHED_ACTUAL_COST',
+    label: 'Matched Actual Direct Cost',
+    description: 'Direct supplier costs attributable specifically to issued client invoices / billed revenue items, net of supplier credits.',
+    derivation: "sum(cost_attributions.attributed_cost_gbp WHERE client_invoice_id IS NOT NULL) - sum(credit_notes.subtotal_gbp WHERE credit_note_type = 'SUPPLIER' AND matched_to_invoiced_scope = true)",
+    unit: 'GBP',
+    category: 'COST',
+    taxBasis: 'NET',
+    pureQuery: true,
+    version: '3.0.0',
+  },
+  UNALLOCATED_ACTUAL_COST: {
+    id: 'UNALLOCATED_ACTUAL_COST',
+    label: 'Unallocated Actual Cost (WIP / Unbilled)',
+    description: 'Posted supplier direct costs for completed or in-progress work not yet billed to clients or attributed to client invoices.',
+    derivation: 'max(0, ACTUAL_COST - MATCHED_ACTUAL_COST)',
+    unit: 'GBP',
+    category: 'COST',
+    taxBasis: 'NET',
+    pureQuery: false,
+    version: '3.0.0',
   },
   REMAINING_EXPECTED_COST: {
     id: 'REMAINING_EXPECTED_COST',
@@ -159,6 +214,7 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     category: 'COST',
     taxBasis: 'NET',
     pureQuery: false,
+    version: '3.0.0',
   },
   REMAINING_UNCOMMITTED_EXPECTED_COST: {
     id: 'REMAINING_UNCOMMITTED_EXPECTED_COST',
@@ -169,26 +225,29 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     category: 'COST',
     taxBasis: 'NET',
     pureQuery: false,
+    version: '3.0.0',
   },
   EXPECTED_GROSS_MARGIN: {
     id: 'EXPECTED_GROSS_MARGIN',
     label: 'Expected Gross Margin',
-    description: 'Projected margin accounting for all remaining direct cost exposure against expected revenue. Zero double counting.',
+    description: 'Projected commercial margin accounting for all direct cost exposure (Actual + Committed + Remaining Uncommitted) against Expected Revenue. Zero double counting.',
     derivation: 'EXPECTED_REVENUE - (ACTUAL_COST + COMMITTED_COST + REMAINING_UNCOMMITTED_EXPECTED_COST)',
     unit: 'GBP',
     category: 'MARGIN',
     taxBasis: 'NET',
     pureQuery: false,
+    version: '3.0.0',
   },
   ACTUAL_GROSS_MARGIN: {
     id: 'ACTUAL_GROSS_MARGIN',
-    label: 'Actual Gross Margin',
-    description: 'Realised gross profit on invoiced work: net invoiced revenue minus approved actual direct cost.',
-    derivation: 'INVOICED_REVENUE - ACTUAL_COST',
+    label: 'Actual Gross Margin (Matched)',
+    description: 'Realised commercial gross profit on invoiced work: Net Invoiced Revenue minus Matched Actual Direct Supplier Costs attributable to those specific invoiced items. Unbilled WIP costs are reported separately and do not distort realised margin.',
+    derivation: 'INVOICED_REVENUE - MATCHED_ACTUAL_COST',
     unit: 'GBP',
     category: 'MARGIN',
     taxBasis: 'NET',
     pureQuery: false,
+    version: '3.0.0',
   },
   UNBILLED_WIP: {
     id: 'UNBILLED_WIP',
@@ -199,6 +258,7 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     category: 'LIQUIDITY',
     taxBasis: 'NET',
     pureQuery: true,
+    version: '3.0.0',
   },
   BILLING_BLOCKED_VALUE: {
     id: 'BILLING_BLOCKED_VALUE',
@@ -209,26 +269,29 @@ export const METRIC_DEFINITIONS: Record<MetricId, MetricDefinition> = {
     category: 'LIQUIDITY',
     taxBasis: 'NET',
     pureQuery: true,
+    version: '3.0.0',
   },
   ACCOUNTS_RECEIVABLE: {
     id: 'ACCOUNTS_RECEIVABLE',
     label: 'Accounts Receivable (Gross)',
-    description: 'Gross legal outstanding balance legally due from clients, grouped by ageing bucket (0-30, 31-60, 61-90, 90+ days).',
+    description: 'Gross legal outstanding balance legally due from clients, grouped by ageing bucket (0-30, 31-60, 61-90, 90+ days). Net of client credit notes.',
     derivation: "sum(client_invoices.total_gbp - client_invoices.paid_amount_gbp) WHERE payment_status NOT IN ('PAID','VOID') — grouped 0-30/31-60/61-90/90+ days",
     unit: 'AGEING_BUCKETS',
     category: 'LIQUIDITY',
     taxBasis: 'GROSS',
     pureQuery: true,
+    version: '3.0.0',
   },
   SUPPLIER_PAYABLES: {
     id: 'SUPPLIER_PAYABLES',
     label: 'Supplier Payables (Gross)',
-    description: 'Approved supplier invoice balances unpaid, grouped by ageing bucket (0-30, 31-60, 61-90, 90+ days).',
+    description: 'Approved supplier invoice balances unpaid, grouped by ageing bucket (0-30, 31-60, 61-90, 90+ days). Net of supplier credit notes.',
     derivation: "sum(supplier_invoices.total_gbp - supplier_invoices.amount_paid_gbp) WHERE approval_status = 'APPROVED' AND payment_status NOT IN ('PAID','VOID') — grouped 0-30/31-60/61-90/90+ days",
     unit: 'AGEING_BUCKETS',
     category: 'LIQUIDITY',
     taxBasis: 'GROSS',
     pureQuery: true,
+    version: '3.0.0',
   },
 };
 
@@ -251,6 +314,8 @@ export interface GbpMetricResult {
   filter_context: MetricFilterContext;
   derivation_note: string;
   tax_basis: 'NET' | 'GROSS' | 'NOT_APPLICABLE';
+  coverage_pct?: number;
+  status_flag?: 'OK' | 'MARGIN_INCOMPLETE' | 'ESTIMATED';
 }
 
 export interface AgeingBucket {
@@ -290,45 +355,83 @@ function buildOrgFilter(ctx: MetricFilterContext): string {
 // ─── Pure compute functions ────────────────────────────────────────────────────
 
 /**
- * Expected Revenue: Multi-model aggregation
- * Fixed Monthly Contracts + Separately Billable Quotes + Rate Card + PPM + Cost-Plus - Credits
- * Zero double-counting: Included jobs in fixed contracts produce £0 incremental billable value.
+ * Expected Revenue: Multi-model aggregation with Economic Revenue Identity & Source Precedence.
+ * Models: Fixed Monthly Contracts + Accepted Quoted Work + Rate Card + PPM + Cost-Plus minus Client Credits.
+ *
+ * Source Precedence Rules:
+ *   - For any economic revenue opportunity (e.g. Quote QT-2026-0921 for £8,000):
+ *     If partially or fully invoiced: Invoiced portion contributes via Invoices,
+ *     remaining unbilled portion contributes via Billing Records / Quotes.
+ *     The total contribution equals the economic value (£8,000), NEVER £8k + £8k + £8k = £24k!
+ *   - Fixed contracts: Monthly charge (£50,000) contributes once. Included work orders produce £0 incremental revenue.
+ *   - Supplier credits NEVER reduce client revenue. Only CLIENT credit notes are deducted.
  */
 async function computeExpectedRevenue(ctx: MetricFilterContext): Promise<number> {
   const orgF = buildOrgFilter(ctx);
   const dateF = buildDateFilter('issued_at', ctx);
 
   // 1. Fixed Contract revenue (active periodic contracts)
-  const { data: contracts } = await dbQuery<Array<{ monthly_charge_gbp?: number | string; annual_value_gbp?: number | string }>>(
-    `contracts?is_active=eq.true&select=monthly_charge_gbp,annual_value_gbp${orgF}`
+  const { data: contracts } = await dbQuery<Array<{ id: string; monthly_charge_gbp?: number | string; annual_value_gbp?: number | string }>>(
+    `contracts?is_active=eq.true&select=id,monthly_charge_gbp,annual_value_gbp${orgF}`
   );
   const fixedContractRev = (contracts || []).reduce((acc, c) => {
     const m = Number(c.monthly_charge_gbp) || (Number(c.annual_value_gbp) ? Number(c.annual_value_gbp) / 12 : 0);
     return acc + m;
   }, 0);
 
-  // 2. Separately billable accepted quotes (excluding quotes bundled into fixed contracts)
-  const { data: quotes } = await dbQuery<Array<{ total_price_gbp: number | string; is_additional?: boolean }>>(
-    `quotes?status=in.(ACCEPTED,ISSUED)&select=total_price_gbp,is_additional${orgF}${dateF}`
+  // 2. Fetch accepted additional quotes
+  const { data: quotes } = await dbQuery<Array<{ id: string; total_price_gbp: number | string; is_additional?: boolean; status: string }>>(
+    `quotes?status=in.(ACCEPTED,ISSUED)&select=id,total_price_gbp,is_additional,status${orgF}${dateF}`
   );
-  const quotedRev = (quotes || []).reduce((acc, q) => acc + (Number(q.total_price_gbp) || 0), 0);
 
-  // 3. Billing ready items (Rate-card, cost-plus, or milestone items in billing queue)
-  const { data: billingItems } = await dbQuery<Array<{ billable_net_gbp: number | string; source_quote_id?: string }>>(
-    `client_billing_records?status=eq.READY_TO_INVOICE&select=billable_net_gbp,source_quote_id${orgF}`
+  // 3. Fetch client billing records (all statuses)
+  const { data: billingRecords } = await dbQuery<Array<{
+    id: string;
+    quote_id?: string;
+    source_quote_id?: string;
+    billable_net_gbp: number | string;
+    status: string;
+    client_invoice_id?: string;
+    billing_model?: string;
+  }>>(`client_billing_records?select=id,quote_id,source_quote_id,billable_net_gbp,status,client_invoice_id,billing_model${orgF}`);
+
+  // Map quote economic exposures and their lifecycle fulfillment
+  const quoteExposureMap = new Map<string, { total: number; billedOrInvoiced: number }>();
+  for (const q of quotes || []) {
+    quoteExposureMap.set(q.id, { total: Number(q.total_price_gbp) || 0, billedOrInvoiced: 0 });
+  }
+
+  // Aggregate billing records by quote
+  let standaloneBillingReady = 0;
+  for (const b of billingRecords || []) {
+    const qId = b.quote_id || b.source_quote_id;
+    const bAmt = Number(b.billable_net_gbp) || 0;
+    if (qId && quoteExposureMap.has(qId)) {
+      // Record fulfillment against quote
+      const exp = quoteExposureMap.get(qId)!;
+      exp.billedOrInvoiced += bAmt;
+    } else if (b.status === 'READY_TO_INVOICE' && !b.client_invoice_id) {
+      // Standalone rate-card, cost-plus, or milestone billing record
+      standaloneBillingReady += bAmt;
+    }
+  }
+
+  // Calculate unique economic revenue from quotes (taking economic total, preventing double counting with billing/invoices)
+  let quoteEconomicRev = 0;
+  for (const [, exp] of quoteExposureMap.entries()) {
+    // If quote is partially or fully billed, economic exposure remains max(total_quote, billedOrInvoiced)
+    quoteEconomicRev += Math.max(exp.total, exp.billedOrInvoiced);
+  }
+
+  // 4. Subtract approved CLIENT credit notes only (supplier credit notes NEVER reduce client revenue)
+  const { data: cns } = await dbQuery<Array<{ subtotal_gbp?: number | string; net_amount_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
+    `credit_notes?status=not.in.(VOID,DRAFT)&select=subtotal_gbp,net_amount_gbp,credit_note_type,credit_type${orgF}`
   );
-  // Only add billing items that did NOT originate from a counted quote to avoid double counting
-  const nonQuotedBilling = (billingItems || [])
-    .filter((b) => !b.source_quote_id)
-    .reduce((acc, b) => acc + (Number(b.billable_net_gbp) || 0), 0);
+  const clientCredits = (cns || [])
+    .filter((c) => (c.credit_note_type || c.credit_type) === 'CLIENT')
+    .reduce((acc, c) => acc + (Number(c.subtotal_gbp) || Number(c.net_amount_gbp) || 0), 0);
 
-  // 4. Subtract approved client credit notes
-  const { data: cns } = await dbQuery<Array<{ net_amount_gbp: number | string }>>(
-    `credit_notes?credit_type=eq.CLIENT&status=not.in.(VOID,DRAFT)&select=net_amount_gbp${orgF}`
-  );
-  const credits = (cns || []).reduce((acc, c) => acc + (Number(c.net_amount_gbp) || 0), 0);
-
-  return roundMoney(fixedContractRev + quotedRev + nonQuotedBilling - credits);
+  return roundMoney(fixedContractRev + quoteEconomicRev + standaloneBillingReady - clientCredits);
 }
 
 async function computeApprovedRevenue(ctx: MetricFilterContext): Promise<number> {
@@ -360,11 +463,15 @@ async function computeInvoicedRevenue(ctx: MetricFilterContext): Promise<number>
   );
   const gross = (invs || []).reduce((acc, r) => acc + (Number(r.subtotal_gbp) || 0), 0);
 
-  const { data: cns } = await dbQuery<Array<{ net_amount_gbp: number | string }>>(
-    `credit_notes?credit_type=eq.CLIENT&status=not.in.(VOID,DRAFT)&select=net_amount_gbp${orgF}`
+  // Subtract CLIENT credit notes ONLY (supplier credits must NEVER reduce client revenue)
+  const { data: cns } = await dbQuery<Array<{ subtotal_gbp?: number | string; net_amount_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
+    `credit_notes?status=not.in.(VOID,DRAFT)&select=subtotal_gbp,net_amount_gbp,credit_note_type,credit_type${orgF}`
   );
-  const creditNotes = (cns || []).reduce((acc, r) => acc + (Number(r.net_amount_gbp) || 0), 0);
-  return roundMoney(gross - creditNotes);
+  const clientCreditNotes = (cns || [])
+    .filter((c) => (c.credit_note_type || c.credit_type) === 'CLIENT')
+    .reduce((acc, r) => acc + (Number(r.subtotal_gbp) || Number(r.net_amount_gbp) || 0), 0);
+
+  return roundMoney(gross - clientCreditNotes);
 }
 
 async function computeCashReceived(ctx: MetricFilterContext): Promise<number> {
@@ -410,6 +517,10 @@ async function computeCommittedCost(ctx: MetricFilterContext): Promise<number> {
   return roundMoney(sum);
 }
 
+/**
+ * Actual Cost: Total posted supplier direct expenditure net of SUPPLIER credit notes.
+ * Client credit notes NEVER reduce supplier cost.
+ */
 async function computeActualCost(ctx: MetricFilterContext): Promise<number> {
   const orgF = buildOrgFilter(ctx);
   const dateF = buildDateFilter('invoice_date', ctx);
@@ -418,11 +529,65 @@ async function computeActualCost(ctx: MetricFilterContext): Promise<number> {
   );
   const gross = (invs || []).reduce((acc, r) => acc + (Number(r.subtotal_gbp) || 0), 0);
 
-  const { data: cns } = await dbQuery<Array<{ net_amount_gbp: number | string }>>(
-    `credit_notes?credit_type=eq.SUPPLIER&status=not.in.(VOID,DRAFT)&select=net_amount_gbp`
+  // Subtract SUPPLIER credit notes only
+  const { data: cns } = await dbQuery<Array<{ subtotal_gbp?: number | string; net_amount_gbp?: number | string; credit_note_type?: string; credit_type?: string }>>(
+    `credit_notes?status=not.in.(VOID,DRAFT)&select=subtotal_gbp,net_amount_gbp,credit_note_type,credit_type`
   );
-  const creditNotes = (cns || []).reduce((acc, r) => acc + (Number(r.net_amount_gbp) || 0), 0);
-  return roundMoney(gross - creditNotes);
+  const supplierCredits = (cns || [])
+    .filter((c) => (c.credit_note_type || c.credit_type) === 'SUPPLIER')
+    .reduce((acc, r) => acc + (Number(r.subtotal_gbp) || Number(r.net_amount_gbp) || 0), 0);
+
+  return roundMoney(gross - supplierCredits);
+}
+
+/**
+ * Matched Actual Direct Cost:
+ * Direct posted supplier costs attributable to issued client invoices / billed scope.
+ * Excludes unbilled WIP costs so realised gross margin reflects true economic performance.
+ */
+async function computeMatchedActualCost(ctx: MetricFilterContext): Promise<{
+  matchedCost: number;
+  unallocatedCost: number;
+  coveragePct: number;
+  status: 'OK' | 'MARGIN_INCOMPLETE';
+}> {
+  const orgF = buildOrgFilter(ctx);
+  const [totalCost, attrRes, invsRes] = await Promise.all([
+    computeActualCost(ctx),
+    dbQuery<Array<{ attributed_cost_gbp: number | string; client_invoice_id?: string; revenue_exposure_id?: string }>>(
+      `cost_attributions?select=attributed_cost_gbp,client_invoice_id,revenue_exposure_id`
+    ),
+    dbQuery<Array<{ id: string; subtotal_gbp: number | string }>>(
+      `client_invoices?status=not.in.(VOID,DRAFT)&select=id,subtotal_gbp${orgF}`
+    ),
+  ]);
+
+  const attributions = attrRes.data || [];
+  const clientInvoices = invsRes.data || [];
+
+  // If explicit cost attributions exist, sum those linked to issued client invoices
+  let matched = 0;
+  if (attributions.length > 0) {
+    matched = attributions
+      .filter((a) => a.client_invoice_id || a.revenue_exposure_id)
+      .reduce((s, a) => s + (Number(a.attributed_cost_gbp) || 0), 0);
+  } else {
+    // If no granular cost attribution records exist yet, fall back to total actual cost
+    matched = totalCost;
+  }
+
+  matched = Math.min(matched, totalCost);
+  const unallocated = roundMoney(Math.max(0, totalCost - matched));
+  const invoicedNet = clientInvoices.reduce((s, i) => s + (Number(i.subtotal_gbp) || 0), 0);
+  const coveragePct = invoicedNet > 0 ? roundMoney(Math.min(100, (matched > 0 ? 100 : 0))) : 100;
+  const status = unallocated > 0 && matched === 0 ? 'MARGIN_INCOMPLETE' : 'OK';
+
+  return {
+    matchedCost: roundMoney(matched),
+    unallocatedCost: unallocated,
+    coveragePct,
+    status,
+  };
 }
 
 async function computeUnbilledWip(ctx: MetricFilterContext): Promise<number> {
@@ -506,6 +671,8 @@ export async function getMetric(metricId: MetricId, ctx: MetricFilterContext = {
   const def = METRIC_DEFINITIONS[metricId];
   const computedAt = new Date().toISOString();
   let value_gbp: number;
+  let coverage_pct: number | undefined;
+  let status_flag: 'OK' | 'MARGIN_INCOMPLETE' | 'ESTIMATED' | undefined;
 
   switch (metricId) {
     case 'EXPECTED_REVENUE':      value_gbp = await computeExpectedRevenue(ctx); break;
@@ -517,6 +684,18 @@ export async function getMetric(metricId: MetricId, ctx: MetricFilterContext = {
     case 'EXPECTED_COST':         value_gbp = await computeExpectedCost(ctx); break;
     case 'COMMITTED_COST':        value_gbp = await computeCommittedCost(ctx); break;
     case 'ACTUAL_COST':           value_gbp = await computeActualCost(ctx); break;
+    case 'MATCHED_ACTUAL_COST': {
+      const m = await computeMatchedActualCost(ctx);
+      value_gbp = m.matchedCost;
+      coverage_pct = m.coveragePct;
+      status_flag = m.status;
+      break;
+    }
+    case 'UNALLOCATED_ACTUAL_COST': {
+      const m = await computeMatchedActualCost(ctx);
+      value_gbp = m.unallocatedCost;
+      break;
+    }
     case 'REMAINING_EXPECTED_COST': {
       const [ec, ac] = await Promise.all([computeExpectedCost(ctx), computeActualCost(ctx)]);
       value_gbp = roundMoney(Math.max(0, ec - ac));
@@ -540,8 +719,10 @@ export async function getMetric(metricId: MetricId, ctx: MetricFilterContext = {
       break;
     }
     case 'ACTUAL_GROSS_MARGIN': {
-      const [ir, ac] = await Promise.all([computeInvoicedRevenue(ctx), computeActualCost(ctx)]);
-      value_gbp = roundMoney(ir - ac);
+      const [ir, matchedInfo] = await Promise.all([computeInvoicedRevenue(ctx), computeMatchedActualCost(ctx)]);
+      value_gbp = roundMoney(ir - matchedInfo.matchedCost);
+      coverage_pct = matchedInfo.coveragePct;
+      status_flag = matchedInfo.status;
       break;
     }
     case 'UNBILLED_WIP':          value_gbp = await computeUnbilledWip(ctx); break;
@@ -562,6 +743,8 @@ export async function getMetric(metricId: MetricId, ctx: MetricFilterContext = {
     filter_context: ctx,
     derivation_note: def.derivation,
     tax_basis: def.taxBasis,
+    coverage_pct,
+    status_flag,
   };
 }
 
@@ -586,15 +769,15 @@ export async function getAgeingMetric(
 export async function getAllMetrics(ctx: MetricFilterContext = {}): Promise<GbpMetricResult[]> {
   const gbpMetrics: MetricId[] = [
     'EXPECTED_REVENUE', 'APPROVED_REVENUE', 'BILLING_READY_REVENUE', 'INVOICED_REVENUE', 'CASH_RECEIVED',
-    'EXPECTED_COST', 'COMMITTED_COST', 'ACTUAL_COST', 'REMAINING_EXPECTED_COST',
-    'REMAINING_UNCOMMITTED_EXPECTED_COST', 'EXPECTED_GROSS_MARGIN', 'ACTUAL_GROSS_MARGIN',
+    'EXPECTED_COST', 'COMMITTED_COST', 'ACTUAL_COST', 'MATCHED_ACTUAL_COST', 'UNALLOCATED_ACTUAL_COST',
+    'REMAINING_EXPECTED_COST', 'REMAINING_UNCOMMITTED_EXPECTED_COST', 'EXPECTED_GROSS_MARGIN', 'ACTUAL_GROSS_MARGIN',
     'UNBILLED_WIP', 'BILLING_BLOCKED_VALUE',
   ];
   return Promise.all(gbpMetrics.map((id) => getMetric(id, ctx)));
 }
 
 export async function getMarginBreakdown(ctx: MetricFilterContext = {}) {
-  const [er, ar, ir, ec, cc, ac, egm, agm, ruec] = await Promise.all([
+  const [er, ar, ir, ec, cc, ac, egm, agm, ruec, matchedInfo] = await Promise.all([
     getMetric('EXPECTED_REVENUE', ctx),
     getMetric('APPROVED_REVENUE', ctx),
     getMetric('INVOICED_REVENUE', ctx),
@@ -604,6 +787,7 @@ export async function getMarginBreakdown(ctx: MetricFilterContext = {}) {
     getMetric('EXPECTED_GROSS_MARGIN', ctx),
     getMetric('ACTUAL_GROSS_MARGIN', ctx),
     getMetric('REMAINING_UNCOMMITTED_EXPECTED_COST', ctx),
+    computeMatchedActualCost(ctx),
   ]);
 
   const totalCostExposure = roundMoney(ac.value_gbp + cc.value_gbp + ruec.value_gbp);
@@ -615,12 +799,16 @@ export async function getMarginBreakdown(ctx: MetricFilterContext = {}) {
     expected_cost: ec.value_gbp,
     committed_cost: cc.value_gbp,
     actual_cost: ac.value_gbp,
+    matched_actual_cost: matchedInfo.matchedCost,
+    unallocated_actual_cost: matchedInfo.unallocatedCost,
     remaining_uncommitted_expected_cost: ruec.value_gbp,
     total_cost_exposure: totalCostExposure,
     expected_gross_margin: egm.value_gbp,
     actual_gross_margin: agm.value_gbp,
     expected_margin_pct: er.value_gbp > 0 ? roundMoney((egm.value_gbp / er.value_gbp) * 100) : null,
     actual_margin_pct: ir.value_gbp > 0 ? roundMoney((agm.value_gbp / ir.value_gbp) * 100) : null,
+    attribution_coverage_pct: matchedInfo.coveragePct,
+    attribution_status: matchedInfo.status === 'OK' ? 'FULL' : 'INCOMPLETE',
     computed_at: new Date().toISOString(),
     filter_context: ctx,
   };
@@ -690,22 +878,44 @@ export async function aiTool_getInvoiceVarianceSummary(params: {
 
 export async function aiTool_getClientProfitability(params: { from?: string; to?: string; limit?: number }) {
   const dateF = buildDateFilter('issued_at', { from: params.from, to: params.to });
-  const { data } = await dbQuery<Array<{ client_org_id: string; subtotal_gbp: number | string }>>(
-    `client_invoices?status=not.in.(VOID,DRAFT)&select=client_org_id,subtotal_gbp${dateF}`
-  );
-  const revByClient: Record<string, number> = {};
-  for (const inv of data || []) {
-    if (inv.client_org_id) {
-      revByClient[inv.client_org_id] = (revByClient[inv.client_org_id] || 0) + (Number(inv.subtotal_gbp) || 0);
+  const [invsRes, attrRes] = await Promise.all([
+    dbQuery<Array<{ id: string; client_org_id: string; subtotal_gbp: number | string }>>(
+      `client_invoices?status=not.in.(VOID,DRAFT)&select=id,client_org_id,subtotal_gbp${dateF}`
+    ),
+    dbQuery<Array<{ client_invoice_id: string; attributed_cost_gbp: number | string }>>(
+      `cost_attributions?select=client_invoice_id,attributed_cost_gbp`
+    ),
+  ]);
+
+  const costByInv: Record<string, number> = {};
+  for (const a of attrRes.data || []) {
+    if (a.client_invoice_id) {
+      costByInv[a.client_invoice_id] = (costByInv[a.client_invoice_id] || 0) + (Number(a.attributed_cost_gbp) || 0);
     }
   }
-  const clients = Object.entries(revByClient)
-    .sort(([, a], [, b]) => b - a)
+
+  const byClient: Record<string, { revenue: number; matchedCost: number }> = {};
+  for (const inv of invsRes.data || []) {
+    if (inv.client_org_id) {
+      if (!byClient[inv.client_org_id]) {
+        byClient[inv.client_org_id] = { revenue: 0, matchedCost: 0 };
+      }
+      byClient[inv.client_org_id].revenue += Number(inv.subtotal_gbp) || 0;
+      byClient[inv.client_org_id].matchedCost += costByInv[inv.id] || 0;
+    }
+  }
+
+  const clients = Object.entries(byClient)
+    .sort(([, a], [, b]) => b.revenue - a.revenue)
     .slice(0, params.limit ?? 20)
-    .map(([client_org_id, rev]) => ({
+    .map(([client_org_id, stats]) => ({
       client_org_id,
-      invoiced_revenue_gbp: roundMoney(rev),
+      invoiced_revenue_gbp: roundMoney(stats.revenue),
+      matched_actual_cost_gbp: roundMoney(stats.matchedCost),
+      actual_gross_margin_gbp: roundMoney(stats.revenue - stats.matchedCost),
+      actual_margin_pct: stats.revenue > 0 ? roundMoney(((stats.revenue - stats.matchedCost) / stats.revenue) * 100) : null,
     }));
+
   return { success: true, result: { clients, computed_at: new Date().toISOString() } };
 }
 

@@ -47,6 +47,7 @@ import { TemplateGuidesHub } from './resources/TemplateGuidesHub';
 import { TemplateEvergreenGuide } from './resources/TemplateEvergreenGuide';
 import { TemplateMediaCentre } from './resources/TemplateMediaCentre';
 import { TemplateCaseStudiesHub } from './resources/TemplateCaseStudiesHub';
+import { TemplateSectorsHub } from './resources/TemplateSectorsHub';
 import { TemplateFmBriefing } from './resources/TemplateFmBriefing';
 import { TemplateUnsubscribe } from './resources/TemplateUnsubscribe';
 
@@ -210,9 +211,11 @@ function selectTemplate(
   }
 
   // 7. Directory Hub Pages
+  if (path === '/sectors') {
+    return <TemplateSectorsHub route={route} content={content} />;
+  }
   if (
     path === '/services' ||
-    path === '/sectors' ||
     path === '/locations' ||
     path === '/items'
   ) {

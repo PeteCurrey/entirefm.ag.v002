@@ -1,0 +1,15 @@
+Sector,Service,Priority,Relevant URL,Reason,Proof Status,Guide Link,Compliance Standard,Status
+Industrial & Manufacturing,Mechanical & Electrical,CRITICAL,/mechanical-electrical,High electrical loads & process power distribution,VERIFIED (Anonymised cs-logistics-audit),/resources/guides/ppm-guide,BS 7671 / Electricity at Work Regs 1989,ACTIVE
+Industrial & Manufacturing,Planned Preventative Maintenance,CRITICAL,/ppm,Minimise unscheduled production line shutdowns,VERIFIED (Anonymised cs-retail-ppm),/resources/guides/ppm-guide,SFG20 / CIBSE Guide M,ACTIVE
+Industrial & Manufacturing,Industrial Cleaning,HIGH,/industrial-cleaning,Plant rooms & process machinery hygiene,PENDING_PHOTO_PROOF,/resources/guides/facilities-management-guide,COSHH / HSE Standards,ACTIVE
+Commercial Offices,HVAC & Air Conditioning,CRITICAL,/hvac-contractor,Multi-tenant thermal comfort & airflow balancing,VERIFIED (Anonymised cs-office-hvac),/resources/guides/facilities-management-guide,CIBSE Guide M / F-Gas Regs,ACTIVE
+Commercial Offices,Commercial Cleaning,HIGH,/cleaning-services,Workplace hygiene & front-of-house presentation,VERIFIED (Client delivery verified),/resources/guides/facilities-management-guide,BICSc standards,ACTIVE
+Commercial Offices,Statutory Compliance Management,CRITICAL,/compliance,Fixed wire testing & emergency lighting logs,VERIFIED (Compliance architecture),/compliance/fixed-wire-testing-eicr,BS 5266 / BS 7671,ACTIVE
+Logistics & Warehousing,Building & Fabric Maintenance,CRITICAL,/building-maintenance,Dock levellers & roller shutter operational safety,VERIFIED (Anonymised cs-logistics-audit),/resources/guides/asset-register-guide,PUWER / LOLER,ACTIVE
+Logistics & Warehousing,Electrical & High-Bay Lighting,HIGH,/mechanical-electrical,24/7 continuous picking warehouse continuity,VERIFIED (Anonymised cs-logistics-audit),/resources/guides/ppm-guide,BS 7671 / Emergency Lighting,ACTIVE
+Retail & Commercial,Planned Maintenance (PPM),CRITICAL,/ppm,Multi-site asset consistency & pre-season HVAC testing,VERIFIED (Anonymised cs-retail-ppm),/resources/guides/fm-tender-guide,SFG20 / F-Gas logs,ACTIVE
+Retail & Commercial,Commercial HVAC & Air Conditioning,CRITICAL,/hvac-contractor,Public comfort & refrigeration interfaces,VERIFIED (Anonymised cs-retail-ppm),/resources/guides/ppm-guide,F-Gas / REFCOM certified,ACTIVE
+Education & Campuses,Heating & Gas Safety,HIGH,/plumbing-gas,Term-time heating & commercial boiler reliability,PROOF_GAP,/compliance,Gas Safety (Installation & Use) 1998,ACTIVE
+Education & Campuses,Water Hygiene / Legionella,CRITICAL,/compliance,Vacation stagnation risk & periodic flushing,PROOF_GAP,/compliance,ACOP L8 / HSG274,ACTIVE
+Healthcare & Clinical,M&E & Critical Power,CRITICAL,/mechanical-electrical,Non-clinical support services & power resilience,PROOF_GAP,/compliance,BS 7671 Medical Locations (Conservative),ACTIVE
+Hotels & Hospitality,Hot Water & Plumbing,CRITICAL,/plumbing-gas,Guest comfort & continuous hot water generation,PROOF_GAP,/resources/guides/ppm-guide,Water Supply Regs / Gas Safety,ACTIVE

@@ -63,7 +63,7 @@ assert(hasPermission(clientSession, 'ai:control') === false, 'Client user blocke
 // 4. Role-aware post-login routing
 assert(getPostLoginRedirect('CEO', 'ENTIREFM') === '/admin', 'CEO routes to /admin');
 assert(getPostLoginRedirect('OPERATIONS_MANAGER', 'ENTIREFM') === '/admin', 'Ops Manager routes to /admin');
-assert(getPostLoginRedirect('CLIENT_ADMIN', 'CLIENT') === '/client', 'Client Admin routes to /client');
+assert(getPostLoginRedirect('CLIENT_ADMIN', 'CLIENT') === '/clients', 'Client Admin routes to /clients');
 assert(getPostLoginRedirect('CONTRACTOR_ADMIN', 'CONTRACTOR') === '/contractor', 'Contractor routes to /contractor');
 assert(getPostLoginRedirect('ENGINEER', 'ENTIREFM') === '/engineer', 'Field Engineer routes to /engineer');
 
