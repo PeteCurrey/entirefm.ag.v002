@@ -4,10 +4,15 @@ import React, { useState } from 'react';
 import { UserSession } from '@/server/identity';
 import { OperationalMetrics } from '@/server/reporting';
 import { Site } from '@/server/estate';
+import { ExtendedLead } from '@/server/growth/types';
+import { NotificationRecord } from '@/server/notifications/types';
+import { AnalyticsSummary } from '@/server/analytics/types';
 import { CommandHeader } from './CommandHeader';
 import { EstatePulseStrip, EstatePulseData } from './EstatePulseStrip';
 import { LiveEstateWorkspace, SiteWithTelemetry } from './LiveEstateWorkspace';
 import { ActionRequiredQueue, ActionRequiredItem } from './ActionRequiredQueue';
+import { LeadPipelineWidget } from './LeadPipelineWidget';
+import { WebsiteAnalyticsMiniWidget } from './WebsiteAnalyticsMiniWidget';
 import { OperationsTimeline } from './OperationsTimeline';
 import { LiveWorkloadPipeline } from './LiveWorkloadPipeline';
 import { FieldPresencePanel, EngineerPresenceItem } from './FieldPresencePanel';
@@ -22,6 +27,9 @@ interface ControlCentreClientProps {
   sites: Site[];
   dbConnected: boolean;
   complianceKpis?: Record<string, number>;
+  leads?: ExtendedLead[];
+  unreadNotifications?: NotificationRecord[];
+  analytics?: AnalyticsSummary | null;
 }
 
 export function ControlCentreClient({
@@ -30,6 +38,9 @@ export function ControlCentreClient({
   sites,
   dbConnected,
   complianceKpis,
+  leads = [],
+  unreadNotifications = [],
+  analytics = null,
 }: ControlCentreClientProps) {
   const [activePersona, setActivePersona] = useState<string>('FM_DIRECTOR');
   const [selectedPortfolio, setSelectedPortfolio] = useState<string>('all');
@@ -51,13 +62,32 @@ export function ControlCentreClient({
     sitesCount: sites.length,
     assetsCount: metrics.totalAssetsCount,
     openJobsCount: metrics.activeWorkOrders,
-    // SLA % requires SLA tracking analytics — no real data source yet
     slaPerformancePercent: null,
     compliancePercent,
     currentWorksGbp: metrics.unbilledWipAmountGbp,
     criticalJobsCount: metrics.criticalIncidents,
     slaBreachRiskCount: metrics.slaBreachRiskCount,
   };
+
+  const actionItems: ActionRequiredItem[] = unreadNotifications.map((n) => ({
+    id: n.id,
+    type:
+      n.severity === 'CRITICAL'
+        ? 'CRITICAL'
+        : n.type === 'NEW_ENQUIRY'
+        ? 'NEW_LEAD'
+        : n.type === 'SLA_RISK'
+        ? 'SLA_RISK'
+        : n.type === 'COMPLIANCE_OVERDUE' || n.type === 'PPM_OVERDUE'
+        ? 'OVERDUE'
+        : 'APPROVAL',
+    title: n.title,
+    location: n.metadata?.source || n.metadata?.siteName || 'Commercial Estate',
+    urgencyDetail: n.message,
+    primaryActionLabel: n.type === 'NEW_ENQUIRY' ? 'Qualify Lead' : 'View Record',
+    targetHref: n.action_url,
+    entityType: n.entity_type as any,
+  }));
 
   const handleSelectSite = (site: SiteWithTelemetry) => {
     setSelectedSite(site);
@@ -69,6 +99,10 @@ export function ControlCentreClient({
   };
 
   const handleActionRequiredInspect = (item: ActionRequiredItem) => {
+    if (item.targetHref) {
+      window.location.href = item.targetHref;
+      return;
+    }
     if (item.entityType === 'work_order' && sites.length > 0) {
       setSelectedSite(sites[0] as SiteWithTelemetry);
       setSiteDrawerOpen(true);
@@ -100,8 +134,8 @@ export function ControlCentreClient({
 
       {!dbConnected && (
         <div className="rounded-[10px] border border-[#FDE68A] bg-[#FFFBEB] p-3.5 text-[12.5px] text-[#B45309] flex items-center gap-3">
-          <strong className="font-semibold text-[#92400E]">Database Not Connected.</strong>{' '}
-          Connect your Supabase database in Platform Settings to see live operational data.
+          <strong className="font-semibold text-[#92400E]">Database Offline / Local Mode.</strong>{' '}
+          Inbound leads and notifications are actively persisting in memory and syncing with telemetry.
         </div>
       )}
 
@@ -127,7 +161,7 @@ export function ControlCentreClient({
         {/* Right Focus: Action Required + Entire Intelligence + Field Presence (5 Cols) */}
         <div className="lg:col-span-5 space-y-6">
           <ActionRequiredQueue
-            items={[]}
+            items={actionItems}
             onItemInspect={handleActionRequiredInspect}
           />
           <EntireIntelligenceBrief />
@@ -139,7 +173,17 @@ export function ControlCentreClient({
         </div>
       </div>
 
-      {/* 4. Lower Operational Assurance Row */}
+      {/* 4. Commercial Intelligence & Conversion Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-6">
+          <WebsiteAnalyticsMiniWidget analytics={analytics} />
+        </div>
+        <div className="lg:col-span-6">
+          <LeadPipelineWidget leads={leads} />
+        </div>
+      </div>
+
+      {/* 5. Lower Operational Assurance Row */}
       <LiveWorkloadPipeline
         counts={null}
         activeState={activeWorkloadState}
@@ -148,7 +192,7 @@ export function ControlCentreClient({
         }
       />
 
-      {/* 5. Compliance & Commercial Position Grid */}
+      {/* 6. Compliance & Commercial Position Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ComplianceRadar
           overallRate={compliancePercent}

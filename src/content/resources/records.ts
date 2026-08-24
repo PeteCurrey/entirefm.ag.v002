@@ -409,6 +409,7 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
     relatedRoutes: [
       '/resources',
       '/tools/ppm-schedule-builder',
+      '/tools/compliance-checker',
       '/tools/fm-health-check',
       '/tools/compliance-calendar',
       '/tools/ppm-estimator',
@@ -421,6 +422,46 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
       'Claims must match BUSINESS-CLAIMS-VERIFICATION.md',
       'No fictitious client metrics or unverified savings percentages',
       'Transparent calculation assumptions on all financial and scheduling models'
+    ],
+    contentStatus: 'COMPLETE'
+  },
+
+  '/tools/compliance-checker': {
+    path: '/tools/compliance-checker',
+    title: 'FM Statutory Compliance Checker | Commercial Estate Audit | EntireFM',
+    metaDescription: 'Audit your commercial building statutory compliance across 10 core UK legal regimes. Receive instant risk scoring, priority actions, and a downloadable report.',
+    h1: 'Commercial FM Statutory Compliance Checker',
+    eyebrow: 'Statutory Screening Audit',
+    heroIntro: 'Evaluate your building compliance across 10 statutory regimes: fire safety, electrical systems, commercial gas, water hygiene, lifting equipment, working at height, and digital record retention.',
+    heroDescription: 'An authoritative, 3-minute screening instrument designed for property directors, building managers, and duty holders to identify statutory liabilities and generate prioritized remedial roadmaps.',
+    heroImage: '/branding/EntireFM Branding 002.png',
+    historicIntent: 'Historic search intent for building compliance checker and statutory facilities audit tool',
+    primaryIntent: 'FM compliance checker',
+    secondaryIntents: ['building compliance audit tool', 'statutory maintenance checker', 'commercial property compliance audit'],
+    pageType: 'company',
+    historicTopics: ['Fire Safety Order', 'Electricity at Work Regs', 'ACOP L8 Legionella', 'LOLER examinations', 'Gas Safety'],
+    requiredSections: ['hero', 'wizard', 'results', 'cta'],
+    sections: [
+      {
+        heading: '1. Why Statutory Compliance Screening Matters',
+        body: 'Under UK law, duty holders and Responsible Persons bear strict legal duties to maintain building services in a safe, certified condition. Gaps in statutory testing records invalidate building insurance and expose duty holders to formal enforcement.'
+      }
+    ],
+    breadcrumbs: [
+      { name: 'Home', url: '/' },
+      { name: 'Resources', url: '/resources' },
+      { name: 'FM Tools', url: '/tools' },
+      { name: 'Compliance Checker', url: '/tools/compliance-checker' }
+    ],
+    relatedRoutes: [
+      '/tools/ppm-schedule-builder',
+      '/tools/compliance-calendar',
+      '/tools/fm-health-check',
+      '/compliance'
+    ],
+    conversionGoal: 'Drive qualified compliance audits and commercial PPM onboarding.',
+    verificationRequirements: [
+      'Explicit legal references for RRO 2005, EAWR 1989, ACOP L8, and LOLER 1998'
     ],
     contentStatus: 'COMPLETE'
   },

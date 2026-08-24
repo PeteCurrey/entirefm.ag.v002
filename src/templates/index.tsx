@@ -32,6 +32,7 @@ import { ServicePpm } from './services/ServicePpm';
 import { ServiceIndustrialCleaning } from './services/ServiceIndustrialCleaning';
 import { TemplateToolsHub } from './tools/TemplateToolsHub';
 import { TemplateHealthCheck } from './tools/TemplateHealthCheck';
+import { TemplateComplianceChecker } from './tools/TemplateComplianceChecker';
 import { TemplatePpmBuilder } from './tools/TemplatePpmBuilder';
 import { TemplateComplianceCalendar } from './tools/TemplateComplianceCalendar';
 import { TemplatePpmEstimator } from './tools/TemplatePpmEstimator';
@@ -56,6 +57,8 @@ import { TemplateRealTimeOperations } from './client-portal/TemplateRealTimeOper
 import { TemplateComplianceReporting } from './client-portal/TemplateComplianceReporting';
 import { TemplateSite360 } from './client-portal/TemplateSite360';
 import { ServiceWorkingAtHeight } from './services/ServiceWorkingAtHeight';
+import { TemplateCityHub } from './locations/TemplateCityHub';
+import { TemplateCityServices } from './locations/TemplateCityServices';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const content = loadContentRecord(route.path);
@@ -187,6 +190,9 @@ function selectTemplate(
   if (path === '/tools') {
     return <TemplateToolsHub route={route} content={content} />;
   }
+  if (path === '/tools/compliance-checker') {
+    return <TemplateComplianceChecker route={route} content={content} />;
+  }
   if (path === '/tools/fm-health-check') {
     return <TemplateHealthCheck route={route} content={content} />;
   }
@@ -247,7 +253,13 @@ function selectTemplate(
     return <TemplateUnsubscribe route={route} content={content} />;
   }
 
-  // 7. Directory Hub Pages
+  // 7. Directory Hub Pages & Location Hubs
+  if (path.startsWith('/locations/') && path.endsWith('/services')) {
+    return <TemplateCityServices route={route} content={content} />;
+  }
+  if (path.startsWith('/locations/') && path !== '/locations') {
+    return <TemplateCityHub route={route} content={content} />;
+  }
   if (path === '/sectors') {
     return <TemplateSectorsHub route={route} content={content} />;
   }

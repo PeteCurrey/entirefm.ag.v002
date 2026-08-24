@@ -15,14 +15,20 @@ import {
   Info,
   Layers,
   ArrowRight,
+  Check,
+  List,
+  LayoutGrid,
+  CalendarDays,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { TrustBar } from '@/components/trust/TrustBar';
-import { ProposalSection } from '@/components/conversion/PhoneCTA';
-import { ToolHero } from '@/components/resources/ToolHero';
-import { ResultsConversionBridge } from '@/components/resources/ResultsConversionBridge';
+import { ToolShell } from '@/components/tools/ToolShell';
+import { WizardProgress } from '@/components/tools/WizardProgress';
+import { ExportToolbar } from '@/components/tools/ExportToolbar';
+import { ToolConversionCTA } from '@/components/tools/ToolConversionCTA';
+import { downloadPdfReport, PdfDocumentDefinition } from '@/lib/pdf/generator';
+import { generateIcsCalendar, downloadIcsFile } from '@/lib/exports/ics-exporter';
+import { generateCsv, downloadCsvFile } from '@/lib/exports/csv-exporter';
 import type { TemplateProps } from '../types';
 
 interface CalendarEvent {
@@ -134,68 +140,66 @@ const ALL_COMPLIANCE_EVENTS: CalendarEvent[] = [
     applicableMonths: [9],
     legislation: 'Gas Safety (Installation and Use) Regs 1998 Reg 35',
     dutyHolder: 'Gas Safe Commercial Engineer',
-    rationale: 'Combustion analysis, flue check, ventilation interlock verification, and safety valve testing before heating season.',
+    rationale: 'Annual combustion efficiency, safety interlock tests, burner clean, and CP15/CP17 certification.',
   },
 
-  // LOLER Lifts
-  {
-    id: 'ev-lift-6m',
-    system: 'Lifts & Vertical Transport',
-    title: 'Passenger Lift LOLER Thorough Examination',
-    frequency: '6-Monthly',
-    applicableMonths: [5, 11],
-    legislation: 'LOLER 1998 Regulation 9(3)(a)',
-    dutyHolder: 'Independent Competent Person (Insurance / Inspection Body)',
-    rationale: 'Statutory 6-month thorough examination for all lifting equipment carrying persons.',
-  },
-  {
-    id: 'ev-lift-goods',
-    system: 'Lifts & Vertical Transport',
-    title: 'Goods Lift & Dock Leveller LOLER Examination',
-    frequency: 'Annually',
-    applicableMonths: [5],
-    legislation: 'LOLER 1998 Regulation 9(3)(b)',
-    dutyHolder: 'Independent Competent Person',
-    rationale: 'Statutory 12-month thorough examination for non-passenger goods lifting equipment.',
-  },
-
-  // HVAC / F-Gas
+  // Air Conditioning / F-Gas
   {
     id: 'ev-fgas-6m',
-    system: 'HVAC & F-Gas Refrigeration',
-    title: 'F-Gas Refrigerant Leak Inspection',
+    system: 'HVAC & Air Conditioning',
+    title: 'F-Gas Refrigerant Leak Check & Logbook Update',
     frequency: '6-Monthly',
-    applicableMonths: [2, 8],
-    legislation: 'GB F-Gas Regulations',
-    dutyHolder: 'Certified F-Gas Engineer',
-    rationale: 'Mandatory leak testing on systems exceeding CO2e refrigerant charge thresholds.',
+    applicableMonths: [5, 11],
+    legislation: 'GB Fluorinated Greenhouse Gases Regulations 2015',
+    dutyHolder: 'F-Gas Certified Engineer (REFCOM)',
+    rationale: 'Mandatory direct/indirect refrigerant leak inspection for systems >5 tonnes CO2e.',
+  },
+
+  // Lifting Equipment
+  {
+    id: 'ev-loler-6m',
+    system: 'Lifts & Lifting Gear (LOLER)',
+    title: 'Passenger Lift Thorough Examination (LOLER)',
+    frequency: '6-Monthly',
+    applicableMonths: [4, 10],
+    legislation: 'LOLER 1998 Regulation 9 / SAFed Guidelines',
+    dutyHolder: 'Independent Competent Person (Insurance Surveyor)',
+    rationale: 'Statutory 6-monthly thorough examination of passenger-carrying lift mechanisms and safety gears.',
+  },
+
+  // Fall Protection
+  {
+    id: 'ev-fall-annual',
+    system: 'Roof Safety & Fall Arrest',
+    title: 'Mansafe Fall Arrest System Pull-Test & Recertification',
+    frequency: 'Annually',
+    applicableMonths: [7],
+    legislation: 'Work at Height Regs 2005 / BS EN 795',
+    dutyHolder: 'Specialist Fall Protection Engineer',
+    rationale: 'Proof-load test and visual inspection of roof cables, eyebolts, and PPE attachment points.',
   },
 ];
 
 const SYSTEMS = Array.from(new Set(ALL_COMPLIANCE_EVENTS.map((e) => e.system)));
 const MONTH_NAMES = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+const WIZARD_STEPS = [
+  { id: 1, title: '01 Systems', subtitle: 'Select Regimes' },
+  { id: 2, title: '02 Schedule', subtitle: 'Interactive Timetable' },
 ];
 
 export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
   const [selectedSystems, setSelectedSystems] = useState<string[]>(SYSTEMS);
-  const [activeMonth, setActiveMonth] = useState<number>(1); // 1 = January
+  const [activeMonth, setActiveMonth] = useState<number>(1);
+  const [viewMode, setViewMode] = useState<'calendar' | 'programme' | 'list'>('calendar');
 
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Resources', url: '/resources' },
-    { name: 'FM Tools', url: '/tools' },
+    { name: 'Interactive Tools', url: '/tools' },
     { name: 'Compliance Calendar', url: '/tools/compliance-calendar' },
   ];
 
@@ -210,6 +214,7 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
   const selectAll = () => setSelectedSystems(SYSTEMS);
   const selectNone = () => setSelectedSystems([]);
 
+  // Filter events
   const activeEvents = useMemo(() => {
     return ALL_COMPLIANCE_EVENTS.filter((e) => selectedSystems.includes(e.system));
   }, [selectedSystems]);
@@ -218,108 +223,114 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
     return activeEvents.filter((e) => e.applicableMonths.includes(activeMonth));
   }, [activeEvents, activeMonth]);
 
-  // Generate standard ICS calendar file
   const handleDownloadIcs = () => {
-    const year = new Date().getFullYear();
-    let icsData = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'PRODID:-//EntireFM//FM Statutory Compliance Calendar//EN',
-      'CALSCALE:GREGORIAN',
-      'METHOD:PUBLISH',
-    ];
+    const calendarEvents = activeEvents.map((evt) => {
+      const targetMonth = evt.applicableMonths[0] || 1;
+      const date = new Date(2026, targetMonth - 1, 15, 9, 0);
 
-    activeEvents.forEach((ev, idx) => {
-      ev.applicableMonths.forEach((m) => {
-        const monthStr = m < 10 ? `0${m}` : `${m}`;
-        const dtStart = `${year}${monthStr}01T090000Z`;
-        const dtEnd = `${year}${monthStr}01T100000Z`;
-
-        icsData.push(
-          'BEGIN:VEVENT',
-          `UID:entirefm-compliance-${idx}-${m}-${year}@entirefm.com`,
-          `DTSTAMP:${year}0101T000000Z`,
-          `DTSTART:${dtStart}`,
-          `DTEND:${dtEnd}`,
-          `SUMMARY:[FM Compliance] ${ev.title}`,
-          `DESCRIPTION:${ev.rationale}\\n\\nDuty Holder: ${ev.dutyHolder}\\nGoverning Basis: ${ev.legislation}`,
-          'STATUS:CONFIRMED',
-          'END:VEVENT'
-        );
-      });
+      return {
+        id: `efm-${evt.id}`,
+        title: `[Statutory Compliance] ${evt.title}`,
+        description: `Legislation: ${evt.legislation}\nDuty Holder: ${evt.dutyHolder}\nRationale: ${evt.rationale}\n\nManaged via EntireFM Statutory Compliance Portal.`,
+        startDate: date,
+        durationMinutes: 120,
+        reminderDaysBefore: 7, // 7-day advance notification VALARM
+        categories: ['Compliance', 'Statutory', evt.system],
+      };
     });
 
-    icsData.push('END:VCALENDAR');
-    const icsBlob = new Blob([icsData.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(icsBlob);
-    link.setAttribute('download', `EntireFM_Compliance_Calendar_${year}.ics`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const icsContent = generateIcsCalendar('EntireFM Statutory Compliance Schedule 2026', calendarEvents);
+    downloadIcsFile(icsContent, 'EntireFM_Statutory_Compliance_Calendar.ics');
   };
 
-  const handlePrint = () => {
-    if (typeof window !== 'undefined') {
-      window.print();
-    }
+  const handleDownloadCsv = () => {
+    const csvContent = generateCsv(activeEvents, [
+      { header: 'System', accessor: (d) => d.system },
+      { header: 'Compliance Activity', accessor: (d) => d.title },
+      { header: 'Frequency', accessor: (d) => d.frequency },
+      { header: 'Governing Legislation', accessor: (d) => d.legislation },
+      { header: 'Responsible Duty Holder', accessor: (d) => d.dutyHolder },
+      { header: 'Statutory Rationale', accessor: (d) => d.rationale },
+      { header: 'Applicable Months', accessor: (d) => d.applicableMonths.map((m) => MONTH_NAMES[m - 1].slice(0, 3)).join(', ') },
+    ]);
+    downloadCsvFile(csvContent, 'EntireFM_Compliance_Calendar.csv');
+  };
+
+  const handleDownloadPdf = () => {
+    const pdfDoc: PdfDocumentDefinition = {
+      title: 'Annual Statutory Building Compliance Inspection Calendar',
+      subtitle: '12-Month schedule of statutory inspections, periodic tests, and competent engineer examinations.',
+      documentRef: `EFM-CAL-${Date.now().toString().slice(-6)}`,
+      date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
+      badgeText: 'Compliance Timetable',
+      summaryStats: [
+        { label: 'Selected Systems', value: `${selectedSystems.length} Regimes` },
+        { label: 'Total Events', value: `${activeEvents.length} Tasks`, detail: 'Annual Schedule' },
+        { label: 'Current Month', value: `${MONTH_NAMES[activeMonth - 1]} (${monthEvents.length} tasks)` },
+        { label: 'Weekly / Monthly Tests', value: `${activeEvents.filter((e) => e.frequency === 'Weekly' || e.frequency === 'Monthly').length} Ongoing` },
+      ],
+      sections: [
+        {
+          type: 'table',
+          heading: '1. 12-Month Statutory Compliance Schedule Matrix',
+          columns: [
+            { header: 'Building System', widthPercent: 24 },
+            { header: 'Statutory Inspection Activity', widthPercent: 36 },
+            { header: 'Frequency', widthPercent: 14, align: 'center' },
+            { header: 'Governing Legislation', widthPercent: 26 },
+          ],
+          rows: activeEvents.map((e) => [
+            e.system,
+            e.title,
+            e.frequency,
+            e.legislation,
+          ]),
+        },
+      ],
+    };
+    downloadPdfReport(pdfDoc);
   };
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col bg-[#080d1a]">
       <Header />
-      <main className="min-h-screen bg-brand-void text-white">
-        <ToolHero
+      <main id="main" className="flex-grow pt-20">
+        <ToolShell
           breadcrumbs={breadcrumbs}
-          eyebrow="Statutory Testing Roadmap"
-          title="FM Compliance Calendar Builder"
-          description="Generate a 12-month schedule of statutory maintenance, periodic testing, and inspection milestones tailored to your building services. Export directly to Outlook, Google Calendar, or PDF."
-          timeEstimate="~3 minutes"
-          deliverables={[
-            '12-month compliance roadmap across selected systems',
-            'Duty holder assignments and legislative basis',
-            'Monthly inspection and testing schedules',
-            'Direct .ICS calendar export for Outlook/Google',
-            'Printable compliance timeline overview',
-          ]}
-          accent="amber"
+          title="Compliance Calendar Builder"
+          purpose="Generate an interactive 12-month schedule of statutory testing milestones with legal duty breakdowns and calendar export."
+          timeEstimate="3 min"
+          outputs={['PDF Schedule', 'CSV Matrix', 'iCal (.ics)']}
           icon={CalendarCheck}
-        />
+        >
+          {/* Stepper */}
+          <WizardProgress
+            steps={WIZARD_STEPS}
+            currentStep={0}
+          />
 
-        {/* Calendar Builder Body */}
-        <section className="py-14 bg-brand-carbon">
-          <div className="container-custom">
-            {/* System Selector */}
-            <div className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 mb-8">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-edge-dark pb-4 mb-4">
+          <div className="max-w-6xl mx-auto space-y-8">
+            {/* System Selection Toolbar */}
+            <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 shadow-2xl backdrop-blur-sm space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
                 <div>
-                  <h2 className="text-sm font-bold uppercase tracking-wider text-white">
-                    Step 1: Select Your Building Systems
-                  </h2>
-                  <p className="text-xs text-brand-mist/60 mt-0.5">
-                    Include only the plant and services present on your estate.
-                  </p>
+                  <span className="font-mono text-[10px] font-bold text-[#FF3E9D] uppercase tracking-wider">
+                    Filter Regimes
+                  </span>
+                  <h3 className="text-sm font-bold text-white">Active Building Systems</h3>
                 </div>
                 <div className="flex items-center gap-3 text-xs">
-                  <button
-                    type="button"
-                    onClick={selectAll}
-                    className="text-brand-electric-bright hover:underline"
-                  >
+                  <button type="button" onClick={selectAll} className="text-[#FF3E9D] hover:underline font-semibold">
                     Select All
                   </button>
-                  <span className="text-white/20">|</span>
-                  <button
-                    type="button"
-                    onClick={selectNone}
-                    className="text-brand-mist/50 hover:text-white"
-                  >
+                  <span className="text-slate-700">|</span>
+                  <button type="button" onClick={selectNone} className="text-slate-400 hover:text-white">
                     Clear All
                   </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
                 {SYSTEMS.map((sys) => {
                   const active = selectedSystems.includes(sys);
                   return (
@@ -327,17 +338,17 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                       key={sys}
                       type="button"
                       onClick={() => toggleSystem(sys)}
-                      className={`flex items-center gap-2 p-2.5 rounded-sm border text-xs text-left transition-all ${
+                      className={`flex items-center gap-2 p-2.5 rounded-xl border text-xs text-left transition-all ${
                         active
-                          ? 'border-brand-electric-bright bg-brand-electric/10 text-white font-medium'
-                          : 'border-brand-edge-dark bg-white/[0.02] text-brand-mist/50 hover:bg-white/[0.04]'
+                          ? 'border-[#FF3E9D] bg-[#FF3E9D]/10 text-white font-semibold ring-1 ring-[#FF3E9D]/30'
+                          : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:border-slate-700'
                       }`}
                     >
-                      {active ? (
-                        <CheckSquare className="h-3.5 w-3.5 text-brand-electric-bright shrink-0" />
-                      ) : (
-                        <Square className="h-3.5 w-3.5 text-brand-mist/30 shrink-0" />
-                      )}
+                      <div className={`w-3.5 h-3.5 rounded flex items-center justify-center border shrink-0 ${
+                        active ? 'bg-[#FF3E9D] border-[#FF3E9D] text-white' : 'border-slate-700 bg-slate-900'
+                      }`}>
+                        {active && <Check className="w-2.5 h-2.5 stroke-[3]" />}
+                      </div>
                       <span className="truncate">{sys}</span>
                     </button>
                   );
@@ -345,10 +356,10 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
               </div>
             </div>
 
-            {/* Action Buttons & Month Selector */}
-            <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 mb-8">
+            {/* View Switcher & Month Navigation */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               {/* Month Tabs */}
-              <div className="flex items-center gap-1 overflow-x-auto pb-2 lg:pb-0 scrollbar-thin">
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
                 {MONTH_NAMES.map((name, idx) => {
                   const mNum = idx + 1;
                   const count = activeEvents.filter((e) => e.applicableMonths.includes(mNum)).length;
@@ -358,14 +369,14 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                       key={name}
                       type="button"
                       onClick={() => setActiveMonth(mNum)}
-                      className={`px-3 py-2 rounded-sm text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
                         isCurrent
-                          ? 'bg-brand-electric-bright text-white shadow-glow-sm'
-                          : 'bg-brand-graphite border border-brand-edge-dark text-brand-mist/70 hover:text-white'
+                          ? 'bg-[#FF3E9D] text-white shadow-sm'
+                          : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'
                       }`}
                     >
                       {name.slice(0, 3)}
-                      <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isCurrent ? 'bg-black/30 text-white' : 'bg-white/10 text-brand-mist/60'}`}>
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${isCurrent ? 'bg-black/30 text-white' : 'bg-slate-800 text-slate-400'}`}>
                         {count}
                       </span>
                     </button>
@@ -373,109 +384,176 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                 })}
               </div>
 
-              {/* Export triggers */}
-              <div className="flex items-center gap-3 shrink-0">
+              {/* View mode toggle */}
+              <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 self-start md:self-auto shrink-0">
                 <button
                   type="button"
-                  onClick={handleDownloadIcs}
-                  className="btn-primary py-2 px-3 text-xs"
+                  onClick={() => setViewMode('calendar')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    viewMode === 'calendar' ? 'bg-[#0B1220] text-[#FF3E9D] border border-[#FF3E9D]/30' : 'text-slate-400 hover:text-white'
+                  }`}
                 >
-                  <CalendarIcon className="h-3.5 w-3.5" />
-                  Download .ICS Calendar
+                  <CalendarDays className="w-3.5 h-3.5" />
+                  <span>Month</span>
                 </button>
                 <button
                   type="button"
-                  onClick={handlePrint}
-                  className="btn-ghost-light py-2 px-3 text-xs"
+                  onClick={() => setViewMode('programme')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    viewMode === 'programme' ? 'bg-[#0B1220] text-[#FF3E9D] border border-[#FF3E9D]/30' : 'text-slate-400 hover:text-white'
+                  }`}
                 >
-                  <Printer className="h-3.5 w-3.5" />
-                  Print Schedule
+                  <LayoutGrid className="w-3.5 h-3.5" />
+                  <span>Annual</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('list')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    viewMode === 'list' ? 'bg-[#0B1220] text-[#FF3E9D] border border-[#FF3E9D]/30' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <List className="w-3.5 h-3.5" />
+                  <span>List</span>
                 </button>
               </div>
             </div>
 
-            {/* Month Events Cards */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                  <CalendarIcon className="h-4 w-4 text-brand-electric-bright" />
-                  {MONTH_NAMES[activeMonth - 1]} Compliance Tasks ({monthEvents.length})
-                </h3>
-                <span className="text-xs text-brand-mist/50">
-                  Showing statutory milestones for {MONTH_NAMES[activeMonth - 1]}
-                </span>
-              </div>
+            {/* Main Interactive Display Area */}
+            {viewMode === 'calendar' && (
+              <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                  <div>
+                    <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
+                      {MONTH_NAMES[activeMonth - 1]} 2026
+                    </span>
+                    <h3 className="text-xl font-bold text-white mt-0.5">
+                      Statutory Testing Milestones ({monthEvents.length} Tasks)
+                    </h3>
+                  </div>
+                </div>
 
-              {monthEvents.length > 0 ? (
-                <div className="grid gap-4 md:grid-cols-2">
-                  {monthEvents.map((ev) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {monthEvents.map((evt) => (
                     <div
-                      key={ev.id}
-                      className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-5 hover:border-brand-electric/40 transition-colors"
+                      key={evt.id}
+                      className="p-4 rounded-xl border border-slate-800 bg-slate-950/70 space-y-2.5 hover:border-slate-700 transition-colors"
                     >
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="text-[10px] uppercase font-semibold tracking-wider text-brand-electric-bright">
-                          {ev.system}
-                        </span>
-                        <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.05] border border-white/10 text-brand-mist">
-                          {ev.frequency}
+                      <div className="flex items-start justify-between gap-2">
+                        <span className="font-bold text-sm text-white">{evt.title}</span>
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-slate-800 text-slate-300 border border-slate-700 shrink-0">
+                          {evt.frequency}
                         </span>
                       </div>
-
-                      <h4 className="text-sm font-bold text-white">
-                        {ev.title}
-                      </h4>
-                      <p className="mt-2 text-xs text-brand-mist/75 leading-relaxed">
-                        {ev.rationale}
-                      </p>
-
-                      <div className="mt-4 pt-3 border-t border-brand-edge-dark grid grid-cols-2 gap-2 text-[11px]">
-                        <div>
-                          <span className="text-brand-mist/40 block">Duty Holder:</span>
-                          <span className="text-brand-mist/80 font-medium">{ev.dutyHolder}</span>
-                        </div>
-                        <div>
-                          <span className="text-brand-mist/40 block">Governing Basis:</span>
-                          <span className="text-brand-mist/80 font-mono">{ev.legislation}</span>
-                        </div>
+                      <p className="text-xs text-slate-400">{evt.rationale}</p>
+                      <div className="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-[11px]">
+                        <span className="text-slate-400 font-mono">{evt.legislation}</span>
+                        <span className="text-slate-300 font-semibold">{evt.dutyHolder}</span>
                       </div>
                     </div>
                   ))}
+                  {monthEvents.length === 0 && (
+                    <div className="col-span-2 py-12 text-center text-slate-500 font-medium">
+                      No statutory inspections scheduled for this month under selected filters.
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="py-12 text-center text-xs text-brand-mist/50 bg-brand-graphite rounded-sm border border-brand-edge-dark">
-                  No statutory events scheduled for {MONTH_NAMES[activeMonth - 1]} under your selected systems.
-                </div>
-              )}
-            </div>
 
-            {/* Statutory Disclaimer */}
-            <div className="mt-10 rounded-sm bg-white/[0.02] border border-brand-edge-dark p-5 text-xs text-brand-mist/60 leading-relaxed">
-              <div className="flex items-start gap-2.5">
-                <Info className="h-4 w-4 text-brand-electric-bright shrink-0 mt-0.5" />
-                <p>
-                  <strong>Statutory Schedule Notice:</strong> Frequencies listed above represent baseline UK statutory requirements and standard guidance under BS 5266, BS 5839, BS 7671, ACOP L8, and LOLER 1998. Site-specific risks or heavy industrial usage may dictate more frequent testing. Consult the <Link href="/compliance" className="text-brand-electric-bright underline">EntireFM Compliance Centre</Link> for full legislative details.
-                </p>
+                {/* Export Toolbar */}
+                <ExportToolbar
+                  toolName="Compliance Calendar"
+                  onDownloadPdf={handleDownloadPdf}
+                  onDownloadCsv={handleDownloadCsv}
+                  onDownloadIcs={handleDownloadIcs}
+                  pdfLabel="Download PDF Timetable"
+                  csvLabel="Export CSV Calendar"
+                  icsLabel="Export RFC 5545 iCalendar (.ics)"
+                />
               </div>
-            </div>
+            )}
 
-            {/* Conversion Bridge */}
-            <div className="mt-8">
-              <ResultsConversionBridge
-                headline="Need EntireFM to manage your statutory compliance calendar?"
-                body="We track, schedule, and execute all statutory inspection cycles across your portfolio. Every certificate, test report, and remedial sign-off stored in real-time within your client CAFM portal."
-                ctaPrimary={{ label: 'Explore Compliance Management', href: '/compliance' }}
-                ctaSecondary={{ label: 'Speak to a compliance specialist', href: '/contact-us' }}
-                accent="amber"
-              />
-            </div>
+            {viewMode === 'programme' && (
+              <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
+                <div className="border-b border-slate-800 pb-4">
+                  <h3 className="text-lg font-bold text-white">Annual Inspection Roadmap (Jan–Dec)</h3>
+                  <p className="text-xs text-slate-400">12-month visual timeline distribution across all selected statutory regimes.</p>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
+                  {MONTH_NAMES.map((mName, mIdx) => {
+                    const mNum = mIdx + 1;
+                    const mTasks = activeEvents.filter((e) => e.applicableMonths.includes(mNum));
+                    return (
+                      <div
+                        key={mName}
+                        onClick={() => {
+                          setActiveMonth(mNum);
+                          setViewMode('calendar');
+                        }}
+                        className="p-3.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:border-[#FF3E9D]/60 cursor-pointer transition-all space-y-2"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-xs font-bold text-white">{mName.slice(0, 3)}</span>
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-bold border border-slate-700">
+                            {mTasks.length} tasks
+                          </span>
+                        </div>
+                        <p className="text-[10.5px] text-slate-400 line-clamp-2">
+                          {mTasks.slice(0, 2).map((t) => t.title.split(' ')[0]).join(', ')}...
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {viewMode === 'list' && (
+              <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
+                <div className="border-b border-slate-800 pb-4">
+                  <h3 className="text-lg font-bold text-white">Complete Statutory Duty Registry</h3>
+                  <p className="text-xs text-slate-400">All mandated periodic inspections with governing legislation and responsible party.</p>
+                </div>
+
+                <div className="overflow-x-auto border border-slate-800 rounded-xl">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="bg-slate-950 text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-800">
+                        <th className="p-3.5">System</th>
+                        <th className="p-3.5">Activity</th>
+                        <th className="p-3.5">Frequency</th>
+                        <th className="p-3.5">Governing Legislation</th>
+                        <th className="p-3.5">Duty Holder</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/80">
+                      {activeEvents.map((evt) => (
+                        <tr key={evt.id} className="hover:bg-slate-800/40">
+                          <td className="p-3.5 font-bold text-white whitespace-nowrap">{evt.system}</td>
+                          <td className="p-3.5 text-slate-300">{evt.title}</td>
+                          <td className="p-3.5 font-mono text-white font-semibold">{evt.frequency}</td>
+                          <td className="p-3.5 font-mono text-slate-400 text-[10.5px]">{evt.legislation}</td>
+                          <td className="p-3.5 text-slate-300">{evt.dutyHolder}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Conversion CTA */}
+            <ToolConversionCTA
+              toolName="Compliance Calendar"
+              heading="Let EntireFM automate your statutory compliance calendar"
+              subheading="Never miss a statutory inspection deadline. EntireFM integrates with EntireCAFM to track engineer visits and certificate renewals in real-time."
+              primaryActionLabel="Schedule Compliance Audit"
+              primaryActionHref="/contact-us#enquiry"
+            />
           </div>
-        </section>
-
-        <TrustBar />
-        <ProposalSection />
+        </ToolShell>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

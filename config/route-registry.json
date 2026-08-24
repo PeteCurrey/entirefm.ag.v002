@@ -6,12 +6,12 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 331,
+    "total": 374,
     "LEGACY_VERIFIED": 201,
     "LEGACY_PROTECTED_BY_DIRECTIVE": 28,
     "CURRENT_LIVE_RETAINED": 5,
-    "NEW_GROWTH": 95,
-    "protected": 331,
+    "NEW_GROWTH": 137,
+    "protected": 374,
     "historic": 229
   },
   "routes": [
@@ -5864,6 +5864,24 @@
       ]
     },
     {
+      "path": "/tools/compliance-checker",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "current-live-antigravity"
+      ]
+    },
+    {
       "path": "/tools/compliance-calendar",
       "routeType": "company",
       "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
@@ -6365,6 +6383,804 @@
       "historicSources": [
         "new-growth-directive"
       ]
+    },
+    {
+      "path": "/locations/london",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "London"
+    },
+    {
+      "path": "/locations/london/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "London"
+    },
+    {
+      "path": "/locations/manchester",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Manchester"
+    },
+    {
+      "path": "/locations/manchester/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Manchester"
+    },
+    {
+      "path": "/locations/birmingham",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Birmingham"
+    },
+    {
+      "path": "/locations/birmingham/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Birmingham"
+    },
+    {
+      "path": "/locations/leeds",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Leeds"
+    },
+    {
+      "path": "/locations/leeds/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Leeds"
+    },
+    {
+      "path": "/locations/sheffield",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Sheffield"
+    },
+    {
+      "path": "/locations/sheffield/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Sheffield"
+    },
+    {
+      "path": "/locations/liverpool",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Liverpool"
+    },
+    {
+      "path": "/locations/liverpool/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Liverpool"
+    },
+    {
+      "path": "/locations/nottingham",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Nottingham"
+    },
+    {
+      "path": "/locations/nottingham/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Nottingham"
+    },
+    {
+      "path": "/locations/derby",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Derby"
+    },
+    {
+      "path": "/locations/derby/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Derby"
+    },
+    {
+      "path": "/locations/oxford",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Oxford"
+    },
+    {
+      "path": "/locations/oxford/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Oxford"
+    },
+    {
+      "path": "/locations/bradford",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bradford"
+    },
+    {
+      "path": "/locations/bradford/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bradford"
+    },
+    {
+      "path": "/locations/doncaster",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Doncaster"
+    },
+    {
+      "path": "/locations/doncaster/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Doncaster"
+    },
+    {
+      "path": "/locations/rotherham",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Rotherham"
+    },
+    {
+      "path": "/locations/rotherham/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Rotherham"
+    },
+    {
+      "path": "/locations/chesterfield",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Chesterfield"
+    },
+    {
+      "path": "/locations/chesterfield/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Chesterfield"
+    },
+    {
+      "path": "/locations/lincoln",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Lincoln"
+    },
+    {
+      "path": "/locations/lincoln/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Lincoln"
+    },
+    {
+      "path": "/locations/bolton",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bolton"
+    },
+    {
+      "path": "/locations/bolton/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bolton"
+    },
+    {
+      "path": "/locations/bury",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bury"
+    },
+    {
+      "path": "/locations/bury/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bury"
+    },
+    {
+      "path": "/locations/preston",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Preston"
+    },
+    {
+      "path": "/locations/preston/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Preston"
+    },
+    {
+      "path": "/locations/wigan",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Wigan"
+    },
+    {
+      "path": "/locations/wigan/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Wigan"
+    },
+    {
+      "path": "/locations/grimsby",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Grimsby"
+    },
+    {
+      "path": "/locations/grimsby/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Grimsby"
+    },
+    {
+      "path": "/locations/telford",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Telford"
+    },
+    {
+      "path": "/locations/telford/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Telford"
+    },
+    {
+      "path": "/locations/matlock",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Matlock"
+    },
+    {
+      "path": "/locations/matlock/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Matlock"
     }
   ],
   "orphanRecovery": {

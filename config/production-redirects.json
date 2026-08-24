@@ -8,7 +8,7 @@
     "protectedSourceForbidden": true,
     "selfCanonicalDestinationRequired": true
   },
-  "totalRedirects": 420,
+  "totalRedirects": 408,
   "redirects": [
     {
       "source": "/about",
@@ -585,72 +585,6 @@
       "destination": "/about-entire-facilities-management",
       "statusCode": 301,
       "reason": "Intent-matched: General legacy redirect to homepage"
-    },
-    {
-      "source": "/locations/birmingham",
-      "destination": "/locations",
-      "statusCode": 301,
-      "reason": "Consolidation of legacy nested location to location hub"
-    },
-    {
-      "source": "/locations/chesterfield",
-      "destination": "/locations",
-      "statusCode": 301,
-      "reason": "Consolidation of legacy nested location to location hub"
-    },
-    {
-      "source": "/locations/derby",
-      "destination": "/locations",
-      "statusCode": 301,
-      "reason": "Consolidation of legacy nested location to location hub"
-    },
-    {
-      "source": "/locations/leeds",
-      "destination": "/locations",
-      "statusCode": 301,
-      "reason": "Consolidation of legacy nested location to location hub"
-    },
-    {
-      "source": "/locations/leicester",
-      "destination": "/locations",
-      "statusCode": 301,
-      "reason": "Consolidation of legacy nested location to location hub"
-    },
-    {
-      "source": "/locations/lincoln",
-      "destination": "/locations",
-      "statusCode": 301,
-      "reason": "Consolidation of legacy nested location to location hub"
-    },
-    {
-      "source": "/locations/liverpool",
-      "destination": "/locations",
-      "statusCode": 301,
-      "reason": "Consolidation of legacy nested location to location hub"
-    },
-    {
-      "source": "/locations/london",
-      "destination": "/locations",
-      "statusCode": 301,
-      "reason": "Consolidation of legacy nested location to location hub"
-    },
-    {
-      "source": "/locations/manchester",
-      "destination": "/locations",
-      "statusCode": 301,
-      "reason": "Consolidation of legacy nested location to location hub"
-    },
-    {
-      "source": "/locations/nottingham",
-      "destination": "/locations",
-      "statusCode": 301,
-      "reason": "Consolidation of legacy nested location to location hub"
-    },
-    {
-      "source": "/locations/sheffield",
-      "destination": "/locations",
-      "statusCode": 301,
-      "reason": "Consolidation of legacy nested location to location hub"
     },
     {
       "source": "/marketplace",
@@ -2433,12 +2367,6 @@
       "destination": "/terms-and-conditions",
       "statusCode": 301,
       "reason": "Semantic intent consolidation into protected historic page"
-    },
-    {
-      "source": "/tools/compliance-checker",
-      "destination": "/tools/compliance-calendar",
-      "statusCode": 301,
-      "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
     },
     {
       "source": "/tools/cost-savings-calculator",

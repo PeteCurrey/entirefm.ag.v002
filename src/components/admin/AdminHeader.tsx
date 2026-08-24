@@ -3,7 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { UserSession } from '@/server/identity';
-import { Search, Plus, ExternalLink, Activity, Sparkles, Building2, Wrench, ShieldAlert } from 'lucide-react';
+import { Search, Plus, ExternalLink } from 'lucide-react';
+import { AnalyticsTopNavButton } from './AnalyticsTopNavButton';
+import { LeadInboxButton } from './LeadInboxButton';
+import { NotificationCentreDropdown } from './NotificationCentreDropdown';
 
 export function AdminHeader({ session }: { session: UserSession }) {
   const triggerCommandPalette = () => {
@@ -35,18 +38,27 @@ export function AdminHeader({ session }: { session: UserSession }) {
         </div>
       </div>
 
-      {/* Right Controls & Quick Actions */}
-      <div className="flex items-center gap-3">
+      {/* Right Controls, Analytics, Leads & Notifications */}
+      <div className="flex items-center gap-2 sm:gap-2.5">
+        {/* Real Website Analytics */}
+        <AnalyticsTopNavButton />
+
+        {/* Inbound Leads / Enquiry Inbox */}
+        <LeadInboxButton />
+
+        {/* Central Notification Centre */}
+        <NotificationCentreDropdown />
+
+        <div className="h-4 w-px bg-[#E4E4E1]" />
+
         {/* Quick Create Link */}
         <Link
           href="/admin/operations/work-orders"
-          className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#FF6B24] px-3 py-1.5 text-[12px] font-medium text-white shadow-[0_1px_2px_rgba(255,107,36,0.2)] hover:bg-[#E9540F] transition-all"
+          className="hidden sm:inline-flex items-center gap-1.5 rounded-[8px] bg-[#FF6B24] px-3 py-1.5 text-[12px] font-medium text-white shadow-[0_1px_2px_rgba(255,107,36,0.2)] hover:bg-[#E9540F] transition-all"
         >
           <Plus className="h-3.5 w-3.5" />
           <span>New Work Order</span>
         </Link>
-
-        <div className="h-4 w-px bg-[#E4E4E1]" />
 
         {/* Public Site Link */}
         <Link
@@ -54,8 +66,8 @@ export function AdminHeader({ session }: { session: UserSession }) {
           target="_blank"
           className="inline-flex items-center gap-1 text-[12px] font-medium text-[#686866] hover:text-[#101010] transition-colors"
         >
-          <span>Public Site</span>
-          <ExternalLink className="h-3 w-3 text-[#9B9B97]" />
+          <span className="hidden md:inline">Public Site</span>
+          <ExternalLink className="h-3.5 w-3.5 text-[#9B9B97]" />
         </Link>
 
         <div className="h-4 w-px bg-[#E4E4E1]" />

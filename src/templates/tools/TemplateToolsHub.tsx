@@ -39,6 +39,17 @@ interface ToolItem {
 
 const TOOLS_DATA: ToolItem[] = [
   {
+    title: 'FM Compliance Checker',
+    slug: '/tools/compliance-checker',
+    category: 'Compliance & Safety',
+    tag: 'Statutory Screening',
+    timeEstimate: '3 mins',
+    description: 'Screen your commercial estate across 10 statutory regimes including Fire, Electrical, Gas, Water Hygiene, and LOLER examinations.',
+    deliverables: ['10-discipline risk score', 'Statutory legal basis mapping', 'Downloadable PDF review report'],
+    icon: ShieldCheck,
+    relatedService: { label: 'Compliance Centre', href: '/compliance' },
+  },
+  {
     title: 'FM Building Health Check',
     slug: '/tools/fm-health-check',
     category: 'Compliance & Safety',

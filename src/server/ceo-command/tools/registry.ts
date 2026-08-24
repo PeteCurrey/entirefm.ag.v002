@@ -1,0 +1,373 @@
+/**
+ * ENTIREFM CEO COMMAND — CANONICAL TOOL REGISTRY (Phase 0I)
+ * ===========================================================
+ * All tools that CEO Command may invoke are explicitly registered here.
+ * CEO Command may only use approved tools from this registry.
+ * No arbitrary SQL, no unregistered database calls.
+ *
+ * Each tool definition specifies:
+ *   - required_permission: checked BEFORE execution
+ *   - authoritative_service: the canonical service function
+ *   - read_only: always true; CEO Command never mutates
+ */
+
+export interface CeoTool {
+  tool_id: string;
+  version: string;
+  domain: string;
+  description: string;
+  required_permission: string;
+  authoritative_service: string;
+  freshness_minutes?: number;
+  data_coverage?: string;
+  read_only: true;
+  license_note?: string;
+}
+
+export const CEO_TOOL_REGISTRY: CeoTool[] = [
+  // ─── OPERATIONS ─────────────────────────────────────────────
+  {
+    tool_id: 'ops.work_orders.list',
+    version: '1.0',
+    domain: 'OPERATIONS',
+    description: 'List open, unassigned, and backlog work orders',
+    required_permission: 'operations:read',
+    authoritative_service: 'server/work.listWorkOrders',
+    freshness_minutes: 5,
+    read_only: true,
+  },
+  {
+    tool_id: 'ops.sla.active_risks',
+    version: '1.0',
+    domain: 'OPERATIONS',
+    description: 'SLA risks and breaches: attendance and resolution',
+    required_permission: 'operations:read',
+    authoritative_service: 'server/work.listActiveSLARisks',
+    freshness_minutes: 5,
+    read_only: true,
+  },
+  {
+    tool_id: 'ops.sla.compute_status',
+    version: '1.0',
+    domain: 'OPERATIONS',
+    description: 'Compute canonical SLA status for a work order',
+    required_permission: 'operations:read',
+    authoritative_service: 'server/work.computeSlaStatus',
+    freshness_minutes: 1,
+    read_only: true,
+  },
+  // ─── CLIENTS ─────────────────────────────────────────────────
+  {
+    tool_id: 'clients.list',
+    version: '1.0',
+    domain: 'CLIENTS',
+    description: 'List all client accounts',
+    required_permission: 'estate:read',
+    authoritative_service: 'server/db.client_accounts',
+    freshness_minutes: 60,
+    read_only: true,
+  },
+  {
+    tool_id: 'clients.finance.profitability',
+    version: '1.0',
+    domain: 'FINANCE',
+    description: 'Client profitability: expected vs actual revenue, matched cost, margin, unbilled WIP, attribution coverage',
+    required_permission: 'finance:read',
+    authoritative_service: 'server/finance.listClientInvoices + finance.detectBillingLeakage',
+    freshness_minutes: 60,
+    data_coverage: 'Requires matched actual cost for accurate margin. Attribution coverage reported.',
+    read_only: true,
+  },
+  // ─── ESTATE ──────────────────────────────────────────────────
+  {
+    tool_id: 'estate.sites.list',
+    version: '1.0',
+    domain: 'ESTATE',
+    description: 'All managed sites with status',
+    required_permission: 'estate:read',
+    authoritative_service: 'server/db.sites',
+    freshness_minutes: 60,
+    read_only: true,
+  },
+  {
+    tool_id: 'estate.assets.list',
+    version: '1.0',
+    domain: 'ASSETS',
+    description: 'Asset register with site, category, status',
+    required_permission: 'estate:read',
+    authoritative_service: 'server/db.assets',
+    freshness_minutes: 60,
+    read_only: true,
+  },
+  {
+    tool_id: 'assets.reactive_cost',
+    version: '1.0',
+    domain: 'ASSETS',
+    description: 'Historical reactive cost and callout frequency per asset from canonical work order data',
+    required_permission: 'operations:read',
+    authoritative_service: 'server/work.listWorkOrders (filtered by asset)',
+    freshness_minutes: 60,
+    data_coverage: 'Historical data only. No predictive modelling in Phase 0I.',
+    read_only: true,
+  },
+  // ─── PPM ─────────────────────────────────────────────────────
+  {
+    tool_id: 'ppm.occurrences.due',
+    version: '1.0',
+    domain: 'PPM',
+    description: 'PPM occurrences due in the next N days from maintenance_occurrences table',
+    required_permission: 'ppm:manage',
+    authoritative_service: 'server/db.maintenance_occurrences',
+    freshness_minutes: 15,
+    data_coverage: 'Requires active PPM plans with generated occurrences.',
+    read_only: true,
+  },
+  {
+    tool_id: 'ppm.occurrences.overdue',
+    version: '1.0',
+    domain: 'PPM',
+    description: 'Overdue PPM occurrences past their scheduled date',
+    required_permission: 'ppm:manage',
+    authoritative_service: 'server/db.maintenance_occurrences',
+    freshness_minutes: 15,
+    read_only: true,
+  },
+  // ─── COMPLIANCE ──────────────────────────────────────────────
+  {
+    tool_id: 'compliance.obligations.list',
+    version: '1.0',
+    domain: 'COMPLIANCE',
+    description: 'All compliance obligations with status',
+    required_permission: 'compliance:read',
+    authoritative_service: 'server/compliance.listComplianceObligations',
+    freshness_minutes: 30,
+    read_only: true,
+  },
+  {
+    tool_id: 'compliance.obligations.overdue',
+    version: '1.0',
+    domain: 'COMPLIANCE',
+    description: 'Overdue compliance obligations by site and client',
+    required_permission: 'compliance:read',
+    authoritative_service: 'server/compliance.getOverdueObligations',
+    freshness_minutes: 30,
+    read_only: true,
+  },
+  {
+    tool_id: 'compliance.obligations.upcoming',
+    version: '1.0',
+    domain: 'COMPLIANCE',
+    description: 'Upcoming compliance obligations in next N days',
+    required_permission: 'compliance:read',
+    authoritative_service: 'server/compliance.getUpcomingObligations',
+    freshness_minutes: 30,
+    read_only: true,
+  },
+  {
+    tool_id: 'compliance.certificates.expiring',
+    version: '1.0',
+    domain: 'COMPLIANCE',
+    description: 'Expiring certificates within N days window',
+    required_permission: 'compliance:read',
+    authoritative_service: 'server/compliance.getExpiringCertificates',
+    freshness_minutes: 60,
+    read_only: true,
+  },
+  {
+    tool_id: 'compliance.exceptions.list',
+    version: '1.0',
+    domain: 'COMPLIANCE',
+    description: 'All compliance exceptions by severity and state',
+    required_permission: 'compliance:read',
+    authoritative_service: 'server/compliance.listComplianceExceptions',
+    freshness_minutes: 30,
+    read_only: true,
+  },
+  {
+    tool_id: 'compliance.kpis',
+    version: '1.0',
+    domain: 'COMPLIANCE',
+    description: 'Compliance KPI summary from Phase 0J canonical service',
+    required_permission: 'compliance:read',
+    authoritative_service: 'server/compliance.getComplianceKPIs',
+    freshness_minutes: 30,
+    read_only: true,
+  },
+  {
+    tool_id: 'compliance.audit.snapshot',
+    version: '1.0',
+    domain: 'COMPLIANCE',
+    description: 'Audit snapshot for a site: obligations, evidence, exceptions',
+    required_permission: 'compliance:audit_generate',
+    authoritative_service: 'server/compliance.generateAuditSnapshot',
+    freshness_minutes: 60,
+    read_only: true,
+  },
+  {
+    tool_id: 'compliance.sfg20',
+    version: '1.0',
+    domain: 'COMPLIANCE',
+    description: 'SFG20 maintenance schedules',
+    required_permission: 'compliance:read',
+    authoritative_service: 'LICENSE_REQUIRED',
+    license_note: 'SFG20 is a licensed standard published by the Building Engineering Services Association. Access requires an active SFG20 licence. EntireFM does not hold a platform licence; per-client licences may apply.',
+    read_only: true,
+  },
+  // ─── SUPPLY CHAIN ────────────────────────────────────────────
+  {
+    tool_id: 'supply_chain.providers.list',
+    version: '1.0',
+    domain: 'SUPPLY_CHAIN',
+    description: 'All registered provider organisations',
+    required_permission: 'supply_chain:read',
+    authoritative_service: 'server/supply-chain.listProviders',
+    freshness_minutes: 60,
+    read_only: true,
+  },
+  {
+    tool_id: 'supply_chain.providers.performance',
+    version: '1.0',
+    domain: 'SUPPLY_CHAIN',
+    description: 'Provider performance: acceptance, SLA, first-time fix, recalls, cost variance',
+    required_permission: 'supply_chain:read',
+    authoritative_service: 'server/supply-chain.listAllProviderPerformances',
+    freshness_minutes: 30,
+    data_coverage: 'Calculated from canonical work order and assignment data.',
+    read_only: true,
+  },
+  // ─── COMMERCIAL ──────────────────────────────────────────────
+  {
+    tool_id: 'commercial.quotes.list',
+    version: '1.0',
+    domain: 'COMMERCIAL',
+    description: 'Quote pipeline: draft, submitted, approved, rejected',
+    required_permission: 'commercial:read',
+    authoritative_service: 'server/db.quotes',
+    freshness_minutes: 30,
+    read_only: true,
+  },
+  // ─── FINANCE ─────────────────────────────────────────────────
+  {
+    tool_id: 'finance.kpi_summary',
+    version: '1.0',
+    domain: 'FINANCE',
+    description: 'Finance KPI summary: supplier invoice queue, billing ready, outstanding, exceptions',
+    required_permission: 'finance:read',
+    authoritative_service: 'server/finance.getFinanceKPISummary',
+    freshness_minutes: 30,
+    read_only: true,
+  },
+  {
+    tool_id: 'finance.billing_leakage',
+    version: '1.0',
+    domain: 'FINANCE',
+    description: 'Billing leakage: completed billable WOs with no billing record',
+    required_permission: 'finance:read',
+    authoritative_service: 'server/finance.detectBillingLeakage',
+    freshness_minutes: 30,
+    data_coverage: 'Based on completed/closed work_orders vs client_billing_records.',
+    read_only: true,
+  },
+  {
+    tool_id: 'finance.client_invoices',
+    version: '1.0',
+    domain: 'FINANCE',
+    description: 'Client invoices: status, payment, outstanding value',
+    required_permission: 'finance:read',
+    authoritative_service: 'server/finance.listClientInvoices',
+    freshness_minutes: 15,
+    read_only: true,
+  },
+  {
+    tool_id: 'finance.supplier_invoices',
+    version: '1.0',
+    domain: 'FINANCE',
+    description: 'Supplier invoices: processing status, match status',
+    required_permission: 'finance:read',
+    authoritative_service: 'server/finance.listSupplierInvoices',
+    freshness_minutes: 15,
+    read_only: true,
+  },
+  {
+    tool_id: 'finance.credit_notes',
+    version: '1.0',
+    domain: 'FINANCE',
+    description: 'Client and supplier credit notes',
+    required_permission: 'finance:read',
+    authoritative_service: 'server/finance.listCreditNotes',
+    freshness_minutes: 30,
+    read_only: true,
+  },
+  // ─── AI / AUTOMATION ─────────────────────────────────────────
+  {
+    tool_id: 'ai.agents',
+    version: '1.0',
+    domain: 'AI_AUTOMATION',
+    description: 'All registered AI agents with autonomy levels',
+    required_permission: 'ai:control',
+    authoritative_service: 'server/ai.listAIAgents',
+    freshness_minutes: 60,
+    read_only: true,
+  },
+  {
+    tool_id: 'ai.runs',
+    version: '1.0',
+    domain: 'AI_AUTOMATION',
+    description: 'Recent AI agent runs with status and token usage',
+    required_permission: 'ai:control',
+    authoritative_service: 'server/ai.listAIRuns',
+    freshness_minutes: 5,
+    read_only: true,
+  },
+  {
+    tool_id: 'ai.actions',
+    version: '1.0',
+    domain: 'AI_AUTOMATION',
+    description: 'Recent AI actions: pending, approved, rejected, executed, overridden',
+    required_permission: 'ai:control',
+    authoritative_service: 'server/ai.listAIActions',
+    freshness_minutes: 5,
+    read_only: true,
+  },
+  {
+    tool_id: 'ai.escalations',
+    version: '1.0',
+    domain: 'AI_AUTOMATION',
+    description: 'AI escalations pending human review',
+    required_permission: 'ai:control',
+    authoritative_service: 'server/ai.listAIEscalations',
+    freshness_minutes: 5,
+    read_only: true,
+  },
+  // ─── PLATFORM HEALTH ─────────────────────────────────────────
+  {
+    tool_id: 'platform.integrations',
+    version: '1.0',
+    domain: 'PLATFORM_HEALTH',
+    description: 'Integration connector states. Xero, QuickBooks, Sage, NetSuite are INTERFACE_ONLY until configured.',
+    required_permission: 'platform:admin',
+    authoritative_service: 'server/ceo-command.getPlatformIntegrations',
+    freshness_minutes: 30,
+    data_coverage: 'Connector state is authoritative; accounting connectors require explicit activation.',
+    read_only: true,
+  },
+  // ─── DATA PROVENANCE ──────────────────────────────────────────
+  {
+    tool_id: 'data.import_batches',
+    version: '1.0',
+    domain: 'DATA_PROVENANCE',
+    description: 'Import batch history: source system, external IDs, import timestamps',
+    required_permission: 'data_import:view',
+    authoritative_service: 'server/data-import.listImportBatches',
+    freshness_minutes: 15,
+    read_only: true,
+  },
+];
+
+export function getToolById(toolId: string): CeoTool | undefined {
+  return CEO_TOOL_REGISTRY.find(t => t.tool_id === toolId);
+}
+
+export function getToolsByDomain(domain: string): CeoTool[] {
+  return CEO_TOOL_REGISTRY.filter(t => t.domain === domain);
+}

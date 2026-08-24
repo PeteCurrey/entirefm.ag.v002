@@ -142,7 +142,12 @@ export type PermissionCode =
   | 'data_import:map'
   | 'data_import:commit'
   | 'data_import:rollback'
-  | 'data_import:admin';
+  | 'data_import:admin'
+  // CEO Command & Enterprise Intelligence (Phase 0I)
+  | 'enterprise_intelligence:view'
+  | 'enterprise_intelligence:executive'
+  | 'enterprise_intelligence:brief_generate'
+  | 'enterprise_intelligence:history_view';
 
 export interface Person {
   id: string;
@@ -244,6 +249,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'client:admin', 'contractor:admin',
     'platform:users_manage', 'platform:view_as', 'users:view', 'users:manage', 'audit:export',
     'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
+    'enterprise_intelligence:view', 'enterprise_intelligence:executive', 'enterprise_intelligence:brief_generate', 'enterprise_intelligence:history_view',
   ],
   CEO: [
     'command:access', 'command:ceo', 'operations:read', 'operations:write', 'operations:dispatch',
@@ -254,6 +260,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'finance:read', 'finance:write', 'finance:approve', 'finance:billing', 'finance:admin',
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'platform:admin', 'audit:read',
     'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
+    'enterprise_intelligence:view', 'enterprise_intelligence:executive', 'enterprise_intelligence:brief_generate', 'enterprise_intelligence:history_view',
   ],
   DIRECTOR: [
     'command:access', 'operations:read', 'operations:write', 'estate:read', 'ppm:manage',
@@ -261,6 +268,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'compliance:rule_view', 'compliance:audit_generate', 'supply_chain:read', 'commercial:read', 'commercial:write',
     'finance:read', 'finance:write', 'finance:approve', 'finance:billing',
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'audit:read',
+    'enterprise_intelligence:view', 'enterprise_intelligence:executive', 'enterprise_intelligence:brief_generate', 'enterprise_intelligence:history_view',
   ],
   OPERATIONS_MANAGER: [
     'command:access', 'operations:read', 'operations:write', 'operations:dispatch',
@@ -361,6 +369,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'finance:reporting', 'accounting:sync', 'finance:policy_admin', 'finance:admin',
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'platform:admin', 'audit:read',
     'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
+    'enterprise_intelligence:view', 'enterprise_intelligence:history_view',
   ],
   READ_ONLY: [
     'command:access', 'operations:read', 'estate:read', 'compliance:read', 'compliance:view',

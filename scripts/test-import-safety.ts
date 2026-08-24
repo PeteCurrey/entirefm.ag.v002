@@ -48,37 +48,61 @@ if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
   process.env.SUPABASE_SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR5cmtuYWh3bG9kc3B2emZrZHprIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NzQxODQ3OCwiZXhwIjoyMTAyOTk0NDc4fQ.yBVGBP0r4YRHwY1rBhsnZqO-n_alrhwTO-_VmTNfJjM';
 }
 
-const adminSession: UserSession = {
+const adminSession = {
   personId: '00000000-0000-0000-0000-000000000099',
   orgId: '00000000-0000-0000-0000-000000000001',
-  role: 'SUPER_ADMIN',
-  orgType: 'ENTIREFM',
-  effectivePermissions: ['data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin'],
-};
+  role: 'SUPER_ADMIN' as const,
+  orgType: 'ENTIREFM' as const,
+  permissions: ['data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin'],
+  scopes: [],
+  email: 'admin@entirefm.com',
+  name: 'Admin User',
+  orgName: 'EntireFM',
+  activeApplication: 'admin' as const,
+  expiresAt: Date.now() + 86400000,
+} as any as UserSession;
 
-const clientSession: UserSession = {
+const clientSession = {
   personId: '00000000-0000-0000-0000-000000000002',
   orgId: '00000000-0000-0000-0000-000000000002',
-  role: 'CLIENT_MANAGER',
-  orgType: 'CLIENT',
-  effectivePermissions: [],
-};
+  role: 'CLIENT_MANAGER' as const,
+  orgType: 'CLIENT' as const,
+  permissions: [],
+  scopes: [],
+  email: 'client@example.com',
+  name: 'Client User',
+  orgName: 'Test Client Ltd',
+  activeApplication: 'client' as const,
+  expiresAt: Date.now() + 86400000,
+} as any as UserSession;
 
-const contractorSession: UserSession = {
+const contractorSession = {
   personId: '00000000-0000-0000-0000-000000000003',
   orgId: '00000000-0000-0000-0000-000000000003',
-  role: 'CONTRACTOR_ADMIN',
-  orgType: 'CONTRACTOR',
-  effectivePermissions: [],
-};
+  role: 'CONTRACTOR_ADMIN' as const,
+  orgType: 'CONTRACTOR' as const,
+  permissions: [],
+  scopes: [],
+  email: 'contractor@example.com',
+  name: 'Contractor User',
+  orgName: 'Test Contractor Ltd',
+  activeApplication: 'contractor' as const,
+  expiresAt: Date.now() + 86400000,
+} as any as UserSession;
 
-const engineerSession: UserSession = {
+const engineerSession = {
   personId: '00000000-0000-0000-0000-000000000004',
   orgId: '00000000-0000-0000-0000-000000000003',
-  role: 'FIELD_ENGINEER',
-  orgType: 'CONTRACTOR',
-  effectivePermissions: [],
-};
+  role: 'FIELD_ENGINEER' as const,
+  orgType: 'CONTRACTOR' as const,
+  permissions: [],
+  scopes: [],
+  email: 'engineer@example.com',
+  name: 'Field Engineer',
+  orgName: 'Test Contractor Ltd',
+  activeApplication: 'engineer' as const,
+  expiresAt: Date.now() + 86400000,
+} as any as UserSession;
 
 let passed = 0;
 let failed = 0;
@@ -389,7 +413,7 @@ SIM-S601,SIM-C201,"Birmingham Hub","5 Colmore Row",Birmingham,B3 2BJ`;
       ) VALUES (
         'WO-SAFETY-001', $1, $2, 'Emergency Boiler Repair', 'Heating failure in main building', 'P1', 'OPEN', NOW(), NOW()
       ) RETURNING id
-    `, [ADMIN_ORG_ID, siteWOId]);
+    `, [adminSession.orgId, siteWOId]);
     const woId = woInsert.rows[0].id;
 
     // Attempt rollback of site batch

@@ -52,9 +52,10 @@ const NAV_GROUPS: NavGroup[] = [
     icon: Activity,
     items: [
       { name: 'Operations Control Centre', href: '/admin' },
-      { name: 'CEO Command', href: '/admin/command/ceo' },
-      { name: 'Alerts & Exceptions', href: '/admin/command/alerts' },
+      { name: 'CEO Command', href: '/admin/command' },
+      { name: 'Alerts & Exceptions', href: '/admin/command/alerts-exceptions' },
       { name: 'Approvals Gate', href: '/admin/command/approvals' },
+      { name: 'Query History', href: '/admin/command/history' },
     ],
   },
   {

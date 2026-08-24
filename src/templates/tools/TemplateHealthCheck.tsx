@@ -19,14 +19,15 @@ import {
   Wind,
   Layers,
   ArrowUpRight,
+  Sparkles,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { TrustBar } from '@/components/trust/TrustBar';
-import { ProposalSection } from '@/components/conversion/PhoneCTA';
-import { ToolHero } from '@/components/resources/ToolHero';
-import { ResultsConversionBridge } from '@/components/resources/ResultsConversionBridge';
+import { ToolShell } from '@/components/tools/ToolShell';
+import { WizardProgress } from '@/components/tools/WizardProgress';
+import { ExportToolbar } from '@/components/tools/ExportToolbar';
+import { ToolConversionCTA } from '@/components/tools/ToolConversionCTA';
+import { downloadPdfReport, PdfDocumentDefinition } from '@/lib/pdf/generator';
 import type { TemplateProps } from '../types';
 
 interface Question {
@@ -56,61 +57,37 @@ const QUESTIONS: Question[] = [
         points: 2,
       },
       {
-        label: 'Assessment Exists, Actions Open',
-        description: 'We have a written FRA on file, but action items have not been formally tracked or signed off.',
+        label: 'FRA Exists but Open Actions Remain',
+        description: 'An assessment was completed within 3 years, but several recommended improvements or remedial items remain open and unverified.',
         points: 1,
       },
       {
-        label: 'Outdated or Unsure',
-        description: 'Over 3 years old, major layout/occupancy changes have occurred, or no formal written assessment is easily accessible.',
-        points: 0,
-      },
-    ],
-  },
-  {
-    id: 'emergency-lighting',
-    category: 'Emergency Lighting',
-    question: 'How is emergency escape lighting tested and recorded?',
-    explanation: 'BS 5266-1 recommends monthly short functional tests and an annual full-duration discharge test (typically 3 hours) recorded in a dedicated logbook.',
-    statutoryBasis: 'BS 5266-1 / RRO 2005 Article 17',
-    options: [
-      {
-        label: 'Monthly & Annual Full Duration Logged',
-        description: 'Monthly flick tests and annual 3-hour discharge tests are performed by trained technicians with all battery failures rectified immediately.',
-        points: 2,
-      },
-      {
-        label: 'Monthly Only or Ad-Hoc',
-        description: 'Monthly inspections occur, but the full 3-hour discharge test is skipped or done irregularly without certification.',
-        points: 1,
-      },
-      {
-        label: 'No Formal Testing Schedule',
-        description: 'Testing is infrequent, unrecorded, or relies solely on self-test indicators without human review.',
+        label: 'Expired or No Written FRA on File',
+        description: 'No current written assessment available, the assessment exceeds 3 years, or major layout/occupancy alterations took place since.',
         points: 0,
       },
     ],
   },
   {
     id: 'electrical-eicr',
-    category: 'Electrical & Fixed Wire',
-    question: 'What is the status of your Electrical Installation Condition Report (EICR)?',
-    explanation: 'The Electricity at Work Regulations 1989 requires systems to be maintained to prevent danger. IET guidance suggests periodic inspection intervals of up to 5 years for commercial premises.',
+    category: 'Electrical Systems & EICR',
+    question: 'What is the certification status of your Fixed Electrical Installation (EICR)?',
+    explanation: 'BS 7671 (18th Edition) and the Electricity at Work Regulations 1989 require commercial electrical systems to be periodically inspected (typically 5-yearly or rolling 20% annual programme).',
     statutoryBasis: 'Electricity at Work Regs 1989 / BS 7671',
     options: [
       {
-        label: 'Valid Satisfactory EICR with Schedules',
-        description: 'Inspected within recommended interval (≤5 years) with a Satisfactory outcome and all C1/C2 defects rectified and signed off.',
+        label: 'Satisfactory EICR Within 5 Years',
+        description: 'Full electrical installation condition report on file, rated Satisfactory with zero unresolved C1 (Danger) or C2 (Potential Danger) codes.',
         points: 2,
       },
       {
-        label: 'EICR Exists with Open Observations',
-        description: 'An EICR was completed, but C2 (potentially dangerous) or C3 observations remain pending remedial electrical works.',
+        label: 'EICR on File but Open C2 Remedials',
+        description: 'An inspection report exists within 5 years, but reported C2 observations or distribution board labeling items have not been rectified.',
         points: 1,
       },
       {
-        label: 'Expired or No Full Certificate',
-        description: 'Older than 5 years, only summary page available, or no record of testing across distribution boards.',
+        label: 'Overdue / Unsatisfactory / Missing',
+        description: 'The last EICR exceeds 5 years, was certified Unsatisfactory, or comprehensive distribution board records cannot be located.',
         points: 0,
       },
     ],
@@ -118,33 +95,57 @@ const QUESTIONS: Question[] = [
   {
     id: 'water-hygiene',
     category: 'Water Hygiene & Legionella',
-    question: 'How is Legionella risk managed across your hot and cold water services?',
-    explanation: 'ACOP L8 and HSG274 require a written Legionella risk assessment, appointment of a Responsible Person, a written scheme of control, and temperature monitoring.',
-    statutoryBasis: 'ACOP L8 / HSG274 / COSHH 2002',
+    question: 'How is water hygiene and Legionella compliance managed and recorded?',
+    explanation: 'HSE Approved Code of Practice (ACOP) L8 requires a valid Legionella Risk Assessment and a documented written scheme of control, including sentinel temperature monitoring and tank inspections.',
+    statutoryBasis: 'HSE ACOP L8 / HSG274 / COSHH 2002',
     options: [
       {
-        label: 'Current Risk Assessment & Monthly Scheme',
-        description: 'Written scheme of control active, monthly sentinel temperature logs maintained, regular flushing of little-used outlets documented.',
+        label: 'Current LRA & Monthly Logged Monitoring',
+        description: 'Legionella Risk Assessment updated within 2 years; monthly sentinel temperatures logged in CAFM; annual tank inspections on file.',
         points: 2,
       },
       {
-        label: 'Assessment Done, Monitoring Irregular',
-        description: 'A risk assessment exists, but monthly temperature logs have gaps or little-used outlets are not flushed systematically.',
+        label: 'Risk Assessment Exists, Irregular Logging',
+        description: 'An LRA is on record, but monthly sentinel temperature checks and outlet flushing are not logged consistently every month.',
         points: 1,
       },
       {
-        label: 'No Formal Monitoring Scheme',
-        description: 'No active temperature log, unreviewed water system alterations, or unknown dead-leg status.',
+        label: 'No Current LRA or Monitoring Scheme',
+        description: 'No written Legionella assessment exists, records are older than 2 years without review, or cold water storage tanks are uninspected.',
         points: 0,
       },
     ],
   },
   {
-    id: 'gas-safety',
-    category: 'Commercial Gas & Heating',
-    question: 'How are commercial boilers, gas pipework and plantrooms maintained?',
-    explanation: 'Under Gas Safety (Installation & Use) Regs 1998 Reg 35, duty holders must maintain commercial gas fittings in a safe condition using Gas Safe registered commercial engineers.',
-    statutoryBasis: 'Gas Safety (Installation and Use) Regs 1998 Reg 35',
+    id: 'emergency-lighting',
+    category: 'Emergency Lighting',
+    question: 'What is the testing frequency for emergency escape lighting systems?',
+    explanation: 'BS 5266-1 specifies monthly functional flick tests and an annual full 3-hour battery discharge test, all recorded in a dedicated fire safety logbook.',
+    statutoryBasis: 'BS 5266-1 / RRO 2005 Article 17',
+    options: [
+      {
+        label: 'Monthly Flick + Annual 3-Hour Discharge Logged',
+        description: 'Monthly short duration checks and annual 3-hour battery duration tests are completed by competent engineers and recorded.',
+        points: 2,
+      },
+      {
+        label: 'Monthly Checks Done, Annual Test Overdue',
+        description: 'In-house monthly checks are maintained, but the annual 3-hour battery capacity test has not been executed within the last 12 months.',
+        points: 1,
+      },
+      {
+        label: 'No Formal Testing or Logbook Incomplete',
+        description: 'Emergency lighting is checked ad-hoc without formal logbook entries or duration test certificates.',
+        points: 0,
+      },
+    ],
+  },
+  {
+    id: 'commercial-gas',
+    category: 'Gas Safety & Plant',
+    question: 'Are commercial gas boilers and heating plant certified annually by Gas Safe engineers?',
+    explanation: 'The Gas Safety (Installation and Use) Regulations 1998 mandate that non-domestic gas appliances and flues must be maintained in a safe condition by registered Gas Safe engineers.',
+    statutoryBasis: 'Gas Safety (Installation and Use) Regs 1998',
     options: [
       {
         label: 'Annual Commercial Inspection & Service Records',
@@ -213,6 +214,11 @@ const QUESTIONS: Question[] = [
   },
 ];
 
+const WIZARD_STEPS = [
+  { id: 1, title: '01 Diagnostic', subtitle: '7 Engineering Disciplines' },
+  { id: 2, title: '02 Results', subtitle: 'Estate Health Score & Plan' },
+];
+
 export function TemplateHealthCheck({ route, content }: TemplateProps) {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -221,7 +227,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Resources', url: '/resources' },
-    { name: 'FM Tools', url: '/tools' },
+    { name: 'Interactive Tools', url: '/tools' },
     { name: 'FM Building Health Check', url: '/tools/fm-health-check' },
   ];
 
@@ -244,12 +250,6 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
     setCompleted(false);
   };
 
-  const handlePrint = () => {
-    if (typeof window !== 'undefined') {
-      window.print();
-    }
-  };
-
   // Calculate scores
   const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
   const maxScore = QUESTIONS.length * 2;
@@ -259,155 +259,140 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
   const reviewAreas = QUESTIONS.filter((q) => answers[q.id] === 1);
   const priorityGaps = QUESTIONS.filter((q) => answers[q.id] === 0);
 
+  const scorePercent = percentage;
+  const totalPoints = totalScore;
+  const maxPoints = maxScore;
+  const levelLabel = percentage >= 80 ? 'Low Risk / Robust Control' : percentage >= 50 ? 'Moderate Risk / Partial Actions' : 'Elevated Risk / Action Required';
+  const levelDescription = percentage >= 80
+    ? 'Your estate exhibits structured statutory maintenance practices with documented proof across core building services.'
+    : percentage >= 50
+    ? 'Core servicing is taking place, but key periodic certification and audit logs have observable compliance gaps.'
+    : 'Multiple statutory risk areas lack verifiable inspection certificates or structured maintenance schedules.';
+
   return (
-    <>
+    <div className="min-h-screen flex flex-col bg-[#080d1a]">
       <Header />
-      <main className="min-h-screen bg-brand-void text-white">
-        <ToolHero
+      <main id="main" className="flex-grow pt-20">
+        <ToolShell
           breadcrumbs={breadcrumbs}
-          eyebrow="Compliance Diagnostic Tool"
           title="FM Building Health Check"
-          description="A 3-minute operational diagnostic to assess your estate against UK statutory maintenance obligations, highlight potential documentation gaps, and prioritise preventative actions."
-          timeEstimate="~3 minutes"
-          deliverables={[
-            '7-area compliance gap analysis',
-            'Priority vs review vs strong categorisation',
-            'Per-category statutory basis references',
-            'Printable estate review report',
-          ]}
-          accent="emerald"
+          purpose="Evaluate your estate across 7 core building engineering and statutory maintenance baselines."
+          timeEstimate="3 min"
+          outputs={['PDF Diagnostic Report']}
           icon={Activity}
-        />
+        >
+          {/* Stepper */}
+          <WizardProgress
+            steps={WIZARD_STEPS}
+            currentStep={completed ? 1 : 0}
+            onSelectStep={(idx) => {
+              if (idx === 0 && completed) {
+                setCompleted(false);
+              }
+            }}
+          />
 
-        {/* Diagnostic App Section */}
-        <section className="py-16 bg-brand-carbon">
-          <div className="container-custom max-w-4xl">
+          <div className="max-w-4xl mx-auto space-y-8">
             {!completed ? (
-              <div className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 sm:p-10 shadow-elevated">
-                {/* Progress bar */}
-                <div className="mb-8">
-                  <div className="flex items-center justify-between text-xs text-brand-mist/60 mb-2">
-                    <span className="font-semibold uppercase tracking-wider text-brand-electric-bright">
-                      Question {currentStep + 1} of {QUESTIONS.length}
+              /* Diagnostic Questions View */
+              <div className="space-y-6">
+                <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-sm space-y-6">
+                  {/* Progress Header */}
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-slate-300 font-mono text-xs font-semibold">
+                        {currentQ.category}
+                      </span>
+                    </div>
+                    <span className="font-mono text-xs text-slate-400">
+                      Discipline <strong className="text-white">{currentStep + 1}</strong> of {QUESTIONS.length}
                     </span>
-                    <span>{Math.round(((currentStep + 1) / QUESTIONS.length) * 100)}% Complete</span>
                   </div>
-                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.08]">
-                    <div
-                      className="h-full bg-brand-electric-bright transition-all duration-300 ease-out"
-                      style={{ width: `${((currentStep + 1) / QUESTIONS.length) * 100}%` }}
-                    />
-                  </div>
-                </div>
 
-                {/* Question Details */}
-                <div className="mb-8">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-brand-mist/50">
-                      {currentQ.category}
-                    </span>
-                    <span className="text-white/20">·</span>
-                    <span className="text-[11px] font-mono text-brand-electric-bright">
-                      {currentQ.statutoryBasis}
-                    </span>
+                  {/* Question */}
+                  <div className="space-y-2">
+                    <h2 className="text-lg sm:text-xl font-bold text-white leading-snug">
+                      {currentQ.question}
+                    </h2>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      {currentQ.explanation}
+                    </p>
+                    <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-[10.5px] font-mono text-[#FF3E9D]">
+                      <span>Basis:</span> {currentQ.statutoryBasis}
+                    </div>
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white leading-snug">
-                    {currentQ.question}
-                  </h2>
-                  <p className="mt-3 text-xs sm:text-sm text-brand-mist/70 leading-relaxed">
-                    {currentQ.explanation}
-                  </p>
-                </div>
 
-                {/* Options */}
-                <div className="space-y-3.5">
-                  {currentQ.options.map((opt, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => handleSelectOption(opt.points)}
-                      className="group w-full text-left p-5 rounded-sm border border-brand-edge-dark bg-white/[0.02] hover:border-brand-electric/60 hover:bg-white/[0.06] transition-all duration-200"
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <p className="text-sm font-semibold text-white group-hover:text-brand-electric-bright transition-colors">
+                  {/* Options */}
+                  <div className="space-y-3 pt-2">
+                    {currentQ.options.map((opt, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => handleSelectOption(opt.points)}
+                        className="w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-800/60 hover:border-[#FF3E9D]/60 hover:ring-1 hover:ring-[#FF3E9D]/30 transition-all group flex items-start justify-between gap-4"
+                      >
+                        <div className="space-y-1 min-w-0">
+                          <div className="text-sm font-bold text-white group-hover:text-[#FF3E9D] transition-colors">
                             {opt.label}
-                          </p>
-                          <p className="mt-1 text-xs text-brand-mist/70 leading-relaxed">
+                          </div>
+                          <p className="text-xs text-slate-400 leading-relaxed">
                             {opt.description}
                           </p>
                         </div>
-                        <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/20 text-white/40 group-hover:border-brand-electric-bright group-hover:text-brand-electric-bright">
-                          <ArrowRight className="h-3 w-3" />
-                        </span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-
-                {/* Navigation Back */}
-                {currentStep > 0 && (
-                  <div className="mt-8 pt-4 border-t border-brand-edge-dark flex items-center justify-between">
-                    <button
-                      type="button"
-                      onClick={() => setCurrentStep(currentStep - 1)}
-                      className="inline-flex items-center gap-1.5 text-xs text-brand-mist/60 hover:text-white transition-colors"
-                    >
-                      <ArrowLeft className="h-3.5 w-3.5" />
-                      Previous Question
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleReset}
-                      className="text-xs text-brand-mist/40 hover:text-brand-mist transition-colors"
-                    >
-                      Reset diagnostic
-                    </button>
+                        <ArrowRight className="h-4 w-4 text-slate-600 group-hover:text-[#FF3E9D] shrink-0 mt-1 transition-colors" />
+                      </button>
+                    ))}
                   </div>
-                )}
+
+                  {/* Navigation Back */}
+                  {currentStep > 0 && (
+                    <div className="pt-2">
+                      <button
+                        type="button"
+                        onClick={() => setCurrentStep(currentStep - 1)}
+                        className="text-xs font-semibold text-slate-400 hover:text-white inline-flex items-center gap-1.5 transition-colors"
+                      >
+                        <ArrowLeft className="h-3.5 w-3.5" /> Previous Question
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             ) : (
-              /* Results Summary View */
+              /* Results Dashboard View */
               <div className="space-y-8">
-                <div className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 sm:p-10 shadow-elevated">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-brand-edge-dark pb-8">
+                <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
                     <div>
-                      <span className="eyebrow eyebrow-dark">Diagnostic Results</span>
-                      <h2 className="mt-1 text-2xl sm:text-3xl font-extrabold text-white">
+                      <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
+                        Diagnostic Assessment Complete
+                      </span>
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
                         Estate Health Summary
                       </h2>
-                      <p className="mt-1 text-xs text-brand-mist/60">
-                        Based on your answers across 7 core building engineering and safety disciplines.
+                      <p className="text-xs text-slate-400 mt-1">
+                        Evaluated across 7 core building engineering and statutory disciplines.
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      <button
-                        type="button"
-                        onClick={handlePrint}
-                        className="btn-ghost-light py-2 px-3 text-xs"
-                      >
-                        <Printer className="h-3.5 w-3.5" />
-                        Print / Save PDF
-                      </button>
+                    <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={handleReset}
-                        className="btn-ghost-light py-2 px-3 text-xs"
+                        className="px-3.5 py-2 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all inline-flex items-center gap-1.5"
                       >
-                        <RotateCcw className="h-3.5 w-3.5" />
-                        Restart
+                        <RotateCcw className="h-3.5 w-3.5" /> Restart
                       </button>
                     </div>
                   </div>
 
-                  {/* Compliance Score Banner */}
-                  <div className="my-6 p-6 rounded-sm bg-brand-carbon border border-brand-edge-dark flex flex-col sm:flex-row items-center justify-between gap-6">
+                  {/* Score Banner */}
+                  <div className="p-6 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6">
                     <div className="flex items-center gap-5">
                       <div className="relative flex items-center justify-center h-20 w-20 shrink-0">
                         <svg className="h-20 w-20 -rotate-90 transform" viewBox="0 0 36 36">
                           <path
-                            className="text-white/10"
+                            className="text-slate-800"
                             strokeWidth="3.5"
                             stroke="currentColor"
                             fill="none"
@@ -428,164 +413,168 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                         </span>
                       </div>
                       <div>
-                        <span className="text-[11px] font-semibold text-brand-mist/50 uppercase tracking-wider block">
-                          Overall Estate Compliance Readiness
+                        <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block font-mono">
+                          Overall Statutory Health Rating
                         </span>
-                        <p className="text-base sm:text-lg font-bold text-white mt-0.5">
-                          {percentage >= 80
-                            ? 'High Statutory Assurance Level'
-                            : percentage >= 50
-                            ? 'Moderate Assurance · Remedial Actions Required'
-                            : 'Elevated Statutory Risk · Urgent Gaps Identified'}
+                        <p className="text-lg font-bold text-white mt-0.5">
+                          {levelLabel}
                         </p>
-                        <p className="text-xs text-brand-mist/60 mt-1">
+                        <p className="text-xs text-slate-400 mt-0.5">
                           {totalScore} of {maxScore} available compliance points achieved.
                         </p>
                       </div>
                     </div>
                   </div>
 
-                  {/* Score breakdown metrics */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                    <div className="p-4 rounded-sm bg-brand-carbon border border-brand-edge-dark">
-                      <span className="text-[11px] font-semibold text-brand-mist/50 uppercase tracking-wider">
-                        Documented Strengths
+                  {/* Breakdown Cards */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-800/40">
+                      <span className="text-[10px] font-semibold font-mono text-emerald-400 uppercase tracking-wider">
+                        Documented Controls
                       </span>
-                      <p className="mt-2 text-2xl font-bold text-emerald-400">
+                      <p className="mt-1 text-2xl font-bold text-emerald-400 font-mono">
                         {strongAreas.length} Areas
                       </p>
-                      <p className="text-[11px] text-brand-mist/60 mt-1">
-                        Active maintenance & records on file
+                      <p className="text-[11px] text-emerald-300/70 mt-0.5">
+                        Active maintenance &amp; records on file
                       </p>
                     </div>
 
-                    <div className="p-4 rounded-sm bg-brand-carbon border border-brand-edge-dark">
-                      <span className="text-[11px] font-semibold text-brand-mist/50 uppercase tracking-wider">
+                    <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-800/40">
+                      <span className="text-[10px] font-semibold font-mono text-amber-400 uppercase tracking-wider">
                         Areas to Review
                       </span>
-                      <p className="mt-2 text-2xl font-bold text-amber-400">
+                      <p className="mt-1 text-2xl font-bold text-amber-400 font-mono">
                         {reviewAreas.length} Areas
                       </p>
-                      <p className="text-[11px] text-brand-mist/60 mt-1">
+                      <p className="text-[11px] text-amber-300/70 mt-0.5">
                         Partial testing or open remedial actions
                       </p>
                     </div>
 
-                    <div className="p-4 rounded-sm bg-brand-carbon border border-brand-edge-dark">
-                      <span className="text-[11px] font-semibold text-brand-mist/50 uppercase tracking-wider">
-                        Potential Gaps
+                    <div className="p-4 rounded-xl bg-rose-950/20 border border-rose-800/40">
+                      <span className="text-[10px] font-semibold font-mono text-rose-400 uppercase tracking-wider">
+                        Priority Gaps
                       </span>
-                      <p className="mt-2 text-2xl font-bold text-rose-400">
+                      <p className="mt-1 text-2xl font-bold text-rose-400 font-mono">
                         {priorityGaps.length} Areas
                       </p>
-                      <p className="text-[11px] text-brand-mist/60 mt-1">
-                        Immediate inspection or register update recommended
+                      <p className="text-[11px] text-rose-300/70 mt-0.5">
+                        Immediate inspection or register update required
                       </p>
                     </div>
                   </div>
 
-                  {/* Action items checklist */}
-                  <div className="space-y-6">
-                    {priorityGaps.length > 0 && (
-                      <div className="rounded-sm border border-rose-500/30 bg-rose-500/[0.03] p-5">
-                        <div className="flex items-center gap-2 mb-3">
-                          <AlertTriangle className="h-4 w-4 text-rose-400" />
-                          <h3 className="text-sm font-bold text-rose-200">
-                            Priority Review Items (Immediate Action Recommended)
-                          </h3>
-                        </div>
-                        <ul className="space-y-2.5 text-xs text-brand-mist/80">
-                          {priorityGaps.map((g) => (
-                            <li key={g.id} className="flex items-start justify-between gap-4 border-b border-rose-500/10 pb-2">
-                              <div>
-                                <span className="font-semibold text-white">{g.category}: </span>
-                                <span>No current records or overdue periodic testing. Verify with competent engineer.</span>
-                                <span className="block mt-0.5 font-mono text-[10px] text-rose-300/60">{g.statutoryBasis}</span>
-                              </div>
-                              <Link
-                                href="/compliance"
-                                className="text-brand-electric-bright hover:underline shrink-0 text-[11px] font-medium"
-                              >
-                                View Guidance →
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                  {/* Export Toolbar */}
+                  <ExportToolbar
+                    toolName="FM Building Health Check"
+                    onDownloadPdf={() => {
+                      const pdfDoc: PdfDocumentDefinition = {
+                        title: 'Building Compliance Health Check Diagnostic Report',
+                        subtitle: `Self-assessment diagnostic score and statutory action plan for estate management.`,
+                        documentRef: `EFM-HC-${Date.now().toString().slice(-6)}`,
+                        date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
+                        badgeText: 'Health Diagnostic Review',
+                        summaryStats: [
+                          { label: 'Overall Score', value: `${scorePercent}%`, detail: levelLabel },
+                          { label: 'Documented Areas', value: `${strongAreas.length} Regimes`, detail: 'Active Control' },
+                          { label: 'Review Required', value: `${reviewAreas.length} Regimes`, detail: 'Partial / Open Actions' },
+                          { label: 'Priority Gaps', value: `${priorityGaps.length} Regimes`, detail: 'Immediate Attention' },
+                        ],
+                        sections: [
+                          {
+                            type: 'cards',
+                            heading: '1. Executive Diagnostic Summary',
+                            items: [
+                              {
+                                title: levelLabel,
+                                subtitle: `Overall Health Score: ${scorePercent}% (${totalPoints}/${maxPoints} points)`,
+                                body: levelDescription,
+                              },
+                            ],
+                          },
+                          {
+                            type: 'table',
+                            heading: '2. Priority Remedial Actions & Review Items',
+                            columns: [
+                              { header: 'Discipline', widthPercent: 25 },
+                              { header: 'Status / Finding', widthPercent: 45 },
+                              { header: 'Statutory Basis', widthPercent: 30 },
+                            ],
+                            rows: [
+                              ...priorityGaps.map((g) => [
+                                `[PRIORITY GAP] ${g.category}`,
+                                'No current records or overdue periodic testing. Competent engineer review required.',
+                                g.statutoryBasis || 'Statutory Duty',
+                              ]),
+                              ...reviewAreas.map((r) => [
+                                `[REVIEW REQUIRED] ${r.category}`,
+                                'Assessment exists but remedial closeouts or full-duration testing need completion.',
+                                r.statutoryBasis || 'Industry Standard',
+                              ]),
+                            ],
+                          },
+                        ],
+                      };
+                      downloadPdfReport(pdfDoc);
+                    }}
+                    pdfLabel="Download Diagnostic PDF Report"
+                  />
+                </div>
 
-                    {reviewAreas.length > 0 && (
-                      <div className="rounded-sm border border-amber-500/30 bg-amber-500/[0.03] p-5">
-                        <div className="flex items-center gap-2 mb-3">
-                          <HelpCircle className="h-4 w-4 text-amber-400" />
-                          <h3 className="text-sm font-bold text-amber-200">
-                            Areas With Remedial Actions or Open Observations
-                          </h3>
-                        </div>
-                        <ul className="space-y-2.5 text-xs text-brand-mist/80">
-                          {reviewAreas.map((r) => (
-                            <li key={r.id} className="flex items-start justify-between gap-4 border-b border-amber-500/10 pb-2">
-                              <div>
-                                <span className="font-semibold text-white">{r.category}: </span>
-                                <span>Assessment exists but remedial closeouts or full-duration testing need completion.</span>
-                              </div>
-                              <Link
-                                href="/compliance"
-                                className="text-brand-electric-bright hover:underline shrink-0 text-[11px] font-medium"
-                              >
-                                View Guidance →
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                {/* Priority Review Checklist */}
+                <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
+                  <h3 className="text-lg font-bold text-white">
+                    Action Plan &amp; Guidance
+                  </h3>
 
-                    {strongAreas.length > 0 && (
-                      <div className="rounded-sm border border-emerald-500/30 bg-emerald-500/[0.03] p-5">
-                        <div className="flex items-center gap-2 mb-3">
-                          <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                          <h3 className="text-sm font-bold text-emerald-200">
-                            Documented Areas (Maintain Regular Schedule)
-                          </h3>
+                  <div className="space-y-4">
+                    {priorityGaps.map((g) => (
+                      <div key={g.id} className="p-4 rounded-xl border border-rose-800/50 bg-rose-950/20 border-l-4 border-l-rose-500 space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-sm text-white">{g.category}</span>
+                          <span className="text-[10px] font-mono text-rose-400">{g.statutoryBasis}</span>
                         </div>
-                        <ul className="space-y-1.5 text-xs text-brand-mist/80">
-                          {strongAreas.map((s) => (
-                            <li key={s.id} className="flex items-center gap-2">
-                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                              <span className="font-semibold text-white">{s.category}:</span> Routine testing and logged closeouts in place.
-                            </li>
-                          ))}
-                        </ul>
+                        <p className="text-xs text-slate-300">No current records or overdue periodic testing. Verify with competent engineer.</p>
                       </div>
-                    )}
-                  </div>
+                    ))}
 
-                  {/* Disclaimer */}
-                  <div className="mt-8 rounded-sm bg-white/[0.02] border border-brand-edge-dark p-4 text-[11px] leading-relaxed text-brand-mist/50">
-                    <p>
-                      <strong>Important Notice:</strong> This diagnostic tool is an indicative operational review based solely on your self-selected responses. It does not constitute formal legal advice, statutory inspection, or proof of compliance. Legal duty discharge requires formal surveys, asset verification, and physical inspection by competent persons.
-                    </p>
+                    {reviewAreas.map((r) => (
+                      <div key={r.id} className="p-4 rounded-xl border border-amber-800/50 bg-amber-950/20 border-l-4 border-l-amber-500 space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-sm text-white">{r.category}</span>
+                          <span className="text-[10px] font-mono text-amber-400">{r.statutoryBasis}</span>
+                        </div>
+                        <p className="text-xs text-slate-300">Assessment exists but remedial closeouts or full-duration testing need completion.</p>
+                      </div>
+                    ))}
+
+                    {strongAreas.map((s) => (
+                      <div key={s.id} className="p-4 rounded-xl border border-emerald-800/50 bg-emerald-950/20 border-l-4 border-l-emerald-500 space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-sm text-white">{s.category}</span>
+                          <span className="text-[10px] font-mono text-emerald-400">Compliant</span>
+                        </div>
+                        <p className="text-xs text-slate-400">Routine testing and logged closeouts in place.</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                {/* Conversion Bridge */}
-                <ResultsConversionBridge
-                  headline="Need a physical building compliance survey?"
-                  body="Our certified mobile engineers can survey your building services, compile an accurate asset register, and establish a verified PPM matrix based on actual installed equipment."
-                  ctaPrimary={{ label: 'Request an Asset Survey', href: '/contact-us' }}
-                  ctaSecondary={{ label: 'Call our engineering team', href: '/contact-us' }}
-                  accent="emerald"
+                {/* Conversion CTA */}
+                <ToolConversionCTA
+                  toolName="FM Building Health Check"
+                  heading="Need a physical on-site building compliance survey?"
+                  subheading="Our certified engineers survey building services, verify asset condition, and consolidate digital compliance logbooks across UK commercial estates."
+                  primaryActionLabel="Request an Asset Survey"
+                  primaryActionHref="/contact-us#enquiry"
                 />
               </div>
             )}
           </div>
-        </section>
-
-        <TrustBar />
-        <ProposalSection />
+        </ToolShell>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

@@ -118,6 +118,7 @@ export const PRIMARY_NAV: NavSection[] = [
       {
         heading: 'FM Tools',
         links: [
+          { label: 'FM Compliance Checker', href: '/tools/compliance-checker', detail: 'Statutory compliance screening across 10 UK regimes' },
           { label: 'FM Building Health Check', href: '/tools/fm-health-check', detail: 'Interactive estate compliance diagnostic' },
           { label: 'PPM Schedule Builder', href: '/tools/ppm-schedule-builder', detail: 'Asset-led planned maintenance matrix' },
           { label: 'PPM Cost Estimator', href: '/tools/ppm-estimator', detail: 'Indicative budget ranges by building scope' },

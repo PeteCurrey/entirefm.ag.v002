@@ -29,6 +29,7 @@ import { RESOURCES_CONTENT } from './resources/records';
 import { AI_RESOURCES_CONTENT } from './resources/ai-records';
 import { CLIENT_PORTAL_CONTENT } from './client-portal/records';
 import { WORKING_AT_HEIGHT_CONTENT } from './services/working-at-height';
+import { GEO_EXPANSION_CONTENT } from './locations/geo-expansion';
 
 export type { ContentRecord };
 
@@ -45,8 +46,8 @@ export const TIER1_CONTENT: Record<string, ContentRecord> = buildTier1Records(RE
 export const RECOVERED_CONTENT: Record<string, ContentRecord> = RECOVERED_PAGES;
 
 /**
- * Bespoke company pages, written from the legacy Wix copy the business
- * confirmed as accurate. Same precedence as the Tier 1 city records.
+ * Company, editorial, and utility content defined statically. These take
+ * precedence over the generated content records.
  */
 export const COMPANY_CONTENT: Record<string, ContentRecord> = {
   [aboutRecord.path]: aboutRecord,
@@ -68,6 +69,8 @@ export const COMPANY_CONTENT: Record<string, ContentRecord> = {
   ...CLIENT_PORTAL_CONTENT,
   // Working at Height, Rope Access & BMU Services
   ...WORKING_AT_HEIGHT_CONTENT,
+  // Geo SEO Expansion Phase 1: 21 Location Hubs & 21 Service Overviews
+  ...GEO_EXPANSION_CONTENT,
 };
 
 /** Paths currently served by bespoke Tier 1 content. */

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getLeadById } from '@/server/growth/store';
+import { LeadStatusActionBar } from '@/components/admin/growth/LeadStatusActionBar';
 import {
   Users,
   MapPin,
@@ -68,8 +69,14 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Column: Contact & Requirement Details */}
+        {/* Left Column: Actions & Contact & Requirement Details */}
         <div className="lg:col-span-5 space-y-6">
+          {/* Status & Action Bar */}
+          <LeadStatusActionBar
+            leadId={lead.enquiry_id || lead.id}
+            currentStatus={lead.qualification_status || 'NEW'}
+          />
+
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
             <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
               Prospect Details
@@ -109,7 +116,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
               </div>
               <div>
                 <span className="text-zinc-500 block text-[10px]">PROSPECT MESSAGE</span>
-                <p className="text-zinc-300 bg-zinc-950 p-3 rounded border border-zinc-800 leading-relaxed mt-1">
+                <p className="text-zinc-300 bg-zinc-950 p-3 rounded border border-zinc-800 leading-relaxed mt-1 whitespace-pre-wrap">
                   {lead.message}
                 </p>
               </div>

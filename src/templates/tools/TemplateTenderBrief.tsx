@@ -16,16 +16,22 @@ import {
   Square,
   ShieldCheck,
   Sparkles,
+  FileSpreadsheet,
+  Layers,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { TrustBar } from '@/components/trust/TrustBar';
-import { ProposalSection } from '@/components/conversion/PhoneCTA';
-import { ToolHero } from '@/components/resources/ToolHero';
-import { StepProgress } from '@/components/resources/StepProgress';
-import { ResultsConversionBridge } from '@/components/resources/ResultsConversionBridge';
+import { ToolShell } from '@/components/tools/ToolShell';
+import { WizardProgress } from '@/components/tools/WizardProgress';
+import { ExportToolbar } from '@/components/tools/ExportToolbar';
+import { ToolConversionCTA } from '@/components/tools/ToolConversionCTA';
+import { downloadPdfReport, PdfDocumentDefinition } from '@/lib/pdf/generator';
 import type { TemplateProps } from '../types';
+
+const WIZARD_STEPS = [
+  { id: 1, title: '01 Parameters', subtitle: 'Scope & SLA Specification' },
+  { id: 2, title: '02 Tender Document', subtitle: 'Interactive RFP Preview' },
+];
 
 export function TemplateTenderBrief({ route, content }: TemplateProps) {
   // Form State
@@ -54,8 +60,8 @@ export function TemplateTenderBrief({ route, content }: TemplateProps) {
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Resources', url: '/resources' },
-    { name: 'FM Tools', url: '/tools' },
-    { name: 'FM Tender Brief Generator', url: '/tools/tender-brief' },
+    { name: 'Interactive Tools', url: '/tools' },
+    { name: 'Tender Brief Generator', url: '/tools/tender-brief' },
   ];
 
   const ALL_SERVICE_OPTIONS = [
@@ -116,16 +122,11 @@ ${services.map((s, idx) => `${idx + 1}. **${s}**`).join('\n')}
 
 ## 5. COMMERCIAL OBJECTIVES & CURRENT PAIN POINTS
 * **Key Procurement Objectives:** Consolidated accountability, transparent fixed-schedule pricing, improved compliance auditing, and proactive lifecycle asset care.
-* **Identified Estate Challenges:** ${painPoints}
+* **Addressed Challenges:** ${painPoints}
 
 ---
-
-## 6. PROPOSAL SUBMISSION REQUIREMENTS
-Prospective tenderers should provide:
-1. Schedule of rates and annual fixed-fee PPM breakdown.
-2. Mobilisation methodology and asset onboarding timeline.
-3. Relevant commercial references across comparable property estates.
-4. Health & safety accreditations (SafeContractor, BESA, Gas Safe, NICEIC or equivalent).`;
+*Generated via EntireFM Intelligence Toolkit · Technical FM Procurement Framework*
+`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(tenderDocumentText);
@@ -133,284 +134,333 @@ Prospective tenderers should provide:
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleDownload = () => {
-    const element = document.createElement('a');
-    const file = new Blob([tenderDocumentText], { type: 'text/markdown;charset=utf-8' });
-    element.href = URL.createObjectURL(file);
-    element.download = `FM_Tender_Brief_${orgName.replace(/\s+/g, '_')}_2026.md`;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+  const handleDownloadMarkdown = () => {
+    const blob = new Blob([tenderDocumentText], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `FM_Tender_Brief_${orgName.replace(/[^a-zA-Z0-9]/g, '_')}.md`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
-  const handlePrint = () => {
-    if (typeof window !== 'undefined') {
-      window.print();
-    }
+  const handleDownloadPdf = () => {
+    const pdfDoc: PdfDocumentDefinition = {
+      title: 'Facilities Management Tender & RFP Specification Brief',
+      subtitle: `Procurement output specification and governance framework for ${orgName}.`,
+      documentRef: `EFM-RFP-${Date.now().toString().slice(-6)}`,
+      date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
+      organisationName: orgName,
+      badgeText: 'Procurement Specification',
+      summaryStats: [
+        { label: 'Client', value: orgName },
+        { label: 'Estate Scope', value: siteCount, detail: locations },
+        { label: 'Services', value: `${services.length} Lines` },
+        { label: 'Target Term', value: contractTerm },
+      ],
+      sections: [
+        {
+          type: 'cards',
+          heading: '1. Executive Procurement Summary',
+          items: [
+            {
+              title: 'Estate Profile & Commencement',
+              body: `Sector: ${sector} | Floor Area: ${totalSqFt} | Term: ${contractTerm} | Target Start: ${targetStartDate}`,
+            },
+            {
+              title: 'Primary Commercial Objectives',
+              body: painPoints,
+            },
+          ],
+        },
+        {
+          type: 'table',
+          heading: '2. Scope of Tendered Service Lines',
+          columns: [
+            { header: 'Item', widthPercent: 12, align: 'center' },
+            { header: 'Tendered Service Discipline', widthPercent: 88 },
+          ],
+          rows: services.map((s, idx) => [`0${idx + 1}`, s]),
+        },
+        {
+          type: 'cards',
+          heading: '3. Compliance Governance & SLA Targets',
+          items: [
+            {
+              title: 'Statutory Assurance Duty',
+              body: 'Contractor must maintain all mechanical, electrical, and life safety plant in full compliance with UK statutory requirements (RRO 2005, EAWR 1989, ACOP L8, LOLER 1998) with digital certificate upload inside 48 hours.',
+            },
+            {
+              title: 'Service Level Agreement (SLA)',
+              body: `Contractual response requirement: ${slaTarget}. 24/7/365 helpdesk dispatch and monthly KPI reviews.`,
+            },
+          ],
+        },
+      ],
+    };
+    downloadPdfReport(pdfDoc);
   };
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col bg-[#080d1a]">
       <Header />
-      <main className="min-h-screen bg-brand-void text-white">
-        <ToolHero
+      <main id="main" className="flex-grow pt-20">
+        <ToolShell
           breadcrumbs={breadcrumbs}
-          eyebrow="Procurement Specification Tool"
           title="FM Tender Brief Generator"
-          description="Generate a professional, structured Facilities Management tender brief and RFP specification to issue to prospective maintenance contractors."
-          timeEstimate="~4 minutes"
-          deliverables={[
-            'Structured 7-section FM RFP specification document',
-            'Full service scope definition and SLA framework',
-            'Statutory compliance & KPI governance clauses',
-            'Direct Markdown (.md) and text download',
-            'One-click clipboard copy for tender packs',
-          ]}
-          accent="amber"
+          purpose="Structure a comprehensive Facilities Management output specification and RFP brief ready for tender issuance."
+          timeEstimate="3–5 min"
+          outputs={['PDF Specification', 'Markdown Brief']}
           icon={FileText}
-        />
+        >
+          {/* Stepper */}
+          <WizardProgress
+            steps={WIZARD_STEPS}
+            currentStep={generated ? 1 : 0}
+            onSelectStep={(idx) => {
+              if (idx === 0 && generated) {
+                setGenerated(false);
+              }
+            }}
+          />
 
-        {/* Tender Form Section */}
-        <section className="py-14 bg-brand-carbon">
-          <div className="container-custom max-w-5xl">
+          <div className="max-w-6xl mx-auto space-y-8">
             {!generated ? (
-              <div className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 sm:p-10 space-y-8">
-                <div className="border-b border-brand-edge-dark pb-4">
-                  <h2 className="text-sm font-bold uppercase tracking-wider text-white">
-                    Step 1: Define Your Estate & Contract Requirements
+              /* Configuration Workspace */
+              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-sm space-y-8">
+                <div className="border-b border-slate-800 pb-4">
+                  <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
+                    01 Tender Requirements
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
+                    Contract Parameters &amp; Service Scope
                   </h2>
-                  <p className="text-xs text-brand-mist/60 mt-0.5">
-                    Fill out the key procurement parameters below to build your RFP specification.
+                  <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                    Define portfolio size, required FM disciplines, and service level targets to generate a tender specification document.
                   </p>
                 </div>
 
-                <div className="grid gap-6 sm:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-brand-mist/70 mb-2">
-                      Organisation / Client Name
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                      Client / Organisation Name
                     </label>
                     <input
                       type="text"
                       value={orgName}
                       onChange={(e) => setOrgName(e.target.value)}
-                      className="w-full h-10 rounded-sm border border-brand-edge-dark bg-brand-carbon px-3 text-xs text-white focus:border-brand-electric/80 focus:outline-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-brand-mist/70 mb-2">
-                      Estate / Sector Type
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                      Property Sector
                     </label>
                     <input
                       type="text"
                       value={sector}
                       onChange={(e) => setSector(e.target.value)}
-                      className="w-full h-10 rounded-sm border border-brand-edge-dark bg-brand-carbon px-3 text-xs text-white focus:border-brand-electric/80 focus:outline-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-brand-mist/70 mb-2">
-                      Number of Sites & Approximate Floor Area
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      <input
-                        type="text"
-                        value={siteCount}
-                        onChange={(e) => setSiteCount(e.target.value)}
-                        placeholder="e.g. 3 Sites"
-                        className="h-10 rounded-sm border border-brand-edge-dark bg-brand-carbon px-3 text-xs text-white focus:border-brand-electric/80 focus:outline-none"
-                      />
-                      <input
-                        type="text"
-                        value={totalSqFt}
-                        onChange={(e) => setTotalSqFt(e.target.value)}
-                        placeholder="e.g. 50,000 sq ft"
-                        className="h-10 rounded-sm border border-brand-edge-dark bg-brand-carbon px-3 text-xs text-white focus:border-brand-electric/80 focus:outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-brand-mist/70 mb-2">
-                      Geographic Locations / Regions
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                      Portfolio Sites &amp; Locations
                     </label>
                     <input
                       type="text"
                       value={locations}
                       onChange={(e) => setLocations(e.target.value)}
-                      className="w-full h-10 rounded-sm border border-brand-edge-dark bg-brand-carbon px-3 text-xs text-white focus:border-brand-electric/80 focus:outline-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-brand-mist/70 mb-2">
-                      Proposed Contract Term
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                      Approximate Total Floor Area
+                    </label>
+                    <input
+                      type="text"
+                      value={totalSqFt}
+                      onChange={(e) => setTotalSqFt(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                      Target Contract Duration
                     </label>
                     <input
                       type="text"
                       value={contractTerm}
                       onChange={(e) => setContractTerm(e.target.value)}
-                      className="w-full h-10 rounded-sm border border-brand-edge-dark bg-brand-carbon px-3 text-xs text-white focus:border-brand-electric/80 focus:outline-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-brand-mist/70 mb-2">
-                      Target Mobilisation / Start Window
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                      Target Commencement Date
                     </label>
                     <input
                       type="text"
                       value={targetStartDate}
                       onChange={(e) => setTargetStartDate(e.target.value)}
-                      className="w-full h-10 rounded-sm border border-brand-edge-dark bg-brand-carbon px-3 text-xs text-white focus:border-brand-electric/80 focus:outline-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
                     />
                   </div>
                 </div>
 
-                {/* Service scope selector */}
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-brand-mist/70 mb-3">
-                    Select Required Service Lines for Tender Scope ({services.length} selected)
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {/* Service Scope Selection */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                      Tendered Service Disciplines ({services.length} Selected)
+                    </label>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {ALL_SERVICE_OPTIONS.map((srv) => {
-                      const active = services.includes(srv);
+                      const isSelected = services.includes(srv);
                       return (
-                        <button
+                        <div
                           key={srv}
-                          type="button"
                           onClick={() => toggleService(srv)}
-                          className={`flex items-center gap-2.5 p-3 rounded-sm border text-xs text-left transition-all ${
-                            active
-                              ? 'border-brand-electric-bright bg-brand-electric/15 text-white font-medium'
-                              : 'border-brand-edge-dark bg-white/[0.02] text-brand-mist/50 hover:bg-white/[0.04]'
+                          className={`p-3 rounded-xl border text-xs font-semibold cursor-pointer flex items-center gap-2.5 transition-all ${
+                            isSelected
+                              ? 'border-[#FF3E9D] bg-[#FF3E9D]/10 text-white ring-1 ring-[#FF3E9D]/30'
+                              : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:border-slate-700'
                           }`}
                         >
-                          {active ? (
-                            <CheckSquare className="h-4 w-4 text-brand-electric-bright shrink-0" />
-                          ) : (
-                            <Square className="h-4 w-4 text-brand-mist/30 shrink-0" />
-                          )}
+                          <div
+                            className={`w-4 h-4 rounded flex items-center justify-center border shrink-0 ${
+                              isSelected ? 'bg-[#FF3E9D] border-[#FF3E9D] text-white' : 'border-slate-700 bg-slate-900'
+                            }`}
+                          >
+                            {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                          </div>
                           <span className="truncate">{srv}</span>
-                        </button>
+                        </div>
                       );
                     })}
                   </div>
                 </div>
 
-                {/* SLA and Pain Points */}
-                <div className="grid gap-6 sm:grid-cols-2">
+                {/* SLAs & Objectives */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-brand-mist/70 mb-2">
-                      Required SLA / Emergency Response
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                      SLA Response Target
                     </label>
                     <input
                       type="text"
                       value={slaTarget}
                       onChange={(e) => setSlaTarget(e.target.value)}
-                      className="w-full h-10 rounded-sm border border-brand-edge-dark bg-brand-carbon px-3 text-xs text-white focus:border-brand-electric/80 focus:outline-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
                     />
                   </div>
+
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-brand-mist/70 mb-2">
-                      Primary Challenges / Pain Points to Solve
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                      Primary Challenges to Rectify
                     </label>
                     <input
                       type="text"
                       value={painPoints}
                       onChange={(e) => setPainPoints(e.target.value)}
-                      className="w-full h-10 rounded-sm border border-brand-edge-dark bg-brand-carbon px-3 text-xs text-white focus:border-brand-electric/80 focus:outline-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
                     />
                   </div>
                 </div>
 
-                {/* Generate Button */}
-                <div className="pt-4 border-t border-brand-edge-dark flex justify-end">
+                <div className="flex items-center justify-between pt-6 border-t border-slate-800">
+                  <span className="text-xs text-slate-500 font-mono">
+                    Zero lead gating · Immediate document export.
+                  </span>
                   <button
                     type="button"
                     onClick={() => setGenerated(true)}
-                    className="btn-primary py-2.5 px-5 text-xs"
+                    className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-[#FF3E9D] to-[#D91B7D] text-white font-bold text-sm shadow-xl hover:opacity-95 transition-all"
                   >
-                    Generate Tender Brief
-                    <ArrowRight className="h-3.5 w-3.5 btn-arrow" />
+                    <Sparkles className="w-4 h-4" />
+                    <span>Generate Tender Brief</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
             ) : (
-              /* Generated Output View */
-              <div className="space-y-6">
-                <div className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 sm:p-8 shadow-elevated">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-brand-edge-dark pb-6 mb-6">
+              /* Generated Document Workspace Preview */
+              <div className="space-y-8">
+                <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
                     <div>
-                      <span className="eyebrow eyebrow-dark">Document Ready</span>
-                      <h2 className="mt-1 text-2xl font-bold text-white">
-                        FM Tender & RFP Specification
+                      <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
+                        Procurement Output Specification
+                      </span>
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
+                        {orgName} — FM Tender Brief
                       </h2>
-                      <p className="text-xs text-brand-mist/60 mt-0.5">
-                        Copy or download your formatted procurement brief below.
+                      <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                        Scope: <strong>{services.length} Service Lines</strong> · Portfolio: <strong>{siteCount}</strong> ({locations})
                       </p>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3">
-                      <button
-                        type="button"
-                        onClick={handleCopy}
-                        className="btn-primary py-2 px-3 text-xs"
-                      >
-                        {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-                        {copied ? 'Copied to Clipboard!' : 'Copy Markdown'}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleDownload}
-                        className="btn-ghost-light py-2 px-3 text-xs"
-                      >
-                        <Download className="h-3.5 w-3.5" />
-                        Download .MD
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handlePrint}
-                        className="btn-ghost-light py-2 px-3 text-xs"
-                      >
-                        <Printer className="h-3.5 w-3.5" />
-                        Print PDF
-                      </button>
+                    <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => setGenerated(false)}
-                        className="btn-ghost-light py-2 px-3 text-xs"
+                        className="px-3.5 py-2 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all"
                       >
-                        <RotateCcw className="h-3.5 w-3.5" />
-                        Edit Form
+                        ← Edit Parameters
                       </button>
                     </div>
                   </div>
 
-                  {/* Formatted Output Document */}
-                  <div className="p-6 sm:p-8 rounded-sm bg-brand-carbon border border-brand-edge-dark font-mono text-xs text-brand-mist/90 whitespace-pre-wrap leading-relaxed overflow-x-auto">
-                    {tenderDocumentText}
-                  </div>
+                  {/* Document Action Toolbar */}
+                  <ExportToolbar
+                    toolName="FM Tender Brief Generator"
+                    onDownloadPdf={handleDownloadPdf}
+                    onDownloadMarkdown={handleDownloadMarkdown}
+                    onCopyContent={handleCopy}
+                    isCopied={copied}
+                    pdfLabel="Download Specification (PDF)"
+                    markdownLabel="Download Markdown (.md)"
+                    copyLabel={copied ? 'Copied Specification!' : 'Copy to Clipboard'}
+                  />
                 </div>
 
-                {/* Conversion Bridge */}
-                <ResultsConversionBridge
-                  headline="Include EntireFM in your tender procurement?"
-                  body="Send this specification directly to our commercial estimating team for a transparent, asset-surveyed contract proposal based on your exact building profile."
-                  ctaPrimary={{ label: 'Submit RFP to EntireFM', href: '/contact-us' }}
-                  ctaSecondary={{ label: 'Speak to our procurement lead', href: '/contact-us' }}
-                  accent="amber"
+                {/* Professional Document Preview Shell */}
+                <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 sm:p-10 shadow-2xl space-y-6 font-mono text-xs sm:text-sm leading-relaxed text-slate-300 overflow-x-auto">
+                  <div className="border-b border-slate-800 pb-4 flex items-center justify-between">
+                    <span className="text-[11px] text-slate-500 uppercase tracking-widest font-bold">
+                      DOCUMENT PREVIEW // OUTPUT SPECIFICATION
+                    </span>
+                    <span className="text-[10px] text-[#FF3E9D] font-bold">
+                      VERIFIED EFM-RFP-SPEC
+                    </span>
+                  </div>
+                  <pre className="whitespace-pre-wrap font-sans text-xs sm:text-sm text-slate-200">
+                    {tenderDocumentText}
+                  </pre>
+                </div>
+
+                {/* Next Steps CTA */}
+                <ToolConversionCTA
+                  toolName="FM Tender Brief Generator"
+                  heading="Invite EntireFM to submit a tender proposal"
+                  subheading="EntireFM delivers consolidated national Hard & Soft FM contracts with fixed SLAs and real-time EntireCAFM compliance tracking."
+                  primaryActionLabel="Submit Tender Invitation"
+                  primaryActionHref="/contact-us#enquiry"
                 />
               </div>
             )}
           </div>
-        </section>
-
-        <TrustBar />
-        <ProposalSection />
+        </ToolShell>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
