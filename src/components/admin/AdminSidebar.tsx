@@ -303,19 +303,14 @@ export function AdminSidebar({ session }: { session: UserSession }) {
   return (
     <aside className="fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r border-[#E4E4E1] bg-[#FFFFFF] text-[#101010] select-none">
       {/* Brand Header */}
-      <div className="flex h-14 shrink-0 items-center justify-between border-b border-[#E4E4E1] px-4 bg-[#FFFFFF]">
-        <Link href="/admin" className="flex items-center gap-2.5 group min-w-0">
-          <div className="flex h-8 w-8 items-center justify-center rounded-[8px] bg-[#FFF7ED] border border-[#FED7AA] p-1 shadow-[0_1px_2px_rgba(255,107,36,0.12)] group-hover:border-[#FF6B24] transition-all shrink-0">
-            <CafmBrandMark className="h-full w-auto" />
-          </div>
+      <div className="flex h-14 shrink-0 items-center justify-between border-b border-[#E4E4E1] px-5 bg-[#FFFFFF]">
+        <Link href="/admin" className="flex items-center gap-3 group min-w-0">
+          <CafmBrandMark className="h-6 w-auto shrink-0 transition-transform duration-200 group-hover:scale-105" />
           <div className="flex items-center min-w-0">
-            <span className="text-[15px] font-light tracking-tight text-[#101010] truncate">
-              Entire<span className="font-semibold text-[#FF6B24]">FM</span>
+            <span className="text-[16px] font-light tracking-tight text-[#101010] truncate">
+              Entire<span className="font-semibold text-[#FF6B24]">CAFM</span>
             </span>
           </div>
-          <span className="rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#C2410C] font-semibold shrink-0">
-            CAFM
-          </span>
         </Link>
       </div>
 
