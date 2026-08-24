@@ -89,7 +89,7 @@ export function Footer() {
                     className="object-contain transition-transform duration-500 ease-brand group-hover:scale-105"
                   />
                 </span>
-                <span className="text-[19px] font-extrabold tracking-[-0.02em] text-white">
+                <span className="text-[19px] font-extrabold tracking-[0.08em] text-white">
                   Entire<span className="text-spectrum">FM</span>
                 </span>
               </Link>

@@ -1,77 +1,98 @@
+/**
+ * CONTRACTOR PORTAL LAYOUT — /contractor
+ * =======================================
+ * Dedicated contractor operating environment.
+ * Data boundary: ONLY work assigned to this contractor's ProviderOrganisation.
+ * A job at Site A does NOT grant general access to the Site A estate.
+ */
+import React from 'react';
 import type { Metadata } from 'next';
-import { redirect } from 'next/navigation';
-import { getCurrentSession } from '@/server/identity';
 import Link from 'next/link';
-import { LayoutDashboard, Briefcase, Calendar, Users, ShieldCheck, Receipt, MessageSquare, LogOut } from 'lucide-react';
+import { getCurrentSession } from '@/server/identity';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: 'Contractor Operations | EntireFM',
-  description: 'EntireFM Contractor Operating Portal',
+  title: { absolute: 'Contractor Portal — EntireFM' },
   robots: { index: false, follow: false, nocache: true },
 };
 
-export default async function ContractorLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const session = await getCurrentSession();
-  if (!session) redirect('/login');
+export const dynamic = 'force-dynamic';
 
-  const navItems = [
-    { href: '/contractor', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
-    { href: '/contractor/work', label: 'Work & Offers', icon: <Briefcase className="w-4 h-4" /> },
-    { href: '/contractor/schedule', label: 'Schedule', icon: <Calendar className="w-4 h-4" /> },
-    { href: '/contractor/engineers', label: 'Engineers', icon: <Users className="w-4 h-4" /> },
-    { href: '/contractor/compliance', label: 'Compliance', icon: <ShieldCheck className="w-4 h-4" /> },
-    { href: '/contractor/commercial', label: 'Commercial & POs', icon: <Receipt className="w-4 h-4" /> },
-    { href: '/contractor/messages', label: 'Messages', icon: <MessageSquare className="w-4 h-4" /> },
+export default async function ContractorLayout({ children }: { children: React.ReactNode }) {
+  const session = await getCurrentSession();
+
+  if (!session) {
+    redirect('/login?redirect=/contractor');
+  }
+
+  const isViewAs = !!session.viewAsContext?.isViewAs;
+  if (session.orgType !== 'CONTRACTOR' && !isViewAs) {
+    redirect('/login?error=forbidden_contractor');
+  }
+
+  const navLinks = [
+    { name: 'Dashboard', href: '/contractor' },
+    { name: 'Work', href: '/contractor/work' },
+    { name: 'Schedule', href: '/contractor/schedule' },
+    { name: 'Engineers', href: '/contractor/engineers' },
+    { name: 'Commercial', href: '/contractor/commercial' },
+    { name: 'Compliance', href: '/contractor/compliance' },
+    { name: 'Messages', href: '/contractor/messages' },
   ];
 
   return (
-    <div className="min-h-screen bg-brand-void text-white flex flex-col md:flex-row">
-      {/* Sidebar for Desktop */}
-      <aside className="w-full md:w-64 bg-brand-carbon border-r border-brand-edge-dark flex flex-col shrink-0">
-        <div className="p-4 border-b border-brand-edge-dark flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-brand-electric font-black text-sm tracking-widest">ENTIREFM</span>
-              <span className="bg-brand-edge-dark text-xs px-2 py-0.5 rounded text-brand-mist">PARTNER</span>
-            </div>
-            <p className="text-xs text-brand-mist truncate mt-1">
-              {session.name || 'Service Provider'}
-            </p>
+    <div className="min-h-screen bg-brand-void text-brand-mist selection:bg-brand-electric selection:text-white">
+      {/* Audited View-As Banner */}
+      {isViewAs && (
+        <div className="bg-amber-500/20 border-b border-amber-500/30 px-6 py-2 text-center text-[12px] font-mono text-amber-300">
+          ⚠️ AUDITED SUPPORT VIEW-AS: {session.orgName} · Operator: {session.viewAsContext?.operatorEmail}
+        </div>
+      )}
+
+      {/* Main Navigation */}
+      <header className="border-b border-brand-edge-dark bg-brand-carbon/90 backdrop-blur-md sticky top-0 z-20">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+          <div className="flex items-center gap-4">
+            <Link href="/contractor" className="flex items-center gap-2.5">
+              <span className="text-[16px] font-light tracking-tight text-white">
+                Entire<span className="font-semibold text-brand-electric">FM</span>
+              </span>
+              <span className="rounded border border-brand-edge-dark bg-brand-void/80 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-brand-mist/70">
+                Contractor
+              </span>
+            </Link>
+            <span className="rounded-full bg-brand-electric/10 border border-brand-electric/30 px-2.5 py-0.5 font-mono text-[11px] text-brand-electric-bright">
+              {session.orgName}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 text-[13px]">
+            <span className="hidden md:inline text-brand-mist/70">
+              {session.name} <span className="font-mono text-[11px] text-brand-mist/40">({session.role})</span>
+            </span>
+            <form action="/api/auth/logout" method="post">
+              <button type="submit" className="rounded border border-brand-edge-dark px-3 py-1 text-[12px] text-brand-mist hover:bg-brand-void hover:text-white transition-colors">
+                Sign Out
+              </button>
+            </form>
           </div>
         </div>
 
-        <nav className="p-3 space-y-1 flex-1 overflow-y-auto">
-          {navItems.map(item => (
+        {/* Secondary Nav */}
+        <div className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-6 py-2 border-t border-brand-edge-dark/40">
+          {navLinks.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-brand-mist hover:text-white hover:bg-brand-edge-dark/50 transition-colors"
+              className="rounded px-3 py-1.5 text-[12.5px] font-medium text-brand-mist/70 hover:bg-brand-void hover:text-white transition-colors whitespace-nowrap"
             >
-              {item.icon}
-              <span>{item.label}</span>
+              {item.name}
             </Link>
           ))}
-        </nav>
-
-        <div className="p-4 border-t border-brand-edge-dark">
-          <Link
-            href="/api/auth/sign-out"
-            className="flex items-center gap-2 text-xs text-brand-mist hover:text-red-400 transition-colors"
-          >
-            <LogOut className="w-3.5 h-3.5" />
-            <span>Sign Out</span>
-          </Link>
         </div>
-      </aside>
+      </header>
 
-      {/* Main Content Area */}
-      <main className="flex-1 p-6 md:p-8 overflow-y-auto max-w-7xl">
-        {children}
-      </main>
+      <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
     </div>
   );
 }

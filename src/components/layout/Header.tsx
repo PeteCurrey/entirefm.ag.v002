@@ -182,7 +182,7 @@ export function Header({ solid = false }: HeaderProps) {
               <BrandMark state={assembled ? 'solid' : 'wire'} className="block w-full" />
             </span>
             <span className="flex flex-col leading-none">
-              <span className="text-[19px] font-extrabold tracking-[-0.02em] text-white">
+              <span className="text-[19px] font-extrabold tracking-[0.08em] text-white">
                 Entire<span className="text-spectrum">FM</span>
               </span>
               <span className="mt-1 hidden text-[9px] font-medium tracking-[0.18em] text-brand-mist/45 2xl:block">

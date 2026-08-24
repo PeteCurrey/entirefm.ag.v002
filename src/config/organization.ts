@@ -15,10 +15,15 @@ export const ORGANIZATION_CONFIG = {
   legalName: 'Alkota Group Limited',
   brandName: 'EntireFM',
   tradingName: 'EntireFM (trading name of Alkota Group Limited)',
+  companyNumber: '13535215',
   tagline: 'Total Facilities Management & Specialist Engineering',
   foundingYear: 2009,
   canonicalDomain: 'https://www.entirefm.com',
   productionHost: 'www.entirefm.com',
+  sameAs: [
+    'https://www.linkedin.com/company/entirefm',
+    'https://find-and-update.company-information.service.gov.uk/company/13535215',
+  ],
 
   headquarters: {
     country: 'United Kingdom',

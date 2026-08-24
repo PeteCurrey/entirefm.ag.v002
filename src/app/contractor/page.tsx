@@ -1,103 +1,99 @@
-import { getCurrentSession } from '@/server/identity';
-import { getContractorDashboardMetrics, listContractorAssignments } from '@/server/supply-chain';
-import { redirect } from 'next/navigation';
+/**
+ * CONTRACTOR DASHBOARD — /contractor
+ * ====================================
+ * Shows only assigned work orders, active jobs, and engineers assigned to this contractor.
+ * Strict data boundary: queries are filtered by session.orgId (ProviderOrganisation).
+ * Site access is per-work-order, NOT estate-wide.
+ */
+import React from 'react';
 import Link from 'next/link';
-import { Inbox, Briefcase, Calendar, AlertCircle, ShieldAlert, CheckSquare, ArrowRight } from 'lucide-react';
-import EmptyState from '@/components/admin/EmptyState';
+import { getCurrentSession } from '@/server/identity';
+import { dbQuery } from '@/server/db/client';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ContractorDashboardPage() {
   const session = await getCurrentSession();
-  if (!session) redirect('/login');
+  if (!session) return null;
 
-  const orgId = session.orgId || session.personId;
-  const metrics = await getContractorDashboardMetrics(orgId, session);
-  const pendingOffers = await listContractorAssignments(orgId, 'OFFERED', session);
+  const [assignedWosRes, engineersRes, visitsRes] = await Promise.all([
+    // Work orders assigned to this contractor — NOT all work orders
+    dbQuery<any[]>(
+      `work_orders?assigned_provider_id=eq.${encodeURIComponent(session.orgId)}&status=not.in.(COMPLETED,CLOSED,CANCELLED)&select=id,work_order_number,title,priority,status,site:sites(name,site_code)&order=created_at.desc&limit=10`
+    ),
+    // Engineers registered under this contractor
+    dbQuery<any[]>(
+      `persons?provider_organisation_id=eq.${encodeURIComponent(session.orgId)}&is_field_engineer=eq.true&select=id,first_name,last_name,engineer_status&limit=10`
+    ),
+    // Visits scheduled today for this contractor's engineers
+    dbQuery<any[]>(
+      `visits?provider_organisation_id=eq.${encodeURIComponent(session.orgId)}&planned_start_date=gte.${new Date().toISOString().split('T')[0]}&select=id,planned_start_time,status,site:sites(name)&order=planned_start_time.asc&limit=10`
+    ),
+  ]);
 
-  const kpis = [
-    { label: 'Offers Awaiting Response', value: metrics.offersAwaitingResponse, icon: <Inbox className="w-5 h-5 text-amber-400" />, href: '/contractor/work' },
-    { label: 'Active Assignments', value: metrics.activeAssignments, icon: <Briefcase className="w-5 h-5 text-brand-electric" />, href: '/contractor/work' },
-    { label: 'Visits Today', value: metrics.visitsToday, icon: <Calendar className="w-5 h-5 text-green-400" />, href: '/contractor/schedule' },
-    { label: 'SLA At Risk', value: metrics.slaAtRisk, icon: <AlertCircle className="w-5 h-5 text-red-400" />, href: '/contractor/work' },
-    { label: 'Compliance Warnings', value: metrics.complianceWarnings, icon: <ShieldAlert className="w-5 h-5 text-amber-400" />, href: '/contractor/compliance' },
-    { label: 'Completions Pending Review', value: metrics.completionsPendingReview, icon: <CheckSquare className="w-5 h-5 text-purple-400" />, href: '/contractor/work' },
-  ];
+  const assignedWos = assignedWosRes.data || [];
+  const engineers = engineersRes.data || [];
+  const visits = visitsRes.data || [];
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">Partner Command Centre</h1>
-        <p className="text-brand-mist text-sm mt-1">Live dispatch, active jobs, resource allocation and compliance.</p>
+        <h1 className="text-2xl font-light text-white tracking-tight">
+          Contractor Overview — <span className="font-medium text-brand-electric-bright">{session.orgName}</span>
+        </h1>
+        <p className="mt-1 text-[13px] text-brand-mist/60">
+          Assigned work orders, field engineers, and today's site visits.
+        </p>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {kpis.map((kpi, idx) => (
-          <Link
-            key={idx}
-            href={kpi.href}
-            className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 hover:border-brand-edge transition-all block group"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-brand-mist">{kpi.label}</span>
-              {kpi.icon}
-            </div>
-            <div className="mt-3 flex items-baseline justify-between">
-              <span className="text-3xl font-extrabold text-white">{kpi.value}</span>
-              <span className="text-xs text-brand-mist group-hover:text-brand-electric flex items-center gap-1 transition-colors">
-                View <ArrowRight className="w-3 h-3" />
-              </span>
-            </div>
-          </Link>
-        ))}
+      {/* Metrics */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
+          <div className="font-mono text-[11px] uppercase tracking-wider text-brand-mist/50">Active Jobs</div>
+          <div className="mt-2 text-3xl font-light text-brand-electric-bright">{assignedWos.length}</div>
+          <div className="mt-1 text-[11.5px] text-brand-mist/40">Assigned work orders</div>
+        </div>
+        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
+          <div className="font-mono text-[11px] uppercase tracking-wider text-brand-mist/50">Field Engineers</div>
+          <div className="mt-2 text-3xl font-light text-emerald-400">{engineers.length}</div>
+          <div className="mt-1 text-[11.5px] text-brand-mist/40">Registered in your team</div>
+        </div>
+        <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
+          <div className="font-mono text-[11px] uppercase tracking-wider text-brand-mist/50">Visits Today</div>
+          <div className="mt-2 text-3xl font-light text-cyan-400">{visits.length}</div>
+          <div className="mt-1 text-[11.5px] text-brand-mist/40">Scheduled site attendances</div>
+        </div>
       </div>
 
-      {/* Pending Offers Stream */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white">Offers Requiring Response</h2>
-          <Link href="/contractor/work" className="text-xs text-brand-electric hover:underline">
-            View All Work →
+      {/* Assigned Work Orders */}
+      <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-6">
+        <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-4">
+          <h2 className="text-[15px] font-medium text-white">Active Work Orders</h2>
+          <Link href="/contractor/work" className="text-[12px] text-brand-electric hover:underline">
+            View All →
           </Link>
         </div>
-
-        {pendingOffers.length === 0 ? (
-          <EmptyState
-            title="No Pending Work Offers"
-            description="When EntireFM dispatches new jobs to your organisation, they will appear here for acceptance."
-            icon="Inbox"
-          />
-        ) : (
-          <div className="space-y-3">
-            {pendingOffers.slice(0, 5).map(offer => (
-              <div
-                key={offer.id}
-                className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4"
-              >
+        <div className="mt-4 divide-y divide-brand-edge-dark/30">
+          {assignedWos.length === 0 ? (
+            <div className="py-8 text-center text-[13px] text-brand-mist/40">
+              No active work orders assigned to your organisation.
+            </div>
+          ) : (
+            assignedWos.map((wo) => (
+              <div key={wo.id} className="py-3 flex items-center justify-between">
                 <div>
-                  <div className="flex items-center gap-2">
-                    <span className="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs px-2 py-0.5 rounded font-mono">
-                      OFFERED
-                    </span>
-                    <span className="text-white font-mono text-sm font-semibold">
-                      {offer.work_order_id ? `WO-${offer.work_order_id.slice(0, 8)}` : offer.id.slice(0, 8)}
-                    </span>
+                  <div className="text-[13.5px] font-medium text-white">{wo.title}</div>
+                  <div className="text-[11.5px] text-brand-mist/50 font-mono">
+                    {wo.work_order_number} · {wo.site?.name || 'Site TBC'} · Priority {wo.priority}
                   </div>
-                  <p className="text-sm text-brand-mist mt-1">
-                    Offered at {new Date(offer.created_at).toLocaleString('en-GB')}
-                  </p>
                 </div>
-                <Link
-                  href="/contractor/work"
-                  className="bg-brand-electric text-black px-4 py-2 rounded-lg text-sm font-bold text-center hover:bg-brand-electric-bright transition-colors"
-                >
-                  Review Offer
-                </Link>
+                <span className="rounded bg-brand-electric/10 border border-brand-electric/20 px-2 py-0.5 font-mono text-[10px] text-brand-electric-bright">
+                  {wo.status}
+                </span>
               </div>
-            ))}
-          </div>
-        )}
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

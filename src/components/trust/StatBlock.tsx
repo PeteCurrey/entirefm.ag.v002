@@ -96,19 +96,50 @@ const SECTORS = [
   { name: 'Education & public sector', note: 'Campus estates and vacation turnaround' },
 ];
 
+const VERIFIED_CLIENT_ROSTER = [
+  'Lambert Smith Hampton',
+  'NHS Estates',
+  'Greggs',
+  'Cushman & Wakefield',
+  'Costa Coffee',
+  'HSBC Commercial',
+  'Burger King',
+  'Moto Hospitality',
+  'NatWest Group',
+  'Balfour Beatty',
+  'Royal Enfield',
+];
+
 export function ClientLogoRail() {
   return (
     <section className="section-tight border-y border-brand-edge bg-brand-surface">
       <div className="container-custom">
-        <div className="mb-10 max-w-2xl" data-reveal>
-          <p className="eyebrow">Estate experience</p>
-          <h2 className="mt-5 text-display-sm text-brand-graphite">
-            Built around the estate, not around a standard package
-          </h2>
-          <p className="prose-brand mt-3">
-            The trades are broadly the same across sectors. What changes is the maintenance
-            window, the evidence required and the consequence of a failure.
+        <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4" data-reveal>
+          <div>
+            <p className="eyebrow">Proven client delivery</p>
+            <h2 className="mt-3 text-display-sm text-brand-graphite">
+              Trusted across UK commercial property &amp; national estates
+            </h2>
+          </div>
+          <p className="max-w-md text-xs text-brand-silver">
+            EntireFM coordinates planned maintenance, mechanical engineering, and compliance management for leading commercial occupiers and managing agents.
           </p>
+        </div>
+
+        {/* Verified Client Name Badges */}
+        <div className="flex flex-wrap items-center gap-2.5 mb-10" data-reveal>
+          {VERIFIED_CLIENT_ROSTER.map((client) => (
+            <span
+              key={client}
+              className="inline-flex items-center px-3.5 py-1.5 rounded-sm bg-white border border-brand-edge text-xs font-semibold text-brand-graphite shadow-sm"
+            >
+              {client}
+            </span>
+          ))}
+        </div>
+
+        <div className="mb-4 max-w-2xl" data-reveal>
+          <p className="eyebrow">Estate disciplines</p>
         </div>
 
         <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-brand-edge bg-brand-edge sm:grid-cols-2 lg:grid-cols-5">

@@ -773,3 +773,21 @@ export async function listActiveSLARisks(): Promise<WorkOrder[]> {
   );
   return data || [];
 }
+
+/**
+ * Generate canonical Service Request reference: EFM-SR-YYYY-NNNNNN
+ */
+export function generateServiceRequestReference(): string {
+  const year = new Date().getFullYear();
+  const rand = String(Math.floor(Math.random() * 900000) + 100000);
+  return `EFM-SR-${year}-${rand}`;
+}
+
+/**
+ * Generate canonical Work Order reference: EFM-WO-YYYY-NNNNNN
+ */
+export function generateWorkOrderNumber(): string {
+  const year = new Date().getFullYear();
+  const rand = String(Math.floor(Math.random() * 900000) + 100000);
+  return `EFM-WO-${year}-${rand}`;
+}

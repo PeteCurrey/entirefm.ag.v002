@@ -102,6 +102,7 @@ export function generateOrganizationSchema(): Node {
       },
     ],
     knowsAbout: [...ORGANIZATION_CONFIG.sectors],
+    sameAs: [...ORGANIZATION_CONFIG.sameAs],
   };
 
   const creds = accreditations();

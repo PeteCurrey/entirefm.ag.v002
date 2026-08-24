@@ -18,6 +18,7 @@ describe('EntireFM Unified Platform — Phase 0A Foundation Tests', () => {
     orgId: '22222222-2222-2222-2222-222222222222',
     orgName: 'EntireFM Headquarters',
     orgType: 'ENTIREFM',
+    activeApplication: 'ADMIN',
     permissions: getRolePermissions('CEO'),
     scopes: [{ type: 'ORGANISATION', id: '22222222-2222-2222-2222-222222222222' }],
     expiresAt: Date.now() + 1000 * 60 * 60,

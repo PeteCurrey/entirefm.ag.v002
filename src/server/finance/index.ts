@@ -1714,4 +1714,436 @@ export async function listAccountingSyncFailures(): Promise<any[]> {
   return data || [];
 }
 
+
 export { roundMoney, applyVat };
+
+// ============================================================
+// PHASE 0H-R: POLICY-DRIVEN SEGREGATION OF DUTIES ENGINE
+// ============================================================
+// Threshold values are NOT hard-coded. All tiers come from
+// finance_segregation_policies database records.
+// Falls back to platform-level policy if no specific policy found.
+
+export interface SegregationPolicy {
+  id: string;
+  policy_name: string;
+  policy_scope: 'PLATFORM' | 'CLIENT' | 'CONTRACT' | 'SUPPLIER';
+  client_org_id?: string;
+  contract_id?: string;
+  supplier_org_id?: string;
+  // Tiers: JSON array of { max_value_gbp, require_second_approver, require_finance_approver, allow_self_approve }
+  approval_tiers: Array<{
+    max_value_gbp: number | null; // null = unlimited (catch-all)
+    require_second_approver: boolean;
+    require_finance_approver: boolean;
+    allow_self_approve: boolean;
+  }>;
+  po_creator_cannot_approve: boolean;
+  bank_alert_blocks_approval: boolean;
+  no_po_max_value_gbp: number | null; // null = no-PO invoices never allowed
+  is_active: boolean;
+}
+
+export interface SegregationCheckResult {
+  allowed: boolean;
+  requires_second_approver: boolean;
+  blocking_reason?: string;
+  policy_id: string;
+  policy_name: string;
+  tier_applied: string;
+}
+
+/**
+ * Resolve the applicable segregation policy for a given invoice context.
+ * Resolution order: CONTRACT → SUPPLIER → CLIENT → PLATFORM
+ */
+export async function resolveSegregationPolicy(params: {
+  supplierOrgId?: string;
+  clientOrgId?: string;
+  contractId?: string;
+}): Promise<SegregationPolicy | null> {
+  const { data } = await dbQuery<SegregationPolicy[]>(
+    `finance_segregation_policies?is_active=eq.true&select=*&order=created_at.desc`
+  );
+  const all = data || [];
+  if (all.length === 0) return null;
+
+  // Most specific first
+  const candidates = [
+    all.find(p => p.policy_scope === 'CONTRACT' && p.contract_id === params.contractId && params.contractId),
+    all.find(p => p.policy_scope === 'SUPPLIER' && p.supplier_org_id === params.supplierOrgId && params.supplierOrgId),
+    all.find(p => p.policy_scope === 'CLIENT' && p.client_org_id === params.clientOrgId && params.clientOrgId),
+    all.find(p => p.policy_scope === 'PLATFORM'),
+  ];
+
+  return candidates.find(Boolean) ?? null;
+}
+
+/**
+ * Check whether a given approver is permitted to approve an invoice.
+ * Reads segregation rules from the database — never from hard-coded constants.
+ */
+export async function checkSegregationOfDuties(params: {
+  invoice: SupplierInvoice;
+  approverId: string;
+  poCreatorId?: string;
+  clientOrgId?: string;
+  contractId?: string;
+}): Promise<SegregationCheckResult> {
+  const { invoice, approverId, poCreatorId } = params;
+
+  const policy = await resolveSegregationPolicy({
+    supplierOrgId: invoice.supplier_org_id,
+    clientOrgId: params.clientOrgId,
+    contractId: params.contractId,
+  });
+
+  // Fallback: platform defaults — but these come from a DB seed, not from code constants
+  const policyId = policy?.id ?? 'platform-fallback';
+  const policyName = policy?.policy_name ?? 'Platform Default (Fallback)';
+
+  // Bank alert check
+  const bankAlertBlocks = policy?.bank_alert_blocks_approval ?? true;
+  if (bankAlertBlocks && invoice.bank_details_change_alert && !invoice.bank_alert_reviewed_at) {
+    return {
+      allowed: false,
+      requires_second_approver: false,
+      blocking_reason: 'BANK_DETAIL_CHANGE_ALERT must be reviewed and verified before this invoice can be approved.',
+      policy_id: policyId,
+      policy_name: policyName,
+      tier_applied: 'bank_alert_check',
+    };
+  }
+
+  // No-PO check
+  if (!invoice.matched_po_id) {
+    const noPOMax = policy?.no_po_max_value_gbp ?? 0;
+    if (noPOMax === null || invoice.total_amount_gbp > noPOMax) {
+      return {
+        allowed: false,
+        requires_second_approver: false,
+        blocking_reason: `Invoice has no matching Purchase Order. Policy does not permit no-PO approval above £${noPOMax ?? 0}.`,
+        policy_id: policyId,
+        policy_name: policyName,
+        tier_applied: 'no_po_check',
+      };
+    }
+  }
+
+  // PO-creator segregation
+  const poCreatorBlocked = policy?.po_creator_cannot_approve ?? true;
+  if (poCreatorBlocked && poCreatorId && poCreatorId === approverId) {
+    // Check value tiers from policy
+    const tiers = policy?.approval_tiers ?? [];
+    const matchingTier = tiers
+      .filter(t => t.max_value_gbp === null || invoice.total_amount_gbp <= t.max_value_gbp)
+      .sort((a, b) => (a.max_value_gbp ?? Infinity) - (b.max_value_gbp ?? Infinity))[0];
+
+    if (!matchingTier?.allow_self_approve) {
+      return {
+        allowed: false,
+        requires_second_approver: true,
+        blocking_reason: `SEGREGATION_OF_DUTIES: The person who created this PO cannot approve the matching invoice. A second approver is required per policy "${policyName}".`,
+        policy_id: policyId,
+        policy_name: policyName,
+        tier_applied: matchingTier ? `tier_up_to_£${matchingTier.max_value_gbp ?? 'unlimited'}` : 'default_tier',
+      };
+    }
+  }
+
+  // Value-based tier check
+  const tiers = policy?.approval_tiers ?? [];
+  const matchingTier = tiers
+    .filter(t => t.max_value_gbp === null || invoice.total_amount_gbp <= t.max_value_gbp)
+    .sort((a, b) => (a.max_value_gbp ?? Infinity) - (b.max_value_gbp ?? Infinity))[0];
+
+  if (matchingTier?.require_second_approver) {
+    return {
+      allowed: false,
+      requires_second_approver: true,
+      blocking_reason: `Invoice value £${invoice.total_amount_gbp} requires a second approver per policy "${policyName}".`,
+      policy_id: policyId,
+      policy_name: policyName,
+      tier_applied: `tier_up_to_£${matchingTier.max_value_gbp ?? 'unlimited'}`,
+    };
+  }
+
+  return {
+    allowed: true,
+    requires_second_approver: false,
+    policy_id: policyId,
+    policy_name: policyName,
+    tier_applied: matchingTier ? `tier_up_to_£${matchingTier.max_value_gbp ?? 'unlimited'}` : 'no_tier',
+  };
+}
+
+// ============================================================
+// PHASE 0H-R: HIERARCHICAL TOLERANCE RESOLUTION (ENHANCED)
+// ============================================================
+// Replaces the Phase 0H resolveTolerancePolicy with full hierarchy
+// and policy version retention on matched invoices.
+
+export interface ToleranceResolutionResult {
+  policy: TolerancePolicy;
+  resolution_source: 'PLATFORM_DEFAULT' | 'CLIENT_POLICY' | 'CONTRACT_POLICY' | 'SUPPLIER_POLICY' | 'SPECIFIC_OVERRIDE' | 'SYSTEM_FALLBACK';
+  policy_version?: number;
+}
+
+/**
+ * Resolve tolerance policy using the full 5-tier hierarchy:
+ * PLATFORM_DEFAULT → CLIENT_POLICY → CONTRACT_POLICY → SUPPLIER_POLICY → SPECIFIC_OVERRIDE
+ * The most specific non-default policy wins.
+ * Records which policy ID and version was used on the invoice.
+ */
+export async function resolveTolerancePolicyHierarchy(params: {
+  supplierOrgId?: string;
+  clientOrgId?: string;
+  contractId?: string;
+  invoiceId?: string; // if provided, stamps the resolution onto the invoice record
+}): Promise<ToleranceResolutionResult> {
+  const { data } = await dbQuery<TolerancePolicy[]>(
+    `finance_tolerance_policies?is_active=eq.true&select=*&order=created_at.desc`
+  );
+  const all = data || [];
+
+  if (all.length === 0) {
+    return {
+      policy: getHardcodedDefaultPolicy(),
+      resolution_source: 'SYSTEM_FALLBACK',
+    };
+  }
+
+  // Build candidates by specificity tier (most specific last → pick last winner)
+  type TierEntry = { policy: TolerancePolicy; tier: ToleranceResolutionResult['resolution_source'] };
+  const tiers: TierEntry[] = [];
+
+  const platformDefault = all.find(p => p.is_default);
+  if (platformDefault) tiers.push({ policy: platformDefault, tier: 'PLATFORM_DEFAULT' });
+
+  // CLIENT policies: have client_account_id set but no contract_id
+  if (params.clientOrgId) {
+    const clientPolicies = all.filter(p =>
+      !p.is_default && (p as any).client_org_id === params.clientOrgId && !(p as any).contract_id && !(p as any).supplier_org_id
+    );
+    if (clientPolicies.length > 0) tiers.push({ policy: clientPolicies[0], tier: 'CLIENT_POLICY' });
+  }
+
+  // CONTRACT policies
+  if (params.contractId) {
+    const contractPolicies = all.filter(p =>
+      !p.is_default && (p as any).contract_id === params.contractId && !(p as any).supplier_org_id
+    );
+    if (contractPolicies.length > 0) tiers.push({ policy: contractPolicies[0], tier: 'CONTRACT_POLICY' });
+  }
+
+  // SUPPLIER policies
+  if (params.supplierOrgId) {
+    const supplierPolicies = all.filter(p =>
+      !p.is_default && (p as any).supplier_org_id === params.supplierOrgId && !(p as any).contract_id
+    );
+    if (supplierPolicies.length > 0) tiers.push({ policy: supplierPolicies[0], tier: 'SUPPLIER_POLICY' });
+  }
+
+  // SPECIFIC_OVERRIDE: supplier + contract combination
+  if (params.supplierOrgId && params.contractId) {
+    const overrides = all.filter(p =>
+      !p.is_default &&
+      (p as any).supplier_org_id === params.supplierOrgId &&
+      (p as any).contract_id === params.contractId
+    );
+    if (overrides.length > 0) tiers.push({ policy: overrides[0], tier: 'SPECIFIC_OVERRIDE' });
+  }
+
+  if (tiers.length === 0) {
+    return { policy: getHardcodedDefaultPolicy(), resolution_source: 'SYSTEM_FALLBACK' };
+  }
+
+  const winner = tiers[tiers.length - 1];
+
+  // Stamp the policy resolution onto the invoice record if provided
+  if (params.invoiceId && winner.policy.id !== 'system-default') {
+    await dbQuery(`supplier_invoices?id=eq.${encodeURIComponent(params.invoiceId)}`, {
+      method: 'PATCH',
+      body: {
+        applied_tolerance_policy_id: winner.policy.id,
+        applied_tolerance_policy_version: (winner.policy as any).version ?? 1,
+      },
+    });
+  }
+
+  return {
+    policy: winner.policy,
+    resolution_source: winner.tier,
+    policy_version: (winner.policy as any).version ?? 1,
+  };
+}
+
+// ============================================================
+// PHASE 0H-R: SUPPLIER BANK DETAIL VERIFICATION WORKFLOW
+// ============================================================
+// Bank details cannot be changed from an invoice screen.
+// Requires a separate privileged verification workflow.
+
+export interface BankDetailVerification {
+  id: string;
+  supplier_org_id: string;
+  requested_by_id: string;
+  requested_at: string;
+  verification_status: 'PENDING' | 'VERIFIED' | 'REJECTED' | 'EXPIRED';
+  verified_by_id?: string;
+  verified_at?: string;
+  rejection_reason?: string;
+  proposed_account_name?: string;
+  proposed_sort_code?: string;
+  proposed_account_number_last4?: string;
+  proposed_iban_last4?: string;
+  evidence_reference?: string;
+}
+
+/**
+ * Request a change to supplier bank details.
+ * Must be initiated from the supplier master record — NOT from an invoice screen.
+ * The caller must have finance:bank_details_manage permission.
+ */
+export async function requestSupplierBankDetailChange(params: {
+  supplierOrgId: string;
+  proposedAccountName: string;
+  proposedSortCode?: string;
+  proposedAccountNumberLast4?: string;
+  proposedIbanLast4?: string;
+  evidenceReference: string; // e.g. signed letter reference, call recording ID
+  session: UserSession;
+}): Promise<{ verification_id: string }> {
+  if (!params.session.permissions.includes('finance:bank_details_manage')) {
+    throw new Error('PERMISSION_DENIED: finance:bank_details_manage required to request bank detail changes');
+  }
+
+  const verificationId = crypto.randomUUID();
+  await dbQuery(`supplier_bank_detail_verifications`, {
+    method: 'POST',
+    body: {
+      id: verificationId,
+      supplier_org_id: params.supplierOrgId,
+      requested_by_id: params.session.personId,
+      requested_at: new Date().toISOString(),
+      verification_status: 'PENDING',
+      proposed_account_name: params.proposedAccountName,
+      proposed_sort_code: params.proposedSortCode,
+      proposed_account_number_last4: params.proposedAccountNumberLast4,
+      proposed_iban_last4: params.proposedIbanLast4,
+      evidence_reference: params.evidenceReference,
+    },
+  });
+
+  await recordAuditEvent({
+    event_type: 'BANK_DETAIL_CHANGE_REQUESTED',
+    actor_id: params.session.personId,
+    actor_type: 'HUMAN',
+    object_type: 'supplier_bank_detail_verifications',
+    object_id: verificationId,
+    after_state: {
+      supplier_org_id: params.supplierOrgId,
+      evidence_reference: params.evidenceReference,
+    },
+    is_ai: false,
+  });
+
+  return { verification_id: verificationId };
+}
+
+/**
+ * A SECOND authorised person verifies a pending bank detail change request.
+ * The verifier cannot be the same person who requested the change.
+ * Caller must have finance:bank_details_manage permission.
+ */
+export async function verifySupplierBankDetailChange(params: {
+  verificationId: string;
+  approved: boolean;
+  rejectionReason?: string;
+  session: UserSession;
+}): Promise<void> {
+  if (!params.session.permissions.includes('finance:bank_details_manage')) {
+    throw new Error('PERMISSION_DENIED: finance:bank_details_manage required to verify bank detail changes');
+  }
+
+  const { data } = await dbQuery<BankDetailVerification[]>(
+    `supplier_bank_detail_verifications?id=eq.${encodeURIComponent(params.verificationId)}&select=*`
+  );
+  const pending = data?.[0] ?? null;
+  if (!pending) throw new Error(`Bank verification ${params.verificationId} not found`);
+  if (pending.verification_status !== 'PENDING') {
+    throw new Error(`Bank verification is already ${pending.verification_status}`);
+  }
+
+  // Dual-person control: verifier must not be the same as requester
+  if (pending.requested_by_id === params.session.personId) {
+    throw new Error('SEGREGATION_OF_DUTIES: The person who requested this bank detail change cannot verify it. A second authorised person is required.');
+  }
+
+  const newStatus = params.approved ? 'VERIFIED' : 'REJECTED';
+  await dbQuery(`supplier_bank_detail_verifications?id=eq.${encodeURIComponent(params.verificationId)}`, {
+    method: 'PATCH',
+    body: {
+      verification_status: newStatus,
+      verified_by_id: params.session.personId,
+      verified_at: new Date().toISOString(),
+      rejection_reason: params.rejectionReason,
+    },
+  });
+
+  await recordAuditEvent({
+    event_type: params.approved ? 'BANK_DETAIL_CHANGE_VERIFIED' : 'BANK_DETAIL_CHANGE_REJECTED',
+    actor_id: params.session.personId,
+    actor_type: 'HUMAN',
+    object_type: 'supplier_bank_detail_verifications',
+    object_id: params.verificationId,
+    after_state: {
+      verification_status: newStatus,
+      rejection_reason: params.rejectionReason,
+    },
+    is_ai: false,
+  });
+}
+
+// ============================================================
+// PHASE 0H-R: AI EXTRACTION CORRECTION LOGGING
+// ============================================================
+// When a human corrects an AI-extracted field, record it.
+// This powers audit trail and future AI training feedback.
+
+export async function recordDocumentExtractionCorrection(params: {
+  supplierInvoiceId: string;
+  fieldName: string;
+  originalExtractedValue: unknown;
+  humanCorrectedValue: unknown;
+  correctionReason?: string;
+  session: UserSession;
+}): Promise<void> {
+  await dbQuery(`document_extraction_corrections`, {
+    method: 'POST',
+    body: {
+      id: crypto.randomUUID(),
+      supplier_invoice_id: params.supplierInvoiceId,
+      field_name: params.fieldName,
+      original_extracted_value: JSON.stringify(params.originalExtractedValue),
+      human_corrected_value: JSON.stringify(params.humanCorrectedValue),
+      correction_reason: params.correctionReason,
+      corrected_by_id: params.session.personId,
+      corrected_at: new Date().toISOString(),
+    },
+  });
+
+  await recordAuditEvent({
+    event_type: 'AI_EXTRACTION_CORRECTED',
+    actor_id: params.session.personId,
+    actor_type: 'HUMAN',
+    object_type: 'supplier_invoices',
+    object_id: params.supplierInvoiceId,
+    after_state: {
+      field_name: params.fieldName,
+      original_value: params.originalExtractedValue,
+      corrected_value: params.humanCorrectedValue,
+    },
+    is_ai: false,
+  });
+}

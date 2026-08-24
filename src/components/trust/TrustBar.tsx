@@ -80,19 +80,18 @@ export function AccreditationRail() {
       <div className="container-custom relative py-14">
         <div className="mb-9 flex flex-col gap-3 md:flex-row md:items-end md:justify-between" data-reveal>
           <div>
-            <p className="eyebrow eyebrow-dark">Operational governance</p>
+            <p className="eyebrow eyebrow-dark">Operational compliance</p>
             <h2 className="mt-4 text-display-sm text-white">
-              How compliance is actually managed
+              Contractor compliance &amp; trade standards
             </h2>
           </div>
-          <p className="max-w-sm text-[13px] leading-relaxed text-brand-mist/50">
-            Structured preventative maintenance with a digital audit record behind every
-            completed task.
+          <p className="max-w-md text-[13px] leading-relaxed text-brand-mist/50">
+            Specialist trade works delivered exclusively by certified, accredited contractor partners across gas, electrical, and HVAC.
           </p>
         </div>
 
         {verified.length > 0 ? (
-          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {verified.map((acc, i) => (
               <li
                 key={acc.id}
@@ -103,9 +102,12 @@ export function AccreditationRail() {
                 <div>
                   <span className="eyebrow eyebrow-dark">{acc.category}</span>
                   <span className="mt-2 block text-[13px] font-semibold text-white">{acc.claim}</span>
+                  {acc.approvedWording && (
+                    <p className="mt-1 text-[11.5px] text-brand-mist/50 leading-snug">{acc.approvedWording}</p>
+                  )}
                 </div>
-                <span className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-brand-electric-bright">
-                  <CheckCircle2 className="h-3 w-3" /> Verified
+                <span className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
+                  <CheckCircle2 className="h-3 w-3" /> Compliance Standard
                 </span>
               </li>
             ))}

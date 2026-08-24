@@ -2,7 +2,7 @@
  * UNIFIED AUTHENTICATION API — /api/auth/login
  * ============================================
  * Authenticates user credentials and establishes an HTTP-only HMAC session cookie.
- * Supports role-aware routing.
+ * Supports multi-context users and role-aware routing.
  */
 
 import { NextResponse } from 'next/server';
@@ -13,6 +13,8 @@ import {
   getRolePermissions,
   RoleCode,
   OrgType,
+  ApplicationPortal,
+  UserContextSummary,
 } from '@/server/identity';
 import { dbQuery } from '@/server/db/client';
 
@@ -27,7 +29,7 @@ export async function POST(request: Request) {
     const password = String(body.get('password') || '').trim();
     const legacyAdminPass = process.env.ADMIN_PASSWORD || '';
 
-    // Check if submitting legacy single admin password
+    // Legacy single admin password
     if (legacyAdminPass && (emailOrUsername === legacyAdminPass || password === legacyAdminPass)) {
       const session = {
         personId: '00000000-0000-0000-0000-000000000001',
@@ -37,9 +39,10 @@ export async function POST(request: Request) {
         orgId: '00000000-0000-0000-0000-000000000000',
         orgName: 'EntireFM Internal Operations',
         orgType: 'ENTIREFM' as OrgType,
+        activeApplication: 'ADMIN' as ApplicationPortal,
         permissions: getRolePermissions('CEO'),
         scopes: [{ type: 'ORGANISATION' as const, id: '00000000-0000-0000-0000-000000000000' }],
-        expiresAt: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days
+        expiresAt: Date.now() + 1000 * 60 * 60 * 24 * 7,
       };
 
       const token = createSessionToken(session);
@@ -52,7 +55,6 @@ export async function POST(request: Request) {
         path: '/',
         maxAge: 60 * 60 * 24 * 7,
       });
-      // Also set legacy cookie for compatibility
       response.cookies.set('efm_admin', token, {
         httpOnly: true,
         sameSite: 'lax',
@@ -64,17 +66,18 @@ export async function POST(request: Request) {
       return response;
     }
 
-    // Default bootstrap account for initial setup if no database user created yet
+    // Default bootstrap account
     if (emailOrUsername.toLowerCase() === 'admin@entirefm.com' && (password === 'EntireFM2026!' || !legacyAdminPass)) {
       const session = {
         personId: '00000000-0000-0000-0000-000000000001',
         email: 'admin@entirefm.com',
         name: 'EntireFM Administrator',
-        role: 'ADMINISTRATOR' as RoleCode,
+        role: 'SUPER_ADMIN' as RoleCode,
         orgId: '00000000-0000-0000-0000-000000000000',
         orgName: 'EntireFM Headquarters',
         orgType: 'ENTIREFM' as OrgType,
-        permissions: getRolePermissions('ADMINISTRATOR'),
+        activeApplication: 'ADMIN' as ApplicationPortal,
+        permissions: getRolePermissions('SUPER_ADMIN'),
         scopes: [{ type: 'ORGANISATION' as const, id: '00000000-0000-0000-0000-000000000000' }],
         expiresAt: Date.now() + 1000 * 60 * 60 * 24 * 7,
       };
@@ -92,22 +95,52 @@ export async function POST(request: Request) {
       return response;
     }
 
-    // Try database identity lookup
+    // Database identity lookup
     const { data: identities } = await dbQuery<any[]>(
       `user_identities?email=eq.${encodeURIComponent(emailOrUsername)}&select=*,person:persons(*,memberships:organisation_memberships(*,role:roles(*),organisation:organisations(*),scopes:membership_scopes(*)))`
     );
 
     if (identities && identities.length > 0) {
       const user = identities[0];
-      const membership = user.person?.memberships?.[0];
-      const roleCode = (membership?.role?.code || 'HELPDESK') as RoleCode;
-      const orgType = (membership?.organisation?.org_type || 'ENTIREFM') as OrgType;
-      const orgName = membership?.organisation?.name || 'EntireFM';
-      const orgId = membership?.organisation_id || '00000000-0000-0000-0000-000000000000';
-      const scopes = (membership?.scopes || []).map((s: any) => ({
+      const allMemberships = (user.person?.memberships || []).filter((m: any) => m.status === 'ACTIVE');
+
+      if (allMemberships.length === 0) {
+        return NextResponse.redirect(new URL('/login?error=no_active_membership', request.url), { status: 303 });
+      }
+
+      // Build context list
+      const availableContexts: UserContextSummary[] = allMemberships.map((m: any) => {
+        const rCode = (m.role?.code || 'HELPDESK_USER') as RoleCode;
+        const oType = (m.organisation?.org_type || 'ENTIREFM') as OrgType;
+        let portal: ApplicationPortal = 'ADMIN';
+        if (rCode === 'ENGINEER' || rCode === 'CONTRACTOR_ENGINEER') portal = 'ENGINEER';
+        else if (oType === 'CLIENT') portal = 'CLIENT';
+        else if (oType === 'CONTRACTOR') portal = 'CONTRACTOR';
+        return {
+          membershipId: m.id,
+          orgId: m.organisation_id,
+          orgName: m.organisation?.name || 'Organisation',
+          orgType: oType,
+          role: rCode,
+          portal,
+        };
+      });
+
+      // Default to primary membership
+      const primary = allMemberships[0];
+      const roleCode = (primary.role?.code || 'HELPDESK_USER') as RoleCode;
+      const orgType = (primary.organisation?.org_type || 'ENTIREFM') as OrgType;
+      const orgName = primary.organisation?.name || 'EntireFM';
+      const orgId = primary.organisation_id || '00000000-0000-0000-0000-000000000000';
+      const scopes = (primary.scopes || []).map((s: any) => ({
         type: s.scope_type,
         id: s.scope_id,
       }));
+
+      let activeApplication: ApplicationPortal = 'ADMIN';
+      if (roleCode === 'ENGINEER' || roleCode === 'CONTRACTOR_ENGINEER') activeApplication = 'ENGINEER';
+      else if (orgType === 'CLIENT') activeApplication = 'CLIENT';
+      else if (orgType === 'CONTRACTOR') activeApplication = 'CONTRACTOR';
 
       const session = {
         personId: user.person_id,
@@ -117,12 +150,28 @@ export async function POST(request: Request) {
         orgId,
         orgName,
         orgType,
+        activeApplication,
         permissions: getRolePermissions(roleCode),
         scopes,
+        availableContexts,
         expiresAt: Date.now() + 1000 * 60 * 60 * 24 * 7,
       };
 
       const token = createSessionToken(session);
+
+      // If user has multiple contexts, allow context selection if requested
+      if (availableContexts.length > 1 && body.get('select_context') === 'true') {
+        const response = NextResponse.redirect(new URL('/login?select_context=1', request.url), { status: 303 });
+        response.cookies.set(AUTH_COOKIE_NAME, token, {
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+          path: '/',
+          maxAge: 60 * 60 * 24 * 7,
+        });
+        return response;
+      }
+
       const destination = getPostLoginRedirect(roleCode, orgType);
       const response = NextResponse.redirect(new URL(destination, request.url), { status: 303 });
       
@@ -136,9 +185,8 @@ export async function POST(request: Request) {
       return response;
     }
 
-    // Delayed invalid response
-    await new Promise((r) => setTimeout(r, 600));
-    return NextResponse.redirect(new URL('/login?error=1', request.url), { status: 303 });
+    await new Promise((r) => setTimeout(r, 400));
+    return NextResponse.redirect(new URL('/login?error=invalid_credentials', request.url), { status: 303 });
   } catch (err) {
     console.error('Login error:', err);
     return NextResponse.redirect(new URL('/login?error=server', request.url), { status: 303 });

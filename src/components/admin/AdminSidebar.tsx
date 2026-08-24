@@ -227,10 +227,11 @@ const NAV_GROUPS: NavGroup[] = [
   },
   {
     title: 'PLATFORM',
+    permission: 'platform:admin',
     items: [
       { name: 'Users', href: '/admin/platform/users' },
+      { name: 'Access & Permissions', href: '/admin/platform/access' },
       { name: 'Organisations', href: '/admin/platform/organisations' },
-      { name: 'Roles & Permissions', href: '/admin/platform/permissions' },
       { name: 'Integrations', href: '/admin/platform/integrations' },
       { name: 'API & Webhooks', href: '/admin/platform/webhooks' },
       { name: 'Import / Export', href: '/admin/platform/migration' },
@@ -268,7 +269,12 @@ export function AdminSidebar({ session }: { session: UserSession }) {
       {/* Navigation List */}
       <div className="flex-1 overflow-y-auto px-3 py-4 scrollbar-thin scrollbar-thumb-brand-edge-dark">
         <div className="space-y-6">
-          {NAV_GROUPS.map((group) => {
+          {NAV_GROUPS.filter((group) => {
+            // If the group has a required permission, hide it when the session lacks it
+            if (!group.permission) return true;
+            const perms = session.permissions as string[];
+            return perms.includes(group.permission) || session.role === 'SUPER_ADMIN' || session.role === 'CEO';
+          }).map((group) => {
             const isCollapsed = collapsedGroups[group.title];
 
             return (
