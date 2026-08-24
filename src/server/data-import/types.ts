@@ -135,6 +135,11 @@ export interface DataImportRow {
   status: DataImportRowStatus;
   target_entity_id?: string;
   external_id?: string;
+  matched_entity_id?: string;
+  match_reason?: string;
+  change_diff?: ImportFieldDiff[];
+  conflict_details?: ImportConflictDetail[];
+  pre_import_snapshot?: Record<string, any>;
   error_messages: string[];
   warning_messages: string[];
   created_at: string;
@@ -177,6 +182,10 @@ export interface DataImportPreviewSummary {
   validRows: number;
   errorRows: number;
   duplicateRows: number;
+  unchangedRows: number;
+  changeDetectedRows: number;
+  possibleDuplicateRows: number;
+  conflictRows: number;
   newRows: number;
   matchedExistingRows: number;
   blockedRows: number;
@@ -188,6 +197,7 @@ export interface DataImportPreviewSummary {
     displayName: string;
     details: string;
     issues: string[];
+    changeDiff?: ImportFieldDiff[];
   }>;
 }
 
@@ -197,9 +207,12 @@ export interface DataImportCommitResult {
   batchReference: string;
   importedCount: number;
   skippedCount: number;
+  updatedCount: number;
+  blockedCount: number;
   errorCount: number;
   createdEntityIds: string[];
   updatedEntityIds: string[];
+  blockedRows: Array<{ rowIndex: number; reason: string }>;
   errors: string[];
 }
 
@@ -210,6 +223,7 @@ export interface DataImportRollbackResult {
   rolledBackCount: number;
   blockedCount: number;
   reasons: string[];
+  blockedReasons: Array<{ entityId: string; entityType: string; reason: string }>;
 }
 
 export interface DataStatusSummary {
