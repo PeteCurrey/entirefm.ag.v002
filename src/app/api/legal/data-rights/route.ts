@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
       received_at: record.received_at,
       statutory_due_date: record.statutory_due_date,
       notice: `Your ${rightTypeLabel(record.right_type)} has been formally recorded under reference ${reference}. We will acknowledge receipt and complete your request within the statutory 1-month period. Our Data Protection Officer will contact you at ${email} if we require further information or identity verification.`,
-      escalation: 'If you remain dissatisfied with how we have handled your request, you may lodge a complaint with the Information Commissioner's Office (ICO) at ico.org.uk or on 0303 123 1113.',
+      escalation: "If you remain dissatisfied with how we have handled your request, you may lodge a complaint with the Information Commissioner's Office (ICO) at ico.org.uk or on 0303 123 1113.",
     });
   } catch (err: any) {
     console.error('[DATA_RIGHTS_API_ERROR]', err);

@@ -267,3 +267,28 @@ export function getLegalClaim(claimId: string): LegalClaimEntry | null {
 export function getClaimsByStatus(status: ClaimVerificationStatus): LegalClaimEntry[] {
   return LEGAL_CLAIM_REGISTRY.filter((c) => c.status === status);
 }
+
+/**
+ * Export alias for admin console
+ */
+export const CENTRAL_CLAIMS_REGISTRY = LEGAL_CLAIM_REGISTRY;
+
+/**
+ * Compute counts by verification status
+ */
+export function getClaimStatusCount(): Record<ClaimVerificationStatus | 'total', number> {
+  const counts: Record<string, number> = {
+    VERIFIED: 0,
+    APPROVED_BUSINESS_POLICY: 0,
+    CONFIG_REQUIRED: 0,
+    NOT_PUBLIC: 0,
+    LEGAL_REVIEW_REQUIRED: 0,
+    total: LEGAL_CLAIM_REGISTRY.length,
+  };
+
+  for (const claim of LEGAL_CLAIM_REGISTRY) {
+    counts[claim.status] = (counts[claim.status] || 0) + 1;
+  }
+
+  return counts as Record<ClaimVerificationStatus | 'total', number>;
+}
