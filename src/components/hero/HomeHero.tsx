@@ -154,17 +154,20 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
               className="object-cover object-center"
             />
           )}
-          {/* Video fades in over the poster once it can play. */}
+          {/* Video element plays the London aerial background seamlessly */}
           <video
             ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-brand"
-            style={{ opacity: videoReady ? 1 : 0 }}
+            src={videoSrc}
+            autoPlay
             muted
             loop
             playsInline
-            preload="none"
+            preload="auto"
             aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-brand"
+            style={{ opacity: videoReady ? 1 : 0 }}
             onCanPlay={() => setVideoReady(true)}
+            onPlaying={() => setVideoReady(true)}
           />
         </div>
       </div>
