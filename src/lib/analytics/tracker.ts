@@ -2,7 +2,7 @@
  * ENTIREFM CLIENT-SIDE ANALYTICS & ATTRIBUTION TRACKER
  * ====================================================
  * Privacy-safe, zero-PII session and journey memory helper.
- * Tracks user paths and triggers structured non-invasive events.
+ * Strictly respects user consent preferences stored in 'efm_consent_prefs'.
  */
 
 export interface TrackEventParams {
@@ -23,10 +23,31 @@ const FIRST_TOUCH_KEY = 'efm_first_touch';
 const FIRST_REFERRER_KEY = 'efm_first_referrer';
 
 /**
- * Initialize / update user journey in sessionStorage
+ * Check if the user has consented to a specific storage category
+ */
+export function hasConsent(category: 'essential' | 'functional' | 'analytics' | 'marketing'): boolean {
+  if (typeof window === 'undefined') return false;
+  if (category === 'essential') return true;
+
+  try {
+    const stored = localStorage.getItem('efm_consent_prefs');
+    if (!stored) {
+      // Default privacy-first stance: functional allowed for session continuity, analytics blocked
+      return category === 'functional';
+    }
+    const parsed = JSON.parse(stored);
+    return parsed[category] === true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Initialize / update user journey in sessionStorage (if functional storage is permitted)
  */
 export function recordPageView(path: string, pageType: string = 'general') {
   if (typeof window === 'undefined') return;
+  if (!hasConsent('functional')) return;
 
   try {
     const timestamp = new Date().toISOString();
@@ -95,7 +116,7 @@ export function getAttributionPayload() {
 }
 
 /**
- * Track non-PII structured event
+ * Track non-PII structured event (strictly consent-gated for GA4/GTM)
  */
 export function trackEvent(eventName: string, params: TrackEventParams = {}) {
   if (typeof window === 'undefined') return;
@@ -115,8 +136,8 @@ export function trackEvent(eventName: string, params: TrackEventParams = {}) {
     console.log(`[EVENT_TRACKER] ${eventName}:`, safeParams);
   }
 
-  // Dispatch to GA4 / GTM if available on window
-  if (typeof (window as any).gtag === 'function') {
+  // Dispatch to GA4 / GTM ONLY if user has granted explicit analytics consent
+  if (hasConsent('analytics') && typeof (window as any).gtag === 'function') {
     (window as any).gtag('event', eventName, safeParams);
   }
 }
