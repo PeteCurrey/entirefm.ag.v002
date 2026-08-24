@@ -22,6 +22,9 @@ import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
+import { ToolHero } from '@/components/resources/ToolHero';
+import { StepProgress } from '@/components/resources/StepProgress';
+import { ResultsConversionBridge } from '@/components/resources/ResultsConversionBridge';
 import type { TemplateProps } from '../types';
 
 export function TemplateTenderBrief({ route, content }: TemplateProps) {
@@ -150,27 +153,22 @@ Prospective tenderers should provide:
     <>
       <Header />
       <main className="min-h-screen bg-brand-void text-white">
-        {/* Hero */}
-        <section className="relative overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20 border-b border-brand-edge-dark">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-[15%] -top-[30%] h-[36rem] w-[36rem] rounded-full opacity-20 blur-[130px]"
-            style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 70%)' }}
-          />
-
-          <div className="container-custom relative">
-            <Breadcrumbs items={breadcrumbs} className="mb-6" />
-            <div className="max-w-3xl">
-              <span className="eyebrow eyebrow-dark inline-block mb-3">Procurement Specification Tool</span>
-              <h1 className="text-display-md text-white font-extrabold tracking-tight">
-                FM Tender Brief Generator
-              </h1>
-              <p className="mt-4 text-base sm:text-lg leading-relaxed text-brand-mist/75">
-                Generate a professional, structured Facilities Management tender brief and RFP specification to issue to prospective maintenance contractors.
-              </p>
-            </div>
-          </div>
-        </section>
+        <ToolHero
+          breadcrumbs={breadcrumbs}
+          eyebrow="Procurement Specification Tool"
+          title="FM Tender Brief Generator"
+          description="Generate a professional, structured Facilities Management tender brief and RFP specification to issue to prospective maintenance contractors."
+          timeEstimate="~4 minutes"
+          deliverables={[
+            'Structured 7-section FM RFP specification document',
+            'Full service scope definition and SLA framework',
+            'Statutory compliance & KPI governance clauses',
+            'Direct Markdown (.md) and text download',
+            'One-click clipboard copy for tender packs',
+          ]}
+          accent="amber"
+          icon={FileText}
+        />
 
         {/* Tender Form Section */}
         <section className="py-14 bg-brand-carbon">

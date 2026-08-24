@@ -21,6 +21,8 @@ import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
+import { ToolHero } from '@/components/resources/ToolHero';
+import { ResultsConversionBridge } from '@/components/resources/ResultsConversionBridge';
 import type { TemplateProps } from '../types';
 
 interface CalendarEvent {
@@ -267,27 +269,22 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
     <>
       <Header />
       <main className="min-h-screen bg-brand-void text-white">
-        {/* Hero */}
-        <section className="relative overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20 border-b border-brand-edge-dark">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-[15%] -top-[30%] h-[36rem] w-[36rem] rounded-full opacity-20 blur-[130px]"
-            style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 70%)' }}
-          />
-
-          <div className="container-custom relative">
-            <Breadcrumbs items={breadcrumbs} className="mb-6" />
-            <div className="max-w-3xl">
-              <span className="eyebrow eyebrow-dark inline-block mb-3">Statutory Testing Roadmap</span>
-              <h1 className="text-display-md text-white font-extrabold tracking-tight">
-                FM Compliance Calendar Builder
-              </h1>
-              <p className="mt-4 text-base sm:text-lg leading-relaxed text-brand-mist/75">
-                Generate a 12-month schedule of statutory maintenance, periodic testing, and inspection milestones tailored to your building services. Export directly to Outlook, Google Calendar, or PDF.
-              </p>
-            </div>
-          </div>
-        </section>
+        <ToolHero
+          breadcrumbs={breadcrumbs}
+          eyebrow="Statutory Testing Roadmap"
+          title="FM Compliance Calendar Builder"
+          description="Generate a 12-month schedule of statutory maintenance, periodic testing, and inspection milestones tailored to your building services. Export directly to Outlook, Google Calendar, or PDF."
+          timeEstimate="~3 minutes"
+          deliverables={[
+            '12-month compliance roadmap across selected systems',
+            'Duty holder assignments and legislative basis',
+            'Monthly inspection and testing schedules',
+            'Direct .ICS calendar export for Outlook/Google',
+            'Printable compliance timeline overview',
+          ]}
+          accent="amber"
+          icon={CalendarCheck}
+        />
 
         {/* Calendar Builder Body */}
         <section className="py-14 bg-brand-carbon">
@@ -460,6 +457,17 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                   <strong>Statutory Schedule Notice:</strong> Frequencies listed above represent baseline UK statutory requirements and standard guidance under BS 5266, BS 5839, BS 7671, ACOP L8, and LOLER 1998. Site-specific risks or heavy industrial usage may dictate more frequent testing. Consult the <Link href="/compliance" className="text-brand-electric-bright underline">EntireFM Compliance Centre</Link> for full legislative details.
                 </p>
               </div>
+            </div>
+
+            {/* Conversion Bridge */}
+            <div className="mt-8">
+              <ResultsConversionBridge
+                headline="Need EntireFM to manage your statutory compliance calendar?"
+                body="We track, schedule, and execute all statutory inspection cycles across your portfolio. Every certificate, test report, and remedial sign-off stored in real-time within your client CAFM portal."
+                ctaPrimary={{ label: 'Explore Compliance Management', href: '/compliance' }}
+                ctaSecondary={{ label: 'Speak to a compliance specialist', href: '/contact-us' }}
+                accent="amber"
+              />
             </div>
           </div>
         </section>

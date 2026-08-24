@@ -19,6 +19,8 @@ import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
+import { ToolHero } from '@/components/resources/ToolHero';
+import { ResultsConversionBridge } from '@/components/resources/ResultsConversionBridge';
 import type { TemplateProps } from '../types';
 
 export function TemplateRoiCalculator({ route, content }: TemplateProps) {
@@ -87,27 +89,22 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
     <>
       <Header />
       <main className="min-h-screen bg-brand-void text-white">
-        {/* Hero */}
-        <section className="relative overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20 border-b border-brand-edge-dark">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-[15%] -top-[30%] h-[36rem] w-[36rem] rounded-full opacity-20 blur-[130px]"
-            style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 70%)' }}
-          />
-
-          <div className="container-custom relative">
-            <Breadcrumbs items={breadcrumbs} className="mb-6" />
-            <div className="max-w-3xl">
-              <span className="eyebrow eyebrow-dark inline-block mb-3">Commercial Model Comparison</span>
-              <h1 className="text-display-md text-white font-extrabold tracking-tight">
-                FM Total Cost of Ownership & ROI Calculator
-              </h1>
-              <p className="mt-4 text-base sm:text-lg leading-relaxed text-brand-mist/75">
-                Compare your current multiple-supplier reactive expenditure with a consolidated planned maintenance model. Evaluate hidden management overhead and avoidable plant failure costs.
-              </p>
-            </div>
-          </div>
-        </section>
+        <ToolHero
+          breadcrumbs={breadcrumbs}
+          eyebrow="Commercial Model Comparison"
+          title="FM Total Cost of Ownership & ROI Calculator"
+          description="Compare your current multiple-supplier reactive expenditure against a consolidated planned maintenance model. Evaluate hidden admin overhead and avoidable plant failure costs."
+          timeEstimate="~2 minutes"
+          deliverables={[
+            'Current vs Consolidated FM TCO comparison',
+            'Annual reactive spend reduction estimate',
+            'Internal admin hours recovery calculation',
+            'Unplanned outage cost reduction modelling',
+            'Printable financial comparison summary',
+          ]}
+          accent="violet"
+          icon={TrendingUp}
+        />
 
         {/* Calculator App Section */}
         <section className="py-14 bg-brand-carbon">
@@ -308,10 +305,6 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
 
                 {/* Actions */}
                 <div className="pt-2 space-y-3">
-                  <Link href="/contact-us" className="btn-primary w-full py-2.5 text-xs justify-center">
-                    Request an Estate Review
-                    <ArrowRight className="h-3.5 w-3.5 btn-arrow" />
-                  </Link>
                   <button
                     type="button"
                     onClick={handlePrint}
@@ -329,6 +322,17 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* Conversion Bridge */}
+            <div className="mt-8">
+              <ResultsConversionBridge
+                headline={`£${calculation.totalPotentialSavings.toLocaleString()} annual efficiency opportunity identified`}
+                body="These figures model real FM consolidation patterns. EntireFM can structure a commercial proposal based on your actual estate profile within 5 working days."
+                ctaPrimary={{ label: 'Request a Commercial Proposal', href: '/contact-us' }}
+                ctaSecondary={{ label: 'Learn about EntireFM managed FM', href: '/services' }}
+                accent="violet"
+              />
             </div>
           </div>
         </section>

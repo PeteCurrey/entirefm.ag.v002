@@ -27,7 +27,7 @@ export default async function AdminCommandCentrePage() {
     getOperationalMetrics(),
     listActiveSLARisks(),
     listWorkOrders({ priority: 'P1_CRITICAL', limit: 5 }),
-    listComplianceObligations('OVERDUE'),
+    listComplianceObligations({ status: 'OVERDUE' }),
     listQuotes('SUBMITTED'),
     listAIActions('PENDING_APPROVAL'),
     listAuditEvents(10),

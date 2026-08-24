@@ -80,6 +80,19 @@ export type PermissionCode =
   | 'ppm:manage'
   | 'compliance:read'
   | 'compliance:write'
+  | 'compliance:view'
+  | 'compliance:obligation_manage'
+  | 'compliance:evidence_review'
+  | 'compliance:exception_manage'
+  | 'compliance:rule_view'
+  | 'compliance:rule_manage'
+  | 'compliance:source_manage'
+  | 'compliance:audit_generate'
+  | 'compliance:risk_accept'
+  | 'client:compliance_view'
+  | 'client:compliance_documents'
+  | 'client:compliance_report'
+  | 'contractor:compliance_manage'
   // Supply Chain & Contractors
   | 'supply_chain:read'
   | 'supply_chain:write'
@@ -212,6 +225,8 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'command:access', 'command:ceo', 'operations:read', 'operations:write', 'operations:dispatch',
     'helpdesk:manage', 'service_request:create', 'service_request:update',
     'estate:read', 'estate:write', 'ppm:manage', 'compliance:read', 'compliance:write',
+    'compliance:view', 'compliance:obligation_manage', 'compliance:evidence_review', 'compliance:exception_manage',
+    'compliance:rule_view', 'compliance:rule_manage', 'compliance:source_manage', 'compliance:audit_generate', 'compliance:risk_accept',
     'supply_chain:read', 'supply_chain:write', 'contractor:manage',
     'commercial:read', 'commercial:write', 'quote:create', 'quote:approve',
     'finance:read', 'finance:view', 'finance:write', 'finance:invoice_create', 'finance:invoice_review',
@@ -225,50 +240,58 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
   CEO: [
     'command:access', 'command:ceo', 'operations:read', 'operations:write', 'operations:dispatch',
     'estate:read', 'estate:write', 'ppm:manage', 'compliance:read', 'compliance:write',
+    'compliance:view', 'compliance:obligation_manage', 'compliance:evidence_review', 'compliance:exception_manage',
+    'compliance:rule_view', 'compliance:audit_generate', 'compliance:risk_accept',
     'supply_chain:read', 'supply_chain:write', 'commercial:read', 'commercial:write',
     'finance:read', 'finance:write', 'finance:approve', 'finance:billing', 'finance:admin',
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'platform:admin', 'audit:read',
   ],
   DIRECTOR: [
     'command:access', 'operations:read', 'operations:write', 'estate:read', 'ppm:manage',
-    'compliance:read', 'supply_chain:read', 'commercial:read', 'commercial:write',
+    'compliance:read', 'compliance:view', 'compliance:obligation_manage', 'compliance:evidence_review',
+    'compliance:rule_view', 'compliance:audit_generate', 'supply_chain:read', 'commercial:read', 'commercial:write',
     'finance:read', 'finance:write', 'finance:approve', 'finance:billing',
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'audit:read',
   ],
   OPERATIONS_MANAGER: [
     'command:access', 'operations:read', 'operations:write', 'operations:dispatch',
-    'estate:read', 'estate:write', 'ppm:manage', 'compliance:read', 'supply_chain:read',
+    'estate:read', 'estate:write', 'ppm:manage', 'compliance:read', 'compliance:view',
+    'compliance:obligation_manage', 'compliance:evidence_review', 'compliance:exception_manage',
+    'compliance:rule_view', 'compliance:audit_generate', 'supply_chain:read',
     'supply_chain:write', 'commercial:read', 'comms:access', 'reporting:view', 'growth:access', 'audit:read',
   ],
   OPERATIONS_USER: [
     'command:access', 'operations:read', 'operations:write', 'operations:dispatch',
-    'estate:read', 'ppm:manage', 'comms:access', 'reporting:view',
+    'estate:read', 'ppm:manage', 'compliance:view', 'comms:access', 'reporting:view',
   ],
   HELPDESK_MANAGER: [
     'command:access', 'operations:read', 'operations:write', 'operations:dispatch',
     'helpdesk:manage', 'service_request:create', 'service_request:update',
-    'estate:read', 'comms:access', 'reporting:view', 'growth:access',
+    'estate:read', 'compliance:view', 'comms:access', 'reporting:view', 'growth:access',
   ],
   HELPDESK: [
     'command:access', 'operations:read', 'operations:write', 'operations:dispatch',
     'service_request:create', 'service_request:update',
-    'estate:read', 'comms:access', 'growth:access',
+    'estate:read', 'compliance:view', 'comms:access', 'growth:access',
   ],
   HELPDESK_USER: [
     'command:access', 'operations:read', 'operations:write', 'operations:dispatch',
     'service_request:create', 'service_request:update',
-    'estate:read', 'comms:access',
+    'estate:read', 'compliance:view', 'comms:access',
   ],
   ACCOUNT_MANAGER: [
-    'command:access', 'operations:read', 'estate:read', 'commercial:read', 'commercial:write',
+    'command:access', 'operations:read', 'estate:read', 'compliance:view', 'commercial:read', 'commercial:write',
     'comms:access', 'reporting:view', 'growth:access',
   ],
   COMPLIANCE_MANAGER: [
-    'command:access', 'compliance:read', 'compliance:write', 'estate:read', 'ppm:manage',
-    'reporting:view', 'audit:read',
+    'command:access', 'compliance:read', 'compliance:write', 'compliance:view',
+    'compliance:obligation_manage', 'compliance:evidence_review', 'compliance:exception_manage',
+    'compliance:rule_view', 'compliance:rule_manage', 'compliance:audit_generate', 'compliance:risk_accept',
+    'estate:read', 'estate:write', 'ppm:manage', 'reporting:view', 'audit:read',
   ],
   COMPLIANCE_USER: [
-    'command:access', 'compliance:read', 'estate:read', 'ppm:manage', 'reporting:view',
+    'command:access', 'compliance:read', 'compliance:view', 'compliance:rule_view',
+    'compliance:evidence_review', 'estate:read', 'ppm:manage', 'reporting:view',
   ],
   FINANCE: [
     'command:access', 'commercial:read', 'commercial:write', 'finance:read', 'finance:view',
@@ -318,6 +341,8 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
   ADMINISTRATOR: [
     'command:access', 'command:ceo', 'operations:read', 'operations:write', 'operations:dispatch',
     'estate:read', 'estate:write', 'ppm:manage', 'compliance:read', 'compliance:write',
+    'compliance:view', 'compliance:obligation_manage', 'compliance:evidence_review', 'compliance:exception_manage',
+    'compliance:rule_view', 'compliance:rule_manage', 'compliance:source_manage', 'compliance:audit_generate', 'compliance:risk_accept',
     'supply_chain:read', 'supply_chain:write', 'commercial:read', 'commercial:write',
     'finance:read', 'finance:view', 'finance:write', 'finance:invoice_create', 'finance:invoice_review',
     'finance:invoice_approve', 'finance:approve', 'finance:bank_details_view', 'finance:bank_details_manage',
@@ -326,26 +351,27 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'platform:admin', 'audit:read',
   ],
   READ_ONLY: [
-    'command:access', 'operations:read', 'estate:read', 'compliance:read',
+    'command:access', 'operations:read', 'estate:read', 'compliance:read', 'compliance:view',
     'supply_chain:read', 'commercial:read', 'reporting:view', 'audit:read',
   ],
   // Client Roles
   CLIENT_ADMIN: [
     'estate:read', 'operations:read', 'operations:write', 'commercial:read',
-    'compliance:read', 'client:admin',
+    'compliance:read', 'client:compliance_view', 'client:compliance_documents', 'client:compliance_report', 'client:admin',
   ],
   CLIENT_FM_MANAGER: [
     'estate:read', 'operations:read', 'operations:write', 'ppm:manage',
-    'compliance:read', 'commercial:read',
+    'compliance:read', 'client:compliance_view', 'client:compliance_documents', 'client:compliance_report', 'commercial:read',
   ],
   CLIENT_SITE_MANAGER: [
     'estate:read', 'operations:read', 'operations:write', 'compliance:read',
+    'client:compliance_view', 'client:compliance_documents',
   ],
   CLIENT_FINANCE: [
     'estate:read', 'commercial:read', 'finance:read',
   ],
   CLIENT_READ_ONLY: [
-    'estate:read', 'operations:read', 'compliance:read',
+    'estate:read', 'operations:read', 'compliance:read', 'client:compliance_view', 'client:compliance_documents',
   ],
   CLIENT_USER: [
     'estate:read', 'operations:read', 'operations:write',
@@ -356,7 +382,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
   // Contractor Roles
   CONTRACTOR_ADMIN: [
     'supply_chain:read', 'operations:read', 'operations:write', 'commercial:read',
-    'compliance:read', 'compliance:write', 'contractor:admin',
+    'compliance:read', 'compliance:write', 'contractor:compliance_manage', 'contractor:admin',
   ],
   CONTRACTOR_DISPATCHER: [
     'operations:read', 'operations:write', 'operations:dispatch', 'supply_chain:read',
@@ -365,7 +391,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'commercial:read', 'operations:read', 'supply_chain:read',
   ],
   CONTRACTOR_COMPLIANCE: [
-    'compliance:read', 'compliance:write', 'supply_chain:read',
+    'compliance:read', 'compliance:write', 'contractor:compliance_manage', 'supply_chain:read',
   ],
   CONTRACTOR_READ_ONLY: [
     'operations:read', 'supply_chain:read',

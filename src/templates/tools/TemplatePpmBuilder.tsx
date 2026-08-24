@@ -23,6 +23,8 @@ import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
+import { ToolHero } from '@/components/resources/ToolHero';
+import { ResultsConversionBridge } from '@/components/resources/ResultsConversionBridge';
 import type { TemplateProps } from '../types';
 
 type BasisLevel = 'LEGAL' | 'STANDARD' | 'PRACTICE' | 'RISK';
@@ -326,27 +328,22 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
     <>
       <Header />
       <main className="min-h-screen bg-brand-void text-white">
-        {/* Hero */}
-        <section className="relative overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20 border-b border-brand-edge-dark">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-[15%] -top-[30%] h-[36rem] w-[36rem] rounded-full opacity-20 blur-[130px]"
-            style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 70%)' }}
-          />
-
-          <div className="container-custom relative">
-            <Breadcrumbs items={breadcrumbs} className="mb-6" />
-            <div className="max-w-3xl">
-              <span className="eyebrow eyebrow-dark inline-block mb-3">Asset-Led Maintenance Planner</span>
-              <h1 className="text-display-md text-white font-extrabold tracking-tight">
-                PPM Schedule Builder
-              </h1>
-              <p className="mt-4 text-base sm:text-lg leading-relaxed text-brand-mist/75">
-                Select your building services and installed plant to generate a structured Planned Preventative Maintenance schedule matrix with verified statutory, standard, and risk-based intervals.
-              </p>
-            </div>
-          </div>
-        </section>
+        <ToolHero
+          breadcrumbs={breadcrumbs}
+          eyebrow="Asset-Led Maintenance Planner"
+          title="PPM Schedule Builder"
+          description="Select your building services and installed plant to generate a structured Planned Preventative Maintenance schedule matrix with verified statutory, standard, and risk-based intervals."
+          timeEstimate="~4 minutes"
+          deliverables={[
+            'Bespoke planned maintenance matrix',
+            'LEGAL / STANDARD / PRACTICE / RISK basis tags',
+            'Governing legislation references for each task',
+            'CSV export with date-stamped filename',
+            'Print-ready A4 schedule',
+          ]}
+          accent="blue"
+          icon={Wrench}
+        />
 
         {/* Builder Controls & Output */}
         <section className="py-14 bg-brand-carbon">
@@ -548,6 +545,17 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 </span>
                 <p className="text-brand-mist/60">Frequency determined by environment, occupancy, and asset condition.</p>
               </div>
+            </div>
+
+            {/* Conversion Bridge */}
+            <div className="mt-8">
+              <ResultsConversionBridge
+                headline="Ready to put this PPM matrix into action?"
+                body="EntireFM can mobilise a managed PPM contract based on your asset selection within 30 days. Structured delivery, certified engineers, and CAFM-tracked completion records."
+                ctaPrimary={{ label: 'Get a PPM Contract Proposal', href: '/contact-us' }}
+                ctaSecondary={{ label: 'Learn about EntireFM PPM', href: '/ppm' }}
+                accent="blue"
+              />
             </div>
           </div>
         </section>

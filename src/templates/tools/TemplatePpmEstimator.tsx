@@ -19,6 +19,8 @@ import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
+import { ToolHero } from '@/components/resources/ToolHero';
+import { ResultsConversionBridge } from '@/components/resources/ResultsConversionBridge';
 import type { TemplateProps } from '../types';
 
 interface SectorMultiplier {
@@ -103,27 +105,22 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
     <>
       <Header />
       <main className="min-h-screen bg-brand-void text-white">
-        {/* Hero */}
-        <section className="relative overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20 border-b border-brand-edge-dark">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-[15%] -top-[30%] h-[36rem] w-[36rem] rounded-full opacity-20 blur-[130px]"
-            style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 70%)' }}
-          />
-
-          <div className="container-custom relative">
-            <Breadcrumbs items={breadcrumbs} className="mb-6" />
-            <div className="max-w-3xl">
-              <span className="eyebrow eyebrow-dark inline-block mb-3">Indicative Budget Planning</span>
-              <h1 className="text-display-md text-white font-extrabold tracking-tight">
-                PPM Cost Estimator
-              </h1>
-              <p className="mt-4 text-base sm:text-lg leading-relaxed text-brand-mist/75">
-                Model an indicative annual planned maintenance budget range based on building square footage, sector profile, and service intensity.
-              </p>
-            </div>
-          </div>
-        </section>
+        <ToolHero
+          breadcrumbs={breadcrumbs}
+          eyebrow="Indicative Budget Planning"
+          title="PPM Cost Estimator"
+          description="Model an indicative annual planned maintenance budget range based on building square footage, sector profile, and service intensity."
+          timeEstimate="~2 minutes"
+          deliverables={[
+            'Indicative annual budget range (lower/upper bound)',
+            'Estimated cost per sq ft / annum metric',
+            '4-tier cost allocation breakdown',
+            'Multi-site volume discount modelling',
+            'Printable budget feasibility summary',
+          ]}
+          accent="cyan"
+          icon={Calculator}
+        />
 
         {/* Estimator App Section */}
         <section className="py-14 bg-brand-carbon">
@@ -314,23 +311,44 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                 {/* Estimated cost breakdown */}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-wider text-brand-mist/70 mb-3">
-                    Indicative Cost Allocation
+                    Indicative Cost Allocation Breakdown
                   </h3>
+
+                  {/* Visual allocation bar */}
+                  <div className="h-2 w-full rounded-full overflow-hidden flex mb-3 bg-brand-carbon">
+                    <div style={{ width: '52%' }} className="bg-brand-electric" title="Scheduled M&E Visits (52%)" />
+                    <div style={{ width: '28%' }} className="bg-emerald-400" title="Statutory Testing (28%)" />
+                    <div style={{ width: '12%' }} className="bg-amber-400" title="CAFM & Management (12%)" />
+                    <div style={{ width: '8%' }} className="bg-purple-400" title="Consumables (8%)" />
+                  </div>
+
                   <div className="space-y-2.5 text-xs">
                     <div className="flex items-center justify-between border-b border-brand-edge-dark pb-1.5">
-                      <span className="text-brand-mist/80">Scheduled M&E Visits:</span>
+                      <span className="text-brand-mist/80 flex items-center gap-1.5">
+                        <span className="h-2 w-2 rounded-full bg-brand-electric inline-block" />
+                        Scheduled M&E Visits (52%):
+                      </span>
                       <span className="font-mono text-white font-medium">~£{estimation.hardFmSplit.toLocaleString()}</span>
                     </div>
                     <div className="flex items-center justify-between border-b border-brand-edge-dark pb-1.5">
-                      <span className="text-brand-mist/80">Statutory Testing & Certs:</span>
+                      <span className="text-brand-mist/80 flex items-center gap-1.5">
+                        <span className="h-2 w-2 rounded-full bg-emerald-400 inline-block" />
+                        Statutory Testing & Certs (28%):
+                      </span>
                       <span className="font-mono text-white font-medium">~£{estimation.statutorySplit.toLocaleString()}</span>
                     </div>
                     <div className="flex items-center justify-between border-b border-brand-edge-dark pb-1.5">
-                      <span className="text-brand-mist/80">CAFM, Portal & Management:</span>
+                      <span className="text-brand-mist/80 flex items-center gap-1.5">
+                        <span className="h-2 w-2 rounded-full bg-amber-400 inline-block" />
+                        CAFM, Portal & Management (12%):
+                      </span>
                       <span className="font-mono text-white font-medium">~£{estimation.managementCafmSplit.toLocaleString()}</span>
                     </div>
                     <div className="flex items-center justify-between border-b border-brand-edge-dark pb-1.5">
-                      <span className="text-brand-mist/80">Minor Sundries & Consumables:</span>
+                      <span className="text-brand-mist/80 flex items-center gap-1.5">
+                        <span className="h-2 w-2 rounded-full bg-purple-400 inline-block" />
+                        Minor Sundries & Consumables (8%):
+                      </span>
                       <span className="font-mono text-white font-medium">~£{estimation.consumablesSplit.toLocaleString()}</span>
                     </div>
                   </div>
@@ -338,10 +356,6 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
 
                 {/* Action buttons */}
                 <div className="pt-2 space-y-3">
-                  <Link href="/contact-us" className="btn-primary w-full py-2.5 text-xs justify-center">
-                    Request a Formal Asset Survey
-                    <ArrowRight className="h-3.5 w-3.5 btn-arrow" />
-                  </Link>
                   <button
                     type="button"
                     onClick={handlePrint}
@@ -359,6 +373,17 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* Conversion Bridge */}
+            <div className="mt-8">
+              <ResultsConversionBridge
+                headline="Ready for a verified contract quote based on real assets?"
+                body="EntireFM delivers structured planned maintenance contracts across the UK. Request an on-site asset condition survey to replace estimates with fixed contract pricing."
+                ctaPrimary={{ label: 'Request an Asset Survey', href: '/contact-us' }}
+                ctaSecondary={{ label: 'Explore EntireFM PPM scope', href: '/ppm' }}
+                accent="blue"
+              />
             </div>
           </div>
         </section>

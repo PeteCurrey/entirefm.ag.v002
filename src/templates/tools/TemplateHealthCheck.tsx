@@ -25,6 +25,8 @@ import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
+import { ToolHero } from '@/components/resources/ToolHero';
+import { ResultsConversionBridge } from '@/components/resources/ResultsConversionBridge';
 import type { TemplateProps } from '../types';
 
 interface Question {
@@ -261,27 +263,21 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
     <>
       <Header />
       <main className="min-h-screen bg-brand-void text-white">
-        {/* Hero */}
-        <section className="relative overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20 border-b border-brand-edge-dark">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-[15%] -top-[30%] h-[36rem] w-[36rem] rounded-full opacity-20 blur-[130px]"
-            style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 70%)' }}
-          />
-
-          <div className="container-custom relative">
-            <Breadcrumbs items={breadcrumbs} className="mb-6" />
-            <div className="max-w-3xl">
-              <span className="eyebrow eyebrow-dark inline-block mb-3">Diagnostic Tool</span>
-              <h1 className="text-display-md text-white font-extrabold tracking-tight">
-                FM Building Health Check
-              </h1>
-              <p className="mt-4 text-base sm:text-lg leading-relaxed text-brand-mist/75">
-                A 3-minute operational diagnostic to assess your estate against UK statutory maintenance obligations, highlight potential documentation gaps, and prioritise preventative actions.
-              </p>
-            </div>
-          </div>
-        </section>
+        <ToolHero
+          breadcrumbs={breadcrumbs}
+          eyebrow="Compliance Diagnostic Tool"
+          title="FM Building Health Check"
+          description="A 3-minute operational diagnostic to assess your estate against UK statutory maintenance obligations, highlight potential documentation gaps, and prioritise preventative actions."
+          timeEstimate="~3 minutes"
+          deliverables={[
+            '7-area compliance gap analysis',
+            'Priority vs review vs strong categorisation',
+            'Per-category statutory basis references',
+            'Printable estate review report',
+          ]}
+          accent="emerald"
+          icon={Activity}
+        />
 
         {/* Diagnostic App Section */}
         <section className="py-16 bg-brand-carbon">
@@ -405,8 +401,52 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                     </div>
                   </div>
 
+                  {/* Compliance Score Banner */}
+                  <div className="my-6 p-6 rounded-sm bg-brand-carbon border border-brand-edge-dark flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div className="flex items-center gap-5">
+                      <div className="relative flex items-center justify-center h-20 w-20 shrink-0">
+                        <svg className="h-20 w-20 -rotate-90 transform" viewBox="0 0 36 36">
+                          <path
+                            className="text-white/10"
+                            strokeWidth="3.5"
+                            stroke="currentColor"
+                            fill="none"
+                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                          />
+                          <path
+                            className={percentage >= 80 ? 'text-emerald-400' : percentage >= 50 ? 'text-amber-400' : 'text-rose-400'}
+                            strokeDasharray={`${percentage}, 100`}
+                            strokeWidth="3.5"
+                            strokeLinecap="round"
+                            stroke="currentColor"
+                            fill="none"
+                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                          />
+                        </svg>
+                        <span className="absolute text-sm font-extrabold font-mono text-white">
+                          {percentage}%
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-[11px] font-semibold text-brand-mist/50 uppercase tracking-wider block">
+                          Overall Estate Compliance Readiness
+                        </span>
+                        <p className="text-base sm:text-lg font-bold text-white mt-0.5">
+                          {percentage >= 80
+                            ? 'High Statutory Assurance Level'
+                            : percentage >= 50
+                            ? 'Moderate Assurance · Remedial Actions Required'
+                            : 'Elevated Statutory Risk · Urgent Gaps Identified'}
+                        </p>
+                        <p className="text-xs text-brand-mist/60 mt-1">
+                          {totalScore} of {maxScore} available compliance points achieved.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Score breakdown metrics */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                     <div className="p-4 rounded-sm bg-brand-carbon border border-brand-edge-dark">
                       <span className="text-[11px] font-semibold text-brand-mist/50 uppercase tracking-wider">
                         Documented Strengths
@@ -529,21 +569,14 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                   </div>
                 </div>
 
-                {/* Next steps CTA */}
-                <div className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-                  <div>
-                    <h3 className="text-lg font-bold text-white">
-                      Need a physical asset & compliance survey?
-                    </h3>
-                    <p className="text-xs text-brand-mist/70 mt-1 max-w-lg">
-                      Our certified mobile engineers can survey your building services, compile an accurate asset register, and establish a verified PPM matrix.
-                    </p>
-                  </div>
-                  <Link href="/contact-us" className="btn-primary shrink-0 py-2.5 px-4 text-xs">
-                    Request an Asset Survey
-                    <ArrowRight className="h-3.5 w-3.5 btn-arrow" />
-                  </Link>
-                </div>
+                {/* Conversion Bridge */}
+                <ResultsConversionBridge
+                  headline="Need a physical building compliance survey?"
+                  body="Our certified mobile engineers can survey your building services, compile an accurate asset register, and establish a verified PPM matrix based on actual installed equipment."
+                  ctaPrimary={{ label: 'Request an Asset Survey', href: '/contact-us' }}
+                  ctaSecondary={{ label: 'Call our engineering team', href: '/contact-us' }}
+                  accent="emerald"
+                />
               </div>
             )}
           </div>
