@@ -91,8 +91,8 @@ export function Footer() {
                     className="object-contain transition-transform duration-500 ease-brand group-hover:scale-105"
                   />
                 </span>
-                <span className="text-[19px] font-extrabold tracking-[0.08em] text-white">
-                  Entire<span className="text-hero-pink">FM</span>
+                <span className="text-[20px] font-extralight tracking-tight text-white">
+                  Entire<span className="font-bold text-hero-pink">FM</span>
                 </span>
               </Link>
 

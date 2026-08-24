@@ -50,12 +50,12 @@ export function parseCSV(
   content: string,
   delimiter: string = ','
 ): { headers: string[]; rows: Record<string, string>[] } {
-  // Strip BOM if present
-  let cleanContent = content;
-  if (cleanContent.charCodeAt(0) === 0xfeff) {
-    cleanContent = cleanContent.slice(1);
+  if (!content || !content.trim()) {
+    throw new Error('Empty CSV: The provided CSV file is empty.');
   }
 
+  // Strip BOM if present
+  const cleanContent = content.charCodeAt(0) === 0xfeff ? content.slice(1) : content;
   const rawRows: string[][] = [];
   let currentRow: string[] = [];
   let currentCell = '';
@@ -450,23 +450,10 @@ export async function createImportBatch(
     }
   );
 
-  const batch = batchRes.data?.[0] || {
-    id: `batch-${Date.now()}`,
-    batch_reference: batchRef,
-    entity_type: entityType,
-    source_system: sourceSystem,
-    status: 'MAPPING_REQUIRED',
-    total_rows: rows.length,
-    valid_rows: 0,
-    error_rows: 0,
-    duplicate_rows: 0,
-    imported_rows: 0,
-    rolled_back_rows: 0,
-    mapping_config: suggestedMapping,
-    summary: {},
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  };
+  if (!batchRes.data?.[0]) {
+    throw new Error(`Failed to create import batch: ${batchRes.error || 'Unknown database error'}`);
+  }
+  const batch = batchRes.data[0];
 
   // Insert file record
   const fileRes = await dbQuery<DataImportFile[]>(
@@ -566,11 +553,19 @@ export async function applyMappingAndValidate(
   // Build validation context (e.g. existing clients for site imports)
   const validationCtx: ValidationContext = {};
   if (batch.entity_type === 'SITE') {
-    const clientsRes = await dbQuery<any[]>('client_accounts?select=id,name,external_id');
+    const clientsRes = await dbQuery<any[]>('client_accounts?select=id,organisation_id,external_id');
+    const orgsRes = await dbQuery<any[]>('organisations?select=id,name,external_id');
     const clientMap = new Map<string, { id: string; name: string }>();
+    const orgMap = new Map<string, string>();
+    for (const o of orgsRes.data || []) {
+      if (o.id && o.name) orgMap.set(o.id, o.name);
+      if (o.name) clientMap.set(o.name.toLowerCase(), { id: o.id, name: o.name });
+      if (o.external_id) clientMap.set(o.external_id, { id: o.id, name: o.name });
+    }
     for (const c of clientsRes.data || []) {
-      if (c.external_id) clientMap.set(c.external_id, { id: c.id, name: c.name });
-      clientMap.set(c.name.toLowerCase(), { id: c.id, name: c.name });
+      const name = orgMap.get(c.organisation_id) || 'Client';
+      if (c.external_id) clientMap.set(c.external_id, { id: c.id, name });
+      if (c.id) clientMap.set(c.id, { id: c.id, name });
     }
     validationCtx.existingClientMap = clientMap;
   }
@@ -743,6 +738,11 @@ export async function commitImport(
 
   for (const row of rows) {
     try {
+      if (row.status === 'DUPLICATE') {
+        skippedCount++;
+        continue;
+      }
+
       const mapped = row.mapped_data;
       const rowHash = row.row_hash;
       const extId = row.external_id || mapped.external_id;
@@ -757,6 +757,8 @@ export async function commitImport(
             code: `CLI-${extId || Math.floor(1000 + Math.random() * 9000)}`,
             org_type: 'CLIENT',
             status: 'ACTIVE',
+            email: mapped.email || null,
+            phone: mapped.phone || null,
             source_system: batch.source_system,
             external_id: extId || null,
             import_batch_id: batchId,
@@ -774,11 +776,9 @@ export async function commitImport(
           method: 'POST',
           body: {
             organisation_id: orgId,
-            name: mapped.name || mapped.company_name,
-            company_name: mapped.company_name || mapped.name,
-            account_number: mapped.account_number || `ACC-${extId || row.row_index}`,
+            account_code: mapped.account_number || `ACC-${extId || row.row_index}`,
             payment_terms_days: mapped.payment_terms_days ? Number(mapped.payment_terms_days) : 30,
-            credit_limit_gbp: mapped.credit_limit_gbp ? Number(mapped.credit_limit_gbp) : 50000,
+            billing_currency: 'GBP',
             status: 'ACTIVE',
             source_system: batch.source_system,
             external_id: extId || null,
@@ -802,41 +802,39 @@ export async function commitImport(
         importedCount++;
       } else if (batch.entity_type === 'SITE') {
         // Resolve parent client
-        let clientAccountId = mapped.client_account_id;
+        let clientOrgId = session.orgId;
+        let clientAccountId: string | null = mapped.client_account_id || null;
         if (!clientAccountId && mapped.parent_client_external_id) {
           const clientFind = await dbQuery<any[]>(
-            `client_accounts?source_system=eq.${batch.source_system}&external_id=eq.${mapped.parent_client_external_id}&select=id`
+            `client_accounts?source_system=eq.${batch.source_system}&external_id=eq.${mapped.parent_client_external_id}&select=id,organisation_id`
           );
-          clientAccountId = clientFind.data?.[0]?.id;
+          clientAccountId = clientFind.data?.[0]?.id || null;
+          clientOrgId = clientFind.data?.[0]?.organisation_id || session.orgId;
         }
 
         if (!clientAccountId && mapped.parent_client_name) {
           const clientFindByName = await dbQuery<any[]>(
-            `client_accounts?name=ilike.%${mapped.parent_client_name}%&select=id`
+            `organisations?name=ilike.%${mapped.parent_client_name}%&select=id`
           );
-          clientAccountId = clientFindByName.data?.[0]?.id;
+          if (clientFindByName.data?.[0]?.id) {
+            clientOrgId = clientFindByName.data[0].id;
+            const caRes = await dbQuery<any[]>(`client_accounts?organisation_id=eq.${clientOrgId}&select=id`);
+            clientAccountId = caRes.data?.[0]?.id || null;
+          }
         }
 
-        if (!clientAccountId) {
-          // Fallback to first available client account
-          const anyClient = await dbQuery<any[]>('client_accounts?select=id,organisation_id&limit=1');
-          clientAccountId = anyClient.data?.[0]?.id;
-        }
-
-        const orgId = session.orgId;
         const siteCode = mapped.site_code || `STE-${extId || Math.floor(1000 + Math.random() * 9000)}`;
 
         const siteRes = await dbQuery<any[]>('sites', {
           method: 'POST',
           body: {
-            organisation_id: orgId,
-            client_account_id: clientAccountId || null,
+            organisation_id: clientOrgId,
             site_code: siteCode,
             name: mapped.name || mapped.address_line1,
-            site_type: mapped.site_type || 'COMMERCIAL_OFFICE',
             address_line1: mapped.address_line1 || 'Address on file',
             address_line2: mapped.address_line2 || null,
             city: mapped.city || 'United Kingdom',
+            county: mapped.county || null,
             postcode: mapped.postcode || 'SW1A 1AA',
             country: mapped.country || 'GB',
             status: 'ACTIVE',
@@ -860,18 +858,19 @@ export async function commitImport(
 
         importedCount++;
       } else if (batch.entity_type === 'CONTRACTOR') {
-        // Create unvetted provider organisation (is_active = false per security rules)
-        const provRes = await dbQuery<any[]>('provider_organisations', {
+        // Create canonical organisation
+        const orgRes = await dbQuery<any[]>('organisations', {
           method: 'POST',
           body: {
-            organisation_id: session.orgId,
-            company_name: mapped.name || mapped.company_name,
-            trading_name: mapped.name || mapped.company_name,
+            name: mapped.name || mapped.company_name,
+            legal_name: mapped.company_name || mapped.name,
+            code: `PRV-${extId || Math.floor(1000 + Math.random() * 9000)}`,
+            org_type: 'CONTRACTOR',
+            status: 'ACTIVE',
+            email: mapped.email || null,
+            phone: mapped.phone || null,
             company_number: mapped.company_number || null,
             vat_number: mapped.vat_number || null,
-            primary_trade: mapped.primary_trade || 'GENERAL_MAINTENANCE',
-            is_active: false, // Imported contractors require explicit vetting
-            status: 'PENDING_ONBOARDING',
             source_system: batch.source_system,
             external_id: extId || null,
             import_batch_id: batchId,
@@ -882,7 +881,27 @@ export async function commitImport(
           headers: { Prefer: 'return=representation' },
         });
 
-        const targetId = provRes.data?.[0]?.id || `prov-${Date.now()}`;
+        const orgId = orgRes.data?.[0]?.id || `org-${Date.now()}`;
+
+        // Create unvetted provider organisation (is_active = false per security rules)
+        const provRes = await dbQuery<any[]>('provider_organisations', {
+          method: 'POST',
+          body: {
+            organisation_id: orgId,
+            primary_trade: mapped.primary_trade || 'GENERAL_MAINTENANCE',
+            vetting_status: 'PENDING',
+            is_active: false, // Imported contractors require explicit vetting
+            source_system: batch.source_system,
+            external_id: extId || null,
+            import_batch_id: batchId,
+            imported_at: new Date().toISOString(),
+            source_record_reference: `${batch.source_system} Supplier #${extId || row.row_index}`,
+            source_hash: rowHash,
+          },
+          headers: { Prefer: 'return=representation' },
+        });
+
+        const targetId = provRes.data?.[0]?.id || orgId;
         createdEntityIds.push(targetId);
 
         await dbQuery(`data_import_rows?id=eq.${row.id}`, {
