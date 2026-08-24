@@ -321,6 +321,69 @@ export function KnightFrankLogo({ className = 'h-7 w-auto' }: { className?: stri
   );
 }
 
+export function VolkerWesselsLogo({ className = 'h-7 w-auto' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 195 44" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="VolkerWessels">
+      <g>
+        {/* VolkerWessels Iconic Interlocking V Emblem */}
+        <g transform="translate(4, 8)">
+          <polygon points="0,0 9,0 16,18 11,26 0,0" fill="#002B49" />
+          <polygon points="16,0 25,0 18,17 13,17" fill="#E35205" />
+          <polygon points="25,0 34,0 20,26 14,26" fill="#002B49" />
+        </g>
+        <text x="44" y="21" fontFamily="system-ui, -apple-system, sans-serif" fontSize="11" fontWeight="900" letterSpacing="0.01em" fill="#002B49">
+          VolkerWessels
+        </text>
+        <text x="44" y="32" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7" fontWeight="700" letterSpacing="0.16em" fill="#E35205">
+          INFRASTRUCTURE &amp; FM
+        </text>
+      </g>
+    </svg>
+  );
+}
+
+export function VolkerRailLogo({ className = 'h-7 w-auto' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 175 44" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="VolkerRail">
+      <g>
+        {/* VolkerRail Track & Chevron Mark */}
+        <g transform="translate(4, 8)">
+          <polygon points="0,0 8,0 15,18 10,26 0,0" fill="#002B49" />
+          <polygon points="15,0 23,0 16,17 12,17" fill="#E35205" />
+          <polygon points="23,0 31,0 18,26 13,26" fill="#002B49" />
+        </g>
+        <text x="41" y="21" fontFamily="system-ui, -apple-system, sans-serif" fontSize="11.5" fontWeight="900" letterSpacing="0.01em" fill="#002B49">
+          Volker<tspan fill="#E35205">Rail</tspan>
+        </text>
+        <text x="41" y="32" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7" fontWeight="700" letterSpacing="0.14em" fill="#475569">
+          RAIL &amp; INFRASTRUCTURE
+        </text>
+      </g>
+    </svg>
+  );
+}
+
+export function AlkotaLogo({ className = 'h-7 w-auto' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 165 44" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="Alkota">
+      <g>
+        {/* Alkota Architectural Geometric Delta Apex Mark */}
+        <g transform="translate(4, 7)">
+          <polygon points="15,0 30,28 22,28 15,13 8,28 0,28" fill="#0B1220" />
+          <polygon points="15,7 23,23 18,23 15,16 12,23 7,23" fill="#2563EB" opacity="0.9" />
+          <polygon points="15,13 18,20 12,20" fill="#E11D48" />
+        </g>
+        <text x="40" y="22" fontFamily="system-ui, -apple-system, sans-serif" fontSize="13" fontWeight="900" letterSpacing="0.14em" fill="#0B1220">
+          ALKOTA
+        </text>
+        <text x="41" y="33" fontFamily="system-ui, -apple-system, sans-serif" fontSize="6.5" fontWeight="700" letterSpacing="0.28em" fill="#64748B">
+          GROUP ESTATES
+        </text>
+      </g>
+    </svg>
+  );
+}
+
 export interface ClientRosterItem {
   id: string;
   name: string;
@@ -333,8 +396,11 @@ export const VERIFIED_CLIENTS: ClientRosterItem[] = [
   { id: 'cbre', name: 'CBRE', category: 'Global Real Estate & Facilities Services', Logo: CbreLogo },
   { id: 'cushman-wakefield', name: 'Cushman & Wakefield', category: 'Commercial Real Estate & Estates', Logo: CushmanWakefieldLogo },
   { id: 'bnp-paribas', name: 'BNP Paribas Real Estate', category: 'Commercial Real Estate & Asset Management', Logo: BnpParibasLogo },
+  { id: 'volkerwessels', name: 'VolkerWessels', category: 'Civil Engineering & Infrastructure Estates', Logo: VolkerWesselsLogo },
+  { id: 'volkerrail', name: 'VolkerRail', category: 'Rail & Transportation Infrastructure', Logo: VolkerRailLogo },
   { id: 'knight-frank', name: 'Knight Frank', category: 'Commercial Real Estate & Managing Agent', Logo: KnightFrankLogo },
   { id: 'lambert-smith-hampton', name: 'Lambert Smith Hampton', category: 'Managing Agent & Commercial Property', Logo: LambertSmithHamptonLogo },
+  { id: 'alkota', name: 'Alkota Group', category: 'Industrial & Multi-Asset Property Holdings', Logo: AlkotaLogo },
   { id: 'forged-solutions', name: 'Forged Solutions Group', category: 'Aerospace & Industrial Engineering', Logo: ForgedSolutionsLogo },
   { id: 'damac', name: 'DAMAC', category: 'Commercial & Residential Property', Logo: DamacLogo },
   { id: 'nhs', name: 'NHS Estates', category: 'Healthcare & Public Sector', Logo: NhsLogo },

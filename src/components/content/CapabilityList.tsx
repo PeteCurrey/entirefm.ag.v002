@@ -51,13 +51,17 @@ export function CapabilityList({
 export function FAQAccordion({
   title = 'Frequently Asked Questions',
   subtitle = 'Common inquiries regarding contract scopes, SLAs, compliance audits, and onboarding.',
-  faqs,
+  faqs = [],
 }: {
   title?: string;
   subtitle?: string;
-  faqs: Array<{ question: string; answer: string }>;
+  faqs?: Array<{ question: string; answer: string }>;
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  if (!faqs || faqs.length === 0) {
+    return null;
+  }
 
   return (
     <section className="section-padding bg-brand-surface border-t border-brand-edge">
