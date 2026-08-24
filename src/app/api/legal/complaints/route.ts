@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
           ? 'Health and Safety Executive (HSE) — hse.gov.uk'
           : validCategory === 'WHISTLEBLOWING'
           ? 'Independent whistleblowing & Protect helpline — protect-advice.org.uk'
-          : 'CEDR Independent Commercial Dispute Resolution',
+          : 'Independent Alternative Dispute Resolution / Senior Executive Review',
     });
   } catch (err: any) {
     console.error('Error creating complaint:', err);

@@ -266,6 +266,7 @@ const NAV_GROUPS: NavGroup[] = [
       { name: 'AI Citations', href: '/admin/seo/ai-search' },
       { name: 'Geo Search', href: '/admin/seo/locations' },
       { name: 'SEO Priority Queue', href: '/admin/seo/priorities' },
+      { name: 'Search Opportunities', href: '/admin/seo/opportunities' },
       { name: 'Trust Register', href: '/admin/content/trust' },
       { name: 'External Sources', href: '/admin/blog/sources' },
       { name: 'Automation Settings', href: '/admin/blog/automation' },

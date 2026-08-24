@@ -184,7 +184,7 @@ export default function ComplaintsResolutionPage() {
               Stage 3: Independent Mediation & Alternative Dispute Resolution
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              If an amicable agreement cannot be reached following Stage 2, both parties agree to explore formal independent mediation under CEDR (Centre for Effective Dispute Resolution) rules prior to initiating formal litigation.
+              If an amicable agreement cannot be reached following Stage 2, parties may mutually agree to explore formal independent alternative dispute resolution or professional mediation prior to initiating formal litigation.
             </p>
           </div>
         </div>
@@ -217,10 +217,11 @@ export default function ComplaintsResolutionPage() {
             <li><strong>Data Protection & Privacy:</strong> Information Commissioner’s Office (ICO) — ico.org.uk | 0303 123 1113</li>
             <li><strong>Workplace Health & Safety:</strong> Health and Safety Executive (HSE) — hse.gov.uk | 0300 003 1747</li>
             <li><strong>Whistleblowing / Protected Disclosures:</strong> Protect (Whistleblowing Charity) — protect-advice.org.uk | 020 3117 2520</li>
-            <li><strong>Commercial Contract Dispute:</strong> CEDR Alternative Dispute Resolution — cedr.com</li>
+            <li><strong>Commercial Contract Dispute:</strong> Independent Alternative Dispute Resolution (ADR) or Mediation</li>
           </ul>
         </LegalCallout>
       </section>
+
     </LegalLayout>
   );
 }

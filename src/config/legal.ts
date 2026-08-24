@@ -112,7 +112,7 @@ export const LEGAL_CONFIG: LegalEntityConfig = {
     title: 'Data Protection & Governance Lead',
     name: TODO_VERIFY,
     email: 'privacy@entirefm.com',
-    postalAddress: 'Data Protection Officer, EntireFM (Alkota Group Limited), Operations Hub, United Kingdom',
+    postalAddress: 'Data Protection Officer, EntireFM (Alkota Group Limited), United Kingdom',
     phone: '020 4586 5422',
   },
   complianceOfficer: {
@@ -121,11 +121,12 @@ export const LEGAL_CONFIG: LegalEntityConfig = {
     email: 'compliance@entirefm.com',
   },
   insurances: {
-    employersLiability: '£10,000,000 (Available on request via formal procurement portal)',
-    publicLiability: '£5,000,000 (Available on request via formal procurement portal)',
-    professionalIndemnity: '£2,000,000 (Available on request via formal procurement portal)',
+    employersLiability: 'Available upon formal procurement request (Policy Schedule Pending Verification)',
+    publicLiability: 'Available upon formal procurement request (Policy Schedule Pending Verification)',
+    professionalIndemnity: 'Available upon formal procurement request (Policy Schedule Pending Verification)',
   },
   statutoryJurisdiction: 'England and Wales',
+
   leadSupervisoryAuthority: {
     name: 'Information Commissioner’s Office',
     acronym: 'ICO',

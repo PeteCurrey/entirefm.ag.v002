@@ -67,7 +67,7 @@ const VERIFICATION_REGISTER: VerificationItem[] = [
   },
   {
     id: 'v6',
-    name: 'Verified Client Delivery (Lambert Smith Hampton, NHS, Greggs, Cushman & Wakefield, Costa, HSBC, Burger King, Moto, NatWest, Balfour Beatty, Royal Enfield)',
+    name: 'Verified Client Delivery (Lambert Smith Hampton, NHS, Greggs, Cushman & Wakefield, Costa, HSBC, Burger King, Moto, NatWest, Balfour Beatty, Royal Enfield, Forged Solutions Group, DAMAC)',
     category: 'CLIENT',
     status: 'VERIFIED',
     evidence: 'Confirmed client delivery history and public name/logo permission',

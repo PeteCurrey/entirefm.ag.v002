@@ -88,26 +88,14 @@ export function StatBlock() {
  * hover — the detail is always in the DOM, only its presentation is deferred.
  */
 
+import { VERIFIED_CLIENTS } from './ClientLogos';
+
 const SECTORS = [
   { name: 'Commercial offices', note: 'Multi-tenant estates and managing agents' },
   { name: 'Logistics & distribution', note: 'Dock levellers, shutters and yard lighting' },
   { name: 'Industrial & manufacturing', note: 'Process plant, LEV and high-load power' },
   { name: 'Retail & shopping centres', note: 'Public realm and long trading hours' },
   { name: 'Education & public sector', note: 'Campus estates and vacation turnaround' },
-];
-
-const VERIFIED_CLIENT_ROSTER = [
-  'Lambert Smith Hampton',
-  'NHS Estates',
-  'Greggs',
-  'Cushman & Wakefield',
-  'Costa Coffee',
-  'HSBC Commercial',
-  'Burger King',
-  'Moto Hospitality',
-  'NatWest Group',
-  'Balfour Beatty',
-  'Royal Enfield',
 ];
 
 export function ClientLogoRail() {
@@ -126,16 +114,28 @@ export function ClientLogoRail() {
           </p>
         </div>
 
-        {/* Verified Client Name Badges */}
-        <div className="flex flex-wrap items-center gap-2.5 mb-10" data-reveal>
-          {VERIFIED_CLIENT_ROSTER.map((client) => (
-            <span
-              key={client}
-              className="inline-flex items-center px-3.5 py-1.5 rounded-sm bg-white border border-brand-edge text-xs font-semibold text-brand-graphite shadow-sm"
-            >
-              {client}
-            </span>
-          ))}
+        {/* Verified Real Client Logos */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3 mb-10" data-reveal>
+          {VERIFIED_CLIENTS.map((client, i) => {
+            const LogoComponent = client.Logo;
+            return (
+              <div
+                key={client.id}
+                title={`${client.name} — ${client.category}`}
+                className="group relative flex flex-col items-center justify-center rounded-sm border border-brand-edge bg-white px-4 py-4 min-h-[82px] shadow-sm transition-all duration-300 ease-brand hover:border-brand-electric/40 hover:shadow-md"
+                style={{ '--reveal-delay': `${i * 40}ms` } as React.CSSProperties}
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-brand-spectrum transition-transform duration-300 ease-brand group-hover:scale-x-100"
+                />
+                <div className="flex items-center justify-center w-full h-full">
+                  <LogoComponent className="h-6 sm:h-7 w-auto max-w-[130px] transition-transform duration-300 group-hover:scale-105" />
+                </div>
+                <span className="sr-only">{client.name} ({client.category})</span>
+              </div>
+            );
+          })}
         </div>
 
         <div className="mb-4 max-w-2xl" data-reveal>

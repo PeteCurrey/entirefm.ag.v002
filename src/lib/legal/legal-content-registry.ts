@@ -887,9 +887,10 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
     version: '2026.1',
     keyTakeaways: [
       'Zero tolerance for child labour, forced labour, and modern slavery across all supply tiers.',
-      'Commitment to prompt payment throughout the tier-2 supply chain.',
+      'Transparent payment practices settled strictly in accordance with agreed written purchase orders and contract terms.',
       'Compliance with UK environmental, waste transfer, and packaging regulations.',
     ],
+
     relatedSlugs: ['modern-slavery', 'anti-bribery', 'environment', 'contractor-terms'],
     sections: [
       {
@@ -948,9 +949,10 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
       },
       {
         id: 'stage-3-mediation',
-        heading: '4. Stage 3: Independent Mediation',
-        body: 'Where a commercial dispute remains unresolved, parties agree to attempt resolution through formal mediation in accordance with CEDR rules prior to initiating legal proceedings.',
+        heading: '4. Stage 3: Alternative Dispute Resolution',
+        body: 'Where a commercial dispute remains unresolved following Stage 2, parties agree to explore independent alternative dispute resolution or professional mediation prior to initiating formal litigation.',
       },
+
     ],
   },
 
@@ -1009,7 +1011,7 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
     keyTakeaways: [
       'Strict compliance with the UK Bribery Act 2010; zero tolerance for corruption.',
       'Prohibits facilitation payments and kickbacks across all procurement and contractor selection.',
-      'Mandatory gifts & hospitality register for items exceeding nominal value (£50).',
+      'Mandatory corporate hospitality register for all non-trivial gifts and entertainment.',
       'Protection and confidentiality for whistleblowers reporting corrupt practices.',
     ],
     relatedSlugs: ['modern-slavery', 'whistleblowing', 'supplier-code', 'contractor-terms'],
@@ -1026,10 +1028,11 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
       },
       {
         id: 'gifts-and-hospitality',
-        heading: '3. Gifts, Hospitality & Register Thresholds',
-        body: 'Modest and proportionate corporate hospitality is acceptable if customary. Any gift or hospitality with an estimated value exceeding £50 must be declared and recorded in the EntireFM Corporate Hospitality Register.',
+        heading: '3. Gifts, Hospitality & Register Governance',
+        body: 'Modest and proportionate corporate hospitality is acceptable only where customary and legitimate. All gifts, hospitality, or entertainment must be transparent, reasonable, and formally recorded in the Corporate Hospitality Register. Offering or accepting anything intended to improperly influence decisions is strictly prohibited.',
       },
     ],
+
   },
 
   // ─────────────────────────────────────────────────────────────────────────────
