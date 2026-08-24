@@ -7,6 +7,7 @@ interface EmptyStateProps {
   description: string;
   actionText?: string;
   actionHref?: string;
+  action?: { label: string; href?: string; onClick?: () => void };
   onActionClick?: () => void;
   icon?: React.ReactNode;
 }
@@ -16,9 +17,13 @@ export function EmptyState({
   description,
   actionText,
   actionHref,
+  action,
   onActionClick,
   icon,
 }: EmptyStateProps) {
+  const resolvedText = action?.label || actionText;
+  const resolvedHref = action?.href || actionHref;
+  const resolvedClick = action?.onClick || onActionClick;
   return (
     <div className="flex flex-col items-center justify-center rounded-[14px] border border-[#E4E4E1] bg-[#FFFFFF] p-10 text-center shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
       <div className="flex h-11 w-11 items-center justify-center rounded-[10px] border border-[#E4E4E1] bg-[#F5F5F3] text-[#686866]">
@@ -28,21 +33,21 @@ export function EmptyState({
       <p className="mt-1 max-w-md text-[13px] leading-relaxed text-[#686866]">
         {description}
       </p>
-      {actionText && (
-        actionHref ? (
+      {resolvedText && (
+        resolvedHref ? (
           <Link
-            href={actionHref}
+            href={resolvedHref}
             className="mt-5 inline-flex items-center gap-1.5 rounded-[8px] bg-[#FF6B24] px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow-[0_1px_2px_rgba(255,107,36,0.2)] hover:bg-[#E9540F] transition-all"
           >
-            <span>{actionText}</span>
+            <span>{resolvedText}</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
-        ) : onActionClick ? (
+        ) : resolvedClick ? (
           <button
-            onClick={onActionClick}
+            onClick={resolvedClick}
             className="mt-5 inline-flex items-center gap-1.5 rounded-[8px] bg-[#FF6B24] px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow-[0_1px_2px_rgba(255,107,36,0.2)] hover:bg-[#E9540F] transition-all"
           >
-            <span>{actionText}</span>
+            <span>{resolvedText}</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         ) : null
