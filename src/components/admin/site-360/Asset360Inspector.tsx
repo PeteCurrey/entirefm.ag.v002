@@ -1,28 +1,14 @@
 'use client';
 
 import React from 'react';
+import { Asset } from '@/server/estate';
 import { Drawer } from '../ui/Drawer';
 import { Badge } from '../ui/Badge';
-import { Layers, Wrench, ShieldCheck, Activity, Calendar, History, FileText, CheckCircle2 } from 'lucide-react';
-
-export interface AssetDetail {
-  id: string;
-  assetReference: string;
-  name: string;
-  category: string;
-  manufacturer: string;
-  modelNumber: string;
-  serialNumber: string;
-  location: string;
-  criticality: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
-  condition: 'EXCELLENT' | 'GOOD' | 'FAIR' | 'POOR';
-  installDate: string;
-  expectedLifeYears: number;
-  status: 'IN_SERVICE' | 'STANDBY' | 'UNDER_REPAIR' | 'OUT_OF_SERVICE';
-}
+import { Layers, Wrench, ShieldCheck, Activity, Calendar, History, FileText } from 'lucide-react';
+import Link from 'next/link';
 
 interface Asset360InspectorProps {
-  asset: AssetDetail | null;
+  asset: Asset | null;
   open: boolean;
   onClose: () => void;
 }
@@ -36,13 +22,13 @@ export function Asset360Inspector({ asset, open, onClose }: Asset360InspectorPro
       onClose={onClose}
       width="lg"
       title={asset.name}
-      subtitle={`${asset.assetReference} · ${asset.location}`}
+      subtitle={asset.asset_reference}
       badge={
         <Badge
-          variant={asset.criticality === 'CRITICAL' ? 'red' : 'orange'}
+          variant={asset.criticality === 'CRITICAL' ? 'red' : 'blue'}
           size="xs"
         >
-          {asset.criticality} CRITICALITY
+          {asset.criticality || 'STANDARD'} CRITICALITY
         </Badge>
       }
       footer={
@@ -53,14 +39,12 @@ export function Asset360Inspector({ asset, open, onClose }: Asset360InspectorPro
           >
             Close Inspector
           </button>
-          <button
-            onClick={() => {
-              window.location.href = `/admin/operations/work-orders?assetId=${asset.id}`;
-            }}
-            className="rounded-[6px] bg-[#FF6B24] px-3.5 py-1.5 text-[12px] font-medium text-white shadow-sm"
+          <Link
+            href={`/admin/operations/work-orders?assetId=${asset.id}`}
+            className="rounded-[6px] bg-[#FF6B24] px-3.5 py-1.5 text-[12px] font-medium text-white shadow-sm hover:bg-[#E9540F] transition-colors"
           >
             Create Work Order
-          </button>
+          </Link>
         </div>
       }
     >
@@ -73,19 +57,44 @@ export function Asset360Inspector({ asset, open, onClose }: Asset360InspectorPro
           <div className="grid grid-cols-2 gap-3">
             <div>
               <span className="text-[11px] text-[#9B9B97] block">Manufacturer</span>
-              <span className="font-medium text-[#101010]">{asset.manufacturer}</span>
+              <span className="font-medium text-[#101010]">
+                {asset.manufacturer || '—'}
+              </span>
             </div>
             <div>
               <span className="text-[11px] text-[#9B9B97] block">Model Number</span>
-              <span className="font-mono text-[#101010]">{asset.modelNumber}</span>
+              <span className="font-mono text-[#101010]">
+                {asset.model_number || '—'}
+              </span>
             </div>
             <div>
               <span className="text-[11px] text-[#9B9B97] block">Serial Number</span>
-              <span className="font-mono text-[#101010]">{asset.serialNumber}</span>
+              <span className="font-mono text-[#101010]">
+                {asset.serial_number || '—'}
+              </span>
             </div>
             <div>
               <span className="text-[11px] text-[#9B9B97] block">Operating State</span>
-              <Badge variant="green" size="xs">{asset.status.replace(/_/g, ' ')}</Badge>
+              <Badge variant={asset.status === 'IN_SERVICE' ? 'green' : 'neutral'} size="xs">
+                {asset.status ? asset.status.replace(/_/g, ' ') : 'REGISTERED'}
+              </Badge>
+            </div>
+          </div>
+        </div>
+
+        {/* Condition & Lifecycle */}
+        <div className="rounded-[12px] border border-[#E4E4E1] bg-[#FFFFFF] p-4 space-y-3">
+          <h4 className="font-mono text-[10.5px] uppercase tracking-wider text-[#686866] font-semibold">
+            CONDITION & LIFECYCLE
+          </h4>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <span className="text-[11px] text-[#9B9B97] block">Condition Grade</span>
+              <span className="font-mono text-[#101010]">{asset.condition || 'UNASSESSED'}</span>
+            </div>
+            <div>
+              <span className="text-[11px] text-[#9B9B97] block">Install Date</span>
+              <span className="font-mono text-[#101010]">{asset.install_date || '—'}</span>
             </div>
           </div>
         </div>
@@ -93,19 +102,10 @@ export function Asset360Inspector({ asset, open, onClose }: Asset360InspectorPro
         {/* Chronological Maintenance History */}
         <div className="space-y-3">
           <h4 className="font-mono text-[10.5px] uppercase tracking-wider text-[#686866] font-semibold">
-            IMMUTABLE ASSET SERVICE HISTORY
+            SERVICE RECORD & AUDIT
           </h4>
-          <div className="relative pl-5 before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-px before:bg-[#E4E4E1] space-y-3">
-            <div className="relative">
-              <div className="absolute -left-5 top-1 h-2 w-2 rounded-full bg-[#15803D] border-2 border-white" />
-              <div className="font-medium text-[#101010]">Quarterly SFG20 PPM Service Passed</div>
-              <div className="font-mono text-[10.5px] text-[#9B9B97]">14 Aug 2026 · Marcus Vance</div>
-            </div>
-            <div className="relative">
-              <div className="absolute -left-5 top-1 h-2 w-2 rounded-full bg-[#FF6B24] border-2 border-white" />
-              <div className="font-medium text-[#101010]">Primary Contactor Relay Replacement</div>
-              <div className="font-mono text-[10.5px] text-[#9B9B97]">02 May 2026 · Reactive Call-out</div>
-            </div>
+          <div className="rounded-[8px] bg-[#F9F9F8] border border-[#E4E4E1] p-3 text-[#686866] text-center text-[12px]">
+            No historical work orders on file for this unit.
           </div>
         </div>
       </div>

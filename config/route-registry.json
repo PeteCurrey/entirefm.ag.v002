@@ -6,12 +6,12 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 326,
+    "total": 330,
     "LEGACY_VERIFIED": 201,
     "LEGACY_PROTECTED_BY_DIRECTIVE": 28,
     "CURRENT_LIVE_RETAINED": 5,
-    "NEW_GROWTH": 92,
-    "protected": 326,
+    "NEW_GROWTH": 94,
+    "protected": 330,
     "historic": 229
   },
   "routes": [
@@ -6275,6 +6275,78 @@
       "contentStatus": "COMPLETE",
       "designStatus": "COMPLETE",
       "historicSources": []
+    },
+    {
+      "path": "/client-portal",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/client-portal/real-time-operations",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/client-portal/compliance-reporting",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/client-portal/site-360",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
     }
   ],
   "orphanRecovery": {

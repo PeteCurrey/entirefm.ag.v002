@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Site } from '@/server/estate';
+import { Site, Asset, Space, Building } from '@/server/estate';
+import { WorkOrder } from '@/server/work';
 import { Badge } from '../ui/Badge';
 import { VisualModeSelector, SiteVisualMode } from './VisualModeSelector';
 import {
@@ -13,69 +14,64 @@ import {
   Users,
   AlertTriangle,
   Layers,
-  Sparkles,
-  Maximize2,
-  Upload,
   Radio,
 } from 'lucide-react';
 
 interface SiteHeroWorkspaceProps {
-  site: Site & {
-    heroImageUrl?: string;
-    openJobsCount?: number;
-    criticalJobsCount?: number;
-    compliancePercent?: number;
-    engineersPresent?: number;
-    grossAreaSqm?: number;
-    occupancyPercent?: number;
-  };
+  site: Site;
+  buildings?: Building[];
+  spaces?: Space[];
+  assets?: Asset[];
+  workOrders?: WorkOrder[];
+  compliancePercent?: number;
   mode: SiteVisualMode;
   onModeChange: (mode: SiteVisualMode) => void;
-  onMarkerClick?: (markerType: string) => void;
+  onSelectAsset?: (asset: Asset) => void;
+  onSelectWorkOrder?: (wo: WorkOrder) => void;
 }
 
 export function SiteHeroWorkspace({
   site,
+  buildings = [],
+  spaces = [],
+  assets = [],
+  workOrders = [],
+  compliancePercent = 100,
   mode,
   onModeChange,
-  onMarkerClick,
+  onSelectAsset,
+  onSelectWorkOrder,
 }: SiteHeroWorkspaceProps) {
   const [activeMarker, setActiveMarker] = useState<string | null>(null);
 
-  const heroImage = site.heroImageUrl || '/images/EntireFM 01.png';
+  const heroImage = '/images/EntireFM 01.png';
 
-  const operationalMarkers = [
-    {
-      id: 'm-boiler',
-      type: 'critical_wo',
-      label: 'Boiler Plant Trip (P1)',
-      location: 'Level -1 Plant Room',
-      top: '68%',
-      left: '32%',
-      color: 'bg-[#DC2626]',
-      pulse: true,
-    },
-    {
-      id: 'm-lift',
-      type: 'loler_inspection',
-      label: 'Passenger Lift A (LOLER Due)',
-      location: 'Central Core Elevator Bank',
-      top: '42%',
-      left: '52%',
-      color: 'bg-[#D97706]',
-      pulse: false,
-    },
-    {
-      id: 'm-engineer',
-      type: 'engineer_active',
-      label: 'Marcus Vance on site',
-      location: 'Reception & Access Gate',
-      top: '78%',
-      left: '72%',
-      color: 'bg-[#FF6B24]',
-      pulse: true,
-    },
-  ];
+  // Compute real metrics from live records
+  const totalGia = buildings.reduce((acc, b) => acc + (b.gross_internal_area_sqm || 0), 0);
+  const activeWorkOrders = workOrders.filter(
+    (w) => w.status !== 'COMPLETED' && w.status !== 'CLOSED' && w.status !== 'CANCELLED'
+  );
+  const criticalWorkOrders = activeWorkOrders.filter((w) => w.priority === 'P1_CRITICAL');
+
+  // Derive spatial markers from actual active work orders
+  const spatialMarkers = activeWorkOrders.slice(0, 4).map((wo, idx) => {
+    const positions = [
+      { top: '65%', left: '30%' },
+      { top: '40%', left: '55%' },
+      { top: '75%', left: '70%' },
+      { top: '35%', left: '25%' },
+    ];
+    const pos = positions[idx] || { top: '50%', left: '50%' };
+    return {
+      id: wo.id,
+      label: `${wo.work_order_number || 'WO'} · ${wo.title}`,
+      location: site.name,
+      top: pos.top,
+      left: pos.left,
+      isCritical: wo.priority === 'P1_CRITICAL',
+      wo,
+    };
+  });
 
   return (
     <div className="rounded-[18px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
@@ -83,7 +79,13 @@ export function SiteHeroWorkspace({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E4E4E1] bg-[#F0F0EE] px-6 py-3 gap-3">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[#16A34A] animate-pulse" />
+            <span
+              className={`h-2 w-2 rounded-full ${
+                criticalWorkOrders.length > 0
+                  ? 'bg-[#DC2626] animate-pulse'
+                  : 'bg-[#16A34A]'
+              }`}
+            />
             <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
               SITE 360 · PHYSICAL ASSET CANVAS
             </span>
@@ -114,8 +116,8 @@ export function SiteHeroWorkspace({
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30 pointer-events-none" />
 
-          {/* Interactive Spatial Operational Markers */}
-          {operationalMarkers.map((marker) => (
+          {/* Interactive Spatial Operational Markers from Live Tickets */}
+          {spatialMarkers.map((marker) => (
             <div
               key={marker.id}
               style={{ top: marker.top, left: marker.left }}
@@ -125,23 +127,21 @@ export function SiteHeroWorkspace({
                 type="button"
                 onClick={() => {
                   setActiveMarker(marker.id);
-                  onMarkerClick && onMarkerClick(marker.type);
+                  onSelectWorkOrder && onSelectWorkOrder(marker.wo);
                 }}
                 className="group/marker relative flex items-center"
               >
-                {/* Ping dot */}
                 <span className="relative flex h-5 w-5 items-center justify-center">
-                  {marker.pulse && (
-                    <span
-                      className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${marker.color}`}
-                    />
+                  {marker.isCritical && (
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 bg-[#DC2626]" />
                   )}
                   <span
-                    className={`relative inline-flex h-3.5 w-3.5 rounded-full border-2 border-white shadow-lg ${marker.color}`}
+                    className={`relative inline-flex h-3.5 w-3.5 rounded-full border-2 border-white shadow-lg ${
+                      marker.isCritical ? 'bg-[#DC2626]' : 'bg-[#FF6B24]'
+                    }`}
                   />
                 </span>
 
-                {/* Marker Tooltip / Label */}
                 <div className="ml-2 hidden sm:flex flex-col rounded-[6px] border border-white/20 bg-black/85 backdrop-blur-md px-2.5 py-1 text-left text-white shadow-xl transition-all group-hover/marker:scale-105">
                   <span className="font-medium text-[11.5px] leading-tight whitespace-nowrap">
                     {marker.label}
@@ -157,8 +157,12 @@ export function SiteHeroWorkspace({
           {/* Overlay Top Right: Live Telemetry HUD */}
           <div className="absolute top-4 right-4 flex items-center gap-2">
             <div className="rounded-[8px] bg-black/75 backdrop-blur-md border border-white/15 px-3 py-1.5 font-mono text-[11px] text-white flex items-center gap-2">
-              <Radio className="h-3.5 w-3.5 text-[#16A34A] animate-pulse" />
-              <span>LIVE SENSORS: 48 ONLINE</span>
+              <Radio
+                className={`h-3.5 w-3.5 ${
+                  site.status === 'ACTIVE' ? 'text-[#16A34A] animate-pulse' : 'text-[#9B9B97]'
+                }`}
+              />
+              <span>ESTATE STATUS: {site.status}</span>
             </div>
           </div>
 
@@ -167,7 +171,7 @@ export function SiteHeroWorkspace({
             <div>
               <div className="flex items-center gap-2">
                 <Badge variant="orange" size="xs">
-                  {site.site_type.replace(/_/g, ' ')}
+                  {site.site_type?.replace(/_/g, ' ') || 'FACILITY'}
                 </Badge>
                 <span className="font-mono text-[11px] text-white/80">
                   {site.postcode}
@@ -189,111 +193,125 @@ export function SiteHeroWorkspace({
               <div className="px-3 py-1 text-center">
                 <div className="text-[9px] uppercase text-white/60">GIA Area</div>
                 <div className="font-semibold text-white">
-                  {site.grossAreaSqm ? `${site.grossAreaSqm.toLocaleString()} m²` : '8,450 m²'}
+                  {totalGia > 0 ? `${totalGia.toLocaleString()} m²` : '—'}
                 </div>
               </div>
               <div className="h-6 w-px bg-white/20" />
               <div className="px-3 py-1 text-center">
-                <div className="text-[9px] uppercase text-white/60">Occupancy</div>
-                <div className="font-semibold text-[#16A34A]">94% Full</div>
+                <div className="text-[9px] uppercase text-white/60">Open Jobs</div>
+                <div
+                  className={`font-semibold ${
+                    activeWorkOrders.length > 0 ? 'text-[#FF6B24]' : 'text-[#16A34A]'
+                  }`}
+                >
+                  {activeWorkOrders.length}
+                </div>
               </div>
               <div className="h-6 w-px bg-white/20" />
               <div className="px-3 py-1 text-center">
                 <div className="text-[9px] uppercase text-white/60">Compliance</div>
                 <div className="font-semibold text-white">
-                  {site.compliancePercent?.toFixed(1) || '98.4'}%
+                  {compliancePercent.toFixed(1)}%
                 </div>
               </div>
             </div>
           </div>
         </div>
       ) : mode === 'PLAN' ? (
-        /* Floor Plan Architectural CAD Mode */
-        <div className="relative h-[480px] w-full bg-[#F5F5F3] p-6 flex flex-col justify-between overflow-hidden">
+        /* Floor Plan CAD Mode */
+        <div className="relative min-h-[480px] w-full bg-[#F5F5F3] p-6 flex flex-col justify-between overflow-hidden">
           <div className="flex items-center justify-between border-b border-[#E4E4E1] pb-3">
             <div className="font-mono text-[11px] text-[#101010] font-semibold">
-              SCHEMATIC FLOOR LAYOUT · LEVEL 0 (GROUND FLOOR)
-            </div>
-            <div className="flex items-center gap-2">
-              <button className="rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] px-2.5 py-1 text-[11px] font-medium text-[#101010]">
-                Level -1 Plant
-              </button>
-              <button className="rounded-[6px] bg-[#101010] px-2.5 py-1 text-[11px] font-medium text-white">
-                Level 0 Ground
-              </button>
-              <button className="rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] px-2.5 py-1 text-[11px] font-medium text-[#101010]">
-                Level 1-4 Offices
-              </button>
+              SCHEMATIC SPACES & ZONES ({spaces.length} REGISTERED)
             </div>
           </div>
 
-          {/* Simulated Architectural Floor Plan Blueprint */}
-          <div className="relative flex-1 my-4 border-2 border-dashed border-[#D1D1CD] rounded-[12px] bg-[#FFFFFF] p-8 flex items-center justify-center">
-            <div className="grid grid-cols-3 gap-4 w-full h-full max-w-2xl font-mono text-[11px]">
-              <div className="border border-[#E4E4E1] bg-[#F9F9F8] rounded-[8px] p-4 flex flex-col justify-between">
-                <span className="font-semibold text-[#101010]">ZONE A · RECEPTION</span>
-                <span className="text-[10px] text-[#15803D]">12 Assets · Nominal</span>
-              </div>
-              <div className="border border-[#FECACA] bg-[#FEF2F2] rounded-[8px] p-4 flex flex-col justify-between ring-1 ring-[#FECACA]">
-                <span className="font-semibold text-[#B91C1C]">PLANT ROOM 01</span>
-                <span className="text-[10px] text-[#B91C1C] font-bold">1 Active P1 Fault</span>
-              </div>
-              <div className="border border-[#E4E4E1] bg-[#F9F9F8] rounded-[8px] p-4 flex flex-col justify-between">
-                <span className="font-semibold text-[#101010]">ZONE B · ATRIUM</span>
-                <span className="text-[10px] text-[#686866]">8 Assets</span>
-              </div>
+          {spaces.length === 0 ? (
+            <div className="py-16 text-center text-[#686866] font-mono text-[12px]">
+              <Building2 className="h-8 w-8 text-[#9B9B97] mx-auto mb-2" />
+              No internal spaces or floor zones configured for this site.
             </div>
-          </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 my-4">
+              {spaces.map((sp) => (
+                <div
+                  key={sp.id}
+                  className="border border-[#E4E4E1] bg-[#FFFFFF] rounded-[8px] p-4 flex flex-col justify-between"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] text-[#FF6B24] font-semibold">
+                      {sp.space_code}
+                    </span>
+                    <span className="font-mono text-[9px] text-[#686866]">{sp.space_type}</span>
+                  </div>
+                  <div className="font-medium text-[13px] text-[#101010] mt-1">{sp.name}</div>
+                  <div className="mt-2 text-[10px] text-[#15803D] font-mono">{sp.status}</div>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="flex items-center justify-between font-mono text-[11px] text-[#686866] pt-2 border-t border-[#E4E4E1]">
-            <span>Click any space zone to inspect linked mechanical & electrical equipment</span>
-            <span>SCALE 1:200 · DWG COMPLIANT</span>
+            <span>Space topology mapped to building hierarchy</span>
+            <span>SCALE 1:200 · CAD ALIGNED</span>
           </div>
         </div>
       ) : mode === 'ASSETS' ? (
         /* Asset Hierarchy Explorer */
-        <div className="h-[480px] w-full bg-[#FFFFFF] p-6 overflow-y-auto cafm-scroll">
+        <div className="min-h-[480px] w-full bg-[#FFFFFF] p-6 overflow-y-auto cafm-scroll">
           <div className="font-mono text-[11px] uppercase tracking-wider text-[#686866] mb-3">
-            EXPLORE PHYSICAL ASSET HIERARCHY (148 REGISTERED ASSETS)
+            REGISTERED ASSETS & EQUIPMENT ({assets.length} UNITS)
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {[
-              { code: 'HVAC-AHU-01', name: 'Air Handling Unit 1', cat: 'HVAC', cond: 'GOOD', crit: 'HIGH' },
-              { code: 'BLR-01', name: 'Primary Condensing Gas Boiler', cat: 'HEATING', cond: 'FAIR', crit: 'CRITICAL' },
-              { code: 'CHL-02', name: 'Water-Cooled Chiller Unit', cat: 'COOLING', cond: 'EXCELLENT', crit: 'HIGH' },
-              { code: 'ELEC-MDB-G', name: 'Main Distribution Board G', cat: 'ELECTRICAL', cond: 'GOOD', crit: 'CRITICAL' },
-              { code: 'LIFT-P01', name: 'Passenger Elevator 1', cat: 'VERTICAL_TRANSPORT', cond: 'GOOD', crit: 'HIGH' },
-              { code: 'FIRE-PMP-01', name: 'Fire Sprinkler Booster Pump', cat: 'FIRE_PROTECTION', cond: 'EXCELLENT', crit: 'CRITICAL' },
-            ].map((a) => (
-              <div
-                key={a.code}
-                className="rounded-[10px] border border-[#E4E4E1] p-3.5 hover:border-[#FF6B24] transition-all cursor-pointer bg-[#F9F9F8] hover:bg-[#FFFFFF]"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] text-[#FF6B24] font-semibold">{a.code}</span>
-                  <Badge variant={a.crit === 'CRITICAL' ? 'red' : 'blue'} size="xs">{a.crit}</Badge>
+
+          {assets.length === 0 ? (
+            <div className="py-16 text-center text-[#686866] font-mono text-[12px]">
+              <Layers className="h-8 w-8 text-[#9B9B97] mx-auto mb-2" />
+              No mechanical or electrical assets registered for this site yet.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {assets.map((a) => (
+                <div
+                  key={a.id}
+                  onClick={() => onSelectAsset && onSelectAsset(a)}
+                  className="rounded-[10px] border border-[#E4E4E1] p-3.5 hover:border-[#FF6B24] transition-all cursor-pointer bg-[#F9F9F8] hover:bg-[#FFFFFF]"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] text-[#FF6B24] font-semibold">
+                      {a.asset_reference}
+                    </span>
+                    <Badge variant={a.criticality === 'CRITICAL' ? 'red' : 'blue'} size="xs">
+                      {a.criticality}
+                    </Badge>
+                  </div>
+                  <div className="font-medium text-[13px] text-[#101010] mt-1 truncate">{a.name}</div>
+                  <div className="mt-2 text-[11px] text-[#686866] flex items-center justify-between">
+                    <span>{a.system_category || 'GENERAL'}</span>
+                    <span className="font-mono text-[#15803D] font-medium">{a.condition || 'NOMINAL'}</span>
+                  </div>
                 </div>
-                <div className="font-medium text-[13px] text-[#101010] mt-1 truncate">{a.name}</div>
-                <div className="mt-2 text-[11px] text-[#686866] flex items-center justify-between">
-                  <span>{a.cat}</span>
-                  <span className="font-mono text-[#15803D] font-medium">{a.cond}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       ) : (
-        /* Map / Geographical Access Context */
-        <div className="h-[480px] w-full bg-[#E4E4E1] p-8 flex items-center justify-center">
+        /* Map / Spatial Context */
+        <div className="min-h-[480px] w-full bg-[#E4E4E1] p-8 flex items-center justify-center">
           <div className="rounded-[14px] border border-[#D1D1CD] bg-[#FFFFFF] p-6 max-w-lg w-full text-center space-y-3">
             <MapPin className="h-8 w-8 text-[#FF6B24] mx-auto" />
-            <h3 className="text-[16px] font-medium text-[#101010]">Site Geographic Context</h3>
+            <h3 className="text-[16px] font-medium text-[#101010]">{site.name}</h3>
             <p className="text-[13px] text-[#686866]">
-              Coordinates: 53.4808° N, 2.2426° W · Postcode {site.postcode}
+              {site.address_line1}, {site.city} {site.postcode}
             </p>
-            <div className="pt-2 text-[12px] font-mono text-[#15803D]">
-              Vehicle loading bay access via rear service yard (Keyfob clearance required)
-            </div>
+            {site.access_instructions ? (
+              <div className="pt-2 text-[12px] font-mono text-[#101010] bg-[#F5F5F3] p-3 rounded-[8px] text-left">
+                <strong>Access Instructions:</strong> {site.access_instructions}
+              </div>
+            ) : (
+              <div className="pt-2 text-[12px] font-mono text-[#686866]">
+                Standard site access protocols apply.
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -2,7 +2,9 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Site } from '@/server/estate';
+import { Site, Asset, Building, Space } from '@/server/estate';
+import { WorkOrder } from '@/server/work';
+import { ComplianceObligation } from '@/server/compliance';
 import { SiteVisualMode } from './VisualModeSelector';
 import { BuildingNavTab, BuildingNavPalette } from './BuildingNavPalette';
 import { SiteHeroWorkspace } from './SiteHeroWorkspace';
@@ -10,83 +12,82 @@ import { SiteCarouselSelector, SiteCarouselItem } from './SiteCarouselSelector';
 import { SiteProfileInspector } from './SiteProfileInspector';
 import { SiteLiveOperationsInspector } from './SiteLiveOperationsInspector';
 import { SiteHealthInstrument } from './SiteHealthInstrument';
-import { Asset360Inspector, AssetDetail } from './Asset360Inspector';
+import { Asset360Inspector } from './Asset360Inspector';
 import { WorkOrderOperationalWorkspace } from './WorkOrderOperationalWorkspace';
+import { Layers, Wrench, ShieldCheck, FileText, CheckCircle2 } from 'lucide-react';
+import Link from 'next/link';
 
 interface Site360ClientProps {
   currentSite: Site;
   allSites: Site[];
+  assets?: Asset[];
+  buildings?: Building[];
+  spaces?: Space[];
+  workOrders?: WorkOrder[];
+  complianceObligations?: ComplianceObligation[];
 }
 
-export function Site360Client({ currentSite, allSites }: Site360ClientProps) {
+export function Site360Client({
+  currentSite,
+  allSites,
+  assets = [],
+  buildings = [],
+  spaces = [],
+  workOrders = [],
+  complianceObligations = [],
+}: Site360ClientProps) {
   const router = useRouter();
   const [visualMode, setVisualMode] = useState<SiteVisualMode>('PHOTO');
   const [activeTab, setActiveTab] = useState<BuildingNavTab>('overview');
-  const [selectedAsset, setSelectedAsset] = useState<AssetDetail | null>(null);
+  const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
+  const [selectedWorkOrder, setSelectedWorkOrder] = useState<WorkOrder | null>(
+    workOrders.length > 0 ? workOrders[0] : null
+  );
   const [assetDrawerOpen, setAssetDrawerOpen] = useState(false);
+
+  // Compute real compliance percentage
+  const compliantCount = complianceObligations.filter((c) => c.status === 'COMPLIANT').length;
+  const compliancePercent =
+    complianceObligations.length > 0
+      ? Math.round((compliantCount / complianceObligations.length) * 100)
+      : 100;
 
   // Map all sites to carousel items
   const carouselSites: SiteCarouselItem[] = allSites.map((s, idx) => ({
     ...s,
-    openJobsCount: idx === 0 ? 3 : idx === 1 ? 1 : 0,
-    healthStatus: idx === 0 ? 'CRITICAL' : idx === 1 ? 'WARNING' : 'HEALTHY',
-    heroImageUrl:
-      s.city?.toLowerCase().includes('manchester')
-        ? '/images/EntireFM 02.png'
-        : s.city?.toLowerCase().includes('london')
-        ? '/images/0c21ecde-cc89-4509-951a-5d9d65a7a8be.png'
-        : s.city?.toLowerCase().includes('birmingham')
-        ? '/images/12ecc6b7-2a40-4046-86d8-ca2f3f51dec6.png'
-        : '/images/EntireFM 01.png',
+    openJobsCount: 0,
+    healthStatus: s.status === 'ACTIVE' ? 'HEALTHY' : 'WARNING',
+    heroImageUrl: idx % 2 === 0 ? '/images/EntireFM 01.png' : '/images/EntireFM 02.png',
   }));
 
   const handleSelectSiteFromCarousel = (siteId: string) => {
     router.push(`/admin/estate/sites/${siteId}`);
   };
 
-  const handleMarkerClick = (markerType: string) => {
-    if (markerType === 'critical_wo') {
-      setActiveTab('work');
-    } else if (markerType === 'loler_inspection') {
-      setSelectedAsset({
-        id: 'asset-lift',
-        assetReference: 'EQ-LFT-001',
-        name: 'Passenger Elevator Core A',
-        category: 'VERTICAL_TRANSPORT',
-        manufacturer: 'KONE',
-        modelNumber: 'MonoSpace 700 DX',
-        serialNumber: 'KN-2021-98402',
-        location: 'Central Core Shaft 1',
-        criticality: 'HIGH',
-        condition: 'GOOD',
-        installDate: '2021-04-12',
-        expectedLifeYears: 25,
-        status: 'IN_SERVICE',
-      });
-      setAssetDrawerOpen(true);
-    }
+  const handleSelectAsset = (asset: Asset) => {
+    setSelectedAsset(asset);
+    setAssetDrawerOpen(true);
+  };
+
+  const handleSelectWorkOrder = (wo: WorkOrder) => {
+    setSelectedWorkOrder(wo);
+    setActiveTab('work');
   };
 
   return (
     <div className="space-y-6">
       {/* 1. Large Central Hero Workspace */}
       <SiteHeroWorkspace
-        site={{
-          ...currentSite,
-          heroImageUrl:
-            currentSite.city?.toLowerCase().includes('manchester')
-              ? '/images/EntireFM 02.png'
-              : '/images/EntireFM 01.png',
-          openJobsCount: 3,
-          criticalJobsCount: 1,
-          compliancePercent: 98.4,
-          engineersPresent: 2,
-          grossAreaSqm: 8450,
-          occupancyPercent: 94,
-        }}
+        site={currentSite}
+        buildings={buildings}
+        spaces={spaces}
+        assets={assets}
+        workOrders={workOrders}
+        compliancePercent={compliancePercent}
         mode={visualMode}
         onModeChange={setVisualMode}
-        onMarkerClick={handleMarkerClick}
+        onSelectAsset={handleSelectAsset}
+        onSelectWorkOrder={handleSelectWorkOrder}
       />
 
       {/* 2. Precision Building Navigation Palette */}
@@ -94,11 +95,11 @@ export function Site360Client({ currentSite, allSites }: Site360ClientProps) {
         activeTab={activeTab}
         onChangeTab={setActiveTab}
         counts={{
-          spaces: 24,
-          assets: 148,
-          work: 3,
-          compliance: 16,
-          documents: 42,
+          spaces: spaces.length,
+          assets: assets.length,
+          work: workOrders.length,
+          compliance: complianceObligations.length,
+          documents: 0,
         }}
       />
 
@@ -108,29 +109,32 @@ export function Site360Client({ currentSite, allSites }: Site360ClientProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left Profile Inspector (6 Cols) */}
             <div className="lg:col-span-6">
-              <SiteProfileInspector
-                site={{
-                  ...currentSite,
-                  grossAreaSqm: 8450,
-                  contractName: 'Total FM Complete Asset & Fabric Contract',
-                }}
-              />
+              <SiteProfileInspector site={currentSite} buildings={buildings} />
             </div>
 
             {/* Right Live Operations Inspector (6 Cols) */}
             <div className="lg:col-span-6">
-              <SiteLiveOperationsInspector siteId={currentSite.id} />
+              <SiteLiveOperationsInspector
+                siteId={currentSite.id}
+                workOrders={workOrders}
+                complianceObligations={complianceObligations}
+                onSelectWorkOrder={handleSelectWorkOrder}
+              />
             </div>
           </div>
 
           {/* Site Health Instrument */}
-          <SiteHealthInstrument />
+          <SiteHealthInstrument
+            assets={assets}
+            workOrders={workOrders}
+            complianceObligations={complianceObligations}
+          />
         </div>
       )}
 
       {activeTab === 'work' && (
         <div className="space-y-6">
-          <WorkOrderOperationalWorkspace />
+          <WorkOrderOperationalWorkspace workOrder={selectedWorkOrder} />
         </div>
       )}
 
@@ -138,95 +142,101 @@ export function Site360Client({ currentSite, allSites }: Site360ClientProps) {
         <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-4">
           <div className="flex items-center justify-between border-b border-[#E4E4E1] pb-3">
             <h3 className="font-mono text-[12px] font-semibold uppercase tracking-wider text-[#101010]">
-              SITE ASSET REGISTER (148 UNITS)
+              SITE ASSET REGISTER ({assets.length} UNITS)
             </h3>
-            <span className="text-[12px] text-[#686866]">Click asset to inspect technical record</span>
+            <span className="text-[12px] text-[#686866]">
+              Click asset to inspect technical record
+            </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-            {[
-              {
-                id: 'a1',
-                assetReference: 'EQ-BLR-001',
-                name: 'Primary Condensing Gas Boiler BLR-01',
-                category: 'HEATING_PLANT',
-                manufacturer: 'Viessmann',
-                modelNumber: 'Vitocrossal 300',
-                serialNumber: 'VM-98402-2022',
-                location: 'Basement Plant Room Level -1',
-                criticality: 'CRITICAL' as const,
-                condition: 'GOOD' as const,
-                installDate: '2022-09-15',
-                expectedLifeYears: 20,
-                status: 'UNDER_REPAIR' as const,
-              },
-              {
-                id: 'a2',
-                assetReference: 'EQ-AHU-001',
-                name: 'Main Air Handling Unit AHU-01',
-                category: 'HVAC_VENTILATION',
-                manufacturer: 'Daikin Applied',
-                modelNumber: 'Modular-P 400',
-                serialNumber: 'DK-44820-2021',
-                location: 'Roof Plant Deck',
-                criticality: 'HIGH' as const,
-                condition: 'EXCELLENT' as const,
-                installDate: '2021-06-10',
-                expectedLifeYears: 18,
-                status: 'IN_SERVICE' as const,
-              },
-              {
-                id: 'a3',
-                assetReference: 'EQ-LFT-001',
-                name: 'Passenger Elevator Core A',
-                category: 'VERTICAL_TRANSPORT',
-                manufacturer: 'KONE',
-                modelNumber: 'MonoSpace 700 DX',
-                serialNumber: 'KN-2021-98402',
-                location: 'Central Core Shaft 1',
-                criticality: 'HIGH' as const,
-                condition: 'GOOD' as const,
-                installDate: '2021-04-12',
-                expectedLifeYears: 25,
-                status: 'IN_SERVICE' as const,
-              },
-            ].map((a) => (
-              <div
-                key={a.id}
-                onClick={() => {
-                  setSelectedAsset(a);
-                  setAssetDrawerOpen(true);
-                }}
-                className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-4 hover:border-[#FF6B24] hover:bg-[#FFFFFF] transition-all cursor-pointer space-y-2"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10.5px] text-[#FF6B24] font-semibold">
-                    {a.assetReference}
-                  </span>
+          {assets.length === 0 ? (
+            <div className="py-12 text-center text-[#686866] font-mono text-[12px]">
+              No physical assets registered for this site.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+              {assets.map((a) => (
+                <div
+                  key={a.id}
+                  onClick={() => handleSelectAsset(a)}
+                  className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-4 hover:border-[#FF6B24] hover:bg-[#FFFFFF] transition-all cursor-pointer space-y-2"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10.5px] text-[#FF6B24] font-semibold">
+                      {a.asset_reference}
+                    </span>
+                    <span
+                      className={`rounded-[4px] px-1.5 py-0.2 font-mono text-[9px] ${
+                        a.criticality === 'CRITICAL'
+                          ? 'bg-[#FEF2F2] text-[#B91C1C] font-semibold'
+                          : 'bg-[#EFF6FF] text-[#1D4ED8]'
+                      }`}
+                    >
+                      {a.criticality || 'STANDARD'}
+                    </span>
+                  </div>
+                  <div className="font-medium text-[13.5px] text-[#101010] line-clamp-1">{a.name}</div>
+                  <div className="text-[11.5px] text-[#686866]">{a.system_category || 'GENERAL'}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeTab === 'compliance' && (
+        <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-4">
+          <div className="flex items-center justify-between border-b border-[#E4E4E1] pb-3">
+            <h3 className="font-mono text-[12px] font-semibold uppercase tracking-wider text-[#101010]">
+              STATUTORY COMPLIANCE OBLIGATIONS ({complianceObligations.length})
+            </h3>
+          </div>
+
+          {complianceObligations.length === 0 ? (
+            <div className="py-12 text-center text-[#686866] font-mono text-[12px]">
+              No compliance obligations assigned to this site.
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {complianceObligations.map((c) => (
+                <div
+                  key={c.id}
+                  className="rounded-[8px] border border-[#E4E4E1] bg-[#F9F9F8] p-3 flex items-center justify-between text-[12.5px]"
+                >
+                  <div>
+                    <div className="font-medium text-[#101010]">
+                      {c.rule_version?.rule?.title || 'Statutory Obligation'}
+                    </div>
+                    <div className="text-[11px] text-[#686866] font-mono">
+                      Category: {c.rule_version?.rule?.rule_family || 'STATUTORY'} · Due: {c.next_due_at || 'Periodic'}
+                    </div>
+                  </div>
                   <span
-                    className={`rounded-[4px] px-1.5 py-0.2 font-mono text-[9px] ${
-                      a.criticality === 'CRITICAL'
-                        ? 'bg-[#FEF2F2] text-[#B91C1C] font-semibold'
-                        : 'bg-[#EFF6FF] text-[#1D4ED8]'
+                    className={`font-mono text-[10px] px-2 py-0.5 rounded-[4px] font-semibold ${
+                      c.status === 'COMPLIANT'
+                        ? 'bg-[#F0FDF4] text-[#15803D]'
+                        : c.status === 'OVERDUE'
+                        ? 'bg-[#FEF2F2] text-[#B91C1C]'
+                        : 'bg-[#FFF7ED] text-[#C2410C]'
                     }`}
                   >
-                    {a.criticality}
+                    {c.status}
                   </span>
                 </div>
-                <div className="font-medium text-[13.5px] text-[#101010] line-clamp-1">{a.name}</div>
-                <div className="text-[11.5px] text-[#686866]">{a.location}</div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
       {/* 4. Bottom Horizontal Site Selector Carousel */}
-      <SiteCarouselSelector
-        sites={carouselSites}
-        selectedSiteId={currentSite.id}
-        onSelectSite={handleSelectSiteFromCarousel}
-      />
+      {allSites.length > 0 && (
+        <SiteCarouselSelector
+          sites={carouselSites}
+          selectedSiteId={currentSite.id}
+          onSelectSite={handleSelectSiteFromCarousel}
+        />
+      )}
 
       {/* Asset 360 Inspector Drawer */}
       <Asset360Inspector

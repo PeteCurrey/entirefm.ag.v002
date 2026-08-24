@@ -168,6 +168,7 @@ export const PRIMARY_NAV: NavSection[] = [
  * Flat links alongside the mega-menu sections.
  */
 export const SECONDARY_NAV: NavLink[] = [
+  { label: 'Client Portal', href: '/client-portal' },
   { label: 'About', href: '/about-entire-facilities-management' },
   { label: 'Contact', href: '/contact-us' },
 ];
@@ -211,6 +212,7 @@ export const FOOTER_NAV: NavColumn[] = [
   {
     heading: 'Resources & Company',
     links: [
+      { label: 'EntireCAFM Portal', href: '/client-portal' },
       { label: 'Resource Hub', href: '/resources' },
       { label: 'FM Tools & Calculators', href: '/tools' },
       { label: 'Compliance Centre', href: '/compliance' },

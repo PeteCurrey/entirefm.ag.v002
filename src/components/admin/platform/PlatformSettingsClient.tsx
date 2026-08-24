@@ -41,13 +41,13 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Profile State
-  const initialNames = session.name ? session.name.split(' ') : ['EntireFM', 'Admin'];
+  const initialNames = session.name ? session.name.split(' ') : [];
   const [firstName, setFirstName] = useState(initialNames[0] || '');
   const [lastName, setLastName] = useState(initialNames.slice(1).join(' ') || '');
-  const [email, setEmail] = useState(session.email || 'admin@entirefm.com');
-  const [phone, setPhone] = useState('+44 (0) 161 820 4420');
-  const [jobTitle, setJobTitle] = useState('Super Administrator & Facilities Director');
-  const [emergencyPhone, setEmergencyPhone] = useState('+44 (0) 7700 900821');
+  const [email, setEmail] = useState(session.email || '');
+  const [phone, setPhone] = useState('');
+  const [jobTitle, setJobTitle] = useState(session.role?.replace(/_/g, ' ') || '');
+  const [emergencyPhone, setEmergencyPhone] = useState('');
   const [timezone, setTimezone] = useState('Europe/London (GMT/BST)');
 
   // System & CAFM Settings State

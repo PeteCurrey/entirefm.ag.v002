@@ -36,11 +36,49 @@ export type DataImportRowStatus =
   | 'PENDING'
   | 'VALID'
   | 'INVALID'
+  | 'UNCHANGED'
+  | 'CHANGE_DETECTED'
+  | 'POSSIBLE_DUPLICATE'
+  | 'CONFLICT'
   | 'DUPLICATE'
   | 'SKIPPED'
   | 'IMPORTED'
   | 'FAILED'
-  | 'ROLLED_BACK';
+  | 'ROLLED_BACK'
+  | 'ROLLBACK_BLOCKED';
+
+/** Decision recorded by a human reviewer when a row is POSSIBLE_DUPLICATE */
+export type DuplicateDecisionChoice = 'USE_EXISTING' | 'CREATE_NEW' | 'IGNORE_ROW';
+
+export interface DataImportDuplicateDecision {
+  id: string;
+  batch_id: string;
+  row_id: string;
+  imported_name: string;
+  candidate_entity_id?: string;
+  candidate_name?: string;
+  match_reason: string;
+  decision: DuplicateDecisionChoice;
+  decided_by_person_id?: string;
+  decided_at: string;
+  notes?: string;
+}
+
+/** One changed field in a CHANGE_DETECTED row */
+export interface ImportFieldDiff {
+  field: string;
+  oldValue: string | null;
+  newValue: string | null;
+}
+
+/** Conflict provenance when an EntireFM user has enriched a field after last import */
+export interface ImportConflictDetail {
+  field: string;
+  lastImportedValue: string | null;
+  currentCafmValue: string | null;
+  incomingValue: string | null;
+  cafmModifiedAt?: string;
+}
 
 export type DataImportIssueSeverity = 'ERROR' | 'WARNING' | 'INFO';
 

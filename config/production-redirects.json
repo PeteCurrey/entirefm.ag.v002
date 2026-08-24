@@ -8,7 +8,7 @@
     "protectedSourceForbidden": true,
     "selfCanonicalDestinationRequired": true
   },
-  "totalRedirects": 414,
+  "totalRedirects": 420,
   "redirects": [
     {
       "source": "/about",
@@ -2493,6 +2493,42 @@
       "destination": "/about-entire-facilities-management",
       "statusCode": 301,
       "reason": "Intent-matched: General legacy redirect to homepage"
+    },
+    {
+      "source": "/fm-client-portal",
+      "destination": "/client-portal",
+      "statusCode": 301,
+      "reason": "SEO Term Alias"
+    },
+    {
+      "source": "/facilities-management-portal",
+      "destination": "/client-portal",
+      "statusCode": 301,
+      "reason": "SEO Term Alias"
+    },
+    {
+      "source": "/facilities-management-dashboard",
+      "destination": "/client-portal",
+      "statusCode": 301,
+      "reason": "SEO Term Alias"
+    },
+    {
+      "source": "/real-time-fm-reporting",
+      "destination": "/client-portal/real-time-operations",
+      "statusCode": 301,
+      "reason": "SEO Term Alias"
+    },
+    {
+      "source": "/fm-reporting-software",
+      "destination": "/client-portal",
+      "statusCode": 301,
+      "reason": "SEO Term Alias"
+    },
+    {
+      "source": "/facilities-management-reporting-portal",
+      "destination": "/client-portal/compliance-reporting",
+      "statusCode": 301,
+      "reason": "SEO Term Alias"
     }
   ],
   "changeLog": [
