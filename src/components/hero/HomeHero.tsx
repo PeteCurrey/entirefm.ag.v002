@@ -40,8 +40,8 @@ type EditorialManifest = {
   editorial: Record<string, { src: string; alt: string; widths: Record<string, string> }>;
 };
 
-/** London aerial timelapse, recovered from the legacy Wix homepage. */
-const HERO_VIDEO = '/video/entirefm-london-aerial.mp4';
+/** EntireFM Facilities Management brand hero video. */
+const HERO_VIDEO = '/video/entirefm-facilities-management.mp4';
 const HERO = (editorial as EditorialManifest).editorial?.['london-aerial-poster'];
 
 /**
