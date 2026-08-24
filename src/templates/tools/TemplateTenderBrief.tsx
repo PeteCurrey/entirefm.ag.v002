@@ -6,8 +6,6 @@ import {
   FileText,
   Copy,
   Check,
-  Printer,
-  Download,
   ArrowRight,
   ArrowLeft,
   RotateCcw,
@@ -15,9 +13,6 @@ import {
   CheckSquare,
   Square,
   ShieldCheck,
-  Sparkles,
-  FileSpreadsheet,
-  Layers,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -61,141 +56,105 @@ export function TemplateTenderBrief({ route, content }: TemplateProps) {
     { name: 'Home', url: '/' },
     { name: 'Resources', url: '/resources' },
     { name: 'Interactive Tools', url: '/tools' },
-    { name: 'Tender Brief Generator', url: '/tools/tender-brief' },
+    { name: 'Tender / RFP Brief Generator', url: '/tools/tender-brief' },
   ];
 
-  const ALL_SERVICE_OPTIONS = [
+  const ALL_SERVICES = [
     'Mechanical & Electrical (M&E) Maintenance',
-    'Planned Preventative Maintenance (PPM)',
     'HVAC, Chiller & Air Conditioning Servicing',
     'Statutory Compliance Testing (EICR, Fire, Gas, Water)',
-    'Commercial Gas & Boiler Plant Servicing',
-    'Emergency Lighting & Fire Alarm Testing',
-    'Commercial Office & Daily Contract Cleaning',
-    'Industrial & High-Level Cleaning',
-    'Manned Security & Access Control Maintenance',
-    'Grounds Maintenance & External Landscaping',
+    'Commercial Gas & Boiler Plant Maintenance',
+    'Fire Safety, Detection & Emergency Lighting',
+    'Water Hygiene, Legionella Monitoring & LRA',
+    'Lifting & Vertical Transport Management',
+    'Building Fabric, Roofing & Glazing Repairs',
     '24/7/365 Emergency Reactive Helpdesk Cover',
     'CAFM & Digital Portal Asset Tracking',
+    'Grounds Maintenance & External Landscaping',
+    'Specialist Commercial & Industrial Cleaning',
   ];
 
   const toggleService = (srv: string) => {
-    if (services.includes(srv)) {
-      setServices(services.filter((s) => s !== srv));
-    } else {
-      setServices([...services, srv]);
-    }
+    setServices((prev) => (prev.includes(srv) ? prev.filter((s) => s !== srv) : [...prev, srv]));
   };
 
-  const tenderDocumentText = `# FACILITIES MANAGEMENT (FM) PROCUREMENT SPECIFICATION BRIEF
+  const tenderMarkdown = `
+# INVITATION TO TENDER (ITT) / REQUEST FOR PROPOSAL (RFP)
+## Facilities Management & Maintenance Services Specification
 
-## 1. EXECUTIVE SUMMARY & ORGANISATION
-* **Client Organisation:** ${orgName}
-* **Property Sector:** ${sector}
-* **Portfolio Scope:** ${siteCount} across ${locations}
-* **Total Floor Area:** ${totalSqFt}
-* **Target Commencement:** ${targetStartDate}
-* **Proposed Contract Duration:** ${contractTerm}
-
----
-
-## 2. SCOPE OF REQUIRED SERVICES
-The appointed facilities management partner will be responsible for delivering the following agreed service lines under a single coordinated framework:
-
-${services.map((s, idx) => `${idx + 1}. **${s}**`).join('\n')}
+**Client Organisation:** ${orgName}
+**Property Sector:** ${sector}
+**Portfolio Scale:** ${siteCount} (${totalSqFt})
+**Locations:** ${locations}
+**Contract Duration:** ${contractTerm}
+**Target Mobilisation Date:** ${targetStartDate}
 
 ---
 
-## 3. STATUTORY COMPLIANCE & ASSET GOVERNANCE
-1. **Statutory Standards:** All mechanical, electrical, and life-safety systems must be maintained in strict accordance with UK statutory legislation (Health and Safety at Work Act 1974, RRO 2005, Electricity at Work Regulations 1989, ACOP L8, and LOLER 1998).
-2. **Digital Record-Keeping:** Contemporaneous digital records, inspection logbooks, and statutory certificates must be uploaded to a centralised CAFM client portal within 48 hours of service execution.
-3. **Asset Survey & Verification:** The contractor will conduct a comprehensive physical asset survey during mobilisation to benchmark plant condition and compile an authoritative asset register.
+### 1. Executive Summary & Objective
+${orgName} invites formal proposals from established Facilities Management providers to deliver high-quality, fully compliant maintenance and technical management services across our commercial property portfolio.
+
+**Primary Objectives:**
+- Establish single-point accountability for statutory compliance.
+- Modernise digital reporting via live CAFM systems.
+- Address current contract pain points: "${painPoints}".
 
 ---
 
-## 4. SERVICE LEVEL AGREEMENTS (SLAs) & HELPDESK
-* **Emergency Response Requirement:** ${slaTarget}
-* **Helpdesk Availability:** 24/7/365 dedicated desk with direct engineer dispatch and escalation protocols.
-* **Account Management:** Designated named Contract Manager with monthly performance reviews and SLA tracking.
+### 2. Required Scope of Services
+The appointed contractor shall be responsible for delivering:
+${services.map((s, i) => `${i + 1}. **${s}**`).join('\n')}
 
 ---
 
-## 5. COMMERCIAL OBJECTIVES & CURRENT PAIN POINTS
-* **Key Procurement Objectives:** Consolidated accountability, transparent fixed-schedule pricing, improved compliance auditing, and proactive lifecycle asset care.
-* **Addressed Challenges:** ${painPoints}
+### 3. Service Level Agreement (SLA) & Response Requirements
+- **Emergency Breakdown Response:** ${slaTarget}
+- **Statutory Logbook Delivery:** 100% cloud-accessible digital compliance certification within 48 hours of visit.
+- **Helpdesk Operations:** 24/7 UK-based call answering and ticket tracking.
 
 ---
-*Generated via EntireFM Intelligence Toolkit · Technical FM Procurement Framework*
-`;
+
+### 4. Submission & Contact Guidelines
+Proposals should include company accreditations (ISO 9001/14001/45001, SafeContractor, BESA), sample SFG20 asset schedules, and a transparent fixed annual fee structure.
+`.trim();
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(tenderDocumentText);
+    navigator.clipboard.writeText(tenderMarkdown);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
-  };
-
-  const handleDownloadMarkdown = () => {
-    const blob = new Blob([tenderDocumentText], { type: 'text/markdown;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `FM_Tender_Brief_${orgName.replace(/[^a-zA-Z0-9]/g, '_')}.md`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleDownloadPdf = () => {
     const pdfDoc: PdfDocumentDefinition = {
-      title: 'Facilities Management Tender & RFP Specification Brief',
-      subtitle: `Procurement output specification and governance framework for ${orgName}.`,
+      title: 'Facilities Management Tender Specification & Brief',
+      subtitle: `RFP document for ${orgName} (${sector}).`,
       documentRef: `EFM-RFP-${Date.now().toString().slice(-6)}`,
       date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
-      organisationName: orgName,
-      badgeText: 'Procurement Specification',
+      badgeText: 'Technical Tender Brief',
       summaryStats: [
-        { label: 'Client', value: orgName },
-        { label: 'Estate Scope', value: siteCount, detail: locations },
-        { label: 'Services', value: `${services.length} Lines` },
-        { label: 'Target Term', value: contractTerm },
+        { label: 'Client Organisation', value: orgName },
+        { label: 'Estate Scale', value: `${siteCount} (${totalSqFt})` },
+        { label: 'Term & Term Date', value: `${contractTerm} · ${targetStartDate}` },
+        { label: 'Service Scope', value: `${services.length} Core Regimes` },
       ],
       sections: [
         {
-          type: 'cards',
-          heading: '1. Executive Procurement Summary',
-          items: [
-            {
-              title: 'Estate Profile & Commencement',
-              body: `Sector: ${sector} | Floor Area: ${totalSqFt} | Term: ${contractTerm} | Target Start: ${targetStartDate}`,
-            },
-            {
-              title: 'Primary Commercial Objectives',
-              body: painPoints,
-            },
+          type: 'text',
+          heading: '1. Executive Context & Contract Objectives',
+          paragraphs: [
+            `Client: ${orgName} (${sector}).`,
+            `Locations: ${locations}.`,
+            `Current Operational Objective: Address pain points: "${painPoints}".`,
           ],
         },
         {
           type: 'table',
-          heading: '2. Scope of Tendered Service Lines',
+          heading: '2. Required Scope of Maintenance Disciplines',
           columns: [
-            { header: 'Item', widthPercent: 12, align: 'center' },
-            { header: 'Tendered Service Discipline', widthPercent: 88 },
+            { header: 'No.', widthPercent: 10, align: 'center' },
+            { header: 'Service Discipline & Requirements', widthPercent: 90 },
           ],
-          rows: services.map((s, idx) => [`0${idx + 1}`, s]),
-        },
-        {
-          type: 'cards',
-          heading: '3. Compliance Governance & SLA Targets',
-          items: [
-            {
-              title: 'Statutory Assurance Duty',
-              body: 'Contractor must maintain all mechanical, electrical, and life safety plant in full compliance with UK statutory requirements (RRO 2005, EAWR 1989, ACOP L8, LOLER 1998) with digital certificate upload inside 48 hours.',
-            },
-            {
-              title: 'Service Level Agreement (SLA)',
-              body: `Contractual response requirement: ${slaTarget}. 24/7/365 helpdesk dispatch and monthly KPI reviews.`,
-            },
-          ],
+          rows: services.map((s, i) => [i + 1, s]),
         },
       ],
     };
@@ -208,256 +167,138 @@ ${services.map((s, idx) => `${idx + 1}. **${s}**`).join('\n')}
       <main id="main" className="flex-grow pt-20">
         <ToolShell
           breadcrumbs={breadcrumbs}
-          title="FM Tender Brief Generator"
-          purpose="Structure a comprehensive Facilities Management output specification and RFP brief ready for tender issuance."
-          timeEstimate="3–5 min"
-          outputs={['PDF Specification', 'Markdown Brief']}
-          icon={FileText}
+          title="Tender / RFP Brief Generator"
+          purpose="Generate structured Facilities Management tender briefs and RFP scopes for contractor procurement."
+          timeEstimate="3 min"
+          outputs={['PDF Tender Document', 'Markdown RFP']}
         >
-          {/* Stepper */}
-          <WizardProgress
-            steps={WIZARD_STEPS}
-            currentStep={generated ? 1 : 0}
-            onSelectStep={(idx) => {
-              if (idx === 0 && generated) {
-                setGenerated(false);
-              }
-            }}
-          />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            {/* Form Column (6 cols) */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="border-b border-slate-800 pb-4">
+                <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase">
+                  01 / Contract Scope
+                </span>
+                <h2 className="text-2xl font-bold text-white mt-1">
+                  Procurement Specifications
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-300 mt-1">
+                  Define your estate parameters to automatically build a procurement-ready ITT.
+                </p>
+              </div>
 
-          <div className="max-w-6xl mx-auto space-y-8">
-            {!generated ? (
-              /* Configuration Workspace */
-              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-sm space-y-8">
-                <div className="border-b border-slate-800 pb-4">
-                  <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
-                    01 Tender Requirements
-                  </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
-                    Contract Parameters &amp; Service Scope
-                  </h2>
-                  <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                    Define portfolio size, required FM disciplines, and service level targets to generate a tender specification document.
-                  </p>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-xs font-semibold text-slate-200 block mb-1">
+                    Client Organisation Name
+                  </label>
+                  <input
+                    type="text"
+                    value={orgName}
+                    onChange={(e) => setOrgName(e.target.value)}
+                    className="w-full px-3 py-2 bg-[#0c1527] border border-slate-700 rounded-[2px] text-xs text-white"
+                  />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Client / Organisation Name
-                    </label>
-                    <input
-                      type="text"
-                      value={orgName}
-                      onChange={(e) => setOrgName(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                    <label className="text-xs font-semibold text-slate-200 block mb-1">
                       Property Sector
                     </label>
                     <input
                       type="text"
                       value={sector}
                       onChange={(e) => setSector(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
+                      className="w-full px-3 py-2 bg-[#0c1527] border border-slate-700 rounded-[2px] text-xs text-white"
                     />
                   </div>
-
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Portfolio Sites &amp; Locations
-                    </label>
-                    <input
-                      type="text"
-                      value={locations}
-                      onChange={(e) => setLocations(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Approximate Total Floor Area
+                    <label className="text-xs font-semibold text-slate-200 block mb-1">
+                      Total Floor Area
                     </label>
                     <input
                       type="text"
                       value={totalSqFt}
                       onChange={(e) => setTotalSqFt(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Target Contract Duration
-                    </label>
-                    <input
-                      type="text"
-                      value={contractTerm}
-                      onChange={(e) => setContractTerm(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Target Commencement Date
-                    </label>
-                    <input
-                      type="text"
-                      value={targetStartDate}
-                      onChange={(e) => setTargetStartDate(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
+                      className="w-full px-3 py-2 bg-[#0c1527] border border-slate-700 rounded-[2px] text-xs text-white"
                     />
                   </div>
                 </div>
 
-                {/* Service Scope Selection */}
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
-                      Tendered Service Disciplines ({services.length} Selected)
-                    </label>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {ALL_SERVICE_OPTIONS.map((srv) => {
-                      const isSelected = services.includes(srv);
+                {/* Services Checkboxes */}
+                <div>
+                  <label className="text-xs font-semibold text-slate-200 block mb-2">
+                    Scope of Services Required ({services.length} Selected)
+                  </label>
+                  <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1 scrollbar-thin border border-slate-800 p-2.5 bg-[#09101f] rounded-[3px]">
+                    {ALL_SERVICES.map((srv) => {
+                      const isChecked = services.includes(srv);
                       return (
                         <div
                           key={srv}
                           onClick={() => toggleService(srv)}
-                          className={`p-3 rounded-xl border text-xs font-semibold cursor-pointer flex items-center gap-2.5 transition-all ${
-                            isSelected
-                              ? 'border-[#FF3E9D] bg-[#FF3E9D]/10 text-white ring-1 ring-[#FF3E9D]/30'
-                              : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:text-white hover:border-slate-700'
-                          }`}
+                          className="flex items-center gap-2 text-xs text-slate-300 hover:text-white cursor-pointer py-1"
                         >
                           <div
-                            className={`w-4 h-4 rounded flex items-center justify-center border shrink-0 ${
-                              isSelected ? 'bg-[#FF3E9D] border-[#FF3E9D] text-white' : 'border-slate-700 bg-slate-900'
+                            className={`w-3.5 h-3.5 rounded-[2px] border flex items-center justify-center ${
+                              isChecked ? 'bg-slate-700 border-slate-500 text-white' : 'border-slate-700'
                             }`}
                           >
-                            {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                            {isChecked && <Check className="w-3 h-3 stroke-[2.5]" />}
                           </div>
-                          <span className="truncate">{srv}</span>
+                          <span>{srv}</span>
                         </div>
                       );
                     })}
                   </div>
                 </div>
 
-                {/* SLAs & Objectives */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      SLA Response Target
-                    </label>
-                    <input
-                      type="text"
-                      value={slaTarget}
-                      onChange={(e) => setSlaTarget(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Primary Challenges to Rectify
-                    </label>
-                    <input
-                      type="text"
-                      value={painPoints}
-                      onChange={(e) => setPainPoints(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between pt-6 border-t border-slate-800">
-                  <span className="text-xs text-slate-500 font-mono">
-                    Zero lead gating · Immediate document export.
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setGenerated(true)}
-                    className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-[#FF3E9D] to-[#D91B7D] text-white font-bold text-sm shadow-xl hover:opacity-95 transition-all"
-                  >
-                    <Sparkles className="w-4 h-4" />
-                    <span>Generate Tender Brief</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            ) : (
-              /* Generated Document Workspace Preview */
-              <div className="space-y-8">
-                <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
-                    <div>
-                      <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
-                        Procurement Output Specification
-                      </span>
-                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
-                        {orgName} — FM Tender Brief
-                      </h2>
-                      <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                        Scope: <strong>{services.length} Service Lines</strong> · Portfolio: <strong>{siteCount}</strong> ({locations})
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setGenerated(false)}
-                        className="px-3.5 py-2 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all"
-                      >
-                        ← Edit Parameters
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Document Action Toolbar */}
-                  <ExportToolbar
-                    toolName="FM Tender Brief Generator"
-                    onDownloadPdf={handleDownloadPdf}
-                    onDownloadMarkdown={handleDownloadMarkdown}
-                    onCopyContent={handleCopy}
-                    isCopied={copied}
-                    pdfLabel="Download Specification (PDF)"
-                    markdownLabel="Download Markdown (.md)"
-                    copyLabel={copied ? 'Copied Specification!' : 'Copy to Clipboard'}
+                <div>
+                  <label className="text-xs font-semibold text-slate-200 block mb-1">
+                    Current Challenges / Pain Points
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={painPoints}
+                    onChange={(e) => setPainPoints(e.target.value)}
+                    className="w-full px-3 py-2 bg-[#0c1527] border border-slate-700 rounded-[2px] text-xs text-white"
                   />
                 </div>
-
-                {/* Professional Document Preview Shell */}
-                <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 sm:p-10 shadow-2xl space-y-6 font-mono text-xs sm:text-sm leading-relaxed text-slate-300 overflow-x-auto">
-                  <div className="border-b border-slate-800 pb-4 flex items-center justify-between">
-                    <span className="text-[11px] text-slate-500 uppercase tracking-widest font-bold">
-                      DOCUMENT PREVIEW // OUTPUT SPECIFICATION
-                    </span>
-                    <span className="text-[10px] text-[#FF3E9D] font-bold">
-                      VERIFIED EFM-RFP-SPEC
-                    </span>
-                  </div>
-                  <pre className="whitespace-pre-wrap font-sans text-xs sm:text-sm text-slate-200">
-                    {tenderDocumentText}
-                  </pre>
-                </div>
-
-                {/* Next Steps CTA */}
-                <ToolConversionCTA
-                  toolName="FM Tender Brief Generator"
-                  heading="Invite EntireFM to submit a tender proposal"
-                  subheading="EntireFM delivers consolidated national Hard & Soft FM contracts with fixed SLAs and real-time EntireCAFM compliance tracking."
-                  primaryActionLabel="Submit Tender Invitation"
-                  primaryActionHref="/contact-us#enquiry"
-                />
               </div>
-            )}
+            </div>
+
+            {/* Live Preview Column (6 cols) */}
+            <div className="lg:col-span-6 border border-slate-800 bg-[#09101f] p-6 rounded-[4px] space-y-4 sticky top-36">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <span className="font-mono text-[11px] text-slate-400 uppercase tracking-widest">
+                  02 / Tender Document Preview
+                </span>
+                <span className="text-[10px] font-mono text-emerald-400">Live Markdown</span>
+              </div>
+
+              <div className="p-4 border border-slate-800 bg-[#0c1527] text-slate-300 font-mono text-xs max-h-[380px] overflow-y-auto whitespace-pre-wrap leading-relaxed rounded-[2px] scrollbar-thin">
+                {tenderMarkdown}
+              </div>
+
+              {/* Export Toolbar */}
+              <ExportToolbar
+                toolName="Tender / RFP Brief Generator"
+                onDownloadPdf={handleDownloadPdf}
+                onCopyContent={handleCopy}
+                isCopied={copied}
+                pdfLabel="Download RFP (PDF)"
+                copyLabel="Copy Markdown RFP"
+              />
+            </div>
           </div>
+
+          <ToolConversionCTA
+            toolName="Tender / RFP Brief Generator"
+            heading="Submit your RFP specification to EntireFM?"
+            subheading="EntireFM responds to commercial FM tenders with fully transparent asset pricing, dedicated Account Managers, and guaranteed CAFM integration."
+            primaryActionLabel="Submit Tender Brief"
+            primaryActionHref="/contact-us#enquiry"
+          />
         </ToolShell>
       </main>
       <Footer />

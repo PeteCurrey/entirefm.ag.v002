@@ -1,43 +1,28 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import {
   Wrench,
   Search,
   Check,
-  ChevronDown,
-  ChevronUp,
   RotateCcw,
   ArrowRight,
   ArrowLeft,
-  Building2,
-  Sliders,
-  Calendar,
-  Layers,
-  Sparkles,
-  Info,
-  ShieldCheck,
-  Download,
-  FileSpreadsheet,
   Plus,
   Minus,
   Trash2,
-  SlidersHorizontal,
+  Wind,
   Flame,
   Zap,
   Droplets,
-  Wind,
+  Layers,
   Shield,
-  Key,
   Home,
   Trees,
-  FileText,
-  Clock,
   List,
   LayoutGrid,
-  CheckCircle2,
-  AlertTriangle,
+  Sparkles,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -49,7 +34,6 @@ import { ToolConversionCTA } from '@/components/tools/ToolConversionCTA';
 import {
   COMMERCIAL_ASSET_CATEGORIES,
   CommercialAssetDefinition,
-  CommercialAssetCategory,
   getAllAssetDefinitions,
   getAssetById,
 } from '@/lib/tools/asset-taxonomy';
@@ -98,7 +82,6 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
   const [occupancyProfile, setOccupancyProfile] = useState('Standard Business Hours (07:00–19:00)');
   const [numberOfFloors, setNumberOfFloors] = useState('5 Floors');
   const [siteCriticality, setSiteCriticality] = useState<'Standard Commercial' | 'Critical / Regulated' | 'High Public Footfall'>('Standard Commercial');
-  const [location, setLocation] = useState('Greater London / South East');
 
   // STEP 2: Selected Categories
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<Set<string>>(
@@ -129,8 +112,6 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
   // STEP 6: Programme Filter & View State
   const [programmeViewMode, setProgrammeViewMode] = useState<'matrix' | 'annual'>('matrix');
-  const [classificationFilter, setClassificationFilter] = useState<string>('ALL');
-  const [frequencyFilter, setFrequencyFilter] = useState<string>('ALL');
   const [tableSearchQuery, setTableSearchQuery] = useState<string>('');
 
   const breadcrumbs = [
@@ -140,7 +121,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
     { name: 'PPM Schedule Builder', url: '/tools/ppm-schedule-builder' },
   ];
 
-  // Helper functions for Asset Selection
+  // Helper functions for Category Selection
   const toggleCategory = (catId: string) => {
     setSelectedCategoryIds((prev) => {
       const next = new Set(prev);
@@ -247,8 +228,6 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
   // Filtered Programme Tasks for Matrix View
   const filteredTasks = useMemo(() => {
     return programmeTasks.filter(({ asset, task }) => {
-      if (classificationFilter !== 'ALL' && task.classification !== classificationFilter) return false;
-      if (frequencyFilter !== 'ALL' && task.frequency !== frequencyFilter) return false;
       if (tableSearchQuery.trim()) {
         const q = tableSearchQuery.toLowerCase();
         const match =
@@ -261,9 +240,9 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
       }
       return true;
     });
-  }, [programmeTasks, classificationFilter, frequencyFilter, tableSearchQuery]);
+  }, [programmeTasks, tableSearchQuery]);
 
-  // Generate event handler with animation
+  // Generate event handler with professional transition
   const handleGenerateProgramme = () => {
     setIsGenerating(true);
     setGenerationStage('Processing selected building assets…');
@@ -391,17 +370,15 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
         <ToolShell
           breadcrumbs={breadcrumbs}
           title="PPM Schedule Builder"
-          purpose="Configure your exact building assets and generate a comprehensive SFG20 and statutory maintenance programme."
-          timeEstimate="3–5 min"
+          purpose="Select the plant and systems installed at the property to build an indicative maintenance programme."
+          timeEstimate="5 min"
           outputs={['PDF Programme', 'CSV Matrix']}
-          icon={Wrench}
         >
-          {/* 6-Step Stepper */}
+          {/* Architectural Horizontal Stepper */}
           <WizardProgress
             steps={WIZARD_STEPS}
             currentStep={currentStep}
             onSelectStep={(idx) => {
-              // Allow jumping backwards freely, or jumping to step 5 only if generated
               if (idx <= currentStep || (idx === 5 && currentStep === 4)) {
                 setCurrentStep(idx);
               }
@@ -409,45 +386,52 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
           />
 
           {/* ========================================================================= */}
-          {/* STEP 1: BUILDING PROFILE */}
+          {/* STEP 1: BUILDING PROFILE (72% WORK AREA / 28% CONTEXT PANEL) */}
           {/* ========================================================================= */}
           {currentStep === 0 && (
-            <div className="max-w-4xl mx-auto space-y-6">
-              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-sm space-y-6">
-                <div className="border-b border-slate-800 pb-4">
-                  <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
-                    01 Building Profile
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+              {/* 72% Main Work Area */}
+              <div className="lg:col-span-8 space-y-8">
+                <div className="border-b border-slate-800 pb-5">
+                  <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase">
+                    01 / Building Profile
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
-                    Build your PPM programme
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1.5 tracking-tight">
+                    Tell us about the property
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                    Tell us a little about the property, then select the plant and systems installed within the building. Sensible defaults provided.
+                  <p className="text-sm text-slate-300 mt-1 leading-relaxed">
+                    We will use this information to tailor the maintenance programme to the operating environment of your estate.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Site / Building Name (Optional)
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-semibold text-slate-200">
+                        Site / Building Name
+                      </label>
+                      <span className="text-[11px] text-slate-400">Optional</span>
+                    </div>
                     <input
                       type="text"
-                      placeholder="e.g. Apex Plaza HQ / Unit 4 Distribution"
+                      placeholder="e.g. Apex Plaza HQ"
                       value={buildingName}
                       onChange={(e) => setBuildingName(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white placeholder-slate-600 focus:outline-none focus:border-[#FF3E9D]"
+                      className="w-full px-3.5 py-2.5 rounded-[3px] bg-[#0c1527] border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-slate-400 transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Building Type / Sector
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-semibold text-slate-200">
+                        Building Type
+                      </label>
+                      <span className="text-[11px] text-slate-400">Required</span>
+                    </div>
                     <select
                       value={buildingType}
                       onChange={(e) => setBuildingType(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
+                      className="w-full px-3.5 py-2.5 rounded-[3px] bg-[#0c1527] border border-slate-700 text-sm text-white focus:outline-none focus:border-slate-400 transition-colors"
                     >
                       <option value="Commercial Office / Corporate HQ">Commercial Office / Corporate HQ</option>
                       <option value="Industrial & Manufacturing Facility">Industrial &amp; Manufacturing Facility</option>
@@ -461,26 +445,32 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Approximate Floor Area (Gross Internal)
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-semibold text-slate-200">
+                        Approximate Floor Area
+                      </label>
+                      <span className="text-[11px] text-slate-400">Optional</span>
+                    </div>
                     <input
                       type="text"
-                      placeholder="e.g. 35,000 sq ft"
+                      placeholder="e.g. 45,000 sq ft"
                       value={floorArea}
                       onChange={(e) => setFloorArea(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
+                      className="w-full px-3.5 py-2.5 rounded-[3px] bg-[#0c1527] border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-slate-400 transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Operating Hours &amp; Occupancy Profile
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-semibold text-slate-200">
+                        Operating Hours Profile
+                      </label>
+                      <span className="text-[11px] text-slate-400">Required</span>
+                    </div>
                     <select
                       value={occupancyProfile}
                       onChange={(e) => setOccupancyProfile(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
+                      className="w-full px-3.5 py-2.5 rounded-[3px] bg-[#0c1527] border border-slate-700 text-sm text-white focus:outline-none focus:border-slate-400 transition-colors"
                     >
                       <option value="Standard Business Hours (07:00–19:00)">Standard Business Hours (07:00–19:00)</option>
                       <option value="Extended Operations (06:00–22:00)">Extended Operations (06:00–22:00)</option>
@@ -490,70 +480,103 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Number of Floors
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-semibold text-slate-200">
+                        Number of Storeys
+                      </label>
+                      <span className="text-[11px] text-slate-400">Optional</span>
+                    </div>
                     <input
                       type="text"
-                      placeholder="e.g. 4 Floors + Basement"
+                      placeholder="e.g. 5 Floors + Plant Room"
                       value={numberOfFloors}
                       onChange={(e) => setNumberOfFloors(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
+                      className="w-full px-3.5 py-2.5 rounded-[3px] bg-[#0c1527] border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-slate-400 transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                      Site Criticality &amp; Governance Level
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-semibold text-slate-200">
+                        Site Governance Criticality
+                      </label>
+                      <span className="text-[11px] text-slate-400">Required</span>
+                    </div>
                     <select
                       value={siteCriticality}
                       onChange={(e) => setSiteCriticality(e.target.value as any)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-sm font-medium text-white focus:outline-none focus:border-[#FF3E9D]"
+                      className="w-full px-3.5 py-2.5 rounded-[3px] bg-[#0c1527] border border-slate-700 text-sm text-white focus:outline-none focus:border-slate-400 transition-colors"
                     >
-                      <option value="Standard Commercial">Standard Commercial</option>
-                      <option value="Critical / Regulated">Critical / Highly Regulated</option>
-                      <option value="High Public Footfall">High Public Footfall</option>
+                      <option value="Standard Commercial">Standard Commercial Governance</option>
+                      <option value="Critical / Regulated">Mission Critical / Highly Regulated</option>
+                      <option value="High Public Footfall">High Public Footfall Risk</option>
                     </select>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-6 border-t border-slate-800">
-                  <span className="text-xs text-slate-500 font-mono">
-                    Step 1 of 6 · No registration required
+                <div className="pt-6 border-t border-slate-800 flex items-center justify-between">
+                  <span className="text-xs text-slate-400 font-mono">
+                    Step 1 of 6
                   </span>
                   <button
                     type="button"
                     onClick={() => setCurrentStep(1)}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF3E9D] to-[#D91B7D] text-white font-bold text-sm shadow-xl hover:opacity-95 transition-all"
+                    className="inline-flex items-center gap-2.5 px-6 py-3 rounded-[3px] bg-[#0c1527] hover:bg-[#111e38] text-white text-xs font-bold tracking-wider uppercase border border-slate-700 hover:border-slate-500 transition-colors"
                   >
                     <span>Select Building Disciplines</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#FF3E9D]" />
                   </button>
                 </div>
               </div>
+
+              {/* 28% Context Panel */}
+              <aside className="lg:col-span-4 border-l border-slate-800 pl-0 lg:pl-8 space-y-6 pt-4 lg:pt-0 text-xs">
+                <div>
+                  <h3 className="text-xs font-bold text-white uppercase tracking-wider font-mono">
+                    Building Profile Guidance
+                  </h3>
+                  <p className="text-slate-400 mt-1.5 leading-relaxed">
+                    Plant operating hours and building occupancy directly influence service intervals and SFG20 maintenance frequencies.
+                  </p>
+                </div>
+
+                <div className="space-y-3 pt-3 border-t border-slate-800/80">
+                  <div>
+                    <span className="font-semibold text-slate-200 block">Baseline Assumptions</span>
+                    <p className="text-slate-400 mt-0.5 leading-relaxed">
+                      Standard UK commercial terms, typical SFG20 task frequencies, and statutory duty discharge standards.
+                    </p>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-slate-200 block">Data Privacy</span>
+                    <p className="text-slate-400 mt-0.5 leading-relaxed">
+                      Your estate specifications remain strictly in this browser session unless explicitly exported.
+                    </p>
+                  </div>
+                </div>
+              </aside>
             </div>
           )}
 
           {/* ========================================================================= */}
-          {/* STEP 2: CHOOSE ASSET CATEGORIES */}
+          {/* STEP 2: DISCIPLINE SELECTION (REFINED SELECTION ROWS) */}
           {/* ========================================================================= */}
           {currentStep === 1 && (
-            <div className="max-w-4xl mx-auto space-y-6">
-              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-sm space-y-6">
-                <div className="border-b border-slate-800 pb-4">
-                  <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
-                    02 Discipline Scope
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+              <div className="lg:col-span-8 space-y-8">
+                <div className="border-b border-slate-800 pb-5">
+                  <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase">
+                    02 / Discipline Scope
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1.5 tracking-tight">
                     Which systems are installed?
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                    Select all engineering and building disciplines present on your estate. This determines which asset libraries are available in the next step.
+                  <p className="text-sm text-slate-300 mt-1 leading-relaxed">
+                    Select all engineering disciplines present on your estate to unlock the relevant asset registers.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-2.5">
                   {COMMERCIAL_ASSET_CATEGORIES.map((cat) => {
                     const isSelected = selectedCategoryIds.has(cat.id);
                     const IconComponent = CATEGORY_ICONS[cat.id] || Wrench;
@@ -561,51 +584,46 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                       <div
                         key={cat.id}
                         onClick={() => toggleCategory(cat.id)}
-                        className={`p-5 rounded-xl border cursor-pointer transition-all flex items-start gap-4 ${
+                        className={`p-4 border rounded-[3px] cursor-pointer transition-colors flex items-center justify-between gap-4 ${
                           isSelected
-                            ? 'border-[#FF3E9D] bg-gradient-to-br from-[#FF3E9D]/15 to-slate-900/90 ring-1 ring-[#FF3E9D]/40'
-                            : 'border-slate-800 bg-slate-950/60 hover:border-slate-700'
+                            ? 'border-slate-600 bg-[#0c1527]'
+                            : 'border-slate-800/80 bg-[#080e1c] hover:border-slate-700'
                         }`}
                       >
-                        <div
-                          className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                            isSelected ? 'bg-[#FF3E9D] text-white' : 'bg-slate-800 text-slate-400'
-                          }`}
-                        >
-                          <IconComponent className="w-5 h-5" />
-                        </div>
-                        <div className="space-y-1 min-w-0 flex-1">
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm font-bold text-white">{cat.name}</span>
-                            <div
-                              className={`w-5 h-5 rounded-md flex items-center justify-center border ${
-                                isSelected
-                                  ? 'bg-[#FF3E9D] border-[#FF3E9D] text-white'
-                                  : 'border-slate-700 bg-slate-900'
-                              }`}
-                            >
-                              {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                            </div>
+                        <div className="flex items-center gap-3.5 min-w-0">
+                          <IconComponent className={`w-4 h-4 shrink-0 ${isSelected ? 'text-[#FF3E9D]' : 'text-slate-500'}`} />
+                          <div className="min-w-0">
+                            <span className="text-sm font-bold text-white block truncate">{cat.name}</span>
+                            <p className="text-xs text-slate-400 mt-0.5 truncate">{cat.description}</p>
                           </div>
-                          <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
-                            {cat.description}
-                          </p>
-                          <span className="text-[11px] font-mono text-slate-500 block pt-1">
-                            {cat.assets.length} selectable asset types
+                        </div>
+
+                        <div className="flex items-center gap-3 shrink-0">
+                          <span className="text-[11px] font-mono text-slate-500 hidden sm:inline">
+                            {cat.assets.length} assets
                           </span>
+                          <div
+                            className={`w-4 h-4 rounded-[2px] flex items-center justify-center border ${
+                              isSelected
+                                ? 'bg-slate-700 border-slate-500 text-white'
+                                : 'border-slate-700 bg-slate-900'
+                            }`}
+                          >
+                            {isSelected && <Check className="w-3 h-3 stroke-[2.5]" />}
+                          </div>
                         </div>
                       </div>
                     );
                   })}
                 </div>
 
-                <div className="flex items-center justify-between pt-6 border-t border-slate-800">
+                <div className="pt-6 border-t border-slate-800 flex items-center justify-between">
                   <button
                     type="button"
                     onClick={() => setCurrentStep(0)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
                   >
-                    <ArrowLeft className="w-4 h-4" />
+                    <ArrowLeft className="w-3.5 h-3.5" />
                     <span>Back</span>
                   </button>
 
@@ -613,295 +631,270 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                     type="button"
                     disabled={selectedCategoryIds.size === 0}
                     onClick={() => setCurrentStep(2)}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF3E9D] to-[#D91B7D] text-white font-bold text-sm shadow-xl hover:opacity-95 transition-all disabled:opacity-40"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-[3px] bg-[#0c1527] hover:bg-[#111e38] text-white text-xs font-bold tracking-wider uppercase border border-slate-700 hover:border-slate-500 transition-colors disabled:opacity-40"
                   >
-                    <span>Choose Assets ({selectedCategoryIds.size} Disciplines)</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span>Choose Assets ({selectedCategoryIds.size} Selected)</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#FF3E9D]" />
                   </button>
                 </div>
               </div>
+
+              <aside className="lg:col-span-4 border-l border-slate-800 pl-0 lg:pl-8 space-y-6 pt-4 lg:pt-0 text-xs">
+                <div>
+                  <h3 className="text-xs font-bold text-white uppercase tracking-wider font-mono">
+                    Discipline Filtering
+                  </h3>
+                  <p className="text-slate-400 mt-1.5 leading-relaxed">
+                    Selecting disciplines filters the asset catalogue on the following step. No maintenance tasks are generated until specific assets are added.
+                  </p>
+                </div>
+              </aside>
             </div>
           )}
 
           {/* ========================================================================= */}
-          {/* STEP 3: INDIVIDUAL ASSET SELECTION (70/30 WORKSPACE WITH STICKY SIDEBAR) */}
+          {/* STEP 3: ASSET SELECTION (70% ASSET ROWS / 30% STICKY SUMMARY) */}
           {/* ========================================================================= */}
           {currentStep === 2 && (
-            <div className="max-w-7xl mx-auto space-y-6">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                {/* 70% MAIN WORKSPACE: INDIVIDUAL ASSET LIBRARY */}
-                <div className="lg:col-span-8 space-y-6">
-                  {/* Search and Category Pill Bar */}
-                  <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 shadow-xl backdrop-blur-sm space-y-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      <div>
-                        <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
-                          03 Asset Selection
-                        </span>
-                        <h2 className="text-xl font-bold text-white mt-0.5">
-                          Select Installed Assets
-                        </h2>
-                      </div>
-
-                      {/* Search box */}
-                      <div className="relative w-full sm:w-64">
-                        <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                        <input
-                          type="text"
-                          placeholder="Search 36+ assets…"
-                          value={assetSearchQuery}
-                          onChange={(e) => setAssetSearchQuery(e.target.value)}
-                          className="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-950/80 border border-slate-700 text-xs font-medium text-white placeholder-slate-500 focus:outline-none focus:border-[#FF3E9D]"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Filter tabs */}
-                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
-                      <button
-                        type="button"
-                        onClick={() => setActiveAssetCatTab('ALL')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                          activeAssetCatTab === 'ALL'
-                            ? 'bg-[#FF3E9D] text-white'
-                            : 'bg-slate-800 text-slate-400 hover:text-white'
-                        }`}
-                      >
-                        All Disciplines ({activeCategories.length})
-                      </button>
-                      {activeCategories.map((cat) => (
-                        <button
-                          key={cat.id}
-                          type="button"
-                          onClick={() => setActiveAssetCatTab(cat.id)}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                            activeAssetCatTab === cat.id
-                              ? 'bg-[#FF3E9D] text-white'
-                              : 'bg-slate-800 text-slate-400 hover:text-white'
-                          }`}
-                        >
-                          {cat.name}
-                        </button>
-                      ))}
-                    </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+              {/* 70% Asset Library Work Area */}
+              <div className="lg:col-span-8 space-y-6">
+                <div className="border-b border-slate-800 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase">
+                      03 / Asset Selection
+                    </span>
+                    <h2 className="text-2xl font-bold text-white mt-1">
+                      Select Installed Assets
+                    </h2>
                   </div>
 
-                  {/* Asset Cards Grid by Category */}
-                  <div className="space-y-6">
-                    {activeCategories
-                      .filter((cat) => activeAssetCatTab === 'ALL' || activeAssetCatTab === cat.id)
-                      .map((cat) => {
-                        const matchingAssets = cat.assets.filter((asset) => {
-                          if (!assetSearchQuery.trim()) return true;
-                          const q = assetSearchQuery.toLowerCase();
-                          return (
-                            asset.name.toLowerCase().includes(q) ||
-                            asset.shortDescription.toLowerCase().includes(q)
-                          );
-                        });
+                  <div className="relative w-full sm:w-60">
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
+                    <input
+                      type="text"
+                      placeholder="Filter 44 assets…"
+                      value={assetSearchQuery}
+                      onChange={(e) => setAssetSearchQuery(e.target.value)}
+                      className="w-full pl-8 pr-3 py-2 rounded-[3px] bg-[#0c1527] border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-slate-400 transition-colors"
+                    />
+                  </div>
+                </div>
 
-                        if (matchingAssets.length === 0) return null;
+                {/* Filter tabs */}
+                <div className="flex items-center gap-2 border-b border-slate-800 pb-2 overflow-x-auto text-xs scrollbar-thin">
+                  <button
+                    type="button"
+                    onClick={() => setActiveAssetCatTab('ALL')}
+                    className={`px-3 py-1 font-semibold whitespace-nowrap border-b-2 transition-colors ${
+                      activeAssetCatTab === 'ALL'
+                        ? 'border-[#FF3E9D] text-white'
+                        : 'border-transparent text-slate-400 hover:text-slate-200'
+                    }`}
+                  >
+                    All ({activeCategories.length})
+                  </button>
+                  {activeCategories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setActiveAssetCatTab(cat.id)}
+                      className={`px-3 py-1 font-semibold whitespace-nowrap border-b-2 transition-colors ${
+                        activeAssetCatTab === cat.id
+                          ? 'border-[#FF3E9D] text-white'
+                          : 'border-transparent text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      {cat.name}
+                    </button>
+                  ))}
+                </div>
 
-                        const IconComp = CATEGORY_ICONS[cat.id] || Wrench;
-
+                {/* Asset Library List by Category */}
+                <div className="space-y-6">
+                  {activeCategories
+                    .filter((cat) => activeAssetCatTab === 'ALL' || activeAssetCatTab === cat.id)
+                    .map((cat) => {
+                      const matchingAssets = cat.assets.filter((asset) => {
+                        if (!assetSearchQuery.trim()) return true;
+                        const q = assetSearchQuery.toLowerCase();
                         return (
-                          <div key={cat.id} className="space-y-3">
-                            <div className="flex items-center gap-2 px-1">
-                              <IconComp className="w-4 h-4 text-[#FF3E9D]" />
-                              <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
-                                {cat.name}
-                              </h3>
-                              <span className="text-xs text-slate-500 font-mono">
-                                ({matchingAssets.length} asset types)
-                              </span>
-                            </div>
+                          asset.name.toLowerCase().includes(q) ||
+                          asset.shortDescription.toLowerCase().includes(q)
+                        );
+                      });
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                              {matchingAssets.map((asset) => {
-                                const isAdded = asset.id in selectedAssets;
-                                const currentQty = selectedAssets[asset.id] || 1;
+                      if (matchingAssets.length === 0) return null;
 
-                                return (
-                                  <div
-                                    key={asset.id}
-                                    className={`p-4 rounded-xl border transition-all flex flex-col justify-between gap-3 ${
-                                      isAdded
-                                        ? 'border-[#FF3E9D]/80 bg-gradient-to-b from-slate-900 to-slate-950 shadow-lg ring-1 ring-[#FF3E9D]/30'
-                                        : 'border-slate-800 bg-slate-900/60 hover:border-slate-700'
-                                    }`}
-                                  >
-                                    <div className="space-y-1.5">
-                                      <div className="flex items-start justify-between gap-2">
-                                        <h4 className="text-sm font-bold text-white leading-snug">
-                                          {asset.name}
-                                        </h4>
-                                        {asset.isStatutoryOrStandard && (
-                                          <span className="px-2 py-0.5 rounded text-[9.5px] font-mono font-bold bg-rose-950/80 border border-rose-800 text-rose-300 shrink-0">
-                                            STATUTORY
-                                          </span>
-                                        )}
-                                      </div>
-                                      <p className="text-xs text-slate-400 leading-relaxed">
-                                        {asset.shortDescription}
-                                      </p>
-                                      <div className="text-[11px] text-slate-500 font-mono pt-1">
-                                        Typical: {asset.defaultFrequencies.join(' · ')}
-                                      </div>
-                                    </div>
+                      return (
+                        <div key={cat.id} className="space-y-2">
+                          <div className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
+                            {cat.name}
+                          </div>
 
-                                    {/* Add / Quantity Control */}
-                                    <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2">
-                                      {isAdded ? (
-                                        <div className="flex items-center justify-between w-full">
-                                          {asset.supportsQuantity !== false ? (
-                                            <div className="flex items-center gap-2 bg-slate-950 px-2 py-1 rounded-lg border border-slate-700">
-                                              <span className="text-[11px] text-slate-400 font-mono">Qty:</span>
-                                              <button
-                                                type="button"
-                                                onClick={() => updateAssetQuantity(asset.id, -1)}
-                                                className="w-5 h-5 rounded flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold"
-                                              >
-                                                <Minus className="w-3 h-3" />
-                                              </button>
-                                              <span className="font-mono text-xs font-bold text-white px-1">
-                                                {currentQty}
-                                              </span>
-                                              <button
-                                                type="button"
-                                                onClick={() => updateAssetQuantity(asset.id, 1)}
-                                                className="w-5 h-5 rounded flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold"
-                                              >
-                                                <Plus className="w-3 h-3" />
-                                              </button>
-                                            </div>
-                                          ) : (
-                                            <span className="text-xs font-mono text-emerald-400 font-semibold flex items-center gap-1">
-                                              <Check className="w-3.5 h-3.5" /> Included
-                                            </span>
-                                          )}
+                          <div className="space-y-2">
+                            {matchingAssets.map((asset) => {
+                              const isAdded = asset.id in selectedAssets;
+                              const currentQty = selectedAssets[asset.id] || 1;
 
-                                          <button
-                                            type="button"
-                                            onClick={() => removeAsset(asset.id)}
-                                            className="text-xs text-rose-400 hover:text-rose-300 font-semibold p-1"
-                                          >
-                                            Remove
-                                          </button>
-                                        </div>
-                                      ) : (
-                                        <button
-                                          type="button"
-                                          onClick={() => addAsset(asset)}
-                                          className="w-full py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
-                                        >
-                                          <Plus className="w-3.5 h-3.5 text-[#FF3E9D]" />
-                                          <span>Add to Estate</span>
-                                        </button>
+                              return (
+                                <div
+                                  key={asset.id}
+                                  className={`p-3.5 border rounded-[3px] transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                                    isAdded
+                                      ? 'border-slate-600 bg-[#0c1527]'
+                                      : 'border-slate-800/80 bg-[#080e1c] hover:border-slate-700'
+                                  }`}
+                                >
+                                  <div className="space-y-0.5 min-w-0 flex-1">
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                      <span className="text-sm font-bold text-white">{asset.name}</span>
+                                      {asset.isStatutoryOrStandard && (
+                                        <span className="px-1.5 py-0.2 border border-rose-800 text-rose-400 font-mono text-[9px] uppercase font-bold rounded-[2px]">
+                                          STATUTORY
+                                        </span>
                                       )}
                                     </div>
+                                    <p className="text-xs text-slate-400 leading-snug">{asset.shortDescription}</p>
+                                    <div className="text-[11px] font-mono text-slate-500">
+                                      Typical: {asset.defaultFrequencies.join(' · ')}
+                                    </div>
                                   </div>
-                                );
-                              })}
-                            </div>
+
+                                  <div className="flex items-center gap-3 shrink-0 self-end sm:self-center">
+                                    {isAdded ? (
+                                      <div className="flex items-center gap-3">
+                                        {asset.supportsQuantity !== false && (
+                                          <div className="flex items-center border border-slate-700 rounded-[2px] bg-slate-900">
+                                            <button
+                                              type="button"
+                                              onClick={() => updateAssetQuantity(asset.id, -1)}
+                                              className="px-2 py-1 text-slate-400 hover:text-white text-xs font-bold"
+                                            >
+                                              −
+                                            </button>
+                                            <span className="px-2 font-mono text-xs font-bold text-white">
+                                              {currentQty}
+                                            </span>
+                                            <button
+                                              type="button"
+                                              onClick={() => updateAssetQuantity(asset.id, 1)}
+                                              className="px-2 py-1 text-slate-400 hover:text-white text-xs font-bold"
+                                            >
+                                              +
+                                            </button>
+                                          </div>
+                                        )}
+                                        <button
+                                          type="button"
+                                          onClick={() => removeAsset(asset.id)}
+                                          className="text-xs text-rose-400 hover:text-rose-300 font-semibold"
+                                        >
+                                          Remove
+                                        </button>
+                                      </div>
+                                    ) : (
+                                      <button
+                                        type="button"
+                                        onClick={() => addAsset(asset)}
+                                        className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold rounded-[2px] border border-slate-700 transition-colors"
+                                      >
+                                        + Add Asset
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })}
                           </div>
-                        );
-                      })}
-                  </div>
-                </div>
-
-                {/* 30% STICKY SIDEBAR: SELECTED ASSETS CONTROL CENTRE */}
-                <div className="lg:col-span-4 bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-2xl backdrop-blur-md space-y-5 sticky top-36">
-                  <div className="border-b border-slate-800 pb-3">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[10px] font-bold text-[#FF3E9D] uppercase tracking-wider">
-                        Live Estate Summary
-                      </span>
-                      <span className="text-[11px] font-mono text-slate-400">
-                        {totalPhysicalAssetCount} physical items
-                      </span>
-                    </div>
-                    <h3 className="text-base font-bold text-white mt-0.5">
-                      Selected Assets ({selectedAssetList.length} Types)
-                    </h3>
-                  </div>
-
-                  {/* Asset List by Category in Sidebar */}
-                  <div className="max-h-[420px] overflow-y-auto space-y-3 pr-1 scrollbar-thin">
-                    {selectedAssetList.length === 0 && (
-                      <div className="py-8 text-center text-xs text-slate-500">
-                        No assets added yet. Select plant items from the library on the left.
-                      </div>
-                    )}
-
-                    {selectedAssetList.map(({ definition, quantity }) => (
-                      <div
-                        key={definition.id}
-                        className="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800 flex items-center justify-between gap-2"
-                      >
-                        <div className="min-w-0 flex-1">
-                          <div className="text-xs font-bold text-white truncate">
-                            {definition.supportsQuantity !== false ? `${quantity}× ` : ''}
-                            {definition.name}
-                          </div>
-                          <span className="text-[10px] font-mono text-slate-500">
-                            {definition.categoryName}
-                          </span>
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => removeAsset(definition.id)}
-                          className="text-slate-500 hover:text-rose-400 p-1"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Continue Action */}
-                  <div className="pt-3 border-t border-slate-800 space-y-2">
-                    <button
-                      type="button"
-                      disabled={selectedAssetList.length === 0}
-                      onClick={() => setCurrentStep(3)}
-                      className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FF3E9D] to-[#D91B7D] text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:opacity-95 transition-all disabled:opacity-40 flex items-center justify-center gap-2"
-                    >
-                      <span>Continue — Configure Assets</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setCurrentStep(1)}
-                      className="w-full py-2 text-center text-xs font-semibold text-slate-400 hover:text-white"
-                    >
-                      ← Back to Disciplines
-                    </button>
-                  </div>
+                      );
+                    })}
                 </div>
               </div>
+
+              {/* 30% Sticky Selected Assets Sidebar */}
+              <aside className="lg:col-span-4 border-l border-slate-800 pl-0 lg:pl-8 space-y-5 sticky top-36">
+                <div className="border-b border-slate-800 pb-3">
+                  <div className="text-[11px] font-mono text-slate-400 uppercase tracking-widest">
+                    Selected Estate
+                  </div>
+                  <h3 className="text-lg font-bold text-white mt-0.5">
+                    {selectedAssetList.length} Asset Types
+                  </h3>
+                  <span className="text-xs text-slate-400 font-mono">
+                    {totalPhysicalAssetCount} physical items
+                  </span>
+                </div>
+
+                <div className="max-h-[380px] overflow-y-auto space-y-2 pr-1 scrollbar-thin text-xs">
+                  {selectedAssetList.length === 0 && (
+                    <p className="text-slate-500 py-6 text-center">No assets selected yet.</p>
+                  )}
+                  {selectedAssetList.map(({ definition, quantity }) => (
+                    <div
+                      key={definition.id}
+                      className="py-1.5 border-b border-slate-800/80 flex items-center justify-between gap-2"
+                    >
+                      <div className="min-w-0">
+                        <span className="font-semibold text-white block truncate">
+                          {definition.supportsQuantity !== false ? `${quantity}× ` : ''}
+                          {definition.name}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-500">{definition.categoryName}</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeAsset(definition.id)}
+                        className="text-slate-500 hover:text-rose-400"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-3 border-t border-slate-800 space-y-2">
+                  <button
+                    type="button"
+                    disabled={selectedAssetList.length === 0}
+                    onClick={() => setCurrentStep(3)}
+                    className="w-full py-3 rounded-[3px] bg-[#0c1527] hover:bg-[#111e38] text-white text-xs font-bold tracking-wider uppercase border border-slate-700 hover:border-slate-500 transition-colors disabled:opacity-40"
+                  >
+                    Configure Assets →
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(1)}
+                    className="w-full text-center text-xs text-slate-400 hover:text-white py-1"
+                  >
+                    ← Back to Disciplines
+                  </button>
+                </div>
+              </aside>
             </div>
           )}
 
           {/* ========================================================================= */}
-          {/* STEP 4: CONFIGURE ASSETS (QUANTITY, AGE, CONDITION) */}
+          {/* STEP 4: CONFIGURE ASSETS (QUANTITIES, AGE, CONDITION) */}
           {/* ========================================================================= */}
           {currentStep === 3 && (
-            <div className="max-w-5xl mx-auto space-y-6">
-              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-sm space-y-6">
-                <div className="border-b border-slate-800 pb-4">
-                  <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
-                    04 Asset Configuration
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+              <div className="lg:col-span-8 space-y-8">
+                <div className="border-b border-slate-800 pb-5">
+                  <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase">
+                    04 / Asset Configuration
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
-                    Fine-tune asset profile
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1.5 tracking-tight">
+                    Fine-tune asset parameters
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                    Adjust exact counts, age bands, and condition. All fields default sensibly — you may proceed directly if satisfied.
+                  <p className="text-sm text-slate-300 mt-1 leading-relaxed">
+                    Verify counts and asset lifecycle profiles. Standard defaults are already populated.
                   </p>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {selectedAssetList.map(({ definition, quantity }) => {
                     const cfg = assetConfigs[definition.id] || {
                       assetId: definition.id,
@@ -914,25 +907,23 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                     return (
                       <div
                         key={definition.id}
-                        className="p-4 rounded-xl border border-slate-800 bg-slate-950/60 grid grid-cols-1 sm:grid-cols-12 gap-4 items-center"
+                        className="p-3.5 border border-slate-800 bg-[#0c1527] rounded-[3px] grid grid-cols-1 sm:grid-cols-12 gap-3 items-center"
                       >
                         <div className="sm:col-span-4">
-                          <span className="text-[10px] font-mono text-slate-500 uppercase">
-                            {definition.categoryName}
-                          </span>
-                          <h4 className="text-sm font-bold text-white">{definition.name}</h4>
+                          <span className="text-[10px] font-mono text-slate-500 uppercase">{definition.categoryName}</span>
+                          <span className="text-sm font-bold text-white block">{definition.name}</span>
                         </div>
 
                         <div className="sm:col-span-3">
                           {definition.supportsQuantity !== false ? (
-                            <div className="flex items-center gap-2">
-                              <span className="text-xs text-slate-400">Qty:</span>
+                            <div className="flex items-center gap-2 text-xs">
+                              <span className="text-slate-400">Qty:</span>
                               <input
                                 type="number"
                                 min={1}
                                 value={selectedAssets[definition.id] || 1}
                                 onChange={(e) => setExactAssetQuantity(definition.id, parseInt(e.target.value) || 1)}
-                                className="w-20 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono font-bold text-white"
+                                className="w-16 px-2 py-1 bg-slate-900 border border-slate-700 text-xs font-mono font-bold text-white rounded-[2px]"
                               />
                             </div>
                           ) : (
@@ -949,12 +940,12 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                                 [definition.id]: { ...cfg, ageBand: e.target.value as any },
                               }))
                             }
-                            className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white"
+                            className="w-full px-2 py-1 rounded-[2px] bg-slate-900 border border-slate-700 text-xs text-white"
                           >
                             <option value="0-3 years">0–3 years (New/Warranty)</option>
                             <option value="4-7 years">4–7 years (Established)</option>
                             <option value="8-15 years">8–15 years (Mid-life)</option>
-                            <option value="15+ years">15+ years (Aged/Legacy)</option>
+                            <option value="15+ years">15+ years (Legacy)</option>
                           </select>
                         </div>
 
@@ -972,199 +963,191 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   })}
                 </div>
 
-                <div className="flex items-center justify-between pt-6 border-t border-slate-800">
+                <div className="pt-6 border-t border-slate-800 flex items-center justify-between">
                   <button
                     type="button"
                     onClick={() => setCurrentStep(2)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-slate-400 hover:text-white"
                   >
-                    <ArrowLeft className="w-4 h-4" />
+                    <ArrowLeft className="w-3.5 h-3.5" />
                     <span>Back to Assets</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setCurrentStep(4)}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF3E9D] to-[#D91B7D] text-white font-bold text-sm shadow-xl hover:opacity-95 transition-all"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-[3px] bg-[#0c1527] hover:bg-[#111e38] text-white text-xs font-bold tracking-wider uppercase border border-slate-700 hover:border-slate-500 transition-colors"
                   >
                     <span>Review Estate Profile</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#FF3E9D]" />
                   </button>
                 </div>
               </div>
-            </div>
-          )}
 
-          {/* ========================================================================= */}
-          {/* STEP 5: REVIEW ESTATE (PRE-GENERATION TRANSITION) */}
-          {/* ========================================================================= */}
-          {currentStep === 4 && (
-            <div className="max-w-4xl mx-auto space-y-6">
-              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-sm space-y-8">
-                <div className="border-b border-slate-800 pb-4">
-                  <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
-                    05 Final Review
-                  </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
-                    Review your building
-                  </h2>
-                  <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                    Confirm your estate profile before generating the bespoke PPM maintenance programme.
+              <aside className="lg:col-span-4 border-l border-slate-800 pl-0 lg:pl-8 space-y-6 pt-4 lg:pt-0 text-xs">
+                <div>
+                  <h3 className="text-xs font-bold text-white uppercase tracking-wider font-mono">
+                    Lifecycle &amp; Wear Modelling
+                  </h3>
+                  <p className="text-slate-400 mt-1.5 leading-relaxed">
+                    Aged mechanical equipment (8+ years) requires expanded seasonal testing to mitigate breakdown risk.
                   </p>
                 </div>
+              </aside>
+            </div>
+          )}
 
-                {/* Building Summary */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
-                    <span className="text-[10px] font-mono text-slate-500 uppercase">Property Profile</span>
-                    <p className="text-sm font-bold text-white">{buildingType}</p>
-                    <p className="text-xs text-slate-400">{buildingName || 'Commercial Estate'}</p>
-                  </div>
+          {/* ========================================================================= */}
+          {/* STEP 5: REVIEW ESTATE (PRE-GENERATION SUMMARY) */}
+          {/* ========================================================================= */}
+          {currentStep === 4 && (
+            <div className="max-w-4xl mx-auto space-y-8">
+              <div className="border-b border-slate-800 pb-5">
+                <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase">
+                  05 / Estate Review
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1.5 tracking-tight">
+                  Review your building specification
+                </h2>
+                <p className="text-sm text-slate-300 mt-1 leading-relaxed">
+                  Confirm your configured building profile before generating the bespoke maintenance matrix.
+                </p>
+              </div>
 
-                  <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
-                    <span className="text-[10px] font-mono text-slate-500 uppercase">Floor Area &amp; Levels</span>
-                    <p className="text-sm font-bold text-white">{floorArea}</p>
-                    <p className="text-xs text-slate-400">{numberOfFloors}</p>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
-                    <span className="text-[10px] font-mono text-slate-500 uppercase">Total Selected Assets</span>
-                    <p className="text-sm font-bold text-[#FF3E9D] font-mono">
-                      {selectedAssetList.length} Asset Types
-                    </p>
-                    <p className="text-xs text-slate-400">{totalPhysicalAssetCount} Physical Assets</p>
-                  </div>
+              {/* Executive Metrics Strip */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-4 border-y border-slate-800">
+                <div>
+                  <span className="text-[11px] font-mono text-slate-400 uppercase">Property Profile</span>
+                  <div className="text-sm font-bold text-white mt-0.5">{buildingType}</div>
+                  <span className="text-xs text-slate-400">{buildingName || 'Commercial Estate'}</span>
                 </div>
+                <div>
+                  <span className="text-[11px] font-mono text-slate-400 uppercase">Floor Area</span>
+                  <div className="text-sm font-bold text-white mt-0.5">{floorArea}</div>
+                  <span className="text-xs text-slate-400">{numberOfFloors}</span>
+                </div>
+                <div>
+                  <span className="text-[11px] font-mono text-slate-400 uppercase">Asset Systems</span>
+                  <div className="text-sm font-bold text-white mt-0.5">{selectedAssetList.length} Types</div>
+                  <span className="text-xs text-slate-400">Selected</span>
+                </div>
+                <div>
+                  <span className="text-[11px] font-mono text-slate-400 uppercase">Physical Items</span>
+                  <div className="text-sm font-bold text-white mt-0.5">{totalPhysicalAssetCount} Assets</div>
+                  <span className="text-xs text-slate-400">Total Count</span>
+                </div>
+              </div>
 
-                {/* Selected Asset Breakdown */}
-                <div className="space-y-3">
-                  <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider font-mono">
-                    Installed Asset Register to be Processed:
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {selectedAssetList.map(({ definition, quantity }) => (
-                      <div
-                        key={definition.id}
-                        className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center justify-between text-xs"
-                      >
-                        <span className="font-semibold text-white truncate">{definition.name}</span>
-                        <span className="font-mono text-slate-400 shrink-0">
-                          {definition.supportsQuantity !== false ? `${quantity} Units` : 'Whole Site'}
-                        </span>
+              {/* Selected Asset Register Table */}
+              <div className="space-y-3">
+                <h3 className="text-xs font-bold text-white uppercase tracking-wider font-mono">
+                  Configured Asset Register to be Processed:
+                </h3>
+                <div className="border border-slate-800 bg-[#0c1527] divide-y divide-slate-800 text-xs">
+                  {selectedAssetList.map(({ definition, quantity }) => (
+                    <div key={definition.id} className="p-3 flex items-center justify-between">
+                      <div className="min-w-0">
+                        <span className="font-semibold text-white">{definition.name}</span>
+                        <span className="text-[11px] font-mono text-slate-500 ml-2">({definition.categoryName})</span>
                       </div>
-                    ))}
-                  </div>
+                      <span className="font-mono text-slate-300 shrink-0">
+                        {definition.supportsQuantity !== false ? `${quantity} Units` : 'Whole Site'}
+                      </span>
+                    </div>
+                  ))}
                 </div>
+              </div>
 
-                {/* Generation CTA with Animation */}
-                <div className="pt-6 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setCurrentStep(3)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                    <span>Back to Configure</span>
-                  </button>
+              <div className="pt-6 border-t border-slate-800 flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(3)}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-slate-400 hover:text-white"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Back to Configure</span>
+                </button>
 
-                  <button
-                    type="button"
-                    disabled={isGenerating || selectedAssetList.length === 0}
-                    onClick={handleGenerateProgramme}
-                    className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-[#FF3E9D] to-[#D91B7D] text-white font-bold text-sm uppercase tracking-wider shadow-2xl hover:opacity-95 transition-all disabled:opacity-50"
-                  >
-                    {isGenerating ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>{generationStage}</span>
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles className="w-4 h-4" />
-                        <span>Generate My PPM Programme →</span>
-                      </>
-                    )}
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  disabled={isGenerating || selectedAssetList.length === 0}
+                  onClick={handleGenerateProgramme}
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-[3px] bg-[#0c1527] hover:bg-[#111e38] text-white text-xs font-bold tracking-wider uppercase border border-slate-700 hover:border-slate-500 transition-colors disabled:opacity-40"
+                >
+                  {isGenerating ? (
+                    <>
+                      <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span>{generationStage}</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Generate PPM Programme</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-[#FF3E9D]" />
+                    </>
+                  )}
+                </button>
               </div>
             </div>
           )}
 
           {/* ========================================================================= */}
-          {/* STEP 6: GENERATED PPM PROGRAMME (ONLY SELECTED ASSETS) */}
+          {/* STEP 6: GENERATED PROGRAMME (EXECUTIVE METRICS + TERMINAL MATRIX) */}
           {/* ========================================================================= */}
           {currentStep === 5 && (
-            <div className="max-w-7xl mx-auto space-y-8">
-              {/* Results Command Banner */}
-              <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+            <div className="space-y-8">
+              {/* Executive Summary Strip */}
+              <div className="border border-slate-800 bg-[#09101f] p-6 rounded-[4px] space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
                   <div>
-                    <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
-                      Programme Generated Successfully
+                    <span className="text-[11px] font-mono text-slate-400 uppercase tracking-widest">
+                      Generated Output Specification
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
-                      {buildingName || 'Your Estate'} — PPM Programme
+                    <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1">
+                      {buildingName || 'Estate'} — PPM Maintenance Programme
                     </h2>
                     <p className="text-xs sm:text-sm text-slate-400 mt-1">
                       Based on: <strong>1 Building</strong> · <strong>{selectedAssetList.length} Asset Types</strong> · <strong>{totalPhysicalAssetCount} Physical Assets</strong>
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setCurrentStep(2)}
-                      className="px-3.5 py-2 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all inline-flex items-center gap-1.5"
-                    >
-                      <RotateCcw className="w-3.5 h-3.5" /> Edit Assets
-                    </button>
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(2)}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-[3px] border border-slate-700 bg-slate-900 text-slate-300 hover:text-white text-xs font-semibold self-start sm:self-center transition-colors"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Edit Assets</span>
+                  </button>
+                </div>
+
+                {/* Scoreboard Metrics Strip with fine vertical dividers */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-2">
+                  <div className="border-r border-slate-800 pr-4">
+                    <span className="text-[11px] font-mono text-slate-400 uppercase block">Planned Tasks</span>
+                    <div className="text-2xl sm:text-3xl font-bold text-white font-mono mt-1">{stats.totalActivities}</div>
+                    <span className="text-xs text-slate-500">12-Month Schedule</span>
+                  </div>
+
+                  <div className="border-r border-slate-800 pr-4">
+                    <span className="text-[11px] font-mono text-rose-400 uppercase block">Legal Duties</span>
+                    <div className="text-2xl sm:text-3xl font-bold text-rose-400 font-mono mt-1">{stats.legalCount}</div>
+                    <span className="text-xs text-slate-500">Statutory Regulations</span>
+                  </div>
+
+                  <div className="border-r border-slate-800 pr-4">
+                    <span className="text-[11px] font-mono text-blue-400 uppercase block">British Standards</span>
+                    <div className="text-2xl sm:text-3xl font-bold text-blue-400 font-mono mt-1">{stats.standardCount}</div>
+                    <span className="text-xs text-slate-500">Code of Practice</span>
+                  </div>
+
+                  <div>
+                    <span className="text-[11px] font-mono text-emerald-400 uppercase block">SFG20 &amp; Risk</span>
+                    <div className="text-2xl sm:text-3xl font-bold text-emerald-400 font-mono mt-1">{stats.sfg20Count}</div>
+                    <span className="text-xs text-slate-500">Preventative Care</span>
                   </div>
                 </div>
 
-                {/* Scoreboard Cards */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800">
-                    <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
-                      Total Planned Tasks
-                    </span>
-                    <p className="text-2xl sm:text-3xl font-extrabold text-white font-mono mt-1">
-                      {stats.totalActivities}
-                    </p>
-                    <span className="text-[11px] text-slate-500">Across 12 months</span>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-rose-950/30 border border-rose-800/50">
-                    <span className="text-[10px] font-mono text-rose-400 uppercase tracking-wider block">
-                      Legal Duties
-                    </span>
-                    <p className="text-2xl sm:text-3xl font-extrabold text-rose-400 font-mono mt-1">
-                      {stats.legalCount}
-                    </p>
-                    <span className="text-[11px] text-rose-300/70">Strict criminal liability</span>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-blue-950/30 border border-blue-800/50">
-                    <span className="text-[10px] font-mono text-blue-400 uppercase tracking-wider block">
-                      British Standards
-                    </span>
-                    <p className="text-2xl sm:text-3xl font-extrabold text-blue-400 font-mono mt-1">
-                      {stats.standardCount}
-                    </p>
-                    <span className="text-[11px] text-blue-300/70">Standard-led activities</span>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-800/50">
-                    <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider block">
-                      SFG20 &amp; Risk-Based
-                    </span>
-                    <p className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono mt-1">
-                      {stats.sfg20Count}
-                    </p>
-                    <span className="text-[11px] text-emerald-300/70">Planned preventative care</span>
-                  </div>
-                </div>
-
-                {/* Export Toolbar */}
+                {/* Architectural Export Toolbar */}
                 <ExportToolbar
                   toolName="PPM Schedule Builder"
                   onDownloadPdf={handleDownloadPdf}
@@ -1174,43 +1157,45 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 />
               </div>
 
-              {/* View Mode Switcher (Matrix vs Annual) */}
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-2 bg-slate-900 p-1.5 rounded-xl border border-slate-800">
+              {/* View Mode Switcher */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-2 border-b border-slate-800 pb-2 text-xs">
                   <button
                     type="button"
                     onClick={() => setProgrammeViewMode('matrix')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                    className={`px-3 py-1 font-semibold flex items-center gap-1.5 border-b-2 transition-colors ${
                       programmeViewMode === 'matrix'
-                        ? 'bg-[#0B1220] text-[#FF3E9D] border border-[#FF3E9D]/40 shadow-sm'
-                        : 'text-slate-400 hover:text-white'
+                        ? 'border-[#FF3E9D] text-white'
+                        : 'border-transparent text-slate-400 hover:text-slate-200'
                     }`}
                   >
-                    <List className="w-4 h-4" />
+                    <List className="w-3.5 h-3.5" />
                     <span>Matrix View</span>
                   </button>
+
                   <button
                     type="button"
                     onClick={() => setProgrammeViewMode('annual')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                    className={`px-3 py-1 font-semibold flex items-center gap-1.5 border-b-2 transition-colors ${
                       programmeViewMode === 'annual'
-                        ? 'bg-[#0B1220] text-[#FF3E9D] border border-[#FF3E9D]/40 shadow-sm'
-                        : 'text-slate-400 hover:text-white'
+                        ? 'border-[#FF3E9D] text-white'
+                        : 'border-transparent text-slate-400 hover:text-slate-200'
                     }`}
                   >
-                    <LayoutGrid className="w-4 h-4" />
+                    <LayoutGrid className="w-3.5 h-3.5" />
                     <span>Annual Schedule (Jan–Dec)</span>
                   </button>
                 </div>
 
                 {programmeViewMode === 'matrix' && (
-                  <div className="flex items-center gap-2">
+                  <div className="relative w-full sm:w-60">
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
                     <input
                       type="text"
                       placeholder="Filter matrix rows…"
                       value={tableSearchQuery}
                       onChange={(e) => setTableSearchQuery(e.target.value)}
-                      className="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#FF3E9D]"
+                      className="w-full pl-8 pr-3 py-1.5 bg-[#0c1527] border border-slate-700 text-xs text-white placeholder-slate-500 rounded-[2px] focus:outline-none focus:border-slate-400"
                     />
                   </div>
                 )}
@@ -1218,107 +1203,84 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
               {/* MATRIX VIEW */}
               {programmeViewMode === 'matrix' && (
-                <div className="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-md">
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs border-collapse">
-                      <thead>
-                        <tr className="bg-slate-950 text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-800">
-                          <th className="p-4">Asset / System</th>
-                          <th className="p-4">Maintenance Activity</th>
-                          <th className="p-4 text-center">Frequency</th>
-                          <th className="p-4">Compliance Basis</th>
-                          <th className="p-4">Governing Guidance</th>
-                          <th className="p-4">Recommended Competency</th>
+                <div className="border border-slate-800 bg-[#09101f] overflow-x-auto rounded-[3px]">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr className="bg-[#0c1527] text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-800">
+                        <th className="p-3.5">Asset System</th>
+                        <th className="p-3.5">Maintenance Activity</th>
+                        <th className="p-3.5 text-center">Frequency</th>
+                        <th className="p-3.5">Compliance Basis</th>
+                        <th className="p-3.5">Governing Guidance</th>
+                        <th className="p-3.5">Recommended Competency</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/80 text-slate-300">
+                      {filteredTasks.map(({ asset, quantity, task }, idx) => (
+                        <tr key={idx} className="hover:bg-[#0c1527]/70 transition-colors">
+                          <td className="p-3.5 font-bold text-white whitespace-nowrap">
+                            {quantity > 1 ? `${quantity}× ` : ''}
+                            {asset.name}
+                            <span className="text-[10px] font-mono text-slate-500 block font-normal">
+                              {asset.categoryName}
+                            </span>
+                          </td>
+                          <td className="p-3.5">
+                            <p className="text-slate-200 leading-snug font-medium">{task.activity}</p>
+                            <span className="text-[10px] font-mono text-slate-500 mt-1 block">
+                              Evidence: {task.evidenceExpected}
+                            </span>
+                          </td>
+                          <td className="p-3.5 text-center whitespace-nowrap font-mono font-semibold text-slate-200">
+                            {task.frequency}
+                          </td>
+                          <td className="p-3.5">
+                            <ComplianceBadge classification={task.classification} />
+                          </td>
+                          <td className="p-3.5 font-mono text-[11px] text-slate-300">
+                            <div>{task.governingBasis}</div>
+                            <div className="text-[10px] text-slate-500">{task.statutoryReference}</div>
+                          </td>
+                          <td className="p-3.5 text-slate-400 text-xs">
+                            {task.recommendedCompetency}
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-800/80 text-slate-300">
-                        {filteredTasks.map(({ asset, quantity, task }, idx) => (
-                          <tr key={idx} className="hover:bg-slate-800/40 transition-colors">
-                            <td className="p-4">
-                              <div className="font-bold text-white text-sm">
-                                {quantity > 1 ? `${quantity}× ` : ''}
-                                {asset.name}
-                              </div>
-                              <span className="text-[10px] font-mono text-slate-500">
-                                {asset.categoryName}
-                              </span>
-                            </td>
-                            <td className="p-4">
-                              <p className="text-xs text-slate-200 leading-snug font-medium">
-                                {task.activity}
-                              </p>
-                              <span className="text-[10px] font-mono text-slate-500 mt-1 block">
-                                {task.evidenceExpected}
-                              </span>
-                            </td>
-                            <td className="p-4 text-center whitespace-nowrap">
-                              <span className="px-2 py-1 rounded bg-slate-800 text-white font-mono font-bold text-[11px] border border-slate-700">
-                                {task.frequency}
-                              </span>
-                            </td>
-                            <td className="p-4">
-                              <ComplianceBadge classification={task.classification} />
-                            </td>
-                            <td className="p-4 font-mono text-[11px] text-slate-300">
-                              <div>{task.governingBasis}</div>
-                              <div className="text-[10px] text-slate-500 mt-0.5">{task.statutoryReference}</div>
-                            </td>
-                            <td className="p-4 text-slate-400 text-xs">
-                              {task.recommendedCompetency}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               )}
 
-              {/* ANNUAL VIEW (12-MONTH DISTRIBUTION) */}
+              {/* ANNUAL VIEW (12-MONTH CALENDAR GRID) */}
               {programmeViewMode === 'annual' && (
-                <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
-                  <div className="border-b border-slate-800 pb-4">
-                    <h3 className="text-lg font-bold text-white">12-Month Maintenance Programme Distribution</h3>
-                    <p className="text-xs text-slate-400">
-                      Planned service activities scheduled across the calendar year based on statutory frequencies and seasonal operational windows.
-                    </p>
+                <div className="border border-slate-800 bg-[#09101f] p-6 rounded-[3px] space-y-6">
+                  <div className="border-b border-slate-800 pb-3">
+                    <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
+                      12-Month Annual Distribution Schedule (Jan–Dec)
+                    </h3>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
                     {MONTH_NAMES.map((mName, mIdx) => {
                       const mNum = mIdx + 1;
                       const monthTasks = programmeTasks.filter((t) => t.task.frequencyMonths.includes(mNum));
 
                       return (
-                        <div
-                          key={mName}
-                          className="p-4 rounded-xl border border-slate-800 bg-slate-950/70 space-y-2.5"
-                        >
-                          <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
-                            <span className="font-mono text-sm font-bold text-white">
-                              {mName} 2026
-                            </span>
-                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold border border-slate-700">
-                              {monthTasks.length} Regimes
-                            </span>
+                        <div key={mName} className="p-3.5 border border-slate-800 bg-[#0c1527] rounded-[2px] space-y-2">
+                          <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
+                            <span className="font-mono text-xs font-bold text-white">{mName} 2026</span>
+                            <span className="text-[10px] font-mono text-slate-400">{monthTasks.length} Regimes</span>
                           </div>
 
-                          <div className="space-y-2 max-h-48 overflow-y-auto pr-1 scrollbar-thin">
+                          <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1 scrollbar-thin">
                             {monthTasks.map((t, idx) => (
-                              <div key={idx} className="text-xs text-slate-300 space-y-0.5">
-                                <div className="font-semibold text-white flex items-center justify-between">
-                                  <span>{t.asset.name}</span>
-                                  <span className="text-[9.5px] font-mono text-[#FF3E9D]">
-                                    {t.task.frequency}
-                                  </span>
-                                </div>
-                                <p className="text-[11px] text-slate-400 line-clamp-1">{t.task.activity}</p>
+                              <div key={idx} className="text-slate-300">
+                                <span className="font-semibold text-white">{t.asset.name}: </span>
+                                <span className="text-slate-400">{t.task.activity} ({t.task.frequency})</span>
                               </div>
                             ))}
                             {monthTasks.length === 0 && (
-                              <div className="py-4 text-center text-xs text-slate-600">
-                                Routine checks only
-                              </div>
+                              <div className="text-slate-600 py-2 text-center">Routine inspections only</div>
                             )}
                           </div>
                         </div>
@@ -1328,12 +1290,12 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 </div>
               )}
 
-              {/* Next Steps CTA */}
+              {/* Corporate Conversion CTA */}
               <ToolConversionCTA
                 toolName="PPM Schedule Builder"
-                heading="Need EntireFM to manage this PPM programme?"
-                subheading="EntireFM mobilises certified engineering teams to survey physical assets, issue statutory logbooks, and execute planned maintenance across UK estates."
-                primaryActionLabel="Request Engineering Proposal"
+                heading="Require on-site engineering verification?"
+                subheading="EntireFM mobilises certified engineering teams to survey physical assets, verify condition, and execute planned preventative maintenance under fixed SLAs."
+                primaryActionLabel="Request Engineering Survey"
                 primaryActionHref="/contact-us#enquiry"
               />
             </div>
