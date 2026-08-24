@@ -1,21 +1,27 @@
+'use client';
+
 import React from 'react';
 import { Header } from '@/components/layout/Header';
-import { PageHero } from '@/components/hero/PageHero';
 import { Footer } from '@/components/layout/Footer';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
-import { DiagonalStatement } from '@/components/content/DiagonalStatement';
-import { FullBleedFeature } from '@/components/content/FullBleedFeature';
-import { HorizontalRail } from '@/components/content/HorizontalRail';
+import { ServiceHero } from '@/components/services/ServiceHero';
+import { SectorSnapshot } from '@/components/sectors/SectorSnapshot';
+import { TechnologyCafmSection } from '@/components/services/TechnologyCafmSection';
+import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
 import { FAQAccordion } from '@/components/content/CapabilityList';
-import { ProposalSection } from '@/components/conversion/PhoneCTA';
-import { RelatedLinks } from '@/components/content/CaseStudyFeature';
 import { 
   LocationServiceGrid, 
   LocationSectorGrid, 
   LocationCoverageGrid, 
   WhyChooseLocationGrid 
 } from '@/components/content/LocationSectionViews';
+import { PostcodeCoverageLookup } from '@/components/locations/PostcodeCoverageLookup';
+import { LocationExploreBlock } from '@/components/locations/LocationExploreBlock';
 import { TIER1_CITIES } from '@/content/locations/tier1-cities';
+import locationImages from '@/config/location-images.json';
+import { listPublishedCaseStudies } from '@/server/trust/case-studies';
+import Link from 'next/link';
+import { ArrowRight, CheckCircle2, ShieldCheck, FileCheck2, MapPin, Building, AlertCircle } from 'lucide-react';
 import type { TemplateProps } from './types';
 
 export function TemplatePrimaryLocation({ route, content }: TemplateProps) {
@@ -29,60 +35,40 @@ export function TemplatePrimaryLocation({ route, content }: TemplateProps) {
     { name: content.h1, url: route.path },
   ];
 
+  // Resolve city-specific photography from approved manifest
+  const cityImages = (locationImages.cities as Record<string, any>)[citySlug]?.images || [];
+  const heroImage = cityImages.length > 0
+    ? cityImages[0].src
+    : '/images/editorial/entirefm-headquarters-exterior-2000w.webp';
+  const heroImageAlt = cityImages.length > 0
+    ? cityImages[0].alt
+    : `EntireFM commercial facilities management and engineering operations in ${city}`;
+
   const heroFacts = [
-    { figure: 'Coverage', label: `Mobile engineering across ${city} & regional corridors` },
-    { figure: 'Response', label: 'Contracted out-of-hours coverage for critical sites' },
-    { figure: 'Delivery', label: 'Single contract accountability for Hard & Soft FM' },
+    { label: `${city} Mobile Operations`, value: 'Regional Delivery' },
+    { label: 'Contracted Response SLAs', value: '24/7 Priority Cover' },
+    { label: 'Single Accountable Provider', value: 'Hard & Soft FM' },
   ];
 
-  const positioningPoints = [
-    `Dedicated account management with direct technical escalation in ${city}`,
-    'Every maintenance schedule built from a complete site asset survey',
-    'Statutory testing, digital certificates and compliance records in one place',
-    `Response times agreed contractually per site across ${city}`,
+  const snapshotPriorities = [
+    { title: 'Local Commercial Demands', subtitle: cityData?.positioning || `Tailored maintenance protocols for ${city} commercial estates`, iconName: 'commercialBuildings' as const },
+    { title: 'Direct Mobile Engineering', subtitle: `M&E, HVAC, electrical & plumbing technicians deployed across ${city}`, iconName: 'maintenanceTools' as const },
+    { title: 'Statutory Safety & SFG20', subtitle: 'Digital compliance certificates and testing logs accessible 24/7', iconName: 'complianceAudit' as const },
+    { title: 'Contracted Response SLAs', subtitle: 'Priority dispatch agreed per site by building criticality', iconName: 'twentyFourSevenOps' as const },
   ];
 
-  const railItems = [
-    {
-      imageKey: 'switchgear-inspection',
-      eyebrow: 'Electrical',
-      title: `Fixed wire testing and distribution in ${city}`,
-      body: 'Periodic inspection, EICR reporting and remedial works across HV and LV distribution with certificates filed directly to your digital asset register.',
-      href: '/mechanical-electrical',
-    },
-    {
-      imageKey: 'rooftop-plant-night',
-      eyebrow: 'HVAC & Plant',
-      title: `Rooftop plant and chiller maintenance in ${city}`,
-      body: 'Chillers, air handling units and condensers maintained around occupancy hours, including scheduled out-of-hours works.',
-      href: '/hvac-contractor',
-    },
-    {
-      imageKey: 'switchroom-survey',
-      eyebrow: 'Surveys',
-      title: `Asset condition and compliance surveys across ${city}`,
-      body: 'The asset survey that grounds your maintenance plan: identifying what is installed, its operating condition, and statutory testing requirements.',
-      href: '/ppm',
-    },
-    {
-      imageKey: 'access-control-install',
-      eyebrow: 'Security & Access',
-      title: `Access control and barrier maintenance in ${city}`,
-      body: 'Installation, preventative maintenance and fire-interface testing ensuring every secure access point releases correctly during alarms.',
-      href: '/access-control',
-    },
-  ];
+  const caseStudies = listPublishedCaseStudies();
 
   const faqs = (content.faqs && content.faqs.length > 0)
     ? content.faqs
     : [
         {
           question: `What facilities management services does EntireFM provide in ${city}?`,
-          answer: `EntireFM provides integrated Hard and Soft FM across ${city}, including planned preventative maintenance (PPM), mechanical and electrical engineering, HVAC, statutory compliance testing, commercial cleaning, and 24/7 reactive repairs under a single accountable contract.`,
+          answer: `EntireFM provides integrated Hard and Soft FM across ${city}, including planned preventative maintenance (PPM), mechanical and electrical engineering, commercial HVAC, statutory compliance testing, commercial cleaning, and 24/7 reactive repairs under a single accountable contract.`,
         },
         {
           question: `How are emergency callout response times managed across ${city}?`,
-          answer: `Emergency attendance times are agreed per site during contract mobilisation, defined by priority band and building criticality rather than promised as a blanket number. Critical safety and power failures receive immediate priority dispatch.`,
+          answer: `Emergency attendance times are agreed per site during contract mobilisation, defined by priority band and building criticality rather than promised as a blanket marketing number. Critical safety and power failures receive immediate priority dispatch.`,
         },
         {
           question: `Can EntireFM manage multi-site portfolios in and around ${city}?`,
@@ -94,142 +80,299 @@ export function TemplatePrimaryLocation({ route, content }: TemplateProps) {
         },
       ];
 
-  const relatedLinks = (content.relatedRoutes || ['/locations', '/services', '/ppm', '/contact-us']).map(r => ({
-    title: r.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
-    path: r,
-    category: `${city} Network`,
-    description: `Explore EntireFM capabilities and service specifications for ${r.replace(/^\//, '').replace(/-/g, ' ')}.`,
-  }));
-
-  const districts = cityData?.districts || [
-    { name: `${city} Central Commercial Core`, note: 'High-density commercial offices, retail and multi-tenant estates.' },
-    { name: `${city} Industrial & Business Parks`, note: 'Manufacturing, warehousing, trade counters and logistics facilities.' },
-    { name: `${city} Regional Corridors`, note: 'Arterial transport routes and neighbouring commercial centres.' },
-    { name: `${city} Public Realm & Civic Estates`, note: 'Education, healthcare and public-sector property portfolios.' },
-  ];
-
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
+
       <main id="main" className="flex-grow">
-        {/* 1. LOCATION-SPECIFIC HERO */}
-        <PageHero
-          eyebrow={content.eyebrow || `Facilities Management · ${city}`}
+        {/* 1. CINEMATIC CITY HERO */}
+        <ServiceHero
+          eyebrow={`FACILITIES MANAGEMENT // ${city.toUpperCase()}`}
           title={content.h1}
-          intro={content.heroIntro || content.metaDescription}
-          path={route.path}
-          imageSrc={content.heroImage}
-          imageAlt={content.heroImage ? `EntireFM facilities management operations in ${city}` : undefined}
+          highlightedTitle={city}
+          intro={content.heroIntro || cityData?.positioning || content.metaDescription}
+          imageSrc={heroImage}
+          imageAlt={heroImageAlt}
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: `Request a ${city} proposal`, href: '#enquiry' }}
-          facts={heroFacts}
+          primaryCta={{ label: `Request a ${city} FM Proposal`, href: '#enquiry' }}
+          secondaryCta={{ label: 'Verify Site Postcode', href: '#coverage-lookup' }}
+          serviceFacts={heroFacts}
         />
 
-        {/* 2. LOCAL TRUST / CAPABILITY STRIP */}
+        {/* 2. TRUST / ACCREDITATIONS BAR */}
         <TrustBar />
 
-        {/* 3. FACILITIES MANAGEMENT IN [LOCATION] — DIAGONAL STATEMENT */}
-        <DiagonalStatement
-          eyebrow={`Commercial FM · ${city}`}
-          title={`Facilities management in ${city}.`}
-          titleAccent="Under one accountable contract."
-          body={
-            cityData?.positioning ||
-            `EntireFM delivers comprehensive facilities management across ${city}, consolidating mechanical & electrical engineering, planned maintenance, statutory compliance and specialist cleaning into a single transparent agreement.`
-          }
-          points={positioningPoints}
-          leftLabel={`${city} Commercial Estates`}
-          rightLabel="Direct Engineering Delivery"
-          leftImageKey="manchester-castlefield-night"
-          rightImageKey="rooftop-plant-night"
-          href="/services"
-          cta={`Explore ${city} services`}
+        {/* 3. LOCAL SNAPSHOT STRIP */}
+        <SectorSnapshot
+          leadText={cityData?.positioning || `Engineering-led facilities management and planned maintenance structured around the operational realities of ${city} commercial property.`}
+          priorities={snapshotPriorities}
         />
 
-        {/* 4. SERVICES WE PROVIDE IN [LOCATION] */}
+        {/* 4. CITY-SPECIFIC OPERATING REALITIES ("WHAT MAKES MAINTAINING PROPERTY HERE DIFFERENT?") */}
+        {cityData && cityData.operatingConditions && cityData.operatingConditions.length > 0 && (
+          <section className="py-20 sm:py-28 bg-[#FAF9FB] border-b border-slate-200">
+            <div className="container-custom">
+              <div className="max-w-3xl mb-14">
+                <div className="inline-flex items-center gap-2 mb-2.5">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    LOCAL ESTATE KNOWLEDGE
+                  </span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                  What Makes Maintaining Commercial Property in {city} Different?
+                </h2>
+                <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
+                  Every UK city has distinct building stock, transport constraints, and regulatory pressures. Here is how EntireFM engineers navigate the physical realities of {city}:
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {cityData.operatingConditions.map((cond, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-white border border-slate-200/90 rounded-sm p-7 sm:p-8 shadow-sm flex flex-col justify-between hover:border-brand-pink/40 hover:shadow-md transition-all duration-300 group"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-sm bg-slate-100 text-slate-700 font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-slate-200 group-hover:bg-brand-pink/10 group-hover:text-brand-pink transition-colors">
+                          0{idx + 1}
+                        </div>
+                        <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-brand-pink-dark transition-colors">
+                          {cond.title}
+                        </h3>
+                      </div>
+                      <p className="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed pt-2">
+                        {cond.detail}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-3.5 border-t border-slate-100 flex items-center gap-2 text-[11px] text-slate-500 font-mono">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                      <span>EntireFM {city} Delivery Protocol</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 5. EDITORIAL SECTIONS (PRESERVING DEEP SEO CONTENT) */}
+        {content.sections && content.sections.length > 0 && (
+          <section className="py-20 bg-white border-b border-slate-200">
+            <div className="container-custom">
+              <div className="max-w-3xl mb-12">
+                <div className="inline-flex items-center gap-2 mb-2.5">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    OPERATIONAL STRATEGY
+                  </span>
+                </div>
+                <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">
+                  Facilities Management Engineering Across {city}
+                </h2>
+                <p className="mt-3 text-sm sm:text-base text-slate-600">
+                  Structured Hard FM, planned maintenance, and statutory safety across regional commercial, industrial, and institutional property.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {content.sections.map((sec, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-[#FAF9FB] p-8 rounded-sm border border-slate-200/90 space-y-4 shadow-sm flex flex-col justify-between"
+                  >
+                    <div>
+                      <h3 className="text-xl font-bold text-slate-900 leading-snug">{sec.heading}</h3>
+                      <p className="mt-3 text-sm text-slate-700 leading-relaxed">{sec.body}</p>
+                      {sec.bullets && sec.bullets.length > 0 && (
+                        <ul className="space-y-2 pt-4 mt-4 border-t border-slate-200">
+                          {sec.bullets.map((b, bIdx) => (
+                            <li key={bIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                              <span>{b}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 6. LOCAL PROPERTY STOCK / BUILDINGS WE MAINTAIN */}
+        {cityData && cityData.propertyStock && cityData.propertyStock.length > 0 && (
+          <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
+            <div className="container-custom">
+              <div className="max-w-3xl mb-12">
+                <div className="inline-flex items-center gap-2 mb-2.5">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    COMMERCIAL PROPERTY TYPES
+                  </span>
+                </div>
+                <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">
+                  Buildings We Maintain Across {city}
+                </h2>
+                <p className="mt-3 text-sm text-slate-600">
+                  From multi-tenant corporate towers to heavy industrial works and logistics hubs:
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {cityData.propertyStock.map((stock, idx) => (
+                  <div
+                    key={idx}
+                    className="p-6 bg-white border border-slate-200/90 rounded-sm shadow-sm flex items-start gap-3.5 hover:border-brand-pink/40 transition-colors"
+                  >
+                    <div className="w-8 h-8 rounded-sm bg-brand-pink/10 text-brand-pink flex items-center justify-center shrink-0 mt-0.5">
+                      <Building className="w-4 h-4" />
+                    </div>
+                    <p className="text-xs sm:text-sm font-semibold text-slate-800 leading-snug">
+                      {stock}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 7. SERVICES WE DELIVER IN THIS CITY */}
         <LocationServiceGrid city={city} />
 
-        {/* 5. SECTORS WE SUPPORT IN [LOCATION] */}
+        {/* 8. SECTORS SUPPORTED IN THIS CITY */}
         <LocationSectorGrid city={city} sectors={cityData?.sectors} />
 
-        {/* 6. LOCAL / REGIONAL OPERATING CONTEXT — FULL BLEED FEATURE */}
-        <FullBleedFeature
-          imageKey="distribution-board-testing"
-          eyebrow={`Operating Reality · ${city}`}
-          title={`The engineering behind your ${city} estate`}
-          body={`Commercial property in ${city} demands an FM provider that understands local operating constraints — from access permits and loading windows to out-of-hours plant maintenance and strict statutory safety compliance.`}
-          points={[
-            'Qualified engineers working to defined SFG20 specifications',
-            'Full compliance evidence recorded against each building asset',
-            'Planned maintenance scheduled to eliminate operational disruption',
-            'Unified reporting across single sites or regional multi-site portfolios',
-          ]}
-          href="/mechanical-electrical"
-          cta="Engineering capabilities"
+        {/* 9. DIGITAL CAFM PLATFORM SECTION */}
+        <TechnologyCafmSection
+          eyebrow={`DIGITAL OPERATIONS // ${city.toUpperCase()}`}
+          title={`Your ${city} Estate — One Real-Time Operational View`}
+          subtitle={`Centralized compliance registers, live engineer attendance tracking, and instant certification archives for ${city} property directors and managing agents.`}
         />
 
-        {/* 7. RELEVANT SPECIALIST SERVICES — HORIZONTAL CAPABILITY RAIL */}
-        <HorizontalRail
-          eyebrow="Specialist Disciplines"
-          title={`Specialist FM capabilities for ${city} sites`}
-          intro="Deep technical engineering and specialist building services delivered across the region."
-          items={railItems}
-        />
+        {/* 10. WHY CHOOSE ENTIREFM IN THIS LOCATION */}
+        <WhyChooseLocationGrid city={city} />
 
-        {/* 8. NEARBY AREAS / SERVICE COVERAGE */}
-        <LocationCoverageGrid
-          city={city}
-          region={cityData?.region}
-          districts={districts}
-          travelPattern={cityData?.travelPattern}
-        />
+        {/* 11. WHERE WE WORK / DISTRICTS GRID */}
+        {cityData && cityData.districts && cityData.districts.length > 0 && (
+          <LocationCoverageGrid
+            city={city}
+            region={cityData.region}
+            districts={cityData.districts}
+            travelPattern={cityData.travelPattern}
+          />
+        )}
 
-        {/* 9. ACCREDITATIONS & COMPLIANCE */}
-        <section className="py-14 bg-white border-t border-brand-edge">
-          <div className="container-wide">
+        {/* 12. INTERACTIVE POSTCODE COVERAGE CHECKER */}
+        <section id="coverage-lookup" className="py-16 bg-white border-b border-slate-200">
+          <div className="container-custom max-w-4xl">
+            <PostcodeCoverageLookup initialCity={city} />
+          </div>
+        </section>
+
+        {/* 13. VERIFIED CASE STUDIES */}
+        {caseStudies.length > 0 && (
+          <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
+            <div className="container-custom space-y-12">
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center gap-2 mb-2.5">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    VERIFIED PROOF
+                  </span>
+                </div>
+                <h2 className="text-3xl font-extrabold text-slate-900">
+                  Operational Project Proof &amp; Case Studies
+                </h2>
+                <p className="mt-2 text-sm text-slate-600">
+                  Demonstrated engineering delivery, statutory governance, and asset lifecycle optimization across UK commercial facilities.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {caseStudies.slice(0, 3).map((cs) => (
+                  <div
+                    key={cs.id}
+                    className="bg-white p-6 rounded-sm border border-slate-200/90 flex flex-col justify-between shadow-sm hover:border-brand-pink/40 hover:shadow-md transition-all group"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-semibold">
+                          {cs.sector}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded-sm">
+                          {cs.location}
+                        </span>
+                      </div>
+                      <h3 className="text-base font-bold text-slate-900 group-hover:text-brand-pink-dark transition-colors">
+                        {cs.title}
+                      </h3>
+                      <p className="mt-2 text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                        {cs.challenge}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <Link
+                        href="/case-studies"
+                        className="text-xs font-bold text-slate-900 group-hover:text-brand-pink inline-flex items-center gap-1.5 uppercase tracking-wider transition-colors"
+                      >
+                        Read Summary <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 14. ACCREDITATIONS CAROUSEL */}
+        <section className="py-12 bg-white border-b border-slate-200">
+          <div className="container-custom">
             <AccreditationRail />
           </div>
         </section>
 
-        {/* 10. WHY BUSINESSES IN [LOCATION] USE ENTIREFM */}
-        <WhyChooseLocationGrid city={city} />
-
-        {/* 11. LOCATION-SPECIFIC FAQ */}
-        <section className="section-padding bg-brand-surface border-t border-brand-edge">
-          <div className="container-custom max-w-4xl">
-            <div className="mb-10 text-center">
-              <span className="badge-technical">Local Expertise</span>
-              <h2 className="text-display-md text-brand-graphite mt-3">
-                {city} Facilities Management — Frequently Asked Questions
-              </h2>
-              <p className="mt-3 text-sm text-slate-600">
-                Key questions on contract consolidation, response times and statutory compliance in {city}.
-              </p>
+        {/* 15. FAQS ACCORDION */}
+        {faqs.length > 0 && (
+          <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
+            <div className="container-custom max-w-4xl space-y-8">
+              <div>
+                <div className="inline-flex items-center gap-2 mb-2.5">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    FREQUENTLY ASKED QUESTIONS
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  Facilities Management in {city} — Expert Guidance
+                </h2>
+              </div>
+              <FAQAccordion faqs={faqs} />
             </div>
-            <FAQAccordion faqs={faqs} />
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* 12. STRONG LOCATION-SPECIFIC CONVERSION SECTION */}
-        <ProposalSection
-          defaultLocation={city}
-          headline={`Request a Facilities Proposal for ${city}`}
-          subheadline={`Speak with our engineering team about planned maintenance contracts, compliance audits or a site survey for your ${city} estate.`}
+        {/* 16. STRUCTURED LOCAL EXPLORE LINKS BLOCK */}
+        <LocationExploreBlock city={city} />
+
+        {/* 17. PROPOSAL & CONVERSION SECTION */}
+        <ServiceConversionSection
+          serviceName={`Facilities Management ${city}`}
+          headline={`Request a Facilities Management Proposal for Your ${city} Estate`}
+          subheadline={`Consult directly with EntireFM technical directors. We establish asset registers, custom SFG20 PPM schedules, and contracted SLAs tailored to your ${city} property.`}
+          badgeText={`${city.toUpperCase()} CONSULTATION`}
+          ctaButtonText={`Request ${city} Proposal`}
+          directDeskNote={`Connecting directly with our ${city} and regional operations desk.`}
         />
-
-        {/* 13. RELATED LOCATION / SERVICE LINKS */}
-        <section className="section-padding bg-white border-t border-brand-edge">
-          <div className="container-wide">
-            <div className="max-w-2xl mb-8">
-              <span className="badge-technical">Regional Network</span>
-              <h2 className="text-display-sm text-brand-graphite mt-2">
-                Explore Local Services & Regional Coverage
-              </h2>
-            </div>
-            <RelatedLinks links={relatedLinks} />
-          </div>
-        </section>
       </main>
+
       <Footer />
     </div>
   );

@@ -566,7 +566,11 @@ export function evaluateEffectiveAccess(session: UserSession) {
     hasOrgScope,
     hasSiteRestriction,
     allowedSiteIds: allowedSites,
-    canAccessAdmin: session.orgType === 'ENTIREFM',
+    canAccessAdmin:
+      session.orgType === 'ENTIREFM' &&
+      session.activeApplication === 'ADMIN' &&
+      session.role !== 'ENGINEER' &&
+      session.role !== 'CONTRACTOR_ENGINEER',
     canAccessClients: session.orgType === 'CLIENT' || !!session.viewAsContext,
     canAccessContractor: session.orgType === 'CONTRACTOR' || !!session.viewAsContext,
     canAccessEngineer: session.role === 'ENGINEER' || session.role === 'CONTRACTOR_ENGINEER',
@@ -652,3 +656,329 @@ export const ENGINEER_ROLES: RoleCode[] = [
   'CONTRACTOR_ENGINEER',
 ];
 
+
+// =============================================================================
+// PORTAL ACCESS GUARDS — Server & API Boundary Enforcement
+// =============================================================================
+
+export function requireAdminSession(session: UserSession | null): UserSession {
+  if (!session) {
+    throw new Error('UNAUTHENTICATED: Sign in required');
+  }
+  if (session.orgType !== 'ENTIREFM' || session.activeApplication !== 'ADMIN') {
+    throw new Error('FORBIDDEN: /admin is restricted to EntireFM internal operations staff');
+  }
+  return session;
+}
+
+export function requireClientSession(session: UserSession | null): UserSession {
+  if (!session) {
+    throw new Error('UNAUTHENTICATED: Sign in required');
+  }
+  if (session.orgType !== 'CLIENT' && !session.viewAsContext) {
+    throw new Error('FORBIDDEN: /clients is restricted to authorised client accounts');
+  }
+  return session;
+}
+
+export function requireContractorSession(session: UserSession | null): UserSession {
+  if (!session) {
+    throw new Error('UNAUTHENTICATED: Sign in required');
+  }
+  if (session.orgType !== 'CONTRACTOR' && !session.viewAsContext) {
+    throw new Error('FORBIDDEN: /contractor is restricted to approved contractor organisations');
+  }
+  if (session.role === 'ENGINEER' || session.role === 'CONTRACTOR_ENGINEER') {
+    throw new Error('FORBIDDEN: /contractor office portal requires contractor management role');
+  }
+  return session;
+}
+
+export function requireEngineerSession(session: UserSession | null): UserSession {
+  if (!session) {
+    throw new Error('UNAUTHENTICATED: Sign in required');
+  }
+  if (session.role !== 'ENGINEER' && session.role !== 'CONTRACTOR_ENGINEER' && !session.viewAsContext) {
+    throw new Error('FORBIDDEN: /engineer is restricted to field engineer accounts');
+  }
+  return session;
+}
+
+// =============================================================================
+// CANONICAL SCOPE RESOLUTION & OBJECT AUTHORIZATION HELPERS
+// =============================================================================
+
+/**
+ * Resolves the authorized Site IDs for the active session.
+ * Returns '*' if the user has universal unconstrained access.
+ * Returns string[] containing explicit authorized site UUIDs.
+ */
+export function getAuthorizedSiteIds(session: UserSession): string[] | '*' {
+  if (session.orgType === 'ENTIREFM' && (session.role === 'SUPER_ADMIN' || session.role === 'CEO' || session.role === 'ADMINISTRATOR')) {
+    return '*';
+  }
+  // If user has organization-level universal scope
+  const hasOrgScope = session.scopes.some((s) => s.type === 'ORGANISATION' && s.id === session.orgId);
+  if (hasOrgScope) {
+    return '*';
+  }
+  // Otherwise collect explicitly scoped sites
+  const siteScopes = session.scopes.filter((s) => s.type === 'SITE').map((s) => s.id);
+  return siteScopes;
+}
+
+/**
+ * Evaluates whether a session can access a specific Site
+ */
+export function canAccessSite(session: UserSession, siteId: string, siteOrgId?: string): boolean {
+  if (!session || !siteId) return false;
+
+  // View-as inherits target scope
+  if (session.orgType === 'ENTIREFM' && (session.role === 'SUPER_ADMIN' || session.role === 'CEO' || session.role === 'ADMINISTRATOR')) {
+    return true;
+  }
+
+  // Client tenant boundary
+  if (session.orgType === 'CLIENT') {
+    if (siteOrgId && siteOrgId !== session.orgId) return false;
+    const authorized = getAuthorizedSiteIds(session);
+    if (authorized === '*') return true;
+    return authorized.includes(siteId);
+  }
+
+  // Contractor / Engineer context: access permitted only for explicitly assigned work sites
+  if (session.orgType === 'CONTRACTOR' || session.role === 'ENGINEER' || session.role === 'CONTRACTOR_ENGINEER') {
+    const authorized = getAuthorizedSiteIds(session);
+    if (authorized === '*') return true;
+    return authorized.includes(siteId);
+  }
+
+  return false;
+}
+
+/**
+ * Evaluates whether a session can access a specific Work Order
+ */
+export function canAccessWorkOrder(
+  session: UserSession,
+  wo: { client_account_id?: string; organisation_id?: string; site_id?: string; id?: string; assigned_provider_org_id?: string; assigned_engineer_id?: string }
+): boolean {
+  if (!session) return false;
+
+  // Internal EntireFM staff with operations:read
+  if (session.orgType === 'ENTIREFM') {
+    return hasPermission(session, 'operations:read');
+  }
+
+  // Client user: must belong to the client org and have site scope
+  if (session.orgType === 'CLIENT') {
+    const orgMatches = (wo.organisation_id && wo.organisation_id === session.orgId) ||
+                       (wo.client_account_id && wo.client_account_id === session.orgId);
+    if (!orgMatches && !session.viewAsContext) return false;
+    if (wo.site_id) {
+      return canAccessSite(session, wo.site_id, session.orgId);
+    }
+    return true;
+  }
+
+  // Contractor user: must be assigned to their provider org
+  if (session.orgType === 'CONTRACTOR') {
+    if (wo.assigned_provider_org_id && wo.assigned_provider_org_id !== session.orgId) {
+      return false;
+    }
+    return true;
+  }
+
+  // Engineer: must be assigned to them
+  if (session.role === 'ENGINEER' || session.role === 'CONTRACTOR_ENGINEER') {
+    if (wo.assigned_engineer_id && wo.assigned_engineer_id !== session.personId) {
+      return false;
+    }
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Evaluates whether a session can access a specific Asset
+ */
+export function canAccessAsset(session: UserSession, asset: { site_id: string; organisation_id?: string }): boolean {
+  if (!session) return false;
+  return canAccessSite(session, asset.site_id, asset.organisation_id);
+}
+
+/**
+ * Evaluates whether a contractor can access an assignment/job
+ */
+export function canAccessContractorJob(
+  session: UserSession,
+  assignment: { provider_org_id: string; work_order_id?: string }
+): boolean {
+  if (!session) return false;
+  if (session.orgType === 'ENTIREFM') return true;
+  if (session.orgType === 'CONTRACTOR') {
+    return assignment.provider_org_id === session.orgId;
+  }
+  return false;
+}
+
+/**
+ * Evaluates whether an engineer can access a Visit
+ */
+export function canAccessEngineerVisit(
+  session: UserSession,
+  visit: { engineer_person_id?: string; provider_org_id?: string; id?: string }
+): boolean {
+  if (!session) return false;
+  if (session.role === 'ENGINEER' || session.role === 'CONTRACTOR_ENGINEER') {
+    return visit.engineer_person_id === session.personId;
+  }
+  if (session.orgType === 'ENTIREFM') return true;
+  if (session.orgType === 'CONTRACTOR') {
+    return visit.provider_org_id === session.orgId;
+  }
+  return false;
+}
+
+// =============================================================================
+// AUDITED VIEW-AS & PERMISSION SIMULATOR
+// =============================================================================
+
+export async function startViewAs(
+  adminSession: UserSession,
+  targetPersonId: string,
+  targetOrgId: string
+): Promise<{ success: boolean; session?: UserSession; token?: string; error?: string }> {
+  if (!adminSession || adminSession.orgType !== 'ENTIREFM' || !hasPermission(adminSession, 'platform:view_as')) {
+    return { success: false, error: 'PERMISSION_DENIED: platform:view_as permission required' };
+  }
+
+  const { data: targetPersonData } = await dbQuery<Person[]>(
+    `persons?id=eq.${encodeURIComponent(targetPersonId)}&select=*`
+  );
+  const targetPerson = targetPersonData?.[0];
+  if (!targetPerson) return { success: false, error: 'Target person not found' };
+
+  const { data: targetOrgData } = await dbQuery<Organisation[]>(
+    `organisations?id=eq.${encodeURIComponent(targetOrgId)}&select=*`
+  );
+  const targetOrg = targetOrgData?.[0];
+  if (!targetOrg) return { success: false, error: 'Target organisation not found' };
+
+  const { data: memberships } = await dbQuery<any[]>(
+    `organisation_memberships?person_id=eq.${encodeURIComponent(targetPersonId)}&organisation_id=eq.${encodeURIComponent(targetOrgId)}&select=*,role:roles(*),scopes:membership_scopes(*)`
+  );
+  const membership = memberships?.[0];
+  if (!membership) return { success: false, error: 'Target user has no membership in specified organisation' };
+
+  const targetRole = (membership.role?.code || 'CLIENT_USER') as RoleCode;
+  const targetPortal: ApplicationPortal = targetOrg.org_type === 'CLIENT' ? 'CLIENT' : targetOrg.org_type === 'CONTRACTOR' ? 'CONTRACTOR' : 'ADMIN';
+  const targetScopes = (membership.scopes || []).map((s: any) => ({
+    type: s.scope_type as ScopeType,
+    id: s.scope_id,
+  }));
+
+  const viewAsContext: ViewAsContext = {
+    isViewAs: true,
+    operatorPersonId: adminSession.personId,
+    operatorEmail: adminSession.email,
+    operatorName: adminSession.name,
+    originalRole: adminSession.role,
+    startedAt: new Date().toISOString(),
+  };
+
+  const session: UserSession = {
+    personId: targetPerson.id,
+    email: targetPerson.email,
+    name: `${targetPerson.first_name} ${targetPerson.last_name}`.trim(),
+    role: targetRole,
+    orgId: targetOrg.id,
+    orgName: targetOrg.name,
+    orgType: targetOrg.org_type,
+    activeApplication: targetPortal,
+    permissions: getRolePermissions(targetRole),
+    scopes: targetScopes,
+    viewAsContext,
+    expiresAt: Date.now() + 1000 * 60 * 60 * 2,
+  };
+
+  const token = createSessionToken(session);
+
+  return { success: true, session, token };
+}
+
+export async function endViewAs(
+  session: UserSession
+): Promise<{ success: boolean; session?: UserSession; token?: string; error?: string }> {
+  if (!session.viewAsContext) {
+    return { success: false, error: 'Not currently in View-As mode' };
+  }
+
+  const operatorId = session.viewAsContext.operatorPersonId;
+  const operatorRole = session.viewAsContext.originalRole;
+
+  const restoredSession: UserSession = {
+    personId: operatorId,
+    email: session.viewAsContext.operatorEmail,
+    name: session.viewAsContext.operatorName,
+    role: operatorRole,
+    orgId: '00000000-0000-0000-0000-000000000000',
+    orgName: 'EntireFM Internal Operations',
+    orgType: 'ENTIREFM',
+    activeApplication: 'ADMIN',
+    permissions: getRolePermissions(operatorRole),
+    scopes: [{ type: 'ORGANISATION', id: '00000000-0000-0000-0000-000000000000' }],
+    expiresAt: Date.now() + 1000 * 60 * 60 * 24,
+  };
+
+  const token = createSessionToken(restoredSession);
+  return { success: true, session: restoredSession, token };
+}
+
+export async function simulateUserAccess(
+  targetPersonId: string,
+  targetAction: string,
+  targetEntity?: { type: string; id: string; site_id?: string; org_id?: string }
+): Promise<{ allowed: boolean; reason: string; effectiveRole: RoleCode; permissions: PermissionCode[] }> {
+  const { data: persons } = await dbQuery<any[]>(
+    `persons?id=eq.${encodeURIComponent(targetPersonId)}&select=*,memberships:organisation_memberships(*,role:roles(*),organisation:organisations(*),scopes:membership_scopes(*))`
+  );
+  const person = persons?.[0];
+  if (!person) return { allowed: false, reason: 'User does not exist', effectiveRole: 'READ_ONLY', permissions: [] };
+  if (person.status !== 'ACTIVE') return { allowed: false, reason: `User account is ${person.status}`, effectiveRole: 'READ_ONLY', permissions: [] };
+
+  const activeMembership = (person.memberships || []).find((m: any) => m.status === 'ACTIVE');
+  if (!activeMembership) return { allowed: false, reason: 'No active membership', effectiveRole: 'READ_ONLY', permissions: [] };
+
+  const role = (activeMembership.role?.code || 'READ_ONLY') as RoleCode;
+  const perms = getRolePermissions(role);
+  const scopes = (activeMembership.scopes || []).map((s: any) => ({ type: s.scope_type as ScopeType, id: s.scope_id }));
+
+  const simulatedSession: UserSession = {
+    personId: person.id,
+    email: person.email,
+    name: `${person.first_name} ${person.last_name}`.trim(),
+    role,
+    orgId: activeMembership.organisation_id,
+    orgName: activeMembership.organisation?.name || 'Simulated Org',
+    orgType: activeMembership.organisation?.org_type || 'CLIENT',
+    activeApplication: activeMembership.organisation?.org_type === 'CLIENT' ? 'CLIENT' : 'CONTRACTOR',
+    permissions: perms,
+    scopes,
+    expiresAt: Date.now() + 10000,
+  };
+
+  if (targetAction.includes(':') && !perms.includes(targetAction as PermissionCode)) {
+    return { allowed: false, reason: `Missing required permission: ${targetAction}`, effectiveRole: role, permissions: perms };
+  }
+
+  if (targetEntity && targetEntity.site_id) {
+    const canSite = canAccessSite(simulatedSession, targetEntity.site_id, targetEntity.org_id);
+    if (!canSite) {
+      return { allowed: false, reason: `Site ${targetEntity.site_id} is outside authorized scope`, effectiveRole: role, permissions: perms };
+    }
+  }
+
+  return { allowed: true, reason: 'Authorized by role, permissions, and active scope', effectiveRole: role, permissions: perms };
+}

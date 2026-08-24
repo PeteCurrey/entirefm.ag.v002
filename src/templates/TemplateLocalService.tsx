@@ -1,21 +1,27 @@
+'use client';
+
 import React from 'react';
 import { Header } from '@/components/layout/Header';
-import { PageHero } from '@/components/hero/PageHero';
 import { Footer } from '@/components/layout/Footer';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
-import { DiagonalStatement } from '@/components/content/DiagonalStatement';
-import { FullBleedFeature } from '@/components/content/FullBleedFeature';
-import { HorizontalRail } from '@/components/content/HorizontalRail';
+import { ServiceHero } from '@/components/services/ServiceHero';
+import { SectorSnapshot } from '@/components/sectors/SectorSnapshot';
+import { TechnologyCafmSection } from '@/components/services/TechnologyCafmSection';
+import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
 import { FAQAccordion } from '@/components/content/CapabilityList';
-import { ProposalSection } from '@/components/conversion/PhoneCTA';
-import { RelatedLinks } from '@/components/content/CaseStudyFeature';
 import { 
   LocationServiceGrid, 
   LocationSectorGrid, 
   LocationCoverageGrid, 
   WhyChooseLocationGrid 
 } from '@/components/content/LocationSectionViews';
+import { PostcodeCoverageLookup } from '@/components/locations/PostcodeCoverageLookup';
+import { LocationExploreBlock } from '@/components/locations/LocationExploreBlock';
 import { TIER1_CITIES } from '@/content/locations/tier1-cities';
+import locationImages from '@/config/location-images.json';
+import { listPublishedCaseStudies } from '@/server/trust/case-studies';
+import Link from 'next/link';
+import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, AlertCircle } from 'lucide-react';
 import type { TemplateProps } from './types';
 
 export function TemplateLocalService({ route, content }: TemplateProps) {
@@ -29,55 +35,35 @@ export function TemplateLocalService({ route, content }: TemplateProps) {
     { name: content.h1, url: route.path },
   ];
 
+  // Resolve service-specific or city-specific photography
+  const cityImages = (locationImages.cities as Record<string, any>)[citySlug]?.images || [];
+  const heroImage = cityImages.length > 0
+    ? cityImages[0].src
+    : '/images/editorial/entirefm-client-review-2000w.webp';
+  const heroImageAlt = cityImages.length > 0
+    ? cityImages[0].alt
+    : `${content.h1} delivered by EntireFM in ${city}`;
+
   const heroFacts = [
-    { figure: 'Specialist', label: `Direct delivery for ${content.h1}` },
-    { figure: 'Coverage', label: `Covering all commercial districts in ${city}` },
-    { figure: 'Compliance', label: 'Certified technicians, COSHH & RAMS documentation' },
+    { label: 'Direct Service Delivery', value: 'Certified Operatives' },
+    { label: 'Compliance & RAMS', value: '100% Risk Assessed' },
+    { label: `${city} Coverage`, value: 'All Commercial Zones' },
   ];
 
-  const servicePoints = [
-    `Specialist equipment and certified operatives deployed across ${city}`,
-    'Full risk assessment (RAMS) and COSHH compliance for every attendance',
-    'Out-of-hours and scheduled service windows preventing business disruption',
-    `Seamless integration into wider ${city} facilities management contracts`,
+  const snapshotPriorities = [
+    { title: 'Specialist Service Delivery', subtitle: `Certified technicians and dedicated equipment deployed in ${city}`, iconName: 'commercialCleaning' as const },
+    { title: 'Site-Specific RAMS & COSHH', subtitle: 'Method statements and safety protocols filed prior to attendance', iconName: 'complianceAudit' as const },
+    { title: 'Flexible Working Windows', subtitle: 'Out-of-hours, night-shift, and weekend attendance preventing disruption', iconName: 'twentyFourSevenOps' as const },
+    { title: 'Integrated FM Advantage', subtitle: 'Easily combined with M&E, PPM and total building maintenance', iconName: 'integratedServices' as const },
   ];
 
-  const railItems = [
-    {
-      imageKey: 'distribution-board-testing',
-      eyebrow: 'Specialist Service',
-      title: `${content.h1} in ${city}`,
-      body: `Delivering high-specification service standards for commercial, industrial and managed residential estates across ${city}.`,
-      href: route.path,
-    },
-    {
-      imageKey: 'rooftop-plant-night',
-      eyebrow: 'Integrated Hard FM',
-      title: `Mechanical & Electrical in ${city}`,
-      body: 'HVAC, power distribution, lighting and statutory testing coordinated under one contract.',
-      href: '/mechanical-electrical',
-    },
-    {
-      imageKey: 'switchroom-survey',
-      eyebrow: 'Compliance Surveys',
-      title: `Planned maintenance in ${city}`,
-      body: 'SFG20 maintenance routines, asset condition surveys and compliance calendars.',
-      href: '/ppm',
-    },
-    {
-      imageKey: 'headquarters-exterior',
-      eyebrow: 'Soft FM',
-      title: `Commercial cleaning & hygiene in ${city}`,
-      body: 'Daily contract cleaning, janitorial supplies, window cleaning and deep sanitisation.',
-      href: '/cleaning-services',
-    },
-  ];
+  const caseStudies = listPublishedCaseStudies();
 
   const faqs = (content.faqs && content.faqs.length > 0)
     ? content.faqs
     : [
         {
-          question: `How quickly can EntireFM deliver ${content.h1} in ${city}?`,
+          question: `How quickly can EntireFM mobilize ${content.h1} in ${city}?`,
           answer: `We provide flexible scheduling across ${city}, including scheduled periodic visits, planned weekend/night work, and rapid dispatch for urgent commercial requirements.`,
         },
         {
@@ -90,141 +76,272 @@ export function TemplateLocalService({ route, content }: TemplateProps) {
         },
       ];
 
-  const relatedLinks = (content.relatedRoutes || ['/locations', '/services', '/ppm', '/contact-us']).map(r => ({
-    title: r.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
-    path: r,
-    category: `${city} Service`,
-    description: `Explore EntireFM capabilities for ${r.replace(/^\//, '').replace(/-/g, ' ')}.`,
-  }));
-
-  const districts = cityData?.districts || [
-    { name: `${city} Central Commercial Core`, note: 'High-density commercial offices, retail and multi-tenant estates.' },
-    { name: `${city} Industrial & Business Parks`, note: 'Manufacturing, warehousing, trade counters and logistics facilities.' },
-    { name: `${city} Regional Corridors`, note: 'Arterial transport routes and neighbouring commercial centres.' },
-    { name: `${city} Public Realm & Civic Estates`, note: 'Education, healthcare and public-sector property portfolios.' },
-  ];
-
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
+
       <main id="main" className="flex-grow">
-        {/* 1. LOCATION-SPECIFIC HERO */}
-        <PageHero
-          eyebrow={content.eyebrow || `Specialist Service · ${city}`}
+        {/* 1. CINEMATIC LOCAL SERVICE HERO */}
+        <ServiceHero
+          eyebrow={`SPECIALIST LOCAL SERVICE // ${city.toUpperCase()}`}
           title={content.h1}
-          intro={content.heroIntro || content.metaDescription}
-          path={route.path}
-          imageSrc={content.heroImage}
-          imageAlt={content.heroImage ? `EntireFM ${content.h1} operations in ${city}` : undefined}
+          highlightedTitle={city}
+          intro={content.heroIntro || `Professional ${content.h1.toLowerCase()} across ${city} and regional commercial corridors. Direct delivery, trained operatives, and complete compliance documentation.`}
+          imageSrc={heroImage}
+          imageAlt={heroImageAlt}
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: `Request a ${city} service quote`, href: '#enquiry' }}
-          facts={heroFacts}
+          primaryCta={{ label: `Request a ${city} Quote`, href: '#enquiry' }}
+          secondaryCta={{ label: 'Verify Site Postcode', href: '#coverage-lookup' }}
+          serviceFacts={heroFacts}
         />
 
-        {/* 2. LOCAL TRUST / CAPABILITY STRIP */}
+        {/* 2. TRUST / ACCREDITATIONS BAR */}
         <TrustBar />
 
-        {/* 3. LOCAL SERVICE IN [LOCATION] — DIAGONAL STATEMENT */}
-        <DiagonalStatement
-          eyebrow={`Specialist Capability · ${city}`}
-          title={`${content.h1}.`}
-          titleAccent="Professional and dependable."
-          body={
-            `EntireFM provides dedicated ${content.h1.toLowerCase()} across ${city}, utilising industry-grade equipment, certified operatives, and robust health and safety protocols to ensure outstanding results for your commercial property.`
-          }
-          points={servicePoints}
-          leftLabel={`${city} Service Delivery`}
-          rightLabel="Quality Assurance & RAMS"
-          leftImageKey="distribution-board-testing"
-          rightImageKey="rooftop-plant-night"
-          href="/services"
-          cta="All services"
+        {/* 3. LOCAL SNAPSHOT STRIP */}
+        <SectorSnapshot
+          leadText={`Direct, high-standard delivery of ${content.h1.toLowerCase()} engineered to protect commercial presentation, hygiene, and asset integrity across ${city}.`}
+          priorities={snapshotPriorities}
         />
 
-        {/* 4. SERVICES WE PROVIDE IN [LOCATION] */}
+        {/* 4. SERVICE STANDARDS & METHODOLOGY */}
+        <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
+          <div className="container-custom">
+            <div className="max-w-3xl mb-14">
+              <div className="inline-flex items-center gap-2 mb-2.5">
+                <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                  SERVICE STANDARDS
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                Specialist Service Delivery Across {city}
+              </h2>
+              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
+                How EntireFM ensures consistent quality, safety, and accountability:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: 'Directly Employed & Trained Operatives',
+                  desc: `Uniformed, background-checked personnel equipped with professional equipment and trained to high industry standards.`,
+                  tag: 'Quality Control',
+                },
+                {
+                  title: 'RAMS & COSHH Compliance',
+                  desc: 'Comprehensive risk assessments, method statements, and chemical data sheets submitted prior to every attendance.',
+                  tag: 'Health & Safety',
+                },
+                {
+                  title: 'Auditable Digital Sign-Off',
+                  desc: 'Photographic before-and-after evidence packs and digital service sheets uploaded directly to your client portal.',
+                  tag: 'Digital Evidence',
+                },
+              ].map((card, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white border border-slate-200/90 rounded-sm p-7 shadow-sm flex flex-col justify-between hover:border-brand-pink/40 hover:shadow-md transition-all group"
+                >
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-semibold block mb-2">
+                      {card.tag}
+                    </span>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-brand-pink-dark transition-colors">
+                      {card.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      {card.desc}
+                    </p>
+                  </div>
+                  <div className="mt-6 pt-3.5 border-t border-slate-100 flex items-center gap-2 text-[11px] text-slate-500 font-mono">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>EntireFM Verified Standard</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 5. EDITORIAL SECTIONS (PRESERVING DEEP SEO CONTENT) */}
+        {content.sections && content.sections.length > 0 && (
+          <section className="py-20 bg-white border-b border-slate-200">
+            <div className="container-custom">
+              <div className="max-w-3xl mb-12">
+                <div className="inline-flex items-center gap-2 mb-2.5">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    SCOPE &amp; SPECIFICATION
+                  </span>
+                </div>
+                <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">
+                  {content.h1} — Detailed Information
+                </h2>
+                <p className="mt-3 text-sm sm:text-base text-slate-600">
+                  Tailored specifications for commercial, industrial, and retail environments across {city}.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {content.sections.map((sec, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-[#FAF9FB] p-8 rounded-sm border border-slate-200/90 space-y-4 shadow-sm flex flex-col justify-between"
+                  >
+                    <div>
+                      <h3 className="text-xl font-bold text-slate-900 leading-snug">{sec.heading}</h3>
+                      <p className="mt-3 text-sm text-slate-700 leading-relaxed">{sec.body}</p>
+                      {sec.bullets && sec.bullets.length > 0 && (
+                        <ul className="space-y-2 pt-4 mt-4 border-t border-slate-200">
+                          {sec.bullets.map((b, bIdx) => (
+                            <li key={bIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                              <span>{b}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 6. SERVICES WE DELIVER IN THIS CITY */}
         <LocationServiceGrid city={city} />
 
-        {/* 5. SECTORS WE SUPPORT IN [LOCATION] */}
+        {/* 7. SECTORS SUPPORTED IN THIS CITY */}
         <LocationSectorGrid city={city} sectors={cityData?.sectors} />
 
-        {/* 6. LOCAL / REGIONAL OPERATING CONTEXT — FULL BLEED FEATURE */}
-        <FullBleedFeature
-          imageKey="switchgear-inspection"
-          eyebrow={`Service Excellence · ${city}`}
-          title={`High-specification standards for ${city} properties`}
-          body={`Whether maintaining clinical hygiene standards, industrial warehouse floors, or prime office presentation, our ${city} teams deliver consistent quality with zero disruption to daily trading.`}
-          points={[
-            'Certified operatives and site-specific RAMS',
-            'Flexible scheduling including evening and weekend attendance',
-            'Full compliance with British standards and environmental guidelines',
-            'Transparent pricing with detailed photographic completion reports',
-          ]}
-          href="/contact-us"
-          cta="Request a quote"
+        {/* 8. DIGITAL CAFM PLATFORM SECTION */}
+        <TechnologyCafmSection
+          eyebrow={`DIGITAL VERIFICATION // ${city.toUpperCase()}`}
+          title={`Photographic Proof & Compliance Records in ${city}`}
+          subtitle={`Every completed task is time-stamped and logged with photographic proof in our CAFM portal.`}
         />
 
-        {/* 7. RELEVANT SPECIALIST SERVICES — HORIZONTAL CAPABILITY RAIL */}
-        <HorizontalRail
-          eyebrow="Capability Rail"
-          title={`Complementary facilities services in ${city}`}
-          intro="Explore our complete range of commercial building maintenance and engineering services."
-          items={railItems}
-        />
+        {/* 9. WHY CHOOSE ENTIREFM IN THIS LOCATION */}
+        <WhyChooseLocationGrid city={city} />
 
-        {/* 8. NEARBY AREAS / SERVICE COVERAGE */}
-        <LocationCoverageGrid
-          city={city}
-          region={cityData?.region}
-          districts={districts}
-          travelPattern={cityData?.travelPattern}
-        />
+        {/* 10. WHERE WE WORK / DISTRICTS GRID */}
+        {cityData && cityData.districts && cityData.districts.length > 0 && (
+          <LocationCoverageGrid
+            city={city}
+            region={cityData.region}
+            districts={cityData.districts}
+            travelPattern={cityData.travelPattern}
+          />
+        )}
 
-        {/* 9. ACCREDITATIONS & COMPLIANCE */}
-        <section className="py-14 bg-white border-t border-brand-edge">
-          <div className="container-wide">
+        {/* 11. INTERACTIVE POSTCODE COVERAGE CHECKER */}
+        <section id="coverage-lookup" className="py-16 bg-white border-b border-slate-200">
+          <div className="container-custom max-w-4xl">
+            <PostcodeCoverageLookup initialCity={city} />
+          </div>
+        </section>
+
+        {/* 12. VERIFIED CASE STUDIES */}
+        {caseStudies.length > 0 && (
+          <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
+            <div className="container-custom space-y-12">
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center gap-2 mb-2.5">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    VERIFIED EVIDENCE
+                  </span>
+                </div>
+                <h2 className="text-3xl font-extrabold text-slate-900">
+                  Operational Project Proof &amp; Case Studies
+                </h2>
+                <p className="mt-2 text-sm text-slate-600">
+                  Demonstrated engineering delivery, statutory governance, and asset lifecycle optimization across UK commercial facilities.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {caseStudies.slice(0, 3).map((cs) => (
+                  <div
+                    key={cs.id}
+                    className="bg-white p-6 rounded-sm border border-slate-200/90 flex flex-col justify-between shadow-sm hover:border-brand-pink/40 hover:shadow-md transition-all group"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-semibold">
+                          {cs.sector}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded-sm">
+                          {cs.location}
+                        </span>
+                      </div>
+                      <h3 className="text-base font-bold text-slate-900 group-hover:text-brand-pink-dark transition-colors">
+                        {cs.title}
+                      </h3>
+                      <p className="mt-2 text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                        {cs.challenge}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <Link
+                        href="/case-studies"
+                        className="text-xs font-bold text-slate-900 group-hover:text-brand-pink inline-flex items-center gap-1.5 uppercase tracking-wider transition-colors"
+                      >
+                        Read Summary <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 13. ACCREDITATIONS CAROUSEL */}
+        <section className="py-12 bg-white border-b border-slate-200">
+          <div className="container-custom">
             <AccreditationRail />
           </div>
         </section>
 
-        {/* 10. WHY BUSINESSES IN [LOCATION] USE ENTIREFM */}
-        <WhyChooseLocationGrid city={city} />
-
-        {/* 11. LOCATION-SPECIFIC FAQ */}
-        <section className="section-padding bg-brand-surface border-t border-brand-edge">
-          <div className="container-custom max-w-4xl">
-            <div className="mb-10 text-center">
-              <span className="badge-technical">Service FAQs</span>
-              <h2 className="text-display-md text-brand-graphite mt-3">
-                {content.h1} — Frequently Asked Questions
-              </h2>
-              <p className="mt-3 text-sm text-slate-600">
-                Key operational details and delivery standards in {city}.
-              </p>
+        {/* 14. FAQS ACCORDION */}
+        {faqs.length > 0 && (
+          <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
+            <div className="container-custom max-w-4xl space-y-8">
+              <div>
+                <div className="inline-flex items-center gap-2 mb-2.5">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    EXPERT GUIDANCE
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  {content.h1} in {city} — FAQs
+                </h2>
+              </div>
+              <FAQAccordion faqs={faqs} />
             </div>
-            <FAQAccordion faqs={faqs} />
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* 12. STRONG LOCATION-SPECIFIC CONVERSION SECTION */}
-        <ProposalSection
-          defaultLocation={city}
-          headline={`Request a Service Proposal for ${city}`}
-          subheadline={`Contact our operations team for a tailored quote or site survey in ${city}.`}
+        {/* 15. STRUCTURED LOCAL EXPLORE LINKS BLOCK */}
+        <LocationExploreBlock city={city} />
+
+        {/* 16. PROPOSAL & CONVERSION SECTION */}
+        <ServiceConversionSection
+          serviceName={content.h1}
+          headline={`Request a Quotation for ${content.h1} in ${city}`}
+          subheadline={`Contact EntireFM for competitive, high-specification service delivery across ${city} and regional transport corridors.`}
+          badgeText={`${city.toUpperCase()} SERVICE ENQUIRY`}
+          ctaButtonText={`Request ${city} Quotation`}
+          directDeskNote={`Connecting directly with our ${city} operations desk.`}
         />
-
-        {/* 13. RELATED LOCATION / SERVICE LINKS */}
-        <section className="section-padding bg-white border-t border-brand-edge">
-          <div className="container-wide">
-            <div className="max-w-2xl mb-8">
-              <span className="badge-technical">Regional Network</span>
-              <h2 className="text-display-sm text-brand-graphite mt-2">
-                Explore Local Services & Regional Coverage
-              </h2>
-            </div>
-            <RelatedLinks links={relatedLinks} />
-          </div>
-        </section>
       </main>
+
       <Footer />
     </div>
   );

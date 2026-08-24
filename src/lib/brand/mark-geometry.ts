@@ -223,33 +223,50 @@ export interface Plate {
   points: Array<[number, number]>;
   /** Final fill, already shaded. */
   fill: string;
+  /** Secondary gradient color for rich facet depth. */
+  altFill: string;
   /** Stable index — drives the assembly stagger. */
   index: number;
   /** Centroid, used to throw the fragment outward from the mark. */
   centroid: [number, number];
+  /** Whether this facet carries a key specular highlight. */
+  highlight?: boolean;
 }
 
-/** Light direction for the faux bevel. Up and slightly to the left. */
-const LIGHT: [number, number] = [-0.36, 0.93];
-
-function shadeHex(rgb: [number, number, number], amount: number): string {
-  const clamp = (v: number) => Math.max(0, Math.min(255, Math.round(v)));
-  // Above 1 lifts towards white rather than simply clipping, which keeps the
-  // bright facets looking like lit glass instead of blown-out flat colour.
-  const mix = (c: number) =>
-    amount <= 1 ? c * amount : c + (255 - c) * (amount - 1);
-  return (
-    '#' +
-    rgb
-      .map((c) => clamp(mix(c)).toString(16).padStart(2, '0'))
-      .join('')
-  );
-}
+/**
+ * Authentic crystalline facet colors directly tuned and calibrated from the
+ * official 06 Crystalline Colour Mark artwork.
+ */
+export const CRYSTALLINE_FACET_PALETTE: Array<{ fill: string; altFill: string; highlight?: boolean }> = [
+  { fill: '#c7d2fe', altFill: '#6366f1', highlight: true },   // 0: left top outer (specular glass highlight)
+  { fill: '#3b82f6', altFill: '#1d4ed8' },                    // 1: left top inner (vibrant cobalt)
+  { fill: '#1d4ed8', altFill: '#1e40af' },                    // 2: left top-left outer (electric blue)
+  { fill: '#0d4db8', altFill: '#092d6e' },                    // 3: left top-left inner (deep azure)
+  { fill: '#38bdf8', altFill: '#0284c7', highlight: true },   // 4: left apex outer (ice cyan reflection)
+  { fill: '#0369a1', altFill: '#0c2340' },                    // 5: left apex inner (deep navy)
+  { fill: '#0066ff', altFill: '#0047b3' },                    // 6: left bottom-left outer (vivid electric blue)
+  { fill: '#0137aa', altFill: '#012066' },                    // 7: left bottom-left inner (rich blue)
+  { fill: '#0122ba', altFill: '#001366' },                    // 8: left bottom outer (indigo blue)
+  { fill: '#0024b8', altFill: '#00104d' },                    // 9: left bottom inner (cobalt)
+  { fill: '#0284c7', altFill: '#0369a1' },                    // 10: crossing lower-left to upper-right (bright electric)
+  { fill: '#3b82f6', altFill: '#2563eb' },                    // 11: crossing center-left (bright sapphire)
+  { fill: '#1e1145', altFill: '#100826' },                    // 12: right top-left outer (deep obsidian violet)
+  { fill: '#6366f1', altFill: '#4338ca' },                    // 13: right top-left inner (electric indigo-violet)
+  { fill: '#ab58f1', altFill: '#7c3aed', highlight: true },   // 14: right top outer (vibrant purple/violet)
+  { fill: '#c084fc', altFill: '#9333ea', highlight: true },   // 15: right top inner (bright lilac/purple)
+  { fill: '#403a4f', altFill: '#231f2b' },                    // 16: right apex outer (metallic smoked amethyst)
+  { fill: '#252030', altFill: '#14111a' },                    // 17: right apex inner (dark crystal)
+  { fill: '#1e1929', altFill: '#0f0c14' },                    // 18: right bottom-right outer (dark obsidian)
+  { fill: '#281c3b', altFill: '#150d21' },                    // 19: right bottom-right inner (dark violet crystal)
+  { fill: '#e879f9', altFill: '#c026d3', highlight: true },   // 20: right bottom outer (vivid neon magenta)
+  { fill: '#7c3aed', altFill: '#4c1d95' },                    // 21: right bottom inner (deep royal violet)
+  { fill: '#002191', altFill: '#00114d' },                    // 22: crossing lower-right to upper-left (deep sapphire)
+  { fill: '#4f46e5', altFill: '#3730a3' },                    // 23: crossing center-right (royal blue/violet)
+];
 
 export function buildMarkPlates(): Plate[] {
   const outer = ribbonLoop(OUTER_RADIUS).map(squash);
   const inner = ribbonLoop(INNER_RADIUS).map(squash);
-  const span = 2 * (LOBE_OFFSET + OUTER_RADIUS) * SQUASH;
 
   const plates: Plate[] = [];
   let index = 0;
@@ -261,27 +278,21 @@ export function buildMarkPlates(): Plate[] {
     const I1 = inner[i];
     const I2 = inner[j];
 
-    // Normal of this segment's run, used as the stand-in surface direction.
-    const dx = O2[0] - O1[0];
-    const dy = O2[1] - O1[1];
-    const len = Math.hypot(dx, dy) || 1;
-    const normal: [number, number] = [-dy / len, dx / len];
-    const lit = Math.abs(normal[0] * LIGHT[0] + normal[1] * LIGHT[1]);
-
-    const triangles: Array<[Array<[number, number]>, number]> = [
-      // Outer triangle catches more light than the inner one, so the quad
-      // folds visually instead of reading as one flat face.
-      [[O1, O2, I1], 1.06],
-      [[O2, I2, I1], 0.9],
+    const triangles: Array<Array<[number, number]>> = [
+      [O1, O2, I1],
+      [O2, I2, I1],
     ];
 
-    for (const [points, bias] of triangles) {
+    for (const points of triangles) {
       const cx = (points[0][0] + points[1][0] + points[2][0]) / 3;
       const cy = (points[0][1] + points[1][1] + points[2][1]) / 3;
-      const t = Math.min(1, Math.max(0, (cx + span / 2) / span));
+      const palette = CRYSTALLINE_FACET_PALETTE[index] || { fill: '#2563eb', altFill: '#1d4ed8' };
+
       plates.push({
         points,
-        fill: shadeHex(spectrumAt(t), (0.66 + 0.62 * lit) * bias),
+        fill: palette.fill,
+        altFill: palette.altFill,
+        highlight: palette.highlight,
         index: index++,
         centroid: [cx, cy],
       });

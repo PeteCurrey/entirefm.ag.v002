@@ -24,6 +24,7 @@
     "test:finance-closeout": "tsx scripts/test-finance-closeout.ts",
     "test:finance-semantic-patch": "tsx scripts/test-finance-semantic-patch.ts",
     "test:access-hardening": "tsx scripts/test-access-hardening.ts",
+    "test:access-architecture": "tsx scripts/test-access-architecture.ts",
     "test:seo": "jest --testPathPattern=__tests__/seo",
     "verify:contacts": "node scripts/verify-contacts.js",
     "verify:lead-pipeline": "node scripts/verify-lead-pipeline.js",

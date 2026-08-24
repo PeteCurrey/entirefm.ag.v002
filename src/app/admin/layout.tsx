@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { getCurrentSession } from '@/server/identity';
+import { getCurrentSession, requireAdminSession } from '@/server/identity';
 import { redirect } from 'next/navigation';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
 import { AdminHeader } from '@/components/admin/AdminHeader';
@@ -18,7 +18,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const session = await getCurrentSession();
 
   if (!session) {
-    redirect('/login');
+    redirect('/login?redirect=/admin');
+  }
+
+  try {
+    requireAdminSession(session);
+  } catch {
+    redirect('/login?error=forbidden_admin');
   }
 
   return (

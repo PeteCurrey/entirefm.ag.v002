@@ -1,14 +1,18 @@
+'use client';
+
 import React from 'react';
 import { Header } from '@/components/layout/Header';
-import { PageHero } from '@/components/hero/PageHero';
 import { Footer } from '@/components/layout/Footer';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
-import { ProposalSection } from '@/components/conversion/PhoneCTA';
+import { ServiceHero } from '@/components/services/ServiceHero';
+import { PageHero } from '@/components/hero/PageHero';
+import { SectorSnapshot } from '@/components/sectors/SectorSnapshot';
+import { PostcodeCoverageLookup } from '@/components/locations/PostcodeCoverageLookup';
+import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
 import Link from 'next/link';
-import { ArrowRight, MapPin, Building2, ShieldCheck, Wrench, Sparkles, ChevronRight } from 'lucide-react';
+import { ArrowRight, MapPin, ChevronRight, CheckCircle2, ShieldCheck, Building, Wrench } from 'lucide-react';
 import type { RouteRecord, ContentRecord } from '@/lib/routes/route-schema';
 import { ALL_ROUTES } from '@/lib/routes/route-registry';
-import locationImages from '@/config/location-images.json';
 
 interface HubItem {
   title: string;
@@ -76,7 +80,6 @@ const REGIONS = [
           { label: 'Outsourced FM', path: '/fm-liverpool' },
           { label: 'Planned Maintenance', path: '/facilities-management-liverpool' },
           { label: 'Commercial Estates', path: '/liverpool-facilities-management' },
-          { label: 'Commercial Cleaning', path: '/commercial-cleaning-liverpool' },
         ],
       },
       {
@@ -133,7 +136,6 @@ const REGIONS = [
           { label: 'Planned Maintenance', path: '/facilities-management-sheffield' },
           { label: 'Industrial Cleaning', path: '/industrial-cleaning-sheffield' },
           { label: 'Commercial Cleaning', path: '/commercial-cleaning-sheffield' },
-          { label: 'Deep Cleaning', path: '/deep-cleaning-sheffield' },
         ],
       },
       {
@@ -258,6 +260,14 @@ const REGIONS = [
           { label: 'Regional FM', path: '/facilities-management-in-telford' },
         ],
       },
+      {
+        name: 'Matlock',
+        slug: 'matlock',
+        desc: 'Peak District civic headquarters, mineral processing, tourism and heritage commercial estates.',
+        routes: [
+          { label: 'Outsourced FM', path: '/fm-matlock' },
+        ],
+      },
     ],
   },
 ];
@@ -291,132 +301,181 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
       <main id="main" className="flex-grow">
-        <PageHero
-          eyebrow={content.eyebrow || (isLocationsHub ? 'National Reach · Regional Operations' : 'Directory Hub')}
-          title={content.h1}
-          intro={content.heroIntro || content.metaDescription}
-          path={route.path}
-          breadcrumbs={breadcrumbs}
-          primaryCta={{ label: 'Request a proposal', href: '#enquiry' }}
-          facts={[
-            { figure: 'Reach', label: 'Nationwide coverage delivered through regional operations' },
-            { figure: 'Response', label: 'Agreed priority attendance targets for contracted estates' },
-            { figure: 'Contract', label: 'Single point of accountability for Hard & Soft FM' },
-          ]}
-        />
-
-        <TrustBar />
-
         {isLocationsHub ? (
-          /* DEDICATED REGIONAL LOCATIONS DISCOVERY HUB */
-          <div className="bg-brand-surface py-16 sm:py-20">
-            <div className="container-wide space-y-16">
-              <div className="max-w-3xl">
-                <span className="badge-technical">Regional Coverage Network</span>
-                <h2 className="text-display-md text-brand-graphite mt-3">
-                  Facilities Management by Region & Commercial Market
-                </h2>
-                <p className="mt-4 text-base text-slate-600 leading-relaxed">
-                  Explore our dedicated regional landing pages and specialist local service specifications across the UK. Every location benefits from direct mobile engineering dispatch and single-contract management.
-                </p>
+          <>
+            {/* CINEMATIC LOCATIONS HERO */}
+            <ServiceHero
+              eyebrow="NATIONAL REACH · REGIONAL OPERATIONS"
+              title="Facilities Management Across the United Kingdom"
+              intro="EntireFM provides integrated Hard & Soft Facilities Management across major UK commercial centres. Direct mobile engineering, statutory compliance management, and single-source accountability delivered through regional operating corridors."
+              imageSrc="/images/editorial/entirefm-entirefm-premises-vans-2000w.webp"
+              imageAlt="EntireFM liveried mobile engineering fleet deployed across UK conurbations"
+              breadcrumbs={breadcrumbs}
+              primaryCta={{ label: 'Discuss Your Estate', href: '#enquiry' }}
+              secondaryCta={{ label: 'Verify Site Postcode', href: '#coverage-checker' }}
+              serviceFacts={[
+                { label: 'UK Conurbation Coverage', value: '20+ Hubs' },
+                { label: 'Mobile Engineering Units', value: 'Direct Delivery' },
+                { label: 'Contracted Response SLAs', value: '24/7 Priority Desk' },
+              ]}
+            />
+
+            <TrustBar />
+
+            <SectorSnapshot
+              leadText="Mobile engineering resources deployed across regional conurbations, giving commercial property owners, landlords, and managing agents consistent service standards and complete compliance transparency."
+              priorities={[
+                { title: 'Regional Mobile Engineers', subtitle: 'Qualified M&E, HVAC, electrical and cleaning technicians', iconName: 'nationwideCoverage' },
+                { title: 'Single National Contract', subtitle: 'Unified SLAs and transparent RICS reporting across multi-site estates', iconName: 'integratedServices' },
+                { title: 'Statutory Safety Vault', subtitle: 'Digital compliance certificates and asset registers accessible 24/7', iconName: 'complianceAudit' },
+                { title: 'Contracted Response SLAs', subtitle: 'Emergency technical triage and rapid dispatch for critical plant', iconName: 'twentyFourSevenOps' },
+              ]}
+            />
+
+            {/* INTERACTIVE POSTCODE CHECKER BANNER */}
+            <section id="coverage-checker" className="py-16 bg-[#FAF9FB] border-b border-slate-200">
+              <div className="container-custom max-w-4xl">
+                <PostcodeCoverageLookup />
               </div>
+            </section>
 
-              {REGIONS.map((region, rIdx) => (
-                <section key={rIdx} className="space-y-8">
-                  <div className="flex items-center gap-3 border-b border-brand-edge pb-4">
-                    <MapPin className="w-5 h-5 text-brand-pink" />
-                    <h3 className="text-xl sm:text-2xl font-bold text-brand-graphite">{region.name}</h3>
+            {/* REGIONAL HUBS DIRECTORY */}
+            <div className="bg-white py-20">
+              <div className="container-custom space-y-16">
+                <div className="max-w-3xl">
+                  <div className="inline-flex items-center gap-2 mb-2.5">
+                    <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                      REGIONAL OPERATING HUBS
+                    </span>
                   </div>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                    Facilities Management by Region &amp; Commercial Market
+                  </h2>
+                  <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
+                    Explore our dedicated regional landing pages and specialist local service specifications across the UK. Every location benefits from direct mobile engineering dispatch and single-contract management.
+                  </p>
+                </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {region.cities.map((city, cIdx) => (
-                      <div
-                        key={cIdx}
-                        className="p-7 bg-white border border-brand-edge rounded-sm shadow-sm hover:border-brand-pink hover:shadow-elevated transition-all duration-300 flex flex-col justify-between"
-                      >
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between">
-                            <h4 className="text-xl font-bold text-brand-graphite">{city.name}</h4>
-                            <span className="text-[11px] font-mono font-bold uppercase text-brand-pink bg-brand-pink/10 px-2 py-0.5 rounded-sm">
-                              Active
+                {REGIONS.map((region, rIdx) => (
+                  <section key={rIdx} className="space-y-8">
+                    <div className="flex items-center gap-3 border-b border-slate-200 pb-4">
+                      <MapPin className="w-5 h-5 text-brand-pink" />
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900">{region.name}</h3>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {region.cities.map((city, cIdx) => (
+                        <div
+                          key={cIdx}
+                          className="p-7 bg-[#FAF9FB] border border-slate-200/90 rounded-sm shadow-sm hover:border-brand-pink hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
+                        >
+                          <div className="space-y-3">
+                            <div className="flex items-center justify-between">
+                              <h4 className="text-xl font-bold text-slate-900 group-hover:text-brand-pink transition-colors">
+                                {city.name}
+                              </h4>
+                              <span className="text-[11px] font-mono font-bold uppercase text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-sm">
+                                Active Hub
+                              </span>
+                            </div>
+                            <p className="text-xs text-slate-600 leading-relaxed">
+                              {city.desc}
+                            </p>
+                          </div>
+
+                          <div className="mt-6 pt-5 border-t border-slate-200 space-y-2">
+                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block">
+                              Key Landing Pages:
                             </span>
-                          </div>
-                          <p className="text-xs text-slate-600 leading-relaxed">
-                            {city.desc}
-                          </p>
-                        </div>
-
-                        <div className="mt-6 pt-5 border-t border-brand-edge/60 space-y-2">
-                          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block">
-                            Key Landing Pages:
-                          </span>
-                          <div className="flex flex-wrap gap-1.5">
-                            {city.routes.map((r, routeIdx) => (
-                              <Link
-                                key={routeIdx}
-                                href={r.path}
-                                className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-sm bg-brand-surface text-brand-graphite hover:bg-brand-pink hover:text-white transition-colors"
-                              >
-                                <span>{r.label}</span>
-                                <ChevronRight className="w-3 h-3 opacity-60" />
-                              </Link>
-                            ))}
+                            <div className="flex flex-wrap gap-1.5">
+                              {city.routes.map((r, routeIdx) => (
+                                <Link
+                                  key={routeIdx}
+                                  href={r.path}
+                                  className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-sm bg-white border border-slate-200 text-slate-800 hover:border-brand-pink hover:text-brand-pink transition-colors shadow-2xs"
+                                >
+                                  <span>{r.label}</span>
+                                  <ChevronRight className="w-3 h-3 text-slate-400" />
+                                </Link>
+                              ))}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
-          </div>
-        ) : (
-          /* STANDARD HUB GRID FOR SECTORS, SERVICES, RESOURCES */
-          <section className="section-padding bg-brand-surface">
-            <div className="container-wide">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {hubItems.map((item, idx) => (
-                  <Link
-                    key={idx}
-                    href={item.path}
-                    className="p-8 bg-white border border-brand-edge rounded-sm hover:border-brand-pink hover:shadow-elevated transition-all duration-200 flex flex-col justify-between group"
-                  >
-                    <div className="space-y-3">
-                      {item.category && (
-                        <span className="text-xs font-mono uppercase text-brand-pink block font-semibold">
-                          {item.category}
-                        </span>
-                      )}
-                      <h3 className="text-xl font-bold text-brand-graphite group-hover:text-brand-pink transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-slate-600 leading-relaxed">
-                        {item.description}
-                      </p>
+                      ))}
                     </div>
-                    <div className="pt-5 mt-5 border-t border-brand-edge flex items-center gap-1 text-xs font-bold text-brand-graphite group-hover:text-brand-pink">
-                      <span>View Capability Details</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-brand-pink" />
-                    </div>
-                  </Link>
+                  </section>
                 ))}
               </div>
             </div>
-          </section>
+
+            <section className="py-12 bg-[#FAF9FB] border-b border-slate-200">
+              <div className="container-custom">
+                <AccreditationRail />
+              </div>
+            </section>
+
+            <ServiceConversionSection
+              serviceName="National Facilities Management"
+              headline="Consolidate Your National or Regional Estate Under One Contract"
+              subheadline="Consult directly with EntireFM operations directors. We provide multi-site planned preventative maintenance, Hard & Soft FM, and single-dashboard CAFM compliance reporting."
+              badgeText="NATIONAL ESTATE CONSULTATION"
+              ctaButtonText="Request National Proposal"
+              directDeskNote="Connecting directly with our UK regional operations team."
+            />
+          </>
+        ) : (
+          /* STANDARD HUB GRID FOR SECTORS, SERVICES, RESOURCES */
+          <>
+            <PageHero
+              eyebrow={content.eyebrow || 'Directory Hub'}
+              title={content.h1}
+              intro={content.heroIntro || content.metaDescription}
+              path={route.path}
+              breadcrumbs={breadcrumbs}
+              primaryCta={{ label: 'Request a proposal', href: '#enquiry' }}
+              facts={[
+                { figure: 'Reach', label: 'Nationwide coverage delivered through regional operations' },
+                { figure: 'Response', label: 'Agreed priority attendance targets for contracted estates' },
+                { figure: 'Contract', label: 'Single point of accountability for Hard & Soft FM' },
+              ]}
+            />
+            <TrustBar />
+            <section className="section-padding bg-brand-surface">
+              <div className="container-wide">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {hubItems.map((item, idx) => (
+                    <Link
+                      key={idx}
+                      href={item.path}
+                      className="p-8 bg-white border border-brand-edge rounded-sm hover:border-brand-pink hover:shadow-elevated transition-all flex flex-col justify-between group"
+                    >
+                      <div>
+                        {item.category && (
+                          <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink font-semibold block mb-2">
+                            {item.category}
+                          </span>
+                        )}
+                        <h3 className="text-xl font-bold text-brand-graphite group-hover:text-brand-pink transition-colors">
+                          {item.title}
+                        </h3>
+                        <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                      <div className="pt-6 mt-6 border-t border-brand-edge/60 flex items-center justify-between text-xs font-bold text-brand-graphite group-hover:text-brand-pink">
+                        <span>Explore</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-brand-pink" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </>
         )}
-
-        <section className="py-14 bg-white border-t border-brand-edge">
-          <div className="container-wide">
-            <AccreditationRail />
-          </div>
-        </section>
-
-        {/* Conversion Section */}
-        <ProposalSection
-          headline="Looking for a Tailored Multi-Site Proposal?"
-          subheadline="Speak to our facilities directors about planned maintenance, statutory compliance audits or reactive support across your UK property portfolio."
-        />
       </main>
+
       <Footer />
     </div>
   );

@@ -25,7 +25,7 @@ import { buildMarkEdges, buildMarkPlates, MARK_BOUNDS } from '@/lib/brand/mark-g
  * two states — they are generated from the same loop.
  */
 
-const PAD = 0.14;
+const PAD = 0.16;
 const VIEW_BOX = [
   MARK_BOUNDS.minX - PAD,
   -MARK_BOUNDS.maxY - PAD,
@@ -53,15 +53,83 @@ export function BrandMark({ state = 'solid', className = '', transitionMs = 520 
   return (
     <svg
       viewBox={VIEW_BOX}
-      className={className}
+      className={`brand-mark-svg ${className}`}
       role="img"
       aria-label="EntireFM"
-      // The strokes are sub-pixel at header size; without this the wireframe
-      // shimmers as the page scrolls.
       shapeRendering="geometricPrecision"
     >
-      {/* Wireframe — the resting state before the plates arrive. Drawn in
-          `currentColor` so a caller can tint it to whatever it is sitting on. */}
+      <defs>
+        {/* Gradients for each facet to give crystalline depth */}
+        {PLATES.map((plate) => (
+          <linearGradient
+            key={`grad-${plate.index}`}
+            id={`efm-facet-grad-${plate.index}`}
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor={plate.fill} />
+            <stop offset="100%" stopColor={plate.altFill || plate.fill} />
+          </linearGradient>
+        ))}
+
+        {/* Neon electric cyan glow for left lobe */}
+        <filter id="efmGlowCyan" x="-40%" y="-40%" width="180%" height="180%">
+          <feDropShadow dx="0" dy="0" stdDeviation="0.035" floodColor="#00d2ff" floodOpacity="0.9" />
+          <feDropShadow dx="0" dy="0" stdDeviation="0.08" floodColor="#2563eb" floodOpacity="0.65" />
+        </filter>
+
+        {/* Neon magenta/purple glow for right lobe */}
+        <filter id="efmGlowMagenta" x="-40%" y="-40%" width="180%" height="180%">
+          <feDropShadow dx="0" dy="0" stdDeviation="0.035" floodColor="#e879f9" floodOpacity="0.9" />
+          <feDropShadow dx="0" dy="0" stdDeviation="0.08" floodColor="#a855f7" floodOpacity="0.65" />
+        </filter>
+
+        {/* Gentle crystalline shine sweep gradient */}
+        <linearGradient id="efmShineSweep" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+          <stop offset="35%" stopColor="#ffffff" stopOpacity="0.05" />
+          <stop offset="50%" stopColor="#ffffff" stopOpacity="0.65" />
+          <stop offset="65%" stopColor="#ffffff" stopOpacity="0.05" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+        </linearGradient>
+
+        {/* Ribbon clip path for the shine sweep */}
+        <clipPath id="efmRibbonClip">
+          {PLATES.map((plate) => (
+            <polygon key={`clip-${plate.index}`} points={toSvgPoints(plate.points)} />
+          ))}
+        </clipPath>
+
+        <style>{`
+          @keyframes efmMarkShine {
+            0% {
+              transform: translateX(-160%) skewX(-20deg);
+              opacity: 0;
+            }
+            12% {
+              opacity: 0.75;
+            }
+            26% {
+              transform: translateX(160%) skewX(-20deg);
+              opacity: 0;
+            }
+            100% {
+              transform: translateX(160%) skewX(-20deg);
+              opacity: 0;
+            }
+          }
+          .efm-shine-sweep {
+            animation: efmMarkShine 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+          }
+          .group:hover .efm-shine-sweep {
+            animation: efmMarkShine 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+          }
+        `}</style>
+      </defs>
+
+      {/* Wireframe — the resting state before the plates arrive */}
       <Wire
         stroke="currentColor"
         width={0.03}
@@ -69,21 +137,93 @@ export function BrandMark({ state = 'solid', className = '', transitionMs = 520 
         transitionMs={transitionMs}
       />
 
+      {/* Assembled solid crystalline mark with glow and gentle shine */}
       <g
         style={{
           opacity: solid ? 1 : 0,
           transition: `opacity ${transitionMs}ms cubic-bezier(0.22, 0.61, 0.36, 1)`,
         }}
       >
-        {PLATES.map((plate) => (
-          <polygon key={plate.index} points={toSvgPoints(plate.points)} fill={plate.fill} />
-        ))}
+        {/* 1. Rich Crystalline Faceted Plates */}
+        <g>
+          {PLATES.map((plate) => (
+            <polygon
+              key={plate.index}
+              points={toSvgPoints(plate.points)}
+              fill={`url(#efm-facet-grad-${plate.index})`}
+            />
+          ))}
+        </g>
 
-        {/* Bright edges over the plates. The artwork's crystalline read comes
-            from lit silver seams between the faces, and without these the
-            assembled mark flattens into a coloured silhouette at small sizes —
-            which is exactly the size it is usually seen at. */}
-        <Wire stroke="rgba(255,255,255,0.62)" width={0.014} opacity={1} transitionMs={0} />
+        {/* 2. Lit Silver-White Seams and Internal Ridges */}
+        <Wire stroke="rgba(255,255,255,0.72)" width={0.015} opacity={1} transitionMs={0} />
+
+        {/* 3. Hot Specular Ridge Highlights */}
+        <g stroke="rgba(255,255,255,0.95)" strokeWidth={0.018} strokeLinecap="round">
+          {PLATES.filter((p) => p.highlight).map((p) => (
+            <line
+              key={`hl-${p.index}`}
+              x1={p.points[0][0].toFixed(4)}
+              y1={(-p.points[0][1]).toFixed(4)}
+              x2={p.points[1][0].toFixed(4)}
+              y2={(-p.points[1][1]).toFixed(4)}
+            />
+          ))}
+        </g>
+
+        {/* 4. Left Neon Cyan Perimeter Glow */}
+        <g
+          stroke="#00d2ff"
+          strokeWidth={0.024}
+          strokeLinecap="round"
+          opacity={0.95}
+          filter="url(#efmGlowCyan)"
+        >
+          {EDGES.slice(4, 16)
+            .filter((_, i) => i % 4 === 0)
+            .map(([a, b], i) => (
+              <line
+                key={`glow-l-${i}`}
+                x1={a[0].toFixed(4)}
+                y1={(-a[1]).toFixed(4)}
+                x2={b[0].toFixed(4)}
+                y2={(-b[1]).toFixed(4)}
+              />
+            ))}
+        </g>
+
+        {/* 5. Right Neon Magenta Perimeter Glow */}
+        <g
+          stroke="#e879f9"
+          strokeWidth={0.024}
+          strokeLinecap="round"
+          opacity={0.95}
+          filter="url(#efmGlowMagenta)"
+        >
+          {EDGES.slice(28, 44)
+            .filter((_, i) => i % 4 === 0)
+            .map(([a, b], i) => (
+              <line
+                key={`glow-r-${i}`}
+                x1={a[0].toFixed(4)}
+                y1={(-a[1]).toFixed(4)}
+                x2={b[0].toFixed(4)}
+                y2={(-b[1]).toFixed(4)}
+              />
+            ))}
+        </g>
+
+        {/* 6. Gentle Crystalline Shine Sweep Effect */}
+        <g clipPath="url(#efmRibbonClip)" opacity={0.6} style={{ mixBlendMode: 'overlay' }}>
+          <rect
+            className="efm-shine-sweep"
+            x="-2.5"
+            y="-1.5"
+            width="5"
+            height="3"
+            fill="url(#efmShineSweep)"
+          />
+        </g>
       </g>
     </svg>
   );

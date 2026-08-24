@@ -1,21 +1,27 @@
+'use client';
+
 import React from 'react';
 import { Header } from '@/components/layout/Header';
-import { PageHero } from '@/components/hero/PageHero';
 import { Footer } from '@/components/layout/Footer';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
-import { DiagonalStatement } from '@/components/content/DiagonalStatement';
-import { FullBleedFeature } from '@/components/content/FullBleedFeature';
-import { HorizontalRail } from '@/components/content/HorizontalRail';
+import { ServiceHero } from '@/components/services/ServiceHero';
+import { SectorSnapshot } from '@/components/sectors/SectorSnapshot';
+import { TechnologyCafmSection } from '@/components/services/TechnologyCafmSection';
+import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
 import { FAQAccordion } from '@/components/content/CapabilityList';
-import { ProposalSection } from '@/components/conversion/PhoneCTA';
-import { RelatedLinks } from '@/components/content/CaseStudyFeature';
 import { 
   LocationServiceGrid, 
   LocationSectorGrid, 
   LocationCoverageGrid, 
   WhyChooseLocationGrid 
 } from '@/components/content/LocationSectionViews';
+import { PostcodeCoverageLookup } from '@/components/locations/PostcodeCoverageLookup';
+import { LocationExploreBlock } from '@/components/locations/LocationExploreBlock';
 import { TIER1_CITIES } from '@/content/locations/tier1-cities';
+import locationImages from '@/config/location-images.json';
+import { listPublishedCaseStudies } from '@/server/trust/case-studies';
+import Link from 'next/link';
+import { ArrowRight, CheckCircle2, ShieldCheck, Building2, Layers, AlertCircle } from 'lucide-react';
 import type { TemplateProps } from './types';
 
 export function TemplateThirdLocation({ route, content }: TemplateProps) {
@@ -29,49 +35,31 @@ export function TemplateThirdLocation({ route, content }: TemplateProps) {
     { name: content.h1, url: route.path },
   ];
 
+  // Resolve third city-specific photography from approved manifest (commercial estate / front of house / reception)
+  const cityImages = (locationImages.cities as Record<string, any>)[citySlug]?.images || [];
+  const heroImage = cityImages.length > 2
+    ? cityImages[2].src
+    : cityImages.length > 0
+    ? cityImages[0].src
+    : '/images/editorial/entirefm-corporate-corridor-2000w.webp';
+  const heroImageAlt = cityImages.length > 2
+    ? cityImages[2].alt
+    : `EntireFM commercial facilities management and property estate maintenance in ${city}`;
+
   const heroFacts = [
-    { figure: 'Portfolios', label: `Multi-tenant & multi-site estate management in ${city}` },
-    { figure: 'Reporting', label: 'Itemized cost & service charge transparent billing' },
-    { figure: 'Operations', label: 'Seamless contractor integration & concierge services' },
+    { label: 'Commercial Portfolio Management', value: 'Multi-Tenant Care' },
+    { label: 'Service Charge Accounting', value: 'Itemised Proof Packs' },
+    { label: 'Landlord & Tenant Demises', value: 'Clear Demarcation' },
   ];
 
-  const estatePoints = [
-    `Single point of contact for managing agents and commercial landlords across ${city}`,
-    'Transparent service charge accounting and site-by-site spend reporting',
-    'Common-parts maintenance, front of house, security and daily janitorial',
-    `Rapid emergency response across all ${city} commercial districts and business parks`,
+  const snapshotPriorities = [
+    { title: 'Commercial Portfolio Care', subtitle: `Multi-tenant office towers, retail parks and business parks across ${city}`, iconName: 'commercialBuildings' as const },
+    { title: 'Transparent Service Charges', subtitle: 'Indisputable digital work order evidence packs and RICS cost allocation', iconName: 'proposalReporting' as const },
+    { title: 'Front of House & Fabric', subtitle: 'Reception, concierge, security turnstiles, and daily janitorial care', iconName: 'commercialCleaning' as const },
+    { title: 'Dedicated Account Manager', subtitle: 'One technical point of contact eliminating contractor finger-pointing', iconName: 'teamManagement' as const },
   ];
 
-  const railItems = [
-    {
-      imageKey: 'client-review',
-      eyebrow: 'Portfolio Management',
-      title: `Service charge reporting for ${city} estates`,
-      body: 'Itemized maintenance, reactive repair and compliance spending reported per property to satisfy tenant and auditor scrutiny.',
-      href: '/client-login',
-    },
-    {
-      imageKey: 'access-control-install',
-      eyebrow: 'Front of House & Security',
-      title: `Access control and reception support in ${city}`,
-      body: 'Concierge services, intercom systems, barrier maintenance and perimeter security tailored to multi-tenant commercial offices.',
-      href: '/access-control',
-    },
-    {
-      imageKey: 'switchroom-survey',
-      eyebrow: 'Landlord & Tenant',
-      title: `Common-parts M&E and fabric care across ${city}`,
-      body: 'Maintaining shared HVAC risers, lift lobbies, stairwells and washrooms to prime commercial presentation standards.',
-      href: '/building-maintenance',
-    },
-    {
-      imageKey: 'distribution-board-testing',
-      eyebrow: 'Statutory Safety',
-      title: `Estate compliance certification in ${city}`,
-      body: 'Centralized statutory certificates for landlord plant, emergency lighting and water hygiene available 24/7 on our portal.',
-      href: '/compliance',
-    },
-  ];
+  const caseStudies = listPublishedCaseStudies();
 
   const faqs = (content.faqs && content.faqs.length > 0)
     ? content.faqs
@@ -94,142 +82,272 @@ export function TemplateThirdLocation({ route, content }: TemplateProps) {
         },
       ];
 
-  const relatedLinks = (content.relatedRoutes || ['/locations', '/commercial-facilities-management', '/ppm', '/contact-us']).map(r => ({
-    title: r.replace(/^\//, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
-    path: r,
-    category: `${city} Commercial Estates`,
-    description: `Explore EntireFM capabilities for ${r.replace(/^\//, '').replace(/-/g, ' ')}.`,
-  }));
-
-  const districts = cityData?.districts || [
-    { name: `${city} Central Commercial Core`, note: 'High-density commercial offices, retail and multi-tenant estates.' },
-    { name: `${city} Industrial & Business Parks`, note: 'Manufacturing, warehousing, trade counters and logistics facilities.' },
-    { name: `${city} Regional Corridors`, note: 'Arterial transport routes and neighbouring commercial centres.' },
-    { name: `${city} Public Realm & Civic Estates`, note: 'Education, healthcare and public-sector property portfolios.' },
-  ];
-
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
+
       <main id="main" className="flex-grow">
-        {/* 1. LOCATION-SPECIFIC HERO */}
-        <PageHero
-          eyebrow={content.eyebrow || `Commercial Estate FM · ${city}`}
+        {/* 1. CINEMATIC COMMERCIAL ESTATE HERO */}
+        <ServiceHero
+          eyebrow={`COMMERCIAL FACILITIES & MANAGING AGENTS // ${city.toUpperCase()}`}
           title={content.h1}
-          intro={content.heroIntro || content.metaDescription}
-          path={route.path}
-          imageSrc={content.heroImage}
-          imageAlt={content.heroImage ? `EntireFM commercial property management in ${city}` : undefined}
+          highlightedTitle="Commercial Property Management"
+          intro={content.heroIntro || `Strategic facilities management partnership for commercial landlords, chartered surveyors, and managing agents across ${city}. Single-source accountability for Hard & Soft FM.`}
+          imageSrc={heroImage}
+          imageAlt={heroImageAlt}
           breadcrumbs={breadcrumbs}
-          primaryCta={{ label: `Request an estate proposal for ${city}`, href: '#enquiry' }}
-          facts={heroFacts}
+          primaryCta={{ label: `Discuss Your ${city} Portfolio`, href: '#enquiry' }}
+          secondaryCta={{ label: 'Verify Site Postcode', href: '#coverage-lookup' }}
+          serviceFacts={heroFacts}
         />
 
-        {/* 2. LOCAL TRUST / CAPABILITY STRIP */}
+        {/* 2. TRUST / ACCREDITATIONS BAR */}
         <TrustBar />
 
-        {/* 3. ESTATE FM IN [LOCATION] — DIAGONAL STATEMENT */}
-        <DiagonalStatement
-          eyebrow={`Estate Management · ${city}`}
-          title={`Managing commercial portfolios in ${city}.`}
-          titleAccent="Transparent and dependable."
-          body={
-            `EntireFM partners with commercial landlords, property directors, and managing agents across ${city}, delivering seamless common-parts maintenance, statutory compliance, daily cleaning, and tenant satisfaction.`
-          }
-          points={estatePoints}
-          leftLabel={`${city} Portfolio Services`}
-          rightLabel="Integrated FM Account"
-          leftImageKey="manchester-castlefield-night"
-          rightImageKey="switchgear-inspection"
-          href="/commercial-facilities-management"
-          cta="Commercial estate FM"
+        {/* 3. LOCAL SNAPSHOT STRIP */}
+        <SectorSnapshot
+          leadText={`Consolidated commercial facilities management engineered for multi-tenant offices, business parks, and managed commercial estates across ${city}.`}
+          priorities={snapshotPriorities}
         />
 
-        {/* 4. SERVICES WE PROVIDE IN [LOCATION] */}
+        {/* 4. COMMERCIAL ESTATE VALUE PILLARS */}
+        <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
+          <div className="container-custom">
+            <div className="max-w-3xl mb-14">
+              <div className="inline-flex items-center gap-2 mb-2.5">
+                <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                  PORTFOLIO GOVERNANCE
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                Integrated Commercial Estate Management in {city}
+              </h2>
+              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
+                Streamlining estate operations, protecting building asset value, and satisfying tenant expectations:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: 'Common-Parts Maintenance & M&E',
+                  desc: 'Maintaining shared chillers, central risers, life safety systems, and stairwells to high institutional standards.',
+                  tag: 'Hard FM',
+                },
+                {
+                  title: 'Service Charge Proof & Transparency',
+                  desc: 'Indisputable work order evidence packs with photographic proof simplifying year-end tenant reconciliations.',
+                  tag: 'RICS Aligned',
+                },
+                {
+                  title: 'Front of House & Daily Hygiene',
+                  desc: 'High-frequency janitorial care, pristine executive washrooms, window cleaning, and welcoming concierge presentation.',
+                  tag: 'Soft Services',
+                },
+              ].map((card, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white border border-slate-200/90 rounded-sm p-7 shadow-sm flex flex-col justify-between hover:border-brand-pink/40 hover:shadow-md transition-all group"
+                >
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-semibold block mb-2">
+                      {card.tag}
+                    </span>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-brand-pink-dark transition-colors">
+                      {card.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      {card.desc}
+                    </p>
+                  </div>
+                  <div className="mt-6 pt-3.5 border-t border-slate-100 flex items-center gap-2 text-[11px] text-slate-500 font-mono">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>EntireFM Commercial Standard</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 5. EDITORIAL SECTIONS (PRESERVING DEEP SEO CONTENT) */}
+        {content.sections && content.sections.length > 0 && (
+          <section className="py-20 bg-white border-b border-slate-200">
+            <div className="container-custom">
+              <div className="max-w-3xl mb-12">
+                <div className="inline-flex items-center gap-2 mb-2.5">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    ESTATE MANAGEMENT
+                  </span>
+                </div>
+                <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">
+                  Commercial Facilities Solutions Across {city}
+                </h2>
+                <p className="mt-3 text-sm sm:text-base text-slate-600">
+                  Total facilities management for landlords, asset managers, and corporate occupiers across regional commercial estates.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {content.sections.map((sec, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-[#FAF9FB] p-8 rounded-sm border border-slate-200/90 space-y-4 shadow-sm flex flex-col justify-between"
+                  >
+                    <div>
+                      <h3 className="text-xl font-bold text-slate-900 leading-snug">{sec.heading}</h3>
+                      <p className="mt-3 text-sm text-slate-700 leading-relaxed">{sec.body}</p>
+                      {sec.bullets && sec.bullets.length > 0 && (
+                        <ul className="space-y-2 pt-4 mt-4 border-t border-slate-200">
+                          {sec.bullets.map((b, bIdx) => (
+                            <li key={bIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                              <span>{b}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 6. SERVICES WE DELIVER IN THIS CITY */}
         <LocationServiceGrid city={city} />
 
-        {/* 5. SECTORS WE SUPPORT IN [LOCATION] */}
+        {/* 7. SECTORS SUPPORTED IN THIS CITY */}
         <LocationSectorGrid city={city} sectors={cityData?.sectors} />
 
-        {/* 6. LOCAL / REGIONAL OPERATING CONTEXT — FULL BLEED FEATURE */}
-        <FullBleedFeature
-          imageKey="headquarters-exterior"
-          eyebrow={`Commercial Property · ${city}`}
-          title={`Protecting asset value across ${city} business estates`}
-          body={`Multi-tenant offices, retail developments and business parks require an FM partner that acts as an extension of the property management team — maintaining professional standards, controlling costs, and resolving reactive issues before they affect tenants.`}
-          points={[
-            'Dedicated property account manager and transparent escalation',
-            'Full statutory testing and digital compliance certification',
-            'Contracted cleaning, grounds maintenance and security',
-            'Detailed service charge reporting with evidence',
-          ]}
-          href="/contact-us"
-          cta="Request a proposal"
-          align="centre"
+        {/* 8. DIGITAL CAFM PLATFORM SECTION */}
+        <TechnologyCafmSection
+          eyebrow={`DIGITAL ESTATE PORTAL // ${city.toUpperCase()}`}
+          title={`Managing Agent & Landlord Portal for ${city} Properties`}
+          subtitle={`Multi-demise access, live maintenance tickets, and complete compliance certification tracking from a single dashboard.`}
         />
 
-        {/* 7. RELEVANT SPECIALIST SERVICES — HORIZONTAL CAPABILITY RAIL */}
-        <HorizontalRail
-          eyebrow="Estate Disciplines"
-          title={`Integrated property services across ${city}`}
-          intro="Comprehensive Hard & Soft FM services designed for property managers and commercial landlords."
-          items={railItems}
-        />
+        {/* 9. WHY CHOOSE ENTIREFM IN THIS LOCATION */}
+        <WhyChooseLocationGrid city={city} />
 
-        {/* 8. NEARBY AREAS / SERVICE COVERAGE */}
-        <LocationCoverageGrid
-          city={city}
-          region={cityData?.region}
-          districts={districts}
-          travelPattern={cityData?.travelPattern}
-        />
+        {/* 10. WHERE WE WORK / DISTRICTS GRID */}
+        {cityData && cityData.districts && cityData.districts.length > 0 && (
+          <LocationCoverageGrid
+            city={city}
+            region={cityData.region}
+            districts={cityData.districts}
+            travelPattern={cityData.travelPattern}
+          />
+        )}
 
-        {/* 9. ACCREDITATIONS & COMPLIANCE */}
-        <section className="py-14 bg-white border-t border-brand-edge">
-          <div className="container-wide">
+        {/* 11. INTERACTIVE POSTCODE COVERAGE CHECKER */}
+        <section id="coverage-lookup" className="py-16 bg-white border-b border-slate-200">
+          <div className="container-custom max-w-4xl">
+            <PostcodeCoverageLookup initialCity={city} />
+          </div>
+        </section>
+
+        {/* 12. VERIFIED CASE STUDIES */}
+        {caseStudies.length > 0 && (
+          <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
+            <div className="container-custom space-y-12">
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center gap-2 mb-2.5">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    VERIFIED PROOF
+                  </span>
+                </div>
+                <h2 className="text-3xl font-extrabold text-slate-900">
+                  Operational Project Proof &amp; Case Studies
+                </h2>
+                <p className="mt-2 text-sm text-slate-600">
+                  Demonstrated engineering delivery, statutory governance, and asset lifecycle optimization across UK commercial facilities.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {caseStudies.slice(0, 3).map((cs) => (
+                  <div
+                    key={cs.id}
+                    className="bg-white p-6 rounded-sm border border-slate-200/90 flex flex-col justify-between shadow-sm hover:border-brand-pink/40 hover:shadow-md transition-all group"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-semibold">
+                          {cs.sector}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded-sm">
+                          {cs.location}
+                        </span>
+                      </div>
+                      <h3 className="text-base font-bold text-slate-900 group-hover:text-brand-pink-dark transition-colors">
+                        {cs.title}
+                      </h3>
+                      <p className="mt-2 text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                        {cs.challenge}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <Link
+                        href="/case-studies"
+                        className="text-xs font-bold text-slate-900 group-hover:text-brand-pink inline-flex items-center gap-1.5 uppercase tracking-wider transition-colors"
+                      >
+                        Read Summary <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 13. ACCREDITATIONS CAROUSEL */}
+        <section className="py-12 bg-white border-b border-slate-200">
+          <div className="container-custom">
             <AccreditationRail />
           </div>
         </section>
 
-        {/* 10. WHY BUSINESSES IN [LOCATION] USE ENTIREFM */}
-        <WhyChooseLocationGrid city={city} />
-
-        {/* 11. LOCATION-SPECIFIC FAQ */}
-        <section className="section-padding bg-brand-surface border-t border-brand-edge">
-          <div className="container-custom max-w-4xl">
-            <div className="mb-10 text-center">
-              <span className="badge-technical">Property Management FAQs</span>
-              <h2 className="text-display-md text-brand-graphite mt-3">
-                {city} Commercial Property FM — Common Questions
-              </h2>
-              <p className="mt-3 text-sm text-slate-600">
-                Key questions for managing agents, landlords and commercial portfolio directors in {city}.
-              </p>
+        {/* 14. FAQS ACCORDION */}
+        {faqs.length > 0 && (
+          <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
+            <div className="container-custom max-w-4xl space-y-8">
+              <div>
+                <div className="inline-flex items-center gap-2 mb-2.5">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    MANAGING AGENT GUIDANCE
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  Commercial Property FM in {city} — FAQs
+                </h2>
+              </div>
+              <FAQAccordion faqs={faqs} />
             </div>
-            <FAQAccordion faqs={faqs} />
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* 12. STRONG LOCATION-SPECIFIC CONVERSION SECTION */}
-        <ProposalSection
-          defaultLocation={city}
-          headline={`Request an Estate Proposal for ${city}`}
-          subheadline={`Speak with our team about single-site or portfolio facilities management contracts across ${city}.`}
+        {/* 15. STRUCTURED LOCAL EXPLORE LINKS BLOCK */}
+        <LocationExploreBlock city={city} />
+
+        {/* 16. PROPOSAL & CONVERSION SECTION */}
+        <ServiceConversionSection
+          serviceName={`Commercial Facilities Management ${city}`}
+          headline={`Request a Commercial Estate Proposal for Your ${city} Property`}
+          subheadline={`Consult directly with EntireFM commercial directors. We manage multi-tenant offices, business parks, and landlord common parts across ${city}.`}
+          badgeText={`${city.toUpperCase()} COMMERCIAL FM`}
+          ctaButtonText={`Request ${city} Proposal`}
+          directDeskNote={`Connecting directly with our commercial managing agent desk.`}
         />
-
-        {/* 13. RELATED LOCATION / SERVICE LINKS */}
-        <section className="section-padding bg-white border-t border-brand-edge">
-          <div className="container-wide">
-            <div className="max-w-2xl mb-8">
-              <span className="badge-technical">Regional Network</span>
-              <h2 className="text-display-sm text-brand-graphite mt-2">
-                Explore Local Services & Regional Coverage
-              </h2>
-            </div>
-            <RelatedLinks links={relatedLinks} />
-          </div>
-        </section>
       </main>
+
       <Footer />
     </div>
   );
