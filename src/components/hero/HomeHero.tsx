@@ -176,15 +176,16 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'linear-gradient(96deg, rgba(11,18,32,.92) 0%, rgba(11,18,32,.78) 34%, rgba(11,18,32,.40) 64%, rgba(11,18,32,.22) 100%)',
+            'linear-gradient(96deg, rgba(11,18,32,.78) 0%, rgba(11,18,32,.58) 34%, rgba(11,18,32,.26) 64%, rgba(11,18,32,.10) 100%)',
         }}
       />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 -z-10 h-52"
-        style={{ background: 'linear-gradient(to top, rgba(11,18,32,.92), transparent)' }}
+        className="absolute inset-x-0 bottom-0 -z-10 h-44"
+        style={{ background: 'linear-gradient(to top, rgba(11,18,32,.70), transparent)' }}
       />
-      <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-40" />
+      <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-30" />
+
 
       {/* Copy */}
       {/*

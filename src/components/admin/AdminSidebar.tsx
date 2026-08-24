@@ -283,6 +283,7 @@ const NAV_GROUPS: NavGroup[] = [
       { name: 'Organisations', href: '/admin/platform/organisations' },
       { name: 'Integrations', href: '/admin/platform/integrations' },
       { name: 'API & Webhooks', href: '/admin/platform/webhooks' },
+      { name: 'Data Imports', href: '/admin/platform/imports' },
       { name: 'Migration Tools', href: '/admin/platform/migration' },
       { name: 'Taxonomies', href: '/admin/platform/taxonomies' },
       { name: 'System Settings', href: '/admin/platform/settings' },
