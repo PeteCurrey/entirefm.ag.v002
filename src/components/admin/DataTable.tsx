@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface Column<T> {
   header: string;
@@ -17,6 +18,7 @@ interface DataTableProps<T> {
   onRowClick?: (item: T) => void;
   pageSize?: number;
   emptyState?: React.ReactNode;
+  toolbarActions?: React.ReactNode;
 }
 
 export function DataTable<T extends { id?: string | number }>({
@@ -27,6 +29,7 @@ export function DataTable<T extends { id?: string | number }>({
   onRowClick,
   pageSize = 25,
   emptyState,
+  toolbarActions,
 }: DataTableProps<T>) {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,50 +46,60 @@ export function DataTable<T extends { id?: string | number }>({
   }, [filteredData, currentPage, pageSize]);
 
   return (
-    <div className="space-y-4">
-      {searchFilter && (
-        <div className="flex items-center justify-between">
-          <div className="relative w-full max-w-sm">
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setCurrentPage(1);
-              }}
-              placeholder={searchPlaceholder}
-              className="w-full rounded-md border border-brand-edge-dark bg-brand-void px-3 py-1.5 text-[12.5px] text-white placeholder-brand-mist/40 focus:border-brand-electric focus:outline-none"
-            />
-          </div>
-          <div className="font-mono text-[11px] text-brand-mist/50">
-            Showing {filteredData.length} records
+    <div className="space-y-3">
+      {/* Table Toolbar */}
+      {(searchFilter || toolbarActions) && (
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          {searchFilter && (
+            <div className="relative w-full max-w-sm">
+              <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9B9B97]" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setCurrentPage(1);
+                }}
+                placeholder={searchPlaceholder}
+                className="w-full rounded-[8px] border border-[#E4E4E1] bg-[#FFFFFF] pl-9 pr-3 py-1.5 text-[12.5px] text-[#101010] placeholder-[#9B9B97] focus:border-[#FF6B24] focus:outline-none focus:ring-1 focus:ring-[#FF6B24]"
+              />
+            </div>
+          )}
+          <div className="flex items-center gap-3 ml-auto">
+            {toolbarActions}
+            <div className="font-mono text-[11px] text-[#686866]">
+              {filteredData.length} {filteredData.length === 1 ? 'record' : 'records'}
+            </div>
           </div>
         </div>
       )}
 
+      {/* Table Surface */}
       {paginatedData.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg border border-brand-edge-dark bg-brand-carbon/40 shadow-sm">
+        <div className="overflow-x-auto rounded-[12px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
           <table className="w-full min-w-[50rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-brand-edge-dark bg-brand-void/50 font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/50">
+              <tr className="border-b border-[#E4E4E1] bg-[#F0F0EE] font-mono text-[10.5px] uppercase tracking-wider text-[#686866]">
                 {columns.map((col, idx) => (
-                  <th key={idx} className={`px-5 py-3 ${col.className || ''}`}>
+                  <th key={idx} className={`px-4 py-3 font-semibold ${col.className || ''}`}>
                     {col.header}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-edge-dark/60">
+            <tbody className="divide-y divide-[#E4E4E1]">
               {paginatedData.map((row, rowIdx) => (
                 <tr
                   key={row.id || rowIdx}
                   onClick={() => onRowClick && onRowClick(row)}
-                  className={`text-brand-mist/80 transition-colors ${
-                    onRowClick ? 'cursor-pointer hover:bg-brand-void/60 hover:text-white' : 'hover:bg-brand-void/20'
+                  className={`text-[#101010] transition-colors ${
+                    onRowClick
+                      ? 'cursor-pointer hover:bg-[#F5F5F3]'
+                      : 'hover:bg-[#FAFAFA]'
                   }`}
                 >
                   {columns.map((col, colIdx) => (
-                    <td key={colIdx} className={`px-5 py-3.5 ${col.className || ''}`}>
+                    <td key={colIdx} className={`px-4 py-3 ${col.className || ''}`}>
                       {typeof col.accessor === 'function'
                         ? col.accessor(row)
                         : col.accessor
@@ -101,31 +114,34 @@ export function DataTable<T extends { id?: string | number }>({
         </div>
       ) : (
         emptyState || (
-          <div className="rounded-lg border border-dashed border-brand-edge-dark/60 p-8 text-center text-[12.5px] text-brand-mist/50">
+          <div className="rounded-[12px] border border-dashed border-[#E4E4E1] bg-[#FFFFFF] p-8 text-center text-[12.5px] text-[#686866]">
             No matching records found.
           </div>
         )
       )}
 
+      {/* Table Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between pt-2">
-          <span className="font-mono text-[11px] text-brand-mist/40">
+        <div className="flex items-center justify-between pt-1">
+          <span className="font-mono text-[11px] text-[#686866]">
             Page {currentPage} of {totalPages}
           </span>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-1.5">
             <button
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              className="rounded border border-brand-edge-dark bg-brand-void px-2.5 py-1 text-[11px] text-white disabled:opacity-30"
+              className="inline-flex items-center gap-1 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] px-2.5 py-1 text-[11px] font-medium text-[#101010] hover:bg-[#F5F5F3] disabled:opacity-40 disabled:pointer-events-none transition-colors"
             >
+              <ChevronLeft className="h-3 w-3" />
               Previous
             </button>
             <button
               onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="rounded border border-brand-edge-dark bg-brand-void px-2.5 py-1 text-[11px] text-white disabled:opacity-30"
+              className="inline-flex items-center gap-1 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] px-2.5 py-1 text-[11px] font-medium text-[#101010] hover:bg-[#F5F5F3] disabled:opacity-40 disabled:pointer-events-none transition-colors"
             >
               Next
+              <ChevronRight className="h-3 w-3" />
             </button>
           </div>
         </div>

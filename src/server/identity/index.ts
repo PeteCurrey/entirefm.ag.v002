@@ -397,7 +397,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'operations:read', 'supply_chain:read',
   ],
   CONTRACTOR_ENGINEER: [
-    'operations:read', 'operations:write',
+    'operations:read', 'operations:write', 'contractor:compliance_manage',
   ],
   // Field Engineer Roles
   ENGINEER: [

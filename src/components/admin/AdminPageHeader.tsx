@@ -5,6 +5,7 @@ interface AdminPageHeaderProps {
   title: string;
   description: string;
   action?: React.ReactNode;
+  breadcrumbs?: Array<{ label: string; href?: string }>;
 }
 
 export function AdminPageHeader({
@@ -12,19 +13,37 @@ export function AdminPageHeader({
   title,
   description,
   action,
+  breadcrumbs,
 }: AdminPageHeaderProps) {
   return (
-    <div className="flex flex-col gap-4 border-b border-brand-edge-dark pb-6 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-4 border-b border-[#E4E4E1] pb-6 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <div className="font-mono text-[10.5px] font-semibold uppercase tracking-wider text-brand-electric-bright">
-          {category}
-        </div>
-        <h1 className="mt-1 text-2xl font-light tracking-tight text-white sm:text-3xl">
+        {breadcrumbs && breadcrumbs.length > 0 ? (
+          <div className="flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-wider text-[#9B9B97] mb-1">
+            {breadcrumbs.map((b, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <span>/</span>}
+                {b.href ? (
+                  <a href={b.href} className="hover:text-[#FF6B24] transition-colors">
+                    {b.label}
+                  </a>
+                ) : (
+                  <span className="text-[#FF6B24] font-medium">{b.label}</span>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        ) : (
+          <div className="font-mono text-[10.5px] font-semibold uppercase tracking-wider text-[#FF6B24]">
+            {category}
+          </div>
+        )}
+        <h1 className="mt-1 text-2xl font-light tracking-tight text-[#101010] sm:text-3xl">
           {title}
         </h1>
-        <p className="mt-1.5 text-[13px] text-brand-mist/60">{description}</p>
+        <p className="mt-1 text-[13px] text-[#686866] max-w-3xl">{description}</p>
       </div>
-      {action && <div className="flex items-center gap-3">{action}</div>}
+      {action && <div className="flex items-center gap-2.5 shrink-0">{action}</div>}
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { SearchResultItem } from '@/server/search';
+import { Search, Building2, Wrench, ShieldCheck, Bot, FileText, ArrowRight, CornerDownLeft } from 'lucide-react';
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
@@ -58,7 +59,7 @@ export function CommandPalette() {
       } finally {
         setLoading(false);
       }
-    }, 200);
+    }, 180);
 
     return () => clearTimeout(timer);
   }, [query]);
@@ -86,50 +87,38 @@ export function CommandPalette() {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 p-4 pt-[12vh] backdrop-blur-sm animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 p-4 pt-[10vh] backdrop-blur-[2px] animate-in fade-in duration-150">
       <div
-        className="w-full max-w-2xl overflow-hidden rounded-lg border border-brand-edge-dark bg-brand-carbon shadow-2xl text-white"
+        className="w-full max-w-2xl overflow-hidden rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-2xl text-[#101010]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Header */}
-        <div className="relative flex items-center border-b border-brand-edge-dark px-4 py-3.5">
-          <svg
-            className="h-4 w-4 shrink-0 text-brand-mist/50"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
+        <div className="relative flex items-center border-b border-[#E4E4E1] px-4 py-3.5 bg-[#FFFFFF]">
+          <Search className="h-4 w-4 shrink-0 text-[#9B9B97]" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDownInInput}
-            placeholder="Search sites, assets, work orders, contractors, invoices... (Ask EntireFM)"
-            className="ml-3 w-full bg-transparent text-[14px] text-white placeholder:text-brand-mist/40 focus:outline-none"
+            placeholder="Search sites, assets, jobs, engineers, documents…"
+            className="ml-3 w-full bg-transparent text-[14px] text-[#101010] placeholder-[#9B9B97] focus:outline-none"
           />
-          <kbd className="hidden sm:inline-block rounded border border-brand-edge-dark bg-brand-void px-1.5 py-0.5 font-mono text-[10px] text-brand-mist/60">
+          <kbd className="hidden sm:inline-block rounded-[4px] border border-[#E4E4E1] bg-[#F5F5F3] px-1.5 py-0.5 font-mono text-[10px] text-[#9B9B97]">
             ESC
           </kbd>
         </div>
 
         {/* Results List */}
-        <div className="max-h-96 overflow-y-auto p-2">
+        <div className="max-h-96 overflow-y-auto p-2 cafm-scroll bg-[#FFFFFF]">
           {loading && (
-            <div className="px-4 py-6 text-center text-[13px] text-brand-mist/50">
+            <div className="px-4 py-8 text-center text-[13px] text-[#686866]">
               Searching canonical estate & operations database...
             </div>
           )}
 
           {!loading && query.length >= 2 && results.length === 0 && (
-            <div className="px-4 py-8 text-center text-[13px] text-brand-mist/50">
+            <div className="px-4 py-8 text-center text-[13px] text-[#686866]">
               No entities found matching &ldquo;{query}&rdquo;.
             </div>
           )}
@@ -140,67 +129,76 @@ export function CommandPalette() {
                 <button
                   key={item.id}
                   onClick={() => handleSelect(item)}
-                  className={`flex w-full items-center justify-between rounded px-3 py-2.5 text-left text-[13px] transition-colors ${
+                  className={`flex w-full items-center justify-between rounded-[8px] px-3 py-2.5 text-left text-[13px] transition-all ${
                     idx === selectedIndex
-                      ? 'bg-brand-electric text-white'
-                      : 'text-brand-mist/80 hover:bg-brand-void/80 hover:text-white'
+                      ? 'bg-[#FF6B24] text-white shadow-sm'
+                      : 'text-[#101010] hover:bg-[#F5F5F3]'
                   }`}
                 >
-                  <div className="min-w-0 flex-1">
+                  <div className="min-w-0 flex-1 pr-2">
                     <div className="truncate font-medium">{item.title}</div>
                     <div
-                      className={`truncate text-[11px] ${
-                        idx === selectedIndex ? 'text-white/80' : 'text-brand-mist/50'
+                      className={`truncate text-[11.5px] ${
+                        idx === selectedIndex ? 'text-white/80' : 'text-[#686866]'
                       }`}
                     >
                       {item.subtitle}
                     </div>
                   </div>
-                  {item.badge && (
-                    <span
-                      className={`ml-2 shrink-0 rounded px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider ${
-                        idx === selectedIndex
-                          ? 'bg-white/20 text-white'
-                          : 'border border-brand-edge-dark bg-brand-void text-brand-mist/60'
-                      }`}
-                    >
-                      {item.badge}
-                    </span>
-                  )}
+                  <div className="flex items-center gap-2 shrink-0">
+                    {item.badge && (
+                      <span
+                        className={`rounded-[4px] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider ${
+                          idx === selectedIndex
+                            ? 'bg-white/20 text-white'
+                            : 'border border-[#E4E4E1] bg-[#F0F0EE] text-[#686866]'
+                        }`}
+                      >
+                        {item.badge}
+                      </span>
+                    )}
+                    {idx === selectedIndex && (
+                      <CornerDownLeft className="h-3.5 w-3.5 text-white/80" />
+                    )}
+                  </div>
                 </button>
               ))}
             </div>
           )}
 
           {!loading && query.length < 2 && (
-            <div className="px-4 py-6 text-[12px] text-brand-mist/50">
-              <div className="font-mono uppercase tracking-wider text-[10px] text-brand-mist/40 mb-2">
-                Quick Jump Suggestions
+            <div className="px-4 py-4 text-[12px] text-[#686866]">
+              <div className="font-mono uppercase tracking-wider text-[10px] text-[#9B9B97] mb-2.5">
+                Quick Navigation
               </div>
-              <div className="grid grid-cols-2 gap-2 text-brand-mist/70">
+              <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => { setOpen(false); router.push('/admin/operations/work-orders'); }}
-                  className="rounded border border-brand-edge-dark/60 bg-brand-void/50 p-2 text-left hover:border-brand-electric/50 hover:text-white"
+                  className="flex items-center justify-between rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] p-2.5 text-left hover:border-[#D1D1CD] hover:bg-[#FFFFFF] transition-colors"
                 >
-                  Work Orders Queue
+                  <span className="font-medium text-[#101010]">Work Orders Queue</span>
+                  <ArrowRight className="h-3 w-3 text-[#9B9B97]" />
+                </button>
+                <button
+                  onClick={() => { setOpen(false); router.push('/admin/estate/sites'); }}
+                  className="flex items-center justify-between rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] p-2.5 text-left hover:border-[#D1D1CD] hover:bg-[#FFFFFF] transition-colors"
+                >
+                  <span className="font-medium text-[#101010]">Site 360 Estate</span>
+                  <ArrowRight className="h-3 w-3 text-[#9B9B97]" />
                 </button>
                 <button
                   onClick={() => { setOpen(false); router.push('/admin/estate/assets'); }}
-                  className="rounded border border-brand-edge-dark/60 bg-brand-void/50 p-2 text-left hover:border-brand-electric/50 hover:text-white"
+                  className="flex items-center justify-between rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] p-2.5 text-left hover:border-[#D1D1CD] hover:bg-[#FFFFFF] transition-colors"
                 >
-                  Asset Registry
+                  <span className="font-medium text-[#101010]">Asset Registry</span>
+                  <ArrowRight className="h-3 w-3 text-[#9B9B97]" />
                 </button>
                 <button
                   onClick={() => { setOpen(false); router.push('/admin/compliance/obligations'); }}
-                  className="rounded border border-brand-edge-dark/60 bg-brand-void/50 p-2 text-left hover:border-brand-electric/50 hover:text-white"
+                  className="flex items-center justify-between rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] p-2.5 text-left hover:border-[#D1D1CD] hover:bg-[#FFFFFF] transition-colors"
                 >
-                  Compliance Obligations
-                </button>
-                <button
-                  onClick={() => { setOpen(false); router.push('/admin/ai/control'); }}
-                  className="rounded border border-brand-edge-dark/60 bg-brand-void/50 p-2 text-left hover:border-brand-electric/50 hover:text-white"
-                >
-                  AI Control Centre
+                  <span className="font-medium text-[#101010]">Compliance Radar</span>
+                  <ArrowRight className="h-3 w-3 text-[#9B9B97]" />
                 </button>
               </div>
             </div>
@@ -208,9 +206,9 @@ export function CommandPalette() {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between border-t border-brand-edge-dark bg-brand-void/80 px-4 py-2 text-[11px] text-brand-mist/50">
+        <div className="flex items-center justify-between border-t border-[#E4E4E1] bg-[#F5F5F3] px-4 py-2 text-[11px] text-[#686866]">
           <span>Tip: Use ↑ ↓ to navigate, Enter to select</span>
-          <span className="font-mono text-[10px]">EntireFM Core Search</span>
+          <span className="font-mono text-[10px] text-[#9B9B97]">EntireFM Core Search</span>
         </div>
       </div>
     </div>
