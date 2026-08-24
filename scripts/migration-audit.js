@@ -35,8 +35,11 @@ const OVERRIDE_SOURCES = [
   path.join(repoRoot, 'src', 'content', 'compliance', 'records.ts'),
   path.join(repoRoot, 'src', 'content', 'compliance', 'topics.ts'),
   path.join(repoRoot, 'src', 'content', 'blog', 'records.ts'),
+  path.join(repoRoot, 'src', 'content', 'blog', 'posts.ts'),
   path.join(repoRoot, 'src', 'content', 'company', 'utility.ts'),
   path.join(repoRoot, 'src', 'content', 'company', 'about.ts'),
+  path.join(repoRoot, 'src', 'content', 'resources', 'records.ts'),
+  path.join(repoRoot, 'src', 'content', 'resources', 'ai-records.ts'),
 ]
   .filter(fs.existsSync)
   .map((f) => fs.readFileSync(f, 'utf-8'))

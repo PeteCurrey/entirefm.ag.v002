@@ -214,6 +214,7 @@ export const FOOTER_NAV: NavColumn[] = [
       { label: 'Resource Hub', href: '/resources' },
       { label: 'FM Tools & Calculators', href: '/tools' },
       { label: 'Compliance Centre', href: '/compliance' },
+      { label: 'Legal & Governance', href: '/legal' },
       { label: 'FM Intelligence', href: '/fm-intelligence' },
       { label: 'The FM Briefing', href: '/fm-briefing' },
       { label: 'EntireFM Academy', href: '/academy' },
@@ -225,10 +226,13 @@ export const FOOTER_NAV: NavColumn[] = [
 ];
 
 export const LEGAL_NAV: NavLink[] = [
-  { label: 'Privacy Policy', href: '/privacy-policy' },
-  { label: 'Terms & Conditions', href: '/terms-and-conditions' },
-  { label: 'Accessibility', href: '/accessibility-statement' },
-  // /sitemap is not a route — production-redirects.json 308s it to /services,
-  // so this link sent every visitor who clicked "Sitemap" to the services page.
+  { label: 'Legal Centre', href: '/legal' },
+  { label: 'Privacy Notice', href: '/legal/privacy' },
+  { label: 'Terms of Business', href: '/legal/terms-of-business' },
+  { label: 'Responsible AI', href: '/legal/ai' },
+  { label: 'Contractor Terms', href: '/legal/contractor-terms' },
+  { label: 'Cookies Policy', href: '/legal/cookies' },
+  { label: 'Accessibility', href: '/legal/accessibility' },
   { label: 'Sitemap', href: '/html-sitemap' },
 ];
+

@@ -20,6 +20,7 @@ import { TemplateLegal } from './TemplateLegal';
 import { TemplateCareers } from './TemplateCareers';
 import { TemplateHelpdesk } from './TemplateHelpdesk';
 import { TemplateSupplyChain } from './TemplateSupplyChain';
+import { TemplatePartnerNetwork } from './TemplatePartnerNetwork';
 import { TemplateHtmlSitemap } from './TemplateHtmlSitemap';
 import { TemplateComplianceHub, TemplateComplianceTopic } from './TemplateCompliance';
 import { TemplateGlossaryNational } from './TemplateGlossaryNational';
@@ -117,13 +118,22 @@ function selectTemplate(
     return <TemplateHelpdesk route={route} content={content} />;
   }
 
-  // 6. Supply Chain & Marketplace
+  // 6. Supply Chain, Marketplace & Partner Network
   if (
     path === '/fm-supply-chain' ||
     path === '/fm-supply-form' ||
-    path === '/marketplace'
+    path === '/marketplace' ||
+    path === '/suppliers'
   ) {
     return <TemplateSupplyChain route={route} content={content} />;
+  }
+
+  if (
+    path === '/partners' ||
+    path === '/partner' ||
+    path === '/partner-network'
+  ) {
+    return <TemplatePartnerNetwork route={route} content={content} />;
   }
 
   // 6b. Compliance Centre

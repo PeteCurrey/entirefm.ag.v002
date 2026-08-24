@@ -5,9 +5,11 @@ import { Phone, Mail, MapPin, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { CONTACT_CONFIG } from '@/config/contact';
 import { ORGANIZATION_CONFIG } from '@/config/organization';
 import { FOOTER_NAV, LEGAL_NAV } from '@/config/navigation';
+import { CookieSettingsTrigger } from '@/components/legal/CookieSettingsTrigger';
 
 /**
  * SITE FOOTER
+
  * ===========
  * Two parts: a closing call to action on the brand spectrum, then a quiet
  * graphite sitemap. The CTA carries the only strong colour below the fold,
@@ -171,7 +173,11 @@ export function Footer() {
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <CookieSettingsTrigger />
+                </li>
               </ul>
+
             </div>
             <p className="mt-5 max-w-4xl text-[11.5px] leading-relaxed text-brand-mist/25">
               EntireFM operates under a managed quality framework covering statutory

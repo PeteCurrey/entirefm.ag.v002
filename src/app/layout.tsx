@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { defaultMetadata } from '@/lib/metadata/generate-metadata';
 import { RevealProvider } from '@/components/motion/RevealProvider';
+import { CookieConsentBanner } from '@/components/legal/CookieConsentBanner';
 import './globals.css';
 
 /**
@@ -45,8 +46,12 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <RevealProvider>{children}</RevealProvider>
+        <RevealProvider>
+          {children}
+          <CookieConsentBanner />
+        </RevealProvider>
       </body>
     </html>
   );
 }
+

@@ -394,21 +394,14 @@ Prospective tenderers should provide:
                   </div>
                 </div>
 
-                {/* Submitting to EntireFM CTA */}
-                <div className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-                  <div>
-                    <h3 className="text-lg font-bold text-white">
-                      Include EntireFM in your tender procurement?
-                    </h3>
-                    <p className="text-xs text-brand-mist/70 mt-1 max-w-lg">
-                      Send this specification directly to our commercial estimating team for a transparent, asset-surveyed contract proposal.
-                    </p>
-                  </div>
-                  <Link href="/contact-us" className="btn-primary shrink-0 py-2.5 px-4 text-xs">
-                    Submit RFP to EntireFM
-                    <ArrowRight className="h-3.5 w-3.5 btn-arrow" />
-                  </Link>
-                </div>
+                {/* Conversion Bridge */}
+                <ResultsConversionBridge
+                  headline="Include EntireFM in your tender procurement?"
+                  body="Send this specification directly to our commercial estimating team for a transparent, asset-surveyed contract proposal based on your exact building profile."
+                  ctaPrimary={{ label: 'Submit RFP to EntireFM', href: '/contact-us' }}
+                  ctaSecondary={{ label: 'Speak to our procurement lead', href: '/contact-us' }}
+                  accent="amber"
+                />
               </div>
             )}
           </div>

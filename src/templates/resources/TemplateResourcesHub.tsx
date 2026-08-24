@@ -622,6 +622,7 @@ export function TemplateResourcesHub({ route, content }: TemplateProps) {
           </div>
         </section>
 
+        <NewsletterSignupSection />
         <TrustBar />
         <ProposalSection />
       </main>

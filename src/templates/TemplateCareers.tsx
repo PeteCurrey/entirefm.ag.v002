@@ -1,132 +1,435 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { TrustBar } from '@/components/trust/TrustBar';
-import { CapabilityList, FAQAccordion } from '@/components/content/CapabilityList';
-import { CheckCircle2, Briefcase, Mail, Phone, ArrowRight } from 'lucide-react';
-import type { TemplateProps } from './types';
+import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
+import { ServiceHero } from '@/components/services/ServiceHero';
+import { SectorSnapshot } from '@/components/sectors/SectorSnapshot';
+import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
+import { FAQAccordion } from '@/components/content/CapabilityList';
+import { getActiveVacancies, Vacancy } from '@/server/careers/vacancies';
 import { CONTACT_CONFIG } from '@/config/contact';
-import Link from 'next/link';
+import {
+  Briefcase,
+  MapPin,
+  Clock,
+  ShieldCheck,
+  CheckCircle2,
+  ArrowRight,
+  Upload,
+  User,
+  Mail,
+  Phone,
+  FileText,
+  Building,
+  Sparkles,
+  Layers,
+} from 'lucide-react';
+import type { TemplateProps } from './types';
 
 export function TemplateCareers({ route, content }: TemplateProps) {
-  const breadcrumbs = content.breadcrumbs || [
-    { name: 'Home', url: '/' },
-    { name: 'Careers', url: route.path },
-  ];
+  const vacancies = getActiveVacancies();
+  const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const roles = [
-    {
-      title: 'Commercial M&E Mobile Engineer',
-      location: 'London & Home Counties / Midlands',
-      type: 'Full-time / Permanent',
-      description: 'Experienced commercial mechanical and electrical engineers delivering planned maintenance and reactive callouts.',
-    },
-    {
-      title: 'HVAC & Refrigeration Technician',
-      location: 'Midlands & Yorkshire Hubs',
-      type: 'Full-time / Permanent',
-      description: 'F-Gas qualified AC and chiller specialists for commercial estate maintenance and installations.',
-    },
-    {
-      title: '24/7 Operations Helpdesk Coordinator',
-      location: 'Lincoln Operational Centre',
-      type: 'Full-time / Shift-based',
-      description: 'Triage incoming client maintenance tickets, coordinate engineer dispatch, and manage CAFM logs.',
-    },
-  ];
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    location: '',
+    tradeDiscipline: 'M&E Engineering',
+    experienceYears: '3-5 Years',
+    qualifications: '',
+    coverNote: '',
+    privacyConsent: false,
+  });
+
+  const handleApplyClick = (vac: Vacancy) => {
+    setSelectedVacancy(vac);
+    const formElement = document.getElementById('application-form');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await fetch('/api/careers/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          vacancyRef: selectedVacancy ? selectedVacancy.reference : 'SPECULATIVE',
+          roleTitle: selectedVacancy ? selectedVacancy.title : 'Speculative Application',
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || 'Submission failed. Please check required fields.');
+      }
+
+      setSubmitted(true);
+    } catch (err: any) {
+      setError(err.message || 'An error occurred during submission. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header solid />
-      <main className="flex-grow">
-        <Breadcrumbs items={breadcrumbs} />
+      <Header />
 
-        {/* Careers Hero */}
-        <section className="bg-brand-graphite border-b border-brand-edge-dark text-white py-12 sm:py-16 relative overflow-hidden">
-          <div className="container-custom">
-            <div className="max-w-3xl space-y-4">
-              <span className="badge-gold">{content.eyebrow || 'Join Our Engineering Team'}</span>
-              <h1 className="text-display-xl text-white">
-                {content.h1}
-              </h1>
-              <p className="max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80">
-                {content.heroIntro || content.metaDescription}
-              </p>
-
-              <div className="flex flex-wrap items-center gap-4 pt-4">
-                <a href={`mailto:${CONTACT_CONFIG.careersEmail}`} className="btn-primary py-3 px-6 text-xs font-bold shadow-elevated">
-                  Submit CV <ArrowRight className="w-4 h-4" />
-                </a>
-                <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
-                  <Phone className="w-3.5 h-3.5 text-brand-electric" />
-                  <span>Contact Recruitment</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+      <main id="main" className="flex-grow">
+        {/* 1. CINEMATIC HERO */}
+        <ServiceHero
+          eyebrow="CAREERS // ENTIREFM ENGINEERING"
+          title="Engineering Careers Built on High Standards &amp; Professional Pride"
+          intro="Join a national facilities engineering company that values technical competence, direct delivery, modern vehicle tooling, and continuous certified development."
+          imageSrc="/images/editorial/entirefm-engineers-office-testing-2000w.webp"
+          imageAlt="EntireFM certified mobile engineers reviewing electrical test telemetry"
+          breadcrumbs={[
+            { name: 'Home', url: '/' },
+            { name: 'Careers & Vacancies', url: route.path },
+          ]}
+          primaryCta={{ label: 'View Active Vacancies', href: '#vacancies' }}
+          secondaryCta={{ label: 'Speculative Application', href: '#application-form' }}
+          serviceFacts={[
+            { label: 'Engineering Delivery', value: 'Directly Employed' },
+            { label: 'Funded Accreditations', value: 'Gas, NICEIC, F-Gas' },
+            { label: 'Fleet & Equipment', value: 'Premium Calibrated' },
+          ]}
+        />
 
         <TrustBar />
 
-        {/* Open Positions */}
-        <section className="section-padding bg-white">
+        {/* 2. CULTURE & VALUES STRIP */}
+        <SectorSnapshot
+          leadText="EntireFM empowers qualified technicians and facilities managers with the autonomy, technology, and career support required to deliver true engineering excellence."
+          priorities={[
+            { title: 'Modern Fleet & Tooling', subtitle: 'Fully equipped vehicles, high-spec diagnostic gear, and quality PPE', iconName: 'maintenanceTools' },
+            { title: 'Funded Industry CPD', subtitle: 'Company-sponsored Gas Safe, NICEIC, F-Gas Category 1 & IOSH training', iconName: 'operationalExcellence' },
+            { title: 'EntireCAFM Digital App', subtitle: 'Clean mobile workflows removing paper bureaucracy and duplicate admin', iconName: 'dataInsights' },
+            { title: 'Fair Roster & Overtime', subtitle: 'Agreed standby allowances, transparent overtime, and work-life balance', iconName: 'twentyFourSevenOps' },
+          ]}
+        />
+
+        {/* 3. ACTIVE VACANCIES SECTION */}
+        <section id="vacancies" className="py-20 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-custom">
             <div className="max-w-3xl mb-12">
-              <span className="badge-technical">Current Vacancies</span>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-graphite mt-2">
-                Available Positions & Engineering Opportunities
+              <div className="inline-flex items-center gap-2 mb-2.5">
+                <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                  CURRENT VACANCIES
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                Verified Career Opportunities Across the UK
               </h2>
-              <p className="text-slate-600 text-sm mt-2">
-                Join our national team of multi-skilled engineers, facilities specialists, and operations coordinators.
+              <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+                All roles listed below are live and actively recruiting. Expired listings are automatically archived.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {roles.map((r, idx) => (
-                <div key={idx} className="p-6 bg-brand-surface border border-brand-edge rounded-sm space-y-4 hover:border-brand-electric transition-colors">
-                  <div className="flex items-center gap-2 text-xs font-mono text-brand-electric">
-                    <Briefcase className="w-4 h-4" />
-                    <span>{r.type}</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-brand-graphite">{r.title}</h3>
-                  <p className="text-xs text-slate-500">{r.location}</p>
-                  <p className="text-sm text-slate-600 leading-relaxed">{r.description}</p>
-                  <a
-                    href={`mailto:${CONTACT_CONFIG.careersEmail}?subject=Application for ${encodeURIComponent(r.title)}`}
-                    className="btn-technical text-xs inline-flex items-center gap-2 mt-2"
-                  >
-                    Apply for Position <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
+            <div className="space-y-6">
+              {vacancies.length === 0 ? (
+                <div className="p-8 bg-white border border-slate-200 rounded-sm text-center">
+                  <p className="text-slate-600 text-sm">
+                    No active public vacancies at this moment. We always welcome speculative applications from qualified M&amp;E and HVAC engineers.
+                  </p>
                 </div>
-              ))}
+              ) : (
+                vacancies.map((vac) => (
+                  <div
+                    key={vac.id}
+                    className="p-8 bg-white border border-slate-200/90 rounded-sm shadow-sm hover:border-brand-pink/60 transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-6 group"
+                  >
+                    <div className="space-y-3 max-w-2xl">
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        <span className="text-[11px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-sm bg-slate-100 text-slate-700">
+                          {vac.reference}
+                        </span>
+                        <span className="text-[11px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-sm bg-emerald-100 text-emerald-800">
+                          {vac.department}
+                        </span>
+                        <span className="text-xs text-slate-500 flex items-center gap-1">
+                          <MapPin className="w-3.5 h-3.5 text-slate-400" /> {vac.location}
+                        </span>
+                        <span className="text-xs text-slate-500 flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5 text-slate-400" /> {vac.contractType}
+                        </span>
+                      </div>
+
+                      <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-pink-dark transition-colors">
+                        {vac.title}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        {vac.summary}
+                      </p>
+
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        {vac.certificationsRequired.map((cert, cIdx) => (
+                          <span
+                            key={cIdx}
+                            className="inline-flex items-center gap-1 text-[11px] bg-slate-50 text-slate-600 border border-slate-200 px-2 py-0.5 rounded-sm"
+                          >
+                            <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                            {cert}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-3 shrink-0">
+                      {vac.salaryGuide && (
+                        <span className="text-xs font-mono text-slate-600 font-semibold">
+                          {vac.salaryGuide}
+                        </span>
+                      )}
+                      <button
+                        onClick={() => handleApplyClick(vac)}
+                        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors shadow-sm"
+                      >
+                        <span>Apply For Position</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </section>
 
-        {/* Benefits & Culture */}
-        <section className="section-padding bg-brand-surface border-t border-brand-edge">
-          <div className="container-custom max-w-4xl space-y-6">
-            <h2 className="text-2xl font-bold text-brand-graphite">Why Work With EntireFM?</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="flex items-start gap-3 p-4 bg-white border border-brand-edge rounded-sm">
-                <CheckCircle2 className="w-5 h-5 text-brand-electric shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm font-bold text-brand-graphite">Modern Fleet & Tooling</h4>
-                  <p className="text-xs text-slate-600 mt-0.5">Top-tier equipped vans, calibration testing gear, and uniform.</p>
-                </div>
+        {/* 4. FUNCTIONAL APPLICATION FORM */}
+        <section id="application-form" className="py-20 bg-white border-b border-slate-200">
+          <div className="container-custom max-w-3xl">
+            <div className="mb-8">
+              <div className="inline-flex items-center gap-2 mb-2">
+                <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                  APPLICATION FORM
+                </span>
               </div>
-              <div className="flex items-start gap-3 p-4 bg-white border border-brand-edge rounded-sm">
-                <CheckCircle2 className="w-5 h-5 text-brand-electric shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm font-bold text-brand-graphite">Continuous CPD & Training</h4>
-                  <p className="text-xs text-slate-600 mt-0.5">Funded certifications: Gas Safe, NICEIC, F-Gas, IOSH, IPAF.</p>
-                </div>
-              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+                {selectedVacancy ? `Apply for: ${selectedVacancy.title}` : 'Submit a Career Application'}
+              </h2>
+              {selectedVacancy && (
+                <p className="text-xs font-mono text-slate-500 mt-1">
+                  Vacancy Ref: {selectedVacancy.reference} · Location: {selectedVacancy.location}
+                </p>
+              )}
             </div>
+
+            {submitted ? (
+              <div className="p-8 bg-emerald-50 border border-emerald-200 rounded-sm text-center space-y-4">
+                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold text-emerald-900">Application Received</h3>
+                <p className="text-xs sm:text-sm text-emerald-800 max-w-md mx-auto leading-relaxed">
+                  Thank you for applying to EntireFM. Our operations and recruitment team will review your qualifications and contact you regarding the next stage.
+                </p>
+                <div className="pt-2">
+                  <button
+                    onClick={() => {
+                      setSubmitted(false);
+                      setSelectedVacancy(null);
+                    }}
+                    className="text-xs font-bold text-emerald-900 underline hover:text-emerald-700"
+                  >
+                    Submit another application
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6 bg-[#FAF9FB] p-8 border border-slate-200 rounded-sm shadow-sm">
+                {error && (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-sm text-xs text-red-700">
+                    {error}
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      placeholder="e.g. David Miller"
+                      className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-sm text-sm text-slate-900 focus:outline-none focus:border-brand-pink"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="david.miller@example.com"
+                      className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-sm text-sm text-slate-900 focus:outline-none focus:border-brand-pink"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      Telephone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="07123 456789"
+                      className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-sm text-sm text-slate-900 focus:outline-none focus:border-brand-pink"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      Your Location / Base Town *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.location}
+                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                      placeholder="e.g. Sheffield, London, Manchester"
+                      className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-sm text-sm text-slate-900 focus:outline-none focus:border-brand-pink"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      Primary Trade / Discipline
+                    </label>
+                    <select
+                      value={formData.tradeDiscipline}
+                      onChange={(e) => setFormData({ ...formData, tradeDiscipline: e.target.value })}
+                      className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-sm text-sm text-slate-900 focus:outline-none focus:border-brand-pink"
+                    >
+                      <option value="Commercial M&E">Commercial Mechanical &amp; Electrical</option>
+                      <option value="HVAC / Air Conditioning">HVAC / Air Conditioning / Chillers</option>
+                      <option value="Commercial Plumbing / Gas">Commercial Plumbing / Gas Safe</option>
+                      <option value="Facilities / Helpdesk">Operations / CAFM Helpdesk</option>
+                      <option value="Specialist Cleaning">Specialist Cleaning &amp; Hygiene</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      Years of Relevant Experience
+                    </label>
+                    <select
+                      value={formData.experienceYears}
+                      onChange={(e) => setFormData({ ...formData, experienceYears: e.target.value })}
+                      className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-sm text-sm text-slate-900 focus:outline-none focus:border-brand-pink"
+                    >
+                      <option value="1-2 Years">1-2 Years (Improver / Technician)</option>
+                      <option value="3-5 Years">3-5 Years (Qualified Engineer)</option>
+                      <option value="5-10 Years">5-10 Years (Senior Engineer / Lead)</option>
+                      <option value="10+ Years">10+ Years (Senior Lead / Manager)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    Certifications &amp; Accreditations Held
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.qualifications}
+                    onChange={(e) => setFormData({ ...formData, qualifications: e.target.value })}
+                    placeholder="e.g. 18th Edition, City & Guilds 2391, F-Gas Cat 1, Gas Safe, IOSH"
+                    className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-sm text-sm text-slate-900 focus:outline-none focus:border-brand-pink"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    Brief Experience Summary &amp; Availability
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={formData.coverNote}
+                    onChange={(e) => setFormData({ ...formData, coverNote: e.target.value })}
+                    placeholder="Briefly outline your previous commercial contracts, notice period, and key skills..."
+                    className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-sm text-sm text-slate-900 focus:outline-none focus:border-brand-pink"
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <label className="flex items-start gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={formData.privacyConsent}
+                      onChange={(e) => setFormData({ ...formData, privacyConsent: e.target.checked })}
+                      className="mt-1 h-4 w-4 rounded border-slate-300 text-brand-pink focus:ring-brand-pink"
+                    />
+                    <span className="text-xs text-slate-600 leading-relaxed">
+                      I consent to EntireFM holding my contact details and application details for recruitment purposes in accordance with the{' '}
+                      <a href="/privacy-policy" className="text-brand-pink underline">
+                        Privacy Policy
+                      </a>.
+                    </span>
+                  </label>
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full sm:w-auto px-8 py-3.5 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors shadow-sm disabled:opacity-50"
+                  >
+                    {loading ? 'Submitting Application...' : 'Submit Application'}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </section>
+
+        {/* 5. ACCREDITATIONS & CONVERSION */}
+        <section className="py-12 bg-[#FAF9FB] border-b border-slate-200">
+          <div className="container-custom">
+            <AccreditationRail />
+          </div>
+        </section>
+
+        <ServiceConversionSection
+          serviceName="Recruitment & Careers"
+          headline="Looking to Connect with Our Recruitment Team?"
+          subheadline="Contact our operations recruitment desk directly regarding ongoing technical engineering opportunities across the UK."
+          badgeText="CAREERS HELPDESK"
+          ctaButtonText="Email Careers Desk"
+          directDeskNote={`Contacting ${CONTACT_CONFIG.careersEmail}`}
+        />
       </main>
+
       <Footer />
     </div>
   );
