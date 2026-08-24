@@ -27,6 +27,7 @@ import { UTILITY_CONTENT } from './company/utility';
 import { GLOSSARY_CONTENT } from './glossary/records';
 import { RESOURCES_CONTENT } from './resources/records';
 import { AI_RESOURCES_CONTENT } from './resources/ai-records';
+import { CLIENT_PORTAL_CONTENT } from './client-portal/records';
 
 export type { ContentRecord };
 
@@ -62,6 +63,8 @@ export const COMPANY_CONTENT: Record<string, ContentRecord> = {
   ...RESOURCES_CONTENT,
   // AI in Facilities Management Resource Centre & supporting guides.
   ...AI_RESOURCES_CONTENT,
+  // EntireCAFM Client Portal pages & interactive tour architecture
+  ...CLIENT_PORTAL_CONTENT,
 };
 
 /** Paths currently served by bespoke Tier 1 content. */

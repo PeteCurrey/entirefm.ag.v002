@@ -22,10 +22,13 @@ import type {
   DataImportCommitResult,
   DataImportRollbackResult,
   DataStatusSummary,
+  ImportFieldDiff,
+  ImportConflictDetail,
+  DuplicateDecisionChoice,
+  DataImportDuplicateDecision,
 } from './types';
 
 export type * from './types';
-
 
 // =============================================================================
 // 1. CSV PARSING & FORMULA INJECTION SANITISATION
@@ -211,7 +214,6 @@ export function detectMappingPreset(
   const suggested: Record<string, string> = {};
   const lowerHeaders = headers.map((h) => ({ original: h, normalized: h.toLowerCase().replace(/[^a-z0-9]/g, '') }));
 
-  // Target field dictionary by entity type
   const targetDict: Record<string, string[]> =
     entityType === 'CLIENT'
       ? {
@@ -274,7 +276,7 @@ export function detectMappingPreset(
 // =============================================================================
 
 export interface ValidationContext {
-  existingClientMap?: Map<string, { id: string; name: string }>; // external_id -> details
+  existingClientMap?: Map<string, { id: string; name: string }>;
   existingSiteExtIds?: Set<string>;
   existingContractorExtIds?: Set<string>;
 }
@@ -399,6 +401,67 @@ export function validateMappedRow(
 }
 
 // =============================================================================
+// 3b. FUZZY DUPLICATE DETECTION & FIELD DIFF HELPERS
+// =============================================================================
+
+const IGNORED_DIFF_FIELDS = new Set([
+  'import_batch_id',
+  'imported_at',
+  'source_hash',
+  'source_record_reference',
+  'id',
+  'parent_client_external_id',
+  'parent_client_name',
+  'customer_id',
+  'customer_name',
+  'client_account_id',
+  'created_at',
+  'updated_at',
+  'account_number',
+  'payment_terms_days',
+  'credit_limit_gbp',
+]);
+
+/**
+ * Simple token-overlap fuzzy match for organisation names.
+ */
+export function isFuzzyNameMatch(a: string, b: string): boolean {
+  const tokenize = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .split(/\s+/)
+      .filter((t) => t.length >= 3 && !['ltd', 'llp', 'plc', 'inc', 'and', 'the'].includes(t));
+
+  const tokA = tokenize(a);
+  const tokB = tokenize(b);
+  if (tokA.length === 0 || tokB.length === 0) return false;
+  const [shorter, longer] = tokA.length <= tokB.length ? [tokA, tokB] : [tokB, tokA];
+  return shorter.every((t) => longer.includes(t));
+}
+
+/**
+ * Compute field-level diff between two flat record objects.
+ */
+export function computeFieldDiff(
+  existing: Record<string, any>,
+  incoming: Record<string, any>
+): ImportFieldDiff[] {
+  const diffFields: ImportFieldDiff[] = [];
+  for (const [field, newVal] of Object.entries(incoming)) {
+    if (IGNORED_DIFF_FIELDS.has(field)) continue;
+    if (!(field in existing)) continue; // only compare fields present on the existing entity
+    const oldVal = existing[field] ?? null;
+    const newValStr = newVal == null ? null : String(newVal).trim();
+    const oldValStr = oldVal == null ? null : String(oldVal).trim();
+    if (oldValStr !== newValStr) {
+      diffFields.push({ field, oldValue: oldValStr, newValue: newValStr });
+    }
+  }
+  return diffFields;
+}
+
+// =============================================================================
 // 4. BATCH CREATION, UPLOAD & STAGING
 // =============================================================================
 
@@ -455,7 +518,7 @@ export async function createImportBatch(
   }
   const batch = batchRes.data[0];
 
-  // Insert file record
+  // Insert file record (TRANSIENT: storage_path is null)
   const fileRes = await dbQuery<DataImportFile[]>(
     'data_import_files',
     {
@@ -466,6 +529,7 @@ export async function createImportBatch(
         file_size_bytes: Buffer.byteLength(fileContent, 'utf8'),
         file_checksum: fileChecksum,
         raw_headers: headers,
+        storage_path: null,
       },
       headers: { Prefer: 'return=representation' },
     }
@@ -523,7 +587,7 @@ export async function createImportBatch(
 }
 
 // =============================================================================
-// 5. COLUMN MAPPING & DRY-RUN VALIDATION
+// 5. COLUMN MAPPING & DRY-RUN VALIDATION (SEMANTICS-AWARE)
 // =============================================================================
 
 export async function applyMappingAndValidate(
@@ -535,22 +599,19 @@ export async function applyMappingAndValidate(
     throw new Error('Permission denied: data_import:map required to configure import mapping.');
   }
 
-  // Fetch batch
   const batchRes = await dbQuery<DataImportBatch[]>(`data_import_batches?id=eq.${batchId}&select=*`);
   const batch = batchRes.data?.[0];
   if (!batch) throw new Error(`Import batch '${batchId}' not found.`);
 
-  // Update batch status to VALIDATING
   await dbQuery(`data_import_batches?id=eq.${batchId}`, {
     method: 'PATCH',
     body: { status: 'VALIDATING', mapping_config: mapping, updated_at: new Date().toISOString() },
   });
 
-  // Fetch staged rows
   const rowsRes = await dbQuery<DataImportRow[]>(`data_import_rows?batch_id=eq.${batchId}&select=*&order=row_index.asc`);
   const stagedRows = rowsRes.data || [];
 
-  // Build validation context (e.g. existing clients for site imports)
+  // Build validation context
   const validationCtx: ValidationContext = {};
   if (batch.entity_type === 'SITE') {
     const clientsRes = await dbQuery<any[]>('client_accounts?select=id,organisation_id,external_id');
@@ -570,30 +631,45 @@ export async function applyMappingAndValidate(
     validationCtx.existingClientMap = clientMap;
   }
 
-  // Fetch existing external IDs for deduplication
-  let existingExtIds = new Set<string>();
+  // Fetch existing records for hash-level and fuzzy dedup
+  const existingByExtId = new Map<string, { id: string; source_hash: string; record: Record<string, any> }>();
+  const existingNames: Array<{ id: string; name: string }> = [];
+
   if (batch.entity_type === 'CLIENT') {
-    const extRes = await dbQuery<any[]>(`client_accounts?source_system=eq.${batch.source_system}&external_id=not.is.null&select=external_id`);
-    existingExtIds = new Set((extRes.data || []).map((r) => r.external_id));
+    const orgRes = await dbQuery<any[]>(`organisations?org_type=eq.CLIENT&select=id,name,external_id,source_hash,email,phone,created_at,updated_at,imported_at`);
+    for (const o of orgRes.data || []) {
+      if (o.external_id) existingByExtId.set(o.external_id, { id: o.id, source_hash: o.source_hash || '', record: o });
+      if (o.name) existingNames.push({ id: o.id, name: o.name });
+    }
   } else if (batch.entity_type === 'SITE') {
-    const extRes = await dbQuery<any[]>(`sites?source_system=eq.${batch.source_system}&external_id=not.is.null&select=external_id`);
-    existingExtIds = new Set((extRes.data || []).map((r) => r.external_id));
+    const extRes = await dbQuery<any[]>(
+      `sites?source_system=eq.${batch.source_system}&external_id=not.is.null&select=id,external_id,source_hash,name,postcode,address_line1,city,source_record_reference,created_at,updated_at,imported_at`
+    );
+    for (const s of extRes.data || []) {
+      if (s.external_id) existingByExtId.set(s.external_id, { id: s.id, source_hash: s.source_hash || '', record: s });
+      if (s.name) existingNames.push({ id: s.id, name: s.name });
+    }
   } else if (batch.entity_type === 'CONTRACTOR') {
-    const extRes = await dbQuery<any[]>(`provider_organisations?source_system=eq.${batch.source_system}&external_id=not.is.null&select=external_id`);
-    existingExtIds = new Set((extRes.data || []).map((r) => r.external_id));
+    const orgRes = await dbQuery<any[]>(`organisations?org_type=eq.CONTRACTOR&select=id,name,external_id,source_hash,created_at,updated_at,imported_at`);
+    for (const o of orgRes.data || []) {
+      if (o.external_id) existingByExtId.set(o.external_id, { id: o.id, source_hash: o.source_hash || '', record: o });
+      if (o.name) existingNames.push({ id: o.id, name: o.name });
+    }
   }
 
   let validCount = 0;
   let errorCount = 0;
   let duplicateCount = 0;
+  let unchangedCount = 0;
+  let changeDetectedCount = 0;
+  let possibleDuplicateCount = 0;
+  let conflictCount = 0;
   const allIssues: DataImportIssue[] = [];
   const sampleMappedRows: DataImportPreviewSummary['sampleMappedRows'] = [];
 
-  // Clean old issues
   await dbQuery(`data_import_issues?batch_id=eq.${batchId}`, { method: 'DELETE' });
 
   for (const row of stagedRows) {
-    // Map raw data using supplied mapping dictionary
     const mapped: Record<string, any> = {};
     for (const [sourceCol, targetField] of Object.entries(mapping)) {
       if (targetField && row.raw_data[sourceCol] !== undefined) {
@@ -601,30 +677,92 @@ export async function applyMappingAndValidate(
       }
     }
 
-    const { status, issues } = validateMappedRow(row.row_index, mapped, batch.entity_type, validationCtx);
+    const { status: validStatus, issues } = validateMappedRow(row.row_index, mapped, batch.entity_type, validationCtx);
     const rowIssuesWithBatch = issues.map((iss) => ({ ...iss, batch_id: batchId, row_id: row.id }));
 
-    // Check duplicate
-    let rowStatus: DataImportRowStatus = status;
-    const extId = mapped.external_id;
-    if (rowStatus === 'VALID' && extId && existingExtIds.has(extId)) {
-      rowStatus = 'DUPLICATE';
-      duplicateCount++;
-    } else if (rowStatus === 'VALID') {
-      validCount++;
+    let rowStatus: DataImportRowStatus = validStatus;
+    let changeDiff: ImportFieldDiff[] | undefined;
+    let conflictDetails: ImportConflictDetail[] | undefined;
+    let matchedEntityId: string | undefined;
+    let matchReason: string | undefined;
+    let preImportSnapshot: Record<string, any> | undefined;
+
+    if (validStatus === 'VALID') {
+      const extId = mapped.external_id as string | undefined;
+
+      if (extId && existingByExtId.has(extId)) {
+        const existing = existingByExtId.get(extId)!;
+        matchedEntityId = existing.id;
+        matchReason = `Exact external_id match: ${extId}`;
+        preImportSnapshot = existing.record;
+
+        // Compare field values
+        const diff = computeFieldDiff(existing.record, mapped);
+
+        if (diff.length === 0) {
+          rowStatus = 'UNCHANGED';
+          unchangedCount++;
+        } else {
+          changeDiff = diff;
+          const existingRec = existing.record as any;
+          const hasLocalEnrichment =
+            existingRec.updated_at &&
+            existingRec.imported_at &&
+            new Date(existingRec.updated_at).getTime() > new Date(existingRec.imported_at).getTime() + 1000;
+
+          if (hasLocalEnrichment) {
+            rowStatus = 'CONFLICT';
+            conflictDetails = diff.map((d) => ({
+              field: d.field,
+              lastImportedValue: existing.source_hash ? d.oldValue : null,
+              currentCafmValue: d.oldValue,
+              incomingValue: d.newValue,
+              cafmModifiedAt: existingRec.updated_at,
+            }));
+            conflictCount++;
+          } else {
+            rowStatus = 'CHANGE_DETECTED';
+            changeDetectedCount++;
+          }
+        }
+      } else if (!extId) {
+        const incomingName = (mapped.name || mapped.company_name || '').trim();
+        if (incomingName) {
+          const fuzzyMatch = existingNames.find((e) => isFuzzyNameMatch(incomingName, e.name));
+          if (fuzzyMatch) {
+            rowStatus = 'POSSIBLE_DUPLICATE';
+            matchedEntityId = fuzzyMatch.id;
+            matchReason = `Fuzzy name match: "${incomingName}" ≈ "${fuzzyMatch.name}"`;
+            possibleDuplicateCount++;
+          } else {
+            rowStatus = 'VALID';
+            validCount++;
+          }
+        } else {
+          rowStatus = 'VALID';
+          validCount++;
+        }
+      } else {
+        rowStatus = 'VALID';
+        validCount++;
+      }
     } else {
       errorCount++;
     }
 
     allIssues.push(...rowIssuesWithBatch);
 
-    // Update row in DB
     await dbQuery(`data_import_rows?id=eq.${row.id}`, {
       method: 'PATCH',
       body: {
         mapped_data: mapped,
-        external_id: extId || null,
+        external_id: mapped.external_id || null,
         status: rowStatus,
+        matched_entity_id: matchedEntityId || null,
+        match_reason: matchReason || null,
+        change_diff: changeDiff ? JSON.stringify(changeDiff) : null,
+        conflict_details: conflictDetails ? JSON.stringify(conflictDetails) : null,
+        pre_import_snapshot: preImportSnapshot ? JSON.stringify(preImportSnapshot) : null,
         error_messages: issues.filter((i) => i.severity === 'ERROR').map((i) => i.message),
         warning_messages: issues.filter((i) => i.severity === 'WARNING').map((i) => i.message),
         updated_at: new Date().toISOString(),
@@ -641,15 +779,15 @@ export async function applyMappingAndValidate(
       sampleMappedRows.push({
         rowIndex: row.row_index,
         status: rowStatus,
-        externalId: extId,
+        externalId: mapped.external_id,
         displayName,
         details,
         issues: issues.map((i) => `[${i.severity}] ${i.message}`),
+        changeDiff,
       });
     }
   }
 
-  // Insert issues in bulk
   if (allIssues.length > 0) {
     for (let i = 0; i < allIssues.length; i += 200) {
       const chunk = allIssues.slice(i, i + 200);
@@ -669,7 +807,7 @@ export async function applyMappingAndValidate(
     }
   }
 
-  const finalStatus = errorCount > 0 && validCount === 0 ? 'VALIDATION_FAILED' : 'READY_FOR_REVIEW';
+  const finalStatus = errorCount > 0 && validCount === 0 && unchangedCount === 0 && changeDetectedCount === 0 ? 'VALIDATION_FAILED' : 'READY_FOR_REVIEW';
 
   await dbQuery(`data_import_batches?id=eq.${batchId}`, {
     method: 'PATCH',
@@ -678,6 +816,10 @@ export async function applyMappingAndValidate(
       valid_rows: validCount,
       error_rows: errorCount,
       duplicate_rows: duplicateCount,
+      unchanged_rows: unchangedCount,
+      change_detected_rows: changeDetectedCount,
+      possible_duplicate_rows: possibleDuplicateCount,
+      conflict_rows: conflictCount,
       updated_at: new Date().toISOString(),
     },
   });
@@ -691,9 +833,13 @@ export async function applyMappingAndValidate(
     validRows: validCount,
     errorRows: errorCount,
     duplicateRows: duplicateCount,
+    unchangedRows: unchangedCount,
+    changeDetectedRows: changeDetectedCount,
+    possibleDuplicateRows: possibleDuplicateCount,
+    conflictRows: conflictCount,
     newRows: validCount,
-    matchedExistingRows: duplicateCount,
-    blockedRows: errorCount,
+    matchedExistingRows: unchangedCount + changeDetectedCount + duplicateCount,
+    blockedRows: errorCount + possibleDuplicateCount + conflictCount,
     issues: allIssues,
     sampleMappedRows,
   };
@@ -719,36 +865,131 @@ export async function commitImport(
     throw new Error(`Batch status '${batch.status}' cannot be committed. Must be READY_FOR_REVIEW.`);
   }
 
+  // Pre-commit gate: block if POSSIBLE_DUPLICATE or CONFLICT rows lack decisions
+  const unresolvedRes = await dbQuery<DataImportRow[]>(
+    `data_import_rows?batch_id=eq.${batchId}&status=in.(POSSIBLE_DUPLICATE,CONFLICT)&select=id,row_index,status`
+  );
+  const unresolvedRows = unresolvedRes.data || [];
+
+  if (unresolvedRows.length > 0) {
+    const decisionRes = await dbQuery<any[]>(
+      `data_import_duplicate_decisions?batch_id=eq.${batchId}&select=row_id`
+    );
+    const decidedRowIds = new Set((decisionRes.data || []).map((d) => d.row_id));
+    const stillBlocked = unresolvedRows.filter((r) => !decidedRowIds.has(r.id));
+
+    if (stillBlocked.length > 0) {
+      throw new Error(
+        `Cannot commit: ${stillBlocked.length} row(s) require human review before commit ` +
+          `(POSSIBLE_DUPLICATE or CONFLICT). Rows: ${stillBlocked.map((r) => r.row_index).join(', ')}. ` +
+          `Use resolveImportDuplicate() to record a decision for each row.`
+      );
+    }
+  }
+
   await dbQuery(`data_import_batches?id=eq.${batchId}`, {
     method: 'PATCH',
     body: { status: 'IMPORTING', updated_at: new Date().toISOString() },
   });
 
-  // Fetch valid rows to commit
   const rowsRes = await dbQuery<DataImportRow[]>(
-    `data_import_rows?batch_id=eq.${batchId}&status=in.(VALID,DUPLICATE)&select=*&order=row_index.asc`
+    `data_import_rows?batch_id=eq.${batchId}&status=in.(VALID,DUPLICATE,UNCHANGED,CHANGE_DETECTED,POSSIBLE_DUPLICATE,CONFLICT)&select=*&order=row_index.asc`
   );
   const rows = rowsRes.data || [];
+
+  const allDecisionsRes = await dbQuery<any[]>(
+    `data_import_duplicate_decisions?batch_id=eq.${batchId}&select=row_id,decision,candidate_entity_id`
+  );
+  const decisionByRowId = new Map<string, { decision: string; candidateEntityId?: string }>(
+    (allDecisionsRes.data || []).map((d) => [d.row_id, { decision: d.decision, candidateEntityId: d.candidate_entity_id }])
+  );
 
   const createdEntityIds: string[] = [];
   const updatedEntityIds: string[] = [];
   const errors: string[] = [];
+  const blockedRowsResult: Array<{ rowIndex: number; reason: string }> = [];
   let importedCount = 0;
+  let updatedCount = 0;
   let skippedCount = 0;
+  let blockedCount = 0;
 
   for (const row of rows) {
     try {
+      const mapped = row.mapped_data;
+      const rowHash = row.row_hash;
+      const extId = row.external_id || mapped?.external_id;
+
+      // UNCHANGED: zero writes
+      if (row.status === 'UNCHANGED') {
+        skippedCount++;
+        await dbQuery(`data_import_rows?id=eq.${row.id}`, {
+          method: 'PATCH',
+          body: { status: 'SKIPPED' },
+        });
+        continue;
+      }
+
+      // DUPLICATE: skip
       if (row.status === 'DUPLICATE') {
         skippedCount++;
         continue;
       }
 
-      const mapped = row.mapped_data;
-      const rowHash = row.row_hash;
-      const extId = row.external_id || mapped.external_id;
+      // POSSIBLE_DUPLICATE / CONFLICT: act on decision
+      if (row.status === 'POSSIBLE_DUPLICATE' || row.status === 'CONFLICT') {
+        const dec = decisionByRowId.get(row.id);
+        if (!dec) {
+          blockedCount++;
+          blockedRowsResult.push({ rowIndex: row.row_index, reason: `No decision recorded for ${row.status} row` });
+          await dbQuery(`data_import_rows?id=eq.${row.id}`, {
+            method: 'PATCH',
+            body: { status: 'ROLLBACK_BLOCKED' },
+          });
+          continue;
+        }
+        if (dec.decision === 'IGNORE_ROW' || dec.decision === 'USE_EXISTING') {
+          skippedCount++;
+          await dbQuery(`data_import_rows?id=eq.${row.id}`, { method: 'PATCH', body: { status: 'SKIPPED' } });
+          continue;
+        }
+        // CREATE_NEW falls through to normal create
+      }
 
+      // CHANGE_DETECTED: update existing record field by field
+      if (row.status === 'CHANGE_DETECTED' && row.matched_entity_id) {
+        let diff: ImportFieldDiff[] = [];
+        if (row.change_diff) {
+          diff = typeof row.change_diff === 'string' ? JSON.parse(row.change_diff) : row.change_diff;
+        }
+        if (diff.length > 0) {
+          const patchBody: Record<string, any> = { updated_at: new Date().toISOString(), source_hash: rowHash };
+          for (const d of diff) {
+            patchBody[d.field] = d.newValue;
+          }
+
+          if (batch.entity_type === 'CLIENT') {
+            await dbQuery(`organisations?id=eq.${row.matched_entity_id}`, { method: 'PATCH', body: patchBody });
+          } else if (batch.entity_type === 'SITE') {
+            await dbQuery(`sites?id=eq.${row.matched_entity_id}`, { method: 'PATCH', body: patchBody });
+          } else if (batch.entity_type === 'CONTRACTOR') {
+            await dbQuery(`organisations?id=eq.${row.matched_entity_id}`, { method: 'PATCH', body: patchBody });
+          }
+
+          updatedEntityIds.push(row.matched_entity_id);
+          updatedCount++;
+          await dbQuery(`data_import_rows?id=eq.${row.id}`, {
+            method: 'PATCH',
+            body: { status: 'IMPORTED', target_entity_id: row.matched_entity_id },
+          });
+        } else {
+          skippedCount++;
+          await dbQuery(`data_import_rows?id=eq.${row.id}`, { method: 'PATCH', body: { status: 'SKIPPED' } });
+        }
+        continue;
+      }
+
+      // VALID (new record creation)
       if (batch.entity_type === 'CLIENT') {
-        // Create canonical organisation
         const orgRes = await dbQuery<any[]>('organisations', {
           method: 'POST',
           body: {
@@ -770,8 +1011,6 @@ export async function commitImport(
         });
 
         const orgId = orgRes.data?.[0]?.id || `org-${Date.now()}`;
-
-        // Create client_accounts record
         const clientRes = await dbQuery<any[]>('client_accounts', {
           method: 'POST',
           body: {
@@ -792,16 +1031,13 @@ export async function commitImport(
 
         const targetId = clientRes.data?.[0]?.id || orgId;
         createdEntityIds.push(targetId);
-
-        // Update row status
         await dbQuery(`data_import_rows?id=eq.${row.id}`, {
           method: 'PATCH',
           body: { status: 'IMPORTED', target_entity_id: targetId },
         });
-
         importedCount++;
+
       } else if (batch.entity_type === 'SITE') {
-        // Resolve parent client
         let clientOrgId = session.orgId;
         let clientAccountId: string | null = mapped.client_account_id || null;
         if (!clientAccountId && mapped.parent_client_external_id) {
@@ -811,11 +1047,8 @@ export async function commitImport(
           clientAccountId = clientFind.data?.[0]?.id || null;
           clientOrgId = clientFind.data?.[0]?.organisation_id || session.orgId;
         }
-
         if (!clientAccountId && mapped.parent_client_name) {
-          const clientFindByName = await dbQuery<any[]>(
-            `organisations?name=ilike.%${mapped.parent_client_name}%&select=id`
-          );
+          const clientFindByName = await dbQuery<any[]>(`organisations?name=ilike.%${mapped.parent_client_name}%&select=id`);
           if (clientFindByName.data?.[0]?.id) {
             clientOrgId = clientFindByName.data[0].id;
             const caRes = await dbQuery<any[]>(`client_accounts?organisation_id=eq.${clientOrgId}&select=id`);
@@ -824,7 +1057,6 @@ export async function commitImport(
         }
 
         const siteCode = mapped.site_code || `STE-${extId || Math.floor(1000 + Math.random() * 9000)}`;
-
         const siteRes = await dbQuery<any[]>('sites', {
           method: 'POST',
           body: {
@@ -850,15 +1082,13 @@ export async function commitImport(
 
         const targetId = siteRes.data?.[0]?.id || `site-${Date.now()}`;
         createdEntityIds.push(targetId);
-
         await dbQuery(`data_import_rows?id=eq.${row.id}`, {
           method: 'PATCH',
           body: { status: 'IMPORTED', target_entity_id: targetId },
         });
-
         importedCount++;
+
       } else if (batch.entity_type === 'CONTRACTOR') {
-        // Create canonical organisation
         const orgRes = await dbQuery<any[]>('organisations', {
           method: 'POST',
           body: {
@@ -882,15 +1112,13 @@ export async function commitImport(
         });
 
         const orgId = orgRes.data?.[0]?.id || `org-${Date.now()}`;
-
-        // Create unvetted provider organisation (is_active = false per security rules)
         const provRes = await dbQuery<any[]>('provider_organisations', {
           method: 'POST',
           body: {
             organisation_id: orgId,
             primary_trade: mapped.primary_trade || 'GENERAL_MAINTENANCE',
             vetting_status: 'PENDING',
-            is_active: false, // Imported contractors require explicit vetting
+            is_active: false,
             source_system: batch.source_system,
             external_id: extId || null,
             import_batch_id: batchId,
@@ -903,12 +1131,10 @@ export async function commitImport(
 
         const targetId = provRes.data?.[0]?.id || orgId;
         createdEntityIds.push(targetId);
-
         await dbQuery(`data_import_rows?id=eq.${row.id}`, {
           method: 'PATCH',
           body: { status: 'IMPORTED', target_entity_id: targetId },
         });
-
         importedCount++;
       }
     } catch (err: any) {
@@ -943,26 +1169,32 @@ export async function commitImport(
     after_state: {
       batch_reference: batch.batch_reference,
       imported_count: importedCount,
+      updated_count: updatedCount,
+      skipped_count: skippedCount,
+      blocked_count: blockedCount,
       error_count: errors.length,
     },
-    reason: `Committed ${importedCount} records for ${batch.entity_type} import`,
+    reason: `Committed ${importedCount} records, updated ${updatedCount} for ${batch.entity_type} import`,
   });
 
   return {
-    success: errors.length === 0,
+    success: errors.length === 0 && blockedCount === 0,
     batchId,
     batchReference: batch.batch_reference,
     importedCount,
+    updatedCount,
     skippedCount,
+    blockedCount,
     errorCount: errors.length,
     createdEntityIds,
     updatedEntityIds,
+    blockedRows: blockedRowsResult,
     errors,
   };
 }
 
 // =============================================================================
-// 7. ROLLBACK IMPORT
+// 7. ROLLBACK IMPORT (DEPENDENCY-AWARE)
 // =============================================================================
 
 export async function rollbackImport(
@@ -985,37 +1217,98 @@ export async function rollbackImport(
       rolledBackCount: batch.rolled_back_rows,
       blockedCount: 0,
       reasons: ['Batch was already rolled back.'],
+      blockedReasons: [],
     };
   }
 
-  let rolledBackCount = 0;
-  const reasons: string[] = [];
+  const importedRowsRes = await dbQuery<DataImportRow[]>(
+    `data_import_rows?batch_id=eq.${batchId}&status=eq.IMPORTED&select=*`
+  );
+  const importedRows = importedRowsRes.data || [];
 
-  if (batch.entity_type === 'CLIENT') {
-    // Delete client accounts and organisations linked to this batch
-    const clientDel = await dbQuery(`client_accounts?import_batch_id=eq.${batchId}`, { method: 'DELETE' });
-    const orgDel = await dbQuery(`organisations?import_batch_id=eq.${batchId}`, { method: 'DELETE' });
-    rolledBackCount = batch.imported_rows;
-  } else if (batch.entity_type === 'SITE') {
-    // Check if any work orders are attached to these sites
-    const siteDel = await dbQuery(`sites?import_batch_id=eq.${batchId}`, { method: 'DELETE' });
-    rolledBackCount = batch.imported_rows;
-  } else if (batch.entity_type === 'CONTRACTOR') {
-    const provDel = await dbQuery(`provider_organisations?import_batch_id=eq.${batchId}`, { method: 'DELETE' });
-    rolledBackCount = batch.imported_rows;
+  let rolledBackCount = 0;
+  let blockedCount = 0;
+  const reasons: string[] = [];
+  const blockedReasons: Array<{ entityId: string; entityType: string; reason: string }> = [];
+
+  for (const row of importedRows) {
+    const entityId = row.target_entity_id;
+    if (!entityId) continue;
+
+    let dependencyReason: string | null = null;
+
+    if (batch.entity_type === 'SITE') {
+      const woRes = await dbQuery<any[]>(`work_orders?site_id=eq.${entityId}&select=id&limit=1`);
+      if ((woRes.data || []).length > 0) {
+        dependencyReason = `Site has downstream Work Orders. Cannot automatically remove.`;
+      }
+      if (!dependencyReason) {
+        const assetRes = await dbQuery<any[]>(`assets?site_id=eq.${entityId}&select=id&limit=1`);
+        if ((assetRes.data || []).length > 0) {
+          dependencyReason = `Site has downstream Assets. Cannot automatically remove.`;
+        }
+      }
+      if (!dependencyReason) {
+        const ppmRes = await dbQuery<any[]>(`ppm_plans?site_id=eq.${entityId}&select=id&limit=1`);
+        if ((ppmRes.data || []).length > 0) {
+          dependencyReason = `Site has downstream PPM Plans. Cannot automatically remove.`;
+        }
+      }
+    } else if (batch.entity_type === 'CLIENT') {
+      const siteRes = await dbQuery<any[]>(`sites?organisation_id=eq.${entityId}&select=id&limit=1`);
+      if ((siteRes.data || []).length > 0) {
+        dependencyReason = `Client org has dependent Sites. Cannot automatically remove.`;
+      }
+    }
+
+    if (!dependencyReason) {
+      let currentRecord: any = null;
+      if (batch.entity_type === 'SITE') {
+        const recRes = await dbQuery<any[]>(`sites?id=eq.${entityId}&select=updated_at,imported_at,source_hash`);
+        currentRecord = recRes.data?.[0];
+      } else if (batch.entity_type === 'CLIENT' || batch.entity_type === 'CONTRACTOR') {
+        const recRes = await dbQuery<any[]>(`organisations?id=eq.${entityId}&select=updated_at,imported_at,source_hash`);
+        currentRecord = recRes.data?.[0];
+      }
+
+      if (currentRecord?.updated_at && currentRecord?.imported_at &&
+          new Date(currentRecord.updated_at).getTime() > new Date(currentRecord.imported_at).getTime() + 1000) {
+        dependencyReason = `Record was manually edited after import (updated_at: ${currentRecord.updated_at}). Rollback would destroy post-import enrichment.`;
+      }
+    }
+
+    if (dependencyReason) {
+      blockedCount++;
+      blockedReasons.push({ entityId, entityType: batch.entity_type, reason: dependencyReason });
+      await dbQuery(`data_import_rows?id=eq.${row.id}`, {
+        method: 'PATCH',
+        body: { status: 'ROLLBACK_BLOCKED' },
+      });
+      reasons.push(`Row ${row.row_index}: BLOCKED — ${dependencyReason}`);
+    } else {
+      if (batch.entity_type === 'SITE') {
+        await dbQuery(`sites?id=eq.${entityId}`, { method: 'DELETE' });
+      } else if (batch.entity_type === 'CLIENT') {
+        await dbQuery(`client_accounts?import_batch_id=eq.${batchId}`, { method: 'DELETE' });
+        await dbQuery(`organisations?id=eq.${entityId}`, { method: 'DELETE' });
+      } else if (batch.entity_type === 'CONTRACTOR') {
+        await dbQuery(`provider_organisations?import_batch_id=eq.${batchId}`, { method: 'DELETE' });
+        await dbQuery(`organisations?id=eq.${entityId}`, { method: 'DELETE' });
+      }
+      rolledBackCount++;
+      await dbQuery(`data_import_rows?id=eq.${row.id}`, {
+        method: 'PATCH',
+        body: { status: 'ROLLED_BACK' },
+      });
+    }
   }
 
-  // Update rows to ROLLED_BACK
-  await dbQuery(`data_import_rows?batch_id=eq.${batchId}&status=eq.IMPORTED`, {
-    method: 'PATCH',
-    body: { status: 'ROLLED_BACK' },
-  });
+  const newBatchStatus = blockedCount > 0 ? (rolledBackCount > 0 ? 'COMPLETED_WITH_ERRORS' : 'FAILED') : 'ROLLED_BACK';
 
-  // Update batch
   await dbQuery(`data_import_batches?id=eq.${batchId}`, {
     method: 'PATCH',
     body: {
-      status: 'ROLLED_BACK',
+      status: newBatchStatus,
       rolled_back_rows: rolledBackCount,
       rolled_back_by_person_id: session.personId,
       rolled_back_at: new Date().toISOString(),
@@ -1030,17 +1323,240 @@ export async function rollbackImport(
     organisation_id: session.orgId,
     object_type: 'data_import_batch',
     object_id: batchId,
-    after_state: { batch_reference: batch.batch_reference, rolled_back_count: rolledBackCount },
-    reason: `Rolled back import batch ${batch.batch_reference}`,
+    after_state: {
+      batch_reference: batch.batch_reference,
+      rolled_back_count: rolledBackCount,
+      blocked_count: blockedCount,
+    },
+    reason: `Rolled back import batch ${batch.batch_reference}: ${rolledBackCount} removed, ${blockedCount} blocked`,
   });
 
   return {
-    success: true,
+    success: blockedCount === 0,
     batchId,
     batchReference: batch.batch_reference,
     rolledBackCount,
-    blockedCount: 0,
-    reasons: [`Successfully removed ${rolledBackCount} imported records.`],
+    blockedCount,
+    reasons,
+    blockedReasons,
+  };
+}
+
+// =============================================================================
+// 7b. DUPLICATE RESOLUTION, ROW DIFF & ROLLBACK SAFETY PRE-FLIGHT
+// =============================================================================
+
+/**
+ * Records human reviewer decision for a POSSIBLE_DUPLICATE or CONFLICT import row.
+ */
+export async function resolveImportDuplicate(
+  input: {
+    batchId: string;
+    rowId: string;
+    decision: DuplicateDecisionChoice;
+    candidateEntityId?: string;
+    notes?: string;
+  },
+  session: UserSession
+): Promise<{ success: boolean; decisionId: string }> {
+  if (!hasPermission(session, 'data_import:map') && !hasPermission(session, 'data_import:admin')) {
+    throw new Error('Permission denied: data_import:map required to resolve import duplicates.');
+  }
+
+  const { batchId, rowId, decision, candidateEntityId, notes } = input;
+
+  const rowRes = await dbQuery<DataImportRow[]>(`data_import_rows?id=eq.${rowId}&select=*`);
+  const row = rowRes.data?.[0];
+  if (!row) throw new Error(`Import row '${rowId}' not found.`);
+
+  const importedName = row.mapped_data?.name || row.mapped_data?.company_name || `Row #${row.row_index}`;
+  const matchReason = row.match_reason || 'Manual review resolution';
+
+  let candidateName = '';
+  if (candidateEntityId) {
+    const orgRes = await dbQuery<any[]>(`organisations?id=eq.${candidateEntityId}&select=name`);
+    if (orgRes.data?.[0]?.name) {
+      candidateName = orgRes.data[0].name;
+    } else {
+      const siteRes = await dbQuery<any[]>(`sites?id=eq.${candidateEntityId}&select=name`);
+      candidateName = siteRes.data?.[0]?.name || '';
+    }
+  }
+
+  const decRes = await dbQuery<DataImportDuplicateDecision[]>('data_import_duplicate_decisions', {
+    method: 'POST',
+    body: {
+      batch_id: batchId,
+      row_id: rowId,
+      imported_name: importedName,
+      candidate_entity_id: candidateEntityId || row.matched_entity_id || null,
+      candidate_name: candidateName || null,
+      match_reason: matchReason,
+      decision,
+      decided_by_person_id: session.personId,
+      notes: notes || null,
+    },
+    headers: { Prefer: 'return=representation' },
+  });
+
+  const decisionId = decRes.data?.[0]?.id || `dec-${Date.now()}`;
+
+  await recordAuditEvent({
+    event_type: 'DATA_IMPORT_DUPLICATE_DECISION_RECORDED',
+    actor_id: session.personId,
+    actor_type: 'HUMAN',
+    organisation_id: session.orgId,
+    object_type: 'data_import_duplicate_decision',
+    object_id: decisionId,
+    after_state: {
+      batch_id: batchId,
+      row_id: rowId,
+      decision,
+      imported_name: importedName,
+      candidate_entity_id: candidateEntityId,
+    },
+    reason: `Resolved duplicate for row #${row.row_index} (${importedName}) with decision: ${decision}`,
+  });
+
+  return { success: true, decisionId };
+}
+
+/**
+ * Retrieves the field-level change diff and conflict details for an import row.
+ */
+export async function getImportRowDiff(
+  batchId: string,
+  rowId: string,
+  session: UserSession
+): Promise<{
+  rowId: string;
+  rowIndex: number;
+  status: DataImportRowStatus;
+  externalId?: string;
+  matchedEntityId?: string;
+  matchReason?: string;
+  changeDiff: ImportFieldDiff[];
+  conflictDetails: ImportConflictDetail[];
+  preImportSnapshot?: Record<string, any>;
+}> {
+  if (!hasPermission(session, 'data_import:view') && !hasPermission(session, 'data_import:admin')) {
+    throw new Error('Permission denied: data_import:view required.');
+  }
+
+  const rowRes = await dbQuery<DataImportRow[]>(`data_import_rows?id=eq.${rowId}&batch_id=eq.${batchId}&select=*`);
+  const row = rowRes.data?.[0];
+  if (!row) throw new Error(`Import row '${rowId}' not found.`);
+
+  let changeDiff: ImportFieldDiff[] = [];
+  if (row.change_diff) {
+    changeDiff = typeof row.change_diff === 'string' ? JSON.parse(row.change_diff) : row.change_diff;
+  }
+  let conflictDetails: ImportConflictDetail[] = [];
+  if (row.conflict_details) {
+    conflictDetails = typeof row.conflict_details === 'string' ? JSON.parse(row.conflict_details) : row.conflict_details;
+  }
+  let preImportSnapshot: Record<string, any> | undefined;
+  if (row.pre_import_snapshot) {
+    preImportSnapshot = typeof row.pre_import_snapshot === 'string' ? JSON.parse(row.pre_import_snapshot) : row.pre_import_snapshot;
+  }
+
+  return {
+    rowId: row.id,
+    rowIndex: row.row_index,
+    status: row.status,
+    externalId: row.external_id,
+    matchedEntityId: row.matched_entity_id,
+    matchReason: row.match_reason,
+    changeDiff: changeDiff || [],
+    conflictDetails: conflictDetails || [],
+    preImportSnapshot,
+  };
+}
+
+/**
+ * Pre-flight check: evaluates whether an import batch can be safely rolled back.
+ */
+export async function checkRollbackSafety(
+  batchId: string,
+  session: UserSession
+): Promise<{
+  canSafelyRollback: boolean;
+  importedCount: number;
+  safeCount: number;
+  blockedCount: number;
+  blockedReasons: Array<{ entityId: string; entityType: string; reason: string }>;
+}> {
+  if (!hasPermission(session, 'data_import:view') && !hasPermission(session, 'data_import:admin')) {
+    throw new Error('Permission denied: data_import:view required.');
+  }
+
+  const batchRes = await dbQuery<DataImportBatch[]>(`data_import_batches?id=eq.${batchId}&select=*`);
+  const batch = batchRes.data?.[0];
+  if (!batch) throw new Error(`Import batch '${batchId}' not found.`);
+
+  const importedRowsRes = await dbQuery<DataImportRow[]>(
+    `data_import_rows?batch_id=eq.${batchId}&status=eq.IMPORTED&select=*`
+  );
+  const importedRows = importedRowsRes.data || [];
+
+  let safeCount = 0;
+  let blockedCount = 0;
+  const blockedReasons: Array<{ entityId: string; entityType: string; reason: string }> = [];
+
+  for (const row of importedRows) {
+    const entityId = row.target_entity_id;
+    if (!entityId) continue;
+
+    let dependencyReason: string | null = null;
+
+    if (batch.entity_type === 'SITE') {
+      const woRes = await dbQuery<any[]>(`work_orders?site_id=eq.${entityId}&select=id&limit=1`);
+      if ((woRes.data || []).length > 0) {
+        dependencyReason = `Site has downstream Work Orders. Cannot automatically remove.`;
+      }
+      if (!dependencyReason) {
+        const assetRes = await dbQuery<any[]>(`assets?site_id=eq.${entityId}&select=id&limit=1`);
+        if ((assetRes.data || []).length > 0) {
+          dependencyReason = `Site has downstream Assets. Cannot automatically remove.`;
+        }
+      }
+    } else if (batch.entity_type === 'CLIENT') {
+      const siteRes = await dbQuery<any[]>(`sites?organisation_id=eq.${entityId}&select=id&limit=1`);
+      if ((siteRes.data || []).length > 0) {
+        dependencyReason = `Client org has dependent Sites. Cannot automatically remove.`;
+      }
+    }
+
+    if (!dependencyReason) {
+      let currentRecord: any = null;
+      if (batch.entity_type === 'SITE') {
+        const recRes = await dbQuery<any[]>(`sites?id=eq.${entityId}&select=updated_at,imported_at`);
+        currentRecord = recRes.data?.[0];
+      } else if (batch.entity_type === 'CLIENT' || batch.entity_type === 'CONTRACTOR') {
+        const recRes = await dbQuery<any[]>(`organisations?id=eq.${entityId}&select=updated_at,imported_at`);
+        currentRecord = recRes.data?.[0];
+      }
+
+      if (currentRecord?.updated_at && currentRecord?.imported_at &&
+          new Date(currentRecord.updated_at).getTime() > new Date(currentRecord.imported_at).getTime() + 1000) {
+        dependencyReason = `Record was manually edited after import (updated_at: ${currentRecord.updated_at}).`;
+      }
+    }
+
+    if (dependencyReason) {
+      blockedCount++;
+      blockedReasons.push({ entityId, entityType: batch.entity_type, reason: dependencyReason });
+    } else {
+      safeCount++;
+    }
+  }
+
+  return {
+    canSafelyRollback: blockedCount === 0,
+    importedCount: importedRows.length,
+    safeCount,
+    blockedCount,
+    blockedReasons,
   };
 }
 
@@ -1127,7 +1643,7 @@ export async function getDataStatus(_session: UserSession): Promise<DataStatusSu
     sitesCount: sitesRes.data?.length || 0,
     contractorsCount: contractorsRes.data?.length || 0,
     assetsCount: assetsRes.data?.length || 0,
-    mockRecordsCount: 0, // Strict zero fake data guarantee
+    mockRecordsCount: 0,
     totalImportBatches: batches.length,
     completedBatches: completed,
     pendingBatches: pending,
@@ -1171,6 +1687,7 @@ export async function listMappingTemplates(
   const query = entityType
     ? `data_import_mappings?entity_type=eq.${entityType}&select=*&order=created_at.desc`
     : 'data_import_mappings?select=*&order=created_at.desc';
+
   const res = await dbQuery<DataImportMapping[]>(query);
   return res.data || [];
 }

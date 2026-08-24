@@ -28,6 +28,7 @@
     "test:compliance-intelligence": "tsx scripts/test-compliance-intelligence.ts",
     "test:phase0j-addendum": "tsx scripts/test-phase0j-addendum.ts",
     "test:phase0i-pre": "tsx scripts/test-phase0i-pre.ts",
+    "test:import-safety": "tsx scripts/test-import-safety.ts",
     "test:seo": "jest --testPathPattern=__tests__/seo",
     "verify:contacts": "node scripts/verify-contacts.js",
     "verify:lead-pipeline": "node scripts/verify-lead-pipeline.js",

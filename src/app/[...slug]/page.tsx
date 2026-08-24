@@ -34,9 +34,8 @@ function resolveSlugPath(slug: string[]): string {
   const decoded = `/${slug.join('/')}`;
   // Fast path: most routes resolve with the decoded form
   if (getRoute(decoded)) return decoded;
-  // Re-encode known historic punctuation that Next.js silently decodes
   const reEncoded = `/${slug
-    .map(segment =>
+    .map((segment) =>
       segment
         .replace(/&/g, '%26')
         .replace(/,/g, '%2C')
@@ -45,10 +44,26 @@ function resolveSlugPath(slug: string[]): string {
   return reEncoded;
 }
 
+const DEDICATED_APP_PREFIXES = [
+  '/client-portal',
+  '/admin',
+  '/api',
+  '/client',
+  '/clients',
+  '/contractor',
+  '/engineer',
+  '/login',
+  '/legal',
+];
+
 export async function generateStaticParams() {
   return ALL_ROUTES
-    .filter(r => r.path !== '/')
-    .map(r => ({
+    .filter(
+      (r) =>
+        r.path !== '/' &&
+        !DEDICATED_APP_PREFIXES.some((p) => r.path === p || r.path.startsWith(`${p}/`))
+    )
+    .map((r) => ({
       // Split path into segments preserving encoded characters (%26, %2C etc.)
       // so Next.js generates the static file at the encoded URL.
       slug: r.path.replace(/^\//, '').split('/'),

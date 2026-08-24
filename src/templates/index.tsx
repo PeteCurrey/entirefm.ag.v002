@@ -51,6 +51,10 @@ import { TemplateCaseStudiesHub } from './resources/TemplateCaseStudiesHub';
 import { TemplateSectorsHub } from './resources/TemplateSectorsHub';
 import { TemplateFmBriefing } from './resources/TemplateFmBriefing';
 import { TemplateUnsubscribe } from './resources/TemplateUnsubscribe';
+import { TemplateClientPortal } from './client-portal/TemplateClientPortal';
+import { TemplateRealTimeOperations } from './client-portal/TemplateRealTimeOperations';
+import { TemplateComplianceReporting } from './client-portal/TemplateComplianceReporting';
+import { TemplateSite360 } from './client-portal/TemplateSite360';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const content = loadContentRecord(route.path);
@@ -116,6 +120,20 @@ function selectTemplate(
     path === '/client-login/account-registration'
   ) {
     return <TemplateHelpdesk route={route} content={content} />;
+  }
+
+  // 5b. EntireCAFM Client Portal Suite
+  if (path === '/client-portal') {
+    return <TemplateClientPortal />;
+  }
+  if (path === '/client-portal/real-time-operations') {
+    return <TemplateRealTimeOperations />;
+  }
+  if (path === '/client-portal/compliance-reporting') {
+    return <TemplateComplianceReporting />;
+  }
+  if (path === '/client-portal/site-360') {
+    return <TemplateSite360 />;
   }
 
   // 6. Supply Chain, Marketplace & Partner Network
