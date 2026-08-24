@@ -281,6 +281,27 @@ export function CbreLogo({ className = 'h-7 w-auto' }: { className?: string }) {
   );
 }
 
+export function BnpParibasLogo({ className = 'h-7 w-auto' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 175 44" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="BNP Paribas Real Estate">
+      <g>
+        {/* BNP Paribas Signature Green Badge with 4 Dynamic Flight Stars */}
+        <rect x="4" y="6" width="30" height="30" rx="3" fill="#00965E" />
+        <path d="M10 24 L14 18 L18 20 L15 26 Z" fill="#FFFFFF" opacity="0.9" />
+        <path d="M14 17 L19 12 L22 15 L18 19 Z" fill="#FFFFFF" />
+        <path d="M19 12 L25 8 L27 11 L22 14 Z" fill="#FFFFFF" />
+        <circle cx="28" cy="8" r="1.5" fill="#FFFFFF" />
+        <text x="40" y="19" fontFamily="system-ui, -apple-system, sans-serif" fontSize="10" fontWeight="900" letterSpacing="0.02em" fill="#0B1220">
+          BNP PARIBAS
+        </text>
+        <text x="40" y="31" fontFamily="system-ui, -apple-system, sans-serif" fontSize="8" fontWeight="700" letterSpacing="0.1em" fill="#00965E">
+          REAL ESTATE
+        </text>
+      </g>
+    </svg>
+  );
+}
+
 export function KnightFrankLogo({ className = 'h-7 w-auto' }: { className?: string }) {
   return (
     <svg viewBox="0 0 170 44" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="Knight Frank">
@@ -311,6 +332,7 @@ export const VERIFIED_CLIENTS: ClientRosterItem[] = [
   { id: 'jll', name: 'JLL', category: 'Commercial Real Estate & Property Management', Logo: JllLogo },
   { id: 'cbre', name: 'CBRE', category: 'Global Real Estate & Facilities Services', Logo: CbreLogo },
   { id: 'cushman-wakefield', name: 'Cushman & Wakefield', category: 'Commercial Real Estate & Estates', Logo: CushmanWakefieldLogo },
+  { id: 'bnp-paribas', name: 'BNP Paribas Real Estate', category: 'Commercial Real Estate & Asset Management', Logo: BnpParibasLogo },
   { id: 'knight-frank', name: 'Knight Frank', category: 'Commercial Real Estate & Managing Agent', Logo: KnightFrankLogo },
   { id: 'lambert-smith-hampton', name: 'Lambert Smith Hampton', category: 'Managing Agent & Commercial Property', Logo: LambertSmithHamptonLogo },
   { id: 'forged-solutions', name: 'Forged Solutions Group', category: 'Aerospace & Industrial Engineering', Logo: ForgedSolutionsLogo },

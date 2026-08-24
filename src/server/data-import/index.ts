@@ -9,10 +9,11 @@ import { createHash } from 'node:crypto';
 import { dbQuery } from '../db/client';
 import { recordAuditEvent } from '../audit';
 import { UserSession, hasPermission } from '../identity';
-import {
+import type {
   DataImportBatch,
   DataImportFile,
   DataImportRow,
+  DataImportRowStatus,
   DataImportMapping,
   DataImportIssue,
   DataImportEntityType,
@@ -23,7 +24,8 @@ import {
   DataStatusSummary,
 } from './types';
 
-export * from './types';
+export type * from './types';
+
 
 // =============================================================================
 // 1. CSV PARSING & FORMULA INJECTION SANITISATION

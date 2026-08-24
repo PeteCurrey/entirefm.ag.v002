@@ -39,7 +39,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-GB" className={inter.variable}>
+      <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRM7HJMM4Q" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-NRM7HJMM4Q');
+            `,
+          }}
+        />
+      </head>
       <body>
+
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-brand-graphite focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white"
