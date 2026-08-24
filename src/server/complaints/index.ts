@@ -4,7 +4,7 @@
  * Single Source of Truth for:
  * 1. Multi-category complaint intake & routing (Service, Contractor, Billing, H&S, Data Privacy, AI, Accessibility, Speak Up).
  * 2. Prefix-aware reference generation (EFM-CMP-, DPC-, SPK-).
- * 3. SLA & statutory response tracking.
+ * 3. Separation of statutory obligations from internal operational targets.
  * 4. Role-based restricted access (Speak Up & Sensitive DPO complaints shielded from operational staff).
  * 5. Full forensic audit logging.
  */
@@ -68,11 +68,13 @@ export interface ComplaintRecord {
   desired_resolution: string;
   status: ComplaintStatus;
   received_at: string;
-  acknowledgement_due_at: string;
-  acknowledged_at?: string;
-  response_target_at: string;
-  resolved_at?: string;
-  closed_at?: string;
+  // Distinct separation between statutory rules and internal operational service targets:
+  statutory_acknowledgement_due_at?: string;
+  internal_acknowledgement_target_at: string;
+  investigation_started_at?: string;
+  last_complainant_update_at?: string;
+  outcome_issued_at?: string;
+  next_action_due_at: string;
   resolution_summary?: string;
   assigned_investigator_id?: string;
   assigned_investigator_name?: string;
@@ -100,8 +102,8 @@ export const CATEGORY_ROUTING: Record<
     team: InternalTeam;
     prefix: string;
     privacyClass: 'INTERNAL' | 'CONFIDENTIAL' | 'RESTRICTED';
-    ackTargetDays: number;
-    responseTargetDays: number;
+    internalAckTargetDays: number;
+    internalResponseTargetDays: number;
     statutoryNotice?: string;
   }
 > = {
@@ -109,60 +111,60 @@ export const CATEGORY_ROUTING: Record<
     team: 'OPERATIONS',
     prefix: 'EFM-CMP',
     privacyClass: 'INTERNAL',
-    ackTargetDays: 2,
-    responseTargetDays: 10,
+    internalAckTargetDays: 2,
+    internalResponseTargetDays: 10,
   },
   CONTRACTOR: {
     team: 'SUPPLY_CHAIN',
     prefix: 'EFM-CMP',
     privacyClass: 'INTERNAL',
-    ackTargetDays: 2,
-    responseTargetDays: 7,
+    internalAckTargetDays: 2,
+    internalResponseTargetDays: 7,
   },
   BILLING: {
     team: 'FINANCE',
     prefix: 'EFM-CMP',
     privacyClass: 'CONFIDENTIAL',
-    ackTargetDays: 2,
-    responseTargetDays: 10,
+    internalAckTargetDays: 2,
+    internalResponseTargetDays: 10,
   },
   HEALTH_SAFETY: {
     team: 'QHSE_SAFETY',
     prefix: 'EFM-CMP',
     privacyClass: 'CONFIDENTIAL',
-    ackTargetDays: 1,
-    responseTargetDays: 5,
-    statutoryNotice: 'Immediate notification to Head of QHSE. RIDDOR assessment triggered for critical safety incidents.',
+    internalAckTargetDays: 1,
+    internalResponseTargetDays: 5,
+    statutoryNotice: 'Immediate notification to Head of QHSE. Formal RIDDOR assessment triggered for critical safety incidents.',
   },
   DATA_PROTECTION: {
     team: 'DPO_PRIVACY',
     prefix: 'DPC',
     privacyClass: 'CONFIDENTIAL',
-    ackTargetDays: 3,
-    responseTargetDays: 30, // Statutory 1 month (UK GDPR Art 12(3))
-    statutoryNotice: 'Statutory 1-month response window under UK GDPR Article 12(3) and Data Protection Act 2018.',
+    internalAckTargetDays: 2,
+    internalResponseTargetDays: 14,
+    statutoryNotice: 'Handled under the UK GDPR and Data Protection Act 2018. Enquiries investigated without undue delay.',
   },
   AI_GOVERNANCE: {
     team: 'AI_GOVERNANCE',
     prefix: 'EFM-CMP',
     privacyClass: 'CONFIDENTIAL',
-    ackTargetDays: 2,
-    responseTargetDays: 10,
-    statutoryNotice: 'Article 22 UK GDPR / DUA Act 2025 non-automated human review guarantee.',
+    internalAckTargetDays: 2,
+    internalResponseTargetDays: 10,
+    statutoryNotice: 'Article 22 UK GDPR human review and intervention pathway.',
   },
   ACCESSIBILITY: {
     team: 'ACCESSIBILITY_LEAD',
     prefix: 'EFM-CMP',
     privacyClass: 'INTERNAL',
-    ackTargetDays: 2,
-    responseTargetDays: 5,
+    internalAckTargetDays: 2,
+    internalResponseTargetDays: 5,
   },
   WHISTLEBLOWING: {
     team: 'INDEPENDENT_DIRECTORS',
     prefix: 'SPK',
     privacyClass: 'RESTRICTED',
-    ackTargetDays: 2,
-    responseTargetDays: 14,
+    internalAckTargetDays: 2,
+    internalResponseTargetDays: 14,
     statutoryNotice: 'Protected disclosure under Public Interest Disclosure Act 1998 (PIDA) & Employment Rights Act 1996. RESTRICTED ACCESS.',
   },
 };
@@ -199,13 +201,18 @@ export async function createComplaintRecord(payload: {
 }): Promise<{ record: Partial<ComplaintRecord>; reference: string }> {
   const routing = CATEGORY_ROUTING[payload.category];
   const reference = generateComplaintReference(payload.category);
-  const now = Date.now();
-  const receivedAt = new Date(now).toISOString();
+  const now = new Date();
+  const receivedAt = now.toISOString();
 
-  const ackDue = new Date(now + routing.ackTargetDays * 24 * 60 * 60 * 1000).toISOString();
-  const respDue = new Date(now + routing.responseTargetDays * 24 * 60 * 60 * 1000).toISOString();
+  // Calculate internal operational target dates
+  const ackTarget = new Date(now);
+  ackTarget.setDate(ackTarget.getDate() + routing.internalAckTargetDays);
 
-  const complaint: Partial<ComplaintRecord> = {
+  const responseTarget = new Date(now);
+  responseTarget.setDate(responseTarget.getDate() + routing.internalResponseTargetDays);
+
+  const record: ComplaintRecord = {
+    id: `cmp_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
     reference,
     category: payload.category,
     sub_category: payload.sub_category,
@@ -219,15 +226,15 @@ export async function createComplaintRecord(payload: {
     phone: payload.phone,
     organisation_name: payload.organisation_name,
     relationship: payload.relationship,
-    severity: payload.severity || 'MEDIUM',
+    severity: payload.severity || (payload.category === 'HEALTH_SAFETY' ? 'HIGH' : 'LOW'),
     responsible_team: routing.team,
     privacy_class: routing.privacyClass,
     description: payload.description,
     desired_resolution: payload.desired_resolution,
     status: 'RECEIVED',
     received_at: receivedAt,
-    acknowledgement_due_at: ackDue,
-    response_target_at: respDue,
+    internal_acknowledgement_target_at: ackTarget.toISOString(),
+    next_action_due_at: ackTarget.toISOString(),
     created_at: receivedAt,
     updated_at: receivedAt,
   };
@@ -235,54 +242,49 @@ export async function createComplaintRecord(payload: {
   try {
     await dbQuery('complaints', {
       method: 'POST',
-      body: complaint,
+      body: record,
     });
   } catch {
-    console.log('[COMPLAINT_CREATED_LOG]', complaint);
+    console.log('[COMPLAINT_DB_FALLBACK_RECORD]', record);
   }
 
-  // Record audit ledger event
+  // Audit Ledger Entry
   await recordAuditEvent({
     event_type: 'COMPLAINT_REGISTERED',
     object_type: 'COMPLAINT',
     object_id: reference,
-    reason: `Formal ${payload.category} complaint registered: ${reference}`,
+    reason: `Complaint formally logged in category ${payload.category} (${reference})`,
     source: payload.source || 'PUBLIC_WEB',
-    after_state: { reference, category: payload.category, responsible_team: routing.team },
+    after_state: { reference, category: payload.category, team: routing.team },
   });
 
-  return { record: complaint, reference };
+  return { record, reference };
 }
 
 /**
- * List complaints with role-based restriction guards
- * Speak Up (WHISTLEBLOWING) and RESTRICTED complaints are strictly shielded from normal operations users.
+ * List live complaints with strict RBAC shielding for Speak Up (Whistleblowing)
  */
 export async function listComplaintsForAdmin(
   session: UserSession,
-  filters?: { category?: ComplaintCategory; status?: ComplaintStatus }
+  category?: ComplaintCategory
 ): Promise<ComplaintRecord[]> {
-  // Access check: only authorized management roles can view Restricted Speak Up complaints
-  const canViewRestricted =
+  const isExecutive =
     session.role === 'SUPER_ADMIN' ||
     session.role === 'CEO' ||
     session.role === 'DIRECTOR' ||
     session.role === 'COMPLIANCE_MANAGER';
 
   let endpoint = 'complaints?select=*&order=received_at.desc';
-
-  if (!canViewRestricted) {
-    // Shield RESTRICTED and WHISTLEBLOWING cases from ordinary dispatchers/helpdesk
-    endpoint += `&privacy_class=neq.RESTRICTED&category=neq.WHISTLEBLOWING`;
-  }
-
-  if (filters?.category) {
-    endpoint += `&category=eq.${encodeURIComponent(filters.category)}`;
-  }
-  if (filters?.status) {
-    endpoint += `&status=eq.${encodeURIComponent(filters.status)}`;
+  if (category) {
+    endpoint += `&category=eq.${encodeURIComponent(category)}`;
   }
 
   const { data } = await dbQuery<ComplaintRecord[]>(endpoint);
-  return data || [];
+  const records = data || [];
+
+  if (!isExecutive) {
+    return records.filter((r) => r.privacy_class !== 'RESTRICTED' && r.category !== 'WHISTLEBLOWING');
+  }
+
+  return records;
 }

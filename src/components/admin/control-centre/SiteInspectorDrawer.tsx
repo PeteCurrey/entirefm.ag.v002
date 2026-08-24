@@ -90,16 +90,22 @@ export function SiteInspectorDrawer({
 
           <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F5F5F3] p-3 text-center">
             <div className="text-[10px] text-[#686866] uppercase">Compliance</div>
-            <div className="text-2xl font-light text-[#15803D] mt-1 tabular-nums">
-              {site.compliancePercent?.toFixed(1) || '98.4'}%
+            <div className={`text-2xl font-light mt-1 tabular-nums ${
+              site.compliancePercent !== undefined && site.compliancePercent !== null
+                ? site.compliancePercent >= 95 ? 'text-[#15803D]' : 'text-[#D97706]'
+                : 'text-[#9B9B97]'
+            }`}>
+              {site.compliancePercent !== undefined && site.compliancePercent !== null
+                ? `${site.compliancePercent.toFixed(1)}%`
+                : '—'}
             </div>
-            <div className="text-[10px] text-[#15803D] mt-0.5">Assured</div>
+            <div className="text-[10px] text-[#686866] mt-0.5">Assured</div>
           </div>
 
           <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F5F5F3] p-3 text-center">
             <div className="text-[10px] text-[#686866] uppercase">Engineers on Site</div>
             <div className="text-2xl font-light text-[#FF6B24] mt-1 tabular-nums">
-              {site.engineersPresent || 0}
+              {site.engineersPresent ?? '—'}
             </div>
             <div className="text-[10px] text-[#686866] mt-0.5">Active Passes</div>
           </div>
@@ -108,13 +114,13 @@ export function SiteInspectorDrawer({
         {/* Site Profile & Access Rules */}
         <div className="rounded-[12px] border border-[#E4E4E1] bg-[#FFFFFF] p-4 space-y-3">
           <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#686866]">
-            FACILITY PROFILE & ACCESS PROTOCOLS
+            FACILITY PROFILE &amp; ACCESS PROTOCOLS
           </h3>
           <div className="grid grid-cols-2 gap-3 text-[12.5px]">
             <div>
               <span className="text-[#9B9B97] text-[11px] block">Client Portfolio</span>
               <span className="font-medium text-[#101010]">
-                {site.client_account?.name || 'Primary Corporate Estate'}
+                {(site as any).client_account?.name || '—'}
               </span>
             </div>
             <div>
@@ -126,54 +132,53 @@ export function SiteInspectorDrawer({
             <div>
               <span className="text-[#9B9B97] text-[11px] block">Coordinates</span>
               <span className="font-mono text-[11.5px] text-[#101010]">
-                {site.latitude ? `${site.latitude.toFixed(4)}, ${site.longitude?.toFixed(4)}` : '53.4808° N, 2.2426° W'}
+                {(site as any).latitude
+                  ? `${Number((site as any).latitude).toFixed(4)}, ${Number((site as any).longitude).toFixed(4)}`
+                  : '—'}
               </span>
             </div>
             <div>
-              <span className="text-[#9B9B97] text-[11px] block">Operating Hours</span>
-              <span className="font-medium text-[#101010]">24/7 Access (Keyholder on file)</span>
+              <span className="text-[#9B9B97] text-[11px] block">Status</span>
+              <span className="font-medium text-[#101010]">{site.status}</span>
             </div>
           </div>
         </div>
 
-        {/* Live Active Work Orders List */}
+        {/* Active Work Orders — no fake data */}
         <div className="space-y-2.5">
           <div className="flex items-center justify-between">
             <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#686866]">
-              ACTIVE INCIDENTS & WORK ORDERS
+              ACTIVE INCIDENTS &amp; WORK ORDERS
             </h3>
             <span className="font-mono text-[11px] text-[#9B9B97]">
-              {site.openJobsCount || 0} active
+              {site.openJobsCount ?? 0} active
             </span>
           </div>
 
-          <div className="space-y-2">
-            <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-3 text-[12.5px]">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10.5px] text-[#9B9B97]">WO-84920</span>
-                <Badge variant="red" size="xs">P1 CRITICAL</Badge>
-              </div>
-              <div className="font-medium text-[#101010] mt-1">
-                Boiler Plant Primary Circulation Pump Trip
-              </div>
-              <div className="text-[11.5px] text-[#686866] mt-0.5">
-                Plant Room Level -1 · Target Resolution: 42 min remaining
-              </div>
+          {(site.openJobsCount ?? 0) === 0 ? (
+            <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-4 text-center">
+              <p className="text-[12.5px] text-[#9B9B97]">No active work orders at this site.</p>
+              <Link
+                href={`/admin/operations/work-orders?siteId=${site.id}`}
+                className="mt-2 inline-flex items-center gap-1 text-[12px] font-medium text-[#FF6B24] hover:underline"
+              >
+                <Plus className="h-3.5 w-3.5" /> Create Work Order
+              </Link>
             </div>
-
-            <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-3 text-[12.5px]">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10.5px] text-[#9B9B97]">PPM-30194</span>
-                <Badge variant="blue" size="xs">SCHEDULED PPM</Badge>
+          ) : (
+            <Link
+              href={`/admin/operations/work-orders?siteId=${site.id}`}
+              className="flex items-center justify-between rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-3.5 hover:border-[#D0D0CD] transition-colors"
+            >
+              <div className="flex items-center gap-2.5">
+                <Wrench className="h-4 w-4 text-[#FF6B24]" />
+                <span className="text-[13px] font-medium text-[#101010]">
+                  {site.openJobsCount} open work order{site.openJobsCount !== 1 ? 's' : ''}
+                </span>
               </div>
-              <div className="font-medium text-[#101010] mt-1">
-                Quarterly Air Handling Unit (AHU-01) Filter & Belt Inspection
-              </div>
-              <div className="text-[11.5px] text-[#686866] mt-0.5">
-                Roof Deck Plant Area · Scheduled for today 14:00
-              </div>
-            </div>
-          </div>
+              <span className="text-[12px] font-medium text-[#FF6B24]">View All →</span>
+            </Link>
+          )}
         </div>
       </div>
     </Drawer>

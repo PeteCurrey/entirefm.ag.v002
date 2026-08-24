@@ -6,7 +6,8 @@ import { LegalLayout } from '@/components/legal/LegalLayout';
 import { LegalCallout } from '@/components/legal/LegalCallout';
 import { HumanAiResponsibilityModel } from '@/components/legal/HumanAiResponsibilityModel';
 import { DataProtectionComplaintForm } from '@/components/legal/DataProtectionComplaintForm';
-import { SUBPROCESSOR_REGISTER, COOKIE_INVENTORY } from '@/config/legal';
+import { PUBLIC_SUBPROCESSOR_REGISTER, COOKIE_INVENTORY } from '@/config/legal';
+
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -133,18 +134,19 @@ export default async function LegalPolicyPage({ params }: PageProps) {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
-                    {SUBPROCESSOR_REGISTER.map((sub) => (
+                    {PUBLIC_SUBPROCESSOR_REGISTER.map((sub) => (
                       <tr key={sub.id} className="hover:bg-slate-50/50">
                         <td className="px-3 py-2.5 font-bold text-slate-900">{sub.name}</td>
                         <td className="px-3 py-2.5">{sub.category}</td>
                         <td className="px-3 py-2.5">{sub.purpose}</td>
-                        <td className="px-3 py-2.5">{sub.processingLocation}</td>
-                        <td className="px-3 py-2.5 text-[11px] font-medium text-indigo-700">
-                          {sub.transferMechanism}
+                        <td className="px-3 py-2.5">{sub.primaryHostingRegion}</td>
+                        <td className="px-3 py-2.5 text-[11px] font-medium text-teal-700">
+                          {sub.transferSafeguard}
                         </td>
                       </tr>
                     ))}
                   </tbody>
+
                 </table>
               </div>
             )}

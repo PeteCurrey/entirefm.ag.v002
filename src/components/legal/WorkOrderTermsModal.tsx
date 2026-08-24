@@ -3,13 +3,7 @@
 import React, { useState } from 'react';
 import { ShieldCheck, AlertTriangle, FileText, CheckCircle2, Lock, ArrowRight, X, Info } from 'lucide-react';
 import { LEGAL_CONFIG } from '@/config/legal';
-
-export type AsbestosSiteStatus =
-  | 'NOT_APPLICABLE' // Post-2000 construction with no ACM present
-  | 'REGISTER_AVAILABLE' // Dutyholder register on site / reception
-  | 'SURVEY_REQUIRED' // Refurbishment / demolition survey required before intrusive work
-  | 'INFORMATION_PENDING' // Client has not yet furnished dutyholder register
-  | 'REVIEW_REQUIRED'; // Suspected ACM in immediate work zone requiring EFM H&S review
+import type { AsbestosScopeStatus } from '@/server/asbestos';
 
 export interface WorkOrderData {
   id: string;
@@ -18,13 +12,16 @@ export interface WorkOrderData {
   tradeRequired: string;
   priorityTier: 'P1 - Emergency (2-4h)' | 'P2 - Urgent (24h)' | 'P3 - Standard PPM (3-5 days)' | 'P4 - Scheduled Project';
   instructedScope: string;
-  isIntrusiveWork?: boolean;
+  workArea: string; // Specific area e.g. "Roof Plant Room 2"
+  willDisturbBuildingFabric: boolean;
+  buildingConstructionYear?: number;
   maxChargeableBudgetGbp: number;
   materialsCapGbp: number;
-  asbestosStatus: AsbestosSiteStatus;
-  asbestosRegisterReference?: string;
+  asbestosStatus: AsbestosScopeStatus;
+  asbestosDocumentId?: string;
+  asbestosDocumentTitle?: string;
   asbestosLastSurveyDate?: string;
-  asbestosNotes?: string;
+  acmLocationsSummary?: string;
   requiredEvidence: string[];
   termsVersion: string;
 }
@@ -39,8 +36,8 @@ interface WorkOrderTermsModalProps {
     termsVersion: string;
     workOrderId: string;
     asbestosAcknowledged: boolean;
-    asbestosStatus: AsbestosSiteStatus;
-    asbestosRegisterReference?: string;
+    asbestosStatus: AsbestosScopeStatus;
+    asbestosDocumentId?: string;
   }) => void;
 }
 
@@ -54,20 +51,24 @@ export function WorkOrderTermsModal({
   const [contractorCompany, setContractorCompany] = useState('');
   const [agreedTerms, setAgreedTerms] = useState(false);
   const [acknowledgedAsbestos, setAcknowledgedAsbestos] = useState(false);
-  const [asbestosRegisterConfirmedRef, setAsbestosRegisterConfirmedRef] = useState(
-    workOrder.asbestosRegisterReference || ''
+  const [asbestosDocConfirmedRef, setAsbestosDocConfirmedRef] = useState(
+    workOrder.asbestosDocumentId || ''
   );
 
   if (!isOpen) return null;
 
   const requiresAsbestosConfirmation =
-    workOrder.asbestosStatus === 'REGISTER_AVAILABLE' ||
-    workOrder.asbestosStatus === 'SURVEY_REQUIRED' ||
-    workOrder.asbestosStatus === 'REVIEW_REQUIRED';
+    workOrder.asbestosStatus === 'ASBESTOS_INFORMATION_AVAILABLE' ||
+    workOrder.asbestosStatus === 'NO_ACM_IDENTIFIED_FOR_SCOPE' ||
+    workOrder.asbestosStatus === 'PRESUMED_ACM' ||
+    workOrder.asbestosStatus === 'SURVEY_REQUIRED';
 
   const isIntrusiveBlocked =
-    workOrder.isIntrusiveWork &&
-    (workOrder.asbestosStatus === 'INFORMATION_PENDING' || workOrder.asbestosStatus === 'REVIEW_REQUIRED');
+    workOrder.willDisturbBuildingFabric &&
+    (workOrder.asbestosStatus === 'INFORMATION_REQUIRED' ||
+      workOrder.asbestosStatus === 'SURVEY_REQUIRED' ||
+      workOrder.asbestosStatus === 'SPECIALIST_REVIEW_REQUIRED' ||
+      workOrder.asbestosStatus === 'WORK_BLOCKED');
 
   const canSubmit =
     contractorName.trim().length > 2 &&
@@ -87,7 +88,7 @@ export function WorkOrderTermsModal({
       workOrderId: workOrder.id,
       asbestosAcknowledged: acknowledgedAsbestos,
       asbestosStatus: workOrder.asbestosStatus,
-      asbestosRegisterReference: asbestosRegisterConfirmedRef || undefined,
+      asbestosDocumentId: asbestosDocConfirmedRef || undefined,
     });
   };
 
@@ -133,8 +134,8 @@ export function WorkOrderTermsModal({
                 <span className="font-semibold text-slate-900">{workOrder.siteAddress}</span>
               </div>
               <div>
-                <span className="text-slate-500 block">Trade / Discipline:</span>
-                <span className="font-semibold text-slate-900">{workOrder.tradeRequired}</span>
+                <span className="text-slate-500 block">Job Work Area:</span>
+                <span className="font-semibold text-slate-900">{workOrder.workArea}</span>
               </div>
               <div>
                 <span className="text-slate-500 block">Authorised Budget Cap:</span>
@@ -148,33 +149,42 @@ export function WorkOrderTermsModal({
               <span className="text-slate-500 block">Instructed Scope of Works:</span>
               <p className="font-medium text-slate-800 mt-0.5">{workOrder.instructedScope}</p>
             </div>
+
+            <div className="flex items-center gap-2 pt-1 text-[11px] text-slate-600">
+              <span className="font-semibold">Fabric Disturbance:</span>
+              <span className={workOrder.willDisturbBuildingFabric ? 'text-amber-700 font-bold' : 'text-slate-700'}>
+                {workOrder.willDisturbBuildingFabric ? 'Yes (Intrusive Work)' : 'No (Surface / Visual / Non-intrusive)'}
+              </span>
+              {workOrder.buildingConstructionYear && (
+                <span className="text-slate-400">· Construction Year: {workOrder.buildingConstructionYear}</span>
+              )}
+            </div>
           </div>
 
-          {/* Structured Asbestos Pre-Work Governance (Control of Asbestos Regs 2012) */}
+          {/* Job-Scope Specific Asbestos Governance (Control of Asbestos Regs 2012) */}
           <div className="rounded-xl border p-4 text-xs space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 font-bold text-slate-900">
                 <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
-                <span>Statutory Asbestos Governance (CAR 2012 / Reg 4)</span>
+                <span>Statutory Asbestos Governance (CAR 2012 / Duty to Manage)</span>
               </div>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase bg-slate-100 text-slate-800">
-                Status: {workOrder.asbestosStatus}
+                Scope Status: {workOrder.asbestosStatus}
               </span>
             </div>
 
-            {workOrder.asbestosStatus === 'REGISTER_AVAILABLE' && (
+            {workOrder.asbestosStatus === 'ASBESTOS_INFORMATION_AVAILABLE' && (
               <div className="bg-amber-50/90 border border-amber-200 rounded-lg p-3 text-amber-950 space-y-2">
                 <p>
-                  <strong>Dutyholder Asbestos Register Active on Site:</strong> Ref{' '}
-                  <code className="bg-white/80 px-1 py-0.5 rounded font-mono">
-                    {workOrder.asbestosRegisterReference || 'REG-ON-SITE'}
-                  </code>
-                  {workOrder.asbestosLastSurveyDate && ` (Last Survey: ${workOrder.asbestosLastSurveyDate})`}.
+                  <strong>Dutyholder Document Attached:</strong>{' '}
+                  {workOrder.asbestosDocumentTitle || 'Site Asbestos Register'}{' '}
+                  {workOrder.asbestosLastSurveyDate && `(Survey Date: ${workOrder.asbestosLastSurveyDate})`}.
                 </p>
-                <p className="text-xs text-amber-900">
-                  {workOrder.asbestosNotes ||
-                    'Engineers must inspect the physical register at reception before commencing any intrusive works, drilling, or fabric disturbance.'}
-                </p>
+                {workOrder.acmLocationsSummary && (
+                  <p className="text-xs text-amber-900">
+                    <strong>Recorded ACMs / Presumptions:</strong> {workOrder.acmLocationsSummary}
+                  </p>
+                )}
                 <label className="flex items-start gap-2 pt-1 cursor-pointer font-semibold">
                   <input
                     type="checkbox"
@@ -183,7 +193,27 @@ export function WorkOrderTermsModal({
                     className="mt-0.5 rounded border-amber-400 text-teal-700 focus:ring-teal-500"
                   />
                   <span>
-                    I confirm our attending engineers will review the site Asbestos Register prior to invasive work and immediately stop work if suspect materials are uncovered.
+                    I confirm our operatives have reviewed the asbestos information specific to {workOrder.workArea} and will stop work immediately if unexpected materials are encountered.
+                  </span>
+                </label>
+              </div>
+            )}
+
+            {workOrder.asbestosStatus === 'NO_ACM_IDENTIFIED_FOR_SCOPE' && (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-emerald-950 space-y-2">
+                <div className="flex items-center gap-2 font-semibold">
+                  <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>Survey Completed: No ACMs Identified within Job Scope Area ({workOrder.workArea}).</span>
+                </div>
+                <label className="flex items-start gap-2 pt-1 cursor-pointer font-medium">
+                  <input
+                    type="checkbox"
+                    checked={acknowledgedAsbestos}
+                    onChange={(e) => setAcknowledgedAsbestos(e.target.checked)}
+                    className="mt-0.5 rounded border-emerald-400 text-teal-700 focus:ring-teal-500"
+                  />
+                  <span>
+                    I acknowledge receipt of the scope-specific clearance notes and agree to remain strictly within the surveyed work envelope.
                   </span>
                 </label>
               </div>
@@ -191,47 +221,42 @@ export function WorkOrderTermsModal({
 
             {workOrder.asbestosStatus === 'SURVEY_REQUIRED' && (
               <div className="bg-amber-100/90 border border-amber-300 rounded-lg p-3 text-amber-950 space-y-2">
-                <p>
-                  <strong>Refurbishment & Demolition (R&D) Survey Required:</strong> Works involve structural or deep fabric alteration in a pre-2000 building.
+                <p className="font-bold">⚠️ Dedicated Refurbishment / Demolition Survey Required</p>
+                <p className="text-xs text-amber-900">
+                  Planned works involve intrusive penetration of structural fabric. A competent survey must be completed and delivered before intrusive activity begins.
                 </p>
-                <label className="flex items-start gap-2 pt-1 cursor-pointer font-semibold">
-                  <input
-                    type="checkbox"
-                    checked={acknowledgedAsbestos}
-                    onChange={(e) => setAcknowledgedAsbestos(e.target.checked)}
-                    className="mt-0.5 rounded border-amber-400 text-teal-700 focus:ring-teal-500"
-                  />
-                  <span>
-                    I confirm our operatives have received and reviewed the R&D survey specific to this work area and will work strictly within surveyed safe zones.
-                  </span>
-                </label>
+                {workOrder.willDisturbBuildingFabric && (
+                  <p className="text-xs text-red-700 font-bold">
+                    BLOCKED: Intrusive drilling/penetration prohibited until survey is attached and verified.
+                  </p>
+                )}
               </div>
             )}
 
-            {workOrder.asbestosStatus === 'NOT_APPLICABLE' && (
-              <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-emerald-950 flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span>Building constructed post-2000. No asbestos containing materials recorded on site register. Standard CDM 2015 RAMS apply.</span>
-              </div>
-            )}
-
-            {workOrder.asbestosStatus === 'INFORMATION_PENDING' && (
+            {workOrder.asbestosStatus === 'INFORMATION_REQUIRED' && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-950 space-y-1">
                 <p className="font-bold">⚠️ Dutyholder Asbestos Information Pending from Client</p>
                 <p className="text-xs text-red-800">
-                  {workOrder.isIntrusiveWork
-                    ? 'BLOCKED: Intrusive or destructive works are prohibited until the client furnishes a valid site asbestos register or survey.'
-                    : 'Non-intrusive visual / surface inspection only. Operatives must NOT disturb wall fabric, ceiling voids, or pipe lagging.'}
+                  {workOrder.willDisturbBuildingFabric
+                    ? 'BLOCKED: Intrusive or destructive works are prohibited until the client furnishes the statutory dutyholder register or survey.'
+                    : 'Non-intrusive visual / surface inspection only. Operatives must NOT disturb wall fabric, ceiling tiles, or pipe lagging.'}
                 </p>
               </div>
             )}
 
-            {workOrder.asbestosStatus === 'REVIEW_REQUIRED' && (
+            {workOrder.asbestosStatus === 'SPECIALIST_REVIEW_REQUIRED' && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-950 space-y-1">
-                <p className="font-bold">⚠️ EntireFM Health & Safety Review Required</p>
+                <p className="font-bold">⚠️ EntireFM QHSE Competent Review Required</p>
                 <p className="text-xs text-red-800">
-                  Suspected ACM identified in the work zone. Work order cannot proceed to execution until cleared by an EntireFM compliance manager.
+                  Suspected ACM identified in work zone. Work order cannot proceed to execution until cleared by an authorized EntireFM QHSE manager.
                 </p>
+              </div>
+            )}
+
+            {workOrder.asbestosStatus === 'DUTY_NOT_APPLICABLE' && (
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-slate-700 flex items-center gap-2">
+                <Info className="h-4 w-4 text-slate-500 shrink-0" />
+                <span>Dutyholder has confirmed duty to manage is not triggered for this domestic/exempt scope. Standard CDM 2015 RAMS apply.</span>
               </div>
             )}
           </div>
@@ -241,13 +266,13 @@ export function WorkOrderTermsModal({
             <h4 className="font-bold text-slate-900 text-sm">Binding Work Order Terms:</h4>
             <ol className="list-decimal pl-4 space-y-2">
               <li>
-                <strong>Scope Limitation:</strong> You are authorised to perform only the instructed scope. Any variation or additional chargeable works requires prior written EntireFM approval, except for immediate make-safe actions.
+                <strong>Scope Limitation:</strong> You are authorised to perform only the instructed scope. Any variation or additional chargeable works requires prior written EntireFM approval, except for immediate emergency make-safe actions.
               </li>
               <li>
                 <strong>Evidence & Completion:</strong> Payment is strictly conditional on submitting time-stamped attendance logs, clear photographic evidence before/after, and certified compliance sheets within 24 hours of job completion.
               </li>
               <li>
-                <strong>Competence & Verification:</strong> All personnel deployed must hold verified trade credentials (e.g. Gas Safe, NICEIC, F-Gas) and active contractor vetting status.
+                <strong>Competence & Verification:</strong> All personnel deployed must hold verified trade credentials (e.g. Gas Safe, NICEIC, F-Gas) and active contractor vetting status appropriate to the risk class.
               </li>
               <li>
                 <strong>No Direct Client Solicitation:</strong> Contractor covenants not to solicit or accept direct maintenance instructions from the client without EntireFM involvement.

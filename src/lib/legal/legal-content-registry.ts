@@ -1,4 +1,5 @@
-import { LEGAL_CONFIG, getLegalDisplayValue, SUBPROCESSOR_REGISTER, COOKIE_INVENTORY } from '@/config/legal';
+import { LEGAL_CONFIG, getLegalDisplayValue, PUBLIC_SUBPROCESSOR_REGISTER, COOKIE_INVENTORY } from '@/config/legal';
+
 import { TocItem } from '@/components/legal/LegalToc';
 
 export interface LegalPolicySection {
@@ -464,8 +465,8 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
     effectiveDate: '2026-01-01',
     version: '2026.1',
     keyTakeaways: [
-      'Working electronic submission form generating an official reference (DPC-YYYY-XXXX).',
-      'Guaranteed formal written acknowledgment and response within statutory 1-month timeline.',
+      'Dedicated electronic submission form generating an official reference (DPC-YYYY-XXXXX).',
+      'Prompt written acknowledgement and investigation conducted without undue delay.',
       'Transparent 6-stage investigation lifecycle: Received, Acknowledged, Investigating, Awaiting Info, Decision Issued, Closed.',
       'Clear escalation route to the UK Information Commissioner’s Office (ICO).',
     ],
@@ -474,19 +475,19 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
       {
         id: 'complaints-commitment',
         heading: '1. Our Commitment to Data Privacy Concerns',
-        body: 'EntireFM takes all data protection concerns, marketing objections, and rights disputes with utmost seriousness. We maintain a transparent, accessible, and auditable electronic complaints workflow to investigate and resolve issues swiftly.',
+        body: 'EntireFM takes all data protection concerns, marketing objections, and rights disputes with utmost seriousness. We maintain a transparent, accessible, and auditable electronic complaints workflow to investigate and resolve issues swiftly without undue delay.',
       },
       {
         id: 'investigation-lifecycle',
         heading: '2. Investigation Lifecycle & Timelines',
         body: 'Every complaint registered through our electronic form or received at privacy@entirefm.com progresses through a structured governance lifecycle:',
         bullets: [
-          '1. RECEIVED: Complaint logged and assigned a unique statutory reference code.',
-          '2. ACKNOWLEDGED: Written acknowledgement issued to your registered email within 3 working days.',
-          '3. INVESTIGATING: The Data Protection Officer reviews audit logs, suppression registers, or processing records.',
-          '4. AWAITING INFORMATION: If clarification is needed, we will contact you promptly.',
-          '5. DECISION ISSUED: A formal written decision outlining findings and remedial actions is issued within 30 calendar days (UK GDPR Art 12(3)).',
-          '6. CLOSED: Remedial actions verified and complaint archived in the confidential audit log.',
+          '1. RECEIVED: Complaint logged and assigned a unique tracking reference code.',
+          '2. ACKNOWLEDGED: Written acknowledgement issued to your registered email promptly upon intake.',
+          '3. INVESTIGATING: The Data Protection Officer reviews relevant audit logs, suppression registers, or processing records.',
+          '4. AWAITING INFORMATION: If clarification is needed, we will contact you without delay.',
+          '5. DECISION ISSUED: A formal written outcome detailing findings and remedial actions is communicated without unjustifiable or excessive delay.',
+          '6. CLOSED: Remedial actions verified and complaint archived in the confidential audit ledger.',
         ],
       },
       {
@@ -500,6 +501,7 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
         body: 'If you are dissatisfied with our response or believe our processing infringes data protection law, you have the statutory right to lodge a complaint with the UK Information Commissioner’s Office (ICO) at https://ico.org.uk or helpline 0303 123 1113.',
       },
     ],
+
   },
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -701,9 +703,10 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
         id: 'active-subprocessors',
         heading: '2. Live Audited Subprocessor Register',
         body: 'The following organisations are currently authorised to process data on behalf of EntireFM:',
-        bullets: SUBPROCESSOR_REGISTER.map(
-          (s) => `${s.name} (${s.category}): ${s.purpose} [Location: ${s.processingLocation} | Transfer Basis: ${s.transferMechanism}]`
+        bullets: PUBLIC_SUBPROCESSOR_REGISTER.map(
+          (s) => `${s.name} (${s.category}): ${s.purpose} [Primary Hosting: ${s.primaryHostingRegion} | Safeguard: ${s.transferSafeguard}]`
         ),
+
       },
       {
         id: 'change-notification',
@@ -970,7 +973,7 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
     effectiveDate: '2026-01-01',
     version: '2026.1',
     keyTakeaways: [
-      'Voluntary anti-slavery policy upholding section 54 Modern Slavery Act 2015 principles.',
+      'Corporate anti-slavery policy voluntarily adopted to prevent forced labour across all FM supply chains.',
       'Mandatory Right to Work and identity checks for all direct staff and subcontractor operatives.',
       'Supply chain risk profiling across high-risk FM trades (cleaning, waste, construction).',
       'Confidential whistleblowing channels for reporting suspected exploitation.',
@@ -980,8 +983,9 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
       {
         id: 'corporate-commitment',
         heading: '1. Corporate Commitment & Policy Scope',
-        body: 'EntireFM enforces zero tolerance for modern slavery, servitude, forced labour, and human trafficking in our business operations and supply chain. We are committed to acting ethically and with integrity in all commercial relationships.',
+        body: 'EntireFM enforces zero tolerance for modern slavery, servitude, forced labour, and human trafficking in our business operations and supply chain. EntireFM falls below the statutory turnover threshold for mandatory reporting under Section 54 of the Modern Slavery Act 2015; however, we have voluntarily adopted this policy to enforce rigorous due diligence and ethical standards across all supply chain tiers.',
       },
+
       {
         id: 'supply-chain-due-diligence',
         heading: '2. Supply Chain Risk Assessment & Due Diligence',
@@ -1290,7 +1294,7 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
     keyTakeaways: [
       'Authoritative Companies Act 2006 statutory trading and registration disclosures.',
       'Operating Entity: Alkota Group Limited trading as EntireFM (Company No. 13535215).',
-      'Verified insurance schedule (£10m Employers Liability, £5m Public Liability, £2m Professional Indemnity).',
+      'Official governance channels and registered office address details.',
     ],
     relatedSlugs: ['terms-of-use', 'terms-of-business', 'privacy'],
     sections: [
@@ -1300,19 +1304,13 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
         body: `Legal Name: ${LEGAL_CONFIG.legalName}. Trading Name: ${LEGAL_CONFIG.tradingStatement}. Registered in ${LEGAL_CONFIG.statutoryJurisdiction} under Company Number ${LEGAL_CONFIG.companyNumber}.`,
         bullets: [
           `Registered Office: ${LEGAL_CONFIG.registeredOffice.addressLines.join(', ')}, ${LEGAL_CONFIG.registeredOffice.city}, ${LEGAL_CONFIG.registeredOffice.postcode}, ${LEGAL_CONFIG.registeredOffice.country}.`,
-          `VAT Status: ${getLegalDisplayValue(LEGAL_CONFIG.vatNumber, 'Registered for UK VAT (details provided on commercial invoices)')}.`,
-          `ICO Data Protection Register: ${getLegalDisplayValue(LEGAL_CONFIG.icoRegistrationNumber, 'Registered with the Information Commissioner’s Office under UK Data Protection legislation')}.`,
+          `Statutory Jurisdiction: Incorporated under the laws of ${LEGAL_CONFIG.statutoryJurisdiction}.`,
         ],
       },
       {
         id: 'insurance-schedule',
-        heading: '2. Commercial Insurance Schedule',
-        body: 'EntireFM holds comprehensive commercial insurances through leading UK underwriters:',
-        bullets: [
-          `Employers’ Liability Insurance: ${getLegalDisplayValue(LEGAL_CONFIG.insurances.employersLiability)}`,
-          `Public & Products Liability Insurance: ${getLegalDisplayValue(LEGAL_CONFIG.insurances.publicLiability)}`,
-          `Professional Indemnity Insurance: ${getLegalDisplayValue(LEGAL_CONFIG.insurances.professionalIndemnity)}`,
-        ],
+        heading: '2. Commercial Insurance Arrangements',
+        body: 'EntireFM maintains commercial insurances covering employers’ liability, public liability, and professional indemnity appropriate to our facilities management operations. Verified broker verification letters and policy schedules are provided directly to clients during contract mobilisation.',
       },
       {
         id: 'contact-channels',
@@ -1320,6 +1318,7 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
         body: `Commercial Enquiries: ${LEGAL_CONFIG.dataProtectionOfficer.phone} | Legal & Data Protection: ${LEGAL_CONFIG.dataProtectionOfficer.email} | Compliance Desk: ${LEGAL_CONFIG.complianceOfficer.email}.`,
       },
     ],
+
   },
 };
 

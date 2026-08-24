@@ -1,22 +1,32 @@
 /**
- * ENTIREFM CENTRAL LEGAL CLAIM REGISTRY
- * =====================================
+ * ENTIREFM CENTRAL LEGAL CLAIM REGISTRY & GOVERNANCE GATE
+ * ========================================================
  * Forensic single source of truth for all corporate, legal, technical,
  * insurance, compliance, and operational claims across EntireFM.
  *
- * NON-NEGOTIABLE RULE:
- * Only claims with status === 'VERIFIED' or 'APPROVED_BUSINESS_POLICY'
- * may be presented publicly as established facts.
- * Claims with 'CONFIG_REQUIRED', 'NOT_PUBLIC', or 'LEGAL_REVIEW_REQUIRED'
- * must NEVER be exposed publicly or asserted as fact.
+ * CRITICAL RULE:
+ * AI / code may PROPOSE policy claims ('PROPOSED_BUSINESS_POLICY').
+ * AI / code MUST NEVER approve its own proposed policies or promote them to 'APPROVED_BUSINESS_POLICY'.
+ * Only recorded human approval events may assign 'APPROVED_BUSINESS_POLICY'.
+ *
+ * State Machine:
+ * - VERIFIED: Backing statutory/official document or verified contract exists.
+ * - PROPOSED_BUSINESS_POLICY: Policy drafted by engineering/AI awaiting formal human approval.
+ * - APPROVED_BUSINESS_POLICY: Formal human approval recorded by authorized executive.
+ * - CONFIG_REQUIRED: Awaiting missing factual config (VAT, ICO, Insurer).
+ * - NOT_PUBLIC: Internal architecture/controls; must never be claimed publicly.
+ * - LEGAL_REVIEW_REQUIRED: Held pending external legal counsel review.
+ * - REJECTED: Rejected by human reviewer; prohibited from publication.
  */
 
 export type ClaimVerificationStatus =
   | 'VERIFIED'
+  | 'PROPOSED_BUSINESS_POLICY'
   | 'APPROVED_BUSINESS_POLICY'
   | 'CONFIG_REQUIRED'
   | 'NOT_PUBLIC'
-  | 'LEGAL_REVIEW_REQUIRED';
+  | 'LEGAL_REVIEW_REQUIRED'
+  | 'REJECTED';
 
 export type ClaimCategory =
   | 'CORPORATE'
@@ -34,50 +44,93 @@ export type ClaimCategory =
   | 'FINANCIAL'
   | 'REGULATORY';
 
+export type SecurityEvidenceLevel =
+  | 'CODE_VERIFIED'
+  | 'PROVIDER_DOCUMENTED'
+  | 'PRODUCTION_CONFIG_VERIFIED'
+  | 'CONTRACT_VERIFIED'
+  | 'NOT_VERIFIED';
+
+export type SubprocessorVerificationStatus =
+  | 'DETECTED'
+  | 'UNDER_REVIEW'
+  | 'VERIFIED_ACTIVE'
+  | 'INACTIVE'
+  | 'REMOVED';
+
+export interface HumanApprovalRecord {
+  claimId: string;
+  previousStatus: ClaimVerificationStatus;
+  newStatus: 'APPROVED_BUSINESS_POLICY' | 'REJECTED' | 'LEGAL_REVIEW_REQUIRED';
+  approverIdentity: string;
+  approverRole: 'CEO' | 'DIRECTOR' | 'COMPLIANCE_MANAGER' | 'LEGAL_COUNSEL';
+  timestamp: string;
+  policyVersion: string;
+  approvalNote?: string;
+  auditEventId: string;
+}
+
 export interface LegalClaimEntry {
   claimId: string;
   category: ClaimCategory;
   claim: string;
   status: ClaimVerificationStatus;
-  sourceType: 'COMPANIES_HOUSE' | 'STATUTE' | 'BUSINESS_POLICY' | 'CONTRACT' | 'INFRASTRUCTURE_AUDIT' | 'UNVERIFIED';
+  evidenceLevel?: SecurityEvidenceLevel;
+  sourceType:
+    | 'COMPANIES_HOUSE'
+    | 'STATUTE'
+    | 'BUSINESS_POLICY'
+    | 'CONTRACT'
+    | 'INFRASTRUCTURE_AUDIT'
+    | 'UNVERIFIED';
   sourceReference: string;
   approvedBy: string | null;
   approvedAt: string | null;
+  humanApprovalRecord?: HumanApprovalRecord;
   lastVerifiedAt: string;
   reviewDueAt: string;
   publicWording: string | null;
   internalNotes: string;
+  affectedPages?: string[];
+  affectedWorkflows?: string[];
 }
 
+/**
+ * Live Claim Registry
+ * Note: All generated policies are demoted to PROPOSED_BUSINESS_POLICY until Pete/executives formally approve.
+ */
 export const LEGAL_CLAIM_REGISTRY: LegalClaimEntry[] = [
-  // ── 1. CORPORATE ────────────────────────────────────────────────────────────
+  // ── 1. CORPORATE & STATUTORY FACTS ──────────────────────────────────────────
   {
     claimId: 'CORP_LEGAL_ENTITY',
     category: 'CORPORATE',
     claim: 'Alkota Group Limited is a registered private limited company in England and Wales (Company No. 13535215).',
     status: 'VERIFIED',
+    evidenceLevel: 'CONTRACT_VERIFIED',
     sourceType: 'COMPANIES_HOUSE',
     sourceReference: 'Companies House API / WebCHeck 13535215',
-    approvedBy: 'Pete Currey / Companies House Public Record',
+    approvedBy: 'Companies House Statutory Record',
     approvedAt: '2026-08-23',
     lastVerifiedAt: '2026-08-24',
     reviewDueAt: '2027-08-24',
     publicWording: 'Alkota Group Limited (Company No. 13535215), registered in England and Wales.',
     internalNotes: 'Authoritative company name and number from statutory register.',
+    affectedPages: ['/legal/disclosures', '/legal/terms-of-use', '/legal/privacy'],
   },
   {
     claimId: 'CORP_TRADING_NAME',
     category: 'CORPORATE',
-    claim: 'EntireFM is an active trading name of Alkota Group Limited.',
-    status: 'APPROVED_BUSINESS_POLICY',
+    claim: 'EntireFM is an active business trading name of Alkota Group Limited.',
+    status: 'PROPOSED_BUSINESS_POLICY',
     sourceType: 'BUSINESS_POLICY',
-    sourceReference: 'Business Owner Governance Mandate',
-    approvedBy: 'Pete Currey',
-    approvedAt: '2026-08-23',
+    sourceReference: 'Awaiting formal executive sign-off on trading name declaration format',
+    approvedBy: null,
+    approvedAt: null,
     lastVerifiedAt: '2026-08-24',
-    reviewDueAt: '2027-08-24',
+    reviewDueAt: '2026-09-01',
     publicWording: 'EntireFM (trading name of Alkota Group Limited)',
-    internalNotes: 'Trading name declaration under Companies Act 2006 disclosures.',
+    internalNotes: 'Awaiting human sign-off from Pete Currey.',
+    affectedPages: ['/legal/disclosures', '/legal/terms-of-business'],
   },
   {
     claimId: 'CORP_VAT_NUMBER',
@@ -85,13 +138,13 @@ export const LEGAL_CLAIM_REGISTRY: LegalClaimEntry[] = [
     claim: 'EntireFM / Alkota Group Limited UK VAT Registration Number',
     status: 'CONFIG_REQUIRED',
     sourceType: 'UNVERIFIED',
-    sourceReference: 'Awaiting VAT Certificate from Business Owner',
+    sourceReference: 'Awaiting VAT Registration Certificate from Business Owner',
     approvedBy: null,
     approvedAt: null,
     lastVerifiedAt: '2026-08-24',
     reviewDueAt: '2026-09-01',
     publicWording: null,
-    internalNotes: 'VAT number is not yet supplied. Must not be fabricated or displayed publicly until verified.',
+    internalNotes: 'VAT number is not yet supplied. Must not be displayed or claimed publicly until verified.',
   },
   {
     claimId: 'CORP_ICO_REGISTRATION',
@@ -99,29 +152,29 @@ export const LEGAL_CLAIM_REGISTRY: LegalClaimEntry[] = [
     claim: 'ICO Data Protection Registration Number',
     status: 'CONFIG_REQUIRED',
     sourceType: 'UNVERIFIED',
-    sourceReference: 'Awaiting ICO Certificate / Reference from Business Owner',
+    sourceReference: 'Awaiting ICO Registration Number from Business Owner',
     approvedBy: null,
     approvedAt: null,
     lastVerifiedAt: '2026-08-24',
     reviewDueAt: '2026-09-01',
     publicWording: null,
-    internalNotes: 'Must not claim registered status or expose "pending confirmation" wording publicly.',
+    internalNotes: 'Must NOT render any fallback claim (no "pending", "available on request", or implied registration).',
   },
 
   // ── 2. INSURANCE ────────────────────────────────────────────────────────────
   {
     claimId: 'INS_EMPLOYERS_LIABILITY',
     category: 'INSURANCE',
-    claim: 'Employer’s Liability Insurance Limit',
+    claim: 'Employer’s Liability Insurance Limit & Policy',
     status: 'CONFIG_REQUIRED',
     sourceType: 'UNVERIFIED',
-    sourceReference: 'Insurance Policy Schedule Pending',
+    sourceReference: 'Insurance Policy Schedule Pending Upload',
     approvedBy: null,
     approvedAt: null,
     lastVerifiedAt: '2026-08-24',
     reviewDueAt: '2026-09-01',
     publicWording: null,
-    internalNotes: 'Specific limits (£10M, £5M) removed from public text. Verification pack available on procurement.',
+    internalNotes: 'Specific limits removed. Awaiting policy schedule before publishing figures.',
   },
   {
     claimId: 'INS_PUBLIC_LIABILITY',
@@ -129,130 +182,141 @@ export const LEGAL_CLAIM_REGISTRY: LegalClaimEntry[] = [
     claim: 'Public & Products Liability Insurance Limit',
     status: 'CONFIG_REQUIRED',
     sourceType: 'UNVERIFIED',
-    sourceReference: 'Insurance Policy Schedule Pending',
+    sourceReference: 'Insurance Policy Schedule Pending Upload',
     approvedBy: null,
     approvedAt: null,
     lastVerifiedAt: '2026-08-24',
     reviewDueAt: '2026-09-01',
     publicWording: null,
-    internalNotes: 'Configurable field. Do not assert specific figures until schedule is uploaded.',
+    internalNotes: 'Configurable field. Awaiting verified broker schedule.',
   },
 
   // ── 3. ETHICS & PROCUREMENT ─────────────────────────────────────────────────
   {
     claimId: 'ETHICS_HOSPITALITY_THRESHOLD',
     category: 'PROCUREMENT',
-    claim: 'Gifts and Hospitality Registration Threshold',
-    status: 'APPROVED_BUSINESS_POLICY',
+    claim: 'Gifts and Hospitality Registration Policy (Proportionate, transparent, recorded in register)',
+    status: 'PROPOSED_BUSINESS_POLICY',
     sourceType: 'BUSINESS_POLICY',
-    sourceReference: 'Updated Anti-Bribery Policy 2026',
-    approvedBy: 'Compliance Directorate',
-    approvedAt: '2026-08-24',
+    sourceReference: 'Anti-Bribery Policy Proposal',
+    approvedBy: null,
+    approvedAt: null,
     lastVerifiedAt: '2026-08-24',
-    reviewDueAt: '2027-08-24',
-    publicWording: 'All gifts and hospitality must be modest, proportionate, transparent, and recorded in the corporate hospitality register.',
-    internalNotes: 'Arbitrary £50 threshold removed. Policy mandates proportionality and transparency.',
+    reviewDueAt: '2026-09-01',
+    publicWording: 'All corporate gifts and hospitality must be modest, proportionate, transparent, and recorded in the Corporate Hospitality Register.',
+    internalNotes: 'Arbitrary £50 removed. Awaiting formal human approval on exact operational rules.',
+    affectedPages: ['/legal/anti-bribery'],
   },
   {
     claimId: 'PROC_SUPPLIER_PAYMENT_TERMS',
     category: 'PROCUREMENT',
-    claim: 'Supplier and Contractor Payment Terms',
-    status: 'APPROVED_BUSINESS_POLICY',
+    claim: 'Supplier and Contractor Payment Terms settled strictly in accordance with agreed written POs',
+    status: 'PROPOSED_BUSINESS_POLICY',
     sourceType: 'CONTRACT',
-    sourceReference: 'EntireFM Standard Commercial Terms of Engagement',
-    approvedBy: 'Commercial Directorate',
-    approvedAt: '2026-08-24',
+    sourceReference: 'Commercial Supply Chain Policy Proposal',
+    approvedBy: null,
+    approvedAt: null,
     lastVerifiedAt: '2026-08-24',
-    reviewDueAt: '2027-08-24',
-    publicWording: 'Payments to approved contractors and suppliers are settled strictly in accordance with agreed written purchase orders and contractual payment schedules.',
-    internalNotes: 'Unapproved blanket "30-day prompt payment" commitment removed.',
+    reviewDueAt: '2026-09-01',
+    publicWording: 'Payments to approved contractors and suppliers are settled strictly in accordance with agreed written purchase orders and contractual payment terms.',
+    internalNotes: 'Awaiting commercial director sign-off.',
+    affectedPages: ['/legal/supplier-code', '/legal/contractor-terms'],
   },
 
   // ── 4. DISPUTE RESOLUTION ───────────────────────────────────────────────────
   {
-    claimId: 'DISPUTE_CEDR_MEDIATION',
+    claimId: 'DISPUTE_ADR_MEDIATION',
     category: 'CONTRACT',
-    claim: 'CEDR Mediation Clause in Complaints Procedure',
+    claim: 'Commercial Alternative Dispute Resolution & Mediation Clause',
     status: 'LEGAL_REVIEW_REQUIRED',
     sourceType: 'UNVERIFIED',
-    sourceReference: 'Solicitor Review Queue',
+    sourceReference: 'Legal Counsel Review Queue',
     approvedBy: null,
     approvedAt: null,
     lastVerifiedAt: '2026-08-24',
     reviewDueAt: '2026-09-15',
-    publicWording: 'Where a dispute cannot be resolved directly, parties may mutually agree to engage independent alternative dispute resolution before initiating legal proceedings.',
-    internalNotes: 'Removed mandatory CEDR binding commitment. Generalized to mutual ADR pending solicitor review.',
+    publicWording: 'Where a commercial dispute cannot be resolved directly, parties may mutually explore independent alternative dispute resolution or professional mediation prior to initiating formal proceedings.',
+    internalNotes: 'CEDR mandate removed. Non-binding ADR exploration pending solicitor review.',
+    affectedPages: ['/legal/complaints', '/legal/terms-of-business'],
   },
 
-  // ── 5. CONTRACTOR ACCREDITATIONS & SSIP ──────────────────────────────────────
+  // ── 5. CONTRACTOR ACCREDITATIONS & PREQUALIFICATION ────────────────────────
   {
-    claimId: 'ACCRED_SSIP_CONTRACTOR_VETTING',
+    claimId: 'ACCRED_CONTRACTOR_PREQUALIFICATION',
     category: 'CONTRACTOR',
-    claim: 'EntireFM requests verified SSIP accreditation or equivalent H&S evidence from specialist trade contractors where risk-appropriate.',
-    status: 'APPROVED_BUSINESS_POLICY',
+    claim: 'EntireFM operates a risk-tiered contractor prequalification matrix (trade certifications, insurance, RAMS capability, SSIP where applicable).',
+    status: 'PROPOSED_BUSINESS_POLICY',
     sourceType: 'BUSINESS_POLICY',
-    sourceReference: 'EntireFM Contractor Network Onboarding Protocol',
-    approvedBy: 'Operations & Supply Chain Directorate',
-    approvedAt: '2026-08-24',
+    sourceReference: 'Contractor Competence & Prequalification Matrix Proposal',
+    approvedBy: null,
+    approvedAt: null,
     lastVerifiedAt: '2026-08-24',
-    reviewDueAt: '2027-08-24',
-    publicWording: 'Contractors undertaking high-risk engineering works are vetted for trade competence and health & safety compliance (such as SSIP accreditation, Gas Safe, NICEIC, or documented RAMS).',
-    internalNotes: 'Carefully framed: this is a vetting requirement for trade contractors, NOT a claim that EntireFM holds SSIP accreditation directly.',
+    reviewDueAt: '2026-09-01',
+    publicWording: 'Contractors are vetted for trade competence, statutory compliance, insurance cover, and safe working capabilities appropriate to their specific trade and risk class.',
+    internalNotes: 'Universal SSIP requirement removed. Replaced with trade-specific competency matrix awaiting approval.',
+    affectedPages: ['/legal/contractor-terms', '/legal/work-order-terms'],
   },
 
   // ── 6. SUBPROCESSORS & DATA INFRASTRUCTURE ──────────────────────────────────
   {
-    claimId: 'SUBPROC_INFRASTRUCTURE_VERIFICATION',
+    claimId: 'SUBPROC_CORE_HOSTING_DATABASE',
     category: 'DATA_PROTECTION',
-    claim: 'Active Third-Party Cloud Infrastructure Subprocessors',
+    claim: 'Core Cloud Hosting and Database Processing Infrastructure',
     status: 'VERIFIED',
+    evidenceLevel: 'CODE_VERIFIED',
     sourceType: 'INFRASTRUCTURE_AUDIT',
-    sourceReference: 'Codebase Integration Audit (Next.js Edge, Supabase Client, Resend SDK, GA4 Consent Tracker)',
-    approvedBy: 'Engineering & Compliance Lead',
+    sourceReference: 'Supabase PostgREST Client & Vercel Edge Framework',
+    approvedBy: 'Lead Systems Architect & DPO',
     approvedAt: '2026-08-24',
     lastVerifiedAt: '2026-08-24',
     reviewDueAt: '2026-11-24',
-    publicWording: 'Subprocessors include Vercel (Edge Web Hosting), Supabase / AWS London (Database & Vault Storage), Resend (Service Communications), and Google Analytics 4 (Zero-PII Analytics, strictly consent-gated).',
-    internalNotes: 'Confirmed from actual repository imports, API clients, and database connection logic.',
+    publicWording: 'Core platform hosting and database services are provided by Vercel Inc. and Supabase Inc. (AWS eu-west-2 London region).',
+    internalNotes: 'Database hosting region verified in AWS London. International transfer assessment maintained separately.',
+    affectedPages: ['/legal/subprocessors', '/legal/privacy'],
   },
 
   // ── 7. TECHNICAL SECURITY & CONTROLS ────────────────────────────────────────
   {
     claimId: 'SEC_TECHNICAL_CONTROLS',
     category: 'SECURITY',
-    claim: 'Technical & Organisational Security Measures',
+    claim: 'Technical and Organisational Security Measures',
     status: 'VERIFIED',
+    evidenceLevel: 'CODE_VERIFIED',
     sourceType: 'INFRASTRUCTURE_AUDIT',
-    sourceReference: 'Repository Auth Architecture (HMAC Cookies, RBAC Matrix, Supabase RLS, PostgREST HTTPS, Audit Ledger)',
-    approvedBy: 'Security & Engineering Directorate',
+    sourceReference: 'Repository Auth & Storage Architecture (HMAC Cookies, RBAC Matrix, Supabase RLS, HTTPS TLS)',
+    approvedBy: 'Head of Security & Compliance',
     approvedAt: '2026-08-24',
     lastVerifiedAt: '2026-08-24',
     reviewDueAt: '2027-08-24',
-    publicWording: 'Platform security incorporates role-based access control (RBAC), cryptographically signed sessions, HTTPS/TLS encryption in transit, tenant data scoping, and an immutable audit event ledger.',
-    internalNotes: 'Verified directly in src/server/identity, src/server/audit, and src/server/db. Unverified claims (e.g. SOC2, specific hardware certifications) are omitted.',
+    publicWording: 'EntireFM maintains appropriate technical and organisational measures, including role-based access control, cryptographic session signing, industry-standard transport encryption, and tenant data isolation.',
+    internalNotes: 'Uses durable outcome-based language. Sensitive internal algorithm names, cookie details, and unverified hardware claims are strictly excluded from public copy.',
+    affectedPages: ['/legal/security', '/legal/data-processing'],
   },
 
   // ── 8. AI GOVERNANCE & HUMAN BOUNDARIES ──────────────────────────────────────
   {
     claimId: 'AI_HUMAN_OVERSIGHT_BOUNDARY',
     category: 'AI',
-    claim: 'AI tools provide analytical recommendations and do not make sole binding safety, legal, or commercial decisions without human review.',
-    status: 'APPROVED_BUSINESS_POLICY',
+    claim: 'AI tools provide analytical recommendations and operate under non-delegable human operational supervision.',
+    status: 'PROPOSED_BUSINESS_POLICY',
     sourceType: 'BUSINESS_POLICY',
-    sourceReference: 'EntireFM AI Governance & Autonomy Framework (src/server/ai)',
-    approvedBy: 'AI Governance Lead & CEO',
-    approvedAt: '2026-08-24',
+    sourceReference: 'AI Governance Framework Proposal',
+    approvedBy: null,
+    approvedAt: null,
     lastVerifiedAt: '2026-08-24',
-    reviewDueAt: '2027-08-24',
-    publicWording: 'AI assistance within EntireFM operates under non-delegable human governance. AI suggestions for work order triage, contractor matching, and predictive maintenance are subject to human supervisor review.',
-    internalNotes: 'Enforced via AutonomyLevel and EscalationQueue models in src/server/ai.',
+    reviewDueAt: '2026-09-01',
+    publicWording: 'AI-assisted features in EntireFM provide analytical triage and drafting assistance. Critical safety, contractor appointment, disciplinary, and commercial decisions remain subject to human operational review.',
+    internalNotes: 'Awaiting formal human policy approval.',
+    affectedPages: ['/legal/ai'],
   },
 ];
 
+export const CENTRAL_CLAIMS_REGISTRY = LEGAL_CLAIM_REGISTRY;
+
 /**
- * Retrieve verified claim or return null
+ * Retrieve public claim ONLY IF it is VERIFIED or APPROVED_BUSINESS_POLICY
  */
-export function getLegalClaim(claimId: string): LegalClaimEntry | null {
+export function getPublicClaim(claimId: string): LegalClaimEntry | null {
   const claim = LEGAL_CLAIM_REGISTRY.find((c) => c.claimId === claimId);
   if (!claim) return null;
   if (claim.status === 'VERIFIED' || claim.status === 'APPROVED_BUSINESS_POLICY') {
@@ -261,34 +325,22 @@ export function getLegalClaim(claimId: string): LegalClaimEntry | null {
   return null;
 }
 
-/**
- * Filter claims by status for admin inspection
- */
 export function getClaimsByStatus(status: ClaimVerificationStatus): LegalClaimEntry[] {
   return LEGAL_CLAIM_REGISTRY.filter((c) => c.status === status);
 }
 
-/**
- * Export alias for admin console
- */
-export const CENTRAL_CLAIMS_REGISTRY = LEGAL_CLAIM_REGISTRY;
-
-/**
- * Compute counts by verification status
- */
-export function getClaimStatusCount(): Record<ClaimVerificationStatus | 'total', number> {
-  const counts: Record<string, number> = {
+export function getClaimStatusCount(): Record<ClaimVerificationStatus, number> {
+  const counts: Record<ClaimVerificationStatus, number> = {
     VERIFIED: 0,
+    PROPOSED_BUSINESS_POLICY: 0,
     APPROVED_BUSINESS_POLICY: 0,
     CONFIG_REQUIRED: 0,
     NOT_PUBLIC: 0,
     LEGAL_REVIEW_REQUIRED: 0,
-    total: LEGAL_CLAIM_REGISTRY.length,
+    REJECTED: 0,
   };
-
-  for (const claim of LEGAL_CLAIM_REGISTRY) {
-    counts[claim.status] = (counts[claim.status] || 0) + 1;
+  for (const entry of LEGAL_CLAIM_REGISTRY) {
+    counts[entry.status] = (counts[entry.status] || 0) + 1;
   }
-
-  return counts as Record<ClaimVerificationStatus | 'total', number>;
+  return counts;
 }

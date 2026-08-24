@@ -251,6 +251,55 @@ export function RoyalEnfieldLogo({ className = 'h-7 w-auto' }: { className?: str
   );
 }
 
+export function JllLogo({ className = 'h-7 w-auto' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 130 44" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="JLL">
+      <g>
+        {/* JLL Signature Red Geometric Prism Mark */}
+        <g transform="translate(6, 9)">
+          <polygon points="0,13 6,0 12,13" fill="#E30613" />
+          <polygon points="12,13 18,0 24,13" fill="#E30613" />
+          <polygon points="6,26 12,13 18,26" fill="#E30613" />
+        </g>
+        <text x="38" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontSize="22" fontWeight="900" letterSpacing="-0.02em" fill="#E30613">
+          JLL
+        </text>
+      </g>
+    </svg>
+  );
+}
+
+export function CbreLogo({ className = 'h-7 w-auto' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 130 44" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="CBRE">
+      <g>
+        <text x="4" y="30" fontFamily="system-ui, -apple-system, 'Helvetica Neue', sans-serif" fontSize="24" fontWeight="900" letterSpacing="0.04em" fill="#003F2D">
+          CBRE
+        </text>
+      </g>
+    </svg>
+  );
+}
+
+export function KnightFrankLogo({ className = 'h-7 w-auto' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 170 44" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="Knight Frank">
+      <g>
+        <rect x="4" y="6" width="30" height="30" rx="3" fill="#D9262E" />
+        <text x="7.5" y="27" fontFamily="Georgia, 'Times New Roman', serif" fontSize="14" fontWeight="800" letterSpacing="-0.02em" fill="#FFFFFF">
+          KF
+        </text>
+        <text x="40" y="20" fontFamily="Georgia, 'Times New Roman', serif" fontSize="11" fontWeight="700" letterSpacing="0.04em" fill="#0B1220">
+          Knight
+        </text>
+        <text x="40" y="32" fontFamily="Georgia, 'Times New Roman', serif" fontSize="11" fontWeight="700" letterSpacing="0.04em" fill="#0B1220">
+          Frank
+        </text>
+      </g>
+    </svg>
+  );
+}
+
 export interface ClientRosterItem {
   id: string;
   name: string;
@@ -259,17 +308,19 @@ export interface ClientRosterItem {
 }
 
 export const VERIFIED_CLIENTS: ClientRosterItem[] = [
-  { id: 'forged-solutions', name: 'Forged Solutions Group', category: 'Aerospace & Industrial', Logo: ForgedSolutionsLogo },
-  { id: 'damac', name: 'DAMAC', category: 'Commercial & Residential Property', Logo: DamacLogo },
+  { id: 'jll', name: 'JLL', category: 'Commercial Real Estate & Property Management', Logo: JllLogo },
+  { id: 'cbre', name: 'CBRE', category: 'Global Real Estate & Facilities Services', Logo: CbreLogo },
+  { id: 'cushman-wakefield', name: 'Cushman & Wakefield', category: 'Commercial Real Estate & Estates', Logo: CushmanWakefieldLogo },
+  { id: 'knight-frank', name: 'Knight Frank', category: 'Commercial Real Estate & Managing Agent', Logo: KnightFrankLogo },
   { id: 'lambert-smith-hampton', name: 'Lambert Smith Hampton', category: 'Managing Agent & Commercial Property', Logo: LambertSmithHamptonLogo },
+  { id: 'forged-solutions', name: 'Forged Solutions Group', category: 'Aerospace & Industrial Engineering', Logo: ForgedSolutionsLogo },
+  { id: 'damac', name: 'DAMAC', category: 'Commercial & Residential Property', Logo: DamacLogo },
   { id: 'nhs', name: 'NHS Estates', category: 'Healthcare & Public Sector', Logo: NhsLogo },
   { id: 'greggs', name: 'Greggs', category: 'National Retail & Foodservice', Logo: GreggsLogo },
-  { id: 'cushman-wakefield', name: 'Cushman & Wakefield', category: 'Commercial Real Estate & Estates', Logo: CushmanWakefieldLogo },
   { id: 'costa', name: 'Costa Coffee', category: 'National Hospitality & Retail', Logo: CostaLogo },
   { id: 'hsbc', name: 'HSBC Commercial', category: 'Financial & Corporate Facilities', Logo: HsbcLogo },
-  { id: 'burger-king', name: 'Burger King', category: 'Quick Service Retail & Drive-Thru', Logo: BurgerKingLogo },
   { id: 'moto', name: 'Moto Hospitality', category: 'Motorway Service Areas & Public Realm', Logo: MotoLogo },
   { id: 'natwest', name: 'NatWest Group', category: 'Banking & Regional Branch Networks', Logo: NatWestLogo },
   { id: 'balfour-beatty', name: 'Balfour Beatty', category: 'Construction & Infrastructure Estates', Logo: BalfourBeattyLogo },
-  { id: 'royal-enfield', name: 'Royal Enfield', category: 'Manufacturing & Automotive Facilities', Logo: RoyalEnfieldLogo },
 ];
+

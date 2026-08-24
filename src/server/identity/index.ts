@@ -268,6 +268,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'compliance:obligation_manage', 'compliance:evidence_review', 'compliance:exception_manage',
     'compliance:rule_view', 'compliance:audit_generate', 'supply_chain:read',
     'supply_chain:write', 'commercial:read', 'comms:access', 'reporting:view', 'growth:access', 'audit:read',
+    'data_import:view',
   ],
   OPERATIONS_USER: [
     'command:access', 'operations:read', 'operations:write', 'operations:dispatch',
@@ -297,6 +298,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'compliance:obligation_manage', 'compliance:evidence_review', 'compliance:exception_manage',
     'compliance:rule_view', 'compliance:rule_manage', 'compliance:audit_generate', 'compliance:risk_accept',
     'estate:read', 'estate:write', 'ppm:manage', 'reporting:view', 'audit:read',
+    'data_import:view',
   ],
   COMPLIANCE_USER: [
     'command:access', 'compliance:read', 'compliance:view', 'compliance:rule_view',
@@ -358,6 +360,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'finance:billing', 'finance:invoice_issue', 'credit_note:create', 'credit_note:approve',
     'finance:reporting', 'accounting:sync', 'finance:policy_admin', 'finance:admin',
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'platform:admin', 'audit:read',
+    'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
   ],
   READ_ONLY: [
     'command:access', 'operations:read', 'estate:read', 'compliance:read', 'compliance:view',
@@ -641,6 +644,13 @@ export const PERMISSION = {
   // Commercial
   CREATE_QUOTE: 'quote:create',
   APPROVE_QUOTE: 'quote:approve',
+  // Data Import
+  DATA_IMPORT_VIEW: 'data_import:view',
+  DATA_IMPORT_CREATE: 'data_import:create',
+  DATA_IMPORT_MAP: 'data_import:map',
+  DATA_IMPORT_COMMIT: 'data_import:commit',
+  DATA_IMPORT_ROLLBACK: 'data_import:rollback',
+  DATA_IMPORT_ADMIN: 'data_import:admin',
 } as const satisfies Record<string, PermissionCode>;
 
 // =============================================================================

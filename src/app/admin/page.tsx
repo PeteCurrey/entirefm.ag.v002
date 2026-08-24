@@ -2,6 +2,7 @@ import React from 'react';
 import { getCurrentSession } from '@/server/identity';
 import { getOperationalMetrics } from '@/server/reporting';
 import { listSites } from '@/server/estate';
+import { getComplianceKPIs } from '@/server/compliance';
 import { isDbConfigured } from '@/server/db/client';
 import { ControlCentreClient } from '@/components/admin/control-centre/ControlCentreClient';
 
@@ -11,9 +12,10 @@ export default async function AdminCommandCentrePage() {
   const session = await getCurrentSession();
   const dbConnected = isDbConfigured();
 
-  const [metrics, sites] = await Promise.all([
+  const [metrics, sites, complianceKpis] = await Promise.all([
     getOperationalMetrics(),
     listSites(),
+    getComplianceKPIs(undefined, undefined, session ?? undefined).catch(() => ({})),
   ]);
 
   return (
@@ -22,6 +24,8 @@ export default async function AdminCommandCentrePage() {
       metrics={metrics}
       sites={sites}
       dbConnected={dbConnected}
+      complianceKpis={complianceKpis}
     />
   );
 }
+

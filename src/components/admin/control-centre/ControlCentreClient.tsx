@@ -21,6 +21,7 @@ interface ControlCentreClientProps {
   metrics: OperationalMetrics;
   sites: Site[];
   dbConnected: boolean;
+  complianceKpis?: Record<string, number>;
 }
 
 export function ControlCentreClient({
@@ -28,6 +29,7 @@ export function ControlCentreClient({
   metrics,
   sites,
   dbConnected,
+  complianceKpis,
 }: ControlCentreClientProps) {
   const [activePersona, setActivePersona] = useState<string>('FM_DIRECTOR');
   const [selectedPortfolio, setSelectedPortfolio] = useState<string>('all');
@@ -37,13 +39,22 @@ export function ControlCentreClient({
   const [activeMetric, setActiveMetric] = useState<string | null>(null);
   const [activeWorkloadState, setActiveWorkloadState] = useState<string | null>(null);
 
+  // Compute compliance % from real KPIs — no hard-coded fallback
+  const applicableObligations = complianceKpis?.APPLICABLE_OBLIGATIONS ?? 0;
+  const compliantObligations = complianceKpis?.COMPLIANT_OBLIGATIONS ?? 0;
+  const compliancePercent =
+    applicableObligations > 0
+      ? Math.round((compliantObligations / applicableObligations) * 1000) / 10
+      : null;
+
   const pulseData: EstatePulseData = {
-    sitesCount: sites.length > 0 ? sites.length : 42,
-    assetsCount: metrics.totalAssetsCount > 0 ? metrics.totalAssetsCount : 3846,
-    openJobsCount: metrics.activeWorkOrders > 0 ? metrics.activeWorkOrders : 127,
-    slaPerformancePercent: 96.2,
-    compliancePercent: 98.4,
-    currentWorksGbp: metrics.unbilledWipAmountGbp > 0 ? metrics.unbilledWipAmountGbp : 184500,
+    sitesCount: sites.length,
+    assetsCount: metrics.totalAssetsCount,
+    openJobsCount: metrics.activeWorkOrders,
+    // SLA % requires SLA tracking analytics — no real data source yet
+    slaPerformancePercent: null,
+    compliancePercent,
+    currentWorksGbp: metrics.unbilledWipAmountGbp,
     criticalJobsCount: metrics.criticalIncidents,
     slaBreachRiskCount: metrics.slaBreachRiskCount,
   };
@@ -58,17 +69,13 @@ export function ControlCentreClient({
   };
 
   const handleActionRequiredInspect = (item: ActionRequiredItem) => {
-    if (item.entityType === 'work_order') {
-      // Find matching site or open drawer
-      if (sites.length > 0) {
-        setSelectedSite(sites[0] as SiteWithTelemetry);
-        setSiteDrawerOpen(true);
-      }
+    if (item.entityType === 'work_order' && sites.length > 0) {
+      setSelectedSite(sites[0] as SiteWithTelemetry);
+      setSiteDrawerOpen(true);
     }
   };
 
-  const handleEngineerClick = (engineer: EngineerPresenceItem) => {
-    // Open inspector or highlight site
+  const handleEngineerClick = (_engineer: EngineerPresenceItem) => {
     if (sites.length > 0) {
       setSelectedSite(sites[0] as SiteWithTelemetry);
       setSiteDrawerOpen(true);
@@ -92,14 +99,9 @@ export function ControlCentreClient({
       />
 
       {!dbConnected && (
-        <div className="rounded-[10px] border border-[#FDE68A] bg-[#FFFBEB] p-3.5 text-[12.5px] text-[#B45309] flex items-center justify-between">
-          <div>
-            <strong className="font-semibold text-[#92400E]">Live Database Synchronisation:</strong>{' '}
-            Showing calibrated operational indicators aligned with canonical Supabase estate schema.
-          </div>
-          <span className="font-mono text-[10px] bg-[#FEF3C7] px-2 py-0.5 rounded-[4px] font-semibold text-[#92400E]">
-            DEV / DEMO TELEMETRY
-          </span>
+        <div className="rounded-[10px] border border-[#FDE68A] bg-[#FFFBEB] p-3.5 text-[12.5px] text-[#B45309] flex items-center gap-3">
+          <strong className="font-semibold text-[#92400E]">Database Not Connected.</strong>{' '}
+          Connect your Supabase database in Platform Settings to see live operational data.
         </div>
       )}
 
@@ -119,16 +121,19 @@ export function ControlCentreClient({
             selectedSiteId={selectedSite?.id || null}
             onSelectSite={handleSelectSite}
           />
-          <OperationsTimeline />
+          <OperationsTimeline events={[]} />
         </div>
 
         {/* Right Focus: Action Required + Entire Intelligence + Field Presence (5 Cols) */}
         <div className="lg:col-span-5 space-y-6">
           <ActionRequiredQueue
+            items={[]}
             onItemInspect={handleActionRequiredInspect}
           />
           <EntireIntelligenceBrief />
           <FieldPresencePanel
+            summary={null}
+            exceptions={[]}
             onEngineerClick={handleEngineerClick}
           />
         </div>
@@ -136,6 +141,7 @@ export function ControlCentreClient({
 
       {/* 4. Lower Operational Assurance Row */}
       <LiveWorkloadPipeline
+        counts={null}
         activeState={activeWorkloadState}
         onStateSelect={(stateKey) =>
           setActiveWorkloadState((prev) => (prev === stateKey ? null : stateKey))
@@ -144,8 +150,19 @@ export function ControlCentreClient({
 
       {/* 5. Compliance & Commercial Position Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ComplianceRadar />
-        <CommercialPosition />
+        <ComplianceRadar
+          overallRate={compliancePercent}
+          compliant={compliantObligations}
+          dueIn30Days={complianceKpis?.CERTIFICATES_EXPIRING_30D ?? null}
+          overdue={complianceKpis?.OVERDUE_OBLIGATIONS ?? null}
+          evidenceRejected={null}
+          reviewRequired={complianceKpis?.RULES_UNDER_REVIEW ?? null}
+        />
+        <CommercialPosition
+          spendMtd={metrics.unbilledWipAmountGbp > 0 ? metrics.unbilledWipAmountGbp : null}
+          committed={null}
+          awaitingApproval={null}
+        />
       </div>
 
       {/* Contextual Side Inspector Drawer */}

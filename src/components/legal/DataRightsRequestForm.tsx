@@ -70,11 +70,12 @@ const RIGHT_TYPE_OPTIONS: Array<{
     desc: 'Object to direct B2B outreach, marketing communications, or processing based on legitimate interests.',
   },
   {
-    value: 'AUTOMATED_DECISION',
+    value: 'AUTOMATED_DECISION_REVIEW',
     label: 'Automated Decision & Profiling Human Review',
     ukGdprArticle: 'Article 22',
     desc: 'Request human intervention, express your point of view, or contest an automated recommendation or triage result.',
   },
+
 ];
 
 export function DataRightsRequestForm() {

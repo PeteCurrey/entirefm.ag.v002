@@ -14,7 +14,8 @@ const VALID_RIGHT_TYPES: DataSubjectRightType[] = [
   'RESTRICTION',
   'PORTABILITY',
   'OBJECTION',
-  'AUTOMATED_DECISION',
+  'AUTOMATED_DECISION_REVIEW',
+  'OTHER',
 ];
 
 const VALID_RELATIONSHIPS = [
@@ -79,9 +80,9 @@ export async function POST(req: NextRequest) {
       reference,
       status: record.status,
       right_type: record.right_type,
-      received_at: record.received_at,
-      statutory_due_date: record.statutory_due_date,
-      notice: `Your ${rightTypeLabel(record.right_type)} has been formally recorded under reference ${reference}. We will acknowledge receipt and complete your request within the statutory 1-month period. Our Data Protection Officer will contact you at ${email} if we require further information or identity verification.`,
+      received_at: record.clock.receivedAt,
+      statutory_due_date: record.clock.finalStatutoryDueDate,
+      notice: `Your ${rightTypeLabel(record.right_type)} has been formally recorded under reference ${reference}. We will acknowledge receipt and complete your request without undue delay and at the latest within 1 calendar month in accordance with UK GDPR Article 12(3). Our Data Protection Officer will contact you at ${email} if identity verification is required.`,
       escalation: "If you remain dissatisfied with how we have handled your request, you may lodge a complaint with the Information Commissioner's Office (ICO) at ico.org.uk or on 0303 123 1113.",
     });
   } catch (err: any) {
@@ -104,7 +105,9 @@ function rightTypeLabel(type: DataSubjectRightType): string {
     RESTRICTION: 'Restriction of Processing Request',
     PORTABILITY: 'Data Portability Request',
     OBJECTION: 'Objection to Processing',
-    AUTOMATED_DECISION: 'Request for Human Review of Automated Decision',
+    AUTOMATED_DECISION_REVIEW: 'Request for Human Review of Automated Decision',
+    OTHER: 'Statutory Data Subject Rights Request',
   };
   return labels[type] ?? 'Data Subject Rights Request';
 }
+

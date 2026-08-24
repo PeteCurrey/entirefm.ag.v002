@@ -6,7 +6,12 @@ import { listComplaintsForAdmin } from '@/server/complaints';
 import { listDataRightsRequests } from '@/server/data-rights';
 import { listActivePolicyManifest } from '@/server/legal';
 import { LEGAL_CONFIG, SUBPROCESSOR_REGISTER, COOKIE_INVENTORY, TODO_VERIFY } from '@/config/legal';
-import { CENTRAL_CLAIMS_REGISTRY, getClaimStatusCount } from '@/config/claims-registry';
+import {
+  CENTRAL_CLAIMS_REGISTRY,
+  getClaimsByStatus,
+  getClaimStatusCount,
+  type LegalClaimEntry,
+} from '@/config/claims-registry';
 import {
   ShieldCheck,
   Scale,
@@ -23,11 +28,15 @@ import {
   ArrowRight,
   ShieldAlert,
   Search,
+  Check,
+  X,
+  FileCode,
+  HelpCircle,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Legal, Data & Governance Control | EntireFM Admin',
-  description: 'Enterprise governance console for policy versions, claims registry, complaints queue, subprocessor oversight, and statutory compliance.',
+  title: 'Legal & Governance Human Approval Console | EntireFM Admin',
+  description: 'Enterprise governance console for policy approvals, claims registry, complaints queue, subprocessor oversight, and statutory compliance.',
 };
 
 export default async function AdminLegalPage() {
@@ -38,6 +47,10 @@ export default async function AdminLegalPage() {
   const dataRightsRequests = await listDataRightsRequests(adminSession);
   const policies = listActivePolicyManifest();
   const claimCounts = getClaimStatusCount();
+
+  const proposedPolicies = getClaimsByStatus('PROPOSED_BUSINESS_POLICY');
+  const configRequiredClaims = getClaimsByStatus('CONFIG_REQUIRED');
+  const legalReviewClaims = getClaimsByStatus('LEGAL_REVIEW_REQUIRED');
 
   const isExecutive =
     adminSession.role === 'SUPER_ADMIN' ||
@@ -55,11 +68,11 @@ export default async function AdminLegalPage() {
               <Scale className="h-4 w-4" />
             </span>
             <h1 className="text-2xl font-bold text-white tracking-tight">
-              Legal, Data & Governance Console
+              Legal Governance & Human Approval Console
             </h1>
           </div>
           <p className="text-xs text-slate-400 mt-1">
-            Enterprise administration of 24 corporate policies, statutory claim registry, SAR intake, complaints queue, and subprocessor oversight.
+            Human-in-the-loop executive control over 24 corporate policies, proposed business rules, statutory SAR requests, and dispute queues.
           </p>
         </div>
 
@@ -80,88 +93,274 @@ export default async function AdminLegalPage() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-xl border border-slate-800 bg-slate-850 p-4">
           <div className="flex items-center justify-between text-xs text-slate-400">
-            <span>Active Policies</span>
-            <FileText className="h-4 w-4 text-teal-400" />
+            <span>Awaiting Human Approval</span>
+            <Clock className="h-4 w-4 text-amber-400" />
           </div>
-          <p className="text-2xl font-bold text-white mt-2">{policies.length}</p>
-          <p className="text-[11px] text-slate-500 mt-0.5">All 24 published and versioned</p>
+          <p className="text-2xl font-bold text-amber-400 mt-2">{proposedPolicies.length}</p>
+          <p className="text-[11px] text-slate-500 mt-0.5">Proposed policy rules</p>
         </div>
 
         <div className="rounded-xl border border-slate-800 bg-slate-850 p-4">
           <div className="flex items-center justify-between text-xs text-slate-400">
-            <span>Verified Claims</span>
-            <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+            <span>Config / Facts Required</span>
+            <AlertTriangle className="h-4 w-4 text-rose-400" />
           </div>
-          <p className="text-2xl font-bold text-emerald-400 mt-2">{claimCounts.VERIFIED}</p>
-          <p className="text-[11px] text-slate-500 mt-0.5">Of {CENTRAL_CLAIMS_REGISTRY.length} registered claims</p>
+          <p className="text-2xl font-bold text-rose-400 mt-2">{configRequiredClaims.length}</p>
+          <p className="text-[11px] text-slate-500 mt-0.5">VAT, ICO, Insurance Schedules</p>
         </div>
 
         <div className="rounded-xl border border-slate-800 bg-slate-850 p-4">
           <div className="flex items-center justify-between text-xs text-slate-400">
-            <span>Open Complaints & SARs</span>
-            <AlertTriangle className="h-4 w-4 text-amber-400" />
+            <span>Open Data Rights & SARs</span>
+            <Search className="h-4 w-4 text-teal-400" />
           </div>
-          <p className="text-2xl font-bold text-amber-400 mt-2">
-            {complaints.filter((c) => c.status !== 'CLOSED' && c.status !== 'RESOLVED').length +
-              dataRightsRequests.filter((d) => d.status !== 'COMPLETED' && d.status !== 'REJECTED').length}
+          <p className="text-2xl font-bold text-teal-400 mt-2">
+            {dataRightsRequests.filter((d) => d.status !== 'COMPLETED' && d.status !== 'REJECTED').length}
           </p>
-          <p className="text-[11px] text-slate-500 mt-0.5">Active statutory matters</p>
+          <p className="text-[11px] text-slate-500 mt-0.5">Statutory 1-month countdown active</p>
         </div>
 
         <div className="rounded-xl border border-slate-800 bg-slate-850 p-4">
           <div className="flex items-center justify-between text-xs text-slate-400">
-            <span>Audited Subprocessors</span>
-            <ShieldCheck className="h-4 w-4 text-teal-400" />
+            <span>Verified Production Processors</span>
+            <ShieldCheck className="h-4 w-4 text-emerald-400" />
           </div>
-          <p className="text-2xl font-bold text-teal-400 mt-2">{SUBPROCESSOR_REGISTER.length}</p>
-          <p className="text-[11px] text-slate-500 mt-0.5">Live providers (AWS London, Resend)</p>
+          <p className="text-2xl font-bold text-emerald-400 mt-2">
+            {SUBPROCESSOR_REGISTER.filter((s) => s.status === 'VERIFIED_ACTIVE').length}
+          </p>
+          <p className="text-[11px] text-slate-500 mt-0.5">
+            {SUBPROCESSOR_REGISTER.filter((s) => s.status === 'DETECTED').length} detected in R&D
+          </p>
         </div>
       </div>
 
-      {/* Central Claim Registry Overview */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <ShieldCheck className="h-5 w-5 text-teal-400" />
-            <h2 className="text-base font-bold text-white">
-              Legal Claim Registry & Truth Verification Matrix
-            </h2>
+      {/* 1. APPROVAL INBOX (AI May Propose, AI May Not Approve) */}
+      <div className="rounded-2xl border border-amber-900/50 bg-slate-850 p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded bg-amber-500/20 text-amber-400 text-xs font-bold">
+                !
+              </span>
+              <h2 className="text-base font-bold text-white">
+                Human Approval Inbox (Proposed Business Policies)
+              </h2>
+            </div>
+            <p className="text-xs text-slate-400 mt-1">
+              AI / code has proposed the following operational policies. They remain non-contractual until explicitly approved by an authorized executive.
+            </p>
           </div>
-          <span className="text-[11px] font-mono bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">
-            Enforcing 5-Tier Claim Truth Model
+          <span className="text-xs bg-amber-950 text-amber-300 border border-amber-800 px-3 py-1 rounded-full font-semibold">
+            {proposedPolicies.length} Items Awaiting Sign-Off
           </span>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 text-xs">
-          <div className="rounded-xl bg-slate-900 border border-slate-800 p-3">
-            <span className="text-emerald-400 font-bold block">VERIFIED ({claimCounts.VERIFIED})</span>
-            <span className="text-[11px] text-slate-400">Backing document/certificate verified</span>
+        {proposedPolicies.length === 0 ? (
+          <div className="rounded-xl border border-slate-800 bg-slate-900 p-8 text-center text-xs text-slate-500">
+            No policies currently awaiting human approval. All proposals resolved.
           </div>
-          <div className="rounded-xl bg-slate-900 border border-slate-800 p-3">
-            <span className="text-sky-400 font-bold block">APPROVED BUSINESS POLICY ({claimCounts.APPROVED_BUSINESS_POLICY})</span>
-            <span className="text-[11px] text-slate-400">Explicitly approved governance rule</span>
+        ) : (
+          <div className="space-y-4">
+            {proposedPolicies.map((item) => (
+              <div
+                key={item.claimId}
+                className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-3"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-800 pb-3">
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/60 mr-2">
+                      {item.category}
+                    </span>
+                    <span className="font-bold text-white text-sm">{item.claimId}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-slate-400 font-mono">
+                      State: {item.status}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-2 text-xs">
+                  <div>
+                    <span className="text-slate-400 block font-semibold">Proposed Public Wording:</span>
+                    <p className="text-slate-200 bg-slate-950/60 p-3 rounded-lg border border-slate-800 font-medium mt-1 leading-relaxed">
+                      "{item.publicWording}"
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                    <div>
+                      <span className="text-slate-500 block">Rationale & Source Reference:</span>
+                      <span className="text-slate-300">{item.sourceReference}</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-500 block">Affected Public Pages:</span>
+                      <span className="text-teal-400 font-mono">
+                        {item.affectedPages?.join(', ') || 'N/A'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {isExecutive && (
+                  <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+                    <button
+                      type="button"
+                      className="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700 transition-colors"
+                    >
+                      Send for Legal Review
+                    </button>
+                    <button
+                      type="button"
+                      className="px-3 py-1.5 rounded-lg bg-rose-950 text-rose-300 border border-rose-800 text-xs font-semibold hover:bg-rose-900 transition-colors"
+                    >
+                      Reject Proposal
+                    </button>
+                    <button
+                      type="button"
+                      className="px-4 py-1.5 rounded-lg bg-teal-600 text-white text-xs font-bold hover:bg-teal-700 transition-colors shadow-xs flex items-center gap-1.5"
+                    >
+                      <Check className="h-3.5 w-3.5" />
+                      Approve as Human Executive
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-          <div className="rounded-xl bg-slate-900 border border-slate-800 p-3">
-            <span className="text-amber-400 font-bold block">CONFIG_REQUIRED ({claimCounts.CONFIG_REQUIRED})</span>
-            <span className="text-[11px] text-slate-400">Awaiting user input; truthful fallback in UI</span>
+        )}
+      </div>
+
+      {/* 2. CONFIGURATION REQUIRED QUEUE (Missing Corporate Facts) */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Building2 className="h-4 w-4 text-rose-400" />
+              Missing Corporate Facts & Configuration Queue
+            </h2>
+            <p className="text-xs text-slate-400 mt-0.5">
+              These factual credentials must be supplied. In accordance with truth-control rules, zero public fallbacks are rendered until verified.
+            </p>
           </div>
-          <div className="rounded-xl bg-slate-900 border border-slate-800 p-3">
-            <span className="text-rose-400 font-bold block">LEGAL_REVIEW ({claimCounts.LEGAL_REVIEW_REQUIRED})</span>
-            <span className="text-[11px] text-slate-400">Held pending legal counsel review</span>
-          </div>
+          <span className="text-xs bg-rose-950 text-rose-300 border border-rose-800 px-3 py-1 rounded-full font-semibold">
+            {configRequiredClaims.length} Items Pending
+          </span>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2 text-xs">
+          {configRequiredClaims.map((claim) => (
+            <div key={claim.claimId} className="rounded-xl bg-slate-900 border border-slate-800 p-4 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-white">{claim.claimId}</span>
+                <span className="text-[10px] font-mono bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded">
+                  CONFIG_REQUIRED
+                </span>
+              </div>
+              <p className="text-slate-300">{claim.claim}</p>
+              <p className="text-[11px] text-slate-500">{claim.internalNotes}</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Data Subject Rights (SAR) Queue */}
+      {/* 3. LEGAL REVIEW REQUIRED QUEUE */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Scale className="h-4 w-4 text-indigo-400" />
+              External Legal Review Queue (High-Impact Clauses)
+            </h2>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Clauses with significant liability, dispute resolution, or regulatory impact held pending solicitor review.
+            </p>
+          </div>
+          <span className="text-xs bg-indigo-950 text-indigo-300 border border-indigo-800 px-3 py-1 rounded-full font-semibold">
+            {legalReviewClaims.length} Items in Legal Review
+          </span>
+        </div>
+
+        <div className="space-y-3 text-xs">
+          {legalReviewClaims.map((claim) => (
+            <div key={claim.claimId} className="rounded-xl bg-slate-900 border border-slate-800 p-4 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-white">{claim.claimId}</span>
+                <span className="text-[10px] font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">
+                  LEGAL_REVIEW_REQUIRED
+                </span>
+              </div>
+              <p className="text-slate-200">{claim.claim}</p>
+              <p className="text-[11px] text-slate-400">{claim.internalNotes}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 4. SUBPROCESSOR VERIFICATION REGISTRY (Detected vs Active) */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <ShieldCheck className="h-4 w-4 text-emerald-400" />
+              Subprocessor Contractual Verification Register
+            </h2>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Only providers with status VERIFIED_ACTIVE populate public legal pages. Technologies in R&D remain marked DETECTED.
+            </p>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto rounded-xl border border-slate-800">
+          <table className="w-full text-left text-xs text-slate-300">
+            <thead className="bg-slate-900 text-[11px] font-bold uppercase text-slate-400">
+              <tr>
+                <th className="px-4 py-3">Provider Name</th>
+                <th className="px-4 py-3">Contractual Entity</th>
+                <th className="px-4 py-3">Category</th>
+                <th className="px-4 py-3">Primary Hosting</th>
+                <th className="px-4 py-3">Transfer Assessment</th>
+                <th className="px-4 py-3">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-800">
+              {SUBPROCESSOR_REGISTER.map((sub) => (
+                <tr key={sub.id} className="hover:bg-slate-800/40">
+                  <td className="px-4 py-3 font-bold text-white">{sub.name}</td>
+                  <td className="px-4 py-3 text-slate-400">{sub.contractualEntity}</td>
+                  <td className="px-4 py-3 text-slate-400">{sub.category}</td>
+                  <td className="px-4 py-3 font-mono text-[11px]">{sub.primaryHostingRegion}</td>
+                  <td className="px-4 py-3 text-slate-400 max-w-[220px] truncate" title={sub.internationalTransferAssessment}>
+                    {sub.transferSafeguard}
+                  </td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${
+                        sub.status === 'VERIFIED_ACTIVE'
+                          ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
+                          : 'bg-amber-950 text-amber-300 border border-amber-800'
+                      }`}
+                    >
+                      {sub.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* 5. DATA SUBJECT RIGHTS (SAR) QUEUE */}
       <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Search className="h-4 w-4 text-teal-400" />
-              Data Subject Rights (SAR) Queue
+              Data Subject Rights Queue (UK GDPR Arts 15-22)
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              UK GDPR Articles 15–22 statutory requests with 1-calendar-month legal deadline tracking.
+              Live feed of statutory rights requests with calendar-month deadline calculation.
             </p>
           </div>
           <Link
@@ -169,7 +368,7 @@ export default async function AdminLegalPage() {
             target="_blank"
             className="text-xs font-semibold text-teal-400 hover:underline inline-flex items-center gap-1"
           >
-            Public SAR Portal
+            Public Rights Portal
             <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
@@ -188,7 +387,7 @@ export default async function AdminLegalPage() {
                   <th className="px-4 py-3">Subject Name</th>
                   <th className="px-4 py-3">Relationship</th>
                   <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3">Statutory Due</th>
+                  <th className="px-4 py-3">Statutory Deadline</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800">
@@ -207,7 +406,7 @@ export default async function AdminLegalPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-slate-400 font-mono text-[11px]">
-                      {new Date(r.statutory_due_date).toLocaleDateString('en-GB')}
+                      {new Date(r.clock.finalStatutoryDueDate).toLocaleDateString('en-GB')}
                     </td>
                   </tr>
                 ))}
@@ -217,7 +416,7 @@ export default async function AdminLegalPage() {
         )}
       </div>
 
-      {/* Complaints & Dispute Queue */}
+      {/* 6. COMPLAINTS & DISPUTE QUEUE */}
       <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
@@ -226,7 +425,7 @@ export default async function AdminLegalPage() {
               Complaints & Dispute Resolution Queue
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              Commercial, contractor, billing, and safety grievance intake (DPC- & COM- series).
+              Multi-category grievance intake queue with separate statutory rules vs internal service targets.
             </p>
           </div>
           <Link
@@ -254,7 +453,7 @@ export default async function AdminLegalPage() {
                   <th className="px-4 py-3">Responsible Team</th>
                   <th className="px-4 py-3">Severity</th>
                   <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3">Received</th>
+                  <th className="px-4 py-3">Ack Target</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800">
@@ -285,8 +484,8 @@ export default async function AdminLegalPage() {
                         {c.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-500">
-                      {new Date(c.received_at).toLocaleDateString('en-GB')}
+                    <td className="px-4 py-3 text-slate-400 text-[11px]">
+                      {new Date(c.internal_acknowledgement_target_at).toLocaleDateString('en-GB')}
                     </td>
                   </tr>
                 ))}
@@ -296,15 +495,15 @@ export default async function AdminLegalPage() {
         )}
       </div>
 
-      {/* Active Policy Manifest & Cryptographic Hashes */}
+      {/* 7. POLICY LIFECYCLE & CRYPTOGRAPHIC HASH REGISTRY */}
       <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-base font-bold text-white">
-              Policy Manifest & Cryptographic Version Registry
+              Policy Lifecycle & Cryptographic Version Registry
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              Auditable SHA-256 hashes guarantee that published contractual policies have not been silently modified.
+              Only PUBLISHED policies can be electronically accepted. SHA-256 hashes guarantee unalterable legal audit integrity.
             </p>
           </div>
         </div>
@@ -316,8 +515,8 @@ export default async function AdminLegalPage() {
                 <th className="px-4 py-3">Policy Title</th>
                 <th className="px-4 py-3">Slug</th>
                 <th className="px-4 py-3">Version</th>
-                <th className="px-4 py-3">Effective Date</th>
-                <th className="px-4 py-3">Explicit Acceptance</th>
+                <th className="px-4 py-3">Lifecycle State</th>
+                <th className="px-4 py-3">Acceptance Required</th>
                 <th className="px-4 py-3">SHA-256 Integrity Hash</th>
               </tr>
             </thead>
@@ -335,11 +534,15 @@ export default async function AdminLegalPage() {
                   </td>
                   <td className="px-4 py-2.5 font-mono text-slate-400">{p.policy_slug}</td>
                   <td className="px-4 py-2.5 font-bold text-teal-400">v{p.version}</td>
-                  <td className="px-4 py-2.5 text-slate-400">{p.effective_date}</td>
+                  <td className="px-4 py-2.5">
+                    <span className="bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded text-[10px] font-bold">
+                      {p.lifecycle_state}
+                    </span>
+                  </td>
                   <td className="px-4 py-2.5">
                     {p.requires_explicit_acceptance ? (
                       <span className="text-[10px] bg-amber-950 text-amber-300 border border-amber-800 px-2 py-0.5 rounded font-semibold">
-                        Contractual Required
+                        Contractual
                       </span>
                     ) : (
                       <span className="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded">

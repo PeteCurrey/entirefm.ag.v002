@@ -8,8 +8,7 @@
  * CLAIM & INFORMATION GOVERNANCE:
  * - DO NOT invent regulatory or corporate numbers.
  * - Missing or unverified data is flagged internally as 'TODO_VERIFY'.
- * - Public components MUST use getLegalDisplayValue() or verified fallbacks
- *   to ensure 'TODO_VERIFY' is never displayed publicly.
+ * - Public components MUST NOT render unverified claims or misleading fallbacks.
  */
 
 import { ORGANIZATION_CONFIG } from './organization';
@@ -58,19 +57,29 @@ export interface LegalEntityConfig {
   };
 }
 
+export type SubprocessorVerificationStatus =
+  | 'DETECTED'
+  | 'UNDER_REVIEW'
+  | 'VERIFIED_ACTIVE'
+  | 'INACTIVE'
+  | 'REMOVED';
+
 export interface SubprocessorEntry {
   id: string;
   name: string;
+  contractualEntity: string;
+  role: 'PROCESSOR' | 'SUBPROCESSOR' | 'CONTROLLER';
   category: 'Infrastructure & Cloud' | 'Database & Storage' | 'Communications & Email' | 'Security & Telemetry' | 'Accounting & ERP';
   purpose: string;
   dataProcessed: string[];
-  processingLocation: string;
-  transferMechanism: 'UK Adequacy Decision' | 'UK International Data Transfer Agreement (IDTA)' | 'UK Addendum to EU SCCs' | 'Domestic (UK-Based Processing)' | 'UK Extension to EU-US Data Privacy Framework';
+  primaryHostingRegion: string;
+  internationalTransferAssessment: string;
+  transferSafeguard: string;
+  dpaInPlace: boolean;
   productService: string;
-  status: 'VERIFIED' | 'TO_VERIFY';
+  status: SubprocessorVerificationStatus;
   effectiveDate: string;
 }
-
 
 export interface CookieInventoryItem {
   id: string;
@@ -121,9 +130,9 @@ export const LEGAL_CONFIG: LegalEntityConfig = {
     email: 'compliance@entirefm.com',
   },
   insurances: {
-    employersLiability: 'Available upon formal procurement request (Policy Schedule Pending Verification)',
-    publicLiability: 'Available upon formal procurement request (Policy Schedule Pending Verification)',
-    professionalIndemnity: 'Available upon formal procurement request (Policy Schedule Pending Verification)',
+    employersLiability: TODO_VERIFY,
+    publicLiability: TODO_VERIFY,
+    professionalIndemnity: TODO_VERIFY,
   },
   statutoryJurisdiction: 'England and Wales',
 
@@ -137,63 +146,101 @@ export const LEGAL_CONFIG: LegalEntityConfig = {
 };
 
 /**
- * Live Subprocessor Register
- * Only contains verified platform and infrastructure providers in active use.
+ * Complete Subprocessor Register
+ * Separates DETECTED technologies from VERIFIED_ACTIVE production processors.
  */
 export const SUBPROCESSOR_REGISTER: SubprocessorEntry[] = [
   {
     id: 'subproc-vercel',
     name: 'Vercel Inc.',
+    contractualEntity: 'Vercel Inc. (Delaware, USA)',
+    role: 'PROCESSOR',
     category: 'Infrastructure & Cloud',
-    purpose: 'Edge website hosting, static asset delivery, and frontend computing infrastructure',
+    purpose: 'Edge website hosting, static asset delivery, and serverless edge compute infrastructure.',
     dataProcessed: ['IP addresses', 'HTTP request headers', 'Edge server logs', 'Attribution query parameters'],
-    processingLocation: 'United Kingdom / European Union / Global Edge Points of Presence',
-    transferMechanism: 'UK Addendum to EU SCCs',
-    productService: 'Public Website, Client Portal Edge Hosting',
-    status: 'VERIFIED',
+    primaryHostingRegion: 'UK / EU / Global Edge POPs',
+    internationalTransferAssessment: 'Edge processing routes through nearest European/UK point of presence; configuration logging subject to US edge parent entity.',
+    transferSafeguard: 'UK Addendum to EU Standard Contractual Clauses (SCCs) & Data Processing Addendum',
+    dpaInPlace: true,
+    productService: 'Public Website & Client Portal Edge Hosting',
+    status: 'VERIFIED_ACTIVE',
     effectiveDate: '2026-01-01',
   },
   {
     id: 'subproc-supabase',
     name: 'Supabase Inc. / AWS London (eu-west-2)',
+    contractualEntity: 'Supabase Inc. (Delaware, USA) utilising AWS Infrastructure',
+    role: 'PROCESSOR',
     category: 'Database & Storage',
-    purpose: 'Relational database persistence, CAFM asset records, work order management, and secure encrypted document repository',
+    purpose: 'Relational database persistence, CAFM asset records, work order dispatch, and encrypted document vault.',
     dataProcessed: ['Client account profiles', 'Contractor compliance records', 'Property asset details', 'Work order history', 'Encrypted portal credentials', 'Compliance certificates'],
-    processingLocation: 'London, United Kingdom (AWS eu-west-2)',
-    transferMechanism: 'Domestic (UK-Based Processing)',
+    primaryHostingRegion: 'London, United Kingdom (AWS eu-west-2)',
+    internationalTransferAssessment: 'Primary database cluster hosted in AWS London (eu-west-2). Provider support and operational management subject to US parent entity access controls.',
+    transferSafeguard: 'UK Addendum to EU SCCs & Supabase Enterprise Data Processing Agreement',
+    dpaInPlace: true,
     productService: 'EntireFM CAFM Platform, Database, Document Vault',
-    status: 'VERIFIED',
+    status: 'VERIFIED_ACTIVE',
     effectiveDate: '2026-01-01',
   },
   {
     id: 'subproc-resend',
     name: 'Resend Inc.',
+    contractualEntity: 'Resend Inc. (Delaware, USA)',
+    role: 'PROCESSOR',
     category: 'Communications & Email',
-    purpose: 'Transactional service emails, work order notifications, client survey confirmations, and newsletter distribution',
+    purpose: 'Transactional service emails, work order notifications, client survey confirmations, and newsletter distribution.',
     dataProcessed: ['Email addresses', 'Recipient names', 'Service dispatch references', 'Email interaction telemetry'],
-    processingLocation: 'United Kingdom / European Union (EU Data Residency)',
-    transferMechanism: 'UK Addendum to EU SCCs',
+    primaryHostingRegion: 'EU (Frankfurt / Ireland)',
+    internationalTransferAssessment: 'Transactional mail relays hosted in EU data residency region; administrative controls governed under US entity DPA.',
+    transferSafeguard: 'UK Addendum to EU SCCs & Data Processing Agreement',
+    dpaInPlace: true,
     productService: 'Helpdesk Notifications, Commercial Enquiries, FM Briefing',
-    status: 'VERIFIED',
+    status: 'VERIFIED_ACTIVE',
     effectiveDate: '2026-01-01',
   },
   {
     id: 'subproc-google-analytics',
     name: 'Google LLC (Google Analytics 4)',
+    contractualEntity: 'Google Ireland Limited / Google LLC',
+    role: 'PROCESSOR',
     category: 'Security & Telemetry',
-    purpose: 'Zero-PII aggregated website analytics, user journey conversion analysis (conditional on cookie consent)',
+    purpose: 'Aggregated website traffic analysis and user journey telemetry (strictly conditional upon explicit user cookie consent).',
     dataProcessed: ['Anonymized page paths', 'Device categories', 'Aggregated session metrics (no PII or form field data)'],
-    processingLocation: 'European Union / United States',
-    transferMechanism: 'UK Extension to EU-US Data Privacy Framework',
-    productService: 'Public Website Analytics (Optional/Consent-Gated)',
-    status: 'VERIFIED',
+    primaryHostingRegion: 'European Union / United States',
+    internationalTransferAssessment: 'Data transfer relies on the UK Extension to the EU-US Data Privacy Framework and Google Data Processing Terms.',
+    transferSafeguard: 'UK Extension to EU-US Data Privacy Framework / Standard Contractual Clauses',
+    dpaInPlace: true,
+    productService: 'Public Website Analytics (Optional / Consent-Gated)',
+    status: 'VERIFIED_ACTIVE',
     effectiveDate: '2026-01-01',
+  },
+  {
+    id: 'subproc-openai-detected',
+    name: 'OpenAI, L.L.C.',
+    contractualEntity: 'OpenAI, L.L.C. (California, USA)',
+    role: 'PROCESSOR',
+    category: 'Infrastructure & Cloud',
+    purpose: 'Potential generative triage and summarisation experimentation.',
+    dataProcessed: ['Anonymized service request descriptions'],
+    primaryHostingRegion: 'United States',
+    internationalTransferAssessment: 'Under review; not active in live production data path without enterprise DPA.',
+    transferSafeguard: 'Under Review',
+    dpaInPlace: false,
+    productService: 'Internal R&D / Experimental Copilot',
+    status: 'DETECTED',
+    effectiveDate: '2026-08-24',
   },
 ];
 
 /**
+ * Filtered public register: only VERIFIED_ACTIVE entries appear publicly
+ */
+export const PUBLIC_SUBPROCESSOR_REGISTER = SUBPROCESSOR_REGISTER.filter(
+  (s) => s.status === 'VERIFIED_ACTIVE'
+);
+
+/**
  * Live Cookie & Local Storage Inventory
- * Audited from actual codebase implementation.
  */
 export const COOKIE_INVENTORY: CookieInventoryItem[] = [
   {
@@ -201,7 +248,7 @@ export const COOKIE_INVENTORY: CookieInventoryItem[] = [
     name: 'efm_session',
     provider: 'EntireFM (First-party)',
     category: 'essential',
-    purpose: 'Cryptographically signed HMAC authentication token identifying logged-in clients, contractors, field engineers, and administrators.',
+    purpose: 'Cryptographically signed session cookie identifying authenticated clients, contractors, and staff.',
     duration: 'Session / 24 Hours',
     type: 'First-party Cookie',
     isEssential: true,
@@ -213,7 +260,7 @@ export const COOKIE_INVENTORY: CookieInventoryItem[] = [
     name: 'efm_consent_prefs',
     provider: 'EntireFM (First-party)',
     category: 'essential',
-    purpose: 'Stores your granular cookie and privacy preferences so the site respects your selection on repeat visits.',
+    purpose: 'Stores your granular cookie preferences so the site respects your choices on return visits.',
     duration: '12 Months',
     type: 'First-party Cookie',
     isEssential: true,
@@ -225,19 +272,7 @@ export const COOKIE_INVENTORY: CookieInventoryItem[] = [
     name: 'efm_journey_trail',
     provider: 'EntireFM (First-party)',
     category: 'functional',
-    purpose: 'Maintains privacy-safe in-session browsing trail (capped at 15 anonymized URLs) to provide accurate quote context when you submit an enquiry.',
-    duration: 'Session (cleared on browser close)',
-    type: 'Session Storage',
-    isEssential: false,
-    defaultStatus: 'Always Active',
-    statutoryBasis: 'Strictly Necessary (PECR Reg 6(4))',
-  },
-  {
-    id: 'storage-efm-first-touch',
-    name: 'efm_first_touch / efm_first_referrer',
-    provider: 'EntireFM (First-party)',
-    category: 'functional',
-    purpose: 'Remembers the landing page and referral source for the active session to attribute commercial enquiry routing.',
+    purpose: 'Maintains privacy-safe in-session browsing trail (capped at 15 anonymized URLs) for service context.',
     duration: 'Session (cleared on browser close)',
     type: 'Session Storage',
     isEssential: false,
@@ -249,7 +284,7 @@ export const COOKIE_INVENTORY: CookieInventoryItem[] = [
     name: '_ga, _ga_*',
     provider: 'Google Analytics 4',
     category: 'analytics',
-    purpose: 'Measures website visitor interactions, popular FM guides, and aggregate conversion flows. NEVER loaded prior to explicit consent.',
+    purpose: 'Measures website visitor interactions and aggregate conversion flows. NEVER loaded prior to explicit consent.',
     duration: '2 Years',
     type: 'Third-party Cookie',
     isEssential: false,
@@ -281,6 +316,7 @@ export const LEGAL_CATEGORIES: LegalCategory[] = [
       'cookies',
       'data-protection',
       'data-protection-complaints',
+      'data-rights',
       'data-processing',
       'subprocessors',
       'security',
@@ -298,7 +334,7 @@ export const LEGAL_CATEGORIES: LegalCategory[] = [
     id: 'clients',
     slug: 'clients',
     title: 'Clients & Commercial Terms',
-    description: 'Commercial facilities management service terms, SLAs, billing schedules, quote agreements, and formal complaints procedures.',
+    description: 'Commercial facilities management service terms, billing schedules, quote agreements, and formal complaints procedures.',
     iconName: 'Building2',
     policySlugs: ['terms-of-business', 'complaints'],
   },
@@ -329,14 +365,14 @@ export const LEGAL_CATEGORIES: LegalCategory[] = [
 ];
 
 /**
- * Helper to get clean public display value for legal config
+ * Helper to get clean public display value for legal config.
+ * If unverified, returns null so public components can omit the field entirely.
  */
 export function getLegalDisplayValue(
-  value: string | VerificationToken | undefined | null,
-  fallback = 'Available upon request to contracted counterparties'
-): string {
+  value: string | VerificationToken | undefined | null
+): string | null {
   if (!value || value === TODO_VERIFY) {
-    return fallback;
+    return null;
   }
   return value;
 }

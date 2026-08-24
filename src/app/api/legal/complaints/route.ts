@@ -63,11 +63,11 @@ export async function POST(req: NextRequest) {
       category: record.category,
       responsibleTeam: record.responsible_team,
       receivedAt: record.received_at,
-      acknowledgementDueAt: record.acknowledgement_due_at,
-      responseTargetAt: record.response_target_at,
+      acknowledgementTargetAt: record.internal_acknowledgement_target_at,
       notice:
         routing.statutoryNotice ||
-        `Your complaint has been formally logged and routed to our ${routing.team} team for investigation. A written acknowledgment will be sent to ${email} within ${routing.ackTargetDays} business days.`,
+        `Your complaint has been formally logged and routed to our ${routing.team} team for investigation. A written acknowledgment will be sent to ${email} within ${routing.internalAckTargetDays} business days.`,
+
       escalationRoute:
         validCategory === 'DATA_PROTECTION'
           ? 'Information Commissioner’s Office (ICO) — ico.org.uk'

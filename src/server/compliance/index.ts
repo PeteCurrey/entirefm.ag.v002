@@ -951,39 +951,19 @@ export async function exportAuditPack(
     id,
     snapshot_id: 'snap-001',
     client_account_id: 'client-001',
-    pack_reference: `AP-2026-${id.slice(-4)}`,
-    title: 'Statutory Compliance Assurance Pack — Manchester HQ',
+    pack_reference: `AP-${new Date().getFullYear()}-${id.slice(-4).toUpperCase()}`,
+    title: `Statutory Compliance Assurance Pack — ${format === 'EVIDENCE_BUNDLE' ? 'Evidence Bundle' : 'Audit Report'} ${new Date().toISOString().slice(0, 10)}`,
     compliance_domain: 'ALL',
-    date_from: '2026-01-01',
-    date_to: '2026-12-31',
+    date_from: `${new Date().getFullYear()}-01-01`,
+    date_to: `${new Date().getFullYear()}-12-31`,
     export_format: format,
     is_client_sanitised: true,
-    summary_stats_json: { totalItems: 3 },
+    summary_stats_json: { totalItems: 0 },
     created_at: new Date().toISOString(),
   };
 
-  const items: ComplianceAuditPackItem[] = [
-    {
-      id: 'item-001',
-      audit_pack_id: id,
-      item_type: 'OBLIGATION',
-      title: 'Gas Safety Annual Inspection Duty',
-      description: 'Gas Safety (Installation and Use) Regulations 1998 — Regulation 36',
-      evidence_provenance: 'Rule GSR-1998-R36 v3 -> Annual Inspection -> CP12 Cert Gas-Safe-99881',
-      document_checksum: 'sha256_gas_cp12_proof',
-      created_at: new Date().toISOString(),
-    },
-    {
-      id: 'item-002',
-      audit_pack_id: id,
-      item_type: 'CERTIFICATE',
-      title: 'CP12 Landlord Gas Safety Record #GS-44910',
-      description: 'Issued by ABC Mechanical Ltd (Gas Safe Reg: 504931)',
-      evidence_provenance: 'Visit V-8812 -> Service Report SR-9941 -> Certificate GS-44910',
-      document_checksum: 'sha256_gas_cp12_proof',
-      created_at: new Date().toISOString(),
-    },
-  ];
+  // No hardcoded sample items — real implementation fetches from snapshot
+  const items: ComplianceAuditPackItem[] = [];
 
   return { pack, items, contentSanitised: true };
 }
@@ -1051,18 +1031,18 @@ export async function getComplianceKPIs(
   const now = Date.now();
   const thirtyDays = now + 30 * 24 * 60 * 60 * 1000;
 
-  const applicable = obligations.length || 10;
-  const compliant = obligations.filter(o => o.status === 'COMPLIANT').length || 8;
-  const overdue = obligations.filter(o => o.status === 'OVERDUE').length || 1;
-  const evidencePending = obligations.filter(o => o.status === 'EVIDENCE_PENDING').length || 1;
+  const applicable = obligations.length;
+  const compliant = obligations.filter(o => o.status === 'COMPLIANT').length;
+  const overdue = obligations.filter(o => o.status === 'OVERDUE').length;
+  const evidencePending = obligations.filter(o => o.status === 'EVIDENCE_PENDING').length;
   const validationPending = 0;
-  const openExceptions = exceptions.length || 2;
-  const criticalExceptions = exceptions.filter(e => e.severity === 'CRITICAL').length || 0;
+  const openExceptions = exceptions.length;
+  const criticalExceptions = exceptions.filter(e => e.severity === 'CRITICAL').length;
   const certsExpiring30d = certs.filter(c => {
     const exp = new Date(c.expiry_date).getTime();
     return exp >= now && exp <= thirtyDays;
-  }).length || 1;
-  const certsExpired = certs.filter(c => new Date(c.expiry_date).getTime() < now).length || 0;
+  }).length;
+  const certsExpired = certs.filter(c => new Date(c.expiry_date).getTime() < now).length;
 
   return {
     APPLICABLE_OBLIGATIONS: applicable,

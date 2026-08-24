@@ -14,157 +14,98 @@ export interface TimelineEvent {
   status: 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'AT_RISK';
 }
 
-export function OperationsTimeline() {
+interface OperationsTimelineProps {
+  events: TimelineEvent[];
+}
+
+const typeIcon: Record<TimelineEvent['type'], React.ElementType> = {
+  ENGINEER_ARRIVAL: Users,
+  PPM: Wrench,
+  INSPECTION: ShieldCheck,
+  PERMIT: Clock,
+  SLA_DEADLINE: AlertCircle,
+  CONTRACTOR_VISIT: Truck,
+};
+
+const statusBadge: Record<TimelineEvent['status'], { label: string; variant: string }> = {
+  SCHEDULED: { label: 'Scheduled', variant: 'gray' },
+  IN_PROGRESS: { label: 'In Progress', variant: 'blue' },
+  COMPLETED: { label: 'Completed', variant: 'green' },
+  AT_RISK: { label: 'At Risk', variant: 'red' },
+};
+
+export function OperationsTimeline({ events }: OperationsTimelineProps) {
   const [timeframe, setTimeframe] = useState<'TODAY' | 'TOMORROW' | 'WEEK'>('TODAY');
-
-  const events: TimelineEvent[] = [
-    {
-      id: 't-1',
-      time: '08:30',
-      type: 'ENGINEER_ARRIVAL',
-      title: 'Lead HVAC Engineer Check-in & Security Clearance',
-      location: 'Victoria House · London',
-      attendee: 'Marcus Vance (EntireFM Internal)',
-      status: 'COMPLETED',
-    },
-    {
-      id: 't-2',
-      time: '10:00',
-      type: 'PPM',
-      title: 'Quarterly Chiller AHU Filter Replacement & Belt Tensioning',
-      location: 'Manchester Tech Hub · Plant Deck 3',
-      attendee: 'Apex Cooling Systems Ltd',
-      status: 'IN_PROGRESS',
-    },
-    {
-      id: 't-3',
-      time: '11:45',
-      type: 'SLA_DEADLINE',
-      title: 'P1 Reactive Water Ingress Resolution Target',
-      location: 'Manchester Office · Floor 4 East',
-      status: 'AT_RISK',
-    },
-    {
-      id: 't-4',
-      time: '14:00',
-      type: 'INSPECTION',
-      title: 'Statutory Dry Riser 6-Monthly Visual & Pressure Test',
-      location: 'Leeds Sovereign Square',
-      attendee: 'FireSafe UK Compliance Auditor',
-      status: 'SCHEDULED',
-    },
-    {
-      id: 't-5',
-      time: '16:30',
-      type: 'PERMIT',
-      title: 'Permit-to-Work: Roof Access & Edge Protection Inspection',
-      location: 'Sheffield Logistics Park',
-      attendee: 'Rooftop Safety Specialist',
-      status: 'SCHEDULED',
-    },
-  ];
-
-  const getTypeIcon = (type: TimelineEvent['type']) => {
-    switch (type) {
-      case 'ENGINEER_ARRIVAL':
-        return <Users className="h-3.5 w-3.5 text-[#FF6B24]" />;
-      case 'PPM':
-        return <Wrench className="h-3.5 w-3.5 text-[#2563EB]" />;
-      case 'INSPECTION':
-        return <ShieldCheck className="h-3.5 w-3.5 text-[#15803D]" />;
-      case 'PERMIT':
-        return <AlertCircle className="h-3.5 w-3.5 text-[#D97706]" />;
-      case 'SLA_DEADLINE':
-        return <Clock className="h-3.5 w-3.5 text-[#DC2626]" />;
-      case 'CONTRACTOR_VISIT':
-        return <Truck className="h-3.5 w-3.5 text-[#7C3AED]" />;
-    }
-  };
-
-  const getStatusBadge = (status: TimelineEvent['status']) => {
-    switch (status) {
-      case 'COMPLETED':
-        return <Badge variant="green" size="xs">COMPLETED</Badge>;
-      case 'IN_PROGRESS':
-        return <Badge variant="blue" size="xs" pulse>IN PROGRESS</Badge>;
-      case 'AT_RISK':
-        return <Badge variant="red" size="xs" pulse>SLA IMMINENT</Badge>;
-      case 'SCHEDULED':
-        return <Badge variant="neutral" size="xs">SCHEDULED</Badge>;
-    }
-  };
 
   return (
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3 gap-2">
         <div className="flex items-center gap-2">
-          <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#101010] text-white">
-            <Clock className="h-3.5 w-3.5" />
+          <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#686866] text-white">
+            <Calendar className="h-3.5 w-3.5" />
           </div>
-          <div>
-            <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
-              TODAY&apos;S OPERATIONS TIMELINE
-            </h2>
-            <p className="text-[11.5px] text-[#686866]">
-              Hourly dispatch sequence and scheduled permit events
-            </p>
-          </div>
+          <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+            OPERATIONS TIMELINE
+          </h2>
         </div>
-
-        {/* Timeframe Switcher */}
         <div className="flex items-center rounded-[7px] border border-[#E4E4E1] bg-[#FFFFFF] p-0.5">
-          {(['TODAY', 'TOMORROW', 'WEEK'] as const).map((t) => (
+          {(['TODAY', 'TOMORROW', 'WEEK'] as const).map((tf) => (
             <button
-              key={t}
-              onClick={() => setTimeframe(t)}
+              key={tf}
+              onClick={() => setTimeframe(tf)}
               className={`rounded-[5px] px-2.5 py-1 text-[11px] font-medium transition-all ${
-                timeframe === t
-                  ? 'bg-[#101010] text-white shadow-sm'
-                  : 'text-[#686866] hover:text-[#101010]'
+                timeframe === tf ? 'bg-[#101010] text-white shadow-sm' : 'text-[#686866] hover:text-[#101010]'
               }`}
             >
-              {t.charAt(0) + t.slice(1).toLowerCase()}
+              {tf.charAt(0) + tf.slice(1).toLowerCase()}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Timeline Stream */}
-      <div className="p-5 space-y-4">
-        {events.map((evt) => (
-          <div key={evt.id} className="flex items-start gap-4">
-            {/* Time badge */}
-            <div className="w-14 shrink-0 font-mono text-[12px] font-semibold text-[#101010] pt-0.5 tabular-nums">
-              {evt.time}
-            </div>
-
-            {/* Event connector & marker */}
-            <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-[6px] border border-[#E4E4E1] bg-[#F5F5F3]">
-              {getTypeIcon(evt.type)}
-            </div>
-
-            {/* Details */}
-            <div className="min-w-0 flex-1 rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-3 hover:bg-[#FFFFFF] transition-colors">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                <div className="font-medium text-[13px] text-[#101010] truncate">
-                  {evt.title}
+      {events.length === 0 ? (
+        <div className="flex flex-col items-center justify-center p-10 text-center gap-3">
+          <Calendar className="h-7 w-7 text-[#D0D0CD]" />
+          <p className="font-medium text-[#686866] text-[13px]">No scheduled activity</p>
+          <p className="text-[12px] text-[#9B9B97]">
+            PPM schedules, inspections, and engineer visits will appear here.
+          </p>
+        </div>
+      ) : (
+        <div className="divide-y divide-[#E4E4E1]">
+          {events.map((event) => {
+            const Icon = typeIcon[event.type];
+            const badge = statusBadge[event.status];
+            return (
+              <div key={event.id} className="flex items-start gap-4 px-5 py-3.5">
+                <div className="font-mono text-[12px] text-[#686866] w-10 shrink-0 pt-0.5">{event.time}</div>
+                <div className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-[6px] ${
+                  event.status === 'AT_RISK' ? 'bg-red-50' :
+                  event.status === 'IN_PROGRESS' ? 'bg-blue-50' :
+                  event.status === 'COMPLETED' ? 'bg-green-50' : 'bg-[#F0F0EE]'
+                }`}>
+                  {event.status === 'COMPLETED' ? (
+                    <CheckCircle className="h-3.5 w-3.5 text-[#15803D]" />
+                  ) : (
+                    <Icon className={`h-3.5 w-3.5 ${
+                      event.status === 'AT_RISK' ? 'text-red-500' :
+                      event.status === 'IN_PROGRESS' ? 'text-blue-500' : 'text-[#686866]'
+                    }`} />
+                  )}
                 </div>
-                <div>{getStatusBadge(evt.status)}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-[13px] font-medium text-[#101010] leading-snug">{event.title}</p>
+                    <Badge variant={badge.variant as any} size="xs">{badge.label}</Badge>
+                  </div>
+                  <p className="text-[11.5px] text-[#686866] mt-0.5">{event.location}</p>
+                  {event.attendee && <p className="text-[11.5px] text-[#9B9B97] mt-0.5">{event.attendee}</p>}
+                </div>
               </div>
-              <div className="mt-1 flex flex-wrap items-center gap-x-3 text-[11.5px] text-[#686866]">
-                <span>{evt.location}</span>
-                {evt.attendee && (
-                  <>
-                    <span className="text-[#9B9B97]">·</span>
-                    <span className="font-mono text-[#101010]">{evt.attendee}</span>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

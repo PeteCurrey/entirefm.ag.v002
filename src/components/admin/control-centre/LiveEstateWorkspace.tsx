@@ -42,107 +42,22 @@ export function LiveEstateWorkspace({
   const [viewMode, setViewMode] = useState<'CANVAS' | 'MAP'>('CANVAS');
   const [filterQuery, setFilterQuery] = useState('');
 
-  // Fallback demo sites if database is loading/empty
-  const displaySites: SiteWithTelemetry[] = sites.length > 0
-    ? sites.map((s, idx) => ({
-        ...s,
-        openJobsCount: s.openJobsCount ?? (idx % 3 === 0 ? 4 : idx % 2 === 0 ? 1 : 0),
-        criticalJobsCount: s.criticalJobsCount ?? (idx === 0 ? 1 : 0),
-        compliancePercent: s.compliancePercent ?? (idx === 1 ? 92.5 : 98.4),
-        engineersPresent: s.engineersPresent ?? (idx % 2 === 0 ? 2 : 0),
-        healthStatus: s.healthStatus ?? (idx === 0 ? 'CRITICAL' : idx === 1 ? 'WARNING' : 'HEALTHY'),
-        heroImageUrl:
-          s.city?.toLowerCase().includes('manchester')
-            ? SITE_HERO_IMAGES.manchester
-            : s.city?.toLowerCase().includes('london')
-            ? SITE_HERO_IMAGES.london
-            : s.city?.toLowerCase().includes('birmingham')
-            ? SITE_HERO_IMAGES.birmingham
-            : Object.values(SITE_HERO_IMAGES)[idx % Object.values(SITE_HERO_IMAGES).length] ||
-              SITE_HERO_IMAGES.default,
-      }))
-    : [
-        {
-          id: 'site-1',
-          organisation_id: 'org-1',
-          site_code: 'EFM-LON-01',
-          name: 'Victoria House Commercial Complex',
-          site_type: 'COMMERCIAL_OFFICE',
-          address_line1: '37 Camden High Street',
-          city: 'London',
-          postcode: 'NW1 7JE',
-          country: 'GB',
-          status: 'ACTIVE',
-          security_clearance_required: false,
-          created_at: new Date().toISOString(),
-          openJobsCount: 3,
-          criticalJobsCount: 1,
-          compliancePercent: 98.4,
-          engineersPresent: 2,
-          healthStatus: 'CRITICAL',
-          heroImageUrl: SITE_HERO_IMAGES.london,
-        },
-        {
-          id: 'site-2',
-          organisation_id: 'org-1',
-          site_code: 'EFM-MAN-04',
-          name: 'Manchester Hub & Tech Central',
-          site_type: 'TECH_PARK',
-          address_line1: '14 Oxford Road',
-          city: 'Manchester',
-          postcode: 'M1 5QA',
-          country: 'GB',
-          status: 'ACTIVE',
-          security_clearance_required: true,
-          created_at: new Date().toISOString(),
-          openJobsCount: 2,
-          criticalJobsCount: 0,
-          compliancePercent: 100.0,
-          engineersPresent: 1,
-          healthStatus: 'HEALTHY',
-          heroImageUrl: SITE_HERO_IMAGES.manchester,
-        },
-        {
-          id: 'site-3',
-          organisation_id: 'org-1',
-          site_code: 'EFM-BHX-02',
-          name: 'Birmingham Logistics & Distribution Centre',
-          site_type: 'INDUSTRIAL_LOGISTICS',
-          address_line1: 'Gravelly Industrial Park',
-          city: 'Birmingham',
-          postcode: 'B24 8HZ',
-          country: 'GB',
-          status: 'ACTIVE',
-          security_clearance_required: false,
-          created_at: new Date().toISOString(),
-          openJobsCount: 5,
-          criticalJobsCount: 0,
-          compliancePercent: 94.2,
-          engineersPresent: 3,
-          healthStatus: 'WARNING',
-          heroImageUrl: SITE_HERO_IMAGES.birmingham,
-        },
-        {
-          id: 'site-4',
-          organisation_id: 'org-1',
-          site_code: 'EFM-LDS-08',
-          name: 'Leeds Sovereign Square Estate',
-          site_type: 'HEADQUARTERS',
-          address_line1: '1 Sovereign Square',
-          city: 'Leeds',
-          postcode: 'LS1 4DA',
-          country: 'GB',
-          status: 'ACTIVE',
-          security_clearance_required: false,
-          created_at: new Date().toISOString(),
-          openJobsCount: 1,
-          criticalJobsCount: 0,
-          compliancePercent: 99.1,
-          engineersPresent: 0,
-          healthStatus: 'HEALTHY',
-          heroImageUrl: SITE_HERO_IMAGES.leeds,
-        },
-      ];
+  // Map real sites — no hardcoded telemetry fallback values on missing fields
+  const displaySites: SiteWithTelemetry[] = sites.map((s) => ({
+    ...s,
+    heroImageUrl:
+      s.city?.toLowerCase().includes('manchester')
+        ? SITE_HERO_IMAGES.manchester
+        : s.city?.toLowerCase().includes('london')
+        ? SITE_HERO_IMAGES.london
+        : s.city?.toLowerCase().includes('birmingham')
+        ? SITE_HERO_IMAGES.birmingham
+        : s.city?.toLowerCase().includes('leeds')
+        ? SITE_HERO_IMAGES.leeds
+        : s.city?.toLowerCase().includes('sheffield')
+        ? SITE_HERO_IMAGES.sheffield
+        : SITE_HERO_IMAGES.default,
+  }));
 
   const filtered = displaySites.filter(
     (s) =>
@@ -150,6 +65,41 @@ export function LiveEstateWorkspace({
       s.city?.toLowerCase().includes(filterQuery.toLowerCase()) ||
       s.site_code.toLowerCase().includes(filterQuery.toLowerCase())
   );
+
+  // Empty state — no fake sites
+  if (displaySites.length === 0) {
+    return (
+      <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3 gap-3">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#FF6B24] text-white">
+              <Building2 className="h-3.5 w-3.5" />
+            </div>
+            <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+              LIVE ESTATE WORKSPACE
+            </h2>
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-center p-16 text-center gap-4">
+          <Building2 className="h-8 w-8 text-[#D0D0CD]" />
+          <div>
+            <p className="font-medium text-[#686866] text-[14px]">No sites configured yet</p>
+            <p className="text-[12.5px] text-[#9B9B97] mt-1">
+              Add your first site manually or import from SimPRO.
+            </p>
+          </div>
+          <div className="flex gap-2 mt-2">
+            <a href="/admin/estate/sites" className="rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] px-4 py-2 text-[12px] font-medium text-[#101010] hover:bg-[#EAEAE8] transition-colors">
+              Add Site
+            </a>
+            <a href="/admin/platform/imports/new" className="rounded-[8px] bg-[#FF6B24] px-4 py-2 text-[12px] font-medium text-white hover:bg-[#E9540F] transition-colors">
+              Import from SimPRO
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
@@ -164,7 +114,8 @@ export function LiveEstateWorkspace({
               LIVE ESTATE WORKSPACE
             </h2>
             <p className="text-[11.5px] text-[#686866]">
-              {filtered.length} managed facilities under live telemetry
+              {filtered.length} managed facilities
+
             </p>
           </div>
         </div>

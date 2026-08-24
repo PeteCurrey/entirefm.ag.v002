@@ -1,18 +1,28 @@
 'use client';
 
 import React from 'react';
-import { ShieldCheck, AlertTriangle, FileText, CheckCircle2, Clock, XCircle } from 'lucide-react';
+import { ShieldCheck, AlertTriangle, CheckCircle2, Clock, XCircle } from 'lucide-react';
 import Link from 'next/link';
 
-export function ComplianceRadar() {
-  const complianceData = {
-    overallRate: 98.4,
-    compliant: 142,
-    dueIn30Days: 18,
-    overdue: 2,
-    evidenceRejected: 1,
-    reviewRequired: 4,
-  };
+interface ComplianceRadarProps {
+  overallRate: number | null;
+  compliant: number | null;
+  dueIn30Days: number | null;
+  overdue: number | null;
+  evidenceRejected: number | null;
+  reviewRequired: number | null;
+}
+
+export function ComplianceRadar({
+  overallRate,
+  compliant,
+  dueIn30Days,
+  overdue,
+  evidenceRejected,
+  reviewRequired,
+}: ComplianceRadarProps) {
+  const hasData = overallRate !== null;
+  const strokeDasharray = hasData ? `${overallRate! * 2.827} 282.7` : '0 282.7';
 
   return (
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
@@ -27,11 +37,10 @@ export function ComplianceRadar() {
               STATUTORY COMPLIANCE RADAR
             </h2>
             <p className="text-[11.5px] text-[#686866]">
-              Real-time assurance against UK & SFG20 statutory obligations
+              Real-time assurance against UK &amp; SFG20 statutory obligations
             </p>
           </div>
         </div>
-
         <Link
           href="/admin/compliance/obligations"
           className="text-[11.5px] font-medium text-[#686866] hover:text-[#101010] transition-colors"
@@ -40,103 +49,63 @@ export function ComplianceRadar() {
         </Link>
       </div>
 
-      <div className="p-5 flex flex-col md:flex-row items-center gap-6">
-        {/* Precision Radial Gauge Instrument */}
-        <div className="relative flex flex-col items-center justify-center shrink-0 w-36 h-36">
-          <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-            {/* Background track */}
-            <circle
-              cx="50"
-              cy="50"
-              r="40"
-              fill="transparent"
-              stroke="#E4E4E1"
-              strokeWidth="8"
-            />
-            {/* Active stroke */}
-            <circle
-              cx="50"
-              cy="50"
-              r="40"
-              fill="transparent"
-              stroke="#16A34A"
-              strokeWidth="8"
-              strokeDasharray={`${2 * Math.PI * 40 * (complianceData.overallRate / 100)} ${2 * Math.PI * 40}`}
-              strokeLinecap="round"
-            />
-          </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-            <span className="text-2xl font-light tracking-tight text-[#101010] tabular-nums">
-              {complianceData.overallRate}%
-            </span>
-            <span className="font-mono text-[9px] uppercase tracking-wider text-[#15803D] font-semibold">
-              ASSURED
-            </span>
+      {!hasData ? (
+        <div className="flex flex-col items-center justify-center p-10 text-center gap-3">
+          <ShieldCheck className="h-7 w-7 text-[#D0D0CD]" />
+          <p className="font-medium text-[#686866] text-[13px]">No compliance obligations configured</p>
+          <p className="text-[12px] text-[#9B9B97]">
+            Configure obligations or import site data to see compliance status.
+          </p>
+          <Link
+            href="/admin/compliance/obligations"
+            className="mt-1 text-[12px] font-medium text-[#FF6B24] hover:underline"
+          >
+            Configure Obligations →
+          </Link>
+        </div>
+      ) : (
+        <div className="p-5 flex flex-col md:flex-row items-center gap-6">
+          {/* Radial Gauge */}
+          <div className="relative flex flex-col items-center justify-center shrink-0 w-36 h-36">
+            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#E4E4E1" strokeWidth="6" />
+              <circle
+                cx="50" cy="50" r="45" fill="none"
+                stroke={overallRate! >= 95 ? '#15803D' : overallRate! >= 80 ? '#D97706' : '#DC2626'}
+                strokeWidth="6"
+                strokeDasharray={strokeDasharray}
+                strokeLinecap="round"
+              />
+            </svg>
+            <div className="absolute text-center">
+              <div className="font-mono text-[22px] font-light tabular-nums text-[#101010]">
+                {overallRate!.toFixed(1)}%
+              </div>
+              <div className="text-[9.5px] font-mono uppercase tracking-wider text-[#686866]">Compliant</div>
+            </div>
+          </div>
+
+          {/* Metrics Grid */}
+          <div className="flex-1 grid grid-cols-2 gap-2 font-mono text-[12px] w-full">
+            {[
+              { label: 'Compliant', value: compliant, icon: CheckCircle2, color: 'text-[#15803D]' },
+              { label: 'Due 30 Days', value: dueIn30Days, icon: Clock, color: 'text-[#D97706]' },
+              { label: 'Overdue', value: overdue, icon: AlertTriangle, color: 'text-[#DC2626]' },
+              { label: 'Review Required', value: reviewRequired, icon: XCircle, color: 'text-[#686866]' },
+            ].map(({ label, value, icon: Icon, color }) => (
+              <div key={label} className="rounded-[10px] border border-[#E4E4E1] bg-[#F5F5F3] p-3">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Icon className={`h-3 w-3 ${color}`} />
+                  <span className="text-[10px] uppercase text-[#686866]">{label}</span>
+                </div>
+                <div className={`text-[18px] font-light tabular-nums ${color}`}>
+                  {value !== null ? value : '—'}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* Breakdown Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 flex-1 w-full font-mono text-[12px]">
-          <div className="rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] p-3">
-            <div className="text-[10px] text-[#686866] uppercase flex items-center gap-1">
-              <CheckCircle2 className="h-3 w-3 text-[#15803D]" />
-              Compliant
-            </div>
-            <div className="text-xl font-light text-[#101010] mt-1 tabular-nums">
-              {complianceData.compliant}
-            </div>
-          </div>
-
-          <div className="rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] p-3">
-            <div className="text-[10px] text-[#686866] uppercase flex items-center gap-1">
-              <Clock className="h-3 w-3 text-[#B45309]" />
-              Due in 30 Days
-            </div>
-            <div className="text-xl font-light text-[#B45309] mt-1 tabular-nums">
-              {complianceData.dueIn30Days}
-            </div>
-          </div>
-
-          <div className="rounded-[8px] border border-[#FECACA] bg-[#FEF2F2] p-3">
-            <div className="text-[10px] text-[#B91C1C] uppercase flex items-center gap-1 font-semibold">
-              <AlertTriangle className="h-3 w-3 text-[#DC2626]" />
-              Overdue
-            </div>
-            <div className="text-xl font-semibold text-[#B91C1C] mt-1 tabular-nums">
-              {complianceData.overdue}
-            </div>
-          </div>
-
-          <div className="rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] p-3">
-            <div className="text-[10px] text-[#686866] uppercase flex items-center gap-1">
-              <XCircle className="h-3 w-3 text-[#B91C1C]" />
-              Rejected Evidence
-            </div>
-            <div className="text-xl font-light text-[#101010] mt-1 tabular-nums">
-              {complianceData.evidenceRejected}
-            </div>
-          </div>
-
-          <div className="rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] p-3">
-            <div className="text-[10px] text-[#686866] uppercase flex items-center gap-1">
-              <FileText className="h-3 w-3 text-[#1D4ED8]" />
-              Desk Review
-            </div>
-            <div className="text-xl font-light text-[#101010] mt-1 tabular-nums">
-              {complianceData.reviewRequired}
-            </div>
-          </div>
-
-          <div className="rounded-[8px] border border-[#BBF7D0] bg-[#F0FDF4] p-3 flex flex-col justify-center">
-            <div className="text-[10px] text-[#15803D] uppercase font-semibold">
-              Audit Readiness
-            </div>
-            <div className="text-[11.5px] font-medium text-[#15803D] mt-0.5">
-              100% Verified
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
