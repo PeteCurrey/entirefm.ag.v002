@@ -5,44 +5,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Phone, ArrowDown } from 'lucide-react';
 import { CONTACT_CONFIG } from '@/config/contact';
-import editorial from '@/config/location-images.json';
-
-/**
- * HOME HERO — FULL VIEWPORT IMAGE
- * ===============================
- * A full-bleed photographic opening: the EntireFM building at dusk, with the
- * headline over it.
- *
- * The mark is no longer in the hero. It arrives in the header at the end of
- * the intro animation and stays there, so the page has one logo in one place
- * rather than competing marks in the header and the hero at once.
- *
- * MOTION
- * ------
- * A slow scale drift on the image (about 4% over 24 seconds) plus a light
- * scroll parallax. Both are disabled under `prefers-reduced-motion`, where
- * the image simply sits still.
- *
- * ON VIDEO
- * --------
- * `videoSrc` is wired and unused: the project has stills only. Drop an mp4 in
- * and it plays in place of the image, muted and looping, with the still as
- * poster and fallback. The scrim and layout do not change.
- *
- * HEIGHT
- * ------
- * `100svh` rather than `100vh` so mobile browsers do not hide the call to
- * action behind the address bar, with a `min-height` floor so the copy never
- * crushes on a short laptop screen.
- */
-
-type EditorialManifest = {
-  editorial: Record<string, { src: string; alt: string; widths: Record<string, string> }>;
-};
 
 /** EntireFM Facilities Management brand hero video. */
 const HERO_VIDEO = '/video/entirefm-facilities-management.mp4';
-const HERO = (editorial as EditorialManifest).editorial?.['london-aerial-poster'];
+
+/** Fallback poster — London Millennium Bridge & St Paul's at night. Shown instantly on first paint
+ *  and whenever the video cannot autoplay (reduced-motion, Save-Data, slow network). */
+const HERO_POSTER = '/images/editorial/entirefm-london-millennium-bridge-hero.jpg';
+const HERO_POSTER_ALT = 'London Millennium Bridge and St Paul\'s Cathedral at night, with the Thames reflecting city lights';
 
 /**
  * The four-up strip low in the hero, mirroring the arrangement on the live
@@ -143,21 +113,20 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
       {/* Media layer */}
       <div ref={mediaRef} className="absolute inset-0 -z-20 will-change-transform">
         <div className="hero-drift absolute inset-0">
-          {/* Poster first — this is the LCP image and it must not wait on video. */}
-          {HERO && (
-            <Image
-              src={HERO.src}
-              alt={HERO.alt}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-          )}
-          {/* Video element plays the London aerial background seamlessly */}
+          {/* Poster first — LCP image, loads immediately before video is ready */}
+          <Image
+            src={HERO_POSTER}
+            alt={HERO_POSTER_ALT}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          {/* New FM brand video — fades in once ready; poster above ensures no blank flash */}
           <video
             ref={videoRef}
             src={videoSrc}
+            poster={HERO_POSTER}
             autoPlay
             muted
             loop
