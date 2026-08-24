@@ -92,7 +92,7 @@ export function Footer() {
                   />
                 </span>
                 <span className="text-[19px] font-extrabold tracking-[0.08em] text-white">
-                  Entire<span className="text-spectrum">FM</span>
+                  Entire<span className="text-hero-pink">FM</span>
                 </span>
               </Link>
 
