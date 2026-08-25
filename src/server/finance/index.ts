@@ -2216,3 +2216,101 @@ export async function getAssetFinancialCostAttribution(params: {
   };
 }
 
+/**
+ * getAssetCostAttributionBatch
+ * ================================================
+ * Set-based Finance authority for bulk cost attribution across multiple assets.
+ *
+ * Architecture:
+ *   - 1 query: all work_orders for all requested assetIds
+ *   - 1 query: all supplier_invoice_lines for all those work_order ids
+ *   - In-memory O(n) aggregation — no per-asset network loops
+ *
+ * Finance semantics are identical to getAssetFinancialCostAttribution:
+ *   - Only directly attributed costs (work_order → asset_id chain)
+ *   - Site-level unallocated costs strictly excluded
+ *   - Canonical roundMoney applied per asset
+ *   - financeAuthorityConfirmed: true on every result entry
+ *
+ * Returns Map<assetId, CostAttribution> — missing assetIds mean £0 cost.
+ */
+export interface AssetCostAttribution {
+  reactiveCostGbp: number;
+  ppmCostGbp: number;
+  totalDirectlyAttributedGbp: number;
+  workOrderCount: number;
+  financeAuthorityConfirmed: true;
+}
+
+export async function getAssetCostAttributionBatch(params: {
+  assetIds: string[];
+  sinceDate?: string;
+}): Promise<Map<string, AssetCostAttribution>> {
+  const { assetIds } = params;
+  const result = new Map<string, AssetCostAttribution>();
+
+  if (assetIds.length === 0) return result;
+
+  // Initialise zero entries for all requested assets
+  const zeroEntry = (): AssetCostAttribution => ({
+    reactiveCostGbp: 0,
+    ppmCostGbp: 0,
+    totalDirectlyAttributedGbp: 0,
+    workOrderCount: 0,
+    financeAuthorityConfirmed: true,
+  });
+  for (const id of assetIds) result.set(id, zeroEntry());
+
+  // ── Query 1: all work orders for all requested assets (1 network call) ──
+  const idList = assetIds.join(',');
+  const { data: wos } = await dbQuery<any[]>(
+    `work_orders?asset_id=in.(${idList})&select=id,asset_id,work_type`
+  );
+  if (!wos || wos.length === 0) return result;
+
+  // Build work-order → (assetId, workType) lookup
+  const woMap = new Map<string, { assetId: string; workType: string }>();
+  for (const wo of wos) {
+    if (wo.asset_id && wo.id) {
+      woMap.set(wo.id, { assetId: wo.asset_id, workType: wo.work_type || 'REACTIVE' });
+    }
+  }
+
+  // Increment work order counts per asset
+  for (const [, { assetId }] of woMap) {
+    const entry = result.get(assetId);
+    if (entry) entry.workOrderCount++;
+  }
+
+  // ── Query 2: all invoice lines for all work orders (1 network call) ──
+  const woIdList = Array.from(woMap.keys()).join(',');
+  if (!woIdList) return result;
+
+  const { data: lines } = await dbQuery<any[]>(
+    `supplier_invoice_lines?work_order_id=in.(${woIdList})&select=work_order_id,total_amount_gbp`
+  );
+  if (!lines || lines.length === 0) return result;
+
+  // ── In-memory aggregation — O(n), no network ──
+  for (const line of lines) {
+    const wo = woMap.get(line.work_order_id);
+    if (!wo) continue;
+    const entry = result.get(wo.assetId);
+    if (!entry) continue;
+    const amount = Number(line.total_amount_gbp) || 0;
+    if (wo.workType === 'PPM' || wo.workType === 'STATUTORY') {
+      entry.ppmCostGbp += amount;
+    } else {
+      entry.reactiveCostGbp += amount;
+    }
+  }
+
+  // Apply canonical rounding per asset
+  for (const entry of result.values()) {
+    entry.reactiveCostGbp = roundMoney(entry.reactiveCostGbp);
+    entry.ppmCostGbp = roundMoney(entry.ppmCostGbp);
+    entry.totalDirectlyAttributedGbp = roundMoney(entry.reactiveCostGbp + entry.ppmCostGbp);
+  }
+
+  return result;
+}
