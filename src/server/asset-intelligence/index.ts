@@ -84,27 +84,51 @@ function addDays(d: Date, days: number): Date {
 export function computeAssetAge(asset: {
   installation_date?: string | null;
   commission_date?: string | null;
+  manufacture_date?: string | null;
+  metadata?: Record<string, unknown> | null;
 }): AssetAge {
   const now = today();
   const todayStr = now.toISOString().split('T')[0];
 
-  if (asset.installation_date) {
-    const installDate = new Date(asset.installation_date);
-    return {
-      age_years: yearsBetween(installDate, now),
-      age_type: 'INSTALLATION',
-      as_of: todayStr,
-    };
+  // Installation Age: ONLY calculated from installation_date. NEVER falls back to commission_date.
+  const installationAge: number | DataNoValue = asset.installation_date
+    ? yearsBetween(new Date(asset.installation_date), now)
+    : 'NO_DATA';
+
+  // Commissioning Age: calculated separately if commission_date exists.
+  const commissioningAge: number | DataNoValue = asset.commission_date
+    ? yearsBetween(new Date(asset.commission_date), now)
+    : 'NO_DATA';
+
+  // Manufacture Age: calculated from manufacture_date or metadata.
+  const mfgDateStr = asset.manufacture_date || (asset.metadata?.manufacture_date as string | undefined);
+  const manufactureAge: number | DataNoValue = mfgDateStr
+    ? yearsBetween(new Date(mfgDateStr), now)
+    : 'NO_DATA';
+
+  // Primary age: Installation if present, else Commissioning if present, else Manufacture, else NO_DATA
+  let primaryType: 'INSTALLATION' | 'COMMISSION' | 'MANUFACTURE' | 'NO_DATA' = 'NO_DATA';
+  let primaryYears: number | DataNoValue = 'NO_DATA';
+
+  if (installationAge !== 'NO_DATA') {
+    primaryType = 'INSTALLATION';
+    primaryYears = installationAge;
+  } else if (commissioningAge !== 'NO_DATA') {
+    primaryType = 'COMMISSION';
+    primaryYears = commissioningAge;
+  } else if (manufactureAge !== 'NO_DATA') {
+    primaryType = 'MANUFACTURE';
+    primaryYears = manufactureAge;
   }
-  if (asset.commission_date) {
-    const commDate = new Date(asset.commission_date);
-    return {
-      age_years: yearsBetween(commDate, now),
-      age_type: 'COMMISSION',
-      as_of: todayStr,
-    };
-  }
-  return { age_years: 'NO_DATA', age_type: 'NO_DATA', as_of: todayStr };
+
+  return {
+    installation_age_years: installationAge,
+    commissioning_age_years: commissioningAge,
+    manufacture_age_years: manufactureAge,
+    primary_age_type: primaryType,
+    primary_age_years: primaryYears,
+    as_of: todayStr,
+  };
 }
 
 // ─── EXPECTED LIFE ────────────────────────────────────────────────────────────
@@ -135,11 +159,11 @@ export function computeExpectedLifeRemaining(
   age: AssetAge,
   expectedLife: ExpectedLifeProfile
 ): ExpectedLifeRemaining {
-  if (age.age_years === 'NO_DATA') {
+  if (age.installation_age_years === 'NO_DATA') {
     return {
       remaining_years: 'NO_DATA',
       pct_elapsed: 'NO_DATA',
-      note: 'Installation date unknown — cannot calculate remaining expected life.',
+      note: 'Installation date unknown — cannot calculate remaining expected life (commissioning/manufacture date not substituted).',
     };
   }
   if (expectedLife.expected_life_years === 'NO_DATA') {
@@ -149,13 +173,13 @@ export function computeExpectedLifeRemaining(
       note: 'Expected life not configured — configure via Expected Life Source.',
     };
   }
-  const remaining = parseFloat((expectedLife.expected_life_years - age.age_years).toFixed(2));
-  const pctElapsed = parseFloat(((age.age_years / expectedLife.expected_life_years) * 100).toFixed(1));
+  const remaining = parseFloat((expectedLife.expected_life_years - age.installation_age_years).toFixed(2));
+  const pctElapsed = parseFloat(((age.installation_age_years / expectedLife.expected_life_years) * 100).toFixed(1));
   return {
     remaining_years: remaining,
     pct_elapsed: pctElapsed,
     note: remaining <= 0
-      ? 'Asset has exceeded expected design life.'
+      ? 'Asset has exceeded expected design life based on installation date.'
       : `Approximately ${remaining} years remaining of ${expectedLife.expected_life_years}-year expected life.`,
   };
 }
@@ -172,7 +196,7 @@ export function computeWarrantyStatus(warrantyExpiry: string | null): WarrantySt
   return 'IN_WARRANTY';
 }
 
-// ─── REPLACEMENT ESTIMATE FRESHNESS ──────────────────────────────────────────
+// ─── REPLACEMENT ESTIMATE FRESHNESS & PROVENANCE ─────────────────────────────
 
 export function computeEstimateFreshness(
   sourceDate: string | null
@@ -183,6 +207,72 @@ export function computeEstimateFreshness(
   if (ageInDays > STALE_ESTIMATE_DAYS) return 'STALE';
   if (ageInDays > AGEING_ESTIMATE_DAYS) return 'AGEING';
   return 'CURRENT';
+}
+
+export function evaluateReplacementCostProvenance(asset: {
+  replacement_cost_estimate_gbp?: number | null;
+  replacement_cost_source?: string | null;
+  replacement_cost_source_date?: string | null;
+  replacement_cost_confidence?: string | null;
+}): import('./types').ReplacementCostProvenance {
+  const amount = asset.replacement_cost_estimate_gbp ?? 'NO_DATA';
+  const freshness = computeEstimateFreshness(asset.replacement_cost_source_date || null);
+  return {
+    amount,
+    currency: 'GBP',
+    tax_basis: 'NET',
+    source: asset.replacement_cost_source || null,
+    source_date: asset.replacement_cost_source_date || null,
+    confidence: (asset.replacement_cost_confidence as any) || 'UNKNOWN',
+    freshness,
+    requires_update: freshness === 'STALE' || freshness === 'UNKNOWN',
+  };
+}
+
+// ─── PARTIAL TCO BREAKDOWN ───────────────────────────────────────────────────
+
+export function computePartialTco(params: {
+  assetId: string;
+  reactiveCostGbp: number | DataNoValue;
+  ppmCostGbp: number | DataNoValue;
+  purchasePriceGbp?: number | null;
+  energyCostGbp?: number | null;
+  disposalCostGbp?: number | null;
+}): import('./types').PartialTcoBreakdown {
+  const purchasePrice: number | DataNoValue = params.purchasePriceGbp ?? 'NO_DATA';
+  const energyCost: number | DataNoValue = params.energyCostGbp ?? 'NO_DATA';
+  const disposalCost: number | DataNoValue = params.disposalCostGbp ?? 'NO_DATA';
+  const reactiveCost = params.reactiveCostGbp;
+  const ppmCost = params.ppmCostGbp;
+
+  let total = 0;
+  if (typeof reactiveCost === 'number') total += reactiveCost;
+  if (typeof ppmCost === 'number') total += ppmCost;
+  if (typeof purchasePrice === 'number') total += purchasePrice;
+  if (typeof energyCost === 'number') total += energyCost;
+  if (typeof disposalCost === 'number') total += disposalCost;
+
+  const missingComponents: string[] = [];
+  if (purchasePrice === 'NO_DATA') missingComponents.push('Purchase Price');
+  if (energyCost === 'NO_DATA') missingComponents.push('Energy Cost');
+  if (disposalCost === 'NO_DATA') missingComponents.push('Disposal Cost');
+
+  const coverageNote = missingComponents.length > 0
+    ? `PARTIAL TCO: Reflects attributable maintenance spend (reactive + PPM). Missing lifecycle components: ${missingComponents.join(', ')}.`
+    : 'Complete attributable lifecycle cost breakdown.';
+
+  return {
+    asset_id: params.assetId,
+    purchase_price_gbp: purchasePrice,
+    energy_cost_gbp: energyCost,
+    disposal_cost_gbp: disposalCost,
+    reactive_cost_gbp: reactiveCost,
+    ppm_cost_gbp: ppmCost,
+    total_attributable_gbp: total,
+    label: 'PARTIAL TCO',
+    coverage_note: coverageNote,
+    data_status: total > 0 ? 'LIVE' : 'NO_DATA',
+  };
 }
 
 // ─── PREDICTIVE READINESS ─────────────────────────────────────────────────────
@@ -203,6 +293,49 @@ export function computePredictiveReadiness(
   if (criteria.has_condition_assessed && criteria.has_failure_history) return 'CONDITION_READY';
   if (criteria.has_failure_history && criteria.has_sufficient_work_history) return 'HISTORY_READY';
   return 'NOT_READY';
+}
+
+export function explainPredictiveEligibility(criteria: PredictiveReadinessCriteria): {
+  status: PredictiveReadiness;
+  meaning: string;
+  satisfied_criteria: string[];
+  missing_criteria: string[];
+} {
+  const satisfied: string[] = [];
+  const missing: string[] = [];
+
+  if (criteria.has_installation_date) satisfied.push('Installation date recorded');
+  else missing.push('Installation date missing');
+
+  if (criteria.has_expected_life) satisfied.push('Expected design life configured');
+  else missing.push('Expected design life not configured');
+
+  if (criteria.has_condition_assessed) satisfied.push('Evidence-backed condition assessment on record');
+  else missing.push('Condition not assessed');
+
+  if (criteria.has_failure_history) satisfied.push(`Failure history on record (${criteria.failure_count} events)`);
+  else missing.push('No failure history recorded');
+
+  if (criteria.failure_count >= 5) satisfied.push('≥5 failure records available for pattern evaluation');
+  else missing.push(`<5 failure records (${criteria.failure_count}/5 recorded)`);
+
+  if (criteria.has_sufficient_work_history) satisfied.push(`≥5 work orders/visits recorded (${criteria.work_event_count} events)`);
+  else missing.push(`<5 work history events (${criteria.work_event_count}/5 recorded)`);
+
+  if (criteria.has_telemetry_source) satisfied.push('Telemetry sensor source mapped and configured');
+  else missing.push('No telemetry sensor source mapped');
+
+  const status = computePredictiveReadiness(criteria);
+  const meaning = status === 'MODEL_ELIGIBLE'
+    ? 'Asset satisfies minimum data criteria for evaluation by a future validated predictive model. EntireCAFM does not autonomously predict failures.'
+    : `Asset is at '${status}' stage and does not qualify for predictive model evaluation.`;
+
+  return {
+    status,
+    meaning,
+    satisfied_criteria: satisfied,
+    missing_criteria: missing,
+  };
 }
 
 // ─── SIGNAL GENERATION ───────────────────────────────────────────────────────
@@ -261,9 +394,9 @@ export function generateAssetSignals(params: {
         signal_type: 'AGE_EXCEEDS_EXPECTED_LIFE',
         severity: asset.criticality === 'CRITICAL' ? 'HIGH' : 'WARNING',
         title: 'Asset has exceeded expected design life',
-        description: `Asset age of ${age.age_years} years exceeds expected life of ${params.asset.expected_life_years} years.`,
+        description: `Asset installation age of ${age.installation_age_years} years exceeds expected life of ${params.asset.expected_life_years} years.`,
         evidence_snapshot: {
-          age_years: age.age_years,
+          installation_age_years: age.installation_age_years,
           expected_life_years: asset.expected_life_years,
           pct_elapsed: expectedLifeRemaining.pct_elapsed,
         },
@@ -276,7 +409,7 @@ export function generateAssetSignals(params: {
         title: 'Asset approaching expected end of life',
         description: `${Math.round(expectedLifeRemaining.pct_elapsed as number)}% of expected life elapsed.`,
         evidence_snapshot: {
-          age_years: age.age_years,
+          installation_age_years: age.installation_age_years,
           expected_life_years: asset.expected_life_years,
           pct_elapsed: expectedLifeRemaining.pct_elapsed,
           remaining_years: expectedLifeRemaining.remaining_years,
@@ -655,8 +788,8 @@ export async function getAssetsApproachingExpectedLife(
   for (const asset of assets) {
     if (!asset.expected_life_years) continue;
     const age = computeAssetAge(asset);
-    if (age.age_years === 'NO_DATA') continue;
-    const pctElapsed = (age.age_years as number) / asset.expected_life_years;
+    if (age.installation_age_years === 'NO_DATA') continue;
+    const pctElapsed = (age.installation_age_years as number) / asset.expected_life_years;
     if (pctElapsed >= thresholdPct) {
       results.push({
         asset_id: asset.id,
@@ -968,8 +1101,8 @@ export async function getSiteAssetExposure(siteId: string): Promise<SiteAssetExp
 
     if (a.installation_date && a.expected_life_years) {
       const age = computeAssetAge(a);
-      if (age.age_years !== 'NO_DATA') {
-        const pct = (age.age_years as number) / a.expected_life_years;
+      if (age.installation_age_years !== 'NO_DATA') {
+        const pct = (age.installation_age_years as number) / a.expected_life_years;
         if (pct >= 1) overLife++;
         else if (pct >= APPROACHING_LIFE_PCT) approachingLife++;
       }
@@ -1028,6 +1161,8 @@ export async function computeRepairToReplacementRatio(
     period_label: `Last ${periodDays} days`,
     repair_spend_gbp: repairSpend,
     replacement_estimate_gbp: replacementCost,
+    currency: 'GBP',
+    tax_basis: 'NET',
     ratio_pct: ratio,
     estimate_source: asset.replacement_cost_source || null,
     estimate_date: asset.replacement_cost_source_date || null,
@@ -1081,7 +1216,7 @@ export async function getReplacementReviewCandidates(
         asset_name: asset.name,
         site_name: asset.site?.name || 'Unknown',
         signals,
-        age_years: age.age_years,
+        age_years: age.installation_age_years,
         expected_life_years: expectedLife.expected_life_years,
         condition: asset.condition as AssetCondition,
         criticality: asset.criticality as AssetCriticality,

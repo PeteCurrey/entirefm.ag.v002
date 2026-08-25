@@ -102,16 +102,27 @@ export type ConditionSource =
 /** Sentinel value for absent data — never use 0 in its place */
 export type DataNoValue = 'NO_DATA';
 
+export type TaxBasis = 'NET' | 'GROSS' | 'EXEMPT' | 'UNKNOWN';
+
 // ─── ASSET AGE ───────────────────────────────────────────────────────────────
 
-export interface AssetAge {
-  /** Elapsed years as of calculation date, or NO_DATA if date unknown */
-  age_years: number | DataNoValue;
-  /** Source of the age calculation */
-  age_type: 'INSTALLATION' | 'COMMISSION' | 'NO_DATA';
-  /** ISO date the age was calculated */
+export interface AssetAgeBreakdown {
+  /** Installation Age: current_date - installation_date. NO_DATA if installation_date unknown. Never falls back to commission_date. */
+  installation_age_years: number | DataNoValue;
+  /** Commissioning Age: current_date - commission_date. NO_DATA if commission_date unknown. */
+  commissioning_age_years: number | DataNoValue;
+  /** Manufacture Age: current_date - manufacture_date (or parsed from metadata). NO_DATA if unknown. */
+  manufacture_age_years: number | DataNoValue;
+  /** Primary canonical age type currently active */
+  primary_age_type: 'INSTALLATION' | 'COMMISSION' | 'MANUFACTURE' | 'NO_DATA';
+  /** Primary canonical age value */
+  primary_age_years: number | DataNoValue;
+  /** ISO date calculated */
   as_of: string;
 }
+
+/** Legacy alias for backwards compatibility */
+export type AssetAge = AssetAgeBreakdown;
 
 // ─── EXPECTED LIFE ───────────────────────────────────────────────────────────
 
@@ -124,9 +135,9 @@ export interface ExpectedLifeProfile {
 }
 
 export interface ExpectedLifeRemaining {
-  /** Remaining years, or NO_DATA if installation_date or expected_life unknown */
+  /** Remaining years from installation_date only (never substitutes commission/manufacture date). NO_DATA if unknown. */
   remaining_years: number | DataNoValue;
-  /** Percentage of expected life elapsed, or NO_DATA */
+  /** Percentage of expected life elapsed from installation date, or NO_DATA */
   pct_elapsed: number | DataNoValue;
   note: string;
 }
@@ -234,12 +245,38 @@ export interface AssetCostLedger {
 
 // ─── REPAIR / REPLACE ────────────────────────────────────────────────────────
 
+export interface ReplacementCostProvenance {
+  amount: number | DataNoValue;
+  currency: 'GBP';
+  tax_basis: TaxBasis;
+  source: string | null;
+  source_date: string | null;
+  confidence: 'HIGH' | 'MEDIUM' | 'LOW' | 'UNKNOWN';
+  freshness: ReplacementEstimateFreshness;
+  requires_update: boolean;
+}
+
+export interface PartialTcoBreakdown {
+  asset_id: string;
+  purchase_price_gbp: number | DataNoValue;
+  energy_cost_gbp: number | DataNoValue;
+  disposal_cost_gbp: number | DataNoValue;
+  reactive_cost_gbp: number | DataNoValue;
+  ppm_cost_gbp: number | DataNoValue;
+  total_attributable_gbp: number;
+  label: 'PARTIAL TCO';
+  coverage_note: string;
+  data_status: 'LIVE' | DataNoValue;
+}
+
 export interface RepairToReplacementRatio {
   period_label: string;
   repair_spend_gbp: number;
-  replacement_estimate_gbp: number;
-  /** repair_spend / replacement_estimate × 100 */
-  ratio_pct: number;
+  replacement_estimate_gbp: number | DataNoValue;
+  currency: 'GBP';
+  tax_basis: TaxBasis;
+  /** repair_spend / replacement_estimate × 100, or NO_DATA */
+  ratio_pct: number | DataNoValue;
   estimate_source: string | null;
   estimate_date: string | null;
   estimate_freshness: ReplacementEstimateFreshness;

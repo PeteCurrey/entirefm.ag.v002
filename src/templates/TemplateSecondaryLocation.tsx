@@ -35,9 +35,11 @@ export function TemplateSecondaryLocation({ route, content }: TemplateProps) {
     { name: content.h1, url: route.path },
   ];
 
-  // Resolve secondary city-specific photography from approved manifest (rooftop / survey / plantroom)
+  // Resolve secondary city-specific photography from content record or approved manifest
   const cityImages = (locationImages.cities as Record<string, any>)[citySlug]?.images || [];
-  const heroImage = cityImages.length > 1
+  const heroImage = (content.heroImage && content.heroImage !== '/branding/EntireFM Branding 001.png')
+    ? content.heroImage
+    : cityImages.length > 1
     ? cityImages[1].src
     : cityImages.length > 0
     ? cityImages[0].src
@@ -54,7 +56,7 @@ export function TemplateSecondaryLocation({ route, content }: TemplateProps) {
     : `EntireFM mobile engineering units operating across ${city}`;
 
   const proofPills = [
-    { figure: 'SFG20 Maintenance', label: 'Asset Condition Schedules' },
+    { figure: 'SFG20 PPM', label: 'Asset Condition Schedules' },
     { figure: 'Statutory Vault', label: '100% Digital Compliance Audit' },
     { figure: 'Condition Surveys', label: 'Mobilisation Baseline & Asset Tagging' },
     { figure: 'Emergency Cover', label: 'Contracted 24/7 Priority Attendance' },

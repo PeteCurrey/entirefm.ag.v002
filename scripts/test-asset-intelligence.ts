@@ -26,6 +26,9 @@ import {
   computeWarrantyStatus,
   computeEstimateFreshness,
   computePredictiveReadiness,
+  explainPredictiveEligibility,
+  computePartialTco,
+  evaluateReplacementCostProvenance,
   generateAssetSignals,
 } from '../src/server/asset-intelligence';
 import { sanitiseExternalText, classifyIntent } from '../src/server/ceo-command/intent';
@@ -56,16 +59,27 @@ async function run() {
   // ─── 1. ASSET AGE TRUTH SEMANTICS ─────────────────────────────────────────
   section('1. Asset Age Truth Semantics');
 
-  const ageKnown = computeAssetAge({ installation_date: '2020-01-01' });
-  assert('Known install date calculates numeric age', typeof ageKnown.age_years === 'number' && (ageKnown.age_years as number) > 5);
-  assert('Age type is INSTALLATION', ageKnown.age_type === 'INSTALLATION');
+  // Installation age only calculated from installation_date
+  const ageInstall = computeAssetAge({ installation_date: '2020-01-01' });
+  assert('Known install date calculates numeric installation age', typeof ageInstall.installation_age_years === 'number' && (ageInstall.installation_age_years as number) > 5);
+  assert('Commission age is NO_DATA when commission_date missing', ageInstall.commissioning_age_years === 'NO_DATA');
+  assert('Primary age type is INSTALLATION', ageInstall.primary_age_type === 'INSTALLATION');
 
+  // Commissioning age calculated separately when commission_date exists
+  const ageCommission = computeAssetAge({ commission_date: '2021-06-01' });
+  assert('Installation age is NO_DATA when installation_date missing (never falls back to commission date)', ageCommission.installation_age_years === 'NO_DATA');
+  assert('Commissioning age is numeric', typeof ageCommission.commissioning_age_years === 'number');
+  assert('Primary age type is COMMISSION', ageCommission.primary_age_type === 'COMMISSION');
+
+  // Manufacture age calculated separately
+  const ageMfg = computeAssetAge({ manufacture_date: '2018-03-15' });
+  assert('Manufacture age is numeric', typeof ageMfg.manufacture_age_years === 'number' && (ageMfg.manufacture_age_years as number) > 7);
+  assert('Primary age type is MANUFACTURE', ageMfg.primary_age_type === 'MANUFACTURE');
+
+  // Missing dates return NO_DATA
   const ageUnknown = computeAssetAge({});
-  assert('Missing install date returns NO_DATA', ageUnknown.age_years === 'NO_DATA');
-  assert('Age type is NO_DATA', ageUnknown.age_type === 'NO_DATA');
-
-  const commAge = computeAssetAge({ commission_date: '2021-06-01' });
-  assert('Commission date calculates COMMISSION age', commAge.age_type === 'COMMISSION' && typeof commAge.age_years === 'number');
+  assert('All age fields are NO_DATA when no dates provided', ageUnknown.installation_age_years === 'NO_DATA' && ageUnknown.commissioning_age_years === 'NO_DATA' && ageUnknown.manufacture_age_years === 'NO_DATA');
+  assert('Primary age type is NO_DATA', ageUnknown.primary_age_type === 'NO_DATA');
 
   // ─── 2. EXPECTED LIFE PROVENANCE & REMAINING ──────────────────────────────
   section('2. Expected Life Provenance & Remaining');
@@ -85,24 +99,25 @@ async function run() {
   assert('Source defaults to NOT_CONFIGURED', lifeMissing.source === 'NOT_CONFIGURED');
 
   const remainingKnown = computeExpectedLifeRemaining(
-    { age_years: 10, age_type: 'INSTALLATION', as_of: '2026-08-25' },
+    { installation_age_years: 10, commissioning_age_years: 'NO_DATA', manufacture_age_years: 'NO_DATA', primary_age_type: 'INSTALLATION', primary_age_years: 10, as_of: '2026-08-25' },
     lifeConfigured
   );
   assert('Remaining years calculated (15 - 10 = 5)', remainingKnown.remaining_years === 5);
   assert('Pct elapsed calculated (66.7%)', Math.round(remainingKnown.pct_elapsed as number) === 67);
 
   const remainingOverLife = computeExpectedLifeRemaining(
-    { age_years: 16, age_type: 'INSTALLATION', as_of: '2026-08-25' },
+    { installation_age_years: 16, commissioning_age_years: 'NO_DATA', manufacture_age_years: 'NO_DATA', primary_age_type: 'INSTALLATION', primary_age_years: 16, as_of: '2026-08-25' },
     lifeConfigured
   );
   assert('Over-life asset returns negative/zero remaining', (remainingOverLife.remaining_years as number) <= 0);
-  assert('Over-life note explains exceeded design life', remainingOverLife.note.includes('exceeded'));
+  assert('Over-life note explains exceeded design life based on installation date', remainingOverLife.note.includes('exceeded'));
 
-  const remainingNoAge = computeExpectedLifeRemaining(
-    { age_years: 'NO_DATA', age_type: 'NO_DATA', as_of: '2026-08-25' },
+  // Commissioning age cannot be substituted for expected life calculation
+  const remainingCommOnly = computeExpectedLifeRemaining(
+    { installation_age_years: 'NO_DATA', commissioning_age_years: 8, manufacture_age_years: 'NO_DATA', primary_age_type: 'COMMISSION', primary_age_years: 8, as_of: '2026-08-25' },
     lifeConfigured
   );
-  assert('Missing age returns NO_DATA remaining', remainingNoAge.remaining_years === 'NO_DATA');
+  assert('Expected life remaining is NO_DATA when installation date missing (commission date not substituted)', remainingCommOnly.remaining_years === 'NO_DATA');
 
   // ─── 3. WARRANTY STATUS ───────────────────────────────────────────────────
   section('3. Warranty Status');
@@ -137,6 +152,33 @@ async function run() {
   assert('Quote > 365d is STALE', computeEstimateFreshness(staleDate.toISOString()) === 'STALE');
 
   assert('Null date is UNKNOWN', computeEstimateFreshness(null) === 'UNKNOWN');
+
+  // Provenance metadata
+  const provStale = evaluateReplacementCostProvenance({
+    replacement_cost_estimate_gbp: 28500,
+    replacement_cost_source: 'Supplier Quote',
+    replacement_cost_source_date: staleDate.toISOString(),
+    replacement_cost_confidence: 'HIGH',
+  });
+  assert('Replacement cost currency is GBP', provStale.currency === 'GBP');
+  assert('Replacement cost tax basis is NET', provStale.tax_basis === 'NET');
+  assert('Stale estimate flags requires_update = true', provStale.requires_update === true);
+
+  // ─── 4B. PARTIAL TCO TRUTH SEMANTICS ─────────────────────────────────────
+  section('4B. Partial TCO Truth Semantics');
+
+  const partialTco = computePartialTco({
+    assetId: 'test-asset-1',
+    reactiveCostGbp: 8200,
+    ppmCostGbp: 2400,
+    purchasePriceGbp: null, // NO_DATA
+    energyCostGbp: null,    // NO_DATA
+    disposalCostGbp: null,  // NO_DATA
+  });
+  assert('Partial TCO label is explicitly "PARTIAL TCO"', partialTco.label === 'PARTIAL TCO');
+  assert('Total attributable spend is sum of reactive + PPM (£10,600)', partialTco.total_attributable_gbp === 10600);
+  assert('Missing components explicitly noted in coverage note', partialTco.coverage_note.includes('Purchase Price') && partialTco.coverage_note.includes('Energy Cost'));
+  assert('Purchase price is NO_DATA (never fabricated as 0)', partialTco.purchase_price_gbp === 'NO_DATA');
 
   // ─── 5. DETERMINISTIC SIGNALS GENERATION ─────────────────────────────────
   section('5. Deterministic Signals Generation');
@@ -213,6 +255,18 @@ async function run() {
   });
   assert('Asset with condition + history is CONDITION_READY', conditionReady === 'CONDITION_READY');
 
+  const telemetryOnly = computePredictiveReadiness({
+    has_installation_date: false,
+    has_expected_life: false,
+    has_condition_assessed: false,
+    has_failure_history: false,
+    has_sufficient_work_history: false,
+    has_telemetry_source: true,
+    failure_count: 0,
+    work_event_count: 0,
+  });
+  assert('Asset with mapped telemetry source is TELEMETRY_READY', telemetryOnly === 'TELEMETRY_READY');
+
   const modelEligible = computePredictiveReadiness({
     has_installation_date: true,
     has_expected_life: true,
@@ -223,7 +277,21 @@ async function run() {
     failure_count: 6,
     work_event_count: 12,
   });
-  assert('Asset with telemetry + 5+ failures is MODEL_ELIGIBLE', modelEligible === 'MODEL_ELIGIBLE');
+  assert('Asset with telemetry + 5+ failures + condition + history is MODEL_ELIGIBLE', modelEligible === 'MODEL_ELIGIBLE');
+
+  // Explainability of MODEL_ELIGIBLE
+  const explanation = explainPredictiveEligibility({
+    has_installation_date: true,
+    has_expected_life: true,
+    has_condition_assessed: true,
+    has_failure_history: true,
+    has_sufficient_work_history: true,
+    has_telemetry_source: true,
+    failure_count: 6,
+    work_event_count: 12,
+  });
+  assert('MODEL_ELIGIBLE explanation states model eligibility without predicting failures', explanation.meaning.includes('satisfies minimum data criteria') && !explanation.meaning.includes('will fail in'));
+  assert('Satisfied criteria list includes telemetry and failure history', explanation.satisfied_criteria.some(c => c.includes('Telemetry')));
 
   // ─── 7. PROMPT INJECTION DEFENCE ─────────────────────────────────────────
   section('7. Prompt Injection Defence');

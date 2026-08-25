@@ -175,12 +175,12 @@ export function GeoHero({
           {displayPills.map((item) => (
             <div
               key={item.figure}
-              className="group rounded-sm border border-white/[0.09] bg-white/[0.06] px-5 py-5 sm:px-6 sm:py-6 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.12]"
+              className="group flex flex-col justify-between rounded-sm border border-white/[0.09] bg-white/[0.06] p-4 sm:p-5 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.12] min-h-[104px]"
             >
-              <dt className="whitespace-nowrap text-[1.4rem] sm:text-[1.65rem] font-extralight leading-none tracking-[-0.035em] text-brand-pink-light transition-colors duration-500 group-hover:text-white">
+              <dt className="text-[1.25rem] sm:text-[1.45rem] font-extralight leading-tight tracking-[-0.03em] text-brand-pink-light transition-colors duration-500 group-hover:text-white line-clamp-1">
                 {item.figure}
               </dt>
-              <dd className="mt-2.5 text-[10.5px] font-medium uppercase leading-snug tracking-[0.14em] text-brand-mist/70 transition-colors duration-500 group-hover:text-brand-mist/95">
+              <dd className="mt-2 text-[10px] sm:text-[10.5px] font-medium uppercase leading-snug tracking-[0.12em] text-brand-mist/70 transition-colors duration-500 group-hover:text-brand-mist/95 line-clamp-2">
                 {item.label}
               </dd>
             </div>
