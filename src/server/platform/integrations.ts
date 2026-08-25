@@ -24,9 +24,10 @@ export type IntegrationState =
   | 'NOT_CONFIGURED'
   | 'DEGRADED'
   | 'FAILED'
-  | 'DISABLED';
+  | 'DISABLED'
+  | 'UNAVAILABLE';
 
-export type IntegrationType = 'ACCOUNTING' | 'CRM' | 'ERP' | 'FIELD' | 'PAYMENT' | 'COMMS';
+export type IntegrationType = 'ACCOUNTING' | 'CRM' | 'ERP' | 'FIELD' | 'PAYMENT' | 'COMMS' | 'PLATFORM_REGISTRY';
 
 export interface PlatformIntegration {
   name: string;
@@ -37,22 +38,9 @@ export interface PlatformIntegration {
 }
 
 /**
- * Default integration states when no DB configuration exists.
- * These represent the known truth at platform launch: all accounting
- * connectors are interface-only pending per-client activation.
- */
-const INTEGRATION_DEFAULTS: PlatformIntegration[] = [
-  { name: 'Xero', type: 'ACCOUNTING', state: 'INTERFACE_ONLY', note: 'Pending per-client activation.', is_active: true },
-  { name: 'QuickBooks', type: 'ACCOUNTING', state: 'INTERFACE_ONLY', note: 'Pending per-client activation.', is_active: true },
-  { name: 'Sage', type: 'ACCOUNTING', state: 'INTERFACE_ONLY', note: 'Pending per-client activation.', is_active: true },
-  { name: 'NetSuite', type: 'ACCOUNTING', state: 'INTERFACE_ONLY', note: 'Pending per-client activation.', is_active: true },
-];
-
-/**
- * Returns all platform integration states from DB, falling back to
- * hardcoded defaults only if the DB table is unavailable.
- *
- * This is the ONLY place in the codebase that reads integration state.
+ * Returns all platform integration states directly from DB.
+ * If the integration registry is unavailable, it does NOT substitute
+ * plausible default connector states. It returns an explicit UNAVAILABLE/DEGRADED state.
  */
 export async function getPlatformIntegrationStates(): Promise<PlatformIntegration[]> {
   try {
@@ -60,14 +48,31 @@ export async function getPlatformIntegrationStates(): Promise<PlatformIntegratio
       'platform_integration_configs?select=name,type,state,note,is_active&order=name'
     );
     if (error || !data || data.length === 0) {
-      return INTEGRATION_DEFAULTS;
+      return [
+        {
+          name: 'Integration Registry',
+          type: 'PLATFORM_REGISTRY',
+          state: 'UNAVAILABLE',
+          note: 'Integration state unavailable because the platform integration registry could not be read or is empty.',
+          is_active: false,
+        },
+      ];
     }
     return data;
-  } catch {
-    // DB unavailable — return known defaults rather than crash
-    return INTEGRATION_DEFAULTS;
+  } catch (err: any) {
+    // DB unavailable — do NOT fabricate plausible states like Xero INTERFACE_ONLY
+    return [
+      {
+        name: 'Integration Registry',
+        type: 'PLATFORM_REGISTRY',
+        state: 'UNAVAILABLE',
+        note: `Integration state unavailable because the platform integration registry could not be read: ${err?.message || 'Database unreachable'}`,
+        is_active: false,
+      },
+    ];
   }
 }
+
 
 /**
  * Returns the state of a single named integration.
@@ -81,6 +86,11 @@ export async function getPlatformIntegrationByName(name: string): Promise<Platfo
  * Summary string for executive context.
  */
 export function summariseIntegrations(integrations: PlatformIntegration[]): string {
+  const unavailable = integrations.find(i => i.state === 'UNAVAILABLE');
+  if (unavailable) {
+    return 'Integration state unavailable because the platform integration registry could not be read.';
+  }
+
   const live = integrations.filter(i => i.state === 'LIVE').map(i => i.name);
   const ifOnly = integrations.filter(i => i.state === 'INTERFACE_ONLY').map(i => i.name);
   const degraded = integrations.filter(i => i.state === 'DEGRADED' || i.state === 'FAILED').map(i => i.name);
@@ -91,3 +101,4 @@ export function summariseIntegrations(integrations: PlatformIntegration[]): stri
   if (degraded.length > 0) parts.push(`${degraded.join(', ')}: DEGRADED — attention required`);
   return parts.join('. ') || 'No integrations configured.';
 }
+

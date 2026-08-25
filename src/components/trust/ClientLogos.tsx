@@ -388,27 +388,32 @@ export interface ClientRosterItem {
   id: string;
   name: string;
   category: string;
-  Logo: React.ComponentType<{ className?: string }>;
+  logoSrc: string;
+  Logo?: React.ComponentType<{ className?: string }>;
 }
 
 export const VERIFIED_CLIENTS: ClientRosterItem[] = [
-  { id: 'jll', name: 'JLL', category: 'Commercial Real Estate & Property Management', Logo: JllLogo },
-  { id: 'cbre', name: 'CBRE', category: 'Global Real Estate & Facilities Services', Logo: CbreLogo },
-  { id: 'cushman-wakefield', name: 'Cushman & Wakefield', category: 'Commercial Real Estate & Estates', Logo: CushmanWakefieldLogo },
-  { id: 'bnp-paribas', name: 'BNP Paribas Real Estate', category: 'Commercial Real Estate & Asset Management', Logo: BnpParibasLogo },
-  { id: 'volkerwessels', name: 'VolkerWessels', category: 'Civil Engineering & Infrastructure Estates', Logo: VolkerWesselsLogo },
-  { id: 'volkerrail', name: 'VolkerRail', category: 'Rail & Transportation Infrastructure', Logo: VolkerRailLogo },
-  { id: 'knight-frank', name: 'Knight Frank', category: 'Commercial Real Estate & Managing Agent', Logo: KnightFrankLogo },
-  { id: 'lambert-smith-hampton', name: 'Lambert Smith Hampton', category: 'Managing Agent & Commercial Property', Logo: LambertSmithHamptonLogo },
-  { id: 'alkota', name: 'Alkota Group', category: 'Industrial & Multi-Asset Property Holdings', Logo: AlkotaLogo },
-  { id: 'forged-solutions', name: 'Forged Solutions Group', category: 'Aerospace & Industrial Engineering', Logo: ForgedSolutionsLogo },
-  { id: 'damac', name: 'DAMAC', category: 'Commercial & Residential Property', Logo: DamacLogo },
-  { id: 'nhs', name: 'NHS Estates', category: 'Healthcare & Public Sector', Logo: NhsLogo },
-  { id: 'greggs', name: 'Greggs', category: 'National Retail & Foodservice', Logo: GreggsLogo },
-  { id: 'costa', name: 'Costa Coffee', category: 'National Hospitality & Retail', Logo: CostaLogo },
-  { id: 'hsbc', name: 'HSBC Commercial', category: 'Financial & Corporate Facilities', Logo: HsbcLogo },
-  { id: 'moto', name: 'Moto Hospitality', category: 'Motorway Service Areas & Public Realm', Logo: MotoLogo },
-  { id: 'natwest', name: 'NatWest Group', category: 'Banking & Regional Branch Networks', Logo: NatWestLogo },
-  { id: 'balfour-beatty', name: 'Balfour Beatty', category: 'Construction & Infrastructure Estates', Logo: BalfourBeattyLogo },
+  { id: 'jll', name: 'JLL', category: 'Global Real Estate & Property Management', logoSrc: '/images/clients/jll.png', Logo: JllLogo },
+  { id: 'cbre', name: 'CBRE', category: 'Global Commercial Property & Facilities Services', logoSrc: '/images/clients/cbre.png', Logo: CbreLogo },
+  { id: 'knight-frank', name: 'Knight Frank', category: 'Commercial Real Estate & Managing Agent', logoSrc: '/images/clients/knight-frank.png', Logo: KnightFrankLogo },
+  { id: 'cushman-wakefield', name: 'Cushman & Wakefield', category: 'Commercial Real Estate & Estates', logoSrc: '/images/clients/cushman-wakefield.webp', Logo: CushmanWakefieldLogo },
+  { id: 'bnp-paribas', name: 'BNP Paribas Real Estate', category: 'Commercial Real Estate & Asset Management', logoSrc: '/images/clients/bnp-paribas.png', Logo: BnpParibasLogo },
+  { id: 'lsh', name: 'Lambert Smith Hampton', category: 'Managing Agent & Commercial Property', logoSrc: '/images/clients/lsh.png', Logo: LambertSmithHamptonLogo },
+  { id: 'volkerwessels', name: 'VolkerWessels', category: 'Civil Engineering & Infrastructure Estates', logoSrc: '/images/clients/volker-wessels.png', Logo: VolkerWesselsLogo },
+  { id: 'volkerrail', name: 'VolkerRail', category: 'Rail & Transportation Infrastructure', logoSrc: '/images/clients/volkerrail.jpg', Logo: VolkerRailLogo },
+  { id: 'balfour-beatty', name: 'Balfour Beatty', category: 'Construction & Infrastructure Estates', logoSrc: '/images/clients/balfour-beatty.png', Logo: BalfourBeattyLogo },
+  { id: 'hsbc', name: 'HSBC', category: 'Financial & Corporate Facilities', logoSrc: '/images/clients/hsbc.jpg', Logo: HsbcLogo },
+  { id: 'natwest', name: 'NatWest Group', category: 'Banking & Regional Commercial Estates', logoSrc: '/images/clients/natwest.png', Logo: NatWestLogo },
+  { id: 'nhs', name: 'NHS Estates', category: 'Healthcare & Public Sector Facilities', logoSrc: '/images/clients/nhs.webp', Logo: NhsLogo },
+  { id: 'damac', name: 'DAMAC Properties', category: 'Luxury Commercial & Residential Real Estate', logoSrc: '/images/clients/damac.webp', Logo: DamacLogo },
+  { id: 'alkota', name: 'Alkota Group', category: 'Industrial & Property Holdings', logoSrc: '/images/clients/alkota.jpeg', Logo: AlkotaLogo },
+  { id: 'forged-solutions', name: 'Forged Solutions Group', category: 'Aerospace & Heavy Manufacturing', logoSrc: '/images/clients/forged-solutions-group.jpg', Logo: ForgedSolutionsLogo },
+  { id: 'royal-enfield', name: 'Royal Enfield', category: 'Automotive & Commercial Facilities', logoSrc: '/images/clients/royal-enfield.jpg' },
+  { id: 'moto', name: 'Moto Hospitality', category: 'Motorway Service Areas & Public Realm', logoSrc: '/images/clients/moto.svg', Logo: MotoLogo },
+  { id: 'greggs', name: 'Greggs', category: 'National Retail & Foodservice Estates', logoSrc: '/images/clients/greggs.jpg', Logo: GreggsLogo },
+  { id: 'costa', name: 'Costa Coffee', category: 'National Hospitality & Retail Outlets', logoSrc: '/images/clients/costa.png', Logo: CostaLogo },
+  { id: 'starbucks', name: 'Starbucks', category: 'Commercial Retail & Coffeehouse Estates', logoSrc: '/images/clients/starbucks.webp' },
+  { id: 'burger-king', name: 'Burger King', category: 'National Quick-Service Restaurant Estates', logoSrc: '/images/clients/burger-king.png' },
 ];
+
 

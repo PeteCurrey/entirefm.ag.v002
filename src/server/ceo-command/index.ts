@@ -9,10 +9,11 @@
  *   Canonical Services → Deterministic Analysis → Evidence →
  *   Model Explanation (governed) → ExecutiveAnswer
  *
- * Model Execution Status: PARTIAL
- *   Architecture is fully implemented. GEMINI_API_KEY not present
- *   in this environment — falls back to deterministic answers.
+ * Model Execution Status: FALLBACK
+ *   GEMINI_API_KEY not present in this environment.
+ *   Architecture is fully implemented — falls back to deterministic answers.
  *   Reported honestly in every ExecutiveAnswer.model_execution_status.
+ *   Status transitions: LIVE (key present) | FALLBACK (no key) | FAILED (error) | DISABLED (budget=0)
  */
 
 import type {
@@ -246,7 +247,10 @@ export async function executeCeoQuery(params: {
 
     // General finance query
     const kpi = await getFinanceKPISummary().catch(() => null);
-    if (!kpi) return { question, direct_answer: 'No financial data available.', key_drivers: [], evidence: [], data_status: 'NO_DATA', possible_actions: [], fact_vs_interpretation: { facts: [], calculations: [], interpretations: [], recommendations: [] }, tool_runs: [], computed_at };
+    const hasFinanceData = kpi && (kpi.billingReadyCount > 0 || kpi.supplierInvoicesAwaitingReview > 0 || kpi.clientOutstandingValue > 0 || kpi.financeExceptionCount > 0);
+    if (!kpi || !hasFinanceData) {
+      return { question, direct_answer: 'No financial records exist in EntireCAFM. Financial metrics cannot be calculated.', key_drivers: [], evidence: [], data_status: 'NO_DATA', possible_actions: [{ label: 'Finance Command Centre', href: '/admin/finance', type: 'NAVIGATE' }], fact_vs_interpretation: { facts: ['No financial data loaded.'], calculations: [], interpretations: [], recommendations: [] }, tool_runs: [{ tool_id: 'finance.kpi_summary', domain: 'FINANCE', status: 'EMPTY', required_permission: 'finance:read', permission_granted: true, executed_at: computedAt }], computed_at };
+    }
     evidence.push({ label: 'Billing Ready', value: kpi.billingReadyCount, data_status: kpi.billingReadyCount > 0 ? 'LIVE' : 'ZERO', source_service: 'finance.getFinanceKPISummary', computed_at });
     evidence.push({ label: 'Supplier Invoices Awaiting Review', value: kpi.supplierInvoicesAwaitingReview, data_status: kpi.supplierInvoicesAwaitingReview > 0 ? 'LIVE' : 'ZERO', source_service: 'finance.getFinanceKPISummary', computed_at });
     evidence.push({ label: 'Outstanding Receivables', value: `£${kpi.clientOutstandingValue.toFixed(2)}`, data_status: kpi.clientOutstandingValue > 0 ? 'LIVE' : 'ZERO', source_service: 'finance.getFinanceKPISummary', computed_at });
@@ -268,16 +272,18 @@ export async function executeCeoQuery(params: {
       listComplianceExceptions().catch(() => []),
       getExpiringCertificates(30).catch(() => []),
     ]);
-    const directAnswer = !kpis ? 'Compliance data unavailable.'
+    const hasObligations = (kpis?.totalObligations || 0) > 0;
+    const directAnswer = !kpis || !hasObligations
+      ? 'No compliance obligations recorded. Compliance data not yet imported or no estate loaded to evaluate applicability.'
       : overdue.length === 0 && exceptions.length === 0
       ? `No overdue compliance obligations or exceptions. ${kpis.totalObligations || 0} obligation${kpis.totalObligations === 1 ? '' : 's'} tracked.`
       : `${overdue.length} obligation${overdue.length === 1 ? '' : 's'} overdue. ${exceptions.length} exception${exceptions.length === 1 ? '' : 's'} open. ${expiring.length} certificate${expiring.length === 1 ? '' : 's'} expiring within 30 days.`;
     evidence.push(
-      { label: 'Overdue Obligations', value: overdue.length, data_status: overdue.length > 0 ? 'LIVE' : 'ZERO', source_service: 'compliance.getOverdueObligations', computed_at },
-      { label: 'Open Exceptions', value: exceptions.length, data_status: exceptions.length > 0 ? 'LIVE' : 'ZERO', source_service: 'compliance.listComplianceExceptions', computed_at },
-      { label: 'Expiring Certificates (30d)', value: expiring.length, data_status: expiring.length > 0 ? 'LIVE' : 'ZERO', source_service: 'compliance.getExpiringCertificates', computed_at },
+      { label: 'Overdue Obligations', value: overdue.length, data_status: overdue.length > 0 ? 'LIVE' : (hasObligations ? 'ZERO' : 'NO_DATA'), source_service: 'compliance.getOverdueObligations', computed_at },
+      { label: 'Open Exceptions', value: exceptions.length, data_status: exceptions.length > 0 ? 'LIVE' : (hasObligations ? 'ZERO' : 'NO_DATA'), source_service: 'compliance.listComplianceExceptions', computed_at },
+      { label: 'Expiring Certificates (30d)', value: expiring.length, data_status: expiring.length > 0 ? 'LIVE' : (hasObligations ? 'ZERO' : 'NO_DATA'), source_service: 'compliance.getExpiringCertificates', computed_at },
     );
-    return { question, direct_answer: directAnswer, key_drivers: overdue.length > 0 ? [`${overdue.length} obligation${overdue.length === 1 ? '' : 's'} overdue`, `${exceptions.length} exception${exceptions.length === 1 ? '' : 's'} open`] : [], evidence, data_status: kpis ? 'LIVE' : 'NO_DATA', possible_actions: [{ label: 'Compliance', href: '/admin/compliance', type: 'NAVIGATE' }], fact_vs_interpretation: { facts: [`Phase 0J Compliance Intelligence: ${kpis?.totalObligations || 0} total obligations tracked.`, 'Source types preserved: LEGISLATION, REGULATION, OFFICIAL_GUIDANCE, STANDARD, MANUFACTURER, INSURER, CONTRACT, CLIENT_POLICY, BEST_PRACTICE.'], calculations: [], interpretations: [], recommendations: [] }, tool_runs: [{ tool_id: 'compliance.kpis', domain: 'COMPLIANCE', status: 'SUCCESS', required_permission: 'compliance:read', permission_granted: true, executed_at: computedAt }], computed_at };
+    return { question, direct_answer: directAnswer, key_drivers: overdue.length > 0 ? [`${overdue.length} obligation${overdue.length === 1 ? '' : 's'} overdue`, `${exceptions.length} exception${exceptions.length === 1 ? '' : 's'} open`] : [], evidence, data_status: hasObligations ? 'LIVE' : 'NO_DATA', possible_actions: [{ label: 'Compliance', href: '/admin/compliance', type: 'NAVIGATE' }], fact_vs_interpretation: { facts: hasObligations ? [`Phase 0J Compliance Intelligence: ${kpis?.totalObligations || 0} total obligations tracked.`, 'Source types preserved: LEGISLATION, REGULATION, OFFICIAL_GUIDANCE, STANDARD, MANUFACTURER, INSURER, CONTRACT, CLIENT_POLICY, BEST_PRACTICE.'] : ['No compliance obligations configured.'], calculations: [], interpretations: [], recommendations: [] }, tool_runs: [{ tool_id: 'compliance.kpis', domain: 'COMPLIANCE', status: hasObligations ? 'SUCCESS' : 'EMPTY', required_permission: 'compliance:read', permission_granted: true, executed_at: computedAt }], computed_at };
   }
 
   // ─── Operations Queries ──────────────────────────────────

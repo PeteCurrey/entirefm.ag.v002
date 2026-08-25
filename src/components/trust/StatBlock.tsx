@@ -1,5 +1,7 @@
 import React from 'react';
+import Image from 'next/image';
 import { Building2, Clock, Layers, ClipboardCheck } from 'lucide-react';
+import { VERIFIED_CLIENTS } from './ClientLogos';
 
 /**
  * CAPABILITY BLOCK
@@ -88,8 +90,6 @@ export function StatBlock() {
  * hover — the detail is always in the DOM, only its presentation is deferred.
  */
 
-import { VERIFIED_CLIENTS } from './ClientLogos';
-
 const SECTORS = [
   { name: 'Commercial offices', note: 'Multi-tenant estates and managing agents' },
   { name: 'Logistics & distribution', note: 'Dock levellers, shutters and yard lighting' },
@@ -117,20 +117,25 @@ export function ClientLogoRail() {
         {/* Verified Real Client Logos */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3 mb-10" data-reveal>
           {VERIFIED_CLIENTS.map((client, i) => {
-            const LogoComponent = client.Logo;
             return (
               <div
                 key={client.id}
                 title={`${client.name} — ${client.category}`}
-                className="group relative flex flex-col items-center justify-center rounded-sm border border-brand-edge bg-white px-4 py-4 min-h-[82px] shadow-sm transition-all duration-300 ease-brand hover:border-brand-electric/40 hover:shadow-md"
-                style={{ '--reveal-delay': `${i * 40}ms` } as React.CSSProperties}
+                className="group relative flex flex-col items-center justify-center rounded-sm border border-brand-edge bg-white px-4 py-4 min-h-[86px] shadow-sm transition-all duration-300 ease-brand hover:border-brand-electric/40 hover:shadow-md"
+                style={{ '--reveal-delay': `${i * 35}ms` } as React.CSSProperties}
               >
                 <span
                   aria-hidden="true"
                   className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-brand-spectrum transition-transform duration-300 ease-brand group-hover:scale-x-100"
                 />
-                <div className="flex items-center justify-center w-full h-full">
-                  <LogoComponent className="h-6 sm:h-7 w-auto max-w-[130px] transition-transform duration-300 group-hover:scale-105" />
+                <div className="flex items-center justify-center w-full h-full p-1">
+                  <Image
+                    src={client.logoSrc}
+                    alt={`${client.name} logo`}
+                    width={160}
+                    height={48}
+                    className="max-h-7 sm:max-h-8 w-auto max-w-[130px] object-contain transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
                 <span className="sr-only">{client.name} ({client.category})</span>
               </div>

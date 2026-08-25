@@ -261,24 +261,39 @@ assert(sfg20Metric?.data_coverage_note?.includes('LICENSE_REQUIRED') ?? false, '
 async function run() {
 
 // ============================================================
-// SECTION 8: PLATFORM INTEGRATIONS TRUTH (async — reads from DB)
+// SECTION 8: PLATFORM INTEGRATIONS TRUTH (async — reads from DB or returns UNAVAILABLE)
 // ============================================================
-section('8. Platform Integrations — Canonical State (not hardcoded)');
+section('8. Platform Integrations — Canonical State (no hardcoded defaults)');
 try {
   const integrations = await getPlatformIntegrations();
   assert(Array.isArray(integrations), 'Platform integrations: returns array');
   assert(integrations.length > 0, 'Platform integrations list non-empty');
-  const xero = integrations.find((i: any) => i.name === 'Xero');
-  assert(xero?.state === 'INTERFACE_ONLY', `Xero: state = INTERFACE_ONLY (got ${xero?.state})`);
-  const qb = integrations.find((i: any) => i.name === 'QuickBooks');
-  assert(qb?.state === 'INTERFACE_ONLY', `QuickBooks: state = INTERFACE_ONLY (got ${qb?.state})`);
-  const sage = integrations.find((i: any) => i.name === 'Sage');
-  assert(sage?.state === 'INTERFACE_ONLY', `Sage: state = INTERFACE_ONLY (got ${sage?.state})`);
-  const netsuite = integrations.find((i: any) => i.name === 'NetSuite');
-  assert(netsuite?.state === 'INTERFACE_ONLY', `NetSuite: state = INTERFACE_ONLY (got ${netsuite?.state})`);
+
+  const allHaveState = integrations.every((i: any) => typeof i.state === 'string' && i.state.length > 0);
+  assert(allHaveState, 'All integrations have a state field');
+
+  // When DB is unreachable the registry must return UNAVAILABLE (never INTERFACE_ONLY as hardcoded default)
+  const registryEntry = integrations.find((i: any) => i.name === 'Integration Registry' || i.state === 'UNAVAILABLE');
+  const hasNamedConnectors = integrations.some((i: any) => ['Xero', 'QuickBooks', 'Sage', 'NetSuite'].includes(i.name));
+
+  if (registryEntry) {
+    // DB unavailable — correct: returns UNAVAILABLE sentinel, not plausible defaults
+    assert(registryEntry.state === 'UNAVAILABLE', `Registry failure returns UNAVAILABLE (got ${registryEntry.state})`);
+    assert(registryEntry.is_active === false, 'Registry UNAVAILABLE entry: is_active=false');
+    assert(!hasNamedConnectors, 'No plausible Xero/QuickBooks/Sage/NetSuite defaults returned on DB failure');
+  } else {
+    // DB available — named connectors should have real states from DB
+    assert(hasNamedConnectors, 'Named accounting connectors present when DB available');
+    const xero = integrations.find((i: any) => i.name === 'Xero');
+    if (xero) {
+      const validStates = ['LIVE', 'TEST', 'INTERFACE_ONLY', 'NOT_CONFIGURED', 'DEGRADED', 'FAILED', 'DISABLED', 'UNAVAILABLE'];
+      assert(validStates.includes(xero.state), `Xero: state is a known IntegrationState (got ${xero.state})`);
+    }
+  }
 } catch (err: any) {
   assert(false, 'Platform integrations: no exception', err.message);
 }
+
 
 // ============================================================
 // SECTION 9: ZERO DATA VERIFICATION (live remote DB)
@@ -494,15 +509,26 @@ try {
 // ============================================================
 // SECTION 16: PLATFORM HEALTH TRUTHFULNESS
 // ============================================================
-section('16. Platform Health — INTERFACE_ONLY Truthfulness');
+section('16. Platform Health — Registry Truthfulness');
 try {
   const healthAnswer = await executeCeoQuery({ question: 'Is Xero integrated?', session: superAdminSession });
-  assert(healthAnswer.direct_answer.includes('INTERFACE_ONLY'), 'Platform health: Xero stated as INTERFACE_ONLY');
-  assert(!healthAnswer.direct_answer.toLowerCase().includes('connected') || healthAnswer.direct_answer.includes('INTERFACE_ONLY'), 'Platform health: no false connection claim');
-  assert(healthAnswer.evidence.some(e => e.value === 'INTERFACE_ONLY' || String(e.value).includes('INTERFACE_ONLY')), 'Platform health: evidence shows INTERFACE_ONLY state');
+  // When DB reachable: answer mentions INTERFACE_ONLY or real state. When DB unreachable: mentions unavailable / registry.
+  const answerLower = healthAnswer.direct_answer.toLowerCase();
+  const mentionsState = healthAnswer.direct_answer.includes('INTERFACE_ONLY') ||
+    answerLower.includes('unavailable') ||
+    answerLower.includes('not_configured') ||
+    answerLower.includes('registry') ||
+    answerLower.includes('unreachable');
+  assert(mentionsState, `Platform health: answer reports actual integration state (got: "${healthAnswer.direct_answer}")`);
+  assert(!answerLower.includes('connected') || healthAnswer.direct_answer.includes('INTERFACE_ONLY'), 'Platform health: no false connection claim');
+  assert(healthAnswer.evidence.some(e =>
+    e.value === 'INTERFACE_ONLY' || e.value === 'UNAVAILABLE' || e.value === 'NOT_CONFIGURED' ||
+    String(e.value).includes('INTERFACE_ONLY') || String(e.value).includes('UNAVAILABLE')
+  ), `Platform health: evidence shows actual connector state (got: ${healthAnswer.evidence.map(e => e.value).join(', ')})`);
 } catch (err: any) {
   assert(false, 'Platform health query: no exception', err.message);
 }
+
 
 // ============================================================
 // SECTION 17: AI ACTIVITY ZERO DATA
@@ -531,16 +557,26 @@ try {
   assert(typeof brief.signal_count === 'number', 'Brief has signal_count');
   // With zero data, overall_status should be NO_DATA or GREEN
   assert(brief.overall_status === 'NO_DATA' || brief.overall_status === 'GREEN', `Brief zero data: status is NO_DATA or GREEN (${brief.overall_status})`);
-  // Check platform health section has correct INTERFACE_ONLY data
+  // Check platform health section — accepts UNAVAILABLE (registry unreachable) or INTERFACE_ONLY (DB live)
   const platformSection = brief.sections.find(s => s.title === 'Platform Health');
   assert(platformSection !== undefined, 'Brief has Platform Health section');
   if (platformSection) {
-    assert(platformSection.items.some(i => String(i.value).includes('INTERFACE_ONLY')), 'Brief Platform Health: INTERFACE_ONLY accounting connector');
-    assert(platformSection.summary.includes('INTERFACE_ONLY'), 'Brief Platform Health summary: mentions INTERFACE_ONLY');
+    const hasExpectedState = platformSection.items.some(i =>
+      String(i.value).includes('INTERFACE_ONLY') || String(i.value).includes('UNAVAILABLE') || String(i.value).includes('NOT_CONFIGURED')
+    );
+    assert(hasExpectedState, `Brief Platform Health: items show real registry state (got: ${platformSection.items.map(i => i.value).join(', ')})`);
+    const summaryLower = platformSection.summary.toLowerCase();
+    const summaryIsHonest = summaryLower.includes('interface_only') ||
+      summaryLower.includes('unavailable') ||
+      summaryLower.includes('unreachable') ||
+      summaryLower.includes('registry') ||
+      summaryLower.includes('no integrations');
+    assert(summaryIsHonest, `Brief Platform Health summary: honest about state (got: "${platformSection.summary}")`);
   }
 } catch (err: any) {
   assert(false, 'Executive brief generation: no exception', err.message);
 }
+
 
 // ============================================================
 // SECTION 19: ENTERPRISE SIGNALS — ZERO DATA

@@ -115,18 +115,18 @@ export async function generateExecutiveBrief(): Promise<ExecutiveBrief> {
     const hasComplianceData = (kpis.totalObligations || 0) > 0 || overdue.length > 0 || (kpis.openExceptionCount || 0) > 0;
     sections.push({
       title: 'Compliance',
-      status: hasComplianceData ? 'LIVE' : 'ZERO',
+      status: hasComplianceData ? 'LIVE' : 'NO_DATA',
       summary: !hasComplianceData
         ? 'No compliance obligations recorded. Compliance data not yet imported.'
         : overdue.length === 0
           ? `${kpis.totalObligations || 0} obligation${kpis.totalObligations === 1 ? '' : 's'} tracked. No overdue items.`
           : `${overdue.length} obligation${overdue.length === 1 ? '' : 's'} overdue. ${kpis.openExceptionCount || 0} exception${kpis.openExceptionCount === 1 ? '' : 's'} open.`,
       items: [
-        { label: 'Total Obligations', value: kpis.totalObligations || 0, status: (kpis.totalObligations || 0) > 0 ? 'LIVE' : 'ZERO' },
+        { label: 'Total Obligations', value: kpis.totalObligations || 0, status: (kpis.totalObligations || 0) > 0 ? 'LIVE' : 'NO_DATA' },
         { label: 'Overdue', value: overdue.length, status: overdue.length > 0 ? 'LIVE' : 'ZERO' },
         { label: 'Open Exceptions', value: kpis.openExceptionCount || 0, status: (kpis.openExceptionCount || 0) > 0 ? 'LIVE' : 'ZERO' },
       ],
-      evidence: [{ label: 'Source', value: 'Compliance Intelligence', data_status: hasComplianceData ? 'LIVE' : 'ZERO', source_service: 'server/compliance.getComplianceKPIs', computed_at: now }],
+      evidence: [{ label: 'Source', value: 'Compliance Intelligence', data_status: hasComplianceData ? 'LIVE' : 'NO_DATA', source_service: 'server/compliance.getComplianceKPIs', computed_at: now }],
     });
   } catch {
     sections.push({ title: 'Compliance', status: 'NO_DATA', summary: 'Compliance data unavailable.', items: [], evidence: [] });
@@ -141,7 +141,7 @@ export async function generateExecutiveBrief(): Promise<ExecutiveBrief> {
       kpi.financeExceptionCount > 0 || kpi.unbilledCompletedCount > 0;
     sections.push({
       title: 'Commercial & Finance',
-      status: hasFinanceData ? 'LIVE' : 'ZERO',
+      status: hasFinanceData ? 'LIVE' : 'NO_DATA',
       summary: !hasFinanceData
         ? 'No financial records exist. Finance data not yet imported.'
         : `${kpi.billingReadyCount} billing-ready. ${kpi.supplierInvoicesAwaitingReview} supplier invoice${kpi.supplierInvoicesAwaitingReview === 1 ? '' : 's'} awaiting review. ${leakage.length} billing leakage item${leakage.length === 1 ? '' : 's'}. Outstanding receivables: £${kpi.clientOutstandingValue.toFixed(2)}.`,
@@ -149,14 +149,15 @@ export async function generateExecutiveBrief(): Promise<ExecutiveBrief> {
         { label: 'Billing Ready', value: kpi.billingReadyCount, status: kpi.billingReadyCount > 0 ? 'LIVE' : 'ZERO' },
         { label: 'Supplier Invoices Awaiting Review', value: kpi.supplierInvoicesAwaitingReview, status: kpi.supplierInvoicesAwaitingReview > 0 ? 'LIVE' : 'ZERO' },
         { label: 'Billing Leakage', value: leakage.length, status: leakage.length > 0 ? 'LIVE' : 'ZERO' },
-        { label: 'Outstanding Receivables (£)', value: kpi.clientOutstandingValue.toFixed(2), status: kpi.clientOutstandingValue > 0 ? 'LIVE' : 'ZERO' },
+        { label: 'Outstanding Receivables (£)', value: kpi.clientOutstandingValue.toFixed(2), status: kpi.clientOutstandingValue > 0 ? 'LIVE' : 'NO_DATA' },
         { label: 'Bank Detail Alerts', value: kpi.bankDetailAlerts, status: kpi.bankDetailAlerts > 0 ? 'LIVE' : 'ZERO' },
       ],
-      evidence: [{ label: 'Source', value: 'Finance Automation', data_status: hasFinanceData ? 'LIVE' : 'ZERO', source_service: 'server/finance.getFinanceKPISummary', computed_at: now }],
+      evidence: [{ label: 'Source', value: 'Finance Automation', data_status: hasFinanceData ? 'LIVE' : 'NO_DATA', source_service: 'server/finance.getFinanceKPISummary', computed_at: now }],
     });
   } catch {
     sections.push({ title: 'Commercial & Finance', status: 'NO_DATA', summary: 'Finance data unavailable.', items: [], evidence: [] });
   }
+
 
   // ─── AI / AUTOMATION ─────────────────────────────────────
   try {
