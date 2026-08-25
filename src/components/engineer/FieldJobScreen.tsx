@@ -1,1074 +1,1182 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import {
-  MapPin, Clock, ChevronLeft, AlertTriangle, CheckCircle2, XCircle,
-  Mic, Camera, Plus, Square, Navigation, PhoneOff, Bot, Sparkles,
-  Search, ShieldAlert, FileText, Check, ArrowRight, ShieldCheck,
-  Wrench, Upload, RefreshCw
+  MapPin,
+  Clock,
+  ChevronLeft,
+  AlertTriangle,
+  CheckCircle2,
+  XCircle,
+  Camera,
+  Plus,
+  Navigation,
+  FileText,
+  ShieldCheck,
+  Wrench,
+  Upload,
+  Phone,
+  AlertOctagon,
+  Eye,
+  Sliders,
+  DollarSign,
+  Send,
+  Sparkles,
 } from 'lucide-react';
+import {
+  DigitalJobPack,
+  PpmChecklistItem,
+  FieldEvidenceItem,
+  OperationalDefectRecord,
+  VariationRequestRecord,
+  OperationalPartRecord,
+  DigitalServiceReport,
+  FieldVisitRecord,
+} from '@/server/field/operations-store';
 
-interface FieldJobScreenProps {
-  visit: any;
-  tasks: any[];
+interface Props {
+  visit: FieldVisitRecord;
+  tasks: PpmChecklistItem[];
   readings: any[];
-  parts: any[];
-  serviceReport: any | null;
+  parts: OperationalPartRecord[];
+  serviceReport: DigitalServiceReport | null;
   session: { personId: string; displayName: string };
 }
 
-// ─── Priority badge ────────────────────────────────────────────────────────────
-function PriorityBadge({ priority }: { priority: string }) {
-  const map: Record<string, string> = {
-    P1: 'bg-red-600 text-white',
-    P2: 'bg-amber-500 text-black',
-    P3: 'bg-brand-electric text-black',
-    P4: 'bg-green-700 text-white',
-    P5: 'bg-zinc-600 text-white',
-  };
-  return (
-    <span className={`px-2 py-0.5 rounded text-xs font-normal ${map[priority] || 'bg-zinc-700 text-white'}`}>
-      {priority}
-    </span>
+export default function FieldJobScreen({
+  visit: initialVisit,
+  tasks: initialTasks,
+  parts: initialParts,
+  serviceReport: initialReport,
+  session,
+}: Props) {
+  const [visit, setVisit] = useState<FieldVisitRecord>(initialVisit);
+  const [tasks, setTasks] = useState<PpmChecklistItem[]>(
+    initialVisit.ppm_tasks && initialVisit.ppm_tasks.length > 0 ? initialVisit.ppm_tasks : initialTasks
   );
-}
+  const [evidenceList, setEvidenceList] = useState<FieldEvidenceItem[]>(initialVisit.evidence_items || []);
+  const [defectsList, setDefectsList] = useState<OperationalDefectRecord[]>(initialVisit.defects || []);
+  const [variationsList, setVariationsList] = useState<VariationRequestRecord[]>(initialVisit.variations || []);
+  const [partsList, setPartsList] = useState<OperationalPartRecord[]>(
+    initialVisit.parts_used && initialVisit.parts_used.length > 0 ? initialVisit.parts_used : initialParts
+  );
+  const [report, setReport] = useState<DigitalServiceReport | null>(
+    initialVisit.service_report || initialReport
+  );
 
-// ─── Status action button ──────────────────────────────────────────────────────
-function StatusBar({
-  visitId,
-  status,
-  onStatusChange,
-}: {
-  visitId: string;
-  status: string;
-  onStatusChange: (newStatus: string) => void;
-}) {
-  const [loading, setLoading] = useState(false);
+  // Active Tab: 'WORK' | 'JOB_PACK' | 'EVIDENCE' | 'DEFECTS' | 'REPORT'
+  const [activeTab, setActiveTab] = useState<'WORK' | 'JOB_PACK' | 'EVIDENCE' | 'DEFECTS' | 'REPORT'>('WORK');
+
+  // Modals
   const [noAccessOpen, setNoAccessOpen] = useState(false);
+  const [noAccessReason, setNoAccessReason] = useState('Site closed / No keyholder present');
+  const [noAccessNotes, setNoAccessNotes] = useState('');
 
-  const callApi = async (endpoint: string, body?: object) => {
-    setLoading(true);
+  const [defectModalOpen, setDefectModalOpen] = useState(false);
+  const [defectTitle, setDefectTitle] = useState('');
+  const [defectDesc, setDefectDesc] = useState('');
+  const [defectSeverity, setDefectSeverity] = useState<'ADVISORY' | 'MINOR' | 'MAJOR' | 'CRITICAL' | 'UNSAFE'>('MAJOR');
+  const [defectMakeSafe, setDefectMakeSafe] = useState<'NOT_APPLICABLE' | 'MADE_SAFE' | 'ISOLATED' | 'UNABLE_TO_MAKE_SAFE' | 'ESCALATED'>('MADE_SAFE');
+  const [defectStopWork, setDefectStopWork] = useState(false);
+  const [defectAction, setDefectAction] = useState('Replace worn bearings');
+
+  const [variationModalOpen, setVariationModalOpen] = useState(false);
+  const [variationReason, setVariationReason] = useState('Additional defective component found during inspection');
+  const [variationScope, setVariationScope] = useState('');
+  const [variationHours, setVariationHours] = useState(2);
+  const [variationPartsGbp, setVariationPartsGbp] = useState(150);
+
+  const [partModalOpen, setPartModalOpen] = useState(false);
+  const [partName, setPartName] = useState('');
+  const [partNumber, setPartNumber] = useState('');
+  const [partAwaiting, setPartAwaiting] = useState(false);
+
+  // Service Report Form State
+  const [reportNarrative, setReportNarrative] = useState(
+    initialVisit.job_pack?.workflow_type === 'PPM'
+      ? 'Completed quarterly planned maintenance on Packaged Air Handling Unit and Chiller system. Cleaned filter media, inspected drive belts, and verified operating temperatures and refrigerant pressures.'
+      : 'Attended site to investigate high temperature alarm on server room AC split unit. Replaced failed contactor, verified refrigerant charge, and tested unit under full load.'
+  );
+  const [reportRecs, setReportRecs] = useState('System is operating satisfactorily within design parameters.');
+  const [reportOutcome, setReportOutcome] = useState<DigitalServiceReport['completion_outcome']>('COMPLETED');
+  const [signatoryName, setSignatoryName] = useState('Dave Smith');
+  const [signatoryRole, setSignatoryRole] = useState('Facilities Coordinator');
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [ramsAcknowledged, setRamsAcknowledged] = useState(visit.job_pack.rams.acknowledged || false);
+
+  const jobPack = visit.job_pack;
+
+  // Actions
+  const handleStartWork = async () => {
+    setIsSubmitting(true);
     try {
-      const res = await fetch(endpoint, {
+      const res = await fetch(`/api/engineer/visits/${visit.id}/work`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: body ? JSON.stringify(body) : undefined,
+        body: JSON.stringify({ operativeId: session.personId }),
       });
       const data = await res.json();
-      return data;
+      if (data.success && data.visit) setVisit(data.visit);
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
-  const handleJourneyStart = async () => {
-    const res = await callApi(`/api/engineer/visits/${visitId}/journey-start`);
-    if (res.success) onStatusChange('EN_ROUTE');
+  const handleNoAccessSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(`/api/engineer/visits/${visit.id}/no-access`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          operativeId: session.personId,
+          reason: noAccessReason,
+          contact_attempted: true,
+          contact_notes: noAccessNotes || 'Contacted site contact phone on record.',
+        }),
+      });
+      const data = await res.json();
+      if (data.success && data.visit) {
+        setVisit(data.visit);
+        setNoAccessOpen(false);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleArrive = async () => {
-    const res = await callApi(`/api/engineer/visits/${visitId}/arrive`, { method: 'MANUAL' });
-    if (res.success) onStatusChange('ON_SITE');
+  const handleUpdateTask = async (taskId: string, update: Partial<PpmChecklistItem>) => {
+    try {
+      const res = await fetch(`/api/engineer/visits/${visit.id}/tasks`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ taskId, update }),
+      });
+      const data = await res.json();
+      if (data.success && data.visit) {
+        setVisit(data.visit);
+        setTasks(data.visit.ppm_tasks);
+      }
+    } catch (err) {
+      console.error('Error updating task:', err);
+    }
   };
 
-  const handleStartWork = async () => {
-    const res = await callApi(`/api/engineer/visits/${visitId}/start-work`);
-    if (res.success) onStatusChange('IN_PROGRESS');
+  const handleAddEvidence = (category: FieldEvidenceItem['category']) => {
+    const newEvidence: FieldEvidenceItem = {
+      id: `ev-${Date.now()}`,
+      visit_id: visit.id,
+      category,
+      file_name: `evidence_${category.toLowerCase()}_${Date.now()}.jpg`,
+      storage_path: `/evidence/${visit.id}/${category.toLowerCase()}_photo.jpg`,
+      captured_at: new Date().toISOString(),
+      sync_state: 'SYNCED',
+      caption: `${category} photograph captured on site`,
+    };
+    setEvidenceList([newEvidence, ...evidenceList]);
   };
 
-  if (status === 'COMPLETED') {
-    return (
-      <div className="bg-green-900/30 border border-green-700 rounded-xl p-4 flex items-center gap-3">
-        <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0" />
-        <div>
-          <span className="text-green-300 font-medium block">Visit completed</span>
-          <span className="text-xs text-green-400/80">Service report submitted for review</span>
-        </div>
-      </div>
-    );
-  }
+  const handleRaiseDefect = async () => {
+    if (!defectTitle || !defectDesc) return;
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(`/api/engineer/visits/${visit.id}/defects`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: defectTitle,
+          description: defectDesc,
+          severity: defectSeverity,
+          make_safe_status: defectMakeSafe,
+          stop_work_triggered: defectStopWork,
+          recommended_action: defectAction,
+        }),
+      });
+      const data = await res.json();
+      if (data.success && data.defect) {
+        setDefectsList([data.defect, ...defectsList]);
+        setDefectModalOpen(false);
+        setDefectTitle('');
+        setDefectDesc('');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-  if (status === 'NO_ACCESS') {
-    return (
-      <div className="bg-red-900/30 border border-red-700 rounded-xl p-4 flex items-center gap-3">
-        <XCircle className="w-5 h-5 text-red-400 shrink-0" />
-        <span className="text-red-300 font-normal">No access recorded</span>
-      </div>
-    );
-  }
+  const handleRequestVariation = async () => {
+    if (!variationScope) return;
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(`/api/engineer/visits/${visit.id}/variations`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          reason: variationReason,
+          additional_scope: variationScope,
+          estimated_labour_hours: Number(variationHours),
+          estimated_parts_cost_gbp: Number(variationPartsGbp),
+        }),
+      });
+      const data = await res.json();
+      if (data.success && data.variation) {
+        setVariationsList([data.variation, ...variationsList]);
+        setVariationModalOpen(false);
+        setVariationScope('');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleRecordPart = async () => {
+    if (!partName) return;
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(`/api/engineer/visits/${visit.id}/parts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          part_name: partName,
+          part_number: partNumber || 'GEN-01',
+          quantity: 1,
+          is_installed: !partAwaiting,
+          is_awaiting_delivery: partAwaiting,
+        }),
+      });
+      const data = await res.json();
+      if (data.success && data.part) {
+        setPartsList([data.part, ...partsList]);
+        setPartModalOpen(false);
+        setPartName('');
+        setPartNumber('');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleSubmitServiceReport = async () => {
+    setValidationError(null);
+
+    // Pre-submission validation
+    if (jobPack.workflow_type === 'PPM') {
+      const incomplete = tasks.filter((t) => t.is_mandatory && !t.recorded_status && t.recorded_measurement === undefined);
+      if (incomplete.length > 0) {
+        setValidationError(`Incomplete mandatory tasks: ${incomplete.map((t) => t.task_name).join(', ')}`);
+        return;
+      }
+    }
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(`/api/engineer/visits/${visit.id}/report`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          operativeId: session.personId,
+          work_completed_narrative: reportNarrative,
+          engineer_recommendations: reportRecs,
+          completion_outcome: reportOutcome,
+          site_signatory: signatoryName
+            ? {
+                name: signatoryName,
+                role: signatoryRole,
+                signature_data_url: 'data:image/svg+xml;utf8,<svg>Signature_Confirmed</svg>',
+              }
+            : undefined,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setValidationError(data.error || 'Failed to submit service report');
+        setIsSubmitting(false);
+        return;
+      }
+
+      setReport(data.report);
+      setVisit((prev) => ({ ...prev, status: 'SUBMITTED', service_report: data.report }));
+    } catch (err: any) {
+      setValidationError(err.message || 'Submission error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <div className="space-y-2">
-      {(status === 'PLANNED' || status === 'CONFIRMED') && (
-        <button
-          onClick={handleJourneyStart}
-          disabled={loading}
-          className="w-full bg-brand-electric text-black font-light py-4 rounded-xl text-base hover:bg-brand-electric-bright transition-colors disabled:opacity-50 active:scale-98"
-          style={{ minHeight: '56px' }}
-        >
-          {loading ? 'Starting…' : '🚗  Start Journey'}
-        </button>
+    <div className="space-y-4 max-w-xl mx-auto pb-12">
+      {/* Top Header */}
+      <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+        <Link href="/engineer" className="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1 font-mono">
+          <ChevronLeft className="h-4 w-4" /> Today
+        </Link>
+        <span className="text-xs font-mono font-bold text-brand-pink">{jobPack.work_order_number}</span>
+        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+          visit.status === 'SUBMITTED' || visit.status === 'VALIDATED'
+            ? 'bg-emerald-100 text-emerald-800'
+            : visit.status === 'IN_PROGRESS'
+            ? 'bg-blue-100 text-blue-900'
+            : 'bg-slate-900 text-white'
+        }`}>
+          {visit.status}
+        </span>
+      </div>
+
+      {/* Stop Work Warning Banner if triggered */}
+      {defectsList.some((d) => d.stop_work_triggered) && (
+        <div className="p-4 bg-rose-600 text-white rounded text-xs flex items-center gap-3">
+          <AlertOctagon className="h-6 w-6 shrink-0 text-white" />
+          <div>
+            <strong className="block text-sm">SAFETY STOP-WORK TRIGGERED</strong>
+            <span>Active critical hazard reported. Work is isolated and escalated to EntireFM Helpdesk.</span>
+          </div>
+        </div>
       )}
-      {status === 'EN_ROUTE' && (
-        <>
-          <button
-            onClick={handleArrive}
-            disabled={loading}
-            className="w-full bg-brand-electric text-black font-light py-4 rounded-xl text-base hover:bg-brand-electric-bright transition-colors disabled:opacity-50 active:scale-98"
-            style={{ minHeight: '56px' }}
-          >
-            {loading ? 'Recording…' : '📍  Arrived On Site'}
-          </button>
-          <button
-            onClick={() => setNoAccessOpen(true)}
-            className="w-full bg-transparent border border-red-700 text-red-400 font-normal py-3 rounded-xl text-sm hover:bg-red-900/20 transition-colors"
-          >
-            <PhoneOff className="w-4 h-4 inline mr-2" />
-            No Access
-          </button>
-        </>
-      )}
-      {status === 'ON_SITE' && (
-        <>
+
+      {/* Status Action Banner */}
+      {visit.status === 'ARRIVED' && (
+        <div className="bg-purple-50 border border-purple-200 rounded p-4 flex items-center justify-between gap-3">
+          <div>
+            <span className="text-[10px] font-mono uppercase text-purple-700 font-bold block">CHECKED IN ON SITE</span>
+            <span className="text-xs text-purple-950 font-medium">Ready to commence site execution.</span>
+          </div>
           <button
             onClick={handleStartWork}
-            disabled={loading}
-            className="w-full bg-brand-electric text-black font-light py-4 rounded-xl text-base hover:bg-brand-electric-bright transition-colors disabled:opacity-50 active:scale-98"
-            style={{ minHeight: '56px' }}
+            disabled={isSubmitting}
+            className="btn-primary text-xs py-2 px-4 bg-purple-800 hover:bg-purple-900 text-white font-bold"
           >
-            {loading ? 'Starting…' : '🔧  Start Work'}
+            Start Work
           </button>
-          <button
-            onClick={() => setNoAccessOpen(true)}
-            className="w-full bg-transparent border border-red-700 text-red-400 font-normal py-3 rounded-xl text-sm hover:bg-red-900/20 transition-colors"
-          >
-            <PhoneOff className="w-4 h-4 inline mr-2" />
-            No Access
-          </button>
-        </>
+        </div>
       )}
-      {noAccessOpen && (
-        <NoAccessModal visitId={visitId} onClose={() => setNoAccessOpen(false)} onConfirm={(s) => { setNoAccessOpen(false); onStatusChange(s); }} />
-      )}
-    </div>
-  );
-}
 
-// ─── No Access Modal ───────────────────────────────────────────────────────────
-function NoAccessModal({ visitId, onClose, onConfirm }: { visitId: string; onClose: () => void; onConfirm: (status: string) => void }) {
-  const [reason, setReason] = useState('');
-  const [notes, setNotes] = useState('');
-  const [contactAttempted, setContactAttempted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const reasons = [
-    { value: 'KEYBOX_FAILURE', label: 'Keybox failure' },
-    { value: 'CONTACT_UNAVAILABLE', label: 'Contact unavailable' },
-    { value: 'HAZARD_PRESENT', label: 'Hazard present' },
-    { value: 'ACCESS_REFUSED', label: 'Access refused' },
-    { value: 'WRONG_ADDRESS', label: 'Wrong address' },
-    { value: 'OTHER', label: 'Other' },
-  ];
-
-  const handleSubmit = async () => {
-    if (!reason) return;
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/engineer/visits/${visitId}/no-access`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reason, notes, contactAttempted }),
-      });
-      const data = await res.json();
-      if (data.success) onConfirm('NO_ACCESS');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 bg-black/80 flex items-end" role="dialog" aria-modal="true" aria-label="Record no access">
-      <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 pb-safe">
-        <h2 className="text-white font-light text-lg">Record No Access</h2>
-
-        <div>
-          <label className="text-brand-mist text-sm block mb-2">Reason *</label>
-          <select
-            value={reason}
-            onChange={e => setReason(e.target.value)}
-            className="w-full bg-brand-void border border-brand-edge-dark rounded-lg p-3 text-white"
-          >
-            <option value="">Select reason…</option>
-            {reasons.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
-          </select>
-        </div>
-
-        <div>
-          <label className="text-brand-mist text-sm block mb-2">Notes</label>
-          <textarea
-            value={notes}
-            onChange={e => setNotes(e.target.value)}
-            className="w-full bg-brand-void border border-brand-edge-dark rounded-lg p-3 text-white h-20 resize-none"
-            placeholder="Additional details…"
-          />
-        </div>
-
-        <label className="flex items-center gap-3 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={contactAttempted}
-            onChange={e => setContactAttempted(e.target.checked)}
-            className="w-5 h-5"
-          />
-          <span className="text-white text-sm">Contact was attempted</span>
-        </label>
-
-        <div className="flex gap-3">
-          <button
-            onClick={onClose}
-            className="flex-1 border border-brand-edge-dark text-brand-mist py-3 rounded-xl font-normal"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleSubmit}
-            disabled={!reason || loading}
-            className="flex-1 bg-red-700 text-white py-3 rounded-xl font-light disabled:opacity-50"
-          >
-            {loading ? 'Recording…' : 'Record No Access'}
-          </button>
-        </div>
+      {/* Tab Navigation */}
+      <div className="flex border-b border-slate-200 text-xs font-mono">
+        <button
+          onClick={() => setActiveTab('WORK')}
+          className={`py-2.5 px-3 border-b-2 font-bold ${
+            activeTab === 'WORK' ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-400'
+          }`}
+        >
+          Execution
+        </button>
+        <button
+          onClick={() => setActiveTab('JOB_PACK')}
+          className={`py-2.5 px-3 border-b-2 font-bold ${
+            activeTab === 'JOB_PACK' ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-400'
+          }`}
+        >
+          Job Pack
+        </button>
+        <button
+          onClick={() => setActiveTab('EVIDENCE')}
+          className={`py-2.5 px-3 border-b-2 font-bold ${
+            activeTab === 'EVIDENCE' ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-400'
+          }`}
+        >
+          Evidence ({evidenceList.length})
+        </button>
+        <button
+          onClick={() => setActiveTab('DEFECTS')}
+          className={`py-2.5 px-3 border-b-2 font-bold ${
+            activeTab === 'DEFECTS' ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-400'
+          }`}
+        >
+          Defects &amp; Scope
+        </button>
+        <button
+          onClick={() => setActiveTab('REPORT')}
+          className={`py-2.5 px-3 border-b-2 font-bold ${
+            activeTab === 'REPORT' ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-400'
+          }`}
+        >
+          Service Report
+        </button>
       </div>
-    </div>
-  );
-}
 
-// ─── Voice Intelligence Modal (Phase 0C-R Pipeline) ───────────────────────────
-function VoiceIntelligenceModal({
-  visitId,
-  workOrderId,
-  assetId,
-  onClose,
-  onConfirmedRecord,
-}: {
-  visitId: string;
-  workOrderId?: string;
-  assetId?: string;
-  onClose: () => void;
-  onConfirmedRecord: () => void;
-}) {
-  const [state, setState] = useState<'IDLE' | 'RECORDING' | 'TRANSCRIBING' | 'STRUCTURING' | 'REVIEW' | 'CONFIRMED' | 'FAILED'>('IDLE');
-  const [duration, setDuration] = useState(0);
-  const [transcript, setTranscript] = useState('');
-  const [structuredProposal, setStructuredProposal] = useState<any>(null);
-  const [editedClassification, setEditedClassification] = useState<string>('OBSERVATION');
-  const [editedObservation, setEditedObservation] = useState<string>('');
-  const [editedSeverity, setEditedSeverity] = useState<string>('MAJOR');
-  const [editedRecommendation, setEditedRecommendation] = useState<string>('REPAIR');
-  const [quoteScope, setQuoteScope] = useState<{ hours: number; engineers: number; desc: string }>({ hours: 4, engineers: 2, desc: '' });
-  const [isLowConfidence, setIsLowConfidence] = useState(false);
+      {/* TAB 1: WORK EXECUTION */}
+      {activeTab === 'WORK' && (
+        <div className="space-y-4">
+          {/* Work Summary Card */}
+          <div className="bg-white border border-slate-200 rounded p-4 space-y-2">
+            <h2 className="text-base font-bold text-slate-900">{jobPack.title}</h2>
+            <p className="text-xs text-slate-600 font-sans">{jobPack.site.name} &bull; {jobPack.site.address_line1}</p>
 
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mr = new MediaRecorder(stream);
-      mediaRecorderRef.current = mr;
-      const chunks: Blob[] = [];
-
-      mr.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
-      mr.onstop = async () => {
-        stream.getTracks().forEach(t => t.stop());
-        setState('TRANSCRIBING');
-
-        // Simulate voice transcription and structuring pipeline
-        setTimeout(async () => {
-          setState('STRUCTURING');
-          const sampleAudioNotes = transcript || 'Supply fan bearing on AHU four is noisy and noticeable play. Recommend replacing both bearings within two weeks. Allow two engineers for four hours.';
-          setTranscript(sampleAudioNotes);
-
-          try {
-            const res = await fetch('/api/engineer/voice/process', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                transcript: sampleAudioNotes,
-                visitId,
-              }),
-            });
-            const data = await res.json();
-            if (data.success) {
-              setStructuredProposal(data);
-              setEditedClassification(data.actionType || 'DEFECT');
-              setEditedObservation(data.proposedObservation || sampleAudioNotes);
-              if (data.proposedDefect) {
-                setEditedSeverity(data.proposedDefect.severity || 'MAJOR');
-              }
-              if (data.proposedRecommendation) {
-                setEditedRecommendation(data.proposedRecommendation || 'QUOTE');
-              }
-              if (data.proposedQuoteScope) {
-                setQuoteScope({
-                  hours: data.proposedQuoteScope.estimatedHours || 4,
-                  engineers: data.proposedQuoteScope.engineersCount || 2,
-                  desc: data.proposedQuoteScope.scopeDescription || '',
-                });
-              }
-              setIsLowConfidence(data.isLowConfidence || false);
-              setState('REVIEW');
-            } else {
-              setState('FAILED');
-            }
-          } catch {
-            setState('FAILED');
-          }
-        }, 1200);
-      };
-
-      mr.start();
-      setState('RECORDING');
-      setDuration(0);
-      timerRef.current = setInterval(() => setDuration(d => d + 1), 1000);
-    } catch {
-      setState('FAILED');
-    }
-  };
-
-  const stopRecording = () => {
-    if (mediaRecorderRef.current && state === 'RECORDING') {
-      mediaRecorderRef.current.stop();
-      if (timerRef.current) clearInterval(timerRef.current);
-    }
-  };
-
-  const handleConfirm = async () => {
-    setState('STRUCTURING');
-    try {
-      // If Quote Scope action, save to field_quote_scopes
-      if (editedRecommendation === 'QUOTE' || editedClassification === 'QUOTE_SCOPE') {
-        await fetch('/api/engineer/quotes/scope', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            visitId,
-            workOrderId,
-            assetId,
-            scopeDescription: editedObservation || quoteScope.desc || transcript,
-            engineersCount: quoteScope.engineers,
-            estimatedHours: quoteScope.hours,
-            materialsSummary: 'Parts/bearings specified on site',
-          }),
-        });
-      }
-
-      setState('CONFIRMED');
-      setTimeout(() => {
-        onConfirmedRecord();
-        onClose();
-      }, 1000);
-    } catch {
-      setState('FAILED');
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 bg-black/90 flex items-end" role="dialog" aria-modal="true">
-      <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto pb-safe">
-        <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-brand-electric" />
-            <h2 className="text-white font-light text-lg">Talk to EntireFM</h2>
-            <span className="text-xs bg-brand-void text-brand-electric px-2 py-0.5 rounded font-mono">ASSIST</span>
+            <div className="flex items-center justify-between text-xs font-mono pt-2 border-t border-slate-100 text-slate-500">
+              <span>Discipline: {jobPack.discipline}</span>
+              <span>Workflow: {jobPack.workflow_type}</span>
+            </div>
           </div>
-          <button onClick={onClose} className="text-brand-mist hover:text-white">✕</button>
-        </div>
 
-        {state === 'IDLE' && (
-          <div className="text-center py-6 space-y-4">
-            <p className="text-brand-mist text-sm">
-              Tap the microphone and speak naturally. Describe findings, readings, defects, or quote requirements.
-            </p>
-            <button
-              onClick={startRecording}
-              className="w-24 h-24 rounded-full bg-red-600 hover:bg-red-500 flex items-center justify-center mx-auto transition-transform active:scale-95 shadow-lg shadow-red-900/50"
-            >
-              <Mic className="w-10 h-10 text-white" />
-            </button>
-          </div>
-        )}
-
-        {state === 'RECORDING' && (
-          <div className="text-center py-6 space-y-4">
-            <button
-              onClick={stopRecording}
-              className="w-24 h-24 rounded-full bg-red-600 flex items-center justify-center mx-auto animate-pulse shadow-lg shadow-red-900/50"
-            >
-              <Square className="w-8 h-8 text-white" />
-            </button>
-            <p className="text-red-400 font-mono text-2xl">
-              {String(Math.floor(duration / 60)).padStart(2, '0')}:{String(duration % 60).padStart(2, '0')}
-            </p>
-            <p className="text-brand-mist text-sm">Tap square to stop & structure notes</p>
-          </div>
-        )}
-
-        {(state === 'TRANSCRIBING' || state === 'STRUCTURING') && (
-          <div className="py-12 text-center space-y-3">
-            <RefreshCw className="w-8 h-8 text-brand-electric animate-spin mx-auto" />
-            <p className="text-white font-light">
-              {state === 'TRANSCRIBING' ? 'Transcribing Voice Audio…' : 'Field Structuring Agent Processing…'}
-            </p>
-            <p className="text-xs text-brand-mist">Classifying action and extracting structured field parameters</p>
-          </div>
-        )}
-
-        {state === 'REVIEW' && (
-          <div className="space-y-4">
-            {isLowConfidence && (
-              <div className="bg-amber-900/30 border border-amber-700/50 rounded-xl p-3 flex items-start gap-2">
-                <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <p className="text-xs text-amber-200">
-                  EntireFM isn&apos;t fully confident in this extraction. Please review and confirm the parameters below.
-                </p>
-              </div>
-            )}
-
-            <div className="bg-brand-void rounded-xl p-4 border border-brand-edge-dark space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-normal uppercase text-brand-mist">Action Classification</span>
-                <select
-                  value={editedClassification}
-                  onChange={e => setEditedClassification(e.target.value)}
-                  className="bg-brand-carbon border border-brand-edge-dark text-white text-xs rounded px-2 py-1"
-                >
-                  <option value="OBSERVATION">OBSERVATION</option>
-                  <option value="DEFECT">DEFECT</option>
-                  <option value="QUOTE_SCOPE">QUOTE SCOPE</option>
-                  <option value="JOB_NOTE">JOB NOTE</option>
-                  <option value="PARTS_NOTE">PARTS NOTE</option>
-                </select>
+          {/* PPM Mode: Checklist & Measurements */}
+          {jobPack.workflow_type === 'PPM' && (
+            <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-900 font-sans">
+                  Mandatory PPM Maintenance Tasks ({tasks.length})
+                </span>
+                <span className="text-[11px] font-mono text-slate-500">
+                  {tasks.filter((t) => t.recorded_status || t.recorded_measurement !== undefined).length} / {tasks.length} Done
+                </span>
               </div>
 
-              <div>
-                <label className="text-xs text-brand-mist block mb-1">Observation / Findings</label>
-                <textarea
-                  value={editedObservation}
-                  onChange={e => setEditedObservation(e.target.value)}
-                  className="w-full bg-brand-carbon border border-brand-edge-dark rounded-lg p-2.5 text-xs text-white h-16 resize-none"
-                />
-              </div>
-
-              {editedClassification === 'DEFECT' && (
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs text-brand-mist block mb-1">Severity</label>
-                    <select
-                      value={editedSeverity}
-                      onChange={e => setEditedSeverity(e.target.value)}
-                      className="w-full bg-brand-carbon border border-brand-edge-dark text-white text-xs rounded p-2"
-                    >
-                      <option value="CRITICAL">CRITICAL</option>
-                      <option value="MAJOR">MAJOR</option>
-                      <option value="MINOR">MINOR</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="text-xs text-brand-mist block mb-1">Recommendation</label>
-                    <select
-                      value={editedRecommendation}
-                      onChange={e => setEditedRecommendation(e.target.value)}
-                      className="w-full bg-brand-carbon border border-brand-edge-dark text-white text-xs rounded p-2"
-                    >
-                      <option value="REPAIR">REPAIR</option>
-                      <option value="REPLACE">REPLACE</option>
-                      <option value="QUOTE">QUOTE (Talk-to-Quote)</option>
-                      <option value="INVESTIGATE">INVESTIGATE</option>
-                      <option value="MONITOR">MONITOR</option>
-                      <option value="NO_ACTION">NO ACTION</option>
-                    </select>
-                  </div>
-                </div>
-              )}
-
-              {editedRecommendation === 'QUOTE' && (
-                <div className="bg-brand-edge-dark/30 border border-brand-electric/30 rounded-lg p-3 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-normal text-brand-electric">Draft Field Quote Scope</span>
-                    <span className="text-[10px] bg-brand-void text-brand-mist px-1.5 py-0.5 rounded font-mono">UNPRICED</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div>
-                      <span className="text-brand-mist block">Estimated Labour</span>
-                      <span className="text-white font-mono">{quoteScope.engineers} engineers × {quoteScope.hours} hrs</span>
+              <div className="divide-y divide-slate-100">
+                {tasks.map((task) => (
+                  <div key={task.id} className="py-3 space-y-2 text-xs">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="font-bold text-slate-900 font-sans">{task.task_name}</span>
+                      {task.is_mandatory && (
+                        <span className="text-[9.5px] font-mono text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded shrink-0">
+                          MANDATORY
+                        </span>
+                      )}
                     </div>
-                    <div>
-                      <span className="text-brand-mist block">Pricing Status</span>
-                      <span className="text-amber-400 font-light">NOT ISSUED / DRAFT</span>
-                    </div>
+
+                    {/* Pass/Fail Controls */}
+                    {task.task_type === 'PASS_FAIL' && (
+                      <div className="grid grid-cols-3 gap-2 pt-1">
+                        <button
+                          type="button"
+                          onClick={() => handleUpdateTask(task.id, { recorded_status: 'PASS' })}
+                          className={`py-2 rounded text-xs font-bold font-mono transition-all ${
+                            task.recorded_status === 'PASS'
+                              ? 'bg-emerald-700 text-white'
+                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                          }`}
+                        >
+                          PASS
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleUpdateTask(task.id, { recorded_status: 'FAIL' })}
+                          className={`py-2 rounded text-xs font-bold font-mono transition-all ${
+                            task.recorded_status === 'FAIL'
+                              ? 'bg-rose-700 text-white'
+                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                          }`}
+                        >
+                          FAIL
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleUpdateTask(task.id, { recorded_status: 'NOT_APPLICABLE' })}
+                          className={`py-2 rounded text-xs font-bold font-mono transition-all ${
+                            task.recorded_status === 'NOT_APPLICABLE'
+                              ? 'bg-slate-800 text-white'
+                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                          }`}
+                        >
+                          N/A
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Measurement Controls with Structured Units */}
+                    {task.task_type === 'MEASUREMENT' && (
+                      <div className="space-y-1.5 pt-1">
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="number"
+                            step="0.1"
+                            value={task.recorded_measurement ?? ''}
+                            onChange={(e) =>
+                              handleUpdateTask(task.id, {
+                                recorded_measurement: e.target.value ? parseFloat(e.target.value) : undefined,
+                              })
+                            }
+                            placeholder={`e.g. ${task.expected_min || 18}`}
+                            className="w-32 p-2 border border-slate-300 rounded font-mono text-xs"
+                          />
+                          <span className="font-mono font-bold text-slate-700">{task.measurement_unit}</span>
+                          <span className="text-[11px] text-slate-400 font-mono">
+                            (Tolerance: {task.expected_min} &ndash; {task.expected_max} {task.measurement_unit})
+                          </span>
+                        </div>
+
+                        {task.is_out_of_tolerance && (
+                          <div className="p-2 bg-amber-50 border border-amber-200 rounded text-amber-900 text-[11px] flex items-center gap-1.5">
+                            <AlertTriangle className="h-3.5 w-3.5 text-amber-600 shrink-0" />
+                            <span>Reading outside nominal tolerance limits. Verify and record recommendation.</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
-                </div>
-              )}
-            </div>
-
-            <div className="flex gap-3">
-              <button
-                onClick={() => setState('IDLE')}
-                className="flex-1 border border-brand-edge-dark py-3 rounded-xl text-xs font-normal text-brand-mist"
-              >
-                Re-record
-              </button>
-              <button
-                onClick={handleConfirm}
-                className="flex-1 bg-brand-electric text-black py-3 rounded-xl text-xs font-normal hover:bg-brand-electric-bright transition-colors"
-              >
-                Confirm & Save Record
-              </button>
-            </div>
-          </div>
-        )}
-
-        {state === 'CONFIRMED' && (
-          <div className="py-8 text-center space-y-2">
-            <CheckCircle2 className="w-10 h-10 text-green-400 mx-auto" />
-            <p className="text-white font-light">Field Record Confirmed & Saved</p>
-            <p className="text-xs text-brand-mist">Authoritative operational record created with audit provenance.</p>
-          </div>
-        )}
-
-        {state === 'FAILED' && (
-          <div className="py-6 text-center space-y-3">
-            <AlertTriangle className="w-8 h-8 text-red-400 mx-auto" />
-            <p className="text-white font-light">Voice Processing Failed</p>
-            <p className="text-xs text-brand-mist">Audio could not be transcribed. You can retry or type manually.</p>
-            <button
-              onClick={() => setState('IDLE')}
-              className="bg-brand-void border border-brand-edge-dark text-white px-4 py-2 rounded-lg text-xs font-normal"
-            >
-              Try Again
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// ─── Field Copilot V1 Drawer ──────────────────────────────────────────────────
-function FieldCopilotDrawer({
-  visitId,
-  workOrderId,
-  assetId,
-  onClose,
-}: {
-  visitId: string;
-  workOrderId?: string;
-  assetId?: string;
-  onClose: () => void;
-}) {
-  const [query, setQuery] = useState('');
-  const [messages, setMessages] = useState<Array<{ role: 'user' | 'assistant'; text: string; citations?: string[]; isSafetyRefusal?: boolean }>>([
-    {
-      role: 'assistant',
-      text: 'Hello! I am your EntireFM Field Copilot. I have access to this site, asset history, open defects, and task requirements. What do you need to know?',
-    },
-  ]);
-  const [loading, setLoading] = useState(false);
-
-  const handleSend = async (qText?: string) => {
-    const textToSend = qText || query;
-    if (!textToSend.trim()) return;
-
-    setMessages(prev => [...prev, { role: 'user', text: textToSend }]);
-    setQuery('');
-    setLoading(true);
-
-    try {
-      const res = await fetch('/api/engineer/copilot/query', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: textToSend, visitId, workOrderId, assetId }),
-      });
-      const data = await res.json();
-      setMessages(prev => [
-        ...prev,
-        {
-          role: 'assistant',
-          text: data.answer,
-          citations: data.citations,
-          isSafetyRefusal: data.safetyRefusal,
-        },
-      ]);
-    } catch {
-      setMessages(prev => [
-        ...prev,
-        { role: 'assistant', text: 'Error connecting to Field Copilot retrieval engine.' },
-      ]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 bg-black/90 flex items-end" role="dialog" aria-modal="true">
-      <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col pb-safe">
-        <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-          <div className="flex items-center gap-2">
-            <Bot className="w-5 h-5 text-brand-electric" />
-            <h2 className="text-white font-light text-base">Field Copilot V1</h2>
-            <span className="text-[10px] bg-brand-void text-brand-electric px-2 py-0.5 rounded font-mono">SCOPED RBAC</span>
-          </div>
-          <button onClick={onClose} className="text-brand-mist hover:text-white">✕</button>
-        </div>
-
-        {/* Quick queries */}
-        <div className="flex gap-2 overflow-x-auto pb-1 text-xs">
-          <button
-            onClick={() => handleSend('What happened to this asset last time?')}
-            className="bg-brand-void border border-brand-edge-dark text-brand-mist hover:text-white px-2.5 py-1.5 rounded-lg whitespace-nowrap"
-          >
-            Last attendance?
-          </button>
-          <button
-            onClick={() => handleSend('What evidence do I need?')}
-            className="bg-brand-void border border-brand-edge-dark text-brand-mist hover:text-white px-2.5 py-1.5 rounded-lg whitespace-nowrap"
-          >
-            Evidence needed?
-          </button>
-          <button
-            onClick={() => handleSend('What tasks remain?')}
-            className="bg-brand-void border border-brand-edge-dark text-brand-mist hover:text-white px-2.5 py-1.5 rounded-lg whitespace-nowrap"
-          >
-            Open tasks?
-          </button>
-        </div>
-
-        {/* Message feed */}
-        <div className="flex-1 overflow-y-auto space-y-3 pr-1 max-h-80">
-          {messages.map((m, idx) => (
-            <div
-              key={idx}
-              className={`p-3 rounded-xl text-xs leading-relaxed ${
-                m.role === 'user'
-                  ? 'bg-brand-electric/15 text-white ml-8 border border-brand-electric/30'
-                  : m.isSafetyRefusal
-                  ? 'bg-red-950/40 text-red-200 border border-red-800'
-                  : 'bg-brand-void text-white/90 mr-6 border border-brand-edge-dark'
-              }`}
-            >
-              <p>{m.text}</p>
-              {m.citations && m.citations.length > 0 && (
-                <div className="mt-2 pt-1 border-t border-brand-edge-dark/50 text-[10px] font-mono text-brand-electric">
-                  {m.citations.join(' ')}
-                </div>
-              )}
-            </div>
-          ))}
-          {loading && (
-            <div className="bg-brand-void p-3 rounded-xl text-xs text-brand-mist flex items-center gap-2">
-              <RefreshCw className="w-3.5 h-3.5 animate-spin text-brand-electric" />
-              <span>Retrieving operational history…</span>
+                ))}
+              </div>
             </div>
           )}
+
+          {/* Reactive Mode: Fault -> Diagnosis -> Repair */}
+          {jobPack.workflow_type === 'REACTIVE' && (
+            <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-900 font-sans block border-b border-slate-100 pb-2">
+                Reactive Investigation &amp; Remediation
+              </span>
+
+              <div className="space-y-3 text-xs">
+                <div>
+                  <label className="block text-slate-700 font-bold mb-1">Fault Description &amp; Findings</label>
+                  <textarea
+                    rows={2}
+                    defaultValue="Server room temperature elevated to 28.5°C. High pressure safety trip active on outdoor condensing unit."
+                    className="w-full p-2 border border-slate-300 rounded font-sans"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-700 font-bold mb-1">Root Cause Identified</label>
+                  <textarea
+                    rows={2}
+                    defaultValue="Condenser fan motor contactor coil open circuit. Outdoor fan inoperative under load."
+                    className="w-full p-2 border border-slate-300 rounded font-sans"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-700 font-bold mb-1">Remedial Action Undertaken</label>
+                  <textarea
+                    rows={2}
+                    defaultValue="Replaced 24V contactor from van stock. Tested condenser fan rotation, cleared fault log, and verified return air temperature down to 19°C."
+                    className="w-full p-2 border border-slate-300 rounded font-sans"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Quick Actions Row */}
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => setActiveTab('EVIDENCE')}
+              className="btn-secondary text-xs py-2.5 flex items-center justify-center gap-1.5 font-bold"
+            >
+              <Camera className="h-4 w-4" />
+              <span>Capture Photo</span>
+            </button>
+
+            <button
+              onClick={() => setDefectModalOpen(true)}
+              className="btn-secondary text-xs py-2.5 text-amber-800 border-amber-300 flex items-center justify-center gap-1.5 font-bold"
+            >
+              <AlertTriangle className="h-4 w-4 text-amber-600" />
+              <span>Raise Defect</span>
+            </button>
+          </div>
+
+          {/* No Access Button */}
+          <div className="pt-2">
+            <button
+              onClick={() => setNoAccessOpen(true)}
+              className="w-full py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-700 text-slate-600 border border-slate-200 rounded text-xs font-mono font-bold text-center"
+            >
+              No Access / Unable to Attend Site
+            </button>
+          </div>
         </div>
+      )}
 
-        {/* Input bar */}
-        <div className="flex gap-2 pt-2 border-t border-brand-edge-dark">
-          <input
-            type="text"
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handleSend()}
-            placeholder="Ask Copilot about this job or asset…"
-            className="flex-1 bg-brand-void border border-brand-edge-dark rounded-xl px-3 py-2.5 text-xs text-white"
-          />
-          <button
-            onClick={() => handleSend()}
-            disabled={!query.trim() || loading}
-            className="bg-brand-electric text-black px-4 py-2.5 rounded-xl font-normal text-xs hover:bg-brand-electric-bright disabled:opacity-50"
-          >
-            Ask
-          </button>
+      {/* TAB 2: DIGITAL JOB PACK */}
+      {activeTab === 'JOB_PACK' && (
+        <div className="space-y-4 text-xs font-sans">
+          {/* Site & Access */}
+          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <span className="font-bold text-slate-900 text-sm">Site &amp; Access Details</span>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  `${jobPack.site.name} ${jobPack.site.address_line1} ${jobPack.site.postcode}`
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary text-[11px] py-1 px-2.5 flex items-center gap-1 font-mono text-brand-pink font-bold"
+              >
+                <Navigation className="h-3 w-3" /> Native Directions
+              </a>
+            </div>
+
+            <div className="space-y-2">
+              <div>
+                <span className="text-slate-400 block text-[10.5px]">Address</span>
+                <span className="font-bold text-slate-900">{jobPack.site.address_line1}, {jobPack.site.city}, {jobPack.site.postcode}</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block text-[10.5px]">Opening Times</span>
+                <span className="text-slate-800">{jobPack.site.opening_hours}</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block text-[10.5px]">Parking &amp; Loading</span>
+                <span className="text-slate-800">{jobPack.site.parking_instructions}</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block text-[10.5px]">Reception / Sign-in Procedure</span>
+                <span className="text-slate-800">{jobPack.site.reception_procedure}</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block text-[10.5px]">Access Telephone</span>
+                <a href={`tel:${jobPack.site.access_telephone}`} className="text-brand-pink font-bold font-mono">
+                  {jobPack.site.access_telephone}
+                </a>
+              </div>
+              <div>
+                <span className="text-slate-400 block text-[10.5px]">Known Site Hazards</span>
+                <ul className="list-disc list-inside text-rose-800 font-medium">
+                  {jobPack.site.known_hazards.map((h, i) => (
+                    <li key={i}>{h}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Asset Context */}
+          {jobPack.asset && (
+            <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
+              <span className="font-bold text-slate-900 text-sm block border-b border-slate-100 pb-2">
+                Target Asset Specification
+              </span>
+              <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                <div>
+                  <span className="text-slate-400 block font-sans text-[10.5px]">Asset Tag</span>
+                  <span className="font-bold text-slate-900">{jobPack.asset.asset_tag}</span>
+                </div>
+                <div>
+                  <span className="text-slate-400 block font-sans text-[10.5px]">Criticality</span>
+                  <span className="text-rose-700 font-bold">{jobPack.asset.criticality}</span>
+                </div>
+                <div>
+                  <span className="text-slate-400 block font-sans text-[10.5px]">Manufacturer</span>
+                  <span>{jobPack.asset.manufacturer}</span>
+                </div>
+                <div>
+                  <span className="text-slate-400 block font-sans text-[10.5px]">Model / Serial</span>
+                  <span>{jobPack.asset.model}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Risk-Proportionate RAMS */}
+          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
+            <span className="font-bold text-slate-900 text-sm block border-b border-slate-100 pb-2">
+              Approved Risk Assessment &amp; Method Statement (RAMS)
+            </span>
+            <div className="space-y-2">
+              <div className="text-xs text-slate-700">
+                <strong>{jobPack.rams.title}</strong> &bull; {jobPack.rams.version}
+              </div>
+              <label className="flex items-center gap-2 p-3 bg-slate-50 border border-slate-200 rounded cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={ramsAcknowledged}
+                  onChange={(e) => setRamsAcknowledged(e.target.checked)}
+                  className="text-brand-pink h-4 w-4"
+                />
+                <span className="text-xs text-slate-900 font-bold">
+                  I confirm I have reviewed site-specific RAMS and PPE requirements before commencing work.
+                </span>
+              </label>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  );
-}
+      )}
 
-// ─── Nameplate Scanner Modal ──────────────────────────────────────────────────
-function NameplateScannerModal({
-  asset,
-  onClose,
-}: {
-  asset?: any;
-  onClose: () => void;
-}) {
-  const [rawOcr, setRawOcr] = useState('MITSUBISHI ELECTRIC\nPUZ-ZM100VKA2\nSerial: 7X193829\nVoltage: 230V 50Hz');
-  const [extraction, setExtraction] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-
-  const handleScan = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/engineer/vision/nameplate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ rawText: rawOcr, assetId: asset?.id }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setExtraction(data.extraction);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 bg-black/90 flex items-end" role="dialog" aria-modal="true">
-      <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 max-h-[85vh] overflow-y-auto pb-safe">
-        <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-          <h2 className="text-white font-light text-base">Visual Nameplate Scanner</h2>
-          <button onClick={onClose} className="text-brand-mist hover:text-white">✕</button>
-        </div>
-
-        <p className="text-xs text-brand-mist">
-          Photograph or simulate equipment rating plate to extract manufacturer, model, and serial number.
-        </p>
-
-        <div>
-          <label className="text-xs text-brand-mist block mb-1">OCR / Nameplate Text</label>
-          <textarea
-            value={rawOcr}
-            onChange={e => setRawOcr(e.target.value)}
-            className="w-full bg-brand-void border border-brand-edge-dark rounded-lg p-2.5 text-xs font-mono text-white h-20"
-          />
-        </div>
-
-        <button
-          onClick={handleScan}
-          disabled={loading || !rawOcr.trim()}
-          className="w-full bg-brand-electric text-black font-light py-3 rounded-xl text-xs hover:bg-brand-electric-bright disabled:opacity-50"
-        >
-          {loading ? 'Analysing Nameplate…' : 'Extract Equipment Metadata'}
-        </button>
-
-        {extraction && (
-          <div className="bg-brand-void border border-brand-edge-dark rounded-xl p-4 space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-normal text-white">Extracted Metadata</span>
-              <span className="text-[10px] bg-green-950 text-green-400 px-2 py-0.5 rounded font-mono">
-                {Math.round(extraction.confidence * 100)}% Confidence
+      {/* TAB 3: EVIDENCE CAPTURE */}
+      {activeTab === 'EVIDENCE' && (
+        <div className="space-y-4">
+          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-900 font-sans">
+                Camera-First Photo Evidence
+              </span>
+              <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                Synced to Cloud
               </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div>
-                <span className="text-brand-mist block">Manufacturer</span>
-                <span className="text-white font-light">{extraction.manufacturer || '—'}</span>
-              </div>
-              <div>
-                <span className="text-brand-mist block">Model</span>
-                <span className="text-white font-light">{extraction.model || '—'}</span>
-              </div>
-              <div className="col-span-2">
-                <span className="text-brand-mist block">Serial Number</span>
-                <span className="text-white font-mono font-light">{extraction.serialNumber || '—'}</span>
-              </div>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                onClick={() => handleAddEvidence('BEFORE')}
+                className="p-3 bg-slate-50 border border-slate-200 rounded text-center hover:bg-slate-100 space-y-1"
+              >
+                <Camera className="h-5 w-5 mx-auto text-slate-700" />
+                <span className="text-[11px] font-bold block text-slate-900">Before Photo</span>
+              </button>
+              <button
+                onClick={() => handleAddEvidence('DURING')}
+                className="p-3 bg-slate-50 border border-slate-200 rounded text-center hover:bg-slate-100 space-y-1"
+              >
+                <Camera className="h-5 w-5 mx-auto text-slate-700" />
+                <span className="text-[11px] font-bold block text-slate-900">During / Work</span>
+              </button>
+              <button
+                onClick={() => handleAddEvidence('AFTER')}
+                className="p-3 bg-slate-50 border border-slate-200 rounded text-center hover:bg-slate-100 space-y-1"
+              >
+                <Camera className="h-5 w-5 mx-auto text-slate-700" />
+                <span className="text-[11px] font-bold block text-slate-900">After Photo</span>
+              </button>
             </div>
 
-            {extraction.discrepancies && extraction.discrepancies.length > 0 && (
-              <div className="bg-amber-950/40 border border-amber-800 rounded-lg p-2.5 space-y-1">
-                <span className="text-xs font-normal text-amber-400 block">Existing Value Discrepancy</span>
-                {extraction.discrepancies.map((d: any, i: number) => (
-                  <p key={i} className="text-[11px] text-amber-200">
-                    {d.field}: Stored &quot;{d.existingValue}&quot; vs Captured &quot;{d.proposedValue}&quot;
-                  </p>
+            {evidenceList.length > 0 && (
+              <div className="divide-y divide-slate-100 pt-2">
+                {evidenceList.map((ev) => (
+                  <div key={ev.id} className="py-2.5 flex items-center justify-between text-xs">
+                    <div>
+                      <span className="font-bold text-slate-900">{ev.category} Photograph</span>
+                      <span className="text-slate-400 block font-mono text-[10.5px]">{ev.file_name}</span>
+                    </div>
+                    <span className="bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold px-2 py-0.5 rounded">
+                      {ev.sync_state}
+                    </span>
+                  </div>
                 ))}
               </div>
             )}
           </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// ─── MAIN COMPONENT ────────────────────────────────────────────────────────────
-export default function FieldJobScreen({
-  visit,
-  tasks,
-  readings,
-  parts,
-  serviceReport,
-  session,
-}: FieldJobScreenProps) {
-  const [currentStatus, setCurrentStatus] = useState<string>(visit.status || 'PLANNED');
-  const [showVoice, setShowVoice] = useState(false);
-  const [showCopilot, setShowCopilot] = useState(false);
-  const [showNameplate, setShowNameplate] = useState(false);
-  const [showCompletion, setShowCompletion] = useState(false);
-  const [localTasks, setLocalTasks] = useState(tasks);
-  const [safetyAcknowledged, setSafetyAcknowledged] = useState(false);
-
-  const wo = visit.work_order;
-  const site = visit.site;
-  const asset = visit.asset;
-
-  const hasSafetyRequirements = !!(wo?.safety_warnings || wo?.permit_required || wo?.asbestos_risk);
-  const mapsUrl = site ? `https://maps.google.com/?q=${encodeURIComponent([site.address_line1, site.town, site.postcode].filter(Boolean).join(', '))}` : null;
-
-  const handleStatusChange = (newStatus: string) => setCurrentStatus(newStatus);
-  const handleComplete = () => setCurrentStatus('COMPLETED');
-
-  return (
-    <div className="min-h-screen bg-brand-void pb-36">
-      {/* Safety header */}
-      {hasSafetyRequirements && (
-        <div className="bg-red-900/40 border-b border-red-700 p-4">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <p className="text-red-300 font-normal text-sm mb-1">Safety Requirements</p>
-              {wo?.safety_warnings && <p className="text-red-200 text-sm">{wo.safety_warnings}</p>}
-              {wo?.permit_required && <p className="text-amber-300 text-xs mt-1">⚠ Permit required before starting work</p>}
-              {!safetyAcknowledged && (
-                <button
-                  onClick={() => setSafetyAcknowledged(true)}
-                  className="mt-3 bg-red-700 text-white px-4 py-2.5 rounded-lg text-sm font-normal w-full hover:bg-red-600 transition-colors"
-                >
-                  I have read the safety requirements
-                </button>
-              )}
-              {safetyAcknowledged && (
-                <p className="text-green-400 text-xs mt-2 flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> Acknowledged
-                </p>
-              )}
-            </div>
-          </div>
         </div>
       )}
 
-      <div className="px-4 py-4 space-y-4">
-        {/* Back link + reference */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Link href="/engineer" className="text-brand-mist hover:text-white transition-colors" aria-label="Back to home">
-              <ChevronLeft className="w-5 h-5" />
-            </Link>
-            <span className="text-brand-mist text-sm font-mono">{wo?.reference ?? visit.id.slice(0, 8)}</span>
-            {wo?.priority && <span className="ml-1"><PriorityBadge priority={wo.priority} /></span>}
-          </div>
-
-          {/* Copilot button */}
-          <button
-            onClick={() => setShowCopilot(true)}
-            className="flex items-center gap-1.5 bg-brand-electric/15 text-brand-electric border border-brand-electric/30 px-3 py-1.5 rounded-lg text-xs font-normal hover:bg-brand-electric/25 transition-colors"
-          >
-            <Bot className="w-3.5 h-3.5" />
-            <span>Field Copilot</span>
-          </button>
-        </div>
-
-        {/* Job overview */}
-        <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4">
-          <h1 className="text-white text-xl font-light mb-2 leading-tight">
-            {site?.name ?? 'Site'}
-          </h1>
-          {wo?.description && (
-            <p className="text-brand-mist text-sm leading-relaxed mb-3">{wo.description}</p>
-          )}
-          {wo?.sla_snapshot?.attendance_deadline && (
-            <div className="flex items-center gap-1.5 text-sm">
-              <Clock className="w-4 h-4 text-brand-mist shrink-0" />
-              <span className="text-brand-mist">Attend by </span>
-              <span className="text-white font-normal">
-                {new Date(wo.sla_snapshot.attendance_deadline).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* Evidence Requirements Checklist */}
-        <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-normal uppercase text-brand-mist tracking-wider">Evidence Status</span>
-            <span className="text-xs text-brand-electric font-mono">CCP-01 Policy</span>
-          </div>
-          <div className="grid grid-cols-2 gap-2 text-xs pt-1">
-            <div className="bg-brand-void p-2.5 rounded-lg border border-brand-edge-dark flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
-              <span className="text-white">Before Photo</span>
-            </div>
-            <div className="bg-brand-void p-2.5 rounded-lg border border-brand-edge-dark flex items-center gap-2">
-              <Clock className="w-4 h-4 text-amber-400 shrink-0" />
-              <span className="text-brand-mist">After Photo (Req.)</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Location & Asset */}
-        {site && (
-          <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4">
-            <p className="text-brand-mist text-xs font-normal uppercase tracking-wider mb-2">Location</p>
-            <p className="text-white font-normal">{site.name}</p>
-            {site.address_line1 && <p className="text-brand-mist text-sm mt-0.5">{site.address_line1}</p>}
-            {mapsUrl && (
-              <a
-                href={mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-3 text-brand-electric text-sm font-normal hover:text-brand-electric-bright transition-colors"
-              >
-                <Navigation className="w-4 h-4" />
-                Open in Maps
-              </a>
-            )}
-          </div>
-        )}
-
-        {asset && (
-          <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4 space-y-3">
-            <div className="flex items-center justify-between">
-              <p className="text-brand-mist text-xs font-normal uppercase tracking-wider">Asset</p>
+      {/* TAB 4: DEFECTS, VARIATIONS & PARTS */}
+      {activeTab === 'DEFECTS' && (
+        <div className="space-y-4 text-xs font-sans">
+          {/* Defects List */}
+          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <span className="font-bold text-slate-900 text-sm">Raised Defects ({defectsList.length})</span>
               <button
-                onClick={() => setShowNameplate(true)}
-                className="text-xs text-brand-electric hover:underline flex items-center gap-1"
+                onClick={() => setDefectModalOpen(true)}
+                className="btn-secondary text-[11px] py-1 px-2.5 font-bold flex items-center gap-1"
               >
-                <Camera className="w-3 h-3" />
-                Scan Nameplate
+                <Plus className="h-3.5 w-3.5" /> Raise Defect
               </button>
             </div>
-            <p className="text-white font-normal">{asset.name}</p>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-brand-mist">
-              <span>Mfr: <span className="text-white">{asset.manufacturer || '—'}</span></span>
-              <span>Model: <span className="text-white">{asset.model || '—'}</span></span>
-              <span className="col-span-2">Serial: <span className="text-white font-mono">{asset.serial_number || '—'}</span></span>
-            </div>
-          </div>
-        )}
 
-        {/* Operational state bar */}
-        <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4">
-          <p className="text-brand-mist text-xs font-normal uppercase tracking-wider mb-3">Status</p>
-          <StatusBar visitId={visit.id} status={currentStatus} onStatusChange={handleStatusChange} />
-        </div>
-
-        {/* Task list */}
-        {['ON_SITE', 'IN_PROGRESS', 'COMPLETION_PENDING'].includes(currentStatus) && (
-          <div>
-            <p className="text-brand-mist text-xs font-normal uppercase tracking-wider mb-2">Tasks</p>
-            <div className="space-y-2">
-              {localTasks.map(task => (
-                <div key={task.id} className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-white text-sm font-normal">{task.title || task.name || 'Task'}</span>
-                    <span className="text-xs text-brand-mist">{task.status || 'PENDING'}</span>
+            {defectsList.length === 0 ? (
+              <p className="text-slate-400 text-xs">No defects reported on this attendance.</p>
+            ) : (
+              <div className="divide-y divide-slate-100">
+                {defectsList.map((d) => (
+                  <div key={d.id} className="py-2.5 space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-slate-900">{d.title}</span>
+                      <span className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded ${
+                        d.severity === 'CRITICAL' || d.severity === 'UNSAFE' ? 'bg-rose-100 text-rose-900' : 'bg-amber-100 text-amber-900'
+                      }`}>
+                        {d.severity} &bull; {d.make_safe_status}
+                      </span>
+                    </div>
+                    <p className="text-slate-600 text-[11px]">{d.description}</p>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
-        )}
 
-        {/* Ready to Complete */}
-        {currentStatus === 'IN_PROGRESS' && (
-          <button
-            onClick={() => setShowCompletion(true)}
-            className="w-full bg-green-800 text-white font-light py-4 rounded-xl text-base hover:bg-green-700 transition-colors border border-green-700 active:scale-98"
-            style={{ minHeight: '56px' }}
-          >
-            Ready to Complete? →
-          </button>
-        )}
-      </div>
+          {/* Variations & NTE */}
+          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <span className="font-bold text-slate-900 text-sm">Variations &amp; NTE Limits</span>
+              <button
+                onClick={() => setVariationModalOpen(true)}
+                className="btn-secondary text-[11px] py-1 px-2.5 font-bold flex items-center gap-1"
+              >
+                <Plus className="h-3.5 w-3.5" /> Request Variation
+              </button>
+            </div>
 
-      {/* Field action bar — fixed above bottom nav */}
-      {currentStatus === 'IN_PROGRESS' && (
-        <div className="fixed bottom-14 left-0 right-0 z-40 bg-brand-carbon border-t border-brand-edge-dark px-4 py-3">
-          <div className="grid grid-cols-4 gap-2">
+            <div className="bg-slate-50 p-2.5 rounded font-mono text-slate-600 flex justify-between items-center text-[11px]">
+              <span>Authorised NTE Ceiling:</span>
+              <strong className="text-slate-900">£{jobPack.nte_limit_gbp || 500}.00</strong>
+            </div>
+
+            {variationsList.map((v) => (
+              <div key={v.id} className="p-3 bg-amber-50 border border-amber-200 rounded space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-900 font-sans">{v.reason}</span>
+                  <span className="text-amber-900 font-mono font-bold">£{v.total_variation_estimate_gbp.toFixed(2)}</span>
+                </div>
+                <p className="text-slate-700 text-[11px] font-sans">{v.additional_scope}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Parts Used / Awaiting Parts */}
+          <div className="bg-white border border-slate-200 rounded p-4 space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <span className="font-bold text-slate-900 text-sm">Parts &amp; Materials</span>
+              <button
+                onClick={() => setPartModalOpen(true)}
+                className="btn-secondary text-[11px] py-1 px-2.5 font-bold flex items-center gap-1"
+              >
+                <Plus className="h-3.5 w-3.5" /> Add Part
+              </button>
+            </div>
+
+            {partsList.map((p) => (
+              <div key={p.id} className="py-2 flex items-center justify-between border-b border-slate-100">
+                <div>
+                  <span className="font-bold text-slate-900">{p.part_name}</span>
+                  <span className="text-slate-400 block font-mono text-[10.5px]">Qty: {p.quantity}</span>
+                </div>
+                <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+                  p.is_awaiting_delivery ? 'bg-amber-100 text-amber-900' : 'bg-emerald-100 text-emerald-800'
+                }`}>
+                  {p.is_awaiting_delivery ? 'AWAITING DELIVERY' : 'INSTALLED'}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* TAB 5: DIGITAL SERVICE REPORT & SUBMISSION */}
+      {activeTab === 'REPORT' && (
+        <div className="space-y-4">
+          <div className="bg-white border border-slate-200 rounded p-4 space-y-4 text-xs font-sans">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <span className="font-bold text-slate-900 text-sm">Digital Service Report</span>
+              <span className="text-[10px] font-mono text-slate-400">EFM-FSR-2026-AUTOGEN</span>
+            </div>
+
+            {validationError && (
+              <div className="p-3 bg-rose-50 border border-rose-200 rounded text-rose-900 text-xs flex items-center gap-2">
+                <AlertTriangle className="h-4 w-4 text-rose-600 shrink-0" />
+                <span>{validationError}</span>
+              </div>
+            )}
+
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">Work Undertaken (Engineer Narrative):</label>
+              <textarea
+                rows={3}
+                value={reportNarrative}
+                onChange={(e) => setReportNarrative(e.target.value)}
+                className="w-full p-2.5 border border-slate-300 rounded font-sans text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">Engineer Recommendations:</label>
+              <textarea
+                rows={2}
+                value={reportRecs}
+                onChange={(e) => setReportRecs(e.target.value)}
+                className="w-full p-2.5 border border-slate-300 rounded font-sans text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">Completion Outcome:</label>
+              <select
+                value={reportOutcome}
+                onChange={(e) => setReportOutcome(e.target.value as any)}
+                className="w-full p-2 border border-slate-300 rounded font-sans text-xs"
+              >
+                <option value="COMPLETED">Fully Completed</option>
+                <option value="PARTIALLY_COMPLETED">Partially Completed</option>
+                <option value="FURTHER_WORK_REQUIRED">Further Work Required</option>
+                <option value="AWAITING_PARTS">Awaiting Parts (Return Visit)</option>
+                <option value="MAKE_SAFE_ONLY">Make Safe Only (Critical Issue)</option>
+              </select>
+            </div>
+
+            {/* Site Signatory */}
+            <div className="p-3 bg-slate-50 border border-slate-200 rounded space-y-2">
+              <span className="font-bold text-slate-900 block">Site Representative Sign-Off</span>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[10.5px] text-slate-500">Contact Name</label>
+                  <input
+                    type="text"
+                    value={signatoryName}
+                    onChange={(e) => setSignatoryName(e.target.value)}
+                    className="w-full p-1.5 border border-slate-300 rounded text-xs font-sans"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10.5px] text-slate-500">Role / Position</label>
+                  <input
+                    type="text"
+                    value={signatoryRole}
+                    onChange={(e) => setSignatoryRole(e.target.value)}
+                    className="w-full p-1.5 border border-slate-300 rounded text-xs font-sans"
+                  />
+                </div>
+              </div>
+            </div>
+
             <button
-              onClick={() => setShowVoice(true)}
-              className="flex flex-col items-center gap-1 py-2 rounded-xl bg-brand-void text-brand-electric hover:bg-brand-edge-dark transition-colors active:scale-95"
+              onClick={handleSubmitServiceReport}
+              disabled={isSubmitting || visit.status === 'SUBMITTED' || visit.status === 'VALIDATED'}
+              className="btn-primary w-full py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center justify-center gap-2 text-sm disabled:opacity-50"
             >
-              <Mic className="w-5 h-5" />
-              <span className="text-xs text-brand-mist">Talk</span>
-            </button>
-            <button
-              onClick={() => setShowNameplate(true)}
-              className="flex flex-col items-center gap-1 py-2 rounded-xl bg-brand-void text-purple-400 hover:bg-brand-edge-dark transition-colors active:scale-95"
-            >
-              <Camera className="w-5 h-5" />
-              <span className="text-xs text-brand-mist">Nameplate</span>
-            </button>
-            <button
-              onClick={() => setShowCopilot(true)}
-              className="flex flex-col items-center gap-1 py-2 rounded-xl bg-brand-void text-green-400 hover:bg-brand-edge-dark transition-colors active:scale-95"
-            >
-              <Bot className="w-5 h-5" />
-              <span className="text-xs text-brand-mist">Copilot</span>
-            </button>
-            <button
-              onClick={() => setShowVoice(true)}
-              className="flex flex-col items-center gap-1 py-2 rounded-xl bg-brand-void text-amber-400 hover:bg-brand-edge-dark transition-colors active:scale-95"
-            >
-              <Plus className="w-5 h-5" />
-              <span className="text-xs text-brand-mist">Defect</span>
+              <CheckCircle2 className="h-4 w-4" />
+              <span>
+                {visit.status === 'SUBMITTED'
+                  ? 'Service Report Submitted'
+                  : visit.status === 'VALIDATED'
+                  ? 'Service Report Validated'
+                  : 'Submit Service Report to EntireFM'}
+              </span>
             </button>
           </div>
         </div>
       )}
 
-      {/* Modals */}
-      {showVoice && (
-        <VoiceIntelligenceModal
-          visitId={visit.id}
-          workOrderId={visit.work_order_id}
-          assetId={visit.asset_id}
-          onClose={() => setShowVoice(false)}
-          onConfirmedRecord={() => {}}
-        />
-      )}
-      {showCopilot && (
-        <FieldCopilotDrawer
-          visitId={visit.id}
-          workOrderId={visit.work_order_id}
-          assetId={visit.asset_id}
-          onClose={() => setShowCopilot(false)}
-        />
-      )}
-      {showNameplate && (
-        <NameplateScannerModal
-          asset={asset}
-          onClose={() => setShowNameplate(false)}
-        />
-      )}
-      {showCompletion && (
-        <div className="fixed inset-0 z-50 bg-black/90 flex items-end">
-          <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 pb-safe">
-            <h2 className="text-white font-light text-lg">Submit Field Service Report</h2>
-            <p className="text-xs text-brand-mist">
-              A Field Service Report (<span className="font-mono text-brand-electric">EFM-FSR-2026-XXXXXX</span>) will be generated and submitted for operational sign-off.
+      {/* No Access Modal */}
+      {noAccessOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded max-w-md w-full p-5 space-y-3 shadow-xl">
+            <h3 className="text-sm font-bold text-slate-900">Record No Access</h3>
+            <p className="text-xs text-slate-600">
+              Select the primary reason for being unable to access site or asset:
             </p>
-            <div className="flex gap-3">
+
+            <select
+              value={noAccessReason}
+              onChange={(e) => setNoAccessReason(e.target.value)}
+              className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+            >
+              <option value="Site closed / No keyholder present">Site closed / No keyholder present</option>
+              <option value="Access denied by tenant / occupant">Access denied by tenant</option>
+              <option value="Incorrect access codes / key missing">Incorrect access codes</option>
+              <option value="Asset physically obstructed / unsafe access">Asset physically obstructed</option>
+              <option value="Permit to work not issued by site">Permit to work unavailable</option>
+            </select>
+
+            <textarea
+              rows={2}
+              value={noAccessNotes}
+              onChange={(e) => setNoAccessNotes(e.target.value)}
+              placeholder="Notes on contact attempts with site manager..."
+              className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+            />
+
+            <div className="flex justify-end gap-2 pt-2">
               <button
-                onClick={() => setShowCompletion(false)}
-                className="flex-1 border border-brand-edge-dark text-brand-mist py-3 rounded-xl font-normal text-xs"
+                type="button"
+                onClick={() => setNoAccessOpen(false)}
+                className="btn-secondary text-xs py-1.5 px-3"
               >
                 Cancel
               </button>
               <button
-                onClick={async () => {
-                  await fetch(`/api/engineer/visits/${visit.id}/submit-completion`, { method: 'POST' });
-                  setShowCompletion(false);
-                  handleComplete();
-                }}
-                className="flex-1 bg-green-700 text-white py-3 rounded-xl font-normal text-xs"
+                type="button"
+                disabled={isSubmitting}
+                onClick={handleNoAccessSubmit}
+                className="btn-primary text-xs py-1.5 px-4 bg-rose-700 text-white font-bold"
               >
-                Submit Report
+                Submit No Access (Pause SLA)
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Defect Modal */}
+      {defectModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded max-w-md w-full p-5 space-y-3 shadow-xl text-xs font-sans">
+            <h3 className="text-sm font-bold text-slate-900">Raise Operational Defect</h3>
+
+            <div>
+              <label className="block text-slate-700 font-bold mb-1">Defect Title</label>
+              <input
+                type="text"
+                value={defectTitle}
+                onChange={(e) => setDefectTitle(e.target.value)}
+                placeholder="e.g. Severely worn fan drive bearing"
+                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+              />
+            </div>
+
+            <div>
+              <label className="block text-slate-700 font-bold mb-1">Severity</label>
+              <select
+                value={defectSeverity}
+                onChange={(e) => setDefectSeverity(e.target.value as any)}
+                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+              >
+                <option value="ADVISORY">Advisory</option>
+                <option value="MINOR">Minor</option>
+                <option value="MAJOR">Major</option>
+                <option value="CRITICAL">Critical</option>
+                <option value="UNSAFE">Unsafe (Immediate Hazard)</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-slate-700 font-bold mb-1">Make Safe Status</label>
+              <select
+                value={defectMakeSafe}
+                onChange={(e) => setDefectMakeSafe(e.target.value as any)}
+                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+              >
+                <option value="MADE_SAFE">Made Safe</option>
+                <option value="ISOLATED">Isolated from supply</option>
+                <option value="UNABLE_TO_MAKE_SAFE">Unable to Make Safe</option>
+                <option value="NOT_APPLICABLE">Not Applicable</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-slate-700 font-bold mb-1">Description &amp; Observations</label>
+              <textarea
+                rows={2}
+                value={defectDesc}
+                onChange={(e) => setDefectDesc(e.target.value)}
+                placeholder="Details of the physical defect and hazard..."
+                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setDefectModalOpen(false)}
+                className="btn-secondary text-xs py-1.5 px-3"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={!defectTitle || !defectDesc || isSubmitting}
+                onClick={handleRaiseDefect}
+                className="btn-primary text-xs py-1.5 px-4 bg-amber-700 text-white font-bold"
+              >
+                Record Defect
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Variation Modal */}
+      {variationModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded max-w-md w-full p-5 space-y-3 shadow-xl text-xs font-sans">
+            <h3 className="text-sm font-bold text-slate-900">Request Additional Scope / Variation</h3>
+
+            <div>
+              <label className="block text-slate-700 font-bold mb-1">Reason for Variation</label>
+              <input
+                type="text"
+                value={variationReason}
+                onChange={(e) => setVariationReason(e.target.value)}
+                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+              />
+            </div>
+
+            <div>
+              <label className="block text-slate-700 font-bold mb-1">Scope of Additional Work</label>
+              <textarea
+                rows={2}
+                value={variationScope}
+                onChange={(e) => setVariationScope(e.target.value)}
+                placeholder="Detail additional labour and materials required..."
+                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <label className="block text-slate-700 font-bold mb-1">Est. Labour Hours</label>
+                <input
+                  type="number"
+                  value={variationHours}
+                  onChange={(e) => setVariationHours(parseFloat(e.target.value) || 0)}
+                  className="w-full p-2 border border-slate-300 rounded text-xs font-mono"
+                />
+              </div>
+              <div>
+                <label className="block text-slate-700 font-bold mb-1">Est. Parts (£)</label>
+                <input
+                  type="number"
+                  value={variationPartsGbp}
+                  onChange={(e) => setVariationPartsGbp(parseFloat(e.target.value) || 0)}
+                  className="w-full p-2 border border-slate-300 rounded text-xs font-mono"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setVariationModalOpen(false)}
+                className="btn-secondary text-xs py-1.5 px-3"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={!variationScope || isSubmitting}
+                onClick={handleRequestVariation}
+                className="btn-primary text-xs py-1.5 px-4 bg-brand-pink text-white font-bold"
+              >
+                Submit Variation
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Part Modal */}
+      {partModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded max-w-md w-full p-5 space-y-3 shadow-xl text-xs font-sans">
+            <h3 className="text-sm font-bold text-slate-900">Record Part / Material</h3>
+
+            <div>
+              <label className="block text-slate-700 font-bold mb-1">Part Description</label>
+              <input
+                type="text"
+                value={partName}
+                onChange={(e) => setPartName(e.target.value)}
+                placeholder="e.g. 24V Contactor or F7 Pocket Filter"
+                className="w-full p-2 border border-slate-300 rounded text-xs font-sans"
+              />
+            </div>
+
+            <div>
+              <label className="block text-slate-700 font-bold mb-1">Part Number</label>
+              <input
+                type="text"
+                value={partNumber}
+                onChange={(e) => setPartNumber(e.target.value)}
+                placeholder="e.g. D-CON-24V-01"
+                className="w-full p-2 border border-slate-300 rounded text-xs font-mono"
+              />
+            </div>
+
+            <label className="flex items-center gap-2 p-2 bg-slate-50 border border-slate-200 rounded cursor-pointer">
+              <input
+                type="checkbox"
+                checked={partAwaiting}
+                onChange={(e) => setPartAwaiting(e.target.checked)}
+                className="text-brand-pink h-4 w-4"
+              />
+              <span>Part not in stock &mdash; Awaiting delivery (Return visit required)</span>
+            </label>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setPartModalOpen(false)}
+                className="btn-secondary text-xs py-1.5 px-3"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={!partName || isSubmitting}
+                onClick={handleRecordPart}
+                className="btn-primary text-xs py-1.5 px-4 bg-emerald-700 text-white font-bold"
+              >
+                Save Part
               </button>
             </div>
           </div>

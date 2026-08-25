@@ -1,43 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCurrentSession } from '@/server/identity';
-import { recordNoAccess } from '@/server/field';
-
-export const dynamic = 'force-dynamic';
+import { recordVisitNoAccess } from '@/server/field/operations-store';
 
 export async function POST(
-  request: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getCurrentSession();
-  if (!session) {
-    return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
-  }
-
-  const { id } = await context.params;
-  let body: any = {};
   try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+    const { id } = await params;
+    const body = await req.json();
+    const {
+      operativeId = 'op-jack-turner',
+      reason = 'Site closed / No keyholder present',
+      contact_attempted = true,
+      contact_notes = 'Called site manager Dave Smith 3 times with no answer.',
+      photo_evidence_url,
+    } = body;
+
+    const result = await recordVisitNoAccess(id, operativeId, {
+      reason,
+      contact_attempted,
+      contact_notes,
+      photo_evidence_url,
+    });
+
+    if (!result.success) {
+      return NextResponse.json({ error: result.error }, { status: 400 });
+    }
+
+    return NextResponse.json({
+      success: true,
+      visit: result.visit,
+      message: 'No Access recorded. SLA has been paused and a return visit has been requested.',
+    });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
-
-  const { reason, notes, contactAttempted, photoPath } = body;
-  if (!reason) {
-    return NextResponse.json({ error: 'Reason is required' }, { status: 400 });
-  }
-
-  const result = await recordNoAccess(
-    id,
-    reason,
-    notes || '',
-    !!contactAttempted,
-    photoPath || null,
-    session
-  );
-
-  if (!result.success) {
-    return NextResponse.json({ error: result.error }, { status: 400 });
-  }
-
-  return NextResponse.json({ success: true });
 }

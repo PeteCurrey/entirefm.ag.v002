@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { recordVisitArrival } from '@/server/field/operations-store';
+import { startWork } from '@/server/field/operations-store';
 
 export async function POST(
   req: NextRequest,
@@ -8,9 +8,9 @@ export async function POST(
   try {
     const { id } = await params;
     const body = await req.json().catch(() => ({}));
-    const { operativeId = 'op-jack-turner', method = 'MANUAL', coordinates } = body;
+    const { operativeId = 'op-jack-turner' } = body;
 
-    const result = await recordVisitArrival(id, operativeId, method, coordinates);
+    const result = await startWork(id, operativeId);
     if (!result.success) {
       return NextResponse.json({ error: result.error }, { status: 400 });
     }
@@ -18,8 +18,8 @@ export async function POST(
     return NextResponse.json({
       success: true,
       visit: result.visit,
-      status: 'ARRIVED',
-      arrivalMethod: method,
+      status: 'IN_PROGRESS',
+      workStartedAt: result.visit?.work_started_at,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { recordVisitArrival } from '@/server/field/operations-store';
+import { updatePpmTask } from '@/server/field/operations-store';
 
 export async function POST(
   req: NextRequest,
@@ -7,10 +7,14 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const body = await req.json().catch(() => ({}));
-    const { operativeId = 'op-jack-turner', method = 'MANUAL', coordinates } = body;
+    const body = await req.json();
+    const { taskId, update } = body;
 
-    const result = await recordVisitArrival(id, operativeId, method, coordinates);
+    if (!taskId || !update) {
+      return NextResponse.json({ error: 'taskId and update object required' }, { status: 400 });
+    }
+
+    const result = await updatePpmTask(id, taskId, update);
     if (!result.success) {
       return NextResponse.json({ error: result.error }, { status: 400 });
     }
@@ -18,8 +22,6 @@ export async function POST(
     return NextResponse.json({
       success: true,
       visit: result.visit,
-      status: 'ARRIVED',
-      arrivalMethod: method,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
