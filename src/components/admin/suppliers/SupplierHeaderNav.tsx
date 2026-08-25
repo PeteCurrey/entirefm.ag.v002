@@ -7,12 +7,20 @@ import { usePathname } from 'next/navigation';
 export interface TabItem {
   name: string;
   href: string;
-  category?: 'STRATEGY' | 'COMMERCIAL';
+  category?: 'STRATEGY' | 'ASSURANCE' | 'COMMERCIAL';
 }
 
 export const SUPPLIER_TABS: TabItem[] = [
   { name: 'Overview', href: '/admin/suppliers', category: 'STRATEGY' },
-  { name: 'Landscape', href: '/admin/suppliers/landscape', category: 'STRATEGY' },
+  { name: 'Onboarding Pipeline', href: '/admin/suppliers/onboarding', category: 'ASSURANCE' },
+  { name: 'Assurance Reviews', href: '/admin/suppliers/reviews', category: 'ASSURANCE' },
+  { name: 'Compliance Control', href: '/admin/suppliers/compliance', category: 'ASSURANCE' },
+  { name: 'Document Vault', href: '/admin/suppliers/documents', category: 'ASSURANCE' },
+  { name: 'Expiry Radar', href: '/admin/suppliers/expiries', category: 'ASSURANCE' },
+  { name: 'Remediation Actions', href: '/admin/suppliers/remediation', category: 'ASSURANCE' },
+  { name: 'Scoped Approvals', href: '/admin/suppliers/approvals', category: 'ASSURANCE' },
+  { name: 'Agreements & Conduct', href: '/admin/suppliers/agreements', category: 'ASSURANCE' },
+  { name: 'Landscape Matrix', href: '/admin/suppliers/landscape', category: 'STRATEGY' },
   { name: 'Directory', href: '/admin/suppliers/directory', category: 'STRATEGY' },
   { name: 'Target Partners', href: '/admin/suppliers/targets', category: 'STRATEGY' },
   { name: 'Coverage Matrix', href: '/admin/suppliers/coverage', category: 'STRATEGY' },
@@ -28,10 +36,8 @@ export const SUPPLIER_TABS: TabItem[] = [
   { name: 'Payments', href: '/admin/suppliers/commercial/payments', category: 'COMMERCIAL' },
   { name: 'Renewals', href: '/admin/suppliers/commercial/renewals', category: 'COMMERCIAL' },
   { name: 'Events', href: '/admin/suppliers/commercial/events', category: 'COMMERCIAL' },
-  { name: 'Sponsorship', href: '/admin/suppliers/commercial/sponsorship', category: 'COMMERCIAL' },
-  { name: 'Products & Pricing', href: '/admin/suppliers/commercial/products', category: 'COMMERCIAL' },
-  { name: 'Reports', href: '/admin/suppliers/commercial/reports', category: 'COMMERCIAL' },
-  { name: 'Settings', href: '/admin/suppliers/settings', category: 'STRATEGY' },
+  { name: 'Audit Ledger', href: '/admin/suppliers/audit', category: 'ASSURANCE' },
+  { name: 'Assurance Settings', href: '/admin/suppliers/settings/assurance', category: 'ASSURANCE' },
 ];
 
 export function SupplierHeaderNav() {
