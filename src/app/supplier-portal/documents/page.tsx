@@ -1,62 +1,126 @@
 import React from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
-import { FileText, Download, Upload, CheckCircle2 } from 'lucide-react';
+import { FileText, Upload, CheckCircle2, AlertCircle, Clock, ArrowUpRight } from 'lucide-react';
 
-export default function SupplierPortalDocumentsPage() {
+export const metadata = {
+  title: 'Supplier Document Vault | EntireFM Partner Network',
+  description: 'Manage verified insurance schedules, trade accreditations, and health & safety documentation.',
+};
+
+export default function DocumentVaultPage() {
+  const docs = [
+    {
+      id: 'doc-01',
+      name: 'Public Liability Insurance (£10m)',
+      category: 'INSURANCE',
+      file: 'Aviva_PL_10M_2026.pdf',
+      size: '480 KB',
+      expiry: '30 Apr 2027',
+      status: 'ACCEPTED',
+      action: null,
+    },
+    {
+      id: 'doc-02',
+      name: 'Employers Liability Insurance (£10m)',
+      category: 'INSURANCE',
+      file: 'Aviva_EL_10M_2026.pdf',
+      size: '480 KB',
+      expiry: '30 Apr 2027',
+      status: 'ACCEPTED',
+      action: null,
+    },
+    {
+      id: 'doc-03',
+      name: 'Gas Safe Company Registration',
+      category: 'ACCREDITATION',
+      file: 'GasSafe_Cert_2025.pdf',
+      size: '320 KB',
+      expiry: '01 Jun 2026',
+      status: 'EXPIRING',
+      action: 'Upload renewed certificate (45 days remaining)',
+    },
+    {
+      id: 'doc-04',
+      name: 'REFCOM Elite F-Gas Certificate',
+      category: 'ACCREDITATION',
+      file: 'REFCOM_Elite_2025.pdf',
+      size: '290 KB',
+      expiry: '01 Jan 2028',
+      status: 'ACCEPTED',
+      action: null,
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#FAF9FB] text-slate-900 flex flex-col">
-      <Header solid />
-
-      <main className="flex-1 py-12">
-        <div className="container-custom max-w-4xl space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
-            <div>
-              <span className="text-[10.5px] font-mono uppercase tracking-widest text-slate-400">
-                ENTIRECAFM // COMPLIANCE VAULT
-              </span>
-              <h1 className="text-2xl font-extralight text-slate-900 mt-1">
-                Compliance Documents &amp; Certificates
-              </h1>
-            </div>
-
-            <button className="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
-              <Upload className="h-3.5 w-3.5" /> Upload Replacement Document
-            </button>
-          </div>
-
-          <div className="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden p-6 space-y-4">
-            <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900 pb-3 border-b border-slate-200">
-              Active Compliance Certificates on File
-            </h3>
-
-            <div className="divide-y divide-slate-100 text-xs font-mono">
-              <div className="py-3 flex items-center justify-between">
-                <div>
-                  <div className="font-light text-slate-900 font-sans">Public &amp; Products Liability Policy Schedule</div>
-                  <span className="text-slate-500">Aviva Insurance &middot; Policy #AV-987622 &middot; Expires 2027-01-01</span>
-                </div>
-                <span className="text-emerald-800 bg-emerald-100 font-light px-2 py-0.5 rounded text-[10px]">
-                  VERIFIED
-                </span>
-              </div>
-
-              <div className="py-3 flex items-center justify-between">
-                <div>
-                  <div className="font-light text-slate-900 font-sans">F-Gas Company Registration (REFCOM Elite)</div>
-                  <span className="text-slate-500">REFCOM Certification #REF-88421 &middot; Expires 2028-06-30</span>
-                </div>
-                <span className="text-emerald-800 bg-emerald-100 font-light px-2 py-0.5 rounded text-[10px]">
-                  VERIFIED
-                </span>
-              </div>
-            </div>
-          </div>
+    <div className="space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+            DOCUMENT VAULT &amp; COMPLIANCE REPOSITORY
+          </span>
+          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+            Supplier Compliance Documents
+          </h1>
+          <p className="text-xs text-slate-500 font-light mt-1">
+            Maintain current insurance schedules, trade accreditations, and safety certifications.
+          </p>
         </div>
-      </main>
 
-      <Footer />
+        <button className="btn-primary text-xs py-2 px-4 flex items-center gap-1.5 self-start sm:self-auto">
+          <Upload className="h-3.5 w-3.5" /> Upload Document
+        </button>
+      </div>
+
+      <div className="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs font-sans">
+            <thead className="bg-slate-900 text-white font-mono uppercase text-[10px]">
+              <tr>
+                <th className="p-3.5">Document Name</th>
+                <th className="p-3.5">Category</th>
+                <th className="p-3.5">File</th>
+                <th className="p-3.5">Expiry Date</th>
+                <th className="p-3.5">Assurance Status</th>
+                <th className="p-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200">
+              {docs.map((d) => (
+                <tr key={d.id} className="hover:bg-slate-50/50">
+                  <td className="p-3.5">
+                    <span className="font-bold text-slate-900 block">{d.name}</span>
+                    {d.action && (
+                      <span className="text-[10.5px] text-amber-700 font-mono block mt-0.5">
+                        &bull; {d.action}
+                      </span>
+                    )}
+                  </td>
+                  <td className="p-3.5 font-mono text-[11px] text-slate-500">{d.category}</td>
+                  <td className="p-3.5 font-mono text-[11px] text-slate-600">{d.file} ({d.size})</td>
+                  <td className="p-3.5 font-mono text-[11px] text-slate-900">{d.expiry}</td>
+                  <td className="p-3.5">
+                    {d.status === 'ACCEPTED' && (
+                      <span className="bg-emerald-100 text-emerald-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                        ACCEPTED
+                      </span>
+                    )}
+                    {d.status === 'EXPIRING' && (
+                      <span className="bg-amber-100 text-amber-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                        EXPIRING SOON
+                      </span>
+                    )}
+                  </td>
+                  <td className="p-3.5 text-right">
+                    <button className="text-slate-900 font-bold hover:underline text-[11px]">
+                      Replace &rarr;
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

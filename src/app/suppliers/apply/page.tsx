@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
@@ -99,9 +100,30 @@ export default function ApplyPage() {
                   Registration is free (£0). Where an assurance review fee or paid Partner Network membership applies, the price will be confirmed before the service begins. Payment does not guarantee supplier approval or work allocation.
                 </p>
               </div>
+
+              {/* Wizard Entry CTA Box */}
+              <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                <Link
+                  href="/supplier-portal/onboarding"
+                  className="btn-primary text-xs py-3 px-6 text-center flex-1 font-bold"
+                >
+                  Start 15-Stage Onboarding Wizard &rarr;
+                </Link>
+                <Link
+                  href="/supplier-portal"
+                  className="btn-secondary text-xs py-3 px-6 text-center flex-1"
+                >
+                  Continue Existing Application (Sign In)
+                </Link>
+              </div>
             </div>
 
-            <SupplierApplicationForm />
+            <div className="pt-6 border-t border-slate-200">
+              <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block mb-4">
+                OR COMPLETE QUICK INITIAL INTAKE FORM BELOW
+              </span>
+              <SupplierApplicationForm />
+            </div>
           </div>
         </section>
       </main>

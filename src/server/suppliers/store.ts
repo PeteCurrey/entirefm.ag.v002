@@ -441,3 +441,429 @@ export async function getExecutiveSupplyChainMetrics(): Promise<ExecutiveSupplyC
     strategicTargetsNotYetEngaged: unengagedTargets,
   };
 }
+
+
+import {
+  SupplierOnboardingDraft,
+  SupplierDocumentVaultItem,
+  SupplierUserRecord,
+  MaterialChangeProposal,
+  SupplierSupportTicket,
+  OperatingBaseRecord,
+} from './types';
+
+// In-Memory Drafts & Portal Data
+const onboardingDrafts = new Map<string, SupplierOnboardingDraft>();
+const supplierDocuments = new Map<string, SupplierDocumentVaultItem[]>();
+const supplierUsers = new Map<string, SupplierUserRecord[]>();
+const materialProposals = new Map<string, MaterialChangeProposal[]>();
+const supportTickets = new Map<string, SupplierSupportTicket[]>();
+
+// Seed default draft for demo / testing
+const defaultDraftId = 'draft-sup-test-01';
+onboardingDrafts.set('sup-test-01', {
+  id: defaultDraftId,
+  supplier_id: 'sup-test-01',
+  application_reference: 'SUP-260825-9921',
+  created_at: '2026-08-25T20:00:00Z',
+  updated_at: '2026-08-25T21:30:00Z',
+  status: 'DRAFT',
+  current_step: 3,
+  legal_company_name: 'Midlands Mechanical & HVAC Services Ltd',
+  trading_name: 'Midlands HVAC Pro',
+  company_number: '08923412',
+  vat_number: 'GB982341290',
+  website_url: 'https://midlandshvac.example.co.uk',
+  year_established: 2014,
+  employee_count_total: 18,
+  registered_address: '14 Industrial Way, Aston, Birmingham, B6 7RH',
+  trading_address: '14 Industrial Way, Aston, Birmingham, B6 7RH',
+  main_phone: '0121 555 0192',
+  general_email: 'info@midlandshvac.example.co.uk',
+  primary_business_type: 'Regional Contractor',
+  company_summary: 'Specialist commercial building engineering firm providing planned chiller maintenance, commercial gas boilers, and 24/7 reactive HVAC callout across the West Midlands.',
+  contacts: [
+    {
+      id: 'cnt-01',
+      first_name: 'David',
+      last_name: 'Patterson',
+      job_title: 'Managing Director',
+      email: 'd.patterson@midlandshvac.example.co.uk',
+      phone: '07700 900123',
+      roles: ['PRIMARY', 'DIRECTOR', 'COMMERCIAL'],
+    },
+    {
+      id: 'cnt-02',
+      first_name: 'Sarah',
+      last_name: 'Jenkins',
+      job_title: 'Operations & Compliance Lead',
+      email: 's.jenkins@midlandshvac.example.co.uk',
+      phone: '07700 900124',
+      roles: ['OPERATIONS', 'COMPLIANCE', 'EMERGENCY_24_7'],
+    },
+  ],
+  selected_service_slugs: ['hvac', 'gas-heating'],
+  service_details: {
+    hvac: { years_experience: 12, engineer_count: 8, has_24_7_callout: true, specialist_notes: 'Daikin, Mitsubishi & Carrier VRV/Chiller specialist' },
+    'gas-heating': { years_experience: 12, engineer_count: 6, has_24_7_callout: true, specialist_notes: 'Commercial Gas Safe registered' },
+  },
+  coverage_type: 'REGIONAL',
+  selected_regions: ['Birmingham', 'Coventry', 'Wolverhampton', 'Leicester'],
+  operating_bases: [
+    {
+      id: 'base-01',
+      name: 'Birmingham Head Depot',
+      address_line1: '14 Industrial Way, Aston',
+      city: 'Birmingham',
+      postcode: 'B6 7RH',
+      radius_miles: 45,
+      is_headquarters: true,
+      services_offered: ['hvac', 'gas-heating'],
+    },
+  ],
+  standard_operating_hours: '08:00 - 17:00 (Mon-Fri)',
+  emergency_24_7_available: true,
+  emergency_phone: '0800 555 9999',
+  planned_maintenance_offered: true,
+  reactive_maintenance_offered: true,
+  project_works_offered: true,
+  typical_emergency_sla_hours: 4,
+  direct_field_operatives: 12,
+  office_support_staff: 6,
+  workforce_model: 'DIRECT_EMPLOYEES',
+  uses_subcontractors: false,
+  insurances: [
+    {
+      id: 'ins-01',
+      insurance_type: 'PUBLIC_LIABILITY',
+      insurer_name: 'Aviva Insurance Ltd',
+      policy_number: 'AV-PL-889921',
+      cover_limit_gbp: 10000000,
+      expiry_date: '2027-04-30',
+      document_name: 'Aviva_PL_10M_2026.pdf',
+    },
+    {
+      id: 'ins-02',
+      insurance_type: 'EMPLOYERS_LIABILITY',
+      insurer_name: 'Aviva Insurance Ltd',
+      policy_number: 'AV-EL-889922',
+      cover_limit_gbp: 10000000,
+      expiry_date: '2027-04-30',
+      document_name: 'Aviva_EL_10M_2026.pdf',
+    },
+  ],
+  accreditations: [
+    {
+      id: 'acc-01',
+      accreditation_body: 'Gas Safe Register',
+      certificate_number: 'GS-554921',
+      issue_date: '2025-06-01',
+      expiry_date: '2026-06-01',
+      scope_description: 'Commercial Heating, Pipework & Plant',
+      document_name: 'GasSafe_Cert_2025.pdf',
+    },
+    {
+      id: 'acc-02',
+      accreditation_body: 'REFCOM / F-Gas Company Certificate',
+      certificate_number: 'REF-100921',
+      issue_date: '2025-01-01',
+      expiry_date: '2028-01-01',
+      scope_description: 'Stationary Refrigeration, Air Conditioning & Heat Pump',
+      document_name: 'REFCOM_Elite_2025.pdf',
+    },
+  ],
+  has_hs_policy: true,
+  has_competent_person: true,
+  has_rams_templates: true,
+  has_coshh_assessments: true,
+  has_working_at_height_controls: true,
+  has_material_incidents_past_3yr: false,
+  anti_bribery_accepted: true,
+  modern_slavery_policy_accepted: true,
+  worker_welfare_standards_accepted: true,
+  environmental_policy_accepted: true,
+  requires_system_access: false,
+  mfa_enforced: true,
+  cyber_essentials_certified: true,
+  gdpr_compliant_processes: true,
+  uploaded_document_ids: ['doc-01', 'doc-02', 'doc-03'],
+  accounts_payable_email: 'accounts@midlandshvac.example.co.uk',
+  requires_po: true,
+  bank_account_name: 'Midlands Mechanical & HVAC Services Ltd',
+  bank_sort_code_masked: '••-••-42',
+  bank_account_number_masked: '••••4821',
+  code_of_conduct_accepted: true,
+  code_of_conduct_version: '2026.1',
+  code_of_conduct_accepted_by: 'David Patterson',
+  code_of_conduct_accepted_at: '2026-08-25T21:00:00Z',
+  truthfulness_declaration_accepted: true,
+  step_states: {
+    '1': { step_number: 1, step_key: 'company', title: 'Company Profile', status: 'COMPLETE' },
+    '2': { step_number: 2, step_key: 'contacts', title: 'Contacts', status: 'COMPLETE' },
+    '3': { step_number: 3, step_key: 'services', title: 'Services', status: 'IN_PROGRESS' },
+  },
+});
+
+// Seed sample documents for vault
+supplierDocuments.set('sup-test-01', [
+  {
+    id: 'doc-01',
+    supplier_id: 'sup-test-01',
+    document_type: 'Public Liability Insurance (£10m)',
+    category: 'INSURANCE',
+    file_name: 'Aviva_PL_10M_2026.pdf',
+    file_size_kb: 480,
+    uploaded_at: '2026-08-25T20:10:00Z',
+    expiry_date: '2027-04-30',
+    status: 'ACCEPTED',
+    download_url: '/api/supplier/documents/doc-01',
+  },
+  {
+    id: 'doc-02',
+    supplier_id: 'sup-test-01',
+    document_type: 'Gas Safe Company Certificate',
+    category: 'ACCREDITATION',
+    file_name: 'GasSafe_Cert_2025.pdf',
+    file_size_kb: 320,
+    uploaded_at: '2026-08-25T20:15:00Z',
+    expiry_date: '2026-06-01',
+    status: 'ACCEPTED',
+    download_url: '/api/supplier/documents/doc-02',
+  },
+  {
+    id: 'doc-03',
+    supplier_id: 'sup-test-01',
+    document_type: 'REFCOM Elite F-Gas Certificate',
+    category: 'ACCREDITATION',
+    file_name: 'REFCOM_Elite_2025.pdf',
+    file_size_kb: 290,
+    uploaded_at: '2026-08-25T20:20:00Z',
+    expiry_date: '2028-01-01',
+    status: 'ACCEPTED',
+    download_url: '/api/supplier/documents/doc-03',
+  },
+]);
+
+// Seed users
+supplierUsers.set('sup-test-01', [
+  {
+    id: 'usr-01',
+    supplier_id: 'sup-test-01',
+    email: 'd.patterson@midlandshvac.example.co.uk',
+    full_name: 'David Patterson',
+    role: 'SUPPLIER_ADMIN',
+    status: 'ACTIVE',
+    created_at: '2026-08-25T20:00:00Z',
+    last_login: '2026-08-25T21:45:00Z',
+  },
+  {
+    id: 'usr-02',
+    supplier_id: 'sup-test-01',
+    email: 's.jenkins@midlandshvac.example.co.uk',
+    full_name: 'Sarah Jenkins',
+    role: 'OPERATIONS',
+    status: 'ACTIVE',
+    created_at: '2026-08-25T20:05:00Z',
+    last_login: '2026-08-25T21:30:00Z',
+  },
+]);
+
+/**
+ * Check if company registration number or VAT is already registered
+ */
+export async function checkDuplicateOrganisation(companyNumber: string, vatNumber?: string): Promise<{ isDuplicate: boolean; matchType?: string }> {
+  const normalisedCo = companyNumber.trim().toUpperCase();
+  for (const draft of onboardingDrafts.values()) {
+    if (draft.company_number.trim().toUpperCase() === normalisedCo) {
+      return { isDuplicate: true, matchType: 'COMPANY_NUMBER' };
+    }
+    if (vatNumber && draft.vat_number && draft.vat_number.trim().toUpperCase() === vatNumber.trim().toUpperCase()) {
+      return { isDuplicate: true, matchType: 'VAT_NUMBER' };
+    }
+  }
+  return { isDuplicate: false };
+}
+
+/**
+ * Get or create onboarding draft
+ */
+export async function getSupplierOnboardingDraft(supplierId: string): Promise<SupplierOnboardingDraft> {
+  let draft = onboardingDrafts.get(supplierId);
+  if (!draft) {
+    const ref = `SUP-${new Date().toISOString().slice(2, 10).replace(/-/g, '')}-${Math.floor(1000 + Math.random() * 9000)}`;
+    draft = {
+      id: `draft-${Date.now()}`,
+      supplier_id: supplierId,
+      application_reference: ref,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      status: 'DRAFT',
+      current_step: 1,
+      legal_company_name: '',
+      trading_name: '',
+      company_number: '',
+      vat_number: '',
+      website_url: '',
+      year_established: new Date().getFullYear(),
+      employee_count_total: 1,
+      registered_address: '',
+      trading_address: '',
+      main_phone: '',
+      general_email: '',
+      primary_business_type: 'Regional Contractor',
+      company_summary: '',
+      contacts: [],
+      selected_service_slugs: [],
+      service_details: {},
+      coverage_type: 'REGIONAL',
+      selected_regions: [],
+      operating_bases: [],
+      standard_operating_hours: '08:00 - 17:00 (Mon-Fri)',
+      emergency_24_7_available: false,
+      planned_maintenance_offered: true,
+      reactive_maintenance_offered: true,
+      project_works_offered: false,
+      typical_emergency_sla_hours: 4,
+      direct_field_operatives: 1,
+      office_support_staff: 1,
+      workforce_model: 'DIRECT_EMPLOYEES',
+      uses_subcontractors: false,
+      insurances: [],
+      accreditations: [],
+      has_hs_policy: false,
+      has_competent_person: false,
+      has_rams_templates: false,
+      has_coshh_assessments: false,
+      has_working_at_height_controls: false,
+      has_material_incidents_past_3yr: false,
+      anti_bribery_accepted: false,
+      modern_slavery_policy_accepted: false,
+      worker_welfare_standards_accepted: false,
+      environmental_policy_accepted: false,
+      requires_system_access: false,
+      mfa_enforced: false,
+      cyber_essentials_certified: false,
+      gdpr_compliant_processes: false,
+      uploaded_document_ids: [],
+      accounts_payable_email: '',
+      requires_po: true,
+      bank_account_name: '',
+      bank_sort_code_masked: '',
+      bank_account_number_masked: '',
+      code_of_conduct_accepted: false,
+      code_of_conduct_version: '2026.1',
+      code_of_conduct_accepted_by: '',
+      truthfulness_declaration_accepted: false,
+      step_states: {},
+    };
+    onboardingDrafts.set(supplierId, draft);
+  }
+  return draft;
+}
+
+/**
+ * Save draft updates
+ */
+export async function saveSupplierOnboardingDraft(supplierId: string, updates: Partial<SupplierOnboardingDraft>): Promise<SupplierOnboardingDraft> {
+  const existing = await getSupplierOnboardingDraft(supplierId);
+  const updated: SupplierOnboardingDraft = {
+    ...existing,
+    ...updates,
+    updated_at: new Date().toISOString(),
+  };
+  onboardingDrafts.set(supplierId, updated);
+  return updated;
+}
+
+/**
+ * Submit full onboarding application
+ */
+export async function submitSupplierOnboardingApplication(supplierId: string): Promise<{ success: boolean; application_reference: string; error?: string }> {
+  const draft = await getSupplierOnboardingDraft(supplierId);
+
+  // Validate mandatory fields
+  if (!draft.legal_company_name || !draft.company_number) {
+    return { success: false, application_reference: draft.application_reference, error: 'Company Profile information is incomplete.' };
+  }
+  if (draft.selected_service_slugs.length === 0) {
+    return { success: false, application_reference: draft.application_reference, error: 'At least one service discipline must be selected.' };
+  }
+  if (!draft.code_of_conduct_accepted || !draft.truthfulness_declaration_accepted) {
+    return { success: false, application_reference: draft.application_reference, error: 'Mandatory declarations and Code of Conduct must be accepted.' };
+  }
+
+  draft.status = 'SUBMITTED';
+  draft.submitted_at = new Date().toISOString();
+  draft.updated_at = new Date().toISOString();
+  onboardingDrafts.set(supplierId, draft);
+
+  return { success: true, application_reference: draft.application_reference };
+}
+
+/**
+ * List Vault Documents for a Supplier (Strict Organisation Isolation)
+ */
+export async function listSupplierVaultDocuments(supplierId: string): Promise<SupplierDocumentVaultItem[]> {
+  return supplierDocuments.get(supplierId) || [];
+}
+
+/**
+ * Replace a Vault Document
+ */
+export async function replaceSupplierVaultDocument(supplierId: string, documentId: string, newFileName: string, newFileSizeKb: number, newExpiryDate?: string): Promise<SupplierDocumentVaultItem | null> {
+  const docs = supplierDocuments.get(supplierId) || [];
+  const target = docs.find((d) => d.id === documentId);
+  if (!target) return null;
+
+  target.file_name = newFileName;
+  target.file_size_kb = newFileSizeKb;
+  target.uploaded_at = new Date().toISOString();
+  if (newExpiryDate) target.expiry_date = newExpiryDate;
+  target.status = 'SUBMITTED';
+  target.rejection_reason = undefined;
+  target.action_required = undefined;
+
+  return target;
+}
+
+/**
+ * List Supplier Portal Users
+ */
+export async function listSupplierPortalUsers(supplierId: string): Promise<SupplierUserRecord[]> {
+  return supplierUsers.get(supplierId) || [];
+}
+
+/**
+ * Invite new Supplier Portal User
+ */
+export async function inviteSupplierPortalUser(supplierId: string, email: string, fullName: string, role: SupplierUserRecord['role']): Promise<SupplierUserRecord> {
+  const current = supplierUsers.get(supplierId) || [];
+  const newUser: SupplierUserRecord = {
+    id: `usr-${Date.now()}`,
+    supplier_id: supplierId,
+    email,
+    full_name: fullName,
+    role,
+    status: 'INVITED',
+    created_at: new Date().toISOString(),
+  };
+  current.push(newUser);
+  supplierUsers.set(supplierId, current);
+  return newUser;
+}
+
+/**
+ * Submit Material Profile Change
+ */
+export async function submitMaterialProfileChange(supplierId: string, proposal: Omit<MaterialChangeProposal, 'id' | 'submitted_at' | 'status'>): Promise<MaterialChangeProposal> {
+  const current = materialProposals.get(supplierId) || [];
+  const rec: MaterialChangeProposal = {
+    ...proposal,
+    id: `prop-${Date.now()}`,
+    submitted_at: new Date().toISOString(),
+    status: 'PENDING_REVIEW',
+  };
+  current.push(rec);
+  materialProposals.set(supplierId, current);
+  return rec;
+}

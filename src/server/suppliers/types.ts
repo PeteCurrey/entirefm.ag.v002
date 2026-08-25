@@ -316,3 +316,223 @@ export interface ExecutiveSupplyChainMetrics {
   singleSupplierDependencies: number;
   strategicTargetsNotYetEngaged: number;
 }
+
+
+/**
+ * CANONICAL SUPPLIER ONBOARDING & PARTNER PROFILE TYPES (PHASE 2A)
+ * ===============================================================
+ */
+
+export interface OperatingBaseRecord {
+  id: string;
+  name: string;
+  address_line1: string;
+  city: string;
+  postcode: string;
+  radius_miles: number;
+  is_headquarters: boolean;
+  services_offered: string[];
+}
+
+export interface SupplierContactDraft {
+  id: string;
+  first_name: string;
+  last_name: string;
+  job_title: string;
+  email: string;
+  phone: string;
+  roles: ('PRIMARY' | 'OPERATIONS' | 'COMMERCIAL' | 'FINANCE' | 'COMPLIANCE' | 'HEALTH_SAFETY' | 'EMERGENCY_24_7' | 'DIRECTOR')[];
+}
+
+export interface SupplierInsuranceDraft {
+  id: string;
+  insurance_type: 'PUBLIC_LIABILITY' | 'EMPLOYERS_LIABILITY' | 'PROFESSIONAL_INDEMNITY' | 'PRODUCT_LIABILITY' | 'CYBER';
+  insurer_name: string;
+  policy_number: string;
+  cover_limit_gbp: number;
+  expiry_date: string;
+  document_url?: string;
+  document_name?: string;
+}
+
+export interface SupplierAccreditationDraft {
+  id: string;
+  accreditation_body: string; // e.g. Gas Safe, NICEIC, REFCOM, IRATA, CHAS
+  certificate_number: string;
+  issue_date: string;
+  expiry_date: string;
+  scope_description: string;
+  document_url?: string;
+  document_name?: string;
+}
+
+export interface OnboardingStepState {
+  step_number: number;
+  step_key: string;
+  title: string;
+  status: 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE' | 'ACTION_REQUIRED';
+  last_updated?: string;
+}
+
+export interface SupplierOnboardingDraft {
+  id: string;
+  supplier_id: string;
+  application_reference: string; // e.g. SUP-260825-4821
+  created_at: string;
+  updated_at: string;
+  submitted_at?: string;
+  status: 'DRAFT' | 'SUBMITTED' | 'UNDER_REVIEW' | 'APPROVED' | 'REJECTED';
+  current_step: number;
+  
+  // Section 01: Company Profile
+  legal_company_name: string;
+  trading_name: string;
+  company_number: string;
+  vat_number: string;
+  website_url: string;
+  year_established: number;
+  employee_count_total: number;
+  registered_address: string;
+  trading_address: string;
+  main_phone: string;
+  general_email: string;
+  primary_business_type: string;
+  company_summary: string;
+  logo_url?: string;
+
+  // Section 02: Contacts
+  contacts: SupplierContactDraft[];
+
+  // Section 03: Services
+  selected_service_slugs: string[];
+  service_details: Record<string, {
+    years_experience: number;
+    engineer_count: number;
+    has_24_7_callout: boolean;
+    specialist_notes?: string;
+  }>;
+
+  // Section 04: Coverage
+  coverage_type: 'NATIONAL' | 'REGIONAL' | 'RADIUS';
+  selected_regions: string[];
+  operating_bases: OperatingBaseRecord[];
+
+  // Section 05: Operations
+  standard_operating_hours: string;
+  emergency_24_7_available: boolean;
+  emergency_phone?: string;
+  planned_maintenance_offered: boolean;
+  reactive_maintenance_offered: boolean;
+  project_works_offered: boolean;
+  typical_emergency_sla_hours: number;
+
+  // Section 06: Workforce & Subcontracting
+  direct_field_operatives: number;
+  office_support_staff: number;
+  workforce_model: 'DIRECT_EMPLOYEES' | 'SUBCONTRACTORS' | 'MIXED' | 'AGENCY';
+  uses_subcontractors: boolean;
+  subcontractor_services?: string[];
+  subcontractor_vetting_process?: string;
+
+  // Section 07: Insurance
+  insurances: SupplierInsuranceDraft[];
+
+  // Section 08: Accreditations
+  accreditations: SupplierAccreditationDraft[];
+
+  // Section 09: Health & Safety
+  has_hs_policy: boolean;
+  has_competent_person: boolean;
+  has_rams_templates: boolean;
+  has_coshh_assessments: boolean;
+  has_working_at_height_controls: boolean;
+  has_material_incidents_past_3yr: boolean;
+  incident_history_notes?: string;
+
+  // Section 10: Governance & Ethics
+  anti_bribery_accepted: boolean;
+  modern_slavery_policy_accepted: boolean;
+  worker_welfare_standards_accepted: boolean;
+  environmental_policy_accepted: boolean;
+
+  // Section 11: Information Security (Dynamic)
+  requires_system_access: boolean;
+  mfa_enforced: boolean;
+  cyber_essentials_certified: boolean;
+  gdpr_compliant_processes: boolean;
+
+  // Section 12: Documents
+  uploaded_document_ids: string[];
+
+  // Section 13: Commercial Information
+  accounts_payable_email: string;
+  requires_po: boolean;
+  bank_account_name: string;
+  bank_sort_code_masked: string;
+  bank_account_number_masked: string;
+
+  // Section 14: Declarations
+  code_of_conduct_accepted: boolean;
+  code_of_conduct_version: string;
+  code_of_conduct_accepted_by: string;
+  code_of_conduct_accepted_at?: string;
+  truthfulness_declaration_accepted: boolean;
+
+  step_states: Record<string, OnboardingStepState>;
+}
+
+export interface SupplierDocumentVaultItem {
+  id: string;
+  supplier_id: string;
+  document_type: string;
+  category: 'INSURANCE' | 'ACCREDITATION' | 'HEALTH_SAFETY' | 'GOVERNANCE' | 'COMMERCIAL' | 'TECHNICAL';
+  file_name: string;
+  file_size_kb: number;
+  uploaded_at: string;
+  expiry_date?: string;
+  status: 'SUBMITTED' | 'UNDER_REVIEW' | 'ACCEPTED' | 'REJECTED' | 'EXPIRING' | 'EXPIRED';
+  rejection_reason?: string;
+  action_required?: string;
+  download_url: string;
+}
+
+export interface SupplierUserRecord {
+  id: string;
+  supplier_id: string;
+  email: string;
+  full_name: string;
+  role: 'SUPPLIER_ADMIN' | 'OPERATIONS' | 'COMPLIANCE' | 'FINANCE' | 'FIELD_USER' | 'VIEWER';
+  status: 'ACTIVE' | 'INVITED' | 'DISABLED';
+  created_at: string;
+  last_login?: string;
+}
+
+export interface MaterialChangeProposal {
+  id: string;
+  supplier_id: string;
+  field_name: string;
+  field_category: string;
+  previous_value: string;
+  proposed_value: string;
+  rationale: string;
+  submitted_by: string;
+  submitted_at: string;
+  status: 'PENDING_REVIEW' | 'APPROVED' | 'REJECTED';
+}
+
+export interface SupplierSupportTicket {
+  id: string;
+  supplier_id: string;
+  subject: string;
+  category: 'ONBOARDING' | 'COMPLIANCE' | 'BILLING' | 'PORTAL' | 'OPERATIONS';
+  priority: 'LOW' | 'MEDIUM' | 'HIGH';
+  status: 'OPEN' | 'IN_PROGRESS' | 'RESOLVED' | 'CLOSED';
+  messages: {
+    sender_type: 'SUPPLIER' | 'ENTIREFM';
+    sender_name: string;
+    message: string;
+    sent_at: string;
+  }[];
+  created_at: string;
+  updated_at: string;
+}
