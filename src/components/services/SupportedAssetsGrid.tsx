@@ -43,7 +43,7 @@ export function SupportedAssetsGrid({
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink-light">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
               {eyebrow}
             </span>
           </div>
@@ -79,7 +79,7 @@ export function SupportedAssetsGrid({
                   )}
 
                   <div>
-                    <h3 className="text-base font-bold text-white group-hover:text-brand-pink-light transition-colors">
+                    <h3 className="text-base font-light text-white group-hover:text-brand-pink-light transition-colors">
                       {cat.title}
                     </h3>
                     {cat.subtitle && (

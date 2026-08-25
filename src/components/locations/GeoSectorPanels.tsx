@@ -70,7 +70,7 @@ export function GeoSectorPanels({ city, sectors }: GeoSectorPanelsProps) {
           </div>
           <Link
             href="/sectors"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-pink hover:underline shrink-0"
+            className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-pink hover:underline shrink-0"
           >
             View all 15 sectors
             <ArrowRight className="h-3.5 w-3.5" />
@@ -112,13 +112,13 @@ export function GeoSectorPanels({ city, sectors }: GeoSectorPanelsProps) {
 
                 {/* Bottom Content with Reveal */}
                 <div className="relative z-10 p-6 text-white space-y-2">
-                  <h3 className="text-lg font-bold tracking-tight text-white leading-snug group-hover:text-brand-pink-light transition-colors">
+                  <h3 className="text-lg font-light tracking-tight text-white leading-snug group-hover:text-brand-pink-light transition-colors">
                     {sec.title}
                   </h3>
                   <p className="text-xs text-brand-mist/80 line-clamp-2 leading-relaxed font-light">
                     {sec.description}
                   </p>
-                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-brand-pink-light">
+                  <div className="pt-2 flex items-center gap-1.5 text-xs font-normal text-brand-pink-light">
                     <span>Explore sector scope</span>
                     <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>

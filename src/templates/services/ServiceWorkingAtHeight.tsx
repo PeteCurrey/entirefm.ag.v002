@@ -235,7 +235,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               {/* Eyebrow */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
                 <span className="h-2 w-2 rounded-full bg-[#FF3E9D] animate-pulse" />
-                <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-semibold">
+                <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-light">
                   SPECIALIST ACCESS & FAÇADE CARE
                 </span>
               </div>
@@ -243,7 +243,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               {/* Headline */}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.1]">
                 Working at Height, <br />
-                <span className="font-bold text-hero-pink">
+                <span className="font-light text-hero-pink">
                   Rope Access &amp; BMU Services
                 </span>
               </h1>
@@ -257,14 +257,14 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Link
                   href="/contact-us#enquiry"
-                  className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-gradient-to-r from-[#FF3E9D] via-[#ED3899] to-[#C026D3] px-6 py-3.5 text-sm font-semibold text-white shadow-lg hover:shadow-pink-500/25 transition-all hover:scale-[1.02]"
+                  className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-gradient-to-r from-[#FF3E9D] via-[#ED3899] to-[#C026D3] px-6 py-3.5 text-sm font-normal text-white shadow-lg hover:shadow-pink-500/25 transition-all hover:scale-[1.02]"
                 >
                   <span>Request a Quote</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/contact-us"
-                  className="inline-flex items-center justify-center gap-2 rounded-[8px] border border-white/20 bg-white/10 backdrop-blur-md px-6 py-3.5 text-sm font-medium text-white hover:bg-white/20 transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-[8px] border border-white/20 bg-white/10 backdrop-blur-md px-6 py-3.5 text-sm font-normal text-white hover:bg-white/20 transition-all"
                 >
                   <PhoneCall className="h-4 w-4 text-[#FF3E9D]" />
                   <span>Talk to Our Team</span>
@@ -305,7 +305,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="lg:col-span-7 space-y-6">
                 <div className="inline-flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                  <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
+                  <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                     STRATEGIC ACCESS METHODOLOGIES
                   </span>
                 </div>
@@ -315,7 +315,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 <p className="text-base text-slate-600 leading-relaxed font-light">
                   High-level building works demand rigorous engineering discipline, technical competence, and uncompromising safety standards. EntireFM provides planned preventative and reactive high-level access services across complex commercial envelopes, deploying the most efficient and safe access methodology for every structure:
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-medium text-sm text-slate-800">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-normal text-sm text-slate-800">
                   <div className="flex items-center gap-2.5 p-3 rounded-[8px] bg-[#FAF9FB] border border-slate-200/80">
                     <CheckCircle2 className="h-4 w-4 text-[#FF3E9D] shrink-0" />
                     <span>Industrial Rope Access / Abseiling</span>
@@ -352,7 +352,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                     <span className="font-mono text-[11px] text-white/80 uppercase tracking-wider block font-medium">
                       PRECISION RIGGING &amp; ANCHOR PROTOCOLS
                     </span>
-                    <h3 className="text-lg font-medium text-white">
+                    <h3 className="text-lg font-light text-white">
                       Zero Ground Disruption, Maximum Safety
                     </h3>
                     <p className="text-xs text-white/80 font-light">
@@ -373,7 +373,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
+                <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                   COMPREHENSIVE CAPABILITY
                 </span>
               </div>
@@ -398,13 +398,13 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                         <div className="h-10 w-10 rounded-[10px] bg-[#FAF9FB] border border-slate-200 flex items-center justify-center text-[#FF3E9D] group-hover:bg-[#FF3E9D] group-hover:text-white transition-colors">
                           <Icon className="h-5 w-5" />
                         </div>
-                        <span className="font-mono text-[9.5px] uppercase font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-[4px]">
+                        <span className="font-mono text-[9.5px] uppercase font-light text-slate-600 bg-slate-100 px-2 py-0.5 rounded-[4px]">
                           {srv.badge}
                         </span>
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#FF3E9D] transition-colors">
+                        <h3 className="text-lg font-light text-slate-900 group-hover:text-[#FF3E9D] transition-colors">
                           {srv.title}
                         </h3>
                         <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
@@ -425,7 +425,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                     <div className="mt-6 pt-4 border-t border-slate-100">
                       <Link
                         href="/contact-us#enquiry"
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-[#FF3E9D] group-hover:underline"
+                        className="inline-flex items-center gap-1 text-xs font-normal text-[#FF3E9D] group-hover:underline"
                       >
                         <span>Enquire for this service</span>
                         <ArrowRight className="h-3 w-3" />
@@ -447,14 +447,14 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="lg:col-span-6 space-y-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15">
                   <Sparkles className="h-3.5 w-3.5 text-[#FF3E9D]" />
-                  <span className="font-mono text-[11px] uppercase tracking-widest text-white font-semibold">
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-white font-light">
                     COMMERCIAL POSITIONING
                   </span>
                 </div>
 
                 <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white leading-tight">
                   More than <br />
-                  <span className="font-bold text-hero-pink">window cleaning</span>
+                  <span className="font-light text-hero-pink">window cleaning</span>
                 </h2>
 
                 <p className="text-base text-slate-300 leading-relaxed">
@@ -468,7 +468,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 <div className="pt-2">
                   <Link
                     href="/contact-us"
-                    className="inline-flex items-center gap-2 rounded-[8px] bg-white text-[#0B1220] px-5 py-3 text-xs font-semibold hover:bg-slate-100 transition-colors shadow-md"
+                    className="inline-flex items-center gap-2 rounded-[8px] bg-white text-[#0B1220] px-5 py-3 text-xs font-normal hover:bg-slate-100 transition-colors shadow-md"
                   >
                     <span>Discuss Your High-Level Requirements</span>
                     <ArrowRight className="h-3.5 w-3.5 text-[#FF3E9D]" />
@@ -487,10 +487,10 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
-                    <span className="font-mono text-[10.5px] uppercase tracking-wider text-[#FF3E9D] font-bold block">
+                    <span className="font-mono text-[10.5px] uppercase tracking-wider text-[#FF3E9D] font-light block">
                       TECHNICAL BUILDING ENVELOPE CARE
                     </span>
-                    <h3 className="text-base font-bold text-white">
+                    <h3 className="text-base font-light text-white">
                       Proactive Defect Remediation at Height
                     </h3>
                     <p className="text-xs text-white/80">
@@ -510,7 +510,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 >
                   <div className="flex items-center gap-2 text-[#FF3E9D]">
                     <CheckCircle2 className="h-4 w-4 shrink-0" />
-                    <h4 className="text-sm font-semibold text-white">{item.title}</h4>
+                    <h4 className="text-sm font-normal text-white">{item.title}</h4>
                   </div>
                   <p className="text-xs text-slate-300 leading-relaxed">{item.desc}</p>
                 </div>
@@ -539,7 +539,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                     <span className="font-mono text-[11px] text-white/80 uppercase tracking-wider block">
                       ENGINEERED CRADLE OPERATIONS
                     </span>
-                    <h3 className="text-lg font-bold text-white">
+                    <h3 className="text-lg font-light text-white">
                       High-Rise Building Access Systems
                     </h3>
                     <p className="text-xs text-white/80">
@@ -552,7 +552,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
                 <div className="inline-flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                  <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
+                  <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                     INTEGRATED PLANT &amp; CRADLES
                   </span>
                 </div>
@@ -568,7 +568,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                       <CheckCircle2 className="h-3.5 w-3.5" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-medium text-slate-900">Planned Façade Maintenance &amp; Cyclic Cleans</h4>
+                      <h4 className="text-sm font-light text-slate-900">Planned Façade Maintenance &amp; Cyclic Cleans</h4>
                       <p className="text-xs text-slate-600 leading-relaxed font-light">
                         Continuous coverage across multi-storey elevations for scheduled glass cleaning, pressure-washing, and mastic inspection.
                       </p>
@@ -580,7 +580,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                       <CheckCircle2 className="h-3.5 w-3.5" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-medium text-slate-900">Glass &amp; Envelope Component Replacement</h4>
+                      <h4 className="text-sm font-light text-slate-900">Glass &amp; Envelope Component Replacement</h4>
                       <p className="text-xs text-slate-600 leading-relaxed font-light">
                         Stable working platform for heavy glass panel replacement, louvre installations, and structural sealant tooling.
                       </p>
@@ -592,7 +592,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                       <CheckCircle2 className="h-3.5 w-3.5" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-medium text-slate-900">Safe, Repeatable Access for High-Rise Assets</h4>
+                      <h4 className="text-sm font-light text-slate-900">Safe, Repeatable Access for High-Rise Assets</h4>
                       <p className="text-xs text-slate-600 leading-relaxed font-light">
                         Fully compliant operation of roof car tracks, luffing jibs, and traversing gantries on major UK commercial landmarks.
                       </p>
@@ -612,7 +612,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl mb-12">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#16A34A]" />
-                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#16A34A]">
+                <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#16A34A]">
                   HEALTH, SAFETY &amp; GOVERNANCE
                 </span>
               </div>
@@ -629,7 +629,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 <div className="h-9 w-9 rounded-[8px] bg-slate-50 border border-slate-200 flex items-center justify-center text-[#FF3E9D]">
                   <HardHat className="h-5 w-5" />
                 </div>
-                <h3 className="font-bold text-slate-900 text-sm">Trained Operatives</h3>
+                <h3 className="font-light text-slate-900 text-sm">Trained Operatives</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   All technicians are qualified under recognized industry bodies (including IRATA Levels 1–3) with mandatory regular recertification.
                 </p>
@@ -639,7 +639,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 <div className="h-9 w-9 rounded-[8px] bg-slate-50 border border-slate-200 flex items-center justify-center text-[#FF3E9D]">
                   <FileCheck2 className="h-5 w-5" />
                 </div>
-                <h3 className="font-bold text-slate-900 text-sm">Site-Specific RAMS</h3>
+                <h3 className="font-light text-slate-900 text-sm">Site-Specific RAMS</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Tailored Risk Assessments, Method Statements and emergency rescue protocols produced before any equipment is rigged on site.
                 </p>
@@ -649,7 +649,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 <div className="h-9 w-9 rounded-[8px] bg-slate-50 border border-slate-200 flex items-center justify-center text-[#FF3E9D]">
                   <ShieldAlert className="h-5 w-5" />
                 </div>
-                <h3 className="font-bold text-slate-900 text-sm">Controlled Exclusion Zones</h3>
+                <h3 className="font-light text-slate-900 text-sm">Controlled Exclusion Zones</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Barriers, signage, tool tethering, and ground spotters to protect pedestrians and building occupants from drop hazards.
                 </p>
@@ -659,7 +659,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 <div className="h-9 w-9 rounded-[8px] bg-slate-50 border border-slate-200 flex items-center justify-center text-[#FF3E9D]">
                   <ShieldCheck className="h-5 w-5" />
                 </div>
-                <h3 className="font-bold text-slate-900 text-sm">Commercial Coordination</h3>
+                <h3 className="font-light text-slate-900 text-sm">Commercial Coordination</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Close liaison with site management, security, and building occupants to schedule work around high-traffic business hours.
                 </p>
@@ -677,11 +677,11 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="space-y-2 max-w-2xl">
                 <div className="inline-flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+                  <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
                     RISK REDUCTION &amp; INITIAL SURVEYS
                   </span>
                 </div>
-                <h3 className="text-2xl font-bold text-white">
+                <h3 className="text-2xl font-extralight text-white">
                   Aerial Drone Surveys Before Physical Access
                 </h3>
                 <p className="text-sm text-slate-300 leading-relaxed">
@@ -691,14 +691,14 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="flex flex-wrap items-center gap-3 shrink-0">
                 <Link
                   href="/services/drone-services/building-envelope-inspections"
-                  className="inline-flex items-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-5 py-3 text-xs font-semibold text-white shadow-md hover:scale-[1.02] transition-all"
+                  className="inline-flex items-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-5 py-3 text-xs font-normal text-white shadow-md hover:scale-[1.02] transition-all"
                 >
                   <span>Façade Drone Surveys</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
                 <Link
                   href="/services/drone-services/roof-inspections"
-                  className="inline-flex items-center gap-2 rounded-sm border border-white/20 bg-white/10 px-5 py-3 text-xs font-medium text-white hover:bg-white/20 transition-all"
+                  className="inline-flex items-center gap-2 rounded-sm border border-white/20 bg-white/10 px-5 py-3 text-xs font-normal text-white hover:bg-white/20 transition-all"
                 >
                   <span>Roof Drone Surveys</span>
                 </Link>
@@ -715,7 +715,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
+                <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                   ESTATE PORTFOLIO RELEVANCE
                 </span>
               </div>
@@ -735,7 +735,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 >
                   <div className="flex items-center gap-2">
                     <Building2 className="h-4 w-4 text-[#FF3E9D]" />
-                    <h3 className="font-medium text-slate-900 text-base">{sec.name}</h3>
+                    <h3 className="font-light text-slate-900 text-base">{sec.name}</h3>
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed font-light">{sec.desc}</p>
                 </div>
@@ -753,7 +753,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="max-w-3xl">
                 <div className="inline-flex items-center gap-2 mb-2">
                   <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                  <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
+                  <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                     THE ENTIREFM ADVANTAGE
                   </span>
                 </div>
@@ -767,21 +767,21 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
                 <div className="space-y-2 border-l-2 border-[#FF3E9D] pl-4">
-                  <h4 className="font-medium text-slate-900 uppercase font-sans text-sm">One Integrated Provider</h4>
+                  <h4 className="font-light text-slate-900 uppercase font-sans text-sm">One Integrated Provider</h4>
                   <p className="text-slate-600 font-sans text-xs leading-relaxed font-light">
                     Avoid managing separate cleaning, access, and M&amp;E contractors. We deliver high-level care under your single Total FM contract.
                   </p>
                 </div>
 
                 <div className="space-y-2 border-l-2 border-[#FF3E9D] pl-4">
-                  <h4 className="font-medium text-slate-900 uppercase font-sans text-sm">Planned &amp; 24/7 Reactive</h4>
+                  <h4 className="font-light text-slate-900 uppercase font-sans text-sm">Planned &amp; 24/7 Reactive</h4>
                   <p className="text-slate-600 font-sans text-xs leading-relaxed font-light">
                     From 52-week cyclic washdown schedules to emergency storm-damage attendance, our teams are ready when you need them.
                   </p>
                 </div>
 
                 <div className="space-y-2 border-l-2 border-[#FF3E9D] pl-4">
-                  <h4 className="font-medium text-slate-900 uppercase font-sans text-sm">Digital CAFM Evidence</h4>
+                  <h4 className="font-light text-slate-900 uppercase font-sans text-sm">Digital CAFM Evidence</h4>
                   <p className="text-slate-600 font-sans text-xs leading-relaxed font-light">
                     Every drop, survey point, and mastic repair is logged with photographic provenance on our client portal for audit readiness.
                   </p>
@@ -797,7 +797,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
         <section className="py-20 bg-white border-b border-slate-200">
           <div className="container-custom max-w-4xl space-y-10">
             <div className="text-center space-y-3">
-              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
+              <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                 FREQUENTLY ASKED QUESTIONS
               </span>
               <h2 className="text-3xl font-light text-slate-900">
@@ -819,7 +819,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
+                <span className="font-mono text-xs font-normal uppercase tracking-wider text-[#FF3E9D]">
                   CONNECTED CAPABILITIES
                 </span>
               </div>
@@ -837,17 +837,17 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 className="p-6 bg-[#FAF9FB] border border-slate-200 rounded-[14px] hover:border-[#FF3E9D] hover:shadow-md transition-all group flex flex-col justify-between"
               >
                 <div className="space-y-3">
-                  <span className="font-mono text-[10px] uppercase font-bold text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
+                  <span className="font-mono text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
                     FABRIC CARE
                   </span>
-                  <h3 className="font-bold text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
+                  <h3 className="font-light text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
                     Building Fabric &amp; Maintenance
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed">
                     Structural repairs, roofing maintenance, joinery, and envelope remediation across commercial estates.
                   </p>
                 </div>
-                <div className="mt-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-semibold text-slate-900 group-hover:text-[#FF3E9D]">
+                <div className="mt-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-normal text-slate-900 group-hover:text-[#FF3E9D]">
                   <span>Explore Fabric Care</span>
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -858,17 +858,17 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 className="p-6 bg-[#FAF9FB] border border-slate-200 rounded-[14px] hover:border-[#FF3E9D] hover:shadow-md transition-all group flex flex-col justify-between"
               >
                 <div className="space-y-3">
-                  <span className="font-mono text-[10px] uppercase font-bold text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
+                  <span className="font-mono text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
                     SPECIALIST CLEANING
                   </span>
-                  <h3 className="font-bold text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
+                  <h3 className="font-light text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
                     Industrial &amp; High-Level Cleaning
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed">
                     Process plant hygiene, factory shutdown overhauls, high-bay lighting de-dusting, and ATEX cleans.
                   </p>
                 </div>
-                <div className="mt-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-semibold text-slate-900 group-hover:text-[#FF3E9D]">
+                <div className="mt-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-normal text-slate-900 group-hover:text-[#FF3E9D]">
                   <span>Explore Industrial Cleaning</span>
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -879,17 +879,17 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 className="p-6 bg-[#FAF9FB] border border-slate-200 rounded-[14px] hover:border-[#FF3E9D] hover:shadow-md transition-all group flex flex-col justify-between"
               >
                 <div className="space-y-3">
-                  <span className="font-mono text-[10px] uppercase font-bold text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
+                  <span className="font-mono text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
                     HARD FM
                   </span>
-                  <h3 className="font-bold text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
+                  <h3 className="font-light text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
                     Mechanical &amp; Electrical (M&amp;E)
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed">
                     Switchgear, HV/LV distribution, commercial HVAC plant, fixed-wire testing, and emergency lighting.
                   </p>
                 </div>
-                <div className="mt-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-semibold text-slate-900 group-hover:text-[#FF3E9D]">
+                <div className="mt-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-normal text-slate-900 group-hover:text-[#FF3E9D]">
                   <span>Explore M&amp;E Engineering</span>
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -900,17 +900,17 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 className="p-6 bg-[#FAF9FB] border border-slate-200 rounded-[14px] hover:border-[#FF3E9D] hover:shadow-md transition-all group flex flex-col justify-between"
               >
                 <div className="space-y-3">
-                  <span className="font-mono text-[10px] uppercase font-bold text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
+                  <span className="font-mono text-[10px] uppercase font-light text-[#FF3E9D] bg-pink-50 px-2 py-0.5 rounded-[4px]">
                     STATUTORY CARE
                   </span>
-                  <h3 className="font-bold text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
+                  <h3 className="font-light text-slate-900 text-base group-hover:text-[#FF3E9D] transition-colors">
                     Planned Preventative Maintenance (PPM)
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed">
                     SFG20 maintenance scheduling, asset registers, compliance calendars, and digital CAFM tracking.
                   </p>
                 </div>
-                <div className="mt-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-semibold text-slate-900 group-hover:text-[#FF3E9D]">
+                <div className="mt-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-normal text-slate-900 group-hover:text-[#FF3E9D]">
                   <span>Explore PPM Programmes</span>
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -926,7 +926,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
           <div className="container-custom max-w-4xl text-center space-y-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 mx-auto">
               <span className="h-2 w-2 rounded-full bg-[#FF3E9D] animate-pulse" />
-              <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-semibold">
+              <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-light">
                 SAFE HIGH-LEVEL ACCESS
               </span>
             </div>
@@ -934,7 +934,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="space-y-4">
               <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white leading-tight">
                 Need safe access to <br />
-                <span className="font-bold text-hero-pink">high-level building works?</span>
+                <span className="font-light text-hero-pink">high-level building works?</span>
               </h2>
               <p className="text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
                 Whether the requirement is planned façade maintenance, rope access support, BMU-led works or reactive high-level access, EntireFM can help scope and deliver the right solution.
@@ -944,14 +944,14 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               <Link
                 href="/contact-us#enquiry"
-                className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-gradient-to-r from-[#FF3E9D] via-[#ED3899] to-[#C026D3] px-8 py-4 text-sm font-semibold text-white shadow-xl hover:scale-105 transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-gradient-to-r from-[#FF3E9D] via-[#ED3899] to-[#C026D3] px-8 py-4 text-sm font-normal text-white shadow-xl hover:scale-105 transition-all"
               >
                 <span>Request a Quote</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/contact-us"
-                className="inline-flex items-center justify-center gap-2 rounded-[8px] border border-white/20 bg-white/10 backdrop-blur-md px-8 py-4 text-sm font-medium text-white hover:bg-white/20 transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-[8px] border border-white/20 bg-white/10 backdrop-blur-md px-8 py-4 text-sm font-normal text-white hover:bg-white/20 transition-all"
               >
                 <PhoneCall className="h-4 w-4 text-[#FF3E9D]" />
                 <span>Speak to EntireFM</span>

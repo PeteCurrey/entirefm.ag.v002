@@ -54,6 +54,21 @@
     --hero-pink-gradient: linear-gradient(100deg, #ff3e9d 0%, #ed3899 50%, #c026d3 100%);
   }
 
+  /* ── EntireFM Canonical Typography Tokens ──────────────────────────── */
+  /* These are the single source of truth for font-weight decisions.
+     Use these tokens rather than Tailwind utility classes wherever possible.
+     Tailwind classes are used for one-off overrides ONLY.                  */
+  --font-entirefm: Work Sans, system-ui, -apple-system, sans-serif;
+
+  --font-weight-display:    200; /* ExtraLight — hero headings, KPI numbers */
+  --font-weight-heading:    200; /* ExtraLight — h1/h2/h3, section titles    */
+  --font-weight-subheading: 300; /* Light — h4/h5, card titles, intros       */
+  --font-weight-body:       300; /* Light — paragraphs, editorial copy       */
+  --font-weight-data:       400; /* Regular — dense tables, operational rows */
+  --font-weight-control:    400; /* Regular — form inputs, selects           */
+  --font-weight-emphasis:   500; /* Medium — active tabs, status labels      */
+  --font-weight-critical:   600; /* SemiBold — rare: critical alerts only    */
+
   * {
     border-color: theme('colors.brand.edge');
   }
@@ -65,14 +80,31 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-family: var(--font-work-sans), 'Work Sans', system-ui, -apple-system, sans-serif;
+    font-weight: var(--font-weight-body);
   }
 
   body {
     @apply bg-white text-brand-graphite font-sans antialiased;
-    /* Clean, architectural body weight with Work Sans. */
     font-family: var(--font-work-sans), 'Work Sans', system-ui, -apple-system, sans-serif;
-    font-weight: 300;
-    selection: auto;
+    font-weight: var(--font-weight-body);
+  }
+
+  /* Headings default to ExtraLight — the defining EntireFM typographic character.
+     Individual components may raise weight explicitly (e.g. font-normal for a
+     very small heading where ExtraLight would be too delicate), but the system
+     default enforces the brand. */
+  h1, h2, h3 {
+    font-weight: var(--font-weight-heading);
+    text-wrap: balance;
+  }
+  h4, h5, h6 {
+    font-weight: var(--font-weight-subheading);
+    text-wrap: balance;
+  }
+
+  p {
+    font-weight: var(--font-weight-body);
+    text-wrap: pretty;
   }
 
   /* Form & Native Control Normalisation — ensure native elements inherit Work Sans */
@@ -83,6 +115,7 @@
   optgroup,
   option {
     font-family: var(--font-work-sans), 'Work Sans', system-ui, -apple-system, sans-serif;
+    font-weight: var(--font-weight-control);
   }
 
   ::selection {
@@ -90,13 +123,6 @@
     color: theme('colors.brand.graphite');
   }
 
-  h1, h2, h3, h4 {
-    text-wrap: balance;
-  }
-
-  p {
-    text-wrap: pretty;
-  }
 
   /* Focus is always visible and always uses the interaction colour. */
   a:focus-visible,
@@ -165,7 +191,7 @@
 
   .btn {
     @apply relative inline-flex items-center justify-center gap-2 px-6 py-3.5
-           text-sm font-medium tracking-tight rounded-sm
+           text-sm font-normal tracking-tight rounded-sm
            transition-all duration-300 ease-brand
            disabled:opacity-50 disabled:pointer-events-none;
   }
@@ -299,7 +325,7 @@
 
   /* Underline grows from the left rather than fading in. */
   .link-underline {
-    @apply relative inline-flex items-center gap-1.5 font-medium
+    @apply relative inline-flex items-center gap-1.5 font-light
            text-brand-electric transition-colors duration-300;
   }
   .link-underline::after {
@@ -313,7 +339,7 @@
   }
 
   .nav-link {
-    @apply relative text-sm font-medium text-brand-slate
+    @apply relative text-sm font-light text-brand-slate
            transition-colors duration-200 hover:text-brand-graphite;
   }
   .on-dark .nav-link {
@@ -441,6 +467,18 @@
       transparent 100%
     );
   }
+
+  /* ── Typography Weight Token Utilities ──────────────────────────────── */
+  /* Semantic alternatives to raw Tailwind font-* classes.
+     Prefer these so weight decisions stay connected to the token system. */
+  .weight-display    { font-weight: var(--font-weight-display); }
+  .weight-heading    { font-weight: var(--font-weight-heading); }
+  .weight-subheading { font-weight: var(--font-weight-subheading); }
+  .weight-body       { font-weight: var(--font-weight-body); }
+  .weight-data       { font-weight: var(--font-weight-data); }
+  .weight-control    { font-weight: var(--font-weight-control); }
+  .weight-emphasis   { font-weight: var(--font-weight-emphasis); }
+  .weight-critical   { font-weight: var(--font-weight-critical); }
 }
 
 @layer utilities {

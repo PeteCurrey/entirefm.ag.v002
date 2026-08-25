@@ -21,7 +21,7 @@ export default async function AudienceGrowthPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Audience Growth &amp; Attribution</h1>
+          <h1 className="text-2xl font-extralight text-white">Audience Growth &amp; Attribution</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Track subscriber acquisition sources, conversion entry points, and list health without synthetic metrics.
           </p>
@@ -37,7 +37,7 @@ export default async function AudienceGrowthPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Source Attribution Breakdown */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Subscriber Acquisition Sources
           </h3>
           <p className="text-xs text-zinc-400">
@@ -56,7 +56,7 @@ export default async function AudienceGrowthPage() {
                   className="flex items-center justify-between p-3 bg-zinc-950 border border-zinc-800 rounded-lg text-xs"
                 >
                   <span className="font-mono text-zinc-300">{src}</span>
-                  <span className="font-bold text-pink-400 font-mono">{count} subscribers</span>
+                  <span className="font-light text-pink-400 font-mono">{count} subscribers</span>
                 </div>
               ))}
             </div>
@@ -65,24 +65,24 @@ export default async function AudienceGrowthPage() {
 
         {/* Lead Separation Governance */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Audience Governance &amp; Separation
           </h3>
           <div className="space-y-3 text-xs text-zinc-300 leading-relaxed">
             <div className="p-3 bg-zinc-950 border border-zinc-800 rounded-lg">
-              <h4 className="font-bold text-white mb-1">Strict Consent Separation</h4>
+              <h4 className="font-light text-white mb-1">Strict Consent Separation</h4>
               <p className="text-zinc-400">
                 Contact and quote enquiries submitted via EntireFM RFQ forms are never automatically subscribed to marketing broadcasts.
               </p>
             </div>
             <div className="p-3 bg-zinc-950 border border-zinc-800 rounded-lg">
-              <h4 className="font-bold text-white mb-1">Permanent Suppression Registry</h4>
+              <h4 className="font-light text-white mb-1">Permanent Suppression Registry</h4>
               <p className="text-zinc-400">
                 Unsubscribed emails remain permanently recorded in the suppression table, preventing accidental re-import via CSV.
               </p>
             </div>
             <div className="p-3 bg-zinc-950 border border-zinc-800 rounded-lg">
-              <h4 className="font-bold text-white mb-1">UTM Multi-Touch Attribution</h4>
+              <h4 className="font-light text-white mb-1">UTM Multi-Touch Attribution</h4>
               <p className="text-zinc-400">
                 Links dispatched across The FM Briefing automatically include campaign and content UTM tags for Search Console and analytics tracking.
               </p>

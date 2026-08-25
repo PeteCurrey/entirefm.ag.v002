@@ -83,7 +83,7 @@ export default function HowWeWorkPage() {
                     <div key={idx} className="flex items-start gap-3 p-4 bg-[#FAF9FB] border border-slate-200 rounded-sm">
                       <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                       <div>
-                        <h4 className="text-xs font-bold text-slate-900">{item.title}</h4>
+                        <h4 className="text-xs font-normal text-slate-900">{item.title}</h4>
                         <p className="text-xs text-slate-600 mt-1 font-light leading-relaxed">{item.desc}</p>
                       </div>
                     </div>
@@ -95,7 +95,7 @@ export default function HowWeWorkPage() {
                 <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright">
                   COMMERCIAL SETTLEMENT
                 </span>
-                <h3 className="text-2xl font-bold text-white">
+                <h3 className="text-2xl font-extralight text-white">
                   Transparent Invoicing &amp; Payment
                 </h3>
                 <p className="text-xs sm:text-sm text-brand-mist/80 font-light leading-relaxed">
@@ -105,19 +105,19 @@ export default function HowWeWorkPage() {
                 <div className="space-y-3 font-mono text-xs">
                   <div className="p-3 bg-brand-carbon rounded-sm border border-white/10 flex items-center justify-between">
                     <span className="text-brand-mist/80">1. Work Order Issued</span>
-                    <span className="text-brand-electric-bright font-bold">Pre-Authorised PO</span>
+                    <span className="text-brand-electric-bright font-light">Pre-Authorised PO</span>
                   </div>
                   <div className="p-3 bg-brand-carbon rounded-sm border border-white/10 flex items-center justify-between">
                     <span className="text-brand-mist/80">2. Evidence Validated</span>
-                    <span className="text-emerald-400 font-bold">Technical Sign-Off</span>
+                    <span className="text-emerald-400 font-light">Technical Sign-Off</span>
                   </div>
                   <div className="p-3 bg-brand-carbon rounded-sm border border-white/10 flex items-center justify-between">
                     <span className="text-brand-mist/80">3. Invoice Matched</span>
-                    <span className="text-brand-electric-bright font-bold">Rate Card Auto-Check</span>
+                    <span className="text-brand-electric-bright font-light">Rate Card Auto-Check</span>
                   </div>
                   <div className="p-3 bg-brand-carbon rounded-sm border border-white/10 flex items-center justify-between">
                     <span className="text-brand-mist/80">4. Commercial Payment</span>
-                    <span className="text-white font-bold">Electronic BACS Run</span>
+                    <span className="text-white font-light">Electronic BACS Run</span>
                   </div>
                 </div>
 

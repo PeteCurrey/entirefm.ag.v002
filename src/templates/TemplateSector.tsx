@@ -85,7 +85,7 @@ export function TemplateSector({ route, content }: TemplateProps) {
               <div className="max-w-3xl mb-12">
                 <div className="inline-flex items-center gap-2 mb-2.5">
                   <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                  <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                     ESTATE CONTEXT &amp; OPERATIONAL DEMAND
                   </span>
                 </div>
@@ -104,7 +104,7 @@ export function TemplateSector({ route, content }: TemplateProps) {
                     className="bg-[#FAF9FB] p-8 rounded-sm border border-slate-200/90 space-y-4 shadow-sm flex flex-col justify-between"
                   >
                     <div>
-                      <h3 className="text-xl font-medium text-slate-900 leading-snug">{sec.heading}</h3>
+                      <h3 className="text-xl font-light text-slate-900 leading-snug">{sec.heading}</h3>
                       <p className="mt-3 text-sm text-slate-700 leading-relaxed font-light">{sec.body}</p>
                       {sec.bullets && sec.bullets.length > 0 && (
                         <ul className="space-y-2 pt-4 mt-4 border-t border-slate-200">
@@ -164,7 +164,7 @@ export function TemplateSector({ route, content }: TemplateProps) {
                   <div className="text-3xl sm:text-4xl font-light text-brand-pink-light font-mono">
                     {m.figure}
                   </div>
-                  <div className="text-xs font-semibold uppercase tracking-wider text-white">
+                  <div className="text-xs font-normal uppercase tracking-wider text-white">
                     {m.label}
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed font-light">
@@ -183,11 +183,11 @@ export function TemplateSector({ route, content }: TemplateProps) {
               <div className="max-w-2xl space-y-2">
                 <div className="inline-flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-700 font-bold">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-700 font-light">
                     PROCUREMENT &amp; TENDER PLANNING
                   </span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                <h3 className="text-xl sm:text-2xl font-extralight text-slate-900">
                   Structuring an FM Invitation to Tender (ITT) for Your Estate?
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -197,7 +197,7 @@ export function TemplateSector({ route, content }: TemplateProps) {
 
               <Link
                 href="/tools/tender-brief"
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white bg-slate-900 hover:bg-slate-800 px-5 py-3 rounded-sm shadow-sm transition-all whitespace-nowrap"
+                className="inline-flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-white bg-slate-900 hover:bg-slate-800 px-5 py-3 rounded-sm shadow-sm transition-all whitespace-nowrap"
               >
                 <FileCheck2 className="w-4 h-4 text-brand-pink-light" />
                 <span>Open Tender Brief Generator</span>
@@ -214,7 +214,7 @@ export function TemplateSector({ route, content }: TemplateProps) {
               <div className="max-w-3xl">
                 <div className="inline-flex items-center gap-2 mb-2.5">
                   <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                  <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                     VERIFIED EVIDENCE
                   </span>
                 </div>
@@ -234,14 +234,14 @@ export function TemplateSector({ route, content }: TemplateProps) {
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-3">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-semibold">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-light">
                           {cs.sector}
                         </span>
-                        <span className="text-[10px] font-mono text-slate-600 font-medium bg-slate-200/70 px-2 py-0.5 rounded-sm">
+                        <span className="text-[10px] font-mono text-slate-600 font-normal bg-slate-200/70 px-2 py-0.5 rounded-sm">
                           {cs.location}
                         </span>
                       </div>
-                      <h3 className="text-base font-medium text-slate-900 leading-snug group-hover:text-brand-graphite transition-colors">
+                      <h3 className="text-base font-light text-slate-900 leading-snug group-hover:text-brand-graphite transition-colors">
                         {cs.title}
                       </h3>
                       <p className="mt-2 text-xs text-slate-600 leading-relaxed font-light">
@@ -250,7 +250,7 @@ export function TemplateSector({ route, content }: TemplateProps) {
                     </div>
 
                     <div className="pt-4 mt-4 border-t border-slate-200/80">
-                      <span className="text-[11px] font-medium text-emerald-700 block">
+                      <span className="text-[11px] font-normal text-emerald-700 block">
                         Result: {cs.outcome}
                       </span>
                     </div>
@@ -266,7 +266,7 @@ export function TemplateSector({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="bg-slate-900 text-white rounded-sm p-8 sm:p-10 border border-slate-800 shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
               <div className="max-w-2xl space-y-3">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink-light font-medium bg-white/10 px-2.5 py-1 rounded-sm">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink-light font-normal bg-white/10 px-2.5 py-1 rounded-sm">
                   SUPPLY CHAIN ASSURANCE
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-light text-white">
@@ -279,7 +279,7 @@ export function TemplateSector({ route, content }: TemplateProps) {
 
               <Link
                 href="/partner-network"
-                className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-900 bg-white hover:bg-slate-100 px-5 py-3 rounded-sm shadow-sm transition-all whitespace-nowrap"
+                className="inline-flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-slate-900 bg-white hover:bg-slate-100 px-5 py-3 rounded-sm shadow-sm transition-all whitespace-nowrap"
               >
                 <span>Explore Supply Chain Standards</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -295,7 +295,7 @@ export function TemplateSector({ route, content }: TemplateProps) {
               <div className="text-center max-w-2xl mx-auto mb-12">
                 <div className="inline-flex items-center gap-2 mb-2.5">
                   <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                  <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                     EXPERT GUIDANCE
                   </span>
                 </div>

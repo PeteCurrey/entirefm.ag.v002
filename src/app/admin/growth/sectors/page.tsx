@@ -12,10 +12,10 @@ export default async function SectorPerformancePage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             SECTOR-SPECIFIC DEMAND &amp; PATHWAYS
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Sector Commercial Performance</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Sector Commercial Performance</h1>
           <p className="text-sm text-zinc-400">
             Track commercial engagement across industrial, commercial offices, healthcare, and retail sectors.
           </p>
@@ -41,12 +41,12 @@ export default async function SectorPerformancePage() {
           <tbody className="divide-y divide-zinc-800">
             {sectors.map((sec) => (
               <tr key={sec.key} className="hover:bg-zinc-800/40">
-                <td className="py-3.5 px-4 font-bold text-white flex items-center gap-2">
+                <td className="py-3.5 px-4 font-light text-white flex items-center gap-2">
                   <Layers className="h-3.5 w-3.5 text-blue-400" />
                   {sec.label}
                 </td>
-                <td className="py-3.5 px-4 font-mono text-pink-400 font-semibold">{sec.leadsCount}</td>
-                <td className="py-3.5 px-4 font-mono text-emerald-400 font-semibold">{sec.qualifiedLeadsCount}</td>
+                <td className="py-3.5 px-4 font-mono text-pink-400 font-light">{sec.leadsCount}</td>
+                <td className="py-3.5 px-4 font-mono text-emerald-400 font-light">{sec.qualifiedLeadsCount}</td>
                 <td className="py-3.5 px-4 font-mono text-zinc-400">{sec.conversionRatePct}%</td>
               </tr>
             ))}

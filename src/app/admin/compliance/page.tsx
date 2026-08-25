@@ -23,13 +23,13 @@ export default async function ComplianceCommandPage() {
           <div className="flex gap-2">
             <Link
               href="/admin/compliance/audits"
-              className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-carbon"
+              className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-carbon"
             >
               Audit Readiness
             </Link>
             <Link
               href="/admin/compliance/obligations"
-              className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow hover:bg-brand-indigo"
+              className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white shadow hover:bg-brand-indigo"
             >
               View Obligations
             </Link>
@@ -68,7 +68,7 @@ export default async function ComplianceCommandPage() {
 
       {/* Navigation Sub-Tabs */}
       <div className="flex flex-wrap gap-2 border-b border-brand-edge-dark pb-3 text-[12.5px]">
-        <Link href="/admin/compliance" className="rounded px-3 py-1 font-medium bg-brand-electric/10 text-brand-electric">Command</Link>
+        <Link href="/admin/compliance" className="rounded px-3 py-1 font-normal bg-brand-electric/10 text-brand-electric">Command</Link>
         <Link href="/admin/compliance/obligations" className="rounded px-3 py-1 text-brand-mist/70 hover:text-white">Obligations</Link>
         <Link href="/admin/compliance/exceptions" className="rounded px-3 py-1 text-brand-mist/70 hover:text-white">Exceptions ({exceptions.length})</Link>
         <Link href="/admin/compliance/certificates" className="rounded px-3 py-1 text-brand-mist/70 hover:text-white">Certificates</Link>
@@ -85,7 +85,7 @@ export default async function ComplianceCommandPage() {
         {/* Overdue Obligations */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-4">
           <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-3">
-            <h3 className="text-[14px] font-semibold text-white">Overdue Statutory Duties</h3>
+            <h3 className="text-[14px] font-normal text-white">Overdue Statutory Duties</h3>
             <span className="rounded bg-rose-500/10 px-2 py-0.5 font-mono text-[11px] text-rose-400">
               {overdueObs.length} Action Required
             </span>
@@ -97,7 +97,7 @@ export default async function ComplianceCommandPage() {
               {overdueObs.slice(0, 5).map(ob => (
                 <div key={ob.id} className="flex items-center justify-between rounded border border-brand-edge-dark/40 bg-brand-void/30 p-3 text-[12.5px]">
                   <div>
-                    <div className="font-medium text-white">{ob.site?.name || 'Estate Site'}</div>
+                    <div className="font-normal text-white">{ob.site?.name || 'Estate Site'}</div>
                     <div className="text-[11.5px] text-brand-mist/60">{ob.asset?.name || 'Statutory System Duty'}</div>
                   </div>
                   <div className="text-right">
@@ -113,7 +113,7 @@ export default async function ComplianceCommandPage() {
         {/* Open Compliance Exceptions */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5 space-y-4">
           <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-3">
-            <h3 className="text-[14px] font-semibold text-white">Active Compliance Exceptions</h3>
+            <h3 className="text-[14px] font-normal text-white">Active Compliance Exceptions</h3>
             <span className="rounded bg-amber-500/10 px-2 py-0.5 font-mono text-[11px] text-amber-400">
               {exceptions.length} Open
             </span>
@@ -125,7 +125,7 @@ export default async function ComplianceCommandPage() {
               {exceptions.slice(0, 5).map(exc => (
                 <div key={exc.id} className="flex items-center justify-between rounded border border-brand-edge-dark/40 bg-brand-void/30 p-3 text-[12.5px]">
                   <div>
-                    <div className="font-medium text-white">{exc.site?.name || 'Estate Site'}</div>
+                    <div className="font-normal text-white">{exc.site?.name || 'Estate Site'}</div>
                     <div className="text-[11.5px] text-brand-mist/60">{exc.reason}</div>
                   </div>
                   <div className="text-right">

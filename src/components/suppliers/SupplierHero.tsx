@@ -155,8 +155,8 @@ export function SupplierHero({
                   key={fact.label}
                   className="group bg-brand-graphite/80 px-5 py-4 backdrop-blur-md transition-colors duration-500 hover:bg-brand-graphite/95"
                 >
-                  <dt className="text-[14px] font-semibold tracking-tight text-white">{fact.figure}</dt>
-                  <dd className="mt-1 text-[11.5px] font-medium leading-snug text-brand-mist/70 group-hover:text-brand-mist">
+                  <dt className="text-[14px] font-normal tracking-tight text-white">{fact.figure}</dt>
+                  <dd className="mt-1 text-[11.5px] font-normal leading-snug text-brand-mist/70 group-hover:text-brand-mist">
                     {fact.label}
                   </dd>
                   {fact.detail && (

@@ -18,7 +18,7 @@ export default async function ComplianceSourcesPage() {
         action={
           <Link
             href="/admin/compliance"
-            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-carbon"
+            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-carbon"
           >
             ← Command Centre
           </Link>
@@ -42,7 +42,7 @@ export default async function ComplianceSourcesPage() {
               {sources.map((s) => (
                 <tr key={s.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                   <td className="px-5 py-4">
-                    <div className="font-semibold text-white">{s.name}</div>
+                    <div className="font-light text-white">{s.name}</div>
                     <div className="font-mono text-[11px] text-brand-mist/50">{s.code}</div>
                   </td>
                   <td className="px-5 py-4 font-mono text-[11px] text-brand-electric">

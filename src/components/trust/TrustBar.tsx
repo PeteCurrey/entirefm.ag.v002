@@ -31,7 +31,7 @@ export function TrustBar() {
                 </span>
                 <span className="min-w-0">
                   <span className="eyebrow">{fact.label}</span>
-                  <span className="mt-1.5 block text-[13.5px] font-semibold leading-snug text-brand-graphite">
+                  <span className="mt-1.5 block text-[13.5px] font-normal leading-snug text-brand-graphite">
                     {fact.value}
                   </span>
                 </span>
@@ -101,12 +101,12 @@ export function AccreditationRail() {
               >
                 <div>
                   <span className="eyebrow eyebrow-dark">{acc.category}</span>
-                  <span className="mt-2 block text-[13px] font-semibold text-white">{acc.claim}</span>
+                  <span className="mt-2 block text-[13px] font-normal text-white">{acc.claim}</span>
                   {acc.approvedWording && (
                     <p className="mt-1 text-[11.5px] text-brand-mist/50 leading-snug">{acc.approvedWording}</p>
                   )}
                 </div>
-                <span className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
+                <span className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-normal uppercase tracking-wider text-emerald-400">
                   <CheckCircle2 className="h-3 w-3" /> Compliance Standard
                 </span>
               </li>
@@ -121,7 +121,7 @@ export function AccreditationRail() {
                 data-reveal
                 style={{ '--reveal-delay': `${i * 80}ms` } as React.CSSProperties}
               >
-                <h3 className="text-[14px] font-semibold text-white">{item.title}</h3>
+                <h3 className="text-[14px] font-normal text-white">{item.title}</h3>
                 <p className="mt-2.5 text-[12.5px] leading-relaxed text-brand-mist/55">{item.body}</p>
               </li>
             ))}

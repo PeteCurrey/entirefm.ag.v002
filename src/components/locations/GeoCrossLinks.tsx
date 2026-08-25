@@ -67,11 +67,11 @@ export function GeoCrossLinks({ currentCity }: GeoCrossLinksProps) {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8" data-reveal>
           <div className="flex items-center gap-2">
             <Compass className="h-4 w-4 text-brand-pink" />
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-graphite">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-graphite">
               Regional Operations Network &amp; Connected Corridors
             </span>
           </div>
-          <Link href="/locations" className="text-xs font-semibold text-brand-pink hover:underline">
+          <Link href="/locations" className="text-xs font-normal text-brand-pink hover:underline">
             View complete UK coverage map &rarr;
           </Link>
         </div>
@@ -87,7 +87,7 @@ export function GeoCrossLinks({ currentCity }: GeoCrossLinksProps) {
                 <span className="text-[10px] font-mono uppercase text-brand-silver block mb-1">
                   {link.label}
                 </span>
-                <span className="text-xs font-bold text-brand-graphite group-hover:text-brand-pink transition-colors line-clamp-2">
+                <span className="text-xs font-normal text-brand-graphite group-hover:text-brand-pink transition-colors line-clamp-2">
                   {link.name}
                 </span>
               </div>

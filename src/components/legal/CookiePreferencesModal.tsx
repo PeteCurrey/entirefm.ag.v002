@@ -108,7 +108,7 @@ export function CookiePreferencesModal({
               <ShieldCheck className="h-5 w-5" />
             </span>
             <div>
-              <h2 id="cookie-modal-title" className="text-lg font-bold text-slate-900">
+              <h2 id="cookie-modal-title" className="text-lg font-light text-slate-900">
                 Privacy & Cookie Preferences
               </h2>
               <p className="text-xs text-slate-500">
@@ -129,7 +129,7 @@ export function CookiePreferencesModal({
         <div className="flex border-b border-slate-100 bg-slate-50 px-6">
           <button
             onClick={() => setActiveTab('preferences')}
-            className={`border-b-2 px-4 py-3 text-xs font-semibold transition-colors ${
+            className={`border-b-2 px-4 py-3 text-xs font-normal transition-colors ${
               activeTab === 'preferences'
                 ? 'border-indigo-600 text-indigo-600 bg-white'
                 : 'border-transparent text-slate-600 hover:text-slate-900'
@@ -139,7 +139,7 @@ export function CookiePreferencesModal({
           </button>
           <button
             onClick={() => setActiveTab('inventory')}
-            className={`border-b-2 px-4 py-3 text-xs font-semibold transition-colors ${
+            className={`border-b-2 px-4 py-3 text-xs font-normal transition-colors ${
               activeTab === 'inventory'
                 ? 'border-indigo-600 text-indigo-600 bg-white'
                 : 'border-transparent text-slate-600 hover:text-slate-900'
@@ -161,8 +161,8 @@ export function CookiePreferencesModal({
               <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-slate-900">Strictly Necessary & Security</span>
-                    <span className="rounded bg-slate-200 px-2 py-0.5 text-[10px] font-semibold text-slate-700">
+                    <span className="font-light text-slate-900">Strictly Necessary & Security</span>
+                    <span className="rounded bg-slate-200 px-2 py-0.5 text-[10px] font-normal text-slate-700">
                       Always Active
                     </span>
                   </div>
@@ -177,7 +177,7 @@ export function CookiePreferencesModal({
               <div className="rounded-xl border border-slate-200 p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="font-bold text-slate-900">Functional & Session Journey Memory</span>
+                    <span className="font-light text-slate-900">Functional & Session Journey Memory</span>
                     <p className="text-xs text-slate-500">Session Storage (No cross-site tracking)</p>
                   </div>
                   <label className="relative inline-flex cursor-pointer items-center">
@@ -199,7 +199,7 @@ export function CookiePreferencesModal({
               <div className="rounded-xl border border-slate-200 p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="font-bold text-slate-900">Performance & Analytics</span>
+                    <span className="font-light text-slate-900">Performance & Analytics</span>
                     <p className="text-xs text-slate-500">Google Analytics 4 (Zero-PII Mode)</p>
                   </div>
                   <label className="relative inline-flex cursor-pointer items-center">
@@ -221,7 +221,7 @@ export function CookiePreferencesModal({
               <div className="rounded-xl border border-slate-200 p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="font-bold text-slate-900">Direct Marketing Communications</span>
+                    <span className="font-light text-slate-900">Direct Marketing Communications</span>
                     <p className="text-xs text-slate-500">Commercial updates & FM Intelligence</p>
                   </div>
                   <label className="relative inline-flex cursor-pointer items-center">
@@ -246,7 +246,7 @@ export function CookiePreferencesModal({
               </p>
               <div className="overflow-x-auto rounded-xl border border-slate-200">
                 <table className="w-full text-left text-xs text-slate-700">
-                  <thead className="bg-slate-50 text-[11px] font-bold uppercase text-slate-500">
+                  <thead className="bg-slate-50 text-[11px] font-normal uppercase text-slate-500">
                     <tr>
                       <th className="px-3 py-2.5">Name</th>
                       <th className="px-3 py-2.5">Category</th>
@@ -258,7 +258,7 @@ export function CookiePreferencesModal({
                   <tbody className="divide-y divide-slate-100">
                     {COOKIE_INVENTORY.map((item) => (
                       <tr key={item.id} className="hover:bg-slate-50/50">
-                        <td className="px-3 py-2 font-mono font-semibold text-slate-900">{item.name}</td>
+                        <td className="px-3 py-2 font-mono font-light text-slate-900">{item.name}</td>
                         <td className="px-3 py-2 capitalize">{item.category}</td>
                         <td className="px-3 py-2">{item.provider}</td>
                         <td className="px-3 py-2">{item.duration}</td>
@@ -276,7 +276,7 @@ export function CookiePreferencesModal({
         <div className="flex flex-col gap-3 border-t border-slate-200 bg-slate-50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
           <button
             onClick={handleRejectNonEssential}
-            className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-100"
+            className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-xs font-normal text-slate-700 transition-colors hover:bg-slate-100"
           >
             Reject Non-Essential
           </button>
@@ -284,13 +284,13 @@ export function CookiePreferencesModal({
           <div className="flex flex-col gap-2 sm:flex-row">
             <button
               onClick={handleSaveSelected}
-              className="rounded-lg border border-indigo-600 bg-indigo-50 px-4 py-2.5 text-xs font-semibold text-indigo-700 transition-colors hover:bg-indigo-100"
+              className="rounded-lg border border-indigo-600 bg-indigo-50 px-4 py-2.5 text-xs font-normal text-indigo-700 transition-colors hover:bg-indigo-100"
             >
               Save Preferences
             </button>
             <button
               onClick={handleAcceptAll}
-              className="rounded-lg bg-slate-900 px-5 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-slate-800"
+              className="rounded-lg bg-slate-900 px-5 py-2.5 text-xs font-normal text-white transition-colors hover:bg-slate-800"
             >
               Accept All
             </button>

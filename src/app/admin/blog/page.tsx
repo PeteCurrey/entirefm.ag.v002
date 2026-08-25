@@ -43,14 +43,14 @@ export default function BlogDashboard() {
     <main className="p-6 max-w-7xl mx-auto space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Editorial Dashboard</h1>
+          <h1 className="text-2xl font-extralight text-white">Editorial Dashboard</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Blog &amp; Insights — target 3–5 high-quality FM articles per week
           </p>
         </div>
         <Link
           href="/admin/blog/new"
-          className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-normal transition-colors"
         >
           + New Post
         </Link>
@@ -64,7 +64,7 @@ export default function BlogDashboard() {
             href={s.href}
             className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 hover:border-zinc-700 transition-colors"
           >
-            <div className={`text-3xl font-bold ${s.colour}`}>{s.value}</div>
+            <div className={`text-3xl font-extralight ${s.colour}`}>{s.value}</div>
             <div className="text-xs text-zinc-400 mt-1">{s.label}</div>
           </Link>
         ))}
@@ -72,7 +72,7 @@ export default function BlogDashboard() {
 
       {/* Pipeline Visualiser */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
-        <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider mb-4">
+        <h2 className="text-sm font-normal text-zinc-300 uppercase tracking-wider mb-4">
           Publication Pipeline
         </h2>
         <div className="flex items-center gap-2 text-xs text-zinc-400 flex-wrap">
@@ -116,7 +116,7 @@ export default function BlogDashboard() {
       {/* Automation Health */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+          <h2 className="text-sm font-normal text-zinc-300 uppercase tracking-wider">
             Automation Health
           </h2>
           <Link href="/admin/blog/automation" className="text-xs text-blue-400 hover:text-blue-300">
@@ -163,7 +163,7 @@ export default function BlogDashboard() {
       {/* Recent Posts */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+          <h2 className="text-sm font-normal text-zinc-300 uppercase tracking-wider">
             Recent Posts
           </h2>
           <Link href="/admin/blog/posts" className="text-xs text-blue-400 hover:text-blue-300">
@@ -179,7 +179,7 @@ export default function BlogDashboard() {
               <div className="min-w-0">
                 <Link
                   href={`/admin/blog/${post.id}`}
-                  className="text-sm text-white hover:text-blue-400 font-medium truncate block"
+                  className="text-sm text-white hover:text-blue-400 font-normal truncate block"
                 >
                   {post.title}
                 </Link>
@@ -213,7 +213,7 @@ export default function BlogDashboard() {
             className="bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-xl p-4 flex flex-col items-center gap-2 text-center transition-colors"
           >
             <span className="text-2xl">{a.icon}</span>
-            <span className="text-xs text-zinc-300 font-medium">{a.label}</span>
+            <span className="text-xs text-zinc-300 font-normal">{a.label}</span>
           </Link>
         ))}
       </div>

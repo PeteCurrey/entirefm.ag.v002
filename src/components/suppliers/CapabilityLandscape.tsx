@@ -30,7 +30,7 @@ export function CapabilityLandscape() {
           </div>
           <Link
             href="/suppliers/partner-with-entirefm"
-            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-electric-bright hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-brand-electric-bright hover:text-white transition-colors"
           >
             Explore Supplier Opportunities <ArrowRight className="h-4 w-4" />
           </Link>
@@ -44,9 +44,9 @@ export function CapabilityLandscape() {
               <button
                 key={item.id}
                 onClick={() => setSelectedCategory(item.id)}
-                className={`whitespace-nowrap px-4 py-2.5 rounded-sm text-xs font-medium transition-all text-left flex items-center gap-2.5 ${
+                className={`whitespace-nowrap px-4 py-2.5 rounded-sm text-xs font-normal transition-all text-left flex items-center gap-2.5 ${
                   isSelected
-                    ? 'bg-white text-slate-900 font-semibold shadow-sm'
+                    ? 'bg-white text-slate-900 font-light shadow-sm'
                     : 'text-brand-mist/70 hover:text-white hover:bg-white/[0.05]'
                 }`}
               >
@@ -72,7 +72,7 @@ export function CapabilityLandscape() {
               <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright">
                 {active.eyebrow}
               </span>
-              <h3 className="text-xl sm:text-2xl font-semibold text-white mt-1">
+              <h3 className="text-xl sm:text-2xl font-light text-white mt-1">
                 {active.title}
               </h3>
               <p className="mt-2 text-xs text-brand-mist/80 leading-relaxed font-light">

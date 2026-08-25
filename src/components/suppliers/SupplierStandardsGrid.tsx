@@ -73,15 +73,15 @@ export function SupplierStandardsGrid() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[11px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+                    <span className="text-[11px] font-mono uppercase tracking-widest text-brand-pink font-light">
                       PRINCIPLE {item.number}
                     </span>
                     <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                       <Icon className="h-4 w-4" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                  <p className="text-xs text-slate-700 leading-relaxed font-medium mb-4">
+                  <h3 className="text-xl font-light text-slate-900 mb-2">{item.title}</h3>
+                  <p className="text-xs text-slate-700 leading-relaxed font-normal mb-4">
                     {item.rule}
                   </p>
                   <ul className="space-y-2 pt-4 border-t border-slate-200 text-xs text-slate-600 font-light">
@@ -104,7 +104,7 @@ export function SupplierStandardsGrid() {
             <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright">
               ETHICAL &amp; CORPORATE GOVERNANCE
             </span>
-            <h3 className="text-lg sm:text-xl font-bold text-white mt-1">
+            <h3 className="text-lg sm:text-xl font-light text-white mt-1">
               EntireFM Supplier Code of Conduct
             </h3>
             <p className="text-xs text-brand-mist/80 mt-1 max-w-2xl font-light">

@@ -21,7 +21,7 @@ export default async function CommercialExceptionsPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/admin/commercial/quotes"
-              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-medium text-brand-mist/80 border border-brand-edge-dark hover:text-white"
+              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-normal text-brand-mist/80 border border-brand-edge-dark hover:text-white"
             >
               Quotes Desk →
             </Link>
@@ -46,7 +46,7 @@ export default async function CommercialExceptionsPage() {
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span
-                      className={`rounded px-2 py-0.5 font-mono text-[10px] font-semibold ${
+                      className={`rounded px-2 py-0.5 font-mono text-[10px] font-normal ${
                         e.severity === 'BLOCKING'
                           ? 'bg-rose-500/20 text-rose-300'
                           : e.severity === 'WARNING'
@@ -60,7 +60,7 @@ export default async function CommercialExceptionsPage() {
                       {e.object_type} · Ref: {e.object_id.slice(0, 8)}
                     </span>
                   </div>
-                  <p className="text-[13px] text-white font-medium">{e.detail}</p>
+                  <p className="text-[13px] text-white font-normal">{e.detail}</p>
                 </div>
 
                 <div className="flex items-center gap-3">

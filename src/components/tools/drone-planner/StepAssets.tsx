@@ -51,7 +51,7 @@ export function StepAssets({ inspection, onChange }: StepAssetsProps) {
                   : 'bg-brand-carbon border-brand-edge-dark text-slate-300 hover:border-white/30 hover:bg-white/[0.04]'
               }`}
             >
-              <span className="text-xs sm:text-sm font-medium group-hover:text-white transition-colors">
+              <span className="text-xs sm:text-sm font-normal group-hover:text-white transition-colors">
                 {asset.label}
               </span>
               <div className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 ml-2 transition-colors ${
@@ -69,7 +69,7 @@ export function StepAssets({ inspection, onChange }: StepAssetsProps) {
         <div className="p-5 rounded-sm bg-brand-carbon border border-brand-pink/40 space-y-3">
           <div className="flex items-center gap-2">
             <Layers className="w-4 h-4 text-brand-pink" />
-            <h3 className="text-xs font-mono font-bold uppercase text-white tracking-wider">
+            <h3 className="text-xs font-mono font-light uppercase text-white tracking-wider">
               Roof Profile Type (If Known)
             </h3>
           </div>
@@ -81,7 +81,7 @@ export function StepAssets({ inspection, onChange }: StepAssetsProps) {
                   key={type}
                   type="button"
                   onClick={() => onChange({ roofType: type })}
-                  className={`px-3 py-2 rounded-sm text-xs font-medium border transition-colors ${
+                  className={`px-3 py-2 rounded-sm text-xs font-normal border transition-colors ${
                     isChosen
                       ? 'bg-brand-pink text-white border-brand-pink'
                       : 'bg-brand-graphite text-slate-300 border-brand-edge-dark hover:text-white hover:border-white/20'
@@ -100,7 +100,7 @@ export function StepAssets({ inspection, onChange }: StepAssetsProps) {
         <div className="p-5 rounded-sm bg-brand-carbon border border-amber-500/40 space-y-3">
           <div className="flex items-center gap-2">
             <Sun className="w-4 h-4 text-amber-400" />
-            <h3 className="text-xs font-mono font-bold uppercase text-white tracking-wider">
+            <h3 className="text-xs font-mono font-light uppercase text-white tracking-wider">
               Approximate Solar PV Installation Scale
             </h3>
           </div>
@@ -112,9 +112,9 @@ export function StepAssets({ inspection, onChange }: StepAssetsProps) {
                   key={cap}
                   type="button"
                   onClick={() => onChange({ solarCapacity: cap })}
-                  className={`px-3 py-2 rounded-sm text-xs font-medium border transition-colors ${
+                  className={`px-3 py-2 rounded-sm text-xs font-normal border transition-colors ${
                     isChosen
-                      ? 'bg-amber-500 text-slate-950 font-bold border-amber-500'
+                      ? 'bg-amber-500 text-slate-950 font-light border-amber-500'
                       : 'bg-brand-graphite text-slate-300 border-brand-edge-dark hover:text-white hover:border-white/20'
                   }`}
                 >

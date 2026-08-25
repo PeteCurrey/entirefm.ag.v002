@@ -100,7 +100,7 @@ export default function StandardsPage() {
                     <div className="w-9 h-9 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                       <Icon className="h-4 w-4" />
                     </div>
-                    <h3 className="text-base font-bold text-slate-900">{item.title}</h3>
+                    <h3 className="text-base font-light text-slate-900">{item.title}</h3>
                     <p className="text-xs text-slate-600 leading-relaxed font-light">{item.desc}</p>
                   </div>
                 );
@@ -112,7 +112,7 @@ export default function StandardsPage() {
         {/* CTA */}
         <section className="py-20 bg-white border-b border-slate-200 text-center">
           <div className="container-custom max-w-3xl space-y-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+            <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900">
               Align Your Business with the EntireFM Standard
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto leading-relaxed">

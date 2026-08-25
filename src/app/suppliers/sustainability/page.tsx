@@ -96,7 +96,7 @@ export default function SustainabilityPage() {
                     <div className="w-10 h-10 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
+                    <h3 className="text-lg font-light text-slate-900">{item.title}</h3>
                     <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">{item.desc}</p>
                   </div>
                 );

@@ -11,7 +11,7 @@ export default function AuthorsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Editorial Authors</h1>
+          <h1 className="text-2xl font-extralight text-white">Editorial Authors</h1>
           <p className="text-sm text-zinc-400 mt-1">FM technical authors, engineering team personas, and credentials</p>
         </div>
       </div>
@@ -23,8 +23,8 @@ export default function AuthorsPage() {
             <div key={author.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-sm font-semibold text-white">{author.name}</h3>
-                  <div className="text-xs text-blue-400 font-medium mt-0.5">{author.role}</div>
+                  <h3 className="text-sm font-normal text-white">{author.name}</h3>
+                  <div className="text-xs text-blue-400 font-normal mt-0.5">{author.role}</div>
                 </div>
                 <span className="text-xs bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded-full">
                   {count} {count === 1 ? 'post' : 'posts'}

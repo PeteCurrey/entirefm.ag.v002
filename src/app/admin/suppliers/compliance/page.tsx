@@ -20,10 +20,10 @@ export default async function ComplianceControlCentrePage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
             STATUTORY ASSURANCE &amp; AUDITABILITY
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight text-slate-900 mt-1">
             Compliance Control Centre
           </h1>
           <p className="text-xs text-slate-600 font-light mt-1">
@@ -36,7 +36,7 @@ export default async function ComplianceControlCentrePage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
           <span className="text-[10px] font-mono uppercase text-slate-400">APPROVED SUPPLIERS</span>
-          <div className="text-2xl font-mono font-bold text-emerald-600">
+          <div className="text-2xl font-mono font-light text-emerald-600">
             {suppliers.filter((s) => s.compliance_status === 'APPROVED').length}
           </div>
           <span className="text-[10.5px] font-mono text-slate-500">Active Work Eligible</span>
@@ -44,19 +44,19 @@ export default async function ComplianceControlCentrePage() {
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
           <span className="text-[10px] font-mono uppercase text-slate-400">ACTIVE COMPLIANCE HOLDS</span>
-          <div className="text-2xl font-mono font-bold text-rose-600">{activeHolds.length}</div>
+          <div className="text-2xl font-mono font-light text-rose-600">{activeHolds.length}</div>
           <span className="text-[10.5px] font-mono text-slate-500">Operational Blocks</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
           <span className="text-[10px] font-mono uppercase text-slate-400">OPEN REMEDIATION</span>
-          <div className="text-2xl font-mono font-bold text-amber-600">{openRemediation.length}</div>
+          <div className="text-2xl font-mono font-light text-amber-600">{openRemediation.length}</div>
           <span className="text-[10.5px] font-mono text-slate-500">Actions Pending</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
           <span className="text-[10px] font-mono uppercase text-slate-400">UNDER ASSURANCE REVIEW</span>
-          <div className="text-2xl font-mono font-bold text-slate-900">
+          <div className="text-2xl font-mono font-light text-slate-900">
             {suppliers.filter((s) => s.compliance_status === 'UNDER_REVIEW').length}
           </div>
           <span className="text-[10.5px] font-mono text-slate-500">In Due Diligence</span>
@@ -66,10 +66,10 @@ export default async function ComplianceControlCentrePage() {
       {/* Active Compliance Holds Table */}
       <div className="bg-white border border-slate-200 rounded-sm shadow-sm p-6 space-y-4">
         <div className="flex items-center justify-between pb-3 border-b border-slate-200">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+          <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
             Active Compliance Holds &amp; Service Restrictions
           </h3>
-          <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800">
+          <span className="text-xs font-mono font-light px-2 py-0.5 rounded bg-rose-100 text-rose-800">
             {activeHolds.length} Active
           </span>
         </div>
@@ -94,13 +94,13 @@ export default async function ComplianceControlCentrePage() {
               <tbody className="divide-y divide-slate-100">
                 {activeHolds.map((h) => (
                   <tr key={h.id} className="hover:bg-slate-50/50">
-                    <td className="py-3 px-3 font-bold text-slate-900">{h.supplier_id}</td>
+                    <td className="py-3 px-3 font-light text-slate-900">{h.supplier_id}</td>
                     <td className="py-3 px-3">
-                      <span className="inline-block text-[10px] px-1.5 py-0.5 rounded bg-slate-900 text-white font-bold">
+                      <span className="inline-block text-[10px] px-1.5 py-0.5 rounded bg-slate-900 text-white font-light">
                         {h.hold_scope}
                       </span>
                     </td>
-                    <td className="py-3 px-3 text-rose-700 font-semibold">{h.hold_reason}</td>
+                    <td className="py-3 px-3 text-rose-700 font-light">{h.hold_reason}</td>
                     <td className="py-3 px-3 text-slate-600">{h.raised_by}</td>
                     <td className="py-3 px-3 text-slate-700 font-sans max-w-sm">{h.resolution_required}</td>
                     <td className="py-3 px-3 text-right">

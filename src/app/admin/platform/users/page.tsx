@@ -74,7 +74,7 @@ export default async function PlatformUsersPage({
           <Link
             key={tab.value}
             href={tab.value ? `/admin/platform/users?type=${tab.value}` : '/admin/platform/users'}
-            className={`rounded px-3.5 py-1.5 text-[12.5px] font-medium transition-colors border ${
+            className={`rounded px-3.5 py-1.5 text-[12.5px] font-normal transition-colors border ${
               (type || '') === tab.value
                 ? 'bg-brand-electric text-white border-brand-electric'
                 : 'border-brand-edge-dark bg-brand-carbon/60 text-brand-mist/70 hover:bg-brand-void hover:text-white'
@@ -123,7 +123,7 @@ export default async function PlatformUsersPage({
 
                 return (
                   <tr key={u.id} className="hover:bg-brand-void/30 transition-colors text-brand-mist">
-                    <td className="px-6 py-3.5 font-medium text-white">
+                    <td className="px-6 py-3.5 font-normal text-white">
                       {person ? `${person.first_name || ''} ${person.last_name || ''}`.trim() || '—' : '—'}
                     </td>
                     <td className="px-6 py-3.5 font-mono text-[12px]">{u.email}</td>

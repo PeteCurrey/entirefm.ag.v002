@@ -17,13 +17,13 @@ export default function SupplierPortalOnboardingPage() {
               <span className="text-[10.5px] font-mono uppercase tracking-widest text-slate-400">
                 ENTIRECAFM // ASSURANCE &amp; QUALIFICATION PORTAL
               </span>
-              <h1 className="text-2xl font-bold text-slate-900 mt-1">
+              <h1 className="text-2xl font-extralight text-slate-900 mt-1">
                 Supplier Onboarding &amp; Compliance Hub
               </h1>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-xs font-mono font-bold px-3 py-1 bg-amber-100 text-amber-900 rounded-sm">
+              <span className="text-xs font-mono font-light px-3 py-1 bg-amber-100 text-amber-900 rounded-sm">
                 STATUS: UNDER DUE DILIGENCE
               </span>
             </div>
@@ -32,8 +32,8 @@ export default function SupplierPortalOnboardingPage() {
           {/* Progress Banner */}
           <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono font-bold text-slate-700">ASSURANCE PROGRESS</span>
-              <span className="text-sm font-mono font-bold text-slate-900">75% COMPLETE</span>
+              <span className="text-xs font-mono font-light text-slate-700">ASSURANCE PROGRESS</span>
+              <span className="text-sm font-mono font-light text-slate-900">75% COMPLETE</span>
             </div>
             <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
               <div className="bg-emerald-500 h-full w-3/4" />
@@ -45,7 +45,7 @@ export default function SupplierPortalOnboardingPage() {
 
           {/* Onboarding Requirement Steps */}
           <div className="space-y-4">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+            <h2 className="text-sm font-normal uppercase tracking-wider text-slate-900">
               Required Compliance Submissions
             </h2>
 
@@ -55,11 +55,11 @@ export default function SupplierPortalOnboardingPage() {
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-bold text-slate-900 text-sm">Public &amp; Products Liability Insurance (£5,000,000)</div>
+                    <div className="font-light text-slate-900 text-sm">Public &amp; Products Liability Insurance (£5,000,000)</div>
                     <span className="text-xs text-slate-500 font-mono">Policy Verified &middot; Expires 2027-01-01</span>
                   </div>
                 </div>
-                <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded">
+                <span className="text-xs font-mono font-light text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded">
                   ACCEPTED
                 </span>
               </div>
@@ -69,11 +69,11 @@ export default function SupplierPortalOnboardingPage() {
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-bold text-slate-900 text-sm">Employers Liability Insurance (£10,000,000)</div>
+                    <div className="font-light text-slate-900 text-sm">Employers Liability Insurance (£10,000,000)</div>
                     <span className="text-xs text-slate-500 font-mono">Certificate Verified &middot; Expires 2027-01-01</span>
                   </div>
                 </div>
-                <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded">
+                <span className="text-xs font-mono font-light text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded">
                   ACCEPTED
                 </span>
               </div>
@@ -83,11 +83,11 @@ export default function SupplierPortalOnboardingPage() {
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-bold text-slate-900 text-sm">F-Gas Company Registration (REFCOM)</div>
+                    <div className="font-light text-slate-900 text-sm">F-Gas Company Registration (REFCOM)</div>
                     <span className="text-xs text-slate-500 font-mono">Verified REFCOM Elite Certificate</span>
                   </div>
                 </div>
-                <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded">
+                <span className="text-xs font-mono font-light text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded">
                   ACCEPTED
                 </span>
               </div>
@@ -97,11 +97,11 @@ export default function SupplierPortalOnboardingPage() {
                 <div className="flex items-start gap-3">
                   <AlertCircle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-bold text-slate-900 text-sm">Health &amp; Safety Policy &amp; Competent Person Confirmation</div>
+                    <div className="font-light text-slate-900 text-sm">Health &amp; Safety Policy &amp; Competent Person Confirmation</div>
                     <span className="text-xs text-slate-500 font-mono">Uploaded 2026-01-14 &middot; Awaiting Compliance Team Review</span>
                   </div>
                 </div>
-                <span className="text-xs font-mono font-bold text-amber-800 bg-amber-100 px-2.5 py-1 rounded">
+                <span className="text-xs font-mono font-light text-amber-800 bg-amber-100 px-2.5 py-1 rounded">
                   UNDER REVIEW
                 </span>
               </div>
@@ -111,7 +111,7 @@ export default function SupplierPortalOnboardingPage() {
                 <div className="flex items-start gap-3">
                   <Upload className="h-5 w-5 text-slate-400 shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-bold text-slate-900 text-sm">Site-Specific RAMS Sample (Representative HVAC Task)</div>
+                    <div className="font-light text-slate-900 text-sm">Site-Specific RAMS Sample (Representative HVAC Task)</div>
                     <span className="text-xs text-slate-500 font-mono">Please upload task-specific Risk Assessment &amp; Method Statement</span>
                   </div>
                 </div>

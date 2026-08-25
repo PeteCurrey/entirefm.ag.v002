@@ -78,7 +78,7 @@ export function GeoEditorialStory({
                 <span className="eyebrow eyebrow-dark mb-2 block text-brand-pink-light">
                   {city.toUpperCase()} // REGIONAL COVERAGE
                 </span>
-                <p className="text-lg font-bold leading-snug tracking-tight text-white">
+                <p className="text-lg font-light leading-snug tracking-tight text-white">
                   Engineering-led facilities delivery across {region || `${city} and conurbation`}
                 </p>
                 <div className="mt-4 flex items-center gap-2 text-xs text-brand-mist/80 font-mono">
@@ -91,7 +91,7 @@ export function GeoEditorialStory({
             {/* Local Property Stock Mini-Pills */}
             {propertyStock && propertyStock.length > 0 && (
               <div className="mt-6 p-6 rounded-sm bg-brand-surface border border-brand-edge space-y-3" data-reveal>
-                <p className="text-xs font-bold uppercase tracking-wider text-brand-graphite">
+                <p className="text-xs font-normal uppercase tracking-wider text-brand-graphite">
                   Common Property Types Maintained in {city}:
                 </p>
                 <ul className="space-y-2 text-xs text-brand-silver">
@@ -114,11 +114,11 @@ export function GeoEditorialStory({
                 className="group relative rounded-sm border border-brand-edge bg-brand-surface p-6 sm:p-7 transition-all duration-300 ease-brand hover:border-brand-electric/40 hover:bg-white hover:shadow-sm"
               >
                 <div className="flex items-start gap-4 sm:gap-5">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-brand-edge bg-white font-mono text-xs font-bold text-brand-graphite transition-colors duration-300 group-hover:border-brand-pink/40 group-hover:bg-brand-pink/10 group-hover:text-brand-pink">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-brand-edge bg-white font-mono text-xs font-normal text-brand-graphite transition-colors duration-300 group-hover:border-brand-pink/40 group-hover:bg-brand-pink/10 group-hover:text-brand-pink">
                     0{idx + 1}
                   </span>
                   <div className="space-y-2 flex-1">
-                    <h3 className="text-base sm:text-lg font-bold text-brand-graphite transition-colors group-hover:text-brand-graphite">
+                    <h3 className="text-base sm:text-lg font-light text-brand-graphite transition-colors group-hover:text-brand-graphite">
                       {item.title}
                     </h3>
                     <p className="text-xs sm:text-[13.5px] leading-relaxed text-brand-silver">

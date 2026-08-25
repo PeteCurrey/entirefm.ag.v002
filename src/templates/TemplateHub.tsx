@@ -356,7 +356,7 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                 <div className="max-w-3xl">
                   <div className="inline-flex items-center gap-2 mb-2.5">
                     <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                       REGIONAL OPERATING HUBS
                     </span>
                   </div>
@@ -383,10 +383,10 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                         >
                           <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                              <h4 className="text-xl font-bold text-slate-900 group-hover:text-brand-pink transition-colors">
+                              <h4 className="text-xl font-light text-slate-900 group-hover:text-brand-pink transition-colors">
                                 {city.name}
                               </h4>
-                              <span className="text-[11px] font-mono font-bold uppercase text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-sm">
+                              <span className="text-[11px] font-mono font-light uppercase text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-sm">
                                 Active Hub
                               </span>
                             </div>
@@ -396,7 +396,7 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                           </div>
 
                           <div className="mt-6 pt-5 border-t border-slate-200 space-y-2">
-                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block">
+                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-light block">
                               Key Landing Pages:
                             </span>
                             <div className="flex flex-wrap gap-1.5">
@@ -404,7 +404,7 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                                 <Link
                                   key={routeIdx}
                                   href={r.path}
-                                  className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-sm bg-white border border-slate-200 text-slate-800 hover:border-brand-pink hover:text-brand-pink transition-colors shadow-2xs"
+                                  className="inline-flex items-center gap-1 text-xs font-normal px-2.5 py-1 rounded-sm bg-white border border-slate-200 text-slate-800 hover:border-brand-pink hover:text-brand-pink transition-colors shadow-2xs"
                                 >
                                   <span>{r.label}</span>
                                   <ChevronRight className="w-3 h-3 text-slate-400" />
@@ -463,18 +463,18 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                     >
                       <div>
                         {item.category && (
-                          <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink font-semibold block mb-2">
+                          <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink font-light block mb-2">
                             {item.category}
                           </span>
                         )}
-                        <h3 className="text-xl font-bold text-brand-graphite group-hover:text-brand-pink transition-colors">
+                        <h3 className="text-xl font-light text-brand-graphite group-hover:text-brand-pink transition-colors">
                           {item.title}
                         </h3>
                         <p className="mt-3 text-sm text-slate-600 leading-relaxed">
                           {item.description}
                         </p>
                       </div>
-                      <div className="pt-6 mt-6 border-t border-brand-edge/60 flex items-center justify-between text-xs font-bold text-brand-graphite group-hover:text-brand-pink">
+                      <div className="pt-6 mt-6 border-t border-brand-edge/60 flex items-center justify-between text-xs font-normal text-brand-graphite group-hover:text-brand-pink">
                         <span>Explore</span>
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-brand-pink" />
                       </div>

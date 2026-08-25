@@ -52,7 +52,7 @@ export default async function SupplierInvoiceDetailPage({
       <div className="flex flex-wrap items-start justify-between gap-4 border-b border-brand-edge-dark pb-6">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold font-mono text-white tracking-tight">
+            <h1 className="text-2xl font-extralight font-mono text-white tracking-tight">
               {invoice.invoice_ref}
             </h1>
             <span className="px-2.5 py-0.5 rounded text-xs font-mono bg-brand-edge-dark text-white border border-brand-edge-dark">
@@ -71,15 +71,15 @@ export default async function SupplierInvoiceDetailPage({
         <div className="flex items-center gap-6 bg-brand-carbon/60 border border-brand-edge-dark p-4 rounded-xl font-mono text-right">
           <div>
             <div className="text-[10.5px] uppercase text-brand-mist/60">Net</div>
-            <div className="text-sm font-bold text-white">£{(Number(invoice.subtotal_gbp) || 0).toFixed(2)}</div>
+            <div className="text-sm font-normal text-white">£{(Number(invoice.subtotal_gbp) || 0).toFixed(2)}</div>
           </div>
           <div>
             <div className="text-[10.5px] uppercase text-brand-mist/60">VAT (20%)</div>
-            <div className="text-sm font-bold text-white">£{(Number(invoice.tax_amount_gbp) || 0).toFixed(2)}</div>
+            <div className="text-sm font-normal text-white">£{(Number(invoice.tax_amount_gbp) || 0).toFixed(2)}</div>
           </div>
           <div className="border-l border-brand-edge-dark pl-6">
             <div className="text-[10.5px] uppercase text-brand-mist/60">Total Gross</div>
-            <div className="text-xl font-bold text-brand-electric">£{(Number(invoice.total_amount_gbp) || 0).toFixed(2)}</div>
+            <div className="text-xl font-light text-brand-electric">£{(Number(invoice.total_amount_gbp) || 0).toFixed(2)}</div>
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@ export default async function SupplierInvoiceDetailPage({
       {/* BANK ALERT BANNER */}
       {invoice.bank_details_change_alert && (
         <div className="p-4 rounded-xl border border-red-800 bg-red-950/40 text-red-300 space-y-2">
-          <div className="flex items-center gap-2 font-bold text-sm">
+          <div className="flex items-center gap-2 font-normal text-sm">
             <ShieldAlert className="h-5 w-5 text-red-400" />
             CRITICAL: BANK DETAIL CHANGE ALERT
           </div>
@@ -101,7 +101,7 @@ export default async function SupplierInvoiceDetailPage({
       {/* DUPLICATE BANNER */}
       {invoice.duplicate_of_invoice_id && (
         <div className="p-4 rounded-xl border border-amber-800 bg-amber-950/40 text-amber-300 space-y-1">
-          <div className="flex items-center gap-2 font-bold text-sm">
+          <div className="flex items-center gap-2 font-normal text-sm">
             <AlertTriangle className="h-5 w-5 text-amber-400" />
             POSSIBLE DUPLICATE DETECTED
           </div>
@@ -116,7 +116,7 @@ export default async function SupplierInvoiceDetailPage({
         {/* LEFT: SUPPLIER INVOICE DATA */}
         <div className="space-y-4 bg-brand-carbon/40 border border-brand-edge-dark p-5 rounded-xl">
           <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-white font-mono flex items-center gap-2">
+            <h2 className="text-sm font-normal uppercase tracking-wider text-white font-mono flex items-center gap-2">
               <Receipt className="h-4 w-4 text-brand-electric" /> Supplier Invoice Document
             </h2>
             <span className="text-xs font-mono text-brand-mist/60">
@@ -127,7 +127,7 @@ export default async function SupplierInvoiceDetailPage({
           <div className="space-y-2 text-xs font-mono">
             <div className="flex justify-between py-1 border-b border-brand-edge-dark/40">
               <span className="text-brand-mist/60">Invoice Ref:</span>
-              <span className="text-white font-bold">{invoice.invoice_ref}</span>
+              <span className="text-white font-light">{invoice.invoice_ref}</span>
             </div>
             <div className="flex justify-between py-1 border-b border-brand-edge-dark/40">
               <span className="text-brand-mist/60">Issue Date:</span>
@@ -149,7 +149,7 @@ export default async function SupplierInvoiceDetailPage({
             <div className="space-y-2">
               {lines.map((l: any, i: number) => (
                 <div key={l.id || i} className="p-3 bg-brand-void/60 border border-brand-edge-dark/60 rounded-lg text-xs font-mono space-y-1">
-                  <div className="flex justify-between text-white font-semibold">
+                  <div className="flex justify-between text-white font-light">
                     <span>{l.description}</span>
                     <span className="text-brand-electric">£{(Number(l.total_amount_gbp) || 0).toFixed(2)}</span>
                   </div>
@@ -168,7 +168,7 @@ export default async function SupplierInvoiceDetailPage({
         {/* RIGHT: ENTIREFM RECORD (PO / CAFM) */}
         <div className="space-y-4 bg-brand-carbon/40 border border-brand-edge-dark p-5 rounded-xl">
           <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-white font-mono flex items-center gap-2">
+            <h2 className="text-sm font-normal uppercase tracking-wider text-white font-mono flex items-center gap-2">
               <FileText className="h-4 w-4 text-emerald-400" /> Authorised PO & CAFM Record
             </h2>
             <span className="text-xs font-mono text-emerald-400">
@@ -180,11 +180,11 @@ export default async function SupplierInvoiceDetailPage({
             <div className="space-y-2 text-xs font-mono">
               <div className="flex justify-between py-1 border-b border-brand-edge-dark/40">
                 <span className="text-brand-mist/60">PO Reference:</span>
-                <span className="text-white font-bold">{po.po_number || po.id.slice(0, 8)}</span>
+                <span className="text-white font-light">{po.po_number || po.id.slice(0, 8)}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-brand-edge-dark/40">
                 <span className="text-brand-mist/60">PO Status:</span>
-                <span className="text-emerald-400 font-bold">{po.status}</span>
+                <span className="text-emerald-400 font-light">{po.status}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-brand-edge-dark/40">
                 <span className="text-brand-mist/60">Authorised Net:</span>
@@ -192,7 +192,7 @@ export default async function SupplierInvoiceDetailPage({
               </div>
               <div className="flex justify-between py-1 border-b border-brand-edge-dark/40">
                 <span className="text-brand-mist/60">Variance vs Invoice:</span>
-                <span className={`font-bold ${(Number(invoice.variance_amount_gbp) || 0) > 0 ? 'text-amber-400' : 'text-emerald-400'}`}>
+                <span className={`font-light ${(Number(invoice.variance_amount_gbp) || 0) > 0 ? 'text-amber-400' : 'text-emerald-400'}`}>
                   £{(Number(invoice.variance_amount_gbp) || 0).toFixed(2)}
                 </span>
               </div>

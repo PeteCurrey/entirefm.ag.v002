@@ -48,10 +48,10 @@ export default async function DiagnosticsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             TRACKING QA · ERROR MONITORING · FRESHNESS
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Tracking Diagnostics &amp; Health</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Tracking Diagnostics &amp; Health</h1>
           <p className="text-sm text-zinc-400">
             System diagnostics verifying form reliability, attribution integrity, and API connection status.
           </p>
@@ -66,7 +66,7 @@ export default async function DiagnosticsPage() {
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Diagnostic Health Checks ({checks.length})
           </h3>
           <span className="text-xs text-zinc-500 font-mono">Real-Time Verification</span>
@@ -76,11 +76,11 @@ export default async function DiagnosticsPage() {
           {checks.map((c, idx) => (
             <div key={idx} className="p-4 flex items-center justify-between gap-4">
               <div>
-                <h4 className="text-sm font-bold text-white">{c.name}</h4>
+                <h4 className="text-sm font-normal text-white">{c.name}</h4>
                 <p className="text-xs text-zinc-400 mt-0.5">{c.detail}</p>
               </div>
               <span
-                className={`text-[10px] font-mono uppercase px-2.5 py-1 rounded font-bold border ${
+                className={`text-[10px] font-mono uppercase px-2.5 py-1 rounded font-light border ${
                   c.status === 'PASS'
                     ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40'
                     : 'bg-amber-950/60 text-amber-300 border-amber-800/40'

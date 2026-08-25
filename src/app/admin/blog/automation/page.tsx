@@ -19,7 +19,7 @@ export default function AutomationPage() {
     <main className="p-6 max-w-4xl mx-auto space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Automation Settings</h1>
+          <h1 className="text-2xl font-extralight text-white">Automation Settings</h1>
           <p className="text-sm text-zinc-400 mt-1">Editorial automation controls, kill switches, and quality gates</p>
         </div>
         <Link href="/admin/blog/automation/jobs" className="text-sm text-blue-400 hover:text-blue-300">View job log →</Link>
@@ -31,7 +31,7 @@ export default function AutomationPage() {
           <div className="flex items-center gap-3">
             <span className="text-2xl">🚨</span>
             <div>
-              <h3 className="text-sm font-bold text-red-300">EMERGENCY HOLD ACTIVE</h3>
+              <h3 className="text-sm font-normal text-red-300">EMERGENCY HOLD ACTIVE</h3>
               <p className="text-xs text-red-400 mt-0.5">All automated publication actions are suspended. Manual publishing still available.</p>
             </div>
           </div>
@@ -40,7 +40,7 @@ export default function AutomationPage() {
 
       {/* Control Panel */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-5">
-        <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">Master Controls</h2>
+        <h2 className="text-sm font-normal text-zinc-300 uppercase tracking-wider">Master Controls</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
@@ -54,7 +54,7 @@ export default function AutomationPage() {
               ctrl.danger ? 'border-red-800/40 bg-red-950/20' : 'border-zinc-700 bg-zinc-800/50'
             }`}>
               <div>
-                <div className={`text-sm font-medium ${ctrl.danger ? 'text-red-300' : 'text-white'}`}>{ctrl.label}</div>
+                <div className={`text-sm font-normal ${ctrl.danger ? 'text-red-300' : 'text-white'}`}>{ctrl.label}</div>
                 <div className="text-xs text-zinc-500 mt-0.5">{ctrl.desc}</div>
               </div>
               <div className={`shrink-0 w-10 h-5 rounded-full mt-0.5 transition-colors ${
@@ -67,19 +67,19 @@ export default function AutomationPage() {
 
       {/* Publication Rules */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
-        <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">Publication Rules</h2>
+        <h2 className="text-sm font-normal text-zinc-300 uppercase tracking-wider">Publication Rules</h2>
         <div className="grid grid-cols-3 gap-4 text-sm">
           <div className="bg-zinc-800/50 rounded-lg p-3">
             <div className="text-xs text-zinc-500">Min posts / week</div>
-            <div className="text-xl font-bold text-white mt-1">{s.minPostsPerWeek}</div>
+            <div className="text-xl font-light text-white mt-1">{s.minPostsPerWeek}</div>
           </div>
           <div className="bg-zinc-800/50 rounded-lg p-3">
             <div className="text-xs text-zinc-500">Target posts / week</div>
-            <div className="text-xl font-bold text-blue-400 mt-1">{s.targetPostsPerWeek}</div>
+            <div className="text-xl font-light text-blue-400 mt-1">{s.targetPostsPerWeek}</div>
           </div>
           <div className="bg-zinc-800/50 rounded-lg p-3">
             <div className="text-xs text-zinc-500">Preferred time</div>
-            <div className="text-xl font-bold text-white mt-1">{s.preferredPublishTimes?.[0] || '09:00'}</div>
+            <div className="text-xl font-light text-white mt-1">{s.preferredPublishTimes?.[0] || '09:00'}</div>
           </div>
         </div>
         <div className="text-xs text-zinc-500">
@@ -93,7 +93,7 @@ export default function AutomationPage() {
       {/* Recent Jobs */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">Recent Automation Jobs</h2>
+          <h2 className="text-sm font-normal text-zinc-300 uppercase tracking-wider">Recent Automation Jobs</h2>
           <Link href="/admin/blog/automation/jobs" className="text-xs text-blue-400 hover:text-blue-300">Full log →</Link>
         </div>
         {jobs.length === 0 && <p className="text-sm text-zinc-500">No jobs run yet.</p>}
@@ -104,7 +104,7 @@ export default function AutomationPage() {
                 <div className="text-xs text-white">{job.jobType} · Topic: <span className="text-zinc-400">{job.topicId}</span></div>
                 <div className="text-xs text-zinc-600">{new Date(job.createdAt).toLocaleString('en-GB')}</div>
               </div>
-              <span className={`text-xs font-medium ${jobStatus(job.status)}`}>{job.status}</span>
+              <span className={`text-xs font-normal ${jobStatus(job.status)}`}>{job.status}</span>
             </div>
           ))}
         </div>

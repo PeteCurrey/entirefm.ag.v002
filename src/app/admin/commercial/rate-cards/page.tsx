@@ -20,7 +20,7 @@ export default async function RateCardsPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/admin/commercial/policies"
-              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-medium text-brand-mist/80 border border-brand-edge-dark hover:text-white"
+              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-normal text-brand-mist/80 border border-brand-edge-dark hover:text-white"
             >
               Commercial Policies →
             </Link>
@@ -32,25 +32,25 @@ export default async function RateCardsPage() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/30 p-4">
           <div className="font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">Tier 1: Contract-Specific</div>
-          <div className="mt-1 font-mono text-[14px] font-semibold text-brand-electric-bright">Overrides all rates</div>
+          <div className="mt-1 font-mono text-[14px] font-normal text-brand-electric-bright">Overrides all rates</div>
           <p className="mt-1 text-[11px] text-brand-mist/50">Bound to specific client contracts</p>
         </div>
 
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/30 p-4">
           <div className="font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">Tier 2: Client Standard</div>
-          <div className="mt-1 font-mono text-[14px] font-semibold text-white">Client-wide agreement</div>
+          <div className="mt-1 font-mono text-[14px] font-normal text-white">Client-wide agreement</div>
           <p className="mt-1 text-[11px] text-brand-mist/50">Applies across all client estates</p>
         </div>
 
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/30 p-4">
           <div className="font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">Tier 3: Provider Agreed</div>
-          <div className="mt-1 font-mono text-[14px] font-semibold text-white">Subcontractor rates</div>
+          <div className="mt-1 font-mono text-[14px] font-normal text-white">Subcontractor rates</div>
           <p className="mt-1 text-[11px] text-brand-mist/50">Pre-negotiated supplier prices</p>
         </div>
 
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/30 p-4">
           <div className="font-mono text-[10.5px] uppercase tracking-wider text-brand-mist/40">Tier 4: Framework Default</div>
-          <div className="mt-1 font-mono text-[14px] font-semibold text-emerald-400">Baseline fall-back</div>
+          <div className="mt-1 font-mono text-[14px] font-normal text-emerald-400">Baseline fall-back</div>
           <p className="mt-1 text-[11px] text-brand-mist/50">Default standard EntireFM schedule</p>
         </div>
       </div>
@@ -80,7 +80,7 @@ export default async function RateCardsPage() {
                   const cardItems = (items || []).filter((i) => i.rate_card_id === rc.id);
                   return (
                     <tr key={rc.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                      <td className="px-5 py-4 font-mono text-[12px] text-white font-medium">
+                      <td className="px-5 py-4 font-mono text-[12px] text-white font-normal">
                         {rc.name}
                       </td>
                       <td className="px-5 py-4 font-mono text-[11px]">

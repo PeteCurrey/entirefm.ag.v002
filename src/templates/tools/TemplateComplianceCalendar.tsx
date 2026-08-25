@@ -250,12 +250,12 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
                 <div className="flex items-center gap-2">
                   <Filter className="w-4 h-4 text-brand-electric" />
-                  <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+                  <h3 className="text-sm font-normal text-slate-900 uppercase tracking-wider">
                     Filter Active Building Systems
                   </h3>
                 </div>
                 <div className="flex items-center gap-3 text-xs">
-                  <button type="button" onClick={selectAll} className="text-brand-electric hover:underline font-bold">
+                  <button type="button" onClick={selectAll} className="text-brand-electric hover:underline font-light">
                     Select All
                   </button>
                   <span className="text-slate-300">|</span>
@@ -275,7 +275,7 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                       onClick={() => toggleSystem(sys)}
                       className={`flex items-center gap-2 p-2.5 rounded-sm border text-xs text-left transition-all ${
                         active
-                          ? 'border-brand-electric bg-blue-50/70 text-slate-900 font-bold ring-1 ring-brand-electric shadow-2xs'
+                          ? 'border-brand-electric bg-blue-50/70 text-slate-900 font-light ring-1 ring-brand-electric shadow-2xs'
                           : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300 hover:bg-slate-100'
                       }`}
                     >
@@ -304,7 +304,7 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                       key={name}
                       type="button"
                       onClick={() => setActiveMonth(mNum)}
-                      className={`px-3 py-1.5 font-bold whitespace-nowrap rounded-t-sm transition-all ${
+                      className={`px-3 py-1.5 font-light whitespace-nowrap rounded-t-sm transition-all ${
                         isCurrent
                           ? 'bg-white border-t-2 border-brand-electric text-brand-electric shadow-2xs'
                           : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
@@ -322,7 +322,7 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                   type="button"
                   onClick={() => setViewMode('calendar')}
                   className={`px-3 py-1.5 rounded-xs flex items-center gap-1.5 font-medium transition-colors ${
-                    viewMode === 'calendar' ? 'bg-brand-graphite text-white font-bold' : 'text-slate-600 hover:text-slate-900'
+                    viewMode === 'calendar' ? 'bg-brand-graphite text-white font-light' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   <CalendarCheck className="w-3.5 h-3.5" /> Month Focus
@@ -331,7 +331,7 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                   type="button"
                   onClick={() => setViewMode('programme')}
                   className={`px-3 py-1.5 rounded-xs flex items-center gap-1.5 font-medium transition-colors ${
-                    viewMode === 'programme' ? 'bg-brand-graphite text-white font-bold' : 'text-slate-600 hover:text-slate-900'
+                    viewMode === 'programme' ? 'bg-brand-graphite text-white font-light' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   <LayoutGrid className="w-3.5 h-3.5" /> 12-Month Grid
@@ -340,7 +340,7 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                   type="button"
                   onClick={() => setViewMode('list')}
                   className={`px-3 py-1.5 rounded-xs flex items-center gap-1.5 font-medium transition-colors ${
-                    viewMode === 'list' ? 'bg-brand-graphite text-white font-bold' : 'text-slate-600 hover:text-slate-900'
+                    viewMode === 'list' ? 'bg-brand-graphite text-white font-light' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   <List className="w-3.5 h-3.5" /> Full Matrix
@@ -353,14 +353,14 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
               <div className="bg-white border border-slate-200 p-6 sm:p-8 rounded-sm shadow-sm space-y-5">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                   <div>
-                    <span className="text-[11px] font-mono text-slate-500 uppercase tracking-widest font-bold">
+                    <span className="text-[11px] font-mono text-slate-500 uppercase tracking-widest font-light">
                       Scheduled Testing
                     </span>
-                    <h3 className="text-xl font-bold text-slate-900 mt-0.5">
+                    <h3 className="text-xl font-light text-slate-900 mt-0.5">
                       {MONTH_NAMES[activeMonth - 1]} 2026 — Statutory Milestones
                     </h3>
                   </div>
-                  <span className="text-xs font-mono font-bold text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                  <span className="text-xs font-mono font-light text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
                     {monthEvents.length} Active Obligations
                   </span>
                 </div>
@@ -370,18 +370,18 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                     <div key={evt.id} className="py-4 flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                       <div className="space-y-1.5 min-w-0">
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-slate-900 text-sm">{evt.title}</span>
-                          <span className="px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-700 font-mono text-[10px] font-bold uppercase rounded-sm">
+                          <span className="font-light text-slate-900 text-sm">{evt.title}</span>
+                          <span className="px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-700 font-mono text-[10px] font-normal uppercase rounded-sm">
                             {evt.frequency}
                           </span>
                         </div>
                         <p className="text-slate-600 leading-snug">{evt.rationale}</p>
                         <div className="text-[11.5px] font-mono text-slate-500 flex flex-wrap items-center gap-x-3 gap-y-1 pt-0.5">
-                          <span className="text-brand-electric font-semibold">{evt.system}</span>
+                          <span className="text-brand-electric font-light">{evt.system}</span>
                           <span>·</span>
                           <span>{evt.legislation}</span>
                           <span>·</span>
-                          <span className="text-slate-700 font-semibold">{evt.dutyHolder}</span>
+                          <span className="text-slate-700 font-light">{evt.dutyHolder}</span>
                         </div>
                       </div>
                     </div>
@@ -402,13 +402,13 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                   return (
                     <div key={name} className="p-5 bg-white border border-slate-200 rounded-sm shadow-sm space-y-3">
                       <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="font-mono text-sm font-bold text-slate-900">{name}</span>
-                        <span className="text-[11px] font-mono font-bold text-brand-electric bg-blue-50 px-2 py-0.5 rounded-sm border border-blue-100">{events.length} Tasks</span>
+                        <span className="font-mono text-sm font-normal text-slate-900">{name}</span>
+                        <span className="text-[11px] font-mono font-light text-brand-electric bg-blue-50 px-2 py-0.5 rounded-sm border border-blue-100">{events.length} Tasks</span>
                       </div>
                       <div className="space-y-2 max-h-48 overflow-y-auto pr-1 scrollbar-thin">
                         {events.map((e) => (
                           <div key={e.id} className="p-2 rounded-xs bg-slate-50 border border-slate-100 space-y-0.5">
-                            <span className="font-bold text-slate-900 block">{e.title}</span>
+                            <span className="font-light text-slate-900 block">{e.title}</span>
                             <span className="text-slate-500 block text-[10.5px]">{e.frequency} · {e.legislation}</span>
                           </div>
                         ))}
@@ -424,7 +424,7 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
               <div className="bg-white border border-slate-200 rounded-sm shadow-sm overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="bg-slate-50 text-slate-700 font-bold uppercase tracking-wider text-[10.5px] border-b border-slate-200">
+                    <tr className="bg-slate-50 text-slate-700 font-light uppercase tracking-wider text-[10.5px] border-b border-slate-200">
                       <th className="p-3.5">Discipline</th>
                       <th className="p-3.5">Compliance Milestone</th>
                       <th className="p-3.5 text-center">Frequency</th>
@@ -435,11 +435,11 @@ export function TemplateComplianceCalendar({ route, content }: TemplateProps) {
                   <tbody className="divide-y divide-slate-100 text-slate-700">
                     {activeEvents.map((evt) => (
                       <tr key={evt.id} className="hover:bg-slate-50/80 transition-colors">
-                        <td className="p-3.5 font-bold text-slate-900 whitespace-nowrap">{evt.system}</td>
-                        <td className="p-3.5 font-medium text-slate-800">{evt.title}</td>
-                        <td className="p-3.5 text-center font-mono font-semibold text-slate-700">{evt.frequency}</td>
+                        <td className="p-3.5 font-light text-slate-900 whitespace-nowrap">{evt.system}</td>
+                        <td className="p-3.5 font-normal text-slate-800">{evt.title}</td>
+                        <td className="p-3.5 text-center font-mono font-light text-slate-700">{evt.frequency}</td>
                         <td className="p-3.5 font-mono text-[11px] text-slate-500">{evt.legislation}</td>
-                        <td className="p-3.5 text-slate-600 font-medium">{evt.dutyHolder}</td>
+                        <td className="p-3.5 text-slate-600 font-normal">{evt.dutyHolder}</td>
                       </tr>
                     ))}
                   </tbody>

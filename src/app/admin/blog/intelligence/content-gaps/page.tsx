@@ -11,7 +11,7 @@ export default function ContentGapsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Competitor &amp; Industry Topic Gaps</h1>
+          <h1 className="text-2xl font-extralight text-white">Competitor &amp; Industry Topic Gaps</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Tracking public FM competitor footprints for genuine topic opportunities (No rewriting / zero copycatting)
           </p>
@@ -29,7 +29,7 @@ export default function ContentGapsPage() {
           <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-sm font-semibold text-white">{gap.topic}</h3>
+                <h3 className="text-sm font-normal text-white">{gap.topic}</h3>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-xs text-zinc-500">
                     Competitors Covering: <strong className="text-zinc-300">{gap.competitorsCovering.join(', ')}</strong>

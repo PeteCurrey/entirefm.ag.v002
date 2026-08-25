@@ -20,7 +20,7 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
     if (changePct === null) return null;
     return (
       <span
-        className={`inline-flex items-center gap-0.5 text-[10.5px] font-mono font-semibold ${
+        className={`inline-flex items-center gap-0.5 text-[10.5px] font-mono font-light ${
           trend === 'up' ? 'text-[#15803D]' : trend === 'down' ? 'text-[#DC2626]' : 'text-[#686866]'
         }`}
       >
@@ -39,7 +39,7 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
             <BarChart3 className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+            <h2 className="text-[12px] font-normal text-[#111111] uppercase tracking-wide">
               Website &amp; Conversion Analytics
             </h2>
             <p className="text-[11px] text-[#6D6D68]">
@@ -50,7 +50,7 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
 
         <Link
           href="/admin/analytics"
-          className="text-[11.5px] font-medium text-[#EA580C] hover:underline inline-flex items-center gap-1 transition-colors"
+          className="text-[11.5px] font-normal text-[#EA580C] hover:underline inline-flex items-center gap-1 transition-colors"
         >
           <span>Analytics Hub</span>
           <ArrowRight className="h-3 w-3" />
@@ -67,7 +67,7 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
               ? 'GA4 Property ID not connected.'
               : 'Search Console site URL not connected.'}
           </span>
-          <Link href="/admin/analytics?tab=integrations" className="font-bold underline ml-2">
+          <Link href="/admin/analytics?tab=integrations" className="font-light underline ml-2">
             Configure Integration
           </Link>
         </div>
@@ -77,11 +77,11 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
       <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#E4E4E1] bg-[#FBFBFA]">
         {/* Users */}
         <div className="p-4 space-y-1">
-          <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">
+          <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">
             Website Users
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-[#101010]">
+            <span className="text-2xl font-extralight text-[#101010]">
               {integrations.ga4.connected ? kpis.users.current.toLocaleString() : '—'}
             </span>
             {integrations.ga4.connected && renderTrend(kpis.users.changePct, kpis.users.trend)}
@@ -93,11 +93,11 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
 
         {/* Inbound Enquiries */}
         <div className="p-4 space-y-1">
-          <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">
+          <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">
             Inbound Enquiries
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-[#FF3E9D]">
+            <span className="text-2xl font-extralight text-[#FF3E9D]">
               {kpis.enquiries.current.toLocaleString()}
             </span>
             {renderTrend(kpis.enquiries.changePct, kpis.enquiries.trend)}
@@ -109,11 +109,11 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
 
         {/* Conversion Rate */}
         <div className="p-4 space-y-1">
-          <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">
+          <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">
             Conversion Rate
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-[#15803D]">
+            <span className="text-2xl font-extralight text-[#15803D]">
               {kpis.conversionRate.current}%
             </span>
             {renderTrend(kpis.conversionRate.changePct, kpis.conversionRate.trend)}
@@ -125,11 +125,11 @@ export function WebsiteAnalyticsMiniWidget({ analytics }: WebsiteAnalyticsMiniWi
 
         {/* Organic Search Clicks */}
         <div className="p-4 space-y-1">
-          <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">
+          <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">
             Organic Search Clicks
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-[#101010]">
+            <span className="text-2xl font-extralight text-[#101010]">
               {integrations.searchConsole.connected ? kpis.organicClicks.current.toLocaleString() : '—'}
             </span>
             {integrations.searchConsole.connected && renderTrend(kpis.organicClicks.changePct, kpis.organicClicks.trend)}

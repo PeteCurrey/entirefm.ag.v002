@@ -17,10 +17,10 @@ export function MonthlyReportComparison() {
     <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-10">
-        <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#C2410C] mb-2">
+        <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
           THE REPORTING GAP
         </span>
-        <h3 className="text-2xl sm:text-3xl font-semibold text-[#101010] tracking-tight">
+        <h3 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
           Your FM provider says they offer real-time reporting.
         </h3>
         <p className="text-[14.5px] text-[#686866] mt-2 leading-relaxed">
@@ -32,7 +32,7 @@ export function MonthlyReportComparison() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
         {/* LEFT: Traditional FM Reporting (The PDF / Spreadsheet) */}
         <div className="rounded-[12px] border border-[#E4E4E1] bg-[#FBFBFA] p-6 flex flex-col justify-between relative overflow-hidden">
-          <div className="absolute top-0 right-0 rounded-bl-[8px] bg-[#E4E4E1] px-3 py-1 font-mono text-[10px] font-bold text-[#686866]">
+          <div className="absolute top-0 right-0 rounded-bl-[8px] bg-[#E4E4E1] px-3 py-1 font-mono text-[10px] font-normal text-[#686866]">
             TRADITIONAL FM MODEL
           </div>
 
@@ -42,7 +42,7 @@ export function MonthlyReportComparison() {
                 <FileText className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="text-[16px] font-semibold text-[#101010]">
+                <h4 className="text-[16px] font-normal text-[#101010]">
                   June_FM_Performance_Report.pdf
                 </h4>
                 <p className="text-[11.5px] font-mono text-[#9B9B97]">
@@ -82,7 +82,7 @@ export function MonthlyReportComparison() {
 
         {/* RIGHT: EntireCAFM Live Operating Environment */}
         <div className="rounded-[12px] border-2 border-[#EA580C] bg-white p-6 flex flex-col justify-between shadow-[0_8px_28px_rgba(234,88,12,0.08)] relative overflow-hidden">
-          <div className="absolute top-0 right-0 rounded-bl-[8px] bg-[#EA580C] px-3 py-1 font-mono text-[10px] font-bold text-white">
+          <div className="absolute top-0 right-0 rounded-bl-[8px] bg-[#EA580C] px-3 py-1 font-mono text-[10px] font-normal text-white">
             ENTIRECAFM LIVE OPERATING MODEL
           </div>
 
@@ -92,10 +92,10 @@ export function MonthlyReportComparison() {
                 <Activity className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="text-[16px] font-semibold text-[#101010]">
+                <h4 className="text-[16px] font-normal text-[#101010]">
                   Your Live Estate Now
                 </h4>
-                <p className="text-[11.5px] font-mono text-[#059669] font-medium flex items-center gap-1">
+                <p className="text-[11.5px] font-mono text-[#059669] font-normal flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#059669] animate-pulse" />
                   Live Production Telemetry · Continuous
                 </p>
@@ -126,7 +126,7 @@ export function MonthlyReportComparison() {
             </ul>
           </div>
 
-          <div className="mt-8 pt-4 border-t border-[#FED7AA] font-mono text-[11px] text-[#C2410C] font-semibold flex items-center justify-between">
+          <div className="mt-8 pt-4 border-t border-[#FED7AA] font-mono text-[11px] text-[#C2410C] font-light flex items-center justify-between">
             <span>Outcome: Total transparency &amp; audit certainty</span>
             <span className="text-[10px] bg-[#FFF7ED] px-2 py-0.5 rounded border border-[#FED7AA]">98.4% Compliant</span>
           </div>

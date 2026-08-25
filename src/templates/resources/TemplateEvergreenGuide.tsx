@@ -83,7 +83,7 @@ export function TemplateEvergreenGuide({ route, content }: TemplateEvergreenGuid
           <Breadcrumbs items={breadcrumbs} className="mb-6" />
 
           <div className="max-w-4xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-blue-500/10 text-brand-electric-bright border border-blue-500/20 font-mono">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-normal uppercase tracking-wider bg-blue-500/10 text-brand-electric-bright border border-blue-500/20 font-mono">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-electric" />
               {content.eyebrow || 'Practical FM Guide'}
             </div>
@@ -97,21 +97,21 @@ export function TemplateEvergreenGuide({ route, content }: TemplateEvergreenGuid
             </p>
 
             <div className="flex flex-wrap items-center gap-6 text-xs font-mono text-brand-mist/60 pt-6 border-t border-brand-edge-dark">
-              <div className="flex items-center gap-1.5 text-brand-electric-bright font-semibold">
+              <div className="flex items-center gap-1.5 text-brand-electric-bright font-light">
                 <Clock className="h-3.5 w-3.5" />
                 <span>~{readTimeMinutes} min read</span>
               </div>
               <div>
                 <span>Author: </span>
-                <strong className="text-brand-mist font-semibold">EntireFM Technical Team</strong>
+                <strong className="text-brand-mist font-light">EntireFM Technical Team</strong>
               </div>
               <div>
                 <span>Reviewed: </span>
-                <strong className="text-brand-mist font-semibold">August 2026</strong>
+                <strong className="text-brand-mist font-light">August 2026</strong>
               </div>
               <div>
                 <span>Standards: </span>
-                <strong className="text-brand-electric-bright font-semibold">UK Legislation &amp; CIBSE / SFG20</strong>
+                <strong className="text-brand-electric-bright font-light">UK Legislation &amp; CIBSE / SFG20</strong>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@ export function TemplateEvergreenGuide({ route, content }: TemplateEvergreenGuid
                   id={`section-${idx}`}
                   className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 sm:p-8 space-y-4 scroll-mt-28"
                 >
-                  <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight border-b border-brand-edge-dark pb-3">
+                  <h2 className="text-xl sm:text-2xl font-extralight text-white tracking-tight border-b border-brand-edge-dark pb-3">
                     {section.heading}
                   </h2>
                   <div className="text-brand-mist/85 text-sm sm:text-base leading-relaxed space-y-4">
@@ -156,7 +156,7 @@ export function TemplateEvergreenGuide({ route, content }: TemplateEvergreenGuid
               {/* Table of Contents */}
               {sections.length > 0 && (
                 <div className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 space-y-4 shadow-elevated">
-                  <p className="text-[11px] font-mono uppercase tracking-widest text-brand-mist/50 font-bold">
+                  <p className="text-[11px] font-mono uppercase tracking-widest text-brand-mist/50 font-light">
                     IN THIS GUIDE
                   </p>
                   <nav className="space-y-1.5 text-xs">
@@ -168,7 +168,7 @@ export function TemplateEvergreenGuide({ route, content }: TemplateEvergreenGuid
                           href={`#section-${idx}`}
                           className={`block py-1.5 px-2.5 rounded-sm transition-all text-xs ${
                             isActive
-                              ? 'bg-brand-electric/15 text-brand-electric-bright font-semibold border-l-2 border-brand-electric-bright'
+                              ? 'bg-brand-electric/15 text-brand-electric-bright font-light border-l-2 border-brand-electric-bright'
                               : 'text-brand-mist/70 hover:text-white hover:bg-white/[0.03]'
                           }`}
                         >
@@ -182,7 +182,7 @@ export function TemplateEvergreenGuide({ route, content }: TemplateEvergreenGuid
 
               {/* Related Tools & Resources */}
               <div className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 space-y-4">
-                <p className="text-[11px] font-mono uppercase tracking-widest text-brand-mist/50 font-bold">
+                <p className="text-[11px] font-mono uppercase tracking-widest text-brand-mist/50 font-light">
                   INTERACTIVE FM TOOLS
                 </p>
                 <div className="space-y-2 text-xs">
@@ -212,7 +212,7 @@ export function TemplateEvergreenGuide({ route, content }: TemplateEvergreenGuid
                 <div className="pt-4 border-t border-brand-edge-dark">
                   <Link
                     href="/compliance"
-                    className="text-xs font-semibold text-brand-electric-bright hover:underline flex items-center gap-1"
+                    className="text-xs font-normal text-brand-electric-bright hover:underline flex items-center gap-1"
                   >
                     Visit EntireFM Compliance Centre &rarr;
                   </Link>

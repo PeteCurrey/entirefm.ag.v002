@@ -18,11 +18,11 @@ export default async function AssetsPage() {
           <div className="flex items-center gap-3">
             <a
               href="/admin/estate/assets/intelligence"
-              className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-medium text-brand-mist/80 hover:bg-brand-carbon hover:text-white"
+              className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-brand-mist/80 hover:bg-brand-carbon hover:text-white"
             >
               Asset Intelligence & Lifecycle
             </a>
-            <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow hover:bg-brand-indigo">
+            <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white shadow hover:bg-brand-indigo">
               + Register Asset
             </button>
           </div>
@@ -48,13 +48,13 @@ export default async function AssetsPage() {
                     {a.asset_reference}
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-semibold text-white">{a.name}</div>
+                    <div className="font-light text-white">{a.name}</div>
                     <div className="text-[11.5px] text-brand-mist/50">
                       {a.category} · {a.manufacturer || 'OEM'} {a.model_number || ''}
                     </div>
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-medium text-white">{a.site?.name || '—'}</div>
+                    <div className="font-normal text-white">{a.site?.name || '—'}</div>
                     <div className="font-mono text-[11px] text-brand-mist/50">
                       {a.site?.site_code}
                     </div>

@@ -52,7 +52,7 @@ export function ProductFrame({
 
           <div className="flex items-center gap-2">
             {badge && (
-              <span className={`inline-flex items-center gap-1 rounded-[4px] border px-2 py-0.5 font-mono text-[9px] sm:text-[10px] font-bold ${badgeStyles[badgeType]}`}>
+              <span className={`inline-flex items-center gap-1 rounded-[4px] border px-2 py-0.5 font-mono text-[9px] sm:text-[10px] font-normal ${badgeStyles[badgeType]}`}>
                 {badgeType === 'live' && (
                   <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#059669]" />
                 )}
@@ -64,7 +64,7 @@ export function ProductFrame({
               <button
                 type="button"
                 onClick={() => setIsZoomed(true)}
-                className="hidden sm:inline-flex items-center gap-1 rounded-[4px] border border-[#E4E4E1] bg-[#FBFBFA] px-2 py-0.5 font-mono text-[10px] font-medium text-[#686866] hover:bg-[#F0F0EE] hover:text-[#101010] transition-colors"
+                className="hidden sm:inline-flex items-center gap-1 rounded-[4px] border border-[#E4E4E1] bg-[#FBFBFA] px-2 py-0.5 font-mono text-[10px] font-normal text-[#686866] hover:bg-[#F0F0EE] hover:text-[#101010] transition-colors"
                 title="Enlarge screenshot to inspect high-resolution UI details"
                 aria-label="Enlarge screenshot"
               >
@@ -115,7 +115,7 @@ export function ProductFrame({
           >
             <div className="flex items-center justify-between border-b border-white/10 pb-2.5 px-3 mb-2">
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs font-semibold text-white tracking-wider">
+                <span className="font-mono text-xs font-normal text-white tracking-wider">
                   ENTIRECAFM HIGH-RESOLUTION UI INSPECTOR
                 </span>
                 <span className="rounded bg-white/10 px-2 py-0.5 font-mono text-[10px] text-white/70">

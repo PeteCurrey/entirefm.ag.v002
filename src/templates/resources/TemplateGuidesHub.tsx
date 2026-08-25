@@ -164,7 +164,7 @@ export function TemplateGuidesHub({ route, content }: TemplateGuidesHubProps) {
           <div className="border-b border-brand-edge-dark pb-4 mb-8 flex items-center justify-between">
             <div>
               <span className="eyebrow eyebrow-dark">Specialist References</span>
-              <h3 className="text-xl font-bold text-white mt-1">Authoritative Editorial Guides</h3>
+              <h3 className="text-xl font-light text-white mt-1">Authoritative Editorial Guides</h3>
             </div>
             <span className="text-xs font-mono text-brand-mist/50 hidden sm:inline">
               Written by FM Engineers
@@ -185,13 +185,13 @@ export function TemplateGuidesHub({ route, content }: TemplateGuidesHubProps) {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3 bg-brand-void/80 backdrop-blur-md px-2.5 py-1 rounded text-[10px] font-mono text-brand-electric-bright border border-brand-edge-dark font-bold">
+                  <div className="absolute top-3 left-3 bg-brand-void/80 backdrop-blur-md px-2.5 py-1 rounded text-[10px] font-mono text-brand-electric-bright border border-brand-edge-dark font-light">
                     {guide.category}
                   </div>
                 </div>
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-base font-bold text-white group-hover:text-brand-electric-bright transition-colors mb-2">
+                    <h4 className="text-base font-light text-white group-hover:text-brand-electric-bright transition-colors mb-2">
                       {guide.title}
                     </h4>
                     <p className="text-brand-mist/70 text-xs leading-relaxed mb-4">
@@ -200,7 +200,7 @@ export function TemplateGuidesHub({ route, content }: TemplateGuidesHubProps) {
                   </div>
                   <div className="flex items-center justify-between pt-4 border-t border-brand-edge-dark text-[11px] font-mono text-brand-mist/50">
                     <span>{guide.readTime}</span>
-                    <span className="text-brand-electric-bright flex items-center gap-1 font-semibold group-hover:translate-x-0.5 transition-transform">
+                    <span className="text-brand-electric-bright flex items-center gap-1 font-light group-hover:translate-x-0.5 transition-transform">
                       Explore Guide &rarr;
                     </span>
                   </div>
@@ -218,7 +218,7 @@ export function TemplateGuidesHub({ route, content }: TemplateGuidesHubProps) {
             <div className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-8 flex flex-col justify-between space-y-4">
               <div>
                 <span className="eyebrow eyebrow-dark">Specialist Knowledge</span>
-                <h4 className="text-lg font-bold text-white mt-1">
+                <h4 className="text-lg font-light text-white mt-1">
                   AI & Machine Learning in Facilities Management
                 </h4>
                 <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
@@ -227,7 +227,7 @@ export function TemplateGuidesHub({ route, content }: TemplateGuidesHubProps) {
               </div>
               <Link
                 href="/resources/ai-in-facilities-management"
-                className="text-xs font-semibold text-brand-electric-bright hover:underline flex items-center gap-1"
+                className="text-xs font-normal text-brand-electric-bright hover:underline flex items-center gap-1"
               >
                 Explore AI in FM Guide Series &rarr;
               </Link>
@@ -236,7 +236,7 @@ export function TemplateGuidesHub({ route, content }: TemplateGuidesHubProps) {
             <div className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-8 flex flex-col justify-between space-y-4">
               <div>
                 <span className="eyebrow eyebrow-dark">Legal Obligations</span>
-                <h4 className="text-lg font-bold text-white mt-1">
+                <h4 className="text-lg font-light text-white mt-1">
                   EntireFM Statutory Compliance Centre
                 </h4>
                 <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
@@ -245,7 +245,7 @@ export function TemplateGuidesHub({ route, content }: TemplateGuidesHubProps) {
               </div>
               <Link
                 href="/compliance"
-                className="text-xs font-semibold text-brand-electric-bright hover:underline flex items-center gap-1"
+                className="text-xs font-normal text-brand-electric-bright hover:underline flex items-center gap-1"
               >
                 Visit Compliance Centre &rarr;
               </Link>

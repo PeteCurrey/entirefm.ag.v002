@@ -20,7 +20,7 @@ export function CapabilityList({
       {(title || subtitle) && (
         <div className="mb-6">
           {title && <span className="badge-technical">Technical Capabilities</span>}
-          {title && <h3 className="text-2xl font-bold tracking-tight text-brand-graphite mt-1">{title}</h3>}
+          {title && <h3 className="text-2xl font-extralight tracking-tight text-brand-graphite mt-1">{title}</h3>}
           {subtitle && <p className="text-xs text-slate-600 mt-1">{subtitle}</p>}
         </div>
       )}
@@ -31,7 +31,7 @@ export function CapabilityList({
             <CheckCircle2 className="w-5 h-5 text-brand-electric shrink-0 mt-0.5" />
             <div>
               <div className="flex items-center gap-2">
-                <h4 className="text-sm font-bold text-brand-graphite">{item.name}</h4>
+                <h4 className="text-sm font-normal text-brand-graphite">{item.name}</h4>
                 {item.tag && (
                   <span className="text-[10px] font-mono px-1.5 py-0.5 bg-white border border-brand-edge text-slate-500 rounded-sm">
                     {item.tag}
@@ -68,7 +68,7 @@ export function FAQAccordion({
       <div className="container-narrow">
         <div className="text-center mb-10">
           <span className="badge-technical">Technical & Commercial FAQ</span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-graphite mt-2">{title}</h2>
+          <h2 className="text-2xl sm:text-3xl font-extralight tracking-tight text-brand-graphite mt-2">{title}</h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">{subtitle}</p>
         </div>
 
@@ -83,7 +83,7 @@ export function FAQAccordion({
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full px-5 py-4 text-left font-bold text-sm text-brand-graphite flex items-center justify-between gap-4 hover:text-brand-indigo transition-colors focus:outline-none"
+                  className="w-full px-5 py-4 text-left font-normal text-sm text-brand-graphite flex items-center justify-between gap-4 hover:text-brand-indigo transition-colors focus:outline-none"
                   aria-expanded={isOpen}
                 >
                   <span className="flex items-center gap-2">

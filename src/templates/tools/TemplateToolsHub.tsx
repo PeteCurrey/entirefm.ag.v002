@@ -161,7 +161,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                 Free, asset-led tools engineered for estate directors, property managers, and facilities teams to plan maintenance schedules, evaluate compliance baselines, and structure procurement.
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-3 text-xs font-medium">
+              <div className="mt-6 flex flex-wrap gap-3 text-xs font-normal">
                 <span className="flex items-center gap-1.5 rounded-sm border border-slate-700 bg-slate-900/80 px-3 py-1.5 text-slate-200">
                   <ShieldCheck className="h-3.5 w-3.5 text-brand-electric" />
                   Verified UK Statutory Standards
@@ -184,10 +184,10 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
               <div>
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-brand-electric">
+                <span className="text-xs font-mono font-light uppercase tracking-wider text-brand-electric">
                   Toolkit Directory
                 </span>
-                <h2 className="mt-1 text-2xl sm:text-3xl font-bold text-slate-900">
+                <h2 className="mt-1 text-2xl sm:text-3xl font-extralight text-slate-900">
                   Interactive Decision &amp; Planning Tools
                 </h2>
               </div>
@@ -198,7 +198,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                   <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3.5 py-1.5 rounded-sm text-xs font-bold transition-all ${
+                    className={`px-3.5 py-1.5 rounded-sm text-xs font-normal transition-all ${
                       selectedCategory === cat
                         ? 'bg-brand-graphite text-white shadow-sm'
                         : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
@@ -223,23 +223,23 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                         <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-blue-50 text-brand-electric border border-blue-100">
                           <IconComponent className="h-5 w-5" />
                         </span>
-                        <span className="flex items-center gap-1 text-[11px] font-mono font-semibold text-slate-500 bg-slate-50 px-2 py-0.5 rounded-sm border border-slate-200">
+                        <span className="flex items-center gap-1 text-[11px] font-mono font-light text-slate-500 bg-slate-50 px-2 py-0.5 rounded-sm border border-slate-200">
                           <Clock className="h-3 w-3" />
                           {tool.timeEstimate}
                         </span>
                       </div>
 
                       <div className="mb-2 flex items-center gap-2">
-                        <span className="text-[10.5px] uppercase tracking-wider text-slate-500 font-bold">
+                        <span className="text-[10.5px] uppercase tracking-wider text-slate-500 font-light">
                           {tool.category}
                         </span>
                         <span className="text-slate-300">·</span>
-                        <span className="text-[10.5px] text-brand-electric font-bold">
+                        <span className="text-[10.5px] text-brand-electric font-light">
                           {tool.tag}
                         </span>
                       </div>
 
-                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-brand-electric transition-colors">
+                      <h3 className="text-lg font-light text-slate-900 group-hover:text-brand-electric transition-colors">
                         {tool.title}
                       </h3>
                       <p className="mt-2 text-xs leading-relaxed text-slate-600">
@@ -247,7 +247,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                       </p>
 
                       <div className="mt-5 border-t border-slate-100 pt-4">
-                        <p className="text-[10.5px] font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        <p className="text-[10.5px] font-normal uppercase tracking-wider text-slate-500 mb-2">
                           What You Receive
                         </p>
                         <ul className="space-y-1.5">
@@ -264,13 +264,13 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                     <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
                       <Link
                         href={tool.relatedService.href}
-                        className="text-[11px] text-slate-500 hover:text-slate-900 transition-colors font-medium"
+                        className="text-[11px] text-slate-500 hover:text-slate-900 transition-colors font-normal"
                       >
                         Learn: {tool.relatedService.label}
                       </Link>
                       <Link
                         href={tool.slug}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-bold tracking-wider uppercase transition-all shadow-2xs group-hover:bg-brand-electric"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-normal tracking-wider uppercase transition-all shadow-2xs group-hover:bg-brand-electric"
                       >
                         Launch Tool
                         <ArrowRight className="h-3 w-3" />
@@ -288,10 +288,10 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="grid gap-10 lg:grid-cols-2 items-center">
               <div>
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-brand-electric">
+                <span className="text-xs font-mono font-light uppercase tracking-wider text-brand-electric">
                   Technical Integrity
                 </span>
-                <h2 className="mt-2 text-2xl sm:text-3xl font-bold text-slate-900">
+                <h2 className="mt-2 text-2xl sm:text-3xl font-extralight text-slate-900">
                   Why We Built Transparent FM Planning Tools
                 </h2>
                 <p className="mt-4 text-sm leading-relaxed text-slate-600">
@@ -314,7 +314,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
               </div>
 
               <div className="rounded-sm border border-slate-200 bg-slate-50 p-6 sm:p-8 space-y-4 shadow-sm">
-                <p className="text-xs font-mono font-bold uppercase tracking-wider text-slate-600 mb-2">
+                <p className="text-xs font-mono font-light uppercase tracking-wider text-slate-600 mb-2">
                   Related Knowledge Hubs
                 </p>
                 <div className="space-y-3">
@@ -323,7 +323,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                     className="flex items-center justify-between p-4 rounded-sm border border-slate-200 bg-white hover:border-brand-electric hover:shadow-2xs transition-all"
                   >
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900">Compliance Centre</h4>
+                      <h4 className="text-sm font-normal text-slate-900">Compliance Centre</h4>
                       <p className="text-xs text-slate-600">Statutory obligations across fire, electrical, gas, and water hygiene.</p>
                     </div>
                     <ChevronRight className="h-4 w-4 text-brand-electric shrink-0" />
@@ -334,7 +334,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                     className="flex items-center justify-between p-4 rounded-sm border border-slate-200 bg-white hover:border-brand-electric hover:shadow-2xs transition-all"
                   >
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900">FM Glossary</h4>
+                      <h4 className="text-sm font-normal text-slate-900">FM Glossary</h4>
                       <p className="text-xs text-slate-600">Plain-English definitions of over 50 essential FM technical terms.</p>
                     </div>
                     <ChevronRight className="h-4 w-4 text-brand-electric shrink-0" />
@@ -345,7 +345,7 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
                     className="flex items-center justify-between p-4 rounded-sm border border-slate-200 bg-white hover:border-brand-electric hover:shadow-2xs transition-all"
                   >
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900">FM Document Vault</h4>
+                      <h4 className="text-sm font-normal text-slate-900">FM Document Vault</h4>
                       <p className="text-xs text-slate-600">Downloadable CSV asset registers, PPM templates, and logbooks.</p>
                     </div>
                     <ChevronRight className="h-4 w-4 text-brand-electric shrink-0" />

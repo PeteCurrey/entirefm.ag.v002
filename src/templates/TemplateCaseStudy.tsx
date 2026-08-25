@@ -166,7 +166,7 @@ function LobbyCard({ item, onOpen }: { item: Engagement; onOpen: () => void }) {
         <span className="mt-3 block text-[13px] leading-relaxed text-brand-mist/70">
           {item.summary}
         </span>
-        <span className="mt-6 inline-flex items-center gap-1.5 border-t border-white/12 pt-4 text-[12.5px] font-semibold text-white transition-colors duration-300 group-hover:text-brand-electric-bright">
+        <span className="mt-6 inline-flex items-center gap-1.5 border-t border-white/12 pt-4 text-[12.5px] font-normal text-white transition-colors duration-300 group-hover:text-brand-electric-bright">
           Open
           <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </span>
@@ -304,7 +304,7 @@ function DetailPanel({ item, onClose }: { item: Engagement; onClose: () => void 
 function Block({ heading, children }: { heading: string; children: React.ReactNode }) {
   return (
     <div className="mt-10">
-      <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-electric-bright">
+      <h3 className="text-[11px] font-normal uppercase tracking-[0.18em] text-brand-electric-bright">
         {heading}
       </h3>
       <div className="mt-4">{children}</div>

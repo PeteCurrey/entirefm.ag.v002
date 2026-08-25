@@ -18,7 +18,7 @@ export default async function ComplianceObligationsPage() {
         action={
           <Link
             href="/admin/compliance"
-            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-carbon"
+            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-carbon"
           >
             ← Command Centre
           </Link>
@@ -42,13 +42,13 @@ export default async function ComplianceObligationsPage() {
               {obligations.map((ob) => (
                 <tr key={ob.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                   <td className="px-5 py-4">
-                    <div className="font-semibold text-white">{ob.site?.name || 'Site'}</div>
+                    <div className="font-light text-white">{ob.site?.name || 'Site'}</div>
                     <div className="text-[11.5px] text-brand-mist/50">
                       Asset: {ob.asset?.name || 'System / Building wide duty'}
                     </div>
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-medium text-white">{ob.rule_version?.rule?.title || 'Statutory Standard'}</div>
+                    <div className="font-normal text-white">{ob.rule_version?.rule?.title || 'Statutory Standard'}</div>
                     <div className="font-mono text-[11px] text-brand-mist/50">
                       {ob.rule_version?.rule?.code || 'RULE-001'} (v{ob.rule_version?.version_number || '1'})
                     </div>

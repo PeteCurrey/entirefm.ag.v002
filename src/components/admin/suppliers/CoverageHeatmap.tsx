@@ -34,14 +34,14 @@ export function CoverageHeatmap({ suppliers }: { suppliers: SupplierOrganisation
     <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm">
       <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-4">
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+          <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
             Geographic Coverage Matrix (Service &times; City)
           </h3>
           <p className="text-xs text-slate-500 font-light mt-0.5">
             Verified approved suppliers compared against minimum required coverage thresholds.
           </p>
         </div>
-        <Link href="/admin/suppliers/gaps" className="text-xs font-mono text-brand-pink font-semibold underline">
+        <Link href="/admin/suppliers/gaps" className="text-xs font-mono text-brand-pink font-light underline">
           View Gap Alerts
         </Link>
       </div>
@@ -59,7 +59,7 @@ export function CoverageHeatmap({ suppliers }: { suppliers: SupplierOrganisation
           <tbody className="divide-y divide-slate-100">
             {SERVICES.map((srv) => (
               <tr key={srv.slug} className="hover:bg-slate-50/50">
-                <td className="py-3 px-4 text-left font-semibold text-slate-900 font-mono">
+                <td className="py-3 px-4 text-left font-light text-slate-900 font-mono">
                   {srv.name}
                 </td>
                 {CITIES.map((city) => {
@@ -71,7 +71,7 @@ export function CoverageHeatmap({ suppliers }: { suppliers: SupplierOrganisation
 
                   return (
                     <td key={city} className="py-3 px-4 font-mono">
-                      <span className={`inline-block px-3 py-1 rounded text-xs font-bold ${
+                      <span className={`inline-block px-3 py-1 rounded text-xs font-normal ${
                         isZero
                           ? 'bg-rose-100 text-rose-800 border border-rose-200'
                           : isSingle

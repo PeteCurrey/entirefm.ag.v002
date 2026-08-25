@@ -47,7 +47,7 @@ export function TemplateHelpdesk({ route, content }: TemplateProps) {
                   <Lock className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-brand-graphite">Client Portal Access</h3>
+                  <h3 className="text-xl font-light text-brand-graphite">Client Portal Access</h3>
                   <p className="text-sm text-slate-600 mt-1">
                     Existing contracted clients: Access live CAFM work orders, statutory compliance certificates, and real-time engineer tracking.
                   </p>
@@ -80,7 +80,7 @@ export function TemplateHelpdesk({ route, content }: TemplateProps) {
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white">24/7 Operations Helpdesk</h3>
+                  <h3 className="text-xl font-light text-white">24/7 Operations Helpdesk</h3>
                   <p className="text-sm text-slate-300 mt-1">
                     For emergency plant failures, urgent M&E triage, or out-of-hours facilities assistance.
                   </p>
@@ -88,7 +88,7 @@ export function TemplateHelpdesk({ route, content }: TemplateProps) {
                 <div className="space-y-4 pt-2 border-t border-brand-edge-dark text-xs">
                   <div>
                     <span className="text-slate-400 block">Emergency Helpdesk Line:</span>
-                    <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-electric font-mono text-base font-bold hover:underline">
+                    <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-electric font-mono text-base font-light hover:underline">
                       {CONTACT_CONFIG.mainPhone.display}
                     </a>
                   </div>

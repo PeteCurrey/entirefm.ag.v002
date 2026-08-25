@@ -29,14 +29,14 @@ export function StepIntro({ onStart, hasSavedState, onResume, onClearState }: St
       <div className="space-y-4">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15">
           <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-          <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-semibold">
+          <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-light">
             DECISION-SUPPORT &amp; SURVEY SCOPE BUILDER
           </span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
           Plan a Commercial <br />
-          <span className="font-bold text-hero-pink">
+          <span className="font-light text-hero-pink">
             Drone Inspection
           </span>
         </h1>
@@ -48,7 +48,7 @@ export function StepIntro({ onStart, hasSavedState, onResume, onClearState }: St
 
       {/* Approximate Journey Roadmap */}
       <div className="p-6 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-4">
-        <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400 block">
+        <span className="font-mono text-xs font-normal uppercase tracking-wider text-slate-400 block">
           Configurator Journey Overview
         </span>
 
@@ -62,8 +62,8 @@ export function StepIntro({ onStart, hasSavedState, onResume, onClearState }: St
             { num: '06', title: 'Action Plan', desc: 'Structured brief' },
           ].map((item) => (
             <div key={item.num} className="p-3 bg-brand-graphite rounded-sm border border-brand-edge-dark/60 space-y-1">
-              <span className="font-mono text-xs font-bold text-brand-pink block">{item.num}</span>
-              <h4 className="text-xs font-bold text-white leading-snug">{item.title}</h4>
+              <span className="font-mono text-xs font-normal text-brand-pink block">{item.num}</span>
+              <h4 className="text-xs font-normal text-white leading-snug">{item.title}</h4>
               <p className="text-[10.5px] text-slate-400">{item.desc}</p>
             </div>
           ))}
@@ -83,7 +83,7 @@ export function StepIntro({ onStart, hasSavedState, onResume, onClearState }: St
             <button
               type="button"
               onClick={onResume}
-              className="text-xs font-bold text-brand-pink hover:underline"
+              className="text-xs font-normal text-brand-pink hover:underline"
             >
               Resume Brief
             </button>
@@ -104,7 +104,7 @@ export function StepIntro({ onStart, hasSavedState, onResume, onClearState }: St
         <button
           type="button"
           onClick={onStart}
-          className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-8 py-4 text-sm font-semibold text-white shadow-elevated hover:shadow-pink-500/25 transition-all hover:scale-[1.02]"
+          className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-8 py-4 text-sm font-normal text-white shadow-elevated hover:shadow-pink-500/25 transition-all hover:scale-[1.02]"
         >
           <span>Start Inspection Planner</span>
           <ArrowRight className="h-4 w-4" />
@@ -112,7 +112,7 @@ export function StepIntro({ onStart, hasSavedState, onResume, onClearState }: St
 
         <a
           href={CONTACT_CONFIG.mainPhone.href}
-          className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 bg-white/5 px-6 py-4 text-sm font-medium text-white hover:bg-white/10 transition-colors"
+          className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 bg-white/5 px-6 py-4 text-sm font-normal text-white hover:bg-white/10 transition-colors"
         >
           <PhoneCall className="h-4 w-4 text-brand-pink" />
           <span>Speak to Drone Services ({CONTACT_CONFIG.mainPhone.display})</span>

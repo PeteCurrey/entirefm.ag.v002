@@ -35,10 +35,10 @@ export function TemplateMediaCentre({ route, content }: TemplateMediaCentreProps
       <section className="relative pt-32 pb-20 border-b border-zinc-800 bg-gradient-to-b from-zinc-950 via-[#0B0E14] to-[#0B0E14]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 font-light">
               ENTIREFM MEDIA &amp; PRESS CENTRE
             </span>
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mt-3 mb-4">
+            <h1 className="text-4xl sm:text-5xl font-extralight tracking-tight text-white mt-3 mb-4">
               Press Enquiries &amp; Media Resources
             </h1>
             <p className="text-lg text-zinc-400 leading-relaxed">
@@ -58,7 +58,7 @@ export function TemplateMediaCentre({ route, content }: TemplateMediaCentreProps
                 <Mail className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white">Editorial &amp; Press Enquiries</h3>
+                <h3 className="text-lg font-light text-white">Editorial &amp; Press Enquiries</h3>
                 <span className="text-xs text-zinc-500 font-mono">Mon–Fri: 08:30 – 17:30 GMT</span>
               </div>
             </div>
@@ -80,7 +80,7 @@ export function TemplateMediaCentre({ route, content }: TemplateMediaCentreProps
                 <Building className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white">Verified Company Facts</h3>
+                <h3 className="text-lg font-light text-white">Verified Company Facts</h3>
                 <span className="text-xs text-zinc-500 font-mono">Fact Sheet for Media</span>
               </div>
             </div>
@@ -110,7 +110,7 @@ export function TemplateMediaCentre({ route, content }: TemplateMediaCentreProps
       <section className="pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="border-b border-zinc-800 pb-4 flex items-center justify-between">
           <div>
-            <h3 className="text-xl font-bold text-white">Featured Research &amp; Linkable Assets</h3>
+            <h3 className="text-xl font-light text-white">Featured Research &amp; Linkable Assets</h3>
             <p className="text-xs text-zinc-400 mt-1">Grounded resources available for press reference and editorial citation.</p>
           </div>
           <span className="text-xs font-mono text-emerald-400">Verified Citation Sources</span>
@@ -122,17 +122,17 @@ export function TemplateMediaCentre({ route, content }: TemplateMediaCentreProps
             className="group bg-zinc-900 border border-zinc-800 rounded-xl p-6 hover:border-emerald-500/50 transition-all flex flex-col justify-between"
           >
             <div className="space-y-2">
-              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-400 border border-emerald-800/40 font-bold">
+              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-400 border border-emerald-800/40 font-light">
                 RESEARCH PILLAR
               </span>
-              <h4 className="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
+              <h4 className="text-base font-light text-white group-hover:text-emerald-400 transition-colors">
                 AI in Facilities Management
               </h4>
               <p className="text-xs text-zinc-400 leading-relaxed">
                 Objective analysis of practical AI applications vs high-risk unverified automation in building operations.
               </p>
             </div>
-            <div className="mt-4 pt-4 border-t border-zinc-800 text-[11px] font-mono text-emerald-400 font-semibold flex items-center justify-between">
+            <div className="mt-4 pt-4 border-t border-zinc-800 text-[11px] font-mono text-emerald-400 font-light flex items-center justify-between">
               <span>View Resource</span>
               <span>&rarr;</span>
             </div>
@@ -143,17 +143,17 @@ export function TemplateMediaCentre({ route, content }: TemplateMediaCentreProps
             className="group bg-zinc-900 border border-zinc-800 rounded-xl p-6 hover:border-emerald-500/50 transition-all flex flex-col justify-between"
           >
             <div className="space-y-2">
-              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-blue-950/60 text-blue-400 border border-blue-800/40 font-bold">
+              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-blue-950/60 text-blue-400 border border-blue-800/40 font-light">
                 INTERACTIVE TOOL
               </span>
-              <h4 className="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
+              <h4 className="text-base font-light text-white group-hover:text-emerald-400 transition-colors">
                 PPM Schedule Builder
               </h4>
               <p className="text-xs text-zinc-400 leading-relaxed">
                 Free asset-led maintenance planning tool referencing UK statutory testing cycles and SFG20 standards.
               </p>
             </div>
-            <div className="mt-4 pt-4 border-t border-zinc-800 text-[11px] font-mono text-emerald-400 font-semibold flex items-center justify-between">
+            <div className="mt-4 pt-4 border-t border-zinc-800 text-[11px] font-mono text-emerald-400 font-light flex items-center justify-between">
               <span>Launch Tool</span>
               <span>&rarr;</span>
             </div>
@@ -164,17 +164,17 @@ export function TemplateMediaCentre({ route, content }: TemplateMediaCentreProps
             className="group bg-zinc-900 border border-zinc-800 rounded-xl p-6 hover:border-emerald-500/50 transition-all flex flex-col justify-between"
           >
             <div className="space-y-2">
-              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-purple-950/60 text-purple-400 border border-purple-800/40 font-bold">
+              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-purple-950/60 text-purple-400 border border-purple-800/40 font-light">
                 EVERGREEN GUIDE
               </span>
-              <h4 className="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
+              <h4 className="text-base font-light text-white group-hover:text-emerald-400 transition-colors">
                 Complete Guide to PPM
               </h4>
               <p className="text-xs text-zinc-400 leading-relaxed">
                 Authoritative reference guide for commercial planned preventative maintenance strategy and compliance.
               </p>
             </div>
-            <div className="mt-4 pt-4 border-t border-zinc-800 text-[11px] font-mono text-emerald-400 font-semibold flex items-center justify-between">
+            <div className="mt-4 pt-4 border-t border-zinc-800 text-[11px] font-mono text-emerald-400 font-light flex items-center justify-between">
               <span>Read Guide</span>
               <span>&rarr;</span>
             </div>

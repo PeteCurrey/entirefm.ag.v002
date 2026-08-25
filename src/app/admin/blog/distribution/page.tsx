@@ -59,10 +59,10 @@ export default function ContentDistributionPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             POST-PUBLICATION SYNDICATION
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Multi-Channel Distribution</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Multi-Channel Distribution</h1>
           <p className="text-sm text-zinc-400">
             Generate B2B LinkedIn posts, feed the weekly FM Briefing newsletter, and syndicate via live RSS.
           </p>
@@ -70,7 +70,7 @@ export default function ContentDistributionPage() {
         <div className="flex gap-2">
           <Link
             href="/admin/newsletter"
-            className="text-xs bg-pink-600 hover:bg-pink-500 text-white font-semibold px-3 py-2 rounded-lg"
+            className="text-xs bg-pink-600 hover:bg-pink-500 text-white font-light px-3 py-2 rounded-lg"
           >
             The FM Briefing
           </Link>
@@ -87,7 +87,7 @@ export default function ContentDistributionPage() {
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 space-y-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-semibold text-white flex items-center gap-1.5">
+            <h3 className="text-xs font-normal text-white flex items-center gap-1.5">
               <Radio className="h-3.5 w-3.5 text-emerald-400" /> RSS / XML
             </h3>
             <span className="text-[10px] bg-emerald-900/40 text-emerald-300 px-2 py-0.5 rounded font-mono">
@@ -99,7 +99,7 @@ export default function ContentDistributionPage() {
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 space-y-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-semibold text-white flex items-center gap-1.5">
+            <h3 className="text-xs font-normal text-white flex items-center gap-1.5">
               <ExternalLink className="h-3.5 w-3.5 text-blue-400" /> LinkedIn
             </h3>
             <span className="text-[10px] bg-blue-900/40 text-blue-300 px-2 py-0.5 rounded font-mono">
@@ -111,7 +111,7 @@ export default function ContentDistributionPage() {
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 space-y-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-semibold text-white flex items-center gap-1.5">
+            <h3 className="text-xs font-normal text-white flex items-center gap-1.5">
               <Mail className="h-3.5 w-3.5 text-pink-400" /> The FM Briefing
             </h3>
             <span className="text-[10px] bg-pink-900/40 text-pink-300 px-2 py-0.5 rounded font-mono">
@@ -123,7 +123,7 @@ export default function ContentDistributionPage() {
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 space-y-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-semibold text-white flex items-center gap-1.5">
+            <h3 className="text-xs font-normal text-white flex items-center gap-1.5">
               <Globe className="h-3.5 w-3.5 text-purple-400" /> Web Feeds
             </h3>
             <span className="text-[10px] bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded font-mono">
@@ -137,7 +137,7 @@ export default function ContentDistributionPage() {
       {/* Published Articles Distribution Table */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Published Articles Available for Distribution ({BLOG_POSTS.length})
           </h3>
         </div>
@@ -155,7 +155,7 @@ export default function ContentDistributionPage() {
             {BLOG_POSTS.map((post) => (
               <tr key={post.slug} className="hover:bg-zinc-800/40 transition-colors">
                 <td className="py-3.5 px-4">
-                  <div className="font-bold text-white text-sm">{post.title}</div>
+                  <div className="font-light text-white text-sm">{post.title}</div>
                   <div className="font-mono text-[11px] text-zinc-500 mt-0.5">{post.path}</div>
                 </td>
                 <td className="py-3.5 px-4">
@@ -168,13 +168,13 @@ export default function ContentDistributionPage() {
                   <div className="flex items-center justify-end gap-2">
                     <button
                       onClick={() => handleGenerateLinkedIn(post)}
-                      className="text-xs bg-zinc-800 hover:bg-zinc-700 text-blue-300 px-3 py-1.5 rounded font-semibold border border-zinc-700 flex items-center gap-1.5"
+                      className="text-xs bg-zinc-800 hover:bg-zinc-700 text-blue-300 px-3 py-1.5 rounded font-light border border-zinc-700 flex items-center gap-1.5"
                     >
                       <ExternalLink className="h-3 w-3" /> LinkedIn Draft
                     </button>
                     <Link
                       href={`/admin/newsletter/new?source=${encodeURIComponent(post.path)}`}
-                      className="text-xs bg-zinc-800 hover:bg-zinc-700 text-pink-300 px-3 py-1.5 rounded font-semibold border border-zinc-700 flex items-center gap-1.5"
+                      className="text-xs bg-zinc-800 hover:bg-zinc-700 text-pink-300 px-3 py-1.5 rounded font-light border border-zinc-700 flex items-center gap-1.5"
                     >
                       <Mail className="h-3 w-3" /> Add to Newsletter
                     </Link>
@@ -193,7 +193,7 @@ export default function ContentDistributionPage() {
             <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
               <div className="flex items-center gap-2">
                 <ExternalLink className="h-5 w-5 text-blue-400" />
-                <h3 className="text-base font-bold text-white">Generated LinkedIn Post</h3>
+                <h3 className="text-base font-light text-white">Generated LinkedIn Post</h3>
               </div>
               <button
                 onClick={() => setSelectedPost(null)}
@@ -231,7 +231,7 @@ export default function ContentDistributionPage() {
               <div className="flex gap-2">
                 <button
                   onClick={handleCopyDraft}
-                  className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-2 px-4 rounded-lg flex items-center gap-1.5"
+                  className="bg-blue-600 hover:bg-blue-500 text-white font-normal text-xs py-2 px-4 rounded-lg flex items-center gap-1.5"
                 >
                   <Copy className="h-3.5 w-3.5" /> Copy Post Text
                 </button>

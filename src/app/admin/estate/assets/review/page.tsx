@@ -37,11 +37,11 @@ export default async function AssetReviewPage() {
       {/* Summary bar */}
       <div className="flex gap-4">
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 px-5 py-4 text-center">
-          <div className="font-mono text-2xl font-bold text-white">{candidates.length}</div>
+          <div className="font-mono text-2xl font-extralight text-white">{candidates.length}</div>
           <div className="mt-1 text-[11px] text-brand-mist/50 uppercase tracking-wider">Candidates Pending</div>
         </div>
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 px-5 py-4 text-center">
-          <div className="font-mono text-2xl font-bold text-white">{duplicates.length}</div>
+          <div className="font-mono text-2xl font-extralight text-white">{duplicates.length}</div>
           <div className="mt-1 text-[11px] text-brand-mist/50 uppercase tracking-wider">Duplicates Pending</div>
         </div>
       </div>
@@ -68,7 +68,7 @@ export default async function AssetReviewPage() {
               <tbody className="divide-y divide-brand-edge-dark/60">
                 {candidates.map((c) => (
                   <tr key={c.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                    <td className="px-5 py-4 font-semibold text-white">{c.proposed_name}</td>
+                    <td className="px-5 py-4 font-light text-white">{c.proposed_name}</td>
                     <td className="px-5 py-4 text-brand-mist/70">{c.proposed_category || '—'}</td>
                     <td className="px-5 py-4 text-brand-mist/70">{c.proposed_manufacturer || '—'}</td>
                     <td className="px-5 py-4">

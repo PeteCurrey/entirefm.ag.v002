@@ -23,7 +23,7 @@ export default function WeeklyBriefingPage() {
       <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
         <div>
           <span className="text-xs font-mono text-blue-400 uppercase tracking-wider">Automated Executive Briefing</span>
-          <h1 className="text-2xl font-bold text-white mt-1">Weekly Editorial Intelligence Brief</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Weekly Editorial Intelligence Brief</h1>
           <p className="text-xs text-zinc-400 mt-0.5">
             Week Starting: {new Date(brief.weekStarting).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
           </p>
@@ -39,7 +39,7 @@ export default function WeeklyBriefingPage() {
       {/* Recommended 3-5 Articles for this Week (The Core Editorial Output) */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-5">
         <div>
-          <h2 className="text-sm font-semibold text-white uppercase tracking-wider">
+          <h2 className="text-sm font-normal text-white uppercase tracking-wider">
             Recommended Editorial Schedule For This Week (Balanced 4-Article Mix)
           </h2>
           <p className="text-xs text-zinc-400 mt-1">
@@ -54,7 +54,7 @@ export default function WeeklyBriefingPage() {
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-zinc-500 font-mono">#{i + 1}</span>
-                    <h3 className="text-sm font-semibold text-white">{rec.title}</h3>
+                    <h3 className="text-sm font-normal text-white">{rec.title}</h3>
                   </div>
                   <div className="flex items-center gap-2 text-xs">
                     <span className={`text-[10px] px-2 py-0.5 rounded font-mono ${categoryBadge(rec.mixCategory)}`}>
@@ -64,7 +64,7 @@ export default function WeeklyBriefingPage() {
                     <span className="text-zinc-400">Target Intent: <code className="text-zinc-300">{rec.targetIntent}</code></span>
                   </div>
                 </div>
-                <button className="shrink-0 text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg font-medium">
+                <button className="shrink-0 text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg font-normal">
                   Approve for Draft →
                 </button>
               </div>
@@ -79,14 +79,14 @@ export default function WeeklyBriefingPage() {
 
       {/* Pages Requiring Update / Refresh */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
-        <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+        <h2 className="text-sm font-normal text-zinc-300 uppercase tracking-wider">
           Existing Pages Requiring Technical Update ({brief.pagesToUpdate.length})
         </h2>
         <div className="space-y-3">
           {brief.pagesToUpdate.map((page, i) => (
             <div key={i} className="bg-zinc-800/40 p-4 rounded-xl border border-zinc-700/50 flex items-center justify-between">
               <div>
-                <code className="text-xs text-blue-400 font-bold">{page.pagePath}</code>
+                <code className="text-xs text-blue-400 font-light">{page.pagePath}</code>
                 <p className="text-xs text-zinc-400 mt-1">{page.reason}</p>
               </div>
               <Link href={`/admin/blog/posts`} className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-1.5 rounded-lg">

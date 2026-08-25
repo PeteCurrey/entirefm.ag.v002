@@ -70,7 +70,7 @@ export default function DataSubjectRightsPage() {
     >
       {/* 1. Portal Form */}
       <section id="rights-form" className="scroll-mt-28 space-y-4">
-        <h2 className="text-xl font-bold text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
+        <h2 className="text-xl font-light text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
           1. Electronic Rights Submission Portal
         </h2>
         <p className="text-slate-700 leading-relaxed text-sm">
@@ -82,7 +82,7 @@ export default function DataSubjectRightsPage() {
 
       {/* 2. Statutory Rights Breakdown */}
       <section id="statutory-rights" className="scroll-mt-28 space-y-4 pt-6">
-        <h2 className="text-xl font-bold text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
+        <h2 className="text-xl font-light text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
           2. Your Rights Under UK GDPR & Data Protection Act 2018
         </h2>
         <p className="text-slate-700 leading-relaxed text-sm">
@@ -91,7 +91,7 @@ export default function DataSubjectRightsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="rounded-xl border border-slate-200 p-4 bg-white space-y-2">
-            <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
+            <div className="flex items-center gap-2 font-light text-slate-900 text-sm">
               <Search className="h-4 w-4 text-teal-600" />
               Right of Access (Article 15)
             </div>
@@ -101,7 +101,7 @@ export default function DataSubjectRightsPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 p-4 bg-white space-y-2">
-            <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
+            <div className="flex items-center gap-2 font-light text-slate-900 text-sm">
               <Edit className="h-4 w-4 text-teal-600" />
               Right to Rectification (Article 16)
             </div>
@@ -111,7 +111,7 @@ export default function DataSubjectRightsPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 p-4 bg-white space-y-2">
-            <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
+            <div className="flex items-center gap-2 font-light text-slate-900 text-sm">
               <Trash2 className="h-4 w-4 text-teal-600" />
               Right to Erasure / Forgotten (Article 17)
             </div>
@@ -121,7 +121,7 @@ export default function DataSubjectRightsPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 p-4 bg-white space-y-2">
-            <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
+            <div className="flex items-center gap-2 font-light text-slate-900 text-sm">
               <Sliders className="h-4 w-4 text-teal-600" />
               Right to Restrict Processing (Article 18)
             </div>
@@ -131,7 +131,7 @@ export default function DataSubjectRightsPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 p-4 bg-white space-y-2">
-            <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
+            <div className="flex items-center gap-2 font-light text-slate-900 text-sm">
               <Share2 className="h-4 w-4 text-teal-600" />
               Right to Data Portability (Article 20)
             </div>
@@ -141,7 +141,7 @@ export default function DataSubjectRightsPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 p-4 bg-white space-y-2">
-            <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
+            <div className="flex items-center gap-2 font-light text-slate-900 text-sm">
               <Ban className="h-4 w-4 text-teal-600" />
               Right to Object (Article 21)
             </div>
@@ -151,7 +151,7 @@ export default function DataSubjectRightsPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 p-4 bg-white space-y-2 md:col-span-2">
-            <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
+            <div className="flex items-center gap-2 font-light text-slate-900 text-sm">
               <Cpu className="h-4 w-4 text-teal-600" />
               Automated Decision-Making & AI Profiling Rights (Article 22)
             </div>
@@ -164,7 +164,7 @@ export default function DataSubjectRightsPage() {
 
       {/* 3. Timeframes & Verification */}
       <section id="timeframes" className="scroll-mt-28 space-y-4 pt-6">
-        <h2 className="text-xl font-bold text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
+        <h2 className="text-xl font-light text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
           3. Statutory Timelines & Identity Verification
         </h2>
         
@@ -175,7 +175,7 @@ export default function DataSubjectRightsPage() {
         </LegalCallout>
 
         <div className="rounded-xl bg-slate-50 border border-slate-200 p-5 space-y-3">
-          <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <h3 className="text-sm font-normal text-slate-900 flex items-center gap-2">
             <UserCheck className="h-4 w-4 text-teal-600" />
             Security & Identity Verification
           </h3>
@@ -187,7 +187,7 @@ export default function DataSubjectRightsPage() {
 
       {/* 4. Direct Marketing Objection */}
       <section id="direct-marketing" className="scroll-mt-28 space-y-4 pt-6">
-        <h2 className="text-xl font-bold text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
+        <h2 className="text-xl font-light text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
           4. Direct Marketing & B2B Prospecting Objection
         </h2>
         <p className="text-slate-700 leading-relaxed text-sm">
@@ -206,7 +206,7 @@ export default function DataSubjectRightsPage() {
 
       {/* 5. Supervisory Authority */}
       <section id="supervisory-authority" className="scroll-mt-28 space-y-4 pt-6">
-        <h2 className="text-xl font-bold text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
+        <h2 className="text-xl font-light text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
           5. Supervisory Authority & ICO Escalation
         </h2>
 
@@ -216,7 +216,7 @@ export default function DataSubjectRightsPage() {
           </p>
           <ul className="list-disc pl-4 mt-2 space-y-1 text-xs text-slate-700">
             <li><strong>Authority:</strong> Information Commissioner’s Office (ICO)</li>
-            <li><strong>Website:</strong> <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener noreferrer" className="underline font-semibold text-teal-700">ico.org.uk/make-a-complaint</a></li>
+            <li><strong>Website:</strong> <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener noreferrer" className="underline font-light text-teal-700">ico.org.uk/make-a-complaint</a></li>
             <li><strong>Helpline:</strong> 0303 123 1113</li>
             <li><strong>Address:</strong> Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF</li>
           </ul>

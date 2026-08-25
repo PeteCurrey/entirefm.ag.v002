@@ -79,7 +79,7 @@ export function DataTable<T extends { id?: string | number }>({
         <div className="overflow-x-auto rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF]">
           <table className="w-full min-w-[50rem] border-collapse text-left text-[12.5px]">
             <thead>
-              <tr className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[11px] font-semibold text-[#6D6D68] uppercase tracking-wide">
+              <tr className="border-b border-[#E8E8E5] bg-[#FAFAF8] text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide">
                 {columns.map((col, idx) => (
                   <th key={idx} className={`px-4 py-3 ${col.className || ''}`}>
                     {col.header}
@@ -130,7 +130,7 @@ export function DataTable<T extends { id?: string | number }>({
             <button
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              className="inline-flex items-center gap-1 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] px-2.5 py-1 text-[11px] font-medium text-[#101010] hover:bg-[#F5F5F3] disabled:opacity-40 disabled:pointer-events-none transition-colors"
+              className="inline-flex items-center gap-1 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] px-2.5 py-1 text-[11px] font-normal text-[#101010] hover:bg-[#F5F5F3] disabled:opacity-40 disabled:pointer-events-none transition-colors"
             >
               <ChevronLeft className="h-3 w-3" />
               Previous
@@ -138,7 +138,7 @@ export function DataTable<T extends { id?: string | number }>({
             <button
               onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="inline-flex items-center gap-1 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] px-2.5 py-1 text-[11px] font-medium text-[#101010] hover:bg-[#F5F5F3] disabled:opacity-40 disabled:pointer-events-none transition-colors"
+              className="inline-flex items-center gap-1 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] px-2.5 py-1 text-[11px] font-normal text-[#101010] hover:bg-[#F5F5F3] disabled:opacity-40 disabled:pointer-events-none transition-colors"
             >
               Next
               <ChevronRight className="h-3 w-3" />

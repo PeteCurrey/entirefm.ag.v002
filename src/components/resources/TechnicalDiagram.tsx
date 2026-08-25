@@ -28,11 +28,11 @@ export function ProcessFlow({
     <div className="my-12 p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl">
       <div className="max-w-2xl mb-8">
         {eyebrow && (
-          <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+          <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
             {eyebrow}
           </span>
         )}
-        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+        <h3 className="text-xl sm:text-2xl font-extralight text-white mb-2">
           {title}
         </h3>
         {intro && <p className="text-xs sm:text-sm text-slate-400">{intro}</p>}
@@ -58,11 +58,11 @@ export function ProcessFlow({
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="text-xs font-mono font-bold text-slate-500">
+                  <span className="text-xs font-mono font-light text-slate-500">
                     {step.number}
                   </span>
                   <span
-                    className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border uppercase tracking-wider ${
+                    className={`text-[10px] font-mono font-light px-2 py-0.5 rounded border uppercase tracking-wider ${
                       isAI
                         ? 'bg-pink-950 text-pink-300 border-pink-700'
                         : isHuman
@@ -74,7 +74,7 @@ export function ProcessFlow({
                   </span>
                 </div>
 
-                <h4 className="text-sm font-bold text-white mb-1.5 leading-snug">
+                <h4 className="text-sm font-normal text-white mb-1.5 leading-snug">
                   {step.title}
                 </h4>
                 <p className="text-xs text-slate-300 leading-relaxed">
@@ -85,7 +85,7 @@ export function ProcessFlow({
               {step.outputTag && (
                 <div className="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono flex items-center justify-between text-slate-400">
                   <span className="text-slate-500">Output:</span>
-                  <span className="text-pink-400 font-semibold truncate max-w-[70%]">{step.outputTag}</span>
+                  <span className="text-pink-400 font-light truncate max-w-[70%]">{step.outputTag}</span>
                 </div>
               )}
             </div>
@@ -122,7 +122,7 @@ export function CafmLayeredArchitecture({
       title: '03. AI & Automation Intelligence Layer',
       badge: 'Triage & Forecasting',
       items: ['NLP Entity & Location Extraction', 'Predictive SLA Breach Scoring', 'Anomaly Waveform Detection', 'OCR Certificate Defect Parsing'],
-      accent: 'border-pink-500/40 bg-pink-950/25 text-pink-300 font-semibold',
+      accent: 'border-pink-500/40 bg-pink-950/25 text-pink-300 font-light',
     },
     {
       title: '04. Human Engineering & Action Outputs',
@@ -135,10 +135,10 @@ export function CafmLayeredArchitecture({
   return (
     <div className="my-12 p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl">
       <div className="max-w-2xl mb-8">
-        <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+        <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
           System Blueprint
         </span>
-        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+        <h3 className="text-xl sm:text-2xl font-extralight text-white mb-2">
           {title}
         </h3>
         <p className="text-xs sm:text-sm text-slate-400">{intro}</p>
@@ -151,7 +151,7 @@ export function CafmLayeredArchitecture({
             className={`p-5 rounded-xl border ${layer.accent} shadow-md transition-all`}
           >
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <h4 className="text-sm font-bold text-white">{layer.title}</h4>
+              <h4 className="text-sm font-normal text-white">{layer.title}</h4>
               <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-400">
                 {layer.badge}
               </span>

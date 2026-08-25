@@ -103,7 +103,7 @@ export default async function MaintenancePlansPage() {
               {plans.map((p) => (
                 <tr key={p.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                   <td className="px-5 py-4 font-mono text-[11px] text-white">{p.plan_number}</td>
-                  <td className="px-5 py-4 font-semibold text-white">{p.name}</td>
+                  <td className="px-5 py-4 font-light text-white">{p.name}</td>
                   <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/70">v{p.version}</td>
                   <td className="px-5 py-4">
                     <span className={`rounded px-2 py-0.5 font-mono text-[10px] ${STATUS_COLOURS[p.status] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>

@@ -28,7 +28,7 @@ export function GeoConversionSection({ city, contact }: GeoConversionSectionProp
         <div className="max-w-4xl mx-auto text-center space-y-8" data-reveal>
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 backdrop-blur-md">
             <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-brand-pink-light">
+            <span className="text-xs font-mono font-light uppercase tracking-wider text-brand-pink-light">
               {contact.coverageLabel}
             </span>
           </div>
@@ -45,7 +45,7 @@ export function GeoConversionSection({ city, contact }: GeoConversionSectionProp
           <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/contact-us"
-              className="btn-hero-pink px-8 py-4 text-sm font-bold shadow-xl"
+              className="btn-hero-pink px-8 py-4 text-sm font-normal shadow-xl"
             >
               Request a {city} Proposal
               <ArrowRight className="btn-arrow h-4 w-4" />
@@ -53,7 +53,7 @@ export function GeoConversionSection({ city, contact }: GeoConversionSectionProp
 
             <a
               href={contact.emailHref}
-              className="inline-flex items-center gap-2.5 rounded-sm border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/20 hover:border-brand-pink/50 transition-all duration-300 shadow-lg"
+              className="inline-flex items-center gap-2.5 rounded-sm border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-normal text-white backdrop-blur-md hover:bg-white/20 hover:border-brand-pink/50 transition-all duration-300 shadow-lg"
               title={`Direct email to ${contact.email}`}
             >
               <Mail className="h-4 w-4 text-brand-pink-light" />
@@ -62,7 +62,7 @@ export function GeoConversionSection({ city, contact }: GeoConversionSectionProp
 
             <a
               href={contact.phone.href}
-              className="btn-ghost-light px-6 py-3.5 text-sm font-semibold"
+              className="btn-ghost-light px-6 py-3.5 text-sm font-normal"
             >
               <Phone className="h-4 w-4 text-brand-pink-light" />
               {contact.phone.display}

@@ -101,12 +101,12 @@ export function OperationalJourneySteps() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[11px] font-mono text-brand-electric-bright font-bold">
+                    <span className="text-[11px] font-mono text-brand-electric-bright font-light">
                       STAGE {stage.step}
                     </span>
                     <Icon className="h-4 w-4 text-brand-mist/60" />
                   </div>
-                  <h3 className="text-sm font-semibold text-white mb-2">{stage.title}</h3>
+                  <h3 className="text-sm font-normal text-white mb-2">{stage.title}</h3>
                   <p className="text-[12px] text-brand-mist/70 leading-relaxed font-light">
                     {stage.description}
                   </p>

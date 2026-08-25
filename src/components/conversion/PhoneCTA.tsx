@@ -21,7 +21,7 @@ export function PhoneCTA({
         </div>
         <div>
           <span className="text-xs font-mono uppercase tracking-wider text-brand-electric block">{location} Engineering & Helpdesk</span>
-          <span className="text-lg font-bold text-white block mt-0.5">Speak with our Operations Team</span>
+          <span className="text-lg font-light text-white block mt-0.5">Speak with our Operations Team</span>
           <span className="text-xs text-slate-400">Direct technical triage and emergency contractor dispatch</span>
         </div>
       </div>
@@ -50,7 +50,7 @@ export function InlineCTA({
     <div className="bg-brand-surface border border-brand-edge p-8 rounded-sm text-brand-graphite my-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
       <div className="max-w-2xl">
         <span className="badge-technical mb-2">Operational Review</span>
-        <h3 className="text-xl font-bold tracking-tight text-brand-graphite mt-1">{title}</h3>
+        <h3 className="text-xl font-light tracking-tight text-brand-graphite mt-1">{title}</h3>
         <p className="text-sm text-slate-600 mt-1">{description}</p>
       </div>
       <div className="shrink-0 flex flex-wrap gap-3">
@@ -91,7 +91,7 @@ export function ProposalSection({
               <div className="flex items-start gap-3 p-4 bg-brand-carbon border border-brand-edge-dark rounded-sm">
                 <ShieldCheck className="w-5 h-5 text-brand-electric shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-medium text-white">Comprehensive Statutory Compliance Management</h4>
+                  <h4 className="text-sm font-light text-white">Comprehensive Statutory Compliance Management</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
                     Structured PPM scheduling, periodic engineering testing, statutory record keeping, and digital audit logs.
                   </p>
@@ -101,7 +101,7 @@ export function ProposalSection({
               <div className="flex items-start gap-3 p-4 bg-brand-carbon border border-brand-edge-dark rounded-sm">
                 <Clock className="w-5 h-5 text-brand-electric shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-medium text-white">Central Operations Helpdesk</h4>
+                  <h4 className="text-sm font-light text-white">Central Operations Helpdesk</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
                     Direct helpdesk triage, reactive engineer dispatch, and clear SLA performance tracking.
                   </p>
@@ -110,8 +110,8 @@ export function ProposalSection({
             </div>
 
             <div className="p-4 border border-dashed border-brand-edge-dark rounded-sm bg-brand-carbon/40 text-xs text-slate-400">
-              <span className="text-brand-electric font-semibold block mb-1">Direct Technical Consultation:</span>
-              Speak directly with an operations director or regional engineering manager on <a href={CONTACT_CONFIG.mainPhone.href} className="text-white font-mono font-bold hover:text-brand-electric">{CONTACT_CONFIG.mainPhone.display}</a>.
+              <span className="text-brand-electric font-light block mb-1">Direct Technical Consultation:</span>
+              Speak directly with an operations director or regional engineering manager on <a href={CONTACT_CONFIG.mainPhone.href} className="text-white font-mono font-light hover:text-brand-electric">{CONTACT_CONFIG.mainPhone.display}</a>.
             </div>
           </div>
 

@@ -68,7 +68,7 @@ export default async function LoginPage({
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3">
             <span className="text-[17px] font-light tracking-tight text-white">
-              Entire<span className="font-semibold text-brand-electric">FM</span>
+              Entire<span className="font-light text-brand-electric">FM</span>
             </span>
             <span className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-brand-mist/60">
               Unified Platform
@@ -76,7 +76,7 @@ export default async function LoginPage({
           </Link>
           <Link
             href="/"
-            className="text-[12px] font-medium text-brand-mist/70 transition-colors hover:text-white"
+            className="text-[12px] font-normal text-brand-mist/70 transition-colors hover:text-white"
           >
             ← Back to Public Website
           </Link>
@@ -89,7 +89,7 @@ export default async function LoginPage({
           <div className="rounded-lg border border-brand-edge-dark/80 bg-brand-carbon/90 p-8 shadow-2xl backdrop-blur-xl">
             {/* Header */}
             <div className="mb-6">
-              <div className="inline-flex items-center gap-2 rounded-full border border-brand-electric/30 bg-brand-electric/10 px-2.5 py-1 text-[11px] font-medium text-brand-electric-bright">
+              <div className="inline-flex items-center gap-2 rounded-full border border-brand-electric/30 bg-brand-electric/10 px-2.5 py-1 text-[11px] font-normal text-brand-electric-bright">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-electric animate-pulse" />
                 Operational Access Gate
               </div>
@@ -125,7 +125,7 @@ export default async function LoginPage({
                         className="w-full text-left rounded border border-brand-edge-dark bg-brand-void/80 hover:border-brand-electric p-3.5 transition-all group"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-[14px] font-medium text-white group-hover:text-brand-electric-bright">
+                          <span className="text-[14px] font-normal text-white group-hover:text-brand-electric-bright">
                             {ctx.orgName}
                           </span>
                           <span className="rounded bg-brand-carbon border border-brand-edge-dark px-2 py-0.5 font-mono text-[10px] text-brand-mist/70">
@@ -184,7 +184,7 @@ export default async function LoginPage({
 
                 <button
                   type="submit"
-                  className="mt-2 w-full rounded bg-brand-electric py-2.5 text-center text-[13.5px] font-medium text-white shadow-md transition-all hover:bg-brand-electric-bright focus:outline-none focus:ring-2 focus:ring-brand-electric focus:ring-offset-2 focus:ring-offset-brand-void active:scale-[0.99]"
+                  className="mt-2 w-full rounded bg-brand-electric py-2.5 text-center text-[13.5px] font-normal text-white shadow-md transition-all hover:bg-brand-electric-bright focus:outline-none focus:ring-2 focus:ring-brand-electric focus:ring-offset-2 focus:ring-offset-brand-void active:scale-[0.99]"
                 >
                   Sign In
                 </button>

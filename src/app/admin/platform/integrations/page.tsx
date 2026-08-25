@@ -34,7 +34,7 @@ export default async function PlatformIntegrationsPage() {
               <div>
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="font-semibold text-white text-[15px]">{s.name}</h3>
+                    <h3 className="font-light text-white text-[15px]">{s.name}</h3>
                     <div className="text-[12px] text-brand-mist/60 mt-0.5">Provider: {s.provider}</div>
                   </div>
                   <span className={`rounded px-2.5 py-1 font-mono text-[10.5px] border ${LICENSING_COLOURS[s.licensing_status] ?? 'bg-brand-edge-dark text-brand-mist/60 border-brand-edge-dark'}`}>
@@ -51,7 +51,7 @@ export default async function PlatformIntegrationsPage() {
 
                 {isSFG20 && (
                   <div className="mt-5 rounded bg-brand-void/50 p-3.5 text-[11.5px] text-brand-mist/80 space-y-2 border border-brand-edge-dark">
-                    <div className="font-semibold text-white">Capabilities & Governance:</div>
+                    <div className="font-light text-white">Capabilities & Governance:</div>
                     <ul className="space-y-1 text-[11px] list-disc list-inside text-brand-mist/70">
                       <li>Maintenance schedule mapping</li>
                       <li>Source version tracking</li>
@@ -69,7 +69,7 @@ export default async function PlatformIntegrationsPage() {
               <div className="border-t border-brand-edge-dark/60 pt-4 flex justify-between items-center text-[12px]">
                 <span className="text-brand-mist/40 text-[11px]">Lineage ID: {s.id.substring(0, 8)}...</span>
                 <button
-                  className="rounded bg-brand-edge-dark px-3 py-1 text-[11.5px] font-medium text-brand-mist hover:bg-brand-void hover:text-white transition border border-brand-edge-dark"
+                  className="rounded bg-brand-edge-dark px-3 py-1 text-[11.5px] font-normal text-brand-mist hover:bg-brand-void hover:text-white transition border border-brand-edge-dark"
                   disabled
                 >
                   Configure Connector

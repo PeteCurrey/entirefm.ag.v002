@@ -16,7 +16,7 @@ export default function SupplierPortalUsersPage() {
               <span className="text-[10.5px] font-mono uppercase tracking-widest text-slate-400">
                 ENTIRECAFM // ORGANISATION USER MANAGEMENT
               </span>
-              <h1 className="text-2xl font-bold text-slate-900 mt-1">
+              <h1 className="text-2xl font-extralight text-slate-900 mt-1">
                 Supplier Team &amp; User Access
               </h1>
             </div>
@@ -27,27 +27,27 @@ export default function SupplierPortalUsersPage() {
           </div>
 
           <div className="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden p-6 space-y-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 pb-3 border-b border-slate-200">
+            <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900 pb-3 border-b border-slate-200">
               Active Organisation Members
             </h3>
 
             <div className="divide-y divide-slate-100 text-xs font-mono">
               <div className="py-3 flex items-center justify-between">
                 <div>
-                  <div className="font-bold text-slate-900 font-sans">Marcus Vance (Managing Director)</div>
+                  <div className="font-light text-slate-900 font-sans">Marcus Vance (Managing Director)</div>
                   <span className="text-slate-500">m.vance@apexhvac.example.co.uk</span>
                 </div>
-                <span className="font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[10px]">
+                <span className="font-light text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[10px]">
                   SUPPLIER_ADMIN
                 </span>
               </div>
 
               <div className="py-3 flex items-center justify-between">
                 <div>
-                  <div className="font-bold text-slate-900 font-sans">Sarah Jenkins (Compliance Lead)</div>
+                  <div className="font-light text-slate-900 font-sans">Sarah Jenkins (Compliance Lead)</div>
                   <span className="text-slate-500">s.jenkins@apexhvac.example.co.uk</span>
                 </div>
-                <span className="font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[10px]">
+                <span className="font-light text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[10px]">
                   COMPLIANCE
                 </span>
               </div>

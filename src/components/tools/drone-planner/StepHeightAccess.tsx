@@ -49,7 +49,7 @@ export function StepHeightAccess({ inspection, onChange }: StepHeightAccessProps
                     : 'bg-brand-carbon border-brand-edge-dark text-slate-300 hover:border-white/30 hover:bg-white/[0.04]'
                 }`}
               >
-                <span className="text-xs sm:text-sm font-medium group-hover:text-white transition-colors">
+                <span className="text-xs sm:text-sm font-normal group-hover:text-white transition-colors">
                   {hb.label}
                 </span>
                 <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ml-2 transition-colors ${
@@ -88,7 +88,7 @@ export function StepHeightAccess({ inspection, onChange }: StepHeightAccessProps
                     : 'bg-brand-carbon border-brand-edge-dark text-slate-300 hover:border-white/30 hover:bg-white/[0.04]'
                 }`}
               >
-                <span className="text-xs sm:text-sm font-medium group-hover:text-white transition-colors">
+                <span className="text-xs sm:text-sm font-normal group-hover:text-white transition-colors">
                   {con.label}
                 </span>
                 <div className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 ml-2 transition-colors ${

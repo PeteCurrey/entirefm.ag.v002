@@ -33,7 +33,7 @@ export default async function AccountingSyncPage() {
           <div className="flex items-center gap-3">
             <Building2 className="h-6 w-6 text-brand-electric" />
             <div>
-              <h2 className="text-base font-bold text-white font-mono">
+              <h2 className="text-base font-light text-white font-mono">
                 {adapter.provider}
               </h2>
               <p className="text-xs text-brand-mist/60 font-mono">
@@ -61,7 +61,7 @@ export default async function AccountingSyncPage() {
 
       {/* FAILURES */}
       <div className="space-y-3">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-white font-mono">
+        <h3 className="text-xs font-normal uppercase tracking-wider text-white font-mono">
           Recent Sync Failures ({failures.length})
         </h3>
         {failures.length === 0 ? (
@@ -71,7 +71,7 @@ export default async function AccountingSyncPage() {
         ) : (
           <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
             <table className="w-full text-left text-xs font-mono text-brand-mist">
-              <thead className="bg-brand-void uppercase text-[10.5px] font-semibold text-brand-mist/70 border-b border-brand-edge-dark">
+              <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
                 <tr>
                   <th className="p-3.5">Entity Type</th>
                   <th className="p-3.5">Entity ID</th>
@@ -83,7 +83,7 @@ export default async function AccountingSyncPage() {
               <tbody className="divide-y divide-brand-edge-dark/60">
                 {failures.map((f: any) => (
                   <tr key={f.id} className="hover:bg-brand-edge-dark/20">
-                    <td className="p-3.5 font-bold text-white">{f.entity_type}</td>
+                    <td className="p-3.5 font-light text-white">{f.entity_type}</td>
                     <td className="p-3.5">{f.entity_id?.slice(0, 8)}</td>
                     <td className="p-3.5 text-zinc-500 font-mono text-[11px]">{f.idempotency_key}</td>
                     <td className="p-3.5 text-red-300">{f.error_message || 'Unknown error'}</td>

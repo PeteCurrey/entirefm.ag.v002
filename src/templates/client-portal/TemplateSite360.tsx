@@ -45,7 +45,7 @@ export function TemplateSite360() {
           {/* Hero Section */}
           <section className="mb-14 max-w-4xl">
             <div className="flex items-center gap-2 mb-3">
-              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[11px] font-bold text-[#C2410C]">
+              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[11px] font-normal text-[#C2410C]">
                 <span className="h-2 w-2 rounded-full bg-[#EA580C] animate-pulse" />
                 SITE 360 PHYSICAL ASSET CANVAS
               </span>
@@ -56,7 +56,7 @@ export function TemplateSite360() {
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-[#101010] leading-[1.15]">
               Every building has a{' '}
-              <span className="font-semibold block mt-1">
+              <span className="font-light block mt-1">
                 digital operating picture.
               </span>
             </h1>
@@ -68,14 +68,14 @@ export function TemplateSite360() {
             <div className="flex flex-wrap items-center gap-3.5 mt-7">
               <Link
                 href="/contact-us?subject=Site%20360%20Demonstration"
-                className="inline-flex items-center gap-2 rounded-[8px] bg-[#EA580C] px-6 py-3 text-[13.5px] font-semibold text-white shadow hover:bg-[#D44708] transition-all"
+                className="inline-flex items-center gap-2 rounded-[8px] bg-[#EA580C] px-6 py-3 text-[13.5px] font-normal text-white shadow hover:bg-[#D44708] transition-all"
               >
                 Experience Site 360 Live
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/client-portal"
-                className="inline-flex items-center gap-2 rounded-[8px] border border-[#E4E4E1] bg-white px-5 py-3 text-[13.5px] font-medium text-[#101010] hover:bg-[#F5F5F3] transition-colors"
+                className="inline-flex items-center gap-2 rounded-[8px] border border-[#E4E4E1] bg-white px-5 py-3 text-[13.5px] font-normal text-[#101010] hover:bg-[#F5F5F3] transition-colors"
               >
                 ← Back to Portal Overview
               </Link>
@@ -97,10 +97,10 @@ export function TemplateSite360() {
           {/* 4 Spatial Presentation Modes */}
           <section className="mb-20">
             <div className="max-w-3xl mb-8">
-              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#C2410C] mb-2">
+              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
                 FOUR PRESENTATION MODES
               </span>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-[#101010] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
                 Understand your building through multiple interfaces
               </h2>
               <p className="text-[14px] text-[#686866] mt-2 leading-relaxed">
@@ -140,10 +140,10 @@ export function TemplateSite360() {
                   className="rounded-[10px] border border-[#E4E4E1] bg-white p-5 flex flex-col justify-between shadow-sm"
                 >
                   <div>
-                    <span className="font-mono text-[10.5px] font-bold text-[#EA580C] block mb-1">
+                    <span className="font-mono text-[10.5px] font-normal text-[#EA580C] block mb-1">
                       {m.mode.toUpperCase()}
                     </span>
-                    <h3 className="text-[15px] font-semibold text-[#101010] mb-2">
+                    <h3 className="text-[15px] font-normal text-[#101010] mb-2">
                       {m.title}
                     </h3>
                     <p className="text-[12.5px] text-[#4B5563] leading-relaxed">
@@ -164,10 +164,10 @@ export function TemplateSite360() {
           <section className="mb-20">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-3xl mb-8">
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#C2410C] mb-2">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
                   FACILITY INTELLIGENCE
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-semibold text-[#101010] tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
                   11 Integrated modules inside every building profile
                 </h2>
                 <p className="text-[14px] text-[#686866] mt-2">
@@ -190,7 +190,7 @@ export function TemplateSite360() {
                   { name: 'Audit Trail', desc: 'Immutable chronological ledger recording every action taken on site.' },
                 ].map((mod) => (
                   <div key={mod.name} className="rounded-[8px] border border-[#E4E4E1] bg-[#FBFBFA] p-4">
-                    <h4 className="text-[13.5px] font-semibold text-[#101010]">
+                    <h4 className="text-[13.5px] font-normal text-[#101010]">
                       {mod.name}
                     </h4>
                     <p className="text-[12px] text-[#686866] mt-1 leading-relaxed">

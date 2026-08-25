@@ -28,10 +28,10 @@ export function TelemetryChart({
       <div className="my-12 p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
           <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+            <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
               Operational Timeline Simulation
             </span>
-            <h3 className="text-xl font-bold text-white">{title}</h3>
+            <h3 className="text-xl font-light text-white">{title}</h3>
             <p className="text-xs text-slate-400 mt-1">{subtitle}</p>
           </div>
           <span className="text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-slate-400">
@@ -44,12 +44,12 @@ export function TelemetryChart({
             <div key={idx} className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-mono font-bold text-pink-400">{item.time}</span>
+                  <span className="text-xs font-mono font-light text-pink-400">{item.time}</span>
                   <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">
                     {item.actor}
                   </span>
                 </div>
-                <h4 className="text-xs font-bold text-white mb-1">{item.label}</h4>
+                <h4 className="text-xs font-normal text-white mb-1">{item.label}</h4>
                 <p className="text-[11px] text-slate-400 leading-tight">{item.desc}</p>
               </div>
             </div>
@@ -64,10 +64,10 @@ export function TelemetryChart({
       <div className="my-12 p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
           <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+            <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
               BMS Multi-Variable Demand Analysis
             </span>
-            <h3 className="text-xl font-bold text-white">{title}</h3>
+            <h3 className="text-xl font-light text-white">{title}</h3>
             <p className="text-xs text-slate-400 mt-1">{subtitle}</p>
           </div>
           <span className="text-[10px] font-mono px-2.5 py-1 rounded bg-blue-950 border border-blue-800 text-blue-300">
@@ -124,7 +124,7 @@ export function TelemetryChart({
 
           <div className="flex items-center justify-between text-xs font-mono text-slate-400 pt-1">
             <span>Result: 14.8% reduction in peak chiller plant electrical draw via predictive deadband tuning.</span>
-            <span className="text-pink-400 font-bold">ILLUSTRATIVE BMS EXAMPLE</span>
+            <span className="text-pink-400 font-light">ILLUSTRATIVE BMS EXAMPLE</span>
           </div>
         </div>
       </div>
@@ -136,10 +136,10 @@ export function TelemetryChart({
     <div className="my-12 p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
         <div>
-          <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+          <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
             Condition-Monitoring Waveform
           </span>
-          <h3 className="text-xl font-bold text-white">{title}</h3>
+          <h3 className="text-xl font-light text-white">{title}</h3>
           <p className="text-xs text-slate-400 mt-1">{subtitle}</p>
         </div>
         <span className="text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-slate-400">
@@ -155,12 +155,12 @@ export function TelemetryChart({
         {/* Graphical Waveform Simulation */}
         <div className="relative h-36 w-full bg-slate-950 rounded-lg p-3 overflow-hidden border border-slate-800/80 flex items-center justify-between">
           <div className="absolute inset-x-0 top-1/4 border-b border-red-500/40 stroke-dashed" />
-          <span className="absolute top-2 right-3 text-[10px] font-mono text-red-400 font-bold">
+          <span className="absolute top-2 right-3 text-[10px] font-mono text-red-400 font-light">
             CRITICAL ALARM THRESHOLD (4.5 mm/s)
           </span>
 
           <div className="absolute inset-x-0 top-1/2 border-b border-amber-500/40 stroke-dashed" />
-          <span className="absolute top-[45%] right-3 text-[10px] font-mono text-amber-400 font-bold">
+          <span className="absolute top-[45%] right-3 text-[10px] font-mono text-amber-400 font-light">
             ANOMALY WARNING ZONE (2.8 mm/s)
           </span>
 
@@ -179,15 +179,15 @@ export function TelemetryChart({
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
           <div className="p-2.5 rounded bg-slate-950 border border-slate-800">
             <span className="text-slate-500 block text-[10px]">Nominal Baseline</span>
-            <span className="text-emerald-400 font-bold">0.8 – 1.4 mm/s</span>
+            <span className="text-emerald-400 font-light">0.8 – 1.4 mm/s</span>
           </div>
           <div className="p-2.5 rounded bg-slate-950 border border-slate-800">
             <span className="text-slate-500 block text-[10px]">Deviation Detected</span>
-            <span className="text-amber-400 font-bold">+2.2 mm/s (Harmonic Peak)</span>
+            <span className="text-amber-400 font-light">+2.2 mm/s (Harmonic Peak)</span>
           </div>
           <div className="p-2.5 rounded bg-slate-950 border border-slate-800">
             <span className="text-slate-500 block text-[10px]">CAFM Trigger</span>
-            <span className="text-pink-400 font-bold">Pre-Failure Work Order Issued</span>
+            <span className="text-pink-400 font-light">Pre-Failure Work Order Issued</span>
           </div>
         </div>
       </div>

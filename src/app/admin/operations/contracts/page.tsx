@@ -12,10 +12,10 @@ export default async function OperationsContractsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             MULTI-DOMAIN CONTRACT HEALTH &amp; TELEMETRY
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Live Contract Health</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Live Contract Health</h1>
           <p className="text-sm text-zinc-400">
             Factual multi-domain health summaries across Service Requests, SLA, PPM, Compliance, and Supply Chain.
           </p>
@@ -30,7 +30,7 @@ export default async function OperationsContractsPage() {
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Active Contracts ({contracts.length})
           </h3>
           <span className="text-xs text-zinc-500 font-mono">No Opaque Health Scores</span>
@@ -55,7 +55,7 @@ export default async function OperationsContractsPage() {
               {contracts.map((c) => (
                 <tr key={c.id} className="hover:bg-zinc-800/40">
                   <td className="py-3.5 px-4">
-                    <div className="font-bold text-white">{c.name}</div>
+                    <div className="font-light text-white">{c.name}</div>
                     <div className="text-[11px] text-zinc-500 font-mono">{c.contract_reference}</div>
                   </td>
                   <td className="py-3.5 px-4 font-mono text-zinc-400">{c.contract_type}</td>
@@ -66,7 +66,7 @@ export default async function OperationsContractsPage() {
                     {c.annual_value_gbp ? `£${c.annual_value_gbp.toLocaleString()}` : '—'}
                   </td>
                   <td className="py-3.5 px-4">
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 font-bold">
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 font-light">
                       {c.status}
                     </span>
                   </td>

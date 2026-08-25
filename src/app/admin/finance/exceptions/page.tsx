@@ -39,7 +39,7 @@ export default async function FinanceExceptionsPage() {
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <ShieldAlert className="h-4 w-4 text-red-400" />
-          <h2 className="text-sm font-bold uppercase tracking-wider text-white font-mono">
+          <h2 className="text-sm font-normal uppercase tracking-wider text-white font-mono">
             Bank Detail Change Alerts ({bankList.length})
           </h2>
         </div>
@@ -50,7 +50,7 @@ export default async function FinanceExceptionsPage() {
         ) : (
           <div className="bg-brand-carbon border border-red-900/40 rounded-xl overflow-hidden">
             <table className="w-full text-left text-xs font-mono text-brand-mist">
-              <thead className="bg-red-950/40 uppercase text-[10.5px] font-semibold text-red-300 border-b border-red-900/40">
+              <thead className="bg-red-950/40 uppercase text-[10.5px] font-normal text-red-300 border-b border-red-900/40">
                 <tr>
                   <th className="p-3.5">Invoice Ref</th>
                   <th className="p-3.5">Supplier</th>
@@ -63,9 +63,9 @@ export default async function FinanceExceptionsPage() {
               <tbody className="divide-y divide-brand-edge-dark/60">
                 {bankList.map(inv => (
                   <tr key={inv.id} className="hover:bg-red-950/20">
-                    <td className="p-3.5 font-bold text-white">{inv.invoice_ref}</td>
+                    <td className="p-3.5 font-light text-white">{inv.invoice_ref}</td>
                     <td className="p-3.5">{inv.supplier_org_id?.slice(0, 8)}</td>
-                    <td className="p-3.5 text-white font-bold">£{(Number(inv.total_amount_gbp) || 0).toFixed(2)}</td>
+                    <td className="p-3.5 text-white font-light">£{(Number(inv.total_amount_gbp) || 0).toFixed(2)}</td>
                     <td className="p-3.5 text-red-300">Bank details differ from master records</td>
                     <td className="p-3.5">
                       <span className="px-2 py-0.5 rounded text-[10px] bg-red-950 text-red-300 border border-red-800">
@@ -89,7 +89,7 @@ export default async function FinanceExceptionsPage() {
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <AlertTriangle className="h-4 w-4 text-amber-400" />
-          <h2 className="text-sm font-bold uppercase tracking-wider text-white font-mono">
+          <h2 className="text-sm font-normal uppercase tracking-wider text-white font-mono">
             Possible Duplicate Invoices ({dupList.length})
           </h2>
         </div>
@@ -100,7 +100,7 @@ export default async function FinanceExceptionsPage() {
         ) : (
           <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
             <table className="w-full text-left text-xs font-mono text-brand-mist">
-              <thead className="bg-brand-void uppercase text-[10.5px] font-semibold text-brand-mist/70 border-b border-brand-edge-dark">
+              <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
                 <tr>
                   <th className="p-3.5">Invoice Ref</th>
                   <th className="p-3.5">Supplier</th>
@@ -112,10 +112,10 @@ export default async function FinanceExceptionsPage() {
               <tbody className="divide-y divide-brand-edge-dark/60">
                 {dupList.map(inv => (
                   <tr key={inv.id} className="hover:bg-brand-edge-dark/20">
-                    <td className="p-3.5 font-bold text-white">{inv.invoice_ref}</td>
+                    <td className="p-3.5 font-light text-white">{inv.invoice_ref}</td>
                     <td className="p-3.5">{inv.supplier_org_id?.slice(0, 8)}</td>
-                    <td className="p-3.5 font-bold text-white">£{(Number(inv.total_amount_gbp) || 0).toFixed(2)}</td>
-                    <td className="p-3.5 text-amber-400 font-bold">{inv.duplicate_of_invoice_id?.slice(0, 8)}</td>
+                    <td className="p-3.5 font-light text-white">£{(Number(inv.total_amount_gbp) || 0).toFixed(2)}</td>
+                    <td className="p-3.5 text-amber-400 font-light">{inv.duplicate_of_invoice_id?.slice(0, 8)}</td>
                     <td className="p-3.5 text-right">
                       <Link href={`/admin/finance/supplier-invoices/${inv.id}`} className="text-brand-electric hover:text-white underline">
                         Review →

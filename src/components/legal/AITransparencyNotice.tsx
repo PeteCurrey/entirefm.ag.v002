@@ -67,8 +67,8 @@ export function AITransparencyNotice({
           </span>
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold text-slate-900">{featureName}</span>
-              <span className="rounded-md bg-indigo-100 px-2 py-0.5 text-[11px] font-semibold text-indigo-800">
+              <span className="text-xs font-normal text-slate-900">{featureName}</span>
+              <span className="rounded-md bg-indigo-100 px-2 py-0.5 text-[11px] font-normal text-indigo-800">
                 {roleInfo.badge}
               </span>
             </div>
@@ -91,7 +91,7 @@ export function AITransparencyNotice({
         <div className="mt-3.5 border-t border-indigo-100 pt-3 text-xs text-slate-700 space-y-2.5">
           {/* Inputs */}
           <div>
-            <span className="font-semibold text-slate-900">Information Used: </span>
+            <span className="font-light text-slate-900">Information Used: </span>
             <span className="text-slate-600">{inputsUsed.join(' · ')}</span>
           </div>
 
@@ -108,7 +108,7 @@ export function AITransparencyNotice({
           <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-[11.5px]">
             <Link
               href="/legal/ai"
-              className="inline-flex items-center gap-1 font-semibold text-indigo-700 hover:underline"
+              className="inline-flex items-center gap-1 font-light text-indigo-700 hover:underline"
             >
               Responsible AI Policy
               <ExternalLink className="h-3 w-3" />
@@ -117,7 +117,7 @@ export function AITransparencyNotice({
             {canChallenge && (
               <Link
                 href={challengeRoute}
-                className="inline-flex items-center gap-1 font-medium text-slate-600 hover:text-slate-900 underline"
+                className="inline-flex items-center gap-1 font-normal text-slate-600 hover:text-slate-900 underline"
               >
                 <HelpCircle className="h-3 w-3" />
                 Request Human Review / Question Outcome

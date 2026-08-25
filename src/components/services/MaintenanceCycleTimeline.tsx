@@ -104,7 +104,7 @@ export function MaintenanceCycleTimeline() {
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink-light">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
               PPM LIFECYCLE METHODOLOGY
             </span>
           </div>
@@ -145,7 +145,7 @@ export function MaintenanceCycleTimeline() {
                     }`}
                   />
                 </div>
-                <strong className="text-xs font-medium block leading-snug line-clamp-2">
+                <strong className="text-xs font-normal block leading-snug line-clamp-2">
                   {stg.name}
                 </strong>
               </button>
@@ -165,7 +165,7 @@ export function MaintenanceCycleTimeline() {
               className="object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-carbon via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-brand-carbon/60" />
-            <div className="absolute top-4 left-4 bg-brand-graphite/90 text-brand-pink-light border border-brand-edge-dark px-3 py-1 text-xs font-mono font-medium rounded-sm backdrop-blur-md">
+            <div className="absolute top-4 left-4 bg-brand-graphite/90 text-brand-pink-light border border-brand-edge-dark px-3 py-1 text-xs font-mono font-normal rounded-sm backdrop-blur-md">
               STAGE {activeStage.step}: {activeStage.name}
             </div>
           </div>
@@ -173,7 +173,7 @@ export function MaintenanceCycleTimeline() {
           {/* Right Column: Stage Description & Deliverables */}
           <div className="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink block mb-2">
+              <span className="text-xs font-normal uppercase tracking-wider text-brand-pink block mb-2">
                 STRUCTURED MAINTENANCE GOVERNANCE
               </span>
               <h3 className="text-2xl sm:text-3xl font-light text-white mb-3">
@@ -184,7 +184,7 @@ export function MaintenanceCycleTimeline() {
               </p>
 
               <div className="space-y-2.5 pt-4 border-t border-brand-edge-dark">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                <span className="text-xs font-normal text-slate-400 uppercase tracking-wider block mb-2">
                   Key Operational Deliverables
                 </span>
                 {activeStage.deliverables.map((del, idx) => (
@@ -201,7 +201,7 @@ export function MaintenanceCycleTimeline() {
               <button
                 type="button"
                 onClick={() => setActiveStageIndex((activeStageIndex + 1) % CYCLE_STAGES.length)}
-                className="text-brand-pink hover:text-brand-pink-light font-bold inline-flex items-center gap-1.5 cursor-pointer"
+                className="text-brand-pink hover:text-brand-pink-light font-light inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <span>Next Stage ({CYCLE_STAGES[(activeStageIndex + 1) % CYCLE_STAGES.length].name})</span>
                 <ArrowRight className="w-3.5 h-3.5" />

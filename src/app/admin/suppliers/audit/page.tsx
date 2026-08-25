@@ -12,10 +12,10 @@ export default async function ComplianceAuditLedgerPage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
             IMMUTABLE COMPLIANCE AUDIT TRAIL
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight text-slate-900 mt-1">
             Supplier Assurance Audit Ledger
           </h1>
           <p className="text-xs text-slate-600 font-light mt-1">
@@ -63,9 +63,9 @@ export default async function ComplianceAuditLedgerPage() {
                 logs.map((l) => (
                   <tr key={l.id} className="hover:bg-slate-50/50">
                     <td className="py-3 px-4 text-slate-500">{l.timestamp.replace('T', ' ').substring(0, 19)}</td>
-                    <td className="py-3 px-4 font-bold text-slate-900 font-sans">{l.actor}</td>
+                    <td className="py-3 px-4 font-light text-slate-900 font-sans">{l.actor}</td>
                     <td className="py-3 px-4">
-                      <span className="inline-block text-[10px] px-2 py-0.5 rounded bg-slate-900 text-white font-bold">
+                      <span className="inline-block text-[10px] px-2 py-0.5 rounded bg-slate-900 text-white font-light">
                         {l.action}
                       </span>
                     </td>

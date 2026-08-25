@@ -29,7 +29,7 @@ export function SupplierPortalComingSoon() {
 
               <h1 className="text-3xl sm:text-4xl font-extralight tracking-tight text-white leading-tight">
                 Contractor Operating Environment.{' '}
-                <span className="font-semibold block mt-1 text-brand-mist">
+                <span className="font-light block mt-1 text-brand-mist">
                   Coming in CAFM Phase 2.
                 </span>
               </h1>
@@ -76,14 +76,14 @@ export function SupplierPortalComingSoon() {
               <div className="flex items-center justify-between pb-6 border-b border-brand-edge-dark mb-6">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/50">AUTHORISED ACCESS</span>
-                  <h3 className="text-lg font-bold text-white">Supplier Portal Login</h3>
+                  <h3 className="text-lg font-light text-white">Supplier Portal Login</h3>
                 </div>
                 <Lock className="h-5 w-5 text-brand-electric-bright" />
               </div>
 
               {attempted ? (
                 <div className="p-4 bg-brand-carbon border border-brand-electric/30 rounded-sm text-xs text-brand-mist/90 space-y-2">
-                  <div className="flex items-center gap-2 text-brand-electric-bright font-bold">
+                  <div className="flex items-center gap-2 text-brand-electric-bright font-light">
                     <Clock className="h-4 w-4" />
                     <span>Portal Staging Environment</span>
                   </div>
@@ -130,7 +130,7 @@ export function SupplierPortalComingSoon() {
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full py-3 bg-brand-electric hover:bg-brand-electric-bright text-slate-900 text-xs font-bold uppercase tracking-wider rounded-sm transition-colors"
+                      className="w-full py-3 bg-brand-electric hover:bg-brand-electric-bright text-slate-900 text-xs font-normal uppercase tracking-wider rounded-sm transition-colors"
                     >
                       Authenticate Contractor Access
                     </button>

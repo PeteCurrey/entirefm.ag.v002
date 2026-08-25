@@ -14,10 +14,10 @@ export function PlannerProgress({ currentStep, totalSteps, stepName }: PlannerPr
   return (
     <div className="space-y-2" aria-live="polite">
       <div className="flex items-center justify-between text-xs font-mono">
-        <span className="text-brand-pink font-bold uppercase tracking-wider">
+        <span className="text-brand-pink font-light uppercase tracking-wider">
           STEP {currentStep} OF {totalSteps}: <span className="text-white">{stepName}</span>
         </span>
-        <span className="text-slate-400 font-medium">
+        <span className="text-slate-400 font-normal">
           {percentage}% Complete
         </span>
       </div>

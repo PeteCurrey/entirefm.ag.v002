@@ -80,7 +80,7 @@ export function InformationHierarchySequence() {
             >
               <div className="flex items-center justify-between mb-1.5">
                 <span
-                  className={`font-mono text-[11px] font-bold ${
+                  className={`font-mono text-[11px] font-normal ${
                     isSelected ? 'text-[#EA580C]' : 'text-[#9B9B97]'
                   }`}
                 >
@@ -90,7 +90,7 @@ export function InformationHierarchySequence() {
                   {step.level}
                 </span>
               </div>
-              <h4 className="text-[14px] font-semibold text-[#101010]">
+              <h4 className="text-[14px] font-normal text-[#101010]">
                 {step.title}
               </h4>
               <p className="text-[11.5px] text-[#686866] mt-0.5 truncate">
@@ -107,7 +107,7 @@ export function InformationHierarchySequence() {
           {/* Left: Explanatory Context */}
           <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2 py-0.5 font-mono text-[10px] font-bold text-[#C2410C]">
+              <span className="inline-flex items-center rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2 py-0.5 font-mono text-[10px] font-normal text-[#C2410C]">
                 {activeStep.level.toUpperCase()}
               </span>
               <span className="font-mono text-[11px] text-[#059669] font-medium">
@@ -115,7 +115,7 @@ export function InformationHierarchySequence() {
               </span>
             </div>
 
-            <h3 className="text-2xl font-semibold text-[#101010] tracking-tight">
+            <h3 className="text-2xl font-light text-[#101010] tracking-tight">
               {activeStep.title}
             </h3>
 
@@ -124,7 +124,7 @@ export function InformationHierarchySequence() {
             </p>
 
             <div className="rounded-[8px] border border-[#E4E4E1] bg-[#FBFBFA] p-3.5 space-y-2">
-              <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#9B9B97]">
+              <p className="font-mono text-[10px] font-normal uppercase tracking-wider text-[#9B9B97]">
                 Why this matters in FM
               </p>
               <p className="text-[12px] text-[#374151]">
@@ -137,7 +137,7 @@ export function InformationHierarchySequence() {
               <button
                 disabled={activeStepIndex === 0}
                 onClick={() => setActiveStepIndex((prev) => Math.max(0, prev - 1))}
-                className="rounded-[8px] border border-[#E4E4E1] px-3 py-1.5 text-[12px] font-medium text-[#686866] hover:bg-[#F5F5F3] disabled:opacity-40 disabled:pointer-events-none transition-colors"
+                className="rounded-[8px] border border-[#E4E4E1] px-3 py-1.5 text-[12px] font-normal text-[#686866] hover:bg-[#F5F5F3] disabled:opacity-40 disabled:pointer-events-none transition-colors"
               >
                 ← Previous Layer
               </button>
@@ -148,7 +148,7 @@ export function InformationHierarchySequence() {
                     Math.min(HIERARCHY_STEPS.length - 1, prev + 1)
                   )
                 }
-                className="inline-flex items-center gap-1 rounded-[8px] bg-[#101010] px-3.5 py-1.5 text-[12px] font-medium text-white hover:bg-[#252525] disabled:opacity-40 disabled:pointer-events-none transition-colors"
+                className="inline-flex items-center gap-1 rounded-[8px] bg-[#101010] px-3.5 py-1.5 text-[12px] font-normal text-white hover:bg-[#252525] disabled:opacity-40 disabled:pointer-events-none transition-colors"
               >
                 Next Layer →
               </button>

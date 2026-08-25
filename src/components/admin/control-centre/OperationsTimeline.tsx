@@ -44,7 +44,7 @@ export function OperationsTimeline({ events }: OperationsTimelineProps) {
           <div className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#111111] text-white">
             <Calendar className="h-3 w-3" />
           </div>
-          <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+          <h2 className="text-[12px] font-normal text-[#111111] uppercase tracking-wide">
             Operations Timeline
           </h2>
         </div>
@@ -53,7 +53,7 @@ export function OperationsTimeline({ events }: OperationsTimelineProps) {
             <button
               key={tf}
               onClick={() => setTimeframe(tf)}
-              className={`rounded-[3px] px-2 py-0.5 text-[11px] font-medium transition-all ${
+              className={`rounded-[3px] px-2 py-0.5 text-[11px] font-normal transition-all ${
                 timeframe === tf ? 'bg-[#111111] text-white' : 'text-[#6D6D68] hover:text-[#111111]'
               }`}
             >
@@ -66,7 +66,7 @@ export function OperationsTimeline({ events }: OperationsTimelineProps) {
       {events.length === 0 ? (
         <div className="flex flex-col items-center justify-center p-6 text-center gap-1.5">
           <Calendar className="h-5 w-5 text-[#9A9A95]" />
-          <p className="font-medium text-[#111111] text-[12.5px]">No scheduled activity for {timeframe.toLowerCase()}</p>
+          <p className="font-normal text-[#111111] text-[12.5px]">No scheduled activity for {timeframe.toLowerCase()}</p>
           <p className="text-[11.5px] text-[#6D6D68]">
             PPM occurrences and contractor visits will display automatically.
           </p>
@@ -92,7 +92,7 @@ export function OperationsTimeline({ events }: OperationsTimelineProps) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
-                    <p className="text-[13px] font-medium text-[#111111] leading-snug">{event.title}</p>
+                    <p className="text-[13px] font-normal text-[#111111] leading-snug">{event.title}</p>
                     <Badge variant={badge.variant as any} size="xs">{badge.label}</Badge>
                   </div>
                   <p className="text-[11.5px] text-[#6D6D68] mt-0.5">{event.location}</p>

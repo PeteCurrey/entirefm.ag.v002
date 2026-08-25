@@ -94,7 +94,7 @@ export function LandscapeMatrixView({ suppliers }: { suppliers: SupplierOrganisa
                   <td colSpan={8} className="py-12 text-center text-slate-500 text-xs font-light">
                     No supplier records match the selected filters.
                     <div className="mt-2">
-                      <Link href="/admin/suppliers/targets" className="text-brand-pink font-semibold underline">
+                      <Link href="/admin/suppliers/targets" className="text-brand-pink font-light underline">
                         View Target Partners Queue
                       </Link>
                     </div>
@@ -104,7 +104,7 @@ export function LandscapeMatrixView({ suppliers }: { suppliers: SupplierOrganisa
                 filtered.map((s) => (
                   <tr key={s.id} className="hover:bg-slate-50/80 transition-colors">
                     <td className="py-3 px-4">
-                      <div className="font-semibold text-slate-900">{s.legal_name}</div>
+                      <div className="font-light text-slate-900">{s.legal_name}</div>
                       {s.trading_name && (
                         <span className="text-[10.5px] text-slate-400 font-mono">t/a {s.trading_name}</span>
                       )}
@@ -113,7 +113,7 @@ export function LandscapeMatrixView({ suppliers }: { suppliers: SupplierOrganisa
                       {s.supplier_types.join(', ').replace(/_/g, ' ')}
                     </td>
                     <td className="py-3 px-4">
-                      <span className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-slate-900 text-white font-medium">
+                      <span className="inline-block text-[10.5px] font-mono px-2 py-0.5 rounded bg-slate-900 text-white font-normal">
                         {s.relationship_level.replace(/_/g, ' ')}
                       </span>
                     </td>
@@ -125,7 +125,7 @@ export function LandscapeMatrixView({ suppliers }: { suppliers: SupplierOrganisa
                       </span>
                     </td>
                     <td className="py-3 px-4 font-mono text-slate-700">
-                      {s.headquarters_city} {s.is_national && <span className="text-brand-pink font-bold">(UK National)</span>}
+                      {s.headquarters_city} {s.is_national && <span className="text-brand-pink font-light">(UK National)</span>}
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex flex-wrap gap-1 max-w-xs">
@@ -136,7 +136,7 @@ export function LandscapeMatrixView({ suppliers }: { suppliers: SupplierOrganisa
                         ))}
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-center font-mono font-bold">
+                    <td className="py-3 px-4 text-center font-mono font-light">
                       {s.emergency_24_7 ? (
                         <span className="text-emerald-600">YES</span>
                       ) : (

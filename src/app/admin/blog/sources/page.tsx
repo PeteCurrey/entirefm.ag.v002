@@ -17,7 +17,7 @@ export default function SourcesPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">External Fact & Citation Sources</h1>
+          <h1 className="text-2xl font-extralight text-white">External Fact & Citation Sources</h1>
           <p className="text-sm text-zinc-400 mt-1">Whitelisted regulatory bodies, British Standards, and trade authority repositories</p>
         </div>
       </div>
@@ -26,18 +26,18 @@ export default function SourcesPage() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-zinc-800">
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Source / Authority</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Publisher</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Trust Level</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Type</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Link</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Source / Authority</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Publisher</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Trust Level</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Type</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Link</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-800">
             {sources.map(src => (
               <tr key={src.id} className="hover:bg-zinc-800/30">
                 <td className="px-4 py-3">
-                  <div className="font-medium text-white">{src.name}</div>
+                  <div className="font-normal text-white">{src.name}</div>
                 </td>
                 <td className="px-4 py-3 text-xs text-zinc-400">{src.publisher}</td>
                 <td className="px-4 py-3">
@@ -45,7 +45,7 @@ export default function SourcesPage() {
                     {src.trustLevel.replace('_', ' ')}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-xs font-semibold text-blue-400">{src.sourceType}</td>
+                <td className="px-4 py-3 text-xs font-normal text-blue-400">{src.sourceType}</td>
                 <td className="px-4 py-3">
                   <a href={src.url} target="_blank" rel="noreferrer" className="text-xs text-blue-400 hover:underline">
                     Visit ↗

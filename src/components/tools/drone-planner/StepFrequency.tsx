@@ -37,7 +37,7 @@ export function StepFrequency({ frequency, onChange }: StepFrequencyProps) {
                   : 'bg-brand-carbon border-brand-edge-dark text-slate-300 hover:border-white/30 hover:bg-white/[0.04]'
               }`}
             >
-              <span className="text-xs sm:text-sm font-medium group-hover:text-white transition-colors">
+              <span className="text-xs sm:text-sm font-normal group-hover:text-white transition-colors">
                 {opt.label}
               </span>
               <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 ml-3 transition-colors ${
@@ -55,7 +55,7 @@ export function StepFrequency({ frequency, onChange }: StepFrequencyProps) {
         <div className="p-5 rounded-sm bg-brand-graphite border border-brand-pink/40 flex items-start gap-3.5">
           <CalendarClock className="w-5 h-5 text-brand-pink shrink-0 mt-0.5" />
           <div className="space-y-1 text-xs text-slate-300 leading-relaxed">
-            <strong className="text-white font-semibold block text-sm">
+            <strong className="text-white font-light block text-sm">
               Drone PPM Advantage
             </strong>
             <p>

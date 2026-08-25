@@ -136,11 +136,11 @@ export function DataRightsRequestForm() {
     return (
       <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-6 sm:p-8 space-y-6 text-slate-900 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white font-bold">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white font-light">
             ✓
           </div>
           <div>
-            <h3 className="text-xl font-bold text-emerald-950">
+            <h3 className="text-xl font-light text-emerald-950">
               Data Subject Rights Request Formally Registered
             </h3>
             <p className="text-xs text-emerald-800 font-mono">
@@ -151,12 +151,12 @@ export function DataRightsRequestForm() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs bg-white rounded-xl p-4 border border-emerald-100">
           <div>
-            <span className="text-slate-500 block uppercase font-semibold">Request Type</span>
-            <span className="font-bold text-slate-900">{submissionResult.right_type}</span>
+            <span className="text-slate-500 block uppercase font-light">Request Type</span>
+            <span className="font-light text-slate-900">{submissionResult.right_type}</span>
           </div>
           <div>
-            <span className="text-slate-500 block uppercase font-semibold">Statutory Target Deadline (Art. 12(3))</span>
-            <span className="font-bold text-emerald-700">
+            <span className="text-slate-500 block uppercase font-light">Statutory Target Deadline (Art. 12(3))</span>
+            <span className="font-light text-emerald-700">
               {new Date(submissionResult.statutory_due_date).toLocaleDateString('en-GB', {
                 day: 'numeric',
                 month: 'long',
@@ -179,7 +179,7 @@ export function DataRightsRequestForm() {
             setFormData(INITIAL_STATE);
             setSubmissionResult(null);
           }}
-          className="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-lg bg-emerald-800 text-white hover:bg-emerald-900 transition-colors"
+          className="inline-flex items-center justify-center px-4 py-2 text-xs font-normal rounded-lg bg-emerald-800 text-white hover:bg-emerald-900 transition-colors"
         >
           Submit Another Request
         </button>
@@ -192,7 +192,7 @@ export function DataRightsRequestForm() {
   return (
     <form onSubmit={handleSubmit} className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 space-y-6 shadow-sm">
       <div className="border-b border-slate-100 pb-4">
-        <h3 className="text-lg font-bold text-slate-900 sm:text-xl">
+        <h3 className="text-lg font-light text-slate-900 sm:text-xl">
           Exercise Your Data Subject Rights
         </h3>
         <p className="text-xs text-slate-600 mt-1">
@@ -208,7 +208,7 @@ export function DataRightsRequestForm() {
 
       {/* Right Type Selection */}
       <div className="space-y-2">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+        <label className="block text-xs font-normal uppercase tracking-wider text-slate-700">
           Select Right to Exercise *
         </label>
         <select
@@ -232,7 +232,7 @@ export function DataRightsRequestForm() {
       {/* Contact Information */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <label className="block text-xs font-bold text-slate-700">
+          <label className="block text-xs font-normal text-slate-700">
             Full Legal Name *
           </label>
           <input
@@ -246,7 +246,7 @@ export function DataRightsRequestForm() {
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-xs font-bold text-slate-700">
+          <label className="block text-xs font-normal text-slate-700">
             Email Address * (for correspondence & disclosure)
           </label>
           <input
@@ -262,7 +262,7 @@ export function DataRightsRequestForm() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <label className="block text-xs font-bold text-slate-700">
+          <label className="block text-xs font-normal text-slate-700">
             Contact Telephone (Optional)
           </label>
           <input
@@ -275,7 +275,7 @@ export function DataRightsRequestForm() {
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-xs font-bold text-slate-700">
+          <label className="block text-xs font-normal text-slate-700">
             Your Relationship to EntireFM *
           </label>
           <select
@@ -294,7 +294,7 @@ export function DataRightsRequestForm() {
       </div>
 
       <div className="space-y-1.5">
-        <label className="block text-xs font-bold text-slate-700">
+        <label className="block text-xs font-normal text-slate-700">
           Organisation / Company (if applicable)
         </label>
         <input
@@ -308,7 +308,7 @@ export function DataRightsRequestForm() {
 
       {/* Request Details */}
       <div className="space-y-1.5">
-        <label className="block text-xs font-bold text-slate-700">
+        <label className="block text-xs font-normal text-slate-700">
           Details of Your Request *
         </label>
         <textarea
@@ -322,7 +322,7 @@ export function DataRightsRequestForm() {
       </div>
 
       <div className="space-y-1.5">
-        <label className="block text-xs font-bold text-slate-700">
+        <label className="block text-xs font-normal text-slate-700">
           Specific Site, Helpdesk Ticket, or Reference Numbers (Optional)
         </label>
         <input
@@ -352,7 +352,7 @@ export function DataRightsRequestForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-950 text-white font-bold text-sm hover:bg-slate-800 transition-colors shadow-sm disabled:opacity-50"
+        className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-950 text-white font-normal text-sm hover:bg-slate-800 transition-colors shadow-sm disabled:opacity-50"
       >
         {isSubmitting ? 'Registering Request...' : 'Submit Data Rights Request'}
       </button>

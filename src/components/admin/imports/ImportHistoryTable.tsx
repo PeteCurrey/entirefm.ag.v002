@@ -27,7 +27,7 @@ export function ImportHistoryTable({ batches }: ImportHistoryTableProps) {
     return (
       <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-10 text-center">
         <Clock className="h-7 w-7 text-[#D0D0CD] mx-auto mb-3" />
-        <p className="font-medium text-[#686866]">No imports yet</p>
+        <p className="font-normal text-[#686866]">No imports yet</p>
         <p className="text-[12px] text-[#9B9B97] mt-1">Your import history will appear here.</p>
       </div>
     );
@@ -36,7 +36,7 @@ export function ImportHistoryTable({ batches }: ImportHistoryTableProps) {
   return (
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
       <div className="border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3">
-        <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+        <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
           IMPORT HISTORY — {batches.length} BATCH{batches.length !== 1 ? 'ES' : ''}
         </h3>
       </div>
@@ -60,7 +60,7 @@ export function ImportHistoryTable({ batches }: ImportHistoryTableProps) {
               const Icon = sc.icon;
               return (
                 <tr key={batch.id} className="hover:bg-[#FAFAF9] transition-colors">
-                  <td className="px-5 py-3.5 font-mono text-[12px] font-medium text-[#101010]">
+                  <td className="px-5 py-3.5 font-mono text-[12px] font-normal text-[#101010]">
                     {batch.batch_reference}
                   </td>
                   <td className="px-4 py-3.5">
@@ -74,7 +74,7 @@ export function ImportHistoryTable({ batches }: ImportHistoryTableProps) {
                   <td className="px-4 py-3.5">
                     <div className={`flex items-center gap-1.5 ${sc.color}`}>
                       <Icon className="h-3.5 w-3.5" />
-                      <span className="text-[12px] font-medium">{sc.label}</span>
+                      <span className="text-[12px] font-normal">{sc.label}</span>
                     </div>
                   </td>
                   <td className="px-4 py-3.5 font-mono tabular-nums text-[#686866]">
@@ -91,7 +91,7 @@ export function ImportHistoryTable({ batches }: ImportHistoryTableProps) {
                   <td className="px-4 py-3.5 text-right">
                     <Link
                       href={`/admin/platform/imports/${batch.id}/result`}
-                      className="inline-flex items-center gap-0.5 text-[12px] font-medium text-[#FF6B24] hover:text-[#E9540F] transition-colors"
+                      className="inline-flex items-center gap-0.5 text-[12px] font-normal text-[#FF6B24] hover:text-[#E9540F] transition-colors"
                     >
                       View <ArrowRight className="h-3.5 w-3.5" />
                     </Link>

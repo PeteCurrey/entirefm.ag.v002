@@ -48,7 +48,7 @@ export default async function ClientAssetsPage() {
               list.map((a) => (
                 <tr key={a.id} className="hover:bg-brand-void/30 transition-colors">
                   <td className="px-6 py-3.5 font-mono text-brand-electric-bright">{a.asset_reference || '—'}</td>
-                  <td className="px-6 py-3.5 font-medium text-white">{a.name}</td>
+                  <td className="px-6 py-3.5 font-normal text-white">{a.name}</td>
                   <td className="px-6 py-3.5">{a.category || 'General'}</td>
                   <td className="px-6 py-3.5">{a.site?.name || '—'}</td>
                   <td className="px-6 py-3.5">

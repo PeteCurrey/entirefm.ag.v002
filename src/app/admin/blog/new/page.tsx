@@ -61,7 +61,7 @@ export default function NewPostPage() {
       {/* Top Header */}
       <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
         <div>
-          <h1 className="text-xl font-bold text-white">Create New Post</h1>
+          <h1 className="text-xl font-light text-white">Create New Post</h1>
           <p className="text-xs text-zinc-400 mt-0.5">Authoritative facilities management insights & trade guidance</p>
         </div>
         <div className="flex items-center gap-3">
@@ -91,7 +91,7 @@ export default function NewPostPage() {
         <div className="lg:col-span-8 space-y-5">
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-normal text-zinc-400 uppercase tracking-wider mb-1.5">
                 Article Title (H1)
               </label>
               <input
@@ -104,7 +104,7 @@ export default function NewPostPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-normal text-zinc-400 uppercase tracking-wider mb-1.5">
                 URL Slug
               </label>
               <div className="flex items-center bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm">
@@ -119,7 +119,7 @@ export default function NewPostPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-normal text-zinc-400 uppercase tracking-wider mb-1.5">
                 Summary / Excerpt
               </label>
               <textarea
@@ -132,7 +132,7 @@ export default function NewPostPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-normal text-zinc-400 uppercase tracking-wider mb-1.5">
                 Article Content (Markdown)
               </label>
               <textarea
@@ -150,7 +150,7 @@ export default function NewPostPage() {
         <div className="lg:col-span-4 space-y-5">
           {/* SEO Metadata Card */}
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-            <h3 className="text-xs font-semibold text-zinc-300 uppercase tracking-wider">SEO & SERP Preview</h3>
+            <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">SEO & SERP Preview</h3>
 
             <div>
               <label className="block text-xs text-zinc-400 mb-1">Primary Keyword</label>
@@ -188,7 +188,7 @@ export default function NewPostPage() {
             {/* Google SERP Snippet Preview */}
             <div className="bg-zinc-950 border border-zinc-800 rounded-lg p-3 space-y-1">
               <div className="text-[11px] text-zinc-400">https://www.entirefm.com › post › {slug || 'article-slug'}</div>
-              <div className="text-xs font-medium text-blue-400 truncate">{seoTitle || title || 'Article Title Preview'}</div>
+              <div className="text-xs font-normal text-blue-400 truncate">{seoTitle || title || 'Article Title Preview'}</div>
               <div className="text-[11px] text-zinc-400 line-clamp-2 leading-relaxed">
                 {metaDescription || excerpt || 'Search snippet description preview...'}
               </div>
@@ -197,7 +197,7 @@ export default function NewPostPage() {
 
           {/* Featured Image Card */}
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-            <h3 className="text-xs font-semibold text-zinc-300 uppercase tracking-wider">Featured Image</h3>
+            <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">Featured Image</h3>
             <div>
               <label className="block text-xs text-zinc-400 mb-1">Image URL</label>
               <input

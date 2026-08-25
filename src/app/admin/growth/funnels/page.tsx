@@ -12,10 +12,10 @@ export default async function FunnelsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             STEP-BY-STEP CONVERSION &amp; DROP-OFF ANALYSIS
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Commercial Conversion Funnels</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Commercial Conversion Funnels</h1>
           <p className="text-sm text-zinc-400">
             Audit where prospects drop off between search entrance, tool interactions, and form completion.
           </p>
@@ -33,8 +33,8 @@ export default async function FunnelsPage() {
           <div key={funnel.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-5">
             <div>
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-white">{funnel.name}</h3>
-                <span className="text-xs font-mono font-bold text-emerald-400">
+                <h3 className="text-sm font-normal text-white">{funnel.name}</h3>
+                <span className="text-xs font-mono font-light text-emerald-400">
                   {funnel.overallConversionRatePct}% Overall
                 </span>
               </div>
@@ -45,10 +45,10 @@ export default async function FunnelsPage() {
               {funnel.stages.map((stage, idx) => (
                 <div key={idx} className="space-y-1">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-semibold text-zinc-200">
+                    <span className="font-light text-zinc-200">
                       {stage.stageNumber}. {stage.name}
                     </span>
-                    <span className="font-mono text-pink-400 font-bold">{stage.visitors} users</span>
+                    <span className="font-mono text-pink-400 font-light">{stage.visitors} users</span>
                   </div>
                   <div className="w-full bg-zinc-950 rounded-full h-2 overflow-hidden border border-zinc-800">
                     <div

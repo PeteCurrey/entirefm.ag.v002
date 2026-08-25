@@ -14,7 +14,7 @@ export default async function ContractsPage() {
       header: 'Contract Ref / Title',
       accessor: (row) => (
         <div>
-          <div className="font-semibold text-white">{row.name}</div>
+          <div className="font-light text-white">{row.name}</div>
           <div className="font-mono text-[11px] text-brand-mist/50">{row.contract_reference}</div>
         </div>
       ),
@@ -67,7 +67,7 @@ export default async function ContractsPage() {
         title="Contracts & SLA Agreements"
         description="Active commercial terms, service levels, operational scopes, and rate card assignments."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-indigo">
             + New Contract
           </button>
         }

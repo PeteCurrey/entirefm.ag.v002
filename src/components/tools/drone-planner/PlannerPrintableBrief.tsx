@@ -35,10 +35,10 @@ export function PlannerPrintableBrief({
       {/* Header */}
       <div className="flex items-center justify-between border-b-2 border-slate-900 pb-4">
         <div>
-          <h1 className="text-xl font-bold uppercase tracking-tight text-slate-900">
+          <h1 className="text-xl font-light uppercase tracking-tight text-slate-900">
             ENTIRE FACILITIES MANAGEMENT
           </h1>
-          <span className="font-mono text-xs text-pink-600 font-bold uppercase tracking-wider block mt-0.5">
+          <span className="font-mono text-xs text-pink-600 font-light uppercase tracking-wider block mt-0.5">
             DRONE SERVICES DIVISION &bull; COMMERCIAL INSPECTION BRIEF
           </span>
         </div>
@@ -70,11 +70,11 @@ export function PlannerPrintableBrief({
 
       {/* Primary Recommended Service & Package */}
       <div className="p-4 border-2 border-pink-600 rounded space-y-2 bg-pink-50/20">
-        <div className="flex items-center justify-between font-mono text-[10px] uppercase font-bold text-pink-700">
+        <div className="flex items-center justify-between font-mono text-[10px] uppercase font-light text-pink-700">
           <span>RECOMMENDED SERVICE</span>
           <span>SCOPE: {recommendation.scopeCategory.toUpperCase()}</span>
         </div>
-        <h2 className="text-base font-bold text-slate-900">
+        <h2 className="text-base font-light text-slate-900">
           {recommendation.primaryService.title}
         </h2>
         <p className="text-xs text-slate-700 leading-relaxed">
@@ -84,7 +84,7 @@ export function PlannerPrintableBrief({
         {recommendation.inspectionPack && (
           <div className="mt-2 pt-2 border-t border-pink-200">
             <strong className="text-[10px] font-mono uppercase text-pink-800 block">Recommended Pack:</strong>
-            <span className="font-bold text-slate-900">{recommendation.inspectionPack.title}</span> — {recommendation.inspectionPack.description}
+            <span className="font-light text-slate-900">{recommendation.inspectionPack.title}</span> — {recommendation.inspectionPack.description}
           </div>
         )}
       </div>
@@ -92,7 +92,7 @@ export function PlannerPrintableBrief({
       {/* Deliverables & Remediation Grid */}
       <div className="grid grid-cols-2 gap-6">
         <div className="space-y-2">
-          <h3 className="font-mono text-[10px] uppercase font-bold text-slate-700 border-b pb-1">
+          <h3 className="font-mono text-[10px] uppercase font-light text-slate-700 border-b pb-1">
             Suggested Deliverables
           </h3>
           <ul className="space-y-1 text-slate-700 list-disc list-inside">
@@ -103,7 +103,7 @@ export function PlannerPrintableBrief({
         </div>
 
         <div className="space-y-2">
-          <h3 className="font-mono text-[10px] uppercase font-bold text-slate-700 border-b pb-1">
+          <h3 className="font-mono text-[10px] uppercase font-light text-slate-700 border-b pb-1">
             EntireFM Remedial Works Alignment
           </h3>
           <div className="space-y-1.5 text-slate-700">
@@ -118,7 +118,7 @@ export function PlannerPrintableBrief({
 
       {/* Operational Caveats & Disclaimer */}
       <div className="p-3 bg-slate-100 rounded border border-slate-200 text-[10.5px] text-slate-600 space-y-1">
-        <strong className="font-semibold text-slate-800 block">Operational Governance &amp; Compliance Notice:</strong>
+        <strong className="font-light text-slate-800 block">Operational Governance &amp; Compliance Notice:</strong>
         <p>
           This document represents an initial technical recommendation based upon information supplied by the client. Commercial flight deployment is subject to site risk assessment (RAMS), airspace permissions, weather thresholds (wind gusts &lt;22–25 knots), and UK Civil Aviation Authority (CAA) regulations. This is not a formal binding quotation.
         </p>

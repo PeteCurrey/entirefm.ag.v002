@@ -22,7 +22,7 @@ export function ServiceScopeStrip({ pillars }: { pillars: ScopePillar[] }) {
                 <BrandIcon name={p.iconName} size={28} />
               </div>
               <div className="min-w-0">
-                <span className="text-xs font-bold text-white uppercase tracking-wider block truncate group-hover:text-brand-pink-light transition-colors">
+                <span className="text-xs font-normal text-white uppercase tracking-wider block truncate group-hover:text-brand-pink-light transition-colors">
                   {p.label}
                 </span>
                 <span className="text-[11px] text-slate-400 block truncate mt-0.5">

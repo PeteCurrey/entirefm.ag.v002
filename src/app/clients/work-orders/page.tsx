@@ -48,7 +48,7 @@ export default async function ClientWorkOrdersPage() {
               list.map((wo) => (
                 <tr key={wo.id} className="hover:bg-brand-void/30 transition-colors">
                   <td className="px-6 py-3.5 font-mono text-brand-electric-bright">{wo.work_order_number}</td>
-                  <td className="px-6 py-3.5 font-medium text-white">{wo.title}</td>
+                  <td className="px-6 py-3.5 font-normal text-white">{wo.title}</td>
                   <td className="px-6 py-3.5">{wo.site?.name || '—'}</td>
                   <td className="px-6 py-3.5 font-mono text-[11px]">{wo.priority}</td>
                   <td className="px-6 py-3.5">

@@ -12,10 +12,10 @@ export default async function ImprovementPlansPage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
             ESCALATION &amp; RECOVERY
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight text-slate-900 mt-1">
             Supplier Performance Improvement Plans (PIPs)
           </h1>
           <p className="text-xs text-slate-600 font-light mt-1">
@@ -46,11 +46,11 @@ export default async function ImprovementPlansPage() {
             {pips.map((p) => (
               <div key={p.id} className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
-                  <div className="font-bold text-slate-900 font-sans text-sm">{p.supplier_name}</div>
+                  <div className="font-light text-slate-900 font-sans text-sm">{p.supplier_name}</div>
                   <p className="text-slate-600 font-sans">{p.reason}</p>
                   <span className="text-slate-400 text-[10.5px]">Owner: {p.owner_role} &middot; Target Date: {p.target_date}</span>
                 </div>
-                <span className="text-amber-800 bg-amber-100 font-bold px-2.5 py-1 rounded text-xs self-start sm:self-auto">
+                <span className="text-amber-800 bg-amber-100 font-light px-2.5 py-1 rounded text-xs self-start sm:self-auto">
                   {p.status}
                 </span>
               </div>

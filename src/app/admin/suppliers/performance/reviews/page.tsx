@@ -10,10 +10,10 @@ export default async function PerformanceReviewsPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
           STRATEGIC PARTNER REVIEWS
         </span>
-        <h1 className="text-2xl font-bold text-slate-900 mt-1">
+        <h1 className="text-2xl font-extralight text-slate-900 mt-1">
           Quarterly Business Reviews (QBRs) &amp; Audits
         </h1>
         <p className="text-xs text-slate-600 font-light mt-1">
@@ -31,8 +31,8 @@ export default async function PerformanceReviewsPage() {
             {reviews.map((r) => (
               <div key={r.id} className="py-4 space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-slate-900 font-sans text-sm">{r.review_period} Review (Supplier: {r.supplier_id})</span>
-                  <span className="text-emerald-800 bg-emerald-100 font-bold px-2 py-0.5 rounded text-[10px]">
+                  <span className="font-light text-slate-900 font-sans text-sm">{r.review_period} Review (Supplier: {r.supplier_id})</span>
+                  <span className="text-emerald-800 bg-emerald-100 font-light px-2 py-0.5 rounded text-[10px]">
                     {r.relationship_tier_recommendation}
                   </span>
                 </div>

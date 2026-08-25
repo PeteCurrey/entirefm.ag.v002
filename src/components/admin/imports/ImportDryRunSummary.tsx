@@ -40,7 +40,7 @@ export function ImportDryRunSummary({ preview }: ImportDryRunSummaryProps) {
           <XCircle className="h-5 w-5 text-[#DC2626] shrink-0 mt-0.5" />
         )}
         <div>
-          <p className={`font-semibold text-[13px] ${canProceed ? 'text-[#15803D]' : 'text-[#DC2626]'}`}>
+          <p className={`font-light text-[13px] ${canProceed ? 'text-[#15803D]' : 'text-[#DC2626]'}`}>
             {canProceed
               ? `Ready to import ${preview.validRows} records`
               : 'Import blocked — resolve all errors before proceeding'}
@@ -62,14 +62,14 @@ export function ImportDryRunSummary({ preview }: ImportDryRunSummaryProps) {
       {preview.sampleMappedRows.length > 0 && (
         <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
           <div className="border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3">
-            <h4 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+            <h4 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
               IMPORT PREVIEW — FIRST {preview.sampleMappedRows.length} ROWS
             </h4>
           </div>
           <div className="divide-y divide-[#E4E4E1]">
             {preview.sampleMappedRows.map((row) => (
               <div key={row.rowIndex} className="flex items-start gap-3 px-5 py-3.5">
-                <div className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold ${
+                <div className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-normal ${
                   row.status === 'VALID' ? 'bg-[#F0FDF4] text-[#15803D]' :
                   row.status === 'INVALID' ? 'bg-[#FEF2F2] text-[#DC2626]' :
                   row.status === 'DUPLICATE' ? 'bg-[#FFFBEB] text-[#D97706]' :
@@ -79,8 +79,8 @@ export function ImportDryRunSummary({ preview }: ImportDryRunSummaryProps) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
-                    <p className="font-medium text-[13px] text-[#101010] truncate">{row.displayName}</p>
-                    <span className={`shrink-0 rounded-[4px] px-2 py-0.5 font-mono text-[10px] font-semibold ${
+                    <p className="font-normal text-[13px] text-[#101010] truncate">{row.displayName}</p>
+                    <span className={`shrink-0 rounded-[4px] px-2 py-0.5 font-mono text-[10px] font-normal ${
                       row.status === 'VALID' ? 'bg-[#F0FDF4] text-[#15803D]' :
                       row.status === 'INVALID' ? 'bg-[#FEF2F2] text-[#DC2626]' :
                       row.status === 'DUPLICATE' ? 'bg-[#FFFBEB] text-[#D97706]' :

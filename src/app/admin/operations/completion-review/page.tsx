@@ -19,7 +19,7 @@ export default async function AdminCompletionReviewPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">Service Completion Review Desk</h1>
+        <h1 className="text-2xl font-extralight text-white tracking-tight">Service Completion Review Desk</h1>
         <p className="text-brand-mist text-sm mt-1">
           Review field service reports, verify evidence, check signatory declarations, and authorise operational closure.
         </p>
@@ -40,8 +40,8 @@ export default async function AdminCompletionReviewPage() {
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-brand-edge-dark pb-3">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-base font-bold text-white">{r.report_number}</span>
-                  <span className="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs px-2.5 py-0.5 rounded font-mono font-semibold">
+                  <span className="font-mono text-base font-light text-white">{r.report_number}</span>
+                  <span className="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs px-2.5 py-0.5 rounded font-mono font-light">
                     AWAITING REVIEW
                   </span>
                   {r.work_order?.reference && (
@@ -59,7 +59,7 @@ export default async function AdminCompletionReviewPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div>
                   <span className="text-xs text-brand-mist block">Location</span>
-                  <span className="text-white font-medium flex items-center gap-1 mt-0.5">
+                  <span className="text-white font-normal flex items-center gap-1 mt-0.5">
                     <Building className="w-3.5 h-3.5 text-brand-mist" />
                     {r.site?.name || 'Site'} {r.site?.town ? `(${r.site.town})` : ''}
                   </span>
@@ -68,7 +68,7 @@ export default async function AdminCompletionReviewPage() {
                 {r.signatory_name && (
                   <div>
                     <span className="text-xs text-brand-mist block">Site Signatory</span>
-                    <span className="text-white font-medium flex items-center gap-1 mt-0.5">
+                    <span className="text-white font-normal flex items-center gap-1 mt-0.5">
                       <User className="w-3.5 h-3.5 text-brand-mist" />
                       {r.signatory_name} {r.signatory_organisation ? `(${r.signatory_organisation})` : ''}
                     </span>
@@ -78,7 +78,7 @@ export default async function AdminCompletionReviewPage() {
 
               {r.ai_draft_narrative && (
                 <div className="bg-brand-void rounded-lg p-3 border border-brand-edge-dark">
-                  <span className="text-xs text-brand-mist uppercase tracking-wider font-semibold block mb-1">
+                  <span className="text-xs text-brand-mist uppercase tracking-wider font-light block mb-1">
                     Field Summary
                   </span>
                   <p className="text-xs text-white/90 leading-relaxed font-mono">
@@ -88,10 +88,10 @@ export default async function AdminCompletionReviewPage() {
               )}
 
               <div className="flex justify-end gap-3 pt-2">
-                <button className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white font-bold text-xs rounded-lg transition-colors">
+                <button className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white font-normal text-xs rounded-lg transition-colors">
                   Accept & Authorise Closure
                 </button>
-                <button className="px-4 py-2 bg-brand-void border border-red-800 text-red-400 hover:bg-red-950/40 font-semibold text-xs rounded-lg transition-colors">
+                <button className="px-4 py-2 bg-brand-void border border-red-800 text-red-400 hover:bg-red-950/40 font-normal text-xs rounded-lg transition-colors">
                   Reject with Feedback
                 </button>
               </div>

@@ -148,10 +148,10 @@ export function CapabilityMatrix() {
   return (
     <div className="my-16 p-6 sm:p-10 bg-slate-950 border border-slate-800 rounded-2xl text-white">
       <div className="max-w-3xl mb-8">
-        <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+        <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
           Estate Capability Explorer
         </span>
-        <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+        <h3 className="text-2xl sm:text-3xl font-extralight text-white mb-2">
           AI &amp; Automation Discipline Matrix
         </h3>
         <p className="text-xs sm:text-sm text-slate-400">
@@ -182,10 +182,10 @@ export function CapabilityMatrix() {
         {/* Left 7 cols: Capabilities and Details */}
         <div className="lg:col-span-7 space-y-6">
           <div>
-            <span className="text-xs font-mono uppercase tracking-wider text-pink-400 font-semibold block mb-1">
+            <span className="text-xs font-mono uppercase tracking-wider text-pink-400 font-light block mb-1">
               {activeCategory.name}
             </span>
-            <h4 className="text-xl sm:text-2xl font-bold text-white mb-3">
+            <h4 className="text-xl sm:text-2xl font-extralight text-white mb-3">
               {activeCategory.headline}
             </h4>
             <p className="text-sm text-slate-300 leading-relaxed font-light">
@@ -194,7 +194,7 @@ export function CapabilityMatrix() {
           </div>
 
           <div>
-            <h5 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-3">
+            <h5 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-light mb-3">
               Specific Engineering Capabilities
             </h5>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -226,13 +226,13 @@ export function CapabilityMatrix() {
             <span className="text-slate-500 block text-[10px] uppercase tracking-wider mb-1">
               Core Protocol &amp; Integrations
             </span>
-            <span className="text-pink-300 font-semibold">{activeCategory.systemIntegration}</span>
+            <span className="text-pink-300 font-light">{activeCategory.systemIntegration}</span>
           </div>
 
           <div className="pt-2">
             <Link
               href={activeCategory.relatedGuideUrl}
-              className="inline-flex items-center gap-2 text-xs font-bold text-pink-400 hover:text-pink-300 transition-colors"
+              className="inline-flex items-center gap-2 text-xs font-normal text-pink-400 hover:text-pink-300 transition-colors"
             >
               {activeCategory.relatedGuideTitle}
             </Link>

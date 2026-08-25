@@ -24,10 +24,10 @@ export default async function AssuranceReviewsQueuePage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
             INTERNAL DUE DILIGENCE
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight text-slate-900 mt-1">
             Assurance Review Queue
           </h1>
           <p className="text-xs text-slate-600 font-light mt-1">
@@ -35,7 +35,7 @@ export default async function AssuranceReviewsQueuePage() {
           </p>
         </div>
 
-        <span className="text-xs font-mono font-bold px-3 py-1.5 rounded bg-amber-100 text-amber-900">
+        <span className="text-xs font-mono font-light px-3 py-1.5 rounded bg-amber-100 text-amber-900">
           {pendingItems.length} Items Awaiting Review
         </span>
       </div>
@@ -51,13 +51,13 @@ export default async function AssuranceReviewsQueuePage() {
               <div key={item.id} className="p-5 hover:bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono uppercase font-bold px-2 py-0.5 rounded bg-slate-900 text-white">
+                    <span className="text-[10px] font-mono uppercase font-light px-2 py-0.5 rounded bg-slate-900 text-white">
                       {item.category}
                     </span>
-                    <span className="text-xs font-bold text-slate-900">{item.title}</span>
+                    <span className="text-xs font-normal text-slate-900">{item.title}</span>
                   </div>
                   <div className="text-xs text-slate-500 font-mono">
-                    Supplier: <span className="font-bold text-slate-800">{supplier.legal_name}</span> &middot; Assigned to: {item.assigned_reviewer_role}
+                    Supplier: <span className="font-light text-slate-800">{supplier.legal_name}</span> &middot; Assigned to: {item.assigned_reviewer_role}
                   </div>
                 </div>
 

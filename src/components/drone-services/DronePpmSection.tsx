@@ -62,7 +62,7 @@ export function DronePpmSection() {
         <div className="max-w-3xl space-y-3.5">
           <div className="inline-flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+            <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
               PLANNED PREVENTATIVE MAINTENANCE
             </span>
           </div>
@@ -88,13 +88,13 @@ export function DronePpmSection() {
                   <span className="text-2xl font-light font-mono text-slate-900 group-hover:text-brand-pink transition-colors">
                     {cadence.interval}
                   </span>
-                  <span className="font-mono text-[9px] uppercase font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-[4px]">
+                  <span className="font-mono text-[9px] uppercase font-light text-slate-600 bg-slate-100 px-2 py-0.5 rounded-[4px]">
                     {cadence.badge}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-slate-900 leading-snug">
+                  <h3 className="text-base font-light text-slate-900 leading-snug">
                     {cadence.title}
                   </h3>
                   <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
@@ -103,7 +103,7 @@ export function DronePpmSection() {
                 </div>
 
                 <div className="pt-4 border-t border-slate-100 space-y-2">
-                  <span className="text-[11px] font-mono uppercase font-bold text-slate-500 block">
+                  <span className="text-[11px] font-mono uppercase font-light text-slate-500 block">
                     Core Asset Focus:
                   </span>
                   <ul className="space-y-1.5 text-xs text-slate-700">
@@ -124,7 +124,7 @@ export function DronePpmSection() {
 
                 <Link
                   href="/ppm"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-pink group-hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-pink group-hover:underline"
                 >
                   <span>Explore PPM Integration</span>
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -138,7 +138,7 @@ export function DronePpmSection() {
         <div className="p-6 rounded-[12px] bg-white border border-slate-200 flex items-start gap-4 shadow-subtle">
           <AlertCircle className="h-5 w-5 text-brand-pink shrink-0 mt-0.5" />
           <div className="space-y-1 text-xs text-slate-600 leading-relaxed">
-            <strong className="text-slate-900 font-semibold block text-sm">
+            <strong className="text-slate-900 font-light block text-sm">
               Customized PPM Scheduling
             </strong>
             <p>

@@ -23,7 +23,7 @@ export function ValidationIssueList({ issues, batchId }: ValidationIssueListProp
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3 gap-2">
         <div className="flex items-center gap-2">
           <AlertCircle className="h-4.5 w-4.5 text-[#686866]" />
-          <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+          <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
             VALIDATION ISSUES
           </h3>
         </div>
@@ -33,7 +33,7 @@ export function ValidationIssueList({ issues, batchId }: ValidationIssueListProp
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`rounded-[5px] px-2.5 py-1 text-[11px] font-medium transition-all ${
+                className={`rounded-[5px] px-2.5 py-1 text-[11px] font-normal transition-all ${
                   filter === f ? 'bg-[#101010] text-white' : 'text-[#686866] hover:text-[#101010]'
                 }`}
               >
@@ -44,7 +44,7 @@ export function ValidationIssueList({ issues, batchId }: ValidationIssueListProp
           <a
             href={`/api/import/${batchId}/issues.csv`}
             download
-            className="inline-flex items-center gap-1.5 rounded-[8px] border border-[#E4E4E1] bg-[#FFFFFF] px-3 py-1.5 text-[12px] font-medium text-[#686866] hover:border-[#D0D0CD] hover:text-[#101010] transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-[8px] border border-[#E4E4E1] bg-[#FFFFFF] px-3 py-1.5 text-[12px] font-normal text-[#686866] hover:border-[#D0D0CD] hover:text-[#101010] transition-colors"
           >
             <Download className="h-3.5 w-3.5" />
             Export CSV
@@ -55,7 +55,7 @@ export function ValidationIssueList({ issues, batchId }: ValidationIssueListProp
       {issues.length === 0 ? (
         <div className="flex flex-col items-center justify-center p-8 text-center gap-3">
           <CheckCircle2 className="h-7 w-7 text-[#15803D]" />
-          <p className="font-medium text-[#686866] text-[13px]">No validation issues</p>
+          <p className="font-normal text-[#686866] text-[13px]">No validation issues</p>
         </div>
       ) : filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center p-8 text-center gap-3">
@@ -78,7 +78,7 @@ export function ValidationIssueList({ issues, batchId }: ValidationIssueListProp
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-mono text-[11px] font-semibold text-[#686866]">Row {issue.row_index}</span>
+                    <span className="font-mono text-[11px] font-normal text-[#686866]">Row {issue.row_index}</span>
                     {issue.field_name && (
                       <span className="rounded-[4px] bg-[#F0F0EE] px-1.5 py-0.5 font-mono text-[10px] text-[#686866]">
                         {issue.field_name}

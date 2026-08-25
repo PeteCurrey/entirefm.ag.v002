@@ -107,7 +107,7 @@ export default function CompliancePage() {
                       <div className="w-9 h-9 rounded-sm bg-slate-900 text-white flex items-center justify-center mb-3">
                         <Icon className="h-4 w-4" />
                       </div>
-                      <h3 className="text-base font-bold text-slate-900 mb-2">{comp.area}</h3>
+                      <h3 className="text-base font-light text-slate-900 mb-2">{comp.area}</h3>
                       <ul className="space-y-1.5 text-xs text-slate-600 font-light">
                         {comp.items.map((it, iIdx) => (
                           <li key={iIdx} className="flex items-start gap-2">

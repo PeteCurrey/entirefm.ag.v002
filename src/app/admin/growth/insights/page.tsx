@@ -12,10 +12,10 @@ export default async function CommercialInsightsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             EVIDENCE-BASED OBSERVATIONS &amp; RECOMMENDATIONS
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Commercial Insights &amp; Recommendations</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Commercial Insights &amp; Recommendations</h1>
           <p className="text-sm text-zinc-400">
             Actionable optimization recommendations generated strictly from underlying conversion and search performance.
           </p>
@@ -33,17 +33,17 @@ export default async function CommercialInsightsPage() {
           <div key={rec.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-pink-950/60 text-pink-300 border border-pink-800/40 font-bold">
+                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-pink-950/60 text-pink-300 border border-pink-800/40 font-light">
                   {rec.type}
                 </span>
-                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 font-bold">
+                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 font-light">
                   {rec.priority}
                 </span>
               </div>
               <span className="text-xs font-mono text-zinc-500">{rec.pagePath}</span>
             </div>
 
-            <h3 className="text-base font-bold text-white">{rec.title}</h3>
+            <h3 className="text-base font-light text-white">{rec.title}</h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
               <div className="p-3.5 bg-zinc-950 border border-zinc-800 rounded-lg space-y-1">
@@ -52,7 +52,7 @@ export default async function CommercialInsightsPage() {
               </div>
               <div className="p-3.5 bg-zinc-950 border border-zinc-800 rounded-lg space-y-1">
                 <span className="text-pink-400 font-mono text-[10px] uppercase block">Recommended Action</span>
-                <p className="text-zinc-200 leading-relaxed font-medium">{rec.recommendation}</p>
+                <p className="text-zinc-200 leading-relaxed font-normal">{rec.recommendation}</p>
               </div>
             </div>
           </div>

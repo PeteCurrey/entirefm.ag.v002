@@ -96,7 +96,7 @@ export function CookieConsentBanner() {
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
                   <Cookie className="h-4 w-4" />
                 </span>
-                <p className="text-sm font-bold text-slate-900">
+                <p className="text-sm font-normal text-slate-900">
                   Privacy & Cookie Governance
                 </p>
               </div>
@@ -104,14 +104,14 @@ export function CookieConsentBanner() {
                 We use strictly necessary cookies to ensure secure operations, authentication, and statutory facilities management services. With your consent, we also use functional storage and privacy-first analytics to improve our services. Read our{' '}
                 <Link
                   href="/legal/cookies"
-                  className="font-semibold text-indigo-600 underline hover:text-indigo-700"
+                  className="font-light text-indigo-600 underline hover:text-indigo-700"
                 >
                   Cookies Policy
                 </Link>{' '}
                 and{' '}
                 <Link
                   href="/legal/privacy"
-                  className="font-semibold text-indigo-600 underline hover:text-indigo-700"
+                  className="font-light text-indigo-600 underline hover:text-indigo-700"
                 >
                   Privacy Notice
                 </Link>.
@@ -122,20 +122,20 @@ export function CookieConsentBanner() {
             <div className="flex flex-col gap-2 shrink-0 sm:flex-row lg:flex-row">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+                className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-normal text-slate-700 transition-colors hover:bg-slate-50"
               >
                 <Settings className="h-3.5 w-3.5" />
                 Manage Preferences
               </button>
               <button
                 onClick={handleRejectNonEssential}
-                className="rounded-lg border border-slate-300 bg-slate-100 px-3.5 py-2 text-xs font-semibold text-slate-800 transition-colors hover:bg-slate-200"
+                className="rounded-lg border border-slate-300 bg-slate-100 px-3.5 py-2 text-xs font-normal text-slate-800 transition-colors hover:bg-slate-200"
               >
                 Reject Non-Essential
               </button>
               <button
                 onClick={handleAcceptAll}
-                className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-xs transition-colors hover:bg-slate-800"
+                className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-normal text-white shadow-xs transition-colors hover:bg-slate-800"
               >
                 Accept All
               </button>

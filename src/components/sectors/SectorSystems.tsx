@@ -26,7 +26,7 @@ export function SectorSystems({
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
               {eyebrow}
             </span>
           </div>
@@ -48,15 +48,15 @@ export function SectorSystems({
               <div>
                 {/* Category Header */}
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-6 h-6 rounded-full bg-brand-pink/10 text-brand-pink font-mono font-bold text-[11px] flex items-center justify-center shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-brand-pink/10 text-brand-pink font-mono font-light text-[11px] flex items-center justify-center shrink-0">
                     {idx + 1}
                   </div>
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-brand-pink truncate">
+                  <span className="text-[11px] font-mono font-light uppercase tracking-wider text-brand-pink truncate">
                     {group.category}
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug group-hover:text-brand-pink-dark transition-colors">
+                <h3 className="text-base font-light text-slate-900 mb-2 leading-snug group-hover:text-brand-pink-dark transition-colors">
                   {group.headline}
                 </h3>
 
@@ -74,7 +74,7 @@ export function SectorSystems({
               {/* Bottom footer badge */}
               <div className="mt-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-500 font-mono">
                 <span>Self-Delivered</span>
-                <span className="text-emerald-600 font-bold font-sans">SFG20 Care</span>
+                <span className="text-emerald-600 font-light font-sans">SFG20 Care</span>
               </div>
             </div>
           ))}

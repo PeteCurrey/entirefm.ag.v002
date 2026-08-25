@@ -56,7 +56,7 @@ export default async function ClientCompliancePage() {
       {/* Active Obligations Table */}
       <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 overflow-hidden">
         <div className="border-b border-brand-edge-dark bg-brand-void/40 px-6 py-4">
-          <h2 className="text-sm font-semibold text-white">Statutory Obligation Register</h2>
+          <h2 className="text-sm font-normal text-white">Statutory Obligation Register</h2>
         </div>
         <table className="w-full text-left text-[13px]">
           <thead className="border-b border-brand-edge-dark bg-brand-void/60 text-brand-mist/60 font-mono text-[11px] uppercase">
@@ -78,7 +78,7 @@ export default async function ClientCompliancePage() {
             ) : (
               obligations.map((ob) => (
                 <tr key={ob.id} className="hover:bg-brand-void/30 transition-colors">
-                  <td className="px-6 py-3.5 font-medium text-white">
+                  <td className="px-6 py-3.5 font-normal text-white">
                     {ob.site?.name || 'Estate Site'}
                     <div className="text-[11px] text-brand-mist/50">{ob.asset?.name || 'Site-wide System'}</div>
                   </td>

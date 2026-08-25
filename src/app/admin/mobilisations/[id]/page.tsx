@@ -26,11 +26,11 @@ export default async function MobilisationDetailPage({ params }: { params: Promi
     return (
       <main className="p-6 max-w-5xl mx-auto space-y-6">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center space-y-4">
-          <h2 className="text-lg font-bold text-white">Mobilisation Record Not Found</h2>
+          <h2 className="text-lg font-light text-white">Mobilisation Record Not Found</h2>
           <p className="text-xs text-zinc-400">No active mobilisation matches ID &ldquo;{resolvedParams.id}&rdquo;.</p>
           <Link
             href="/admin/mobilisations"
-            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg font-semibold border border-zinc-700 inline-block"
+            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg font-light border border-zinc-700 inline-block"
           >
             ← Back to Mobilisations
           </Link>
@@ -58,10 +58,10 @@ export default async function MobilisationDetailPage({ params }: { params: Promi
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             CONTRACT MOBILISATION DOSSIER · ENTIRECAFM
           </span>
-          <h1 className="text-2xl font-bold text-white mt-0.5">{mob.client_name}</h1>
+          <h1 className="text-2xl font-extralight text-white mt-0.5">{mob.client_name}</h1>
           <div className="flex items-center gap-3 text-xs text-zinc-400 mt-1 font-mono">
             <span>Template: {mob.template_type}</span>
             <span>·</span>
@@ -82,15 +82,15 @@ export default async function MobilisationDetailPage({ params }: { params: Promi
 
       {/* Domain Readiness Matrix Grid */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-        <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+        <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
           Domain Readiness &amp; Go-Live Gates (No Misleading Percentages)
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {domainReadiness.map((d, idx) => (
             <div key={idx} className="p-3 bg-zinc-950 border border-zinc-800 rounded-lg text-xs space-y-1">
-              <span className="font-semibold text-zinc-300 block text-[11px] truncate">{d.name}</span>
+              <span className="font-light text-zinc-300 block text-[11px] truncate">{d.name}</span>
               <span
-                className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold inline-block ${
+                className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light inline-block ${
                   d.state === 'READY'
                     ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-800/40'
                     : d.state === 'IN_PROGRESS'
@@ -110,7 +110,7 @@ export default async function MobilisationDetailPage({ params }: { params: Promi
       {/* 12-Phase Mobilisation Tasks */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             12-Phase Mobilisation Action Plan ({tasks.length} Milestones)
           </h3>
           <span className="text-xs text-zinc-500 font-mono">Operations Delivery Framework</span>
@@ -130,7 +130,7 @@ export default async function MobilisationDetailPage({ params }: { params: Promi
             {tasks.map((t) => (
               <tr key={t.id} className="hover:bg-zinc-800/40">
                 <td className="py-3.5 px-4">
-                  <div className="font-bold text-white">{t.title}</div>
+                  <div className="font-light text-white">{t.title}</div>
                   <div className="text-[11px] text-zinc-500">{t.phase_name}</div>
                 </td>
                 <td className="py-3.5 px-4 font-mono text-zinc-400">{t.owner}</td>
@@ -139,7 +139,7 @@ export default async function MobilisationDetailPage({ params }: { params: Promi
                 </td>
                 <td className="py-3.5 px-4">
                   <span
-                    className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
+                    className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light ${
                       t.is_blocking ? 'bg-red-950/60 text-red-300 border border-red-800/40' : 'bg-zinc-800 text-zinc-400'
                     }`}
                   >
@@ -148,7 +148,7 @@ export default async function MobilisationDetailPage({ params }: { params: Promi
                 </td>
                 <td className="py-3.5 px-4 font-mono">
                   <span
-                    className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
+                    className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light ${
                       t.status === 'COMPLETE'
                         ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-800/40'
                         : t.status === 'IN_PROGRESS'

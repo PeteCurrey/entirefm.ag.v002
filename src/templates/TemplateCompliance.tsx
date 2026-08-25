@@ -147,7 +147,7 @@ export function TemplateComplianceHub({ route, content }: TemplateProps) {
                   >
                     <span aria-hidden="true" className={`absolute inset-x-0 top-0 h-px ${style.rail}`} />
                     <span
-                      className={`inline-flex items-center gap-1.5 rounded-sm border px-2 py-1 text-[10.5px] font-semibold uppercase tracking-wider ${style.chip}`}
+                      className={`inline-flex items-center gap-1.5 rounded-sm border px-2 py-1 text-[10.5px] font-normal uppercase tracking-wider ${style.chip}`}
                     >
                       <Icon className="h-3 w-3" />
                       {meta.label}
@@ -187,13 +187,13 @@ export function TemplateComplianceHub({ route, content }: TemplateProps) {
                       aria-hidden="true"
                       className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
                     />
-                    <h3 className="text-[1.0625rem] font-semibold leading-snug tracking-tight text-brand-graphite">
+                    <h3 className="text-[1.0625rem] font-light leading-snug tracking-tight text-brand-graphite">
                       {topic.shortName}
                     </h3>
                     <p className="mt-3 flex-1 text-[13.5px] leading-relaxed text-brand-silver">
                       {topic.answer.split('. ')[0]}.
                     </p>
-                    <span className="mt-6 inline-flex items-center gap-1.5 border-t border-brand-edge pt-4 text-[12.5px] font-semibold text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
+                    <span className="mt-6 inline-flex items-center gap-1.5 border-t border-brand-edge pt-4 text-[12.5px] font-normal text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
                       Read the requirements
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
@@ -252,7 +252,7 @@ export function TemplateComplianceTopic({ route, content }: TemplateProps) {
           <div className="container-wide">
             <div className="max-w-3xl" data-reveal>
               <p className="eyebrow">The short answer</p>
-              <p className="mt-5 text-[1.25rem] font-medium leading-relaxed tracking-tight text-brand-graphite">
+              <p className="mt-5 text-[1.25rem] font-normal leading-relaxed tracking-tight text-brand-graphite">
                 {topic.answer}
               </p>
             </div>
@@ -287,16 +287,16 @@ export function TemplateComplianceTopic({ route, content }: TemplateProps) {
                         >
                           <span aria-hidden="true" className={`absolute inset-y-0 left-0 w-[3px] ${style.rail}`} />
                           <span
-                            className={`inline-flex items-center gap-1.5 rounded-sm border px-2 py-1 text-[10.5px] font-semibold uppercase tracking-wider ${style.chip}`}
+                            className={`inline-flex items-center gap-1.5 rounded-sm border px-2 py-1 text-[10.5px] font-normal uppercase tracking-wider ${style.chip}`}
                           >
                             <Icon className="h-3 w-3" />
                             {meta.label}
                           </span>
-                          <p className="mt-4 text-[15px] font-medium leading-relaxed text-brand-graphite">
+                          <p className="mt-4 text-[15px] font-normal leading-relaxed text-brand-graphite">
                             {requirement.statement}
                           </p>
                           <p className="mt-2.5 text-[12.5px] text-brand-silver">
-                            <span className="font-semibold text-brand-slate">Source:</span>{' '}
+                            <span className="font-light text-brand-slate">Source:</span>{' '}
                             {requirement.source}
                           </p>
                           {requirement.note && (
@@ -342,7 +342,7 @@ export function TemplateComplianceTopic({ route, content }: TemplateProps) {
 
                 {/* Consequences */}
                 <div className="mt-14 rounded-sm border border-brand-edge bg-brand-surface p-7" data-reveal>
-                  <h2 className="text-[1.0625rem] font-semibold tracking-tight text-brand-graphite">
+                  <h2 className="text-[1.0625rem] font-extralight tracking-tight text-brand-graphite">
                     What happens if it is missed
                   </h2>
                   <p className="prose-brand mt-3">{topic.consequences}</p>
@@ -403,7 +403,7 @@ export function TemplateComplianceTopic({ route, content }: TemplateProps) {
                 <li key={other.slug}>
                   <Link
                     href={`/compliance/${other.slug}`}
-                    className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-brand-mist/70 transition-colors hover:text-white"
+                    className="group inline-flex items-center gap-1.5 text-[14px] font-normal text-brand-mist/70 transition-colors hover:text-white"
                   >
                     {other.shortName}
                     <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 ease-brand group-hover:translate-x-0 group-hover:opacity-100" />

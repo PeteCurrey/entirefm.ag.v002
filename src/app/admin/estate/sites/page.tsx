@@ -58,7 +58,7 @@ export default async function SitesPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                 <div className="absolute top-3 left-3">
-                  <span className="rounded-[5px] bg-[#101010]/80 backdrop-blur-md px-2 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-white font-medium">
+                  <span className="rounded-[5px] bg-[#101010]/80 backdrop-blur-md px-2 py-0.5 font-mono text-[9.5px] uppercase tracking-wider text-white font-normal">
                     {s.site_code}
                   </span>
                 </div>
@@ -73,7 +73,7 @@ export default async function SitesPage() {
               {/* Content */}
               <div className="p-4 space-y-3">
                 <div>
-                  <h3 className="font-medium text-[14px] text-[#101010] line-clamp-1 group-hover:text-[#FF6B24] transition-colors">
+                  <h3 className="font-light text-[14px] text-[#101010] line-clamp-1 group-hover:text-[#FF6B24] transition-colors">
                     {s.name}
                   </h3>
                   <div className="font-mono text-[10.5px] text-[#686866] uppercase mt-0.5">
@@ -86,7 +86,7 @@ export default async function SitesPage() {
                   <Badge variant={s.status === 'ACTIVE' ? 'green' : 'neutral'} size="xs">
                     {s.status}
                   </Badge>
-                  <span className="inline-flex items-center gap-1 text-[#FF6B24] font-semibold text-[11px] group-hover:underline">
+                  <span className="inline-flex items-center gap-1 text-[#FF6B24] font-light text-[11px] group-hover:underline">
                     Launch Site 360
                     <ArrowUpRight className="h-3 w-3" />
                   </span>

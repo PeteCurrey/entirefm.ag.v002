@@ -56,7 +56,7 @@ export default function ImportResultPage() {
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
       <div>
-        <h1 className="text-[22px] font-semibold text-[#101010]">Import Results</h1>
+        <h1 className="text-[22px] font-normal text-[#101010]">Import Results</h1>
         <p className="text-[13.5px] text-[#686866] mt-0.5">{batch?.batch_reference}</p>
       </div>
 
@@ -87,7 +87,7 @@ export default function ImportResultPage() {
         </div>
 
         <div>
-          <h2 className="text-[18px] font-semibold text-[#101010]">
+          <h2 className="text-[18px] font-normal text-[#101010]">
             {isRolledBack
               ? 'Import Batch Rolled Back'
               : isSuccess
@@ -122,14 +122,14 @@ export default function ImportResultPage() {
       {/* Navigation to imported entities */}
       {isSuccess && !isRolledBack && (
         <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-3">
-          <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#686866]">
+          <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">
             VIEW IMPORTED DATA IN ENTIRECAFM
           </h3>
           <div className="flex flex-wrap gap-3">
             {batch?.entity_type === 'CLIENT' && (
               <Link
                 href="/admin/estate/clients"
-                className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-4 py-2 text-[12.5px] font-medium text-white hover:bg-[#E9540F] transition-colors"
+                className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-4 py-2 text-[12.5px] font-normal text-white hover:bg-[#E9540F] transition-colors"
               >
                 <Users className="h-4 w-4" /> View Client Accounts <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -137,7 +137,7 @@ export default function ImportResultPage() {
             {batch?.entity_type === 'SITE' && (
               <Link
                 href="/admin/estate/sites"
-                className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-4 py-2 text-[12.5px] font-medium text-white hover:bg-[#E9540F] transition-colors"
+                className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-4 py-2 text-[12.5px] font-normal text-white hover:bg-[#E9540F] transition-colors"
               >
                 <Building2 className="h-4 w-4" /> View Sites Register <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -145,7 +145,7 @@ export default function ImportResultPage() {
             {batch?.entity_type === 'CONTRACTOR' && (
               <Link
                 href="/admin/estate/contractors"
-                className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-4 py-2 text-[12.5px] font-medium text-white hover:bg-[#E9540F] transition-colors"
+                className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-4 py-2 text-[12.5px] font-normal text-white hover:bg-[#E9540F] transition-colors"
               >
                 <Wrench className="h-4 w-4" /> View Contractors Register <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -168,7 +168,7 @@ export default function ImportResultPage() {
             <button
               onClick={handleRollback}
               disabled={rollingBack}
-              className="inline-flex items-center gap-1.5 rounded-[8px] border border-[#FECACA] bg-[#FEF2F2] px-3.5 py-1.5 text-[12px] font-medium text-[#DC2626] hover:bg-[#FEE2E2] transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 rounded-[8px] border border-[#FECACA] bg-[#FEF2F2] px-3.5 py-1.5 text-[12px] font-normal text-[#DC2626] hover:bg-[#FEE2E2] transition-colors disabled:opacity-50"
             >
               <RotateCcw className="h-3.5 w-3.5" />
               {rollingBack ? 'Rolling back…' : 'Rollback This Import'}
@@ -178,13 +178,13 @@ export default function ImportResultPage() {
         <div className="flex gap-2">
           <Link
             href="/admin/platform/imports"
-            className="rounded-[10px] border border-[#E4E4E1] bg-[#FFFFFF] px-4 py-2 text-[12.5px] font-medium text-[#101010] hover:bg-[#F5F5F3] transition-colors"
+            className="rounded-[10px] border border-[#E4E4E1] bg-[#FFFFFF] px-4 py-2 text-[12.5px] font-normal text-[#101010] hover:bg-[#F5F5F3] transition-colors"
           >
             Import Centre Home
           </Link>
           <Link
             href="/admin/platform/imports/new"
-            className="rounded-[10px] bg-[#101010] px-4 py-2 text-[12.5px] font-semibold text-white hover:bg-[#333] transition-colors"
+            className="rounded-[10px] bg-[#101010] px-4 py-2 text-[12.5px] font-normal text-white hover:bg-[#333] transition-colors"
           >
             Import Next File →
           </Link>

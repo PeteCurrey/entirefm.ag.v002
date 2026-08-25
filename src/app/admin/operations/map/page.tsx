@@ -23,7 +23,7 @@ export default async function OperationsMapPage() {
         {/* Map Canvas / Visual Radar */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5 lg:col-span-2">
           <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-            <h2 className="font-mono text-[12px] font-semibold uppercase tracking-wider text-white">
+            <h2 className="font-mono text-[12px] font-normal uppercase tracking-wider text-white">
               UK Operational Estate Radar ({sites.length} Managed Sites)
             </h2>
             <span className="font-mono text-[11px] text-emerald-400">Live Telemetry</span>
@@ -36,7 +36,7 @@ export default async function OperationsMapPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
-            <h3 className="mt-3 text-sm font-semibold text-white">Geospatial Estate Density Active</h3>
+            <h3 className="mt-3 text-sm font-normal text-white">Geospatial Estate Density Active</h3>
             <p className="mt-1 max-w-sm text-[12px] text-brand-mist/60">
               Interactive Leaflet / Mapbox tile rendering ready. Sites with valid latitude/longitude coordinates are plotted alongside active reactive work orders.
             </p>
@@ -46,14 +46,14 @@ export default async function OperationsMapPage() {
         {/* Active Site Feeds */}
         <div className="space-y-4">
           <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
-            <h2 className="font-mono text-[12px] font-semibold uppercase tracking-wider text-white">
+            <h2 className="font-mono text-[12px] font-normal uppercase tracking-wider text-white">
               Active Regional Hubs
             </h2>
             <div className="mt-3 space-y-2.5">
               {sites.length > 0 ? (
                 sites.slice(0, 5).map((s) => (
                   <div key={s.id} className="rounded border border-brand-edge-dark bg-brand-void p-2.5 text-[12px]">
-                    <div className="font-semibold text-white">{s.name}</div>
+                    <div className="font-light text-white">{s.name}</div>
                     <div className="font-mono text-[11px] text-brand-mist/50">
                       {s.city} · {s.postcode}
                     </div>

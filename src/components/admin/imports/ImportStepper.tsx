@@ -34,7 +34,7 @@ export function ImportStepper({ currentStep }: ImportStepperProps) {
             <React.Fragment key={step.key}>
               <div className="flex items-center gap-2 shrink-0">
                 <div
-                  className={`flex h-7 w-7 items-center justify-center rounded-full text-[12px] font-medium transition-all ${
+                  className={`flex h-7 w-7 items-center justify-center rounded-full text-[12px] font-normal transition-all ${
                     isCompleted
                       ? 'bg-[#15803D] text-white'
                       : isCurrent
@@ -45,7 +45,7 @@ export function ImportStepper({ currentStep }: ImportStepperProps) {
                   {isCompleted ? <Check className="h-3.5 w-3.5" /> : <Icon className="h-3.5 w-3.5" />}
                 </div>
                 <span
-                  className={`text-[12.5px] font-medium ${
+                  className={`text-[12.5px] font-normal ${
                     isCurrent ? 'text-[#101010]' : isCompleted ? 'text-[#15803D]' : 'text-[#9B9B97]'
                   }`}
                 >

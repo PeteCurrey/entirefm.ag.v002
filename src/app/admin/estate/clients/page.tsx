@@ -14,7 +14,7 @@ export default async function ClientsPage() {
       header: 'Account / Reference',
       accessor: (row) => (
         <div>
-          <div className="font-semibold text-white">{row.name}</div>
+          <div className="font-light text-white">{row.name}</div>
           <div className="font-mono text-[11px] text-brand-mist/50">{row.account_number}</div>
         </div>
       ),
@@ -65,7 +65,7 @@ export default async function ClientsPage() {
         title="Client Accounts"
         description="Comprehensive client organisations, commercial agreements, contracts, and managed property portfolios."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-indigo">
             + New Client Account
           </button>
         }

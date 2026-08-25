@@ -56,14 +56,14 @@ export function ResourceHero({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Editorial & Metadata */}
           <div className="lg:col-span-7 xl:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-pink-500/10 text-pink-400 border border-pink-500/20">
+            <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full text-xs font-normal uppercase tracking-wider bg-pink-500/10 text-pink-400 border border-pink-500/20">
               <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
               <Link href={categoryHref} className="hover:underline">
                 {category}
               </Link>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.15] font-sans">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-white leading-[1.15] font-sans">
               {title}
             </h1>
 
@@ -75,15 +75,15 @@ export function ResourceHero({
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-6 border-t border-slate-800/80 text-xs font-mono">
               <div className="bg-slate-900/80 border border-slate-800/80 p-3 rounded-md">
                 <span className="text-slate-500 block uppercase text-[10px] tracking-wider mb-1">Depth</span>
-                <span className="text-slate-200 font-medium">{technicalTier}</span>
+                <span className="text-slate-200 font-normal">{technicalTier}</span>
               </div>
               <div className="bg-slate-900/80 border border-slate-800/80 p-3 rounded-md">
                 <span className="text-slate-500 block uppercase text-[10px] tracking-wider mb-1">Audience</span>
-                <span className="text-slate-200 font-medium truncate block">{audience}</span>
+                <span className="text-slate-200 font-normal truncate block">{audience}</span>
               </div>
               <div className="bg-slate-900/80 border border-slate-800/80 p-3 rounded-md col-span-2 sm:col-span-1">
                 <span className="text-slate-500 block uppercase text-[10px] tracking-wider mb-1">Standard</span>
-                <span className="text-pink-400 font-medium">{standard}</span>
+                <span className="text-pink-400 font-normal">{standard}</span>
               </div>
             </div>
           </div>
@@ -109,7 +109,7 @@ export function ResourceHero({
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                     <span className="text-slate-300">EntireFM Live Telemetry</span>
                   </div>
-                  <span className="text-pink-400 text-[10px] font-bold">24/7 ACTIVE</span>
+                  <span className="text-pink-400 text-[10px] font-normal">24/7 ACTIVE</span>
                 </div>
               </div>
             ) : (
@@ -119,7 +119,7 @@ export function ResourceHero({
                     <Cpu className="w-3.5 h-3.5 text-pink-400" />
                     <span>OPERATIONAL TELEMETRY DESK</span>
                   </div>
-                  <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] font-bold">
+                  <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] font-normal">
                     CONNECTED
                   </span>
                 </div>
@@ -129,7 +129,7 @@ export function ResourceHero({
                   {systemMetrics.map((m, idx) => (
                     <div key={idx} className="p-2.5 rounded bg-slate-950 border border-slate-800/80 flex items-center justify-between">
                       <span className="text-slate-400">{m.label}</span>
-                      <span className={`font-semibold ${m.status === 'active' ? 'text-pink-400' : 'text-slate-200'}`}>
+                      <span className={`font-light ${m.status === 'active' ? 'text-pink-400' : 'text-slate-200'}`}>
                         {m.value}
                       </span>
                     </div>
@@ -138,7 +138,7 @@ export function ResourceHero({
                   <div className="pt-2">
                     <div className="flex justify-between text-[11px] text-slate-400 mb-1">
                       <span>BMS Data Stream Quality</span>
-                      <span className="text-pink-400 font-bold">99.8% Nominal</span>
+                      <span className="text-pink-400 font-light">99.8% Nominal</span>
                     </div>
                     <div className="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden border border-slate-800">
                       <div className="bg-gradient-to-r from-blue-500 to-pink-500 h-1.5 rounded-full w-[94%]" />

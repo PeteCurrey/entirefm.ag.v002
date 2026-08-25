@@ -17,12 +17,12 @@ export default function TopicsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Topic Opportunities</h1>
+          <h1 className="text-2xl font-extralight text-white">Topic Opportunities</h1>
           <p className="text-sm text-zinc-400 mt-1">Scored and collision-checked FM editorial topics ready for drafting</p>
         </div>
         <form action="/api/admin/blog/topics" method="POST">
           <input type="hidden" name="_action" value="DISCOVER" />
-          <button type="submit" className="bg-purple-700 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium">
+          <button type="submit" className="bg-purple-700 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-normal">
             🔍 Discover New Topics
           </button>
         </form>
@@ -38,13 +38,13 @@ export default function TopicsPage() {
           <div key={topic.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-sm font-semibold text-white">{topic.title}</h3>
+                <h3 className="text-sm font-normal text-white">{topic.title}</h3>
                 <div className="flex items-center gap-3 mt-1">
                   <span className="text-xs text-zinc-500">{topic.topicTheme}</span>
                   <span className="text-xs text-zinc-600">·</span>
                   <span className="text-xs text-zinc-500">{topic.categoryName}</span>
                   <span className="text-xs text-zinc-600">·</span>
-                  <span className="text-xs font-semibold text-blue-400">Score: {topic.overallScore}</span>
+                  <span className="text-xs font-normal text-blue-400">Score: {topic.overallScore}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 shrink-0">

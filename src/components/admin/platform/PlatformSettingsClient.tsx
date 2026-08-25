@@ -138,7 +138,7 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
               <span>Back to Control Centre</span>
             </Link>
             <span className="text-[#9B9B97]">/</span>
-            <span className="font-mono text-[11px] text-[#FF6B24] uppercase font-semibold">
+            <span className="font-mono text-[11px] text-[#FF6B24] uppercase font-light">
               Platform Configuration
             </span>
           </div>
@@ -181,15 +181,15 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
       {/* Greeting Live Preview HUD Card */}
       <div className="rounded-[14px] border border-[#FED7AA] bg-[#FFF7ED] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[0_1px_3px_rgba(255,107,36,0.04)]">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF6B24] text-white font-semibold text-[14px] shadow-sm">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF6B24] text-white font-light text-[14px] shadow-sm">
             {previewFirstName.charAt(0)}
           </div>
           <div>
-            <div className="font-mono text-[10.5px] uppercase tracking-wider text-[#C2410C] font-semibold">
+            <div className="font-mono text-[10.5px] uppercase tracking-wider text-[#C2410C] font-light">
               Live Dashboard Greeting Preview
             </div>
             <div className="text-[16px] font-light text-[#101010]">
-              Good morning, <span className="font-semibold text-[#FF6B24]">{previewFirstName}</span>
+              Good morning, <span className="font-light text-[#FF6B24]">{previewFirstName}</span>
             </div>
           </div>
         </div>
@@ -216,7 +216,7 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
               onClick={() => setActiveTab(tab.id as SettingsTab)}
               className={`inline-flex items-center gap-2 rounded-[8px] px-3.5 py-2 font-medium transition-all ${
                 isActive
-                  ? 'bg-[#101010] text-white shadow-sm font-semibold'
+                  ? 'bg-[#101010] text-white shadow-sm font-light'
                   : 'text-[#686866] hover:bg-[#FFFFFF] hover:text-[#101010]'
               }`}
             >
@@ -410,7 +410,7 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
             </div>
 
             <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-4 space-y-2">
-              <div className="font-medium text-[#101010]">System Passwords & Bootstrap Access</div>
+              <div className="font-normal text-[#101010]">System Passwords & Bootstrap Access</div>
               <p className="text-[12px] text-[#686866]">
                 Your root administrator account (admin@entirefm.com) is provisioned with high-security authority across all 133+ operational modules.
               </p>
@@ -475,7 +475,7 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
                   className="rounded text-[#FF6B24] focus:ring-[#FF6B24]"
                 />
                 <div>
-                  <div className="font-medium text-[13px] text-[#101010]">P1 Critical Incident Emergency Broadcast</div>
+                  <div className="font-normal text-[13px] text-[#101010]">P1 Critical Incident Emergency Broadcast</div>
                   <div className="text-[11.5px] text-[#686866]">Immediate SMS and high-priority email on all priority 1 call-outs.</div>
                 </div>
               </label>
@@ -488,7 +488,7 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
                   className="rounded text-[#FF6B24] focus:ring-[#FF6B24]"
                 />
                 <div>
-                  <div className="font-medium text-[13px] text-[#101010]">SLA Breach Imminent Warnings (&lt;60m remaining)</div>
+                  <div className="font-normal text-[13px] text-[#101010]">SLA Breach Imminent Warnings (&lt;60m remaining)</div>
                   <div className="text-[11.5px] text-[#686866]">Alert sent when any active work order approaches contractual resolution threshold.</div>
                 </div>
               </label>
@@ -501,7 +501,7 @@ export function PlatformSettingsClient({ session }: PlatformSettingsClientProps)
                   className="rounded text-[#FF6B24] focus:ring-[#FF6B24]"
                 />
                 <div>
-                  <div className="font-medium text-[13px] text-[#101010]">Major Remedial Quote Approval Required</div>
+                  <div className="font-normal text-[13px] text-[#101010]">Major Remedial Quote Approval Required</div>
                   <div className="text-[11.5px] text-[#686866]">Notification when quotes exceeding £1,000 are submitted for director sign-off.</div>
                 </div>
               </label>

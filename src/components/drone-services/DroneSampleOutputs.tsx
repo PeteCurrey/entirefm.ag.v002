@@ -80,7 +80,7 @@ export function DroneSampleOutputs() {
         <div className="max-w-3xl space-y-3.5">
           <div className="inline-flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+            <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
               ENGINEERING DELIVERABLES
             </span>
           </div>
@@ -111,7 +111,7 @@ export function DroneSampleOutputs() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-sm text-xs font-bold transition-all ${
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-sm text-xs font-normal transition-all ${
                   isSelected
                     ? 'bg-[#0B1220] text-white shadow-sm'
                     : 'bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80'
@@ -166,7 +166,7 @@ export function DroneSampleOutputs() {
                       }`}
                       aria-label={`Select defect ${defect.id}: ${defect.title}`}
                     >
-                      <span className="font-mono text-xs font-bold">{defect.id}</span>
+                      <span className="font-mono text-xs font-normal">{defect.id}</span>
                     </button>
                   );
                 })}
@@ -182,10 +182,10 @@ export function DroneSampleOutputs() {
             {/* Selected Defect Detail Card */}
             <div className="lg:col-span-4 p-6 rounded-[14px] bg-[#FAF9FB] border border-slate-200 shadow-sm space-y-5">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-bold text-brand-pink bg-brand-pink/10 px-2.5 py-1 rounded-sm">
+                <span className="font-mono text-xs font-normal text-brand-pink bg-brand-pink/10 px-2.5 py-1 rounded-sm">
                   OBSERVATION #{selectedDefect.id}
                 </span>
-                <span className={`font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded-sm ${
+                <span className={`font-mono text-[10px] font-normal uppercase px-2 py-0.5 rounded-sm ${
                   selectedDefect.severity === 'Critical'
                     ? 'bg-red-100 text-red-700'
                     : selectedDefect.severity === 'Urgent'
@@ -197,7 +197,7 @@ export function DroneSampleOutputs() {
               </div>
 
               <div>
-                <h3 className="text-lg font-bold text-slate-900 leading-snug">
+                <h3 className="text-lg font-light text-slate-900 leading-snug">
                   {selectedDefect.title}
                 </h3>
                 <span className="text-xs font-mono text-slate-500 mt-1 block">
@@ -206,7 +206,7 @@ export function DroneSampleOutputs() {
               </div>
 
               <div className="p-4 rounded-sm bg-white border border-slate-200 space-y-1.5">
-                <span className="font-mono text-[10px] uppercase font-bold text-slate-500 block">
+                <span className="font-mono text-[10px] uppercase font-light text-slate-500 block">
                   EntireFM Actionable Remediation
                 </span>
                 <p className="text-xs text-slate-700 leading-relaxed">
@@ -244,7 +244,7 @@ export function DroneSampleOutputs() {
                   <button
                     type="button"
                     onClick={() => setThermalMode('thermal')}
-                    className={`px-3 py-1 rounded-sm text-[11px] font-bold transition-colors ${
+                    className={`px-3 py-1 rounded-sm text-[11px] font-normal transition-colors ${
                       thermalMode === 'thermal' ? 'bg-brand-pink text-white' : 'text-slate-300 hover:text-white'
                     }`}
                   >
@@ -253,7 +253,7 @@ export function DroneSampleOutputs() {
                   <button
                     type="button"
                     onClick={() => setThermalMode('optical')}
-                    className={`px-3 py-1 rounded-sm text-[11px] font-bold transition-colors ${
+                    className={`px-3 py-1 rounded-sm text-[11px] font-normal transition-colors ${
                       thermalMode === 'optical' ? 'bg-brand-pink text-white' : 'text-slate-300 hover:text-white'
                     }`}
                   >
@@ -284,7 +284,7 @@ export function DroneSampleOutputs() {
 
                 {/* Thermal Anomaly Callout Box */}
                 <div className="absolute top-1/4 left-1/3 p-3 rounded-sm bg-black/80 backdrop-blur-md border border-amber-500 text-white space-y-1 text-xs">
-                  <div className="flex items-center gap-1.5 text-amber-400 font-bold font-mono text-[11px]">
+                  <div className="flex items-center gap-1.5 text-amber-400 font-light font-mono text-[11px]">
                     <AlertTriangle className="h-3.5 w-3.5" />
                     <span>Zone T-04: Sub-Membrane Saturated Insulation</span>
                   </div>
@@ -298,7 +298,7 @@ export function DroneSampleOutputs() {
             <div className="lg:col-span-4 p-6 rounded-[14px] bg-[#FAF9FB] border border-slate-200 shadow-sm space-y-5">
               <div className="flex items-center gap-2">
                 <Flame className="w-5 h-5 text-brand-pink" />
-                <h3 className="text-lg font-bold text-slate-900">
+                <h3 className="text-lg font-light text-slate-900">
                   Radiometric Diagnostics
                 </h3>
               </div>
@@ -309,12 +309,12 @@ export function DroneSampleOutputs() {
 
               <div className="space-y-3 pt-2 border-t border-slate-200 text-xs">
                 <div className="p-3 bg-white border border-slate-200 rounded-sm space-y-1">
-                  <strong className="text-slate-900 block font-semibold">1. Diagnostic Identification</strong>
+                  <strong className="text-slate-900 block font-light">1. Diagnostic Identification</strong>
                   <p className="text-slate-600">Saturated insulation retains stored daytime solar heat, appearing as an illuminated warm thermal mass.</p>
                 </div>
 
                 <div className="p-3 bg-white border border-slate-200 rounded-sm space-y-1">
-                  <strong className="text-slate-900 block font-semibold">2. Targeted Remediation</strong>
+                  <strong className="text-slate-900 block font-light">2. Targeted Remediation</strong>
                   <p className="text-slate-600">Avoids full roof replacement by stripping and replacing only the isolated damp insulation core.</p>
                 </div>
               </div>
@@ -348,7 +348,7 @@ export function DroneSampleOutputs() {
                   <div className="border border-white/15 p-2 text-[10px] font-mono text-white/70">Zone A3 (Fl. 8–10)</div>
                   <div className="border border-white/15 p-2 text-[10px] font-mono text-white/70">Zone A4 (Fl. 8–10)</div>
                   <div className="border border-white/15 p-2 text-[10px] font-mono text-white/70">Zone B1 (Fl. 4–7)</div>
-                  <div className="border border-brand-pink/80 bg-brand-pink/10 p-2 text-[10px] font-mono text-brand-pink font-bold">
+                  <div className="border border-brand-pink/80 bg-brand-pink/10 p-2 text-[10px] font-mono text-brand-pink font-light">
                     Zone B2: Mastic Delamination
                   </div>
                   <div className="border border-white/15 p-2 text-[10px] font-mono text-white/70">Zone B3 (Fl. 4–7)</div>
@@ -364,7 +364,7 @@ export function DroneSampleOutputs() {
             <div className="lg:col-span-4 p-6 rounded-[14px] bg-[#FAF9FB] border border-slate-200 shadow-sm space-y-5">
               <div className="flex items-center gap-2">
                 <Building2 className="w-5 h-5 text-brand-pink" />
-                <h3 className="text-lg font-bold text-slate-900">
+                <h3 className="text-lg font-light text-slate-900">
                   Elevation Defect Indexing
                 </h3>
               </div>
@@ -374,7 +374,7 @@ export function DroneSampleOutputs() {
               </p>
 
               <div className="p-4 rounded-sm bg-white border border-slate-200 space-y-2 text-xs">
-                <span className="font-mono font-bold text-slate-900 block">Zoned Defect Log:</span>
+                <span className="font-mono font-light text-slate-900 block">Zoned Defect Log:</span>
                 <ul className="space-y-1.5 text-slate-600">
                   <li>• <strong>Zone B2:</strong> Vertical expansion silicone debonding (Bay 5–6)</li>
                   <li>• <strong>Zone A3:</strong> Louvre panel fixing vibration looseness</li>
@@ -416,7 +416,7 @@ export function DroneSampleOutputs() {
             <div className="lg:col-span-4 p-6 rounded-[14px] bg-[#FAF9FB] border border-slate-200 shadow-sm space-y-5">
               <div className="flex items-center gap-2">
                 <Map className="w-5 h-5 text-brand-pink" />
-                <h3 className="text-lg font-bold text-slate-900">
+                <h3 className="text-lg font-light text-slate-900">
                   Survey-Grade Orthomosaics
                 </h3>
               </div>
@@ -426,7 +426,7 @@ export function DroneSampleOutputs() {
               </p>
 
               <div className="p-4 rounded-sm bg-white border border-slate-200 space-y-2 text-xs">
-                <span className="font-mono font-bold text-slate-900 block">Export Formats:</span>
+                <span className="font-mono font-light text-slate-900 block">Export Formats:</span>
                 <p className="text-slate-600">GeoTIFF, ECW, DXF Contours, Shapefile (SHP), LandXML digital surface models.</p>
               </div>
             </div>
@@ -461,7 +461,7 @@ export function DroneSampleOutputs() {
                   </div>
 
                   <div className="p-4 rounded-sm bg-black/80 border border-white/20 text-white font-mono text-xs max-w-sm space-y-1">
-                    <div className="text-brand-pink font-bold">Virtual Measurement Tool:</div>
+                    <div className="text-brand-pink font-light">Virtual Measurement Tool:</div>
                     <div className="text-slate-300">Deck Area: 1,842.6 m² | Ridge Height: 24.8m</div>
                     <div className="text-slate-400 text-[10px]">Direct BIM Export (LAS, LAZ, OBJ, RCP)</div>
                   </div>
@@ -472,7 +472,7 @@ export function DroneSampleOutputs() {
             <div className="lg:col-span-4 p-6 rounded-[14px] bg-[#FAF9FB] border border-slate-200 shadow-sm space-y-5">
               <div className="flex items-center gap-2">
                 <Box className="w-5 h-5 text-brand-pink" />
-                <h3 className="text-lg font-bold text-slate-900">
+                <h3 className="text-lg font-light text-slate-900">
                   Persistent 3D Asset Record
                 </h3>
               </div>
@@ -482,7 +482,7 @@ export function DroneSampleOutputs() {
               </p>
 
               <div className="p-4 rounded-sm bg-white border border-slate-200 space-y-2 text-xs">
-                <span className="font-mono font-bold text-slate-900 block">BIM / CAFM Use Cases:</span>
+                <span className="font-mono font-light text-slate-900 block">BIM / CAFM Use Cases:</span>
                 <p className="text-slate-600">Revit as-built drafting, clash detection for new plant retrofits, and landlord dilapidation baseline comparisons.</p>
               </div>
             </div>
@@ -502,7 +502,7 @@ export function DroneSampleOutputs() {
                   <button
                     type="button"
                     onClick={() => setConstructionMilestone('groundworks')}
-                    className={`px-2.5 py-1 rounded-sm text-[10.5px] font-bold transition-colors ${
+                    className={`px-2.5 py-1 rounded-sm text-[10.5px] font-normal transition-colors ${
                       constructionMilestone === 'groundworks' ? 'bg-brand-pink text-white' : 'text-slate-300 hover:text-white'
                     }`}
                   >
@@ -511,7 +511,7 @@ export function DroneSampleOutputs() {
                   <button
                     type="button"
                     onClick={() => setConstructionMilestone('framing')}
-                    className={`px-2.5 py-1 rounded-sm text-[10.5px] font-bold transition-colors ${
+                    className={`px-2.5 py-1 rounded-sm text-[10.5px] font-normal transition-colors ${
                       constructionMilestone === 'framing' ? 'bg-brand-pink text-white' : 'text-slate-300 hover:text-white'
                     }`}
                   >
@@ -520,7 +520,7 @@ export function DroneSampleOutputs() {
                   <button
                     type="button"
                     onClick={() => setConstructionMilestone('envelope')}
-                    className={`px-2.5 py-1 rounded-sm text-[10.5px] font-bold transition-colors ${
+                    className={`px-2.5 py-1 rounded-sm text-[10.5px] font-normal transition-colors ${
                       constructionMilestone === 'envelope' ? 'bg-brand-pink text-white' : 'text-slate-300 hover:text-white'
                     }`}
                   >
@@ -545,7 +545,7 @@ export function DroneSampleOutputs() {
                 />
 
                 <div className="absolute bottom-4 left-4 p-3 rounded-sm bg-black/80 backdrop-blur-md border border-white/20 text-white font-mono text-xs space-y-1">
-                  <div className="text-brand-pink font-bold uppercase">
+                  <div className="text-brand-pink font-light uppercase">
                     Milestone: {constructionMilestone}
                   </div>
                   <div className="text-slate-300 text-[11px]">
@@ -558,7 +558,7 @@ export function DroneSampleOutputs() {
             <div className="lg:col-span-4 p-6 rounded-[14px] bg-[#FAF9FB] border border-slate-200 shadow-sm space-y-5">
               <div className="flex items-center gap-2">
                 <CalendarClock className="w-5 h-5 text-brand-pink" />
-                <h3 className="text-lg font-bold text-slate-900">
+                <h3 className="text-lg font-light text-slate-900">
                   Repeat Waypoint Alignment
                 </h3>
               </div>
@@ -568,7 +568,7 @@ export function DroneSampleOutputs() {
               </p>
 
               <div className="p-4 rounded-sm bg-white border border-slate-200 space-y-2 text-xs">
-                <span className="font-mono font-bold text-slate-900 block">Stakeholder Reporting:</span>
+                <span className="font-mono font-light text-slate-900 block">Stakeholder Reporting:</span>
                 <p className="text-slate-600">Monthly PDF progress dashboards, cloud web viewer links, and 4K time-lapse video reels for investors and board presentations.</p>
               </div>
             </div>

@@ -87,10 +87,10 @@ export function SiteCarouselSelector({
 
                 {/* Details */}
                 <div className="min-w-0 flex-1">
-                  <div className="font-mono text-[10px] text-[#FF6B24] font-semibold truncate">
+                  <div className="font-mono text-[10px] text-[#FF6B24] font-light truncate">
                     {site.site_code}
                   </div>
-                  <div className="font-medium text-[12px] text-[#101010] truncate">
+                  <div className="font-normal text-[12px] text-[#101010] truncate">
                     {site.name}
                   </div>
                   <div className="text-[10.5px] text-[#686866] truncate mt-0.5 flex items-center gap-1">

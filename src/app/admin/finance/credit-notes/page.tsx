@@ -35,7 +35,7 @@ export default async function CreditNotesPage() {
       ) : (
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden shadow-2xl">
           <table className="w-full text-left text-xs font-mono text-brand-mist">
-            <thead className="bg-brand-void uppercase text-[10.5px] font-semibold text-brand-mist/70 border-b border-brand-edge-dark">
+            <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
               <tr>
                 <th className="p-3.5">Ref</th>
                 <th className="p-3.5">Type</th>
@@ -50,7 +50,7 @@ export default async function CreditNotesPage() {
             <tbody className="divide-y divide-brand-edge-dark/60">
               {creditNotes.map((cn: any) => (
                 <tr key={cn.id} className="hover:bg-brand-edge-dark/20 transition-colors">
-                  <td className="p-3.5 font-bold text-white">{cn.credit_note_ref}</td>
+                  <td className="p-3.5 font-light text-white">{cn.credit_note_ref}</td>
                   <td className="p-3.5">
                     <span className={`px-2 py-0.5 rounded text-[10px] ${cn.credit_note_type === 'CLIENT' ? 'bg-blue-950/60 text-blue-300' : 'bg-purple-950/60 text-purple-300'}`}>
                       {cn.credit_note_type}
@@ -59,7 +59,7 @@ export default async function CreditNotesPage() {
                   <td className="p-3.5 text-white/80">{cn.supplier_invoice_id || cn.client_invoice_id ? (cn.supplier_invoice_id || cn.client_invoice_id).slice(0, 8) : '—'}</td>
                   <td className="p-3.5 text-white/90">{cn.reason}</td>
                   <td className="p-3.5">£{(Number(cn.subtotal_gbp) || 0).toFixed(2)}</td>
-                  <td className="p-3.5 font-bold text-brand-electric">£{(Number(cn.total_amount_gbp) || 0).toFixed(2)}</td>
+                  <td className="p-3.5 font-light text-brand-electric">£{(Number(cn.total_amount_gbp) || 0).toFixed(2)}</td>
                   <td className="p-3.5">
                     <span className="px-2 py-0.5 rounded text-[10px] bg-brand-edge-dark text-white">{cn.status}</span>
                   </td>

@@ -163,7 +163,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
             <div className="max-w-3xl mb-12">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                   MINIMUM CRITERIA
                 </span>
               </div>
@@ -178,7 +178,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-6 bg-white border border-slate-200 rounded-sm shadow-sm space-y-3">
                 <FileCheck className="w-6 h-6 text-brand-pink" />
-                <h3 className="text-base font-medium text-slate-900">Insurance Verification</h3>
+                <h3 className="text-base font-light text-slate-900">Insurance Verification</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Minimum £5M Public Liability insurance and £10M Employers Liability coverage (where employing staff) is mandatory. Professional Indemnity required for design/consultancy disciplines.
                 </p>
@@ -186,7 +186,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
 
               <div className="p-6 bg-white border border-slate-200 rounded-sm shadow-sm space-y-3">
                 <ShieldCheck className="w-6 h-6 text-brand-pink" />
-                <h3 className="text-base font-bold text-slate-900">Health &amp; Safety / SSIP</h3>
+                <h3 className="text-base font-light text-slate-900">Health &amp; Safety / SSIP</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Valid SSIP accreditation (SafeContractor, CHAS, Constructionline, SMAS) or documented evidence of compliant health and safety management systems, RAMS, and COSHH registers.
                 </p>
@@ -194,7 +194,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
 
               <div className="p-6 bg-white border border-slate-200 rounded-sm shadow-sm space-y-3">
                 <Building2 className="w-6 h-6 text-brand-pink" />
-                <h3 className="text-base font-bold text-slate-900">Trade Competence</h3>
+                <h3 className="text-base font-light text-slate-900">Trade Competence</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Direct trade registrations: Gas Safe for commercial heating, NICEIC/ECA for electrical systems, F-Gas/REFCOM for HVAC engineers, and LEEA for lifting equipment inspection.
                 </p>
@@ -209,11 +209,11 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
             <div className="mb-10">
               <div className="inline-flex items-center gap-2 mb-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                   SUPPLIER REGISTRATION
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+              <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900">
                 Apply for Approved Contractor Status
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-2">
@@ -226,14 +226,14 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
                 <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold text-emerald-900">Application Submitted for Review</h3>
+                <h3 className="text-xl font-light text-emerald-900">Application Submitted for Review</h3>
                 <p className="text-xs sm:text-sm text-emerald-800 max-w-lg mx-auto leading-relaxed">
                   Thank you for applying to the EntireFM Approved Contractor Network. Your submission has been securely logged. Our procurement team will review your credentials and contact you to request certificate documentation.
                 </p>
                 <div className="pt-3">
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="text-xs font-bold text-emerald-900 underline hover:text-emerald-700"
+                    className="text-xs font-normal text-emerald-900 underline hover:text-emerald-700"
                   >
                     Submit another contractor profile
                   </button>
@@ -250,13 +250,13 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
 
                 {/* Company Details */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-2">
+                  <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-2">
                     1. Company &amp; Contact Information
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Company Legal Name *
                       </label>
                       <input
@@ -270,7 +270,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Companies House Number / Trading Name
                       </label>
                       <input
@@ -285,7 +285,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Primary Contact Name *
                       </label>
                       <input
@@ -299,7 +299,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Business Email *
                       </label>
                       <input
@@ -313,7 +313,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Contact Telephone *
                       </label>
                       <input
@@ -328,7 +328,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Registered Business Address *
                     </label>
                     <input
@@ -344,12 +344,12 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
 
                 {/* Primary Trades & Coverage */}
                 <div className="space-y-4 pt-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-2">
+                  <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-2">
                     2. Trade Disciplines &amp; Geographic Coverage
                   </h3>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-2">
                       Select Primary Trade Disciplines *
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -368,14 +368,14 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
                             onChange={() => handleTradeToggle(trade)}
                             className="h-4 w-4 rounded border-slate-300 text-brand-pink focus:ring-brand-pink"
                           />
-                          <span className="text-xs font-medium">{trade}</span>
+                          <span className="text-xs font-normal">{trade}</span>
                         </label>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Primary Geographic Coverage Region *
                     </label>
                     <select
@@ -396,13 +396,13 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
 
                 {/* Accreditations & Insurance */}
                 <div className="space-y-4 pt-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-2">
+                  <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-2">
                     3. Insurance &amp; Compliance Accreditations
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Public Liability Cover Amount *
                       </label>
                       <select
@@ -418,7 +418,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Employers Liability Cover
                       </label>
                       <select
@@ -433,7 +433,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-2">
                       Current SSIP &amp; Management Accreditations Held
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -452,14 +452,14 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
                             onChange={() => handleAccredToggle(accred)}
                             className="h-4 w-4 rounded border-slate-300 text-brand-pink focus:ring-brand-pink"
                           />
-                          <span className="text-xs font-medium">{accred}</span>
+                          <span className="text-xs font-normal">{accred}</span>
                         </label>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Specific Trade Registration Numbers (Gas Safe, NICEIC, REFCOM etc.)
                     </label>
                     <input
@@ -492,7 +492,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full sm:w-auto px-8 py-3.5 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors shadow-sm disabled:opacity-50"
+                    className="w-full sm:w-auto px-8 py-3.5 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-normal uppercase tracking-wider rounded-sm transition-colors shadow-sm disabled:opacity-50"
                   >
                     {loading ? 'Submitting Application...' : 'Submit Contractor Application'}
                   </button>

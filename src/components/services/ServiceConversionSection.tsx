@@ -32,7 +32,7 @@ export function ServiceConversionSection({
             <div>
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                   {badgeText}
                 </span>
               </div>
@@ -51,12 +51,12 @@ export function ServiceConversionSection({
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                    <span className="text-xs font-normal text-slate-500 uppercase tracking-wider block">
                       Direct Technical Consultation
                     </span>
                     <a
                       href={CONTACT_CONFIG.mainPhone.href}
-                      className="text-lg font-bold font-mono text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5"
+                      className="text-lg font-light font-mono text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5"
                     >
                       {CONTACT_CONFIG.mainPhone.display}
                     </a>
@@ -73,12 +73,12 @@ export function ServiceConversionSection({
                     <Mail className="w-5 h-5 text-brand-pink" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                    <span className="text-xs font-normal text-slate-500 uppercase tracking-wider block">
                       Commercial Inquiries Desk
                     </span>
                     <a
                       href={`mailto:${CONTACT_CONFIG.enquiryEmail}`}
-                      className="text-sm font-semibold font-mono text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5 break-all"
+                      className="text-sm font-normal font-mono text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5 break-all"
                     >
                       {CONTACT_CONFIG.enquiryEmail}
                     </a>

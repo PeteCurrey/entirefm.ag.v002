@@ -13,7 +13,7 @@ export function StepRemediation({ remediation, onChange }: StepRemediationProps)
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15 text-brand-pink font-mono text-[10px] font-bold uppercase">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15 text-brand-pink font-mono text-[10px] font-normal uppercase">
           <Wrench className="w-3 h-3" />
           <span>EntireFM Direct Trade Capability</span>
         </div>
@@ -39,7 +39,7 @@ export function StepRemediation({ remediation, onChange }: StepRemediationProps)
                   : 'bg-brand-carbon border-brand-edge-dark text-slate-300 hover:border-white/30 hover:bg-white/[0.04]'
               }`}
             >
-              <span className="text-xs sm:text-sm font-medium group-hover:text-white transition-colors leading-relaxed">
+              <span className="text-xs sm:text-sm font-normal group-hover:text-white transition-colors leading-relaxed">
                 {opt.label}
               </span>
               <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 ml-3 transition-colors ${

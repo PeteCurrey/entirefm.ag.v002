@@ -22,14 +22,14 @@ export default async function ImportHistoryPage() {
               <ArrowLeft className="h-3.5 w-3.5" /> Back to Migration Centre
             </Link>
           </div>
-          <h1 className="text-[22px] font-semibold text-[#101010]">Import History & Audit Log</h1>
+          <h1 className="text-[22px] font-normal text-[#101010]">Import History & Audit Log</h1>
           <p className="text-[13.5px] text-[#686866] mt-0.5">
             Complete provenance and reconciliation ledger of all past data imports.
           </p>
         </div>
         <Link
           href="/admin/platform/imports/new"
-          className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-4 py-2 text-[13px] font-semibold text-white hover:bg-[#E9540F] transition-colors shadow-sm shrink-0"
+          className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-4 py-2 text-[13px] font-normal text-white hover:bg-[#E9540F] transition-colors shadow-sm shrink-0"
         >
           <FileUp className="h-4 w-4" />
           New Import

@@ -66,7 +66,7 @@ export default function EditPostPage() {
   if (!post) {
     return (
       <div className="p-8 space-y-3">
-        <h2 className="text-lg font-bold text-white">Post Not Found</h2>
+        <h2 className="text-lg font-light text-white">Post Not Found</h2>
         <Link href="/admin/blog/posts" className="text-xs text-blue-400">
           ← Back to All Posts
         </Link>
@@ -80,7 +80,7 @@ export default function EditPostPage() {
       <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-xl font-bold text-white">Edit Post</h1>
+            <h1 className="text-xl font-light text-white">Edit Post</h1>
             <span className="text-xs bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded">
               {post.status}
             </span>
@@ -95,13 +95,13 @@ export default function EditPostPage() {
             href={`/post/${post.slug}`}
             target="_blank"
             rel="noreferrer"
-            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-2 rounded-lg font-medium"
+            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-2 rounded-lg font-normal"
           >
             Preview Live ↗
           </a>
           <Link
             href={`/admin/blog/distribution`}
-            className="text-xs bg-pink-950/60 hover:bg-pink-900/60 text-pink-300 border border-pink-800/60 px-3 py-2 rounded-lg font-medium"
+            className="text-xs bg-pink-950/60 hover:bg-pink-900/60 text-pink-300 border border-pink-800/60 px-3 py-2 rounded-lg font-normal"
           >
             Distribute ↗
           </Link>
@@ -130,7 +130,7 @@ export default function EditPostPage() {
         <div className="lg:col-span-8 space-y-5">
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-normal text-zinc-400 uppercase tracking-wider mb-1.5">
                 Article Title (H1)
               </label>
               <input
@@ -142,7 +142,7 @@ export default function EditPostPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-normal text-zinc-400 uppercase tracking-wider mb-1.5">
                 Summary / Excerpt
               </label>
               <textarea
@@ -154,7 +154,7 @@ export default function EditPostPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-normal text-zinc-400 uppercase tracking-wider mb-1.5">
                 Article Content (Markdown)
               </label>
               <textarea
@@ -168,7 +168,7 @@ export default function EditPostPage() {
 
           {/* Revision History */}
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-            <h3 className="text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+            <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
               Revision History ({revisions.length})
             </h3>
             <div className="divide-y divide-zinc-800">
@@ -178,7 +178,7 @@ export default function EditPostPage() {
               {revisions.map((rev) => (
                 <div key={rev.id} className="py-2.5 flex items-center justify-between text-xs">
                   <div>
-                    <span className="text-white font-medium">Rev #{rev.revisionNumber}</span>
+                    <span className="text-white font-normal">Rev #{rev.revisionNumber}</span>
                     <span className="text-zinc-500 ml-2">· {rev.changeSummary}</span>
                   </div>
                   <span className="text-zinc-600">
@@ -195,10 +195,10 @@ export default function EditPostPage() {
           {/* SEO Performance Card */}
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+              <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
                 SEO & SERP Preview
               </h3>
-              <span className="text-xs font-bold text-blue-400">Score: {post.seoScore || 0}/100</span>
+              <span className="text-xs font-normal text-blue-400">Score: {post.seoScore || 0}/100</span>
             </div>
 
             <div>
@@ -236,7 +236,7 @@ export default function EditPostPage() {
               <div className="text-[11px] text-zinc-400">
                 https://www.entirefm.com › post › {post.slug}
               </div>
-              <div className="text-xs font-medium text-blue-400 truncate">
+              <div className="text-xs font-normal text-blue-400 truncate">
                 {post.seoTitle || post.title}
               </div>
               <div className="text-[11px] text-zinc-400 line-clamp-2 leading-relaxed">
@@ -247,7 +247,7 @@ export default function EditPostPage() {
 
           {/* Featured Image */}
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-            <h3 className="text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+            <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
               Featured Image
             </h3>
             <div>

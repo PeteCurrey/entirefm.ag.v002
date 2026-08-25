@@ -75,7 +75,7 @@ export function ColumnMappingTable({
   return (
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
       <div className="border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3 flex items-center justify-between">
-        <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+        <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
           CSV COLUMN TO ENTIRECAFM FIELD MAPPING
         </h3>
         <span className="text-[11.5px] text-[#686866]">
@@ -101,7 +101,7 @@ export function ColumnMappingTable({
 
               return (
                 <tr key={col} className="hover:bg-[#FAFAF9] transition-colors">
-                  <td className="px-5 py-3.5 font-mono text-[12px] font-medium text-[#101010]">
+                  <td className="px-5 py-3.5 font-mono text-[12px] font-normal text-[#101010]">
                     {col}
                   </td>
                   <td className="px-5 py-3.5 text-[#686866] max-w-[220px] truncate">
@@ -117,7 +117,7 @@ export function ColumnMappingTable({
                       <select
                         value={currentTarget}
                         onChange={(e) => onMappingChange(col, e.target.value)}
-                        className={`rounded-[8px] border px-3 py-1.5 text-[12.5px] font-medium focus:outline-none transition-all ${
+                        className={`rounded-[8px] border px-3 py-1.5 text-[12.5px] font-normal focus:outline-none transition-all ${
                           currentTarget
                             ? 'border-[#15803D] bg-[#F0FDF4] text-[#15803D]'
                             : 'border-[#E4E4E1] bg-[#FFFFFF] text-[#686866]'
@@ -131,7 +131,7 @@ export function ColumnMappingTable({
                         ))}
                       </select>
                       {targetDef?.required && (
-                        <span className="rounded-[4px] bg-[#FEF2F2] border border-[#FECACA] px-1.5 py-0.5 font-mono text-[9px] font-semibold text-[#DC2626]">
+                        <span className="rounded-[4px] bg-[#FEF2F2] border border-[#FECACA] px-1.5 py-0.5 font-mono text-[9px] font-normal text-[#DC2626]">
                           REQ
                         </span>
                       )}

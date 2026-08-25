@@ -31,7 +31,7 @@ export function SiteLiveOperationsInspector({
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
       {/* Header */}
       <div className="border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3 flex items-center justify-between">
-        <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+        <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
           LIVE OPERATIONS & ACTIVE RISKS
         </h3>
         <span
@@ -44,7 +44,7 @@ export function SiteLiveOperationsInspector({
       <div className="p-5 space-y-5">
         {/* SECTION 1: OPEN JOBS */}
         <div className="space-y-2.5">
-          <div className="flex items-center justify-between font-mono text-[10.5px] uppercase tracking-wider text-[#686866] font-semibold">
+          <div className="flex items-center justify-between font-mono text-[10.5px] uppercase tracking-wider text-[#686866] font-light">
             <span>ACTIVE WORK ORDERS</span>
             <span>{activeJobs.length} ACTIVE</span>
           </div>
@@ -66,7 +66,7 @@ export function SiteLiveOperationsInspector({
               >
                 <div className="flex items-center justify-between">
                   <span
-                    className={`font-mono text-[10px] font-semibold ${
+                    className={`font-mono text-[10px] font-normal ${
                       wo.priority === 'P1_CRITICAL' ? 'text-[#B91C1C]' : 'text-[#686866]'
                     }`}
                   >
@@ -76,7 +76,7 @@ export function SiteLiveOperationsInspector({
                     {wo.status}
                   </Badge>
                 </div>
-                <div className="font-medium text-[#101010] truncate">{wo.title}</div>
+                <div className="font-normal text-[#101010] truncate">{wo.title}</div>
                 <div className="text-[11.5px] text-[#686866] truncate">
                   {wo.site_id ? 'On site' : 'Unassigned location'}
                 </div>
@@ -87,7 +87,7 @@ export function SiteLiveOperationsInspector({
 
         {/* SECTION 2: COMPLIANCE RISKS */}
         <div className="space-y-2 pt-2 border-t border-[#E4E4E1]">
-          <div className="flex items-center justify-between font-mono text-[10.5px] uppercase tracking-wider text-[#9B9B97] font-semibold">
+          <div className="flex items-center justify-between font-mono text-[10.5px] uppercase tracking-wider text-[#9B9B97] font-light">
             <span>SITE COMPLIANCE STATUS</span>
             <span
               className={
@@ -108,7 +108,7 @@ export function SiteLiveOperationsInspector({
 
           {overdueCompliance.length > 0 ? (
             <div className="rounded-[10px] border border-[#FECACA] bg-[#FEF2F2] p-3 text-[12px] text-[#B91C1C] space-y-1">
-              <div className="font-bold">Statutory Expiries Require Action</div>
+              <div className="font-light">Statutory Expiries Require Action</div>
               {overdueCompliance.map((c) => (
                 <div key={c.id} className="text-[11.5px]">
                   • {c.rule_version?.rule?.title || 'Statutory Obligation'}
@@ -117,7 +117,7 @@ export function SiteLiveOperationsInspector({
             </div>
           ) : (
             <div className="text-[12px] text-[#686866] bg-[#F5F5F3] p-3 rounded-[8px] space-y-1">
-              <div className="flex items-center gap-1.5 text-[#101010] font-medium">
+              <div className="flex items-center gap-1.5 text-[#101010] font-normal">
                 <CheckCircle2 className="h-3.5 w-3.5 text-[#15803D]" />
                 <span>Zero Statutory Expirations</span>
               </div>

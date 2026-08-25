@@ -153,25 +153,25 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
     switch (severity) {
       case 'CRITICAL':
         return (
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-bold uppercase font-mono bg-red-100 text-red-700 border border-red-200">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase font-mono bg-red-100 text-red-700 border border-red-200">
             Critical
           </span>
         );
       case 'WARNING':
         return (
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-bold uppercase font-mono bg-amber-100 text-amber-700 border border-amber-200">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase font-mono bg-amber-100 text-amber-700 border border-amber-200">
             Warning
           </span>
         );
       case 'ATTENTION':
         return (
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-bold uppercase font-mono bg-purple-100 text-purple-700 border border-purple-200">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase font-mono bg-purple-100 text-purple-700 border border-purple-200">
             Attention
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-bold uppercase font-mono bg-slate-100 text-slate-700 border border-slate-200">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase font-mono bg-slate-100 text-slate-700 border border-slate-200">
             Info
           </span>
         );
@@ -211,7 +211,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
       >
         <Bell className="h-4 w-4" />
         {unreadTotal > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#DC2626] px-1 font-mono text-[10px] font-bold text-white shadow-sm ring-2 ring-white">
+          <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#DC2626] px-1 font-mono text-[10px] font-normal text-white shadow-sm ring-2 ring-white">
             {unreadTotal > 99 ? '99+' : unreadTotal}
           </span>
         )}
@@ -223,9 +223,9 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
           {/* Panel Header */}
           <div className="flex items-center justify-between border-b border-[#E4E4E1] bg-[#F9F9F8] px-4 py-3">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-sm text-[#101010]">Notifications</span>
+              <span className="font-normal text-sm text-[#101010]">Notifications</span>
               {unreadTotal > 0 && (
-                <span className="rounded-full bg-red-100 px-2 py-0.5 font-mono text-[11px] font-bold text-red-700">
+                <span className="rounded-full bg-red-100 px-2 py-0.5 font-mono text-[11px] font-normal text-red-700">
                   {unreadTotal} unread
                 </span>
               )}
@@ -236,7 +236,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
                 <button
                   onClick={handleMarkAllRead}
                   disabled={loading}
-                  className="inline-flex items-center gap-1 text-[11.5px] font-medium text-[#686866] hover:text-[#101010] transition-colors"
+                  className="inline-flex items-center gap-1 text-[11.5px] font-normal text-[#686866] hover:text-[#101010] transition-colors"
                 >
                   <CheckCheck className="h-3.5 w-3.5 text-[#16A34A]" />
                   <span>Mark all read</span>
@@ -252,7 +252,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
           </div>
 
           {/* Category Filter Tabs */}
-          <div className="flex border-b border-[#E4E4E1] bg-[#FFFFFF] px-2 py-1.5 overflow-x-auto gap-1 text-[11px] font-medium text-[#686866]">
+          <div className="flex border-b border-[#E4E4E1] bg-[#FFFFFF] px-2 py-1.5 overflow-x-auto gap-1 text-[11px] font-normal text-[#686866]">
             {(['ALL', 'LEADS', 'OPERATIONS', 'COMPLIANCE', 'FINANCE', 'SYSTEM'] as const).map((cat) => {
               const count = cat === 'ALL' ? unreadTotal : unreadByCat[cat] || 0;
               const isActive = activeCategory === cat;
@@ -262,14 +262,14 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
                   onClick={() => setActiveCategory(cat)}
                   className={`flex items-center gap-1 px-2.5 py-1 rounded-[6px] transition-colors whitespace-nowrap ${
                     isActive
-                      ? 'bg-[#101010] text-white font-semibold'
+                      ? 'bg-[#101010] text-white font-light'
                       : 'hover:bg-[#F0F0EE] hover:text-[#101010]'
                   }`}
                 >
                   <span>{cat.charAt(0) + cat.slice(1).toLowerCase()}</span>
                   {count > 0 && (
                     <span
-                      className={`h-4 min-w-[14px] rounded-full px-1 flex items-center justify-center text-[9px] font-mono font-bold ${
+                      className={`h-4 min-w-[14px] rounded-full px-1 flex items-center justify-center text-[9px] font-mono font-light ${
                         isActive ? 'bg-white text-black' : 'bg-red-100 text-red-700'
                       }`}
                     >
@@ -286,7 +286,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
             {filteredNotifications.length === 0 ? (
               <div className="flex flex-col items-center justify-center p-8 text-center gap-2 text-[#686866]">
                 <Check className="h-6 w-6 text-[#16A34A]" />
-                <p className="text-xs font-semibold text-[#101010]">All caught up</p>
+                <p className="text-xs font-normal text-[#101010]">All caught up</p>
                 <p className="text-[11px] text-[#9B9B97]">No notifications in this category.</p>
               </div>
             ) : (
@@ -308,7 +308,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
                     <div className="flex items-center justify-between gap-2">
                       <h4
                         className={`text-[12.5px] leading-tight truncate ${
-                          !n.is_read ? 'font-bold text-[#101010]' : 'font-medium text-[#333332]'
+                          !n.is_read ? 'font-light text-[#101010]' : 'font-light text-[#333332]'
                         }`}
                       >
                         {n.title}
@@ -324,7 +324,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
                       <span className="font-mono text-[10px] text-[#9B9B97]">
                         {formatRelativeTime(n.created_at)}
                       </span>
-                      <span className="inline-flex items-center gap-0.5 text-[11px] font-semibold text-[#FF3E9D] opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="inline-flex items-center gap-0.5 text-[11px] font-normal text-[#FF3E9D] opacity-0 group-hover:opacity-100 transition-opacity">
                         <span>View</span>
                         <ArrowRight className="h-3 w-3" />
                       </span>

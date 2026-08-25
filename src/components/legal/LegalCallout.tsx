@@ -70,7 +70,7 @@ export function LegalCallout({
           <Icon className="h-4 w-4" />
         </span>
         <div className="min-w-0 flex-1">
-          <p className={`text-sm font-semibold tracking-wide ${isDark ? 'text-white' : 'text-slate-900'}`}>
+          <p className={`text-sm font-normal tracking-wide ${isDark ? 'text-white' : 'text-slate-900'}`}>
             {title || current.defaultTitle}
           </p>
           <div className={`mt-2 text-[14px] leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>

@@ -15,7 +15,7 @@ export default async function ContractorsPage() {
         title="Contractor & Supplier Network"
         description="Approved contractor registry, vetting audits, public liability insurance tracking, and performance scores."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white shadow hover:bg-brand-indigo">
             + Onboard Contractor
           </button>
         }
@@ -37,7 +37,7 @@ export default async function ContractorsPage() {
               {providers.map((p) => (
                 <tr key={p.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                   <td className="px-5 py-4">
-                    <div className="font-semibold text-white">{p.organisation?.name}</div>
+                    <div className="font-light text-white">{p.organisation?.name}</div>
                     <div className="font-mono text-[11px] text-brand-mist/50">
                       {p.organisation?.code}
                     </div>
@@ -49,7 +49,7 @@ export default async function ContractorsPage() {
                     <div className="font-mono text-[11px] text-white">{p.tier}</div>
                     <div className="text-[11px] text-brand-mist/50">Vetting: {p.vetting_status}</div>
                   </td>
-                  <td className="px-5 py-4 font-mono text-[11px] text-emerald-400 font-medium">
+                  <td className="px-5 py-4 font-mono text-[11px] text-emerald-400 font-normal">
                     {p.performance_score}% FTF
                   </td>
                   <td className="px-5 py-4">

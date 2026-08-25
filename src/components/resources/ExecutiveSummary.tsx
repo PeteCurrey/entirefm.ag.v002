@@ -21,7 +21,7 @@ export function ExecutiveSummary({
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
         <div className="flex items-center gap-2">
           <FileText className="w-4 h-4 text-pink-400" />
-          <h3 className="text-lg font-bold text-white tracking-tight">{title}</h3>
+          <h3 className="text-lg font-light text-white tracking-tight">{title}</h3>
         </div>
         <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-700">
           {badge}
@@ -44,7 +44,7 @@ export function ExecutiveSummary({
               <span className="text-slate-500 block text-[10px] uppercase tracking-wider mb-0.5">
                 Statutory / Standards Baseline
               </span>
-              <span className="text-slate-300 font-semibold">{statutoryReference}</span>
+              <span className="text-slate-300 font-light">{statutoryReference}</span>
             </div>
           )}
           {operationalOutcome && (
@@ -52,7 +52,7 @@ export function ExecutiveSummary({
               <span className="text-slate-500 block text-[10px] uppercase tracking-wider mb-0.5">
                 Target Operational Outcome
               </span>
-              <span className="text-pink-400 font-semibold">{operationalOutcome}</span>
+              <span className="text-pink-400 font-light">{operationalOutcome}</span>
             </div>
           )}
         </div>

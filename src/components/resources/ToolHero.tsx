@@ -98,7 +98,7 @@ export function ToolHero({
               <span className={`inline-flex h-11 w-11 items-center justify-center rounded-sm border ${cls.iconBg}`}>
                 <Icon className={`h-5 w-5 ${cls.icon}`} />
               </span>
-              <span className={`text-xs font-semibold uppercase tracking-widest font-mono ${cls.eyebrow}`}>
+              <span className={`text-xs font-normal uppercase tracking-widest font-mono ${cls.eyebrow}`}>
                 {eyebrow}
               </span>
             </div>
@@ -113,7 +113,7 @@ export function ToolHero({
 
             {/* Time estimate pill */}
             <div className="flex items-center gap-2">
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${cls.pill}`}>
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-normal border ${cls.pill}`}>
                 <Clock className="h-3 w-3" />
                 {timeEstimate}
               </span>
@@ -124,7 +124,7 @@ export function ToolHero({
           {/* Right: deliverables card */}
           <div className="lg:col-span-5">
             <div className="bg-brand-graphite border border-brand-edge-dark rounded-sm p-6 space-y-4">
-              <p className="text-[11px] font-mono uppercase tracking-widest text-brand-mist/50 font-semibold">
+              <p className="text-[11px] font-mono uppercase tracking-widest text-brand-mist/50 font-light">
                 What you get
               </p>
               <ul className="space-y-2.5">

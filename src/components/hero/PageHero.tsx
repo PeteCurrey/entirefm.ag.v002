@@ -212,7 +212,7 @@ export function PageHero({
                   key={fact.figure}
                   className="group bg-brand-graphite/72 px-5 py-4 backdrop-blur-md transition-colors duration-500 ease-brand hover:bg-brand-graphite/90"
                 >
-                  <dt className="text-[13.5px] font-bold tracking-tight text-white">{fact.figure}</dt>
+                  <dt className="text-[13.5px] font-normal tracking-tight text-white">{fact.figure}</dt>
                   <dd className="mt-1 text-[11.5px] leading-snug text-brand-mist/60 transition-colors duration-500 group-hover:text-brand-mist/90">
                     {fact.label}
                   </dd>

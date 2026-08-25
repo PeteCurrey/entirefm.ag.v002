@@ -18,7 +18,7 @@ export default function OpportunitiesPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Search-Query Opportunity Engine</h1>
+          <h1 className="text-2xl font-extralight text-white">Search-Query Opportunity Engine</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Real search demand mapped against existing EntireFM page authority (Existing URL First policy)
           </p>
@@ -37,7 +37,7 @@ export default function OpportunitiesPage() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-semibold text-white">&ldquo;{opp.query}&rdquo;</h3>
+                  <h3 className="text-sm font-normal text-white">&ldquo;{opp.query}&rdquo;</h3>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono ${decisionBadge(opp.decision)}`}>
                     {opp.decision}
                   </span>

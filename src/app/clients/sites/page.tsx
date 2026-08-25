@@ -48,7 +48,7 @@ export default async function ClientSitesPage() {
               list.map((s) => (
                 <tr key={s.id} className="hover:bg-brand-void/30 transition-colors">
                   <td className="px-6 py-3.5 font-mono text-brand-electric-bright">{s.site_code || '—'}</td>
-                  <td className="px-6 py-3.5 font-medium text-white">{s.name}</td>
+                  <td className="px-6 py-3.5 font-normal text-white">{s.name}</td>
                   <td className="px-6 py-3.5">{s.address_line1 || '—'}</td>
                   <td className="px-6 py-3.5">{s.city || ''} {s.postcode || ''}</td>
                   <td className="px-6 py-3.5">

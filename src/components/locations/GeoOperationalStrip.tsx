@@ -63,7 +63,7 @@ export function GeoOperationalStrip({ city, items }: GeoOperationalStripProps) {
                   <span className="eyebrow">{item.label}</span>
                   <Icon className="h-4 w-4 shrink-0 text-brand-silver transition-colors duration-500 group-hover:text-brand-electric" />
                 </div>
-                <p className="text-[1.3rem] font-bold leading-tight tracking-tight text-brand-graphite">
+                <p className="text-[1.3rem] font-light leading-tight tracking-tight text-brand-graphite">
                   {item.value}
                 </p>
                 <p className="mt-2 text-[13px] leading-relaxed text-brand-silver">{item.detail}</p>

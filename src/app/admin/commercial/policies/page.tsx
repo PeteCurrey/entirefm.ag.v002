@@ -19,7 +19,7 @@ export default async function CommercialPoliciesPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/admin/commercial/exceptions"
-              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-medium text-amber-400 border border-amber-500/30 hover:bg-amber-500/10"
+              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-normal text-amber-400 border border-amber-500/30 hover:bg-amber-500/10"
             >
               Exceptions Desk →
             </Link>
@@ -44,7 +44,7 @@ export default async function CommercialPoliciesPage() {
                     <span className="rounded bg-brand-edge-dark px-2 py-0.5 font-mono text-[10.5px] text-brand-electric-bright">
                       {p.scope_level}
                     </span>
-                    <h4 className="mt-2 text-[14px] font-medium text-white">{p.name}</h4>
+                    <h4 className="mt-2 text-[14px] font-light text-white">{p.name}</h4>
                   </div>
                   <span className="rounded bg-emerald-500/15 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
                     {p.is_active ? 'ACTIVE' : 'INACTIVE'}
@@ -54,19 +54,19 @@ export default async function CommercialPoliciesPage() {
                 <div className="grid grid-cols-2 gap-3 rounded border border-brand-edge-dark/60 bg-brand-void/30 p-3 text-[11.5px] font-mono">
                   <div>
                     <span className="text-brand-mist/40 block text-[10px]">Min Margin Floor</span>
-                    <span className="text-emerald-400 font-semibold">{p.min_margin_pct}% (Target {p.target_margin_pct}%)</span>
+                    <span className="text-emerald-400 font-light">{p.min_margin_pct}% (Target {p.target_margin_pct}%)</span>
                   </div>
                   <div>
                     <span className="text-brand-mist/40 block text-[10px]">Quote Approval Threshold</span>
-                    <span className="text-white font-medium">&gt; £{Number(p.quote_approval_threshold_gbp).toFixed(0)}</span>
+                    <span className="text-white font-normal">&gt; £{Number(p.quote_approval_threshold_gbp).toFixed(0)}</span>
                   </div>
                   <div>
                     <span className="text-brand-mist/40 block text-[10px]">Material Markup</span>
-                    <span className="text-brand-mist/90 font-medium">+{p.material_markup_pct}% ({p.material_markup_type})</span>
+                    <span className="text-brand-mist/90 font-normal">+{p.material_markup_pct}% ({p.material_markup_type})</span>
                   </div>
                   <div>
                     <span className="text-brand-mist/40 block text-[10px]">Subcontract Markup</span>
-                    <span className="text-brand-mist/90 font-medium">+{p.subcontract_markup_pct}%</span>
+                    <span className="text-brand-mist/90 font-normal">+{p.subcontract_markup_pct}%</span>
                   </div>
                 </div>
               </div>

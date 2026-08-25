@@ -174,11 +174,11 @@ Proposals should include company accreditations (ISO 9001/14001/45001, SafeContr
                 <div className="border-b border-slate-100 pb-4">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-bold">
+                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
                       01 / Contract Scope &amp; Parameters
                     </span>
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+                  <h2 className="text-xl sm:text-2xl font-extralight text-slate-900 mt-1">
                     Procurement Specifications
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
@@ -188,70 +188,70 @@ Proposals should include company accreditations (ISO 9001/14001/45001, SafeContr
 
                 <div className="space-y-4">
                   <div>
-                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                    <label className="text-xs font-normal text-slate-800 uppercase tracking-wider block mb-1.5">
                       Client Organisation Name
                     </label>
                     <input
                       type="text"
                       value={orgName}
                       onChange={(e) => setOrgName(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-normal focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                      <label className="text-xs font-normal text-slate-800 uppercase tracking-wider block mb-1.5">
                         Property Sector
                       </label>
                       <input
                         type="text"
                         value={sector}
                         onChange={(e) => setSector(e.target.value)}
-                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-normal focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                      <label className="text-xs font-normal text-slate-800 uppercase tracking-wider block mb-1.5">
                         Total Floor Area
                       </label>
                       <input
                         type="text"
                         value={totalSqFt}
                         onChange={(e) => setTotalSqFt(e.target.value)}
-                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-normal focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                      <label className="text-xs font-normal text-slate-800 uppercase tracking-wider block mb-1.5">
                         Locations / Regions
                       </label>
                       <input
                         type="text"
                         value={locations}
                         onChange={(e) => setLocations(e.target.value)}
-                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-normal focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                      <label className="text-xs font-normal text-slate-800 uppercase tracking-wider block mb-1.5">
                         Contract Term
                       </label>
                       <input
                         type="text"
                         value={contractTerm}
                         onChange={(e) => setContractTerm(e.target.value)}
-                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-normal focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
                       />
                     </div>
                   </div>
 
                   {/* Services Checkboxes */}
                   <div>
-                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-2">
+                    <label className="text-xs font-normal text-slate-800 uppercase tracking-wider block mb-2">
                       Required Services Scope ({services.length} Selected)
                     </label>
                     <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1 scrollbar-thin border border-slate-200 p-3 bg-slate-50 rounded-sm">
@@ -270,7 +270,7 @@ Proposals should include company accreditations (ISO 9001/14001/45001, SafeContr
                             >
                               {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
                             </div>
-                            <span className={isChecked ? 'font-semibold text-slate-900' : 'text-slate-600'}>{srv}</span>
+                            <span className={isChecked ? 'font-light text-slate-900' : 'text-slate-600'}>{srv}</span>
                           </div>
                         );
                       })}
@@ -278,14 +278,14 @@ Proposals should include company accreditations (ISO 9001/14001/45001, SafeContr
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                    <label className="text-xs font-normal text-slate-800 uppercase tracking-wider block mb-1.5">
                       Current Contract Challenges / Pain Points
                     </label>
                     <textarea
                       rows={2}
                       value={painPoints}
                       onChange={(e) => setPainPoints(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-normal focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
                     />
                   </div>
                 </div>
@@ -296,10 +296,10 @@ Proposals should include company accreditations (ISO 9001/14001/45001, SafeContr
             <div className="lg:col-span-6 space-y-6 sticky top-24">
               <div className="bg-white border border-slate-200 rounded-sm shadow-md p-6 sm:p-7 space-y-4">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                  <span className="font-mono text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <span className="font-mono text-[11px] font-normal text-slate-500 uppercase tracking-wider">
                     02 / Tender Document Preview
                   </span>
-                  <span className="text-[11px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">
+                  <span className="text-[11px] font-mono font-light text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">
                     Live Markdown Preview
                   </span>
                 </div>

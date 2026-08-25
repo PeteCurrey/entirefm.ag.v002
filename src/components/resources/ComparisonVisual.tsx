@@ -46,10 +46,10 @@ export function ComparisonVisual({
     return (
       <div className="my-12 p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl">
         <div className="max-w-3xl mb-8">
-          <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+          <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
             Safety & Operational Boundary
           </span>
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+          <h3 className="text-xl sm:text-2xl font-extralight text-white mb-2">
             {title}
           </h3>
           <p className="text-xs sm:text-sm text-slate-400">
@@ -64,9 +64,9 @@ export function ComparisonVisual({
               <div className="flex items-center justify-between gap-2 mb-4 border-b border-pink-500/20 pb-3">
                 <div className="flex items-center gap-2 text-pink-400">
                   <Cpu className="w-4 h-4" />
-                  <h4 className="font-bold text-base text-white">AI Capabilities</h4>
+                  <h4 className="font-light text-base text-white">AI Capabilities</h4>
                 </div>
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-700">
+                <span className="text-[10px] font-mono font-light uppercase tracking-wider px-2 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-700">
                   Algorithms &amp; Models
                 </span>
               </div>
@@ -90,9 +90,9 @@ export function ComparisonVisual({
               <div className="flex items-center justify-between gap-2 mb-4 border-b border-blue-500/20 pb-3">
                 <div className="flex items-center gap-2 text-blue-400">
                   <User className="w-4 h-4" />
-                  <h4 className="font-bold text-base text-white">Human Engineering Mandate</h4>
+                  <h4 className="font-light text-base text-white">Human Engineering Mandate</h4>
                 </div>
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-700">
+                <span className="text-[10px] font-mono font-light uppercase tracking-wider px-2 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-700">
                   Certified Engineers
                 </span>
               </div>
@@ -118,14 +118,14 @@ export function ComparisonVisual({
   return (
     <div className="my-12 p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl">
       <div className="max-w-2xl mb-8">
-        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">{title}</h3>
+        <h3 className="text-xl sm:text-2xl font-extralight text-white mb-2">{title}</h3>
         <p className="text-xs sm:text-sm text-slate-400">{subtitle}</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="p-6 rounded-xl bg-slate-900 border border-slate-800">
           <div className="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
-            <h4 className="font-bold text-base text-white">{leftTitle || 'Method A'}</h4>
+            <h4 className="font-light text-base text-white">{leftTitle || 'Method A'}</h4>
             {leftBadge && <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">{leftBadge}</span>}
           </div>
           <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300">
@@ -140,7 +140,7 @@ export function ComparisonVisual({
 
         <div className="p-6 rounded-xl bg-pink-950/20 border border-pink-500/30">
           <div className="flex items-center justify-between mb-4 border-b border-pink-500/20 pb-3">
-            <h4 className="font-bold text-base text-white">{rightTitle || 'Method B'}</h4>
+            <h4 className="font-light text-base text-white">{rightTitle || 'Method B'}</h4>
             {rightBadge && <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-700">{rightBadge}</span>}
           </div>
           <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300">

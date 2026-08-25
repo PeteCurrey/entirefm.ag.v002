@@ -81,7 +81,7 @@ export default function ContractorComplianceClient({
       <div className="flex justify-end">
         <button
           onClick={() => setIsUploading(true)}
-          className="flex items-center gap-2 bg-brand-electric text-black font-bold px-4 py-2.5 rounded-lg text-sm hover:bg-brand-electric-bright transition-colors"
+          className="flex items-center gap-2 bg-brand-electric text-black font-light px-4 py-2.5 rounded-lg text-sm hover:bg-brand-electric-bright transition-colors"
         >
           <Upload className="w-4 h-4" />
           Upload Compliance Document
@@ -93,11 +93,11 @@ export default function ContractorComplianceClient({
           onSubmit={handleUploadSubmit}
           className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-6 space-y-4"
         >
-          <h2 className="text-lg font-bold text-white">Upload New Compliance Record</h2>
+          <h2 className="text-lg font-light text-white">Upload New Compliance Record</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="text-xs font-semibold text-brand-mist block mb-1">Document Type *</label>
+              <label className="text-xs font-normal text-brand-mist block mb-1">Document Type *</label>
               <select
                 value={docType}
                 onChange={e => setDocType(e.target.value)}
@@ -110,7 +110,7 @@ export default function ContractorComplianceClient({
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-brand-mist block mb-1">Title / Policy Number *</label>
+              <label className="text-xs font-normal text-brand-mist block mb-1">Title / Policy Number *</label>
               <input
                 type="text"
                 required
@@ -122,7 +122,7 @@ export default function ContractorComplianceClient({
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-brand-mist block mb-1">Expiry Date</label>
+              <label className="text-xs font-normal text-brand-mist block mb-1">Expiry Date</label>
               <input
                 type="date"
                 value={expiryDate}
@@ -143,7 +143,7 @@ export default function ContractorComplianceClient({
             <button
               type="submit"
               disabled={loading || !docTitle}
-              className="bg-brand-electric text-black font-bold py-2 px-5 rounded-lg text-sm hover:bg-brand-electric-bright disabled:opacity-50"
+              className="bg-brand-electric text-black font-light py-2 px-5 rounded-lg text-sm hover:bg-brand-electric-bright disabled:opacity-50"
             >
               {loading ? 'Saving...' : 'Submit for Verification'}
             </button>
@@ -160,7 +160,7 @@ export default function ContractorComplianceClient({
       ) : (
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
           <table className="w-full text-left text-sm text-brand-mist">
-            <thead className="bg-brand-void text-xs uppercase font-semibold text-brand-mist border-b border-brand-edge-dark">
+            <thead className="bg-brand-void text-xs uppercase font-light text-brand-mist border-b border-brand-edge-dark">
               <tr>
                 <th className="p-4">Document Title</th>
                 <th className="p-4">Type</th>
@@ -171,12 +171,12 @@ export default function ContractorComplianceClient({
             <tbody className="divide-y divide-brand-edge-dark">
               {docs.map(doc => (
                 <tr key={doc.id} className="hover:bg-brand-edge-dark/30 transition-colors">
-                  <td className="p-4 font-semibold text-white">{doc.document_title}</td>
+                  <td className="p-4 font-light text-white">{doc.document_title}</td>
                   <td className="p-4 text-xs font-mono">{doc.document_type}</td>
                   <td className="p-4 text-xs font-mono">{doc.expiry_date || 'No Expiry'}</td>
                   <td className="p-4">
                     <span
-                      className={`text-xs px-2.5 py-0.5 rounded font-mono font-semibold inline-flex items-center gap-1 ${
+                      className={`text-xs px-2.5 py-0.5 rounded font-mono font-light inline-flex items-center gap-1 ${
                         doc.review_status === 'VERIFIED'
                           ? 'bg-green-500/10 text-green-400 border border-green-500/20'
                           : doc.review_status === 'REJECTED'

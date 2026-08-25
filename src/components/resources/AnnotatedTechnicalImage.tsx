@@ -60,7 +60,7 @@ export function AnnotatedTechnicalImage({
     <div className="my-14 rounded-2xl bg-slate-950 border border-slate-800 p-4 sm:p-6 shadow-2xl">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-800 text-xs font-mono">
         <span className="text-slate-400">INTERACTIVE ASSET TELEMETRY MAP</span>
-        <span className="text-pink-400 font-bold">CLICK NODES TO INSPECT</span>
+        <span className="text-pink-400 font-light">CLICK NODES TO INSPECT</span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
@@ -109,7 +109,7 @@ export function AnnotatedTechnicalImage({
                 <span className="text-[10px] text-pink-400 uppercase tracking-wider block mb-1">
                   {activeHotspot.telemetryType}
                 </span>
-                <h4 className="text-base font-bold text-white mb-2">
+                <h4 className="text-base font-light text-white mb-2">
                   {activeHotspot.label}
                 </h4>
                 <p className="text-xs text-slate-300 font-sans leading-relaxed">
@@ -119,7 +119,7 @@ export function AnnotatedTechnicalImage({
 
               <div className="p-3 rounded bg-slate-950 border border-slate-800/90">
                 <span className="text-[10px] text-slate-500 block uppercase">Telemetry Status</span>
-                <span className="text-xs font-bold text-emerald-400">{activeHotspot.value}</span>
+                <span className="text-xs font-normal text-emerald-400">{activeHotspot.value}</span>
               </div>
             </>
           ) : (

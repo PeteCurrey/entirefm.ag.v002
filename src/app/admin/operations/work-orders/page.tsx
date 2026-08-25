@@ -15,7 +15,7 @@ export default async function WorkOrdersPage() {
         title="Work Orders"
         description="Comprehensive reactive and scheduled job lifecycle management across all client estates."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white shadow hover:bg-brand-indigo">
             + New Work Order
           </button>
         }
@@ -40,7 +40,7 @@ export default async function WorkOrdersPage() {
                     {wo.work_order_number}
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-semibold text-white">{wo.title}</div>
+                    <div className="font-light text-white">{wo.title}</div>
                     <div className="text-[11.5px] text-brand-mist/50">
                       {wo.site?.name || 'Site unassigned'}
                     </div>

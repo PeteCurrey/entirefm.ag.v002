@@ -96,7 +96,7 @@ export function IndustrialEnvironmentsGallery() {
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
               INDUSTRIAL ENVIRONMENTS
             </span>
           </div>
@@ -130,7 +130,7 @@ export function IndustrialEnvironmentsGallery() {
                 >
                   {env.category}
                 </span>
-                <strong className="text-xs font-medium block leading-snug line-clamp-2">
+                <strong className="text-xs font-normal block leading-snug line-clamp-2">
                   {env.name}
                 </strong>
               </button>
@@ -150,7 +150,7 @@ export function IndustrialEnvironmentsGallery() {
               className="object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-slate-950/40" />
-            <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-mono font-medium rounded-sm backdrop-blur-md">
+            <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-mono font-normal rounded-sm backdrop-blur-md">
               {activeEnv.category}
             </div>
           </div>
@@ -158,7 +158,7 @@ export function IndustrialEnvironmentsGallery() {
           {/* Right Column: Description & Methods */}
           <div className="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink block mb-2">
+              <span className="text-xs font-normal uppercase tracking-wider text-brand-pink block mb-2">
                 SPECIALIST METHODOLOGY
               </span>
               <h3 className="text-2xl sm:text-3xl font-light text-white mb-3">
@@ -172,13 +172,13 @@ export function IndustrialEnvironmentsGallery() {
                 <span className="text-[11px] font-mono text-brand-pink-light uppercase tracking-wider block mb-1">
                   Access Equipment & Method
                 </span>
-                <span className="text-xs font-semibold text-white">
+                <span className="text-xs font-normal text-white">
                   {activeEnv.accessMethod}
                 </span>
               </div>
 
               <div className="space-y-2 pt-3 border-t border-slate-800">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                <span className="text-xs font-normal text-slate-400 uppercase tracking-wider block mb-2">
                   Scope Protocols
                 </span>
                 {activeEnv.methods.map((m, idx) => (
@@ -192,7 +192,7 @@ export function IndustrialEnvironmentsGallery() {
 
             <div className="mt-8 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
               <span>Safety: RAMS & COSHH Assessed</span>
-              <span className="text-brand-pink-light font-semibold">Zero Plant Interruption</span>
+              <span className="text-brand-pink-light font-light">Zero Plant Interruption</span>
             </div>
           </div>
         </div>

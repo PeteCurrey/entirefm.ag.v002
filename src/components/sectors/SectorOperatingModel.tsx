@@ -31,7 +31,7 @@ export function SectorOperatingModel({
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink-light">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
               {eyebrow}
             </span>
           </div>
@@ -53,7 +53,7 @@ export function SectorOperatingModel({
               <div>
                 {/* Step indicator */}
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-black font-mono text-brand-pink/80 group-hover:text-brand-pink-light transition-colors">
+                  <span className="text-2xl font-extralight font-mono text-brand-pink/80 group-hover:text-brand-pink-light transition-colors">
                     {s.step}
                   </span>
                   {idx < steps.length - 1 && (
@@ -61,10 +61,10 @@ export function SectorOperatingModel({
                   )}
                 </div>
 
-                <h3 className="text-sm font-bold text-white mb-2 group-hover:text-brand-pink-light transition-colors leading-snug">
+                <h3 className="text-sm font-light text-white mb-2 group-hover:text-brand-pink-light transition-colors leading-snug">
                   {s.title}
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <p className="text-xs text-slate-400 leading-relaxed font-light">
                   {s.desc}
                 </p>
               </div>

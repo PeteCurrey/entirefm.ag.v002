@@ -22,7 +22,7 @@ export function CommercialPosition({ spendMtd, committed, awaitingApproval }: Co
             <DollarSign className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+            <h2 className="text-[12px] font-normal text-[#111111] uppercase tracking-wide">
               Commercial Position &amp; Spend
             </h2>
             <p className="text-[11px] text-[#6D6D68]">
@@ -32,7 +32,7 @@ export function CommercialPosition({ spendMtd, committed, awaitingApproval }: Co
         </div>
         <Link
           href="/admin/commercial"
-          className="text-[11.5px] font-medium text-[#6D6D68] hover:text-[#111111] transition-colors"
+          className="text-[11.5px] font-normal text-[#6D6D68] hover:text-[#111111] transition-colors"
         >
           Commercial Hub →
         </Link>
@@ -41,13 +41,13 @@ export function CommercialPosition({ spendMtd, committed, awaitingApproval }: Co
       {!hasData ? (
         <div className="flex flex-col items-center justify-center p-8 text-center gap-2">
           <DollarSign className="h-6 w-6 text-[#9A9A95]" />
-          <p className="font-medium text-[#111111] text-[13px]">No financial data available</p>
+          <p className="font-normal text-[#111111] text-[13px]">No financial data available</p>
           <p className="text-[12px] text-[#6D6D68]">
             Work orders with WIP billing status will appear here.
           </p>
           <Link
             href="/admin/operations/work-orders"
-            className="mt-2 inline-flex items-center gap-1.5 rounded-[4px] bg-[#111111] px-3 py-1.5 text-[11.5px] font-medium text-white hover:bg-[#252525] transition-colors"
+            className="mt-2 inline-flex items-center gap-1.5 rounded-[4px] bg-[#111111] px-3 py-1.5 text-[11.5px] font-normal text-white hover:bg-[#252525] transition-colors"
           >
             View Work Orders
           </Link>
@@ -56,20 +56,20 @@ export function CommercialPosition({ spendMtd, committed, awaitingApproval }: Co
         <div className="p-5 space-y-4">
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
             <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-3">
-              <div className="text-[10px] uppercase font-medium text-[#6D6D68]">Unbilled WIP</div>
-              <div className="text-xl font-semibold text-[#111111] mt-1 tabular-nums">
+              <div className="text-[10px] uppercase font-normal text-[#6D6D68]">Unbilled WIP</div>
+              <div className="text-xl font-light text-[#111111] mt-1 tabular-nums">
                 {spendMtd !== null ? `£${spendMtd.toLocaleString()}` : '£0'}
               </div>
             </div>
             <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-3">
-              <div className="text-[10px] uppercase font-medium text-[#6D6D68]">Committed</div>
-              <div className="text-xl font-semibold text-[#111111] mt-1 tabular-nums">
+              <div className="text-[10px] uppercase font-normal text-[#6D6D68]">Committed</div>
+              <div className="text-xl font-light text-[#111111] mt-1 tabular-nums">
                 {committed !== null ? `£${committed.toLocaleString()}` : '—'}
               </div>
             </div>
             <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-3 col-span-2 sm:col-span-1">
-              <div className="text-[10px] uppercase font-medium text-[#6D6D68]">Awaiting Approval</div>
-              <div className="text-xl font-semibold text-[#B45309] mt-1 tabular-nums">
+              <div className="text-[10px] uppercase font-normal text-[#6D6D68]">Awaiting Approval</div>
+              <div className="text-xl font-light text-[#B45309] mt-1 tabular-nums">
                 {awaitingApproval !== null ? `£${awaitingApproval.toLocaleString()}` : '—'}
               </div>
             </div>

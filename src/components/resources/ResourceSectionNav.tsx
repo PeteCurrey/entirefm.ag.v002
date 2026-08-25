@@ -39,7 +39,7 @@ export function ResourceSectionNav({ sections }: ResourceSectionNavProps) {
   return (
     <aside className="hidden xl:block sticky top-28 w-64 space-y-4 text-xs font-mono shrink-0">
       <div className="p-4 bg-slate-950/90 border border-slate-800 rounded-xl backdrop-blur-md">
-        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold block mb-3 border-b border-slate-800/80 pb-2">
+        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light block mb-3 border-b border-slate-800/80 pb-2">
           Page Navigation
         </span>
         <nav className="space-y-1.5">
@@ -51,7 +51,7 @@ export function ResourceSectionNav({ sections }: ResourceSectionNavProps) {
                 href={`#${sec.id}`}
                 className={`flex items-center gap-2 px-2.5 py-1.5 rounded transition-all group ${
                   isActive
-                    ? 'bg-pink-950/60 text-pink-300 border border-pink-500/30 font-bold'
+                    ? 'bg-pink-950/60 text-pink-300 border border-pink-500/30 font-light'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
                 }`}
               >

@@ -91,7 +91,7 @@ export default function ContractorWorkClient({
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+            className={`px-4 py-2 rounded-lg text-sm font-normal transition-colors ${
               activeTab === tab
                 ? 'bg-brand-electric text-black'
                 : 'text-brand-mist hover:text-white hover:bg-brand-carbon'
@@ -118,11 +118,11 @@ export default function ContractorWorkClient({
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-sm font-bold text-white">
+                  <span className="font-mono text-sm font-normal text-white">
                     {assignment.work_order_id ? `WO-${assignment.work_order_id.slice(0, 8)}` : assignment.id.slice(0, 8)}
                   </span>
                   <span
-                    className={`text-xs px-2.5 py-0.5 rounded font-mono font-semibold ${
+                    className={`text-xs px-2.5 py-0.5 rounded font-mono font-light ${
                       assignment.status === 'OFFERED'
                         ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                         : assignment.status === 'ACCEPTED'
@@ -146,14 +146,14 @@ export default function ContractorWorkClient({
                   <button
                     onClick={() => handleAccept(assignment.id)}
                     disabled={loadingId === assignment.id}
-                    className="flex-1 bg-green-700 hover:bg-green-600 text-white font-bold py-2.5 rounded-lg text-sm transition-colors disabled:opacity-50"
+                    className="flex-1 bg-green-700 hover:bg-green-600 text-white font-light py-2.5 rounded-lg text-sm transition-colors disabled:opacity-50"
                   >
                     {loadingId === assignment.id ? 'Processing...' : 'Accept Job Offer'}
                   </button>
                   <button
                     onClick={() => setDeclineModalId(assignment.id)}
                     disabled={loadingId === assignment.id}
-                    className="flex-1 bg-brand-void border border-red-800 text-red-400 hover:bg-red-950/40 font-semibold py-2.5 rounded-lg text-sm transition-colors disabled:opacity-50"
+                    className="flex-1 bg-brand-void border border-red-800 text-red-400 hover:bg-red-950/40 font-light py-2.5 rounded-lg text-sm transition-colors disabled:opacity-50"
                   >
                     Decline...
                   </button>
@@ -168,7 +168,7 @@ export default function ContractorWorkClient({
       {declineModalId && (
         <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
           <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl max-w-md w-full p-6 space-y-4">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+            <h3 className="text-lg font-light text-white flex items-center gap-2">
               <AlertTriangle className="w-5 h-5 text-red-400" />
               Decline Work Assignment
             </h3>
@@ -177,7 +177,7 @@ export default function ContractorWorkClient({
             </p>
 
             <div>
-              <label className="text-xs font-semibold text-brand-mist block mb-1">Reason *</label>
+              <label className="text-xs font-normal text-brand-mist block mb-1">Reason *</label>
               <select
                 value={declineReason}
                 onChange={e => setDeclineReason(e.target.value)}
@@ -191,7 +191,7 @@ export default function ContractorWorkClient({
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-brand-mist block mb-1">Notes</label>
+              <label className="text-xs font-normal text-brand-mist block mb-1">Notes</label>
               <textarea
                 value={declineNotes}
                 onChange={e => setDeclineNotes(e.target.value)}
@@ -210,7 +210,7 @@ export default function ContractorWorkClient({
               <button
                 onClick={handleDecline}
                 disabled={!declineReason || loadingId !== null}
-                className="flex-1 bg-red-700 hover:bg-red-600 text-white font-bold py-2 rounded-lg text-sm disabled:opacity-50"
+                className="flex-1 bg-red-700 hover:bg-red-600 text-white font-light py-2 rounded-lg text-sm disabled:opacity-50"
               >
                 Confirm Decline
               </button>

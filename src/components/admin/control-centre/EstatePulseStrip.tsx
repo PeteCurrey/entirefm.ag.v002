@@ -96,7 +96,7 @@ export function EstatePulseStrip({
               }`}
             >
               <div className="flex items-center justify-between gap-1.5 mb-1.5">
-                <span className="text-[11px] font-medium text-[#6D6D68] uppercase tracking-wide">
+                <span className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wide">
                   {m.label}
                 </span>
                 <Icon className={`h-3.5 w-3.5 ${m.alert ? 'text-[#DC2626]' : 'text-[#9A9A95]'}`} />

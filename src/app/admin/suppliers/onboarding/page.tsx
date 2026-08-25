@@ -20,10 +20,10 @@ export default async function OnboardingPipelinePage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
             DYNAMIC RISK-BASED ONBOARDING
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight text-slate-900 mt-1">
             Supplier Onboarding Pipeline
           </h1>
           <p className="text-xs text-slate-600 font-light mt-1">
@@ -65,18 +65,18 @@ export default async function OnboardingPipelinePage() {
                 return (
                   <tr key={supplier.id} className="hover:bg-slate-50/50">
                     <td className="py-3 px-4">
-                      <div className="font-bold text-slate-900 font-sans">{supplier.legal_name}</div>
+                      <div className="font-light text-slate-900 font-sans">{supplier.legal_name}</div>
                       <span className="text-[10.5px] text-slate-400 font-mono">{supplier.headquarters_city} &middot; {supplier.services.map((s) => s.service_name).join(', ')}</span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded ${
+                      <span className={`inline-block text-[10px] font-normal px-2 py-0.5 rounded ${
                         supplier.risk_level === 'CRITICAL' ? 'bg-rose-600 text-white' : supplier.risk_level === 'HIGH' ? 'bg-amber-500 text-white' : 'bg-slate-700 text-white'
                       }`}>
                         {supplier.risk_level}
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`inline-block text-[10px] px-2 py-0.5 rounded font-bold ${
+                      <span className={`inline-block text-[10px] px-2 py-0.5 rounded font-light ${
                         supplier.compliance_status === 'APPROVED' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
                       }`}>
                         {supplier.compliance_status}
@@ -87,11 +87,11 @@ export default async function OnboardingPipelinePage() {
                         <div className="w-24 bg-slate-100 h-2 rounded-full overflow-hidden">
                           <div className={`h-full ${pct === 100 ? 'bg-emerald-500' : 'bg-brand-pink'}`} style={{ width: `${pct}%` }} />
                         </div>
-                        <span className="text-slate-900 font-bold">{pct}%</span>
+                        <span className="text-slate-900 font-light">{pct}%</span>
                       </div>
                     </td>
                     <td className="py-3 px-4 text-center">
-                      <span className="font-bold text-slate-900">{plan?.completed_mandatory_items || 0}</span> / {plan?.total_mandatory_items || 0}
+                      <span className="font-light text-slate-900">{plan?.completed_mandatory_items || 0}</span> / {plan?.total_mandatory_items || 0}
                     </td>
                     <td className="py-3 px-4 text-right">
                       <Link

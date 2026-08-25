@@ -12,7 +12,7 @@ export default async function SubscribersPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Subscribers &amp; Audience</h1>
+          <h1 className="text-2xl font-extralight text-white">Subscribers &amp; Audience</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Opted-in readership for The FM Briefing with verified consent timestamps and origin attribution.
           </p>
@@ -30,7 +30,7 @@ export default async function SubscribersPage() {
       {/* Overview Table */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             All Subscribers ({total})
           </h3>
           <span className="text-xs text-zinc-500 font-mono">100% Opted-In · No Cold Scrapes</span>
@@ -55,11 +55,11 @@ export default async function SubscribersPage() {
             <tbody className="divide-y divide-zinc-800">
               {subscribers.map((s) => (
                 <tr key={s.id} className="hover:bg-zinc-800/40 transition-colors">
-                  <td className="py-3 px-4 font-mono font-medium text-white">{s.email}</td>
+                  <td className="py-3 px-4 font-mono font-normal text-white">{s.email}</td>
                   <td className="py-3 px-4">
                     {s.firstName || s.company ? (
                       <div>
-                        <div className="font-semibold text-zinc-200">{s.firstName || '—'}</div>
+                        <div className="font-light text-zinc-200">{s.firstName || '—'}</div>
                         <div className="text-[11px] text-zinc-500">{s.company || s.role || ''}</div>
                       </div>
                     ) : (

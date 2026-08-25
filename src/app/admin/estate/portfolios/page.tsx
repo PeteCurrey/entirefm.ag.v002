@@ -14,7 +14,7 @@ export default async function PortfoliosPage() {
       header: 'Portfolio Name',
       accessor: (row) => (
         <div>
-          <div className="font-semibold text-white">{row.name}</div>
+          <div className="font-light text-white">{row.name}</div>
           <div className="font-mono text-[11px] text-brand-mist/50">{row.code}</div>
         </div>
       ),
@@ -44,7 +44,7 @@ export default async function PortfoliosPage() {
         title="Portfolios"
         description="Regional and divisional property groupings across client accounts."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-indigo">
             + New Portfolio
           </button>
         }

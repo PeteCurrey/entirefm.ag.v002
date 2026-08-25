@@ -34,10 +34,10 @@ export function TemplateCaseStudiesHub({ route, content }: TemplateCaseStudiesHu
       <section className="relative pt-32 pb-20 border-b border-zinc-800 bg-gradient-to-b from-zinc-950 via-[#0B0E14] to-[#0B0E14]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 font-light">
               PROVEN OPERATIONAL DELIVERY
             </span>
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mt-3 mb-4">
+            <h1 className="text-4xl sm:text-5xl font-extralight tracking-tight text-white mt-3 mb-4">
               Real Estates. Real Engineering Challenges. Real FM Delivery.
             </h1>
             <p className="text-lg text-zinc-400 leading-relaxed">
@@ -57,7 +57,7 @@ export function TemplateCaseStudiesHub({ route, content }: TemplateCaseStudiesHu
             >
               <div className="p-7 space-y-5">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded bg-emerald-950/60 text-emerald-400 border border-emerald-800/40 font-bold">
+                  <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded bg-emerald-950/60 text-emerald-400 border border-emerald-800/40 font-light">
                     {cs.sector}
                   </span>
                   <span className="text-[10px] font-mono text-zinc-400 flex items-center gap-1">
@@ -65,7 +65,7 @@ export function TemplateCaseStudiesHub({ route, content }: TemplateCaseStudiesHu
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors leading-snug">
+                <h3 className="text-xl font-light text-white group-hover:text-emerald-400 transition-colors leading-snug">
                   {cs.title}
                 </h3>
 
@@ -74,7 +74,7 @@ export function TemplateCaseStudiesHub({ route, content }: TemplateCaseStudiesHu
                 </p>
 
                 <div className="space-y-2 pt-2 border-t border-zinc-800/80">
-                  <span className="text-[10px] font-mono text-zinc-500 uppercase font-bold block">
+                  <span className="text-[10px] font-mono text-zinc-500 uppercase font-light block">
                     Verified Outcomes:
                   </span>
                   <ul className="text-xs text-zinc-300 space-y-1.5">
@@ -89,7 +89,7 @@ export function TemplateCaseStudiesHub({ route, content }: TemplateCaseStudiesHu
               </div>
 
               <div className="p-7 pt-0 border-t border-zinc-800/40 mt-4">
-                <div className="text-xs font-mono text-emerald-400 font-semibold flex items-center justify-between pt-4">
+                <div className="text-xs font-mono text-emerald-400 font-light flex items-center justify-between pt-4">
                   <span>View Full Project Review</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </div>

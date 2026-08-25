@@ -83,7 +83,7 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
             <div className="max-w-4xl mt-6">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-white/[0.07] border border-white/15 backdrop-blur-sm mb-6">
                 <MapPin className="h-4 w-4 text-brand-pink-light" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink-light">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
                   {data.city.toUpperCase()} COMMERCIAL ESTATE STANDARDS · {data.region.toUpperCase()}
                 </span>
               </div>
@@ -100,7 +100,7 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Link
                   href="/facilities-management-glossary"
-                  className="btn-ghost-light text-xs font-bold inline-flex items-center gap-2"
+                  className="btn-ghost-light text-xs font-normal inline-flex items-center gap-2"
                 >
                   <BookOpen className="h-3.5 w-3.5 text-brand-pink-light" />
                   <span>View Full National A–Z FM Glossary</span>
@@ -108,7 +108,7 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
                 {data.primaryServiceLinks.length > 0 && (
                   <Link
                     href={data.primaryServiceLinks[0].href}
-                    className="btn-hero-pink text-xs font-bold inline-flex items-center gap-2"
+                    className="btn-hero-pink text-xs font-normal inline-flex items-center gap-2"
                   >
                     <span>{data.city} Facilities Management</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -129,18 +129,18 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
               <div className="lg:col-span-6 space-y-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-surface border border-brand-edge">
                   <Building2 className="h-3.5 w-3.5 text-brand-pink" />
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-graphite">
+                  <span className="text-[11px] font-normal uppercase tracking-wider text-brand-graphite">
                     ESTATE CONTEXT
                   </span>
                 </div>
-                <h2 className="text-display-md text-brand-graphite font-bold tracking-tight">
+                <h2 className="text-display-md text-brand-graphite font-extralight tracking-tight">
                   What FM Terminology Matters in {data.city}?
                 </h2>
                 <p className="text-[15px] leading-relaxed text-slate-700">
                   {data.localEstateContext}
                 </p>
                 <div className="p-5 rounded-sm bg-brand-surface border border-brand-edge space-y-2">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-brand-graphite">
+                  <h3 className="text-xs font-normal uppercase tracking-wider text-brand-graphite">
                     Local Sector Dynamics:
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed">
@@ -152,7 +152,7 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
               {/* Right Property Stock List */}
               <div className="lg:col-span-6 p-7 rounded-sm bg-brand-graphite text-white border border-brand-edge-dark space-y-5">
                 <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink-light">
+                  <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
                     Dominant Building Stock in {data.city}
                   </span>
                   <Layers className="h-4 w-4 text-brand-pink" />
@@ -176,11 +176,11 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
             <div className="max-w-3xl mb-10">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white border border-brand-edge mb-4">
                 <Wrench className="h-3.5 w-3.5 text-brand-pink" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-graphite">
+                <span className="text-[11px] font-normal uppercase tracking-wider text-brand-graphite">
                   LOCATION-SPECIFIC FM CONCEPTS
                 </span>
               </div>
-              <h2 className="text-display-md text-brand-graphite font-bold tracking-tight">
+              <h2 className="text-display-md text-brand-graphite font-extralight tracking-tight">
                 {data.city} Property & Engineering Definitions
               </h2>
               <p className="mt-3 text-sm text-slate-600 leading-relaxed">
@@ -195,14 +195,14 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
                   className="p-6 sm:p-7 rounded-sm bg-white border border-brand-edge shadow-subtle space-y-4 hover:border-brand-pink/40 transition-all duration-300 flex flex-col justify-between"
                 >
                   <div className="space-y-3">
-                    <h3 className="text-lg sm:text-xl font-bold text-brand-graphite tracking-tight">
+                    <h3 className="text-lg sm:text-xl font-light text-brand-graphite tracking-tight">
                       {termItem.term}
                     </h3>
-                    <p className="text-xs sm:text-[13px] font-semibold text-slate-800 leading-relaxed">
+                    <p className="text-xs sm:text-[13px] font-normal text-slate-800 leading-relaxed">
                       {termItem.definition}
                     </p>
                     <div className="p-3.5 rounded-sm bg-brand-surface border border-brand-edge/60 text-xs leading-relaxed text-slate-600">
-                      <span className="font-bold text-brand-graphite block mb-1">
+                      <span className="font-light text-brand-graphite block mb-1">
                         Operational relevance in {data.city}:
                       </span>
                       {termItem.localRelevance}
@@ -220,7 +220,7 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
               {/* Primary Location Service Links */}
               <div className="lg:col-span-6 space-y-5">
-                <h3 className="text-lg font-bold text-brand-graphite tracking-tight flex items-center gap-2">
+                <h3 className="text-lg font-light text-brand-graphite tracking-tight flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-brand-pink" />
                   {data.city} Commercial Services
                 </h3>
@@ -234,7 +234,7 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
                       href={link.href}
                       className="p-3.5 flex items-center justify-between hover:bg-brand-surface transition-colors group"
                     >
-                      <span className="text-xs font-bold text-brand-graphite group-hover:text-brand-pink transition-colors">
+                      <span className="text-xs font-normal text-brand-graphite group-hover:text-brand-pink transition-colors">
                         {link.label}
                       </span>
                       <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-brand-pink group-hover:translate-x-0.5 transition-all" />
@@ -244,7 +244,7 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
                     href="/facilities-management-glossary"
                     className="p-3.5 flex items-center justify-between hover:bg-brand-surface transition-colors group bg-brand-surface/40"
                   >
-                    <span className="text-xs font-bold text-brand-pink">
+                    <span className="text-xs font-normal text-brand-pink">
                       View All National Glossary Terms (A–Z)
                     </span>
                     <ArrowUpRight className="h-3.5 w-3.5 text-brand-pink" />
@@ -255,7 +255,7 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
               {/* Related Regional Markets */}
               {relatedLocations.length > 0 && (
                 <div className="lg:col-span-6 space-y-5">
-                  <h3 className="text-lg font-bold text-brand-graphite tracking-tight flex items-center gap-2">
+                  <h3 className="text-lg font-light text-brand-graphite tracking-tight flex items-center gap-2">
                     <Building2 className="h-4 w-4 text-brand-pink" />
                     Related Regional Glossary Hubs
                   </h3>
@@ -269,7 +269,7 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
                         href={`/facilities-management-glossary-${relLoc.slug}`}
                         className="p-3 rounded-sm border border-brand-edge hover:border-brand-pink/50 hover:bg-brand-surface transition-colors flex items-center justify-between group"
                       >
-                        <span className="text-xs font-semibold text-slate-700 group-hover:text-brand-pink">
+                        <span className="text-xs font-normal text-slate-700 group-hover:text-brand-pink">
                           {relLoc.city} FM Terms
                         </span>
                         <ArrowRight className="h-3 w-3 text-slate-400 group-hover:text-brand-pink" />
@@ -289,11 +289,11 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
               <div className="max-w-2xl mb-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white border border-brand-edge mb-3">
                   <HelpCircle className="h-3.5 w-3.5 text-brand-pink" />
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-graphite">
+                  <span className="text-[11px] font-normal uppercase tracking-wider text-brand-graphite">
                     {data.city.toUpperCase()} FAQ
                   </span>
                 </div>
-                <h2 className="text-display-md text-brand-graphite font-bold tracking-tight">
+                <h2 className="text-display-md text-brand-graphite font-extralight tracking-tight">
                   Frequently Asked Questions about {data.city} FM
                 </h2>
               </div>
@@ -301,7 +301,7 @@ export function TemplateGlossaryLocation({ data }: { data: LocationGlossaryData 
               <div className="space-y-4">
                 {data.faqs.map((faq, idx) => (
                   <div key={idx} className="p-6 rounded-sm bg-white border border-brand-edge shadow-subtle space-y-2">
-                    <h3 className="text-base font-bold text-brand-graphite">
+                    <h3 className="text-base font-light text-brand-graphite">
                       {faq.question}
                     </h3>
                     <p className="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed">

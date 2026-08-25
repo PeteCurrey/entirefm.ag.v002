@@ -96,7 +96,7 @@ export default function PartnerWithEntireFMPage() {
                     <div className="w-10 h-10 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
+                    <h3 className="text-lg font-light text-slate-900">{item.title}</h3>
                     <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">{item.desc}</p>
                   </div>
                 );
@@ -152,10 +152,10 @@ export default function PartnerWithEntireFMPage() {
                 },
               ].map((group, idx) => (
                 <div key={idx} className="p-6 bg-[#FAF9FB] border border-slate-200 rounded-sm space-y-4">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-light">
                     PARTNER CATEGORY 0{idx + 1}
                   </span>
-                  <h3 className="text-base font-bold text-slate-900">{group.category}</h3>
+                  <h3 className="text-base font-light text-slate-900">{group.category}</h3>
                   <p className="text-xs text-slate-600 leading-relaxed font-light">{group.role}</p>
                   <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-200">
                     {group.tags.map((tag, tIdx) => (

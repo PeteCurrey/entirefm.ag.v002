@@ -19,12 +19,12 @@ export default async function AlertsExceptionsPage() {
       {exceptions.length > 0 ? (
         <div className="space-y-4">
           <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-4">
-            <h3 className="text-sm font-semibold text-white mb-3">Statutory & Operational Compliance Exceptions ({exceptions.length})</h3>
+            <h3 className="text-sm font-normal text-white mb-3">Statutory & Operational Compliance Exceptions ({exceptions.length})</h3>
             <div className="space-y-2">
               {exceptions.map(exc => (
                 <div key={exc.id} className="flex items-center justify-between rounded border border-brand-edge-dark/50 bg-brand-void/30 p-3 text-[12.5px]">
                   <div>
-                    <div className="font-medium text-white">{exc.site?.name || 'Estate Site'} — {exc.exception_type}</div>
+                    <div className="font-normal text-white">{exc.site?.name || 'Estate Site'} — {exc.exception_type}</div>
                     <div className="text-[11.5px] text-brand-mist/60">{exc.reason}</div>
                   </div>
                   <div className="text-right">

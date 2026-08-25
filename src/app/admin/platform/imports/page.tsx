@@ -33,14 +33,14 @@ export default async function ImportCentrePage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-[22px] font-semibold text-[#101010]">SimPRO Migration Centre</h1>
+          <h1 className="text-[22px] font-normal text-[#101010]">SimPRO Migration Centre</h1>
           <p className="text-[13.5px] text-[#686866] mt-0.5">
             Import clients, sites, and contractors from SimPRO CSV exports into EntireCAFM.
           </p>
         </div>
         <Link
           href="/admin/platform/imports/new"
-          className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-4 py-2.5 text-[13px] font-semibold text-white hover:bg-[#E9540F] transition-colors shadow-sm shrink-0"
+          className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-4 py-2.5 text-[13px] font-normal text-white hover:bg-[#E9540F] transition-colors shadow-sm shrink-0"
         >
           <FileUp className="h-4 w-4" />
           New Import
@@ -74,9 +74,9 @@ export default async function ImportCentrePage() {
             <div className={`flex h-9 w-9 items-center justify-center rounded-[10px] ${color} text-white mb-4`}>
               <Icon className="h-4.5 w-4.5" />
             </div>
-            <h3 className="font-semibold text-[#101010] text-[14px] group-hover:text-[#FF6B24] transition-colors">{label}</h3>
+            <h3 className="font-light text-[#101010] text-[14px] group-hover:text-[#FF6B24] transition-colors">{label}</h3>
             <p className="text-[12.5px] text-[#686866] mt-1 leading-relaxed">{description}</p>
-            <div className="flex items-center gap-1 mt-3 text-[12px] font-medium text-[#FF6B24]">
+            <div className="flex items-center gap-1 mt-3 text-[12px] font-normal text-[#FF6B24]">
               Start <ArrowRight className="h-3.5 w-3.5" />
             </div>
           </Link>
@@ -86,8 +86,8 @@ export default async function ImportCentrePage() {
       {/* Recent Import History */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#686866]">RECENT IMPORTS</h2>
-          <Link href="/admin/platform/imports/history" className="text-[12px] font-medium text-[#FF6B24] hover:underline">
+          <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">RECENT IMPORTS</h2>
+          <Link href="/admin/platform/imports/history" className="text-[12px] font-normal text-[#FF6B24] hover:underline">
             View All →
           </Link>
         </div>

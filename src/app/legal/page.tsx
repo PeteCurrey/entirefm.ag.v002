@@ -77,7 +77,7 @@ export default function LegalHubPage() {
                   <a
                     key={cat.id}
                     href={`#${cat.slug}`}
-                    className="rounded-sm border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-200 transition-colors hover:bg-white/15 hover:text-white"
+                    className="rounded-sm border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-normal text-slate-200 transition-colors hover:bg-white/15 hover:text-white"
                   >
                     {cat.title}
                   </a>
@@ -94,7 +94,7 @@ export default function LegalHubPage() {
               <div className="flex items-start gap-2.5">
                 <ShieldCheck className="h-4 w-4 shrink-0 text-indigo-600 mt-0.5" />
                 <div>
-                  <span className="font-bold text-slate-900 block">UK Legal Entity</span>
+                  <span className="font-light text-slate-900 block">UK Legal Entity</span>
                   <span>{LEGAL_CONFIG.tradingStatement}</span>
                 </div>
               </div>
@@ -102,7 +102,7 @@ export default function LegalHubPage() {
               <div className="flex items-start gap-2.5">
                 <Lock className="h-4 w-4 shrink-0 text-indigo-600 mt-0.5" />
                 <div>
-                  <span className="font-bold text-slate-900 block">Company Registration</span>
+                  <span className="font-light text-slate-900 block">Company Registration</span>
                   <span>No. {LEGAL_CONFIG.companyNumber} (England & Wales)</span>
                 </div>
               </div>
@@ -110,7 +110,7 @@ export default function LegalHubPage() {
               <div className="flex items-start gap-2.5">
                 <FileText className="h-4 w-4 shrink-0 text-indigo-600 mt-0.5" />
                 <div>
-                  <span className="font-bold text-slate-900 block">Data Protection Officer</span>
+                  <span className="font-light text-slate-900 block">Data Protection Officer</span>
                   <a href={`mailto:${LEGAL_CONFIG.dataProtectionOfficer.email}`} className="text-indigo-600 hover:underline">
                     {LEGAL_CONFIG.dataProtectionOfficer.email}
                   </a>
@@ -120,7 +120,7 @@ export default function LegalHubPage() {
               <div className="flex items-start gap-2.5">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-indigo-600 mt-0.5" />
                 <div>
-                  <span className="font-bold text-slate-900 block">Supervisory Authority</span>
+                  <span className="font-light text-slate-900 block">Supervisory Authority</span>
                   <span>Information Commissioner’s Office (ICO)</span>
                 </div>
               </div>
@@ -145,7 +145,7 @@ export default function LegalHubPage() {
                       <Icon className="h-5 w-5" />
                     </span>
                     <div>
-                      <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">
+                      <h2 className="text-xl font-light text-slate-900 sm:text-2xl">
                         {category.title}
                       </h2>
                       <p className="mt-1 text-sm text-slate-600 max-w-3xl">
@@ -164,7 +164,7 @@ export default function LegalHubPage() {
                       >
                         <div className="space-y-3">
                           <div className="flex items-center justify-between">
-                            <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-600">
+                            <span className="text-[11px] font-normal uppercase tracking-wider text-indigo-600">
                               v{policy.version}
                             </span>
                             <span className="text-[11px] text-slate-600">
@@ -172,7 +172,7 @@ export default function LegalHubPage() {
                             </span>
                           </div>
 
-                          <h3 className="text-base font-bold text-slate-900 group-hover:text-indigo-600">
+                          <h3 className="text-base font-light text-slate-900 group-hover:text-indigo-600">
                             {policy.title}
                           </h3>
 
@@ -181,7 +181,7 @@ export default function LegalHubPage() {
                           </p>
                         </div>
 
-                        <div className="mt-6 flex items-center gap-1.5 border-t border-slate-100 pt-4 text-xs font-semibold text-indigo-600 group-hover:text-indigo-700">
+                        <div className="mt-6 flex items-center gap-1.5 border-t border-slate-100 pt-4 text-xs font-normal text-indigo-600 group-hover:text-indigo-700">
                           <span>Read Full Policy</span>
                           <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
                         </div>

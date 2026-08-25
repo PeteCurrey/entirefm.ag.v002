@@ -79,7 +79,7 @@ export default async function LegalPolicyPage({ params }: PageProps) {
       {/* Policy Sections */}
       {policy.sections.map((section) => (
         <section key={section.id} id={section.id} className="scroll-mt-28 space-y-4">
-          <h2 className="text-xl font-bold text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
+          <h2 className="text-xl font-light text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
             {section.heading}
           </h2>
 
@@ -110,7 +110,7 @@ export default async function LegalPolicyPage({ params }: PageProps) {
             {/* Special Interactive Embed for Data Protection Complaints */}
             {slug === 'data-protection-complaints' && section.id === 'complaints-commitment' && (
               <div className="my-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-                <h3 className="text-lg font-bold text-slate-900 mb-2">
+                <h3 className="text-lg font-light text-slate-900 mb-2">
                   Submit an Electronic Data Protection Complaint
                 </h3>
                 <p className="text-xs text-slate-600 mb-6">
@@ -124,7 +124,7 @@ export default async function LegalPolicyPage({ params }: PageProps) {
             {slug === 'subprocessors' && section.id === 'active-subprocessors' && (
               <div className="my-6 overflow-x-auto rounded-xl border border-slate-200">
                 <table className="w-full text-left text-xs text-slate-700">
-                  <thead className="bg-slate-50 text-[11px] font-bold uppercase text-slate-500">
+                  <thead className="bg-slate-50 text-[11px] font-normal uppercase text-slate-500">
                     <tr>
                       <th className="px-3 py-2.5">Subprocessor</th>
                       <th className="px-3 py-2.5">Category</th>
@@ -136,11 +136,11 @@ export default async function LegalPolicyPage({ params }: PageProps) {
                   <tbody className="divide-y divide-slate-100">
                     {PUBLIC_SUBPROCESSOR_REGISTER.map((sub) => (
                       <tr key={sub.id} className="hover:bg-slate-50/50">
-                        <td className="px-3 py-2.5 font-bold text-slate-900">{sub.name}</td>
+                        <td className="px-3 py-2.5 font-light text-slate-900">{sub.name}</td>
                         <td className="px-3 py-2.5">{sub.category}</td>
                         <td className="px-3 py-2.5">{sub.purpose}</td>
                         <td className="px-3 py-2.5">{sub.primaryHostingRegion}</td>
-                        <td className="px-3 py-2.5 text-[11px] font-medium text-teal-700">
+                        <td className="px-3 py-2.5 text-[11px] font-normal text-teal-700">
                           {sub.transferSafeguard}
                         </td>
                       </tr>

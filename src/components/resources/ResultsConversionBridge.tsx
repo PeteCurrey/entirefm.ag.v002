@@ -51,17 +51,17 @@ export function ResultsConversionBridge({
 
       <div className="relative flex flex-col sm:flex-row sm:items-center gap-6 justify-between">
         <div className="space-y-2 max-w-xl">
-          <p className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/40 font-semibold">
+          <p className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/40 font-light">
             Ready to act on this?
           </p>
-          <h3 className="text-lg font-bold text-white leading-snug">{headline}</h3>
+          <h3 className="text-lg font-light text-white leading-snug">{headline}</h3>
           <p className="text-sm text-brand-mist/65 leading-relaxed">{body}</p>
         </div>
 
         <div className="flex flex-col sm:items-end gap-3 shrink-0">
           <Link
             href={ctaPrimary.href}
-            className={`inline-flex items-center gap-2 ${cls.btn} text-white text-sm font-semibold px-5 py-3 rounded-sm transition-colors whitespace-nowrap`}
+            className={`inline-flex items-center gap-2 ${cls.btn} text-white text-sm font-normal px-5 py-3 rounded-sm transition-colors whitespace-nowrap`}
           >
             {ctaPrimary.label}
             <ArrowRight className="h-4 w-4" />

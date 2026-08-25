@@ -17,19 +17,19 @@ export default function SupplierPortalMembershipPage() {
               <span className="text-[10.5px] font-mono uppercase tracking-widest text-slate-400">
                 ENTIRECAFM // SUPPLIER SELF-SERVICE
               </span>
-              <h1 className="text-2xl font-bold text-slate-900 mt-1">
+              <h1 className="text-2xl font-extralight text-slate-900 mt-1">
                 Supplier Network Membership
               </h1>
             </div>
 
-            <span className="inline-block text-xs font-mono font-bold px-3 py-1 bg-emerald-100 text-emerald-900 rounded-sm self-start sm:self-auto">
+            <span className="inline-block text-xs font-mono font-light px-3 py-1 bg-emerald-100 text-emerald-900 rounded-sm self-start sm:self-auto">
               MEMBERSHIP: VERIFIED NETWORK MEMBER
             </span>
           </div>
 
           {/* Mandatory Non-Negotiable Procurement Firewall Disclaimer */}
           <div className="p-4 bg-slate-900 text-white rounded-sm text-xs leading-relaxed font-light space-y-1">
-            <span className="font-bold text-brand-pink block uppercase font-mono">GOVERNANCE &amp; PROCUREMENT NOTICE:</span>
+            <span className="font-light text-brand-pink block uppercase font-mono">GOVERNANCE &amp; PROCUREMENT NOTICE:</span>
             <p className="text-brand-mist/90">
               Supplier network membership provides profile management, compliance vault archiving, and industry event access. Membership does <strong>NOT</strong> guarantee work allocation and does not influence EntireFM&apos;s supplier assurance, technical scoring, or procurement decisions.
             </p>
@@ -39,10 +39,10 @@ export default function SupplierPortalMembershipPage() {
           <div className="bg-white border border-slate-200 p-6 sm:p-8 rounded-sm shadow-sm space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div>
-                <span className="text-[10.5px] font-mono uppercase tracking-wider text-brand-pink font-bold">
+                <span className="text-[10.5px] font-mono uppercase tracking-wider text-brand-pink font-light">
                   ACTIVE TIER
                 </span>
-                <h2 className="text-xl font-bold text-slate-900 mt-1">
+                <h2 className="text-xl font-light text-slate-900 mt-1">
                   Verified Supplier Network Membership
                 </h2>
                 <p className="text-xs text-slate-600 mt-1 font-light">
@@ -51,7 +51,7 @@ export default function SupplierPortalMembershipPage() {
               </div>
 
               <div className="text-right">
-                <span className="text-2xl font-mono font-bold text-slate-900">£495</span>
+                <span className="text-2xl font-mono font-light text-slate-900">£495</span>
                 <span className="text-xs text-slate-500 font-mono block">+ VAT / year</span>
               </div>
             </div>
@@ -59,24 +59,24 @@ export default function SupplierPortalMembershipPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100 text-xs font-mono text-slate-700">
               <div>
                 <span className="text-slate-400 block text-[10.5px]">START DATE</span>
-                <span className="font-bold">2026-01-01</span>
+                <span className="font-light">2026-01-01</span>
               </div>
               <div>
                 <span className="text-slate-400 block text-[10.5px]">NEXT RENEWAL DATE</span>
-                <span className="font-bold">2027-01-01 (Auto-Renew)</span>
+                <span className="font-light">2027-01-01 (Auto-Renew)</span>
               </div>
               <div>
                 <span className="text-slate-400 block text-[10.5px]">PAYMENT METHOD</span>
-                <span className="font-bold">Annual Corporate Invoice (30 Days)</span>
+                <span className="font-light">Annual Corporate Invoice (30 Days)</span>
               </div>
               <div>
                 <span className="text-slate-400 block text-[10.5px]">BILLING STATUS</span>
-                <span className="text-emerald-600 font-bold">Settled &amp; Up to Date</span>
+                <span className="text-emerald-600 font-light">Settled &amp; Up to Date</span>
               </div>
             </div>
 
             <div className="pt-4 border-t border-slate-100 space-y-3">
-              <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-500 font-bold block">
+              <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-500 font-light block">
                 INCLUDED MEMBERSHIP BENEFITS:
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600 font-light">

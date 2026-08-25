@@ -61,7 +61,7 @@ export function CaseStudyFeature(props: Partial<CaseStudyProps>) {
       <div className="container-custom">
         <div className="max-w-3xl mb-10">
           <span className="badge-gold">Operational Evidence</span>
-          <h2 className="text-3xl font-bold tracking-tight text-white mt-2">
+          <h2 className="text-3xl font-extralight tracking-tight text-white mt-2">
             Engineering &amp; Estate Management in Practice
           </h2>
           <p className="text-xs sm:text-sm text-slate-300 mt-1">
@@ -77,7 +77,7 @@ export function CaseStudyFeature(props: Partial<CaseStudyProps>) {
               <span className="px-2 py-0.5 bg-brand-graphite border border-brand-edge-dark rounded-sm text-slate-300">{clientType}</span>
             </div>
 
-            <h3 className="text-xl font-bold text-white leading-snug">{title}</h3>
+            <h3 className="text-xl font-light text-white leading-snug">{title}</h3>
 
             <div className="space-y-3 text-xs text-slate-300 pt-2 border-t border-brand-edge-dark">
               <div>
@@ -94,7 +94,7 @@ export function CaseStudyFeature(props: Partial<CaseStudyProps>) {
 
           <div className="lg:col-span-5 flex flex-col justify-between p-6 bg-brand-graphite border border-brand-edge-dark rounded-sm">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-electric block mb-3 font-semibold">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-electric block mb-3 font-light">
                 Outcomes &amp; Value Delivered
               </span>
               <ul className="space-y-2.5 text-xs text-slate-200">
@@ -108,7 +108,7 @@ export function CaseStudyFeature(props: Partial<CaseStudyProps>) {
             </div>
 
             <div className="pt-6 border-t border-brand-edge-dark mt-6 flex items-center justify-end">
-              <Link href="/case-studies" className="text-xs font-bold text-brand-electric hover:text-brand-purple flex items-center gap-1">
+              <Link href="/case-studies" className="text-xs font-normal text-brand-electric hover:text-brand-purple flex items-center gap-1">
                 All Case Studies <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
@@ -132,7 +132,7 @@ export function RelatedLinks({
     <section className="py-12 bg-white border-t border-brand-edge">
       <div className="container-custom">
         <span className="badge-technical mb-2">Interconnected Architecture</span>
-        <h3 className="text-lg font-bold text-brand-graphite mt-1 mb-4">{title}</h3>
+        <h3 className="text-lg font-light text-brand-graphite mt-1 mb-4">{title}</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {links.map(link => {
             const displayTitle = link.title || link.label || link.path;
@@ -141,7 +141,7 @@ export function RelatedLinks({
               <Link
                 key={link.path}
                 href={link.path}
-                className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-semibold text-brand-graphite hover:text-brand-electric hover:border-brand-electric/60 transition-all flex flex-col gap-1 shadow-subtle group"
+                className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-normal text-brand-graphite hover:text-brand-electric hover:border-brand-electric/60 transition-all flex flex-col gap-1 shadow-subtle group"
               >
                 {displayCategory && (
                   <span className="text-[10px] font-mono text-brand-electric/80 uppercase tracking-wider">{displayCategory}</span>

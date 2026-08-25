@@ -250,7 +250,7 @@ export function ComprehensiveComplaintForm() {
           <div className="space-y-4 w-full">
             <div>
               <span className="badge-gold">Complaint Registered</span>
-              <h3 className="text-xl font-bold text-slate-900 mt-2">
+              <h3 className="text-xl font-light text-slate-900 mt-2">
                 Case Successfully Logged & Routed
               </h3>
               <p className="text-sm text-slate-700 leading-relaxed mt-1">
@@ -261,10 +261,10 @@ export function ComprehensiveComplaintForm() {
             {/* Official Reference Box */}
             <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-emerald-300 bg-white p-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <p className="text-xs font-normal uppercase tracking-wider text-slate-500">
                   Your Case Tracking Reference
                 </p>
-                <p className="text-xl font-mono font-semibold text-slate-900">
+                <p className="text-xl font-mono font-light text-slate-900">
                   {successData.reference}
                 </p>
                 <p className="text-[11px] text-slate-500 mt-0.5">
@@ -273,7 +273,7 @@ export function ComprehensiveComplaintForm() {
               </div>
               <button
                 onClick={copyRef}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs font-normal text-slate-700 hover:bg-slate-100 transition-colors"
               >
                 {copied ? <Check className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4" />}
                 {copied ? 'Copied' : 'Copy Reference'}
@@ -282,24 +282,24 @@ export function ComprehensiveComplaintForm() {
 
             {/* Investigation Progress Stepper */}
             <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-3">
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-600">
+              <p className="text-xs font-normal uppercase tracking-wider text-slate-600">
                 Investigation Lifecycle:
               </p>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 text-xs">
                 <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-2.5">
-                  <span className="font-bold text-emerald-800 block">1. Received</span>
+                  <span className="font-light text-emerald-800 block">1. Received</span>
                   <span className="text-[11px] text-emerald-700">Logged & Timestamped</span>
                 </div>
                 <div className="rounded-lg bg-slate-50 border border-slate-200 p-2.5">
-                  <span className="font-bold text-slate-800 block">2. Acknowledged</span>
+                  <span className="font-light text-slate-800 block">2. Acknowledged</span>
                   <span className="text-[11px] text-slate-500">Written Notice Sent</span>
                 </div>
                 <div className="rounded-lg bg-slate-50 border border-slate-200 p-2.5">
-                  <span className="font-bold text-slate-800 block">3. Investigating</span>
+                  <span className="font-light text-slate-800 block">3. Investigating</span>
                   <span className="text-[11px] text-slate-500">Root Cause & Evidence</span>
                 </div>
                 <div className="rounded-lg bg-slate-50 border border-slate-200 p-2.5">
-                  <span className="font-bold text-slate-800 block">4. Resolution</span>
+                  <span className="font-light text-slate-800 block">4. Resolution</span>
                   <span className="text-[11px] text-slate-500">Remedial Action Plan</span>
                 </div>
               </div>
@@ -307,7 +307,7 @@ export function ComprehensiveComplaintForm() {
 
             {/* Statutory Escalation Information */}
             <div className="rounded-xl bg-white/80 p-4 text-xs text-slate-600 space-y-1">
-              <p className="font-semibold text-slate-800">External Escalation Pathway:</p>
+              <p className="font-light text-slate-800">External Escalation Pathway:</p>
               <p>
                 If you remain dissatisfied following our formal decision, you may escalate this matter to: <strong className="text-slate-900">{successData.escalationRoute}</strong>.
               </p>
@@ -329,7 +329,7 @@ export function ComprehensiveComplaintForm() {
 
       {/* Step 1: Category Selector */}
       <div>
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">
+        <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-3">
           1. Select the Nature of Your Concern *
         </label>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -356,12 +356,12 @@ export function ComprehensiveComplaintForm() {
                     <Icon className="h-4 w-4" />
                   </span>
                   {isSelected && (
-                    <span className="text-[10px] font-bold text-indigo-700 bg-indigo-100 px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] font-normal text-indigo-700 bg-indigo-100 px-1.5 py-0.5 rounded">
                       Selected
                     </span>
                   )}
                 </div>
-                <span className="text-xs font-bold text-slate-900 leading-snug">{cat.label}</span>
+                <span className="text-xs font-normal text-slate-900 leading-snug">{cat.label}</span>
                 <span className="text-[11px] text-slate-500 mt-1 line-clamp-2">{cat.sublabel}</span>
               </button>
             );
@@ -371,7 +371,7 @@ export function ComprehensiveComplaintForm() {
 
       {/* Step 2: Specific Issue Sub-category */}
       <div>
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+        <label className="block text-xs font-normal uppercase tracking-wider text-slate-700">
           2. Specific Topic / Sub-Category *
         </label>
         <select
@@ -389,13 +389,13 @@ export function ComprehensiveComplaintForm() {
 
       {/* Step 3: Contact & Organisation Information */}
       <div className="space-y-4 border-t border-slate-200 pt-6">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+        <label className="block text-xs font-normal uppercase tracking-wider text-slate-700">
           3. Submitter & Contact Details *
         </label>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="block text-xs font-medium text-slate-600">Full Name *</label>
+            <label className="block text-xs font-normal text-slate-600">Full Name *</label>
             <input
               type="text"
               required
@@ -407,7 +407,7 @@ export function ComprehensiveComplaintForm() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-600">Email Address *</label>
+            <label className="block text-xs font-normal text-slate-600">Email Address *</label>
             <input
               type="email"
               required
@@ -421,7 +421,7 @@ export function ComprehensiveComplaintForm() {
 
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
-            <label className="block text-xs font-medium text-slate-600">Phone Number (Optional)</label>
+            <label className="block text-xs font-normal text-slate-600">Phone Number (Optional)</label>
             <input
               type="tel"
               value={formData.phone}
@@ -432,7 +432,7 @@ export function ComprehensiveComplaintForm() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-600">Company / Organisation</label>
+            <label className="block text-xs font-normal text-slate-600">Company / Organisation</label>
             <input
               type="text"
               value={formData.organisationName}
@@ -443,7 +443,7 @@ export function ComprehensiveComplaintForm() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-600">Relationship *</label>
+            <label className="block text-xs font-normal text-slate-600">Relationship *</label>
             <select
               value={formData.relationship}
               onChange={(e) => setFormData({ ...formData, relationship: e.target.value })}
@@ -462,13 +462,13 @@ export function ComprehensiveComplaintForm() {
 
       {/* Step 4: Site & Operational Reference Details */}
       <div className="space-y-4 border-t border-slate-200 pt-6">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+        <label className="block text-xs font-normal uppercase tracking-wider text-slate-700">
           4. Site Location & Work Order Reference
         </label>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="block text-xs font-medium text-slate-600">
+            <label className="block text-xs font-normal text-slate-600">
               Site / Building Address (If applicable)
             </label>
             <input
@@ -481,7 +481,7 @@ export function ComprehensiveComplaintForm() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-600">
+            <label className="block text-xs font-normal text-slate-600">
               Reference # (Work Order, Invoice, Quote, Ticket)
             </label>
             <input
@@ -495,7 +495,7 @@ export function ComprehensiveComplaintForm() {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-600">Severity Assessment</label>
+          <label className="block text-xs font-normal text-slate-600">Severity Assessment</label>
           <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
             {[
               { id: 'LOW', label: 'Low', desc: 'Minor administrative matter' },
@@ -507,7 +507,7 @@ export function ComprehensiveComplaintForm() {
                 key={sev.id}
                 className={`flex flex-col p-3 rounded-xl border cursor-pointer transition-all ${
                   formData.severity === sev.id
-                    ? 'border-indigo-600 bg-indigo-50/70 font-semibold'
+                    ? 'border-indigo-600 bg-indigo-50/70 font-light'
                     : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                 }`}
               >
@@ -519,7 +519,7 @@ export function ComprehensiveComplaintForm() {
                   onChange={(e) => setFormData({ ...formData, severity: e.target.value })}
                   className="sr-only"
                 />
-                <span className="text-xs font-bold">{sev.label}</span>
+                <span className="text-xs font-normal">{sev.label}</span>
                 <span className="text-[10px] text-slate-500 mt-0.5">{sev.desc}</span>
               </label>
             ))}
@@ -529,12 +529,12 @@ export function ComprehensiveComplaintForm() {
 
       {/* Step 5: Description & Desired Outcome */}
       <div className="space-y-4 border-t border-slate-200 pt-6">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+        <label className="block text-xs font-normal uppercase tracking-wider text-slate-700">
           5. Particulars of Complaint & Desired Resolution *
         </label>
 
         <div>
-          <label className="block text-xs font-medium text-slate-600">
+          <label className="block text-xs font-normal text-slate-600">
             Detailed Description of What Happened *
           </label>
           <textarea
@@ -548,7 +548,7 @@ export function ComprehensiveComplaintForm() {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-600">
+          <label className="block text-xs font-normal text-slate-600">
             What Resolution or Outcome Are You Seeking? *
           </label>
           <input
@@ -565,7 +565,7 @@ export function ComprehensiveComplaintForm() {
       {/* Step 6: Confidentiality & Declaration */}
       <div className="space-y-4 border-t border-slate-200 pt-6">
         <div className="rounded-xl bg-slate-50 p-4 text-xs text-slate-600 space-y-1">
-          <p className="flex items-center gap-1.5 font-bold text-slate-800">
+          <p className="flex items-center gap-1.5 font-light text-slate-800">
             <Lock className="h-3.5 w-3.5 text-indigo-600" />
             Confidential Governance & Protected Processing
           </p>
@@ -591,7 +591,7 @@ export function ComprehensiveComplaintForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-7 py-4 text-sm font-bold text-white shadow-sm transition-all hover:bg-slate-800 disabled:opacity-50 sm:w-auto"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-7 py-4 text-sm font-normal text-white shadow-sm transition-all hover:bg-slate-800 disabled:opacity-50 sm:w-auto"
       >
         {isSubmitting ? (
           'Registering Complaint...'

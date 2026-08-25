@@ -22,7 +22,7 @@ export default async function EngineerTalkPage() {
         <Link href="/engineer" className="text-brand-mist hover:text-white transition-colors" aria-label="Back">
           <ChevronLeft className="w-5 h-5" />
         </Link>
-        <h1 className="text-white text-xl font-bold">Talk to EntireFM</h1>
+        <h1 className="text-white text-xl font-light">Talk to EntireFM</h1>
       </div>
 
       <div className="bg-brand-carbon border border-brand-edge-dark rounded-2xl p-6 text-center space-y-4">
@@ -31,14 +31,14 @@ export default async function EngineerTalkPage() {
         </div>
 
         <div>
-          <h2 className="text-white text-lg font-bold">Voice-Driven Field Notes</h2>
+          <h2 className="text-white text-lg font-light">Voice-Driven Field Notes</h2>
           <p className="text-brand-mist text-sm mt-1 max-w-xs mx-auto leading-relaxed">
             Speak naturally to describe findings, readings, defects, or job notes.
           </p>
         </div>
 
         <div className="bg-brand-void rounded-xl p-4 text-left border border-brand-edge-dark">
-          <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider mb-2">Example phrases</p>
+          <p className="text-brand-mist text-xs font-normal uppercase tracking-wider mb-2">Example phrases</p>
           <ul className="text-xs text-white/80 space-y-1.5 list-disc list-inside">
             <li>&ldquo;Supply fan bearing has excessive vibration, needs replacement.&rdquo;</li>
             <li>&ldquo;Flow rate 2.4 litres per minute, temperature 62 degrees.&rdquo;</li>
@@ -48,7 +48,7 @@ export default async function EngineerTalkPage() {
       </div>
 
       <div>
-        <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider mb-3">Recent Voice Captures</p>
+        <p className="text-brand-mist text-xs font-normal uppercase tracking-wider mb-3">Recent Voice Captures</p>
         {voiceCaptures.length === 0 ? (
           <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 text-center text-brand-mist text-sm">
             No recent voice captures recorded.

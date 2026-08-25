@@ -14,10 +14,10 @@ export default async function InboundApplicationsPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
           PUBLIC INTAKE QUEUE
         </span>
-        <h1 className="text-2xl font-bold text-slate-900 mt-1">
+        <h1 className="text-2xl font-extralight text-slate-900 mt-1">
           Supplier Qualification Applications
         </h1>
         <p className="text-xs text-slate-600 font-light mt-1">
@@ -36,14 +36,14 @@ export default async function InboundApplicationsPage() {
               <div key={app.id} className="p-6 hover:bg-slate-50/50 transition-colors space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div>
-                    <span className="text-[10.5px] font-mono text-brand-pink font-bold">
+                    <span className="text-[10.5px] font-mono text-brand-pink font-light">
                       {app.id}
                     </span>
-                    <h3 className="text-base font-bold text-slate-900">
+                    <h3 className="text-base font-light text-slate-900">
                       {app.company || app.name}
                     </h3>
                   </div>
-                  <span className="text-xs font-mono px-2.5 py-1 rounded bg-slate-900 text-white font-medium self-start sm:self-auto">
+                  <span className="text-xs font-mono px-2.5 py-1 rounded bg-slate-900 text-white font-normal self-start sm:self-auto">
                     STATUS: {app.status}
                   </span>
                 </div>

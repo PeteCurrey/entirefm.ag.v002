@@ -63,14 +63,14 @@ export function NewsletterSignupSection({
       <div className="container-custom max-w-4xl">
         <div className="bg-brand-graphite border border-brand-edge-dark rounded-sm p-8 sm:p-10">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-pink-400 font-bold">
+            <span className="text-[11px] font-mono uppercase tracking-widest text-pink-400 font-light">
               THE FM BRIEFING · RECURRING PUBLICATION
             </span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+              <h2 className="text-2xl sm:text-3xl font-extralight text-white leading-tight">
                 Facilities-management intelligence without the noise.
               </h2>
               <p className="mt-3 text-sm sm:text-base text-brand-mist/80 leading-relaxed">
@@ -97,7 +97,7 @@ export function NewsletterSignupSection({
               {status === 'success' ? (
                 <div className="p-6 rounded bg-brand-void border border-pink-500/40 text-center">
                   <CheckCircle2 className="h-8 w-8 text-pink-400 mx-auto mb-2" />
-                  <h4 className="text-base font-bold text-white">You're Subscribed</h4>
+                  <h4 className="text-base font-light text-white">You're Subscribed</h4>
                   <p className="text-xs text-brand-mist/70 mt-1">
                     Thank you. You will receive the next edition of The FM Briefing in your inbox.
                   </p>
@@ -139,7 +139,7 @@ export function NewsletterSignupSection({
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs py-2.5 px-4 rounded transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full bg-pink-500 hover:bg-pink-600 text-white font-normal text-xs py-2.5 px-4 rounded transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     {status === 'loading' ? (
                       'Subscribing...'
@@ -205,14 +205,14 @@ export function NewsletterInlineCard({
 
   return (
     <div className="bg-brand-carbon border border-brand-edge-dark rounded-sm p-6 my-8 text-white">
-      <span className="text-[10px] font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+      <span className="text-[10px] font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
         THE FM BRIEFING
       </span>
-      <h3 className="text-lg font-bold text-white">{title}</h3>
+      <h3 className="text-lg font-light text-white">{title}</h3>
       <p className="text-xs text-brand-mist/75 mt-1 mb-4">{subtitle}</p>
 
       {status === 'success' ? (
-        <div className="text-xs text-pink-400 font-semibold flex items-center gap-1.5">
+        <div className="text-xs text-pink-400 font-light flex items-center gap-1.5">
           <CheckCircle2 className="h-4 w-4" /> Thank you for subscribing.
         </div>
       ) : (
@@ -228,7 +228,7 @@ export function NewsletterInlineCard({
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs py-2 px-4 rounded transition-colors whitespace-nowrap"
+            className="bg-pink-500 hover:bg-pink-600 text-white font-normal text-xs py-2 px-4 rounded transition-colors whitespace-nowrap"
           >
             Get the Briefing
           </button>

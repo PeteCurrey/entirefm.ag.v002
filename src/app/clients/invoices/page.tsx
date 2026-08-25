@@ -46,7 +46,7 @@ export default async function ClientInvoicesPage() {
                 <tr key={inv.id} className="hover:bg-brand-void/30 transition-colors">
                   <td className="px-6 py-3.5 font-mono text-brand-electric-bright">{inv.invoice_number}</td>
                   <td className="px-6 py-3.5 font-mono">£{Number(inv.subtotal_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</td>
-                  <td className="px-6 py-3.5 font-mono font-medium text-white">£{Number(inv.total_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</td>
+                  <td className="px-6 py-3.5 font-mono font-normal text-white">£{Number(inv.total_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</td>
                   <td className="px-6 py-3.5 font-mono text-[12px]">{inv.due_date || '—'}</td>
                   <td className="px-6 py-3.5">
                     <span className={`rounded px-2 py-0.5 font-mono text-[10px] border ${

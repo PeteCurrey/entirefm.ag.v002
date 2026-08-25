@@ -46,11 +46,11 @@ export function NeedsAttentionSignals({ signals }: Props) {
             <div className="flex items-start justify-between gap-2">
               <div className="flex-1 min-w-0">
                 {sig.href ? (
-                  <a href={sig.href} className="text-[12px] font-medium hover:underline line-clamp-2 text-current">
+                  <a href={sig.href} className="text-[12px] font-normal hover:underline line-clamp-2 text-current">
                     {sig.title}
                   </a>
                 ) : (
-                  <div className="text-[12px] font-medium line-clamp-2">{sig.title}</div>
+                  <div className="text-[12px] font-normal line-clamp-2">{sig.title}</div>
                 )}
                 <div className="text-[11px] opacity-70 mt-0.5 line-clamp-2">{sig.description}</div>
               </div>

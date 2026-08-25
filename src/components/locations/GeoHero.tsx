@@ -95,7 +95,7 @@ export function GeoHero({
             <React.Fragment key={crumb.url}>
               {idx > 0 && <ChevronRight className="h-3 w-3 text-brand-mist/40" />}
               {idx === breadcrumbs.length - 1 ? (
-                <span className="font-semibold text-brand-pink-light truncate max-w-[280px]" aria-current="page">
+                <span className="font-light text-brand-pink-light truncate max-w-[280px]" aria-current="page">
                   {crumb.name}
                 </span>
               ) : (
@@ -157,7 +157,7 @@ export function GeoHero({
             </a>
             <a
               href={contact.emailHref}
-              className="inline-flex items-center gap-2 rounded-sm border border-white/15 bg-white/10 px-4 py-3 text-xs font-semibold text-white backdrop-blur-md hover:bg-white/20 hover:border-brand-pink/50 transition-all duration-300"
+              className="inline-flex items-center gap-2 rounded-sm border border-white/15 bg-white/10 px-4 py-3 text-xs font-normal text-white backdrop-blur-md hover:bg-white/20 hover:border-brand-pink/50 transition-all duration-300"
               title={`Direct email to EntireFM ${city} Operations Desk`}
             >
               <Mail className="h-3.5 w-3.5 text-brand-pink-light" />
@@ -180,7 +180,7 @@ export function GeoHero({
               <dt className="text-[1.25rem] sm:text-[1.45rem] font-extralight leading-tight tracking-[-0.03em] text-brand-pink-light transition-colors duration-500 group-hover:text-white line-clamp-1">
                 {item.figure}
               </dt>
-              <dd className="mt-2 text-[10px] sm:text-[10.5px] font-medium uppercase leading-snug tracking-[0.12em] text-brand-mist/70 transition-colors duration-500 group-hover:text-brand-mist/95 line-clamp-2">
+              <dd className="mt-2 text-[10px] sm:text-[10.5px] font-normal uppercase leading-snug tracking-[0.12em] text-brand-mist/70 transition-colors duration-500 group-hover:text-brand-mist/95 line-clamp-2">
                 {item.label}
               </dd>
             </div>

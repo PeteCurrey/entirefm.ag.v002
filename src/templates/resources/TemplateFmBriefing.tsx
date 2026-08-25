@@ -108,7 +108,7 @@ export function TemplateFmBriefing({ route, content }: TemplateProps) {
                 <h1 className="mt-4 text-4xl sm:text-5xl font-light text-white tracking-tight leading-tight">
                   THE FM BRIEFING
                 </h1>
-                <p className="mt-3 text-lg font-medium text-pink-400">
+                <p className="mt-3 text-lg font-light text-pink-400">
                   Practical intelligence for people responsible for buildings.
                 </p>
                 <p className="mt-4 text-base text-brand-mist/85 leading-relaxed">
@@ -137,27 +137,27 @@ export function TemplateFmBriefing({ route, content }: TemplateProps) {
                   {status === 'success' ? (
                     <div className="text-center py-6">
                       <CheckCircle2 className="h-12 w-12 text-pink-400 mx-auto mb-3" />
-                      <h3 className="text-xl font-bold text-white">Subscription Confirmed</h3>
+                      <h3 className="text-xl font-light text-white">Subscription Confirmed</h3>
                       <p className="text-sm text-brand-mist/80 mt-2 leading-relaxed">
                         Thank you for subscribing. You will receive the upcoming edition of The FM Briefing in your inbox.
                       </p>
                       <Link
                         href="/blog"
-                        className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-pink-400 hover:text-pink-300"
+                        className="mt-6 inline-flex items-center gap-2 text-xs font-normal text-pink-400 hover:text-pink-300"
                       >
                         Read latest published insights &rarr;
                       </Link>
                     </div>
                   ) : (
                     <div>
-                      <h3 className="text-lg font-bold text-white mb-1">Get the Briefing</h3>
+                      <h3 className="text-lg font-light text-white mb-1">Get the Briefing</h3>
                       <p className="text-xs text-brand-mist/70 mb-5">
                         Free weekly delivery. Marketing subscription is distinct from operational enquiries.
                       </p>
 
                       <form onSubmit={handleSubmit} className="space-y-3">
                         <div>
-                          <label className="block text-xs font-semibold text-brand-mist/80 mb-1">
+                          <label className="block text-xs font-normal text-brand-mist/80 mb-1">
                             Work Email Address *
                           </label>
                           <input
@@ -171,7 +171,7 @@ export function TemplateFmBriefing({ route, content }: TemplateProps) {
                         </div>
 
                         <div>
-                          <label className="block text-xs font-semibold text-brand-mist/80 mb-1">
+                          <label className="block text-xs font-normal text-brand-mist/80 mb-1">
                             First Name <span className="text-brand-mist/50">(Optional)</span>
                           </label>
                           <input
@@ -185,7 +185,7 @@ export function TemplateFmBriefing({ route, content }: TemplateProps) {
 
                         <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <label className="block text-xs font-semibold text-brand-mist/80 mb-1">
+                            <label className="block text-xs font-normal text-brand-mist/80 mb-1">
                               Company <span className="text-brand-mist/50">(Optional)</span>
                             </label>
                             <input
@@ -197,7 +197,7 @@ export function TemplateFmBriefing({ route, content }: TemplateProps) {
                             />
                           </div>
                           <div>
-                            <label className="block text-xs font-semibold text-brand-mist/80 mb-1">
+                            <label className="block text-xs font-normal text-brand-mist/80 mb-1">
                               Role <span className="text-brand-mist/50">(Optional)</span>
                             </label>
                             <input
@@ -217,7 +217,7 @@ export function TemplateFmBriefing({ route, content }: TemplateProps) {
                         <button
                           type="submit"
                           disabled={status === 'loading'}
-                          className="w-full mt-2 bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs py-3 px-4 rounded transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                          className="w-full mt-2 bg-pink-500 hover:bg-pink-600 text-white font-normal text-xs py-3 px-4 rounded transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                         >
                           {status === 'loading' ? (
                             'Subscribing...'
@@ -262,7 +262,7 @@ export function TemplateFmBriefing({ route, content }: TemplateProps) {
                       <Icon className="h-5 w-5" />
                     </div>
                     <div>
-                      <h3 className="text-base font-bold text-brand-graphite">{p.title}</h3>
+                      <h3 className="text-base font-light text-brand-graphite">{p.title}</h3>
                       <p className="text-xs text-brand-slate mt-1.5 leading-relaxed">{p.desc}</p>
                     </div>
                   </div>
@@ -287,26 +287,26 @@ export function TemplateFmBriefing({ route, content }: TemplateProps) {
 
             <div className="bg-white border border-brand-edge rounded p-6 sm:p-8 shadow-sm space-y-6">
               <div className="border-b border-brand-edge pb-4">
-                <span className="text-[10px] uppercase font-bold text-pink-500 font-mono">1. THIS WEEK IN FM</span>
-                <h4 className="text-sm font-bold text-brand-graphite mt-1">Key regulatory dates &amp; market changes</h4>
+                <span className="text-[10px] uppercase font-light text-pink-500 font-mono">1. THIS WEEK IN FM</span>
+                <h4 className="text-sm font-normal text-brand-graphite mt-1">Key regulatory dates &amp; market changes</h4>
                 <p className="text-xs text-brand-slate mt-1">Concise summary of statutory updates from HSE, CIBSE, and BESA.</p>
               </div>
 
               <div className="border-b border-brand-edge pb-4">
-                <span className="text-[10px] uppercase font-bold text-pink-500 font-mono">2. TECHNICAL DEEP DIVE</span>
-                <h4 className="text-sm font-bold text-brand-graphite mt-1">Featured engineering or PPM analysis</h4>
+                <span className="text-[10px] uppercase font-light text-pink-500 font-mono">2. TECHNICAL DEEP DIVE</span>
+                <h4 className="text-sm font-normal text-brand-graphite mt-1">Featured engineering or PPM analysis</h4>
                 <p className="text-xs text-brand-slate mt-1">In-depth breakdown of asset lifecycle, predictive monitoring, or EICR compliance.</p>
               </div>
 
               <div className="border-b border-brand-edge pb-4">
-                <span className="text-[10px] uppercase font-bold text-blue-500 font-mono">3. PRACTICAL FM TOOL</span>
-                <h4 className="text-sm font-bold text-brand-graphite mt-1">Rotating calculator, matrix, or checklist</h4>
+                <span className="text-[10px] uppercase font-light text-blue-500 font-mono">3. PRACTICAL FM TOOL</span>
+                <h4 className="text-sm font-normal text-brand-graphite mt-1">Rotating calculator, matrix, or checklist</h4>
                 <p className="text-xs text-brand-slate mt-1">Direct link to interactive schedule builders and downloadable document templates.</p>
               </div>
 
               <div>
-                <span className="text-[10px] uppercase font-bold text-emerald-500 font-mono">4. ONE THING TO THINK ABOUT</span>
-                <h4 className="text-sm font-bold text-brand-graphite mt-1">Short editorial takeaway for estate teams</h4>
+                <span className="text-[10px] uppercase font-light text-emerald-500 font-mono">4. ONE THING TO THINK ABOUT</span>
+                <h4 className="text-sm font-normal text-brand-graphite mt-1">Short editorial takeaway for estate teams</h4>
                 <p className="text-xs text-brand-slate mt-1">A provocative, practical observation on commercial FM contracts and risk management.</p>
               </div>
             </div>

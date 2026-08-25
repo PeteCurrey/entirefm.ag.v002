@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "version": "1.0.0",
   "description": "EntireFM Protected Historic Routes Registry - Non-negotiable floor of the rebuild",
-  "generated": "2026-08-23",
-  "totalProtectedRoutes": 220,
+  "generated": "2026-08-25",
+  "totalProtectedRoutes": 230,
   "routes": [
     {
       "path": "/",
@@ -27,6 +27,15 @@
       "path": "/about-entire-facilities-management",
       "provenance": "LEGACY_VERIFIED",
       "sitemapGroup": "company",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/academy",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "insights",
       "priority": "P1",
       "statusRequired": 200,
       "canonical": "self",
@@ -153,6 +162,15 @@
       "path": "/building-maintenance",
       "provenance": "LEGACY_VERIFIED",
       "sitemapGroup": "hard-fm",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/building-walk",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "insights",
       "priority": "P1",
       "statusRequired": 200,
       "canonical": "self",
@@ -690,15 +708,6 @@
       "indexable": true
     },
     {
-      "path": "/facilities-management-glossary",
-      "provenance": "LEGACY_VERIFIED",
-      "sitemapGroup": "insights",
-      "priority": "P2",
-      "statusRequired": 200,
-      "canonical": "self",
-      "indexable": true
-    },
-    {
       "path": "/facilities-management-in-telford",
       "provenance": "LEGACY_VERIFIED",
       "sitemapGroup": "locations",
@@ -897,6 +906,15 @@
       "indexable": true
     },
     {
+      "path": "/fm-intelligence",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
       "path": "/fm-leeds",
       "provenance": "LEGACY_VERIFIED",
       "sitemapGroup": "locations",
@@ -1007,8 +1025,8 @@
     {
       "path": "/fm-support-n-contact/facilities-management-glossary",
       "provenance": "LEGACY_VERIFIED",
-      "sitemapGroup": "company",
-      "priority": "P1",
+      "sitemapGroup": "glossary",
+      "priority": "P2",
       "statusRequired": 200,
       "canonical": "self",
       "indexable": true
@@ -1761,6 +1779,15 @@
       "indexable": true
     },
     {
+      "path": "/resources/document-vault",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
       "path": "/restaurant-facilities-management",
       "provenance": "LEGACY_VERIFIED",
       "sitemapGroup": "sectors",
@@ -1908,6 +1935,69 @@
       "path": "/tierone-facilities-managment",
       "provenance": "LEGACY_VERIFIED",
       "sitemapGroup": "sectors",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/tools/compliance-calendar",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/tools/compliance-checker",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/tools/fm-health-check",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/tools/fm-roi-calculator",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/tools/ppm-estimator",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/tools/ppm-schedule-builder",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "statusRequired": 200,
+      "canonical": "self",
+      "indexable": true
+    },
+    {
+      "path": "/tools/tender-brief",
+      "provenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "sitemapGroup": "insights",
       "priority": "P1",
       "statusRequired": 200,
       "canonical": "self",

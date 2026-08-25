@@ -49,7 +49,7 @@ export default function ValidationResultsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-[22px] font-semibold text-[#101010]">Validation Results</h1>
+        <h1 className="text-[22px] font-normal text-[#101010]">Validation Results</h1>
         <p className="text-[13.5px] text-[#686866] mt-0.5">{data?.batch?.batch_reference}</p>
       </div>
 
@@ -59,11 +59,11 @@ export default function ValidationResultsPage() {
       {data?.issues?.length > 0 && <ValidationIssueList issues={data.issues} batchId={id} />}
 
       <div className="flex items-center justify-between">
-        <a href={'/admin/platform/imports/' + id + '/mapping'} className="text-[13px] font-medium text-[#686866] hover:text-[#101010]">← Back</a>
+        <a href={'/admin/platform/imports/' + id + '/mapping'} className="text-[13px] font-normal text-[#686866] hover:text-[#101010]">← Back</a>
         {preview?.validRows > 0 && (
           <button
             onClick={() => router.push('/admin/platform/imports/' + id + '/confirm')}
-            className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-6 py-2.5 text-[13px] font-semibold text-white hover:bg-[#E9540F] transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-6 py-2.5 text-[13px] font-normal text-white hover:bg-[#E9540F] transition-colors shadow-sm"
           >
             Proceed to Confirm →
           </button>

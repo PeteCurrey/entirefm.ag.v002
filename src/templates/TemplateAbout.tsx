@@ -180,7 +180,7 @@ export function TemplateAbout({ route, content }: TemplateProps) {
                       className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
                     />
                     {capability.tag && <span className="eyebrow">{capability.tag}</span>}
-                    <p className="mt-5 text-[1.0625rem] font-semibold leading-snug tracking-tight text-brand-graphite">
+                    <p className="mt-5 text-[1.0625rem] font-light leading-snug tracking-tight text-brand-graphite">
                       {capability.name}
                     </p>
                     <p className="mt-2.5 text-[13px] leading-relaxed text-brand-silver">
@@ -237,7 +237,7 @@ export function TemplateAbout({ route, content }: TemplateProps) {
                       <li key={href}>
                         <Link
                           href={href}
-                          className="group inline-flex items-center gap-1.5 text-[13.5px] font-medium text-brand-mist/70 transition-colors hover:text-white"
+                          className="group inline-flex items-center gap-1.5 text-[13.5px] font-normal text-brand-mist/70 transition-colors hover:text-white"
                         >
                           {href
                             .replace(/^\//, '')

@@ -86,7 +86,7 @@ export function SiteHeroWorkspace({
                   : 'bg-[#16A34A]'
               }`}
             />
-            <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+            <span className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
               SITE 360 · PHYSICAL ASSET CANVAS
             </span>
           </div>
@@ -192,7 +192,7 @@ export function SiteHeroWorkspace({
             <div className="flex items-center gap-2 bg-black/60 backdrop-blur-md border border-white/20 rounded-[10px] p-2 font-mono text-[11px]">
               <div className="px-3 py-1 text-center">
                 <div className="text-[9px] uppercase text-white/60">GIA Area</div>
-                <div className="font-semibold text-white">
+                <div className="font-light text-white">
                   {totalGia > 0 ? `${totalGia.toLocaleString()} m²` : '—'}
                 </div>
               </div>
@@ -200,7 +200,7 @@ export function SiteHeroWorkspace({
               <div className="px-3 py-1 text-center">
                 <div className="text-[9px] uppercase text-white/60">Open Jobs</div>
                 <div
-                  className={`font-semibold ${
+                  className={`font-light ${
                     activeWorkOrders.length > 0 ? 'text-[#FF6B24]' : 'text-[#16A34A]'
                   }`}
                 >
@@ -210,7 +210,7 @@ export function SiteHeroWorkspace({
               <div className="h-6 w-px bg-white/20" />
               <div className="px-3 py-1 text-center">
                 <div className="text-[9px] uppercase text-white/60">Compliance</div>
-                <div className="font-semibold text-white">
+                <div className="font-light text-white">
                   {compliancePercent.toFixed(1)}%
                 </div>
               </div>
@@ -221,7 +221,7 @@ export function SiteHeroWorkspace({
         /* Floor Plan CAD Mode */
         <div className="relative min-h-[480px] w-full bg-[#F5F5F3] p-6 flex flex-col justify-between overflow-hidden">
           <div className="flex items-center justify-between border-b border-[#E4E4E1] pb-3">
-            <div className="font-mono text-[11px] text-[#101010] font-semibold">
+            <div className="font-mono text-[11px] text-[#101010] font-light">
               SCHEMATIC SPACES & ZONES ({spaces.length} REGISTERED)
             </div>
           </div>
@@ -239,12 +239,12 @@ export function SiteHeroWorkspace({
                   className="border border-[#E4E4E1] bg-[#FFFFFF] rounded-[8px] p-4 flex flex-col justify-between"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[10px] text-[#FF6B24] font-semibold">
+                    <span className="font-mono text-[10px] text-[#FF6B24] font-light">
                       {sp.space_code}
                     </span>
                     <span className="font-mono text-[9px] text-[#686866]">{sp.space_type}</span>
                   </div>
-                  <div className="font-medium text-[13px] text-[#101010] mt-1">{sp.name}</div>
+                  <div className="font-normal text-[13px] text-[#101010] mt-1">{sp.name}</div>
                   <div className="mt-2 text-[10px] text-[#15803D] font-mono">{sp.status}</div>
                 </div>
               ))}
@@ -277,14 +277,14 @@ export function SiteHeroWorkspace({
                   className="rounded-[10px] border border-[#E4E4E1] p-3.5 hover:border-[#FF6B24] transition-all cursor-pointer bg-[#F9F9F8] hover:bg-[#FFFFFF]"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[10px] text-[#FF6B24] font-semibold">
+                    <span className="font-mono text-[10px] text-[#FF6B24] font-light">
                       {a.asset_reference}
                     </span>
                     <Badge variant={a.criticality === 'CRITICAL' ? 'red' : 'blue'} size="xs">
                       {a.criticality}
                     </Badge>
                   </div>
-                  <div className="font-medium text-[13px] text-[#101010] mt-1 truncate">{a.name}</div>
+                  <div className="font-normal text-[13px] text-[#101010] mt-1 truncate">{a.name}</div>
                   <div className="mt-2 text-[11px] text-[#686866] flex items-center justify-between">
                     <span>{a.system_category || 'GENERAL'}</span>
                     <span className="font-mono text-[#15803D] font-medium">{a.condition || 'NOMINAL'}</span>
@@ -299,7 +299,7 @@ export function SiteHeroWorkspace({
         <div className="min-h-[480px] w-full bg-[#E4E4E1] p-8 flex items-center justify-center">
           <div className="rounded-[14px] border border-[#D1D1CD] bg-[#FFFFFF] p-6 max-w-lg w-full text-center space-y-3">
             <MapPin className="h-8 w-8 text-[#FF6B24] mx-auto" />
-            <h3 className="text-[16px] font-medium text-[#101010]">{site.name}</h3>
+            <h3 className="text-[16px] font-light text-[#101010]">{site.name}</h3>
             <p className="text-[13px] text-[#686866]">
               {site.address_line1}, {site.city} {site.postcode}
             </p>

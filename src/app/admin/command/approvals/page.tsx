@@ -14,7 +14,7 @@ export default async function ApprovalsPage() {
       header: 'Approval Type / Item',
       accessor: (row) => (
         <div>
-          <div className="font-semibold text-white">{row.approval_type}</div>
+          <div className="font-light text-white">{row.approval_type}</div>
           <div className="font-mono text-[11px] text-brand-mist/50">Obj: {row.object_type}</div>
         </div>
       ),
@@ -44,7 +44,7 @@ export default async function ApprovalsPage() {
       header: 'Actions',
       accessor: () => (
         <div className="flex gap-2">
-          <button className="rounded bg-emerald-600 px-2.5 py-1 text-[11px] font-medium text-white hover:bg-emerald-500">
+          <button className="rounded bg-emerald-600 px-2.5 py-1 text-[11px] font-normal text-white hover:bg-emerald-500">
             Authorize
           </button>
           <button className="rounded border border-brand-edge-dark bg-brand-void px-2.5 py-1 text-[11px] text-brand-mist/70 hover:text-white">

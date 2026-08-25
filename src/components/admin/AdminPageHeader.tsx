@@ -28,17 +28,17 @@ export function AdminPageHeader({
                     {b.label}
                   </a>
                 ) : (
-                  <span className="text-[#FF6B24] font-medium">{b.label}</span>
+                  <span className="text-[#FF6B24] font-normal">{b.label}</span>
                 )}
               </React.Fragment>
             ))}
           </div>
         ) : (
-          <div className="font-mono text-[10.5px] font-semibold uppercase tracking-wider text-[#FF6B24]">
+          <div className="font-mono text-[10.5px] font-normal uppercase tracking-wider text-[#FF6B24]">
             {category}
           </div>
         )}
-        <h1 className="mt-1 text-2xl font-light tracking-tight text-[#101010] sm:text-3xl">
+        <h1 className="mt-1 text-2xl font-extralight tracking-tight text-[#101010] sm:text-3xl">
           {title}
         </h1>
         <p className="mt-1 text-[13px] text-[#686866] max-w-3xl">{description}</p>

@@ -291,7 +291,7 @@ export function TemplateDocumentVault({ route, content }: TemplateProps) {
                     key={cat}
                     type="button"
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-sm text-xs font-semibold transition-colors ${
+                    className={`px-3 py-1.5 rounded-sm text-xs font-normal transition-colors ${
                       selectedCategory === cat
                         ? 'bg-brand-electric-bright text-white'
                         : 'bg-brand-graphite border border-brand-edge-dark text-brand-mist/60 hover:text-white'
@@ -315,15 +315,15 @@ export function TemplateDocumentVault({ route, content }: TemplateProps) {
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="text-[10px] uppercase font-bold font-mono px-2 py-0.5 rounded bg-white/[0.05] border border-white/10 text-brand-electric-bright">
+                      <span className="text-[10px] uppercase font-light font-mono px-2 py-0.5 rounded bg-white/[0.05] border border-white/10 text-brand-electric-bright">
                         {doc.format}
                       </span>
-                      <span className="text-[11px] text-brand-mist/50 font-medium">
+                      <span className="text-[11px] text-brand-mist/50 font-normal">
                         {doc.category}
                       </span>
                     </div>
 
-                    <h3 className="text-base font-bold text-white leading-snug">
+                    <h3 className="text-base font-light text-white leading-snug">
                       {doc.title}
                     </h3>
                     <p className="mt-2 text-xs text-brand-mist/75 leading-relaxed">
@@ -353,7 +353,7 @@ export function TemplateDocumentVault({ route, content }: TemplateProps) {
               <div className="flex items-start gap-3">
                 <Info className="h-5 w-5 text-brand-electric-bright shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-semibold text-white">Genuine Ungated Downloads</h4>
+                  <h4 className="font-light text-white">Genuine Ungated Downloads</h4>
                   <p className="mt-1">
                     Every document in this vault is generated dynamically as real CSV or Markdown files. You do not need to register, provide an email address, or request sales permission to download and use these templates across your estates.
                   </p>

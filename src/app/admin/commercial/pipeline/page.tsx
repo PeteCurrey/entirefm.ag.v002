@@ -23,10 +23,10 @@ export default async function PipelinePage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             COMMERCIAL PIPELINE &amp; DEAL STAGES
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Commercial Pipeline Board</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Commercial Pipeline Board</h1>
           <p className="text-sm text-zinc-400">
             Dense, multi-stage view of all active FM proposals, tenders, and mobilisation handoffs.
           </p>
@@ -50,7 +50,7 @@ export default async function PipelinePage() {
           return (
             <div key={stage} className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 space-y-3">
               <div className="flex items-center justify-between border-b border-zinc-800 pb-2.5">
-                <span className={`text-xs font-bold uppercase font-mono ${color}`}>
+                <span className={`text-xs font-normal uppercase font-mono ${color}`}>
                   {label} ({stageOpps.length})
                 </span>
                 {stageValue > 0 && (
@@ -72,9 +72,9 @@ export default async function PipelinePage() {
                       className="p-3 bg-zinc-950 border border-zinc-800 rounded-lg text-xs space-y-1.5 hover:border-pink-500/40 transition-all"
                     >
                       <div className="flex items-start justify-between">
-                        <span className="font-bold text-white leading-snug">{opp.company}</span>
+                        <span className="font-light text-white leading-snug">{opp.company}</span>
                         {opp.estimated_value_gbp && (
-                          <span className="text-[11px] font-mono text-pink-400 font-bold whitespace-nowrap">
+                          <span className="text-[11px] font-mono text-pink-400 font-light whitespace-nowrap">
                             £{opp.estimated_value_gbp.toLocaleString()}
                           </span>
                         )}
@@ -85,7 +85,7 @@ export default async function PipelinePage() {
                       <div className="flex items-center justify-between text-[10px] text-zinc-500 pt-1 border-t border-zinc-900 font-mono">
                         <span>Owner: {opp.owner}</span>
                         {opp.mobilisation_status === 'HANDED_OFF' && (
-                          <span className="text-emerald-400 font-semibold">✓ MOBILISED</span>
+                          <span className="text-emerald-400 font-light">✓ MOBILISED</span>
                         )}
                       </div>
                     </div>

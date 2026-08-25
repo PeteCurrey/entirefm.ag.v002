@@ -45,7 +45,7 @@ export default async function AIControlPage() {
         {/* Active Agents Card */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5">
           <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-            <h2 className="font-mono text-[12px] font-semibold uppercase tracking-wider text-white">
+            <h2 className="font-mono text-[12px] font-normal uppercase tracking-wider text-white">
               Agent Registry ({agents.length})
             </h2>
           </div>
@@ -54,7 +54,7 @@ export default async function AIControlPage() {
               agents.map((ag) => (
                 <div key={ag.id} className="rounded border border-brand-edge-dark bg-brand-void p-3 text-[12.5px]">
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-white">{ag.name}</span>
+                    <span className="font-light text-white">{ag.name}</span>
                     <span className="rounded bg-purple-500/20 px-1.5 py-0.2 font-mono text-[9px] text-purple-300">
                       {ag.autonomy_level}
                     </span>
@@ -76,7 +76,7 @@ export default async function AIControlPage() {
         {/* Pending Human Approvals & Escalations */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/60 p-5 lg:col-span-2">
           <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-            <h2 className="font-mono text-[12px] font-semibold uppercase tracking-wider text-white">
+            <h2 className="font-mono text-[12px] font-normal uppercase tracking-wider text-white">
               Human Override & Escalation Queue
             </h2>
           </div>
@@ -86,10 +86,10 @@ export default async function AIControlPage() {
                 {pendingActions.map((action) => (
                   <div key={action.id} className="flex items-center justify-between rounded border border-brand-edge-dark bg-brand-void p-3 text-[12.5px]">
                     <div>
-                      <div className="font-medium text-white">{action.action_type}</div>
+                      <div className="font-normal text-white">{action.action_type}</div>
                       <div className="text-[11.5px] text-brand-mist/50">Agent: {action.agent?.name}</div>
                     </div>
-                    <button className="rounded bg-brand-electric px-3 py-1 text-[11px] font-medium text-white hover:bg-brand-indigo">
+                    <button className="rounded bg-brand-electric px-3 py-1 text-[11px] font-normal text-white hover:bg-brand-indigo">
                       Review & Authorize
                     </button>
                   </div>
@@ -97,10 +97,10 @@ export default async function AIControlPage() {
                 {escalations.map((esc) => (
                   <div key={esc.id} className="flex items-center justify-between rounded border border-amber-500/30 bg-amber-500/5 p-3 text-[12.5px]">
                     <div>
-                      <div className="font-medium text-white">Escalation: {esc.reason}</div>
+                      <div className="font-normal text-white">Escalation: {esc.reason}</div>
                       <div className="text-[11px] text-amber-300/70">Confidence: {esc.confidence_score} · Risk: {esc.risk_level}</div>
                     </div>
-                    <button className="rounded border border-amber-500/40 bg-amber-500/20 px-3 py-1 text-[11px] font-medium text-amber-200">
+                    <button className="rounded border border-amber-500/40 bg-amber-500/20 px-3 py-1 text-[11px] font-normal text-amber-200">
                       Decide
                     </button>
                   </div>
@@ -108,7 +108,7 @@ export default async function AIControlPage() {
               </div>
             ) : (
               <div className="rounded border border-dashed border-brand-edge-dark/60 p-6 text-center text-[12.5px] text-brand-mist/50">
-                <p className="font-medium text-brand-mist/70">AI Governance Ledger Clear</p>
+                <p className="font-normal text-brand-mist/70">AI Governance Ledger Clear</p>
                 <p className="mt-1 text-[11.5px]">
                   No AI actions are pending human authorization. Uncontrolled external actions are blocked by policy.
                 </p>

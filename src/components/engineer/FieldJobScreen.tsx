@@ -28,7 +28,7 @@ function PriorityBadge({ priority }: { priority: string }) {
     P5: 'bg-zinc-600 text-white',
   };
   return (
-    <span className={`px-2 py-0.5 rounded text-xs font-bold ${map[priority] || 'bg-zinc-700 text-white'}`}>
+    <span className={`px-2 py-0.5 rounded text-xs font-normal ${map[priority] || 'bg-zinc-700 text-white'}`}>
       {priority}
     </span>
   );
@@ -93,7 +93,7 @@ function StatusBar({
     return (
       <div className="bg-red-900/30 border border-red-700 rounded-xl p-4 flex items-center gap-3">
         <XCircle className="w-5 h-5 text-red-400 shrink-0" />
-        <span className="text-red-300 font-medium">No access recorded</span>
+        <span className="text-red-300 font-normal">No access recorded</span>
       </div>
     );
   }
@@ -104,7 +104,7 @@ function StatusBar({
         <button
           onClick={handleJourneyStart}
           disabled={loading}
-          className="w-full bg-brand-electric text-black font-bold py-4 rounded-xl text-base hover:bg-brand-electric-bright transition-colors disabled:opacity-50 active:scale-98"
+          className="w-full bg-brand-electric text-black font-light py-4 rounded-xl text-base hover:bg-brand-electric-bright transition-colors disabled:opacity-50 active:scale-98"
           style={{ minHeight: '56px' }}
         >
           {loading ? 'Starting…' : '🚗  Start Journey'}
@@ -115,14 +115,14 @@ function StatusBar({
           <button
             onClick={handleArrive}
             disabled={loading}
-            className="w-full bg-brand-electric text-black font-bold py-4 rounded-xl text-base hover:bg-brand-electric-bright transition-colors disabled:opacity-50 active:scale-98"
+            className="w-full bg-brand-electric text-black font-light py-4 rounded-xl text-base hover:bg-brand-electric-bright transition-colors disabled:opacity-50 active:scale-98"
             style={{ minHeight: '56px' }}
           >
             {loading ? 'Recording…' : '📍  Arrived On Site'}
           </button>
           <button
             onClick={() => setNoAccessOpen(true)}
-            className="w-full bg-transparent border border-red-700 text-red-400 font-medium py-3 rounded-xl text-sm hover:bg-red-900/20 transition-colors"
+            className="w-full bg-transparent border border-red-700 text-red-400 font-normal py-3 rounded-xl text-sm hover:bg-red-900/20 transition-colors"
           >
             <PhoneOff className="w-4 h-4 inline mr-2" />
             No Access
@@ -134,14 +134,14 @@ function StatusBar({
           <button
             onClick={handleStartWork}
             disabled={loading}
-            className="w-full bg-brand-electric text-black font-bold py-4 rounded-xl text-base hover:bg-brand-electric-bright transition-colors disabled:opacity-50 active:scale-98"
+            className="w-full bg-brand-electric text-black font-light py-4 rounded-xl text-base hover:bg-brand-electric-bright transition-colors disabled:opacity-50 active:scale-98"
             style={{ minHeight: '56px' }}
           >
             {loading ? 'Starting…' : '🔧  Start Work'}
           </button>
           <button
             onClick={() => setNoAccessOpen(true)}
-            className="w-full bg-transparent border border-red-700 text-red-400 font-medium py-3 rounded-xl text-sm hover:bg-red-900/20 transition-colors"
+            className="w-full bg-transparent border border-red-700 text-red-400 font-normal py-3 rounded-xl text-sm hover:bg-red-900/20 transition-colors"
           >
             <PhoneOff className="w-4 h-4 inline mr-2" />
             No Access
@@ -190,7 +190,7 @@ function NoAccessModal({ visitId, onClose, onConfirm }: { visitId: string; onClo
   return (
     <div className="fixed inset-0 z-50 bg-black/80 flex items-end" role="dialog" aria-modal="true" aria-label="Record no access">
       <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 pb-safe">
-        <h2 className="text-white font-bold text-lg">Record No Access</h2>
+        <h2 className="text-white font-light text-lg">Record No Access</h2>
 
         <div>
           <label className="text-brand-mist text-sm block mb-2">Reason *</label>
@@ -227,14 +227,14 @@ function NoAccessModal({ visitId, onClose, onConfirm }: { visitId: string; onClo
         <div className="flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 border border-brand-edge-dark text-brand-mist py-3 rounded-xl font-medium"
+            className="flex-1 border border-brand-edge-dark text-brand-mist py-3 rounded-xl font-normal"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
             disabled={!reason || loading}
-            className="flex-1 bg-red-700 text-white py-3 rounded-xl font-bold disabled:opacity-50"
+            className="flex-1 bg-red-700 text-white py-3 rounded-xl font-light disabled:opacity-50"
           >
             {loading ? 'Recording…' : 'Record No Access'}
           </button>
@@ -380,7 +380,7 @@ function VoiceIntelligenceModal({
         <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-brand-electric" />
-            <h2 className="text-white font-bold text-lg">Talk to EntireFM</h2>
+            <h2 className="text-white font-light text-lg">Talk to EntireFM</h2>
             <span className="text-xs bg-brand-void text-brand-electric px-2 py-0.5 rounded font-mono">ASSIST</span>
           </div>
           <button onClick={onClose} className="text-brand-mist hover:text-white">✕</button>
@@ -418,7 +418,7 @@ function VoiceIntelligenceModal({
         {(state === 'TRANSCRIBING' || state === 'STRUCTURING') && (
           <div className="py-12 text-center space-y-3">
             <RefreshCw className="w-8 h-8 text-brand-electric animate-spin mx-auto" />
-            <p className="text-white font-semibold">
+            <p className="text-white font-light">
               {state === 'TRANSCRIBING' ? 'Transcribing Voice Audio…' : 'Field Structuring Agent Processing…'}
             </p>
             <p className="text-xs text-brand-mist">Classifying action and extracting structured field parameters</p>
@@ -438,7 +438,7 @@ function VoiceIntelligenceModal({
 
             <div className="bg-brand-void rounded-xl p-4 border border-brand-edge-dark space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold uppercase text-brand-mist">Action Classification</span>
+                <span className="text-xs font-normal uppercase text-brand-mist">Action Classification</span>
                 <select
                   value={editedClassification}
                   onChange={e => setEditedClassification(e.target.value)}
@@ -496,7 +496,7 @@ function VoiceIntelligenceModal({
               {editedRecommendation === 'QUOTE' && (
                 <div className="bg-brand-edge-dark/30 border border-brand-electric/30 rounded-lg p-3 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-brand-electric">Draft Field Quote Scope</span>
+                    <span className="text-xs font-normal text-brand-electric">Draft Field Quote Scope</span>
                     <span className="text-[10px] bg-brand-void text-brand-mist px-1.5 py-0.5 rounded font-mono">UNPRICED</span>
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-xs">
@@ -506,7 +506,7 @@ function VoiceIntelligenceModal({
                     </div>
                     <div>
                       <span className="text-brand-mist block">Pricing Status</span>
-                      <span className="text-amber-400 font-semibold">NOT ISSUED / DRAFT</span>
+                      <span className="text-amber-400 font-light">NOT ISSUED / DRAFT</span>
                     </div>
                   </div>
                 </div>
@@ -516,13 +516,13 @@ function VoiceIntelligenceModal({
             <div className="flex gap-3">
               <button
                 onClick={() => setState('IDLE')}
-                className="flex-1 border border-brand-edge-dark py-3 rounded-xl text-xs font-medium text-brand-mist"
+                className="flex-1 border border-brand-edge-dark py-3 rounded-xl text-xs font-normal text-brand-mist"
               >
                 Re-record
               </button>
               <button
                 onClick={handleConfirm}
-                className="flex-1 bg-brand-electric text-black py-3 rounded-xl text-xs font-bold hover:bg-brand-electric-bright transition-colors"
+                className="flex-1 bg-brand-electric text-black py-3 rounded-xl text-xs font-normal hover:bg-brand-electric-bright transition-colors"
               >
                 Confirm & Save Record
               </button>
@@ -533,7 +533,7 @@ function VoiceIntelligenceModal({
         {state === 'CONFIRMED' && (
           <div className="py-8 text-center space-y-2">
             <CheckCircle2 className="w-10 h-10 text-green-400 mx-auto" />
-            <p className="text-white font-bold">Field Record Confirmed & Saved</p>
+            <p className="text-white font-light">Field Record Confirmed & Saved</p>
             <p className="text-xs text-brand-mist">Authoritative operational record created with audit provenance.</p>
           </div>
         )}
@@ -541,11 +541,11 @@ function VoiceIntelligenceModal({
         {state === 'FAILED' && (
           <div className="py-6 text-center space-y-3">
             <AlertTriangle className="w-8 h-8 text-red-400 mx-auto" />
-            <p className="text-white font-bold">Voice Processing Failed</p>
+            <p className="text-white font-light">Voice Processing Failed</p>
             <p className="text-xs text-brand-mist">Audio could not be transcribed. You can retry or type manually.</p>
             <button
               onClick={() => setState('IDLE')}
-              className="bg-brand-void border border-brand-edge-dark text-white px-4 py-2 rounded-lg text-xs font-semibold"
+              className="bg-brand-void border border-brand-edge-dark text-white px-4 py-2 rounded-lg text-xs font-normal"
             >
               Try Again
             </button>
@@ -617,7 +617,7 @@ function FieldCopilotDrawer({
         <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
           <div className="flex items-center gap-2">
             <Bot className="w-5 h-5 text-brand-electric" />
-            <h2 className="text-white font-bold text-base">Field Copilot V1</h2>
+            <h2 className="text-white font-light text-base">Field Copilot V1</h2>
             <span className="text-[10px] bg-brand-void text-brand-electric px-2 py-0.5 rounded font-mono">SCOPED RBAC</span>
           </div>
           <button onClick={onClose} className="text-brand-mist hover:text-white">✕</button>
@@ -687,7 +687,7 @@ function FieldCopilotDrawer({
           <button
             onClick={() => handleSend()}
             disabled={!query.trim() || loading}
-            className="bg-brand-electric text-black px-4 py-2.5 rounded-xl font-bold text-xs hover:bg-brand-electric-bright disabled:opacity-50"
+            className="bg-brand-electric text-black px-4 py-2.5 rounded-xl font-normal text-xs hover:bg-brand-electric-bright disabled:opacity-50"
           >
             Ask
           </button>
@@ -730,7 +730,7 @@ function NameplateScannerModal({
     <div className="fixed inset-0 z-50 bg-black/90 flex items-end" role="dialog" aria-modal="true">
       <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 max-h-[85vh] overflow-y-auto pb-safe">
         <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
-          <h2 className="text-white font-bold text-base">Visual Nameplate Scanner</h2>
+          <h2 className="text-white font-light text-base">Visual Nameplate Scanner</h2>
           <button onClick={onClose} className="text-brand-mist hover:text-white">✕</button>
         </div>
 
@@ -750,7 +750,7 @@ function NameplateScannerModal({
         <button
           onClick={handleScan}
           disabled={loading || !rawOcr.trim()}
-          className="w-full bg-brand-electric text-black font-bold py-3 rounded-xl text-xs hover:bg-brand-electric-bright disabled:opacity-50"
+          className="w-full bg-brand-electric text-black font-light py-3 rounded-xl text-xs hover:bg-brand-electric-bright disabled:opacity-50"
         >
           {loading ? 'Analysing Nameplate…' : 'Extract Equipment Metadata'}
         </button>
@@ -758,7 +758,7 @@ function NameplateScannerModal({
         {extraction && (
           <div className="bg-brand-void border border-brand-edge-dark rounded-xl p-4 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-white">Extracted Metadata</span>
+              <span className="text-xs font-normal text-white">Extracted Metadata</span>
               <span className="text-[10px] bg-green-950 text-green-400 px-2 py-0.5 rounded font-mono">
                 {Math.round(extraction.confidence * 100)}% Confidence
               </span>
@@ -767,21 +767,21 @@ function NameplateScannerModal({
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div>
                 <span className="text-brand-mist block">Manufacturer</span>
-                <span className="text-white font-semibold">{extraction.manufacturer || '—'}</span>
+                <span className="text-white font-light">{extraction.manufacturer || '—'}</span>
               </div>
               <div>
                 <span className="text-brand-mist block">Model</span>
-                <span className="text-white font-semibold">{extraction.model || '—'}</span>
+                <span className="text-white font-light">{extraction.model || '—'}</span>
               </div>
               <div className="col-span-2">
                 <span className="text-brand-mist block">Serial Number</span>
-                <span className="text-white font-mono font-semibold">{extraction.serialNumber || '—'}</span>
+                <span className="text-white font-mono font-light">{extraction.serialNumber || '—'}</span>
               </div>
             </div>
 
             {extraction.discrepancies && extraction.discrepancies.length > 0 && (
               <div className="bg-amber-950/40 border border-amber-800 rounded-lg p-2.5 space-y-1">
-                <span className="text-xs font-bold text-amber-400 block">Existing Value Discrepancy</span>
+                <span className="text-xs font-normal text-amber-400 block">Existing Value Discrepancy</span>
                 {extraction.discrepancies.map((d: any, i: number) => (
                   <p key={i} className="text-[11px] text-amber-200">
                     {d.field}: Stored &quot;{d.existingValue}&quot; vs Captured &quot;{d.proposedValue}&quot;
@@ -831,13 +831,13 @@ export default function FieldJobScreen({
           <div className="flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="text-red-300 font-bold text-sm mb-1">Safety Requirements</p>
+              <p className="text-red-300 font-normal text-sm mb-1">Safety Requirements</p>
               {wo?.safety_warnings && <p className="text-red-200 text-sm">{wo.safety_warnings}</p>}
               {wo?.permit_required && <p className="text-amber-300 text-xs mt-1">⚠ Permit required before starting work</p>}
               {!safetyAcknowledged && (
                 <button
                   onClick={() => setSafetyAcknowledged(true)}
-                  className="mt-3 bg-red-700 text-white px-4 py-2.5 rounded-lg text-sm font-semibold w-full hover:bg-red-600 transition-colors"
+                  className="mt-3 bg-red-700 text-white px-4 py-2.5 rounded-lg text-sm font-normal w-full hover:bg-red-600 transition-colors"
                 >
                   I have read the safety requirements
                 </button>
@@ -866,7 +866,7 @@ export default function FieldJobScreen({
           {/* Copilot button */}
           <button
             onClick={() => setShowCopilot(true)}
-            className="flex items-center gap-1.5 bg-brand-electric/15 text-brand-electric border border-brand-electric/30 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-brand-electric/25 transition-colors"
+            className="flex items-center gap-1.5 bg-brand-electric/15 text-brand-electric border border-brand-electric/30 px-3 py-1.5 rounded-lg text-xs font-normal hover:bg-brand-electric/25 transition-colors"
           >
             <Bot className="w-3.5 h-3.5" />
             <span>Field Copilot</span>
@@ -875,7 +875,7 @@ export default function FieldJobScreen({
 
         {/* Job overview */}
         <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4">
-          <h1 className="text-white text-xl font-bold mb-2 leading-tight">
+          <h1 className="text-white text-xl font-light mb-2 leading-tight">
             {site?.name ?? 'Site'}
           </h1>
           {wo?.description && (
@@ -885,7 +885,7 @@ export default function FieldJobScreen({
             <div className="flex items-center gap-1.5 text-sm">
               <Clock className="w-4 h-4 text-brand-mist shrink-0" />
               <span className="text-brand-mist">Attend by </span>
-              <span className="text-white font-medium">
+              <span className="text-white font-normal">
                 {new Date(wo.sla_snapshot.attendance_deadline).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
               </span>
             </div>
@@ -895,7 +895,7 @@ export default function FieldJobScreen({
         {/* Evidence Requirements Checklist */}
         <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4 space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase text-brand-mist tracking-wider">Evidence Status</span>
+            <span className="text-xs font-normal uppercase text-brand-mist tracking-wider">Evidence Status</span>
             <span className="text-xs text-brand-electric font-mono">CCP-01 Policy</span>
           </div>
           <div className="grid grid-cols-2 gap-2 text-xs pt-1">
@@ -913,15 +913,15 @@ export default function FieldJobScreen({
         {/* Location & Asset */}
         {site && (
           <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4">
-            <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider mb-2">Location</p>
-            <p className="text-white font-medium">{site.name}</p>
+            <p className="text-brand-mist text-xs font-normal uppercase tracking-wider mb-2">Location</p>
+            <p className="text-white font-normal">{site.name}</p>
             {site.address_line1 && <p className="text-brand-mist text-sm mt-0.5">{site.address_line1}</p>}
             {mapsUrl && (
               <a
                 href={mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-3 text-brand-electric text-sm font-medium hover:text-brand-electric-bright transition-colors"
+                className="inline-flex items-center gap-1.5 mt-3 text-brand-electric text-sm font-normal hover:text-brand-electric-bright transition-colors"
               >
                 <Navigation className="w-4 h-4" />
                 Open in Maps
@@ -933,7 +933,7 @@ export default function FieldJobScreen({
         {asset && (
           <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4 space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider">Asset</p>
+              <p className="text-brand-mist text-xs font-normal uppercase tracking-wider">Asset</p>
               <button
                 onClick={() => setShowNameplate(true)}
                 className="text-xs text-brand-electric hover:underline flex items-center gap-1"
@@ -942,7 +942,7 @@ export default function FieldJobScreen({
                 Scan Nameplate
               </button>
             </div>
-            <p className="text-white font-medium">{asset.name}</p>
+            <p className="text-white font-normal">{asset.name}</p>
             <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-brand-mist">
               <span>Mfr: <span className="text-white">{asset.manufacturer || '—'}</span></span>
               <span>Model: <span className="text-white">{asset.model || '—'}</span></span>
@@ -953,19 +953,19 @@ export default function FieldJobScreen({
 
         {/* Operational state bar */}
         <div className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4">
-          <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider mb-3">Status</p>
+          <p className="text-brand-mist text-xs font-normal uppercase tracking-wider mb-3">Status</p>
           <StatusBar visitId={visit.id} status={currentStatus} onStatusChange={handleStatusChange} />
         </div>
 
         {/* Task list */}
         {['ON_SITE', 'IN_PROGRESS', 'COMPLETION_PENDING'].includes(currentStatus) && (
           <div>
-            <p className="text-brand-mist text-xs font-semibold uppercase tracking-wider mb-2">Tasks</p>
+            <p className="text-brand-mist text-xs font-normal uppercase tracking-wider mb-2">Tasks</p>
             <div className="space-y-2">
               {localTasks.map(task => (
                 <div key={task.id} className="bg-brand-carbon rounded-xl border border-brand-edge-dark p-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-white text-sm font-medium">{task.title || task.name || 'Task'}</span>
+                    <span className="text-white text-sm font-normal">{task.title || task.name || 'Task'}</span>
                     <span className="text-xs text-brand-mist">{task.status || 'PENDING'}</span>
                   </div>
                 </div>
@@ -978,7 +978,7 @@ export default function FieldJobScreen({
         {currentStatus === 'IN_PROGRESS' && (
           <button
             onClick={() => setShowCompletion(true)}
-            className="w-full bg-green-800 text-white font-bold py-4 rounded-xl text-base hover:bg-green-700 transition-colors border border-green-700 active:scale-98"
+            className="w-full bg-green-800 text-white font-light py-4 rounded-xl text-base hover:bg-green-700 transition-colors border border-green-700 active:scale-98"
             style={{ minHeight: '56px' }}
           >
             Ready to Complete? →
@@ -1049,14 +1049,14 @@ export default function FieldJobScreen({
       {showCompletion && (
         <div className="fixed inset-0 z-50 bg-black/90 flex items-end">
           <div className="bg-brand-carbon rounded-t-2xl w-full p-6 space-y-4 pb-safe">
-            <h2 className="text-white font-bold text-lg">Submit Field Service Report</h2>
+            <h2 className="text-white font-light text-lg">Submit Field Service Report</h2>
             <p className="text-xs text-brand-mist">
               A Field Service Report (<span className="font-mono text-brand-electric">EFM-FSR-2026-XXXXXX</span>) will be generated and submitted for operational sign-off.
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setShowCompletion(false)}
-                className="flex-1 border border-brand-edge-dark text-brand-mist py-3 rounded-xl font-medium text-xs"
+                className="flex-1 border border-brand-edge-dark text-brand-mist py-3 rounded-xl font-normal text-xs"
               >
                 Cancel
               </button>
@@ -1066,7 +1066,7 @@ export default function FieldJobScreen({
                   setShowCompletion(false);
                   handleComplete();
                 }}
-                className="flex-1 bg-green-700 text-white py-3 rounded-xl font-bold text-xs"
+                className="flex-1 bg-green-700 text-white py-3 rounded-xl font-normal text-xs"
               >
                 Submit Report
               </button>

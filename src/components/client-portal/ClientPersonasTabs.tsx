@@ -91,10 +91,10 @@ export function ClientPersonasTabs() {
     <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
       {/* Header */}
       <div className="max-w-2xl mb-8">
-        <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#C2410C] mb-2">
+        <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
           ROLE-BASED GOVERNANCE
         </span>
-        <h3 className="text-2xl sm:text-3xl font-semibold text-[#101010] tracking-tight">
+        <h3 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
           Different roles. One version of the truth.
         </h3>
         <p className="text-[13.5px] text-[#686866] mt-1.5">
@@ -110,7 +110,7 @@ export function ClientPersonasTabs() {
             <button
               key={p.id}
               onClick={() => setActivePersonaId(p.id)}
-              className={`inline-flex items-center gap-2 rounded-[8px] px-3.5 py-2 text-[13px] font-medium transition-all ${
+              className={`inline-flex items-center gap-2 rounded-[8px] px-3.5 py-2 text-[13px] font-normal transition-all ${
                 isSelected
                   ? 'bg-[#101010] text-white shadow-sm'
                   : 'bg-[#F5F5F3] text-[#686866] hover:bg-[#E4E4E1] hover:text-[#101010]'
@@ -127,10 +127,10 @@ export function ClientPersonasTabs() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-7 space-y-4">
           <div>
-            <span className="font-mono text-[11px] uppercase tracking-wider text-[#EA580C] font-semibold">
+            <span className="font-mono text-[11px] uppercase tracking-wider text-[#EA580C] font-light">
               {activePersona.role}
             </span>
-            <h4 className="text-xl font-semibold text-[#101010] mt-0.5">
+            <h4 className="text-xl font-light text-[#101010] mt-0.5">
               {activePersona.focus}
             </h4>
           </div>
@@ -149,7 +149,7 @@ export function ClientPersonasTabs() {
 
         {/* Right: Key Telemetry Points */}
         <div className="lg:col-span-5 rounded-[10px] border border-[#E4E4E1] bg-[#FBFBFA] p-5">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#9B9B97] mb-3">
+          <p className="font-mono text-[10px] font-normal uppercase tracking-wider text-[#9B9B97] mb-3">
             Key Telemetry Available in this View
           </p>
           <div className="grid grid-cols-2 gap-3">
@@ -158,7 +158,7 @@ export function ClientPersonasTabs() {
                 key={idx}
                 className="rounded-[8px] border border-[#E4E4E1] bg-white p-3 shadow-sm"
               >
-                <span className="font-mono text-[12.5px] font-semibold text-[#101010] block">
+                <span className="font-mono text-[12.5px] font-normal text-[#101010] block">
                   {m.split(' ')[0]}
                 </span>
                 <span className="text-[11px] text-[#686866] block mt-0.5">

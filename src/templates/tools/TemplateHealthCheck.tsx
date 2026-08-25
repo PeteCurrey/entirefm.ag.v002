@@ -332,7 +332,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                 <div className="bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-sm space-y-6">
                   {/* Progress Header */}
                   <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                    <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-brand-electric uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-mono font-light text-brand-electric uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
                       <span className="h-1.5 w-1.5 rounded-full bg-brand-electric" />
                       {currentQ.category}
                     </span>
@@ -343,7 +343,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
 
                   {/* Question */}
                   <div className="space-y-2">
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900 leading-snug">
+                    <h2 className="text-xl sm:text-2xl font-extralight text-slate-900 leading-snug">
                       {currentQ.question}
                     </h2>
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
@@ -351,7 +351,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                     </p>
                     <div className="text-[11.5px] font-mono text-slate-500 pt-1 flex items-center gap-1.5">
                       <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
-                      <span className="text-slate-700 font-semibold">Statutory Basis:</span> {currentQ.statutoryBasis}
+                      <span className="text-slate-700 font-light">Statutory Basis:</span> {currentQ.statutoryBasis}
                     </div>
                   </div>
 
@@ -365,7 +365,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                         className="w-full text-left p-4 sm:p-5 rounded-sm border border-slate-200 bg-slate-50 hover:bg-white hover:border-brand-electric hover:shadow-sm transition-all flex items-start justify-between gap-4 group"
                       >
                         <div className="space-y-1 min-w-0">
-                          <div className="text-sm font-bold text-slate-900 group-hover:text-brand-electric transition-colors">
+                          <div className="text-sm font-normal text-slate-900 group-hover:text-brand-electric transition-colors">
                             {opt.label}
                           </div>
                           <p className="text-xs text-slate-600 leading-relaxed">
@@ -385,7 +385,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                       <button
                         type="button"
                         onClick={() => setCurrentStep(currentStep - 1)}
-                        className="text-xs font-semibold text-slate-600 hover:text-slate-900 inline-flex items-center gap-1.5 transition-colors"
+                        className="text-xs font-normal text-slate-600 hover:text-slate-900 inline-flex items-center gap-1.5 transition-colors"
                       >
                         <ArrowLeft className="h-3.5 w-3.5" /> Previous Question
                       </button>
@@ -399,10 +399,10 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                 <div className="bg-white border border-slate-200 rounded-sm shadow-md p-6 sm:p-8 space-y-6">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                     <div>
-                      <span className="font-mono text-xs text-emerald-700 font-bold uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded-sm border border-emerald-200 inline-block mb-1.5">
+                      <span className="font-mono text-xs text-emerald-700 font-light uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded-sm border border-emerald-200 inline-block mb-1.5">
                         Diagnostic Assessment Complete
                       </span>
-                      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+                      <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900">
                         Estate Health Summary
                       </h2>
                       <p className="text-xs sm:text-sm text-slate-600 mt-1">
@@ -413,7 +413,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                     <button
                       type="button"
                       onClick={handleReset}
-                      className="px-3.5 py-2 rounded-sm border border-slate-200 bg-slate-50 text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-xs font-semibold self-start sm:self-center transition-colors inline-flex items-center gap-1.5"
+                      className="px-3.5 py-2 rounded-sm border border-slate-200 bg-slate-50 text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-xs font-normal self-start sm:self-center transition-colors inline-flex items-center gap-1.5"
                     >
                       <RotateCcw className="h-3.5 w-3.5" /> Restart Evaluation
                     </button>
@@ -422,13 +422,13 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                   {/* Scoreboard Metrics Strip */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-2 border-b border-slate-100">
                     <div className="sm:border-r border-slate-200 pr-4">
-                      <span className="text-[11px] font-mono text-slate-500 font-medium uppercase block">Assurance Rating</span>
+                      <span className="text-[11px] font-mono text-slate-500 font-normal uppercase block">Assurance Rating</span>
                       <div className="text-3xl sm:text-4xl font-light text-slate-900 font-mono tabular-nums mt-1">{percentage}%</div>
-                      <span className="text-xs text-slate-600 font-medium">{levelLabel}</span>
+                      <span className="text-xs text-slate-600 font-normal">{levelLabel}</span>
                     </div>
 
                     <div className="sm:border-r border-slate-200 pr-4">
-                      <span className="text-[11px] font-mono text-emerald-700 font-medium uppercase block">Verified Strong</span>
+                      <span className="text-[11px] font-mono text-emerald-700 font-normal uppercase block">Verified Strong</span>
                       <div className="text-3xl sm:text-4xl font-light text-emerald-600 font-mono tabular-nums mt-1">{strongAreas.length} / 7</div>
                       <span className="text-xs text-slate-600 font-light">Documented Controls</span>
                     </div>
@@ -450,7 +450,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
 
                 {/* Findings Breakdown */}
                 <div className="bg-white border border-slate-200 rounded-sm shadow-sm p-6 sm:p-8 space-y-4">
-                  <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                  <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider">
                     Discipline Risk Register &amp; Statutory References
                   </h3>
 
@@ -460,11 +460,11 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                       return (
                         <div key={q.id} className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
-                            <span className="font-bold text-slate-900 text-sm block">{q.category}</span>
+                            <span className="font-light text-slate-900 text-sm block">{q.category}</span>
                             <span className="text-[11px] font-mono text-slate-500">{q.statutoryBasis}</span>
                           </div>
                           <span
-                            className={`px-2.5 py-1 border text-[10.5px] font-mono font-bold uppercase rounded-sm self-start sm:self-center ${
+                            className={`px-2.5 py-1 border text-[10.5px] font-mono font-light uppercase rounded-sm self-start sm:self-center ${
                               score === 2
                                 ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
                                 : score === 1

@@ -23,7 +23,7 @@ export default async function CeoCommandHistoryPage() {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="rounded-lg border border-red-900/40 bg-red-950/20 p-8 max-w-md text-center">
           <div className="text-sm font-mono text-red-400 mb-2">ACCESS DENIED</div>
-          <div className="text-white font-semibold">enterprise_intelligence:history_view permission required.</div>
+          <div className="text-white font-light">enterprise_intelligence:history_view permission required.</div>
         </div>
       </div>
     );

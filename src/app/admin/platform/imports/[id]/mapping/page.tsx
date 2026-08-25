@@ -57,7 +57,7 @@ export default function MappingPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-[22px] font-semibold text-[#101010]">Map CSV Columns</h1>
+        <h1 className="text-[22px] font-normal text-[#101010]">Map CSV Columns</h1>
         <p className="text-[13.5px] text-[#686866] mt-0.5">
           {batchData?.batch?.batch_reference} · {batchData?.batch?.entity_type} · {batchData?.batch?.source_system}
         </p>
@@ -81,11 +81,11 @@ export default function MappingPage() {
       )}
 
       <div className="flex items-center justify-between">
-        <a href="/admin/platform/imports" className="text-[13px] font-medium text-[#686866] hover:text-[#101010]">← Back</a>
+        <a href="/admin/platform/imports" className="text-[13px] font-normal text-[#686866] hover:text-[#101010]">← Back</a>
         <button
           onClick={handleApplyMapping}
           disabled={applying}
-          className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-6 py-2.5 text-[13px] font-semibold text-white hover:bg-[#E9540F] transition-colors shadow-sm disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-6 py-2.5 text-[13px] font-normal text-white hover:bg-[#E9540F] transition-colors shadow-sm disabled:opacity-50"
         >
           {applying ? 'Validating…' : 'Apply Mapping & Validate →'}
         </button>

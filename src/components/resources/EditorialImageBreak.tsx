@@ -43,12 +43,12 @@ export function EditorialImageBreak({
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-2xl space-y-4">
             {eyebrow && (
-              <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block">
+              <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block">
                 {eyebrow}
               </span>
             )}
             {title && (
-              <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+              <h3 className="text-2xl sm:text-3xl font-extralight text-white leading-tight">
                 {title}
               </h3>
             )}
@@ -103,7 +103,7 @@ export function EditorialImageBreak({
               {/* Technical Caption Strip */}
               <div className="p-3 bg-slate-950/95 border-t border-slate-800 flex items-center justify-between text-xs font-mono">
                 <span className="text-slate-400 truncate max-w-[75%]">{technicalCaption}</span>
-                {assetId && <span className="text-pink-400 font-bold shrink-0">{assetId}</span>}
+                {assetId && <span className="text-pink-400 font-light shrink-0">{assetId}</span>}
               </div>
             </div>
           </div>
@@ -111,12 +111,12 @@ export function EditorialImageBreak({
           {/* Editorial Content Column */}
           <div className={layout === 'split-60-40' ? 'lg:col-span-5 space-y-4' : 'lg:col-span-7 space-y-4'}>
             {eyebrow && (
-              <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block">
+              <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block">
                 {eyebrow}
               </span>
             )}
             {title && (
-              <h3 className="text-2xl font-bold text-white leading-tight">
+              <h3 className="text-2xl font-extralight text-white leading-tight">
                 {title}
               </h3>
             )}

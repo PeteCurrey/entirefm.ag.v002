@@ -18,7 +18,7 @@ export default function AutomationJobsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Automation Job Log</h1>
+          <h1 className="text-2xl font-extralight text-white">Automation Job Log</h1>
           <p className="text-sm text-zinc-400 mt-1">Complete audit trail of all automated generation jobs</p>
         </div>
         <Link href="/admin/blog/automation" className="text-sm text-blue-400 hover:text-blue-300">← Settings</Link>
@@ -28,12 +28,12 @@ export default function AutomationJobsPage() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-zinc-800">
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Job ID</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Type</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Status</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Post</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Failure Reason</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Created</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Job ID</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Type</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Status</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Post</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Failure Reason</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Created</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-800">

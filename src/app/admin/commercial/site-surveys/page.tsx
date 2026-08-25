@@ -12,10 +12,10 @@ export default async function SiteSurveysPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             TECHNICAL DISCOVERY &amp; ASSET WALKS
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Commercial Site Surveys</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Commercial Site Surveys</h1>
           <p className="text-sm text-zinc-400">
             Schedule and manage physical estate walkthroughs, asset counts, and engineering assessments.
           </p>
@@ -30,7 +30,7 @@ export default async function SiteSurveysPage() {
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             All Site Surveys ({surveys.length})
           </h3>
         </div>
@@ -54,7 +54,7 @@ export default async function SiteSurveysPage() {
               {surveys.map((s) => (
                 <tr key={s.id} className="hover:bg-zinc-800/40">
                   <td className="py-3.5 px-4">
-                    <div className="font-bold text-white">{s.site_name}</div>
+                    <div className="font-light text-white">{s.site_name}</div>
                     <div className="text-[11px] text-zinc-500">{s.site_address}</div>
                   </td>
                   <td className="py-3.5 px-4 font-mono text-zinc-300">{s.survey_type}</td>
@@ -63,7 +63,7 @@ export default async function SiteSurveysPage() {
                   </td>
                   <td className="py-3.5 px-4 font-mono text-zinc-400">{s.surveyor_name}</td>
                   <td className="py-3.5 px-4">
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-blue-950/60 text-blue-300 border border-blue-800/40 font-bold">
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-blue-950/60 text-blue-300 border border-blue-800/40 font-light">
                       {s.survey_status}
                     </span>
                   </td>

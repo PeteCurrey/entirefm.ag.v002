@@ -19,7 +19,7 @@ export default async function ReplacementReviewsPage() {
         action={
           <a
             href="/admin/estate/assets/intelligence"
-            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-medium text-brand-mist/80 hover:bg-brand-carbon hover:text-white"
+            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-brand-mist/80 hover:bg-brand-carbon hover:text-white"
           >
             ← Intelligence Dashboard
           </a>
@@ -55,7 +55,7 @@ export default async function ReplacementReviewsPage() {
                   <td className="px-5 py-4 text-[12px] text-brand-mist/70">{c.site_name}</td>
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-1.5">
-                      <span className={`rounded px-1.5 py-0.5 font-mono text-[10px] font-semibold ${
+                      <span className={`rounded px-1.5 py-0.5 font-mono text-[10px] font-normal ${
                         c.condition === 'CRITICAL' || c.condition === 'POOR'
                           ? 'bg-rose-500/20 text-rose-300'
                           : 'bg-brand-edge-dark text-brand-mist/70'
@@ -86,7 +86,7 @@ export default async function ReplacementReviewsPage() {
                     )}
                   </td>
                   <td className="px-5 py-4">
-                    <span className={`rounded px-2 py-0.5 font-mono text-[10.5px] font-medium ${
+                    <span className={`rounded px-2 py-0.5 font-mono text-[10.5px] font-normal ${
                       c.has_open_review
                         ? 'bg-brand-electric/20 text-brand-electric'
                         : 'bg-brand-edge-dark text-brand-mist/60'

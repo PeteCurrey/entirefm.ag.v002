@@ -296,7 +296,7 @@ export function ServiceMechanicalElectrical({ route, content }: TemplateProps) {
             <div className="text-center max-w-2xl mx-auto mb-12">
               <div className="inline-flex items-center gap-2 mb-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                   COMMERCIAL & TECHNICAL FAQS
                 </span>
               </div>
@@ -312,10 +312,10 @@ export function ServiceMechanicalElectrical({ route, content }: TemplateProps) {
         <section className="py-20 bg-white border-b border-brand-edge">
           <div className="container-custom">
             <div className="max-w-2xl mb-10">
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-pink block mb-1">
+              <span className="text-xs font-normal uppercase tracking-wider text-brand-pink block mb-1">
                 COMPREHENSIVE HARD SERVICES
               </span>
-              <h2 className="text-2xl font-bold text-brand-graphite">
+              <h2 className="text-2xl font-extralight text-brand-graphite">
                 Explore Related Engineering Capabilities
               </h2>
             </div>

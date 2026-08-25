@@ -101,14 +101,14 @@ export function DroneProcessFlow() {
         <div className="max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15">
             <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="font-mono text-[11px] uppercase tracking-widest text-white font-semibold">
+            <span className="font-mono text-[11px] uppercase tracking-widest text-white font-light">
               THE COMMERCIAL PROPOSITION
             </span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
             From aerial intelligence <br />
-            <span className="font-bold text-hero-pink">
+            <span className="font-light text-hero-pink">
               to completed maintenance
             </span>
           </h2>
@@ -142,14 +142,14 @@ export function DroneProcessFlow() {
                 />
 
                 <div className="flex items-center justify-between">
-                  <span className={`font-mono text-xs font-bold ${isSelected ? 'text-brand-pink' : 'text-slate-400'}`}>
+                  <span className={`font-mono text-xs font-normal ${isSelected ? 'text-brand-pink' : 'text-slate-400'}`}>
                     STEP {step.number}
                   </span>
                   <Icon className={`h-4 w-4 ${isSelected ? 'text-brand-pink' : 'text-slate-500 group-hover:text-slate-300'}`} />
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-white group-hover:text-brand-pink-light transition-colors">
+                  <h3 className="text-base font-light text-white group-hover:text-brand-pink-light transition-colors">
                     {step.title}
                   </h3>
                   <p className="text-[11.5px] text-slate-400 mt-1 line-clamp-1">
@@ -172,10 +172,10 @@ export function DroneProcessFlow() {
                 <CurrentIcon className="w-6 h-6" />
               </div>
               <div>
-                <span className="font-mono text-xs text-brand-pink font-bold uppercase tracking-wider block">
+                <span className="font-mono text-xs text-brand-pink font-light uppercase tracking-wider block">
                   STAGE {current.number} OF 06
                 </span>
-                <h3 className="text-2xl font-bold text-white">
+                <h3 className="text-2xl font-extralight text-white">
                   {current.title} — {current.tagline}
                 </h3>
               </div>
@@ -189,7 +189,7 @@ export function DroneProcessFlow() {
               <div className="flex items-start gap-2.5">
                 <ShieldCheck className="h-4 w-4 text-brand-electric-bright shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-xs font-mono font-bold text-white uppercase tracking-wider block">
+                  <span className="text-xs font-mono font-light text-white uppercase tracking-wider block">
                     EntireFM Operational Advantage
                   </span>
                   <p className="text-xs text-slate-300 mt-0.5 leading-relaxed">
@@ -221,7 +221,7 @@ export function DroneProcessFlow() {
               <button
                 type="button"
                 onClick={() => setActiveStep((prev) => (prev + 1) % PROCESS_STEPS.length)}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-pink hover:text-brand-pink-light transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-pink hover:text-brand-pink-light transition-colors"
               >
                 <span>Next Stage</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -244,10 +244,10 @@ export function DroneProcessFlow() {
                     <Icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="font-mono text-xs font-bold text-brand-pink block">
+                    <span className="font-mono text-xs font-normal text-brand-pink block">
                       STAGE {step.number}
                     </span>
-                    <h3 className="text-lg font-bold text-white">{step.title}</h3>
+                    <h3 className="text-lg font-light text-white">{step.title}</h3>
                   </div>
                 </div>
 
@@ -256,7 +256,7 @@ export function DroneProcessFlow() {
                 </p>
 
                 <div className="pt-3 border-t border-brand-edge-dark space-y-2">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-semibold">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block font-light">
                     Technical Outputs:
                   </span>
                   <ul className="space-y-1.5 text-xs text-slate-300">

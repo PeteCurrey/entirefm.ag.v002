@@ -54,7 +54,7 @@ export function TemplateHtmlSitemap() {
           <div className="container-custom space-y-12">
             {/* Hard FM & Engineering */}
             <div>
-              <h2 className="text-xl font-bold text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
+              <h2 className="text-xl font-light text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
                 <Wrench className="w-5 h-5 text-brand-electric" />
                 Hard Facilities Management & M&E Engineering ({hardFmRoutes.length})
               </h2>
@@ -63,7 +63,7 @@ export function TemplateHtmlSitemap() {
                   <Link
                     key={r.path}
                     href={r.path}
-                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-semibold text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
+                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-normal text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
                   >
                     <span>{r.path}</span>
                     <ArrowRight className="w-3 h-3 text-slate-400" />
@@ -74,7 +74,7 @@ export function TemplateHtmlSitemap() {
 
             {/* Soft FM & Specialist Cleaning */}
             <div>
-              <h2 className="text-xl font-bold text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
+              <h2 className="text-xl font-light text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
                 <Sparkles className="w-5 h-5 text-brand-electric" />
                 Soft FM & Commercial Cleaning ({softFmRoutes.length + cleaningRoutes.length + specialistRoutes.length})
               </h2>
@@ -83,7 +83,7 @@ export function TemplateHtmlSitemap() {
                   <Link
                     key={r.path}
                     href={r.path}
-                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-semibold text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
+                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-normal text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
                   >
                     <span>{r.path}</span>
                     <ArrowRight className="w-3 h-3 text-slate-400" />
@@ -94,7 +94,7 @@ export function TemplateHtmlSitemap() {
 
             {/* Sector Solutions */}
             <div>
-              <h2 className="text-xl font-bold text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
+              <h2 className="text-xl font-light text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
                 <Building2 className="w-5 h-5 text-brand-electric" />
                 Industry Sectors & Specialist Environments ({sectorRoutes.length})
               </h2>
@@ -103,7 +103,7 @@ export function TemplateHtmlSitemap() {
                   <Link
                     key={r.path}
                     href={r.path}
-                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-semibold text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
+                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-normal text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
                   >
                     <span>{r.path}</span>
                     <ArrowRight className="w-3 h-3 text-slate-400" />
@@ -114,7 +114,7 @@ export function TemplateHtmlSitemap() {
 
             {/* Regional Operating Centres & London */}
             <div>
-              <h2 className="text-xl font-bold text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
+              <h2 className="text-xl font-light text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
                 <MapPin className="w-5 h-5 text-brand-electric" />
                 Regional Hubs & City FM Pages ({locationRoutes.length})
               </h2>
@@ -123,7 +123,7 @@ export function TemplateHtmlSitemap() {
                   <Link
                     key={r.path}
                     href={r.path}
-                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-semibold text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
+                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-normal text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
                   >
                     <span>{r.path}</span>
                     <ArrowRight className="w-3 h-3 text-slate-400" />
@@ -134,7 +134,7 @@ export function TemplateHtmlSitemap() {
 
             {/* Local Specialist Services */}
             <div>
-              <h2 className="text-xl font-bold text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
+              <h2 className="text-xl font-light text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
                 <MapPin className="w-5 h-5 text-brand-electric" />
                 Local Specialist Service Pages ({localServiceRoutes.length})
               </h2>
@@ -143,7 +143,7 @@ export function TemplateHtmlSitemap() {
                   <Link
                     key={r.path}
                     href={r.path}
-                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-semibold text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
+                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-normal text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
                   >
                     <span>{r.path}</span>
                     <ArrowRight className="w-3 h-3 text-slate-400" />
@@ -154,7 +154,7 @@ export function TemplateHtmlSitemap() {
 
             {/* Insights & Company */}
             <div>
-              <h2 className="text-xl font-bold text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
+              <h2 className="text-xl font-light text-brand-graphite mb-4 flex items-center gap-2 pb-2 border-b border-brand-edge">
                 <BookOpen className="w-5 h-5 text-brand-electric" />
                 Insights, Guides & Corporate ({insightRoutes.length + companyRoutes.length + coreRoutes.length})
               </h2>
@@ -163,7 +163,7 @@ export function TemplateHtmlSitemap() {
                   <Link
                     key={r.path}
                     href={r.path}
-                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-semibold text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
+                    className="p-3 bg-brand-surface border border-brand-edge rounded-sm text-xs font-normal text-brand-carbon hover:text-brand-electric hover:border-brand-electric/60 transition-all flex items-center justify-between"
                   >
                     <span>{r.path}</span>
                     <ArrowRight className="w-3 h-3 text-slate-400" />

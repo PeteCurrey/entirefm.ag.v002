@@ -43,7 +43,7 @@ export default async function ClientDocumentsPage() {
             ) : (
               list.map((d) => (
                 <tr key={d.id} className="hover:bg-brand-void/30 transition-colors">
-                  <td className="px-6 py-3.5 font-medium text-white">{d.document_title}</td>
+                  <td className="px-6 py-3.5 font-normal text-white">{d.document_title}</td>
                   <td className="px-6 py-3.5 font-mono text-[11.5px]">{d.document_type}</td>
                   <td className="px-6 py-3.5 font-mono text-[12px]">{d.expiry_date || 'N/A'}</td>
                   <td className="px-6 py-3.5">

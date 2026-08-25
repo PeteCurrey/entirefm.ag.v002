@@ -86,7 +86,7 @@ export default function NewImportPage() {
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
       <div>
-        <h1 className="text-[22px] font-semibold text-[#101010]">New Data Import</h1>
+        <h1 className="text-[22px] font-normal text-[#101010]">New Data Import</h1>
         <p className="text-[13.5px] text-[#686866] mt-0.5">Upload a SimPRO CSV export to begin migrating your operational data.</p>
       </div>
 
@@ -94,7 +94,7 @@ export default function NewImportPage() {
 
       {/* 1. Entity Type Selection */}
       <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-        <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#686866] mb-4">STEP 1 — SELECT DATA TYPE</h2>
+        <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866] mb-4">STEP 1 — SELECT DATA TYPE</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {ENTITY_TYPES.map(({ id, label, icon: Icon, description, color }) => (
             <button
@@ -110,7 +110,7 @@ export default function NewImportPage() {
                 <Icon className="h-4 w-4" />
               </div>
               <div>
-                <p className="font-semibold text-[13px] text-[#101010]">{label}</p>
+                <p className="font-light text-[13px] text-[#101010]">{label}</p>
                 <p className="text-[11.5px] text-[#686866] mt-0.5">{description}</p>
               </div>
             </button>
@@ -120,13 +120,13 @@ export default function NewImportPage() {
 
       {/* 2. Source System Selection */}
       <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-        <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#686866] mb-4">STEP 2 — SOURCE SYSTEM</h2>
+        <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866] mb-4">STEP 2 — SOURCE SYSTEM</h2>
         <div className="flex flex-wrap gap-2">
           {SOURCE_SYSTEMS.map(({ id, label }) => (
             <button
               key={id}
               onClick={() => setSelectedSourceSystem(id)}
-              className={`rounded-[8px] border px-4 py-2 text-[13px] font-medium transition-all ${
+              className={`rounded-[8px] border px-4 py-2 text-[13px] font-normal transition-all ${
                 selectedSourceSystem === id
                   ? 'border-[#FF6B24] bg-[#FF6B24] text-white'
                   : 'border-[#E4E4E1] bg-[#FFFFFF] text-[#686866] hover:border-[#D0D0CD]'
@@ -140,7 +140,7 @@ export default function NewImportPage() {
 
       {/* 3. File Upload */}
       <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-        <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#686866] mb-4">STEP 3 — UPLOAD CSV FILE</h2>
+        <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866] mb-4">STEP 3 — UPLOAD CSV FILE</h2>
         <div
           onDrop={handleDrop}
           onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
@@ -164,13 +164,13 @@ export default function NewImportPage() {
           {csvFile ? (
             <>
               <CheckCircle2 className="h-8 w-8 text-[#15803D] mb-2" />
-              <p className="font-semibold text-[#15803D]">{csvFile.name}</p>
+              <p className="font-light text-[#15803D]">{csvFile.name}</p>
               <p className="text-[12px] text-[#686866] mt-1">{(csvFile.size / 1024).toFixed(1)} KB · Click to change</p>
             </>
           ) : (
             <>
               <FileUp className="h-8 w-8 text-[#D0D0CD] mb-2" />
-              <p className="font-semibold text-[#686866]">Drop your CSV file here</p>
+              <p className="font-light text-[#686866]">Drop your CSV file here</p>
               <p className="text-[12px] text-[#9B9B97] mt-1">or click to browse · Maximum 25 MB</p>
             </>
           )}
@@ -187,11 +187,11 @@ export default function NewImportPage() {
 
       {/* Action Buttons */}
       <div className="flex items-center justify-between">
-        <a href="/admin/platform/imports" className="text-[13px] font-medium text-[#686866] hover:text-[#101010]">← Cancel</a>
+        <a href="/admin/platform/imports" className="text-[13px] font-normal text-[#686866] hover:text-[#101010]">← Cancel</a>
         <button
           onClick={handleUpload}
           disabled={!selectedEntityType || !csvFile || uploading}
-          className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-6 py-2.5 text-[13px] font-semibold text-white hover:bg-[#E9540F] transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-6 py-2.5 text-[13px] font-normal text-white hover:bg-[#E9540F] transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {uploading ? 'Uploading…' : 'Upload & Map Columns →'}
         </button>

@@ -103,11 +103,11 @@ export function WorkOrderTermsModal({
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-200 px-6 py-5 bg-slate-900 text-white">
           <div className="flex items-center gap-3">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-500 text-slate-950 font-bold">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-500 text-slate-950 font-light">
               WO
             </span>
             <div>
-              <h2 id="wo-terms-title" className="text-base font-bold text-white">
+              <h2 id="wo-terms-title" className="text-base font-light text-white">
                 Work Order Instruction & Execution Agreement
               </h2>
               <p className="text-xs text-slate-300 font-mono">
@@ -131,15 +131,15 @@ export function WorkOrderTermsModal({
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
               <div>
                 <span className="text-slate-500 block">Site Location:</span>
-                <span className="font-semibold text-slate-900">{workOrder.siteAddress}</span>
+                <span className="font-light text-slate-900">{workOrder.siteAddress}</span>
               </div>
               <div>
                 <span className="text-slate-500 block">Job Work Area:</span>
-                <span className="font-semibold text-slate-900">{workOrder.workArea}</span>
+                <span className="font-light text-slate-900">{workOrder.workArea}</span>
               </div>
               <div>
                 <span className="text-slate-500 block">Authorised Budget Cap:</span>
-                <span className="font-semibold text-teal-700 font-mono">
+                <span className="font-light text-teal-700 font-mono">
                   £{workOrder.maxChargeableBudgetGbp.toFixed(2)} + VAT (NTE)
                 </span>
               </div>
@@ -147,12 +147,12 @@ export function WorkOrderTermsModal({
 
             <div className="border-t border-slate-200 pt-2 mt-2">
               <span className="text-slate-500 block">Instructed Scope of Works:</span>
-              <p className="font-medium text-slate-800 mt-0.5">{workOrder.instructedScope}</p>
+              <p className="font-normal text-slate-800 mt-0.5">{workOrder.instructedScope}</p>
             </div>
 
             <div className="flex items-center gap-2 pt-1 text-[11px] text-slate-600">
-              <span className="font-semibold">Fabric Disturbance:</span>
-              <span className={workOrder.willDisturbBuildingFabric ? 'text-amber-700 font-bold' : 'text-slate-700'}>
+              <span className="font-light">Fabric Disturbance:</span>
+              <span className={workOrder.willDisturbBuildingFabric ? 'text-amber-700 font-light' : 'text-slate-700'}>
                 {workOrder.willDisturbBuildingFabric ? 'Yes (Intrusive Work)' : 'No (Surface / Visual / Non-intrusive)'}
               </span>
               {workOrder.buildingConstructionYear && (
@@ -164,11 +164,11 @@ export function WorkOrderTermsModal({
           {/* Job-Scope Specific Asbestos Governance (Control of Asbestos Regs 2012) */}
           <div className="rounded-xl border p-4 text-xs space-y-3">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 font-bold text-slate-900">
+              <div className="flex items-center gap-2 font-light text-slate-900">
                 <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
                 <span>Statutory Asbestos Governance (CAR 2012 / Duty to Manage)</span>
               </div>
-              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase bg-slate-100 text-slate-800">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-light uppercase bg-slate-100 text-slate-800">
                 Scope Status: {workOrder.asbestosStatus}
               </span>
             </div>
@@ -185,7 +185,7 @@ export function WorkOrderTermsModal({
                     <strong>Recorded ACMs / Presumptions:</strong> {workOrder.acmLocationsSummary}
                   </p>
                 )}
-                <label className="flex items-start gap-2 pt-1 cursor-pointer font-semibold">
+                <label className="flex items-start gap-2 pt-1 cursor-pointer font-light">
                   <input
                     type="checkbox"
                     checked={acknowledgedAsbestos}
@@ -201,11 +201,11 @@ export function WorkOrderTermsModal({
 
             {workOrder.asbestosStatus === 'NO_ACM_IDENTIFIED_FOR_SCOPE' && (
               <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-emerald-950 space-y-2">
-                <div className="flex items-center gap-2 font-semibold">
+                <div className="flex items-center gap-2 font-light">
                   <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
                   <span>Survey Completed: No ACMs Identified within Job Scope Area ({workOrder.workArea}).</span>
                 </div>
-                <label className="flex items-start gap-2 pt-1 cursor-pointer font-medium">
+                <label className="flex items-start gap-2 pt-1 cursor-pointer font-normal">
                   <input
                     type="checkbox"
                     checked={acknowledgedAsbestos}
@@ -221,12 +221,12 @@ export function WorkOrderTermsModal({
 
             {workOrder.asbestosStatus === 'SURVEY_REQUIRED' && (
               <div className="bg-amber-100/90 border border-amber-300 rounded-lg p-3 text-amber-950 space-y-2">
-                <p className="font-bold">⚠️ Dedicated Refurbishment / Demolition Survey Required</p>
+                <p className="font-light">⚠️ Dedicated Refurbishment / Demolition Survey Required</p>
                 <p className="text-xs text-amber-900">
                   Planned works involve intrusive penetration of structural fabric. A competent survey must be completed and delivered before intrusive activity begins.
                 </p>
                 {workOrder.willDisturbBuildingFabric && (
-                  <p className="text-xs text-red-700 font-bold">
+                  <p className="text-xs text-red-700 font-light">
                     BLOCKED: Intrusive drilling/penetration prohibited until survey is attached and verified.
                   </p>
                 )}
@@ -235,7 +235,7 @@ export function WorkOrderTermsModal({
 
             {workOrder.asbestosStatus === 'INFORMATION_REQUIRED' && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-950 space-y-1">
-                <p className="font-bold">⚠️ Dutyholder Asbestos Information Pending from Client</p>
+                <p className="font-light">⚠️ Dutyholder Asbestos Information Pending from Client</p>
                 <p className="text-xs text-red-800">
                   {workOrder.willDisturbBuildingFabric
                     ? 'BLOCKED: Intrusive or destructive works are prohibited until the client furnishes the statutory dutyholder register or survey.'
@@ -246,7 +246,7 @@ export function WorkOrderTermsModal({
 
             {workOrder.asbestosStatus === 'SPECIALIST_REVIEW_REQUIRED' && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-950 space-y-1">
-                <p className="font-bold">⚠️ EntireFM QHSE Competent Review Required</p>
+                <p className="font-light">⚠️ EntireFM QHSE Competent Review Required</p>
                 <p className="text-xs text-red-800">
                   Suspected ACM identified in work zone. Work order cannot proceed to execution until cleared by an authorized EntireFM QHSE manager.
                 </p>
@@ -263,7 +263,7 @@ export function WorkOrderTermsModal({
 
           {/* Core Execution Terms (Summary) */}
           <div className="space-y-3 text-xs text-slate-600 leading-relaxed">
-            <h4 className="font-bold text-slate-900 text-sm">Binding Work Order Terms:</h4>
+            <h4 className="font-light text-slate-900 text-sm">Binding Work Order Terms:</h4>
             <ol className="list-decimal pl-4 space-y-2">
               <li>
                 <strong>Scope Limitation:</strong> You are authorised to perform only the instructed scope. Any variation or additional chargeable works requires prior written EntireFM approval, except for immediate emergency make-safe actions.
@@ -284,7 +284,7 @@ export function WorkOrderTermsModal({
           <form onSubmit={handleSubmit} className="border-t border-slate-200 pt-4 space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase">
+                <label className="block text-xs font-normal text-slate-700 uppercase">
                   Authorised Signatory Full Name *
                 </label>
                 <input
@@ -298,7 +298,7 @@ export function WorkOrderTermsModal({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase">
+                <label className="block text-xs font-normal text-slate-700 uppercase">
                   Contractor Trading Entity Name *
                 </label>
                 <input
@@ -312,7 +312,7 @@ export function WorkOrderTermsModal({
               </div>
             </div>
 
-            <label className="flex items-start gap-2 cursor-pointer text-xs text-slate-800 font-medium">
+            <label className="flex items-start gap-2 cursor-pointer text-xs text-slate-800 font-normal">
               <input
                 type="checkbox"
                 required
@@ -329,7 +329,7 @@ export function WorkOrderTermsModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="rounded-lg border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                className="rounded-lg border border-slate-300 px-4 py-2 text-xs font-normal text-slate-700 hover:bg-slate-50"
               >
                 Decline / Cancel
               </button>
@@ -337,7 +337,7 @@ export function WorkOrderTermsModal({
               <button
                 type="submit"
                 disabled={!canSubmit}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-teal-700 px-5 py-2 text-xs font-bold text-white shadow-xs hover:bg-teal-800 disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-teal-700 px-5 py-2 text-xs font-normal text-white shadow-xs hover:bg-teal-800 disabled:opacity-50"
               >
                 <Lock className="h-3.5 w-3.5" />
                 Electronically Accept Work Order

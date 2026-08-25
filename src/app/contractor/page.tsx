@@ -39,7 +39,7 @@ export default async function ContractorDashboardPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-light text-white tracking-tight">
-          Contractor Overview — <span className="font-medium text-brand-electric-bright">{session.orgName}</span>
+          Contractor Overview — <span className="font-normal text-brand-electric-bright">{session.orgName}</span>
         </h1>
         <p className="mt-1 text-[13px] text-brand-mist/60">
           Assigned work orders, field engineers, and today's site visits.
@@ -68,7 +68,7 @@ export default async function ContractorDashboardPage() {
       {/* Assigned Work Orders */}
       <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-6">
         <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-4">
-          <h2 className="text-[15px] font-medium text-white">Active Work Orders</h2>
+          <h2 className="text-[15px] font-extralight text-white">Active Work Orders</h2>
           <Link href="/contractor/work" className="text-[12px] text-brand-electric hover:underline">
             View All →
           </Link>
@@ -82,7 +82,7 @@ export default async function ContractorDashboardPage() {
             assignedWos.map((wo) => (
               <div key={wo.id} className="py-3 flex items-center justify-between">
                 <div>
-                  <div className="text-[13.5px] font-medium text-white">{wo.title}</div>
+                  <div className="text-[13.5px] font-normal text-white">{wo.title}</div>
                   <div className="text-[11.5px] text-brand-mist/50 font-mono">
                     {wo.work_order_number} · {wo.site?.name || 'Site TBC'} · Priority {wo.priority}
                   </div>

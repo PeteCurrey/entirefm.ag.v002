@@ -242,7 +242,7 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
                   </div>
 
                   <div className="p-4 bg-slate-900/60 rounded-lg border border-slate-800 text-xs font-mono space-y-2">
-                    <span className="text-pink-400 font-bold text-[11px] block">Query Execution Graph:</span>
+                    <span className="text-pink-400 font-light text-[11px] block">Query Execution Graph:</span>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
                       <div className="p-2 rounded bg-slate-950 border border-slate-800">
                         <span className="text-slate-500 block">1. Asset Filter</span>
@@ -332,7 +332,7 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
                 {/* Spatial Hierarchy Blueprint */}
                 <div className="p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold">
+                    <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light">
                       Spatial Data Architecture
                     </span>
                     <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800">
@@ -341,12 +341,12 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
                   </div>
 
                   <div className="p-4 bg-slate-900 rounded-xl border border-slate-800 font-mono text-xs text-slate-300 space-y-2">
-                    <div className="text-pink-400 font-bold">Estate: Commercial Portfolio North</div>
+                    <div className="text-pink-400 font-light">Estate: Commercial Portfolio North</div>
                     <div className="pl-4 text-slate-300">└ Site: Manchester City Tower</div>
                     <div className="pl-8 text-slate-400">└ Building: Block A (Commercial Offices)</div>
                     <div className="pl-12 text-slate-400">└ Level: Floor 04 (Executive Suite)</div>
                     <div className="pl-16 text-slate-400">└ Space: Plantroom L04-North</div>
-                    <div className="pl-20 text-emerald-400 font-semibold">└ Asset: AHU-04-01 (Air Handling Unit)</div>
+                    <div className="pl-20 text-emerald-400 font-light">└ Asset: AHU-04-01 (Air Handling Unit)</div>
                     <div className="pl-24 text-slate-500">├ Sub-Component: Supply Fan Motor (7.5kW) [Telemetry: 1.2 mm/s]</div>
                     <div className="pl-24 text-slate-500">├ Sub-Component: Chilled Water Coil [BMS: Valve 45%]</div>
                     <div className="pl-24 text-slate-500">└ Sub-Component: Filter Bank G4 [Diff Pressure: 140 Pa]</div>
@@ -501,7 +501,7 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
             <div className="space-y-10 pt-8 border-t border-slate-800">
               {(content.sections || []).map((sec, idx) => (
                 <div key={idx} className="space-y-4">
-                  <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  <h2 className="text-xl sm:text-2xl font-extralight text-white tracking-tight">
                     {sec.heading}
                   </h2>
                   <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-light">

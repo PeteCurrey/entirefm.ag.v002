@@ -13,10 +13,10 @@ export default function EditorialCalendarPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Editorial Calendar</h1>
+          <h1 className="text-2xl font-extralight text-white">Editorial Calendar</h1>
           <p className="text-sm text-zinc-400 mt-1">Publishing schedule (Target: Tuesday through Friday, 09:00 UK time)</p>
         </div>
-        <Link href="/admin/blog/new" className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium">
+        <Link href="/admin/blog/new" className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-normal">
           + New Post
         </Link>
       </div>
@@ -24,7 +24,7 @@ export default function EditorialCalendarPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Scheduled Queue */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-          <h2 className="text-sm font-semibold text-blue-400 uppercase tracking-wider">
+          <h2 className="text-sm font-normal text-blue-400 uppercase tracking-wider">
             Upcoming Publications ({scheduled.length})
           </h2>
           <div className="space-y-3">
@@ -34,7 +34,7 @@ export default function EditorialCalendarPage() {
             {scheduled.map(post => (
               <div key={post.id} className="bg-zinc-800/60 border border-zinc-700/60 rounded-lg p-4 space-y-2">
                 <div className="flex items-start justify-between gap-3">
-                  <Link href={`/admin/blog/${post.id}`} className="text-sm font-medium text-white hover:text-blue-400">
+                  <Link href={`/admin/blog/${post.id}`} className="text-sm font-normal text-white hover:text-blue-400">
                     {post.title}
                   </Link>
                   <span className="shrink-0 text-xs px-2 py-0.5 rounded bg-blue-900/50 text-blue-300">
@@ -53,7 +53,7 @@ export default function EditorialCalendarPage() {
 
         {/* Recently Published */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-          <h2 className="text-sm font-semibold text-emerald-400 uppercase tracking-wider">
+          <h2 className="text-sm font-normal text-emerald-400 uppercase tracking-wider">
             Recently Published ({published.length})
           </h2>
           <div className="space-y-3">
@@ -63,7 +63,7 @@ export default function EditorialCalendarPage() {
             {published.map(post => (
               <div key={post.id} className="bg-zinc-800/60 border border-zinc-700/60 rounded-lg p-4 space-y-2">
                 <div className="flex items-start justify-between gap-3">
-                  <Link href={`/admin/blog/${post.id}`} className="text-sm font-medium text-white hover:text-blue-400">
+                  <Link href={`/admin/blog/${post.id}`} className="text-sm font-normal text-white hover:text-blue-400">
                     {post.title}
                   </Link>
                   <span className="shrink-0 text-xs px-2 py-0.5 rounded bg-emerald-900/50 text-emerald-300">

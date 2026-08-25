@@ -12,10 +12,10 @@ export default async function GrowthLeadsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             INBOUND PIPELINE · COMMERCIAL QUALIFICATION
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Inbound Leads Directory</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Inbound Leads Directory</h1>
           <p className="text-sm text-zinc-400">
             Audit inbound website leads with multi-touch attribution, touched resources, and qualification status.
           </p>
@@ -32,7 +32,7 @@ export default async function GrowthLeadsPage() {
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             All Inbound Leads ({total})
           </h3>
           <span className="text-xs text-zinc-500 font-mono">Durable Supabase Persistence</span>
@@ -66,11 +66,11 @@ export default async function GrowthLeadsPage() {
                     })}
                   </td>
                   <td className="py-3.5 px-4">
-                    <div className="font-bold text-white">{l.name}</div>
+                    <div className="font-light text-white">{l.name}</div>
                     <div className="text-[11px] text-zinc-500">{l.company || l.email}</div>
                   </td>
                   <td className="py-3.5 px-4">
-                    <div className="text-zinc-200 font-medium">{l.service || 'General FM'}</div>
+                    <div className="text-zinc-200 font-normal">{l.service || 'General FM'}</div>
                     <div className="text-[11px] text-zinc-500">{l.location || 'United Kingdom'}</div>
                   </td>
                   <td className="py-3.5 px-4 font-mono text-[11px] text-pink-400 max-w-xs truncate">
@@ -94,7 +94,7 @@ export default async function GrowthLeadsPage() {
                   <td className="py-3.5 px-4 text-right">
                     <Link
                       href={`/admin/growth/leads/${l.enquiry_id || l.id}`}
-                      className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-1.5 rounded font-semibold border border-zinc-700 inline-flex items-center gap-1"
+                      className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-1.5 rounded font-light border border-zinc-700 inline-flex items-center gap-1"
                     >
                       Inspect Journey <ArrowRight className="h-3 w-3" />
                     </Link>

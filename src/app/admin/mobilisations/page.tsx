@@ -27,10 +27,10 @@ export default async function MobilisationsOverviewPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-pink-400 font-bold">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-pink-400 font-light">
             ENTIRECAFM OPERATIONAL MOBILISATION ENGINE
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Contract Mobilisation Control</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Contract Mobilisation Control</h1>
           <p className="text-sm text-zinc-400">
             Controlled operational onboarding transitioning won commercial contracts into live EntireCAFM delivery.
           </p>
@@ -49,39 +49,39 @@ export default async function MobilisationsOverviewPage() {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">AWAITING HANDOFF</div>
-          <div className="mt-1 text-xl font-bold text-amber-400 font-mono">{metrics.awaitingHandoffCount}</div>
+          <div className="mt-1 text-xl font-light text-amber-400 font-mono">{metrics.awaitingHandoffCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">ACTIVE MOBILISATIONS</div>
-          <div className="mt-1 text-xl font-bold text-white font-mono">{metrics.activeMobilisationsCount}</div>
+          <div className="mt-1 text-xl font-light text-white font-mono">{metrics.activeMobilisationsCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">AT RISK</div>
-          <div className="mt-1 text-xl font-bold text-red-400 font-mono">{metrics.atRiskCount}</div>
+          <div className="mt-1 text-xl font-light text-red-400 font-mono">{metrics.atRiskCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">TASKS OVERDUE</div>
-          <div className="mt-1 text-xl font-bold text-zinc-300 font-mono">{metrics.tasksOverdueCount}</div>
+          <div className="mt-1 text-xl font-light text-zinc-300 font-mono">{metrics.tasksOverdueCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">READY FOR GO-LIVE</div>
-          <div className="mt-1 text-xl font-bold text-pink-400 font-mono">{metrics.readyForGoLiveCount}</div>
+          <div className="mt-1 text-xl font-light text-pink-400 font-mono">{metrics.readyForGoLiveCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">LIVE / STABILISATION</div>
-          <div className="mt-1 text-xl font-bold text-emerald-400 font-mono">{metrics.goLivesThisMonthCount}</div>
+          <div className="mt-1 text-xl font-light text-emerald-400 font-mono">{metrics.goLivesThisMonthCount}</div>
         </div>
       </div>
 
       {/* Main Table: Active Mobilisations */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             All Contract Mobilisations ({mobilisations.length})
           </h3>
           <span className="text-xs text-zinc-500 font-mono">12-Phase Operational Gate</span>
@@ -107,17 +107,17 @@ export default async function MobilisationsOverviewPage() {
               {mobilisations.map((mob) => (
                 <tr key={mob.id} className="hover:bg-zinc-800/40 transition-colors">
                   <td className="py-3.5 px-4">
-                    <div className="font-bold text-white">{mob.client_name}</div>
+                    <div className="font-light text-white">{mob.client_name}</div>
                     <div className="text-[11px] text-zinc-500">{mob.name}</div>
                   </td>
                   <td className="py-3.5 px-4 font-mono text-zinc-400">{mob.template_type}</td>
-                  <td className="py-3.5 px-4 font-mono text-pink-400 font-medium">
+                  <td className="py-3.5 px-4 font-mono text-pink-400 font-normal">
                     {new Date(mob.target_go_live_date).toLocaleDateString('en-GB')}
                   </td>
                   <td className="py-3.5 px-4 font-mono text-zinc-400">{mob.operations_owner}</td>
                   <td className="py-3.5 px-4">
                     <span
-                      className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold border ${
+                      className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light border ${
                         mob.status === 'LIVE_STABILISATION' || mob.status === 'COMPLETE'
                           ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40'
                           : mob.status === 'GO_LIVE_REVIEW' || mob.status === 'READY'
@@ -133,7 +133,7 @@ export default async function MobilisationsOverviewPage() {
                   <td className="py-3.5 px-4 text-right">
                     <Link
                       href={`/admin/mobilisations/${mob.id}`}
-                      className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-1.5 rounded font-semibold border border-zinc-700 inline-flex items-center gap-1"
+                      className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-1.5 rounded font-light border border-zinc-700 inline-flex items-center gap-1"
                     >
                       Open Dossier <ArrowRight className="h-3 w-3" />
                     </Link>

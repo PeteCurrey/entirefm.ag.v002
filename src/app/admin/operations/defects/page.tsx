@@ -14,7 +14,7 @@ export default async function DefectsPage() {
       header: 'Defect Description',
       accessor: (row) => (
         <div>
-          <div className="font-semibold text-white">{row.description}</div>
+          <div className="font-light text-white">{row.description}</div>
           <div className="font-mono text-[11px] text-brand-mist/50">{row.category}</div>
         </div>
       ),
@@ -68,7 +68,7 @@ export default async function DefectsPage() {
         title="Asset & Site Defects"
         description="Physical flaws, safety hazards, and statutory non-compliances logged from field observations."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-indigo">
             + Log Defect
           </button>
         }

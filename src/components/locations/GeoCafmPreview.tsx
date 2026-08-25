@@ -66,7 +66,7 @@ export function GeoCafmPreview({ city }: GeoCafmPreviewProps) {
                   <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80 inline-block" />
                   <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80 inline-block" />
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80 inline-block" />
-                  <span className="ml-2 font-bold text-slate-200">EntireCAFM Enterprise // {city.toUpperCase()} DASHBOARD</span>
+                  <span className="ml-2 font-light text-slate-200">EntireCAFM Enterprise // {city.toUpperCase()} DASHBOARD</span>
                 </div>
                 <div className="flex items-center gap-2 text-[11px] text-emerald-400">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -78,24 +78,24 @@ export function GeoCafmPreview({ city }: GeoCafmPreviewProps) {
               <div className="grid grid-cols-3 gap-px bg-white/10 border-b border-white/10 text-center">
                 <div className="bg-slate-900/90 p-4">
                   <span className="text-[10px] uppercase font-mono text-slate-400 block">Estate Compliance</span>
-                  <span className="text-xl sm:text-2xl font-bold text-emerald-400 font-mono">100%</span>
+                  <span className="text-xl sm:text-2xl font-extralight text-emerald-400 font-mono">100%</span>
                   <span className="text-[10px] text-slate-500 block mt-0.5">0 Overdue Tasks</span>
                 </div>
                 <div className="bg-slate-900/90 p-4">
                   <span className="text-[10px] uppercase font-mono text-slate-400 block">Active Work Orders</span>
-                  <span className="text-xl sm:text-2xl font-bold text-teal-400 font-mono">14 Live</span>
+                  <span className="text-xl sm:text-2xl font-extralight text-teal-400 font-mono">14 Live</span>
                   <span className="text-[10px] text-slate-500 block mt-0.5">{city} Area Units</span>
                 </div>
                 <div className="bg-slate-900/90 p-4">
                   <span className="text-[10px] uppercase font-mono text-slate-400 block">SLA Response Rate</span>
-                  <span className="text-xl sm:text-2xl font-bold text-brand-pink-light font-mono">99.4%</span>
+                  <span className="text-xl sm:text-2xl font-extralight text-brand-pink-light font-mono">99.4%</span>
                   <span className="text-[10px] text-slate-500 block mt-0.5">Priority Band 1-3</span>
                 </div>
               </div>
 
               {/* Simulated Live Feed Rows */}
               <div className="p-4 sm:p-5 space-y-3 font-mono text-xs">
-                <p className="text-[11px] font-bold uppercase text-slate-400 tracking-wider">
+                <p className="text-[11px] font-normal uppercase text-slate-400 tracking-wider">
                   Live Dispatch &amp; PPM Feed ({city} Regional Sector):
                 </p>
 
@@ -103,7 +103,7 @@ export function GeoCafmPreview({ city }: GeoCafmPreviewProps) {
                   <div className="flex items-center gap-3">
                     <span className="h-2 w-2 rounded-full bg-emerald-400" />
                     <div>
-                      <div className="font-bold text-slate-200">WO-2026-8942 // Rooftop AHU-02 PPM Service</div>
+                      <div className="font-light text-slate-200">WO-2026-8942 // Rooftop AHU-02 PPM Service</div>
                       <div className="text-[11px] text-slate-400">Fixed-speed belt check &amp; filter renewal | SFG20 Task M-04</div>
                     </div>
                   </div>
@@ -116,7 +116,7 @@ export function GeoCafmPreview({ city }: GeoCafmPreviewProps) {
                   <div className="flex items-center gap-3">
                     <span className="h-2 w-2 rounded-full bg-teal-400 animate-pulse" />
                     <div>
-                      <div className="font-bold text-slate-200">WO-2026-8951 // Distribution Board DB-G01 EICR</div>
+                      <div className="font-light text-slate-200">WO-2026-8951 // Distribution Board DB-G01 EICR</div>
                       <div className="text-[11px] text-slate-400">Periodic fixed-wire inspection &amp; thermal scan | NICEIC Certified</div>
                     </div>
                   </div>
@@ -129,7 +129,7 @@ export function GeoCafmPreview({ city }: GeoCafmPreviewProps) {
                   <div className="flex items-center gap-3">
                     <span className="h-2 w-2 rounded-full bg-slate-500" />
                     <div>
-                      <div className="font-bold text-slate-200">WO-2026-8955 // Cold Water Storage Tank Sampling</div>
+                      <div className="font-light text-slate-200">WO-2026-8955 // Cold Water Storage Tank Sampling</div>
                       <div className="text-[11px] text-slate-400">Monthly temperature regime &amp; microbiological TVC testing</div>
                     </div>
                   </div>

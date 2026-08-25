@@ -26,13 +26,13 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
     return (
       <main className="p-6 max-w-5xl mx-auto space-y-6">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center space-y-4">
-          <h2 className="text-lg font-bold text-white">Lead Record Not Found</h2>
+          <h2 className="text-lg font-light text-white">Lead Record Not Found</h2>
           <p className="text-xs text-zinc-400">
             No inbound record matches enquiry ID &ldquo;{resolvedParams.id}&rdquo;.
           </p>
           <Link
             href="/admin/growth/leads"
-            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg font-semibold border border-zinc-700 inline-block"
+            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg font-light border border-zinc-700 inline-block"
           >
             ← Back to Leads
           </Link>
@@ -48,10 +48,10 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             LEAD ATTRIBUTION &amp; JOURNEY TRAIL
           </span>
-          <h1 className="text-2xl font-bold text-white mt-0.5">{lead.name}</h1>
+          <h1 className="text-2xl font-extralight text-white mt-0.5">{lead.name}</h1>
           <div className="flex items-center gap-3 text-xs text-zinc-400 mt-1 font-mono">
             <span>Ref: {lead.enquiry_id}</span>
             <span>·</span>
@@ -81,10 +81,10 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
           {lead.drone_brief && (
             <div className="bg-zinc-900 border-2 border-pink-500/50 rounded-xl p-5 space-y-4 shadow-lg">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-pink-400 bg-pink-950/60 px-2 py-0.5 rounded border border-pink-500/30">
+                <span className="text-[10px] font-mono font-light uppercase tracking-wider text-pink-400 bg-pink-950/60 px-2 py-0.5 rounded border border-pink-500/30">
                   DRONE INSPECTION BRIEF
                 </span>
-                <span className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded ${
+                <span className={`text-[10px] font-mono font-light uppercase px-2 py-0.5 rounded ${
                   lead.drone_brief.leadPriority === 'HIGH'
                     ? 'bg-red-500/20 text-red-400 border border-red-500/40'
                     : lead.drone_brief.leadPriority === 'MEDIUM'
@@ -98,11 +98,11 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
               <div className="space-y-3 text-xs">
                 <div>
                   <span className="text-zinc-500 block text-[10px] uppercase font-mono">Reference Identifier</span>
-                  <span className="text-white font-mono font-bold">{lead.drone_brief.referenceNumber || 'N/A'}</span>
+                  <span className="text-white font-mono font-light">{lead.drone_brief.referenceNumber || 'N/A'}</span>
                 </div>
 
                 <div className="p-3 bg-zinc-950 rounded border border-zinc-800 space-y-1">
-                  <span className="text-pink-400 block font-semibold">
+                  <span className="text-pink-400 block font-light">
                     {lead.drone_brief.recommendation?.primaryService || 'Commercial Drone Survey'}
                   </span>
                   {lead.drone_brief.recommendation?.inspectionPack && (
@@ -122,7 +122,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                   </div>
                   <div>
                     <span className="text-zinc-500 block">URGENCY</span>
-                    <span className="text-white font-medium">{lead.drone_brief.inspection?.urgency || 'Standard'}</span>
+                    <span className="text-white font-normal">{lead.drone_brief.inspection?.urgency || 'Standard'}</span>
                   </div>
                   <div>
                     <span className="text-zinc-500 block">REMEDIAL WORKS</span>
@@ -151,17 +151,17 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
           )}
 
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-            <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+            <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
               Prospect Details
             </h3>
             <div className="space-y-2 text-xs">
               <div>
                 <span className="text-zinc-500 block text-[10px]">FULL NAME</span>
-                <span className="text-white font-medium">{lead.name}</span>
+                <span className="text-white font-normal">{lead.name}</span>
               </div>
               <div>
                 <span className="text-zinc-500 block text-[10px]">COMPANY</span>
-                <span className="text-white font-medium">{lead.company || 'Not provided'}</span>
+                <span className="text-white font-normal">{lead.company || 'Not provided'}</span>
               </div>
               <div>
                 <span className="text-zinc-500 block text-[10px]">EMAIL ADDRESS</span>
@@ -175,17 +175,17 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
           </div>
 
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-            <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+            <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
               Service Requirement
             </h3>
             <div className="space-y-2 text-xs">
               <div>
                 <span className="text-zinc-500 block text-[10px]">PRIMARY SERVICE</span>
-                <span className="text-pink-400 font-semibold">{lead.service || 'General Facilities Management'}</span>
+                <span className="text-pink-400 font-light">{lead.service || 'General Facilities Management'}</span>
               </div>
               <div>
                 <span className="text-zinc-500 block text-[10px]">SITE LOCATION</span>
-                <span className="text-white font-medium">{lead.location || 'United Kingdom'}</span>
+                <span className="text-white font-normal">{lead.location || 'United Kingdom'}</span>
               </div>
               <div>
                 <span className="text-zinc-500 block text-[10px]">PROSPECT MESSAGE</span>
@@ -198,13 +198,13 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
 
           {/* Marketing Attribution Envelope */}
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-            <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+            <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
               Acquisition Attribution
             </h3>
             <div className="space-y-2 text-xs">
               <div className="flex justify-between py-1 border-b border-zinc-800">
                 <span className="text-zinc-500">Marketing Channel:</span>
-                <span className="font-mono text-white font-bold">{lead.marketing_channel || 'ORGANIC_SEARCH'}</span>
+                <span className="font-mono text-white font-light">{lead.marketing_channel || 'ORGANIC_SEARCH'}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-zinc-800">
                 <span className="text-zinc-500">First Touch:</span>
@@ -226,7 +226,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
         <div className="lg:col-span-7 space-y-6">
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+              <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
                 Multi-Touch User Journey Trail
               </h3>
               <span className="text-xs text-zinc-500 font-mono">
@@ -245,7 +245,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                     <div className="absolute -left-[29px] top-1 h-3.5 w-3.5 rounded-full bg-zinc-900 border-2 border-pink-500" />
                     <div className="bg-zinc-950 border border-zinc-800 p-3.5 rounded-lg text-xs space-y-1">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-white">
+                        <span className="font-light text-white">
                           Step {idx + 1}: {step.path}
                         </span>
                         <span className="text-[10px] font-mono text-zinc-500">
@@ -254,11 +254,11 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                       </div>
                       <div className="text-[11px] text-zinc-400">
                         {step.path.includes('/tools/') ? (
-                          <span className="text-emerald-400 font-semibold">Interactive Tool Interacted</span>
+                          <span className="text-emerald-400 font-light">Interactive Tool Interacted</span>
                         ) : step.path.includes('/resources/') ? (
-                          <span className="text-purple-400 font-semibold">Knowledge Resource Read</span>
+                          <span className="text-purple-400 font-light">Knowledge Resource Read</span>
                         ) : step.path.includes('/post/') ? (
-                          <span className="text-blue-400 font-semibold">Blog Article Engaged</span>
+                          <span className="text-blue-400 font-light">Blog Article Engaged</span>
                         ) : (
                           <span>Commercial Site Page</span>
                         )}

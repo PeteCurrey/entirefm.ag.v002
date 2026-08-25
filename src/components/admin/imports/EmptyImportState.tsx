@@ -11,7 +11,7 @@ export function EmptyImportState() {
         <FileUp className="h-7 w-7" />
       </div>
       <div>
-        <h3 className="font-semibold text-[#101010] text-[15px]">No imports in progress</h3>
+        <h3 className="font-light text-[#101010] text-[15px]">No imports in progress</h3>
         <p className="text-[13px] text-[#686866] mt-1 max-w-sm">
           Upload a SimPRO CSV export or generic data file to begin migrating clients, sites, or contractors into EntireCAFM.
         </p>
@@ -19,14 +19,14 @@ export function EmptyImportState() {
       <div className="flex flex-col sm:flex-row gap-3 mt-2">
         <Link
           href="/admin/platform/imports/new"
-          className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#E9540F] transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 rounded-[10px] bg-[#FF6B24] px-5 py-2.5 text-[13px] font-normal text-white hover:bg-[#E9540F] transition-colors shadow-sm"
         >
           <FileUp className="h-4 w-4" />
           Start New Import
         </Link>
         <Link
           href="/admin/platform/imports/templates"
-          className="inline-flex items-center gap-2 rounded-[10px] border border-[#E4E4E1] bg-[#FFFFFF] px-5 py-2.5 text-[13px] font-medium text-[#101010] hover:bg-[#F5F5F3] transition-colors"
+          className="inline-flex items-center gap-2 rounded-[10px] border border-[#E4E4E1] bg-[#FFFFFF] px-5 py-2.5 text-[13px] font-normal text-[#101010] hover:bg-[#F5F5F3] transition-colors"
         >
           Browse Templates
           <ArrowRight className="h-4 w-4" />

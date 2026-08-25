@@ -12,7 +12,7 @@ export function SupplierMetricCards({ metrics }: { metrics: ExecutiveSupplyChain
           Approved Suppliers
         </span>
         <div className="flex items-baseline justify-between">
-          <span className="text-2xl font-mono font-bold text-slate-900">{metrics.approvedSuppliers}</span>
+          <span className="text-2xl font-mono font-light text-slate-900">{metrics.approvedSuppliers}</span>
           <ShieldCheck className="h-4 w-4 text-emerald-600" />
         </div>
         <span className="text-[10px] text-slate-400 font-mono">Active Network</span>
@@ -23,7 +23,7 @@ export function SupplierMetricCards({ metrics }: { metrics: ExecutiveSupplyChain
           Preferred &amp; Strategic
         </span>
         <div className="flex items-baseline justify-between">
-          <span className="text-2xl font-mono font-bold text-slate-900">
+          <span className="text-2xl font-mono font-light text-slate-900">
             {metrics.preferredSuppliers + metrics.strategicPartners}
           </span>
           <Award className="h-4 w-4 text-brand-pink" />
@@ -36,7 +36,7 @@ export function SupplierMetricCards({ metrics }: { metrics: ExecutiveSupplyChain
           Coverage Gaps
         </span>
         <div className="flex items-baseline justify-between">
-          <span className={`text-2xl font-mono font-bold ${metrics.geographicCoverageGaps > 0 ? 'text-rose-600' : 'text-slate-900'}`}>
+          <span className={`text-2xl font-mono font-light ${metrics.geographicCoverageGaps > 0 ? 'text-rose-600' : 'text-slate-900'}`}>
             {metrics.geographicCoverageGaps}
           </span>
           <AlertCircle className="h-4 w-4 text-rose-500" />
@@ -49,7 +49,7 @@ export function SupplierMetricCards({ metrics }: { metrics: ExecutiveSupplyChain
           Single Dependencies
         </span>
         <div className="flex items-baseline justify-between">
-          <span className={`text-2xl font-mono font-bold ${metrics.singleSupplierDependencies > 0 ? 'text-amber-600' : 'text-slate-900'}`}>
+          <span className={`text-2xl font-mono font-light ${metrics.singleSupplierDependencies > 0 ? 'text-amber-600' : 'text-slate-900'}`}>
             {metrics.singleSupplierDependencies}
           </span>
           <AlertTriangle className="h-4 w-4 text-amber-500" />
@@ -62,7 +62,7 @@ export function SupplierMetricCards({ metrics }: { metrics: ExecutiveSupplyChain
           Target Partners
         </span>
         <div className="flex items-baseline justify-between">
-          <span className="text-2xl font-mono font-bold text-slate-900">{metrics.strategicTargetsNotYetEngaged}</span>
+          <span className="text-2xl font-mono font-light text-slate-900">{metrics.strategicTargetsNotYetEngaged}</span>
           <Building2 className="h-4 w-4 text-slate-500" />
         </div>
         <span className="text-[10px] text-slate-400 font-mono">Recruitment Queue</span>
@@ -73,7 +73,7 @@ export function SupplierMetricCards({ metrics }: { metrics: ExecutiveSupplyChain
           Total Organisations
         </span>
         <div className="flex items-baseline justify-between">
-          <span className="text-2xl font-mono font-bold text-slate-900">{metrics.totalOrganisations}</span>
+          <span className="text-2xl font-mono font-light text-slate-900">{metrics.totalOrganisations}</span>
           <Layers className="h-4 w-4 text-slate-400" />
         </div>
         <span className="text-[10px] text-slate-400 font-mono">Database Total</span>

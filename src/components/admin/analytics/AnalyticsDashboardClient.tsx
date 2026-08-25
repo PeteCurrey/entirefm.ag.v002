@@ -129,7 +129,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
     if (delta.changePct === null) return null;
     return (
       <span
-        className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded font-mono text-[11px] font-bold ${
+        className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded font-mono text-[11px] font-normal ${
           delta.trend === 'up'
             ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
             : delta.trend === 'down'
@@ -159,11 +159,11 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#FF3E9D]">
+            <span className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#FF3E9D]">
               WEBSITE PERFORMANCE &amp; COMMERCIAL INTELLIGENCE
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#101010]">
+          <h1 className="text-2xl sm:text-3xl font-extralight tracking-tight text-[#101010]">
             Website Analytics &amp; Demand Engine
           </h1>
           <p className="text-xs sm:text-sm text-[#686866] mt-1">
@@ -188,7 +188,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                 key={p.key}
                 onClick={() => handlePeriodChange(p.key)}
                 disabled={loading}
-                className={`px-3 py-1 text-xs font-semibold rounded-[6px] transition-colors ${
+                className={`px-3 py-1 text-xs font-normal rounded-[6px] transition-colors ${
                   period === p.key
                     ? 'bg-[#101010] text-white shadow-sm'
                     : 'text-[#686866] hover:bg-[#F5F5F3] hover:text-[#101010]'
@@ -203,7 +203,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
           <button
             onClick={handleRefresh}
             disabled={loading}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] border border-[#E4E4E1] bg-white text-xs font-medium text-[#686866] hover:text-[#101010] hover:bg-[#F5F5F3] shadow-sm transition-all"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] border border-[#E4E4E1] bg-white text-xs font-normal text-[#686866] hover:text-[#101010] hover:bg-[#F5F5F3] shadow-sm transition-all"
             title="Force refresh data"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin text-[#FF3E9D]' : ''}`} />
@@ -218,7 +218,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
           <div className="flex items-start gap-2.5">
             <AlertTriangle className="h-4 w-4 text-[#D97706] shrink-0 mt-0.5" />
             <div>
-              <strong className="font-semibold text-[#78350F]">
+              <strong className="font-light text-[#78350F]">
                 External Analytics Credentials Required for Full Telemetry.
               </strong>
               <p className="mt-0.5 text-[#92400E]">
@@ -232,7 +232,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
           </div>
           <button
             onClick={() => setActiveTab('integrations')}
-            className="inline-flex items-center gap-1 bg-[#78350F] text-white px-3 py-1.5 rounded-[6px] font-semibold hover:bg-[#92400E] transition-colors shrink-0"
+            className="inline-flex items-center gap-1 bg-[#78350F] text-white px-3 py-1.5 rounded-[6px] font-light hover:bg-[#92400E] transition-colors shrink-0"
           >
             <span>View Integration Guide</span>
             <ArrowRight className="h-3 w-3" />
@@ -245,11 +245,11 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
         {/* Users */}
         <div className="rounded-[12px] border border-[#E4E4E1] bg-white p-4 shadow-sm space-y-1.5">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase font-bold text-[#686866]">Website Users</span>
+            <span className="font-mono text-[10px] uppercase font-light text-[#686866]">Website Users</span>
             <Users className="h-4 w-4 text-[#9B9B97]" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-bold text-[#101010]">
+            <span className="text-2xl sm:text-3xl font-extralight text-[#101010]">
               {integrations.ga4.connected ? kpis.users.current.toLocaleString() : '—'}
             </span>
           </div>
@@ -262,11 +262,11 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
         {/* Sessions */}
         <div className="rounded-[12px] border border-[#E4E4E1] bg-white p-4 shadow-sm space-y-1.5">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase font-bold text-[#686866]">Total Sessions</span>
+            <span className="font-mono text-[10px] uppercase font-light text-[#686866]">Total Sessions</span>
             <Globe className="h-4 w-4 text-[#9B9B97]" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-bold text-[#101010]">
+            <span className="text-2xl sm:text-3xl font-extralight text-[#101010]">
               {integrations.ga4.connected ? kpis.sessions.current.toLocaleString() : '—'}
             </span>
           </div>
@@ -279,11 +279,11 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
         {/* Enquiries */}
         <div className="rounded-[12px] border border-[#E4E4E1] bg-white p-4 shadow-sm space-y-1.5">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase font-bold text-[#686866]">Inbound Enquiries</span>
+            <span className="font-mono text-[10px] uppercase font-light text-[#686866]">Inbound Enquiries</span>
             <Mail className="h-4 w-4 text-[#FF3E9D]" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-bold text-[#FF3E9D]">
+            <span className="text-2xl sm:text-3xl font-extralight text-[#FF3E9D]">
               {kpis.enquiries.current.toLocaleString()}
             </span>
           </div>
@@ -296,11 +296,11 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
         {/* Conversion Rate */}
         <div className="rounded-[12px] border border-[#E4E4E1] bg-white p-4 shadow-sm space-y-1.5">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase font-bold text-[#686866]">Website Conversion</span>
+            <span className="font-mono text-[10px] uppercase font-light text-[#686866]">Website Conversion</span>
             <Zap className="h-4 w-4 text-[#15803D]" />
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-bold text-[#15803D]">
+            <span className="text-2xl sm:text-3xl font-extralight text-[#15803D]">
               {kpis.conversionRate.current}%
             </span>
           </div>
@@ -312,7 +312,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
       </div>
 
       {/* 3. Sub-Navigation Tabs */}
-      <div className="flex border-b border-[#E4E4E1] overflow-x-auto gap-2 text-xs font-semibold text-[#686866]">
+      <div className="flex border-b border-[#E4E4E1] overflow-x-auto gap-2 text-xs font-normal text-[#686866]">
         {[
           { key: 'overview', label: 'Executive Overview' },
           { key: 'acquisition', label: 'Traffic & Acquisition' },
@@ -346,7 +346,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
             <div className="lg:col-span-8 rounded-[16px] border border-[#E4E4E1] bg-white p-5 shadow-sm space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E4E4E1] pb-3">
                 <div>
-                  <h3 className="text-sm font-bold text-[#101010]">Website Traffic &amp; Enquiries Timeline</h3>
+                  <h3 className="text-sm font-normal text-[#101010]">Website Traffic &amp; Enquiries Timeline</h3>
                   <p className="text-[11.5px] text-[#686866]">Daily trend for {data.dateRange.label.toLowerCase()}</p>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -354,7 +354,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                     <button
                       key={m}
                       onClick={() => setTrafficMetric(m)}
-                      className={`px-2.5 py-1 rounded text-[11px] font-semibold capitalize transition-colors ${
+                      className={`px-2.5 py-1 rounded text-[11px] font-normal capitalize transition-colors ${
                         trafficMetric === m
                           ? 'bg-[#101010] text-white'
                           : 'bg-[#F5F5F3] text-[#686866] hover:text-[#101010]'
@@ -370,7 +370,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
               {timeSeries.length === 0 ? (
                 <div className="h-64 flex flex-col items-center justify-center text-center p-8 text-xs text-[#686866] gap-2">
                   <BarChart3 className="h-8 w-8 text-[#9B9B97]" />
-                  <p className="font-semibold text-slate-800">No Time-Series Data Available for This Period</p>
+                  <p className="font-light text-slate-800">No Time-Series Data Available for This Period</p>
                   <p className="text-[11px] text-slate-500">Connect Google Analytics 4 to stream live traffic time series.</p>
                 </div>
               ) : (
@@ -386,7 +386,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                         <div key={idx} className="flex-1 min-w-[20px] flex flex-col items-center gap-1.5 group relative">
                           {/* Tooltip on Hover */}
                           <div className="absolute bottom-full mb-2 hidden group-hover:flex flex-col bg-[#101010] text-white p-2 rounded-[6px] text-[10px] font-mono whitespace-nowrap z-20 shadow-lg pointer-events-none">
-                            <span className="font-bold">{pt.date}</span>
+                            <span className="font-light">{pt.date}</span>
                             <span>{trafficMetric}: {val.toLocaleString()}</span>
                             <span>Enquiries: {enquiriesCount}</span>
                           </div>
@@ -420,7 +420,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
             {/* Channels & Conversion Breakdown */}
             <div className="lg:col-span-4 rounded-[16px] border border-[#E4E4E1] bg-white p-5 shadow-sm space-y-4">
               <div className="border-b border-[#E4E4E1] pb-3">
-                <h3 className="text-sm font-bold text-[#101010]">Enquiries by Acquisition Channel</h3>
+                <h3 className="text-sm font-normal text-[#101010]">Enquiries by Acquisition Channel</h3>
                 <p className="text-[11.5px] text-[#686866]">Which marketing channels convert</p>
               </div>
 
@@ -433,9 +433,9 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                   {data.trafficSources.slice(0, 6).map((src) => (
                     <div key={src.channel} className="space-y-1">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="font-semibold text-[#101010]">{src.channel}</span>
+                        <span className="font-light text-[#101010]">{src.channel}</span>
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-[#FF3E9D]">{src.enquiries} leads</span>
+                          <span className="font-light text-[#FF3E9D]">{src.enquiries} leads</span>
                           <span className="font-mono text-[11px] text-[#686866]">({src.sharePct}%)</span>
                         </div>
                       </div>
@@ -456,12 +456,12 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
           <div className="rounded-[16px] border border-[#E4E4E1] bg-white overflow-hidden shadow-sm">
             <div className="p-5 border-b border-[#E4E4E1] flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#F9F9F8]">
               <div>
-                <h3 className="text-sm font-bold text-[#101010]">Pages Generating Commercial Enquiries</h3>
+                <h3 className="text-sm font-normal text-[#101010]">Pages Generating Commercial Enquiries</h3>
                 <p className="text-[11.5px] text-[#686866]">Direct page attribution joined with database lead sink</p>
               </div>
               <button
                 onClick={() => exportToCsv('entirefm-top-pages', data.topPages)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] border border-[#E4E4E1] bg-white text-xs font-semibold text-[#101010] hover:bg-[#F5F5F3] transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] border border-[#E4E4E1] bg-white text-xs font-normal text-[#101010] hover:bg-[#F5F5F3] transition-colors"
               >
                 <Download className="h-3.5 w-3.5" />
                 <span>Export CSV</span>
@@ -488,7 +488,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                   <tbody className="divide-y divide-[#E4E4E1]">
                     {data.topPages.slice(0, 10).map((p) => (
                       <tr key={p.path} className="hover:bg-[#FAFAF9] transition-colors">
-                        <td className="py-3.5 px-4 font-mono font-medium text-[#101010] max-w-xs truncate">
+                        <td className="py-3.5 px-4 font-mono font-normal text-[#101010] max-w-xs truncate">
                           <a href={p.path} target="_blank" rel="noreferrer" className="hover:text-[#FF3E9D] flex items-center gap-1">
                             <span>{p.path}</span>
                             <ExternalLink className="h-3 w-3 text-[#9B9B97]" />
@@ -501,10 +501,10 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                         </td>
                         <td className="py-3.5 px-4 text-right font-mono">{p.views.toLocaleString()}</td>
                         <td className="py-3.5 px-4 text-right font-mono">{p.sessions.toLocaleString()}</td>
-                        <td className="py-3.5 px-4 text-right font-mono font-bold text-[#FF3E9D]">
+                        <td className="py-3.5 px-4 text-right font-mono font-light text-[#FF3E9D]">
                           {p.enquiries > 0 ? p.enquiries : '—'}
                         </td>
-                        <td className="py-3.5 px-4 text-right font-mono font-semibold text-[#15803D]">
+                        <td className="py-3.5 px-4 text-right font-mono font-light text-[#15803D]">
                           {p.conversionRate !== null ? `${p.conversionRate}%` : '—'}
                         </td>
                       </tr>
@@ -524,7 +524,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
             {/* Traffic Sources */}
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-5 shadow-sm space-y-4">
               <div className="border-b border-[#E4E4E1] pb-3">
-                <h3 className="text-sm font-bold text-[#101010]">Marketing Channels (GA4)</h3>
+                <h3 className="text-sm font-normal text-[#101010]">Marketing Channels (GA4)</h3>
                 <p className="text-[11.5px] text-[#686866]">Default Channel Grouping with Enquiry Conversion</p>
               </div>
 
@@ -542,10 +542,10 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                   <tbody className="divide-y divide-[#E4E4E1]">
                     {data.trafficSources.map((src) => (
                       <tr key={src.channel} className="hover:bg-[#FAFAF9]">
-                        <td className="py-2.5 px-3 font-semibold text-[#101010]">{src.channel}</td>
+                        <td className="py-2.5 px-3 font-light text-[#101010]">{src.channel}</td>
                         <td className="py-2.5 px-3 text-right font-mono">{src.sessions.toLocaleString()}</td>
                         <td className="py-2.5 px-3 text-right font-mono">{src.sharePct}%</td>
-                        <td className="py-2.5 px-3 text-right font-mono font-bold text-[#FF3E9D]">{src.enquiries}</td>
+                        <td className="py-2.5 px-3 text-right font-mono font-light text-[#FF3E9D]">{src.enquiries}</td>
                         <td className="py-2.5 px-3 text-right font-mono text-[#15803D]">
                           {src.conversionRate !== null ? `${src.conversionRate}%` : '—'}
                         </td>
@@ -559,7 +559,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
             {/* Referring Domains */}
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-5 shadow-sm space-y-4">
               <div className="border-b border-[#E4E4E1] pb-3">
-                <h3 className="text-sm font-bold text-[#101010]">Top Referring Websites</h3>
+                <h3 className="text-sm font-normal text-[#101010]">Top Referring Websites</h3>
                 <p className="text-[11.5px] text-[#686866]">Inbound referrals from external domains &amp; partner portals</p>
               </div>
 
@@ -581,10 +581,10 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                     <tbody className="divide-y divide-[#E4E4E1]">
                       {data.referringSites.slice(0, 8).map((ref, idx) => (
                         <tr key={idx} className="hover:bg-[#FAFAF9]">
-                          <td className="py-2.5 px-3 font-mono font-medium text-[#101010]">{ref.source}</td>
+                          <td className="py-2.5 px-3 font-mono font-normal text-[#101010]">{ref.source}</td>
                           <td className="py-2.5 px-3 font-mono text-slate-500">{ref.medium}</td>
                           <td className="py-2.5 px-3 text-right font-mono">{ref.sessions.toLocaleString()}</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-bold text-[#FF3E9D]">{ref.enquiries}</td>
+                          <td className="py-2.5 px-3 text-right font-mono font-light text-[#FF3E9D]">{ref.enquiries}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -597,38 +597,38 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
           {/* Device & Geographic Breakdown */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-5 shadow-sm space-y-4">
-              <h3 className="text-sm font-bold text-[#101010] border-b border-[#E4E4E1] pb-3">Device Mix</h3>
+              <h3 className="text-sm font-normal text-[#101010] border-b border-[#E4E4E1] pb-3">Device Mix</h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between text-xs">
                   <span className="flex items-center gap-2 text-slate-700">
                     <Monitor className="h-4 w-4 text-slate-400" />
                     Desktop
                   </span>
-                  <span className="font-mono font-bold">{data.deviceBreakdown.desktopPct}%</span>
+                  <span className="font-mono font-light">{data.deviceBreakdown.desktopPct}%</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <span className="flex items-center gap-2 text-slate-700">
                     <Smartphone className="h-4 w-4 text-slate-400" />
                     Mobile
                   </span>
-                  <span className="font-mono font-bold">{data.deviceBreakdown.mobilePct}%</span>
+                  <span className="font-mono font-light">{data.deviceBreakdown.mobilePct}%</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <span className="flex items-center gap-2 text-slate-700">
                     <Tablet className="h-4 w-4 text-slate-400" />
                     Tablet
                   </span>
-                  <span className="font-mono font-bold">{data.deviceBreakdown.tabletPct}%</span>
+                  <span className="font-mono font-light">{data.deviceBreakdown.tabletPct}%</span>
                 </div>
               </div>
             </div>
 
             <div className="md:col-span-2 rounded-[16px] border border-[#E4E4E1] bg-white p-5 shadow-sm space-y-4">
-              <h3 className="text-sm font-bold text-[#101010] border-b border-[#E4E4E1] pb-3">Top Visitor Geographies</h3>
+              <h3 className="text-sm font-normal text-[#101010] border-b border-[#E4E4E1] pb-3">Top Visitor Geographies</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {data.geographicBreakdown.slice(0, 8).map((geo, idx) => (
                   <div key={idx} className="p-3 bg-[#FBFBFA] border border-[#E4E4E1] rounded-[8px] space-y-1">
-                    <span className="text-xs font-bold text-[#101010] block truncate">
+                    <span className="text-xs font-normal text-[#101010] block truncate">
                       {geo.city ? `${geo.city}` : geo.country}
                     </span>
                     <span className="text-[11px] font-mono text-[#686866] block">
@@ -648,32 +648,32 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
           {/* SEO KPI Strip */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="p-4 rounded-[12px] bg-white border border-[#E4E4E1] shadow-sm space-y-1">
-              <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">Organic Clicks</span>
-              <span className="text-2xl font-bold text-[#101010]">
+              <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">Organic Clicks</span>
+              <span className="text-2xl font-extralight text-[#101010]">
                 {integrations.searchConsole.connected ? kpis.organicClicks.current.toLocaleString() : '—'}
               </span>
               {integrations.searchConsole.connected && renderDeltaPill(kpis.organicClicks)}
             </div>
 
             <div className="p-4 rounded-[12px] bg-white border border-[#E4E4E1] shadow-sm space-y-1">
-              <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">Search Impressions</span>
-              <span className="text-2xl font-bold text-[#101010]">
+              <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">Search Impressions</span>
+              <span className="text-2xl font-extralight text-[#101010]">
                 {integrations.searchConsole.connected ? kpis.organicImpressions.current.toLocaleString() : '—'}
               </span>
               {integrations.searchConsole.connected && renderDeltaPill(kpis.organicImpressions)}
             </div>
 
             <div className="p-4 rounded-[12px] bg-white border border-[#E4E4E1] shadow-sm space-y-1">
-              <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">Average CTR</span>
-              <span className="text-2xl font-bold text-[#101010]">
+              <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">Average CTR</span>
+              <span className="text-2xl font-extralight text-[#101010]">
                 {integrations.searchConsole.connected ? `${kpis.avgCtr.current}%` : '—'}
               </span>
               {integrations.searchConsole.connected && renderDeltaPill(kpis.avgCtr)}
             </div>
 
             <div className="p-4 rounded-[12px] bg-white border border-[#E4E4E1] shadow-sm space-y-1">
-              <span className="font-mono text-[10px] uppercase font-bold text-[#686866] block">Average Position</span>
-              <span className="text-2xl font-bold text-[#101010]">
+              <span className="font-mono text-[10px] uppercase font-light text-[#686866] block">Average Position</span>
+              <span className="text-2xl font-extralight text-[#101010]">
                 {integrations.searchConsole.connected ? kpis.avgPosition.current : '—'}
               </span>
               {integrations.searchConsole.connected && renderDeltaPill(kpis.avgPosition)}
@@ -684,12 +684,12 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
           <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-5 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-[#E4E4E1] pb-3">
               <div>
-                <h3 className="text-sm font-bold text-[#101010]">Deterministic SEO &amp; Growth Opportunities</h3>
+                <h3 className="text-sm font-normal text-[#101010]">Deterministic SEO &amp; Growth Opportunities</h3>
                 <p className="text-[11.5px] text-[#686866]">
                   Data-driven recommendations computed from real Search Console queries and conversion rates
                 </p>
               </div>
-              <span className="text-xs font-mono font-bold text-[#FF3E9D]">
+              <span className="text-xs font-mono font-light text-[#FF3E9D]">
                 {data.seoOpportunities.length} actionable items
               </span>
             </div>
@@ -706,9 +706,9 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                     className="p-4 rounded-[10px] bg-[#FBFBFA] border border-[#E4E4E1] space-y-2 hover:border-[#D1D1CD] transition-colors"
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <h4 className="text-xs font-bold text-[#101010] leading-snug">{opp.title}</h4>
+                      <h4 className="text-xs font-normal text-[#101010] leading-snug">{opp.title}</h4>
                       <span
-                        className={`px-2 py-0.5 rounded text-[9.5px] font-mono uppercase font-bold ${
+                        className={`px-2 py-0.5 rounded text-[9.5px] font-mono uppercase font-light ${
                           opp.impact === 'HIGH'
                             ? 'bg-red-100 text-red-700 border border-red-200'
                             : opp.impact === 'QUICK_WIN'
@@ -723,7 +723,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                     <p className="text-[11.5px] text-[#686866] leading-relaxed">{opp.reason}</p>
 
                     <div className="p-2.5 rounded-[6px] bg-white border border-[#E4E4E1] text-[11px] text-[#333332]">
-                      <strong className="font-semibold text-[#101010]">Action:</strong> {opp.recommendation}
+                      <strong className="font-light text-[#101010]">Action:</strong> {opp.recommendation}
                     </div>
                   </div>
                 ))}
@@ -735,12 +735,12 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
           <div className="rounded-[16px] border border-[#E4E4E1] bg-white overflow-hidden shadow-sm">
             <div className="p-5 border-b border-[#E4E4E1] flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#F9F9F8]">
               <div>
-                <h3 className="text-sm font-bold text-[#101010]">Google Search Queries</h3>
+                <h3 className="text-sm font-normal text-[#101010]">Google Search Queries</h3>
                 <p className="text-[11.5px] text-[#686866]">Genuine Google Search Console queries and click-through rates</p>
               </div>
               <button
                 onClick={() => exportToCsv('entirefm-search-queries', data.searchQueries)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] border border-[#E4E4E1] bg-white text-xs font-semibold text-[#101010] hover:bg-[#F5F5F3] transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] border border-[#E4E4E1] bg-white text-xs font-normal text-[#101010] hover:bg-[#F5F5F3] transition-colors"
               >
                 <Download className="h-3.5 w-3.5" />
                 <span>Export CSV</span>
@@ -766,11 +766,11 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                   <tbody className="divide-y divide-[#E4E4E1]">
                     {data.searchQueries.map((q, idx) => (
                       <tr key={idx} className="hover:bg-[#FAFAF9]">
-                        <td className="py-3 px-4 font-medium text-[#101010]">{q.query}</td>
-                        <td className="py-3 px-4 text-right font-mono font-bold">{q.clicks.toLocaleString()}</td>
+                        <td className="py-3 px-4 font-normal text-[#101010]">{q.query}</td>
+                        <td className="py-3 px-4 text-right font-mono font-light">{q.clicks.toLocaleString()}</td>
                         <td className="py-3 px-4 text-right font-mono text-[#686866]">{q.impressions.toLocaleString()}</td>
                         <td className="py-3 px-4 text-right font-mono text-[#15803D]">{q.ctr}%</td>
-                        <td className="py-3 px-4 text-right font-mono font-bold text-[#FF3E9D]">{q.position}</td>
+                        <td className="py-3 px-4 text-right font-mono font-light text-[#FF3E9D]">{q.position}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -788,12 +788,12 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
           <div className="rounded-[16px] border border-[#E4E4E1] bg-white overflow-hidden shadow-sm">
             <div className="p-5 border-b border-[#E4E4E1] flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#F9F9F8]">
               <div>
-                <h3 className="text-sm font-bold text-[#101010]">Canonical Service Lines Performance</h3>
+                <h3 className="text-sm font-normal text-[#101010]">Canonical Service Lines Performance</h3>
                 <p className="text-[11.5px] text-[#686866]">Enquiries generated per commercial service capability</p>
               </div>
               <button
                 onClick={() => exportToCsv('entirefm-service-performance', data.servicePerformance)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] border border-[#E4E4E1] bg-white text-xs font-semibold text-[#101010] hover:bg-[#F5F5F3] transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] border border-[#E4E4E1] bg-white text-xs font-normal text-[#101010] hover:bg-[#F5F5F3] transition-colors"
               >
                 <Download className="h-3.5 w-3.5" />
                 <span>Export CSV</span>
@@ -815,11 +815,11 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                 <tbody className="divide-y divide-[#E4E4E1]">
                   {data.servicePerformance.map((srv) => (
                     <tr key={srv.serviceName} className="hover:bg-[#FAFAF9]">
-                      <td className="py-3.5 px-4 font-bold text-[#101010]">{srv.serviceName}</td>
+                      <td className="py-3.5 px-4 font-light text-[#101010]">{srv.serviceName}</td>
                       <td className="py-3.5 px-4 font-mono text-[#686866]">{srv.canonicalPath}</td>
                       <td className="py-3.5 px-4 text-right font-mono">{srv.sessions.toLocaleString()}</td>
-                      <td className="py-3.5 px-4 text-right font-mono font-bold text-[#FF3E9D]">{srv.enquiries}</td>
-                      <td className="py-3.5 px-4 text-right font-mono font-semibold text-[#15803D]">{srv.qualifiedLeads}</td>
+                      <td className="py-3.5 px-4 text-right font-mono font-light text-[#FF3E9D]">{srv.enquiries}</td>
+                      <td className="py-3.5 px-4 text-right font-mono font-light text-[#15803D]">{srv.qualifiedLeads}</td>
                       <td className="py-3.5 px-4 text-right font-mono text-[#686866]">
                         {srv.conversionRate !== null ? `${srv.conversionRate}%` : '—'}
                       </td>
@@ -834,12 +834,12 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
           <div className="rounded-[16px] border border-[#E4E4E1] bg-white overflow-hidden shadow-sm">
             <div className="p-5 border-b border-[#E4E4E1] flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#F9F9F8]">
               <div>
-                <h3 className="text-sm font-bold text-[#101010]">Regional &amp; City Landing Pages</h3>
+                <h3 className="text-sm font-normal text-[#101010]">Regional &amp; City Landing Pages</h3>
                 <p className="text-[11.5px] text-[#686866]">Search visibility and commercial lead volume by metro region</p>
               </div>
               <button
                 onClick={() => exportToCsv('entirefm-location-performance', data.locationPerformance)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] border border-[#E4E4E1] bg-white text-xs font-semibold text-[#101010] hover:bg-[#F5F5F3] transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] border border-[#E4E4E1] bg-white text-xs font-normal text-[#101010] hover:bg-[#F5F5F3] transition-colors"
               >
                 <Download className="h-3.5 w-3.5" />
                 <span>Export CSV</span>
@@ -861,11 +861,11 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                 <tbody className="divide-y divide-[#E4E4E1]">
                   {data.locationPerformance.map((loc) => (
                     <tr key={loc.locationName} className="hover:bg-[#FAFAF9]">
-                      <td className="py-3.5 px-4 font-bold text-[#101010]">{loc.locationName}</td>
+                      <td className="py-3.5 px-4 font-light text-[#101010]">{loc.locationName}</td>
                       <td className="py-3.5 px-4 font-mono text-[#686866]">{loc.canonicalPath}</td>
                       <td className="py-3.5 px-4 text-right font-mono">{loc.organicClicks.toLocaleString()}</td>
                       <td className="py-3.5 px-4 text-right font-mono text-[#686866]">{loc.organicImpressions.toLocaleString()}</td>
-                      <td className="py-3.5 px-4 text-right font-mono font-bold text-[#FF3E9D]">{loc.enquiries}</td>
+                      <td className="py-3.5 px-4 text-right font-mono font-light text-[#FF3E9D]">{loc.enquiries}</td>
                       <td className="py-3.5 px-4 text-right font-mono text-[#15803D]">
                         {loc.conversionRate !== null ? `${loc.conversionRate}%` : '—'}
                       </td>
@@ -884,7 +884,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
           <div className="rounded-[16px] border border-[#E4E4E1] bg-white overflow-hidden shadow-sm">
             <div className="p-5 border-b border-[#E4E4E1] flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#F9F9F8]">
               <div>
-                <h3 className="text-sm font-bold text-[#101010]">Interactive Resource Tools Performance</h3>
+                <h3 className="text-sm font-normal text-[#101010]">Interactive Resource Tools Performance</h3>
                 <p className="text-[11.5px] text-[#686866]">
                   Usage, completion rates, and lead generation from interactive engineering calculators and builders
                 </p>
@@ -907,7 +907,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                 <tbody className="divide-y divide-[#E4E4E1]">
                   {data.toolPerformance.map((tool) => (
                     <tr key={tool.toolId} className="hover:bg-[#FAFAF9]">
-                      <td className="py-3.5 px-4 font-bold text-[#101010]">{tool.toolName}</td>
+                      <td className="py-3.5 px-4 font-light text-[#101010]">{tool.toolName}</td>
                       <td className="py-3.5 px-4 font-mono text-[#686866]">
                         <a href={tool.path} target="_blank" rel="noreferrer" className="hover:text-[#FF3E9D]">
                           {tool.path}
@@ -916,10 +916,10 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                       <td className="py-3.5 px-4 text-right font-mono">{tool.views.toLocaleString()}</td>
                       <td className="py-3.5 px-4 text-right font-mono">{tool.starts.toLocaleString()}</td>
                       <td className="py-3.5 px-4 text-right font-mono">{tool.completions.toLocaleString()}</td>
-                      <td className="py-3.5 px-4 text-right font-mono font-semibold text-[#15803D]">
+                      <td className="py-3.5 px-4 text-right font-mono font-light text-[#15803D]">
                         {tool.completionRate !== null ? `${tool.completionRate}%` : '—'}
                       </td>
-                      <td className="py-3.5 px-4 text-right font-mono font-bold text-[#FF3E9D]">{tool.enquiries}</td>
+                      <td className="py-3.5 px-4 text-right font-mono font-light text-[#FF3E9D]">{tool.enquiries}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -941,12 +941,12 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                     <Globe className="h-4 w-4" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-[#101010]">Google Analytics 4 Data API</h3>
+                    <h3 className="text-sm font-normal text-[#101010]">Google Analytics 4 Data API</h3>
                     <span className="text-[11px] font-mono text-[#686866]">Traffic, Users, &amp; Engagement</span>
                   </div>
                 </div>
                 <span
-                  className={`px-2.5 py-1 rounded text-[10px] font-mono uppercase font-bold border ${
+                  className={`px-2.5 py-1 rounded text-[10px] font-mono uppercase font-light border ${
                     integrations.ga4.connected
                       ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                       : 'bg-amber-50 text-amber-700 border-amber-200'
@@ -961,7 +961,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                   Streams real session, active user, device, and landing-page engagement metrics directly into the EntireFM command centre via the GA4 Data API v1beta.
                 </p>
                 <div className="p-3 bg-[#FBFBFA] border border-[#E4E4E1] rounded-[8px] font-mono text-[11px] space-y-1">
-                  <div className="text-slate-500 font-bold">REQUIRED ENVIRONMENT VARIABLES:</div>
+                  <div className="text-slate-500 font-light">REQUIRED ENVIRONMENT VARIABLES:</div>
                   <div>GOOGLE_ANALYTICS_PROPERTY_ID=987654321</div>
                   <div>GOOGLE_CLIENT_EMAIL=service-account@project.iam.gserviceaccount.com</div>
                   <div>GOOGLE_PRIVATE_KEY=&quot;-----BEGIN PRIVATE KEY-----\n...&quot;</div>
@@ -977,12 +977,12 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                     <Search className="h-4 w-4" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-[#101010]">Google Search Console API</h3>
+                    <h3 className="text-sm font-normal text-[#101010]">Google Search Console API</h3>
                     <span className="text-[11px] font-mono text-[#686866]">Rankings, Keywords, &amp; CTR</span>
                   </div>
                 </div>
                 <span
-                  className={`px-2.5 py-1 rounded text-[10px] font-mono uppercase font-bold border ${
+                  className={`px-2.5 py-1 rounded text-[10px] font-mono uppercase font-light border ${
                     integrations.searchConsole.connected
                       ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                       : 'bg-amber-50 text-amber-700 border-amber-200'
@@ -997,7 +997,7 @@ export function AnalyticsDashboardClient({ initialData }: AnalyticsDashboardClie
                   Provides verified search queries, organic impressions, click-through rates, and average SERP positions for all EntireFM web properties.
                 </p>
                 <div className="p-3 bg-[#FBFBFA] border border-[#E4E4E1] rounded-[8px] font-mono text-[11px] space-y-1">
-                  <div className="text-slate-500 font-bold">REQUIRED ENVIRONMENT VARIABLES:</div>
+                  <div className="text-slate-500 font-light">REQUIRED ENVIRONMENT VARIABLES:</div>
                   <div>SEARCH_CONSOLE_SITE_URL=https://entirefm.com</div>
                   <div>GOOGLE_CLIENT_EMAIL=service-account@project.iam.gserviceaccount.com</div>
                   <div>GOOGLE_PRIVATE_KEY=&quot;-----BEGIN PRIVATE KEY-----\n...&quot;</div>

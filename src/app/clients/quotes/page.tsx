@@ -44,7 +44,7 @@ export default async function ClientQuotesPage() {
               list.map((q) => (
                 <tr key={q.id} className="hover:bg-brand-void/30 transition-colors">
                   <td className="px-6 py-3.5 font-mono text-brand-electric-bright">{q.quote_number}</td>
-                  <td className="px-6 py-3.5 font-medium text-white">{q.title}</td>
+                  <td className="px-6 py-3.5 font-normal text-white">{q.title}</td>
                   <td className="px-6 py-3.5 font-mono">£{Number(q.total_price_gbp || 0).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</td>
                   <td className="px-6 py-3.5">
                     <span className="rounded bg-brand-electric/10 border border-brand-electric/20 px-2 py-0.5 font-mono text-[10px] text-brand-electric-bright">

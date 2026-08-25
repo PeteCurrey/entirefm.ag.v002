@@ -60,7 +60,7 @@ export function ServiceDeliveryProcess({
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
               {eyebrow}
             </span>
           </div>
@@ -89,7 +89,7 @@ export function ServiceDeliveryProcess({
                   <span className="h-1.5 w-6 bg-slate-200 group-hover:bg-brand-pink transition-colors rounded-full" />
                 </div>
 
-                <h3 className="text-base font-medium text-slate-900 mb-2.5 group-hover:text-brand-graphite transition-colors">
+                <h3 className="text-base font-light text-slate-900 mb-2.5 group-hover:text-brand-graphite transition-colors">
                   {step.title}
                 </h3>
 
@@ -100,10 +100,10 @@ export function ServiceDeliveryProcess({
 
               {step.deliverable && (
                 <div className="pt-3 border-t border-slate-200/60">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                  <span className="text-[10px] font-normal text-slate-400 uppercase tracking-wider block">
                     Deliverable
                   </span>
-                  <span className="text-xs font-semibold text-slate-800 block mt-0.5">
+                  <span className="text-xs font-normal text-slate-800 block mt-0.5">
                     {step.deliverable}
                   </span>
                 </div>

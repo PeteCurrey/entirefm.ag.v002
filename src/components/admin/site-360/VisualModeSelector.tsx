@@ -28,7 +28,7 @@ export function VisualModeSelector({ mode, onChange }: VisualModeSelectorProps) 
           <button
             key={m.id}
             onClick={() => onChange(m.id)}
-            className={`inline-flex items-center gap-1.5 rounded-[6px] px-3 py-1.5 text-[12px] font-medium transition-all ${
+            className={`inline-flex items-center gap-1.5 rounded-[6px] px-3 py-1.5 text-[12px] font-normal transition-all ${
               isActive
                 ? 'bg-[#101010] text-white shadow-sm'
                 : 'text-[#686866] hover:text-[#101010] hover:bg-[#F5F5F3]'

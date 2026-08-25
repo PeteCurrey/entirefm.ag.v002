@@ -14,7 +14,7 @@ export default async function CommunicationsPage() {
       header: 'Subject / Channel',
       accessor: (row) => (
         <div>
-          <div className="font-semibold text-white">{row.subject}</div>
+          <div className="font-light text-white">{row.subject}</div>
           <div className="font-mono text-[11px] text-brand-mist/50">
             Type: {row.thread_type}
           </div>
@@ -65,7 +65,7 @@ export default async function CommunicationsPage() {
         title="Communications & Helpdesk Inbox"
         description="Multi-channel customer, contractor, and engineer communications linked across work orders, sites, quotes, and invoices."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-indigo">
             + New Message Thread
           </button>
         }

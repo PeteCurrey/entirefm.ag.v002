@@ -175,10 +175,10 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
             
             {/* Header intro */}
             <div className="text-center max-w-3xl mx-auto">
-              <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-2">
+              <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-2">
                 On-Site Engineering Inspection Protocols
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-extralight text-white mb-4">
                 Interactive Plantroom &amp; Asset Survey Manual
               </h2>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-light">
@@ -201,10 +201,10 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
                     }`}
                   >
                     <div>
-                      <span className={`text-[10px] font-mono uppercase tracking-wider block mb-1 ${isSelected ? 'text-pink-400 font-bold' : 'text-slate-500'}`}>
+                      <span className={`text-[10px] font-mono uppercase tracking-wider block mb-1 ${isSelected ? 'text-pink-400 font-light' : 'text-slate-500'}`}>
                         {w.focusArea}
                       </span>
-                      <h3 className="text-xs sm:text-sm font-bold text-white leading-snug line-clamp-2">
+                      <h3 className="text-xs sm:text-sm font-normal text-white leading-snug line-clamp-2">
                         {w.title.replace('The ', '').replace(' Walkthrough', '').replace(' Survey', '')}
                       </h3>
                     </div>
@@ -222,7 +222,7 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-6 space-y-4">
                   <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-700 text-xs font-mono font-bold">
+                    <span className="px-2.5 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-700 text-xs font-mono font-light">
                       {activeWalk.focusArea}
                     </span>
                     <span className="text-xs font-mono text-slate-400">
@@ -230,7 +230,7 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
                     </span>
                   </div>
 
-                  <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                  <h3 className="text-2xl sm:text-3xl font-extralight text-white leading-tight">
                     {activeWalk.title}
                   </h3>
 
@@ -261,7 +261,7 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
                   <div className="absolute bottom-3 left-3 right-3 p-2 bg-slate-950/90 backdrop-blur-md rounded border border-slate-700 text-[10px] font-mono text-slate-300 flex items-center justify-between">
                     <span>EntireFM Certified Field Survey</span>
-                    <span className="text-pink-400 font-bold">VERIFIED ON SITE</span>
+                    <span className="text-pink-400 font-light">VERIFIED ON SITE</span>
                   </div>
                 </div>
               </div>
@@ -272,7 +272,7 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
                 <div className="p-6 rounded-xl bg-slate-900 border border-slate-800 space-y-4">
                   <div className="flex items-center gap-2 text-emerald-400">
                     <CheckCircle2 className="w-4 h-4" />
-                    <h4 className="font-bold text-sm uppercase tracking-wider text-white">
+                    <h4 className="font-normal text-sm uppercase tracking-wider text-white">
                       Mandatory Engineer Checkpoints
                     </h4>
                   </div>
@@ -290,7 +290,7 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
                 <div className="p-6 rounded-xl bg-amber-950/20 border border-amber-500/30 space-y-4">
                   <div className="flex items-center gap-2 text-amber-400">
                     <AlertTriangle className="w-4 h-4" />
-                    <h4 className="font-bold text-sm uppercase tracking-wider text-white">
+                    <h4 className="font-normal text-sm uppercase tracking-wider text-white">
                       Common Hidden Defects Found on Site
                     </h4>
                   </div>
@@ -309,7 +309,7 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
               <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 flex items-start gap-3 text-xs font-mono text-slate-300">
                 <HardHat className="w-4 h-4 text-pink-400 shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-pink-400 font-bold uppercase tracking-wider block mb-0.5">
+                  <span className="text-pink-400 font-light uppercase tracking-wider block mb-0.5">
                     Field Engineering Procedure:
                   </span>
                   <span>{activeWalk.fieldAction}</span>

@@ -20,7 +20,7 @@ export default async function ContractorMessagesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">Operational Communications</h1>
+        <h1 className="text-2xl font-extralight text-white tracking-tight">Operational Communications</h1>
         <p className="text-brand-mist text-sm mt-1">
           Unified communications linked to work orders, dispatch enquiries, and technical queries.
         </p>
@@ -40,7 +40,7 @@ export default async function ContractorMessagesPage() {
               className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-5 space-y-2 hover:border-brand-edge transition-colors"
             >
               <div className="flex items-center justify-between">
-                <h2 className="text-base font-bold text-white">{thread.subject || 'Dispatch Communication'}</h2>
+                <h2 className="text-base font-light text-white">{thread.subject || 'Dispatch Communication'}</h2>
                 <span className="text-xs text-brand-mist flex items-center gap-1 font-mono">
                   <Clock className="w-3.5 h-3.5" />
                   {new Date(thread.updated_at || thread.created_at).toLocaleDateString('en-GB')}

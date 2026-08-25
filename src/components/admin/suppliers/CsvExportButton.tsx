@@ -40,7 +40,7 @@ export function CsvExportButton({
     <button
       onClick={handleExport}
       disabled={!data || data.length === 0}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-300 hover:border-slate-400 text-slate-700 rounded text-xs font-mono font-medium transition-colors disabled:opacity-50"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-300 hover:border-slate-400 text-slate-700 rounded text-xs font-mono font-normal transition-colors disabled:opacity-50"
     >
       <Download className="h-3.5 w-3.5 text-slate-500" />
       {label}

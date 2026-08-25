@@ -35,11 +35,11 @@ export function PlannerSubmissionSuccess({
       </div>
 
       <div className="space-y-3">
-        <span className="font-mono text-xs font-bold uppercase tracking-widest text-emerald-400">
+        <span className="font-mono text-xs font-normal uppercase tracking-widest text-emerald-400">
           INSPECTION BRIEF RECEIVED
         </span>
         <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
-          Thank you, <span className="font-bold text-white">{clientName || 'Partner'}</span>
+          Thank you, <span className="font-light text-white">{clientName || 'Partner'}</span>
         </h2>
         <p className="text-sm text-slate-300 leading-relaxed max-w-lg mx-auto">
           Your commercial drone survey brief has been delivered to our Aviation Operations Desk. A regional technical lead will review airspace permissions and contact you promptly.
@@ -48,12 +48,12 @@ export function PlannerSubmissionSuccess({
 
       <div className="p-4 rounded-sm bg-brand-graphite border border-brand-edge-dark inline-block font-mono text-left space-y-1">
         <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Your Reference Identifier:</span>
-        <span className="text-lg font-bold text-brand-pink tracking-wider">{referenceNumber}</span>
+        <span className="text-lg font-light text-brand-pink tracking-wider">{referenceNumber}</span>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left pt-2">
         <div className="p-4 rounded-sm bg-white/[0.03] border border-white/10 space-y-1.5">
-          <div className="flex items-center gap-2 text-xs font-bold text-white">
+          <div className="flex items-center gap-2 text-xs font-normal text-white">
             <Mail className="w-4 h-4 text-brand-pink" />
             <span>Confirmation Email</span>
           </div>
@@ -63,7 +63,7 @@ export function PlannerSubmissionSuccess({
         </div>
 
         <div className="p-4 rounded-sm bg-white/[0.03] border border-white/10 space-y-1.5">
-          <div className="flex items-center gap-2 text-xs font-bold text-white">
+          <div className="flex items-center gap-2 text-xs font-normal text-white">
             <PhoneCall className="w-4 h-4 text-brand-pink" />
             <span>Direct Aviation Desk</span>
           </div>
@@ -77,7 +77,7 @@ export function PlannerSubmissionSuccess({
         <button
           type="button"
           onClick={onPrint}
-          className="inline-flex items-center gap-2 rounded-sm border border-white/20 bg-white/5 px-5 py-2.5 text-xs font-semibold text-white hover:bg-white/10 transition-colors"
+          className="inline-flex items-center gap-2 rounded-sm border border-white/20 bg-white/5 px-5 py-2.5 text-xs font-normal text-white hover:bg-white/10 transition-colors"
         >
           <Printer className="w-3.5 h-3.5" />
           <span>Print / Save PDF Brief</span>
@@ -85,7 +85,7 @@ export function PlannerSubmissionSuccess({
 
         <Link
           href="/services/drone-services"
-          className="inline-flex items-center gap-2 rounded-sm bg-brand-pink px-5 py-2.5 text-xs font-semibold text-white hover:bg-brand-pink-dark transition-colors"
+          className="inline-flex items-center gap-2 rounded-sm bg-brand-pink px-5 py-2.5 text-xs font-normal text-white hover:bg-brand-pink-dark transition-colors"
         >
           <span>Explore Drone Services</span>
           <ArrowRight className="w-3.5 h-3.5" />

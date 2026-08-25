@@ -44,7 +44,7 @@ export function TemplateComplianceReporting() {
           {/* Hero Section */}
           <section className="mb-14 max-w-4xl">
             <div className="flex items-center gap-2 mb-3">
-              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-2.5 py-0.5 font-mono text-[11px] font-bold text-[#059669]">
+              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-2.5 py-0.5 font-mono text-[11px] font-normal text-[#059669]">
                 <span className="h-2 w-2 rounded-full bg-[#059669] animate-pulse" />
                 STATUTORY COMPLIANCE &amp; REPORTING
               </span>
@@ -55,7 +55,7 @@ export function TemplateComplianceReporting() {
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-[#101010] leading-[1.15]">
               Compliance shouldn&apos;t disappear{' '}
-              <span className="font-semibold block mt-1">
+              <span className="font-light block mt-1">
                 into a filing cabinet.
               </span>
             </h1>
@@ -67,14 +67,14 @@ export function TemplateComplianceReporting() {
             <div className="flex flex-wrap items-center gap-3.5 mt-7">
               <Link
                 href="/contact-us?subject=Compliance%20Portal%20Walkthrough"
-                className="inline-flex items-center gap-2 rounded-[8px] bg-[#EA580C] px-6 py-3 text-[13.5px] font-semibold text-white shadow hover:bg-[#D44708] transition-all"
+                className="inline-flex items-center gap-2 rounded-[8px] bg-[#EA580C] px-6 py-3 text-[13.5px] font-normal text-white shadow hover:bg-[#D44708] transition-all"
               >
                 Book Compliance Demonstration
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/client-portal"
-                className="inline-flex items-center gap-2 rounded-[8px] border border-[#E4E4E1] bg-white px-5 py-3 text-[13.5px] font-medium text-[#101010] hover:bg-[#F5F5F3] transition-colors"
+                className="inline-flex items-center gap-2 rounded-[8px] border border-[#E4E4E1] bg-white px-5 py-3 text-[13.5px] font-normal text-[#101010] hover:bg-[#F5F5F3] transition-colors"
               >
                 ← Back to Portal Overview
               </Link>
@@ -96,10 +96,10 @@ export function TemplateComplianceReporting() {
           {/* End-to-End Compliance Chain */}
           <section className="mb-20">
             <div className="max-w-3xl mb-8">
-              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#C2410C] mb-2">
+              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
                 THE COMPLIANCE INFORMATION MODEL
               </span>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-[#101010] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
                 From statutory duty to auditable digital proof
               </h2>
               <p className="text-[14px] text-[#686866] mt-2 leading-relaxed">
@@ -139,10 +139,10 @@ export function TemplateComplianceReporting() {
                   className="rounded-[10px] border border-[#E4E4E1] bg-white p-5 flex flex-col justify-between shadow-sm"
                 >
                   <div>
-                    <span className="font-mono text-[11px] font-bold text-[#059669] block mb-1">
+                    <span className="font-mono text-[11px] font-normal text-[#059669] block mb-1">
                       PILLAR {s.step}
                     </span>
-                    <h3 className="text-[15px] font-semibold text-[#101010] mb-2">
+                    <h3 className="text-[15px] font-normal text-[#101010] mb-2">
                       {s.title}
                     </h3>
                     <p className="text-[12.5px] text-[#4B5563] leading-relaxed">
@@ -150,7 +150,7 @@ export function TemplateComplianceReporting() {
                     </p>
                   </div>
                   <div className="pt-4 border-t border-[#F0F0EE] mt-4">
-                    <span className="inline-block rounded-[4px] bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0] px-2 py-0.5 font-mono text-[10px] font-semibold">
+                    <span className="inline-block rounded-[4px] bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0] px-2 py-0.5 font-mono text-[10px] font-normal">
                       {s.badge}
                     </span>
                   </div>
@@ -164,10 +164,10 @@ export function TemplateComplianceReporting() {
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-6 space-y-4">
-                  <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#C2410C]">
+                  <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C]">
                     COMPLIANCE VAULT
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-semibold text-[#101010] tracking-tight">
+                  <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
                     Instant audit packs for insurers, fire officers, and local authorities.
                   </h2>
                   <p className="text-[14px] text-[#4B5563] leading-relaxed">
@@ -182,7 +182,7 @@ export function TemplateComplianceReporting() {
                       { title: 'Gas & Pressure Systems', desc: 'Non-domestic CP15 certificates and written schemes of examination.' },
                     ].map((item) => (
                       <div key={item.title} className="rounded-[8px] border border-[#E4E4E1] bg-[#FBFBFA] p-3">
-                        <strong className="text-[12.5px] font-semibold text-[#101010] block">
+                        <strong className="text-[12.5px] font-normal text-[#101010] block">
                           {item.title}
                         </strong>
                         <span className="text-[11.5px] text-[#686866] block mt-0.5">

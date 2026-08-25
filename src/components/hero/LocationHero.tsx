@@ -48,23 +48,23 @@ export function LocationHero({
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs text-slate-300 font-mono">
               <div>
                 <span className="text-slate-400 block">Coverage Scope:</span>
-                <span className="text-white font-semibold text-sm">{coverageZones}</span>
+                <span className="text-white font-normal text-sm">{coverageZones}</span>
               </div>
               <div className="sm:border-l sm:border-brand-edge-dark sm:pl-3">
                 <span className="text-slate-400 block">Emergency Response:</span>
-                <span className="text-brand-electric font-semibold text-sm">{responseSLA}</span>
+                <span className="text-brand-electric font-normal text-sm">{responseSLA}</span>
               </div>
               <div className="sm:border-l sm:border-brand-edge-dark sm:pl-3">
                 <span className="text-slate-400 block">Engineering Base:</span>
-                <span className="text-white font-semibold text-sm">Direct Regional Fleet</span>
+                <span className="text-white font-normal text-sm">Direct Regional Fleet</span>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-4 pt-4">
-              <Link href={primaryCTA} className="btn-primary py-3 px-6 text-xs font-bold">
+              <Link href={primaryCTA} className="btn-primary py-3 px-6 text-xs font-normal">
                 Request {city} Proposal <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
+              <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-normal">
                 <Phone className="w-3.5 h-3.5" />
                 <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
               </a>
@@ -74,7 +74,7 @@ export function LocationHero({
           <div className="lg:col-span-4 hidden lg:block">
             <div className="p-6 bg-brand-carbon border border-brand-edge-dark rounded-sm space-y-4 shadow-elevated">
               <span className="text-xs font-mono uppercase tracking-wider text-brand-electric block">{city} Service Summary</span>
-              <h3 className="text-base font-bold text-white">Commercial Properties Supported</h3>
+              <h3 className="text-base font-light text-white">Commercial Properties Supported</h3>
               <ul className="space-y-2 text-xs text-slate-300">
                 {supportedProperties.map((prop, idx) => (
                   <li key={idx} className="flex items-center gap-2">
@@ -84,7 +84,7 @@ export function LocationHero({
                 ))}
               </ul>
               <div className="pt-2 border-t border-brand-edge-dark/60 text-xs text-slate-400">
-                <span className="text-white font-semibold block">Direct Regional Helpdesk:</span>
+                <span className="text-white font-light block">Direct Regional Helpdesk:</span>
                 Live dispatch tracking and digital CAFM reporting.
               </div>
             </div>
@@ -142,10 +142,10 @@ export function SectorHero({
           </div>
 
           <div className="flex flex-wrap items-center gap-4 pt-4">
-            <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-bold">
+            <Link href="#enquiry" className="btn-primary py-3 px-6 text-xs font-normal">
               Request Sector Proposal <ArrowRight className="w-4 h-4" />
             </Link>
-            <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-semibold">
+            <a href={CONTACT_CONFIG.mainPhone.href} className="btn-phone py-3 px-4 text-xs font-normal">
               <Phone className="w-3.5 h-3.5" />
               <span>Call {CONTACT_CONFIG.mainPhone.display}</span>
             </a>

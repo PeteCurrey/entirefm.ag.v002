@@ -20,7 +20,7 @@ export default async function ContractorEngineersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">Provider Engineers & Resources</h1>
+        <h1 className="text-2xl font-extralight text-white tracking-tight">Provider Engineers & Resources</h1>
         <p className="text-brand-mist text-sm mt-1">Manage field workforce, verified trades, and dispatch eligibility.</p>
       </div>
 
@@ -39,11 +39,11 @@ export default async function ContractorEngineersPage() {
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-brand-electric/10 text-brand-electric flex items-center justify-center font-bold">
+                  <div className="w-10 h-10 rounded-full bg-brand-electric/10 text-brand-electric flex items-center justify-center font-light">
                     <User className="w-5 h-5" />
                   </div>
                   <div>
-                    <h2 className="text-white font-bold text-base">
+                    <h2 className="text-white font-light text-base">
                       {e.person ? `${e.person.first_name} ${e.person.last_name}` : 'Field Engineer'}
                     </h2>
                     <p className="text-xs text-brand-mist">{e.employment_status || 'EMPLOYED'}</p>
@@ -57,7 +57,7 @@ export default async function ContractorEngineersPage() {
 
               {e.trades_json && e.trades_json.length > 0 && (
                 <div className="space-y-1.5 pt-2 border-t border-brand-edge-dark">
-                  <span className="text-xs font-semibold text-brand-mist uppercase tracking-wider block">Trades</span>
+                  <span className="text-xs font-normal text-brand-mist uppercase tracking-wider block">Trades</span>
                   <div className="flex flex-wrap gap-1.5">
                     {e.trades_json.map((t: string) => (
                       <span key={t} className="text-xs px-2 py-0.5 rounded bg-brand-void text-white border border-brand-edge-dark flex items-center gap-1">

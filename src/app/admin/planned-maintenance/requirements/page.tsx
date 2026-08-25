@@ -42,7 +42,7 @@ export default async function MaintenanceRequirementsPage() {
       {/* Warning banner for unconfigured sources */}
       {hasUnconfigured && (
         <div className="rounded-lg border border-amber-900/50 bg-amber-950/20 p-4 text-[12.5px] text-amber-300">
-          <span className="font-semibold">Notice:</span> One or more maintenance knowledge sources (such as SFG20) are not configured. Requirements from these sources cannot be mapped or scheduled automatically. Configure integrations in{' '}
+          <span className="font-light">Notice:</span> One or more maintenance knowledge sources (such as SFG20) are not configured. Requirements from these sources cannot be mapped or scheduled automatically. Configure integrations in{' '}
           <a href="/admin/platform/integrations" className="underline hover:text-white">
             Platform Integrations
           </a>.
@@ -71,7 +71,7 @@ export default async function MaintenanceRequirementsPage() {
                 {sources.map((s) => (
                   <tr key={s.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                     <td className="px-5 py-4 font-mono text-[11px] text-white">{s.code}</td>
-                    <td className="px-5 py-4 font-semibold text-white">{s.name}</td>
+                    <td className="px-5 py-4 font-light text-white">{s.name}</td>
                     <td className="px-5 py-4 text-brand-mist/70">{s.provider}</td>
                     <td className="px-5 py-4 font-mono text-[10px] text-brand-mist/50">{s.source_type}</td>
                     <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/70">{s.version}</td>
@@ -114,7 +114,7 @@ export default async function MaintenanceRequirementsPage() {
                   <tr key={r.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                     <td className="px-5 py-4 font-mono text-[11px] text-white">{r.requirement_code}</td>
                     <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/60">{r.asset_class}</td>
-                    <td className="px-5 py-4 font-semibold text-white">{r.title}</td>
+                    <td className="px-5 py-4 font-light text-white">{r.title}</td>
                     <td className="px-5 py-4">
                       <span className={`rounded px-2 py-0.5 font-mono text-[10px] ${FREQ_COLOURS[r.frequency] ?? 'bg-brand-edge-dark text-brand-mist/60'}`}>
                         {r.frequency.replace(/_/g, ' ')}

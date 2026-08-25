@@ -136,7 +136,7 @@ export function CommandPalette() {
                   }`}
                 >
                   <div className="min-w-0 flex-1 pr-2">
-                    <div className="truncate font-medium">{item.title}</div>
+                    <div className="truncate font-normal">{item.title}</div>
                     <div
                       className={`truncate text-[11.5px] ${
                         idx === selectedIndex ? 'text-white/80' : 'text-[#686866]'

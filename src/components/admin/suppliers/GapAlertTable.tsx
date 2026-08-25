@@ -10,14 +10,14 @@ export function GapAlertTable({ gaps }: { gaps: SupplyChainGapAlert[] }) {
     <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm space-y-4">
       <div className="flex items-center justify-between pb-3 border-b border-slate-200">
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+          <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
             Supply Chain Vulnerabilities &amp; Deficits
           </h3>
           <p className="text-xs text-slate-500 font-light mt-0.5">
             Deterministically generated alerts where actual approved supplier depth falls below operational targets.
           </p>
         </div>
-        <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800">
+        <span className="text-xs font-mono font-light px-2 py-0.5 rounded bg-rose-100 text-rose-800">
           {gaps.length} Active Gaps
         </span>
       </div>
@@ -46,23 +46,23 @@ export function GapAlertTable({ gaps }: { gaps: SupplyChainGapAlert[] }) {
               gaps.map((g) => (
                 <tr key={g.id} className="hover:bg-slate-50/50">
                   <td className="py-3 px-3">
-                    <span className={`inline-block text-[10.5px] font-mono font-bold px-2 py-0.5 rounded ${
+                    <span className={`inline-block text-[10.5px] font-mono font-light px-2 py-0.5 rounded ${
                       g.severity === 'CRITICAL' ? 'bg-rose-600 text-white' : g.severity === 'HIGH' ? 'bg-amber-500 text-white' : 'bg-slate-700 text-white'
                     }`}>
                       {g.severity}
                     </span>
                   </td>
-                  <td className="py-3 px-3 font-mono font-semibold text-slate-800">
+                  <td className="py-3 px-3 font-mono font-light text-slate-800">
                     {g.gap_type.replace(/_/g, ' ')}
                   </td>
-                  <td className="py-3 px-3 font-semibold text-slate-900">
+                  <td className="py-3 px-3 font-light text-slate-900">
                     {g.service_name}
                   </td>
                   <td className="py-3 px-3 font-mono text-slate-700">
                     {g.location}
                   </td>
                   <td className="py-3 px-3 font-mono">
-                    <span className="font-bold text-slate-900">{g.approved_count}</span> / {g.target_approved}
+                    <span className="font-light text-slate-900">{g.approved_count}</span> / {g.target_approved}
                   </td>
                   <td className="py-3 px-3 text-slate-600 max-w-sm leading-relaxed">
                     {g.description}

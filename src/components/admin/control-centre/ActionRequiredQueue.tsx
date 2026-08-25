@@ -46,7 +46,7 @@ export function ActionRequiredQueue({
             <AlertCircle className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+            <h2 className="text-[12px] font-normal text-[#111111] uppercase tracking-wide">
               Action Required
             </h2>
             <p className="text-[11px] text-[#6D6D68]">
@@ -54,7 +54,7 @@ export function ActionRequiredQueue({
             </p>
           </div>
         </div>
-        <Link href="/admin/growth/leads" className="text-[11.5px] font-medium text-[#6D6D68] hover:text-[#111111] transition-colors">
+        <Link href="/admin/growth/leads" className="text-[11.5px] font-normal text-[#6D6D68] hover:text-[#111111] transition-colors">
           Inbound Leads →
         </Link>
       </div>
@@ -62,7 +62,7 @@ export function ActionRequiredQueue({
       {items.length === 0 ? (
         <div className="flex flex-col items-center justify-center p-8 text-center gap-2">
           <CheckCircle2 className="h-6 w-6 text-[#15803D]" />
-          <p className="font-medium text-[#111111] text-[13px]">No immediate actions required</p>
+          <p className="font-normal text-[#111111] text-[13px]">No immediate actions required</p>
           <p className="text-[12px] text-[#6D6D68]">All work orders and enquiries are currently acknowledged.</p>
         </div>
       ) : (
@@ -81,21 +81,21 @@ export function ActionRequiredQueue({
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
-                    <p className="text-[13px] font-medium text-[#111111] leading-snug">{item.title}</p>
+                    <p className="text-[13px] font-normal text-[#111111] leading-snug">{item.title}</p>
                     <Badge variant={config.badgeVariant as any} size="xs">{config.label}</Badge>
                   </div>
                   <p className="text-[11.5px] text-[#6D6D68] mt-0.5">{item.location}</p>
                   <p className="text-[11.5px] text-[#B45309] mt-0.5">{item.urgencyDetail}</p>
                   <div className="flex gap-2 mt-2">
                     {item.targetHref ? (
-                      <Link href={item.targetHref} className="inline-flex items-center gap-1 rounded-[4px] bg-[#111111] px-2.5 py-1 text-[11px] font-medium text-white hover:bg-[#252525] transition-colors">
+                      <Link href={item.targetHref} className="inline-flex items-center gap-1 rounded-[4px] bg-[#111111] px-2.5 py-1 text-[11px] font-normal text-white hover:bg-[#252525] transition-colors">
                         {item.primaryActionLabel} <ArrowRight className="h-3 w-3" />
                       </Link>
                     ) : (
                       <Button size="xs" onClick={() => onItemAction?.(item)}>{item.primaryActionLabel}</Button>
                     )}
                     {item.entityType === 'work_order' && (
-                      <button onClick={() => onItemInspect?.(item)} className="inline-flex items-center gap-1 rounded-[4px] border border-[#E8E8E5] px-2 py-1 text-[11px] font-medium text-[#6D6D68] hover:border-[#111111] hover:text-[#111111] transition-colors">
+                      <button onClick={() => onItemInspect?.(item)} className="inline-flex items-center gap-1 rounded-[4px] border border-[#E8E8E5] px-2 py-1 text-[11px] font-normal text-[#6D6D68] hover:border-[#111111] hover:text-[#111111] transition-colors">
                         <Wrench className="h-3 w-3" /> Inspect
                       </button>
                     )}

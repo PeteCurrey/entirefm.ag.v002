@@ -133,11 +133,11 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                 <div className="border-b border-slate-100 pb-4">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-bold">
+                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
                       01 / Estate Parameters
                     </span>
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+                  <h2 className="text-xl sm:text-2xl font-extralight text-slate-900 mt-1">
                     Property &amp; Scope Specification
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
@@ -147,13 +147,13 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
 
                 {/* Sector Selection */}
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
+                  <label className="text-xs font-normal text-slate-800 uppercase tracking-wider block">
                     Property Sector / Building Type
                   </label>
                   <select
                     value={sectorKey}
                     onChange={(e) => setSectorKey(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-normal focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
                   >
                     {Object.entries(SECTORS).map(([key, item]) => (
                       <option key={key} value={key}>
@@ -166,10 +166,10 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                 {/* Floor Area Slider */}
                 <div className="space-y-3 pt-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                       Gross Internal Floor Area
                     </label>
-                    <span className="font-mono text-sm font-bold text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                    <span className="font-mono text-sm font-normal text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
                       {floorArea.toLocaleString()} sq ft
                     </span>
                   </div>
@@ -191,7 +191,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
 
                 {/* Scope Level Toggle */}
                 <div className="space-y-2 pt-2">
-                  <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
+                  <label className="text-xs font-normal text-slate-800 uppercase tracking-wider block">
                     Service Scope Intensity
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -212,7 +212,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                               : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
                           }`}
                         >
-                          <span className={`font-bold text-xs block ${isActive ? 'text-brand-electric' : 'text-slate-900'}`}>
+                          <span className={`font-normal text-xs block ${isActive ? 'text-brand-electric' : 'text-slate-900'}`}>
                             {s.label}
                           </span>
                           <span className="text-[11px] text-slate-600 block mt-0.5">
@@ -226,7 +226,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
 
                 {/* Plant Age */}
                 <div className="space-y-2 pt-2">
-                  <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
+                  <label className="text-xs font-normal text-slate-800 uppercase tracking-wider block">
                     Plant &amp; Primary Asset Age Profile
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -247,7 +247,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                               : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
                           }`}
                         >
-                          <span className={`font-bold text-xs block ${isActive ? 'text-brand-electric' : 'text-slate-900'}`}>
+                          <span className={`font-normal text-xs block ${isActive ? 'text-brand-electric' : 'text-slate-900'}`}>
                             {a.label}
                           </span>
                           <span className="text-[11px] text-slate-600 block mt-0.5">
@@ -265,10 +265,10 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
             <div className="lg:col-span-5 space-y-6 sticky top-24">
               <div className="bg-white border border-slate-200 rounded-sm shadow-md p-6 sm:p-7 space-y-6">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                  <span className="font-mono text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <span className="font-mono text-[11px] font-normal text-slate-500 uppercase tracking-wider">
                     02 / Indicative Budget Model
                   </span>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-normal text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">
                     <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                     Live Estimate
                   </span>
@@ -283,7 +283,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                       backgroundImage: `radial-gradient(ellipse at 80% 0%, rgba(37, 99, 235, 0.6), transparent 70%)`,
                     }}
                   />
-                  <span className="text-[11px] font-medium uppercase tracking-wider text-slate-300 font-mono block">
+                  <span className="text-[11px] font-normal uppercase tracking-wider text-slate-300 font-mono block">
                     Estimated Annual PPM Range
                   </span>
                   <p className="text-2xl sm:text-3xl font-light text-white tracking-tight font-mono tabular-nums">
@@ -297,29 +297,29 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
 
                 {/* Trade Cost Breakdown Table */}
                 <div className="space-y-2.5">
-                  <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                  <h3 className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                     Indicative Trade Allocation
                   </h3>
                   <div className="border border-slate-200 rounded-sm bg-slate-50/50 divide-y divide-slate-200 text-xs">
                     <div className="p-3 flex items-center justify-between">
-                      <span className="text-slate-700 font-medium">HVAC &amp; Mechanical (38%)</span>
-                      <strong className="text-slate-900 font-mono font-bold">£{estimate.breakdown.hvac.toLocaleString()}</strong>
+                      <span className="text-slate-700 font-normal">HVAC &amp; Mechanical (38%)</span>
+                      <strong className="text-slate-900 font-mono font-light">£{estimate.breakdown.hvac.toLocaleString()}</strong>
                     </div>
                     <div className="p-3 flex items-center justify-between">
-                      <span className="text-slate-700 font-medium">Electrical &amp; Lighting (22%)</span>
-                      <strong className="text-slate-900 font-mono font-bold">£{estimate.breakdown.electrical.toLocaleString()}</strong>
+                      <span className="text-slate-700 font-normal">Electrical &amp; Lighting (22%)</span>
+                      <strong className="text-slate-900 font-mono font-light">£{estimate.breakdown.electrical.toLocaleString()}</strong>
                     </div>
                     <div className="p-3 flex items-center justify-between">
-                      <span className="text-slate-700 font-medium">Fire Safety &amp; Alarms (18%)</span>
-                      <strong className="text-slate-900 font-mono font-bold">£{estimate.breakdown.fireSafety.toLocaleString()}</strong>
+                      <span className="text-slate-700 font-normal">Fire Safety &amp; Alarms (18%)</span>
+                      <strong className="text-slate-900 font-mono font-light">£{estimate.breakdown.fireSafety.toLocaleString()}</strong>
                     </div>
                     <div className="p-3 flex items-center justify-between">
-                      <span className="text-slate-700 font-medium">Water Hygiene &amp; LRA (12%)</span>
-                      <strong className="text-slate-900 font-mono font-bold">£{estimate.breakdown.waterHygiene.toLocaleString()}</strong>
+                      <span className="text-slate-700 font-normal">Water Hygiene &amp; LRA (12%)</span>
+                      <strong className="text-slate-900 font-mono font-light">£{estimate.breakdown.waterHygiene.toLocaleString()}</strong>
                     </div>
                     <div className="p-3 flex items-center justify-between">
-                      <span className="text-slate-700 font-medium">Fabric &amp; Drainage (10%)</span>
-                      <strong className="text-slate-900 font-mono font-bold">£{estimate.breakdown.otherFabric.toLocaleString()}</strong>
+                      <span className="text-slate-700 font-normal">Fabric &amp; Drainage (10%)</span>
+                      <strong className="text-slate-900 font-mono font-light">£{estimate.breakdown.otherFabric.toLocaleString()}</strong>
                     </div>
                   </div>
                 </div>

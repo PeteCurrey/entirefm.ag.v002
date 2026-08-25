@@ -11,7 +11,7 @@ export default function TopicClustersPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Topic Cluster Architecture</h1>
+          <h1 className="text-2xl font-extralight text-white">Topic Cluster Architecture</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Evaluating performance and topical authority across all 11 core FM domains
           </p>
@@ -29,7 +29,7 @@ export default function TopicClustersPage() {
           <div key={c.cluster} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-bold text-white">{c.name}</h3>
+                <h3 className="text-sm font-normal text-white">{c.name}</h3>
                 <span className="text-xs text-zinc-500 font-mono">{c.cluster}</span>
               </div>
               <span className="text-xs bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded-full">
@@ -50,7 +50,7 @@ export default function TopicClustersPage() {
 
             <div className="pt-2 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-500">
               <span>{c.newOpportunitiesCount} open topic opportunities</span>
-              <span className="text-emerald-400 font-medium">Trend: {c.trend}</span>
+              <span className="text-emerald-400 font-normal">Trend: {c.trend}</span>
             </div>
           </div>
         ))}

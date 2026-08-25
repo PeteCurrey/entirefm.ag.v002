@@ -24,23 +24,23 @@ export function AssuranceFrameworkGraphic() {
             PROPORTIONATE ASSURANCE FORMULA
           </p>
           <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm font-mono text-slate-800">
-            <span className="px-3 py-1.5 bg-white border border-slate-300 rounded-sm font-bold text-slate-900">
+            <span className="px-3 py-1.5 bg-white border border-slate-300 rounded-sm font-light text-slate-900">
               Supplier Type
             </span>
-            <span className="text-slate-400 font-bold">&times;</span>
-            <span className="px-3 py-1.5 bg-white border border-slate-300 rounded-sm font-bold text-slate-900">
+            <span className="text-slate-400 font-light">&times;</span>
+            <span className="px-3 py-1.5 bg-white border border-slate-300 rounded-sm font-light text-slate-900">
               Service Scope
             </span>
-            <span className="text-slate-400 font-bold">&times;</span>
-            <span className="px-3 py-1.5 bg-white border border-slate-300 rounded-sm font-bold text-slate-900">
+            <span className="text-slate-400 font-light">&times;</span>
+            <span className="px-3 py-1.5 bg-white border border-slate-300 rounded-sm font-light text-slate-900">
               Operational Risk
             </span>
-            <span className="text-slate-400 font-bold">&times;</span>
-            <span className="px-3 py-1.5 bg-white border border-slate-300 rounded-sm font-bold text-slate-900">
+            <span className="text-slate-400 font-light">&times;</span>
+            <span className="px-3 py-1.5 bg-white border border-slate-300 rounded-sm font-light text-slate-900">
               Client &amp; Site Context
             </span>
-            <span className="text-slate-400 font-bold">=</span>
-            <span className="px-3.5 py-1.5 bg-slate-900 text-white rounded-sm font-bold">
+            <span className="text-slate-400 font-light">=</span>
+            <span className="px-3.5 py-1.5 bg-slate-900 text-white rounded-sm font-light">
               Required Assurance Profile
             </span>
           </div>
@@ -55,7 +55,7 @@ export function AssuranceFrameworkGraphic() {
                 <FileCheck className="h-5 w-5" />
               </div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">PILLAR 01</span>
-              <h3 className="text-base font-bold text-slate-900">Corporate &amp; Financial Verification</h3>
+              <h3 className="text-base font-light text-slate-900">Corporate &amp; Financial Verification</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-light">
                 Companies House standing, registered trading details, director verification, operational history, VAT &amp; tax compliance, and commercial bank validation.
               </p>
@@ -79,7 +79,7 @@ export function AssuranceFrameworkGraphic() {
                 <ShieldCheck className="h-5 w-5" />
               </div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">PILLAR 02</span>
-              <h3 className="text-base font-bold text-slate-900">Insurance Thresholds &amp; Indemnity</h3>
+              <h3 className="text-base font-light text-slate-900">Insurance Thresholds &amp; Indemnity</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-light">
                 Mandatory £5M–£20M Public Liability, £10M Employers Liability, Professional Indemnity for design scopes, and motor fleet cover verified on policy renewal.
               </p>
@@ -103,7 +103,7 @@ export function AssuranceFrameworkGraphic() {
                 <ShieldAlert className="h-5 w-5" />
               </div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">PILLAR 03</span>
-              <h3 className="text-base font-bold text-slate-900">Health, Safety &amp; SSIP Schemes</h3>
+              <h3 className="text-base font-light text-slate-900">Health, Safety &amp; SSIP Schemes</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-light">
                 H&amp;S policy appraisal, RAMS methodology review, RIDDOR reporting history, COSHH documentation, and SSIP accreditation (CHAS, SafeContractor, SMAS).
               </p>
@@ -127,7 +127,7 @@ export function AssuranceFrameworkGraphic() {
                 <Award className="h-5 w-5" />
               </div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">PILLAR 04</span>
-              <h3 className="text-base font-bold text-slate-900">Technical Competence &amp; Licences</h3>
+              <h3 className="text-base font-light text-slate-900">Technical Competence &amp; Licences</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-light">
                 Direct trade accreditations: Gas Safe, NICEIC/NAPIT, F-Gas/REFCOM, IRATA rope access, IPAF, PASMA, manufacturer OEM tickets, and CSCS/ECS cards.
               </p>

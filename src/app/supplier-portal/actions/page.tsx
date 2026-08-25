@@ -16,12 +16,12 @@ export default function SupplierPortalActionCentrePage() {
               <span className="text-[10.5px] font-mono uppercase tracking-widest text-slate-400">
                 ENTIRECAFM // OPERATIONAL ACTION CENTRE
               </span>
-              <h1 className="text-2xl font-bold text-slate-900 mt-1">
+              <h1 className="text-2xl font-extralight text-slate-900 mt-1">
                 Outstanding Compliance Actions
               </h1>
             </div>
 
-            <span className="text-xs font-mono font-bold px-2.5 py-1 bg-amber-100 text-amber-900 rounded">
+            <span className="text-xs font-mono font-light px-2.5 py-1 bg-amber-100 text-amber-900 rounded">
               2 Actions Required
             </span>
           </div>
@@ -31,7 +31,7 @@ export default function SupplierPortalActionCentrePage() {
               <div className="flex items-start gap-3">
                 <AlertCircle className="h-5 w-5 text-brand-pink shrink-0 mt-0.5" />
                 <div className="space-y-1">
-                  <div className="font-bold text-slate-900 text-sm">Site-Specific RAMS Sample Required</div>
+                  <div className="font-light text-slate-900 text-sm">Site-Specific RAMS Sample Required</div>
                   <p className="text-xs text-slate-600 font-light">
                     Upload a representative Risk Assessment &amp; Method Statement for HVAC chiller maintenance.
                   </p>
@@ -46,7 +46,7 @@ export default function SupplierPortalActionCentrePage() {
               <div className="flex items-start gap-3">
                 <FileText className="h-5 w-5 text-slate-700 shrink-0 mt-0.5" />
                 <div className="space-y-1">
-                  <div className="font-bold text-slate-900 text-sm">Supplier Agreement Signature Required</div>
+                  <div className="font-light text-slate-900 text-sm">Supplier Agreement Signature Required</div>
                   <p className="text-xs text-slate-600 font-light">
                     Please review and execute the 2026 Master Services Agreement and Code of Conduct.
                   </p>

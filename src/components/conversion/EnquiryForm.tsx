@@ -208,7 +208,7 @@ export function EnquiryForm({
 
         {enquiryId && (
           <div
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-sm font-mono text-xs font-semibold mb-6 ${
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-sm font-mono text-xs font-normal mb-6 ${
               isLight
                 ? 'bg-slate-100 border border-slate-200 text-slate-800'
                 : 'bg-brand-graphite border border-brand-edge-dark text-brand-pink-light'
@@ -226,7 +226,7 @@ export function EnquiryForm({
               : 'bg-brand-graphite border-brand-edge-dark text-slate-300'
           }`}
         >
-          <div className="font-semibold text-sm mb-1 text-slate-900 dark:text-white">
+          <div className="font-normal text-sm mb-1 text-slate-900 dark:text-white">
             Need immediate operational assistance?
           </div>
           <p className="mb-2">
@@ -234,7 +234,7 @@ export function EnquiryForm({
           </p>
           <a
             href={CONTACT_CONFIG.mainPhone.href}
-            className="text-brand-pink font-mono font-bold text-sm hover:underline inline-flex items-center gap-1.5"
+            className="text-brand-pink font-mono font-normal text-sm hover:underline inline-flex items-center gap-1.5"
           >
             {CONTACT_CONFIG.mainPhone.display}
           </a>
@@ -275,7 +275,7 @@ export function EnquiryForm({
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-2">
           <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-          <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+          <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
             {badgeText}
           </span>
         </div>
@@ -299,7 +299,7 @@ export function EnquiryForm({
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-sm flex items-start gap-3 text-red-800 text-sm">
           <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
           <div>
-            <strong className="block font-semibold">Submission Error</strong>
+            <strong className="block font-light">Submission Error</strong>
             <span>{errorMessage}</span>
           </div>
         </div>
@@ -315,7 +315,7 @@ export function EnquiryForm({
           <div>
             <label
               htmlFor="fullName"
-              className={`block text-xs font-bold tracking-tight mb-1.5 ${
+              className={`block text-xs font-normal tracking-tight mb-1.5 ${
                 isLight ? 'text-slate-800' : 'text-slate-200'
               }`}
             >
@@ -339,7 +339,7 @@ export function EnquiryForm({
           <div>
             <label
               htmlFor="company"
-              className={`block text-xs font-bold tracking-tight mb-1.5 ${
+              className={`block text-xs font-normal tracking-tight mb-1.5 ${
                 isLight ? 'text-slate-800' : 'text-slate-200'
               }`}
             >
@@ -365,7 +365,7 @@ export function EnquiryForm({
           <div>
             <label
               htmlFor="email"
-              className={`block text-xs font-bold tracking-tight mb-1.5 ${
+              className={`block text-xs font-normal tracking-tight mb-1.5 ${
                 isLight ? 'text-slate-800' : 'text-slate-200'
               }`}
             >
@@ -389,7 +389,7 @@ export function EnquiryForm({
           <div>
             <label
               htmlFor="phone"
-              className={`block text-xs font-bold tracking-tight mb-1.5 ${
+              className={`block text-xs font-normal tracking-tight mb-1.5 ${
                 isLight ? 'text-slate-800' : 'text-slate-200'
               }`}
             >
@@ -414,7 +414,7 @@ export function EnquiryForm({
           <div>
             <label
               htmlFor="serviceRequired"
-              className={`block text-xs font-bold tracking-tight mb-1.5 ${
+              className={`block text-xs font-normal tracking-tight mb-1.5 ${
                 isLight ? 'text-slate-800' : 'text-slate-200'
               }`}
             >
@@ -456,7 +456,7 @@ export function EnquiryForm({
           <div>
             <label
               htmlFor="siteLocation"
-              className={`block text-xs font-bold tracking-tight mb-1.5 ${
+              className={`block text-xs font-normal tracking-tight mb-1.5 ${
                 isLight ? 'text-slate-800' : 'text-slate-200'
               }`}
             >
@@ -480,7 +480,7 @@ export function EnquiryForm({
         <div>
           <label
             htmlFor="message"
-            className={`block text-xs font-bold tracking-tight mb-1.5 ${
+            className={`block text-xs font-normal tracking-tight mb-1.5 ${
               isLight ? 'text-slate-800' : 'text-slate-200'
             }`}
           >
@@ -510,7 +510,7 @@ export function EnquiryForm({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="btn-hero-pink w-full sm:w-auto px-9 py-3.5 text-sm font-bold shadow-elevated disabled:opacity-50 flex items-center justify-center gap-2 rounded-sm"
+            className="btn-hero-pink w-full sm:w-auto px-9 py-3.5 text-sm font-normal shadow-elevated disabled:opacity-50 flex items-center justify-center gap-2 rounded-sm"
           >
             {isSubmitting ? (
               <>

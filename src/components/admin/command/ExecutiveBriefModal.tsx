@@ -51,7 +51,7 @@ export function ExecutiveBriefModal({ brief, onGenerate, isGenerating, canGenera
               </div>
               <div className="flex items-center gap-4">
                 {brief && (
-                  <div className={`text-sm font-mono font-semibold ${STATUS_STYLE[brief.overall_status] || ''}`}>
+                  <div className={`text-sm font-mono font-light ${STATUS_STYLE[brief.overall_status] || ''}`}>
                     {brief.overall_status}
                   </div>
                 )}
@@ -68,7 +68,7 @@ export function ExecutiveBriefModal({ brief, onGenerate, isGenerating, canGenera
                 {brief.sections.map((section, i) => (
                   <div key={i} className="rounded border border-brand-edge-dark/40 bg-brand-void/10 p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <div className="text-[12.5px] font-semibold text-white">{section.title}</div>
+                      <div className="text-[12.5px] font-normal text-white">{section.title}</div>
                       <div className={`text-[9px] font-mono ${DATA_STATUS_STYLE[section.status] || 'text-brand-mist/40'}`}>
                         {section.status}
                       </div>

@@ -46,7 +46,7 @@ export function FieldPresencePanel({ summary, exceptions, onEngineerClick }: Fie
             <Users className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+            <h2 className="text-[12px] font-normal text-[#111111] uppercase tracking-wide">
               Field Presence
             </h2>
             <p className="text-[11px] text-[#6D6D68]">
@@ -56,7 +56,7 @@ export function FieldPresencePanel({ summary, exceptions, onEngineerClick }: Fie
             </p>
           </div>
         </div>
-        <Link href="/admin/operations/dispatch" className="text-[11.5px] font-medium text-[#6D6D68] hover:text-[#111111] transition-colors">
+        <Link href="/admin/operations/dispatch" className="text-[11.5px] font-normal text-[#6D6D68] hover:text-[#111111] transition-colors">
           Dispatch Matrix →
         </Link>
       </div>
@@ -64,13 +64,13 @@ export function FieldPresencePanel({ summary, exceptions, onEngineerClick }: Fie
       {!hasData ? (
         <div className="flex flex-col items-center justify-center p-8 text-center gap-2">
           <Truck className="h-6 w-6 text-[#9A9A95]" />
-          <p className="font-medium text-[#111111] text-[13px]">No active engineer telemetry</p>
+          <p className="font-normal text-[#111111] text-[13px]">No active engineer telemetry</p>
           <p className="text-[12px] text-[#6D6D68]">
             Engineer GPS arrivals and travel statuses appear automatically.
           </p>
           <Link
             href="/admin/supply-chain/engineers"
-            className="mt-2 inline-flex items-center gap-1.5 rounded-[4px] bg-[#111111] px-3 py-1.5 text-[11.5px] font-medium text-white hover:bg-[#252525] transition-colors"
+            className="mt-2 inline-flex items-center gap-1.5 rounded-[4px] bg-[#111111] px-3 py-1.5 text-[11.5px] font-normal text-white hover:bg-[#252525] transition-colors"
           >
             Manage Engineers
           </Link>
@@ -79,20 +79,20 @@ export function FieldPresencePanel({ summary, exceptions, onEngineerClick }: Fie
         <div className="p-4 space-y-4">
           <div className="grid grid-cols-4 gap-2 text-center text-[12px]">
             <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-2">
-              <div className="text-[10px] uppercase font-medium text-[#6D6D68]">On Site</div>
-              <div className="text-base font-semibold text-[#15803D] mt-0.5">{summary!.onSite}</div>
+              <div className="text-[10px] uppercase font-normal text-[#6D6D68]">On Site</div>
+              <div className="text-base font-light text-[#15803D] mt-0.5">{summary!.onSite}</div>
             </div>
             <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-2">
-              <div className="text-[10px] uppercase font-medium text-[#6D6D68]">Travelling</div>
-              <div className="text-base font-semibold text-[#1D4ED8] mt-0.5">{summary!.travelling}</div>
+              <div className="text-[10px] uppercase font-normal text-[#6D6D68]">Travelling</div>
+              <div className="text-base font-light text-[#1D4ED8] mt-0.5">{summary!.travelling}</div>
             </div>
             <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-2">
-              <div className="text-[10px] uppercase font-medium text-[#6D6D68]">Available</div>
-              <div className="text-base font-semibold text-[#111111] mt-0.5">{summary!.available}</div>
+              <div className="text-[10px] uppercase font-normal text-[#6D6D68]">Available</div>
+              <div className="text-base font-light text-[#111111] mt-0.5">{summary!.available}</div>
             </div>
             <div className="rounded-[6px] border border-[#E8E8E5] bg-[#FAFAF8] p-2">
-              <div className="text-[10px] uppercase font-medium text-[#6D6D68]">Delayed</div>
-              <div className="text-base font-semibold text-[#DC2626] mt-0.5">{summary!.runningLate}</div>
+              <div className="text-[10px] uppercase font-normal text-[#6D6D68]">Delayed</div>
+              <div className="text-base font-light text-[#DC2626] mt-0.5">{summary!.runningLate}</div>
             </div>
           </div>
 
@@ -112,7 +112,7 @@ export function FieldPresencePanel({ summary, exceptions, onEngineerClick }: Fie
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-[13px] font-medium text-[#101010] truncate">{eng.name}</span>
+                        <span className="text-[13px] font-normal text-[#101010] truncate">{eng.name}</span>
                         <Badge variant={sc.variant as any} size="xs">{sc.label}</Badge>
                       </div>
                       <div className="text-[11px] text-[#686866] truncate">{eng.currentSite}</div>

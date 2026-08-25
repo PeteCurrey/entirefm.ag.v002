@@ -29,7 +29,7 @@ export function SectorRelatedServices({
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 mb-2.5">
               <span className="h-2 w-2 rounded-full bg-brand-pink" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+              <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                 {eyebrow}
               </span>
             </div>
@@ -43,7 +43,7 @@ export function SectorRelatedServices({
 
           <Link
             href={allSectorsHref}
-            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-brand-pink bg-white border border-slate-200/90 px-4 py-2.5 rounded-sm shadow-sm transition-colors whitespace-nowrap self-start sm:self-auto"
+            className="inline-flex items-center gap-1.5 text-xs font-normal uppercase tracking-wider text-slate-700 hover:text-brand-pink bg-white border border-slate-200/90 px-4 py-2.5 rounded-sm shadow-sm transition-colors whitespace-nowrap self-start sm:self-auto"
           >
             <span>All 11 Sector Blueprints</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -59,15 +59,15 @@ export function SectorRelatedServices({
               className="bg-white border border-slate-200/90 p-5 rounded-sm flex flex-col justify-between group hover:border-brand-pink hover:shadow-md transition-all duration-200"
             >
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-semibold block mb-2">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-light block mb-2">
                   {svc.tag}
                 </span>
-                <h3 className="text-sm font-bold text-slate-900 group-hover:text-brand-pink transition-colors leading-snug">
+                <h3 className="text-sm font-normal text-slate-900 group-hover:text-brand-pink transition-colors leading-snug">
                   {svc.name}
                 </h3>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-500 group-hover:text-slate-900">
+              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-normal text-slate-500 group-hover:text-slate-900">
                 <span>View Discipline</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-pink group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </div>

@@ -93,8 +93,8 @@ export default async function SupplierInvoicesPage({
 
       {/* SUMMARY STRIP */}
       <div className="flex items-center justify-between text-xs font-mono text-brand-mist/60 bg-brand-void/40 p-3 rounded-lg border border-brand-edge-dark/50">
-        <div>Showing <span className="text-white font-bold">{invoices.length}</span> invoices</div>
-        <div>Total Value: <span className="text-brand-electric font-bold">£{totalValue.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
+        <div>Showing <span className="text-white font-light">{invoices.length}</span> invoices</div>
+        <div>Total Value: <span className="text-brand-electric font-light">£{totalValue.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
       </div>
 
       {invoices.length === 0 ? (
@@ -106,7 +106,7 @@ export default async function SupplierInvoicesPage({
       ) : (
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden shadow-2xl">
           <table className="w-full text-left text-xs font-mono text-brand-mist">
-            <thead className="bg-brand-void uppercase text-[10.5px] font-semibold text-brand-mist/70 border-b border-brand-edge-dark">
+            <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
               <tr>
                 <th className="p-3.5">Invoice Ref</th>
                 <th className="p-3.5">Supplier</th>
@@ -122,7 +122,7 @@ export default async function SupplierInvoicesPage({
             <tbody className="divide-y divide-brand-edge-dark/60">
               {invoices.map(inv => (
                 <tr key={inv.id} className="hover:bg-brand-edge-dark/20 transition-colors">
-                  <td className="p-3.5 font-bold text-white">
+                  <td className="p-3.5 font-light text-white">
                     <Link href={`/admin/finance/supplier-invoices/${inv.id}`} className="hover:text-brand-electric underline underline-offset-2">
                       {inv.invoice_ref}
                     </Link>
@@ -140,7 +140,7 @@ export default async function SupplierInvoicesPage({
                     )}
                   </td>
                   <td className="p-3.5">{inv.issue_date || '—'}</td>
-                  <td className="p-3.5 font-bold text-brand-electric">
+                  <td className="p-3.5 font-light text-brand-electric">
                     £{(Number(inv.total_amount_gbp) || 0).toFixed(2)}
                   </td>
                   <td className="p-3.5">
@@ -155,7 +155,7 @@ export default async function SupplierInvoicesPage({
                   </td>
                   <td className="p-3.5">
                     {inv.bank_details_change_alert && (
-                      <span className="inline-flex items-center gap-1 text-red-400 font-bold bg-red-950/60 px-2 py-0.5 rounded border border-red-800 text-[10px]">
+                      <span className="inline-flex items-center gap-1 text-red-400 font-light bg-red-950/60 px-2 py-0.5 rounded border border-red-800 text-[10px]">
                         <ShieldAlert className="h-3 w-3" /> BANK ALERT
                       </span>
                     )}

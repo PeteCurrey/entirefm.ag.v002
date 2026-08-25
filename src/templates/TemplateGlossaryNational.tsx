@@ -106,7 +106,7 @@ export function TemplateGlossaryNational() {
             <div className="max-w-4xl mt-6">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-white/[0.07] border border-white/15 backdrop-blur-sm mb-6">
                 <BookOpen className="h-4 w-4 text-brand-pink-light" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink-light">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
                   TECHNICAL REFERENCE & DIRECTORY
                 </span>
               </div>
@@ -156,7 +156,7 @@ export function TemplateGlossaryNational() {
                     setSelectedLetter(null);
                     setSelectedCategory(null);
                   }}
-                  className={`px-3 py-1.5 rounded-sm text-xs font-bold uppercase transition-colors ${
+                  className={`px-3 py-1.5 rounded-sm text-xs font-normal uppercase transition-colors ${
                     selectedLetter === null && selectedCategory === null
                       ? 'bg-brand-pink text-white'
                       : 'bg-white border border-brand-edge text-brand-graphite hover:border-brand-pink/50'
@@ -169,7 +169,7 @@ export function TemplateGlossaryNational() {
                     key={letter}
                     type="button"
                     onClick={() => setSelectedLetter(selectedLetter === letter ? null : letter)}
-                    className={`w-7 h-7 rounded-sm text-xs font-bold uppercase flex items-center justify-center transition-colors ${
+                    className={`w-7 h-7 rounded-sm text-xs font-normal uppercase flex items-center justify-center transition-colors ${
                       selectedLetter === letter
                         ? 'bg-brand-pink text-white'
                         : 'bg-white border border-brand-edge text-brand-graphite hover:border-brand-pink/50'
@@ -186,7 +186,7 @@ export function TemplateGlossaryNational() {
                 <select
                   value={selectedCategory || ''}
                   onChange={(e) => setSelectedCategory(e.target.value ? e.target.value : null)}
-                  className="w-full md:w-auto text-xs px-3 py-1.5 rounded-sm border border-brand-edge bg-white text-brand-graphite font-semibold focus:border-brand-pink focus:outline-none"
+                  className="w-full md:w-auto text-xs px-3 py-1.5 rounded-sm border border-brand-edge bg-white text-brand-graphite font-light focus:border-brand-pink focus:outline-none"
                 >
                   <option value="">All Categories ({categories.length})</option>
                   {categories.map((c) => (
@@ -204,7 +204,7 @@ export function TemplateGlossaryNational() {
         <section className="section bg-white">
           <div className="container-custom">
             <div className="mb-6 flex items-center justify-between">
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              <p className="text-xs font-normal uppercase tracking-wider text-slate-500">
                 Showing {filteredTerms.length} of {NATIONAL_GLOSSARY_TERMS.length} facilities management definitions
               </p>
             </div>
@@ -218,15 +218,15 @@ export function TemplateGlossaryNational() {
                 >
                   <div className="space-y-4">
                     <div className="flex items-start justify-between gap-4">
-                      <h2 className="text-xl sm:text-2xl font-bold text-brand-graphite tracking-tight">
+                      <h2 className="text-xl sm:text-2xl font-extralight text-brand-graphite tracking-tight">
                         {item.term}
                       </h2>
-                      <span className="px-2.5 py-1 rounded-sm bg-brand-surface border border-brand-edge text-[10px] font-bold uppercase tracking-wider text-slate-600 shrink-0">
+                      <span className="px-2.5 py-1 rounded-sm bg-brand-surface border border-brand-edge text-[10px] font-normal uppercase tracking-wider text-slate-600 shrink-0">
                         {item.category}
                       </span>
                     </div>
 
-                    <p className="text-sm font-semibold text-brand-graphite leading-relaxed">
+                    <p className="text-sm font-normal text-brand-graphite leading-relaxed">
                       {item.shortDefinition}
                     </p>
 
@@ -235,13 +235,13 @@ export function TemplateGlossaryNational() {
                     </div>
 
                     <div className="p-3.5 rounded-sm bg-brand-surface/70 border border-brand-edge text-xs leading-relaxed text-slate-700">
-                      <span className="font-bold text-brand-graphite block mb-1">Why it matters for commercial estates:</span>
+                      <span className="font-light text-brand-graphite block mb-1">Why it matters for commercial estates:</span>
                       {item.whyItMatters}
                     </div>
 
                     {item.relatedTerms.length > 0 && (
                       <div className="pt-2 flex flex-wrap items-center gap-1.5">
-                        <span className="text-[11px] font-bold text-slate-500 mr-1">Related terms:</span>
+                        <span className="text-[11px] font-normal text-slate-500 mr-1">Related terms:</span>
                         {item.relatedTerms.map((rt) => (
                           <span
                             key={rt}
@@ -258,7 +258,7 @@ export function TemplateGlossaryNational() {
                     <div className="mt-6 pt-4 border-t border-brand-edge flex items-center justify-between">
                       <Link
                         href={item.serviceLink.href}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-pink hover:text-brand-magenta transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-pink hover:text-brand-magenta transition-colors"
                       >
                         <span>{item.serviceLink.label}</span>
                         <ArrowRight className="h-3.5 w-3.5" />
@@ -273,7 +273,7 @@ export function TemplateGlossaryNational() {
             {filteredTerms.length === 0 && (
               <div className="p-12 text-center border border-dashed border-brand-edge rounded-sm bg-brand-surface">
                 <BookOpen className="h-8 w-8 text-slate-400 mx-auto mb-3" />
-                <h3 className="text-lg font-bold text-brand-graphite">No glossary definitions found</h3>
+                <h3 className="text-lg font-light text-brand-graphite">No glossary definitions found</h3>
                 <p className="text-xs text-slate-600 mt-1 max-w-md mx-auto">
                   No term matches your current search or category filter. Try clearing filters to explore the full A–Z directory.
                 </p>
@@ -284,7 +284,7 @@ export function TemplateGlossaryNational() {
                     setSelectedLetter(null);
                     setSelectedCategory(null);
                   }}
-                  className="btn-primary mt-4 py-2 px-4 text-xs font-bold"
+                  className="btn-primary mt-4 py-2 px-4 text-xs font-normal"
                 >
                   Reset filters
                 </button>
@@ -299,11 +299,11 @@ export function TemplateGlossaryNational() {
             <div className="max-w-3xl mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white border border-brand-edge mb-4">
                 <MapPin className="h-3.5 w-3.5 text-brand-pink" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-graphite">
+                <span className="text-[11px] font-normal uppercase tracking-wider text-brand-graphite">
                   REGIONAL FM STANDARDS
                 </span>
               </div>
-              <h2 className="text-display-md text-brand-graphite font-bold tracking-tight">
+              <h2 className="text-display-md text-brand-graphite font-extralight tracking-tight">
                 Facilities Management Terminology by Location
               </h2>
               <p className="mt-4 text-[15px] leading-relaxed text-slate-600">
@@ -317,7 +317,7 @@ export function TemplateGlossaryNational() {
                   key={regionName}
                   className="p-6 rounded-sm bg-white border border-brand-edge shadow-subtle space-y-4"
                 >
-                  <h3 className="text-base font-bold text-brand-graphite uppercase tracking-wider border-b border-brand-edge pb-2 flex items-center justify-between">
+                  <h3 className="text-base font-light text-brand-graphite uppercase tracking-wider border-b border-brand-edge pb-2 flex items-center justify-between">
                     <span>{regionName}</span>
                     <span className="text-xs font-mono text-brand-pink">({cityList.length})</span>
                   </h3>
@@ -326,7 +326,7 @@ export function TemplateGlossaryNational() {
                       <li key={c.slug}>
                         <Link
                           href={`/facilities-management-glossary-${c.slug}`}
-                          className="group flex items-center justify-between text-xs sm:text-[13px] font-semibold text-slate-700 hover:text-brand-pink transition-colors py-1"
+                          className="group flex items-center justify-between text-xs sm:text-[13px] font-normal text-slate-700 hover:text-brand-pink transition-colors py-1"
                         >
                           <span>{c.city} FM Glossary</span>
                           <ArrowRight className="h-3 w-3 text-slate-400 group-hover:text-brand-pink group-hover:translate-x-0.5 transition-all" />

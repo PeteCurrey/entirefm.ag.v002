@@ -70,7 +70,7 @@ export function LegalLayout({
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="badge-gold">{eyebrow}</span>
                   {categoryTitle && (
-                    <span className="rounded-md bg-white/10 px-2.5 py-0.5 text-xs font-medium text-slate-300">
+                    <span className="rounded-md bg-white/10 px-2.5 py-0.5 text-xs font-normal text-slate-300">
                       {categoryTitle}
                     </span>
                   )}
@@ -103,7 +103,7 @@ export function LegalLayout({
             {/* Key Takeaways Box (Layered Disclosure) */}
             {keyTakeaways.length > 0 && (
               <div className="mt-8 rounded-xl border border-indigo-500/30 bg-indigo-950/40 p-5 backdrop-blur-xs sm:p-6">
-                <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-electric-bright">
+                <p className="flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-brand-electric-bright">
                   <ShieldCheck className="h-4 w-4" />
                   Summary at a Glance
                 </p>
@@ -133,7 +133,7 @@ export function LegalLayout({
 
                   {/* Closing Corporate Authority Statement */}
                   <div className="mt-12 rounded-xl border border-slate-100 bg-slate-50 p-6 text-xs text-slate-500 leading-relaxed">
-                    <p className="font-semibold text-slate-700">
+                    <p className="font-light text-slate-700">
                       Authorised by: EntireFM Legal, Risk & Compliance Committee
                     </p>
                     <p className="mt-1">
@@ -152,10 +152,10 @@ export function LegalLayout({
                 {relatedPolicies.length > 0 && (
                   <div className="mt-12 border-t border-slate-200 pt-8 print:hidden">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-base font-bold text-slate-900">Related Governance Policies</h3>
+                      <h3 className="text-base font-light text-slate-900">Related Governance Policies</h3>
                       <Link
                         href="/legal"
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:underline"
+                        className="inline-flex items-center gap-1 text-xs font-normal text-indigo-600 hover:underline"
                       >
                         View Legal Centre
                         <ArrowRight className="h-3 w-3" />
@@ -169,7 +169,7 @@ export function LegalLayout({
                           href={p.href}
                           className="group rounded-xl border border-slate-200 bg-white p-4 transition-all hover:border-indigo-300 hover:shadow-xs"
                         >
-                          <p className="text-sm font-semibold text-slate-900 group-hover:text-indigo-600">
+                          <p className="text-sm font-normal text-slate-900 group-hover:text-indigo-600">
                             {p.title}
                           </p>
                           {p.description && (

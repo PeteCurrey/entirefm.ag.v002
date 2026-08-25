@@ -20,7 +20,7 @@ export default async function ContractorSchedulePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">Resource Schedule Matrix</h1>
+        <h1 className="text-2xl font-extralight text-white tracking-tight">Resource Schedule Matrix</h1>
         <p className="text-brand-mist text-sm mt-1">Timeline view of scheduled field visits across your deployed engineers.</p>
       </div>
 
@@ -34,7 +34,7 @@ export default async function ContractorSchedulePage() {
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm text-brand-mist">
-              <thead className="bg-brand-void text-xs uppercase font-semibold text-brand-mist border-b border-brand-edge-dark">
+              <thead className="bg-brand-void text-xs uppercase font-light text-brand-mist border-b border-brand-edge-dark">
                 <tr>
                   <th className="p-4">Date & Time</th>
                   <th className="p-4">Work Order</th>
@@ -55,7 +55,7 @@ export default async function ContractorSchedulePage() {
                         )}
                       </div>
                     </td>
-                    <td className="p-4 font-mono font-bold text-white">
+                    <td className="p-4 font-mono font-light text-white">
                       {v.work_order?.reference || v.id.slice(0, 8)}
                     </td>
                     <td className="p-4 text-white">
@@ -65,7 +65,7 @@ export default async function ContractorSchedulePage() {
                       </div>
                     </td>
                     <td className="p-4">
-                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-brand-void text-white">
+                      <span className="text-xs font-normal px-2 py-0.5 rounded bg-brand-void text-white">
                         {v.work_order?.priority || 'P3'}
                       </span>
                     </td>

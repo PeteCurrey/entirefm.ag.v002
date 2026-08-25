@@ -200,7 +200,7 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
                 <span className="eyebrow eyebrow-dark">Curriculum Pathway</span>
-                <h2 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
+                <h2 className="mt-2 text-2xl font-extralight text-white sm:text-3xl">
                   Core Operational Modules
                 </h2>
                 <p className="text-xs text-brand-mist/60 mt-1 max-w-xl">
@@ -212,7 +212,7 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
               <div className="p-3.5 rounded-sm bg-brand-graphite border border-brand-edge-dark text-xs flex items-center gap-3">
                 <div className="flex items-center gap-2">
                   <Award className="h-4 w-4 text-brand-electric-bright" />
-                  <span className="text-brand-mist/80 font-medium">Progress:</span>
+                  <span className="text-brand-mist/80 font-normal">Progress:</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-24 h-2 bg-brand-void rounded-full overflow-hidden border border-brand-edge-dark">
@@ -221,7 +221,7 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
                       style={{ width: `${(completedCount / totalModules) * 100}%` }}
                     />
                   </div>
-                  <span className="font-mono text-brand-electric-bright font-bold">
+                  <span className="font-mono text-brand-electric-bright font-light">
                     {completedCount}/{totalModules}
                   </span>
                 </div>
@@ -243,10 +243,10 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-3">
                         <div className="flex items-center gap-2">
-                          <span className="text-[11px] font-mono text-brand-electric-bright font-bold uppercase tracking-wider">
+                          <span className="text-[11px] font-mono text-brand-electric-bright font-light uppercase tracking-wider">
                             {mod.moduleNumber}
                           </span>
-                          <span className={`px-2 py-0.5 rounded-sm border text-[10px] font-mono font-semibold ${getLevelBadgeClass(mod.level)}`}>
+                          <span className={`px-2 py-0.5 rounded-sm border text-[10px] font-mono font-light ${getLevelBadgeClass(mod.level)}`}>
                             {mod.level}
                           </span>
                         </div>
@@ -256,7 +256,7 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
                         </div>
                       </div>
 
-                      <h3 className="text-lg font-bold text-white leading-snug">
+                      <h3 className="text-lg font-light text-white leading-snug">
                         {mod.title}
                       </h3>
                       <p className="mt-2 text-xs text-brand-mist/75 leading-relaxed">
@@ -264,7 +264,7 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
                       </p>
 
                       <div className="mt-5 pt-4 border-t border-brand-edge-dark">
-                        <h4 className="text-[11px] font-semibold uppercase tracking-wider text-brand-mist/40 mb-2">
+                        <h4 className="text-[11px] font-normal uppercase tracking-wider text-brand-mist/40 mb-2">
                           Core Learning Points:
                         </h4>
                         <ul className="space-y-1.5 text-xs text-brand-mist/80">
@@ -282,7 +282,7 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
                       <button
                         type="button"
                         onClick={() => toggleModuleCompletion(mod.id)}
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[11px] font-medium transition-colors border ${
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[11px] font-normal transition-colors border ${
                           isCompleted
                             ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/30'
                             : 'bg-white/[0.04] text-brand-mist/70 border-brand-edge-dark hover:border-brand-edge-light hover:text-white'
@@ -294,7 +294,7 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
 
                       <Link
                         href={mod.relatedTool.href}
-                        className="text-brand-electric-bright font-semibold hover:underline inline-flex items-center gap-1 shrink-0"
+                        className="text-brand-electric-bright font-light hover:underline inline-flex items-center gap-1 shrink-0"
                       >
                         Practice Tool: {mod.relatedTool.label} <ArrowRight className="h-3 w-3" />
                       </Link>
@@ -306,7 +306,7 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
 
             {/* Honest Accreditation Notice */}
             <div className="mt-12 rounded-sm bg-white/[0.02] border border-brand-edge-dark p-6 text-xs text-brand-mist/60 leading-relaxed">
-              <h4 className="font-semibold text-white mb-1">About EntireFM Academy</h4>
+              <h4 className="font-light text-white mb-1">About EntireFM Academy</h4>
               <p>
                 EntireFM Academy is created and maintained by EntireFM's senior engineering and compliance personnel to elevate facilities management standards across UK commercial property. These modules are practical operational guides and do not confer academic degree credits or formal NVQ accreditations.
               </p>

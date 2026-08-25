@@ -28,17 +28,17 @@ export function DuplicateReviewCard({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[11px] font-semibold text-[#B45309]">ROW #{row.row_index}</span>
+              <span className="font-mono text-[11px] font-normal text-[#B45309]">ROW #{row.row_index}</span>
               {extId && (
                 <span className="rounded-[4px] bg-[#FEF3C7] border border-[#FDE68A] px-1.5 py-0.5 font-mono text-[10px] text-[#92400E]">
                   ID: {extId}
                 </span>
               )}
             </div>
-            <h4 className="font-semibold text-[13.5px] text-[#92400E] mt-0.5">{displayName}</h4>
+            <h4 className="font-light text-[13.5px] text-[#92400E] mt-0.5">{displayName}</h4>
           </div>
         </div>
-        <span className="rounded-[5px] bg-[#FEF3C7] border border-[#FDE68A] px-2 py-0.5 font-mono text-[10px] font-semibold text-[#92400E]">
+        <span className="rounded-[5px] bg-[#FEF3C7] border border-[#FDE68A] px-2 py-0.5 font-mono text-[10px] font-normal text-[#92400E]">
           DUPLICATE
         </span>
       </div>
@@ -58,7 +58,7 @@ export function DuplicateReviewCard({
         <div className="flex items-center gap-2 pt-1">
           <button
             onClick={() => onAction('SKIP')}
-            className="rounded-[6px] bg-[#FFFFFF] border border-[#E4E4E1] px-3 py-1 text-[11.5px] font-medium text-[#686866] hover:text-[#101010]"
+            className="rounded-[6px] bg-[#FFFFFF] border border-[#E4E4E1] px-3 py-1 text-[11.5px] font-normal text-[#686866] hover:text-[#101010]"
           >
             Keep Skipped
           </button>

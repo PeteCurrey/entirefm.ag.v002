@@ -103,7 +103,7 @@ export function BuildingSystemsMap() {
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-pink-light">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
               M&E TECHNICAL ARCHITECTURE
             </span>
           </div>
@@ -148,7 +148,7 @@ export function BuildingSystemsMap() {
                       <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink-light block">
                         {system.category}
                       </span>
-                      <strong className="text-sm font-bold block truncate mt-0.5">
+                      <strong className="text-sm font-normal block truncate mt-0.5">
                         {system.name}
                       </strong>
                     </div>
@@ -184,7 +184,7 @@ export function BuildingSystemsMap() {
             {/* System Specs & Component Architecture */}
             <div className="p-7 sm:p-8 flex-1 flex flex-col justify-between">
               <div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+                <h3 className="text-xl sm:text-2xl font-extralight text-white mb-3">
                   {activeSystem.name}
                 </h3>
                 <p className="text-sm text-slate-300 leading-relaxed mb-6">
@@ -192,7 +192,7 @@ export function BuildingSystemsMap() {
                 </p>
 
                 <div className="mb-6">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-3">
+                  <span className="text-xs font-normal text-slate-400 uppercase tracking-wider block mb-3">
                     Key Infrastructure Components Maintained
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -211,7 +211,7 @@ export function BuildingSystemsMap() {
 
               <div className="pt-4 border-t border-brand-edge-dark flex items-center justify-between text-xs text-slate-400">
                 <span>Statutory Governance:</span>
-                <span className="text-brand-pink-light font-mono font-semibold text-right">
+                <span className="text-brand-pink-light font-mono font-light text-right">
                   {activeSystem.statutoryStandard}
                 </span>
               </div>

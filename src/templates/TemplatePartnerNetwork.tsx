@@ -138,7 +138,7 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
             <div className="max-w-3xl mb-12">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                   PARTNERSHIP FRAMEWORKS
                 </span>
               </div>
@@ -153,7 +153,7 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-8 bg-white border border-slate-200 rounded-sm shadow-sm space-y-4">
                 <Building className="w-7 h-7 text-brand-pink" />
-                <h3 className="text-lg font-bold text-slate-900">Portfolio FM Agreements</h3>
+                <h3 className="text-lg font-light text-slate-900">Portfolio FM Agreements</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Consolidated multi-site facilities management across your managed property instructions, backed by dedicated account management and centralised monthly billing.
                 </p>
@@ -171,7 +171,7 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
 
               <div className="p-8 bg-white border border-slate-200 rounded-sm shadow-sm space-y-4">
                 <FileCheck className="w-7 h-7 text-brand-pink" />
-                <h3 className="text-lg font-bold text-slate-900">Technical M&amp;E Dilapidations</h3>
+                <h3 className="text-lg font-light text-slate-900">Technical M&amp;E Dilapidations</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Working alongside chartered surveyors to price, scope, and deliver complex mechanical, electrical, and fabric remedial works at lease-end or during refurbishment.
                 </p>
@@ -189,7 +189,7 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
 
               <div className="p-8 bg-white border border-slate-200 rounded-sm shadow-sm space-y-4">
                 <Compass className="w-7 h-7 text-brand-pink" />
-                <h3 className="text-lg font-bold text-slate-900">Developer Mobilisation</h3>
+                <h3 className="text-lg font-light text-slate-900">Developer Mobilisation</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Engaging prior to practical completion to build digital asset registers, establish baseline SFG20 PPM schedules, and ensure a flawless handover into live occupation.
                 </p>
@@ -214,11 +214,11 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
             <div className="mb-10">
               <div className="inline-flex items-center gap-2 mb-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                   PARTNERSHIP ENQUIRY
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+              <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900">
                 Explore a B2B Collaboration Framework
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-2">
@@ -231,14 +231,14 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
                 <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold text-emerald-900">Partnership Enquiry Logged</h3>
+                <h3 className="text-xl font-light text-emerald-900">Partnership Enquiry Logged</h3>
                 <p className="text-xs sm:text-sm text-emerald-800 max-w-lg mx-auto leading-relaxed">
                   Thank you for reaching out to EntireFM. Your enquiry has been routed directly to our commercial partnerships team. We will review your portfolio requirements and arrange an introductory discussion.
                 </p>
                 <div className="pt-3">
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="text-xs font-bold text-emerald-900 underline hover:text-emerald-700"
+                    className="text-xs font-normal text-emerald-900 underline hover:text-emerald-700"
                   >
                     Submit another partnership enquiry
                   </button>
@@ -255,13 +255,13 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
 
                 {/* Partner Category & Org */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-2">
+                  <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-2">
                     1. Professional Organisation Details
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Partner Category *
                       </label>
                       <select
@@ -279,7 +279,7 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Company Name *
                       </label>
                       <input
@@ -295,7 +295,7 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Contact Name *
                       </label>
                       <input
@@ -309,7 +309,7 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Business Email *
                       </label>
                       <input
@@ -323,7 +323,7 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                         Direct Telephone *
                       </label>
                       <input
@@ -340,12 +340,12 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
 
                 {/* Scope & Collaboration */}
                 <div className="space-y-4 pt-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-2">
+                  <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-2">
                     2. Portfolio Scope &amp; Collaboration Focus
                   </h3>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-2">
                       Select Areas of Interest / Collaboration *
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -364,14 +364,14 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
                             onChange={() => handleInterestToggle(area)}
                             className="h-4 w-4 rounded border-slate-300 text-brand-pink focus:ring-brand-pink"
                           />
-                          <span className="text-xs font-medium">{area}</span>
+                          <span className="text-xs font-normal">{area}</span>
                         </label>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Portfolio Summary / Opportunity Overview *
                     </label>
                     <textarea
@@ -408,7 +408,7 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full sm:w-auto px-8 py-3.5 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors shadow-sm disabled:opacity-50"
+                    className="w-full sm:w-auto px-8 py-3.5 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-normal uppercase tracking-wider rounded-sm transition-colors shadow-sm disabled:opacity-50"
                   >
                     {loading ? 'Submitting Enquiry...' : 'Submit Partnership Enquiry'}
                   </button>

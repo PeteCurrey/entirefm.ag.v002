@@ -53,7 +53,7 @@ export function LiveWorkloadPipeline({
             <Layers className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+            <h2 className="text-[12px] font-normal text-[#111111] uppercase tracking-wide">
               Live Workload Pipeline
             </h2>
             <p className="text-[11px] text-[#6D6D68]">
@@ -63,7 +63,7 @@ export function LiveWorkloadPipeline({
             </p>
           </div>
         </div>
-        <Link href="/admin/operations/work-orders" className="text-[11.5px] font-medium text-[#EA580C] hover:underline transition-colors">
+        <Link href="/admin/operations/work-orders" className="text-[11.5px] font-normal text-[#EA580C] hover:underline transition-colors">
           Work Orders Hub →
         </Link>
       </div>
@@ -87,7 +87,7 @@ export function LiveWorkloadPipeline({
                 <span className="text-[10.5px] uppercase font-medium text-[#6D6D68]">{step.label}</span>
                 <Icon className={`h-3 w-3 ${step.color}`} />
               </div>
-              <div className={`text-xl font-semibold tabular-nums ${step.color}`}>
+              <div className={`text-xl font-light tabular-nums ${step.color}`}>
                 {noData ? '—' : step.count}
               </div>
             </button>

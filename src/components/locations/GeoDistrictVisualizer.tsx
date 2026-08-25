@@ -62,7 +62,7 @@ export function GeoDistrictVisualizer({
                   </div>
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" title="Active Engineering Coverage" />
                 </div>
-                <h3 className="text-sm sm:text-base font-bold text-brand-graphite leading-snug group-hover:text-brand-graphite">
+                <h3 className="text-sm sm:text-base font-light text-brand-graphite leading-snug group-hover:text-brand-graphite">
                   {district.name}
                 </h3>
                 <p className="mt-2 text-xs leading-relaxed text-brand-silver">
@@ -72,7 +72,7 @@ export function GeoDistrictVisualizer({
 
               <div className="mt-4 pt-3 border-t border-brand-edge/60 flex items-center justify-between text-[11px] font-mono text-brand-silver">
                 <span>Active Coverage</span>
-                <span className="text-emerald-700 font-semibold">24/7 Response</span>
+                <span className="text-emerald-700 font-light">24/7 Response</span>
               </div>
             </div>
           ))}
@@ -86,7 +86,7 @@ export function GeoDistrictVisualizer({
               <strong>Note on Coverage:</strong> Listed districts represent active service territories and mobile engineering deployment, coordinated through our central operational desk.
             </span>
           </div>
-          <a href="#enquiry" className="inline-flex items-center gap-1 font-semibold text-brand-pink hover:underline shrink-0">
+          <a href="#enquiry" className="inline-flex items-center gap-1 font-light text-brand-pink hover:underline shrink-0">
             Check Your Specific Site
             <ArrowRight className="h-3 w-3" />
           </a>

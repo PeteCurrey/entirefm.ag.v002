@@ -62,9 +62,9 @@ export function SupplierHeaderNav() {
             <Link
               key={tab.href}
               href={tab.href}
-              className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors whitespace-nowrap ${
+              className={`px-3 py-1.5 rounded text-xs font-mono font-normal transition-colors whitespace-nowrap ${
                 isActive
-                  ? 'bg-slate-900 text-white font-semibold shadow-sm'
+                  ? 'bg-slate-900 text-white font-light shadow-sm'
                   : isCommercial
                   ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'

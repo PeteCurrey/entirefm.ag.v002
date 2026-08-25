@@ -13,10 +13,10 @@ export default async function TargetPartnersPage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
             PROACTIVE PROCUREMENT RECRUITMENT
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight text-slate-900 mt-1">
             Target Partners Board
           </h1>
           <p className="text-xs text-slate-600 font-light mt-1">
@@ -61,14 +61,14 @@ export default async function TargetPartnersPage() {
               {targets.map((t) => (
                 <tr key={t.id} className="hover:bg-slate-50/50">
                   <td className="py-3 px-4">
-                    <span className={`inline-block text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+                    <span className={`inline-block text-[10px] font-mono font-light px-2 py-0.5 rounded ${
                       t.priority === 'CRITICAL' ? 'bg-rose-600 text-white' : t.priority === 'HIGH' ? 'bg-amber-500 text-white' : 'bg-slate-700 text-white'
                     }`}>
                       {t.priority}
                     </span>
                   </td>
                   <td className="py-3 px-4">
-                    <div className="font-bold text-slate-900">{t.company_name}</div>
+                    <div className="font-light text-slate-900">{t.company_name}</div>
                     {t.website_url && (
                       <a href={t.website_url} target="_blank" rel="noopener noreferrer" className="text-[10.5px] font-mono text-slate-400 hover:text-brand-pink underline inline-flex items-center gap-0.5">
                         {t.website_url.replace(/^https?:\/\//, '')} <ArrowUpRight className="h-2.5 w-2.5" />
@@ -91,7 +91,7 @@ export default async function TargetPartnersPage() {
                     </div>
                   </td>
                   <td className="py-3 px-4">
-                    <span className="inline-block text-[10.5px] font-mono font-semibold px-2 py-0.5 rounded bg-slate-900 text-white">
+                    <span className="inline-block text-[10.5px] font-mono font-light px-2 py-0.5 rounded bg-slate-900 text-white">
                       {t.target_status.replace(/_/g, ' ')}
                     </span>
                   </td>

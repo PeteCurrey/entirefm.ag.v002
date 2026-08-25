@@ -23,10 +23,10 @@ export default async function SupplierPerformanceOverviewPage() {
       {/* Header Banner */}
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
             EVIDENCE-LED SUPPLY CHAIN INTELLIGENCE
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight text-slate-900 mt-1">
             Supplier Performance Control Centre
           </h1>
           <p className="text-xs text-slate-600 font-light mt-1">
@@ -45,25 +45,25 @@ export default async function SupplierPerformanceOverviewPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
           <span className="text-[10px] font-mono uppercase text-slate-400">NETWORK MEDIAN SLA</span>
-          <div className="text-2xl font-mono font-bold text-emerald-600">92.8%</div>
+          <div className="text-2xl font-mono font-light text-emerald-600">92.8%</div>
           <span className="text-[10.5px] font-mono text-slate-500">Based on 182 verified visits</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
           <span className="text-[10px] font-mono uppercase text-slate-400">FIRST-TIME FIX (FTF)</span>
-          <div className="text-2xl font-mono font-bold text-slate-900">86.4%</div>
+          <div className="text-2xl font-mono font-light text-slate-900">86.4%</div>
           <span className="text-[10.5px] font-mono text-slate-500">Single attendance resolution</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
           <span className="text-[10px] font-mono uppercase text-slate-400">PERFORMANCE WATCHLIST</span>
-          <div className="text-2xl font-mono font-bold text-amber-600">{watchCount}</div>
+          <div className="text-2xl font-mono font-light text-amber-600">{watchCount}</div>
           <span className="text-[10.5px] font-mono text-slate-500">Requires Intervention</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
           <span className="text-[10px] font-mono uppercase text-slate-400">ACTIVE PIPs</span>
-          <div className="text-2xl font-mono font-bold text-rose-600">{activePips.length}</div>
+          <div className="text-2xl font-mono font-light text-rose-600">{activePips.length}</div>
           <span className="text-[10.5px] font-mono text-slate-500">Formal Improvement Plans</span>
         </div>
       </div>
@@ -73,10 +73,10 @@ export default async function SupplierPerformanceOverviewPage() {
         {/* Scorecards Snapshot */}
         <div className="lg:col-span-8 bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+            <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
               Supplier Performance Scorecards
             </h3>
-            <Link href="/admin/suppliers/performance/scorecards" className="text-xs font-mono text-brand-pink font-semibold underline">
+            <Link href="/admin/suppliers/performance/scorecards" className="text-xs font-mono text-brand-pink font-light underline">
               View All
             </Link>
           </div>
@@ -85,18 +85,18 @@ export default async function SupplierPerformanceOverviewPage() {
             {scorecards.map((sc) => (
               <div key={sc.supplier_id} className="py-3 flex items-center justify-between gap-4">
                 <div>
-                  <div className="font-bold text-slate-900 font-sans">{sc.supplier_name}</div>
+                  <div className="font-light text-slate-900 font-sans">{sc.supplier_name}</div>
                   <span className="text-slate-500 text-[11px]">
                     SLA: <strong className="text-emerald-700">{sc.sla_attendance_rate.value}%</strong> &middot; FTF: <strong className="text-slate-800">{sc.first_time_fix_rate.value}%</strong> &middot; Evidence: <strong className="text-slate-800">{sc.evidence_acceptance_rate.value}%</strong>
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded ${
+                  <span className={`inline-block text-[10px] font-normal px-2 py-0.5 rounded ${
                     sc.overall_status === 'EXCELLENT' ? 'bg-emerald-100 text-emerald-800' : sc.overall_status === 'WATCH' ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-800'
                   }`}>
                     {sc.overall_status}
                   </span>
-                  <Link href={`/admin/suppliers/${sc.supplier_id}`} className="text-brand-pink font-semibold underline font-sans">
+                  <Link href={`/admin/suppliers/${sc.supplier_id}`} className="text-brand-pink font-light underline font-sans">
                     Scorecard &rarr;
                   </Link>
                 </div>
@@ -108,10 +108,10 @@ export default async function SupplierPerformanceOverviewPage() {
         {/* Active Improvement Plans */}
         <div className="lg:col-span-4 bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+            <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
               Active Improvement Plans
             </h3>
-            <Link href="/admin/suppliers/performance/improvement" className="text-xs font-mono text-brand-pink font-semibold underline">
+            <Link href="/admin/suppliers/performance/improvement" className="text-xs font-mono text-brand-pink font-light underline">
               View All
             </Link>
           </div>
@@ -124,7 +124,7 @@ export default async function SupplierPerformanceOverviewPage() {
             <div className="divide-y divide-slate-100 text-xs font-mono">
               {activePips.map((p) => (
                 <div key={p.id} className="py-3 space-y-1">
-                  <div className="flex justify-between font-bold">
+                  <div className="flex justify-between font-light">
                     <span className="text-slate-900 font-sans">{p.supplier_name}</span>
                     <span className="text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded text-[10px]">{p.status}</span>
                   </div>

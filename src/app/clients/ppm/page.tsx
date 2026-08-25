@@ -45,7 +45,7 @@ export default async function ClientPpmPage() {
               list.map((occ) => (
                 <tr key={occ.id} className="hover:bg-brand-void/30 transition-colors">
                   <td className="px-6 py-3.5 font-mono text-brand-electric-bright">{occ.occurrence_code}</td>
-                  <td className="px-6 py-3.5 font-medium text-white">{occ.asset?.name || 'Asset'}</td>
+                  <td className="px-6 py-3.5 font-normal text-white">{occ.asset?.name || 'Asset'}</td>
                   <td className="px-6 py-3.5">{occ.plan?.name || 'PPM Plan'}</td>
                   <td className="px-6 py-3.5 font-mono text-[12px]">{occ.planned_date || '—'}</td>
                   <td className="px-6 py-3.5">

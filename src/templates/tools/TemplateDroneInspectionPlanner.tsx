@@ -56,7 +56,7 @@ export function TemplateDroneInspectionPlanner({
                 <Link href="/services/drone-services" className="hover:text-white transition-colors">Drone Services</Link>
               </li>
               <li>/</li>
-              <li className="text-brand-pink font-semibold" aria-current="page">
+              <li className="text-brand-pink font-light" aria-current="page">
                 Inspection Planner
               </li>
             </ol>
@@ -72,10 +72,10 @@ export function TemplateDroneInspectionPlanner({
           {/* Cross-Link Exploration Grid */}
           <section className="p-8 rounded-[14px] bg-brand-carbon border border-brand-edge-dark space-y-6">
             <div className="space-y-1">
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+              <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
                 EXPLORE DRONE CAPABILITIES
               </span>
-              <h2 className="text-xl font-bold text-white">
+              <h2 className="text-xl font-light text-white">
                 Learn more about EntireFM Drone Services
               </h2>
             </div>
@@ -96,7 +96,7 @@ export function TemplateDroneInspectionPlanner({
                   >
                     <div className="flex items-center gap-2.5">
                       <Icon className="w-4 h-4 text-brand-pink" />
-                      <span className="text-xs font-semibold text-white group-hover:text-brand-pink transition-colors">
+                      <span className="text-xs font-normal text-white group-hover:text-brand-pink transition-colors">
                         {srv.title}
                       </span>
                     </div>
@@ -110,7 +110,7 @@ export function TemplateDroneInspectionPlanner({
           {/* Technical FAQs */}
           <section className="max-w-4xl mx-auto space-y-8 pt-4">
             <div className="text-center space-y-2">
-              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand-pink">
+              <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
                 FREQUENTLY ASKED QUESTIONS
               </span>
               <h2 className="text-2xl sm:text-3xl font-light text-white">

@@ -125,7 +125,7 @@ export function LocationServiceGrid({
           </div>
           <Link
             href="/services"
-            className="mt-6 md:mt-0 inline-flex items-center gap-2 text-sm font-semibold text-brand-graphite hover:text-brand-pink transition-colors group"
+            className="mt-6 md:mt-0 inline-flex items-center gap-2 text-sm font-normal text-brand-graphite hover:text-brand-pink transition-colors group"
           >
             <span>Explore all services</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -144,11 +144,11 @@ export function LocationServiceGrid({
                   <div className="w-10 h-10 rounded-sm bg-brand-pink/10 flex items-center justify-center">
                     {svc.icon}
                   </div>
-                  <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
+                  <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-light">
                     {svc.category}
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-brand-graphite group-hover:text-brand-pink transition-colors">
+                <h3 className="text-xl font-light text-brand-graphite group-hover:text-brand-pink transition-colors">
                   {svc.title}
                 </h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
@@ -156,7 +156,7 @@ export function LocationServiceGrid({
                 </p>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-brand-edge/60 flex items-center justify-between text-xs font-bold text-brand-graphite group-hover:text-brand-pink">
+              <div className="pt-6 mt-6 border-t border-brand-edge/60 flex items-center justify-between text-xs font-normal text-brand-graphite group-hover:text-brand-pink">
                 <span>View {city} Specification</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-brand-pink" />
               </div>
@@ -242,7 +242,7 @@ export function LocationSectorGrid({
                 <div className="w-10 h-10 rounded-sm bg-brand-pink/10 flex items-center justify-center">
                   {sector.icon}
                 </div>
-                <h3 className="text-xl font-bold text-brand-graphite group-hover:text-brand-pink transition-colors">
+                <h3 className="text-xl font-light text-brand-graphite group-hover:text-brand-pink transition-colors">
                   {sector.title}
                 </h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
@@ -250,7 +250,7 @@ export function LocationSectorGrid({
                 </p>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-brand-edge/60 flex items-center justify-between text-xs font-bold text-brand-graphite group-hover:text-brand-pink">
+              <div className="pt-6 mt-6 border-t border-brand-edge/60 flex items-center justify-between text-xs font-normal text-brand-graphite group-hover:text-brand-pink">
                 <span>View Sector Capability</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-brand-pink" />
               </div>
@@ -300,7 +300,7 @@ export function LocationCoverageGrid({
             >
               <div className="flex items-center gap-2 text-brand-pink">
                 <MapPin className="w-4 h-4 shrink-0" />
-                <h3 className="font-bold text-sm text-brand-graphite">{d.name}</h3>
+                <h3 className="font-normal text-sm text-brand-graphite">{d.name}</h3>
               </div>
               <p className="text-xs text-slate-600 leading-relaxed">{d.note}</p>
             </div>
@@ -361,7 +361,7 @@ export function WhyChooseLocationGrid({ city }: { city: string }) {
               <div className="w-10 h-10 rounded-sm bg-brand-pink/10 flex items-center justify-center">
                 {pillar.icon}
               </div>
-              <h3 className="text-lg font-bold text-brand-graphite">{pillar.title}</h3>
+              <h3 className="text-lg font-light text-brand-graphite">{pillar.title}</h3>
               <p className="text-sm text-slate-600 leading-relaxed">{pillar.description}</p>
             </div>
           ))}

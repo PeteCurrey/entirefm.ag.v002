@@ -76,7 +76,7 @@ export default async function UserDetailPage({
       <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-6 space-y-5">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-xl font-medium text-white">
+            <h1 className="text-xl font-extralight text-white">
               {person.first_name} {person.last_name}
             </h1>
             <div className="mt-1 font-mono text-[12.5px] text-brand-mist/60">{person.email}</div>
@@ -104,7 +104,7 @@ export default async function UserDetailPage({
             {memberships.map((m: any) => (
               <div key={m.id} className="flex items-center justify-between rounded border border-brand-edge-dark/60 bg-brand-void/60 px-4 py-3">
                 <div>
-                  <span className="text-[13px] font-medium text-white">{m.organisation?.name || 'Organisation'}</span>
+                  <span className="text-[13px] font-normal text-white">{m.organisation?.name || 'Organisation'}</span>
                   <span className="ml-2 font-mono text-[10px] text-brand-mist/50">{m.organisation?.org_type}</span>
                 </div>
                 <div className="flex items-center gap-3">
@@ -137,14 +137,14 @@ export default async function UserDetailPage({
 
       {/* Effective Access Inspector */}
       <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-6">
-        <h2 className="text-[15px] font-medium text-white mb-4">Effective Access Inspector</h2>
+        <h2 className="text-[15px] font-extralight text-white mb-4">Effective Access Inspector</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {keyResources.map((res) => {
             const canAccess = permissions.includes(res.permission as any);
             return (
               <div key={res.permission} className="flex items-center justify-between rounded border border-brand-edge-dark/60 bg-brand-void/60 px-4 py-2.5">
                 <span className="text-[13px] text-brand-mist/80">{res.label}</span>
-                <span className={`font-mono text-[11px] font-semibold ${canAccess ? 'text-emerald-400' : 'text-rose-400'}`}>
+                <span className={`font-mono text-[11px] font-normal ${canAccess ? 'text-emerald-400' : 'text-rose-400'}`}>
                   {canAccess ? '✓ CAN VIEW' : '✗ BLOCKED'}
                 </span>
               </div>
@@ -155,7 +155,7 @@ export default async function UserDetailPage({
 
       {/* Account Controls */}
       <div className="rounded-lg border border-rose-500/20 bg-rose-500/5 p-6">
-        <h2 className="text-[15px] font-medium text-white mb-2">Account Controls</h2>
+        <h2 className="text-[15px] font-extralight text-white mb-2">Account Controls</h2>
         <p className="text-[12.5px] text-brand-mist/50 mb-4">
           Disabling or revoking access immediately invalidates all active sessions across all portals, APIs, and AI tools.
         </p>
@@ -181,7 +181,7 @@ export default async function UserDetailPage({
       {/* Audited VIEW-AS Launch */}
       {session.permissions.includes(PERMISSION.VIEW_AS_USER as any) || session.role === 'SUPER_ADMIN' ? (
         <div className="rounded-lg border border-brand-electric/20 bg-brand-electric/5 p-6">
-          <h2 className="text-[15px] font-medium text-white mb-2">Audited Support View-As</h2>
+          <h2 className="text-[15px] font-extralight text-white mb-2">Audited Support View-As</h2>
           <p className="text-[12.5px] text-brand-mist/50 mb-4">
             Launch a read-only audited session as this user. All actions are logged against your operator identity ({session.email}). 
             This does NOT impersonate their token — it records your operator identity on every event.

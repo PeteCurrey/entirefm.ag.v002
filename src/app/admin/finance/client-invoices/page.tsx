@@ -22,10 +22,10 @@ const INVOICE_STATUS_BADGE: Record<string, string> = {
 
 const PAYMENT_STATUS_BADGE: Record<string, string> = {
   NOT_DUE: 'text-brand-mist/60',
-  DUE: 'text-amber-400 font-bold',
-  OVERDUE: 'text-red-400 font-bold',
-  PART_PAID: 'text-blue-400 font-bold',
-  PAID: 'text-emerald-400 font-bold',
+  DUE: 'text-amber-400 font-light',
+  OVERDUE: 'text-red-400 font-light',
+  PART_PAID: 'text-blue-400 font-light',
+  PAID: 'text-emerald-400 font-light',
 };
 
 export default async function ClientInvoicesPage() {
@@ -46,8 +46,8 @@ export default async function ClientInvoicesPage() {
 
       {/* SUMMARY */}
       <div className="flex items-center justify-between text-xs font-mono text-brand-mist/60 bg-brand-void/40 p-3.5 rounded-lg border border-brand-edge-dark/50">
-        <div>Total Issued Invoices: <span className="text-white font-bold">{invoices.length}</span></div>
-        <div>Total Invoiced: <span className="text-brand-electric font-bold">£{totalBilled.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
+        <div>Total Issued Invoices: <span className="text-white font-light">{invoices.length}</span></div>
+        <div>Total Invoiced: <span className="text-brand-electric font-light">£{totalBilled.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
       </div>
 
       {invoices.length === 0 ? (
@@ -59,7 +59,7 @@ export default async function ClientInvoicesPage() {
       ) : (
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden shadow-2xl">
           <table className="w-full text-left text-xs font-mono text-brand-mist">
-            <thead className="bg-brand-void uppercase text-[10.5px] font-semibold text-brand-mist/70 border-b border-brand-edge-dark">
+            <thead className="bg-brand-void uppercase text-[10.5px] font-normal text-brand-mist/70 border-b border-brand-edge-dark">
               <tr>
                 <th className="p-3.5">Invoice Number</th>
                 <th className="p-3.5">Client Account</th>
@@ -76,15 +76,15 @@ export default async function ClientInvoicesPage() {
             <tbody className="divide-y divide-brand-edge-dark/60">
               {invoices.map(inv => (
                 <tr key={inv.id} className="hover:bg-brand-edge-dark/20 transition-colors">
-                  <td className="p-3.5 font-bold text-white">
+                  <td className="p-3.5 font-light text-white">
                     {inv.invoice_number}
                   </td>
                   <td className="p-3.5 text-white/80">{inv.client_account_id ? inv.client_account_id.slice(0, 8) : '—'}</td>
                   <td className="p-3.5">{inv.issue_date || '—'}</td>
                   <td className="p-3.5">{inv.due_date || '—'}</td>
-                  <td className="p-3.5 font-semibold text-white">£{(Number(inv.subtotal_gbp) || 0).toFixed(2)}</td>
+                  <td className="p-3.5 font-light text-white">£{(Number(inv.subtotal_gbp) || 0).toFixed(2)}</td>
                   <td className="p-3.5 text-brand-mist/70">£{(Number(inv.tax_amount_gbp) || 0).toFixed(2)}</td>
-                  <td className="p-3.5 font-bold text-brand-electric">£{(Number(inv.total_amount_gbp) || 0).toFixed(2)}</td>
+                  <td className="p-3.5 font-light text-brand-electric">£{(Number(inv.total_amount_gbp) || 0).toFixed(2)}</td>
                   <td className="p-3.5">
                     <span className={`px-2 py-0.5 rounded text-[10px] ${INVOICE_STATUS_BADGE[inv.status] || 'bg-zinc-800 text-zinc-400'}`}>
                       {inv.status}

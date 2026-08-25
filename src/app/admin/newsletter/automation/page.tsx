@@ -69,7 +69,7 @@ export default function AutomationSettingsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">The FM Briefing Automation Controls</h1>
+          <h1 className="text-2xl font-extralight text-white">The FM Briefing Automation Controls</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Weekly briefing drafting, scheduling gates, and emergency kill-switch controls.
           </p>
@@ -94,9 +94,9 @@ export default function AutomationSettingsPage() {
         {/* Toggle 1: Auto Draft */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-zinc-300 uppercase">Automatic Weekly Draft</span>
+            <span className="text-xs font-normal text-zinc-300 uppercase">Automatic Weekly Draft</span>
             <span
-              className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
+              className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light ${
                 settings?.autoDraftEnabled ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-800/60' : 'bg-zinc-800 text-zinc-500'
               }`}
             >
@@ -109,7 +109,7 @@ export default function AutomationSettingsPage() {
           <button
             onClick={() => handleToggle('autoDraftEnabled')}
             disabled={saving}
-            className={`w-full py-2 px-3 rounded-lg text-xs font-bold transition-colors ${
+            className={`w-full py-2 px-3 rounded-lg text-xs font-normal transition-colors ${
               settings?.autoDraftEnabled
                 ? 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700'
                 : 'bg-emerald-600 hover:bg-emerald-500 text-white'
@@ -122,9 +122,9 @@ export default function AutomationSettingsPage() {
         {/* Toggle 2: Auto Schedule */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-zinc-300 uppercase">Automatic Scheduling</span>
+            <span className="text-xs font-normal text-zinc-300 uppercase">Automatic Scheduling</span>
             <span
-              className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
+              className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light ${
                 settings?.autoScheduleEnabled ? 'bg-blue-950/80 text-blue-400 border border-blue-800/60' : 'bg-zinc-800 text-zinc-500'
               }`}
             >
@@ -137,7 +137,7 @@ export default function AutomationSettingsPage() {
           <button
             onClick={() => handleToggle('autoScheduleEnabled')}
             disabled={saving}
-            className={`w-full py-2 px-3 rounded-lg text-xs font-bold transition-colors ${
+            className={`w-full py-2 px-3 rounded-lg text-xs font-normal transition-colors ${
               settings?.autoScheduleEnabled
                 ? 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700'
                 : 'bg-blue-600 hover:bg-blue-500 text-white'
@@ -150,9 +150,9 @@ export default function AutomationSettingsPage() {
         {/* Toggle 3: Auto Send */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-zinc-300 uppercase">Automatic Sending</span>
+            <span className="text-xs font-normal text-zinc-300 uppercase">Automatic Sending</span>
             <span
-              className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
+              className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light ${
                 settings?.autoSendEnabled ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-800/60' : 'bg-zinc-800 text-zinc-500'
               }`}
             >
@@ -165,7 +165,7 @@ export default function AutomationSettingsPage() {
           <button
             onClick={() => handleToggle('autoSendEnabled')}
             disabled={saving}
-            className={`w-full py-2 px-3 rounded-lg text-xs font-bold transition-colors ${
+            className={`w-full py-2 px-3 rounded-lg text-xs font-normal transition-colors ${
               settings?.autoSendEnabled
                 ? 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700'
                 : 'bg-pink-600 hover:bg-pink-500 text-white'
@@ -179,7 +179,7 @@ export default function AutomationSettingsPage() {
       {/* Emergency Kill-Switch & Manual Generator */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-3">
-          <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+          <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
             Trigger Manual Briefing Run
           </h3>
           <p className="text-xs text-zinc-400 leading-relaxed">
@@ -188,7 +188,7 @@ export default function AutomationSettingsPage() {
           <button
             onClick={handleGenerateNow}
             disabled={generating}
-            className="bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold py-2.5 px-4 rounded-lg border border-zinc-700 flex items-center gap-2"
+            className="bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-normal py-2.5 px-4 rounded-lg border border-zinc-700 flex items-center gap-2"
           >
             <Play className="h-3.5 w-3.5 text-pink-400" />
             {generating ? 'Compiling Briefing...' : 'Compile Issue 01 Draft'}
@@ -198,7 +198,7 @@ export default function AutomationSettingsPage() {
         <div className="bg-zinc-900 border border-red-900/40 rounded-xl p-6 space-y-3">
           <div className="flex items-center gap-2 text-red-400">
             <AlertTriangle className="h-4 w-4" />
-            <h3 className="text-xs font-bold uppercase tracking-wider">
+            <h3 className="text-xs font-normal uppercase tracking-wider">
               Emergency Kill-Switch
             </h3>
           </div>
@@ -208,7 +208,7 @@ export default function AutomationSettingsPage() {
           <button
             onClick={() => handleToggle('killSwitchPaused')}
             disabled={saving}
-            className={`text-xs font-bold py-2.5 px-4 rounded-lg transition-colors ${
+            className={`text-xs font-normal py-2.5 px-4 rounded-lg transition-colors ${
               settings?.killSwitchPaused
                 ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
                 : 'bg-red-900/60 hover:bg-red-800 text-red-200 border border-red-700'

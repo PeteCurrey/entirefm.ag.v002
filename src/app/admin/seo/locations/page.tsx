@@ -23,10 +23,10 @@ export default function GeoSearchAdminDashboard() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-bold">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-light">
             ENTIREFM GEOGRAPHIC SEARCH INTELLIGENCE &amp; GEO AUTHORITY
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Location Authority &amp; Cluster Performance</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Location Authority &amp; Cluster Performance</h1>
           <p className="text-sm text-zinc-400">
             Monitor search demand, query ownership, and content differentiation across Tier 1 and regional location clusters.
           </p>
@@ -35,7 +35,7 @@ export default function GeoSearchAdminDashboard() {
           <Link
             href="/locations"
             target="_blank"
-            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold px-3 py-2 rounded-lg border border-zinc-700 transition-colors flex items-center gap-1.5"
+            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-light px-3 py-2 rounded-lg border border-zinc-700 transition-colors flex items-center gap-1.5"
           >
             <MapPin className="h-3.5 w-3.5" /> Public Locations Hub
           </Link>
@@ -46,31 +46,31 @@ export default function GeoSearchAdminDashboard() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">TIER 1 CITIES MONITORED</div>
-          <div className="mt-1 text-xl font-bold text-white font-mono">{cities.length}</div>
+          <div className="mt-1 text-xl font-light text-white font-mono">{cities.length}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">TOTAL TIER 1 SEARCH DEMAND</div>
-          <div className="mt-1 text-xl font-bold text-emerald-400 font-mono">
+          <div className="mt-1 text-xl font-light text-emerald-400 font-mono">
             {cities.reduce((acc, c) => acc + c.searchDemand.impressions, 0).toLocaleString()} impr.
           </div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">PROTECTED GEO VARIANTS</div>
-          <div className="mt-1 text-xl font-bold text-blue-400 font-mono">100% Protected (No Redirects)</div>
+          <div className="mt-1 text-xl font-light text-blue-400 font-mono">100% Protected (No Redirects)</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">SYNTHETIC LOCAL OFFICES</div>
-          <div className="mt-1 text-xl font-bold text-purple-400 font-mono">0 (Strictly Prohibited)</div>
+          <div className="mt-1 text-xl font-light text-purple-400 font-mono">0 (Strictly Prohibited)</div>
         </div>
       </div>
 
       {/* Location Clusters Table */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Tier 1 Location Clusters &amp; Intent Ownership
           </h3>
           <span className="text-xs text-zinc-500 font-mono">GSC Verified Demand Baseline</span>
@@ -90,9 +90,9 @@ export default function GeoSearchAdminDashboard() {
           <tbody className="divide-y divide-zinc-800">
             {cities.map((city) => (
               <tr key={city.slug} className="hover:bg-zinc-800/40">
-                <td className="py-3.5 px-4 font-medium text-white">{city.name}</td>
+                <td className="py-3.5 px-4 font-normal text-white">{city.name}</td>
                 <td className="py-3.5 px-4 text-zinc-400">{city.region}</td>
-                <td className="py-3.5 px-4 font-mono text-emerald-400 font-bold">
+                <td className="py-3.5 px-4 font-mono text-emerald-400 font-light">
                   {city.searchDemand.impressions.toLocaleString()}
                 </td>
                 <td className="py-3.5 px-4 font-mono text-zinc-300">{city.searchDemand.avgPosition.toFixed(1)}</td>

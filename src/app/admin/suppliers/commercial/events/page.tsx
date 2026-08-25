@@ -9,10 +9,10 @@ export default async function PartnerEventsAdminPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
           CONVENING &amp; INDUSTRY FORUMS
         </span>
-        <h1 className="text-2xl font-bold text-slate-900 mt-1">
+        <h1 className="text-2xl font-extralight text-slate-900 mt-1">
           Partner Network Events Management
         </h1>
         <p className="text-xs text-slate-600 font-light mt-1">
@@ -24,16 +24,16 @@ export default async function PartnerEventsAdminPage() {
         {events.map((e) => (
           <div key={e.id} className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-light">
                 {e.event_type.replace(/_/g, ' ')}
               </span>
-              <span className="text-[10.5px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+              <span className="text-[10.5px] font-mono font-light px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
                 {e.status.replace(/_/g, ' ')}
               </span>
             </div>
 
             <div>
-              <h3 className="text-lg font-bold text-slate-900">{e.title}</h3>
+              <h3 className="text-lg font-light text-slate-900">{e.title}</h3>
               <p className="text-xs text-slate-600 mt-1 font-light">{e.description}</p>
             </div>
 

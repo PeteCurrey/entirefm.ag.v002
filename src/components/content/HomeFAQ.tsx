@@ -48,12 +48,12 @@ export function HomeFAQ({ faqs }: HomeFAQProps) {
           <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-surface border border-brand-edge">
               <HelpCircle className="h-3.5 w-3.5 text-brand-pink" />
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-graphite">
+              <span className="text-[11px] font-normal uppercase tracking-wider text-brand-graphite">
                 FM QUESTIONS
               </span>
             </div>
 
-            <h2 className="text-display-md text-brand-graphite font-bold tracking-tight leading-tight">
+            <h2 className="text-display-md text-brand-graphite font-extralight tracking-tight leading-tight">
               The questions that matter before you appoint an FM provider
             </h2>
 
@@ -63,7 +63,7 @@ export function HomeFAQ({ faqs }: HomeFAQProps) {
 
             {/* CTA to National Glossary */}
             <div className="p-6 rounded-sm bg-brand-surface border border-brand-edge space-y-3">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-graphite">
+              <div className="flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-brand-graphite">
                 <BookOpen className="h-4 w-4 text-brand-pink" />
                 Need plain-English term definitions?
               </div>
@@ -72,7 +72,7 @@ export function HomeFAQ({ faqs }: HomeFAQProps) {
               </p>
               <Link
                 href="/facilities-management-glossary"
-                className="inline-flex items-center gap-2 text-xs font-bold text-brand-pink hover:text-brand-magenta transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-normal text-brand-pink hover:text-brand-magenta transition-colors"
               >
                 <span>Explore the FM Glossary</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -92,7 +92,7 @@ export function HomeFAQ({ faqs }: HomeFAQProps) {
                     aria-expanded={isOpen}
                     className="flex w-full items-start justify-between gap-4 text-left group"
                   >
-                    <span className="text-base sm:text-lg font-bold tracking-tight text-brand-graphite group-hover:text-brand-pink transition-colors">
+                    <span className="text-base sm:text-lg font-light tracking-tight text-brand-graphite group-hover:text-brand-pink transition-colors">
                       {faq.question}
                     </span>
                     <span

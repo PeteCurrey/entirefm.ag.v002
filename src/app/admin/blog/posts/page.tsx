@@ -34,8 +34,8 @@ export default async function AllPostsPage({ searchParams }: { searchParams: Pro
   return (
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">All Posts</h1>
-        <Link href="/admin/blog/new" className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium">
+        <h1 className="text-2xl font-extralight text-white">All Posts</h1>
+        <Link href="/admin/blog/new" className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-normal">
           + New Post
         </Link>
       </div>
@@ -62,12 +62,12 @@ export default async function AllPostsPage({ searchParams }: { searchParams: Pro
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-zinc-800">
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Title</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Author</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Category</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">SEO</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Status</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Updated</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Title</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Author</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Category</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">SEO</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Status</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Updated</th>
               <th />
             </tr>
           </thead>
@@ -78,7 +78,7 @@ export default async function AllPostsPage({ searchParams }: { searchParams: Pro
             {posts.map(post => (
               <tr key={post.id} className="hover:bg-zinc-800/50 transition-colors">
                 <td className="px-4 py-3">
-                  <div className="font-medium text-white truncate max-w-sm">{post.title}</div>
+                  <div className="font-normal text-white truncate max-w-sm">{post.title}</div>
                   <div className="text-xs text-zinc-500">/post/{post.slug}</div>
                 </td>
                 <td className="px-4 py-3 text-zinc-400 text-xs">{post.author?.name || '—'}</td>

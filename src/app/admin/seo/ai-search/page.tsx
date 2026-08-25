@@ -78,10 +78,10 @@ export default function AiSearchOverviewPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-bold">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-light">
             ENTIREFM ANSWER ENGINE OPTIMISATION &amp; AI SEARCH VISIBILITY
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">AI Search &amp; Entity Authority</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">AI Search &amp; Entity Authority</h1>
           <p className="text-sm text-zinc-400">
             Factual entity clarity, direct-answer optimization, structured citation data, and honest answer-engine tracking.
           </p>
@@ -90,7 +90,7 @@ export default function AiSearchOverviewPage() {
           <Link
             href="/llms.txt"
             target="_blank"
-            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold px-3 py-2 rounded-lg border border-zinc-700 transition-colors"
+            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-light px-3 py-2 rounded-lg border border-zinc-700 transition-colors"
           >
             View /llms.txt
           </Link>
@@ -101,29 +101,29 @@ export default function AiSearchOverviewPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">TRACKED QUESTIONS</div>
-          <div className="mt-1 text-xl font-bold text-white font-mono">{TRACKED_AI_QUESTIONS.length}</div>
+          <div className="mt-1 text-xl font-light text-white font-mono">{TRACKED_AI_QUESTIONS.length}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">PENDING MANUAL CHECK</div>
-          <div className="mt-1 text-xl font-bold text-amber-400 font-mono">{pendingCount}</div>
+          <div className="mt-1 text-xl font-light text-amber-400 font-mono">{pendingCount}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">CITATIONS OBSERVED</div>
-          <div className="mt-1 text-xl font-bold text-zinc-400 font-mono">{testedCount} (No fabricated stats)</div>
+          <div className="mt-1 text-xl font-light text-zinc-400 font-mono">{testedCount} (No fabricated stats)</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">SOURCE RIGOUR</div>
-          <div className="mt-1 text-xl font-bold text-purple-400 font-mono">100% Verified Standards</div>
+          <div className="mt-1 text-xl font-light text-purple-400 font-mono">100% Verified Standards</div>
         </div>
       </div>
 
       {/* Tracked Questions & Citation Registry */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Tracked Answer Engine Queries &amp; Verification Protocol
           </h3>
           <span className="text-xs text-amber-400 font-mono">Observation Protocol: External Manual Checks Required</span>
@@ -142,7 +142,7 @@ export default function AiSearchOverviewPage() {
           <tbody className="divide-y divide-zinc-800">
             {TRACKED_AI_QUESTIONS.map((t) => (
               <tr key={t.id} className="hover:bg-zinc-800/40">
-                <td className="py-3.5 px-4 font-medium text-white max-w-sm">
+                <td className="py-3.5 px-4 font-normal text-white max-w-sm">
                   <div>{t.question}</div>
                   <div className="text-[11px] font-mono text-zinc-500 mt-0.5">{t.notes}</div>
                 </td>
@@ -152,7 +152,7 @@ export default function AiSearchOverviewPage() {
                   </Link>
                 </td>
                 <td className="py-3.5 px-4">
-                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold border bg-amber-950/60 text-amber-300 border-amber-800/40">
+                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light border bg-amber-950/60 text-amber-300 border-amber-800/40">
                     {t.status}
                   </span>
                 </td>

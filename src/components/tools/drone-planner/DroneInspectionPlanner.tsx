@@ -446,7 +446,7 @@ export function DroneInspectionPlanner() {
             <button
               type="button"
               onClick={handleBack}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm border border-white/20 bg-white/5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm border border-white/20 bg-white/5 text-xs font-normal text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back</span>
@@ -466,7 +466,7 @@ export function DroneInspectionPlanner() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-7 py-2.5 text-xs font-bold text-white shadow-md hover:scale-[1.02] transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-7 py-2.5 text-xs font-normal text-white shadow-md hover:scale-[1.02] transition-all"
               >
                 <span>{state.step === 10 ? 'Generate Recommended Plan' : 'Continue'}</span>
                 <ArrowRight className="w-4 h-4" />

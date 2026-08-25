@@ -17,8 +17,8 @@ export function SectorSnapshot({ leadText, priorities }: SectorSnapshotProps) {
       {/* Top Lead Banner */}
       <div className="border-b border-slate-800/80 bg-slate-950/60 py-4">
         <div className="container-custom">
-          <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed max-w-4xl">
-            <span className="text-brand-pink-light font-bold uppercase tracking-wider text-[11px] block sm:inline sm:mr-2">
+          <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed max-w-4xl">
+            <span className="text-brand-pink-light font-light uppercase tracking-wider text-[11px] block sm:inline sm:mr-2">
               OPERATIONAL ENVIRONMENT //
             </span>
             {leadText}
@@ -38,7 +38,7 @@ export function SectorSnapshot({ leadText, priorities }: SectorSnapshotProps) {
                 <BrandIcon name={p.iconName} size={28} />
               </div>
               <div className="min-w-0">
-                <span className="text-xs font-bold text-white uppercase tracking-wider block truncate group-hover:text-brand-pink-light transition-colors">
+                <span className="text-xs font-normal text-white uppercase tracking-wider block truncate group-hover:text-brand-pink-light transition-colors">
                   {p.title}
                 </span>
                 <span className="text-[11.5px] text-slate-400 block mt-1 leading-snug">

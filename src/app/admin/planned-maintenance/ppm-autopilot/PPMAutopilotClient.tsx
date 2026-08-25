@@ -422,10 +422,10 @@ function SiteDrawer({
             <X className="h-4 w-4" />
           </button>
           <div className="absolute bottom-4 left-5">
-            <p className="text-[10px] font-mono font-semibold uppercase tracking-widest text-white/70">
+            <p className="text-[10px] font-mono font-light uppercase tracking-widest text-white/70">
               {estate.planCode}
             </p>
-            <h2 className="text-lg font-semibold text-white leading-tight">
+            <h2 className="text-lg font-light text-white leading-tight">
               {estate.name}
             </h2>
             <p className="text-[12px] text-white/80">{estate.client}</p>
@@ -436,7 +436,7 @@ function SiteDrawer({
         <div className="flex-1 p-5 space-y-5">
           {/* Status strip */}
           <div className="flex flex-wrap gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-2 py-0.5 font-mono text-[10px] font-semibold text-[#059669]">
+            <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-2 py-0.5 font-mono text-[10px] font-normal text-[#059669]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#059669]" />
               AUTOPILOT ACTIVE
             </span>
@@ -457,7 +457,7 @@ function SiteDrawer({
                 key={k.label}
                 className="rounded-[8px] border border-[#E4E4E1] bg-[#FBFBFA] p-3 text-center"
               >
-                <div className="text-[18px] font-semibold text-[#101010]">
+                <div className="text-[18px] font-normal text-[#101010]">
                   {k.value}
                 </div>
                 <div className="text-[10px] text-[#9B9B97] font-mono mt-0.5">
@@ -470,10 +470,10 @@ function SiteDrawer({
           {/* Compliance bar */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[12px] font-medium text-[#101010]">
+              <span className="text-[12px] font-normal text-[#101010]">
                 Statutory Compliance
               </span>
-              <span className="font-mono text-[12px] font-semibold text-[#059669]">
+              <span className="font-mono text-[12px] font-normal text-[#059669]">
                 {estate.compliance}%
               </span>
             </div>
@@ -491,11 +491,11 @@ function SiteDrawer({
               Lead Engineer
             </p>
             <div className="flex items-center gap-2.5">
-              <div className="h-8 w-8 rounded-full bg-[#FF6B24] flex items-center justify-center text-[11px] font-bold text-white">
+              <div className="h-8 w-8 rounded-full bg-[#FF6B24] flex items-center justify-center text-[11px] font-normal text-white">
                 {estate.leadEngineer.split(' ').map((n) => n[0]).join('').slice(0, 2)}
               </div>
               <div>
-                <div className="text-[13px] font-medium text-[#101010]">
+                <div className="text-[13px] font-normal text-[#101010]">
                   {estate.leadEngineer}
                 </div>
                 <div className="text-[11px] text-[#9B9B97] font-mono">
@@ -521,7 +521,7 @@ function SiteDrawer({
                     className="flex items-start justify-between rounded-[8px] border border-[#E4E4E1] bg-white px-3.5 py-2.5"
                   >
                     <div>
-                      <div className="text-[12px] font-medium text-[#101010]">
+                      <div className="text-[12px] font-normal text-[#101010]">
                         {o.asset}
                       </div>
                       <div className="text-[10.5px] font-mono text-[#9B9B97]">
@@ -543,14 +543,14 @@ function SiteDrawer({
         <div className="border-t border-[#E4E4E1] p-4 flex gap-2 shrink-0">
           <Link
             href={`/admin/planned-maintenance/plans`}
-            className="flex-1 flex items-center justify-center gap-1.5 rounded-[8px] bg-[#FF6B24] px-4 py-2 text-[12px] font-medium text-white hover:bg-[#E9540F] transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 rounded-[8px] bg-[#FF6B24] px-4 py-2 text-[12px] font-normal text-white hover:bg-[#E9540F] transition-colors"
           >
             View Maintenance Plan
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
           <button
             onClick={onClose}
-            className="rounded-[8px] border border-[#E4E4E1] px-4 py-2 text-[12px] font-medium text-[#686866] hover:bg-[#F5F5F3] transition-colors"
+            className="rounded-[8px] border border-[#E4E4E1] px-4 py-2 text-[12px] font-normal text-[#686866] hover:bg-[#F5F5F3] transition-colors"
           >
             Close
           </button>
@@ -595,17 +595,17 @@ export default function PPMAutopilotClient() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-[#E4E4E1] pb-6">
         <div>
           <div className="flex items-center gap-2.5 mb-1.5">
-            <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.12em] text-[#686866]">
+            <span className="text-[10px] font-mono font-light uppercase tracking-[0.12em] text-[#686866]">
               Planned Preventative Maintenance
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-2 py-0.5 font-mono text-[10px] font-bold text-[#059669]">
+            <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-2 py-0.5 font-mono text-[10px] font-normal text-[#059669]">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#059669]" />
               PPM AUTOPILOT ACTIVE
             </span>
           </div>
           <h1 className="text-2xl font-light tracking-tight text-[#101010] sm:text-[28px]">
             PPM Autopilot{' '}
-            <span className="font-semibold">Control Desk</span>
+            <span className="font-light">Control Desk</span>
           </h1>
           <p className="mt-1 max-w-2xl text-[13px] text-[#686866] leading-relaxed">
             Autonomous estate maintenance planning — orchestrating asset registers, SFG20 statutory schedules, engineer skill matrices, and field dispatch across commercial estates.
@@ -616,13 +616,13 @@ export default function PPMAutopilotClient() {
             <span className="text-[11px] font-mono text-[#9B9B97]">
               Next planning cycle
             </span>
-            <span className="text-[12px] font-mono font-semibold text-[#101010]">
+            <span className="text-[12px] font-mono font-light text-[#101010]">
               Today 18:00 · 42 planned visits
             </span>
           </div>
           <Link
             href="/admin/estate/mobilisations"
-            className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#FF6B24] px-4 py-2 text-[12px] font-semibold text-white shadow-[0_1px_2px_rgba(255,107,36,0.25)] hover:bg-[#E9540F] transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#FF6B24] px-4 py-2 text-[12px] font-normal text-white shadow-[0_1px_2px_rgba(255,107,36,0.25)] hover:bg-[#E9540F] transition-colors"
           >
             <Sparkles className="h-3.5 w-3.5" />
             + Mobilise New Estate Plan
@@ -636,10 +636,10 @@ export default function PPMAutopilotClient() {
         {/* Radial Gauge — Estate PPM Coverage */}
         <div className="col-span-12 sm:col-span-5 lg:col-span-4 rounded-[10px] border border-[#E4E4E1] bg-white p-5 flex flex-col gap-3 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
           <div>
-            <p className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#9B9B97]">
+            <p className="text-[10px] font-mono font-light uppercase tracking-wider text-[#9B9B97]">
               Estate PPM Coverage
             </p>
-            <p className="text-[13px] font-medium text-[#101010] mt-0.5">
+            <p className="text-[13px] font-normal text-[#101010] mt-0.5">
               Statutory Compliance Gauge
             </p>
           </div>
@@ -700,7 +700,7 @@ export default function PPMAutopilotClient() {
                 <div key={s.label} className="flex items-center justify-between">
                   <span className="text-[11px] text-[#686866]">{s.label}</span>
                   <span
-                    className="font-mono text-[13px] font-semibold"
+                    className="font-mono text-[13px] font-normal"
                     style={{ color: s.colour }}
                   >
                     {s.value}
@@ -709,7 +709,7 @@ export default function PPMAutopilotClient() {
               ))}
               <div className="flex items-center gap-1 pt-1">
                 <TrendingUp className="h-3 w-3 text-[#059669]" />
-                <span className="text-[10px] font-mono text-[#059669] font-semibold">
+                <span className="text-[10px] font-mono text-[#059669] font-light">
                   {METRICS.mtdTrend} vs prev. month
                 </span>
               </div>
@@ -724,12 +724,12 @@ export default function PPMAutopilotClient() {
             <p className="text-[10px] font-mono uppercase tracking-wider text-[#9B9B97] mb-0.5">
               Statutory Compliance
             </p>
-            <div className="text-[40px] font-semibold leading-none text-[#101010] mt-2">
+            <div className="text-[40px] font-normal leading-none text-[#101010] mt-2">
               {METRICS.statutoryCompliance}%
             </div>
             <div className="flex items-center gap-1 mt-2">
               <ShieldCheck className="h-3.5 w-3.5 text-[#059669]" />
-              <span className="text-[11px] text-[#059669] font-mono font-semibold">
+              <span className="text-[11px] text-[#059669] font-mono font-light">
                 0 Missed Activities
               </span>
             </div>
@@ -743,7 +743,7 @@ export default function PPMAutopilotClient() {
               </span>
               <Clock className="h-3.5 w-3.5" />
             </div>
-            <div className="text-[32px] font-semibold text-[#2563EB] leading-none">
+            <div className="text-[32px] font-normal text-[#2563EB] leading-none">
               {METRICS.dueThisWeek}
             </div>
             <div className="mt-1.5 text-[10.5px] font-mono text-[#059669]">
@@ -758,7 +758,7 @@ export default function PPMAutopilotClient() {
               </span>
               <Cpu className="h-3.5 w-3.5" />
             </div>
-            <div className="text-[32px] font-semibold text-[#EA580C] leading-none">
+            <div className="text-[32px] font-normal text-[#EA580C] leading-none">
               {METRICS.autoDispatchRate}%
             </div>
             <div className="mt-1.5 text-[10.5px] font-mono text-[#686866]">
@@ -783,7 +783,7 @@ export default function PPMAutopilotClient() {
                 <k.icon className="h-3.5 w-3.5" />
               </div>
               <div
-                className="text-[22px] font-semibold leading-none"
+                className="text-[22px] font-normal leading-none"
                 style={{ color: k.colour }}
               >
                 {k.value}
@@ -800,7 +800,7 @@ export default function PPMAutopilotClient() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-[15px] font-semibold text-[#101010]">
+            <h2 className="text-[15px] font-normal text-[#101010]">
               Estates Under Autopilot
             </h2>
             <p className="text-[12px] text-[#686866] mt-0.5">
@@ -833,14 +833,14 @@ export default function PPMAutopilotClient() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 {/* Compliance badge */}
                 <div className="absolute top-2.5 right-2.5">
-                  <span className="inline-flex items-center gap-1 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-1.5 py-0.5 font-mono text-[9px] font-bold text-[#059669]">
+                  <span className="inline-flex items-center gap-1 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-1.5 py-0.5 font-mono text-[9px] font-normal text-[#059669]">
                     <ShieldCheck className="h-2.5 w-2.5" />
                     {estate.compliance}%
                   </span>
                 </div>
                 {/* View overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="rounded-[6px] bg-white/90 px-3 py-1.5 text-[11px] font-semibold text-[#101010] shadow">
+                  <span className="rounded-[6px] bg-white/90 px-3 py-1.5 text-[11px] font-normal text-[#101010] shadow">
                     View Estate →
                   </span>
                 </div>
@@ -850,7 +850,7 @@ export default function PPMAutopilotClient() {
                 <p className="text-[9.5px] font-mono text-[#9B9B97] mb-0.5">
                   {estate.planCode}
                 </p>
-                <h3 className="text-[13px] font-semibold text-[#101010] leading-snug">
+                <h3 className="text-[13px] font-normal text-[#101010] leading-snug">
                   {estate.name}
                 </h3>
                 <p className="text-[11px] text-[#686866] mt-0.5">{estate.client}</p>
@@ -876,7 +876,7 @@ export default function PPMAutopilotClient() {
         <div className="col-span-12 lg:col-span-7">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-[15px] font-semibold text-[#101010]">
+              <h2 className="text-[15px] font-normal text-[#101010]">
                 Autopilot Intelligence Feed
               </h2>
               <p className="text-[12px] text-[#686866] mt-0.5">
@@ -916,7 +916,7 @@ export default function PPMAutopilotClient() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2 mb-0.5">
                       <span
-                        className="text-[10px] font-mono font-bold uppercase tracking-wider"
+                        className="text-[10px] font-mono font-light uppercase tracking-wider"
                         style={{ color: item.colour }}
                       >
                         {item.typeLabel}
@@ -925,14 +925,14 @@ export default function PPMAutopilotClient() {
                         {item.time}
                       </span>
                     </div>
-                    <h3 className="text-[13px] font-semibold text-[#101010]">
+                    <h3 className="text-[13px] font-normal text-[#101010]">
                       {item.title}
                     </h3>
                     <p className="text-[12px] text-[#686866] mt-0.5 leading-relaxed">
                       {item.detail}
                     </p>
                     <div
-                      className="mt-2 inline-flex items-center gap-1 rounded-[4px] px-1.5 py-0.5 text-[10px] font-mono font-semibold"
+                      className="mt-2 inline-flex items-center gap-1 rounded-[4px] px-1.5 py-0.5 text-[10px] font-mono font-light"
                       style={{
                         background: item.bg,
                         border: `1px solid ${item.border}`,
@@ -951,7 +951,7 @@ export default function PPMAutopilotClient() {
         {/* Asset Category Grid */}
         <div className="col-span-12 lg:col-span-5">
           <div className="mb-4">
-            <h2 className="text-[15px] font-semibold text-[#101010]">
+            <h2 className="text-[15px] font-normal text-[#101010]">
               Asset Coverage
             </h2>
             <p className="text-[12px] text-[#686866] mt-0.5">
@@ -975,7 +975,7 @@ export default function PPMAutopilotClient() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 </div>
                 <div className="p-3">
-                  <h3 className="text-[11.5px] font-semibold text-[#101010] leading-snug">
+                  <h3 className="text-[11.5px] font-normal text-[#101010] leading-snug">
                     {cat.label}
                   </h3>
                   <div className="flex items-center justify-between mt-1">
@@ -983,7 +983,7 @@ export default function PPMAutopilotClient() {
                       {cat.count} assets
                     </span>
                     <span
-                      className={`text-[9px] font-mono font-bold ${
+                      className={`text-[9px] font-mono font-light ${
                         cat.compliance >= 100
                           ? 'text-[#059669]'
                           : 'text-[#D97706]'
@@ -1017,7 +1017,7 @@ export default function PPMAutopilotClient() {
         <div className="col-span-12 lg:col-span-8 rounded-[10px] border border-[#E4E4E1] bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-[15px] font-semibold text-[#101010]">
+              <h2 className="text-[15px] font-normal text-[#101010]">
                 Next 7 Days — Planning Timeline
               </h2>
               <p className="text-[12px] text-[#686866] mt-0.5">
@@ -1058,7 +1058,7 @@ export default function PPMAutopilotClient() {
                       style={{ height: `${autoH}%` }}
                     />
                   </div>
-                  <span className="text-[10px] font-mono font-semibold text-[#101010]">
+                  <span className="text-[10px] font-mono font-light text-[#101010]">
                     {w.day}
                   </span>
                 </div>
@@ -1087,7 +1087,7 @@ export default function PPMAutopilotClient() {
         {/* Engineer Capacity */}
         <div className="col-span-12 lg:col-span-4 space-y-3">
           <div className="mb-1">
-            <h2 className="text-[15px] font-semibold text-[#101010]">
+            <h2 className="text-[15px] font-normal text-[#101010]">
               Engineer Capacity
             </h2>
             <p className="text-[12px] text-[#686866] mt-0.5">
@@ -1101,13 +1101,13 @@ export default function PPMAutopilotClient() {
             >
               <div className="flex items-center gap-3 mb-3">
                 <div
-                  className="h-9 w-9 rounded-full flex items-center justify-center text-[12px] font-bold text-white shrink-0"
+                  className="h-9 w-9 rounded-full flex items-center justify-center text-[12px] font-normal text-white shrink-0"
                   style={{ background: eng.colour }}
                 >
                   {eng.initials}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-semibold text-[#101010] truncate">
+                  <p className="text-[13px] font-normal text-[#101010] truncate">
                     {eng.name}
                   </p>
                   <p className="text-[10.5px] font-mono text-[#9B9B97] truncate">
@@ -1115,7 +1115,7 @@ export default function PPMAutopilotClient() {
                   </p>
                 </div>
                 <span
-                  className="shrink-0 rounded-[4px] px-1.5 py-0.5 text-[9px] font-mono font-bold text-white"
+                  className="shrink-0 rounded-[4px] px-1.5 py-0.5 text-[9px] font-mono font-light text-white"
                   style={{ background: eng.colour }}
                 >
                   {eng.badge}
@@ -1125,7 +1125,7 @@ export default function PPMAutopilotClient() {
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[10px] font-mono text-[#9B9B97]">Capacity</span>
                 <span
-                  className="text-[11px] font-mono font-semibold"
+                  className="text-[11px] font-mono font-light"
                   style={{ color: eng.colour }}
                 >
                   {eng.capacity}%
@@ -1162,13 +1162,13 @@ export default function PPMAutopilotClient() {
           {/* Content */}
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="inline-flex items-center gap-1 rounded-[5px] border border-[#FDE68A] bg-[#FEF9C3] px-2 py-0.5 font-mono text-[10px] font-bold text-[#D97706]">
+              <span className="inline-flex items-center gap-1 rounded-[5px] border border-[#FDE68A] bg-[#FEF9C3] px-2 py-0.5 font-mono text-[10px] font-normal text-[#D97706]">
                 <AlertCircle className="h-3 w-3" />
                 ASSET SIGNAL — ACTION RECOMMENDED
               </span>
               <span className="text-[10px] font-mono text-[#9B9B97]">Today 04:42</span>
             </div>
-            <h2 className="text-[16px] font-semibold text-[#101010]">
+            <h2 className="text-[16px] font-normal text-[#101010]">
               Chiller CH-01 — Daikin EWYD500 · Leeds Innovation Quarter
             </h2>
             <p className="text-[12.5px] text-[#686866] mt-1 leading-relaxed">
@@ -1197,18 +1197,18 @@ export default function PPMAutopilotClient() {
                 <p className="text-[9.5px] font-mono uppercase tracking-wider text-[#9B9B97]">
                   Current Schedule
                 </p>
-                <p className="text-[13px] font-semibold text-[#101010]">14 September 2026</p>
+                <p className="text-[13px] font-normal text-[#101010]">14 September 2026</p>
               </div>
               <ArrowRight className="h-4 w-4 text-[#D97706]" />
               <div className="rounded-[7px] border border-[#D97706] bg-[#FFFBEB] px-3.5 py-2">
                 <p className="text-[9.5px] font-mono uppercase tracking-wider text-[#D97706]">
                   Autopilot Recommends
                 </p>
-                <p className="text-[13px] font-semibold text-[#101010]">2 September 2026</p>
+                <p className="text-[13px] font-normal text-[#101010]">2 September 2026</p>
               </div>
               <Link
                 href="/admin/planned-maintenance/schedule"
-                className="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D97706] bg-[#D97706] px-4 py-2 text-[12px] font-semibold text-white hover:bg-[#B45309] transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-[8px] border border-[#D97706] bg-[#D97706] px-4 py-2 text-[12px] font-normal text-white hover:bg-[#B45309] transition-colors"
               >
                 Review Recommendation
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -1222,7 +1222,7 @@ export default function PPMAutopilotClient() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-[15px] font-semibold text-[#101010]">
+            <h2 className="text-[15px] font-normal text-[#101010]">
               Active Maintenance Programmes
             </h2>
             <p className="text-[12px] text-[#686866] mt-0.5">
@@ -1241,7 +1241,7 @@ export default function PPMAutopilotClient() {
                   {['Plan', 'Estate / Building', 'Client', 'Discipline', 'Assets', 'Tasks', 'Annual Visits', 'Compliance', 'Status'].map((h) => (
                     <th
                       key={h}
-                      className="px-4 py-3 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#9B9B97] first:pl-5 last:pr-5 last:text-center whitespace-nowrap"
+                      className="px-4 py-3 text-[10px] font-mono font-light uppercase tracking-wider text-[#9B9B97] first:pl-5 last:pr-5 last:text-center whitespace-nowrap"
                     >
                       {h}
                     </th>
@@ -1266,13 +1266,13 @@ export default function PPMAutopilotClient() {
                             sizes="32px"
                           />
                         </div>
-                        <span className="font-mono text-[10.5px] font-semibold text-[#101010]">
+                        <span className="font-mono text-[10.5px] font-normal text-[#101010]">
                           {plan.number}
                         </span>
                       </div>
                     </td>
                     <td className="px-4 py-3.5">
-                      <div className="text-[12.5px] font-medium text-[#101010] max-w-[200px] truncate">
+                      <div className="text-[12.5px] font-normal text-[#101010] max-w-[200px] truncate">
                         {plan.name}
                       </div>
                     </td>
@@ -1282,18 +1282,18 @@ export default function PPMAutopilotClient() {
                     <td className="px-4 py-3.5 text-[11px] font-mono text-[#9B9B97] whitespace-nowrap">
                       {plan.discipline}
                     </td>
-                    <td className="px-4 py-3.5 text-right font-mono text-[12px] text-[#101010] font-medium">
+                    <td className="px-4 py-3.5 text-right font-mono text-[12px] text-[#101010] font-normal">
                       {plan.assets}
                     </td>
                     <td className="px-4 py-3.5 text-right font-mono text-[12px] text-[#686866]">
                       {plan.tasks}
                     </td>
-                    <td className="px-4 py-3.5 text-right font-mono text-[12px] font-semibold text-[#EA580C]">
+                    <td className="px-4 py-3.5 text-right font-mono text-[12px] font-normal text-[#EA580C]">
                       {plan.annualVisits}
                     </td>
                     <td className="px-4 py-3.5 text-center">
                       <span
-                        className={`inline-flex items-center rounded-[4px] px-2 py-0.5 font-mono text-[10px] font-bold ${
+                        className={`inline-flex items-center rounded-[4px] px-2 py-0.5 font-mono text-[10px] font-normal ${
                           parseFloat(plan.compliance) >= 100
                             ? 'bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0]'
                             : 'bg-[#FFF7ED] text-[#EA580C] border border-[#FED7AA]'
@@ -1303,7 +1303,7 @@ export default function PPMAutopilotClient() {
                       </span>
                     </td>
                     <td className="pr-5 pl-4 py-3.5 text-center">
-                      <span className="inline-flex items-center rounded-[4px] bg-[#EFF6FF] px-2 py-0.5 font-mono text-[10px] font-bold text-[#2563EB] border border-[#BFDBFE]">
+                      <span className="inline-flex items-center rounded-[4px] bg-[#EFF6FF] px-2 py-0.5 font-mono text-[10px] font-normal text-[#2563EB] border border-[#BFDBFE]">
                         ACTIVE
                       </span>
                     </td>
@@ -1319,7 +1319,7 @@ export default function PPMAutopilotClient() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-[15px] font-semibold text-[#101010]">
+            <h2 className="text-[15px] font-normal text-[#101010]">
               Upcoming Planned Occurrences
             </h2>
             <p className="text-[12px] text-[#686866] mt-0.5">
@@ -1341,7 +1341,7 @@ export default function PPMAutopilotClient() {
                   {['Occurrence', 'Asset', 'Site', 'Standard', 'Scheduled', 'Assigned Engineer', 'Status'].map((h) => (
                     <th
                       key={h}
-                      className="px-4 py-3 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#9B9B97] first:pl-5 last:pr-5 last:text-center"
+                      className="px-4 py-3 text-[10px] font-mono font-light uppercase tracking-wider text-[#9B9B97] first:pl-5 last:pr-5 last:text-center"
                     >
                       {h}
                     </th>
@@ -1351,11 +1351,11 @@ export default function PPMAutopilotClient() {
               <tbody className="divide-y divide-[#F0F0EE]">
                 {OCCURRENCES.map((occ) => (
                   <tr key={occ.id} className="hover:bg-[#FBFBFA] transition-colors">
-                    <td className="pl-5 pr-4 py-3.5 font-mono text-[10.5px] font-semibold text-[#EA580C]">
+                    <td className="pl-5 pr-4 py-3.5 font-mono text-[10.5px] font-normal text-[#EA580C]">
                       {occ.number}
                     </td>
                     <td className="px-4 py-3.5">
-                      <div className="text-[12.5px] font-medium text-[#101010]">
+                      <div className="text-[12.5px] font-normal text-[#101010]">
                         {occ.asset}
                       </div>
                       <div className="text-[10px] font-mono text-[#9B9B97]">
@@ -1368,7 +1368,7 @@ export default function PPMAutopilotClient() {
                     <td className="px-4 py-3.5 font-mono text-[11px] text-[#686866]">
                       {occ.standard}
                     </td>
-                    <td className="px-4 py-3.5 font-mono text-[11.5px] font-medium text-[#101010] whitespace-nowrap">
+                    <td className="px-4 py-3.5 font-mono text-[11.5px] font-normal text-[#101010] whitespace-nowrap">
                       {occ.due}
                     </td>
                     <td className="px-4 py-3.5 text-[12px] text-[#686866]">
@@ -1376,7 +1376,7 @@ export default function PPMAutopilotClient() {
                     </td>
                     <td className="pr-5 pl-4 py-3.5 text-center">
                       <span
-                        className={`inline-flex items-center rounded-[4px] px-2 py-0.5 font-mono text-[10px] font-bold ${statusColour(occ.status)}`}
+                        className={`inline-flex items-center rounded-[4px] px-2 py-0.5 font-mono text-[10px] font-normal ${statusColour(occ.status)}`}
                       >
                         {occ.status}
                       </span>
@@ -1414,7 +1414,7 @@ export default function PPMAutopilotClient() {
             className="group rounded-[10px] border border-[#E4E4E1] bg-white p-5 hover:border-[#D1D1CD] hover:shadow-[0_3px_8px_rgba(0,0,0,0.06)] transition-all"
           >
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[13.5px] font-semibold text-[#101010] group-hover:text-[#EA580C] transition-colors">
+              <span className="text-[13.5px] font-normal text-[#101010] group-hover:text-[#EA580C] transition-colors">
                 {link.title}
               </span>
               <ArrowRight className="h-4 w-4 text-[#9B9B97] group-hover:translate-x-0.5 group-hover:text-[#EA580C] transition-all" />

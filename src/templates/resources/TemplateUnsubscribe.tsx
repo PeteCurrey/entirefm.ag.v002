@@ -70,10 +70,10 @@ function UnsubscribeForm() {
   return (
     <div className="bg-white border border-brand-edge rounded-sm p-8 shadow-sm">
       <div className="text-center mb-6">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-pink-500 font-bold">
+        <span className="text-[10px] font-mono uppercase tracking-widest text-pink-500 font-light">
           THE FM BRIEFING · PREFERENCE CENTRE
         </span>
-        <h1 className="text-2xl font-bold text-brand-graphite mt-2">
+        <h1 className="text-2xl font-extralight text-brand-graphite mt-2">
           Unsubscribe &amp; Preferences
         </h1>
       </div>
@@ -81,7 +81,7 @@ function UnsubscribeForm() {
       {status === 'unsubscribed' ? (
         <div className="text-center py-6">
           <CheckCircle2 className="h-12 w-12 text-emerald-500 mx-auto mb-3" />
-          <h3 className="text-lg font-bold text-brand-graphite">Successfully Unsubscribed</h3>
+          <h3 className="text-lg font-light text-brand-graphite">Successfully Unsubscribed</h3>
           <p className="text-xs text-brand-slate mt-2 leading-relaxed">
             {subscriberEmail ? (
               <><strong>{subscriberEmail}</strong> has been removed from The FM Briefing mailing list and added to our suppression database.</>
@@ -95,7 +95,7 @@ function UnsubscribeForm() {
           <div className="mt-6 pt-6 border-t border-brand-edge">
             <Link
               href="/"
-              className="inline-block text-xs font-bold text-brand-graphite hover:text-brand-electric"
+              className="inline-block text-xs font-normal text-brand-graphite hover:text-brand-electric"
             >
               &larr; Return to EntireFM Homepage
             </Link>
@@ -125,14 +125,14 @@ function UnsubscribeForm() {
             <button
               onClick={handleUnsubscribe}
               disabled={loading}
-              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs py-2.5 px-4 rounded transition-colors disabled:opacity-50"
+              className="w-full bg-red-600 hover:bg-red-700 text-white font-normal text-xs py-2.5 px-4 rounded transition-colors disabled:opacity-50"
             >
               {loading ? 'Processing...' : 'Confirm Unsubscribe'}
             </button>
 
             <Link
               href="/fm-briefing"
-              className="w-full text-center border border-brand-edge hover:bg-brand-foam text-brand-graphite font-semibold text-xs py-2.5 px-4 rounded transition-colors"
+              className="w-full text-center border border-brand-edge hover:bg-brand-foam text-brand-graphite font-normal text-xs py-2.5 px-4 rounded transition-colors"
             >
               Cancel &amp; Keep Subscription
             </Link>

@@ -53,10 +53,10 @@ export function TenderProcurementChallenge() {
       <div className="relative z-10">
         {/* Header */}
         <div className="max-w-3xl mb-10">
-          <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#EA580C]/40 bg-[#EA580C]/20 px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#FF8A4C] mb-3">
+          <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#EA580C]/40 bg-[#EA580C]/20 px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#FF8A4C] mb-3">
             TENDER &amp; PROCUREMENT GUIDE
           </span>
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white">
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extralight tracking-tight text-white">
             Evaluating FM providers? Ask them to show you the platform.
           </h3>
           <p className="text-[14px] sm:text-[15px] text-white/70 mt-3 leading-relaxed">
@@ -72,10 +72,10 @@ export function TenderProcurementChallenge() {
               className="rounded-[10px] border border-white/10 bg-white/5 p-5 flex flex-col justify-between hover:border-[#EA580C]/40 transition-colors"
             >
               <div>
-                <span className="font-mono text-[11px] font-bold text-[#EA580C] block mb-2">
+                <span className="font-mono text-[11px] font-normal text-[#EA580C] block mb-2">
                   CHALLENGE {q.number}
                 </span>
-                <p className="text-[13px] font-medium text-white leading-snug mb-3">
+                <p className="text-[13px] font-normal text-white leading-snug mb-3">
                   “{q.question}”
                 </p>
               </div>
@@ -94,7 +94,7 @@ export function TenderProcurementChallenge() {
         {/* Bottom CTA Block */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/10 pt-6">
           <div>
-            <h4 className="text-lg font-semibold text-white">
+            <h4 className="text-lg font-light text-white">
               We would be delighted to demonstrate our live platform.
             </h4>
             <p className="text-xs text-white/60 mt-0.5">
@@ -103,7 +103,7 @@ export function TenderProcurementChallenge() {
           </div>
           <Link
             href="/contact-us?subject=EntireCAFM%20Live%20Portal%20Demonstration"
-            className="inline-flex items-center gap-2 rounded-[8px] bg-[#EA580C] px-5 py-3 text-[13px] font-semibold text-white shadow-lg hover:bg-[#D44708] transition-all shrink-0"
+            className="inline-flex items-center gap-2 rounded-[8px] bg-[#EA580C] px-5 py-3 text-[13px] font-normal text-white shadow-lg hover:bg-[#D44708] transition-all shrink-0"
           >
             Book an EntireCAFM Demonstration
             <ArrowRight className="h-4 w-4" />

@@ -72,7 +72,7 @@ export function StatBlock() {
               <span className="eyebrow">{item.label}</span>
               <Icon className="h-4 w-4 shrink-0 text-brand-silver transition-colors duration-500 group-hover:text-brand-electric" />
             </div>
-            <p className="text-[1.375rem] font-bold leading-tight tracking-tight text-brand-graphite">
+            <p className="text-[1.375rem] font-light leading-tight tracking-tight text-brand-graphite">
               {item.value}
             </p>
             <p className="mt-2.5 text-[13px] leading-relaxed text-brand-silver">{item.detail}</p>
@@ -155,7 +155,7 @@ export function ClientLogoRail() {
               data-reveal
               style={{ '--reveal-delay': `${i * 60}ms` } as React.CSSProperties}
             >
-              <p className="text-sm font-semibold leading-snug text-brand-graphite">{sector.name}</p>
+              <p className="text-sm font-normal leading-snug text-brand-graphite">{sector.name}</p>
               <div className="reveal-on-hover">
                 <p className="pt-2 text-[12px] leading-snug text-brand-silver">{sector.note}</p>
               </div>

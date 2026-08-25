@@ -13,10 +13,10 @@ export default async function ScorecardsDirectoryPage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
             SUPPLIER METRIC SCORECARDS
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight text-slate-900 mt-1">
             Supplier Performance Scorecards Directory
           </h1>
           <p className="text-xs text-slate-600 font-light mt-1">
@@ -59,15 +59,15 @@ export default async function ScorecardsDirectoryPage() {
             <tbody className="divide-y divide-slate-100">
               {scorecards.map((s) => (
                 <tr key={s.supplier_id} className="hover:bg-slate-50/50">
-                  <td className="py-3 px-4 font-bold text-slate-900 font-sans">{s.supplier_name}</td>
+                  <td className="py-3 px-4 font-light text-slate-900 font-sans">{s.supplier_name}</td>
                   <td className="py-3 px-4 text-center text-slate-700">{s.total_completed_jobs}</td>
-                  <td className="py-3 px-4 text-center font-bold text-emerald-700">{s.sla_attendance_rate.value}%</td>
-                  <td className="py-3 px-4 text-center font-bold text-slate-900">{s.first_time_fix_rate.value}%</td>
-                  <td className="py-3 px-4 text-center font-bold text-slate-900">{s.evidence_acceptance_rate.value}%</td>
-                  <td className="py-3 px-4 text-center font-bold text-slate-900">{s.invoice_accuracy_rate.value}%</td>
-                  <td className="py-3 px-4 text-center font-bold text-slate-900">{s.client_feedback_rating.value} / 5</td>
+                  <td className="py-3 px-4 text-center font-light text-emerald-700">{s.sla_attendance_rate.value}%</td>
+                  <td className="py-3 px-4 text-center font-light text-slate-900">{s.first_time_fix_rate.value}%</td>
+                  <td className="py-3 px-4 text-center font-light text-slate-900">{s.evidence_acceptance_rate.value}%</td>
+                  <td className="py-3 px-4 text-center font-light text-slate-900">{s.invoice_accuracy_rate.value}%</td>
+                  <td className="py-3 px-4 text-center font-light text-slate-900">{s.client_feedback_rating.value} / 5</td>
                   <td className="py-3 px-4 text-center">
-                    <span className={`inline-block text-[10px] px-2 py-0.5 rounded font-bold ${
+                    <span className={`inline-block text-[10px] px-2 py-0.5 rounded font-light ${
                       s.overall_status === 'EXCELLENT' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-800'
                     }`}>
                       {s.overall_status}

@@ -60,7 +60,7 @@ export function Drawer({
             <div className="min-w-0 flex-1 pr-4">
               <div className="flex items-center gap-2">
                 {title && (
-                  <h2 className="text-[16px] font-medium tracking-tight text-[#101010] truncate">
+                  <h2 className="text-[16px] font-extralight tracking-tight text-[#101010] truncate">
                     {title}
                   </h2>
                 )}

@@ -33,7 +33,7 @@ export default async function ImportsPage() {
         title="Asset Imports"
         description="Manage XLSX, CSV, and COBie import batches with full lineage and rollback support."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white shadow hover:bg-brand-indigo">
             + New Import
           </button>
         }

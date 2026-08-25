@@ -66,7 +66,7 @@ export default function ComplaintsResolutionPage() {
       {/* 1. Interactive Complaint Submission Form */}
       <section id="intake-form" className="scroll-mt-28 space-y-4">
         <div className="border-b border-slate-100 pb-2">
-          <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">
+          <h2 className="text-xl font-light text-slate-900 sm:text-2xl">
             1. Electronic Complaint Submission Form
           </h2>
           <p className="text-xs text-slate-500 mt-1">
@@ -81,7 +81,7 @@ export default function ComplaintsResolutionPage() {
 
       {/* 2. Issue Categorisation & Routing */}
       <section id="category-routing" className="scroll-mt-28 space-y-4">
-        <h2 className="text-xl font-bold text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
+        <h2 className="text-xl font-light text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
           2. Issue Categorisation & Responsible Teams
         </h2>
         <p className="text-slate-700 leading-relaxed text-sm">
@@ -90,7 +90,7 @@ export default function ComplaintsResolutionPage() {
 
         <div className="grid gap-3 sm:grid-cols-2 text-xs">
           <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 space-y-1">
-            <div className="flex items-center gap-2 font-bold text-slate-900">
+            <div className="flex items-center gap-2 font-light text-slate-900">
               <Wrench className="h-4 w-4 text-blue-600" />
               Service & Maintenance Delivery
             </div>
@@ -100,7 +100,7 @@ export default function ComplaintsResolutionPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 space-y-1">
-            <div className="flex items-center gap-2 font-bold text-slate-900">
+            <div className="flex items-center gap-2 font-light text-slate-900">
               <Truck className="h-4 w-4 text-amber-600" />
               Contractor Conduct & Workmanship
             </div>
@@ -110,7 +110,7 @@ export default function ComplaintsResolutionPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 space-y-1">
-            <div className="flex items-center gap-2 font-bold text-slate-900">
+            <div className="flex items-center gap-2 font-light text-slate-900">
               <CreditCard className="h-4 w-4 text-emerald-600" />
               Billing & Commercial Rates
             </div>
@@ -120,7 +120,7 @@ export default function ComplaintsResolutionPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 space-y-1">
-            <div className="flex items-center gap-2 font-bold text-slate-900">
+            <div className="flex items-center gap-2 font-light text-slate-900">
               <AlertTriangle className="h-4 w-4 text-rose-600" />
               Health, Safety & Asbestos
             </div>
@@ -130,7 +130,7 @@ export default function ComplaintsResolutionPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 space-y-1">
-            <div className="flex items-center gap-2 font-bold text-slate-900">
+            <div className="flex items-center gap-2 font-light text-slate-900">
               <ShieldAlert className="h-4 w-4 text-indigo-600" />
               Data Protection & UK GDPR
             </div>
@@ -140,7 +140,7 @@ export default function ComplaintsResolutionPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 space-y-1">
-            <div className="flex items-center gap-2 font-bold text-slate-900">
+            <div className="flex items-center gap-2 font-light text-slate-900">
               <Lock className="h-4 w-4 text-slate-900" />
               Whistleblowing / Speak Up
             </div>
@@ -153,14 +153,14 @@ export default function ComplaintsResolutionPage() {
 
       {/* 3. Three-Stage Resolution Procedure */}
       <section id="three-stage-procedure" className="scroll-mt-28 space-y-4">
-        <h2 className="text-xl font-bold text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
+        <h2 className="text-xl font-light text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
           3. Three-Stage Resolution Procedure
         </h2>
 
         <div className="space-y-4 text-sm text-slate-700 leading-relaxed">
           <div className="rounded-xl border border-slate-200 p-5 bg-white space-y-2">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-mono font-bold">1</span>
+            <h3 className="text-base font-light text-slate-900 flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-mono font-light">1</span>
               Stage 1: Operational Review & Root Cause Analysis
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
@@ -169,8 +169,8 @@ export default function ComplaintsResolutionPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 p-5 bg-white space-y-2">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-mono font-bold">2</span>
+            <h3 className="text-base font-light text-slate-900 flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-mono font-light">2</span>
               Stage 2: Director-Level Executive Escalation
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
@@ -179,8 +179,8 @@ export default function ComplaintsResolutionPage() {
           </div>
 
           <div className="rounded-xl border border-slate-200 p-5 bg-white space-y-2">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-mono font-bold">3</span>
+            <h3 className="text-base font-light text-slate-900 flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-800 text-xs font-mono font-light">3</span>
               Stage 3: Independent Mediation & Alternative Dispute Resolution
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
@@ -192,7 +192,7 @@ export default function ComplaintsResolutionPage() {
 
       {/* 4. Service Standards */}
       <section id="service-commitments" className="scroll-mt-28 space-y-4">
-        <h2 className="text-xl font-bold text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
+        <h2 className="text-xl font-light text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
           4. Service Standards & Response Windows
         </h2>
         <p className="text-slate-700 leading-relaxed text-sm">
@@ -208,7 +208,7 @@ export default function ComplaintsResolutionPage() {
 
       {/* 5. External Escalation */}
       <section id="independent-escalation" className="scroll-mt-28 space-y-4">
-        <h2 className="text-xl font-bold text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
+        <h2 className="text-xl font-light text-slate-900 sm:text-2xl border-b border-slate-100 pb-2">
           5. External & Statutory Escalation Pathways
         </h2>
 

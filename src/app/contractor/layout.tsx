@@ -55,7 +55,7 @@ export default async function ContractorLayout({ children }: { children: React.R
           <div className="flex items-center gap-4">
             <Link href="/contractor" className="flex items-center gap-2.5">
               <span className="text-[16px] font-light tracking-tight text-white">
-                Entire<span className="font-semibold text-brand-electric">FM</span>
+                Entire<span className="font-light text-brand-electric">FM</span>
               </span>
               <span className="rounded border border-brand-edge-dark bg-brand-void/80 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-brand-mist/70">
                 Contractor
@@ -84,7 +84,7 @@ export default async function ContractorLayout({ children }: { children: React.R
             <Link
               key={item.href}
               href={item.href}
-              className="rounded px-3 py-1.5 text-[12.5px] font-medium text-brand-mist/70 hover:bg-brand-void hover:text-white transition-colors whitespace-nowrap"
+              className="rounded px-3 py-1.5 text-[12.5px] font-normal text-brand-mist/70 hover:bg-brand-void hover:text-white transition-colors whitespace-nowrap"
             >
               {item.name}
             </Link>

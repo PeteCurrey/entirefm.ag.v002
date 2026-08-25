@@ -16,7 +16,7 @@ export default async function ContractorWorkPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">Work Orders & Assignments</h1>
+        <h1 className="text-2xl font-extralight text-white tracking-tight">Work Orders & Assignments</h1>
         <p className="text-brand-mist text-sm mt-1">Review offers, accept or decline dispatches, and track job lifecycle.</p>
       </div>
 

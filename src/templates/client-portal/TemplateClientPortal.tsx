@@ -51,7 +51,7 @@ export function TemplateClientPortal() {
           <section className="mb-16">
             <div className="max-w-4xl mb-8">
               <div className="flex items-center gap-2.5 mb-3">
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[11px] font-bold text-[#C2410C]">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[11px] font-normal text-[#C2410C]">
                   <span className="h-2 w-2 rounded-full bg-[#EA580C] animate-pulse" />
                   ENTIRECAFM CLIENT PORTAL
                 </span>
@@ -62,7 +62,7 @@ export function TemplateClientPortal() {
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-[#101010] leading-[1.1]">
                 See your estate.{' '}
-                <span className="font-semibold block mt-1">
+                <span className="font-light block mt-1">
                   Not another monthly spreadsheet.
                 </span>
               </h1>
@@ -75,14 +75,14 @@ export function TemplateClientPortal() {
               <div className="flex flex-wrap items-center gap-3.5 mt-7">
                 <Link
                   href="/contact-us?subject=Book%20a%20Live%20Portal%20Demo"
-                  className="inline-flex items-center gap-2 rounded-[8px] bg-[#EA580C] px-6 py-3.5 text-[13.5px] font-semibold text-white shadow-lg hover:bg-[#D44708] transition-all"
+                  className="inline-flex items-center gap-2 rounded-[8px] bg-[#EA580C] px-6 py-3.5 text-[13.5px] font-normal text-white shadow-lg hover:bg-[#D44708] transition-all"
                 >
                   <Sparkles className="h-4 w-4" />
                   Book a Live Portal Demo
                 </Link>
                 <a
                   href="#interactive-tour"
-                  className="inline-flex items-center gap-2 rounded-[8px] border border-[#E4E4E1] bg-white px-5 py-3.5 text-[13.5px] font-medium text-[#101010] hover:bg-[#F5F5F3] transition-colors shadow-sm"
+                  className="inline-flex items-center gap-2 rounded-[8px] border border-[#E4E4E1] bg-white px-5 py-3.5 text-[13.5px] font-normal text-[#101010] hover:bg-[#F5F5F3] transition-colors shadow-sm"
                 >
                   Explore EntireCAFM Features
                   <ArrowRight className="h-4 w-4 text-[#9B9B97]" />
@@ -121,7 +121,7 @@ export function TemplateClientPortal() {
           {/* ── 2. REAL PROOF METRICS EXCERPTS ────────────────────────── */}
           <section className="mb-16">
             <div className="rounded-[12px] border border-[#E4E4E1] bg-white p-6 shadow-sm">
-              <p className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-[#9B9B97] mb-4 text-center">
+              <p className="font-mono text-[10.5px] font-normal uppercase tracking-wider text-[#9B9B97] mb-4 text-center">
                 LIVE PRODUCTION TELEMETRY SURFACED TO AUTHORISED CLIENTS
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-[#F0F0EE]">
@@ -138,7 +138,7 @@ export function TemplateClientPortal() {
                       {item.label}
                     </span>
                     <span
-                      className="text-2xl sm:text-3xl font-semibold block mt-1 tracking-tight"
+                      className="text-2xl sm:text-3xl font-extralight block mt-1 tracking-tight"
                       style={{ color: item.colour }}
                     >
                       {item.value}
@@ -165,10 +165,10 @@ export function TemplateClientPortal() {
           {/* ── 5. INFORMATION HIERARCHY SEQUENCE ─────────────────────── */}
           <section className="mb-20">
             <div className="max-w-3xl mb-8">
-              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#C2410C] mb-2">
+              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
                 END-TO-END VISIBILITY
               </span>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-[#101010] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
                 Portfolio → Site → Space → Asset → Action
               </h2>
               <p className="text-[14.5px] text-[#686866] mt-2 leading-relaxed">
@@ -184,10 +184,10 @@ export function TemplateClientPortal() {
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-5 space-y-4">
-                  <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#059669]">
+                  <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#A7F3D0] bg-[#ECFDF5] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#059669]">
                     SITE 360 SPATIAL INTERFACE
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-semibold text-[#101010] tracking-tight">
+                  <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
                     Your building becomes a live operating environment.
                   </h2>
                   <p className="text-[13.5px] text-[#4B5563] leading-relaxed">
@@ -210,7 +210,7 @@ export function TemplateClientPortal() {
                   <div className="pt-4">
                     <Link
                       href="/client-portal/site-360"
-                      className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#101010] px-4 py-2.5 text-[12.5px] font-medium text-white hover:bg-[#252525] transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#101010] px-4 py-2.5 text-[12.5px] font-normal text-white hover:bg-[#252525] transition-colors"
                     >
                       Explore Site 360 In Detail
                       <ChevronRight className="h-3.5 w-3.5 text-[#EA580C]" />
@@ -235,10 +235,10 @@ export function TemplateClientPortal() {
           {/* ── 7. SUPPORTING SPECIALIST MODULES ──────────────────────── */}
           <section className="mb-20">
             <div className="max-w-2xl mb-8">
-              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#C2410C] mb-2">
+              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
                 SPECIALIST CAPABILITIES
               </span>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-[#101010] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
                 Explore the platform by operational domain.
               </h2>
             </div>
@@ -250,7 +250,7 @@ export function TemplateClientPortal() {
                   <div className="h-10 w-10 rounded-[8px] bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center mb-4">
                     <Activity className="h-5 w-5" />
                   </div>
-                  <h3 className="text-lg font-semibold text-[#101010]">
+                  <h3 className="text-lg font-light text-[#101010]">
                     Real-Time Operations
                   </h3>
                   <p className="text-[13px] text-[#686866] mt-2 leading-relaxed">
@@ -260,7 +260,7 @@ export function TemplateClientPortal() {
                 <div className="pt-6 border-t border-[#F0F0EE] mt-6">
                   <Link
                     href="/client-portal/real-time-operations"
-                    className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-[#EA580C] hover:underline"
+                    className="inline-flex items-center gap-1 text-[12.5px] font-normal text-[#EA580C] hover:underline"
                   >
                     View Operations Hub <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
@@ -273,7 +273,7 @@ export function TemplateClientPortal() {
                   <div className="h-10 w-10 rounded-[8px] bg-[#ECFDF5] text-[#059669] flex items-center justify-center mb-4">
                     <ShieldCheck className="h-5 w-5" />
                   </div>
-                  <h3 className="text-lg font-semibold text-[#101010]">
+                  <h3 className="text-lg font-light text-[#101010]">
                     Compliance &amp; Reporting
                   </h3>
                   <p className="text-[13px] text-[#686866] mt-2 leading-relaxed">
@@ -283,7 +283,7 @@ export function TemplateClientPortal() {
                 <div className="pt-6 border-t border-[#F0F0EE] mt-6">
                   <Link
                     href="/client-portal/compliance-reporting"
-                    className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-[#EA580C] hover:underline"
+                    className="inline-flex items-center gap-1 text-[12.5px] font-normal text-[#EA580C] hover:underline"
                   >
                     View Compliance Hub <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
@@ -296,7 +296,7 @@ export function TemplateClientPortal() {
                   <div className="h-10 w-10 rounded-[8px] bg-[#FFF7ED] text-[#EA580C] flex items-center justify-center mb-4">
                     <Building2 className="h-5 w-5" />
                   </div>
-                  <h3 className="text-lg font-semibold text-[#101010]">
+                  <h3 className="text-lg font-light text-[#101010]">
                     Site 360 Workspace
                   </h3>
                   <p className="text-[13px] text-[#686866] mt-2 leading-relaxed">
@@ -306,7 +306,7 @@ export function TemplateClientPortal() {
                 <div className="pt-6 border-t border-[#F0F0EE] mt-6">
                   <Link
                     href="/client-portal/site-360"
-                    className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-[#EA580C] hover:underline"
+                    className="inline-flex items-center gap-1 text-[12.5px] font-normal text-[#EA580C] hover:underline"
                   >
                     Explore Site 360 <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
@@ -325,10 +325,10 @@ export function TemplateClientPortal() {
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-4">
-                  <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#C2410C]">
+                  <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C]">
                     OPEN DATA &amp; TRANSPARENCY
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-semibold text-[#101010] tracking-tight">
+                  <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
                     We don&apos;t believe FM data should belong to your FM provider.
                   </h2>
                   <p className="text-[14px] text-[#4B5563] leading-relaxed">
@@ -342,7 +342,7 @@ export function TemplateClientPortal() {
                       { title: 'Full Audit Rights', desc: 'Direct regulatory and insurer inspection access to digital vaults.' },
                     ].map((f) => (
                       <div key={f.title} className="rounded-[8px] border border-[#E4E4E1] bg-[#FBFBFA] p-3">
-                        <strong className="text-[12.5px] font-semibold text-[#101010] block">
+                        <strong className="text-[12.5px] font-normal text-[#101010] block">
                           {f.title}
                         </strong>
                         <span className="text-[11.5px] text-[#686866] block mt-0.5">
@@ -359,7 +359,7 @@ export function TemplateClientPortal() {
                       <Lock className="h-4 w-4 text-[#EA580C]" />
                     </div>
                     <div>
-                      <h4 className="text-[14px] font-semibold text-[#101010]">
+                      <h4 className="text-[14px] font-normal text-[#101010]">
                         Enterprise Security &amp; Compliance
                       </h4>
                       <p className="text-[11.5px] text-[#686866]">
@@ -394,10 +394,10 @@ export function TemplateClientPortal() {
           <section className="mb-20">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-3xl mb-6">
-                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-bold text-[#C2410C] mb-2">
+                <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
                   OPERATIONAL REASONING
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-semibold text-[#101010] tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
                   AI should interrogate your FM data — not invent it.
                 </h2>
                 <p className="text-[14px] text-[#4B5563] mt-2 leading-relaxed">
@@ -422,7 +422,7 @@ export function TemplateClientPortal() {
                 ].map((item) => (
                   <div key={item.title} className="rounded-[8px] border border-[#E4E4E1] bg-[#FBFBFA] p-4">
                     <Sparkles className="h-4 w-4 text-[#EA580C] mb-2" />
-                    <h4 className="text-[13px] font-semibold text-[#101010]">
+                    <h4 className="text-[13px] font-normal text-[#101010]">
                       {item.title}
                     </h4>
                     <p className="text-[12px] text-[#686866] mt-1 leading-relaxed">
@@ -442,10 +442,10 @@ export function TemplateClientPortal() {
           {/* ── 12. BOTTOM CONVERSION CTA ─────────────────────────────── */}
           <section className="mb-16">
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-8 sm:p-12 text-center shadow-lg">
-              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-3 py-1 font-mono text-[11px] font-bold text-[#C2410C] mb-3">
+              <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-3 py-1 font-mono text-[11px] font-normal text-[#C2410C] mb-3">
                 LIVE DEMONSTRATION
               </span>
-              <h2 className="text-3xl sm:text-4xl font-semibold text-[#101010] tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-extralight text-[#101010] tracking-tight">
                 Don&apos;t take our word for it. We&apos;ll show you the platform.
               </h2>
               <p className="text-[15px] sm:text-[16px] text-[#4B5563] mt-3 max-w-2xl mx-auto leading-relaxed">
@@ -455,14 +455,14 @@ export function TemplateClientPortal() {
               <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
                 <Link
                   href="/contact-us?subject=Book%20an%20EntireCAFM%20Demonstration"
-                  className="inline-flex items-center gap-2 rounded-[8px] bg-[#EA580C] px-7 py-4 text-[14px] font-semibold text-white shadow-xl hover:bg-[#D44708] transition-all"
+                  className="inline-flex items-center gap-2 rounded-[8px] bg-[#EA580C] px-7 py-4 text-[14px] font-normal text-white shadow-xl hover:bg-[#D44708] transition-all"
                 >
                   Book an EntireCAFM Demonstration
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/mechanical-electrical"
-                  className="inline-flex items-center gap-2 rounded-[8px] border border-[#E4E4E1] bg-white px-6 py-4 text-[14px] font-medium text-[#101010] hover:bg-[#F5F5F3] transition-colors"
+                  className="inline-flex items-center gap-2 rounded-[8px] border border-[#E4E4E1] bg-white px-6 py-4 text-[14px] font-normal text-[#101010] hover:bg-[#F5F5F3] transition-colors"
                 >
                   Explore Hard FM Engineering
                 </Link>

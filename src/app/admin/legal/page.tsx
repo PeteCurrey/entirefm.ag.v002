@@ -64,10 +64,10 @@ export default async function AdminLegalPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-800 pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-500 text-slate-950 font-bold">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-500 text-slate-950 font-light">
               <Scale className="h-4 w-4" />
             </span>
-            <h1 className="text-2xl font-bold text-white tracking-tight">
+            <h1 className="text-2xl font-extralight text-white tracking-tight">
               Legal Governance & Human Approval Console
             </h1>
           </div>
@@ -80,7 +80,7 @@ export default async function AdminLegalPage() {
           <Link
             href="/legal"
             target="_blank"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800 px-3.5 py-2 text-xs font-semibold text-slate-200 hover:bg-slate-700 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800 px-3.5 py-2 text-xs font-normal text-slate-200 hover:bg-slate-700 transition-colors"
           >
             <Eye className="h-3.5 w-3.5 text-teal-400" />
             View Public Legal Hub
@@ -96,7 +96,7 @@ export default async function AdminLegalPage() {
             <span>Awaiting Human Approval</span>
             <Clock className="h-4 w-4 text-amber-400" />
           </div>
-          <p className="text-2xl font-bold text-amber-400 mt-2">{proposedPolicies.length}</p>
+          <p className="text-2xl font-extralight text-amber-400 mt-2">{proposedPolicies.length}</p>
           <p className="text-[11px] text-slate-500 mt-0.5">Proposed policy rules</p>
         </div>
 
@@ -105,7 +105,7 @@ export default async function AdminLegalPage() {
             <span>Config / Facts Required</span>
             <AlertTriangle className="h-4 w-4 text-rose-400" />
           </div>
-          <p className="text-2xl font-bold text-rose-400 mt-2">{configRequiredClaims.length}</p>
+          <p className="text-2xl font-extralight text-rose-400 mt-2">{configRequiredClaims.length}</p>
           <p className="text-[11px] text-slate-500 mt-0.5">VAT, ICO, Insurance Schedules</p>
         </div>
 
@@ -114,7 +114,7 @@ export default async function AdminLegalPage() {
             <span>Open Data Rights & SARs</span>
             <Search className="h-4 w-4 text-teal-400" />
           </div>
-          <p className="text-2xl font-bold text-teal-400 mt-2">
+          <p className="text-2xl font-extralight text-teal-400 mt-2">
             {dataRightsRequests.filter((d) => d.status !== 'COMPLETED' && d.status !== 'REJECTED').length}
           </p>
           <p className="text-[11px] text-slate-500 mt-0.5">Statutory 1-month countdown active</p>
@@ -125,7 +125,7 @@ export default async function AdminLegalPage() {
             <span>Verified Production Processors</span>
             <ShieldCheck className="h-4 w-4 text-emerald-400" />
           </div>
-          <p className="text-2xl font-bold text-emerald-400 mt-2">
+          <p className="text-2xl font-extralight text-emerald-400 mt-2">
             {SUBPROCESSOR_REGISTER.filter((s) => s.status === 'VERIFIED_ACTIVE').length}
           </p>
           <p className="text-[11px] text-slate-500 mt-0.5">
@@ -139,10 +139,10 @@ export default async function AdminLegalPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
             <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded bg-amber-500/20 text-amber-400 text-xs font-bold">
+              <span className="flex h-6 w-6 items-center justify-center rounded bg-amber-500/20 text-amber-400 text-xs font-normal">
                 !
               </span>
-              <h2 className="text-base font-bold text-white">
+              <h2 className="text-base font-light text-white">
                 Human Approval Inbox (Proposed Business Policies)
               </h2>
             </div>
@@ -150,7 +150,7 @@ export default async function AdminLegalPage() {
               AI / code has proposed the following operational policies. They remain non-contractual until explicitly approved by an authorized executive.
             </p>
           </div>
-          <span className="text-xs bg-amber-950 text-amber-300 border border-amber-800 px-3 py-1 rounded-full font-semibold">
+          <span className="text-xs bg-amber-950 text-amber-300 border border-amber-800 px-3 py-1 rounded-full font-light">
             {proposedPolicies.length} Items Awaiting Sign-Off
           </span>
         </div>
@@ -171,7 +171,7 @@ export default async function AdminLegalPage() {
                     <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/60 mr-2">
                       {item.category}
                     </span>
-                    <span className="font-bold text-white text-sm">{item.claimId}</span>
+                    <span className="font-light text-white text-sm">{item.claimId}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] text-slate-400 font-mono">
@@ -182,8 +182,8 @@ export default async function AdminLegalPage() {
 
                 <div className="space-y-2 text-xs">
                   <div>
-                    <span className="text-slate-400 block font-semibold">Proposed Public Wording:</span>
-                    <p className="text-slate-200 bg-slate-950/60 p-3 rounded-lg border border-slate-800 font-medium mt-1 leading-relaxed">
+                    <span className="text-slate-400 block font-light">Proposed Public Wording:</span>
+                    <p className="text-slate-200 bg-slate-950/60 p-3 rounded-lg border border-slate-800 font-normal mt-1 leading-relaxed">
                       "{item.publicWording}"
                     </p>
                   </div>
@@ -206,19 +206,19 @@ export default async function AdminLegalPage() {
                   <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
                     <button
                       type="button"
-                      className="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700 transition-colors"
+                      className="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs font-normal hover:bg-slate-700 transition-colors"
                     >
                       Send for Legal Review
                     </button>
                     <button
                       type="button"
-                      className="px-3 py-1.5 rounded-lg bg-rose-950 text-rose-300 border border-rose-800 text-xs font-semibold hover:bg-rose-900 transition-colors"
+                      className="px-3 py-1.5 rounded-lg bg-rose-950 text-rose-300 border border-rose-800 text-xs font-normal hover:bg-rose-900 transition-colors"
                     >
                       Reject Proposal
                     </button>
                     <button
                       type="button"
-                      className="px-4 py-1.5 rounded-lg bg-teal-600 text-white text-xs font-bold hover:bg-teal-700 transition-colors shadow-xs flex items-center gap-1.5"
+                      className="px-4 py-1.5 rounded-lg bg-teal-600 text-white text-xs font-normal hover:bg-teal-700 transition-colors shadow-xs flex items-center gap-1.5"
                     >
                       <Check className="h-3.5 w-3.5" />
                       Approve as Human Executive
@@ -235,7 +235,7 @@ export default async function AdminLegalPage() {
       <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
+            <h2 className="text-base font-light text-white flex items-center gap-2">
               <Building2 className="h-4 w-4 text-rose-400" />
               Missing Corporate Facts & Configuration Queue
             </h2>
@@ -243,7 +243,7 @@ export default async function AdminLegalPage() {
               These factual credentials must be supplied. In accordance with truth-control rules, zero public fallbacks are rendered until verified.
             </p>
           </div>
-          <span className="text-xs bg-rose-950 text-rose-300 border border-rose-800 px-3 py-1 rounded-full font-semibold">
+          <span className="text-xs bg-rose-950 text-rose-300 border border-rose-800 px-3 py-1 rounded-full font-light">
             {configRequiredClaims.length} Items Pending
           </span>
         </div>
@@ -252,7 +252,7 @@ export default async function AdminLegalPage() {
           {configRequiredClaims.map((claim) => (
             <div key={claim.claimId} className="rounded-xl bg-slate-900 border border-slate-800 p-4 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-white">{claim.claimId}</span>
+                <span className="font-light text-white">{claim.claimId}</span>
                 <span className="text-[10px] font-mono bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded">
                   CONFIG_REQUIRED
                 </span>
@@ -268,7 +268,7 @@ export default async function AdminLegalPage() {
       <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
+            <h2 className="text-base font-light text-white flex items-center gap-2">
               <Scale className="h-4 w-4 text-indigo-400" />
               External Legal Review Queue (High-Impact Clauses)
             </h2>
@@ -276,7 +276,7 @@ export default async function AdminLegalPage() {
               Clauses with significant liability, dispute resolution, or regulatory impact held pending solicitor review.
             </p>
           </div>
-          <span className="text-xs bg-indigo-950 text-indigo-300 border border-indigo-800 px-3 py-1 rounded-full font-semibold">
+          <span className="text-xs bg-indigo-950 text-indigo-300 border border-indigo-800 px-3 py-1 rounded-full font-light">
             {legalReviewClaims.length} Items in Legal Review
           </span>
         </div>
@@ -285,7 +285,7 @@ export default async function AdminLegalPage() {
           {legalReviewClaims.map((claim) => (
             <div key={claim.claimId} className="rounded-xl bg-slate-900 border border-slate-800 p-4 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-white">{claim.claimId}</span>
+                <span className="font-light text-white">{claim.claimId}</span>
                 <span className="text-[10px] font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">
                   LEGAL_REVIEW_REQUIRED
                 </span>
@@ -301,7 +301,7 @@ export default async function AdminLegalPage() {
       <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
+            <h2 className="text-base font-light text-white flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-emerald-400" />
               Subprocessor Contractual Verification Register
             </h2>
@@ -313,7 +313,7 @@ export default async function AdminLegalPage() {
 
         <div className="overflow-x-auto rounded-xl border border-slate-800">
           <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-900 text-[11px] font-bold uppercase text-slate-400">
+            <thead className="bg-slate-900 text-[11px] font-normal uppercase text-slate-400">
               <tr>
                 <th className="px-4 py-3">Provider Name</th>
                 <th className="px-4 py-3">Contractual Entity</th>
@@ -326,7 +326,7 @@ export default async function AdminLegalPage() {
             <tbody className="divide-y divide-slate-800">
               {SUBPROCESSOR_REGISTER.map((sub) => (
                 <tr key={sub.id} className="hover:bg-slate-800/40">
-                  <td className="px-4 py-3 font-bold text-white">{sub.name}</td>
+                  <td className="px-4 py-3 font-light text-white">{sub.name}</td>
                   <td className="px-4 py-3 text-slate-400">{sub.contractualEntity}</td>
                   <td className="px-4 py-3 text-slate-400">{sub.category}</td>
                   <td className="px-4 py-3 font-mono text-[11px]">{sub.primaryHostingRegion}</td>
@@ -335,7 +335,7 @@ export default async function AdminLegalPage() {
                   </td>
                   <td className="px-4 py-3">
                     <span
-                      className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${
+                      className={`inline-block px-2 py-0.5 rounded text-[10px] font-normal ${
                         sub.status === 'VERIFIED_ACTIVE'
                           ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
                           : 'bg-amber-950 text-amber-300 border border-amber-800'
@@ -355,7 +355,7 @@ export default async function AdminLegalPage() {
       <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
+            <h2 className="text-base font-light text-white flex items-center gap-2">
               <Search className="h-4 w-4 text-teal-400" />
               Data Subject Rights Queue (UK GDPR Arts 15-22)
             </h2>
@@ -366,7 +366,7 @@ export default async function AdminLegalPage() {
           <Link
             href="/legal/data-rights"
             target="_blank"
-            className="text-xs font-semibold text-teal-400 hover:underline inline-flex items-center gap-1"
+            className="text-xs font-normal text-teal-400 hover:underline inline-flex items-center gap-1"
           >
             Public Rights Portal
             <ArrowRight className="h-3 w-3" />
@@ -380,7 +380,7 @@ export default async function AdminLegalPage() {
         ) : (
           <div className="overflow-x-auto rounded-xl border border-slate-800">
             <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-900 text-[11px] font-bold uppercase text-slate-400">
+              <thead className="bg-slate-900 text-[11px] font-normal uppercase text-slate-400">
                 <tr>
                   <th className="px-4 py-3">Reference</th>
                   <th className="px-4 py-3">Right Type</th>
@@ -393,15 +393,15 @@ export default async function AdminLegalPage() {
               <tbody className="divide-y divide-slate-800">
                 {dataRightsRequests.map((r) => (
                   <tr key={r.reference} className="hover:bg-slate-800/40">
-                    <td className="px-4 py-3 font-mono font-bold text-white">{r.reference}</td>
-                    <td className="px-4 py-3 font-semibold text-teal-400">{r.right_type}</td>
+                    <td className="px-4 py-3 font-mono font-light text-white">{r.reference}</td>
+                    <td className="px-4 py-3 font-light text-teal-400">{r.right_type}</td>
                     <td className="px-4 py-3">
-                      <div className="font-semibold text-white">{r.full_name}</div>
+                      <div className="font-light text-white">{r.full_name}</div>
                       <div className="text-[11px] text-slate-500">{r.email}</div>
                     </td>
                     <td className="px-4 py-3 capitalize">{r.relationship.replace('_', ' ')}</td>
                     <td className="px-4 py-3">
-                      <span className="bg-teal-950 text-teal-300 border border-teal-800 px-2 py-0.5 rounded text-[10px] font-semibold">
+                      <span className="bg-teal-950 text-teal-300 border border-teal-800 px-2 py-0.5 rounded text-[10px] font-normal">
                         {r.status}
                       </span>
                     </td>
@@ -420,7 +420,7 @@ export default async function AdminLegalPage() {
       <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
+            <h2 className="text-base font-light text-white flex items-center gap-2">
               <AlertTriangle className="h-4 w-4 text-amber-400" />
               Complaints & Dispute Resolution Queue
             </h2>
@@ -431,7 +431,7 @@ export default async function AdminLegalPage() {
           <Link
             href="/legal/complaints"
             target="_blank"
-            className="text-xs font-semibold text-teal-400 hover:underline inline-flex items-center gap-1"
+            className="text-xs font-normal text-teal-400 hover:underline inline-flex items-center gap-1"
           >
             Intake Form
             <ArrowRight className="h-3 w-3" />
@@ -445,7 +445,7 @@ export default async function AdminLegalPage() {
         ) : (
           <div className="overflow-x-auto rounded-xl border border-slate-800">
             <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-900 text-[11px] font-bold uppercase text-slate-400">
+              <thead className="bg-slate-900 text-[11px] font-normal uppercase text-slate-400">
                 <tr>
                   <th className="px-4 py-3">Reference</th>
                   <th className="px-4 py-3">Category</th>
@@ -459,16 +459,16 @@ export default async function AdminLegalPage() {
               <tbody className="divide-y divide-slate-800">
                 {complaints.map((c) => (
                   <tr key={c.reference} className="hover:bg-slate-800/40">
-                    <td className="px-4 py-3 font-mono font-bold text-white">{c.reference}</td>
+                    <td className="px-4 py-3 font-mono font-light text-white">{c.reference}</td>
                     <td className="px-4 py-3 capitalize">{c.category.replace('_', ' ')}</td>
                     <td className="px-4 py-3">
-                      <div className="font-semibold text-white">{c.full_name}</div>
+                      <div className="font-light text-white">{c.full_name}</div>
                       <div className="text-[11px] text-slate-500">{c.email}</div>
                     </td>
-                    <td className="px-4 py-3 font-medium text-teal-400">{c.responsible_team}</td>
+                    <td className="px-4 py-3 font-normal text-teal-400">{c.responsible_team}</td>
                     <td className="px-4 py-3">
                       <span
-                        className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${
+                        className={`inline-block px-2 py-0.5 rounded text-[10px] font-normal ${
                           c.severity === 'SAFETY_CRITICAL'
                             ? 'bg-rose-950 text-rose-300 border border-rose-800'
                             : c.severity === 'HIGH'
@@ -480,7 +480,7 @@ export default async function AdminLegalPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded text-[10px] font-semibold">
+                      <span className="bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded text-[10px] font-normal">
                         {c.status}
                       </span>
                     </td>
@@ -499,7 +499,7 @@ export default async function AdminLegalPage() {
       <div className="rounded-2xl border border-slate-800 bg-slate-850 p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base font-bold text-white">
+            <h2 className="text-base font-light text-white">
               Policy Lifecycle & Cryptographic Version Registry
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
@@ -510,7 +510,7 @@ export default async function AdminLegalPage() {
 
         <div className="overflow-x-auto rounded-xl border border-slate-800">
           <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-900 text-[11px] font-bold uppercase text-slate-400">
+            <thead className="bg-slate-900 text-[11px] font-normal uppercase text-slate-400">
               <tr>
                 <th className="px-4 py-3">Policy Title</th>
                 <th className="px-4 py-3">Slug</th>
@@ -523,7 +523,7 @@ export default async function AdminLegalPage() {
             <tbody className="divide-y divide-slate-800">
               {policies.map((p) => (
                 <tr key={p.policy_slug} className="hover:bg-slate-800/40">
-                  <td className="px-4 py-2.5 font-bold text-white">
+                  <td className="px-4 py-2.5 font-light text-white">
                     <Link
                       href={`/legal/${p.policy_slug}`}
                       target="_blank"
@@ -533,15 +533,15 @@ export default async function AdminLegalPage() {
                     </Link>
                   </td>
                   <td className="px-4 py-2.5 font-mono text-slate-400">{p.policy_slug}</td>
-                  <td className="px-4 py-2.5 font-bold text-teal-400">v{p.version}</td>
+                  <td className="px-4 py-2.5 font-light text-teal-400">v{p.version}</td>
                   <td className="px-4 py-2.5">
-                    <span className="bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded text-[10px] font-bold">
+                    <span className="bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded text-[10px] font-normal">
                       {p.lifecycle_state}
                     </span>
                   </td>
                   <td className="px-4 py-2.5">
                     {p.requires_explicit_acceptance ? (
-                      <span className="text-[10px] bg-amber-950 text-amber-300 border border-amber-800 px-2 py-0.5 rounded font-semibold">
+                      <span className="text-[10px] bg-amber-950 text-amber-300 border border-amber-800 px-2 py-0.5 rounded font-light">
                         Contractual
                       </span>
                     ) : (

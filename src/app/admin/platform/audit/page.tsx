@@ -34,7 +34,7 @@ export default async function AuditLogPage() {
                   <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/50">
                     {new Date(e.created_at).toLocaleString('en-GB')}
                   </td>
-                  <td className="px-5 py-4 font-semibold text-white">
+                  <td className="px-5 py-4 font-light text-white">
                     {e.event_type}
                   </td>
                   <td className="px-5 py-4">

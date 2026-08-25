@@ -32,11 +32,11 @@ export function PostcodeCoverageLookup({ initialCity, className = '' }: Postcode
       <div className="max-w-3xl">
         <div className="inline-flex items-center gap-2 mb-2">
           <span className="h-2 w-2 rounded-full bg-brand-pink" />
-          <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink-light font-bold">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink-light font-light">
             UK POSTCODE COVERAGE CHECKER
           </span>
         </div>
-        <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+        <h3 className="text-xl sm:text-2xl font-extralight text-white tracking-tight">
           Verify Facilities Management &amp; Engineering Coverage for Your Estate
         </h3>
         <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -60,7 +60,7 @@ export function PostcodeCoverageLookup({ initialCity, className = '' }: Postcode
           </div>
           <button
             type="submit"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors shadow-sm shrink-0"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-normal uppercase tracking-wider rounded-sm transition-colors shadow-sm shrink-0"
           >
             <Search className="w-3.5 h-3.5" />
             <span>Check Coverage</span>
@@ -76,11 +76,11 @@ export function PostcodeCoverageLookup({ initialCity, className = '' }: Postcode
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                      <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">
+                      <span className="text-xs font-mono font-light text-emerald-400 uppercase tracking-wider">
                         Full Active Coverage Confirmed
                       </span>
                     </div>
-                    <h4 className="text-base font-bold text-white mt-1">
+                    <h4 className="text-base font-light text-white mt-1">
                       {result.name} ({result.region})
                     </h4>
                   </div>
@@ -110,7 +110,7 @@ export function PostcodeCoverageLookup({ initialCity, className = '' }: Postcode
                   <div className="flex flex-wrap gap-3">
                     <Link
                       href={result.primaryRoute}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-brand-pink-light hover:text-white uppercase tracking-wider transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-normal text-brand-pink-light hover:text-white uppercase tracking-wider transition-colors"
                     >
                       <span>Explore {result.cityName} Hub</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -118,7 +118,7 @@ export function PostcodeCoverageLookup({ initialCity, className = '' }: Postcode
                     {result.cleaningRoute && (
                       <Link
                         href={result.cleaningRoute}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-slate-400 hover:text-white uppercase tracking-wider transition-colors"
+                        className="inline-flex items-center gap-1 text-xs font-normal text-slate-400 hover:text-white uppercase tracking-wider transition-colors"
                       >
                         <span>Local Cleaning</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -137,12 +137,12 @@ export function PostcodeCoverageLookup({ initialCity, className = '' }: Postcode
               </div>
             ) : (
               <div className="bg-slate-950/80 border border-slate-800 p-5 rounded-sm space-y-2 text-left">
-                <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold uppercase tracking-wider">
+                <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-normal uppercase tracking-wider">
                   <span>National Mobile Coverage Enquiries</span>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   We provide nationwide commercial facilities management and planned maintenance across England and Wales. For specialised or multi-site estates outside primary conurbations, contact our operations desk directly on{' '}
-                  <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-pink-light font-bold underline">
+                  <a href={CONTACT_CONFIG.mainPhone.href} className="text-brand-pink-light font-light underline">
                     {CONTACT_CONFIG.mainPhone.display}
                   </a>{' '}
                   or request a site survey proposal.
@@ -150,7 +150,7 @@ export function PostcodeCoverageLookup({ initialCity, className = '' }: Postcode
                 <div className="pt-2">
                   <Link
                     href="#enquiry"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-pink-light hover:text-white"
+                    className="inline-flex items-center gap-1.5 text-xs font-normal uppercase tracking-wider text-brand-pink-light hover:text-white"
                   >
                     <span>Request National Estate Survey</span>
                     <ArrowRight className="w-3.5 h-3.5" />

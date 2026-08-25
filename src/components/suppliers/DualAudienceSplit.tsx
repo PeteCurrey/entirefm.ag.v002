@@ -12,7 +12,7 @@ export function DualAudienceSplit() {
           <span className="eyebrow eyebrow-light">MUTUAL VALUE PROPOSITION</span>
           <h2 className="mt-3 text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
             Controlled for Clients.{' '}
-            <span className="font-semibold block mt-1">
+            <span className="font-light block mt-1">
               Commercially Credible for Suppliers.
             </span>
           </h2>
@@ -32,7 +32,7 @@ export function DualAudienceSplit() {
                   </div>
                   <div>
                     <span className="text-[10.5px] font-mono uppercase tracking-widest text-slate-500">FOR PROPERTY DIRECTORS &amp; ESTATES</span>
-                    <h3 className="text-xl font-bold text-slate-900">Total Supply Chain Assurance</h3>
+                    <h3 className="text-xl font-light text-slate-900">Total Supply Chain Assurance</h3>
                   </div>
                 </div>
                 <span className="hidden sm:inline-block text-[11px] font-mono px-2.5 py-1 bg-slate-100 text-slate-700 rounded-sm">
@@ -63,7 +63,7 @@ export function DualAudienceSplit() {
             <div className="pt-8 mt-8 border-t border-slate-100">
               <Link
                 href="/suppliers/vetting"
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-900 hover:text-brand-pink transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-slate-900 hover:text-brand-pink transition-colors"
               >
                 How We Vet Our Supply Chain <ArrowRight className="h-4 w-4 text-brand-pink" />
               </Link>
@@ -80,7 +80,7 @@ export function DualAudienceSplit() {
                   </div>
                   <div>
                     <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-mist/60">FOR CONTRACTORS, SMES &amp; OEMS</span>
-                    <h3 className="text-xl font-bold text-white">Commercial Growth &amp; Structured Work</h3>
+                    <h3 className="text-xl font-light text-white">Commercial Growth &amp; Structured Work</h3>
                   </div>
                 </div>
                 <span className="hidden sm:inline-block text-[11px] font-mono px-2.5 py-1 bg-white/10 text-brand-mist/90 rounded-sm">
@@ -111,7 +111,7 @@ export function DualAudienceSplit() {
             <div className="pt-8 mt-8 border-t border-brand-edge-dark">
               <Link
                 href="/suppliers/partner-with-entirefm"
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white hover:text-brand-electric-bright transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-white hover:text-brand-electric-bright transition-colors"
               >
                 Partner With EntireFM <ArrowRight className="h-4 w-4 text-brand-electric-bright" />
               </Link>

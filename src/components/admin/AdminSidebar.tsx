@@ -68,6 +68,10 @@ const NAV_GROUPS: NavGroup[] = [
       { name: 'Live Helpdesk', href: '/admin/operations/helpdesk' },
       { name: 'Service Requests', href: '/admin/operations/service-requests' },
       { name: 'Work Orders', href: '/admin/operations/work-orders' },
+      { name: 'Intelligent Allocation', href: '/admin/operations/allocation' },
+      { name: 'Supplier Opportunities', href: '/admin/operations/allocation/opportunities' },
+      { name: 'Candidate Dry-Run', href: '/admin/operations/allocation/candidates' },
+      { name: 'Award Decisions', href: '/admin/operations/allocation/awards' },
       { name: 'Dispatch Grid', href: '/admin/operations/dispatch' },
       { name: 'SLA Control', href: '/admin/operations/sla' },
       { name: 'Escalations Desk', href: '/admin/operations/escalations' },
@@ -317,7 +321,7 @@ export function AdminSidebar({ session }: { session: UserSession }) {
         <Link href="/admin" className="flex items-center gap-2.5">
           <CafmBrandMark size="sm" />
           <div className="flex flex-col">
-            <span className="text-[13px] font-semibold text-[#111111] tracking-tight leading-none">
+            <span className="text-[13px] font-normal text-[#111111] tracking-tight leading-none">
               EntireCAFM
             </span>
             <span className="text-[10px] text-[#6D6D68] leading-tight mt-0.5">
@@ -348,7 +352,7 @@ export function AdminSidebar({ session }: { session: UserSession }) {
                 <button
                   type="button"
                   onClick={() => toggleGroup(group.title)}
-                  className="flex w-full items-center justify-between px-2 py-1 text-left text-[11px] font-medium text-[#6D6D68] hover:text-[#111111] transition-colors rounded-[6px]"
+                  className="flex w-full items-center justify-between px-2 py-1 text-left text-[11px] font-normal text-[#6D6D68] hover:text-[#111111] transition-colors rounded-[6px]"
                 >
                   <div className="flex items-center gap-1.5">
                     <GroupIcon className="h-3.5 w-3.5 text-[#9A9A95]" />
@@ -376,14 +380,14 @@ export function AdminSidebar({ session }: { session: UserSession }) {
                           href={item.href}
                           className={`flex items-center justify-between rounded-[6px] px-2.5 py-1.5 text-[12.5px] transition-all duration-120 relative ${
                             isActive
-                              ? 'bg-[#FAFAF8] text-[#111111] font-semibold border-l-[3px] border-[#EA580C] pl-2'
-                              : 'text-[#6D6D68] hover:bg-[#FAFAF8] hover:text-[#111111]'
+                              ? 'bg-[#FAFAF8] text-[#111111] font-normal border-l-[3px] border-[#EA580C] pl-2'
+                              : 'text-[#6D6D68] hover:bg-[#FAFAF8] hover:text-[#111111] font-light'
                           }`}
                         >
                           <span className="truncate">{item.name}</span>
                           {item.badge && (
                             <span
-                              className={`rounded-[4px] px-1.5 py-0.2 font-mono text-[9px] font-medium ${
+                              className={`rounded-[4px] px-1.5 py-0.2 font-mono text-[9px] font-normal ${
                                 isActive
                                   ? 'bg-[#EA580C]/10 text-[#EA580C]'
                                   : 'bg-[#F0F0EE] text-[#6D6D68]'
@@ -407,11 +411,11 @@ export function AdminSidebar({ session }: { session: UserSession }) {
       <div className="border-t border-[#E8E8E5] p-3 bg-[#FFFFFF]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 min-w-0">
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[6px] bg-[#111111] text-white text-[11.5px] font-semibold">
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[6px] bg-[#111111] text-white text-[11.5px] font-normal">
               {session.name ? session.name.charAt(0) : 'U'}
             </div>
             <div className="min-w-0">
-              <div className="truncate text-[12px] font-medium text-[#111111] leading-tight">
+              <div className="truncate text-[12px] font-normal text-[#111111] leading-tight">
                 {session.name || 'User'}
               </div>
               <div className="text-[10px] text-[#6D6D68] leading-tight">

@@ -13,10 +13,10 @@ export default async function OperationsTodayPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             DUTY MANAGER DAILY OPERATING SCREEN
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Today&rsquo;s Exceptions &amp; Actions</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Today&rsquo;s Exceptions &amp; Actions</h1>
           <p className="text-sm text-zinc-400">
             Immediate items requiring operational intervention: SLA at-risk clocks, urgent callouts, and client sign-offs.
           </p>
@@ -32,7 +32,7 @@ export default async function OperationsTodayPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left Column: Active Duty Exceptions */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-          <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+          <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
             Critical &amp; High Priority Exceptions ({exceptions.length})
           </h3>
 
@@ -45,8 +45,8 @@ export default async function OperationsTodayPage() {
               {exceptions.map((exc) => (
                 <div key={exc.id} className="py-3 text-xs space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-white">{exc.title}</span>
-                    <span className="text-[10px] font-mono text-red-400 uppercase font-bold">{exc.severity}</span>
+                    <span className="font-light text-white">{exc.title}</span>
+                    <span className="text-[10px] font-mono text-red-400 uppercase font-light">{exc.severity}</span>
                   </div>
                   <div className="text-[11px] text-zinc-400">{exc.details}</div>
                   <div className="text-[10px] text-zinc-500 font-mono">Owner: {exc.owner}</div>
@@ -58,7 +58,7 @@ export default async function OperationsTodayPage() {
 
         {/* Right Column: Client Action Register */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-          <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+          <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
             Items Awaiting Client Action ({clientActions.length})
           </h3>
 
@@ -71,9 +71,9 @@ export default async function OperationsTodayPage() {
               {clientActions.map((act) => (
                 <div key={act.id} className="py-3 text-xs space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-white">{act.title}</span>
+                    <span className="font-light text-white">{act.title}</span>
                     {act.amount_gbp && (
-                      <span className="text-[11px] font-mono text-pink-400 font-bold">
+                      <span className="text-[11px] font-mono text-pink-400 font-light">
                         £{act.amount_gbp.toLocaleString()}
                       </span>
                     )}

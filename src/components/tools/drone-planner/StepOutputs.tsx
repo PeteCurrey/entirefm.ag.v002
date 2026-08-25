@@ -62,7 +62,7 @@ export function StepOutputs({ outputs, onChange }: StepOutputsProps) {
             >
               <div className="flex items-center gap-2">
                 {isNotSure && <Sparkles className="w-3.5 h-3.5 text-purple-400 shrink-0" />}
-                <span className="text-xs sm:text-sm font-medium group-hover:text-white transition-colors">
+                <span className="text-xs sm:text-sm font-normal group-hover:text-white transition-colors">
                   {opt.label}
                 </span>
               </div>

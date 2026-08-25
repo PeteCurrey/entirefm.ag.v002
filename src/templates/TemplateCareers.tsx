@@ -128,7 +128,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
             <div className="max-w-3xl mb-12">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                   CURRENT VACANCIES
                 </span>
               </div>
@@ -155,10 +155,10 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                   >
                     <div className="space-y-3 max-w-2xl">
                       <div className="flex flex-wrap items-center gap-2.5">
-                        <span className="text-[11px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-sm bg-slate-100 text-slate-700">
+                        <span className="text-[11px] font-mono font-light uppercase px-2.5 py-0.5 rounded-sm bg-slate-100 text-slate-700">
                           {vac.reference}
                         </span>
-                        <span className="text-[11px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-sm bg-emerald-100 text-emerald-800">
+                        <span className="text-[11px] font-mono font-light uppercase px-2.5 py-0.5 rounded-sm bg-emerald-100 text-emerald-800">
                           {vac.department}
                         </span>
                         <span className="text-xs text-slate-500 flex items-center gap-1">
@@ -169,7 +169,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                         </span>
                       </div>
 
-                      <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-pink-dark transition-colors">
+                      <h3 className="text-xl font-light text-slate-900 group-hover:text-brand-pink-dark transition-colors">
                         {vac.title}
                       </h3>
 
@@ -192,13 +192,13 @@ export function TemplateCareers({ route, content }: TemplateProps) {
 
                     <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-3 shrink-0">
                       {vac.salaryGuide && (
-                        <span className="text-xs font-mono text-slate-600 font-semibold">
+                        <span className="text-xs font-mono text-slate-600 font-light">
                           {vac.salaryGuide}
                         </span>
                       )}
                       <button
                         onClick={() => handleApplyClick(vac)}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors shadow-sm"
+                        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-normal uppercase tracking-wider rounded-sm transition-colors shadow-sm"
                       >
                         <span>Apply For Position</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -217,11 +217,11 @@ export function TemplateCareers({ route, content }: TemplateProps) {
             <div className="mb-8">
               <div className="inline-flex items-center gap-2 mb-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                   APPLICATION FORM
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+              <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900">
                 {selectedVacancy ? `Apply for: ${selectedVacancy.title}` : 'Submit a Career Application'}
               </h2>
               {selectedVacancy && (
@@ -236,7 +236,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                 <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-bold text-emerald-900">Application Received</h3>
+                <h3 className="text-lg font-light text-emerald-900">Application Received</h3>
                 <p className="text-xs sm:text-sm text-emerald-800 max-w-md mx-auto leading-relaxed">
                   Thank you for applying to EntireFM. Our operations and recruitment team will review your qualifications and contact you regarding the next stage.
                 </p>
@@ -246,7 +246,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                       setSubmitted(false);
                       setSelectedVacancy(null);
                     }}
-                    className="text-xs font-bold text-emerald-900 underline hover:text-emerald-700"
+                    className="text-xs font-normal text-emerald-900 underline hover:text-emerald-700"
                   >
                     Submit another application
                   </button>
@@ -262,7 +262,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Full Name *
                     </label>
                     <input
@@ -276,7 +276,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Email Address *
                     </label>
                     <input
@@ -292,7 +292,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Telephone Number *
                     </label>
                     <input
@@ -306,7 +306,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Your Location / Base Town *
                     </label>
                     <input
@@ -322,7 +322,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Primary Trade / Discipline
                     </label>
                     <select
@@ -339,7 +339,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Years of Relevant Experience
                     </label>
                     <select
@@ -356,7 +356,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                     Certifications &amp; Accreditations Held
                   </label>
                   <input
@@ -369,7 +369,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                     Brief Experience Summary &amp; Availability
                   </label>
                   <textarea
@@ -403,7 +403,7 @@ export function TemplateCareers({ route, content }: TemplateProps) {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full sm:w-auto px-8 py-3.5 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors shadow-sm disabled:opacity-50"
+                    className="w-full sm:w-auto px-8 py-3.5 bg-brand-pink hover:bg-brand-pink-dark text-white text-xs font-normal uppercase tracking-wider rounded-sm transition-colors shadow-sm disabled:opacity-50"
                   >
                     {loading ? 'Submitting Application...' : 'Submit Application'}
                   </button>

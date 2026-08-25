@@ -80,10 +80,10 @@ export default function ContentConversionOverviewPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-bold">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-light">
             ENTIREFM CONTENT-LED CRO &amp; USER JOURNEY INTELLIGENCE
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Content Conversion &amp; CRO</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Content Conversion &amp; CRO</h1>
           <p className="text-sm text-zinc-400">
             Monitor and optimise the natural transition from educational content into commercial enquiries without friction or spam.
           </p>
@@ -94,29 +94,29 @@ export default function ContentConversionOverviewPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">OPTIMISED FUNNELS</div>
-          <div className="mt-1 text-xl font-bold text-emerald-400 font-mono">{FUNNELS.length}</div>
+          <div className="mt-1 text-xl font-light text-emerald-400 font-mono">{FUNNELS.length}</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">INTERACTIVE TOOLS</div>
-          <div className="mt-1 text-xl font-bold text-white font-mono">4 Active</div>
+          <div className="mt-1 text-xl font-light text-white font-mono">4 Active</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">FORM CONTEXT PASSTHROUGH</div>
-          <div className="mt-1 text-xl font-bold text-blue-400 font-mono">100% Active</div>
+          <div className="mt-1 text-xl font-light text-blue-400 font-mono">100% Active</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">DEAD-END RESOURCE ROUTES</div>
-          <div className="mt-1 text-xl font-bold text-purple-400 font-mono">0 Gaps</div>
+          <div className="mt-1 text-xl font-light text-purple-400 font-mono">0 Gaps</div>
         </div>
       </div>
 
       {/* Structured Content Journeys Table */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Active Content &rarr; Commercial Conversion Pathways
           </h3>
           <span className="text-xs text-zinc-500 font-mono">Ungated Tools &amp; Clean Hand-offs</span>
@@ -135,7 +135,7 @@ export default function ContentConversionOverviewPage() {
           <tbody className="divide-y divide-zinc-800">
             {FUNNELS.map((f) => (
               <tr key={f.id} className="hover:bg-zinc-800/40">
-                <td className="py-3.5 px-4 font-medium text-white">
+                <td className="py-3.5 px-4 font-normal text-white">
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300">
                       {f.entryType}
@@ -155,7 +155,7 @@ export default function ContentConversionOverviewPage() {
                 </td>
                 <td className="py-3.5 px-4 font-mono text-zinc-400">{f.commercialParent}</td>
                 <td className="py-3.5 px-4">
-                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold border bg-emerald-950/60 text-emerald-300 border-emerald-800/40">
+                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded font-light border bg-emerald-950/60 text-emerald-300 border-emerald-800/40">
                     {f.status}
                   </span>
                 </td>

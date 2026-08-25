@@ -12,7 +12,7 @@ export default async function CampaignsListPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">The FM Briefing Campaigns</h1>
+          <h1 className="text-2xl font-extralight text-white">The FM Briefing Campaigns</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Weekly briefing editions, special reports, and distribution records.
           </p>
@@ -20,7 +20,7 @@ export default async function CampaignsListPage() {
         <div className="flex gap-2">
           <Link
             href="/admin/newsletter/new"
-            className="text-xs bg-pink-600 hover:bg-pink-500 text-white font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm"
+            className="text-xs bg-pink-600 hover:bg-pink-500 text-white font-light px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm"
           >
             <Plus className="h-3.5 w-3.5" /> New Campaign
           </Link>
@@ -35,7 +35,7 @@ export default async function CampaignsListPage() {
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             All Campaigns ({campaigns.length})
           </h3>
         </div>
@@ -59,7 +59,7 @@ export default async function CampaignsListPage() {
             <tbody className="divide-y divide-zinc-800">
               {campaigns.map((c) => (
                 <tr key={c.id} className="hover:bg-zinc-800/40 transition-colors">
-                  <td className="py-3.5 px-4 font-bold text-white">{c.name}</td>
+                  <td className="py-3.5 px-4 font-light text-white">{c.name}</td>
                   <td className="py-3.5 px-4">
                     <span
                       className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded border ${
@@ -77,11 +77,11 @@ export default async function CampaignsListPage() {
                   <td className="py-3.5 px-4 font-mono text-zinc-500">{c.utmCampaign}</td>
                   <td className="py-3.5 px-4">
                     {c.validationPassed ? (
-                      <span className="text-emerald-400 flex items-center gap-1 font-semibold">
+                      <span className="text-emerald-400 flex items-center gap-1 font-light">
                         <CheckCircle2 className="h-3.5 w-3.5" /> Passed
                       </span>
                     ) : (
-                      <span className="text-amber-400 flex items-center gap-1 font-semibold">
+                      <span className="text-amber-400 flex items-center gap-1 font-light">
                         <AlertTriangle className="h-3.5 w-3.5" /> Needs Review
                       </span>
                     )}
@@ -89,7 +89,7 @@ export default async function CampaignsListPage() {
                   <td className="py-3.5 px-4 text-right">
                     <Link
                       href={`/admin/newsletter/${c.id}`}
-                      className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-1.5 rounded font-semibold border border-zinc-700"
+                      className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-1.5 rounded font-light border border-zinc-700"
                     >
                       Edit / Review
                     </Link>

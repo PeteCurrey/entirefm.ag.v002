@@ -42,14 +42,14 @@ export function SiteInspectorDrawer({
         <div className="flex items-center justify-between w-full">
           <Link
             href={`/admin/operations/work-orders?siteId=${site.id}`}
-            className="text-[12px] font-medium text-[#686866] hover:text-[#101010]"
+            className="text-[12px] font-normal text-[#686866] hover:text-[#101010]"
           >
             All Work Orders ({site.openJobsCount || 0})
           </Link>
           <div className="flex items-center gap-2">
             <Link
               href={`/admin/estate/sites/${site.id}`}
-              className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#FF6B24] hover:bg-[#E9540F] px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow-sm transition-all"
+              className="inline-flex items-center gap-1.5 rounded-[8px] bg-[#FF6B24] hover:bg-[#E9540F] px-3.5 py-1.5 text-[12.5px] font-normal text-white shadow-sm transition-all"
             >
               <span>Launch Site 360 Workspace</span>
               <ExternalLink className="h-3.5 w-3.5" />
@@ -72,7 +72,7 @@ export function SiteInspectorDrawer({
             <div className="font-mono text-[11px] uppercase tracking-wider text-white/80">
               {site.site_type.replace(/_/g, ' ')}
             </div>
-            <div className="text-[14px] font-medium text-white">{site.address_line1}</div>
+            <div className="text-[14px] font-normal text-white">{site.address_line1}</div>
           </div>
         </div>
 
@@ -113,7 +113,7 @@ export function SiteInspectorDrawer({
 
         {/* Site Profile & Access Rules */}
         <div className="rounded-[12px] border border-[#E4E4E1] bg-[#FFFFFF] p-4 space-y-3">
-          <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#686866]">
+          <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">
             FACILITY PROFILE &amp; ACCESS PROTOCOLS
           </h3>
           <div className="grid grid-cols-2 gap-3 text-[12.5px]">
@@ -147,7 +147,7 @@ export function SiteInspectorDrawer({
         {/* Active Work Orders — no fake data */}
         <div className="space-y-2.5">
           <div className="flex items-center justify-between">
-            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#686866]">
+            <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">
               ACTIVE INCIDENTS &amp; WORK ORDERS
             </h3>
             <span className="font-mono text-[11px] text-[#9B9B97]">
@@ -160,7 +160,7 @@ export function SiteInspectorDrawer({
               <p className="text-[12.5px] text-[#9B9B97]">No active work orders at this site.</p>
               <Link
                 href={`/admin/operations/work-orders?siteId=${site.id}`}
-                className="mt-2 inline-flex items-center gap-1 text-[12px] font-medium text-[#FF6B24] hover:underline"
+                className="mt-2 inline-flex items-center gap-1 text-[12px] font-normal text-[#FF6B24] hover:underline"
               >
                 <Plus className="h-3.5 w-3.5" /> Create Work Order
               </Link>
@@ -172,11 +172,11 @@ export function SiteInspectorDrawer({
             >
               <div className="flex items-center gap-2.5">
                 <Wrench className="h-4 w-4 text-[#FF6B24]" />
-                <span className="text-[13px] font-medium text-[#101010]">
+                <span className="text-[13px] font-normal text-[#101010]">
                   {site.openJobsCount} open work order{site.openJobsCount !== 1 ? 's' : ''}
                 </span>
               </div>
-              <span className="text-[12px] font-medium text-[#FF6B24]">View All →</span>
+              <span className="text-[12px] font-normal text-[#FF6B24]">View All →</span>
             </Link>
           )}
         </div>

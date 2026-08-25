@@ -45,7 +45,7 @@ export function PlannedVsReactiveSplit({
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
               {eyebrow}
             </span>
           </div>
@@ -70,10 +70,10 @@ export function PlannedVsReactiveSplit({
                   <CalendarCheck2 className="w-6 h-6" />
                 </div>
                 <div>
-                  <span className="text-xs font-bold text-brand-pink uppercase tracking-wider block">
+                  <span className="text-xs font-normal text-brand-pink uppercase tracking-wider block">
                     PROACTIVE STRATEGY
                   </span>
-                  <h3 className="text-xl font-bold text-slate-900">
+                  <h3 className="text-xl font-light text-slate-900">
                     {plannedTitle}
                   </h3>
                 </div>
@@ -95,7 +95,7 @@ export function PlannedVsReactiveSplit({
 
             <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono">
               <span>Goal: Zero Plant Stoppages</span>
-              <span className="text-brand-pink font-semibold">Scheduled Visits</span>
+              <span className="text-brand-pink font-light">Scheduled Visits</span>
             </div>
           </div>
 
@@ -109,10 +109,10 @@ export function PlannedVsReactiveSplit({
                   <Zap className="w-6 h-6" />
                 </div>
                 <div>
-                  <span className="text-xs font-bold text-brand-electric-bright uppercase tracking-wider block">
+                  <span className="text-xs font-normal text-brand-electric-bright uppercase tracking-wider block">
                     REACTIVE SUPPORT
                   </span>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-light text-white">
                     {reactiveTitle}
                   </h3>
                 </div>
@@ -134,7 +134,7 @@ export function PlannedVsReactiveSplit({
 
             <div className="mt-8 pt-4 border-t border-brand-edge-dark flex items-center justify-between text-xs text-slate-400 font-mono">
               <span>Direct Helpdesk: {CONTACT_CONFIG.mainPhone.display}</span>
-              <span className="text-brand-electric-bright font-semibold">Priority Triage</span>
+              <span className="text-brand-electric-bright font-light">Priority Triage</span>
             </div>
           </div>
         </div>

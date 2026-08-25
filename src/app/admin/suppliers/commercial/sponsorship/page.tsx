@@ -6,10 +6,10 @@ export default function SponsorshipPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
           COMMERCIAL SPONSORSHIPS
         </span>
-        <h1 className="text-2xl font-bold text-slate-900 mt-1">
+        <h1 className="text-2xl font-extralight text-slate-900 mt-1">
           Sponsorship Packages &amp; Agreements
         </h1>
         <p className="text-xs text-slate-600 font-light mt-1">

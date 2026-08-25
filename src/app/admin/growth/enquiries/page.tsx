@@ -61,7 +61,7 @@ export default async function EnquiriesPage() {
           <ul className="space-y-2">
             {topPages.map(([page, count]) => (
               <li key={page} className="flex items-center gap-4 text-[12.5px]">
-                <span className="w-8 shrink-0 font-mono text-white font-medium">{count}</span>
+                <span className="w-8 shrink-0 font-mono text-white font-normal">{count}</span>
                 <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-brand-edge-dark">
                   <span
                     className="block h-full bg-brand-electric"
@@ -101,14 +101,14 @@ export default async function EnquiriesPage() {
                     })}
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-semibold text-white">{lead.name}</div>
+                    <div className="font-light text-white">{lead.name}</div>
                     {lead.company && <div className="text-[11.5px] text-brand-mist/60">{lead.company}</div>}
                     <a href={`mailto:${lead.email}`} className="text-brand-electric-bright hover:underline">
                       {lead.email}
                     </a>
                   </td>
                   <td className="px-5 py-4 max-w-sm">
-                    <div className="font-medium text-white">{lead.service || 'General Service'}</div>
+                    <div className="font-normal text-white">{lead.service || 'General Service'}</div>
                     <div className="mt-1 text-[11.5px] text-brand-mist/60 line-clamp-2">{lead.message}</div>
                   </td>
                   <td className="px-5 py-4 max-w-xs truncate font-mono text-[11px] text-brand-mist/50">

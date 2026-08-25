@@ -68,7 +68,7 @@ export function SiteHealthInstrument({
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-4">
       <div className="flex items-center justify-between border-b border-[#E4E4E1] pb-3">
         <div>
-          <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+          <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
             SITE HEALTH TELEMETRY MATRIX
           </h3>
           <p className="text-[11.5px] text-[#686866]">
@@ -76,7 +76,7 @@ export function SiteHealthInstrument({
           </p>
         </div>
         <span
-          className={`font-mono text-[10px] px-2 py-0.5 rounded-[4px] font-semibold border ${
+          className={`font-mono text-[10px] px-2 py-0.5 rounded-[4px] font-light border ${
             aggregateScore >= 90
               ? 'bg-[#F0FDF4] border-[#BBF7D0] text-[#15803D]'
               : 'bg-[#FFF7ED] border-[#FED7AA] text-[#C2410C]'
@@ -94,7 +94,7 @@ export function SiteHealthInstrument({
           >
             <div className="flex items-center justify-between text-[10px] text-[#686866] uppercase">
               <span className="truncate pr-1">{dim.label}</span>
-              <span className="font-semibold text-[#101010]">{dim.value}%</span>
+              <span className="font-light text-[#101010]">{dim.value}%</span>
             </div>
             <div className="h-1.5 w-full rounded-full bg-[#E4E4E1] overflow-hidden">
               <div

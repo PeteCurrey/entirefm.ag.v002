@@ -11,7 +11,7 @@ export default function CategoriesPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Blog Categories</h1>
+          <h1 className="text-2xl font-extralight text-white">Blog Categories</h1>
           <p className="text-sm text-zinc-400 mt-1">FM domain taxonomies and SEO hub categorization</p>
         </div>
       </div>
@@ -23,7 +23,7 @@ export default function CategoriesPage() {
             <div key={cat.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-sm font-semibold text-white">{cat.name}</h3>
+                  <h3 className="text-sm font-normal text-white">{cat.name}</h3>
                   <code className="text-xs text-zinc-500">/{cat.slug}</code>
                 </div>
                 <span className="text-xs bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded-full">

@@ -17,7 +17,7 @@ export function SiteProfileInspector({ site, buildings = [] }: SiteProfileInspec
     <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
       {/* Header */}
       <div className="border-b border-[#E4E4E1] bg-[#F0F0EE] px-5 py-3 flex items-center justify-between">
-        <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+        <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
           SITE PROFILE & SPECIFICATION
         </h3>
         <Badge variant={site.status === 'ACTIVE' ? 'green' : 'neutral'} size="xs">
@@ -64,7 +64,7 @@ export function SiteProfileInspector({ site, buildings = [] }: SiteProfileInspec
 
         {/* Access Instructions */}
         <div className="space-y-2 pt-1">
-          <h4 className="font-mono text-[10.5px] uppercase tracking-wider text-[#9B9B97] font-semibold">
+          <h4 className="font-mono text-[10.5px] uppercase tracking-wider text-[#9B9B97] font-light">
             ACCESS & SITE PROTOCOLS
           </h4>
           <div className="rounded-[10px] border border-[#E4E4E1] bg-[#F9F9F8] p-3 text-[12px] text-[#686866] leading-relaxed">

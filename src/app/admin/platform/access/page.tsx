@@ -66,7 +66,7 @@ export default async function PlatformAccessPage() {
       {ALL_ROLE_GROUPS.map((group) => (
         <div key={group.label} className={`rounded-lg border ${group.badge} p-6`}>
           <div className="flex items-center gap-3 mb-5">
-            <h2 className={`text-[15px] font-semibold ${group.colour}`}>{group.label}</h2>
+            <h2 className={`text-[15px] font-normal ${group.colour}`}>{group.label}</h2>
             <span className="font-mono text-[11px] text-brand-mist/50">→ {group.portal}</span>
           </div>
 
@@ -76,7 +76,7 @@ export default async function PlatformAccessPage() {
               return (
                 <div key={role} className="rounded border border-brand-edge-dark/60 bg-brand-void/60 p-4">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className={`font-mono text-[13px] font-semibold ${group.colour}`}>{role}</span>
+                    <span className={`font-mono text-[13px] font-normal ${group.colour}`}>{role}</span>
                     <span className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-2 py-0.5 font-mono text-[10px] text-brand-mist/50">
                       {perms.length} permissions
                     </span>

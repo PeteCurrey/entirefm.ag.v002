@@ -575,32 +575,32 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
               <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full sm:w-auto flex-1">
                   <div>
-                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-[11px] font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Site / Property Name
                     </label>
                     <input
                       type="text"
                       value={siteName}
                       onChange={(e) => setSiteName(e.target.value)}
-                      className="w-full px-3.5 py-2 rounded-sm bg-slate-50 border border-slate-300 text-xs font-semibold text-slate-900 focus:bg-white focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric"
+                      className="w-full px-3.5 py-2 rounded-sm bg-slate-50 border border-slate-300 text-xs font-normal text-slate-900 focus:bg-white focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    <label className="block text-[11px] font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                       Managing Agent / Organisation
                     </label>
                     <input
                       type="text"
                       value={organisationName}
                       onChange={(e) => setOrganisationName(e.target.value)}
-                      className="w-full px-3.5 py-2 rounded-sm bg-slate-50 border border-slate-300 text-xs font-semibold text-slate-900 focus:bg-white focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric"
+                      className="w-full px-3.5 py-2 rounded-sm bg-slate-50 border border-slate-300 text-xs font-normal text-slate-900 focus:bg-white focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric"
                     />
                   </div>
                 </div>
 
                 <div className="flex flex-col items-end shrink-0 text-right">
                   <div className="font-mono text-xs text-slate-600">
-                    Questions Completed: <strong className="text-slate-900 font-bold">{answeredCount}/{totalQuestions}</strong>
+                    Questions Completed: <strong className="text-slate-900 font-light">{answeredCount}/{totalQuestions}</strong>
                   </div>
                   <div className="w-36 h-2 bg-slate-200 rounded-full mt-1.5 overflow-hidden">
                     <div
@@ -624,14 +624,14 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                       <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-3">
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className="font-mono text-[10.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm bg-blue-50 text-brand-electric border border-blue-100">
+                            <span className="font-mono text-[10.5px] font-normal uppercase tracking-wider px-2 py-0.5 rounded-sm bg-blue-50 text-brand-electric border border-blue-100">
                               {q.category}
                             </span>
                             <span className="font-mono text-xs text-slate-500">
                               Question {qIdx + 1} of {totalQuestions}
                             </span>
                           </div>
-                          <h3 className="text-base sm:text-lg font-bold text-slate-900">{q.title}</h3>
+                          <h3 className="text-base sm:text-lg font-light text-slate-900">{q.title}</h3>
                           <p className="text-xs text-slate-500 font-mono">{q.legislation}</p>
                         </div>
 
@@ -642,7 +642,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                         )}
                       </div>
 
-                      <p className="text-xs sm:text-sm font-medium text-slate-800 leading-snug">
+                      <p className="text-xs sm:text-sm font-normal text-slate-800 leading-snug">
                         {q.question}
                       </p>
 
@@ -671,7 +671,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                               </div>
 
                               <div className="flex-1 min-w-0">
-                                <p className={`text-xs sm:text-sm font-medium leading-snug ${isSelected ? 'text-slate-900 font-bold' : 'text-slate-700'}`}>
+                                <p className={`text-xs sm:text-sm font-normal leading-snug ${isSelected ? 'text-slate-900 font-light' : 'text-slate-700'}`}>
                                   {opt.label}
                                 </p>
                               </div>
@@ -687,7 +687,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
               {/* Bottom Generate Actions */}
               <div className="sticky bottom-4 z-20 bg-[#0B1220] border border-slate-800 rounded-sm p-4 sm:p-5 text-white shadow-2xl flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <div className="text-sm font-bold">
+                  <div className="text-sm font-normal">
                     {answeredCount === totalQuestions ? 'All Questions Complete' : `${answeredCount}/${totalQuestions} Answered`}
                   </div>
                   <div className="text-xs text-slate-300">
@@ -699,7 +699,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                   type="button"
                   disabled={answeredCount === 0}
                   onClick={() => setCurrentStep(1)}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-sm bg-gradient-to-r from-brand-electric to-brand-violet text-white font-bold text-xs shadow-md hover:opacity-95 transition-all disabled:opacity-50"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-sm bg-gradient-to-r from-brand-electric to-brand-violet text-white font-normal text-xs shadow-md hover:opacity-95 transition-all disabled:opacity-50"
                 >
                   <span>Generate Compliance Report</span>
                   <ArrowRight className="w-4 h-4" />
@@ -716,10 +716,10 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
               <div className="bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-md space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                   <div>
-                    <span className="font-mono text-xs font-bold text-brand-electric uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100 inline-block mb-1">
+                    <span className="font-mono text-xs font-normal text-brand-electric uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100 inline-block mb-1">
                       Statutory Compliance Review
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
+                    <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 mt-1">
                       {siteName} — Compliance Audit Report
                     </h2>
                     <p className="text-xs sm:text-sm text-slate-600 mt-1">
@@ -730,7 +730,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(0)}
-                    className="px-3.5 py-2 rounded-sm border border-slate-200 bg-slate-50 text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-xs font-semibold transition-all"
+                    className="px-3.5 py-2 rounded-sm border border-slate-200 bg-slate-50 text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-xs font-normal transition-all"
                   >
                     ← Edit Questionnaire
                   </button>
@@ -739,10 +739,10 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                 {/* Score and Risk Band Banner */}
                 <div className={`p-6 rounded-sm border ${results.riskColor} flex flex-col md:flex-row md:items-center justify-between gap-6`}>
                   <div className="space-y-2 max-w-2xl">
-                    <div className="font-mono text-xs font-bold uppercase tracking-wider">
+                    <div className="font-mono text-xs font-normal uppercase tracking-wider">
                       Compliance Rating
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-bold">{results.riskBandLabel}</h3>
+                    <h3 className="text-xl sm:text-2xl font-extralight">{results.riskBandLabel}</h3>
                     <p className="text-xs sm:text-sm leading-relaxed opacity-95">{results.riskDescription}</p>
                   </div>
 
@@ -759,7 +759,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                 {/* Findings Breakdown Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="p-4 rounded-sm bg-rose-50 border border-rose-200">
-                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-rose-700 font-medium">
+                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-rose-700 font-normal">
                       Critical Gaps
                     </div>
                     <div className="text-2xl font-light text-rose-700 mt-1 font-mono tabular-nums">
@@ -769,7 +769,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                   </div>
 
                   <div className="p-4 rounded-sm bg-amber-50 border border-amber-200">
-                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-amber-800 font-medium">
+                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-amber-800 font-normal">
                       Action Required
                     </div>
                     <div className="text-2xl font-light text-amber-800 mt-1 font-mono tabular-nums">
@@ -779,7 +779,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                   </div>
 
                   <div className="p-4 rounded-sm bg-emerald-50 border border-emerald-200">
-                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-emerald-700 font-medium">
+                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-emerald-700 font-normal">
                       Documented Control
                     </div>
                     <div className="text-2xl font-light text-emerald-700 mt-1 font-mono tabular-nums">
@@ -800,7 +800,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
               {/* REMEDIAL ACTION SCHEDULE TABLE */}
               <div className="bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-sm space-y-6">
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900">
+                  <h3 className="text-lg font-light text-slate-900">
                     Prioritised Statutory Remedial Action Plan
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600">
@@ -816,15 +816,15 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm bg-rose-100 text-rose-800 mr-2 border border-rose-200">
+                          <span className="text-[10px] font-normal uppercase tracking-wider px-2 py-0.5 rounded-sm bg-rose-100 text-rose-800 mr-2 border border-rose-200">
                             Critical Priority
                           </span>
-                          <span className="font-bold text-sm text-slate-900">{f.title}</span>
+                          <span className="font-normal text-sm text-slate-900">{f.title}</span>
                           <span className="text-xs text-slate-500 font-mono ml-2">({f.legislation})</span>
                         </div>
                       </div>
                       <p className="text-xs text-slate-700"><strong>Observed Finding:</strong> {f.finding}</p>
-                      <p className="text-xs text-rose-800 font-medium"><strong>Remedial Action:</strong> {f.action}</p>
+                      <p className="text-xs text-rose-800 font-normal"><strong>Remedial Action:</strong> {f.action}</p>
                     </div>
                   ))}
 
@@ -835,15 +835,15 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm bg-amber-100 text-amber-800 mr-2 border border-amber-200">
+                          <span className="text-[10px] font-normal uppercase tracking-wider px-2 py-0.5 rounded-sm bg-amber-100 text-amber-800 mr-2 border border-amber-200">
                             Action Required
                           </span>
-                          <span className="font-bold text-sm text-slate-900">{f.title}</span>
+                          <span className="font-normal text-sm text-slate-900">{f.title}</span>
                           <span className="text-xs text-slate-500 font-mono ml-2">({f.legislation})</span>
                         </div>
                       </div>
                       <p className="text-xs text-slate-700"><strong>Observed Finding:</strong> {f.finding}</p>
-                      <p className="text-xs text-amber-900 font-medium"><strong>Remedial Action:</strong> {f.action}</p>
+                      <p className="text-xs text-amber-900 font-normal"><strong>Remedial Action:</strong> {f.action}</p>
                     </div>
                   ))}
 
@@ -853,10 +853,10 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                       className="p-4 rounded-sm border border-emerald-200 bg-emerald-50/60 border-l-4 border-l-emerald-600 space-y-1"
                     >
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        <span className="text-[10px] font-normal uppercase tracking-wider px-2 py-0.5 rounded-sm bg-emerald-100 text-emerald-800 border border-emerald-200">
                           Documented Control
                         </span>
-                        <span className="font-bold text-sm text-slate-900">{f.title}</span>
+                        <span className="font-normal text-sm text-slate-900">{f.title}</span>
                       </div>
                       <p className="text-xs text-slate-600">{f.finding}</p>
                     </div>

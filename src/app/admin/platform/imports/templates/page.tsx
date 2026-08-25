@@ -21,7 +21,7 @@ export default async function ImportTemplatesPage() {
             <ArrowLeft className="h-3.5 w-3.5" /> Back to Migration Centre
           </Link>
         </div>
-        <h1 className="text-[22px] font-semibold text-[#101010]">Import Mapping Presets & Templates</h1>
+        <h1 className="text-[22px] font-normal text-[#101010]">Import Mapping Presets & Templates</h1>
         <p className="text-[13.5px] text-[#686866] mt-0.5">
           Pre-built column mappings for SimPRO standard exports and custom saved mappings.
         </p>
@@ -29,7 +29,7 @@ export default async function ImportTemplatesPage() {
 
       {/* System Presets */}
       <div className="space-y-3">
-        <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#686866]">
+        <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">
           SYSTEM PRESETS (SIMPRO STANDARD FORMATS)
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -43,7 +43,7 @@ export default async function ImportTemplatesPage() {
                   <span className="rounded-[4px] bg-[#F0F0EE] px-1.5 py-0.5 font-mono text-[10px] text-[#686866]">
                     {preset.entityType}
                   </span>
-                  <h3 className="font-semibold text-[13.5px] text-[#101010] mt-0.5">{preset.name}</h3>
+                  <h3 className="font-light text-[13.5px] text-[#101010] mt-0.5">{preset.name}</h3>
                 </div>
               </div>
               <p className="text-[12px] text-[#686866]">
@@ -53,7 +53,7 @@ export default async function ImportTemplatesPage() {
                 <span className="font-mono text-[10.5px] text-[#9B9B97]">Source: {preset.sourceSystem}</span>
                 <Link
                   href={`/admin/platform/imports/new?type=${preset.entityType}`}
-                  className="inline-flex items-center gap-1 text-[12px] font-medium text-[#FF6B24] hover:underline"
+                  className="inline-flex items-center gap-1 text-[12px] font-normal text-[#FF6B24] hover:underline"
                 >
                   Use <ArrowRight className="h-3 w-3" />
                 </Link>
@@ -66,7 +66,7 @@ export default async function ImportTemplatesPage() {
       {/* User Templates */}
       {userTemplates.length > 0 && (
         <div className="space-y-3 pt-4">
-          <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#686866]">
+          <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#686866]">
             SAVED CUSTOM TEMPLATES
           </h2>
           <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] overflow-hidden">
@@ -74,12 +74,12 @@ export default async function ImportTemplatesPage() {
               {userTemplates.map((t) => (
                 <div key={t.id} className="p-4 flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-[13px] text-[#101010]">{t.name}</h4>
+                    <h4 className="font-light text-[13px] text-[#101010]">{t.name}</h4>
                     <p className="text-[11.5px] text-[#686866] mt-0.5">{t.entity_type} · {t.source_system}</p>
                   </div>
                   <Link
                     href={`/admin/platform/imports/new?type=${t.entity_type}`}
-                    className="text-[12px] font-medium text-[#FF6B24] hover:underline"
+                    className="text-[12px] font-normal text-[#FF6B24] hover:underline"
                   >
                     Start Import →
                   </Link>

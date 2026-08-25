@@ -24,7 +24,7 @@ export default async function MobilisationsPage() {
         title="Mobilisations"
         description="Manage client estate onboarding, asset imports, and PPM plan activation."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white shadow hover:bg-brand-indigo">
             + Create Mobilisation
           </button>
         }
@@ -50,7 +50,7 @@ export default async function MobilisationsPage() {
                 <tr key={plan.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                   <td className="px-5 py-4 font-mono text-[11px] text-white">{plan.plan_number}</td>
                   <td className="px-5 py-4">
-                    <div className="font-semibold text-white">{plan.name}</div>
+                    <div className="font-light text-white">{plan.name}</div>
                     {plan.description && (
                       <div className="text-[11px] text-brand-mist/50 mt-0.5">{plan.description}</div>
                     )}

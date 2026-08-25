@@ -37,7 +37,7 @@ export function StepProgress({ steps, currentStep, accent = 'blue' }: StepProgre
                 {/* Circle */}
                 <span
                   className={[
-                    'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-bold transition-all duration-300',
+                    'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-normal transition-all duration-300',
                     isDone ? cls.done : '',
                     isActive ? cls.active : '',
                     isFuture ? 'border-brand-edge-dark bg-brand-graphite text-brand-mist/30' : '',

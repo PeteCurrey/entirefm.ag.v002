@@ -21,7 +21,7 @@ export default async function VariationOrdersPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/admin/commercial/quotes"
-              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-medium text-brand-mist/80 border border-brand-edge-dark hover:text-white"
+              className="rounded bg-brand-carbon px-3 py-1.5 text-[12px] font-normal text-brand-mist/80 border border-brand-edge-dark hover:text-white"
             >
               ← Back to Quotes
             </Link>
@@ -53,7 +53,7 @@ export default async function VariationOrdersPage() {
               <tbody className="divide-y divide-brand-edge-dark/60">
                 {variations.map((v) => (
                   <tr key={v.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                    <td className="px-5 py-4 font-mono text-[11px] text-white font-semibold">
+                    <td className="px-5 py-4 font-mono text-[11px] text-white font-light">
                       {v.variation_number}
                     </td>
                     <td className="px-5 py-4 max-w-xs truncate text-[12.5px] text-brand-mist/90">
@@ -62,7 +62,7 @@ export default async function VariationOrdersPage() {
                     <td className="px-5 py-4 font-mono text-[12px] text-brand-mist/60">
                       £{Number(v.expected_cost_gbp || 0).toFixed(2)}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[12px] text-white font-medium">
+                    <td className="px-5 py-4 font-mono text-[12px] text-white font-normal">
                       £{Number(v.sell_price_gbp || 0).toFixed(2)}
                     </td>
                     <td className="px-5 py-4 font-mono text-[11.5px] text-emerald-400">

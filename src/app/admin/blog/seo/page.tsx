@@ -19,7 +19,7 @@ export default function BlogSeoPage() {
   return (
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">SEO Health Audit</h1>
+        <h1 className="text-2xl font-extralight text-white">SEO Health Audit</h1>
         <p className="text-sm text-zinc-400 mt-1">Anti-cannibalisation and SEO quality check across all blog posts</p>
       </div>
 
@@ -27,11 +27,11 @@ export default function BlogSeoPage() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-zinc-800">
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Post</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">SEO Score</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Cannibalisation</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Fact Check</th>
-              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-medium">Issues</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Post</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">SEO Score</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Cannibalisation</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Fact Check</th>
+              <th className="text-left text-xs text-zinc-500 px-4 py-3 font-normal">Issues</th>
               <th />
             </tr>
           </thead>
@@ -44,7 +44,7 @@ export default function BlogSeoPage() {
               return (
                 <tr key={post.id} className="hover:bg-zinc-800/30">
                   <td className="px-4 py-3">
-                    <div className="text-sm text-white font-medium truncate max-w-xs">{post.title}</div>
+                    <div className="text-sm text-white font-normal truncate max-w-xs">{post.title}</div>
                     <div className="text-xs text-zinc-500">/post/{post.slug}</div>
                   </td>
                   <td className="px-4 py-3">
@@ -62,7 +62,7 @@ export default function BlogSeoPage() {
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`text-xs font-medium ${riskColour(analysis.cannibalisationRisk)}`}>
+                    <span className={`text-xs font-normal ${riskColour(analysis.cannibalisationRisk)}`}>
                       {analysis.cannibalisationRisk}
                     </span>
                   </td>

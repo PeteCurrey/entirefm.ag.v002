@@ -37,7 +37,7 @@ export function LeadStatusActionBar({ leadId, currentStatus }: LeadStatusActionB
   return (
     <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+        <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
           Qualification &amp; Status Actions
         </h3>
         <span
@@ -59,7 +59,7 @@ export function LeadStatusActionBar({ leadId, currentStatus }: LeadStatusActionB
         <button
           onClick={() => handleUpdate('CONTACTED')}
           disabled={loading || status === 'CONTACTED'}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-normal bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 disabled:opacity-50 transition-colors"
         >
           <PhoneCall className="h-3.5 w-3.5 text-blue-400" />
           <span>Mark Contacted</span>
@@ -68,7 +68,7 @@ export function LeadStatusActionBar({ leadId, currentStatus }: LeadStatusActionB
         <button
           onClick={() => handleUpdate('QUALIFIED')}
           disabled={loading || status === 'QUALIFIED'}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-900/60 hover:bg-emerald-800/80 text-emerald-200 border border-emerald-700/60 disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-normal bg-emerald-900/60 hover:bg-emerald-800/80 text-emerald-200 border border-emerald-700/60 disabled:opacity-50 transition-colors"
         >
           <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
           <span>Qualify Lead</span>
@@ -77,7 +77,7 @@ export function LeadStatusActionBar({ leadId, currentStatus }: LeadStatusActionB
         <button
           onClick={() => handleUpdate('OPPORTUNITY')}
           disabled={loading || status === 'OPPORTUNITY'}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-purple-900/60 hover:bg-purple-800/80 text-purple-200 border border-purple-700/60 disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-normal bg-purple-900/60 hover:bg-purple-800/80 text-purple-200 border border-purple-700/60 disabled:opacity-50 transition-colors"
         >
           <Sparkles className="h-3.5 w-3.5 text-purple-400" />
           <span>Move to Opportunity</span>
@@ -86,7 +86,7 @@ export function LeadStatusActionBar({ leadId, currentStatus }: LeadStatusActionB
         <button
           onClick={() => handleUpdate('UNQUALIFIED')}
           disabled={loading || status === 'UNQUALIFIED'}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-800 hover:bg-red-950/40 text-zinc-400 hover:text-red-300 border border-zinc-700 disabled:opacity-50 transition-colors ml-auto"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-normal bg-zinc-800 hover:bg-red-950/40 text-zinc-400 hover:text-red-300 border border-zinc-700 disabled:opacity-50 transition-colors ml-auto"
         >
           <XCircle className="h-3.5 w-3.5 text-zinc-500" />
           <span>Unqualified</span>

@@ -63,7 +63,7 @@ export default async function EngineerDashboardPage() {
               {/* Work Order */}
               {v.work_order && (
                 <div>
-                  <div className="text-[14px] font-medium text-white">{v.work_order.title}</div>
+                  <div className="text-[14px] font-normal text-white">{v.work_order.title}</div>
                   <div className="text-[11.5px] text-brand-mist/50 font-mono mt-0.5">
                     {v.work_order.work_order_number} · Priority {v.work_order.priority}
                   </div>
@@ -73,7 +73,7 @@ export default async function EngineerDashboardPage() {
               {/* Site */}
               {v.site && (
                 <div className="rounded border border-brand-edge-dark/60 bg-brand-void/60 p-3 text-[12.5px]">
-                  <div className="font-medium text-white">{v.site.name}</div>
+                  <div className="font-normal text-white">{v.site.name}</div>
                   <div className="text-brand-mist/50 mt-0.5">
                     {[v.site.address_line1, v.site.city, v.site.postcode].filter(Boolean).join(', ')}
                   </div>

@@ -51,7 +51,7 @@ export function TechnologyCafmSection({
             <div>
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink-light">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
                   {eyebrow}
                 </span>
               </div>
@@ -74,7 +74,7 @@ export function TechnologyCafmSection({
                     <div className="w-9 h-9 rounded-sm bg-brand-pink/10 text-brand-pink flex items-center justify-center mb-3.5 border border-brand-pink/20 group-hover:scale-105 transition-transform">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="text-sm font-medium text-white mb-1.5 group-hover:text-brand-pink-light transition-colors">
+                    <h3 className="text-sm font-light text-white mb-1.5 group-hover:text-brand-pink-light transition-colors">
                       {feat.title}
                     </h3>
                     <p className="text-xs text-slate-400 leading-relaxed">
@@ -104,7 +104,7 @@ export function TechnologyCafmSection({
                     <BrandIcon name="dataInsights" size={28} />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-white block">
+                    <span className="text-xs font-normal text-white block">
                       EntireCAFM Operational Portal
                     </span>
                     <span className="text-[10px] text-slate-400 font-mono">
@@ -114,7 +114,7 @@ export function TechnologyCafmSection({
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[11px] font-mono font-bold text-emerald-400">
+                  <span className="text-[11px] font-mono font-light text-emerald-400">
                     LIVE SYSTEM
                   </span>
                 </div>
@@ -124,12 +124,12 @@ export function TechnologyCafmSection({
               <div className="space-y-3.5 text-xs">
                 <div className="p-3.5 bg-brand-graphite rounded-sm border border-brand-edge-dark flex items-center justify-between">
                   <span className="text-slate-300">Statutory Certificate Archival</span>
-                  <strong className="text-white font-mono text-emerald-400 font-bold">100% Up to Date</strong>
+                  <strong className="text-white font-mono text-emerald-400 font-light">100% Up to Date</strong>
                 </div>
 
                 <div className="p-3.5 bg-brand-graphite rounded-sm border border-brand-edge-dark flex items-center justify-between">
                   <span className="text-slate-300">Asset Verification Standard</span>
-                  <strong className="text-white font-mono text-brand-pink-light font-bold">SFG20 Certified</strong>
+                  <strong className="text-white font-mono text-brand-pink-light font-light">SFG20 Certified</strong>
                 </div>
 
                 <div className="p-3.5 bg-brand-graphite rounded-sm border border-brand-edge-dark flex items-center justify-between">
@@ -145,7 +145,7 @@ export function TechnologyCafmSection({
 
               <div className="mt-6 pt-4 border-t border-brand-edge-dark flex items-center justify-between text-[11px] text-slate-400">
                 <span>Multi-Site Estate Portal</span>
-                <span className="text-brand-pink font-semibold">Included in Contract</span>
+                <span className="text-brand-pink font-light">Included in Contract</span>
               </div>
             </div>
           </div>

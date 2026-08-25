@@ -48,16 +48,16 @@ export function PPMWalkMode({
       <div className="flex items-center justify-between border-b border-brand-edge-dark pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="rounded bg-brand-electric/20 px-2 py-0.5 font-mono text-[10px] font-bold text-brand-electric border border-brand-electric/30">
+            <span className="rounded bg-brand-electric/20 px-2 py-0.5 font-mono text-[10px] font-normal text-brand-electric border border-brand-electric/30">
               PPM WALK MODE
             </span>
             <span className="font-mono text-xs text-brand-mist/60">{workOrderRef}</span>
           </div>
-          <h2 className="mt-1 text-base font-bold text-white">Multi-Asset Maintenance Walk</h2>
+          <h2 className="mt-1 text-base font-light text-white">Multi-Asset Maintenance Walk</h2>
         </div>
 
         <div className="text-right">
-          <div className="font-mono text-sm font-bold text-white">
+          <div className="font-mono text-sm font-normal text-white">
             {completedAssets} / {totalAssets}
           </div>
           <div className="text-[11px] text-brand-mist/50">Assets Done</div>
@@ -83,10 +83,10 @@ export function PPMWalkMode({
         <div className="space-y-4 rounded-lg border border-brand-edge-dark bg-brand-void/50 p-4">
           <div className="flex items-start justify-between">
             <div>
-              <span className="font-mono text-[11px] text-brand-electric font-bold">
+              <span className="font-mono text-[11px] text-brand-electric font-light">
                 Asset {activeAssetIndex + 1} of {totalAssets}
               </span>
-              <h3 className="text-base font-bold text-white">{currentAsset.name}</h3>
+              <h3 className="text-base font-light text-white">{currentAsset.name}</h3>
               <div className="text-xs text-brand-mist/60">
                 {currentAsset.assetReference} · {currentAsset.category}
               </div>
@@ -96,7 +96,7 @@ export function PPMWalkMode({
             {onScanQR && (
               <button
                 onClick={onScanQR}
-                className="flex items-center gap-1.5 rounded-lg border border-brand-edge-dark bg-brand-carbon px-3 py-2 text-xs font-semibold text-brand-electric hover:border-brand-electric/50"
+                className="flex items-center gap-1.5 rounded-lg border border-brand-edge-dark bg-brand-carbon px-3 py-2 text-xs font-normal text-brand-electric hover:border-brand-electric/50"
               >
                 <QrCode className="h-4 w-4" />
                 Scan Asset
@@ -136,7 +136,7 @@ export function PPMWalkMode({
             <button
               onClick={() => setActiveAssetIndex(Math.max(0, activeAssetIndex - 1))}
               disabled={activeAssetIndex === 0}
-              className="rounded border border-brand-edge-dark bg-brand-carbon px-3 py-1.5 text-xs font-medium text-brand-mist hover:text-white disabled:opacity-30"
+              className="rounded border border-brand-edge-dark bg-brand-carbon px-3 py-1.5 text-xs font-normal text-brand-mist hover:text-white disabled:opacity-30"
             >
               ← Previous Asset
             </button>
@@ -144,7 +144,7 @@ export function PPMWalkMode({
             <button
               onClick={() => setActiveAssetIndex(Math.min(totalAssets - 1, activeAssetIndex + 1))}
               disabled={activeAssetIndex === totalAssets - 1}
-              className="flex items-center gap-1 rounded bg-brand-electric px-3.5 py-1.5 text-xs font-bold text-white hover:bg-brand-indigo disabled:opacity-30"
+              className="flex items-center gap-1 rounded bg-brand-electric px-3.5 py-1.5 text-xs font-normal text-white hover:bg-brand-indigo disabled:opacity-30"
             >
               Next Asset →
             </button>
@@ -176,7 +176,7 @@ export function PPMWalkMode({
                   <Circle className="h-4 w-4 text-brand-mist/30" />
                 )}
                 <div>
-                  <div className="font-semibold text-white">{asset.name}</div>
+                  <div className="font-light text-white">{asset.name}</div>
                   <div className="text-[11px] text-brand-mist/50">{asset.assetReference} · {asset.location}</div>
                 </div>
               </div>

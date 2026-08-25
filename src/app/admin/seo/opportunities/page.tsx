@@ -127,10 +127,10 @@ export default function SearchOpportunitiesAdminDashboard() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-bold">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-light">
             ENTIREFM SEARCH PERFORMANCE &amp; REMEDIATION ENGINE
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">High-Opportunity Page Optimisation</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">High-Opportunity Page Optimisation</h1>
           <p className="text-sm text-zinc-400">
             Actionable tracking of high-impression, position 4–20 search opportunities and verified query ownership.
           </p>
@@ -138,7 +138,7 @@ export default function SearchOpportunitiesAdminDashboard() {
         <div className="flex items-center gap-2">
           <Link
             href="/admin/seo/priorities"
-            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold px-3 py-2 rounded-lg border border-zinc-700 transition-colors flex items-center gap-1.5"
+            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-light px-3 py-2 rounded-lg border border-zinc-700 transition-colors flex items-center gap-1.5"
           >
             <ShieldCheck className="h-3.5 w-3.5" /> SEO Priority Queue
           </Link>
@@ -149,29 +149,29 @@ export default function SearchOpportunitiesAdminDashboard() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">TRACKED OPPORTUNITIES</div>
-          <div className="mt-1 text-xl font-bold text-white font-mono">Top 20 Pages</div>
+          <div className="mt-1 text-xl font-light text-white font-mono">Top 20 Pages</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">COMBINED GSC DEMAND</div>
-          <div className="mt-1 text-xl font-bold text-emerald-400 font-mono">250k+ Impressions</div>
+          <div className="mt-1 text-xl font-light text-emerald-400 font-mono">250k+ Impressions</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">QUERY CANNIBALISATION</div>
-          <div className="mt-1 text-xl font-bold text-blue-400 font-mono">0 Collisions</div>
+          <div className="mt-1 text-xl font-light text-blue-400 font-mono">0 Collisions</div>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="text-zinc-500 text-[10px] uppercase font-mono">REMEDIATION STATUS</div>
-          <div className="mt-1 text-xl font-bold text-purple-400 font-mono">100% Deployed</div>
+          <div className="mt-1 text-xl font-light text-purple-400 font-mono">100% Deployed</div>
         </div>
       </div>
 
       {/* Opportunities Table */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             High-Value Search Opportunity Register
           </h3>
           <span className="text-xs text-zinc-500 font-mono">GSC Verified Data</span>
@@ -192,13 +192,13 @@ export default function SearchOpportunitiesAdminDashboard() {
           <tbody className="divide-y divide-zinc-800">
             {opportunities.map((opp) => (
               <tr key={opp.url} className="hover:bg-zinc-800/40">
-                <td className="py-3.5 px-4 font-mono font-bold text-zinc-400">#{opp.priority}</td>
+                <td className="py-3.5 px-4 font-mono font-light text-zinc-400">#{opp.priority}</td>
                 <td className="py-3.5 px-4">
-                  <div className="font-medium text-white">{opp.url}</div>
+                  <div className="font-normal text-white">{opp.url}</div>
                   <div className="text-[10px] font-mono text-zinc-500">{opp.type}</div>
                 </td>
                 <td className="py-3.5 px-4 text-zinc-300 font-mono text-[11px]">{opp.query}</td>
-                <td className="py-3.5 px-4 font-mono text-emerald-400 font-bold">
+                <td className="py-3.5 px-4 font-mono text-emerald-400 font-light">
                   {opp.impressions.toLocaleString()}
                 </td>
                 <td className="py-3.5 px-4 font-mono text-zinc-300">
@@ -206,7 +206,7 @@ export default function SearchOpportunitiesAdminDashboard() {
                 </td>
                 <td className="py-3.5 px-4 text-zinc-300 max-w-xs">{opp.action}</td>
                 <td className="py-3.5 px-4">
-                  <span className="inline-flex items-center gap-1 text-emerald-400 font-medium font-mono text-[11px]">
+                  <span className="inline-flex items-center gap-1 text-emerald-400 font-normal font-mono text-[11px]">
                     <CheckCircle2 className="h-3.5 w-3.5" /> {opp.status}
                   </span>
                 </td>

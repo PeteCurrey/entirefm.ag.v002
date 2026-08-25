@@ -40,7 +40,7 @@ export function HumanAiResponsibilityModel() {
           <ShieldCheck className="h-4 w-4" />
         </span>
         <div>
-          <h3 className="text-base font-bold text-slate-900 sm:text-lg">
+          <h3 className="text-base font-light text-slate-900 sm:text-lg">
             Human + AI Co-Responsibility Architecture
           </h3>
           <p className="text-xs text-slate-600">
@@ -63,8 +63,8 @@ export function HumanAiResponsibilityModel() {
                   <span className="flex h-6 w-6 items-center justify-center rounded bg-indigo-50 text-indigo-700">
                     <Cpu className="h-3.5 w-3.5" />
                   </span>
-                  <span className="text-xs font-bold text-indigo-900">AI Role (Analytics & Drafting)</span>
-                  <span className="rounded bg-indigo-100 px-1.5 py-0.2 text-[10px] font-semibold text-indigo-800 ml-auto md:hidden">
+                  <span className="text-xs font-normal text-indigo-900">AI Role (Analytics & Drafting)</span>
+                  <span className="rounded bg-indigo-100 px-1.5 py-0.2 text-[10px] font-normal text-indigo-800 ml-auto md:hidden">
                     {wf.badge}
                   </span>
                 </div>
@@ -84,12 +84,12 @@ export function HumanAiResponsibilityModel() {
                   <span className="flex h-6 w-6 items-center justify-center rounded bg-emerald-50 text-emerald-700">
                     <HumanIcon className="h-3.5 w-3.5" />
                   </span>
-                  <span className="text-xs font-bold text-emerald-900">Human Governance (Binding Decision)</span>
-                  <span className="hidden md:inline-block rounded bg-indigo-100 px-1.5 py-0.5 text-[10px] font-semibold text-indigo-800 ml-auto">
+                  <span className="text-xs font-normal text-emerald-900">Human Governance (Binding Decision)</span>
+                  <span className="hidden md:inline-block rounded bg-indigo-100 px-1.5 py-0.5 text-[10px] font-normal text-indigo-800 ml-auto">
                     {wf.badge}
                   </span>
                 </div>
-                <p className="text-xs text-slate-700 leading-relaxed pl-8 font-medium">
+                <p className="text-xs text-slate-700 leading-relaxed pl-8 font-normal">
                   {wf.humanRole}
                 </p>
               </div>

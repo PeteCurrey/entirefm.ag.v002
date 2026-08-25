@@ -23,7 +23,7 @@ export default async function PPMExceptionsPage() {
       {/* Alert banner if missed occurrences exist */}
       {missedOccurrences.length > 0 && (
         <div className="rounded-lg border border-red-900/60 bg-red-950/30 p-4 text-[12.5px] text-red-300">
-          <span className="font-semibold">Action Required:</span> {missedOccurrences.length} maintenance occurrence(s) have passed their permitted planning window without satisfactory completion evidence.
+          <span className="font-light">Action Required:</span> {missedOccurrences.length} maintenance occurrence(s) have passed their permitted planning window without satisfactory completion evidence.
         </div>
       )}
 
@@ -86,7 +86,7 @@ export default async function PPMExceptionsPage() {
 
         {pendingCandidates.length > 0 ? (
           <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-5 text-[12.5px] text-brand-mist/70">
-            There are <span className="font-semibold text-white">{pendingCandidates.length}</span> unverified asset candidate(s) awaiting review. These must be verified before maintenance requirements can be assigned.
+            There are <span className="font-light text-white">{pendingCandidates.length}</span> unverified asset candidate(s) awaiting review. These must be verified before maintenance requirements can be assigned.
           </div>
         ) : (
           <EmptyState

@@ -75,7 +75,7 @@ export function LiveEstateWorkspace({
             <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#FF6B24] text-white">
               <Building2 className="h-3.5 w-3.5" />
             </div>
-            <h2 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+            <h2 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
               LIVE ESTATE WORKSPACE
             </h2>
           </div>
@@ -83,16 +83,16 @@ export function LiveEstateWorkspace({
         <div className="flex flex-col items-center justify-center p-16 text-center gap-4">
           <Building2 className="h-8 w-8 text-[#D0D0CD]" />
           <div>
-            <p className="font-medium text-[#686866] text-[14px]">No sites configured yet</p>
+            <p className="font-normal text-[#686866] text-[14px]">No sites configured yet</p>
             <p className="text-[12.5px] text-[#9B9B97] mt-1">
               Add your first site manually or import from SimPRO.
             </p>
           </div>
           <div className="flex gap-2 mt-2">
-            <a href="/admin/estate/sites" className="rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] px-4 py-2 text-[12px] font-medium text-[#101010] hover:bg-[#EAEAE8] transition-colors">
+            <a href="/admin/estate/sites" className="rounded-[8px] border border-[#E4E4E1] bg-[#F5F5F3] px-4 py-2 text-[12px] font-normal text-[#101010] hover:bg-[#EAEAE8] transition-colors">
               Add Site
             </a>
-            <a href="/admin/platform/imports/new" className="rounded-[8px] bg-[#FF6B24] px-4 py-2 text-[12px] font-medium text-white hover:bg-[#E9540F] transition-colors">
+            <a href="/admin/platform/imports/new" className="rounded-[8px] bg-[#FF6B24] px-4 py-2 text-[12px] font-normal text-white hover:bg-[#E9540F] transition-colors">
               Import from SimPRO
             </a>
           </div>
@@ -110,7 +110,7 @@ export function LiveEstateWorkspace({
             <Building2 className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+            <h2 className="text-[12px] font-normal text-[#111111] uppercase tracking-wide">
               Live Estate Workspace
             </h2>
             <p className="text-[11px] text-[#6D6D68]">
@@ -124,7 +124,7 @@ export function LiveEstateWorkspace({
           <div className="flex items-center rounded-[4px] border border-[#E8E8E5] bg-[#FFFFFF] p-0.5">
             <button
               onClick={() => setViewMode('CANVAS')}
-              className={`rounded-[3px] px-2.5 py-1 text-[11px] font-medium transition-all ${
+              className={`rounded-[3px] px-2.5 py-1 text-[11px] font-normal transition-all ${
                 viewMode === 'CANVAS'
                   ? 'bg-[#111111] text-white'
                   : 'text-[#6D6D68] hover:text-[#111111]'
@@ -134,7 +134,7 @@ export function LiveEstateWorkspace({
             </button>
             <button
               onClick={() => setViewMode('MAP')}
-              className={`rounded-[3px] px-2.5 py-1 text-[11px] font-medium transition-all ${
+              className={`rounded-[3px] px-2.5 py-1 text-[11px] font-normal transition-all ${
                 viewMode === 'MAP'
                   ? 'bg-[#111111] text-white'
                   : 'text-[#6D6D68] hover:text-[#111111]'
@@ -146,7 +146,7 @@ export function LiveEstateWorkspace({
 
           <Link
             href="/admin/estate/sites"
-            className="inline-flex items-center gap-1 text-[11.5px] font-medium text-[#EA580C] hover:underline ml-2"
+            className="inline-flex items-center gap-1 text-[11.5px] font-normal text-[#EA580C] hover:underline ml-2"
           >
             <span>All Sites</span>
             <ArrowUpRight className="h-3.5 w-3.5" />
@@ -184,11 +184,11 @@ export function LiveEstateWorkspace({
 
                     {/* Top Overlay Badges */}
                     <div className="absolute top-2 left-2 right-2 flex items-center justify-between">
-                      <span className="rounded-[4px] bg-[#111111]/80 backdrop-blur-md px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-white font-medium">
+                      <span className="rounded-[4px] bg-[#111111]/80 backdrop-blur-md px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-white font-normal">
                         {site.site_code}
                       </span>
                       {site.healthStatus === 'CRITICAL' ? (
-                        <span className="rounded-[4px] bg-[#FEF2F2] border border-[#FECACA] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#B91C1C] font-semibold flex items-center gap-1">
+                        <span className="rounded-[4px] bg-[#FEF2F2] border border-[#FECACA] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#B91C1C] font-light flex items-center gap-1">
                           <span className="h-1.5 w-1.5 rounded-full bg-[#DC2626] animate-pulse" />
                           P1 Critical
                         </span>
@@ -215,7 +215,7 @@ export function LiveEstateWorkspace({
                   {/* Site Content Body */}
                   <div className="p-3 space-y-2.5">
                     <div>
-                      <h3 className="font-medium text-[13px] text-[#111111] line-clamp-1 group-hover:text-[#EA580C] transition-colors">
+                      <h3 className="font-light text-[13px] text-[#111111] line-clamp-1 group-hover:text-[#EA580C] transition-colors">
                         {site.name}
                       </h3>
                       <div className="text-[10.5px] text-[#6D6D68] uppercase mt-0.5">
@@ -226,20 +226,20 @@ export function LiveEstateWorkspace({
                     {/* Telemetry Micro-Indicators */}
                     <div className="grid grid-cols-3 gap-1 pt-1 border-t border-[#E8E8E5] text-[11px]">
                       <div className="bg-[#FAFAF8] rounded-[4px] p-1 text-center">
-                        <div className="text-[9px] text-[#6D6D68] uppercase font-medium">Open</div>
-                        <div className={`font-semibold ${(site.openJobsCount || 0) > 0 ? 'text-[#111111]' : 'text-[#9A9A95]'}`}>
+                        <div className="text-[9px] text-[#6D6D68] uppercase font-normal">Open</div>
+                        <div className={`font-light ${(site.openJobsCount || 0) > 0 ? 'text-[#111111]' : 'text-[#9A9A95]'}`}>
                           {site.openJobsCount}
                         </div>
                       </div>
                       <div className="bg-[#FAFAF8] rounded-[4px] p-1 text-center">
-                        <div className="text-[9px] text-[#6D6D68] uppercase font-medium">SLA</div>
-                        <div className="font-semibold text-[#15803D]">
+                        <div className="text-[9px] text-[#6D6D68] uppercase font-normal">SLA</div>
+                        <div className="font-light text-[#15803D]">
                           {site.compliancePercent?.toFixed(0)}%
                         </div>
                       </div>
                       <div className="bg-[#FAFAF8] rounded-[4px] p-1 text-center">
-                        <div className="text-[9px] text-[#6D6D68] uppercase font-medium">Techs</div>
-                        <div className="font-semibold text-[#EA580C]">
+                        <div className="text-[9px] text-[#6D6D68] uppercase font-normal">Techs</div>
+                        <div className="font-light text-[#EA580C]">
                           {site.engineersPresent}
                         </div>
                       </div>
@@ -254,7 +254,7 @@ export function LiveEstateWorkspace({
                       <Link
                         href={`/admin/estate/sites/${site.id}`}
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 rounded-[4px] bg-[#FAFAF8] hover:bg-[#EA580C] hover:text-white px-2 py-1 text-[11px] font-medium text-[#111111] transition-colors border border-[#E8E8E5]"
+                        className="inline-flex items-center gap-1 rounded-[4px] bg-[#FAFAF8] hover:bg-[#EA580C] hover:text-white px-2 py-1 text-[11px] font-normal text-[#111111] transition-colors border border-[#E8E8E5]"
                       >
                         <span>Site 360</span>
                         <ArrowUpRight className="h-3 w-3" />
@@ -289,7 +289,7 @@ export function LiveEstateWorkspace({
                     key={s.id}
                     onClick={() => onSelectSite(s)}
                     style={{ top: `${topPos}%`, left: `${leftPos}%` }}
-                    className={`absolute -translate-x-1/2 -translate-y-1/2 flex items-center gap-1.5 rounded-[4px] border px-2.5 py-1 text-[11.5px] font-medium transition-all ${
+                    className={`absolute -translate-x-1/2 -translate-y-1/2 flex items-center gap-1.5 rounded-[4px] border px-2.5 py-1 text-[11.5px] font-normal transition-all ${
                       isSelected
                         ? 'bg-[#EA580C] border-[#EA580C] text-white z-10'
                         : 'bg-[#FFFFFF] border-[#E8E8E5] text-[#111111] hover:border-[#EA580C]'
@@ -304,7 +304,7 @@ export function LiveEstateWorkspace({
                           : 'bg-[#16A34A]'
                       }`}
                     />
-                    <span className="text-[11px] font-medium">{s.city}</span>
+                    <span className="text-[11px] font-normal">{s.city}</span>
                   </button>
                 );
               })}

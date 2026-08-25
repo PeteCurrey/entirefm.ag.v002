@@ -74,9 +74,9 @@ export function BuildingNavPalette({
           <button
             key={tab.id}
             onClick={() => onChangeTab(tab.id)}
-            className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-[7px] px-3 py-1.5 text-[12px] font-medium transition-all ${
+            className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-[7px] px-3 py-1.5 text-[12px] font-normal transition-all ${
               isActive
-                ? 'bg-[#FF6B24] text-white shadow-sm font-semibold'
+                ? 'bg-[#FF6B24] text-white shadow-sm font-light'
                 : 'text-[#686866] hover:bg-[#F5F5F3] hover:text-[#101010]'
             }`}
           >

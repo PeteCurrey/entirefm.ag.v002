@@ -18,7 +18,7 @@ export default async function ComplianceCertificatesPage() {
         action={
           <Link
             href="/admin/compliance"
-            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-carbon"
+            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-carbon"
           >
             ← Command Centre
           </Link>
@@ -42,11 +42,11 @@ export default async function ComplianceCertificatesPage() {
               {certificates.map((c) => (
                 <tr key={c.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                   <td className="px-5 py-4">
-                    <div className="font-semibold text-white">{c.certificate_type}</div>
+                    <div className="font-light text-white">{c.certificate_type}</div>
                     <div className="font-mono text-[11px] text-brand-mist/50">#{c.certificate_number}</div>
                   </td>
                   <td className="px-5 py-4">
-                    <div className="font-medium text-white">{c.site?.name || 'Site'}</div>
+                    <div className="font-normal text-white">{c.site?.name || 'Site'}</div>
                   </td>
                   <td className="px-5 py-4 text-brand-mist/70">
                     {c.issued_by_org}

@@ -61,7 +61,7 @@ export function ToolShell({
 
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
             <div className="max-w-3xl">
-              <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-bold tracking-tight text-white leading-[1.15]">
+              <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extralight tracking-tight text-white leading-[1.15]">
                 {title}
               </h1>
               <p className="text-sm sm:text-base text-slate-300 mt-2.5 leading-relaxed font-normal">
@@ -73,7 +73,7 @@ export function ToolShell({
             <div className="flex flex-wrap items-center gap-2.5 text-xs text-slate-300 shrink-0">
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/5 border border-white/10">
                 <Clock className="w-3.5 h-3.5 text-brand-electric" />
-                <span className="font-semibold text-white">{timeEstimate}</span>
+                <span className="font-light text-white">{timeEstimate}</span>
               </div>
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/5 border border-white/10">
                 <Shield className="w-3.5 h-3.5 text-emerald-400" />

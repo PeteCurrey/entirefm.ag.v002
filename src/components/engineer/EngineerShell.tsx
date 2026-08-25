@@ -53,14 +53,14 @@ function SyncBadge({ personId }: { personId: string }) {
   return (
     <button
       onClick={handleSync}
-      className={`flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium transition-colors ${cfg.bg} ${cfg.color}`}
+      className={`flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-normal transition-colors ${cfg.bg} ${cfg.color}`}
       title={pendingCount > 0 ? `${pendingCount} actions queued. Tap to sync.` : 'Sync status'}
       aria-label={`Field sync status: ${cfg.label}${pendingCount > 0 ? `, ${pendingCount} pending` : ''}`}
     >
       {cfg.icon}
       <span>{cfg.label}</span>
       {pendingCount > 0 && (
-        <span className="bg-amber-500 text-black text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold ml-0.5">
+        <span className="bg-amber-500 text-black text-xs rounded-full w-4 h-4 flex items-center justify-center font-light ml-0.5">
           {pendingCount > 9 ? '9+' : pendingCount}
         </span>
       )}
@@ -94,14 +94,14 @@ export default function EngineerShell({ children, session }: EngineerShellProps)
     <div className="min-h-screen bg-brand-void flex flex-col" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
       {/* Update notification */}
       {updateAvailable && (
-        <div className="bg-brand-electric text-black px-4 py-2 text-xs font-bold flex items-center justify-between z-50">
+        <div className="bg-brand-electric text-black px-4 py-2 text-xs font-normal flex items-center justify-between z-50">
           <div className="flex items-center gap-1.5">
             <ArrowDownCircle className="w-4 h-4 shrink-0" />
             <span>EntireFM Field update available</span>
           </div>
           <button
             onClick={() => window.location.reload()}
-            className="bg-black text-white px-2.5 py-1 rounded text-[11px] font-semibold"
+            className="bg-black text-white px-2.5 py-1 rounded text-[11px] font-normal"
           >
             Update Now
           </button>
@@ -112,8 +112,8 @@ export default function EngineerShell({ children, session }: EngineerShellProps)
       <header className="sticky top-0 z-50 bg-brand-carbon border-b border-brand-edge-dark safe-area-inset-top">
         <div className="flex items-center justify-between px-4 py-3" style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }}>
           <div className="flex items-center gap-2">
-            <span className="text-brand-electric font-black text-sm tracking-widest">ENTIREFM</span>
-            <span className="bg-brand-electric/20 text-brand-electric text-xs font-semibold px-1.5 py-0.5 rounded">FIELD</span>
+            <span className="text-brand-electric font-light text-sm tracking-widest">ENTIREFM</span>
+            <span className="bg-brand-electric/20 text-brand-electric text-xs font-normal px-1.5 py-0.5 rounded">FIELD</span>
           </div>
           <div className="flex items-center gap-2">
             <SyncBadge personId={session.personId} />

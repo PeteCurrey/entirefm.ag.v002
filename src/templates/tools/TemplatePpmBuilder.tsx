@@ -405,11 +405,11 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 <div className="border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-bold">
+                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
                       01 / Building Profile
                     </span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+                  <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 mt-2">
                     Tell us about the property
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed font-normal">
@@ -420,7 +420,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Site / building name
                       </label>
                       <span className="text-[11px] font-mono text-slate-600">Optional</span>
@@ -436,7 +436,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Building type
                       </label>
                       <span className="text-[11px] font-mono text-slate-600">Required</span>
@@ -459,7 +459,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Approximate floor area
                       </label>
                       <span className="text-[11px] font-mono text-slate-600">Optional</span>
@@ -475,7 +475,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Operating profile
                       </label>
                       <span className="text-[11px] font-mono text-slate-600">Required</span>
@@ -494,7 +494,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Number of storeys
                       </label>
                       <span className="text-[11px] font-mono text-slate-600">Optional</span>
@@ -510,7 +510,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      <label className="text-xs font-normal text-slate-800 uppercase tracking-wider">
                         Site criticality
                       </label>
                       <span className="text-[11px] font-mono text-slate-600">Required</span>
@@ -534,7 +534,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(1)}
-                    className="inline-flex items-center gap-2.5 px-6 py-3 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-bold tracking-wider uppercase transition-all shadow-sm group"
+                    className="inline-flex items-center gap-2.5 px-6 py-3 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-normal tracking-wider uppercase transition-all shadow-sm group"
                   >
                     <span>Select Building Disciplines</span>
                     <ArrowRight className="w-3.5 h-3.5 text-brand-electric-bright group-hover:translate-x-0.5 transition-transform" />
@@ -552,13 +552,13 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                     className="object-cover object-center"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-2.5 left-3 text-[10.5px] font-mono text-white font-semibold tracking-wider uppercase">
+                  <div className="absolute bottom-2.5 left-3 text-[10.5px] font-mono text-white font-light tracking-wider uppercase">
                     Commercial Plant &amp; Infrastructure
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-mono">
+                  <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider font-mono">
                     Building Profile Guidance
                   </h3>
                   <p className="text-slate-600 mt-2 text-xs leading-relaxed">
@@ -568,7 +568,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
                 <div className="space-y-4 pt-4 border-t border-slate-100 text-xs">
                   <div>
-                    <span className="font-bold text-brand-electric block uppercase text-[10.5px] tracking-wider font-mono">
+                    <span className="font-light text-brand-electric block uppercase text-[10.5px] tracking-wider font-mono">
                       Used to Calculate
                     </span>
                     <ul className="mt-1.5 space-y-1 text-slate-600">
@@ -606,11 +606,11 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 <div className="border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-bold">
+                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
                       02 / Discipline Scope
                     </span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+                  <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 mt-2">
                     Which systems are installed?
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
@@ -635,12 +635,12 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                         }`}
                       >
                         <div className="flex items-center gap-4 min-w-0">
-                          <span className="text-xs font-mono font-bold text-slate-600 w-5 shrink-0">
+                          <span className="text-xs font-mono font-light text-slate-600 w-5 shrink-0">
                             {catNumber}
                           </span>
                           <IconComponent className={`w-4 h-4 shrink-0 ${isSelected ? 'text-brand-electric' : 'text-slate-600'}`} />
                           <div className="min-w-0">
-                            <span className="text-sm font-bold text-slate-900 block truncate uppercase tracking-wide">
+                            <span className="text-sm font-normal text-slate-900 block truncate uppercase tracking-wide">
                               {cat.name}
                             </span>
                             <p className="text-xs text-slate-600 mt-0.5 truncate">{cat.description}</p>
@@ -648,7 +648,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                         </div>
 
                         <div className="flex items-center gap-4 shrink-0">
-                          <span className="text-[11px] font-mono text-slate-600 hidden sm:inline font-semibold">
+                          <span className="text-[11px] font-mono text-slate-600 hidden sm:inline font-light">
                             {cat.assets.length} ASSETS
                           </span>
                           <div
@@ -670,7 +670,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(0)}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-normal text-slate-600 hover:text-slate-900 transition-colors"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     <span>Back</span>
@@ -680,7 +680,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                     type="button"
                     disabled={selectedCategoryIds.size === 0}
                     onClick={() => setCurrentStep(2)}
-                    className="inline-flex items-center gap-2.5 px-6 py-3 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-bold tracking-wider uppercase transition-all disabled:opacity-40 shadow-sm group"
+                    className="inline-flex items-center gap-2.5 px-6 py-3 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-normal tracking-wider uppercase transition-all disabled:opacity-40 shadow-sm group"
                   >
                     <span>Choose Assets ({selectedCategoryIds.size} Disciplines)</span>
                     <ArrowRight className="w-3.5 h-3.5 text-brand-electric-bright group-hover:translate-x-0.5 transition-transform" />
@@ -697,13 +697,13 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                     className="object-cover object-center"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-2.5 left-3 text-[10.5px] font-mono text-white font-semibold tracking-wider uppercase">
+                  <div className="absolute bottom-2.5 left-3 text-[10.5px] font-mono text-white font-light tracking-wider uppercase">
                     Discipline Filtering
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-mono">
+                  <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider font-mono">
                     Discipline Scope Notice
                   </h3>
                   <p className="text-slate-600 mt-2 leading-relaxed">
@@ -725,11 +725,11 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                      <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-bold">
+                      <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
                         03 / Asset Register Library
                       </span>
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-900 mt-1">
+                    <h2 className="text-2xl font-extralight text-slate-900 mt-1">
                       Select Installed Assets
                     </h2>
                   </div>
@@ -751,7 +751,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   <button
                     type="button"
                     onClick={() => setActiveAssetCatTab('ALL')}
-                    className={`px-3 py-1 font-bold whitespace-nowrap border-b-2 transition-colors ${
+                    className={`px-3 py-1 font-light whitespace-nowrap border-b-2 transition-colors ${
                       activeAssetCatTab === 'ALL'
                         ? 'border-brand-electric text-brand-electric'
                         : 'border-transparent text-slate-600 hover:text-slate-900'
@@ -764,7 +764,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                       key={cat.id}
                       type="button"
                       onClick={() => setActiveAssetCatTab(cat.id)}
-                      className={`px-3 py-1 font-bold whitespace-nowrap border-b-2 transition-colors ${
+                      className={`px-3 py-1 font-light whitespace-nowrap border-b-2 transition-colors ${
                         activeAssetCatTab === cat.id
                           ? 'border-brand-electric text-brand-electric'
                           : 'border-transparent text-slate-600 hover:text-slate-900'
@@ -793,7 +793,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
                       return (
                         <div key={cat.id} className="space-y-2.5">
-                          <div className="text-xs font-mono font-bold text-slate-700 uppercase tracking-wider">
+                          <div className="text-xs font-mono font-light text-slate-700 uppercase tracking-wider">
                             {cat.name}
                           </div>
 
@@ -813,9 +813,9 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                                 >
                                   <div className="space-y-1 min-w-0 flex-1">
                                     <div className="flex items-center gap-2 flex-wrap">
-                                      <span className="text-sm font-bold text-slate-900">{asset.name}</span>
+                                      <span className="text-sm font-normal text-slate-900">{asset.name}</span>
                                       {asset.isStatutoryOrStandard && (
-                                        <span className="px-2 py-0.5 bg-rose-50 border border-rose-200 text-rose-700 font-mono text-[9.5px] uppercase font-bold rounded-sm">
+                                        <span className="px-2 py-0.5 bg-rose-50 border border-rose-200 text-rose-700 font-mono text-[9.5px] uppercase font-light rounded-sm">
                                           STATUTORY DUTY
                                         </span>
                                       )}
@@ -834,17 +834,17 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                                             <button
                                               type="button"
                                               onClick={() => updateAssetQuantity(asset.id, -1)}
-                                              className="px-2.5 py-1 text-slate-600 hover:text-slate-900 text-xs font-bold"
+                                              className="px-2.5 py-1 text-slate-600 hover:text-slate-900 text-xs font-normal"
                                             >
                                               −
                                             </button>
-                                            <span className="px-2 font-mono text-xs font-bold text-slate-900">
+                                            <span className="px-2 font-mono text-xs font-normal text-slate-900">
                                               {currentQty}
                                             </span>
                                             <button
                                               type="button"
                                               onClick={() => updateAssetQuantity(asset.id, 1)}
-                                              className="px-2.5 py-1 text-slate-600 hover:text-slate-900 text-xs font-bold"
+                                              className="px-2.5 py-1 text-slate-600 hover:text-slate-900 text-xs font-normal"
                                             >
                                               +
                                             </button>
@@ -853,7 +853,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                                         <button
                                           type="button"
                                           onClick={() => removeAsset(asset.id)}
-                                          className="text-xs text-rose-600 hover:text-rose-800 font-semibold"
+                                          className="text-xs text-rose-600 hover:text-rose-800 font-light"
                                         >
                                           Remove
                                         </button>
@@ -862,7 +862,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                                       <button
                                         type="button"
                                         onClick={() => addAsset(asset)}
-                                        className="px-3.5 py-1.5 bg-brand-graphite hover:bg-slate-800 text-white text-xs font-semibold rounded-sm shadow-2xs transition-colors"
+                                        className="px-3.5 py-1.5 bg-brand-graphite hover:bg-slate-800 text-white text-xs font-normal rounded-sm shadow-2xs transition-colors"
                                       >
                                         + Add Asset
                                       </button>
@@ -881,10 +881,10 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
               {/* 30% Sticky Selected Assets Sidebar */}
               <aside className="lg:col-span-4 border border-slate-200 bg-white p-6 rounded-sm space-y-5 sticky top-24 shadow-sm">
                 <div className="border-b border-slate-100 pb-3">
-                  <div className="text-[11px] font-mono text-slate-500 uppercase tracking-widest font-bold">
+                  <div className="text-[11px] font-mono text-slate-500 uppercase tracking-widest font-light">
                     Selected Estate
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mt-0.5">
+                  <h3 className="text-xl font-light text-slate-900 mt-0.5">
                     {selectedAssetList.length} Asset Types
                   </h3>
                   <span className="text-xs text-slate-600 font-mono">
@@ -902,7 +902,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                       className="py-2 border-b border-slate-100 flex items-center justify-between gap-2"
                     >
                       <div className="min-w-0">
-                        <span className="font-semibold text-slate-900 block truncate">
+                        <span className="font-light text-slate-900 block truncate">
                           {definition.supportsQuantity !== false ? `${quantity}× ` : ''}
                           {definition.name}
                         </span>
@@ -925,7 +925,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                     type="button"
                     disabled={selectedAssetList.length === 0}
                     onClick={() => setCurrentStep(3)}
-                    className="w-full py-3 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-bold tracking-wider uppercase transition-all disabled:opacity-40 shadow-sm"
+                    className="w-full py-3 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-normal tracking-wider uppercase transition-all disabled:opacity-40 shadow-sm"
                   >
                     Configure Assets →
                   </button>
@@ -951,11 +951,11 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 <div className="border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-bold">
+                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
                       04 / Asset Configuration
                     </span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+                  <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 mt-2">
                     Fine-tune asset parameters
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
@@ -979,20 +979,20 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                         className="p-4 border border-slate-200 bg-slate-50 rounded-sm grid grid-cols-1 sm:grid-cols-12 gap-3 items-center"
                       >
                         <div className="sm:col-span-4">
-                          <span className="text-[10px] font-mono text-slate-600 uppercase font-bold">{definition.categoryName}</span>
-                          <span className="text-sm font-bold text-slate-900 block">{definition.name}</span>
+                          <span className="text-[10px] font-mono text-slate-600 uppercase font-light">{definition.categoryName}</span>
+                          <span className="text-sm font-normal text-slate-900 block">{definition.name}</span>
                         </div>
 
                         <div className="sm:col-span-3">
                           {definition.supportsQuantity !== false ? (
                             <div className="flex items-center gap-2 text-xs">
-                              <span className="text-slate-600 font-medium">Qty:</span>
+                              <span className="text-slate-600 font-normal">Qty:</span>
                               <input
                                 type="number"
                                 min={1}
                                 value={selectedAssets[definition.id] || 1}
                                 onChange={(e) => setExactAssetQuantity(definition.id, parseInt(e.target.value) || 1)}
-                                className="w-16 px-2.5 py-1 bg-white border border-slate-300 text-xs font-mono font-bold text-slate-900 rounded-sm shadow-2xs"
+                                className="w-16 px-2.5 py-1 bg-white border border-slate-300 text-xs font-mono font-light text-slate-900 rounded-sm shadow-2xs"
                               />
                             </div>
                           ) : (
@@ -1009,7 +1009,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                                 [definition.id]: { ...cfg, ageBand: e.target.value as any },
                               }))
                             }
-                            className="w-full px-2.5 py-1.5 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-medium shadow-2xs"
+                            className="w-full px-2.5 py-1.5 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-normal shadow-2xs"
                           >
                             <option value="0-3 years">0–3 years (Warranty)</option>
                             <option value="4-7 years">4–7 years (Established)</option>
@@ -1022,7 +1022,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                           <button
                             type="button"
                             onClick={() => removeAsset(definition.id)}
-                            className="text-xs text-rose-600 hover:text-rose-800 font-semibold"
+                            className="text-xs text-rose-600 hover:text-rose-800 font-light"
                           >
                             Remove
                           </button>
@@ -1036,7 +1036,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(2)}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-slate-600 hover:text-slate-900"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-normal text-slate-600 hover:text-slate-900"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     <span>Back to Assets</span>
@@ -1045,7 +1045,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(4)}
-                    className="inline-flex items-center gap-2.5 px-6 py-3 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-bold tracking-wider uppercase transition-all shadow-sm group"
+                    className="inline-flex items-center gap-2.5 px-6 py-3 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-normal tracking-wider uppercase transition-all shadow-sm group"
                   >
                     <span>Review Estate Profile</span>
                     <ArrowRight className="w-3.5 h-3.5 text-brand-electric-bright group-hover:translate-x-0.5 transition-transform" />
@@ -1055,7 +1055,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
 
               <aside className="lg:col-span-4 border border-slate-200 bg-white p-6 rounded-sm space-y-6 shadow-sm text-xs">
                 <div>
-                  <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-mono">
+                  <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider font-mono">
                     Lifecycle &amp; Wear Calibration
                   </h3>
                   <p className="text-slate-600 mt-2 leading-relaxed">
@@ -1074,11 +1074,11 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
               <div className="border-b border-slate-100 pb-5">
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                  <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-bold">
+                  <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-light">
                     05 / Estate Review
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+                <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 mt-2">
                   Review your building specification
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
@@ -1089,40 +1089,40 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
               {/* Executive Metrics Strip */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-4 border-y border-slate-100">
                 <div>
-                  <span className="text-[11px] font-mono text-slate-600 uppercase font-bold">Property Profile</span>
-                  <div className="text-sm font-bold text-slate-900 mt-0.5">{buildingType}</div>
+                  <span className="text-[11px] font-mono text-slate-600 uppercase font-light">Property Profile</span>
+                  <div className="text-sm font-normal text-slate-900 mt-0.5">{buildingType}</div>
                   <span className="text-xs text-slate-600">{buildingName || 'Commercial Estate'}</span>
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono text-slate-600 uppercase font-bold">Floor Area</span>
-                  <div className="text-sm font-bold text-slate-900 mt-0.5">{floorArea}</div>
+                  <span className="text-[11px] font-mono text-slate-600 uppercase font-light">Floor Area</span>
+                  <div className="text-sm font-normal text-slate-900 mt-0.5">{floorArea}</div>
                   <span className="text-xs text-slate-600">{numberOfFloors}</span>
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono text-slate-600 uppercase font-bold">Asset Systems</span>
-                  <div className="text-sm font-bold text-slate-900 mt-0.5">{selectedAssetList.length} Types</div>
+                  <span className="text-[11px] font-mono text-slate-600 uppercase font-light">Asset Systems</span>
+                  <div className="text-sm font-normal text-slate-900 mt-0.5">{selectedAssetList.length} Types</div>
                   <span className="text-xs text-slate-600">Selected</span>
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono text-slate-600 uppercase font-bold">Physical Items</span>
-                  <div className="text-sm font-bold text-slate-900 mt-0.5">{totalPhysicalAssetCount} Assets</div>
+                  <span className="text-[11px] font-mono text-slate-600 uppercase font-light">Physical Items</span>
+                  <div className="text-sm font-normal text-slate-900 mt-0.5">{totalPhysicalAssetCount} Assets</div>
                   <span className="text-xs text-slate-600">Total Count</span>
                 </div>
               </div>
 
               {/* Configured Asset Register Table */}
               <div className="space-y-3">
-                <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-mono">
+                <h3 className="text-xs font-normal text-slate-900 uppercase tracking-wider font-mono">
                   Configured Asset Register to be Processed:
                 </h3>
                 <div className="border border-slate-200 bg-slate-50 divide-y divide-slate-200 text-xs rounded-sm">
                   {selectedAssetList.map(({ definition, quantity }) => (
                     <div key={definition.id} className="p-3.5 flex items-center justify-between">
                       <div className="min-w-0">
-                        <span className="font-semibold text-slate-900">{definition.name}</span>
+                        <span className="font-light text-slate-900">{definition.name}</span>
                         <span className="text-[11px] font-mono text-slate-600 ml-2">({definition.categoryName})</span>
                       </div>
-                      <span className="font-mono font-bold text-slate-800 shrink-0">
+                      <span className="font-mono font-light text-slate-800 shrink-0">
                         {definition.supportsQuantity !== false ? `${quantity} Units` : 'Whole Site'}
                       </span>
                     </div>
@@ -1134,7 +1134,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 <button
                   type="button"
                   onClick={() => setCurrentStep(3)}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-slate-600 hover:text-slate-900"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-normal text-slate-600 hover:text-slate-900"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Back to Configure</span>
@@ -1144,7 +1144,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   type="button"
                   disabled={isGenerating || selectedAssetList.length === 0}
                   onClick={handleGenerateProgramme}
-                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-bold tracking-wider uppercase transition-all disabled:opacity-40 shadow-sm group"
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-sm bg-brand-graphite hover:bg-slate-800 text-white text-xs font-normal tracking-wider uppercase transition-all disabled:opacity-40 shadow-sm group"
                 >
                   {isGenerating ? (
                     <div className="flex items-center gap-2.5">
@@ -1176,10 +1176,10 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
               <div className="border border-slate-200 bg-white p-6 sm:p-8 rounded-sm space-y-6 shadow-md">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                   <div>
-                    <span className="text-[11px] font-mono text-brand-electric uppercase tracking-widest font-bold bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100 inline-block mb-1">
+                    <span className="text-[11px] font-mono text-brand-electric uppercase tracking-widest font-light bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100 inline-block mb-1">
                       Generated Output Specification
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
+                    <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 mt-1">
                       {buildingName || 'Commercial Estate'} — PPM Maintenance Programme
                     </h2>
                     <p className="text-xs sm:text-sm text-slate-600 mt-1">
@@ -1190,7 +1190,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(2)}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-sm border border-slate-200 bg-slate-50 text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-xs font-semibold self-start sm:self-center transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-sm border border-slate-200 bg-slate-50 text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-xs font-normal self-start sm:self-center transition-colors"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                     <span>Edit Assets</span>
@@ -1240,7 +1240,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   <button
                     type="button"
                     onClick={() => setProgrammeViewMode('matrix')}
-                    className={`px-3 py-1 font-bold flex items-center gap-1.5 border-b-2 transition-colors ${
+                    className={`px-3 py-1 font-light flex items-center gap-1.5 border-b-2 transition-colors ${
                       programmeViewMode === 'matrix'
                         ? 'border-brand-electric text-brand-electric'
                         : 'border-transparent text-slate-600 hover:text-slate-900'
@@ -1253,7 +1253,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                   <button
                     type="button"
                     onClick={() => setProgrammeViewMode('annual')}
-                    className={`px-3 py-1 font-bold flex items-center gap-1.5 border-b-2 transition-colors ${
+                    className={`px-3 py-1 font-light flex items-center gap-1.5 border-b-2 transition-colors ${
                       programmeViewMode === 'annual'
                         ? 'border-brand-electric text-brand-electric'
                         : 'border-transparent text-slate-600 hover:text-slate-900'
@@ -1283,7 +1283,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 <div className="border border-slate-200 bg-white overflow-x-auto rounded-sm shadow-sm">
                   <table className="w-full text-left text-xs border-collapse">
                     <thead>
-                      <tr className="bg-slate-50 text-slate-700 font-bold uppercase tracking-wider text-[10.5px] border-b border-slate-200">
+                      <tr className="bg-slate-50 text-slate-700 font-light uppercase tracking-wider text-[10.5px] border-b border-slate-200">
                         <th className="p-3.5">Asset System</th>
                         <th className="p-3.5">Maintenance Activity</th>
                         <th className="p-3.5 text-center">Frequency</th>
@@ -1295,7 +1295,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                     <tbody className="divide-y divide-slate-100 text-slate-700">
                       {filteredTasks.map(({ asset, quantity, task }, idx) => (
                         <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
-                          <td className="p-3.5 font-bold text-slate-900 whitespace-nowrap">
+                          <td className="p-3.5 font-light text-slate-900 whitespace-nowrap">
                             {quantity > 1 ? `${quantity}× ` : ''}
                             {asset.name}
                             <span className="text-[10px] font-mono text-slate-600 block font-normal">
@@ -1303,22 +1303,22 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                             </span>
                           </td>
                           <td className="p-3.5">
-                            <p className="text-slate-900 leading-snug font-semibold">{task.activity}</p>
+                            <p className="text-slate-900 leading-snug font-light">{task.activity}</p>
                             <span className="text-[10.5px] font-mono text-slate-600 mt-1 block">
                               Evidence: {task.evidenceExpected}
                             </span>
                           </td>
-                          <td className="p-3.5 text-center whitespace-nowrap font-mono font-bold text-slate-800">
+                          <td className="p-3.5 text-center whitespace-nowrap font-mono font-light text-slate-800">
                             {task.frequency}
                           </td>
                           <td className="p-3.5">
                             <ComplianceBadge classification={task.classification} />
                           </td>
                           <td className="p-3.5 font-mono text-[11px] text-slate-700">
-                            <div className="font-semibold text-brand-electric">{task.governingBasis}</div>
+                            <div className="font-light text-brand-electric">{task.governingBasis}</div>
                             <div className="text-[10px] text-slate-600">{task.statutoryReference}</div>
                           </td>
-                          <td className="p-3.5 text-slate-700 text-xs font-medium">
+                          <td className="p-3.5 text-slate-700 text-xs font-normal">
                             {task.recommendedCompetency}
                           </td>
                         </tr>
@@ -1332,7 +1332,7 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
               {programmeViewMode === 'annual' && (
                 <div className="border border-slate-200 bg-white p-6 rounded-sm space-y-6 shadow-sm">
                   <div className="border-b border-slate-100 pb-3">
-                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider font-mono">
+                    <h3 className="text-sm font-normal text-slate-900 uppercase tracking-wider font-mono">
                       12-Month Annual Distribution Schedule (Jan–Dec)
                     </h3>
                   </div>
@@ -1345,14 +1345,14 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                       return (
                         <div key={mName} className="p-4 border border-slate-200 bg-slate-50 rounded-sm space-y-2">
                           <div className="flex items-center justify-between border-b border-slate-200 pb-1.5">
-                            <span className="font-mono text-xs font-bold text-slate-900">{mName} 2026</span>
-                            <span className="text-[10px] font-mono font-bold text-brand-electric bg-blue-50 px-2 py-0.5 rounded-sm border border-blue-100">{monthTasks.length} Regimes</span>
+                            <span className="font-mono text-xs font-normal text-slate-900">{mName} 2026</span>
+                            <span className="text-[10px] font-mono font-light text-brand-electric bg-blue-50 px-2 py-0.5 rounded-sm border border-blue-100">{monthTasks.length} Regimes</span>
                           </div>
 
                           <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1 scrollbar-thin">
                             {monthTasks.map((t, idx) => (
                               <div key={idx} className="text-slate-700 p-1 rounded-xs bg-white border border-slate-100">
-                                <span className="font-bold text-slate-900">{t.asset.name}: </span>
+                                <span className="font-light text-slate-900">{t.asset.name}: </span>
                                 <span className="text-slate-600">{t.task.activity} ({t.task.frequency})</span>
                               </div>
                             ))}

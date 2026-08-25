@@ -50,9 +50,9 @@ export function CommandHeader({
       <div>
         <div className="flex items-center gap-2">
           <h1 className="text-2xl lg:text-3xl font-light tracking-tight text-[#111111]">
-            Good morning, <span className="font-semibold">{firstName}</span>
+            Good morning, <span className="font-light">{firstName}</span>
           </h1>
-          <span className="inline-flex items-center gap-1 rounded-[4px] border border-[#FED7AA] bg-[#FFF7ED] px-2 py-0.5 font-mono text-[10px] text-[#C2410C] font-semibold">
+          <span className="inline-flex items-center gap-1 rounded-[4px] border border-[#FED7AA] bg-[#FFF7ED] px-2 py-0.5 font-mono text-[10px] text-[#C2410C] font-light">
             LIVE DESK
           </span>
         </div>
@@ -69,7 +69,7 @@ export function CommandHeader({
             <button
               key={p.id}
               onClick={() => onPersonaChange(p.id)}
-              className={`rounded-[4px] px-2.5 py-1 text-[11.5px] font-medium transition-all ${
+              className={`rounded-[4px] px-2.5 py-1 text-[11.5px] font-normal transition-all ${
                 activePersona === p.id
                   ? 'bg-[#111111] text-white'
                   : 'text-[#6D6D68] hover:text-[#111111] hover:bg-[#FAFAF8]'

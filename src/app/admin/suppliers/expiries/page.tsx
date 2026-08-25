@@ -17,10 +17,10 @@ export default async function ExpiriesRadarPage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
             PROACTIVE MONITORING
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight text-slate-900 mt-1">
             Accreditation &amp; Insurance Expiry Radar
           </h1>
           <p className="text-xs text-slate-600 font-light mt-1">
@@ -64,15 +64,15 @@ export default async function ExpiriesRadarPage() {
               ) : (
                 expiringDocs.map(({ doc, evalResult }) => (
                   <tr key={doc.id} className="hover:bg-slate-50/50">
-                    <td className="py-3 px-4 font-bold text-slate-900 font-sans">{doc.document_type.replace(/_/g, ' ')}</td>
+                    <td className="py-3 px-4 font-light text-slate-900 font-sans">{doc.document_type.replace(/_/g, ' ')}</td>
                     <td className="py-3 px-4 text-slate-700">{doc.supplier_id}</td>
                     <td className="py-3 px-4 text-slate-600">{doc.certificate_number || '—'}</td>
                     <td className="py-3 px-4 text-slate-700">{doc.expiry_date}</td>
-                    <td className="py-3 px-4 text-center font-bold">
+                    <td className="py-3 px-4 text-center font-light">
                       {evalResult.daysRemaining !== null ? `${evalResult.daysRemaining} days` : '—'}
                     </td>
                     <td className="py-3 px-4 text-center">
-                      <span className={`inline-block text-[10px] px-2 py-0.5 rounded font-bold ${
+                      <span className={`inline-block text-[10px] px-2 py-0.5 rounded font-light ${
                         evalResult.state === 'EXPIRED' ? 'bg-rose-600 text-white' : evalResult.state === 'EXPIRING' ? 'bg-amber-100 text-amber-900' : 'bg-emerald-100 text-emerald-800'
                       }`}>
                         {evalResult.state}

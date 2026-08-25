@@ -168,7 +168,7 @@ export function TemplateContact() {
               {/* Eyebrow */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-white/[0.07] border border-white/15 backdrop-blur-sm mb-6">
                 <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink-light">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
                   CONTACT ENTIREFM
                 </span>
               </div>
@@ -212,15 +212,15 @@ export function TemplateContact() {
               {/* Supporting Facts Row */}
               <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10">
                 <div className="bg-brand-graphite/75 px-5 py-3.5 backdrop-blur-md">
-                  <div className="text-xs font-bold text-white uppercase tracking-wider">UK Nationwide</div>
+                  <div className="text-xs font-normal text-white uppercase tracking-wider">UK Nationwide</div>
                   <div className="text-xs text-brand-mist/70 mt-0.5">Commercial & industrial coverage</div>
                 </div>
                 <div className="bg-brand-graphite/75 px-5 py-3.5 backdrop-blur-md">
-                  <div className="text-xs font-bold text-white uppercase tracking-wider">Direct Operations Desk</div>
+                  <div className="text-xs font-normal text-white uppercase tracking-wider">Direct Operations Desk</div>
                   <div className="text-xs text-brand-mist/70 mt-0.5">Commercial technical coordination</div>
                 </div>
                 <div className="bg-brand-graphite/75 px-5 py-3.5 backdrop-blur-md">
-                  <div className="text-xs font-bold text-white uppercase tracking-wider">Single-Source Model</div>
+                  <div className="text-xs font-normal text-white uppercase tracking-wider">Single-Source Model</div>
                   <div className="text-xs text-brand-mist/70 mt-0.5">Clear operational accountability</div>
                 </div>
               </div>
@@ -243,7 +243,7 @@ export function TemplateContact() {
             <div className="text-center max-w-2xl mx-auto mb-14">
               <div className="inline-flex items-center gap-2 mb-3">
                 <span className="h-1.5 w-6 bg-brand-pink rounded-full" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                   HOW CAN WE HELP?
                 </span>
                 <span className="h-1.5 w-6 bg-brand-pink rounded-full" />
@@ -271,11 +271,11 @@ export function TemplateContact() {
                       <BrandIcon name={pathway.iconName} size={44} />
                     </div>
 
-                    <span className="text-[11px] font-bold tracking-wider uppercase text-brand-pink block mb-1.5">
+                    <span className="text-[11px] font-normal tracking-wider uppercase text-brand-pink block mb-1.5">
                       {pathway.category}
                     </span>
 
-                    <h3 className="text-lg font-bold text-slate-900 mb-2.5 group-hover:text-brand-graphite transition-colors">
+                    <h3 className="text-lg font-light text-slate-900 mb-2.5 group-hover:text-brand-graphite transition-colors">
                       {pathway.title}
                     </h3>
 
@@ -288,7 +288,7 @@ export function TemplateContact() {
                     {pathway.isExternalLink ? (
                       <Link
                         href={pathway.href || '/helpdesk'}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-pink group-hover:text-brand-magenta transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-pink group-hover:text-brand-magenta transition-colors"
                       >
                         <span>{pathway.ctaText}</span>
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -297,7 +297,7 @@ export function TemplateContact() {
                       <button
                         type="button"
                         onClick={() => handlePathwayClick(pathway)}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-pink group-hover:text-brand-magenta transition-colors cursor-pointer text-left"
+                        className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-pink group-hover:text-brand-magenta transition-colors cursor-pointer text-left"
                       >
                         <span>{pathway.ctaText}</span>
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -321,7 +321,7 @@ export function TemplateContact() {
                 <div>
                   <div className="inline-flex items-center gap-2 mb-2.5">
                     <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                    <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                    <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                       NATIONAL ESTATE COVERAGE
                     </span>
                   </div>
@@ -343,7 +343,7 @@ export function TemplateContact() {
                         <CheckCircle2 className="w-4 h-4" />
                       </div>
                       <div>
-                        <strong className="block text-sm font-medium text-slate-900">
+                        <strong className="block text-sm font-normal text-slate-900">
                           {cap.title}
                         </strong>
                         <span className="text-xs text-slate-600 leading-relaxed mt-0.5 block font-light">
@@ -368,7 +368,7 @@ export function TemplateContact() {
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-pink-light via-brand-pink to-brand-magenta" />
 
                   <div className="mb-6">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink block mb-1">
+                    <span className="text-xs font-normal uppercase tracking-wider text-brand-pink block mb-1">
                       AUTHORITATIVE DIRECTORY
                     </span>
                     <h3 className="text-xl sm:text-2xl font-light text-slate-900 tracking-tight">
@@ -386,12 +386,12 @@ export function TemplateContact() {
                         <Phone className="w-5 h-5" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                        <span className="text-xs font-normal text-slate-500 uppercase tracking-wider block">
                           Main Telephone
                         </span>
                         <a
                           href={CONTACT_CONFIG.mainPhone.href}
-                          className="text-base sm:text-lg font-bold font-mono text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5"
+                          className="text-base sm:text-lg font-light font-mono text-slate-900 hover:text-brand-pink transition-colors inline-block mt-0.5"
                         >
                           {CONTACT_CONFIG.mainPhone.display}
                         </a>
@@ -407,12 +407,12 @@ export function TemplateContact() {
                         <Mail className="w-5 h-5 text-brand-pink" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                        <span className="text-xs font-normal text-slate-500 uppercase tracking-wider block">
                           Commercial & Tender Inquiries
                         </span>
                         <a
                           href={`mailto:${CONTACT_CONFIG.enquiryEmail}`}
-                          className="text-sm sm:text-base font-semibold font-mono text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
+                          className="text-sm sm:text-base font-light font-mono text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
                         >
                           {CONTACT_CONFIG.enquiryEmail}
                         </a>
@@ -428,12 +428,12 @@ export function TemplateContact() {
                         <Headphones className="w-5 h-5 text-brand-pink" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                        <span className="text-xs font-normal text-slate-500 uppercase tracking-wider block">
                           Client Operations Helpdesk
                         </span>
                         <a
                           href={`mailto:${CONTACT_CONFIG.helpdeskEmail}`}
-                          className="text-sm sm:text-base font-semibold font-mono text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
+                          className="text-sm sm:text-base font-light font-mono text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
                         >
                           {CONTACT_CONFIG.helpdeskEmail}
                         </a>
@@ -449,12 +449,12 @@ export function TemplateContact() {
                         <Building2 className="w-5 h-5 text-brand-pink" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                        <span className="text-xs font-normal text-slate-500 uppercase tracking-wider block">
                           Careers & Recruitment
                         </span>
                         <a
                           href={`mailto:${CONTACT_CONFIG.careersEmail}`}
-                          className="text-sm sm:text-base font-semibold font-mono text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
+                          className="text-sm sm:text-base font-light font-mono text-slate-900 hover:text-brand-pink transition-colors break-all inline-block mt-0.5"
                         >
                           {CONTACT_CONFIG.careersEmail}
                         </a>
@@ -470,10 +470,10 @@ export function TemplateContact() {
                         <MapPin className="w-5 h-5 text-brand-pink" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                        <span className="text-xs font-normal text-slate-500 uppercase tracking-wider block">
                           Headquarters & Regional Operations
                         </span>
-                        <strong className="text-sm font-semibold text-slate-900 block mt-0.5">
+                        <strong className="text-sm font-normal text-slate-900 block mt-0.5">
                           {ORGANIZATION_CONFIG.legalName}
                         </strong>
                         <p className="text-xs text-slate-500 mt-0.5">
@@ -488,10 +488,10 @@ export function TemplateContact() {
                         <Clock className="w-5 h-5 text-brand-pink" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                        <span className="text-xs font-normal text-slate-500 uppercase tracking-wider block">
                           Operating Hours
                         </span>
-                        <span className="text-sm font-semibold text-slate-900 block mt-0.5">
+                        <span className="text-sm font-normal text-slate-900 block mt-0.5">
                           Monday – Friday: 08:00 – 17:30
                         </span>
                         <p className="text-xs text-slate-500 mt-0.5">
@@ -559,7 +559,7 @@ export function TemplateContact() {
                   </Link>
                   <a
                     href={CONTACT_CONFIG.mainPhone.href}
-                    className="text-xs font-mono font-medium text-slate-300 hover:text-white transition-colors"
+                    className="text-xs font-mono font-normal text-slate-300 hover:text-white transition-colors"
                   >
                     Direct line: {CONTACT_CONFIG.mainPhone.display}
                   </a>

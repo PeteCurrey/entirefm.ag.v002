@@ -18,7 +18,7 @@ export default async function ComplianceExceptionsPage() {
         action={
           <Link
             href="/admin/compliance"
-            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-carbon"
+            className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-carbon"
           >
             ← Command Centre
           </Link>
@@ -42,13 +42,13 @@ export default async function ComplianceExceptionsPage() {
               {exceptions.map((exc) => (
                 <tr key={exc.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                   <td className="px-5 py-4">
-                    <div className="font-semibold text-white">{exc.site?.name || 'Site'}</div>
+                    <div className="font-light text-white">{exc.site?.name || 'Site'}</div>
                     <div className="text-[11.5px] text-brand-mist/50">
                       {exc.asset?.name || 'System Level Exception'}
                     </div>
                   </td>
                   <td className="px-5 py-4 max-w-xs">
-                    <div className="font-medium text-white">{exc.exception_type}</div>
+                    <div className="font-normal text-white">{exc.exception_type}</div>
                     <div className="text-[11.5px] text-brand-mist/60 line-clamp-2">{exc.reason}</div>
                   </td>
                   <td className="px-5 py-4">

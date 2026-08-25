@@ -30,7 +30,7 @@ export function ActivityTimeline({ events }: ActivityTimelineProps) {
               <div className="flex items-center gap-2">
                 <span className="font-medium text-[13px] text-[#101010]">{evt.event_type}</span>
                 {evt.is_ai && (
-                  <span className="rounded-[4px] bg-[#F5F3FF] border border-[#DDD6FE] px-1 py-0.2 font-mono text-[9px] text-[#7C3AED] font-semibold">
+                  <span className="rounded-[4px] bg-[#F5F3FF] border border-[#DDD6FE] px-1 py-0.2 font-mono text-[9px] text-[#7C3AED] font-light">
                     AI AGENT
                   </span>
                 )}

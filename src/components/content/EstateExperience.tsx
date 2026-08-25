@@ -167,7 +167,7 @@ export function EstateExperience() {
         <div className="max-w-3xl mb-12 lg:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/[0.07] border border-white/15 backdrop-blur-sm mb-4">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-brand-pink-light">
+            <span className="text-[11px] font-normal uppercase tracking-wider text-brand-pink-light">
               ESTATE DISCIPLINE
             </span>
           </div>
@@ -201,7 +201,7 @@ export function EstateExperience() {
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <span
-                        className={`w-6 h-6 rounded-sm text-xs font-mono font-bold flex items-center justify-center shrink-0 transition-colors ${
+                        className={`w-6 h-6 rounded-sm text-xs font-mono font-light flex items-center justify-center shrink-0 transition-colors ${
                           isActive
                             ? 'bg-brand-pink text-white'
                             : 'bg-white/10 text-brand-mist/60 group-hover:text-white'
@@ -211,8 +211,8 @@ export function EstateExperience() {
                       </span>
                       <div className="min-w-0">
                         <span
-                          className={`text-sm font-semibold block truncate transition-colors ${
-                            isActive ? 'text-white font-bold' : 'text-brand-mist/80 group-hover:text-white'
+                          className={`text-sm font-normal block truncate transition-colors ${
+                            isActive ? 'text-white font-light' : 'text-brand-mist/80 group-hover:text-white'
                           }`}
                         >
                           {estate.name}
@@ -251,7 +251,7 @@ export function EstateExperience() {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-void via-brand-graphite/40 to-transparent" />
                 <div className="absolute top-3 left-3">
-                  <span className="px-2.5 py-1 rounded-sm bg-brand-graphite/80 border border-white/20 text-[10px] font-bold uppercase tracking-wider text-brand-pink-light backdrop-blur-md">
+                  <span className="px-2.5 py-1 rounded-sm bg-brand-graphite/80 border border-white/20 text-[10px] font-normal uppercase tracking-wider text-brand-pink-light backdrop-blur-md">
                     {activeEstate.badge}
                   </span>
                 </div>
@@ -260,14 +260,14 @@ export function EstateExperience() {
               {/* Operational Realities */}
               <div className="space-y-5">
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  <h3 className="text-xl sm:text-2xl font-extralight text-white tracking-tight">
                     {activeEstate.name}
                   </h3>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                   <div className="p-4 rounded-sm bg-brand-graphite/70 border border-brand-edge-dark/80">
-                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-pink-light mb-1.5">
+                    <div className="flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-brand-pink-light mb-1.5">
                       <Building2 className="h-3.5 w-3.5" />
                       Operational Reality
                     </div>
@@ -277,7 +277,7 @@ export function EstateExperience() {
                   </div>
 
                   <div className="p-4 rounded-sm bg-brand-graphite/70 border border-brand-edge-dark/80">
-                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-electric-bright mb-1.5">
+                    <div className="flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-brand-electric-bright mb-1.5">
                       <Clock className="h-3.5 w-3.5" />
                       Maintenance Reality
                     </div>
@@ -289,7 +289,7 @@ export function EstateExperience() {
 
                 {/* Priority Deliverables */}
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3 flex items-center gap-2">
+                  <h4 className="text-xs font-normal uppercase tracking-wider text-white mb-3 flex items-center gap-2">
                     <Wrench className="h-3.5 w-3.5 text-brand-pink" />
                     Key Maintenance & Compliance Priorities:
                   </h4>
@@ -308,7 +308,7 @@ export function EstateExperience() {
               <div className="mt-8 pt-5 border-t border-brand-edge-dark flex items-center justify-between">
                 <Link
                   href={activeEstate.serviceLink.href}
-                  className="btn-hero-pink py-2.5 px-5 text-xs font-bold inline-flex items-center gap-2"
+                  className="btn-hero-pink py-2.5 px-5 text-xs font-normal inline-flex items-center gap-2"
                 >
                   <span>{activeEstate.serviceLink.label}</span>
                   <ArrowRight className="h-3.5 w-3.5" />

@@ -37,7 +37,7 @@ export default async function ClientDashboardPage() {
       {/* Welcome Banner */}
       <div>
         <h1 className="text-2xl font-light text-white tracking-tight">
-          Estate Overview — <span className="font-medium text-brand-electric-bright">{session.orgName}</span>
+          Estate Overview — <span className="font-normal text-brand-electric-bright">{session.orgName}</span>
         </h1>
         <p className="mt-1 text-[13px] text-brand-mist/60">
           Real-time operations, asset compliance, and planned maintenance status.
@@ -73,7 +73,7 @@ export default async function ClientDashboardPage() {
         {/* Authorised Sites List */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-6">
           <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-4">
-            <h2 className="text-[15px] font-medium text-white">Your Authorised Sites</h2>
+            <h2 className="text-[15px] font-extralight text-white">Your Authorised Sites</h2>
             <Link href="/clients/sites" className="text-[12px] text-brand-electric hover:underline">
               View All →
             </Link>
@@ -87,7 +87,7 @@ export default async function ClientDashboardPage() {
               rawSites.map((s) => (
                 <div key={s.id} className="py-3 flex items-center justify-between">
                   <div>
-                    <div className="text-[13.5px] font-medium text-white">{s.name}</div>
+                    <div className="text-[13.5px] font-normal text-white">{s.name}</div>
                     <div className="text-[11.5px] text-brand-mist/50 font-mono">{s.site_code || 'SITE'} · {s.city || 'UK'}</div>
                   </div>
                   <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
@@ -102,7 +102,7 @@ export default async function ClientDashboardPage() {
         {/* Open Work Orders List */}
         <div className="rounded-lg border border-brand-edge-dark bg-brand-carbon/40 p-6">
           <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-4">
-            <h2 className="text-[15px] font-medium text-white">Recent Work Orders</h2>
+            <h2 className="text-[15px] font-extralight text-white">Recent Work Orders</h2>
             <Link href="/clients/work-orders" className="text-[12px] text-brand-electric hover:underline">
               View All →
             </Link>
@@ -116,7 +116,7 @@ export default async function ClientDashboardPage() {
               openWorkOrders.map((wo) => (
                 <div key={wo.id} className="py-3 flex items-center justify-between">
                   <div>
-                    <div className="text-[13.5px] font-medium text-white">{wo.title}</div>
+                    <div className="text-[13.5px] font-normal text-white">{wo.title}</div>
                     <div className="text-[11.5px] text-brand-mist/50 font-mono">{wo.work_order_number} · Priority {wo.priority}</div>
                   </div>
                   <span className="rounded bg-brand-electric/10 border border-brand-electric/20 px-2 py-0.5 font-mono text-[10px] text-brand-electric-bright">

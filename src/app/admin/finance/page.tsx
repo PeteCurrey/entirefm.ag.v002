@@ -33,7 +33,7 @@ function KpiCard({ label, value, sub, href, urgent }: {
   const inner = (
     <div className={cls}>
       <p className="text-[11.5px] uppercase tracking-widest text-brand-mist/50 font-mono">{label}</p>
-      <p className={`text-2xl font-bold font-mono ${urgent && Number(value) > 0 ? 'text-red-300' : 'text-white'}`}>
+      <p className={`text-2xl font-extralight font-mono ${urgent && Number(value) > 0 ? 'text-red-300' : 'text-white'}`}>
         {value}
       </p>
       {sub && <p className="text-[11px] text-brand-mist/40 font-mono">{sub}</p>}
@@ -75,7 +75,7 @@ export default async function FinanceCommandCentrePage() {
             <div className="flex items-start gap-3 rounded-lg border border-red-800/60 bg-red-900/10 p-4">
               <AlertTriangle className="h-4 w-4 text-red-400 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-sm font-semibold text-red-300">
+                <p className="text-sm font-normal text-red-300">
                   {kpis!.bankDetailAlerts} Bank Detail Change Alert{kpis!.bankDetailAlerts > 1 ? 's' : ''} — Unreviewed
                 </p>
                 <p className="text-[11.5px] text-brand-mist/60 mt-0.5">
@@ -171,7 +171,7 @@ export default async function FinanceCommandCentrePage() {
             >
               <Icon className="h-4 w-4 text-brand-electric mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-sm font-semibold text-white">{label}</p>
+                <p className="text-sm font-normal text-white">{label}</p>
                 <p className="text-[11.5px] text-brand-mist/50 mt-0.5">{desc}</p>
               </div>
             </Link>

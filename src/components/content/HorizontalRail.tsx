@@ -241,13 +241,13 @@ export function HorizontalRail({ eyebrow, title, intro, items }: HorizontalRailP
 
               <div className="flex flex-1 flex-col p-6">
                 <p className="eyebrow eyebrow-dark">{item.eyebrow}</p>
-                <h3 className="mt-4 text-[1.0625rem] font-semibold leading-snug tracking-tight text-white">
+                <h3 className="mt-4 text-[1.0625rem] font-light leading-snug tracking-tight text-white">
                   {item.title}
                 </h3>
                 <p className="mt-3 flex-1 text-[13.5px] leading-relaxed text-brand-mist/60">
                   {item.body}
                 </p>
-                <span className="mt-6 inline-flex items-center gap-1.5 border-t border-brand-edge-dark pt-4 text-[12.5px] font-semibold text-brand-electric-bright">
+                <span className="mt-6 inline-flex items-center gap-1.5 border-t border-brand-edge-dark pt-4 text-[12.5px] font-normal text-brand-electric-bright">
                   Explore
                   <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>

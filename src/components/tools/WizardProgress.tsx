@@ -42,7 +42,7 @@ export function WizardProgress({
                 >
                   <div className="flex items-center justify-between gap-2 mb-1.5">
                     <span
-                      className={`text-xs font-mono font-bold transition-colors inline-flex items-center gap-1.5 ${
+                      className={`text-xs font-mono font-light transition-colors inline-flex items-center gap-1.5 ${
                         isCurrent
                           ? 'text-brand-electric'
                           : isDone
@@ -69,9 +69,9 @@ export function WizardProgress({
                   </div>
 
                   <span
-                    className={`text-xs font-medium tracking-tight transition-colors truncate ${
+                    className={`text-xs font-normal tracking-tight transition-colors truncate ${
                       isCurrent
-                        ? 'text-slate-900 font-semibold'
+                        ? 'text-slate-900 font-light'
                         : isDone
                         ? 'text-slate-700'
                         : 'text-slate-600 group-hover:text-slate-900'
@@ -106,10 +106,10 @@ export function WizardProgress({
       {/* Mobile Compact Progress */}
       <div className="md:hidden border-b border-slate-200 pb-3 flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono tracking-wider text-slate-600 uppercase font-semibold">
+          <span className="text-[10px] font-mono tracking-wider text-slate-600 uppercase font-light">
             Step {currentStep + 1} of {steps.length}
           </span>
-          <div className="text-sm font-bold text-slate-900 mt-0.5">
+          <div className="text-sm font-normal text-slate-900 mt-0.5">
             {steps[currentStep]?.title.replace(/^\d+\s*/, '')}
           </div>
         </div>

@@ -154,17 +154,17 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
                 <span className="eyebrow eyebrow-dark block mb-1">
                   Macro Sector Indicators
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-extralight text-white tracking-tight">
                   2026 Commercial FM Operating Environment
                 </h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="p-6 rounded-sm bg-brand-graphite border border-brand-edge-dark space-y-3">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-rose-400 font-bold">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-rose-400 font-light">
                     Statutory Governance
                   </span>
-                  <h3 className="text-lg font-bold text-white">Digital Golden-Thread Mandate</h3>
+                  <h3 className="text-lg font-light text-white">Digital Golden-Thread Mandate</h3>
                   <p className="text-xs text-brand-mist/75 leading-relaxed font-light">
                     Regulatory transitions place higher legal evidentiary value on contemporaneous CAFM logs, making manual paperwork an immediate compliance audit liability.
                   </p>
@@ -174,10 +174,10 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
                 </div>
 
                 <div className="p-6 rounded-sm bg-brand-graphite border border-brand-edge-dark space-y-3">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-blue-400 font-bold">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-blue-400 font-light">
                     Labour &amp; Engineering
                   </span>
-                  <h3 className="text-lg font-bold text-white">Certified Engineer Wage Indices</h3>
+                  <h3 className="text-lg font-light text-white">Certified Engineer Wage Indices</h3>
                   <p className="text-xs text-brand-mist/75 leading-relaxed font-light">
                     Commercial Gas Safe and F-Gas engineers remain in acute high national demand, increasing the financial advantage of contracted service delivery over spot callouts.
                   </p>
@@ -187,10 +187,10 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
                 </div>
 
                 <div className="p-6 rounded-sm bg-brand-graphite border border-brand-edge-dark space-y-3">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-light">
                     Energy &amp; Sustainability
                   </span>
-                  <h3 className="text-lg font-bold text-white">Dynamic BMS Setpoint Optimization</h3>
+                  <h3 className="text-lg font-light text-white">Dynamic BMS Setpoint Optimization</h3>
                   <p className="text-xs text-brand-mist/75 leading-relaxed font-light">
                     Occupancy-driven deadband adjustments and weather degree-day forecasting deliver 12–18% measurable reduction in peak HVAC electrical consumption.
                   </p>
@@ -218,7 +218,7 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
                 <span className="eyebrow eyebrow-dark block mb-1">
                   Active Directives
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-extralight text-white tracking-tight">
                   Regulatory Briefings &amp; Action Directives
                 </h2>
               </div>
@@ -231,7 +231,7 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2 border-b border-brand-edge-dark pb-4">
                       <div className="flex items-center gap-2">
-                        <span className={`px-2.5 py-0.5 rounded-sm border text-xs font-mono font-bold ${getTagBadgeClass(b.tag)}`}>
+                        <span className={`px-2.5 py-0.5 rounded-sm border text-xs font-mono font-light ${getTagBadgeClass(b.tag)}`}>
                           {b.tag}
                         </span>
                         <span className="text-xs font-mono text-brand-mist/60">{b.date}</span>
@@ -240,7 +240,7 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
                     </div>
 
                     <div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+                      <h3 className="text-xl sm:text-2xl font-extralight text-white mb-3">
                         {b.title}
                       </h3>
                       <p className="text-sm text-brand-mist/80 leading-relaxed font-light">
@@ -250,7 +250,7 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                       <div className="p-4 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-1">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 font-bold block">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 font-light block">
                           Impact on Property Owners
                         </span>
                         <p className="text-xs text-brand-mist/75 leading-relaxed">
@@ -259,7 +259,7 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
                       </div>
 
                       <div className="p-4 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-1">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold block">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-light block">
                           Recommended Action
                         </span>
                         <p className="text-xs text-brand-mist/75 leading-relaxed">
@@ -272,7 +272,7 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
                       <span className="text-brand-mist/50">Related Capability:</span>
                       <Link
                         href={b.relevantServiceUrl}
-                        className="inline-flex items-center gap-1.5 text-brand-electric-bright hover:text-white font-bold transition-colors"
+                        className="inline-flex items-center gap-1.5 text-brand-electric-bright hover:text-white font-light transition-colors"
                       >
                         <span>{b.relevantServiceName}</span>
                         <ArrowRight className="w-3.5 h-3.5" />

@@ -62,14 +62,14 @@ export function SupplierLifecycleModel() {
               className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-2"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-light">
                   {tier.badge}
                 </span>
-                <span className="text-[10.5px] font-mono font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700">
+                <span className="text-[10.5px] font-mono font-light px-2 py-0.5 rounded bg-slate-100 text-slate-700">
                   {tier.status}
                 </span>
               </div>
-              <h3 className="text-sm font-bold text-slate-900">{tier.title}</h3>
+              <h3 className="text-sm font-normal text-slate-900">{tier.title}</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-light">{tier.desc}</p>
             </div>
           ))}

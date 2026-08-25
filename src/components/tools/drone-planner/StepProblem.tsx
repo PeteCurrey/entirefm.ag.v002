@@ -52,7 +52,7 @@ export function StepProblem({ inspection, onChange }: StepProblemProps) {
                   : 'bg-brand-carbon border-brand-edge-dark text-slate-300 hover:border-white/30 hover:bg-white/[0.04]'
               }`}
             >
-              <span className="text-xs sm:text-sm font-medium group-hover:text-white transition-colors">
+              <span className="text-xs sm:text-sm font-normal group-hover:text-white transition-colors">
                 {r.label}
               </span>
               <div className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 ml-2 transition-colors ${
@@ -70,7 +70,7 @@ export function StepProblem({ inspection, onChange }: StepProblemProps) {
         <div className="p-5 rounded-sm bg-brand-carbon border border-blue-500/40 space-y-3">
           <div className="flex items-center gap-2">
             <Droplets className="w-4 h-4 text-blue-400" />
-            <h3 className="text-xs font-mono font-bold uppercase text-white tracking-wider">
+            <h3 className="text-xs font-mono font-light uppercase text-white tracking-wider">
               Water Ingress Nature
             </h3>
           </div>
@@ -82,7 +82,7 @@ export function StepProblem({ inspection, onChange }: StepProblemProps) {
                   key={status}
                   type="button"
                   onClick={() => onChange({ waterLeakStatus: status })}
-                  className={`px-3 py-2 rounded-sm text-xs font-medium border transition-colors capitalize ${
+                  className={`px-3 py-2 rounded-sm text-xs font-normal border transition-colors capitalize ${
                     isChosen
                       ? 'bg-blue-600 text-white border-blue-500'
                       : 'bg-brand-graphite text-slate-300 border-brand-edge-dark hover:text-white hover:border-white/20'
@@ -101,7 +101,7 @@ export function StepProblem({ inspection, onChange }: StepProblemProps) {
         <div className="p-5 rounded-sm bg-brand-carbon border border-amber-500/40 space-y-3">
           <div className="flex items-center gap-2">
             <CloudLightning className="w-4 h-4 text-amber-400" />
-            <h3 className="text-xs font-mono font-bold uppercase text-white tracking-wider">
+            <h3 className="text-xs font-mono font-light uppercase text-white tracking-wider">
               Storm Damage Severity
             </h3>
           </div>
@@ -113,9 +113,9 @@ export function StepProblem({ inspection, onChange }: StepProblemProps) {
                   key={status}
                   type="button"
                   onClick={() => onChange({ stormStatus: status })}
-                  className={`px-3 py-2 rounded-sm text-xs font-medium border transition-colors capitalize ${
+                  className={`px-3 py-2 rounded-sm text-xs font-normal border transition-colors capitalize ${
                     isChosen
-                      ? 'bg-amber-500 text-slate-950 font-bold border-amber-500'
+                      ? 'bg-amber-500 text-slate-950 font-light border-amber-500'
                       : 'bg-brand-graphite text-slate-300 border-brand-edge-dark hover:text-white hover:border-white/20'
                   }`}
                 >
@@ -132,7 +132,7 @@ export function StepProblem({ inspection, onChange }: StepProblemProps) {
         <div className="p-5 rounded-sm bg-brand-carbon border border-brand-pink/40 space-y-3">
           <div className="flex items-center gap-2">
             <CalendarClock className="w-4 h-4 text-brand-pink" />
-            <h3 className="text-xs font-mono font-bold uppercase text-white tracking-wider">
+            <h3 className="text-xs font-mono font-light uppercase text-white tracking-wider">
               Condition Survey Framework
             </h3>
           </div>
@@ -144,7 +144,7 @@ export function StepProblem({ inspection, onChange }: StepProblemProps) {
                   key={ppm}
                   type="button"
                   onClick={() => onChange({ ppmType: ppm })}
-                  className={`px-3 py-2 rounded-sm text-xs font-medium border transition-colors capitalize ${
+                  className={`px-3 py-2 rounded-sm text-xs font-normal border transition-colors capitalize ${
                     isChosen
                       ? 'bg-brand-pink text-white border-brand-pink'
                       : 'bg-brand-graphite text-slate-300 border-brand-edge-dark hover:text-white hover:border-white/20'

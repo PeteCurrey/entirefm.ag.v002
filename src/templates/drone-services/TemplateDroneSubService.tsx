@@ -344,7 +344,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
               {/* Eyebrow */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
                 <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-                <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-semibold">
+                <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-light">
                   {content.eyebrow || 'ENTIREFM DRONE SERVICES'}
                 </span>
               </div>
@@ -363,14 +363,14 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Link
                   href="/tools/drone-inspection-planner"
-                  className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-7 py-3.5 text-sm font-semibold text-white shadow-elevated hover:shadow-pink-500/25 transition-all hover:scale-[1.02]"
+                  className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-7 py-3.5 text-sm font-normal text-white shadow-elevated hover:shadow-pink-500/25 transition-all hover:scale-[1.02]"
                 >
                   <span>Plan an Inspection</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/services/drone-services"
-                  className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 bg-white/10 backdrop-blur-md px-6 py-3.5 text-sm font-medium text-white hover:bg-white/20 transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 bg-white/10 backdrop-blur-md px-6 py-3.5 text-sm font-normal text-white hover:bg-white/20 transition-all"
                 >
                   <span>All Drone Services</span>
                 </Link>
@@ -409,7 +409,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
             <div className="max-w-3xl space-y-3">
               <div className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
                   TECHNICAL SCOPE
                 </span>
               </div>
@@ -428,10 +428,10 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                   className="p-6 rounded-[12px] bg-[#FAF9FB] border border-slate-200 space-y-3 hover:border-brand-pink transition-colors flex flex-col justify-between"
                 >
                   <div className="space-y-3">
-                    <span className="font-mono text-[9px] uppercase font-medium text-slate-600 bg-white border border-slate-200 px-2 py-0.5 rounded-[4px] inline-block">
+                    <span className="font-mono text-[9px] uppercase font-normal text-slate-600 bg-white border border-slate-200 px-2 py-0.5 rounded-[4px] inline-block">
                       {cap.tag}
                     </span>
-                    <h3 className="text-base font-medium text-slate-900 leading-snug">
+                    <h3 className="text-base font-light text-slate-900 leading-snug">
                       {cap.name}
                     </h3>
                     <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">
@@ -452,7 +452,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
             <div className="max-w-3xl space-y-3">
               <div className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
                   COMMERCIAL SCENARIOS
                 </span>
               </div>
@@ -470,7 +470,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                   key={idx}
                   className="p-6 rounded-[12px] bg-white border border-slate-200 shadow-sm space-y-3 hover:border-brand-pink transition-colors"
                 >
-                  <h3 className="text-base font-medium text-slate-900">
+                  <h3 className="text-base font-light text-slate-900">
                     {app.title}
                   </h3>
                   <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">
@@ -490,7 +490,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
             <div className="max-w-3xl space-y-3">
               <div className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
                   DIAGNOSTIC CRITERIA
                 </span>
               </div>
@@ -509,7 +509,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                   className="p-6 rounded-[12px] bg-[#FAF9FB] border border-slate-200 space-y-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className={`font-mono text-[9px] uppercase font-bold px-2 py-0.5 rounded-[4px] ${
+                    <span className={`font-mono text-[9px] uppercase font-light px-2 py-0.5 rounded-[4px] ${
                       item.severity === 'Critical'
                         ? 'bg-red-100 text-red-700'
                         : item.severity === 'Urgent'
@@ -521,7 +521,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                     <AlertTriangle className="w-4 h-4 text-brand-pink" />
                   </div>
 
-                  <h3 className="text-base font-bold text-slate-900">
+                  <h3 className="text-base font-light text-slate-900">
                     {item.defect}
                   </h3>
 
@@ -547,7 +547,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
             <div className="max-w-3xl space-y-3">
               <div className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
                   SURVEY OUTPUTS
                 </span>
               </div>
@@ -567,12 +567,12 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                 >
                   <div className="flex items-center justify-between">
                     <FileText className="w-6 h-6 text-brand-pink" />
-                    <span className="font-mono text-[9.5px] uppercase font-medium text-slate-700 bg-slate-100 px-2 py-0.5 rounded-[4px]">
+                    <span className="font-mono text-[9.5px] uppercase font-normal text-slate-700 bg-slate-100 px-2 py-0.5 rounded-[4px]">
                       {del.format}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-medium text-slate-900">
+                  <h3 className="text-base font-light text-slate-900">
                     {del.title}
                   </h3>
 
@@ -593,7 +593,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
             <div className="max-w-3xl space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15">
                 <Wrench className="h-3.5 w-3.5 text-brand-pink" />
-                <span className="font-mono text-[11px] uppercase tracking-widest text-white font-semibold">
+                <span className="font-mono text-[11px] uppercase tracking-widest text-white font-light">
                   END-TO-END REMEDIATION BRIDGE
                 </span>
               </div>
@@ -615,7 +615,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                   className="p-5 rounded-sm bg-brand-carbon border border-brand-edge-dark flex items-start gap-3"
                 >
                   <CheckCircle2 className="h-5 w-5 text-brand-pink shrink-0 mt-0.5" />
-                  <span className="text-sm font-medium text-white">{cap}</span>
+                  <span className="text-sm font-normal text-white">{cap}</span>
                 </div>
               ))}
             </div>
@@ -644,7 +644,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         <section className="py-20 bg-white border-b border-slate-200">
           <div className="container-custom space-y-8">
             <div className="max-w-3xl space-y-2">
-              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand-pink">
+              <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
                 INTEGRATED SERVICES
               </span>
               <h2 className="text-2xl sm:text-3xl font-light text-slate-900">
@@ -659,7 +659,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                   href={relPath}
                   className="p-4 rounded-[10px] bg-[#FAF9FB] border border-slate-200 hover:border-brand-pink hover:bg-white transition-all group flex items-center justify-between"
                 >
-                  <span className="text-xs font-medium text-slate-900 group-hover:text-brand-pink transition-colors">
+                  <span className="text-xs font-normal text-slate-900 group-hover:text-brand-pink transition-colors">
                     {relPath.replace('/services/drone-services/', 'Drone: ').replace('/services/', '').replace(/\//g, ' ').replace(/-/g, ' ').toUpperCase()}
                   </span>
                   <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-brand-pink transition-colors" />
@@ -675,7 +675,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-custom max-w-4xl space-y-10">
             <div className="text-center space-y-3">
-              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand-pink">
+              <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
                 EXPERT QUESTIONS
               </span>
               <h2 className="text-3xl font-light text-slate-900">

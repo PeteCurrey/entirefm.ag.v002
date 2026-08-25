@@ -12,7 +12,7 @@ export function CommercialMetricCards({ metrics }: { metrics: CommercialDashboar
           Annual Recurring Rev
         </span>
         <div className="flex items-baseline justify-between">
-          <span className="text-xl font-mono font-bold text-slate-900">
+          <span className="text-xl font-mono font-light text-slate-900">
             £{metrics.annualRecurringRevenueGbp.toLocaleString()}
           </span>
           <DollarSign className="h-4 w-4 text-emerald-600" />
@@ -25,7 +25,7 @@ export function CommercialMetricCards({ metrics }: { metrics: CommercialDashboar
           Outstanding Invoices
         </span>
         <div className="flex items-baseline justify-between">
-          <span className="text-xl font-mono font-bold text-slate-900">
+          <span className="text-xl font-mono font-light text-slate-900">
             £{metrics.outstandingInvoicesValueGbp.toLocaleString()}
           </span>
           <CreditCard className="h-4 w-4 text-slate-500" />
@@ -38,7 +38,7 @@ export function CommercialMetricCards({ metrics }: { metrics: CommercialDashboar
           Overdue Value
         </span>
         <div className="flex items-baseline justify-between">
-          <span className={`text-xl font-mono font-bold ${metrics.overdueInvoicesValueGbp > 0 ? 'text-rose-600' : 'text-slate-900'}`}>
+          <span className={`text-xl font-mono font-light ${metrics.overdueInvoicesValueGbp > 0 ? 'text-rose-600' : 'text-slate-900'}`}>
             £{metrics.overdueInvoicesValueGbp.toLocaleString()}
           </span>
           <AlertTriangle className="h-4 w-4 text-rose-500" />
@@ -51,7 +51,7 @@ export function CommercialMetricCards({ metrics }: { metrics: CommercialDashboar
           Renewals Next 30 Days
         </span>
         <div className="flex items-baseline justify-between">
-          <span className="text-xl font-mono font-bold text-slate-900">{metrics.membershipsDueRenewalCount}</span>
+          <span className="text-xl font-mono font-light text-slate-900">{metrics.membershipsDueRenewalCount}</span>
           <Calendar className="h-4 w-4 text-amber-500" />
         </div>
         <span className="text-[10px] text-slate-400 font-mono">Upcoming Reminders</span>
@@ -62,7 +62,7 @@ export function CommercialMetricCards({ metrics }: { metrics: CommercialDashboar
           Event &amp; Sponsor YTD
         </span>
         <div className="flex items-baseline justify-between">
-          <span className="text-xl font-mono font-bold text-slate-900">
+          <span className="text-xl font-mono font-light text-slate-900">
             £{(metrics.eventRevenueYtdGbp + metrics.sponsorshipRevenueYtdGbp).toLocaleString()}
           </span>
           <Users className="h-4 w-4 text-brand-pink" />
@@ -75,7 +75,7 @@ export function CommercialMetricCards({ metrics }: { metrics: CommercialDashboar
           Industry Partners
         </span>
         <div className="flex items-baseline justify-between">
-          <span className="text-xl font-mono font-bold text-slate-900">
+          <span className="text-xl font-mono font-light text-slate-900">
             £{metrics.industryPartnerRevenueYtdGbp.toLocaleString()}
           </span>
           <Clock className="h-4 w-4 text-slate-400" />

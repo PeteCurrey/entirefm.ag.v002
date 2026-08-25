@@ -53,7 +53,7 @@ export function DroneComplianceSection() {
         <div className="max-w-3xl space-y-3.5">
           <div className="inline-flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-emerald-600" />
-            <span className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-700">
+            <span className="font-mono text-xs font-normal uppercase tracking-wider text-emerald-700">
               SAFETY, GOVERNANCE &amp; UK AVIATION RULES
             </span>
           </div>
@@ -80,7 +80,7 @@ export function DroneComplianceSection() {
                   <Icon className="h-5 w-5" />
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900">
+                <h3 className="text-base font-light text-slate-900">
                   {pillar.title}
                 </h3>
 
@@ -94,7 +94,7 @@ export function DroneComplianceSection() {
 
         {/* Responsible Safety Positioning Banner */}
         <div className="p-8 rounded-[14px] bg-white border border-slate-200 shadow-sm space-y-4">
-          <div className="flex items-center gap-2 text-slate-900 font-bold text-base">
+          <div className="flex items-center gap-2 text-slate-900 font-light text-base">
             <ShieldCheck className="h-5 w-5 text-emerald-600" />
             <span>Operational Integrity &amp; Risk Mitigation</span>
           </div>

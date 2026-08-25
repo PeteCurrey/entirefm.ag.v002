@@ -34,13 +34,13 @@ export default async function QuotesPage({
           <div className="flex items-center gap-3">
             <Link
               href="/admin/commercial/talk-to-quote"
-              className="rounded bg-brand-electric/15 px-3.5 py-1.5 text-[12.5px] font-medium text-brand-electric-bright border border-brand-electric/30 hover:bg-brand-electric/25"
+              className="rounded bg-brand-electric/15 px-3.5 py-1.5 text-[12.5px] font-normal text-brand-electric-bright border border-brand-electric/30 hover:bg-brand-electric/25"
             >
               🎤 Talk-to-Quote Desk
             </Link>
             <Link
               href="/admin/commercial/wip"
-              className="rounded bg-brand-carbon px-3.5 py-1.5 text-[12.5px] font-medium text-white border border-brand-edge-dark hover:bg-brand-edge-dark"
+              className="rounded bg-brand-carbon px-3.5 py-1.5 text-[12.5px] font-normal text-white border border-brand-edge-dark hover:bg-brand-edge-dark"
             >
               📊 Commercial WIP
             </Link>
@@ -57,7 +57,7 @@ export default async function QuotesPage({
             <Link
               key={tab.label}
               href={href}
-              className={`rounded px-3 py-1 text-[12px] font-medium transition-colors ${
+              className={`rounded px-3 py-1 text-[12px] font-normal transition-colors ${
                 isActive
                   ? 'bg-brand-electric text-white'
                   : 'text-brand-mist/60 hover:text-white hover:bg-brand-carbon/60'
@@ -91,7 +91,7 @@ export default async function QuotesPage({
 
                 return (
                   <tr key={q.id} className="text-brand-mist/80 hover:bg-brand-void/40">
-                    <td className="px-5 py-4 font-mono text-[11px] text-white font-semibold">
+                    <td className="px-5 py-4 font-mono text-[11px] text-white font-light">
                       {q.quote_number}
                     </td>
                     <td className="px-5 py-4 font-mono text-[11px] text-brand-mist/50">
@@ -100,7 +100,7 @@ export default async function QuotesPage({
                     <td className="px-5 py-4 max-w-xs truncate text-[12px] text-brand-mist/90">
                       {q.scope_description || 'Standard remedial quote'}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[12px] text-white font-medium">
+                    <td className="px-5 py-4 font-mono text-[12px] text-white font-normal">
                       £{Number(q.total_amount_gbp || 0).toFixed(2)}
                     </td>
                     <td className="px-5 py-4 font-mono text-[11.5px]">
@@ -114,7 +114,7 @@ export default async function QuotesPage({
                     </td>
                     <td className="px-5 py-4 font-mono text-[11px]">
                       {q.client_po_ref ? (
-                        <span className="rounded bg-emerald-500/10 px-2 py-0.5 text-emerald-400 font-medium">
+                        <span className="rounded bg-emerald-500/10 px-2 py-0.5 text-emerald-400 font-normal">
                           {q.client_po_ref}
                         </span>
                       ) : q.client_po_required ? (
@@ -127,7 +127,7 @@ export default async function QuotesPage({
                     </td>
                     <td className="px-5 py-4">
                       <span
-                        className={`rounded px-2 py-0.5 font-mono text-[10px] font-semibold ${
+                        className={`rounded px-2 py-0.5 font-mono text-[10px] font-normal ${
                           q.status === 'APPROVED' || (q.internal_status as string) === 'ACCEPTED'
                             ? 'bg-emerald-500/20 text-emerald-300'
                             : q.status === 'REJECTED' || (q.internal_status as string) === 'REJECTED'

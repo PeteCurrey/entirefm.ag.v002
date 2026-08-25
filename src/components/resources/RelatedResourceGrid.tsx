@@ -29,10 +29,10 @@ export function RelatedResourceGrid({
     <section className="my-16 py-12 bg-slate-950 border-t border-slate-800">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mb-8">
-          <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+          <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
             {eyebrow}
           </span>
-          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+          <h3 className="text-2xl sm:text-3xl font-extralight text-white mb-2">
             {title}
           </h3>
           <p className="text-xs sm:text-sm text-slate-400">{intro}</p>
@@ -60,7 +60,7 @@ export function RelatedResourceGrid({
                 )}
 
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-pink-400">
+                  <span className="text-[10px] font-mono font-light uppercase tracking-wider text-pink-400">
                     {res.category}
                   </span>
                   {res.readingTime && (
@@ -70,7 +70,7 @@ export function RelatedResourceGrid({
                   )}
                 </div>
 
-                <h4 className="text-base font-bold text-white mb-2 group-hover:text-pink-300 transition-colors leading-snug">
+                <h4 className="text-base font-light text-white mb-2 group-hover:text-pink-300 transition-colors leading-snug">
                   {res.title}
                 </h4>
 
@@ -79,7 +79,7 @@ export function RelatedResourceGrid({
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-pink-400 font-semibold group-hover:translate-x-1 transition-transform">
+              <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-pink-400 font-light group-hover:translate-x-1 transition-transform">
                 <span>Read Technical Guide</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </div>

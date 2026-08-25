@@ -42,7 +42,7 @@ export default function ConfirmImportPage() {
   return (
     <div className="space-y-6 max-w-2xl mx-auto">
       <div>
-        <h1 className="text-[22px] font-semibold text-[#101010]">Confirm Import</h1>
+        <h1 className="text-[22px] font-normal text-[#101010]">Confirm Import</h1>
         <p className="text-[13.5px] text-[#686866] mt-0.5">{batch?.batch_reference}</p>
       </div>
 
@@ -52,7 +52,7 @@ export default function ConfirmImportPage() {
       <div className="rounded-[16px] border border-[#E4E4E1] bg-[#FFFFFF] p-6 space-y-4 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
         <div className="flex items-center gap-3">
           <ShieldCheck className="h-6 w-6 text-[#15803D]" />
-          <h2 className="font-semibold text-[#101010] text-[15px]">Import Summary</h2>
+          <h2 className="font-extralight text-[#101010] text-[15px]">Import Summary</h2>
         </div>
         <div className="grid grid-cols-2 gap-3 font-mono">
           {[
@@ -65,7 +65,7 @@ export default function ConfirmImportPage() {
           ].map(({ label, value }) => (
             <div key={label} className="rounded-[8px] bg-[#F5F5F3] border border-[#E4E4E1] p-2.5">
               <div className="text-[10px] uppercase text-[#9B9B97]">{label}</div>
-              <div className="text-[14px] font-medium text-[#101010] mt-0.5">{value ?? '—'}</div>
+              <div className="text-[14px] font-normal text-[#101010] mt-0.5">{value ?? '—'}</div>
             </div>
           ))}
         </div>
@@ -75,7 +75,7 @@ export default function ConfirmImportPage() {
           <div className="flex items-start gap-2">
             <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-[#D97706]" />
             <div>
-              <p className="font-semibold text-[#92400E]">Important — read before confirming:</p>
+              <p className="font-light text-[#92400E]">Important — read before confirming:</p>
               <ul className="mt-2 space-y-1.5 list-disc list-inside text-[12px]">
                 {batch?.entity_type === 'CONTRACTOR' && (
                   <li>Imported contractors are staged as <strong>PENDING_ONBOARDING</strong> and are NOT automatically approved, compliant, or vetted.</li>
@@ -98,7 +98,7 @@ export default function ConfirmImportPage() {
             onChange={(e) => setConfirmed(e.target.checked)}
             className="h-4 w-4 accent-[#FF6B24]"
           />
-          <span className="text-[13px] font-medium text-[#101010]">
+          <span className="text-[13px] font-normal text-[#101010]">
             I have reviewed the data and authorise this import of {batch?.valid_rows} records.
           </span>
         </label>
@@ -112,11 +112,11 @@ export default function ConfirmImportPage() {
       )}
 
       <div className="flex items-center justify-between">
-        <a href={`/admin/platform/imports/${id}/preview`} className="text-[13px] font-medium text-[#686866] hover:text-[#101010]">← Back to Preview</a>
+        <a href={`/admin/platform/imports/${id}/preview`} className="text-[13px] font-normal text-[#686866] hover:text-[#101010]">← Back to Preview</a>
         <button
           onClick={handleCommit}
           disabled={!confirmed || committing}
-          className="inline-flex items-center gap-2 rounded-[10px] bg-[#101010] px-6 py-2.5 text-[13px] font-semibold text-white hover:bg-[#333] transition-colors shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
+          className="inline-flex items-center gap-2 rounded-[10px] bg-[#101010] px-6 py-2.5 text-[13px] font-normal text-white hover:bg-[#333] transition-colors shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {committing ? (<><Loader2 className="h-4 w-4 animate-spin" /> Importing…</>) : (<><CheckCircle2 className="h-4 w-4" /> Commit Import</>)}
         </button>

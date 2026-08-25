@@ -30,7 +30,7 @@ export function GeoCaseStudies({ city }: GeoCaseStudiesProps) {
           </div>
           <Link
             href="/case-studies"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-pink hover:underline shrink-0"
+            className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-pink hover:underline shrink-0"
           >
             View all project case studies
             <ArrowRight className="h-3.5 w-3.5" />
@@ -50,9 +50,9 @@ export function GeoCaseStudies({ city }: GeoCaseStudiesProps) {
                 <div className="p-6 pb-4 border-b border-brand-edge bg-brand-surface">
                   <div className="flex items-center justify-between text-[11px] font-mono text-brand-silver uppercase tracking-wider mb-1">
                     <span>{cs.sector}</span>
-                    <span className="text-emerald-700 font-semibold">{cs.services[0] || 'Integrated FM'}</span>
+                    <span className="text-emerald-700 font-light">{cs.services[0] || 'Integrated FM'}</span>
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold text-brand-graphite leading-snug group-hover:text-brand-graphite">
+                  <h3 className="text-base sm:text-lg font-light text-brand-graphite leading-snug group-hover:text-brand-graphite">
                     {cs.title}
                   </h3>
                 </div>
@@ -60,7 +60,7 @@ export function GeoCaseStudies({ city }: GeoCaseStudiesProps) {
                 {/* Challenge, Approach, Outcome Narrative */}
                 <div className="p-6 space-y-4 text-xs">
                   <div>
-                    <span className="font-bold text-brand-graphite block uppercase text-[10px] tracking-wider text-rose-700 mb-1">
+                    <span className="font-light text-brand-graphite block uppercase text-[10px] tracking-wider text-rose-700 mb-1">
                       The Operational Challenge:
                     </span>
                     <p className="text-brand-silver leading-relaxed line-clamp-3">
@@ -69,7 +69,7 @@ export function GeoCaseStudies({ city }: GeoCaseStudiesProps) {
                   </div>
 
                   <div>
-                    <span className="font-bold text-brand-graphite block uppercase text-[10px] tracking-wider text-brand-electric mb-1">
+                    <span className="font-light text-brand-graphite block uppercase text-[10px] tracking-wider text-brand-electric mb-1">
                       EntireFM Intervention:
                     </span>
                     <p className="text-brand-silver leading-relaxed line-clamp-3">
@@ -78,10 +78,10 @@ export function GeoCaseStudies({ city }: GeoCaseStudiesProps) {
                   </div>
 
                   <div className="rounded-sm bg-emerald-50/70 p-3.5 border border-emerald-200/60">
-                    <span className="font-bold text-emerald-900 block uppercase text-[10px] tracking-wider mb-1">
+                    <span className="font-light text-emerald-900 block uppercase text-[10px] tracking-wider mb-1">
                       Contract Outcome:
                     </span>
-                    <p className="text-emerald-800 leading-relaxed font-medium">
+                    <p className="text-emerald-800 leading-relaxed font-normal">
                       {cs.outcome}
                     </p>
                   </div>
@@ -91,7 +91,7 @@ export function GeoCaseStudies({ city }: GeoCaseStudiesProps) {
               <div className="p-6 pt-0">
                 <Link
                   href="/case-studies"
-                  className="inline-flex items-center justify-between w-full pt-4 border-t border-brand-edge text-xs font-semibold text-brand-graphite group-hover:text-brand-pink transition-colors"
+                  className="inline-flex items-center justify-between w-full pt-4 border-t border-brand-edge text-xs font-normal text-brand-graphite group-hover:text-brand-pink transition-colors"
                 >
                   <span>Review full delivery scope</span>
                   <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />

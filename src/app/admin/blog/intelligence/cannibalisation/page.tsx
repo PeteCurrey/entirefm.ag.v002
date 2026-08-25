@@ -11,7 +11,7 @@ export default function CannibalisationPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Query &amp; Intent Cannibalisation Monitor</h1>
+          <h1 className="text-2xl font-extralight text-white">Query &amp; Intent Cannibalisation Monitor</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Distinguishing intentional multi-page clusters (e.g. regional variations) from accidental content conflict
           </p>
@@ -29,7 +29,7 @@ export default function CannibalisationPage() {
           <div key={idx} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-semibold text-white">&ldquo;{item.query}&rdquo;</h3>
+                <h3 className="text-sm font-normal text-white">&ldquo;{item.query}&rdquo;</h3>
                 <span className="text-[10px] px-2 py-0.5 rounded bg-blue-900/40 text-blue-300 font-mono">
                   {item.type.replace(/_/g, ' ')}
                 </span>
@@ -42,7 +42,7 @@ export default function CannibalisationPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
               {item.pages.map((p, pIdx) => (
                 <div key={pIdx} className="bg-zinc-800/60 p-3 rounded-lg border border-zinc-700/60 text-xs space-y-1">
-                  <div className="text-white font-medium truncate">{p.title}</div>
+                  <div className="text-white font-normal truncate">{p.title}</div>
                   <code className="text-zinc-400 block truncate">{p.path}</code>
                 </div>
               ))}

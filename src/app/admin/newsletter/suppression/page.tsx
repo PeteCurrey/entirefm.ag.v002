@@ -12,7 +12,7 @@ export default async function SuppressionListPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Suppression &amp; Compliance List</h1>
+          <h1 className="text-2xl font-extralight text-white">Suppression &amp; Compliance List</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Permanent record of unsubscribed emails, hard bounces, and spam complaints. These addresses are strictly barred from all outgoing newsletter campaigns.
           </p>
@@ -27,7 +27,7 @@ export default async function SuppressionListPage() {
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Suppressed Emails ({suppressions.length})
           </h3>
           <span className="text-xs text-zinc-500 font-mono">PECR / GDPR Compliant Isolation</span>
@@ -50,7 +50,7 @@ export default async function SuppressionListPage() {
             <tbody className="divide-y divide-zinc-800">
               {suppressions.map((s) => (
                 <tr key={s.id} className="hover:bg-zinc-800/40 transition-colors">
-                  <td className="py-3.5 px-4 font-mono font-medium text-white">{s.email}</td>
+                  <td className="py-3.5 px-4 font-mono font-normal text-white">{s.email}</td>
                   <td className="py-3.5 px-4">
                     <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-red-950/60 text-red-300 border border-red-800/40">
                       {s.reason}

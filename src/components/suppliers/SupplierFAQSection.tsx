@@ -42,9 +42,9 @@ export function SupplierFAQSection({ initialCategory }: { initialCategory?: stri
                   setFilter(tab.id);
                   setOpenIndex(null);
                 }}
-                className={`px-3.5 py-1.5 rounded-sm text-xs font-medium transition-colors ${
+                className={`px-3.5 py-1.5 rounded-sm text-xs font-normal transition-colors ${
                   filter === tab.id
-                    ? 'bg-slate-900 text-white font-semibold'
+                    ? 'bg-slate-900 text-white font-light'
                     : 'bg-[#FAF9FB] text-slate-600 border border-slate-200 hover:bg-slate-100'
                 }`}
               >
@@ -66,7 +66,7 @@ export function SupplierFAQSection({ initialCategory }: { initialCategory?: stri
                   aria-expanded={isOpen}
                   className="w-full flex items-start justify-between gap-4 text-left group"
                 >
-                  <span className="text-base font-semibold text-slate-900 group-hover:text-brand-pink transition-colors">
+                  <span className="text-base font-light text-slate-900 group-hover:text-brand-pink transition-colors">
                     {faq.question}
                   </span>
                   <ChevronDown

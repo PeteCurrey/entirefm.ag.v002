@@ -81,7 +81,7 @@ export function GeoServiceShowcase({ city }: GeoServiceShowcaseProps) {
           </div>
           <Link
             href="/services"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-pink hover:underline shrink-0"
+            className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-pink hover:underline shrink-0"
           >
             Explore all capabilities
             <ArrowRight className="h-3.5 w-3.5" />
@@ -115,7 +115,7 @@ export function GeoServiceShowcase({ city }: GeoServiceShowcaseProps) {
                     <div className="w-10 h-10 rounded-sm bg-brand-surface border border-brand-edge flex items-center justify-center shrink-0 group-hover:border-brand-pink/40 group-hover:bg-brand-pink/10 transition-colors">
                       <Icon className="h-5 w-5 text-brand-silver group-hover:text-brand-pink transition-colors" />
                     </div>
-                    <h3 className="text-base sm:text-lg font-bold text-brand-graphite leading-snug group-hover:text-brand-graphite">
+                    <h3 className="text-base sm:text-lg font-light text-brand-graphite leading-snug group-hover:text-brand-graphite">
                       {svc.title}
                     </h3>
                   </div>
@@ -125,7 +125,7 @@ export function GeoServiceShowcase({ city }: GeoServiceShowcaseProps) {
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-brand-edge flex items-center justify-between text-xs font-semibold text-brand-graphite group-hover:text-brand-pink transition-colors">
+                <div className="mt-6 pt-4 border-t border-brand-edge flex items-center justify-between text-xs font-normal text-brand-graphite group-hover:text-brand-pink transition-colors">
                   <span>View service specification</span>
                   <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                 </div>

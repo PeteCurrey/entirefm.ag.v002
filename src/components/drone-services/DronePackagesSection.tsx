@@ -149,7 +149,7 @@ export function DronePackagesSection() {
         <div className="max-w-3xl space-y-3.5">
           <div className="inline-flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+            <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
               OUTCOME-LED SURVEY PACKAGES
             </span>
           </div>
@@ -182,16 +182,16 @@ export function DronePackagesSection() {
                     <div className="h-10 w-10 rounded-[10px] bg-white border border-slate-200 flex items-center justify-center text-brand-pink group-hover:bg-brand-pink group-hover:text-white transition-colors shadow-subtle">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <span className="font-mono text-[9.5px] uppercase font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-[4px]">
+                    <span className="font-mono text-[9.5px] uppercase font-light text-slate-700 bg-slate-100 px-2 py-0.5 rounded-[4px]">
                       {pkg.badge}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-brand-pink transition-colors">
+                    <h3 className="text-lg font-light text-slate-900 group-hover:text-brand-pink transition-colors">
                       {pkg.title}
                     </h3>
-                    <p className="text-xs font-medium text-brand-pink mt-0.5">
+                    <p className="text-xs font-normal text-brand-pink mt-0.5">
                       {pkg.tagline}
                     </p>
                     <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
@@ -201,7 +201,7 @@ export function DronePackagesSection() {
 
                   {/* Scope Checklist */}
                   <div className="pt-3 border-t border-slate-100 space-y-1.5">
-                    <span className="text-[10.5px] font-mono uppercase font-bold text-slate-500 block">
+                    <span className="text-[10.5px] font-mono uppercase font-light text-slate-500 block">
                       Scope Includes:
                     </span>
                     <ul className="space-y-1 text-xs text-slate-700">
@@ -229,7 +229,7 @@ export function DronePackagesSection() {
                 <div className="mt-6 pt-4 border-t border-slate-100">
                   <Link
                     href={`/contact-us#enquiry`}
-                    className="inline-flex items-center justify-between w-full text-xs font-semibold text-brand-pink group-hover:text-brand-pink-dark transition-colors"
+                    className="inline-flex items-center justify-between w-full text-xs font-normal text-brand-pink group-hover:text-brand-pink-dark transition-colors"
                   >
                     <span>Discuss {pkg.title} Scope</span>
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
@@ -243,7 +243,7 @@ export function DronePackagesSection() {
         {/* Global Packages CTA Bar */}
         <div className="p-8 rounded-[14px] bg-[#0B1220] text-white flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="space-y-1 text-center lg:text-left">
-            <h4 className="text-xl font-bold text-white">
+            <h4 className="text-xl font-light text-white">
               Need a bespoke multi-site drone survey programme?
             </h4>
             <p className="text-xs sm:text-sm text-slate-300">
@@ -254,7 +254,7 @@ export function DronePackagesSection() {
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <Link
               href="/contact-us#enquiry"
-              className="inline-flex items-center gap-2 rounded-[8px] bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-5 py-3 text-xs font-semibold text-white shadow-md hover:scale-[1.02] transition-all"
+              className="inline-flex items-center gap-2 rounded-[8px] bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-5 py-3 text-xs font-normal text-white shadow-md hover:scale-[1.02] transition-all"
             >
               <span>Discuss an Inspection Programme</span>
               <ArrowRight className="h-3.5 w-3.5" />

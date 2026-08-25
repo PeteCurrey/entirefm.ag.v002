@@ -11,7 +11,7 @@ export default function CtrOptimizationPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">High Impression / Low CTR Optimization</h1>
+          <h1 className="text-2xl font-extralight text-white">High Impression / Low CTR Optimization</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Refine SERP titles and meta descriptions for pages already ranking in top 20 positions
           </p>
@@ -27,7 +27,7 @@ export default function CtrOptimizationPage() {
       {gsc.status === 'NOT_CONNECTED' ? (
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center space-y-3">
           <div className="text-3xl">🎯</div>
-          <h2 className="text-base font-semibold text-white">Google Search Console Not Connected</h2>
+          <h2 className="text-base font-light text-white">Google Search Console Not Connected</h2>
           <p className="text-xs text-zinc-400 max-w-md mx-auto">
             High Impression / Low CTR analysis requires real query impressions and click-through rates from Search Console. Zero placeholder metrics are rendered.
           </p>

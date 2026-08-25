@@ -53,7 +53,7 @@ export function LegalToc({ items, title = 'Contents' }: LegalTocProps) {
       <div className="mb-8 rounded-xl border border-slate-200 bg-white p-4 shadow-sm lg:hidden print:hidden">
         <button
           onClick={() => setIsOpenMobile(!isOpenMobile)}
-          className="flex w-full items-center justify-between text-left font-semibold text-slate-900"
+          className="flex w-full items-center justify-between text-left font-light text-slate-900"
           aria-expanded={isOpenMobile}
         >
           <span className="flex items-center gap-2 text-sm">
@@ -79,7 +79,7 @@ export function LegalToc({ items, title = 'Contents' }: LegalTocProps) {
                       onClick={() => setIsOpenMobile(false)}
                       className={`flex items-start gap-2 rounded-lg p-2 transition-colors ${
                         isActive
-                          ? 'bg-indigo-50 font-semibold text-indigo-700'
+                          ? 'bg-indigo-50 font-light text-indigo-700'
                           : 'text-slate-600 hover:bg-slate-50 hover:text-slate-950'
                       }`}
                     >
@@ -100,11 +100,11 @@ export function LegalToc({ items, title = 'Contents' }: LegalTocProps) {
         className="sticky top-28 hidden max-h-[calc(100vh-8rem)] overflow-y-auto rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm lg:block print:hidden"
       >
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500">
+          <p className="flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-slate-500">
             <ListOrdered className="h-4 w-4 text-indigo-600" />
             {title}
           </p>
-          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
+          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-normal text-slate-600">
             {items.length} Sections
           </span>
         </div>
@@ -118,13 +118,13 @@ export function LegalToc({ items, title = 'Contents' }: LegalTocProps) {
                   href={`#${item.id}`}
                   className={`group flex items-start gap-2.5 rounded-lg px-3 py-2 transition-all duration-150 ${
                     isActive
-                      ? 'bg-indigo-50 font-semibold text-indigo-700 shadow-xs'
+                      ? 'bg-indigo-50 font-light text-indigo-700 shadow-xs'
                       : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                   }`}
                 >
                   <span
                     className={`mt-0.5 text-xs font-mono shrink-0 transition-colors ${
-                      isActive ? 'text-indigo-600 font-bold' : 'text-slate-400 group-hover:text-slate-600'
+                      isActive ? 'text-indigo-600 font-light' : 'text-slate-400 group-hover:text-slate-600'
                     }`}
                   >
                     {String(idx + 1).padStart(2, '0')}
@@ -139,7 +139,7 @@ export function LegalToc({ items, title = 'Contents' }: LegalTocProps) {
         <div className="mt-6 border-t border-slate-100 pt-4">
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 text-xs font-medium text-slate-500 transition-colors hover:text-slate-900"
+            className="flex items-center gap-1.5 text-xs font-normal text-slate-500 transition-colors hover:text-slate-900"
           >
             <ArrowUp className="h-3.5 w-3.5" />
             Back to top

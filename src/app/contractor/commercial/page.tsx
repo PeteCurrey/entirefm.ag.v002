@@ -20,7 +20,7 @@ export default async function ContractorCommercialPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">Commercial & Purchase Orders</h1>
+        <h1 className="text-2xl font-extralight text-white tracking-tight">Commercial & Purchase Orders</h1>
         <p className="text-brand-mist text-sm mt-1">
           Track approved purchase orders, committed expenditure, and billing readiness for completed works.
         </p>
@@ -35,7 +35,7 @@ export default async function ContractorCommercialPage() {
       ) : (
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl overflow-hidden">
           <table className="w-full text-left text-sm text-brand-mist">
-            <thead className="bg-brand-void text-xs uppercase font-semibold text-brand-mist border-b border-brand-edge-dark">
+            <thead className="bg-brand-void text-xs uppercase font-light text-brand-mist border-b border-brand-edge-dark">
               <tr>
                 <th className="p-4">PO Reference</th>
                 <th className="p-4">Work Order</th>
@@ -47,9 +47,9 @@ export default async function ContractorCommercialPage() {
             <tbody className="divide-y divide-brand-edge-dark">
               {purchaseOrders.map(po => (
                 <tr key={po.id} className="hover:bg-brand-edge-dark/30 transition-colors">
-                  <td className="p-4 font-mono font-bold text-white">{po.po_number || po.id.slice(0, 8)}</td>
+                  <td className="p-4 font-mono font-light text-white">{po.po_number || po.id.slice(0, 8)}</td>
                   <td className="p-4 font-mono text-white">{po.work_order_id ? po.work_order_id.slice(0, 8) : '—'}</td>
-                  <td className="p-4 font-mono text-brand-electric font-bold">
+                  <td className="p-4 font-mono text-brand-electric font-light">
                     £{(po.amount_net_gbp || po.total_amount_gbp || 0).toFixed(2)}
                   </td>
                   <td className="p-4">

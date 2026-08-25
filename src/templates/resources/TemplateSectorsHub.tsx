@@ -180,12 +180,12 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
                         <div className="w-12 h-12 rounded-sm bg-brand-surface flex items-center justify-center text-brand-electric group-hover:bg-brand-electric group-hover:text-white transition-colors">
                           <Icon className="w-6 h-6" />
                         </div>
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-brand-silver font-semibold bg-brand-surface px-2.5 py-1 rounded">
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-brand-silver font-light bg-brand-surface px-2.5 py-1 rounded">
                           {sector.badge}
                         </span>
                       </div>
 
-                      <h3 className="text-xl font-bold text-brand-graphite group-hover:text-brand-electric transition-colors">
+                      <h3 className="text-xl font-light text-brand-graphite group-hover:text-brand-electric transition-colors">
                         <Link href={sector.path}>{sector.title}</Link>
                       </h3>
 
@@ -195,7 +195,7 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
 
                       <div className="mt-6 pt-6 border-t border-brand-edge grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-silver block font-semibold">
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-silver block font-light">
                             Operational Priorities
                           </span>
                           <ul className="mt-2 space-y-1.5">
@@ -209,7 +209,7 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
                         </div>
 
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-silver block font-semibold">
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-silver block font-light">
                             Key Services
                           </span>
                           <ul className="mt-2 space-y-1.5">
@@ -227,7 +227,7 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
                     <div className="mt-8 pt-4 border-t border-brand-edge flex items-center justify-between">
                       <Link
                         href={sector.path}
-                        className="inline-flex items-center gap-2 text-xs font-bold text-brand-electric hover:text-brand-graphite transition-colors uppercase tracking-wider"
+                        className="inline-flex items-center gap-2 text-xs font-normal text-brand-electric hover:text-brand-graphite transition-colors uppercase tracking-wider"
                       >
                         Explore {sector.title} Blueprint <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
@@ -265,14 +265,14 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
                       <div className="w-10 h-10 rounded-sm bg-white border border-brand-edge flex items-center justify-center text-brand-graphite group-hover:text-brand-electric transition-colors mb-4">
                         <Icon className="w-5 h-5" />
                       </div>
-                      <h3 className="text-sm font-bold text-brand-graphite group-hover:text-brand-electric transition-colors">
+                      <h3 className="text-sm font-normal text-brand-graphite group-hover:text-brand-electric transition-colors">
                         {sector.title}
                       </h3>
                       <p className="mt-2 text-xs text-slate-600 leading-relaxed">
                         {sector.desc}
                       </p>
                     </div>
-                    <span className="mt-4 pt-3 border-t border-brand-edge/60 inline-flex items-center gap-1.5 text-[11px] font-semibold text-brand-silver group-hover:text-brand-electric transition-colors">
+                    <span className="mt-4 pt-3 border-t border-brand-edge/60 inline-flex items-center gap-1.5 text-[11px] font-normal text-brand-silver group-hover:text-brand-electric transition-colors">
                       View Sector <ArrowRight className="w-3 h-3" />
                     </span>
                   </Link>
@@ -287,10 +287,10 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
               <div className="lg:col-span-2 space-y-3">
-                <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-bold">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-light">
                   PROCUREMENT &amp; TENDER PLANNING
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-bold text-white">
+                <h2 className="text-2xl sm:text-3xl font-extralight text-white">
                   Preparing an FM Tender or Reviewing Provision?
                 </h2>
                 <p className="text-sm text-brand-mist/70 leading-relaxed max-w-2xl">
@@ -299,13 +299,13 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
                 <div className="flex flex-wrap gap-4 pt-2">
                   <Link
                     href="/resources/guides/fm-tender-guide"
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-zinc-800 hover:bg-zinc-700 px-4 py-2.5 rounded border border-zinc-700 transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-normal text-white bg-zinc-800 hover:bg-zinc-700 px-4 py-2.5 rounded border border-zinc-700 transition-colors"
                   >
                     <ClipboardList className="w-4 h-4 text-emerald-400" /> Read FM Tender Guide
                   </Link>
                   <Link
                     href="/tools/tender-brief"
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-brand-electric hover:bg-brand-electric-bright px-4 py-2.5 rounded transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-normal text-white bg-brand-electric hover:bg-brand-electric-bright px-4 py-2.5 rounded transition-colors"
                   >
                     <FileCheck2 className="w-4 h-4" /> Open Tender Brief Generator
                   </Link>
@@ -313,7 +313,7 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
               </div>
 
               <div className="bg-brand-graphite/60 border border-brand-edge-dark rounded p-6 space-y-4">
-                <h3 className="text-xs font-mono uppercase tracking-wider text-brand-silver font-semibold">
+                <h3 className="text-xs font-mono uppercase tracking-wider text-brand-silver font-light">
                   Buyer Resources Available
                 </h3>
                 <ul className="space-y-2 text-xs text-brand-mist/80">

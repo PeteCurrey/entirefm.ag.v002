@@ -12,10 +12,10 @@ export default async function DocumentVaultPage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
             COMPLIANCE EVIDENCE REPOSITORY
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight text-slate-900 mt-1">
             Supplier Document Vault
           </h1>
           <p className="text-xs text-slate-600 font-light mt-1">
@@ -64,20 +64,20 @@ export default async function DocumentVaultPage() {
               ) : (
                 documents.map((doc) => (
                   <tr key={doc.id} className="hover:bg-slate-50/50">
-                    <td className="py-3 px-4 font-bold text-slate-900 font-sans">{doc.document_type.replace(/_/g, ' ')}</td>
+                    <td className="py-3 px-4 font-light text-slate-900 font-sans">{doc.document_type.replace(/_/g, ' ')}</td>
                     <td className="py-3 px-4 text-slate-700">{doc.file_name}</td>
                     <td className="py-3 px-4 text-slate-600">{doc.supplier_id}</td>
-                    <td className="py-3 px-4 text-center font-bold">v{doc.version}</td>
+                    <td className="py-3 px-4 text-center font-light">v{doc.version}</td>
                     <td className="py-3 px-4 text-slate-600">{doc.expiry_date || '—'}</td>
                     <td className="py-3 px-4 text-center">
-                      <span className={`inline-block text-[10px] px-2 py-0.5 rounded font-bold ${
+                      <span className={`inline-block text-[10px] px-2 py-0.5 rounded font-light ${
                         doc.document_state === 'CURRENT' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'
                       }`}>
                         {doc.document_state}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
-                      <span className={`inline-block text-[10px] px-2 py-0.5 rounded font-bold ${
+                      <span className={`inline-block text-[10px] px-2 py-0.5 rounded font-light ${
                         doc.review_status === 'ACCEPTED' ? 'bg-emerald-100 text-emerald-800' : doc.review_status === 'REJECTED' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'
                       }`}>
                         {doc.review_status}

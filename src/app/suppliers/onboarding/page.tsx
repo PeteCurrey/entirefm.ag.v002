@@ -73,10 +73,10 @@ export default function OnboardingPage() {
               ].map((stage) => (
                 <div key={stage.step} className="p-5 bg-[#FAF9FB] border border-slate-200 rounded-sm flex flex-col justify-between">
                   <div>
-                    <span className="text-[11px] font-mono font-bold text-brand-pink mb-2 block">
+                    <span className="text-[11px] font-mono font-light text-brand-pink mb-2 block">
                       STAGE {stage.step}
                     </span>
-                    <h3 className="text-sm font-bold text-slate-900 mb-1">{stage.title}</h3>
+                    <h3 className="text-sm font-normal text-slate-900 mb-1">{stage.title}</h3>
                     <p className="text-xs text-slate-600 font-light leading-relaxed">{stage.desc}</p>
                   </div>
                 </div>
@@ -124,7 +124,7 @@ export default function OnboardingPage() {
                 <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright">
                   COMMERCIAL REWARDS
                 </span>
-                <h3 className="text-xl font-bold text-white">
+                <h3 className="text-xl font-light text-white">
                   Progression to Preferred Partner Status
                 </h3>
                 <p className="text-xs sm:text-sm text-brand-mist/80 font-light leading-relaxed">

@@ -26,7 +26,7 @@ export default async function CeoCommandPage() {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="rounded-lg border border-red-900/40 bg-red-950/20 p-8 max-w-md text-center">
           <div className="text-sm font-mono text-red-400 mb-2">ACCESS DENIED</div>
-          <div className="text-white font-semibold mb-1">CEO Command requires enterprise_intelligence:view permission.</div>
+          <div className="text-white font-light mb-1">CEO Command requires enterprise_intelligence:view permission.</div>
           <div className="text-brand-mist/60 text-sm">Contact your administrator to request access.</div>
         </div>
       </div>
@@ -68,10 +68,10 @@ export default async function CeoCommandPage() {
         <div className="rounded-lg border border-amber-900/30 bg-amber-950/10 p-5">
           <div className="flex items-start gap-4">
             <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0">
-              <span className="text-amber-400 text-sm font-bold">!</span>
+              <span className="text-amber-400 text-sm font-normal">!</span>
             </div>
             <div>
-              <div className="text-sm font-semibold text-amber-300 mb-1">No operational data loaded</div>
+              <div className="text-sm font-normal text-amber-300 mb-1">No operational data loaded</div>
               <p className="text-[12.5px] text-brand-mist/60 leading-relaxed">
                 CEO Command is running correctly with zero operational records.
                 Clients: <strong className="text-white">{zeroData?.clients ?? 0}</strong> ·

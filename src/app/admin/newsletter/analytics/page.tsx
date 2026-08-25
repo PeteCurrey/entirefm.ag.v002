@@ -13,7 +13,7 @@ export default async function NewsletterAnalyticsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">The FM Briefing Analytics</h1>
+          <h1 className="text-2xl font-extralight text-white">The FM Briefing Analytics</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Real campaign performance metrics, click attribution, and audience engagement without synthetic inflation.
           </p>
@@ -27,7 +27,7 @@ export default async function NewsletterAnalyticsPage() {
       </div>
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+        <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
           Campaign Performance Table
         </h3>
 
@@ -40,7 +40,7 @@ export default async function NewsletterAnalyticsPage() {
             {sent.map((c) => (
               <div key={c.id} className="py-4 flex items-center justify-between">
                 <div>
-                  <h4 className="text-sm font-bold text-white">{c.name}</h4>
+                  <h4 className="text-sm font-normal text-white">{c.name}</h4>
                   <div className="text-xs text-zinc-400 mt-0.5">{c.subject}</div>
                 </div>
                 <div className="flex gap-6 text-xs text-zinc-300 font-mono">

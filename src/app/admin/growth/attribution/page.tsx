@@ -31,10 +31,10 @@ export default async function AttributionModelsPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             MULTI-TOUCH ATTRIBUTION · NO SINGLE-TOUCH BIAS
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Multi-Touch Attribution Intelligence</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Multi-Touch Attribution Intelligence</h1>
           <p className="text-sm text-zinc-400">
             Compare First Touch (Acquisition), Last Touch (Conversion), and Assisted Content paths.
           </p>
@@ -51,7 +51,7 @@ export default async function AttributionModelsPage() {
         {/* Model 1: First Touch */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
           <div>
-            <h3 className="text-sm font-bold text-pink-400 uppercase tracking-wider">
+            <h3 className="text-sm font-normal text-pink-400 uppercase tracking-wider">
               1. First Touch (Acquisition)
             </h3>
             <p className="text-[11px] text-zinc-400 mt-0.5">
@@ -66,7 +66,7 @@ export default async function AttributionModelsPage() {
               {topFirst.map(([path, count]) => (
                 <div key={path} className="p-2.5 bg-zinc-950 border border-zinc-800 rounded text-xs flex justify-between">
                   <span className="font-mono text-zinc-300 truncate max-w-[200px]">{path}</span>
-                  <span className="font-bold text-pink-400 font-mono">{count} leads</span>
+                  <span className="font-light text-pink-400 font-mono">{count} leads</span>
                 </div>
               ))}
             </div>
@@ -76,7 +76,7 @@ export default async function AttributionModelsPage() {
         {/* Model 2: Assisted Content */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
           <div>
-            <h3 className="text-sm font-bold text-purple-400 uppercase tracking-wider">
+            <h3 className="text-sm font-normal text-purple-400 uppercase tracking-wider">
               2. Assisted Content (Influence)
             </h3>
             <p className="text-[11px] text-zinc-400 mt-0.5">
@@ -91,7 +91,7 @@ export default async function AttributionModelsPage() {
               {topAssisted.map(([path, count]) => (
                 <div key={path} className="p-2.5 bg-zinc-950 border border-zinc-800 rounded text-xs flex justify-between">
                   <span className="font-mono text-zinc-300 truncate max-w-[200px]">{path}</span>
-                  <span className="font-bold text-purple-400 font-mono">{count} assists</span>
+                  <span className="font-light text-purple-400 font-mono">{count} assists</span>
                 </div>
               ))}
             </div>
@@ -101,7 +101,7 @@ export default async function AttributionModelsPage() {
         {/* Model 3: Last Touch */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
           <div>
-            <h3 className="text-sm font-bold text-blue-400 uppercase tracking-wider">
+            <h3 className="text-sm font-normal text-blue-400 uppercase tracking-wider">
               3. Last Touch (Conversion)
             </h3>
             <p className="text-[11px] text-zinc-400 mt-0.5">
@@ -116,7 +116,7 @@ export default async function AttributionModelsPage() {
               {topLast.map(([path, count]) => (
                 <div key={path} className="p-2.5 bg-zinc-950 border border-zinc-800 rounded text-xs flex justify-between">
                   <span className="font-mono text-zinc-300 truncate max-w-[200px]">{path}</span>
-                  <span className="font-bold text-blue-400 font-mono">{count} converts</span>
+                  <span className="font-light text-blue-400 font-mono">{count} converts</span>
                 </div>
               ))}
             </div>

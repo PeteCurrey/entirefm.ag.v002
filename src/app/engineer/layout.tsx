@@ -54,7 +54,7 @@ export default async function EngineerLayout({ children }: { children: React.Rea
         <div className="flex h-14 items-center justify-between px-4">
           <Link href="/engineer" className="flex items-center gap-2">
             <span className="text-[15px] font-light text-white">
-              Entire<span className="font-semibold text-brand-electric">FM</span>
+              Entire<span className="font-light text-brand-electric">FM</span>
             </span>
             <span className="rounded border border-brand-edge-dark px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-brand-mist/50">
               Field
@@ -69,7 +69,7 @@ export default async function EngineerLayout({ children }: { children: React.Rea
             <Link
               key={item.href}
               href={item.href}
-              className="flex-1 py-2.5 text-center text-[12px] font-medium text-brand-mist/60 hover:bg-brand-void hover:text-white transition-colors"
+              className="flex-1 py-2.5 text-center text-[12px] font-normal text-brand-mist/60 hover:bg-brand-void hover:text-white transition-colors"
             >
               {item.name}
             </Link>

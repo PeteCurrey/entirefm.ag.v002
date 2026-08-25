@@ -12,10 +12,10 @@ export default async function LostOpportunitiesPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-red-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-red-400 font-light">
             COMMERCIAL LOSS ANALYSIS &amp; FEEDBACK
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Lost Opportunities Analysis</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Lost Opportunities Analysis</h1>
           <p className="text-sm text-zinc-400">
             Audit lost proposals, pricing objections, competitor incumbent retentions, and service fit mismatches.
           </p>
@@ -30,7 +30,7 @@ export default async function LostOpportunitiesPage() {
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="p-5 border-b border-zinc-800 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+          <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
             Lost Opportunities ({opps.length})
           </h3>
         </div>
@@ -53,11 +53,11 @@ export default async function LostOpportunitiesPage() {
             <tbody className="divide-y divide-zinc-800">
               {opps.map((o) => (
                 <tr key={o.id} className="hover:bg-zinc-800/40">
-                  <td className="py-3.5 px-4 font-bold text-white">{o.company}</td>
+                  <td className="py-3.5 px-4 font-light text-white">{o.company}</td>
                   <td className="py-3.5 px-4 text-zinc-400">
                     {o.service} · {o.location}
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-red-400 font-semibold">{o.won_lost_reason || 'Unspecified'}</td>
+                  <td className="py-3.5 px-4 font-mono text-red-400 font-light">{o.won_lost_reason || 'Unspecified'}</td>
                   <td className="py-3.5 px-4 font-mono text-zinc-300">
                     {o.estimated_value_gbp ? `£${o.estimated_value_gbp.toLocaleString()}` : '—'}
                   </td>

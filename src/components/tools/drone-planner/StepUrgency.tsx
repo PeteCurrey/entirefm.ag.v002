@@ -39,7 +39,7 @@ export function StepUrgency({ urgency, onChange }: StepUrgencyProps) {
               }`}
             >
               <div className="space-y-1">
-                <h3 className="text-sm font-bold text-white group-hover:text-brand-pink transition-colors">
+                <h3 className="text-sm font-normal text-white group-hover:text-brand-pink transition-colors">
                   {opt.label}
                 </h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
@@ -62,7 +62,7 @@ export function StepUrgency({ urgency, onChange }: StepUrgencyProps) {
         <div className="p-5 rounded-sm bg-red-950/40 border border-red-500/50 flex items-start gap-3.5 mt-4">
           <ShieldAlert className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
           <div className="space-y-1 text-xs text-red-200 leading-relaxed">
-            <strong className="text-white font-semibold block text-sm">
+            <strong className="text-white font-light block text-sm">
               Immediate Safety Priority Notice
             </strong>
             <p>

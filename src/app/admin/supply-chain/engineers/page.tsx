@@ -12,7 +12,7 @@ export default async function EngineersPage() {
         title="Field Engineers & Resources"
         description="Internal and subcontracted trade engineers, active certifications, skills matrix, and live job capacity."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-indigo">
             + Add Engineer Resource
           </button>
         }

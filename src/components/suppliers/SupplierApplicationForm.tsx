@@ -147,16 +147,16 @@ export function SupplierApplicationForm() {
           <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-10 h-10" />
           </div>
-          <span className="inline-block text-[11px] font-mono font-bold px-3 py-1 bg-emerald-100 text-emerald-900 rounded-sm">
+          <span className="inline-block text-[11px] font-mono font-light px-3 py-1 bg-emerald-100 text-emerald-900 rounded-sm">
             APPLICATION LOGGED · {appId}
           </span>
-          <h3 className="text-2xl font-bold text-slate-900">
+          <h3 className="text-2xl font-extralight text-slate-900">
             Supplier Application Submitted for Assurance Review
           </h3>
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-lg mx-auto font-light">
-            Thank you for applying to join the EntireFM Supplier &amp; Partner Network. Your application has been logged with initial status <strong className="text-slate-900 font-mono font-semibold">APPLICATION</strong>. Our procurement and compliance desk will review your trade scope and contact you to request certificate documentation.
+            Thank you for applying to join the EntireFM Supplier &amp; Partner Network. Your application has been logged with initial status <strong className="text-slate-900 font-mono font-light">APPLICATION</strong>. Our procurement and compliance desk will review your trade scope and contact you to request certificate documentation.
           </p>
-          <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-center gap-4 text-xs font-semibold">
+          <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-center gap-4 text-xs font-normal">
             <Link href="/suppliers/how-we-work" className="text-slate-900 hover:text-brand-pink underline">
               View Our 10-Stage Operational Journey
             </Link>
@@ -181,7 +181,7 @@ export function SupplierApplicationForm() {
           {/* Section 1: Business Identification */}
           <div className="space-y-5">
             <div className="border-b border-slate-200 pb-2 flex items-center justify-between">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+              <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
                 1. Business Identity &amp; Profile
               </h3>
               <span className="text-[11px] font-mono text-slate-400">PHASE 1 QUALIFICATION</span>
@@ -189,7 +189,7 @@ export function SupplierApplicationForm() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Company Legal Registered Name *
                 </label>
                 <input
@@ -203,7 +203,7 @@ export function SupplierApplicationForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Trading Name (If different)
                 </label>
                 <input
@@ -218,7 +218,7 @@ export function SupplierApplicationForm() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Companies House Number
                 </label>
                 <input
@@ -231,7 +231,7 @@ export function SupplierApplicationForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Company Website URL
                 </label>
                 <input
@@ -244,7 +244,7 @@ export function SupplierApplicationForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Business Entity Type *
                 </label>
                 <select
@@ -265,7 +265,7 @@ export function SupplierApplicationForm() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Year Established
                 </label>
                 <input
@@ -278,7 +278,7 @@ export function SupplierApplicationForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Number of Operatives / Employees
                 </label>
                 <select
@@ -299,14 +299,14 @@ export function SupplierApplicationForm() {
           {/* Section 2: Primary Contact */}
           <div className="space-y-5">
             <div className="border-b border-slate-200 pb-2">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+              <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
                 2. Primary Commercial &amp; Operational Contact
               </h3>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Contact Full Name *
                 </label>
                 <input
@@ -320,7 +320,7 @@ export function SupplierApplicationForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Business Email *
                 </label>
                 <input
@@ -334,7 +334,7 @@ export function SupplierApplicationForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Contact Phone Number *
                 </label>
                 <input
@@ -349,7 +349,7 @@ export function SupplierApplicationForm() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                 Registered Office / Head Depot Address *
               </label>
               <input
@@ -366,13 +366,13 @@ export function SupplierApplicationForm() {
           {/* Section 3: Disciplines & Coverage */}
           <div className="space-y-5">
             <div className="border-b border-slate-200 pb-2">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+              <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
                 3. Trade Disciplines &amp; Operational Coverage
               </h3>
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+              <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-2">
                 Select Relevant Trade Disciplines * (Select all that apply)
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
@@ -393,7 +393,7 @@ export function SupplierApplicationForm() {
                         onChange={() => toggleTrade(trade)}
                         className="h-3.5 w-3.5 rounded border-slate-300 text-brand-pink focus:ring-brand-pink"
                       />
-                      <span className="text-[11.5px] font-medium leading-snug">{trade}</span>
+                      <span className="text-[11.5px] font-normal leading-snug">{trade}</span>
                     </label>
                   );
                 })}
@@ -402,7 +402,7 @@ export function SupplierApplicationForm() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-3">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Coverage Scope Tier *
                 </label>
                 <select
@@ -417,7 +417,7 @@ export function SupplierApplicationForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Primary Counties / Operational Regions *
                 </label>
                 <input
@@ -435,14 +435,14 @@ export function SupplierApplicationForm() {
           {/* Section 4: Insurances & Accreditations */}
           <div className="space-y-5">
             <div className="border-b border-slate-200 pb-2">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+              <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
                 4. Insurances &amp; Accreditations
               </h3>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Public Liability Cover *
                 </label>
                 <select
@@ -458,7 +458,7 @@ export function SupplierApplicationForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Employers Liability Cover
                 </label>
                 <select
@@ -472,7 +472,7 @@ export function SupplierApplicationForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                   Professional Indemnity Cover
                 </label>
                 <select
@@ -489,7 +489,7 @@ export function SupplierApplicationForm() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+              <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-2">
                 SSIP &amp; Industry Accreditations Held
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
@@ -510,7 +510,7 @@ export function SupplierApplicationForm() {
                         onChange={() => toggleAccreditation(accred)}
                         className="h-3.5 w-3.5 rounded border-slate-300 text-brand-pink focus:ring-brand-pink"
                       />
-                      <span className="text-[11.5px] font-medium leading-snug">{accred}</span>
+                      <span className="text-[11.5px] font-normal leading-snug">{accred}</span>
                     </label>
                   );
                 })}
@@ -518,7 +518,7 @@ export function SupplierApplicationForm() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                 Specific Trade Scheme Numbers (Gas Safe, NICEIC, REFCOM, IRATA, BAFE etc.)
               </label>
               <input
@@ -534,13 +534,13 @@ export function SupplierApplicationForm() {
           {/* Section 5: Additional Info & Consent */}
           <div className="space-y-5">
             <div className="border-b border-slate-200 pb-2">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+              <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
                 5. Applicant Statement &amp; Governance Declarations
               </h3>
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
                 Brief Company Background / Key Client References
               </label>
               <textarea
@@ -588,7 +588,7 @@ export function SupplierApplicationForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full sm:w-auto px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors shadow-sm disabled:opacity-50 inline-flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-normal uppercase tracking-wider rounded-sm transition-colors shadow-sm disabled:opacity-50 inline-flex items-center justify-center gap-2"
             >
               {loading ? 'Submitting Application...' : 'Submit Supplier Qualification Application'}
               <ArrowRight className="h-4 w-4 text-brand-pink" />

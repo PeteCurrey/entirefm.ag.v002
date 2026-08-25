@@ -331,10 +331,10 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
               {/* SECTION 02: TECHNOLOGY LANDSCAPE SPECTRUM */}
               <section id="landscape" className="scroll-mt-32 space-y-6">
                 <div>
-                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
                     Technology Demystification
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                  <h2 className="text-2xl sm:text-3xl font-extralight text-white mb-3">
                     What AI Actually Means in Building Operations
                   </h2>
                   <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
@@ -352,13 +352,13 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                         <div className="flex items-center gap-2">
                           <span className="w-2 h-2 rounded-full bg-pink-500" />
-                          <h3 className="font-bold text-base text-white">{tech.name}</h3>
+                          <h3 className="font-light text-base text-white">{tech.name}</h3>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-400">
                             {tech.category}
                           </span>
-                          <span className="text-[10px] font-mono font-bold text-pink-300">
+                          <span className="text-[10px] font-mono font-light text-pink-300">
                             {tech.maturityTier}
                           </span>
                         </div>
@@ -386,10 +386,10 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
               {/* SECTION 04: FLAGSHIP INTERACTIVE WORK ORDER WALKTHROUGH */}
               <section id="workflow" className="scroll-mt-32 space-y-6">
                 <div>
-                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
                     Flagship Interactive Simulation
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                  <h2 className="text-2xl sm:text-3xl font-extralight text-white mb-3">
                     The AI-Enabled Work Order: Request to Resolution
                   </h2>
                   <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
@@ -407,7 +407,7 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                         onClick={() => setActiveStep(step.id)}
                         className={`flex-1 min-w-[130px] p-2.5 rounded-lg text-left transition-all text-xs font-mono ${
                           isSelected
-                            ? 'bg-pink-950 text-pink-300 border border-pink-500/50 shadow-md font-bold'
+                            ? 'bg-pink-950 text-pink-300 border border-pink-500/50 shadow-md font-light'
                             : 'bg-slate-900/60 text-slate-400 hover:bg-slate-800 hover:text-slate-200'
                         }`}
                       >
@@ -424,16 +424,16 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                 <div className="p-6 sm:p-8 rounded-2xl bg-slate-950 border border-slate-800 shadow-xl space-y-6">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-4">
                     <div>
-                      <span className="text-xs font-mono font-bold text-pink-400 uppercase tracking-widest block">
+                      <span className="text-xs font-mono font-light text-pink-400 uppercase tracking-widest block">
                         {currentStepData.stage}
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
+                      <h3 className="text-xl sm:text-2xl font-extralight text-white mt-1">
                         {currentStepData.title}
                       </h3>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-mono text-slate-400">Executing Actor:</span>
-                      <span className={`text-xs font-mono font-bold px-2.5 py-1 rounded border uppercase ${
+                      <span className={`text-xs font-mono font-light px-2.5 py-1 rounded border uppercase ${
                         currentStepData.actorType === 'ai'
                           ? 'bg-pink-950 text-pink-300 border-pink-700'
                           : currentStepData.actorType === 'checkpoint'
@@ -468,7 +468,7 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                       {currentStepData.systemData.map((d, idx) => (
                         <div key={idx} className="p-3 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono">
                           <span className="text-slate-500 block text-[10px] uppercase">{d.label}</span>
-                          <span className="text-pink-300 font-bold mt-0.5 block">{d.value}</span>
+                          <span className="text-pink-300 font-light mt-0.5 block">{d.value}</span>
                         </div>
                       ))}
                     </div>
@@ -488,7 +488,7 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                     <button
                       onClick={() => setActiveStep(Math.min(WORK_ORDER_STEPS.length, activeStep + 1))}
                       disabled={activeStep === WORK_ORDER_STEPS.length}
-                      className="px-4 py-2 rounded bg-pink-600 hover:bg-pink-500 text-xs font-mono font-bold text-white disabled:opacity-30 disabled:pointer-events-none"
+                      className="px-4 py-2 rounded bg-pink-600 hover:bg-pink-500 text-xs font-mono font-light text-white disabled:opacity-30 disabled:pointer-events-none"
                     >
                       Next Stage &rarr;
                     </button>
@@ -518,10 +518,10 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
               {/* SECTION 08: 5-STEP IMPLEMENTATION ROADMAP */}
               <section id="roadmap" className="scroll-mt-32 space-y-6">
                 <div>
-                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold block mb-1">
+                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
                     Pragmatic Deployment Pathway
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                  <h2 className="text-2xl sm:text-3xl font-extralight text-white mb-3">
                     The 5-Step FM AI Readiness Roadmap
                   </h2>
                   <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
@@ -539,8 +539,8 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                   ].map((step, idx) => (
                     <div key={idx} className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex flex-col justify-between">
                       <div>
-                        <span className="text-lg font-mono font-bold text-pink-400 block mb-2">{step.num}</span>
-                        <h4 className="text-xs font-bold text-white mb-2 leading-snug">{step.title}</h4>
+                        <span className="text-lg font-mono font-light text-pink-400 block mb-2">{step.num}</span>
+                        <h4 className="text-xs font-normal text-white mb-2 leading-snug">{step.title}</h4>
                         <p className="text-[11px] text-slate-400 leading-relaxed">{step.desc}</p>
                       </div>
                     </div>

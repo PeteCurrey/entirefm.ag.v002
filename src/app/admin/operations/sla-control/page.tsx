@@ -53,7 +53,7 @@ export default async function SLAControlPage() {
                 <tr key={wo.id} className="text-brand-mist/80 hover:bg-brand-void/40">
                   <td className="px-5 py-4">
                     <div className="font-mono text-[11px] text-white">{wo.work_order_number}</div>
-                    <div className="text-[12px] font-semibold text-white">{wo.title}</div>
+                    <div className="text-[12px] font-normal text-white">{wo.title}</div>
                   </td>
                   <td className="px-5 py-4">
                     <div>{wo.organisation?.name}</div>

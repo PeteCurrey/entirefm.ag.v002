@@ -10,10 +10,10 @@ export default async function CommercialAccuracyPage() {
   return (
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
           FINANCIAL ACCURACY
         </span>
-        <h1 className="text-2xl font-bold text-slate-900 mt-1">
+        <h1 className="text-2xl font-extralight text-slate-900 mt-1">
           Commercial Performance &amp; Invoice Matching
         </h1>
         <p className="text-xs text-slate-600 font-light mt-1">
@@ -26,11 +26,11 @@ export default async function CommercialAccuracyPage() {
           {scorecards.map((s) => (
             <div key={s.supplier_id} className="py-3 flex items-center justify-between">
               <div>
-                <div className="font-bold text-slate-900 font-sans">{s.supplier_name}</div>
+                <div className="font-light text-slate-900 font-sans">{s.supplier_name}</div>
                 <span className="text-slate-500">Invoices Processed: {s.invoice_accuracy_rate.sample_size}</span>
               </div>
               <div className="text-right">
-                <span className="font-bold text-slate-900 text-sm block">{s.invoice_accuracy_rate.value}%</span>
+                <span className="font-light text-slate-900 text-sm block">{s.invoice_accuracy_rate.value}%</span>
                 <span className="text-[10px] text-emerald-700 font-sans">First-Time Match</span>
               </div>
             </div>

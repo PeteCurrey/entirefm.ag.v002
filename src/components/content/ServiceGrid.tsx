@@ -200,7 +200,7 @@ export function ServiceGrid() {
                     <Icon className="h-5 w-5 shrink-0 text-brand-mist/50 transition-colors duration-500 group-hover:text-brand-electric-bright" />
                   </div>
 
-                  <h3 className="text-[1.0625rem] font-semibold leading-snug tracking-tight text-white">
+                  <h3 className="text-[1.0625rem] font-light leading-snug tracking-tight text-white">
                     {service.title}
                   </h3>
                   <p className="mt-3 flex-1 text-[13.5px] leading-relaxed text-brand-mist/70">
@@ -222,7 +222,7 @@ export function ServiceGrid() {
                     </ul>
                   </div>
 
-                  <span className="mt-6 inline-flex items-center gap-1.5 border-t border-white/12 pt-4 text-[12.5px] font-semibold text-white transition-colors duration-300 group-hover:text-brand-electric-bright">
+                  <span className="mt-6 inline-flex items-center gap-1.5 border-t border-white/12 pt-4 text-[12.5px] font-normal text-white transition-colors duration-300 group-hover:text-brand-electric-bright">
                     Explore this service
                     <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
@@ -393,15 +393,15 @@ export function SectorGrid() {
                 className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-hero-pink-gradient transition-transform duration-500 ease-brand group-hover:scale-x-100"
               />
               <div>
-                <span className="eyebrow eyebrow-dark text-brand-pink-light font-bold">{sector.category}</span>
-                <h3 className="mt-2 text-xl font-bold tracking-tight text-white group-hover:text-brand-pink-light transition-colors">
+                <span className="eyebrow eyebrow-dark text-brand-pink-light font-light">{sector.category}</span>
+                <h3 className="mt-2 text-xl font-light tracking-tight text-white group-hover:text-brand-pink-light transition-colors">
                   {sector.title}
                 </h3>
                 <p className="mt-3 max-w-xl text-[13.5px] leading-relaxed text-brand-mist/80">
                   {sector.desc}
                 </p>
               </div>
-              <span className="mt-6 inline-flex items-center gap-1.5 border-t border-white/12 pt-4 text-xs font-bold uppercase tracking-wider text-white transition-colors duration-300 group-hover:text-brand-pink-light">
+              <span className="mt-6 inline-flex items-center gap-1.5 border-t border-white/12 pt-4 text-xs font-normal uppercase tracking-wider text-white transition-colors duration-300 group-hover:text-brand-pink-light">
                 Explore sector capability
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
@@ -425,17 +425,17 @@ export function SectorGrid() {
                 className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
               />
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-brand-mist/50">
+                <span className="text-[10px] font-normal uppercase tracking-widest text-brand-mist/50">
                   {sector.category}
                 </span>
-                <h4 className="mt-1.5 text-base font-semibold text-white group-hover:text-brand-electric-bright transition-colors">
+                <h4 className="mt-1.5 text-base font-light text-white group-hover:text-brand-electric-bright transition-colors">
                   {sector.title}
                 </h4>
                 <p className="mt-2 text-xs leading-relaxed text-brand-mist/70">
                   {sector.desc}
                 </p>
               </div>
-              <span className="mt-4 inline-flex items-center gap-1 text-[11.5px] font-semibold text-brand-mist/60 group-hover:text-white transition-colors">
+              <span className="mt-4 inline-flex items-center gap-1 text-[11.5px] font-normal text-brand-mist/60 group-hover:text-white transition-colors">
                 View scope
                 <ArrowUpRight className="h-3 w-3 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
@@ -497,7 +497,7 @@ export function LocationGrid() {
                   className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-spectrum transition-transform duration-500 ease-brand group-hover:scale-x-100"
                 />
                 <div>
-                  <h3 className="text-base font-semibold tracking-tight text-white">{city.name}</h3>
+                  <h3 className="text-base font-light tracking-tight text-white">{city.name}</h3>
                   <p className="mt-1 text-[11.5px] uppercase tracking-wider text-brand-mist/40">
                     {city.region}
                   </p>
@@ -509,7 +509,7 @@ export function LocationGrid() {
                     </p>
                   </div>
                 </div>
-                <span className="mt-5 inline-flex items-center gap-1.5 text-[12px] font-semibold text-brand-electric-bright">
+                <span className="mt-5 inline-flex items-center gap-1.5 text-[12px] font-normal text-brand-electric-bright">
                   Facilities management
                   <ArrowUpRight className="h-3 w-3 transition-transform duration-300 ease-brand group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>

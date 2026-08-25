@@ -85,7 +85,7 @@ export function ServiceSectorsGrid({
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
               {eyebrow}
             </span>
           </div>
@@ -117,13 +117,13 @@ export function ServiceSectorsGrid({
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 bg-slate-900/90 text-brand-pink-light border border-white/15 px-2.5 py-0.5 text-[11px] font-mono font-bold rounded-sm backdrop-blur-sm">
+                  <div className="absolute bottom-3 left-3 bg-slate-900/90 text-brand-pink-light border border-white/15 px-2.5 py-0.5 text-[11px] font-mono font-light rounded-sm backdrop-blur-sm">
                     {sec.category}
                   </div>
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-brand-graphite transition-colors">
+                  <h3 className="text-lg font-light text-slate-900 mb-2 group-hover:text-brand-graphite transition-colors">
                     {sec.name}
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -133,7 +133,7 @@ export function ServiceSectorsGrid({
               </div>
 
               <div className="p-6 pt-0">
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-pink group-hover:text-brand-magenta transition-colors">
+                <span className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-pink group-hover:text-brand-magenta transition-colors">
                   <span>Explore sector solutions</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </span>

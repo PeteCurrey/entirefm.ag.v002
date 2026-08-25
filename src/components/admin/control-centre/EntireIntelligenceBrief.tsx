@@ -56,7 +56,7 @@ export function EntireIntelligenceBrief() {
             <Bot className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+            <h2 className="text-[12px] font-normal text-[#111111] uppercase tracking-wide">
               Entire Intelligence
             </h2>
             <p className="text-[11px] text-[#6D6D68]">
@@ -67,7 +67,7 @@ export function EntireIntelligenceBrief() {
 
         <Link
           href="/admin/ai/control"
-          className="text-[11.5px] font-medium text-[#EA580C] hover:underline"
+          className="text-[11.5px] font-normal text-[#EA580C] hover:underline"
         >
           Governance Ledger →
         </Link>
@@ -82,10 +82,10 @@ export function EntireIntelligenceBrief() {
           >
             <div className="flex items-start justify-between gap-2">
               <div className="flex items-center gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#FAFAF8] border border-[#E8E8E5] text-[#111111] text-[10px] font-semibold">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#FAFAF8] border border-[#E8E8E5] text-[#111111] text-[10px] font-normal">
                   {idx + 1}
                 </span>
-                <h3 className="font-medium text-[13px] text-[#111111]">
+                <h3 className="font-light text-[13px] text-[#111111]">
                   {item.title}
                 </h3>
               </div>
@@ -96,7 +96,7 @@ export function EntireIntelligenceBrief() {
             </p>
 
             <div className="mt-2.5 rounded-[4px] bg-[#FAFAF8] border border-[#E8E8E5] p-2.5">
-              <span className="text-[10.5px] font-semibold text-[#111111] uppercase tracking-wide block mb-0.5">
+              <span className="text-[10.5px] font-normal text-[#111111] uppercase tracking-wide block mb-0.5">
                 Recommended Action
               </span>
               <p className="text-[12px] text-[#111111]">
@@ -107,7 +107,7 @@ export function EntireIntelligenceBrief() {
             <div className="mt-3 flex items-center justify-between pt-2 border-t border-[#E8E8E5] text-[11.5px]">
               <Link
                 href={item.evidenceHref}
-                className="inline-flex items-center gap-1 font-medium text-[#EA580C] hover:underline"
+                className="inline-flex items-center gap-1 font-normal text-[#EA580C] hover:underline"
               >
                 <span>{item.evidenceLabel}</span>
                 <ArrowRight className="h-3 w-3" />

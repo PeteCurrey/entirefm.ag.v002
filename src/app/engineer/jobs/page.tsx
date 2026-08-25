@@ -18,11 +18,11 @@ export default async function EngineerJobsPage() {
 
   return (
     <div className="px-4 py-6 pb-24 space-y-4">
-      <h1 className="text-white text-xl font-bold">Assigned Jobs</h1>
+      <h1 className="text-white text-xl font-light">Assigned Jobs</h1>
 
       {allVisits.length === 0 ? (
         <div className="bg-brand-carbon border border-brand-edge-dark rounded-xl p-8 text-center">
-          <p className="text-white font-semibold">No assigned jobs</p>
+          <p className="text-white font-light">No assigned jobs</p>
           <p className="text-brand-mist text-sm mt-1">Visits assigned to you will appear here.</p>
         </div>
       ) : (
@@ -39,7 +39,7 @@ export default async function EngineerJobsPage() {
                   {visit.status}
                 </span>
               </div>
-              <h2 className="text-white font-semibold text-base mb-1">{visit.site?.name || 'Site'}</h2>
+              <h2 className="text-white font-light text-base mb-1">{visit.site?.name || 'Site'}</h2>
               <div className="flex items-center gap-4 text-xs text-brand-mist">
                 {visit.scheduled_date && (
                   <span className="flex items-center gap-1">

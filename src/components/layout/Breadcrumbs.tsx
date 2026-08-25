@@ -28,7 +28,7 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
             <li key={item.url} className="flex items-center gap-1.5">
               <ChevronRight className="w-3 h-3 text-slate-400 shrink-0" />
               {isLast ? (
-                <span className="text-slate-200 font-medium truncate max-w-xs sm:max-w-md" aria-current="page">
+                <span className="text-slate-200 font-normal truncate max-w-xs sm:max-w-md" aria-current="page">
                   {item.name}
                 </span>
               ) : (

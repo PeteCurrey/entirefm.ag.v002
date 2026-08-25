@@ -83,19 +83,19 @@ export function PlannerRecommendationView({
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-pink/15 border border-brand-pink/30">
             <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="font-mono text-[11px] uppercase tracking-widest text-brand-pink font-bold">
+            <span className="font-mono text-[11px] uppercase tracking-widest text-brand-pink font-light">
               STRUCTURED INSPECTION BRIEF
             </span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
-            Your Recommended <span className="font-bold text-hero-pink">Drone Inspection Plan</span>
+            Your Recommended <span className="font-light text-hero-pink">Drone Inspection Plan</span>
           </h1>
         </div>
 
         <div className="flex items-center gap-3 shrink-0">
           <div className="text-left sm:text-right font-mono">
             <span className="text-[10px] text-slate-400 block uppercase">Reference ID</span>
-            <span className="text-xs sm:text-sm font-bold text-white bg-brand-graphite px-2.5 py-1 rounded border border-brand-edge-dark">
+            <span className="text-xs sm:text-sm font-normal text-white bg-brand-graphite px-2.5 py-1 rounded border border-brand-edge-dark">
               {referenceNumber}
             </span>
           </div>
@@ -103,7 +103,7 @@ export function PlannerRecommendationView({
           <button
             type="button"
             onClick={onPrint}
-            className="p-2.5 rounded-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors flex items-center gap-1.5 text-xs font-semibold"
+            className="p-2.5 rounded-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors flex items-center gap-1.5 text-xs font-normal"
             title="Print or Save PDF Brief"
           >
             <Printer className="w-4 h-4" />
@@ -121,16 +121,16 @@ export function PlannerRecommendationView({
         {/* Primary Recommendation Banner */}
         <div className="space-y-4">
           <div className="flex items-center justify-between flex-wrap gap-2">
-            <span className="font-mono text-xs font-bold text-brand-pink uppercase tracking-wider">
+            <span className="font-mono text-xs font-normal text-brand-pink uppercase tracking-wider">
               PRIMARY RECOMMENDED SERVICE &bull; {recommendation.primaryService.badge}
             </span>
-            <span className="font-mono text-[10px] font-bold text-slate-400 bg-brand-graphite px-2.5 py-0.5 rounded border border-brand-edge-dark">
+            <span className="font-mono text-[10px] font-normal text-slate-400 bg-brand-graphite px-2.5 py-0.5 rounded border border-brand-edge-dark">
               SCOPE: {recommendation.scopeCategory.toUpperCase()}
             </span>
           </div>
 
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">
+            <h2 className="text-2xl sm:text-3xl font-extralight text-white">
               {recommendation.primaryService.title}
             </h2>
             <p className="text-sm text-slate-300 mt-2 leading-relaxed max-w-3xl">
@@ -143,14 +143,14 @@ export function PlannerRecommendationView({
         {recommendation.inspectionPack && (
           <div className="p-5 rounded-sm bg-brand-graphite border border-brand-pink/40 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] font-bold text-brand-pink uppercase">
+              <span className="font-mono text-[10px] font-normal text-brand-pink uppercase">
                 RECOMMENDED INSPECTION PACKAGE
               </span>
-              <span className="font-mono text-[9px] uppercase font-bold text-slate-300 bg-white/10 px-2 py-0.5 rounded">
+              <span className="font-mono text-[9px] uppercase font-light text-slate-300 bg-white/10 px-2 py-0.5 rounded">
                 {recommendation.inspectionPack.badge}
               </span>
             </div>
-            <h3 className="text-lg font-bold text-white">
+            <h3 className="text-lg font-light text-white">
               {recommendation.inspectionPack.title}
             </h3>
             <p className="text-xs text-slate-300 leading-relaxed">
@@ -163,7 +163,7 @@ export function PlannerRecommendationView({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4 border-t border-brand-edge-dark">
           {/* Suggested Deliverables */}
           <div className="lg:col-span-6 space-y-3">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 block">
+            <span className="text-xs font-mono font-light uppercase tracking-wider text-slate-300 block">
               Suggested Survey Deliverables:
             </span>
             <ul className="space-y-2 text-xs sm:text-sm text-slate-200">
@@ -178,13 +178,13 @@ export function PlannerRecommendationView({
 
           {/* EntireFM Remedial Capabilities */}
           <div className="lg:col-span-6 space-y-3">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 block">
+            <span className="text-xs font-mono font-light uppercase tracking-wider text-slate-300 block">
               EntireFM Remedial Works Alignment:
             </span>
             <div className="space-y-2.5">
               {recommendation.remedialServices.map((rem, idx) => (
                 <div key={idx} className="p-3 bg-brand-graphite rounded-sm border border-brand-edge-dark text-xs space-y-0.5">
-                  <strong className="text-white block font-semibold">{rem.name}</strong>
+                  <strong className="text-white block font-light">{rem.name}</strong>
                   <p className="text-slate-400 text-[11.5px] leading-relaxed">{rem.desc}</p>
                 </div>
               ))}
@@ -196,7 +196,7 @@ export function PlannerRecommendationView({
         <div className="p-5 rounded-sm bg-brand-graphite/60 border border-brand-edge-dark space-y-2">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <h4 className="text-xs font-mono font-bold uppercase text-white tracking-wider">
+            <h4 className="text-xs font-mono font-light uppercase text-white tracking-wider">
               Operational Review &amp; Compliance Notes
             </h4>
           </div>
@@ -221,11 +221,11 @@ export function PlannerRecommendationView({
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2">
             <Send className="w-4 h-4 text-brand-pink" />
-            <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+            <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
               SUBMIT INSPECTION BRIEF
             </span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white">
+          <h3 className="text-xl sm:text-2xl font-extralight text-white">
             Send This Brief to EntireFM Aviation Desk
           </h3>
           <p className="text-xs sm:text-sm text-slate-300">
@@ -242,7 +242,7 @@ export function PlannerRecommendationView({
         <form onSubmit={validateAndSubmit} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label htmlFor="plannerFirstName" className="block text-xs font-mono font-bold text-slate-300">
+              <label htmlFor="plannerFirstName" className="block text-xs font-mono font-light text-slate-300">
                 First Name <span className="text-brand-pink">*</span>
               </label>
               <input
@@ -257,7 +257,7 @@ export function PlannerRecommendationView({
             </div>
 
             <div className="space-y-1">
-              <label htmlFor="plannerLastName" className="block text-xs font-mono font-bold text-slate-300">
+              <label htmlFor="plannerLastName" className="block text-xs font-mono font-light text-slate-300">
                 Last Name <span className="text-brand-pink">*</span>
               </label>
               <input
@@ -274,7 +274,7 @@ export function PlannerRecommendationView({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label htmlFor="plannerEmail" className="block text-xs font-mono font-bold text-slate-300">
+              <label htmlFor="plannerEmail" className="block text-xs font-mono font-light text-slate-300">
                 Business Work Email <span className="text-brand-pink">*</span>
               </label>
               <input
@@ -289,7 +289,7 @@ export function PlannerRecommendationView({
             </div>
 
             <div className="space-y-1">
-              <label htmlFor="plannerPhone" className="block text-xs font-mono font-bold text-slate-300">
+              <label htmlFor="plannerPhone" className="block text-xs font-mono font-light text-slate-300">
                 Contact Telephone <span className="text-brand-pink">*</span>
               </label>
               <input
@@ -306,7 +306,7 @@ export function PlannerRecommendationView({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label htmlFor="plannerCompany" className="block text-xs font-mono font-bold text-slate-300">
+              <label htmlFor="plannerCompany" className="block text-xs font-mono font-light text-slate-300">
                 Company / Managing Agency <span className="text-brand-pink">*</span>
               </label>
               <input
@@ -321,7 +321,7 @@ export function PlannerRecommendationView({
             </div>
 
             <div className="space-y-1">
-              <label htmlFor="plannerJobTitle" className="block text-xs font-mono font-bold text-slate-300">
+              <label htmlFor="plannerJobTitle" className="block text-xs font-mono font-light text-slate-300">
                 Job Title / Role (Optional)
               </label>
               <input
@@ -336,7 +336,7 @@ export function PlannerRecommendationView({
           </div>
 
           <div className="space-y-1">
-            <label htmlFor="plannerNotes" className="block text-xs font-mono font-bold text-slate-300">
+            <label htmlFor="plannerNotes" className="block text-xs font-mono font-light text-slate-300">
               Additional Site Notes / Special Access Requirements (Optional)
             </label>
             <textarea
@@ -363,7 +363,7 @@ export function PlannerRecommendationView({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-8 py-3.5 text-sm font-semibold text-white shadow-elevated hover:shadow-pink-500/25 transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-8 py-3.5 text-sm font-normal text-white shadow-elevated hover:shadow-pink-500/25 transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
             >
               {isSubmitting ? (
                 <>

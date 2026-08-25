@@ -12,10 +12,10 @@ export default async function SupplyChainGapsPage() {
     <div className="space-y-6">
       <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-light">
             RESILIENCE &amp; DEFICIT ANALYSIS
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight text-slate-900 mt-1">
             Supply Chain Gap Analysis Radar
           </h1>
           <p className="text-xs text-slate-600 font-light mt-1">

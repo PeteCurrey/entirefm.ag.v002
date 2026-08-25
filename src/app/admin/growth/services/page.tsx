@@ -12,10 +12,10 @@ export default async function ServicePerformancePage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             COMMERCIAL SERVICE DEMAND &amp; REVENUE
           </span>
-          <h1 className="text-2xl font-bold text-white mt-1">Service Commercial Performance</h1>
+          <h1 className="text-2xl font-extralight text-white mt-1">Service Commercial Performance</h1>
           <p className="text-sm text-zinc-400">
             Track which facilities management services generate the highest volume of qualified enquiries and pipeline.
           </p>
@@ -42,9 +42,9 @@ export default async function ServicePerformancePage() {
           <tbody className="divide-y divide-zinc-800">
             {services.map((s) => (
               <tr key={s.key} className="hover:bg-zinc-800/40">
-                <td className="py-3.5 px-4 font-bold text-white">{s.label}</td>
-                <td className="py-3.5 px-4 font-mono text-pink-400 font-semibold">{s.leadsCount}</td>
-                <td className="py-3.5 px-4 font-mono text-emerald-400 font-semibold">{s.qualifiedLeadsCount}</td>
+                <td className="py-3.5 px-4 font-light text-white">{s.label}</td>
+                <td className="py-3.5 px-4 font-mono text-pink-400 font-light">{s.leadsCount}</td>
+                <td className="py-3.5 px-4 font-mono text-emerald-400 font-light">{s.qualifiedLeadsCount}</td>
                 <td className="py-3.5 px-4 font-mono text-purple-400">{s.assistedCount}</td>
                 <td className="py-3.5 px-4 font-mono text-zinc-400">
                   {s.pipelineValueGbp > 0 ? `£${s.pipelineValueGbp.toLocaleString()}` : '—'}

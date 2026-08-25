@@ -24,12 +24,12 @@ export function DataStatusPanel({ status }: DataStatusPanelProps) {
           <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#101010] text-white">
             <Database className="h-3.5 w-3.5" />
           </div>
-          <h3 className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#101010]">
+          <h3 className="font-mono text-[11px] font-normal uppercase tracking-wider text-[#101010]">
             LIVE DATA STATUS — PRODUCTION RECORDS
           </h3>
         </div>
         {status.mockRecordsCount > 0 && (
-          <span className="rounded-[5px] bg-[#FEF2F2] border border-[#FECACA] px-2.5 py-1 font-mono text-[10px] font-semibold text-[#DC2626]">
+          <span className="rounded-[5px] bg-[#FEF2F2] border border-[#FECACA] px-2.5 py-1 font-mono text-[10px] font-normal text-[#DC2626]">
             {status.mockRecordsCount} MOCK RECORDS DETECTED
           </span>
         )}
@@ -58,21 +58,21 @@ export function DataStatusPanel({ status }: DataStatusPanelProps) {
             <div className="flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-[#15803D]" />
               <span className="text-[12.5px] text-[#101010]">
-                <span className="font-semibold">{status.completedBatches}</span> import{status.completedBatches !== 1 ? 's' : ''} completed
+                <span className="font-light">{status.completedBatches}</span> import{status.completedBatches !== 1 ? 's' : ''} completed
               </span>
             </div>
             {status.pendingBatches > 0 && (
               <div className="flex items-center gap-1.5">
                 <Clock className="h-3.5 w-3.5 text-[#D97706]" />
                 <span className="text-[12.5px] text-[#D97706]">
-                  <span className="font-semibold">{status.pendingBatches}</span> pending
+                  <span className="font-light">{status.pendingBatches}</span> pending
                 </span>
               </div>
             )}
           </div>
           <Link
             href="/admin/platform/imports/history"
-            className="text-[12px] font-medium text-[#FF6B24] hover:text-[#E9540F] transition-colors"
+            className="text-[12px] font-normal text-[#FF6B24] hover:text-[#E9540F] transition-colors"
           >
             View History →
           </Link>
@@ -81,7 +81,7 @@ export function DataStatusPanel({ status }: DataStatusPanelProps) {
         {/* Empty-state guarantee */}
         {status.clientsCount === 0 && status.sitesCount === 0 && status.contractorsCount === 0 && (
           <div className="rounded-[10px] border border-[#E4E4E1] bg-[#FFFBEB] border-[#FDE68A] p-3.5 text-[12.5px] text-[#B45309]">
-            <strong className="font-semibold text-[#92400E]">Empty operational database.</strong>{' '}
+            <strong className="font-light text-[#92400E]">Empty operational database.</strong>{' '}
             Import clients, sites, and contractors from SimPRO CSV exports or add records manually.
           </div>
         )}

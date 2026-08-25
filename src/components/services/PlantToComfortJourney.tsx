@@ -79,7 +79,7 @@ export function PlantToComfortJourney() {
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
               SYSTEM ARCHITECTURE
             </span>
           </div>
@@ -113,7 +113,7 @@ export function PlantToComfortJourney() {
                 >
                   STAGE {s.step}
                 </span>
-                <strong className="text-xs font-medium block leading-snug truncate">
+                <strong className="text-xs font-normal block leading-snug truncate">
                   {s.stage}
                 </strong>
               </button>
@@ -133,7 +133,7 @@ export function PlantToComfortJourney() {
               className="object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-slate-950/40" />
-            <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-mono font-medium rounded-sm backdrop-blur-md">
+            <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-mono font-normal rounded-sm backdrop-blur-md">
               STAGE {activeStep.step}: {activeStep.stage}
             </div>
           </div>
@@ -141,7 +141,7 @@ export function PlantToComfortJourney() {
           {/* Right Column: Stage Description & Technical Checks */}
           <div className="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink block mb-2">
+              <span className="text-xs font-normal uppercase tracking-wider text-brand-pink block mb-2">
                 ENGINEERING EXECUTION
               </span>
               <h3 className="text-2xl sm:text-3xl font-light text-white mb-4">
@@ -152,7 +152,7 @@ export function PlantToComfortJourney() {
               </p>
 
               <div className="space-y-2.5 pt-4 border-t border-slate-800">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                <span className="text-xs font-normal text-slate-400 uppercase tracking-wider block mb-2">
                   Key Planned Maintenance Routines
                 </span>
                 {activeStep.technicalDetails.map((detail, idx) => (
@@ -169,7 +169,7 @@ export function PlantToComfortJourney() {
               <button
                 type="button"
                 onClick={() => setActiveStepIndex((activeStepIndex + 1) % JOURNEY_STEPS.length)}
-                className="text-brand-pink hover:text-brand-pink-light font-bold inline-flex items-center gap-1.5 cursor-pointer"
+                className="text-brand-pink hover:text-brand-pink-light font-light inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <span>Next Stage</span>
                 <ArrowRight className="w-3.5 h-3.5" />

@@ -83,7 +83,7 @@ export function LocationExploreBlock({
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 mb-2.5">
               <span className="h-2 w-2 rounded-full bg-brand-pink" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink-light">
+              <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
                 STRUCTURED REGIONAL ARCHITECTURE
               </span>
             </div>
@@ -97,7 +97,7 @@ export function LocationExploreBlock({
 
           <Link
             href={allLocationsHref}
-            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-200 hover:text-brand-pink-light bg-slate-800 border border-slate-700 px-4 py-2.5 rounded-sm shadow-sm transition-colors whitespace-nowrap self-start sm:self-auto"
+            className="inline-flex items-center gap-1.5 text-xs font-normal uppercase tracking-wider text-slate-200 hover:text-brand-pink-light bg-slate-800 border border-slate-700 px-4 py-2.5 rounded-sm shadow-sm transition-colors whitespace-nowrap self-start sm:self-auto"
           >
             <span>All UK Regional Hubs</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -112,10 +112,10 @@ export function LocationExploreBlock({
               className="bg-slate-950/80 border border-slate-800 rounded-sm p-6 flex flex-col justify-between hover:border-brand-pink/40 transition-all group"
             >
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink-light font-semibold block mb-1">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink-light font-light block mb-1">
                   {group.category}
                 </span>
-                <h3 className="text-base font-bold text-white mb-4 pb-3 border-b border-slate-800/80 group-hover:text-brand-pink-light transition-colors">
+                <h3 className="text-base font-light text-white mb-4 pb-3 border-b border-slate-800/80 group-hover:text-brand-pink-light transition-colors">
                   {group.heading}
                 </h3>
 
@@ -127,7 +127,7 @@ export function LocationExploreBlock({
                         className="block group/link p-2 -mx-2 rounded hover:bg-slate-900 transition-colors"
                       >
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs font-bold text-slate-200 group-hover/link:text-brand-pink-light transition-colors">
+                          <span className="text-xs font-normal text-slate-200 group-hover/link:text-brand-pink-light transition-colors">
                             {link.label}
                           </span>
                           <ArrowUpRight className="w-3 h-3 text-slate-500 group-hover/link:text-brand-pink-light group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all" />

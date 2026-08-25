@@ -118,9 +118,9 @@ function BlogIndex({ route, content }: TemplateProps) {
                   <button
                     key={topic}
                     onClick={() => setSelectedCategory(topic)}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-normal transition-all ${
                       active
-                        ? 'bg-brand-electric text-brand-void font-bold shadow-sm'
+                        ? 'bg-brand-electric text-brand-void font-light shadow-sm'
                         : 'bg-white/5 text-brand-mist hover:bg-white/10 hover:text-white border border-white/10'
                     }`}
                   >
@@ -137,7 +137,7 @@ function BlogIndex({ route, content }: TemplateProps) {
           <section className="bg-brand-carbon border-b border-brand-edge-dark py-12 sm:py-16">
             <div className="container-custom">
               <div className="mb-4">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-pink-400 font-bold">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-pink-400 font-light">
                   Featured Analysis
                 </span>
               </div>
@@ -157,13 +157,13 @@ function BlogIndex({ route, content }: TemplateProps) {
                 <div className="lg:col-span-6 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-brand-mist/60 mb-3 font-mono">
-                      <span className="text-pink-400 font-bold">{featuredPost.category}</span>
+                      <span className="text-pink-400 font-light">{featuredPost.category}</span>
                       <span>·</span>
                       <time dateTime={featuredPost.published}>{longDate(featuredPost.published)}</time>
                       <span>·</span>
                       <span>{readingTime(featuredPost)} min read</span>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight group-hover:text-pink-300 transition-colors">
+                    <h2 className="text-2xl sm:text-3xl font-extralight text-white leading-tight group-hover:text-pink-300 transition-colors">
                       <Link href={featuredPost.path}>
                         {featuredPost.title}
                       </Link>
@@ -176,7 +176,7 @@ function BlogIndex({ route, content }: TemplateProps) {
                     <span className="text-xs text-brand-mist/60">By EntireFM Technical Team</span>
                     <Link
                       href={featuredPost.path}
-                      className="inline-flex items-center gap-2 text-xs font-bold text-pink-400 group-hover:text-pink-300 transition-colors"
+                      className="inline-flex items-center gap-2 text-xs font-normal text-pink-400 group-hover:text-pink-300 transition-colors"
                     >
                       Read full analysis <ArrowRight className="h-3.5 w-3.5" />
                     </Link>
@@ -191,7 +191,7 @@ function BlogIndex({ route, content }: TemplateProps) {
         <section className="section bg-white py-16">
           <div className="container-custom">
             <div className="flex items-center justify-between mb-8 pb-4 border-b border-brand-edge">
-              <h3 className="text-base font-bold text-brand-graphite">
+              <h3 className="text-base font-light text-brand-graphite">
                 {selectedCategory === 'All Topics' ? 'Latest Articles & Guides' : `${selectedCategory} (${filteredPosts.length})`}
               </h3>
               <span className="text-xs text-brand-slate font-mono">
@@ -222,11 +222,11 @@ function BlogIndex({ route, content }: TemplateProps) {
                           )}
                         </div>
                         <p className="flex items-center gap-2 text-[10.5px] uppercase tracking-[0.14em] text-brand-silver font-mono">
-                          <span className="text-brand-electric font-semibold">{post.category}</span>
+                          <span className="text-brand-electric font-light">{post.category}</span>
                           <span aria-hidden="true">·</span>
                           <time dateTime={post.published}>{longDate(post.published)}</time>
                         </p>
-                        <h2 className="mt-2.5 text-[1.125rem] font-bold leading-snug tracking-[-0.02em] text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
+                        <h2 className="mt-2.5 text-[1.125rem] font-extralight leading-snug tracking-[-0.02em] text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
                           {post.title}
                         </h2>
                         <p className="mt-2 text-[13px] leading-relaxed text-brand-slate line-clamp-3">
@@ -235,7 +235,7 @@ function BlogIndex({ route, content }: TemplateProps) {
                       </div>
                       <div className="mt-5 pt-3 border-t border-brand-edge flex items-center justify-between text-[12px]">
                         <span className="text-brand-silver font-mono">{readingTime(post)} min read</span>
-                        <span className="inline-flex items-center gap-1 font-bold text-brand-graphite group-hover:text-brand-electric transition-colors">
+                        <span className="inline-flex items-center gap-1 font-light text-brand-graphite group-hover:text-brand-electric transition-colors">
                           Read article
                           <ArrowUpRight className="h-3.5 w-3.5" />
                         </span>
@@ -253,7 +253,7 @@ function BlogIndex({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="max-w-3xl mb-8">
               <span className="eyebrow eyebrow-dark">Evergreen Knowledge Estate</span>
-              <h2 className="text-2xl font-bold text-white mt-2">
+              <h2 className="text-2xl font-extralight text-white mt-2">
                 Looking for Tools, Glossaries or Compliance Guides?
               </h2>
               <p className="text-xs text-brand-mist/70 mt-1">
@@ -263,23 +263,23 @@ function BlogIndex({ route, content }: TemplateProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Link href="/resources/ai-in-facilities-management" className="p-4 rounded-sm bg-brand-graphite border border-brand-edge-dark hover:border-pink-500/50 transition-all block group">
-                <span className="text-[10px] uppercase font-bold text-pink-400 font-mono">Resource Pillar</span>
-                <h4 className="text-sm font-bold text-white mt-1 group-hover:text-pink-300">AI in Facilities Management →</h4>
+                <span className="text-[10px] uppercase font-light text-pink-400 font-mono">Resource Pillar</span>
+                <h4 className="text-sm font-normal text-white mt-1 group-hover:text-pink-300">AI in Facilities Management →</h4>
                 <p className="text-xs text-brand-mist/60 mt-1">Complete practical whitepaper on ML, CAFM, and predictive maintenance.</p>
               </Link>
               <Link href="/tools/ppm-schedule-builder" className="p-4 rounded-sm bg-brand-graphite border border-brand-edge-dark hover:border-brand-electric/50 transition-all block group">
-                <span className="text-[10px] uppercase font-bold text-emerald-400 font-mono">Interactive Tool</span>
-                <h4 className="text-sm font-bold text-white mt-1 group-hover:text-brand-electric-bright">PPM Schedule Builder →</h4>
+                <span className="text-[10px] uppercase font-light text-emerald-400 font-mono">Interactive Tool</span>
+                <h4 className="text-sm font-normal text-white mt-1 group-hover:text-brand-electric-bright">PPM Schedule Builder →</h4>
                 <p className="text-xs text-brand-mist/60 mt-1">Generate an asset-led planned preventative maintenance matrix.</p>
               </Link>
               <Link href="/compliance" className="p-4 rounded-sm bg-brand-graphite border border-brand-edge-dark hover:border-brand-electric/50 transition-all block group">
-                <span className="text-[10px] uppercase font-bold text-blue-400 font-mono">Statutory Hub</span>
-                <h4 className="text-sm font-bold text-white mt-1 group-hover:text-brand-electric-bright">Compliance Centre →</h4>
+                <span className="text-[10px] uppercase font-light text-blue-400 font-mono">Statutory Hub</span>
+                <h4 className="text-sm font-normal text-white mt-1 group-hover:text-brand-electric-bright">Compliance Centre →</h4>
                 <p className="text-xs text-brand-mist/60 mt-1">Clear guidance separating legal statutory requirements from standards.</p>
               </Link>
               <Link href="/facilities-management-glossary" className="p-4 rounded-sm bg-brand-graphite border border-brand-edge-dark hover:border-brand-electric/50 transition-all block group">
-                <span className="text-[10px] uppercase font-bold text-amber-400 font-mono">Reference</span>
-                <h4 className="text-sm font-bold text-white mt-1 group-hover:text-brand-electric-bright">FM Glossary A–Z →</h4>
+                <span className="text-[10px] uppercase font-light text-amber-400 font-mono">Reference</span>
+                <h4 className="text-sm font-normal text-white mt-1 group-hover:text-brand-electric-bright">FM Glossary A–Z →</h4>
                 <p className="text-xs text-brand-mist/60 mt-1">Plain-English definitions of over 50 essential FM technical terms.</p>
               </Link>
             </div>
@@ -331,7 +331,7 @@ function Article({ route, content }: TemplateProps) {
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/12 pt-5 text-[12.5px] text-brand-mist/60">
-                <span className="font-medium text-white">EntireFM</span>
+                <span className="font-normal text-white">EntireFM</span>
                 {published && (
                   <span>
                     Published <time dateTime={published}>{longDate(published)}</time>
@@ -432,7 +432,7 @@ function Article({ route, content }: TemplateProps) {
                         <p className="text-[10.5px] uppercase tracking-[0.16em] text-brand-electric">
                           {other.category}
                         </p>
-                        <h3 className="mt-2 text-[1rem] font-medium leading-snug tracking-[-0.02em] text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
+                        <h3 className="mt-2 text-[1rem] font-light leading-snug tracking-[-0.02em] text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
                           {other.title}
                         </h3>
                         <p className="mt-2 text-[13px] leading-relaxed text-brand-silver">

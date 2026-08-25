@@ -13,7 +13,7 @@ export default async function BuildingsSpacesPage() {
       header: 'Building Name / Code',
       accessor: (row) => (
         <div>
-          <div className="font-semibold text-white">{row.name}</div>
+          <div className="font-light text-white">{row.name}</div>
           <div className="font-mono text-[11px] text-brand-mist/50">{row.building_code}</div>
         </div>
       ),
@@ -43,7 +43,7 @@ export default async function BuildingsSpacesPage() {
         title="Buildings & Spaces"
         description="Physical facilities structure, floor zones, plant rooms, and rentable spaces."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-indigo">
             + New Building / Space
           </button>
         }
@@ -51,7 +51,7 @@ export default async function BuildingsSpacesPage() {
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <div>
-          <h2 className="mb-3 font-mono text-[12px] font-semibold uppercase text-brand-mist/70">
+          <h2 className="mb-3 font-mono text-[12px] font-normal uppercase text-brand-mist/70">
             Buildings Directory ({buildings.length})
           </h2>
           <DataTable
@@ -65,7 +65,7 @@ export default async function BuildingsSpacesPage() {
         </div>
 
         <div>
-          <h2 className="mb-3 font-mono text-[12px] font-semibold uppercase text-brand-mist/70">
+          <h2 className="mb-3 font-mono text-[12px] font-normal uppercase text-brand-mist/70">
             Spaces & Zones ({spaces.length})
           </h2>
           <DataTable
@@ -74,7 +74,7 @@ export default async function BuildingsSpacesPage() {
                 header: 'Space Name / Code',
                 accessor: (row) => (
                   <div>
-                    <div className="font-semibold text-white">{row.name}</div>
+                    <div className="font-light text-white">{row.name}</div>
                     <div className="font-mono text-[11px] text-brand-mist/50">{row.space_code}</div>
                   </div>
                 ),

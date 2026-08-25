@@ -17,7 +17,7 @@ export default function ContentIntelligenceDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Content Intelligence &amp; Growth Engine</h1>
+          <h1 className="text-2xl font-extralight text-white">Content Intelligence &amp; Growth Engine</h1>
           <p className="text-sm text-zinc-400 mt-1">
             Real performance measurement, search intent opportunities, and continuous feedback loop
           </p>
@@ -25,7 +25,7 @@ export default function ContentIntelligenceDashboard() {
         <div className="flex items-center gap-3">
           <Link
             href="/admin/blog/intelligence/weekly"
-            className="bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-lg font-medium transition-colors"
+            className="bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-lg font-normal transition-colors"
           >
             Weekly Briefing →
           </Link>
@@ -39,7 +39,7 @@ export default function ContentIntelligenceDashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-lg">🔍</span>
-              <h2 className="text-sm font-semibold text-white">Google Search Console</h2>
+              <h2 className="text-sm font-normal text-white">Google Search Console</h2>
             </div>
             <span
               className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
@@ -63,7 +63,7 @@ export default function ContentIntelligenceDashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-lg">📊</span>
-              <h2 className="text-sm font-semibold text-white">Google Analytics 4</h2>
+              <h2 className="text-sm font-normal text-white">Google Analytics 4</h2>
             </div>
             <span
               className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
@@ -99,7 +99,7 @@ export default function ContentIntelligenceDashboard() {
             className="bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-xl p-4 flex flex-col items-center gap-2 text-center transition-colors"
           >
             <span className="text-xl">{m.icon}</span>
-            <span className="text-xs text-zinc-300 font-medium">{m.label}</span>
+            <span className="text-xs text-zinc-300 font-normal">{m.label}</span>
           </Link>
         ))}
       </div>
@@ -107,7 +107,7 @@ export default function ContentIntelligenceDashboard() {
       {/* Top Search & Intent Opportunities */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+          <h2 className="text-sm font-normal text-zinc-300 uppercase tracking-wider">
             Active Query &amp; Content Opportunities ({opportunities.length})
           </h2>
           <Link
@@ -126,7 +126,7 @@ export default function ContentIntelligenceDashboard() {
             >
               <div className="space-y-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs font-semibold text-white">{opp.query}</span>
+                  <span className="text-xs font-normal text-white">{opp.query}</span>
                   <span className="text-[10px] px-2 py-0.5 rounded bg-blue-900/40 text-blue-300 font-mono">
                     {opp.decision}
                   </span>
@@ -144,7 +144,7 @@ export default function ContentIntelligenceDashboard() {
               <div className="shrink-0 flex items-center gap-2">
                 <Link
                   href="/admin/blog/ai-queue"
-                  className="text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg font-medium"
+                  className="text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg font-normal"
                 >
                   Send to Editorial Queue →
                 </Link>
@@ -157,7 +157,7 @@ export default function ContentIntelligenceDashboard() {
       {/* Topic Clusters Performance Overview */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+          <h2 className="text-sm font-normal text-zinc-300 uppercase tracking-wider">
             Topic Cluster Architecture &amp; Coverage
           </h2>
           <Link
@@ -172,7 +172,7 @@ export default function ContentIntelligenceDashboard() {
           {clusters.map((c) => (
             <div key={c.cluster} className="bg-zinc-800/40 border border-zinc-700/50 rounded-xl p-4 space-y-2">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-white">{c.name}</h3>
+                <h3 className="text-xs font-normal text-white">{c.name}</h3>
                 <span className="text-[10px] bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full">
                   {c.totalPages} URLs
                 </span>

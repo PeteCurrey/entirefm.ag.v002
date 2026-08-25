@@ -14,7 +14,7 @@ export default async function SchedulePage() {
       header: 'Visit No / Scheduled',
       accessor: (row) => (
         <div>
-          <div className="font-semibold text-white">Visit #{row.visit_number}</div>
+          <div className="font-light text-white">Visit #{row.visit_number}</div>
           <div className="font-mono text-[11px] text-brand-mist/50">
             {row.scheduled_start_at
               ? new Date(row.scheduled_start_at).toLocaleDateString('en-GB', {
@@ -63,7 +63,7 @@ export default async function SchedulePage() {
         title="Schedule & Visit Coordination"
         description="Daily and weekly engineer attendance calendar, travel coordination, and planned site visits."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-indigo">
             + Schedule Visit
           </button>
         }

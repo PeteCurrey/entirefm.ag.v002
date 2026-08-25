@@ -26,7 +26,7 @@ export function SectorChallenges({
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
               {eyebrow}
             </span>
           </div>
@@ -48,17 +48,17 @@ export function SectorChallenges({
               <div className="space-y-4">
                 {/* Title with number */}
                 <div className="flex items-start gap-3.5">
-                  <div className="w-8 h-8 rounded-sm bg-slate-100 text-slate-700 font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-slate-200 group-hover:bg-brand-pink/10 group-hover:text-brand-pink transition-colors">
+                  <div className="w-8 h-8 rounded-sm bg-slate-100 text-slate-700 font-mono font-normal text-xs flex items-center justify-center shrink-0 border border-slate-200 group-hover:bg-brand-pink/10 group-hover:text-brand-pink transition-colors">
                     0{idx + 1}
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-brand-pink-dark transition-colors">
+                  <h3 className="text-lg font-light text-slate-900 group-hover:text-brand-pink-dark transition-colors">
                     {c.title}
                   </h3>
                 </div>
 
                 {/* Problem Statement */}
                 <div className="p-4 rounded-sm bg-rose-50/60 border border-rose-100 space-y-1.5">
-                  <div className="flex items-center gap-2 text-rose-700 font-mono text-[11px] uppercase tracking-wider font-semibold">
+                  <div className="flex items-center gap-2 text-rose-700 font-mono text-[11px] uppercase tracking-wider font-light">
                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                     <span>Operational Vulnerability</span>
                   </div>
@@ -69,7 +69,7 @@ export function SectorChallenges({
 
                 {/* EntireFM Engineered Solution */}
                 <div className="p-4 rounded-sm bg-emerald-50/60 border border-emerald-100 space-y-1.5">
-                  <div className="flex items-center gap-2 text-emerald-700 font-mono text-[11px] uppercase tracking-wider font-semibold">
+                  <div className="flex items-center gap-2 text-emerald-700 font-mono text-[11px] uppercase tracking-wider font-light">
                     <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                     <span>EntireFM Engineered Solution</span>
                   </div>

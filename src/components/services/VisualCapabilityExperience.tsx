@@ -42,7 +42,7 @@ export function VisualCapabilityExperience({
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
               {eyebrow}
             </span>
           </div>
@@ -70,7 +70,7 @@ export function VisualCapabilityExperience({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-slate-950/20" />
                 {featured.tag && (
-                  <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-mono font-bold rounded-sm backdrop-blur-md">
+                  <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-mono font-light rounded-sm backdrop-blur-md">
                     {featured.tag}
                   </div>
                 )}
@@ -78,10 +78,10 @@ export function VisualCapabilityExperience({
 
               <div className="lg:col-span-5 p-8 sm:p-10 flex flex-col justify-between">
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink block mb-1">
+                  <span className="text-xs font-normal uppercase tracking-wider text-brand-pink block mb-1">
                     PRIMARY CAPABILITY
                   </span>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                  <h3 className="text-2xl font-extralight text-slate-900 mb-3">
                     {featured.name}
                   </h3>
                   <p className="text-sm text-slate-600 leading-relaxed mb-6">
@@ -103,7 +103,7 @@ export function VisualCapabilityExperience({
                 {featured.href ? (
                   <Link
                     href={featured.href}
-                    className="inline-flex items-center gap-2 text-xs font-bold text-brand-pink hover:text-brand-magenta transition-colors pt-4 border-t border-slate-100"
+                    className="inline-flex items-center gap-2 text-xs font-normal text-brand-pink hover:text-brand-magenta transition-colors pt-4 border-t border-slate-100"
                   >
                     <span>Learn More About {featured.name}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -136,7 +136,7 @@ export function VisualCapabilityExperience({
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
                       {cap.tag && (
-                        <div className="absolute bottom-3 left-3 bg-slate-900/90 text-brand-pink-light border border-white/15 px-2.5 py-0.5 text-[11px] font-mono font-bold rounded-sm backdrop-blur-sm">
+                        <div className="absolute bottom-3 left-3 bg-slate-900/90 text-brand-pink-light border border-white/15 px-2.5 py-0.5 text-[11px] font-mono font-light rounded-sm backdrop-blur-sm">
                           {cap.tag}
                         </div>
                       )}
@@ -146,7 +146,7 @@ export function VisualCapabilityExperience({
                   )}
 
                   <div className="p-6">
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-brand-graphite transition-colors">
+                    <h3 className="text-lg font-light text-slate-900 mb-2 group-hover:text-brand-graphite transition-colors">
                       {cap.name}
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -170,7 +170,7 @@ export function VisualCapabilityExperience({
                   {cap.href ? (
                     <Link
                       href={cap.href}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-pink hover:text-brand-magenta transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-pink hover:text-brand-magenta transition-colors"
                     >
                       <span>Explore service</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

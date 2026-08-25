@@ -36,7 +36,7 @@ export function NeedsDecisionQueue({ session, needsDecisionCount }: Props) {
       {accessible.map((link) => (
         <a key={link.href} href={link.href}
           className="block rounded border border-brand-edge-dark/40 bg-brand-void/20 hover:bg-brand-void/40 p-3 transition-colors group">
-          <div className="text-[12.5px] font-medium text-white group-hover:text-brand-orange transition-colors">
+          <div className="text-[12.5px] font-normal text-white group-hover:text-brand-orange transition-colors">
             {link.label}
           </div>
           <div className="text-[11px] text-brand-mist/50 mt-0.5">{link.description}</div>

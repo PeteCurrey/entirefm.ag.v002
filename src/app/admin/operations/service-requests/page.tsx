@@ -14,7 +14,7 @@ export default async function ServiceRequestsPage() {
       header: 'Reference / Title',
       accessor: (row) => (
         <div>
-          <div className="font-semibold text-white">{row.title}</div>
+          <div className="font-light text-white">{row.title}</div>
           <div className="font-mono text-[11px] text-brand-mist/50">{row.reference}</div>
         </div>
       ),
@@ -53,7 +53,7 @@ export default async function ServiceRequestsPage() {
         <span
           className={`rounded px-2 py-0.5 font-mono text-[10px] ${
             row.status === 'NEW'
-              ? 'bg-brand-electric/20 text-brand-electric-bright font-semibold'
+              ? 'bg-brand-electric/20 text-brand-electric-bright font-light'
               : row.status === 'TRIAGED'
               ? 'bg-purple-500/20 text-purple-300'
               : 'bg-brand-edge-dark text-brand-mist/70'
@@ -85,7 +85,7 @@ export default async function ServiceRequestsPage() {
         title="Service Requests & Triage"
         description="Incoming helpdesk requests, fault logging, initial triage, and work order conversion."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white hover:bg-brand-indigo">
+          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-normal text-white hover:bg-brand-indigo">
             + Log Service Request
           </button>
         }

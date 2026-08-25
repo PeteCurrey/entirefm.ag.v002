@@ -233,23 +233,23 @@ export default function CampaignComposerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-bold">
+          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
             CAMPAIGN COMPOSER · THE FM BRIEFING
           </span>
-          <h1 className="text-2xl font-bold text-white mt-0.5">{campaign.name}</h1>
+          <h1 className="text-2xl font-extralight text-white mt-0.5">{campaign.name}</h1>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={handleValidate}
             disabled={validating}
-            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-2 rounded-lg font-semibold border border-zinc-700 flex items-center gap-1.5"
+            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-2 rounded-lg font-light border border-zinc-700 flex items-center gap-1.5"
           >
             <ShieldCheck className="h-3.5 w-3.5 text-blue-400" /> Pre-Send Check
           </button>
           <button
             onClick={handleSave}
             disabled={saving}
-            className="text-xs bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-lg font-semibold flex items-center gap-1.5 shadow-sm"
+            className="text-xs bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-lg font-light flex items-center gap-1.5 shadow-sm"
           >
             <Save className="h-3.5 w-3.5" /> {saving ? 'Saving...' : 'Save Draft'}
           </button>
@@ -266,7 +266,7 @@ export default function CampaignComposerPage() {
       <div className="flex gap-2 border-b border-zinc-800 pb-2">
         <button
           onClick={() => setActiveTab('editor')}
-          className={`text-xs font-semibold px-3 py-1.5 rounded-lg ${
+          className={`text-xs font-normal px-3 py-1.5 rounded-lg ${
             activeTab === 'editor' ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:text-white'
           }`}
         >
@@ -274,7 +274,7 @@ export default function CampaignComposerPage() {
         </button>
         <button
           onClick={() => setActiveTab('preview')}
-          className={`text-xs font-semibold px-3 py-1.5 rounded-lg ${
+          className={`text-xs font-normal px-3 py-1.5 rounded-lg ${
             activeTab === 'preview' ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:text-white'
           }`}
         >
@@ -282,7 +282,7 @@ export default function CampaignComposerPage() {
         </button>
         <button
           onClick={() => setActiveTab('qa')}
-          className={`text-xs font-semibold px-3 py-1.5 rounded-lg flex items-center gap-1.5 ${
+          className={`text-xs font-normal px-3 py-1.5 rounded-lg flex items-center gap-1.5 ${
             activeTab === 'qa' ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:text-white'
           }`}
         >
@@ -298,7 +298,7 @@ export default function CampaignComposerPage() {
           {/* Left Metadata Column */}
           <div className="lg:col-span-4 space-y-4">
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-              <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+              <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
                 Envelope &amp; Headers
               </h3>
               <div>
@@ -316,7 +316,7 @@ export default function CampaignComposerPage() {
                   type="text"
                   value={campaign.subject}
                   onChange={(e) => setCampaign({ ...campaign, subject: e.target.value })}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs text-white font-medium"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs text-white font-normal"
                 />
               </div>
               <div>
@@ -359,7 +359,7 @@ export default function CampaignComposerPage() {
 
             {/* Test Send Box */}
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-              <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+              <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
                 Send Test Email
               </h3>
               <p className="text-[11px] text-zinc-400">
@@ -375,7 +375,7 @@ export default function CampaignComposerPage() {
               <button
                 onClick={handleSendTest}
                 disabled={testSending || !testEmail}
-                className="w-full bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold py-2 px-3 rounded border border-zinc-700 flex items-center justify-center gap-1.5 disabled:opacity-50"
+                className="w-full bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-normal py-2 px-3 rounded border border-zinc-700 flex items-center justify-center gap-1.5 disabled:opacity-50"
               >
                 <Send className="h-3.5 w-3.5 text-pink-400" />
                 {testSending ? 'Sending...' : 'Send Test'}
@@ -386,7 +386,7 @@ export default function CampaignComposerPage() {
           {/* Right Content Blocks Editor */}
           <div className="lg:col-span-8 space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+              <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
                 Content Blocks ({campaign.contentBlocks.length})
               </h3>
               <div className="flex gap-1.5">
@@ -424,7 +424,7 @@ export default function CampaignComposerPage() {
                   className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3 relative group"
                 >
                   <div className="flex items-center justify-between border-b border-zinc-800 pb-2.5">
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-pink-400 font-bold">
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-pink-400 font-light">
                       {block.type}
                     </span>
                     <button
@@ -459,7 +459,7 @@ export default function CampaignComposerPage() {
                         type="text"
                         value={block.heading}
                         onChange={(e) => updateBlock(idx, { heading: e.target.value })}
-                        className="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-1.5 text-xs text-white font-semibold"
+                        className="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-1.5 text-xs text-white font-light"
                       />
                     </div>
                   )}
@@ -516,7 +516,7 @@ export default function CampaignComposerPage() {
             <div className="flex gap-2">
               <button
                 onClick={() => setPreviewMode('desktop')}
-                className={`text-xs font-semibold px-3 py-1 rounded ${
+                className={`text-xs font-normal px-3 py-1 rounded ${
                   previewMode === 'desktop' ? 'bg-pink-600 text-white' : 'text-zinc-400 hover:text-white'
                 }`}
               >
@@ -524,7 +524,7 @@ export default function CampaignComposerPage() {
               </button>
               <button
                 onClick={() => setPreviewMode('mobile')}
-                className={`text-xs font-semibold px-3 py-1 rounded ${
+                className={`text-xs font-normal px-3 py-1 rounded ${
                   previewMode === 'mobile' ? 'bg-pink-600 text-white' : 'text-zinc-400 hover:text-white'
                 }`}
               >
@@ -532,7 +532,7 @@ export default function CampaignComposerPage() {
               </button>
               <button
                 onClick={() => setPreviewMode('text')}
-                className={`text-xs font-semibold px-3 py-1 rounded ${
+                className={`text-xs font-normal px-3 py-1 rounded ${
                   previewMode === 'text' ? 'bg-pink-600 text-white' : 'text-zinc-400 hover:text-white'
                 }`}
               >
@@ -569,13 +569,13 @@ export default function CampaignComposerPage() {
       {activeTab === 'qa' && (
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+            <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
               Pre-Send Quality Assurance Gate
             </h3>
             <button
               onClick={handleValidate}
               disabled={validating}
-              className="text-xs bg-zinc-800 hover:bg-zinc-700 text-white px-3 py-1.5 rounded-lg border border-zinc-700 font-semibold"
+              className="text-xs bg-zinc-800 hover:bg-zinc-700 text-white px-3 py-1.5 rounded-lg border border-zinc-700 font-light"
             >
               Re-run Checks
             </button>
@@ -584,7 +584,7 @@ export default function CampaignComposerPage() {
           <div className="space-y-3">
             {qaResults.errors && qaResults.errors.length > 0 ? (
               <div className="p-4 bg-red-950/40 border border-red-800/60 rounded-lg text-xs text-red-200 space-y-1">
-                <h4 className="font-bold text-red-400">Errors (Sending Blocked):</h4>
+                <h4 className="font-light text-red-400">Errors (Sending Blocked):</h4>
                 <ul className="list-disc pl-4 space-y-0.5">
                   {qaResults.errors.map((err, i) => (
                     <li key={i}>{err}</li>
@@ -600,7 +600,7 @@ export default function CampaignComposerPage() {
 
             {qaResults.warnings && qaResults.warnings.length > 0 && (
               <div className="p-4 bg-amber-950/40 border border-amber-800/60 rounded-lg text-xs text-amber-200 space-y-1">
-                <h4 className="font-bold text-amber-400">Warnings:</h4>
+                <h4 className="font-light text-amber-400">Warnings:</h4>
                 <ul className="list-disc pl-4 space-y-0.5">
                   {qaResults.warnings.map((warn, i) => (
                     <li key={i}>{warn}</li>
@@ -611,14 +611,14 @@ export default function CampaignComposerPage() {
 
             {qaResults.linkChecks && qaResults.linkChecks.length > 0 && (
               <div className="space-y-2">
-                <h4 className="text-xs font-bold text-zinc-400 uppercase font-mono">
+                <h4 className="text-xs font-normal text-zinc-400 uppercase font-mono">
                   Verified Destination Links ({qaResults.linkChecks.length})
                 </h4>
                 <div className="divide-y divide-zinc-800 border border-zinc-800 rounded-lg overflow-hidden">
                   {qaResults.linkChecks.map((link, i) => (
                     <div key={i} className="p-3 text-xs flex items-center justify-between">
                       <span className="font-mono text-zinc-300">{link.url}</span>
-                      <span className="text-[10px] font-mono text-emerald-400 font-semibold">
+                      <span className="text-[10px] font-mono text-emerald-400 font-light">
                         ✓ {link.message || 'VALID'}
                       </span>
                     </div>

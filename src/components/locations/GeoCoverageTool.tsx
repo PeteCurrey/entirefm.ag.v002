@@ -83,7 +83,7 @@ export function GeoCoverageTool({ city }: GeoCoverageToolProps) {
             </div>
             <button
               type="submit"
-              className="w-full sm:w-auto btn-hero-pink px-6 py-3.5 whitespace-nowrap text-xs font-bold"
+              className="w-full sm:w-auto btn-hero-pink px-6 py-3.5 whitespace-nowrap text-xs font-normal"
             >
               Verify Site Coverage
               <Search className="h-3.5 w-3.5 ml-1.5" />
@@ -97,7 +97,7 @@ export function GeoCoverageTool({ city }: GeoCoverageToolProps) {
                 <div className="flex items-center gap-2.5">
                   <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
                   <div>
-                    <span className="font-bold text-white text-sm sm:text-base">
+                    <span className="font-light text-white text-sm sm:text-base">
                       Confirmed Active Service Area: {result.region}
                     </span>
                     <p className="text-xs text-emerald-300/80 font-mono">
@@ -105,13 +105,13 @@ export function GeoCoverageTool({ city }: GeoCoverageToolProps) {
                     </p>
                   </div>
                 </div>
-                <span className="hidden sm:inline-block px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-emerald-900/60 text-emerald-300 border border-emerald-700/50">
+                <span className="hidden sm:inline-block px-2.5 py-1 rounded text-[10px] font-mono font-light uppercase bg-emerald-900/60 text-emerald-300 border border-emerald-700/50">
                   READY FOR ONBOARDING
                 </span>
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-brand-mist/90 mb-2">Available Integrated Scopes:</p>
+                <p className="text-xs font-normal text-brand-mist/90 mb-2">Available Integrated Scopes:</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-brand-mist/80">
                   {result.services.map((svc, i) => (
                     <div key={i} className="flex items-center gap-1.5">
@@ -124,18 +124,18 @@ export function GeoCoverageTool({ city }: GeoCoverageToolProps) {
 
               <div className="pt-4 border-t border-emerald-500/20 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div className="flex items-center gap-4 text-xs">
-                  <a href={result.contact.emailHref} className="text-brand-pink-light hover:underline flex items-center gap-1.5 font-semibold">
+                  <a href={result.contact.emailHref} className="text-brand-pink-light hover:underline flex items-center gap-1.5 font-light">
                     <Mail className="h-3.5 w-3.5" />
                     {result.contact.email}
                   </a>
-                  <a href={result.contact.phone.href} className="text-brand-mist/90 hover:underline flex items-center gap-1.5 font-semibold">
+                  <a href={result.contact.phone.href} className="text-brand-mist/90 hover:underline flex items-center gap-1.5 font-light">
                     <Phone className="h-3.5 w-3.5" />
                     {result.contact.phone.display}
                   </a>
                 </div>
                 <a
                   href="#enquiry"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-brand-pink px-4 py-2 rounded-sm hover:bg-brand-pink-dark transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-normal text-white bg-brand-pink px-4 py-2 rounded-sm hover:bg-brand-pink-dark transition-colors"
                 >
                   Request Site Survey
                   <ArrowRight className="h-3.5 w-3.5" />

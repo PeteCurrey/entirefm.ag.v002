@@ -32,7 +32,7 @@ export function AdminHeader({ session }: { session: UserSession }) {
         </button>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <span className="inline-flex items-center gap-1.5 rounded-[4px] border border-[#BBF7D0] bg-[#F0FDF4] px-2 py-0.5 font-mono text-[10px] text-[#15803D] font-medium">
+          <span className="inline-flex items-center gap-1.5 rounded-[4px] border border-[#BBF7D0] bg-[#F0FDF4] px-2 py-0.5 font-mono text-[10px] text-[#15803D] font-normal">
             <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A] animate-pulse" />
             TELEMETRY ACTIVE
           </span>
@@ -55,7 +55,7 @@ export function AdminHeader({ session }: { session: UserSession }) {
         {/* Quick Create Link */}
         <Link
           href="/admin/operations/work-orders"
-          className="hidden sm:inline-flex items-center gap-1.5 rounded-[6px] bg-[#EA580C] px-3 py-1.5 text-[12px] font-medium text-white hover:bg-[#C2410C] transition-all"
+          className="hidden sm:inline-flex items-center gap-1.5 rounded-[6px] bg-[#EA580C] px-3 py-1.5 text-[12px] font-normal text-white hover:bg-[#C2410C] transition-all"
         >
           <Plus className="h-3.5 w-3.5" />
           <span>New Work Order</span>
@@ -65,7 +65,7 @@ export function AdminHeader({ session }: { session: UserSession }) {
         <Link
           href="/"
           target="_blank"
-          className="inline-flex items-center gap-1 text-[12px] font-medium text-[#6D6D68] hover:text-[#111111] transition-colors"
+          className="inline-flex items-center gap-1 text-[12px] font-normal text-[#6D6D68] hover:text-[#111111] transition-colors"
         >
           <span className="hidden md:inline">Public Site</span>
           <ExternalLink className="h-3.5 w-3.5 text-[#9A9A95]" />
@@ -76,7 +76,7 @@ export function AdminHeader({ session }: { session: UserSession }) {
         {/* User Role Badge */}
         <div className="flex items-center gap-1.5">
           <div className="h-2 w-2 rounded-full bg-[#EA580C]" />
-          <span className="text-[11.5px] font-medium text-[#6D6D68]">
+          <span className="text-[11.5px] font-normal text-[#6D6D68]">
             {session.role}
           </span>
         </div>

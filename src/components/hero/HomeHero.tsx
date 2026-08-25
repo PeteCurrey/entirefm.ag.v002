@@ -250,7 +250,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
               <dt className="whitespace-nowrap text-[1.75rem] font-extralight leading-none tracking-[-0.035em] text-brand-pink-light transition-colors duration-500 group-hover:text-white">
                 {item.figure}
               </dt>
-              <dd className="mt-3.5 text-[10.5px] font-medium uppercase leading-snug tracking-[0.16em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
+              <dd className="mt-3.5 text-[10.5px] font-normal uppercase leading-snug tracking-[0.16em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
                 {item.label}
               </dd>
             </div>

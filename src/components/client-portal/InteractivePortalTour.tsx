@@ -106,7 +106,7 @@ export function InteractivePortalTour() {
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-[#F0F0EE] pb-6">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2 py-0.5 font-mono text-[10px] font-bold text-[#C2410C]">
+            <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2 py-0.5 font-mono text-[10px] font-normal text-[#C2410C]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#EA580C] animate-pulse" />
               INTERACTIVE TOUR
             </span>
@@ -114,7 +114,7 @@ export function InteractivePortalTour() {
               Explore Live EntireCAFM Architecture
             </span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-semibold text-[#101010] tracking-tight">
+          <h3 className="text-xl sm:text-2xl font-light text-[#101010] tracking-tight">
             One portal. The complete operational picture.
           </h3>
           <p className="text-[13px] text-[#686866] mt-1 max-w-2xl">
@@ -130,7 +130,7 @@ export function InteractivePortalTour() {
               <button
                 key={h.id}
                 onClick={() => setActiveHotspotId(h.id)}
-                className={`inline-flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-[12px] font-medium transition-all ${
+                className={`inline-flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-[12px] font-normal transition-all ${
                   isSelected
                     ? 'bg-[#101010] text-white shadow-sm'
                     : 'bg-[#F5F5F3] text-[#686866] hover:bg-[#E4E4E1] hover:text-[#101010]'
@@ -193,7 +193,7 @@ export function InteractivePortalTour() {
         <div className="lg:col-span-4 rounded-[10px] border border-[#E4E4E1] bg-[#FBFBFA] p-5 flex flex-col justify-between min-h-[380px]">
           <div>
             <div className="flex items-center justify-between gap-2 border-b border-[#E4E4E1] pb-3 mb-3">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#EA580C]">
+              <span className="text-[10px] font-mono font-light uppercase tracking-wider text-[#EA580C]">
                 {activeHotspot.category}
               </span>
               <span className="rounded-[4px] border border-[#E4E4E1] bg-white px-2 py-0.5 font-mono text-[10px] text-[#686866]">
@@ -205,7 +205,7 @@ export function InteractivePortalTour() {
               <div className="h-8 w-8 rounded-[6px] bg-[#101010] text-white flex items-center justify-center shrink-0">
                 <activeHotspot.icon className="h-4 w-4 text-[#EA580C]" />
               </div>
-              <h4 className="text-[16px] font-semibold text-[#101010] leading-snug">
+              <h4 className="text-[16px] font-normal text-[#101010] leading-snug">
                 {activeHotspot.title}
               </h4>
             </div>
@@ -215,7 +215,7 @@ export function InteractivePortalTour() {
             </p>
 
             <div className="mt-4 rounded-[8px] border border-[#FED7AA] bg-[#FFF7ED] p-3">
-              <div className="flex items-center gap-1.5 text-[10.5px] font-mono font-bold text-[#C2410C] mb-1">
+              <div className="flex items-center gap-1.5 text-[10.5px] font-mono font-light text-[#C2410C] mb-1">
                 <Info className="h-3 w-3 shrink-0" />
                 <span>OPERATIONAL ADVANTAGE</span>
               </div>

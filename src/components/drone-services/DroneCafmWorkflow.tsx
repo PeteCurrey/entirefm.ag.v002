@@ -76,14 +76,14 @@ export function DroneCafmWorkflow() {
           <div className="lg:col-span-8 space-y-3.5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15">
               <Smartphone className="h-3.5 w-3.5 text-brand-pink" />
-              <span className="font-mono text-[11px] uppercase tracking-widest text-white font-semibold">
+              <span className="font-mono text-[11px] uppercase tracking-widest text-white font-light">
                 DIGITAL OPERATING MODEL
               </span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
               Designed to integrate with <br />
-              <span className="font-bold text-hero-pink">EntireCAFM</span>
+              <span className="font-light text-hero-pink">EntireCAFM</span>
             </h2>
 
             <p className="text-base text-slate-300 leading-relaxed max-w-2xl">
@@ -94,7 +94,7 @@ export function DroneCafmWorkflow() {
           <div className="lg:col-span-4 lg:text-right">
             <Link
               href="/client-portal"
-              className="inline-flex items-center gap-2 rounded-sm border border-white/20 bg-white/5 px-5 py-2.5 text-xs font-semibold text-white hover:bg-white/10 transition-colors"
+              className="inline-flex items-center gap-2 rounded-sm border border-white/20 bg-white/5 px-5 py-2.5 text-xs font-normal text-white hover:bg-white/10 transition-colors"
             >
               <span>Explore EntireCAFM Portal</span>
               <ArrowRight className="h-3.5 w-3.5 text-brand-pink" />
@@ -121,7 +121,7 @@ export function DroneCafmWorkflow() {
 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-brand-pink">
+                    <span className="font-mono text-xs font-normal text-brand-pink">
                       {node.step}
                     </span>
                     <div className="w-8 h-8 rounded-sm bg-brand-graphite border border-brand-edge-dark flex items-center justify-center text-brand-pink group-hover:bg-brand-pink group-hover:text-white transition-colors">
@@ -130,7 +130,7 @@ export function DroneCafmWorkflow() {
                   </div>
 
                   <div>
-                    <h3 className="text-sm font-bold text-white group-hover:text-brand-pink-light transition-colors leading-snug">
+                    <h3 className="text-sm font-normal text-white group-hover:text-brand-pink-light transition-colors leading-snug">
                       {node.title}
                     </h3>
                     <p className="mt-1.5 text-[11px] text-slate-300 leading-relaxed">
@@ -140,7 +140,7 @@ export function DroneCafmWorkflow() {
                 </div>
 
                 <div className="pt-2 border-t border-brand-edge-dark/60">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-slate-400 font-semibold block truncate">
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-slate-400 font-light block truncate">
                     {node.tag}
                   </span>
                 </div>
@@ -154,13 +154,13 @@ export function DroneCafmWorkflow() {
           <div className="flex items-start gap-3">
             <ShieldCheck className="h-5 w-5 text-brand-pink shrink-0 mt-0.5" />
             <p className="text-xs text-slate-300 leading-relaxed">
-              <strong className="text-white font-semibold">End-to-End Governance:</strong> Aerial inspection evidence can form part of your property’s statutory logbook and forward 5-year capital expenditure forecast, moving building records away from disjointed PDF email attachments into an auditable digital lifecycle.
+              <strong className="text-white font-light">End-to-End Governance:</strong> Aerial inspection evidence can form part of your property’s statutory logbook and forward 5-year capital expenditure forecast, moving building records away from disjointed PDF email attachments into an auditable digital lifecycle.
             </p>
           </div>
 
           <Link
             href="/client-portal/compliance-reporting"
-            className="text-xs font-semibold text-brand-pink hover:underline whitespace-nowrap inline-flex items-center gap-1"
+            className="text-xs font-normal text-brand-pink hover:underline whitespace-nowrap inline-flex items-center gap-1"
           >
             <span>Compliance Reporting</span>
             <ArrowRight className="h-3 w-3" />

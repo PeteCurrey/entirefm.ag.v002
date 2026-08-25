@@ -10,7 +10,7 @@ import type { Config } from 'tailwindcss';
  *   Electric Blue #2563EB · Indigo #4F46E5 · Violet #7C3AED · Purple #A855F7
  *   Graphite #0B1220 · Slate #1E293B · Silver #475569 · Mist #CBD5E1
  *
- * Official typeface: Plus Jakarta Sans ("Clean. Contemporary. Confident.")
+ * Official typeface: Work Sans ("Clean. Architectural. Confident.")
  *
  * The previous system used a gold accent (#C59B27) and a serif display face.
  * Neither appears anywhere in the brand guidelines — the brand is a cool
@@ -86,7 +86,7 @@ const config: Config = {
         'display-md': ['clamp(1.625rem, 2.4vw, 2.125rem)', { lineHeight: '1.08', letterSpacing: '-0.04em', fontWeight: '300' }],
         'display-sm': ['clamp(1.25rem, 1.8vw, 1.5rem)', { lineHeight: '1.2', letterSpacing: '-0.03em', fontWeight: '300' }],
         // Uppercase eyebrow / label.
-        eyebrow: ['0.6875rem', { lineHeight: '1', letterSpacing: '0.18em', fontWeight: '600' }],
+        eyebrow: ['0.6875rem', { lineHeight: '1', letterSpacing: '0.18em', fontWeight: '500' }],
       },
       borderRadius: {
         none: '0px',

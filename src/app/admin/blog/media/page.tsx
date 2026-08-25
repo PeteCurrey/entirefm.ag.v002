@@ -10,7 +10,7 @@ export default function MediaLibraryPage() {
     <main className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Media Library</h1>
+          <h1 className="text-2xl font-extralight text-white">Media Library</h1>
           <p className="text-sm text-zinc-400 mt-1">FM photographic assets, switchroom surveys, and plant room diagrams</p>
         </div>
       </div>
@@ -23,7 +23,7 @@ export default function MediaLibraryPage() {
             </div>
             <div className="p-4 flex-1 flex flex-col justify-between space-y-2">
               <div>
-                <h4 className="text-xs font-semibold text-white truncate">{item.title}</h4>
+                <h4 className="text-xs font-normal text-white truncate">{item.title}</h4>
                 <p className="text-xs text-zinc-400 mt-1 line-clamp-2">{item.altText}</p>
               </div>
               <div className="pt-2 border-t border-zinc-800 text-[11px] text-zinc-500 flex justify-between">

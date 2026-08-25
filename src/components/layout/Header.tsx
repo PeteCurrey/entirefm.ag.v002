@@ -214,7 +214,7 @@ export function Header({ solid = false }: HeaderProps) {
                     aria-expanded={open}
                     aria-haspopup="true"
                     onClick={() => setOpenMenu(open ? null : section.label)}
-                    className={`flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                    className={`flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-sm font-light transition-colors duration-200 ${
                       open || isSectionActive ? 'text-white' : 'text-brand-mist/75 hover:text-white'
                     }`}
                   >
@@ -246,7 +246,7 @@ export function Header({ solid = false }: HeaderProps) {
           <div className="flex shrink-0 items-center gap-2">
             <a
               href={CONTACT_CONFIG.mainPhone.href}
-              className="hidden items-center gap-2 rounded-sm border border-white/12 px-3.5 py-2.5 text-sm font-semibold text-white transition-all duration-300 ease-brand hover:border-brand-electric/60 hover:bg-white/[0.05] 2xl:inline-flex"
+              className="hidden items-center gap-2 rounded-sm border border-white/12 px-3.5 py-2.5 text-sm font-normal text-white transition-all duration-300 ease-brand hover:border-brand-electric/60 hover:bg-white/[0.05] 2xl:inline-flex"
             >
               <Phone className="h-3.5 w-3.5 text-brand-electric-bright" />
               {CONTACT_CONFIG.mainPhone.display}
@@ -340,13 +340,13 @@ function MegaMenu({
                       className="group/item block rounded-sm px-3 py-2 -mx-3 transition-colors duration-200 hover:bg-white/[0.04]"
                     >
                       <span className="flex items-center justify-between gap-2">
-                        <span className="text-[13.5px] font-medium text-brand-mist transition-colors duration-200 group-hover/item:text-white">
+                        <span className="text-[13.5px] font-light text-brand-mist transition-colors duration-200 group-hover/item:text-white">
                           {link.label}
                         </span>
                         <ArrowUpRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-electric-bright opacity-0 transition-all duration-300 ease-brand group-hover/item:translate-x-0 group-hover/item:opacity-100" />
                       </span>
                       {link.detail && (
-                        <span className="mt-0.5 block text-[11.5px] leading-snug text-brand-silver transition-colors duration-200 group-hover/item:text-brand-mist/70">
+                        <span className="mt-0.5 block text-[11.5px] leading-snug text-brand-silver transition-colors duration-200 group-hover/item:text-brand-mist/70 font-light">
                           {link.detail}
                         </span>
                       )}
@@ -383,13 +383,13 @@ function MegaMenu({
                 )}
                 <span className="relative block p-6">
                   <span className="eyebrow eyebrow-dark">{section.feature.eyebrow}</span>
-                  <span className="mt-3.5 block text-[15px] font-semibold leading-snug text-white">
+                  <span className="mt-3.5 block text-[15px] font-light leading-snug text-white">
                     {section.feature.title}
                   </span>
-                  <span className="mt-2.5 block text-[12.5px] leading-relaxed text-brand-mist/65">
+                  <span className="mt-2.5 block text-[12.5px] leading-relaxed text-brand-mist/65 font-light">
                     {section.feature.body}
                   </span>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-brand-electric-bright">
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-[12.5px] font-normal text-brand-electric-bright">
                     {section.feature.cta}
                     <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover/feature:translate-x-1" />
                   </span>
@@ -426,7 +426,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
                   onClick={() => setSection(expanded ? null : item.label)}
                   aria-expanded={expanded}
                   tabIndex={open ? 0 : -1}
-                  className="flex w-full items-center justify-between py-4 text-left text-base font-semibold text-white"
+                  className="flex w-full items-center justify-between py-4 text-left text-base font-light text-white"
                 >
                   {item.label}
                   <ChevronDown
@@ -451,7 +451,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
                                 href={link.href}
                                 onClick={onClose}
                                 tabIndex={open && expanded ? 0 : -1}
-                                className="block py-1.5 text-sm text-brand-mist/80"
+                                className="block py-1.5 text-sm text-brand-mist/80 font-light"
                               >
                                 {link.label}
                               </Link>
@@ -472,7 +472,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
               href={link.href}
               onClick={onClose}
               tabIndex={open ? 0 : -1}
-              className="block border-b border-brand-edge-dark py-4 text-base font-semibold text-white"
+              className="block border-b border-brand-edge-dark py-4 text-base font-light text-white"
             >
               {link.label}
             </Link>

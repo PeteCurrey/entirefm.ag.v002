@@ -36,7 +36,7 @@ export function ServiceEditorialIntro({
             <div>
               <div className="inline-flex items-center gap-2 mb-3">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
                   {eyebrow}
                 </span>
               </div>
@@ -93,7 +93,7 @@ export function ServiceEditorialIntro({
                 <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 text-white flex items-end justify-between gap-4">
                   <div>
                     {imageCaption && (
-                      <p className="text-xs sm:text-sm font-semibold text-slate-200">
+                      <p className="text-xs sm:text-sm font-normal text-slate-200">
                         {imageCaption}
                       </p>
                     )}
@@ -104,7 +104,7 @@ export function ServiceEditorialIntro({
 
                   {sideBadge && (
                     <div className="bg-slate-900/90 border border-white/20 backdrop-blur-md px-3.5 py-2 rounded-sm text-right shrink-0">
-                      <div className="text-sm font-bold text-brand-pink-light font-mono">
+                      <div className="text-sm font-normal text-brand-pink-light font-mono">
                         {sideBadge.figure}
                       </div>
                       <div className="text-[10px] text-slate-300">

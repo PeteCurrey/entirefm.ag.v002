@@ -67,7 +67,7 @@ export function DataProtectionComplaintForm() {
             <CheckCircle2 className="h-6 w-6" />
           </span>
           <div className="space-y-3">
-            <h3 className="text-xl font-bold text-slate-900">
+            <h3 className="text-xl font-light text-slate-900">
               Data Protection Complaint Formally Registered
             </h3>
             <p className="text-sm text-slate-700 leading-relaxed">
@@ -77,16 +77,16 @@ export function DataProtectionComplaintForm() {
             {/* Reference Badge */}
             <div className="my-4 flex flex-wrap items-center gap-3 rounded-xl border border-emerald-300/80 bg-white p-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <p className="text-xs font-normal uppercase tracking-wider text-slate-500">
                   Your Official Complaint Reference
                 </p>
-                <p className="text-lg font-mono font-semibold text-slate-900">
+                <p className="text-lg font-mono font-light text-slate-900">
                   {successData.reference}
                 </p>
               </div>
               <button
                 onClick={copyReference}
-                className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-100"
+                className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-normal text-slate-700 transition-colors hover:bg-slate-100"
               >
                 {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
                 {copied ? 'Copied' : 'Copy Reference'}
@@ -95,12 +95,12 @@ export function DataProtectionComplaintForm() {
 
             {/* Statutory Next Steps */}
             <div className="space-y-2 rounded-xl bg-white/70 p-4 text-xs text-slate-600">
-              <p className="font-semibold text-slate-800">What happens next?</p>
+              <p className="font-light text-slate-800">What happens next?</p>
               <ul className="list-disc pl-4 space-y-1">
                 <li>Our Data Protection Officer will review your submission and initiate an investigation.</li>
                 <li>You will receive a formal written acknowledgement to <strong className="text-slate-900">{formData.email}</strong> within statutory timelines (UK GDPR Article 12(3)).</li>
                 <li>If your complaint relates to direct marketing opt-out, your details have been immediately marked for suppression across all outreach channels.</li>
-                <li>If you require further information in the interim, contact <a href={`mailto:${LEGAL_CONFIG.dataProtectionOfficer.email}`} className="text-indigo-600 underline font-semibold">{LEGAL_CONFIG.dataProtectionOfficer.email}</a> quoting your reference.</li>
+                <li>If you require further information in the interim, contact <a href={`mailto:${LEGAL_CONFIG.dataProtectionOfficer.email}`} className="text-indigo-600 underline font-light">{LEGAL_CONFIG.dataProtectionOfficer.email}</a> quoting your reference.</li>
               </ul>
             </div>
           </div>
@@ -120,7 +120,7 @@ export function DataProtectionComplaintForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+          <label className="block text-xs font-normal text-slate-700 uppercase tracking-wider">
             Full Name *
           </label>
           <input
@@ -134,7 +134,7 @@ export function DataProtectionComplaintForm() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+          <label className="block text-xs font-normal text-slate-700 uppercase tracking-wider">
             Email Address *
           </label>
           <input
@@ -150,7 +150,7 @@ export function DataProtectionComplaintForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+          <label className="block text-xs font-normal text-slate-700 uppercase tracking-wider">
             Phone Number (Optional)
           </label>
           <input
@@ -163,7 +163,7 @@ export function DataProtectionComplaintForm() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+          <label className="block text-xs font-normal text-slate-700 uppercase tracking-wider">
             Company / Organisation (If applicable)
           </label>
           <input
@@ -178,7 +178,7 @@ export function DataProtectionComplaintForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+          <label className="block text-xs font-normal text-slate-700 uppercase tracking-wider">
             Relationship with EntireFM *
           </label>
           <select
@@ -198,7 +198,7 @@ export function DataProtectionComplaintForm() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+          <label className="block text-xs font-normal text-slate-700 uppercase tracking-wider">
             Nature of Data Protection Complaint *
           </label>
           <select
@@ -220,7 +220,7 @@ export function DataProtectionComplaintForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+          <label className="block text-xs font-normal text-slate-700 uppercase tracking-wider">
             Relevant Date / First Occurrence
           </label>
           <input
@@ -232,7 +232,7 @@ export function DataProtectionComplaintForm() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+          <label className="block text-xs font-normal text-slate-700 uppercase tracking-wider">
             Associated Reference / Work Order / Quote (If known)
           </label>
           <input
@@ -246,7 +246,7 @@ export function DataProtectionComplaintForm() {
       </div>
 
       <div>
-        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+        <label className="block text-xs font-normal text-slate-700 uppercase tracking-wider">
           Detailed Description of the Complaint *
         </label>
         <textarea
@@ -260,7 +260,7 @@ export function DataProtectionComplaintForm() {
       </div>
 
       <div>
-        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+        <label className="block text-xs font-normal text-slate-700 uppercase tracking-wider">
           Desired Resolution / Outcome *
         </label>
         <input
@@ -274,7 +274,7 @@ export function DataProtectionComplaintForm() {
       </div>
 
       <div className="rounded-xl bg-slate-50 p-4 text-xs text-slate-500">
-        <p className="flex items-center gap-1.5 font-semibold text-slate-700">
+        <p className="flex items-center gap-1.5 font-light text-slate-700">
           <Lock className="h-3.5 w-3.5 text-indigo-600" />
           Confidentiality & Statutory Governance
         </p>
@@ -286,7 +286,7 @@ export function DataProtectionComplaintForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-slate-800 disabled:opacity-50 sm:w-auto"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 py-3.5 text-sm font-normal text-white shadow-sm transition-all hover:bg-slate-800 disabled:opacity-50 sm:w-auto"
       >
         {isSubmitting ? (
           'Submitting Complaint...'

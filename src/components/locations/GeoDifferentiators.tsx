@@ -65,10 +65,10 @@ export function GeoDifferentiators({ city }: GeoDifferentiatorsProps) {
                   </span>
                   <span className="h-2 w-2 rounded-full bg-brand-pink/60" />
                 </div>
-                <h3 className="text-lg font-bold text-brand-graphite leading-snug">
+                <h3 className="text-lg font-light text-brand-graphite leading-snug">
                   {p.title}
                 </h3>
-                <p className="text-xs font-semibold text-brand-electric uppercase tracking-wider mt-1 mb-3">
+                <p className="text-xs font-normal text-brand-electric uppercase tracking-wider mt-1 mb-3">
                   {p.subtitle}
                 </p>
                 <p className="text-xs sm:text-[13px] leading-relaxed text-brand-silver">

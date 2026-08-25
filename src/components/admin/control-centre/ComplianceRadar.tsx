@@ -33,7 +33,7 @@ export function ComplianceRadar({
             <ShieldCheck className="h-3 w-3" />
           </div>
           <div>
-            <h2 className="text-[12px] font-semibold text-[#111111] uppercase tracking-wide">
+            <h2 className="text-[12px] font-normal text-[#111111] uppercase tracking-wide">
               Statutory Compliance Radar
             </h2>
             <p className="text-[11px] text-[#6D6D68]">
@@ -43,7 +43,7 @@ export function ComplianceRadar({
         </div>
         <Link
           href="/admin/compliance/obligations"
-          className="text-[11.5px] font-medium text-[#6D6D68] hover:text-[#111111] transition-colors"
+          className="text-[11.5px] font-normal text-[#6D6D68] hover:text-[#111111] transition-colors"
         >
           Compliance Ledger →
         </Link>
@@ -52,13 +52,13 @@ export function ComplianceRadar({
       {!hasData ? (
         <div className="flex flex-col items-center justify-center p-8 text-center gap-2">
           <ShieldCheck className="h-6 w-6 text-[#9A9A95]" />
-          <p className="font-medium text-[#111111] text-[13px]">No compliance obligations configured</p>
+          <p className="font-normal text-[#111111] text-[13px]">No compliance obligations configured</p>
           <p className="text-[12px] text-[#6D6D68]">
             Configure obligations or import site data to see compliance status.
           </p>
           <Link
             href="/admin/compliance/obligations"
-            className="mt-2 inline-flex items-center gap-1.5 rounded-[4px] bg-[#111111] px-3 py-1.5 text-[11.5px] font-medium text-white hover:bg-[#252525] transition-colors"
+            className="mt-2 inline-flex items-center gap-1.5 rounded-[4px] bg-[#111111] px-3 py-1.5 text-[11.5px] font-normal text-white hover:bg-[#252525] transition-colors"
           >
             Configure Obligations
           </Link>
@@ -99,7 +99,7 @@ export function ComplianceRadar({
                   <Icon className={`h-3 w-3 ${color}`} />
                   <span className="text-[10px] uppercase font-medium text-[#6D6D68]">{label}</span>
                 </div>
-                <div className={`text-[16px] font-semibold tabular-nums ${color}`}>
+                <div className={`text-[16px] font-normal tabular-nums ${color}`}>
                   {value !== null ? value : '—'}
                 </div>
               </div>
