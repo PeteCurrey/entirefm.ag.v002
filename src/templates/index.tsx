@@ -59,6 +59,7 @@ import { TemplateSite360 } from './client-portal/TemplateSite360';
 import { ServiceWorkingAtHeight } from './services/ServiceWorkingAtHeight';
 import { TemplateDroneHub } from './drone-services/TemplateDroneHub';
 import { TemplateDroneSubService } from './drone-services/TemplateDroneSubService';
+import { TemplateDroneInspectionPlanner } from './tools/TemplateDroneInspectionPlanner';
 import { TemplateCityHub } from './locations/TemplateCityHub';
 import { TemplateCityServices } from './locations/TemplateCityServices';
 
@@ -156,6 +157,9 @@ function selectTemplate(
   }
   if (path.startsWith('/services/drone-services/')) {
     return <TemplateDroneSubService route={route} content={content} />;
+  }
+  if (path === '/tools/drone-inspection-planner') {
+    return <TemplateDroneInspectionPlanner route={route} content={content} />;
   }
 
   // 6. Supply Chain, Marketplace & Partner Network

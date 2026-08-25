@@ -230,7 +230,7 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
               {/* CTA Buttons */}
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Link
-                  href="/contact-us#enquiry"
+                  href="/tools/drone-inspection-planner"
                   className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-7 py-3.5 text-sm font-semibold text-white shadow-elevated hover:shadow-pink-500/25 transition-all hover:scale-[1.02]"
                 >
                   <span>Plan a Drone Inspection</span>

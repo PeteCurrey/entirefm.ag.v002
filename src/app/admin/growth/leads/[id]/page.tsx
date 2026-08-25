@@ -77,6 +77,79 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             currentStatus={lead.qualification_status || 'NEW'}
           />
 
+          {/* Drone Inspection Brief Card (if lead was created via Drone Inspection Planner) */}
+          {lead.drone_brief && (
+            <div className="bg-zinc-900 border-2 border-pink-500/50 rounded-xl p-5 space-y-4 shadow-lg">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-pink-400 bg-pink-950/60 px-2 py-0.5 rounded border border-pink-500/30">
+                  DRONE INSPECTION BRIEF
+                </span>
+                <span className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded ${
+                  lead.drone_brief.leadPriority === 'HIGH'
+                    ? 'bg-red-500/20 text-red-400 border border-red-500/40'
+                    : lead.drone_brief.leadPriority === 'MEDIUM'
+                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                    : 'bg-blue-500/20 text-blue-400 border border-blue-500/40'
+                }`}>
+                  PRIORITY: {lead.drone_brief.leadPriority || 'HIGH'}
+                </span>
+              </div>
+
+              <div className="space-y-3 text-xs">
+                <div>
+                  <span className="text-zinc-500 block text-[10px] uppercase font-mono">Reference Identifier</span>
+                  <span className="text-white font-mono font-bold">{lead.drone_brief.referenceNumber || 'N/A'}</span>
+                </div>
+
+                <div className="p-3 bg-zinc-950 rounded border border-zinc-800 space-y-1">
+                  <span className="text-pink-400 block font-semibold">
+                    {lead.drone_brief.recommendation?.primaryService || 'Commercial Drone Survey'}
+                  </span>
+                  {lead.drone_brief.recommendation?.inspectionPack && (
+                    <div className="text-zinc-300 text-[11px]">
+                      <strong>Package:</strong> {lead.drone_brief.recommendation.inspectionPack}
+                    </div>
+                  )}
+                  <div className="text-zinc-400 text-[11px]">
+                    <strong>Scope Category:</strong> {lead.drone_brief.recommendation?.scopeCategory || 'Standard'}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 text-[11px]">
+                  <div>
+                    <span className="text-zinc-500 block">SCALE &amp; HEIGHT</span>
+                    <span className="text-white">{lead.drone_brief.site?.siteScale || 'Single Building'} ({lead.drone_brief.inspection?.heightBand || 'Standard'})</span>
+                  </div>
+                  <div>
+                    <span className="text-zinc-500 block">URGENCY</span>
+                    <span className="text-white font-medium">{lead.drone_brief.inspection?.urgency || 'Standard'}</span>
+                  </div>
+                  <div>
+                    <span className="text-zinc-500 block">REMEDIAL WORKS</span>
+                    <span className="text-white">{lead.drone_brief.inspection?.remediationInterest || 'Not specified'}</span>
+                  </div>
+                  <div>
+                    <span className="text-zinc-500 block">FREQUENCY</span>
+                    <span className="text-white">{lead.drone_brief.inspection?.frequency || 'One-Off'}</span>
+                  </div>
+                </div>
+
+                {lead.drone_brief.inspection?.assetsToInspect && (
+                  <div>
+                    <span className="text-zinc-500 block text-[10px] uppercase font-mono">Assets to Inspect</span>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {lead.drone_brief.inspection.assetsToInspect.map((asset: string, aIdx: number) => (
+                        <span key={aIdx} className="bg-zinc-800 text-zinc-200 text-[10px] px-1.5 py-0.5 rounded">
+                          {asset}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
             <h3 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
               Prospect Details

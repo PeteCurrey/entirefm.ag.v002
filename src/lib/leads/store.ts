@@ -39,6 +39,8 @@ export interface LeadInput {
   utm_term?: string;
   utm_content?: string;
   referrer?: string;
+  drone_brief?: any;
+  lead_priority?: string;
 }
 
 export interface LeadRow extends LeadInput {
@@ -107,6 +109,8 @@ export async function saveLead(lead: LeadInput): Promise<boolean> {
     notes: '',
     estimated_value_gbp: 0,
     is_spam: false,
+    drone_brief: lead.drone_brief,
+    lead_priority: (lead.lead_priority as any) || (lead.drone_brief?.leadPriority) || 'STANDARD',
   });
 
   // 2. Trigger real-time admin notification

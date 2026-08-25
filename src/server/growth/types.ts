@@ -76,6 +76,8 @@ export interface ExtendedLead {
   // Commercial Handling & Status
   status: string;
   qualification_status: QualificationStatus;
+  lead_priority?: 'HIGH' | 'MEDIUM' | 'STANDARD';
+  drone_brief?: any;
   assigned_to?: string;
   notes?: string;
   estimated_value_gbp?: number;

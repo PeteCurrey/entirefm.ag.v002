@@ -61,6 +61,8 @@ const EnquirySchema = z.object({
   utm_term: z.string().optional().default(''),
   utm_content: z.string().optional().default(''),
   referrer: z.string().optional().default(''),
+  drone_brief: z.any().optional(),
+  lead_priority: z.string().optional(),
   timestamp: z.string().optional().default(() => new Date().toISOString()),
 });
 
@@ -118,10 +120,13 @@ export async function POST(request: Request) {
             from: 'EntireFM Commercial Portal <enquiries@entirefm.com>',
             to: [leadDeliveryEmail],
             reply_to: data.email,
-            subject: `[NEW PROPOSAL REQUEST] ${data.service} — ${data.company || data.name} (${data.location})`,
+            subject: data.drone_brief
+              ? `[DRONE INSPECTION BRIEF - ${data.drone_brief.leadPriority || 'HIGH'}] ${data.service} — ${data.company || data.name} (${data.location})`
+              : `[NEW PROPOSAL REQUEST] ${data.service} — ${data.company || data.name} (${data.location})`,
             html: `
-              <h2>New Commercial Enquiry / Proposal Request</h2>
+              <h2>${data.drone_brief ? 'New Drone Inspection Brief Received' : 'New Commercial Enquiry / Proposal Request'}</h2>
               <p><strong>Enquiry ID:</strong> ${enquiryId}</p>
+              ${data.drone_brief ? `<p><strong>Drone Brief Ref:</strong> ${data.drone_brief.referenceNumber || 'N/A'} (Priority: <span style="color:#d946ef;font-weight:bold;">${data.drone_brief.leadPriority || 'HIGH'}</span>)</p>` : ''}
               <hr />
               <h3>Contact Details</h3>
               <p><strong>Name:</strong> ${data.name}</p>
@@ -132,6 +137,18 @@ export async function POST(request: Request) {
               <h3>Requirement</h3>
               <p><strong>Service:</strong> ${data.service}</p>
               <p><strong>Location:</strong> ${data.location}</p>
+              ${data.drone_brief ? `
+              <div style="background:#0b1220;color:#ffffff;padding:16px;border-radius:6px;margin:12px 0;">
+                <h4 style="color:#ff3e9d;margin-top:0;">Structured Drone Inspection Plan</h4>
+                <p><strong>Primary Service:</strong> ${data.drone_brief.recommendation?.primaryService || 'N/A'}</p>
+                <p><strong>Inspection Pack:</strong> ${data.drone_brief.recommendation?.inspectionPack || 'Custom'}</p>
+                <p><strong>Scope Category:</strong> ${data.drone_brief.recommendation?.scopeCategory || 'Standard'}</p>
+                <p><strong>Site Scale / Height:</strong> ${data.drone_brief.site?.siteScale || 'N/A'} (${data.drone_brief.inspection?.heightBand || 'N/A'})</p>
+                <p><strong>Assets to Inspect:</strong> ${(data.drone_brief.inspection?.assetsToInspect || []).join(', ')}</p>
+                <p><strong>Urgency:</strong> ${data.drone_brief.inspection?.urgency || 'Standard'}</p>
+                <p><strong>Remedial Works Interest:</strong> ${data.drone_brief.inspection?.remediationInterest || 'Not specified'}</p>
+              </div>
+              ` : ''}
               <p><strong>Message / Scope:</strong></p>
               <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #2563eb;">
                 ${data.message.replace(/\n/g, '<br />')}

@@ -6,12 +6,12 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 396,
+    "total": 397,
     "LEGACY_VERIFIED": 201,
     "LEGACY_PROTECTED_BY_DIRECTIVE": 28,
     "CURRENT_LIVE_RETAINED": 5,
-    "NEW_GROWTH": 159,
-    "protected": 396,
+    "NEW_GROWTH": 160,
+    "protected": 397,
     "historic": 229
   },
   "routes": [
@@ -7592,6 +7592,24 @@
     },
     {
       "path": "/services/drone-services/aerial-photography-video",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/tools/drone-inspection-planner",
       "routeProvenance": "NEW_GROWTH",
       "routeType": "service",
       "historic": false,

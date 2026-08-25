@@ -30,6 +30,7 @@ import { AI_RESOURCES_CONTENT } from './resources/ai-records';
 import { CLIENT_PORTAL_CONTENT } from './client-portal/records';
 import { WORKING_AT_HEIGHT_CONTENT } from './services/working-at-height';
 import { DRONE_SERVICES_CONTENT } from './drone-services';
+import { droneInspectionPlannerRecord } from './tools/drone-inspection-planner';
 import { GEO_EXPANSION_CONTENT } from './locations/geo-expansion';
 import { BATCH1_GEO_CONTENT } from './locations/batch1-services';
 
@@ -73,6 +74,8 @@ export const COMPANY_CONTENT: Record<string, ContentRecord> = {
   ...WORKING_AT_HEIGHT_CONTENT,
   // EntireFM Drone Services Division & Sub-Services
   ...DRONE_SERVICES_CONTENT,
+  // Drone Inspection Planner Tool
+  [droneInspectionPlannerRecord.path]: droneInspectionPlannerRecord,
   // Geo SEO Expansion Phase 1: 21 Location Hubs & 21 Service Overviews
   ...GEO_EXPANSION_CONTENT,
   // Geo SEO Expansion Phase 2B: 10 High-Intent Batch 1 Service x City Pages

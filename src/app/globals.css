@@ -59,26 +59,11 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-  }
-
-  /* Smooth scrolling for anchors, in-page jumps and the rail's keyboard
-     reachability. Wheel and trackpad scrolling are untouched — this only
-     affects programmatic scrolls. Off under reduced motion, where a long
-     animated jump is exactly what the setting exists to prevent. */
-  html {
-    scroll-behavior: smooth;
-    /* Anchor targets clear the fixed header instead of landing under it. */
-    scroll-padding-top: calc(var(--header-h) + 1rem);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
   }
 
   body {

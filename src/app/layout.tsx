@@ -1,8 +1,10 @@
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { defaultMetadata } from '@/lib/metadata/generate-metadata';
 import { RevealProvider } from '@/components/motion/RevealProvider';
 import { CookieConsentBanner } from '@/components/legal/CookieConsentBanner';
+import { ScrollToTop } from '@/components/navigation/ScrollToTop';
 import './globals.css';
 
 /**
@@ -54,7 +56,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-
+        <Suspense fallback={null}>
+          <ScrollToTop />
+        </Suspense>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-brand-graphite focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white"
