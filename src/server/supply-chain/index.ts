@@ -215,7 +215,7 @@ export async function acceptAssignmentOffer(
   const now = new Date().toISOString();
   const { error } = await dbQuery<any>(`work_assignments?id=eq.${assignmentId}`, {
     method: 'PATCH',
-    body: JSON.stringify({ status: 'ACCEPTED', accepted_at: now, updated_at: now }),
+    body: JSON.stringify({ status: 'ACCEPTED', accepted_at: now }),
   });
   if (error) return { success: false, error: String(error) };
   await recordAuditEvent({ event_type: 'ASSIGNMENT_ACCEPTED', object_type: 'work_assignments', object_id: assignmentId, actor_id: session.personId, after_state: { status: 'ACCEPTED' } });
@@ -232,7 +232,7 @@ export async function declineAssignmentOffer(
   const now = new Date().toISOString();
   const { error } = await dbQuery<any>(`work_assignments?id=eq.${assignmentId}`, {
     method: 'PATCH',
-    body: JSON.stringify({ status: 'REJECTED', rejection_reason: reason, rejection_notes: notes, rejected_at: now, updated_at: now }),
+    body: JSON.stringify({ status: 'REJECTED', rejection_reason: notes ? `${reason}: ${notes}` : reason, rejected_at: now }),
   });
   if (error) return { success: false, error: String(error) };
   await recordAuditEvent({ event_type: 'ASSIGNMENT_REJECTED', object_type: 'work_assignments', object_id: assignmentId, actor_id: session.personId, after_state: { status: 'REJECTED', reason } });

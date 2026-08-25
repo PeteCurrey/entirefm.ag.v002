@@ -83,14 +83,14 @@ export function LocationExploreBlock({
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 mb-2.5">
               <span className="h-2 w-2 rounded-full bg-brand-pink" />
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-pink-light">
+              <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink-light">
                 STRUCTURED REGIONAL ARCHITECTURE
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+            <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-white">
               Explore Facilities &amp; Engineering Services Across {city}
             </h2>
-            <p className="mt-2 text-sm text-slate-300 leading-relaxed">
+            <p className="mt-2 text-sm text-slate-300 leading-relaxed font-light">
               Direct access to dedicated service disciplines, statutory compliance resources, and operational tools across the {city} network.
             </p>
           </div>

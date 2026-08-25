@@ -255,7 +255,7 @@ export function TemplateSpecialistService({ route, content }: TemplateProps) {
                   SPECIALIST & SAFETY FAQS
                 </span>
               </div>
-              <h2 className="text-3xl font-extrabold tracking-tight text-brand-graphite">
+              <h2 className="text-3xl font-light tracking-tight text-brand-graphite">
                 Frequently Asked Questions
               </h2>
             </div>

@@ -85,14 +85,14 @@ export function TemplateSector({ route, content }: TemplateProps) {
               <div className="max-w-3xl mb-12">
                 <div className="inline-flex items-center gap-2 mb-2.5">
                   <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
                     ESTATE CONTEXT &amp; OPERATIONAL DEMAND
                   </span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                   Tailored Facilities Governance for {archetype.name}
                 </h2>
-                <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
+                <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
                   Understanding what actually matters across the physical estate: uptime, safety, regulatory compliance, and occupant satisfaction.
                 </p>
               </div>
@@ -104,8 +104,8 @@ export function TemplateSector({ route, content }: TemplateProps) {
                     className="bg-[#FAF9FB] p-8 rounded-sm border border-slate-200/90 space-y-4 shadow-sm flex flex-col justify-between"
                   >
                     <div>
-                      <h3 className="text-xl font-bold text-slate-900 leading-snug">{sec.heading}</h3>
-                      <p className="mt-3 text-sm text-slate-700 leading-relaxed">{sec.body}</p>
+                      <h3 className="text-xl font-medium text-slate-900 leading-snug">{sec.heading}</h3>
+                      <p className="mt-3 text-sm text-slate-700 leading-relaxed font-light">{sec.body}</p>
                       {sec.bullets && sec.bullets.length > 0 && (
                         <ul className="space-y-2 pt-4 mt-4 border-t border-slate-200">
                           {sec.bullets.map((b, bIdx) => (
@@ -161,13 +161,13 @@ export function TemplateSector({ route, content }: TemplateProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-800">
               {archetype.metrics.map((m, idx) => (
                 <div key={idx} className="p-6 md:p-8 text-center sm:text-left space-y-2">
-                  <div className="text-3xl sm:text-4xl font-extrabold text-brand-pink-light font-mono">
+                  <div className="text-3xl sm:text-4xl font-light text-brand-pink-light font-mono">
                     {m.figure}
                   </div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-white">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-white">
                     {m.label}
                   </div>
-                  <p className="text-xs text-slate-400 leading-relaxed">
+                  <p className="text-xs text-slate-400 leading-relaxed font-light">
                     {m.detail}
                   </p>
                 </div>
@@ -214,14 +214,14 @@ export function TemplateSector({ route, content }: TemplateProps) {
               <div className="max-w-3xl">
                 <div className="inline-flex items-center gap-2 mb-2.5">
                   <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
                     VERIFIED EVIDENCE
                   </span>
                 </div>
-                <h2 className="text-3xl font-extrabold text-slate-900">
+                <h2 className="text-3xl font-light text-slate-900">
                   Operational Project Proof &amp; Case Studies
                 </h2>
-                <p className="mt-2 text-sm text-slate-600">
+                <p className="mt-2 text-sm text-slate-600 font-light">
                   Demonstrated engineering delivery, statutory governance, and asset lifecycle optimization across UK commercial facilities.
                 </p>
               </div>
@@ -237,25 +237,22 @@ export function TemplateSector({ route, content }: TemplateProps) {
                         <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-semibold">
                           {cs.sector}
                         </span>
-                        <span className="text-[10px] font-mono text-slate-600 font-bold bg-slate-200/70 px-2 py-0.5 rounded-sm">
+                        <span className="text-[10px] font-mono text-slate-600 font-medium bg-slate-200/70 px-2 py-0.5 rounded-sm">
                           {cs.location}
                         </span>
                       </div>
-                      <h3 className="text-base font-bold text-slate-900 group-hover:text-brand-pink-dark transition-colors">
+                      <h3 className="text-base font-medium text-slate-900 leading-snug group-hover:text-brand-graphite transition-colors">
                         {cs.title}
                       </h3>
-                      <p className="mt-2 text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                      <p className="mt-2 text-xs text-slate-600 leading-relaxed font-light">
                         {cs.challenge}
                       </p>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between">
-                      <Link
-                        href="/case-studies"
-                        className="text-xs font-bold text-slate-900 group-hover:text-brand-pink inline-flex items-center gap-1.5 uppercase tracking-wider transition-colors"
-                      >
-                        Read Summary <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
+                    <div className="pt-4 mt-4 border-t border-slate-200/80">
+                      <span className="text-[11px] font-medium text-emerald-700 block">
+                        Result: {cs.outcome}
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -264,25 +261,45 @@ export function TemplateSector({ route, content }: TemplateProps) {
           </section>
         )}
 
-        {/* 12. ACCREDITATIONS CAROUSEL */}
-        <section className="py-12 bg-[#FAF9FB] border-b border-slate-200">
+        {/* 12. CONTRACTOR & SUPPLY CHAIN GOVERNANCE */}
+        <section className="py-16 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-custom">
-            <AccreditationRail />
+            <div className="bg-slate-900 text-white rounded-sm p-8 sm:p-10 border border-slate-800 shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+              <div className="max-w-2xl space-y-3">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink-light font-medium bg-white/10 px-2.5 py-1 rounded-sm">
+                  SUPPLY CHAIN ASSURANCE
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-light text-white">
+                  Audited Specialist Contractor Network
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                  Every trade contractor deployed across your estate is vetted for public liability insurance (£10M+), ISO 9001/45001 safety governance, DBS clearance, and trade certifications (Gas Safe, NICEIC, FGAS, BAFE).
+                </p>
+              </div>
+
+              <Link
+                href="/partner-network"
+                className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-900 bg-white hover:bg-slate-100 px-5 py-3 rounded-sm shadow-sm transition-all whitespace-nowrap"
+              >
+                <span>Explore Supply Chain Standards</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
         </section>
 
-        {/* 13. SECTOR FAQS ACCORDION */}
+        {/* 13. SECTOR FAQS */}
         {faqs.length > 0 && (
           <section className="py-20 bg-white border-b border-slate-200">
-            <div className="container-custom max-w-4xl space-y-8">
-              <div>
+            <div className="container-custom max-w-4xl">
+              <div className="text-center max-w-2xl mx-auto mb-12">
                 <div className="inline-flex items-center gap-2 mb-2.5">
                   <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
                     EXPERT GUIDANCE
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                <h2 className="text-2xl sm:text-3xl font-light text-slate-900">
                   Frequently Asked Questions — {archetype.name}
                 </h2>
               </div>

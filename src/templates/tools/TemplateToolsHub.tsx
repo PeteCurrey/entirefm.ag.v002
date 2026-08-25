@@ -150,14 +150,14 @@ export function TemplateToolsHub({ route, content }: TemplateProps) {
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-2 w-2 rounded-full bg-brand-electric" />
-                <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase font-bold">
+                <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase font-medium">
                   Interactive Engineering Toolkit
                 </span>
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-white leading-tight">
                 Practical Facilities Management Tools
               </h1>
-              <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-300">
+              <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-300 font-light">
                 Free, asset-led tools engineered for estate directors, property managers, and facilities teams to plan maintenance schedules, evaluate compliance baselines, and structure procurement.
               </p>
 

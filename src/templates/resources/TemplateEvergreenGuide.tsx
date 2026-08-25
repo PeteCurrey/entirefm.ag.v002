@@ -88,7 +88,7 @@ export function TemplateEvergreenGuide({ route, content }: TemplateEvergreenGuid
               {content.eyebrow || 'Practical FM Guide'}
             </div>
 
-            <h1 className="text-display-md text-white font-extrabold tracking-tight leading-tight">
+            <h1 className="text-display-md text-white font-light tracking-tight leading-tight">
               {content.h1 || content.title}
             </h1>
 

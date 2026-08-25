@@ -51,14 +51,14 @@ export function TechnologyCafmSection({
             <div>
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink-light">
+                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink-light">
                   {eyebrow}
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-white leading-tight">
                 {title}
               </h2>
-              <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
+              <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
                 {subtitle}
               </p>
             </div>
@@ -74,7 +74,7 @@ export function TechnologyCafmSection({
                     <div className="w-9 h-9 rounded-sm bg-brand-pink/10 text-brand-pink flex items-center justify-center mb-3.5 border border-brand-pink/20 group-hover:scale-105 transition-transform">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="text-sm font-bold text-white mb-1.5 group-hover:text-brand-pink-light transition-colors">
+                    <h3 className="text-sm font-medium text-white mb-1.5 group-hover:text-brand-pink-light transition-colors">
                       {feat.title}
                     </h3>
                     <p className="text-xs text-slate-400 leading-relaxed">

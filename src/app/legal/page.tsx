@@ -64,10 +64,10 @@ export default function LegalHubPage() {
           <div className="container-custom relative">
             <div className="max-w-3xl space-y-4">
               <span className="badge-gold">Corporate Trust & Statutory Governance</span>
-              <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h1 className="text-3xl font-light tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Legal, Data & Governance Centre
               </h1>
-              <p className="text-base text-slate-300 leading-relaxed sm:text-lg">
+              <p className="text-base text-slate-300 leading-relaxed sm:text-lg font-light">
                 The authoritative legal, privacy, technology ethics, and compliance framework governing EntireFM operations, client contracts, contractor networks, and digital CAFM platforms.
               </p>
 
@@ -77,7 +77,7 @@ export default function LegalHubPage() {
                   <a
                     key={cat.id}
                     href={`#${cat.slug}`}
-                    className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-200 transition-colors hover:bg-white/15 hover:text-white"
+                    className="rounded-sm border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-200 transition-colors hover:bg-white/15 hover:text-white"
                   >
                     {cat.title}
                   </a>

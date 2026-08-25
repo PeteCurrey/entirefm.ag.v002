@@ -80,7 +80,7 @@ export function DataProtectionComplaintForm() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Your Official Complaint Reference
                 </p>
-                <p className="text-lg font-mono font-extrabold text-slate-900">
+                <p className="text-lg font-mono font-semibold text-slate-900">
                   {successData.reference}
                 </p>
               </div>

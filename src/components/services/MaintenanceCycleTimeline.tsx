@@ -104,14 +104,14 @@ export function MaintenanceCycleTimeline() {
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-pink-light">
+            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink-light">
               PPM LIFECYCLE METHODOLOGY
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-white">
             The 7-Stage Planned Maintenance Cycle
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
+          <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
             From initial asset barcode audits and SFG20 scheduling to digital compliance logbooks and capital lifecycle planning — how EntireFM protects your estate.
           </p>
         </div>
@@ -133,7 +133,7 @@ export function MaintenanceCycleTimeline() {
               >
                 <div className="flex items-center justify-between mb-1">
                   <span
-                    className={`text-xs font-mono font-bold ${
+                    className={`text-xs font-mono font-medium ${
                       isActive ? 'text-brand-pink' : 'text-slate-500'
                     }`}
                   >
@@ -145,7 +145,7 @@ export function MaintenanceCycleTimeline() {
                     }`}
                   />
                 </div>
-                <strong className="text-xs font-bold block leading-snug line-clamp-2">
+                <strong className="text-xs font-medium block leading-snug line-clamp-2">
                   {stg.name}
                 </strong>
               </button>
@@ -165,7 +165,7 @@ export function MaintenanceCycleTimeline() {
               className="object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-carbon via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-brand-carbon/60" />
-            <div className="absolute top-4 left-4 bg-brand-graphite/90 text-brand-pink-light border border-brand-edge-dark px-3 py-1 text-xs font-mono font-bold rounded-sm backdrop-blur-md">
+            <div className="absolute top-4 left-4 bg-brand-graphite/90 text-brand-pink-light border border-brand-edge-dark px-3 py-1 text-xs font-mono font-medium rounded-sm backdrop-blur-md">
               STAGE {activeStage.step}: {activeStage.name}
             </div>
           </div>
@@ -173,13 +173,13 @@ export function MaintenanceCycleTimeline() {
           {/* Right Column: Stage Description & Deliverables */}
           <div className="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-pink block mb-2">
+              <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink block mb-2">
                 STRUCTURED MAINTENANCE GOVERNANCE
               </span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
+              <h3 className="text-2xl sm:text-3xl font-light text-white mb-3">
                 {activeStage.headline}
               </h3>
-              <p className="text-sm text-slate-300 leading-relaxed mb-6">
+              <p className="text-sm text-slate-300 leading-relaxed mb-6 font-light">
                 {activeStage.summary}
               </p>
 

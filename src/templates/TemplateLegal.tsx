@@ -35,10 +35,10 @@ export function TemplateLegal({ route, content }: TemplateProps) {
           <div className="container-custom">
             <div className="max-w-3xl space-y-4">
               <span className="badge-gold">{content.eyebrow || 'Corporate Governance'}</span>
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+              <h1 className="text-3xl sm:text-4xl font-light tracking-tight text-white">
                 {content.h1}
               </h1>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
                 {content.heroIntro || content.metaDescription}
               </p>
             </div>

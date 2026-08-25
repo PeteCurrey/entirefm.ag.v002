@@ -107,10 +107,10 @@ export function BuildingSystemsMap() {
               M&E TECHNICAL ARCHITECTURE
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-white">
             Commercial Building Systems Map
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
+          <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
             Commercial buildings rely on deeply interconnected mechanical, electrical, and public health systems. EntireFM delivers single-contract management across the complete building ecosystem.
           </p>
         </div>

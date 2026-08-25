@@ -79,14 +79,14 @@ export function PlantToComfortJourney() {
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
               SYSTEM ARCHITECTURE
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900">
             From Plant Deck to Occupant Comfort
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+          <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
             Understanding the complete lifecycle of climate engineering — how EntireFM manages every stage from rooftop chillers and AHUs to terminal indoor air quality.
           </p>
         </div>
@@ -107,13 +107,13 @@ export function PlantToComfortJourney() {
                 }`}
               >
                 <span
-                  className={`text-xs font-mono font-bold block mb-1 ${
+                  className={`text-xs font-mono font-medium block mb-1 ${
                     isActive ? 'text-brand-pink' : 'text-slate-400'
                   }`}
                 >
                   STAGE {s.step}
                 </span>
-                <strong className="text-xs font-bold block leading-snug truncate">
+                <strong className="text-xs font-medium block leading-snug truncate">
                   {s.stage}
                 </strong>
               </button>
@@ -133,7 +133,7 @@ export function PlantToComfortJourney() {
               className="object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-slate-950/40" />
-            <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-mono font-bold rounded-sm backdrop-blur-md">
+            <div className="absolute top-4 left-4 bg-slate-900/90 text-brand-pink-light border border-white/15 px-3 py-1 text-xs font-mono font-medium rounded-sm backdrop-blur-md">
               STAGE {activeStep.step}: {activeStep.stage}
             </div>
           </div>
@@ -141,13 +141,13 @@ export function PlantToComfortJourney() {
           {/* Right Column: Stage Description & Technical Checks */}
           <div className="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-pink block mb-2">
+              <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink block mb-2">
                 ENGINEERING EXECUTION
               </span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+              <h3 className="text-2xl sm:text-3xl font-light text-white mb-4">
                 {activeStep.title}
               </h3>
-              <p className="text-sm text-slate-300 leading-relaxed mb-6">
+              <p className="text-sm text-slate-300 leading-relaxed mb-6 font-light">
                 {activeStep.description}
               </p>
 

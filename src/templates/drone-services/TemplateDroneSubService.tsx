@@ -413,10 +413,10 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                   TECHNICAL SCOPE
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900">
                 What We Inspect &amp; Capture
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-light">
                 {content.heroDescription}
               </p>
             </div>
@@ -428,13 +428,13 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                   className="p-6 rounded-[12px] bg-[#FAF9FB] border border-slate-200 space-y-3 hover:border-brand-pink transition-colors flex flex-col justify-between"
                 >
                   <div className="space-y-3">
-                    <span className="font-mono text-[9px] uppercase font-bold text-slate-600 bg-white border border-slate-200 px-2 py-0.5 rounded-[4px] inline-block">
+                    <span className="font-mono text-[9px] uppercase font-medium text-slate-600 bg-white border border-slate-200 px-2 py-0.5 rounded-[4px] inline-block">
                       {cap.tag}
                     </span>
-                    <h3 className="text-base font-bold text-slate-900 leading-snug">
+                    <h3 className="text-base font-medium text-slate-900 leading-snug">
                       {cap.name}
                     </h3>
-                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">
                       {cap.description}
                     </p>
                   </div>
@@ -452,14 +452,14 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
             <div className="max-w-3xl space-y-3">
               <div className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand-pink">
                   COMMERCIAL SCENARIOS
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900">
                 Typical Facilities Management Applications
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base">
+              <p className="text-slate-600 text-sm sm:text-base font-light">
                 Real-world operational use cases where aerial drone surveys deliver maximum safety and commercial efficiency.
               </p>
             </div>
@@ -470,10 +470,10 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                   key={idx}
                   className="p-6 rounded-[12px] bg-white border border-slate-200 shadow-sm space-y-3 hover:border-brand-pink transition-colors"
                 >
-                  <h3 className="text-base font-bold text-slate-900">
+                  <h3 className="text-base font-medium text-slate-900">
                     {app.title}
                   </h3>
-                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">
                     {app.desc}
                   </p>
                 </div>
@@ -490,11 +490,11 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
             <div className="max-w-3xl space-y-3">
               <div className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand-pink">
                   DIAGNOSTIC CRITERIA
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900">
                 What We Look For
               </h2>
               <p className="text-slate-600 text-sm sm:text-base">
@@ -551,10 +551,10 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                   SURVEY OUTPUTS
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900">
                 What You Receive
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base">
+              <p className="text-slate-600 text-sm sm:text-base font-light">
                 Structured, georeferenced survey deliverables formatted for property managers, structural engineers, and CAFM databases.
               </p>
             </div>
@@ -567,16 +567,16 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                 >
                   <div className="flex items-center justify-between">
                     <FileText className="w-6 h-6 text-brand-pink" />
-                    <span className="font-mono text-[9.5px] uppercase font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-[4px]">
+                    <span className="font-mono text-[9.5px] uppercase font-medium text-slate-700 bg-slate-100 px-2 py-0.5 rounded-[4px]">
                       {del.format}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-slate-900">
+                  <h3 className="text-base font-medium text-slate-900">
                     {del.title}
                   </h3>
 
-                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">
                     {del.desc}
                   </p>
                 </div>
@@ -600,10 +600,10 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
                 What happens if we <br />
-                <span className="font-bold text-hero-pink">find a problem?</span>
+                <span className="font-light text-hero-pink">find a problem?</span>
               </h2>
 
-              <p className="text-base text-slate-300 leading-relaxed">
+              <p className="text-base text-slate-300 leading-relaxed font-light">
                 {enrichment.remediationBridge.desc}
               </p>
             </div>
@@ -615,7 +615,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                   className="p-5 rounded-sm bg-brand-carbon border border-brand-edge-dark flex items-start gap-3"
                 >
                   <CheckCircle2 className="h-5 w-5 text-brand-pink shrink-0 mt-0.5" />
-                  <span className="text-sm font-semibold text-white">{cap}</span>
+                  <span className="text-sm font-medium text-white">{cap}</span>
                 </div>
               ))}
             </div>
@@ -644,10 +644,10 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         <section className="py-20 bg-white border-b border-slate-200">
           <div className="container-custom space-y-8">
             <div className="max-w-3xl space-y-2">
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand-pink">
                 INTEGRATED SERVICES
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              <h2 className="text-2xl sm:text-3xl font-light text-slate-900">
                 Related Facilities Management Services
               </h2>
             </div>
@@ -659,7 +659,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                   href={relPath}
                   className="p-4 rounded-[10px] bg-[#FAF9FB] border border-slate-200 hover:border-brand-pink hover:bg-white transition-all group flex items-center justify-between"
                 >
-                  <span className="text-xs font-semibold text-slate-900 group-hover:text-brand-pink transition-colors">
+                  <span className="text-xs font-medium text-slate-900 group-hover:text-brand-pink transition-colors">
                     {relPath.replace('/services/drone-services/', 'Drone: ').replace('/services/', '').replace(/\//g, ' ').replace(/-/g, ' ').toUpperCase()}
                   </span>
                   <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-brand-pink transition-colors" />
@@ -675,10 +675,10 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-custom max-w-4xl space-y-10">
             <div className="text-center space-y-3">
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand-pink">
                 EXPERT QUESTIONS
               </span>
-              <h2 className="text-3xl font-extrabold text-slate-900">
+              <h2 className="text-3xl font-light text-slate-900">
                 Frequently Asked Questions
               </h2>
             </div>

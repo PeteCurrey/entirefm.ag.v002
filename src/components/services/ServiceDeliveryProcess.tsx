@@ -60,15 +60,15 @@ export function ServiceDeliveryProcess({
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
               {eyebrow}
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900">
             {title}
           </h2>
           {subtitle && (
-            <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+            <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
               {subtitle}
             </p>
           )}
@@ -83,13 +83,13 @@ export function ServiceDeliveryProcess({
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-extrabold font-mono text-brand-pink group-hover:scale-110 transition-transform">
+                  <span className="text-2xl font-light font-mono text-brand-pink group-hover:scale-110 transition-transform">
                     {step.number}
                   </span>
                   <span className="h-1.5 w-6 bg-slate-200 group-hover:bg-brand-pink transition-colors rounded-full" />
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900 mb-2.5 group-hover:text-brand-graphite transition-colors">
+                <h3 className="text-base font-medium text-slate-900 mb-2.5 group-hover:text-brand-graphite transition-colors">
                   {step.title}
                 </h3>
 

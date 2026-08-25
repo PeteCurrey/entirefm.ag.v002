@@ -163,14 +163,14 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
             <div className="max-w-3xl mb-12">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
                   MINIMUM CRITERIA
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                 Accreditation &amp; Insurance Standards
               </h2>
-              <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+              <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
                 To protect our clients and maintain statutory compliance, all applicants must meet our core commercial governance thresholds.
               </p>
             </div>
@@ -178,7 +178,7 @@ export function TemplateSupplyChain({ route, content }: TemplateProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-6 bg-white border border-slate-200 rounded-sm shadow-sm space-y-3">
                 <FileCheck className="w-6 h-6 text-brand-pink" />
-                <h3 className="text-base font-bold text-slate-900">Insurance Verification</h3>
+                <h3 className="text-base font-medium text-slate-900">Insurance Verification</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Minimum £5M Public Liability insurance and £10M Employers Liability coverage (where employing staff) is mandatory. Professional Indemnity required for design/consultancy disciplines.
                 </p>

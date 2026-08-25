@@ -114,7 +114,7 @@ export function TemplateResourcesHub({ route, content }: TemplateProps) {
             <Breadcrumbs items={breadcrumbs} className="mb-6" />
             <div className="max-w-3xl">
               <span className="eyebrow eyebrow-dark inline-block mb-3">Knowledge & Tools Ecosystem</span>
-              <h1 className="text-display-md text-white font-extrabold tracking-tight">
+              <h1 className="text-display-md text-white font-light tracking-tight">
                 Resources for People Responsible for Buildings
               </h1>
               <p className="mt-4 text-lg leading-relaxed text-brand-mist/75">

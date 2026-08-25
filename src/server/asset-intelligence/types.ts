@@ -38,7 +38,21 @@ export type FailureCategory =
   | 'LEAK'
   | 'ELECTRICAL_FAILURE'
   | 'MECHANICAL_FAILURE'
-  | 'OTHER';
+  | 'OTHER'
+  | 'UNKNOWN';
+
+export const ENTIREFM_CONTROLLED_FAILURE_TAXONOMY: readonly FailureCategory[] = [
+  'FUNCTIONAL_FAILURE',
+  'PARTIAL_FAILURE',
+  'PERFORMANCE_DEGRADATION',
+  'SAFETY_FAILURE',
+  'CONTROLS_FAILURE',
+  'LEAK',
+  'ELECTRICAL_FAILURE',
+  'MECHANICAL_FAILURE',
+  'OTHER',
+  'UNKNOWN',
+] as const;
 
 export type SignalType =
   | 'REPEAT_FAILURE'
@@ -60,6 +74,7 @@ export type PredictiveReadiness =
   | 'NOT_READY'
   | 'HISTORY_READY'
   | 'CONDITION_READY'
+  | 'TELEMETRY_CONFIGURED'
   | 'TELEMETRY_READY'
   | 'MODEL_ELIGIBLE';
 
@@ -295,6 +310,16 @@ export interface PredictiveReadinessCriteria {
   has_telemetry_source: boolean;
   failure_count: number;
   work_event_count: number;
+  /** Actual count of timestamped sensor observations received */
+  telemetry_observation_count?: number;
+  /** Hours since last valid observation, or null if never received */
+  telemetry_last_seen_hours_ago?: number | null;
+  /** Data quality status of observations (VALID vs INVALID/CORRUPT/NO_DATA) */
+  telemetry_data_quality_valid?: boolean;
+  /** Policy threshold: minimum required observations for TELEMETRY_READY (default: 10) */
+  telemetry_min_observations_required?: number;
+  /** Policy threshold: maximum allowed staleness in hours (default: 48) */
+  telemetry_max_stale_hours?: number;
 }
 
 export interface AssetLifecycleProfile {
@@ -338,14 +363,28 @@ export interface AssetIntelligenceProfile {
 // ─── DATA QUALITY ─────────────────────────────────────────────────────────────
 
 export interface AssetDataQuality {
+  /** Metric identifier for this data quality definition */
+  metric_code: 'METRIC_ASSET_DATA_QUALITY_V1';
+  /** Semver of the metric definition — increment when fields/weights change */
+  version: '1.0';
+  /** Fields included in coverage measurement */
+  fields_measured: string[];
+  /** Denominator: all ACTIVE assets */
+  scope: 'ACTIVE_ASSETS';
   total_assets: number;
-  install_date_coverage_pct: number;
+  // ─── Canonical coverage fields ───────────────────────────────────────────
+  installation_date_coverage_pct: number;
   manufacturer_coverage_pct: number;
   model_coverage_pct: number;
   serial_coverage_pct: number;
   expected_life_coverage_pct: number;
-  condition_assessed_pct: number;
+  condition_coverage_pct: number;
   cost_attribution_coverage_pct: number;
+  ppm_link_coverage_pct: number;
+  // ─── Legacy aliases (kept for backward compatibility) ────────────────────
+  install_date_coverage_pct: number;
+  condition_assessed_pct: number;
+  // ─── Missing counts ───────────────────────────────────────────────────────
   missing_install_date: number;
   missing_manufacturer: number;
   missing_model: number;
@@ -353,6 +392,20 @@ export interface AssetDataQuality {
   missing_expected_life: number;
   no_condition_assessment: number;
   critical_with_no_condition: number;
+  data_status: 'LIVE' | DataNoValue;
+}
+
+export interface EnrichmentQueueSummary {
+  missing_condition: number;
+  missing_installation_date: number;
+  missing_expected_life: number;
+  missing_manufacturer: number;
+  total: number;
+}
+
+export interface EnrichmentQueue {
+  items: EnrichmentQueueItem[];
+  summary: EnrichmentQueueSummary;
   data_status: 'LIVE' | DataNoValue;
 }
 

@@ -36,15 +36,15 @@ export function ServiceEditorialIntro({
             <div>
               <div className="inline-flex items-center gap-2 mb-3">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
                   {eyebrow}
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                 {heading}
               </h2>
               {subheading && (
-                <p className="mt-3 text-base text-slate-600 font-medium leading-relaxed">
+                <p className="mt-3 text-base text-slate-600 font-light leading-relaxed">
                   {subheading}
                 </p>
               )}

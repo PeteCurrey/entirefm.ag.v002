@@ -106,10 +106,10 @@ export function TemplateGuidesHub({ route, content }: TemplateGuidesHubProps) {
 
           <div className="max-w-3xl space-y-4">
             <span className="eyebrow eyebrow-dark inline-block">Knowledge & Guidance Library</span>
-            <h1 className="text-display-md text-white font-extrabold tracking-tight">
+            <h1 className="text-display-md text-white font-light tracking-tight">
               Practical Facilities Management Guides
             </h1>
-            <p className="text-base sm:text-lg text-brand-mist/75 leading-relaxed">
+            <p className="text-base sm:text-lg text-brand-mist/75 leading-relaxed font-light">
               Detailed, practical guidance engineered for people responsible for commercial buildings, statutory maintenance, asset compliance, procurement, and FM strategy.
             </p>
           </div>
@@ -124,12 +124,12 @@ export function TemplateGuidesHub({ route, content }: TemplateGuidesHubProps) {
               <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-between space-y-6">
                 <div>
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-blue-500/10 text-brand-electric-bright border border-blue-500/20 font-bold">
+                    <span className="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-blue-500/10 text-brand-electric-bright border border-blue-500/20 font-medium">
                       FEATURED FLAGSHIP GUIDE
                     </span>
                     <span className="text-xs text-brand-mist/50 font-mono">18 min read</span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                  <h2 className="text-2xl sm:text-3xl font-light text-white mb-4">
                     The Complete Guide to Facilities Management
                   </h2>
                   <p className="text-brand-mist/75 leading-relaxed text-sm sm:text-base">

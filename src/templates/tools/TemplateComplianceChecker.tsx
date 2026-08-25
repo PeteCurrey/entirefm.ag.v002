@@ -747,10 +747,10 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                   </div>
 
                   <div className="flex flex-col items-center justify-center p-5 rounded-sm bg-white border border-slate-200 shadow-sm shrink-0 min-w-[130px]">
-                    <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-mono">
+                    <span className="text-3xl sm:text-4xl font-light text-slate-900 font-mono tabular-nums">
                       {results.scoreOutOf100}
                     </span>
-                    <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-bold mt-0.5">
+                    <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-medium mt-0.5">
                       out of 100
                     </span>
                   </div>
@@ -759,33 +759,33 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                 {/* Findings Breakdown Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="p-4 rounded-sm bg-rose-50 border border-rose-200">
-                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-rose-700 font-bold">
+                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-rose-700 font-medium">
                       Critical Gaps
                     </div>
-                    <div className="text-2xl font-extrabold text-rose-700 mt-1 font-mono">
+                    <div className="text-2xl font-light text-rose-700 mt-1 font-mono tabular-nums">
                       {results.criticalFindings.length} Regimes
                     </div>
-                    <div className="text-[11.5px] text-rose-800/80 mt-0.5">Immediate legal exposure</div>
+                    <div className="text-[11.5px] text-rose-800/80 mt-0.5 font-light">Immediate legal exposure</div>
                   </div>
 
                   <div className="p-4 rounded-sm bg-amber-50 border border-amber-200">
-                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-amber-800 font-bold">
+                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-amber-800 font-medium">
                       Action Required
                     </div>
-                    <div className="text-2xl font-extrabold text-amber-800 mt-1 font-mono">
+                    <div className="text-2xl font-light text-amber-800 mt-1 font-mono tabular-nums">
                       {results.actionRequiredFindings.length} Regimes
                     </div>
-                    <div className="text-[11.5px] text-amber-900/80 mt-0.5">Remedial work required</div>
+                    <div className="text-[11.5px] text-amber-900/80 mt-0.5 font-light">Remedial work required</div>
                   </div>
 
                   <div className="p-4 rounded-sm bg-emerald-50 border border-emerald-200">
-                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-emerald-700 font-bold">
+                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-emerald-700 font-medium">
                       Documented Control
                     </div>
-                    <div className="text-2xl font-extrabold text-emerald-700 mt-1 font-mono">
+                    <div className="text-2xl font-light text-emerald-700 mt-1 font-mono tabular-nums">
                       {results.compliantFindings.length} Regimes
                     </div>
-                    <div className="text-[11.5px] text-emerald-800/80 mt-0.5">Satisfactory evidence on file</div>
+                    <div className="text-[11.5px] text-emerald-800/80 mt-0.5 font-light">Satisfactory evidence on file</div>
                   </div>
                 </div>
 

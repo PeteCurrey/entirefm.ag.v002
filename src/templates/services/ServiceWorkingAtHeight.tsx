@@ -305,14 +305,14 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="lg:col-span-7 space-y-6">
                 <div className="inline-flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#FF3E9D]">
+                  <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
                     STRATEGIC ACCESS METHODOLOGIES
                   </span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                   Safe access for the work most contractors cannot easily reach
                 </h2>
-                <p className="text-base text-slate-600 leading-relaxed">
+                <p className="text-base text-slate-600 leading-relaxed font-light">
                   High-level building works demand rigorous engineering discipline, technical competence, and uncompromising safety standards. EntireFM provides planned preventative and reactive high-level access services across complex commercial envelopes, deploying the most efficient and safe access methodology for every structure:
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-medium text-sm text-slate-800">
@@ -333,7 +333,7 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                     <span>Specialist High-Level Maintenance</span>
                   </div>
                 </div>
-                <p className="text-sm text-slate-500 leading-relaxed pt-2">
+                <p className="text-sm text-slate-500 leading-relaxed pt-2 font-light">
                   We bridge the gap between pure cleaning contractors and complex structural engineers. From routine envelope care and mastic resealing to emergency leak diagnosis and high-level lighting maintenance, our access teams integrate directly into your estate’s broader maintenance programme.
                 </p>
               </div>
@@ -349,13 +349,13 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
-                    <span className="font-mono text-[11px] text-white/80 uppercase tracking-wider block">
+                    <span className="font-mono text-[11px] text-white/80 uppercase tracking-wider block font-medium">
                       PRECISION RIGGING &amp; ANCHOR PROTOCOLS
                     </span>
-                    <h3 className="text-lg font-bold text-white">
+                    <h3 className="text-lg font-medium text-white">
                       Zero Ground Disruption, Maximum Safety
                     </h3>
-                    <p className="text-xs text-white/80">
+                    <p className="text-xs text-white/80 font-light">
                       Engineered anchor verification and controlled drop plans for occupied commercial environments.
                     </p>
                   </div>
@@ -373,14 +373,14 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#FF3E9D]">
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
                   COMPREHENSIVE CAPABILITY
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                 High-Level Access &amp; Façade Maintenance Services
               </h2>
-              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
+              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
                 A robust, multi-disciplinary service spectrum engineered specifically for commercial property managers, managing agents, and facilities directors.
               </p>
             </div>
@@ -552,14 +552,14 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
                 <div className="inline-flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#FF3E9D]">
+                  <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
                     INTEGRATED PLANT &amp; CRADLES
                   </span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                   BMU and cradle-supported high-level works
                 </h2>
-                <p className="text-base text-slate-600 leading-relaxed">
+                <p className="text-base text-slate-600 leading-relaxed font-light">
                   For high-rise commercial towers and architecturally complex buildings equipped with permanent façade access equipment, Building Maintenance Units (BMUs) and motorized cradles provide the most effective platform for large-scale maintenance and inspection scopes.
                 </p>
                 <div className="space-y-3.5 pt-1">
@@ -568,8 +568,8 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                       <CheckCircle2 className="h-3.5 w-3.5" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900">Planned Façade Maintenance &amp; Cyclic Cleans</h4>
-                      <p className="text-xs text-slate-600 leading-relaxed">
+                      <h4 className="text-sm font-medium text-slate-900">Planned Façade Maintenance &amp; Cyclic Cleans</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed font-light">
                         Continuous coverage across multi-storey elevations for scheduled glass cleaning, pressure-washing, and mastic inspection.
                       </p>
                     </div>
@@ -580,8 +580,8 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                       <CheckCircle2 className="h-3.5 w-3.5" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900">Glass &amp; Envelope Component Replacement</h4>
-                      <p className="text-xs text-slate-600 leading-relaxed">
+                      <h4 className="text-sm font-medium text-slate-900">Glass &amp; Envelope Component Replacement</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed font-light">
                         Stable working platform for heavy glass panel replacement, louvre installations, and structural sealant tooling.
                       </p>
                     </div>
@@ -592,8 +592,8 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                       <CheckCircle2 className="h-3.5 w-3.5" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900">Safe, Repeatable Access for High-Rise Assets</h4>
-                      <p className="text-xs text-slate-600 leading-relaxed">
+                      <h4 className="text-sm font-medium text-slate-900">Safe, Repeatable Access for High-Rise Assets</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed font-light">
                         Fully compliant operation of roof car tracks, luffing jibs, and traversing gantries on major UK commercial landmarks.
                       </p>
                     </div>
@@ -612,14 +612,14 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl mb-12">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#16A34A]" />
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#16A34A]">
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#16A34A]">
                   HEALTH, SAFETY &amp; GOVERNANCE
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                 Safe working at height, planned properly
               </h2>
-              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
+              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
                 Every working-at-height scope is planned around the building, the task and the safest suitable access method. From rooftop rigging and rope access through to BMU-supported activity, safety and control sit at the centre of delivery.
               </p>
             </div>
@@ -715,14 +715,14 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#FF3E9D]">
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
                   ESTATE PORTFOLIO RELEVANCE
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                 Typical environments we support
               </h2>
-              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
+              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
                 Our high-level access and façade services are deployed across a diverse range of commercial and public property archetypes across the UK.
               </p>
             </div>
@@ -735,9 +735,9 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
                 >
                   <div className="flex items-center gap-2">
                     <Building2 className="h-4 w-4 text-[#FF3E9D]" />
-                    <h3 className="font-bold text-slate-900 text-base">{sec.name}</h3>
+                    <h3 className="font-medium text-slate-900 text-base">{sec.name}</h3>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed">{sec.desc}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed font-light">{sec.desc}</p>
                 </div>
               ))}
             </div>
@@ -753,36 +753,36 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
               <div className="max-w-3xl">
                 <div className="inline-flex items-center gap-2 mb-2">
                   <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#FF3E9D]">
+                  <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
                     THE ENTIREFM ADVANTAGE
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                <h2 className="text-2xl sm:text-3xl font-light text-slate-900">
                   Why commercial estate teams choose EntireFM
                 </h2>
-                <p className="mt-2 text-sm text-slate-600">
+                <p className="mt-2 text-sm text-slate-600 font-light">
                   We combine specialist high-level access with deep commercial facilities management experience.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
                 <div className="space-y-2 border-l-2 border-[#FF3E9D] pl-4">
-                  <h4 className="font-bold text-slate-900 uppercase font-sans text-sm">One Integrated Provider</h4>
-                  <p className="text-slate-600 font-sans text-xs leading-relaxed">
+                  <h4 className="font-medium text-slate-900 uppercase font-sans text-sm">One Integrated Provider</h4>
+                  <p className="text-slate-600 font-sans text-xs leading-relaxed font-light">
                     Avoid managing separate cleaning, access, and M&amp;E contractors. We deliver high-level care under your single Total FM contract.
                   </p>
                 </div>
 
                 <div className="space-y-2 border-l-2 border-[#FF3E9D] pl-4">
-                  <h4 className="font-bold text-slate-900 uppercase font-sans text-sm">Planned &amp; 24/7 Reactive</h4>
-                  <p className="text-slate-600 font-sans text-xs leading-relaxed">
+                  <h4 className="font-medium text-slate-900 uppercase font-sans text-sm">Planned &amp; 24/7 Reactive</h4>
+                  <p className="text-slate-600 font-sans text-xs leading-relaxed font-light">
                     From 52-week cyclic washdown schedules to emergency storm-damage attendance, our teams are ready when you need them.
                   </p>
                 </div>
 
                 <div className="space-y-2 border-l-2 border-[#FF3E9D] pl-4">
-                  <h4 className="font-bold text-slate-900 uppercase font-sans text-sm">Digital CAFM Evidence</h4>
-                  <p className="text-slate-600 font-sans text-xs leading-relaxed">
+                  <h4 className="font-medium text-slate-900 uppercase font-sans text-sm">Digital CAFM Evidence</h4>
+                  <p className="text-slate-600 font-sans text-xs leading-relaxed font-light">
                     Every drop, survey point, and mastic repair is logged with photographic provenance on our client portal for audit readiness.
                   </p>
                 </div>
@@ -797,13 +797,13 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
         <section className="py-20 bg-white border-b border-slate-200">
           <div className="container-custom max-w-4xl space-y-10">
             <div className="text-center space-y-3">
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#FF3E9D]">
+              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
                 FREQUENTLY ASKED QUESTIONS
               </span>
-              <h2 className="text-3xl font-extrabold text-slate-900">
+              <h2 className="text-3xl font-light text-slate-900">
                 Working at Height &amp; High-Level Access FAQ
               </h2>
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-slate-600 font-light">
                 Key operational and technical questions answered for facilities managers and building owners.
               </p>
             </div>
@@ -819,14 +819,14 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#FF3E9D]" />
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#FF3E9D]">
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#FF3E9D]">
                   CONNECTED CAPABILITIES
                 </span>
               </div>
-              <h2 className="text-3xl font-extrabold text-slate-900">
+              <h2 className="text-3xl font-light text-slate-900">
                 Related Building &amp; Engineering Services
               </h2>
-              <p className="mt-2 text-sm text-slate-600">
+              <p className="mt-2 text-sm text-slate-600 font-light">
                 Combine high-level access with our comprehensive Hard &amp; Soft Facilities Management disciplines under a single commercial contract.
               </p>
             </div>

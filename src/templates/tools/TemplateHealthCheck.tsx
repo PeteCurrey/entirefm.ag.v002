@@ -422,21 +422,21 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                   {/* Scoreboard Metrics Strip */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-2 border-b border-slate-100">
                     <div className="sm:border-r border-slate-200 pr-4">
-                      <span className="text-[11px] font-mono text-slate-500 font-bold uppercase block">Assurance Rating</span>
-                      <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-mono mt-1">{percentage}%</div>
+                      <span className="text-[11px] font-mono text-slate-500 font-medium uppercase block">Assurance Rating</span>
+                      <div className="text-3xl sm:text-4xl font-light text-slate-900 font-mono tabular-nums mt-1">{percentage}%</div>
                       <span className="text-xs text-slate-600 font-medium">{levelLabel}</span>
                     </div>
 
                     <div className="sm:border-r border-slate-200 pr-4">
-                      <span className="text-[11px] font-mono text-emerald-700 font-bold uppercase block">Verified Strong</span>
-                      <div className="text-3xl sm:text-4xl font-extrabold text-emerald-600 font-mono mt-1">{strongAreas.length} / 7</div>
-                      <span className="text-xs text-slate-600">Documented Controls</span>
+                      <span className="text-[11px] font-mono text-emerald-700 font-medium uppercase block">Verified Strong</span>
+                      <div className="text-3xl sm:text-4xl font-light text-emerald-600 font-mono tabular-nums mt-1">{strongAreas.length} / 7</div>
+                      <span className="text-xs text-slate-600 font-light">Documented Controls</span>
                     </div>
 
                     <div>
-                      <span className="text-[11px] font-mono text-rose-700 font-bold uppercase block">Remedial Attention</span>
-                      <div className="text-3xl sm:text-4xl font-extrabold text-rose-600 font-mono mt-1">{priorityGaps.length + reviewAreas.length}</div>
-                      <span className="text-xs text-slate-600">Statutory / Standard Gaps</span>
+                      <span className="text-[11px] font-mono text-rose-700 font-medium uppercase block">Remedial Attention</span>
+                      <div className="text-3xl sm:text-4xl font-light text-rose-600 font-mono tabular-nums mt-1">{priorityGaps.length + reviewAreas.length}</div>
+                      <span className="text-xs text-slate-600 font-light">Statutory / Standard Gaps</span>
                     </div>
                   </div>
 

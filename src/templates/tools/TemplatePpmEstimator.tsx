@@ -283,10 +283,10 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
                       backgroundImage: `radial-gradient(ellipse at 80% 0%, rgba(37, 99, 235, 0.6), transparent 70%)`,
                     }}
                   />
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300 font-mono block">
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-slate-300 font-mono block">
                     Estimated Annual PPM Range
                   </span>
-                  <p className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-display">
+                  <p className="text-2xl sm:text-3xl font-light text-white tracking-tight font-mono tabular-nums">
                     £{estimate.lowerBound.toLocaleString()} – £{estimate.upperBound.toLocaleString()}
                   </p>
                   <div className="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-300">

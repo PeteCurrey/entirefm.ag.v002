@@ -1200,27 +1200,27 @@ export function TemplatePpmBuilder({ route, content }: TemplateProps) {
                 {/* Scoreboard Metrics Strip with fine vertical dividers */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-2 border-b border-slate-100">
                   <div className="sm:border-r border-slate-200 pr-4">
-                    <span className="text-[11px] font-mono text-slate-600 uppercase font-bold block">Planned Tasks</span>
-                    <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono mt-1">{stats.totalActivities}</div>
-                    <span className="text-xs text-slate-600">12-Month Schedule</span>
+                    <span className="text-[11px] font-mono text-slate-600 uppercase font-medium block">Planned Tasks</span>
+                    <div className="text-2xl sm:text-3xl font-light text-slate-900 font-mono tabular-nums mt-1">{stats.totalActivities}</div>
+                    <span className="text-xs text-slate-600 font-light">12-Month Schedule</span>
                   </div>
 
                   <div className="sm:border-r border-slate-200 pr-4">
-                    <span className="text-[11px] font-mono text-rose-700 uppercase font-bold block">Legal Duties</span>
-                    <div className="text-2xl sm:text-3xl font-extrabold text-rose-600 font-mono mt-1">{stats.legalCount}</div>
-                    <span className="text-xs text-slate-600">Statutory Regulations</span>
+                    <span className="text-[11px] font-mono text-rose-700 uppercase font-medium block">Legal Duties</span>
+                    <div className="text-2xl sm:text-3xl font-light text-rose-600 font-mono tabular-nums mt-1">{stats.legalCount}</div>
+                    <span className="text-xs text-slate-600 font-light">Statutory Regulations</span>
                   </div>
 
                   <div className="sm:border-r border-slate-200 pr-4">
-                    <span className="text-[11px] font-mono text-blue-700 uppercase font-bold block">British Standards</span>
-                    <div className="text-2xl sm:text-3xl font-extrabold text-blue-600 font-mono mt-1">{stats.standardCount}</div>
-                    <span className="text-xs text-slate-600">Code of Practice</span>
+                    <span className="text-[11px] font-mono text-blue-700 uppercase font-medium block">British Standards</span>
+                    <div className="text-2xl sm:text-3xl font-light text-blue-600 font-mono tabular-nums mt-1">{stats.standardCount}</div>
+                    <span className="text-xs text-slate-600 font-light">Code of Practice</span>
                   </div>
 
                   <div>
-                    <span className="text-[11px] font-mono text-emerald-700 uppercase font-bold block">SFG20 &amp; Risk</span>
-                    <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-mono mt-1">{stats.sfg20Count}</div>
-                    <span className="text-xs text-slate-600">Preventative Care</span>
+                    <span className="text-[11px] font-mono text-emerald-700 uppercase font-medium block">SFG20 &amp; Risk</span>
+                    <div className="text-2xl sm:text-3xl font-light text-emerald-600 font-mono tabular-nums mt-1">{stats.sfg20Count}</div>
+                    <span className="text-xs text-slate-600 font-light">Preventative Care</span>
                   </div>
                 </div>
 

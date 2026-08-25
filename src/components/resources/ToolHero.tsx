@@ -103,17 +103,17 @@ export function ToolHero({
               </span>
             </div>
 
-            <h1 className="text-display-sm text-white font-extrabold tracking-tight leading-tight">
+            <h1 className="text-display-md sm:text-display-lg text-white font-light tracking-tight leading-tight">
               {title}
             </h1>
 
-            <p className="text-base leading-relaxed text-brand-mist/70 max-w-2xl">
+            <p className="text-base leading-relaxed text-brand-mist/70 max-w-2xl font-light">
               {description}
             </p>
 
             {/* Time estimate pill */}
             <div className="flex items-center gap-2">
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${cls.pill}`}>
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${cls.pill}`}>
                 <Clock className="h-3 w-3" />
                 {timeEstimate}
               </span>

@@ -243,15 +243,15 @@ export function TemplateContact() {
             <div className="text-center max-w-2xl mx-auto mb-14">
               <div className="inline-flex items-center gap-2 mb-3">
                 <span className="h-1.5 w-6 bg-brand-pink rounded-full" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
                   HOW CAN WE HELP?
                 </span>
                 <span className="h-1.5 w-6 bg-brand-pink rounded-full" />
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900">
                 Choose Your Contact Pathway
               </h2>
-              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
+              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
                 Connect directly with the appropriate commercial, technical, or client operations desk for immediate assistance.
               </p>
             </div>
@@ -321,14 +321,14 @@ export function TemplateContact() {
                 <div>
                   <div className="inline-flex items-center gap-2 mb-2.5">
                     <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
                       NATIONAL ESTATE COVERAGE
                     </span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                  <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-slate-900">
                     Nationwide Facilities Management & Specialist Engineering
                   </h2>
-                  <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed">
+                  <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
                     EntireFM delivers single-source facilities management, planned maintenance, and technical engineering across commercial real estate, logistics hubs, industrial manufacturing sites, and multi-location retail estates nationwide.
                   </p>
                 </div>
@@ -343,10 +343,10 @@ export function TemplateContact() {
                         <CheckCircle2 className="w-4 h-4" />
                       </div>
                       <div>
-                        <strong className="block text-sm font-bold text-slate-900">
+                        <strong className="block text-sm font-medium text-slate-900">
                           {cap.title}
                         </strong>
-                        <span className="text-xs text-slate-600 leading-relaxed mt-0.5 block">
+                        <span className="text-xs text-slate-600 leading-relaxed mt-0.5 block font-light">
                           {cap.desc}
                         </span>
                       </div>
@@ -368,10 +368,10 @@ export function TemplateContact() {
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-pink-light via-brand-pink to-brand-magenta" />
 
                   <div className="mb-6">
-                    <span className="text-xs font-bold uppercase tracking-wider text-brand-pink block mb-1">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink block mb-1">
                       AUTHORITATIVE DIRECTORY
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                    <h3 className="text-xl sm:text-2xl font-light text-slate-900 tracking-tight">
                       Corporate Contact Details
                     </h3>
                     <p className="text-xs text-slate-500 mt-1">
@@ -544,10 +544,10 @@ export function TemplateContact() {
                   <span className="eyebrow eyebrow-dark text-xs uppercase tracking-wider text-brand-electric block mb-2">
                     CLIENT SERVICES
                   </span>
-                  <h3 className="text-2xl font-extrabold text-white tracking-tight mb-3">
+                  <h3 className="text-2xl font-light text-white tracking-tight mb-3">
                     Existing EntireFM Client?
                   </h3>
-                  <p className="text-sm text-slate-300 leading-relaxed mb-6">
+                  <p className="text-sm text-slate-300 leading-relaxed mb-6 font-light">
                     Need help with an existing site or contract? Log a reactive maintenance request, track active work orders, or speak directly with your dedicated account manager.
                   </p>
                 </div>
@@ -559,7 +559,7 @@ export function TemplateContact() {
                   </Link>
                   <a
                     href={CONTACT_CONFIG.mainPhone.href}
-                    className="text-xs font-mono font-bold text-slate-300 hover:text-white transition-colors"
+                    className="text-xs font-mono font-medium text-slate-300 hover:text-white transition-colors"
                   >
                     Direct line: {CONTACT_CONFIG.mainPhone.display}
                   </a>
@@ -574,10 +574,10 @@ export function TemplateContact() {
                   <span className="eyebrow eyebrow-dark text-xs uppercase tracking-wider text-brand-pink block mb-2">
                     TECHNICAL AUDIT
                   </span>
-                  <h3 className="text-2xl font-extrabold text-white tracking-tight mb-3">
+                  <h3 className="text-2xl font-light text-white tracking-tight mb-3">
                     Need a Comprehensive Site Survey?
                   </h3>
-                  <p className="text-sm text-slate-300 leading-relaxed mb-6">
+                  <p className="text-sm text-slate-300 leading-relaxed mb-6 font-light">
                     Arrange an on-site engineering review for M&E plant, HVAC infrastructure, statutory compliance audits, commercial cleaning scopes, or broader estate management.
                   </p>
                 </div>

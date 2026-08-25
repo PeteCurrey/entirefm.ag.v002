@@ -67,11 +67,11 @@ export function DronePpmSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
             Moving property maintenance from reactive to evidence-led
           </h2>
 
-          <p className="text-base text-slate-600 leading-relaxed">
+          <p className="text-base text-slate-600 leading-relaxed font-light">
             Drone inspections should not be treated as rare, isolated emergency events. By embedding scheduled aerial surveys directly into your SFG20 Planned Preventative Maintenance (PPM) schedule, facilities managers gain continuous condition tracking that prevents costly emergency interventions.
           </p>
         </div>
@@ -85,7 +85,7 @@ export function DronePpmSection() {
             >
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-extrabold text-slate-900 group-hover:text-brand-pink transition-colors">
+                  <span className="text-2xl font-light font-mono text-slate-900 group-hover:text-brand-pink transition-colors">
                     {cadence.interval}
                   </span>
                   <span className="font-mono text-[9px] uppercase font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-[4px]">

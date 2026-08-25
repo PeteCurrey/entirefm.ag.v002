@@ -85,11 +85,11 @@ export function DroneSampleOutputs() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
             Sample Technical Output Visualisations
           </h2>
 
-          <p className="text-base text-slate-600 leading-relaxed">
+          <p className="text-base text-slate-600 leading-relaxed font-light">
             Explore how raw aerial survey data is processed into structured, georeferenced engineering deliverables for property managers and building surveyors.
           </p>
         </div>

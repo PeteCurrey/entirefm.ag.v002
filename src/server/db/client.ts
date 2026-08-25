@@ -58,7 +58,9 @@ export async function dbQuery<T = any>(
         ...(options.body ? { Prefer: 'return=representation' } : {}),
         ...options.headers,
       }),
-      body: options.body ? JSON.stringify(options.body) : undefined,
+      body: options.body
+        ? (typeof options.body === 'string' ? options.body : JSON.stringify(options.body))
+        : undefined,
       cache: options.cache || 'no-store',
     });
 

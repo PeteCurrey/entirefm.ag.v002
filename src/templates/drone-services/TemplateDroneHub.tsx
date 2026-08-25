@@ -291,11 +291,11 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
                 </span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                 Complete Aerial Asset Intelligence Capabilities
               </h2>
 
-              <p className="text-base text-slate-600 leading-relaxed">
+              <p className="text-base text-slate-600 leading-relaxed font-light">
                 Eleven specialized commercial drone services engineered for facilities directors, asset managers, and construction teams.
               </p>
             </div>
@@ -386,10 +386,10 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
                   SECTOR APPLICATIONS
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900">
                 Commercial Environments We Support
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base">
+              <p className="text-slate-600 text-sm sm:text-base font-light">
                 Tailored flight profiles and reporting methodologies suited to complex commercial, industrial, and institutional real estate portfolios.
               </p>
             </div>
@@ -406,9 +406,9 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
                       <div className="w-8 h-8 rounded-sm bg-white border border-slate-200 flex items-center justify-center text-brand-pink shadow-subtle">
                         <Icon className="w-4 h-4" />
                       </div>
-                      <h3 className="text-base font-bold text-slate-900">{sec.title}</h3>
+                      <h3 className="text-base font-medium text-slate-900">{sec.title}</h3>
                     </div>
-                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">
                       {sec.desc}
                     </p>
                   </div>
@@ -424,10 +424,10 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
         <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-custom max-w-4xl space-y-10">
             <div className="text-center space-y-3">
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand-pink">
                 FREQUENTLY ASKED QUESTIONS
               </span>
-              <h2 className="text-3xl font-extrabold text-slate-900">
+              <h2 className="text-3xl font-light text-slate-900">
                 Commercial Drone Services FAQ
               </h2>
               <p className="text-sm text-slate-600">

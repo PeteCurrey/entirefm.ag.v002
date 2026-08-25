@@ -76,11 +76,11 @@ export function LegalLayout({
                   )}
                 </div>
 
-                <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                <h1 className="text-3xl font-light tracking-tight text-white sm:text-4xl lg:text-5xl">
                   {title}
                 </h1>
 
-                <p className="text-base text-slate-300 leading-relaxed max-w-2xl sm:text-lg">
+                <p className="text-base text-slate-300 leading-relaxed max-w-2xl sm:text-lg font-light">
                   {summary}
                 </p>
               </div>

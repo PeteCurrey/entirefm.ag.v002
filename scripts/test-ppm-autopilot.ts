@@ -36,7 +36,7 @@ import {
 } from '../src/server/ppm';
 
 import { UserSession } from '../src/server/identity';
-import { isDbConfigured } from '../src/server/db/client';
+import { isDbConfigured, dbQuery } from '../src/server/db/client';
 
 let totalTests = 0;
 let passedTests = 0;
@@ -179,26 +179,70 @@ async function runTests() {
   // ─── Scenario 6: Database Plan Lifecycle (conditional on DB) ────
   console.log('\n--- 6. Idempotency & Plan Management Safety ---');
   if (dbAvailable) {
-    const planResult = await createMaintenancePlan(
-      {
-        clientAccountId: 'cli-001',
-        name: 'Annual Hard FM PPM Programme',
-        effectiveFrom: '2026-09-01',
-      },
-      adminSession
-    );
-    assert(planResult.planNumber?.startsWith('PPM-') ?? false, 'Creates draft maintenance plan with valid PPM number');
+    let clientAccId: string | null = null;
+    let orgId: string | null = null;
+    let createdFixtures = false;
 
-    if (planResult.id) {
-      const approveRes = await approvePlan(planResult.id, 'Approved by Operations Manager', adminSession);
-      assert(approveRes.success === true, 'Approves maintenance plan');
+    // Check if client_accounts exists
+    const { data: caList } = await dbQuery<any[]>('client_accounts?select=id&limit=1');
+    if (caList && caList.length > 0) {
+      clientAccId = caList[0].id;
+    } else {
+      // Create temporary test org and client_account
+      const testOrgCode = `PPM-TEST-${Date.now()}`;
+      const testOrgRes = await dbQuery<any[]>('organisations', {
+        method: 'POST',
+        body: { code: testOrgCode, name: 'PPM-TEST-ORG', org_type: 'CLIENT', status: 'ACTIVE' },
+      });
+      orgId = testOrgRes.data?.[0]?.id || null;
+      if (orgId) {
+        const testCaRes = await dbQuery<any[]>('client_accounts', {
+          method: 'POST',
+          body: { account_code: `CLI-${Date.now()}`, organisation_id: orgId, status: 'ACTIVE' },
+        });
+        clientAccId = testCaRes.data?.[0]?.id || null;
+        createdFixtures = true;
+      }
+    }
 
-      const activateRes = await activatePlan(planResult.id, adminSession);
-      assert(activateRes.success === true, 'Activates maintenance plan');
+    const { data: pList } = await dbQuery<any[]>('persons?select=id&limit=1');
+    if (pList && pList.length > 0) {
+      adminSession.personId = pList[0].id;
+    }
 
-      const genOccRes = await generateOccurrences(planResult.id, 12, adminSession);
-      assert(typeof genOccRes.created === 'number', 'Occurrence generator returns deterministic count');
-      assert(typeof genOccRes.skipped === 'number', 'Occurrence generator reports idempotency skip count');
+    if (clientAccId) {
+      const planResult = await createMaintenancePlan(
+        {
+          clientAccountId: clientAccId,
+          name: 'Annual Hard FM PPM Programme',
+          effectiveFrom: '2026-09-01',
+        },
+        adminSession
+      );
+      assert(planResult.planNumber?.startsWith('PPM-') ?? false, 'Creates draft maintenance plan with valid PPM number');
+
+      if (planResult.id) {
+        const approveRes = await approvePlan(planResult.id, 'Approved by Operations Manager', adminSession);
+        assert(approveRes.success === true, 'Approves maintenance plan');
+
+        const activateRes = await activatePlan(planResult.id, adminSession);
+        assert(activateRes.success === true, 'Activates maintenance plan');
+
+        const genOccRes = await generateOccurrences(planResult.id, 12, adminSession);
+        assert(typeof genOccRes.created === 'number', 'Occurrence generator returns deterministic count');
+        assert(typeof genOccRes.skipped === 'number', 'Occurrence generator reports idempotency skip count');
+
+        // Cleanup test plan and occurrences
+        await dbQuery(`maintenance_occurrences?plan_id=eq.${planResult.id}`, { method: 'DELETE' });
+        await dbQuery(`maintenance_plans?id=eq.${planResult.id}`, { method: 'DELETE' });
+      }
+    } else {
+      skip('Database mutations for Maintenance Plan creation and activation (requires live DB with client account)');
+    }
+
+    if (createdFixtures && orgId) {
+      await dbQuery(`client_accounts?organisation_id=eq.${orgId}`, { method: 'DELETE' });
+      await dbQuery(`organisations?id=eq.${orgId}`, { method: 'DELETE' });
     }
   } else {
     skip('Database mutations for Maintenance Plan creation and activation (requires live DB)');

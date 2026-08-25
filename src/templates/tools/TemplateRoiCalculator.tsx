@@ -277,10 +277,10 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
                       backgroundImage: `radial-gradient(ellipse at 80% 0%, rgba(37, 99, 235, 0.6), transparent 70%)`,
                     }}
                   />
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300 font-mono block">
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-slate-300 font-mono block">
                     Projected Annual TCO Reduction
                   </span>
-                  <p className="text-3xl sm:text-4xl font-extrabold text-emerald-400 tracking-tight font-display">
+                  <p className="text-3xl sm:text-4xl font-light text-emerald-400 tracking-tight font-mono tabular-nums">
                     £{calculation.totalPotentialSavings.toLocaleString()}
                   </p>
                   <div className="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-300">

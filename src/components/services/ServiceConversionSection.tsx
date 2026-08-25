@@ -32,14 +32,14 @@ export function ServiceConversionSection({
             <div>
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
                   {badgeText}
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                 {headline}
               </h2>
-              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
+              <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
                 {subheadline}
               </p>
             </div>

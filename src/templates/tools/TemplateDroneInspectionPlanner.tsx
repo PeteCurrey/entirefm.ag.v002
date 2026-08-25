@@ -110,10 +110,10 @@ export function TemplateDroneInspectionPlanner({
           {/* Technical FAQs */}
           <section className="max-w-4xl mx-auto space-y-8 pt-4">
             <div className="text-center space-y-2">
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand-pink">
                 FREQUENTLY ASKED QUESTIONS
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+              <h2 className="text-2xl sm:text-3xl font-light text-white">
                 Drone Inspection Planner FAQ
               </h2>
             </div>

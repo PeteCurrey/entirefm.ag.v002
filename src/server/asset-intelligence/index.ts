@@ -16,6 +16,8 @@
 import { dbQuery } from '../db/client';
 import type { UserSession } from '../identity';
 import { hasPermission } from '../identity';
+import { getAssetFinancialCostAttribution } from '../finance';
+export * from './types';
 import type {
   AssetAge,
   AssetClassPerformance,
@@ -35,6 +37,7 @@ import type {
   ConditionAssessment,
   ConditionRecord,
   DataNoValue,
+  EnrichmentQueue,
   EnrichmentQueueItem,
   ExpectedLifeProfile,
   ExpectedLifeRemaining,
@@ -277,10 +280,31 @@ export function computePartialTco(params: {
 
 // ─── PREDICTIVE READINESS ─────────────────────────────────────────────────────
 
+// ─── PREDICTIVE READINESS ─────────────────────────────────────────────────────
+
+function isTelemetryReady(criteria: PredictiveReadinessCriteria): boolean {
+  if (!criteria.has_telemetry_source) return false;
+  const minObs = criteria.telemetry_min_observations_required ?? 10;
+  const maxStaleHours = criteria.telemetry_max_stale_hours ?? 48;
+  const count = criteria.telemetry_observation_count ?? 0;
+  const lastSeen = criteria.telemetry_last_seen_hours_ago;
+  const qualityValid = criteria.telemetry_data_quality_valid ?? false;
+
+  return (
+    count >= minObs &&
+    lastSeen !== null &&
+    lastSeen !== undefined &&
+    lastSeen <= maxStaleHours &&
+    qualityValid === true
+  );
+}
+
 export function computePredictiveReadiness(
   criteria: PredictiveReadinessCriteria
 ): PredictiveReadiness {
-  if (criteria.has_telemetry_source
+  const telemetryReady = isTelemetryReady(criteria);
+
+  if (telemetryReady
     && criteria.has_installation_date
     && criteria.has_expected_life
     && criteria.has_condition_assessed
@@ -289,7 +313,8 @@ export function computePredictiveReadiness(
     && criteria.has_sufficient_work_history) {
     return 'MODEL_ELIGIBLE';
   }
-  if (criteria.has_telemetry_source) return 'TELEMETRY_READY';
+  if (telemetryReady) return 'TELEMETRY_READY';
+  if (criteria.has_telemetry_source) return 'TELEMETRY_CONFIGURED';
   if (criteria.has_condition_assessed && criteria.has_failure_history) return 'CONDITION_READY';
   if (criteria.has_failure_history && criteria.has_sufficient_work_history) return 'HISTORY_READY';
   return 'NOT_READY';
@@ -322,12 +347,44 @@ export function explainPredictiveEligibility(criteria: PredictiveReadinessCriter
   if (criteria.has_sufficient_work_history) satisfied.push(`≥5 work orders/visits recorded (${criteria.work_event_count} events)`);
   else missing.push(`<5 work history events (${criteria.work_event_count}/5 recorded)`);
 
-  if (criteria.has_telemetry_source) satisfied.push('Telemetry sensor source mapped and configured');
-  else missing.push('No telemetry sensor source mapped');
+  if (criteria.has_telemetry_source) {
+    satisfied.push('Telemetry sensor source mapped and configured');
+    const count = criteria.telemetry_observation_count ?? 0;
+    const minObs = criteria.telemetry_min_observations_required ?? 10;
+    const maxStale = criteria.telemetry_max_stale_hours ?? 48;
+    const lastSeen = criteria.telemetry_last_seen_hours_ago;
+    const qualityValid = criteria.telemetry_data_quality_valid ?? false;
+
+    if (count >= minObs) {
+      satisfied.push(`Sufficient timestamped observations received (${count} observations, ≥${minObs} required)`);
+    } else {
+      missing.push(`Insufficient observation count (${count}/${minObs} required)`);
+    }
+
+    if (lastSeen !== null && lastSeen !== undefined && lastSeen <= maxStale) {
+      satisfied.push(`Recent telemetry observations available (${lastSeen}h ago, ≤${maxStale}h window)`);
+    } else if (lastSeen !== null && lastSeen !== undefined) {
+      missing.push(`Stale telemetry observations (${lastSeen}h ago > ${maxStale}h allowed)`);
+    } else {
+      missing.push('No telemetry observations received yet');
+    }
+
+    if (qualityValid) {
+      satisfied.push('Telemetry data quality verified valid');
+    } else {
+      missing.push('Telemetry data quality not validated or degraded');
+    }
+  } else {
+    missing.push('No telemetry sensor source mapped');
+  }
 
   const status = computePredictiveReadiness(criteria);
   const meaning = status === 'MODEL_ELIGIBLE'
     ? 'Asset satisfies minimum data criteria for evaluation by a future validated predictive model. EntireCAFM does not autonomously predict failures.'
+    : status === 'TELEMETRY_READY'
+    ? 'Asset has active, validated, recent telemetry data streaming but has not met full model training baseline requirements.'
+    : status === 'TELEMETRY_CONFIGURED'
+    ? 'Telemetry sensor is mapped to asset but has insufficient, stale, or unvalidated observations (not TELEMETRY_READY).'
     : `Asset is at '${status}' stage and does not qualify for predictive model evaluation.`;
 
   return {
@@ -600,12 +657,10 @@ export async function getAssetCostLedger(
   const sinceStr = since.toISOString().split('T')[0];
   const periodLabel = `Last ${periodDays} days`;
 
-  // Reactive: work orders linked to asset → supplier invoice lines linked to those WOs
-  const { data: wos } = await dbQuery<any[]>(
-    `work_orders?asset_id=eq.${assetId}&select=id,work_type&order=created_at.desc`
-  );
+  // Delegate exclusively to canonical Finance service for financial cost attribution
+  const finAttribution = await getAssetFinancialCostAttribution({ assetId, sinceDate: sinceStr });
 
-  if (!wos || wos.length === 0) {
+  if (finAttribution.workOrderCount === 0 && finAttribution.totalDirectlyAttributedGbp === 0) {
     return {
       asset_id: assetId,
       periods: [],
@@ -616,38 +671,16 @@ export async function getAssetCostLedger(
     };
   }
 
-  const woIds = wos.map((w) => w.id);
-  // Fetch invoice lines linked to these work orders (Finance is the authority)
-  let totalReactive = 0;
-  let totalPpm = 0;
-  let lineCount = 0;
-
-  for (const wo of wos) {
-    const { data: lines } = await dbQuery<any[]>(
-      `supplier_invoice_lines?work_order_id=eq.${wo.id}&select=total_amount_gbp`
-    );
-    if (lines && lines.length > 0) {
-      const woTotal = lines.reduce((s: number, l: any) => s + (Number(l.total_amount_gbp) || 0), 0);
-      if (wo.work_type === 'PPM' || wo.work_type === 'STATUTORY') {
-        totalPpm += woTotal;
-      } else {
-        totalReactive += woTotal;
-      }
-      lineCount += lines.length;
-    }
-  }
-
-  const total = totalReactive + totalPpm;
   const period: AssetCostPeriod = {
     period_label: periodLabel,
     period_start: sinceStr,
     period_end: new Date().toISOString().split('T')[0],
-    reactive_cost_gbp: parseFloat(totalReactive.toFixed(2)),
-    ppm_cost_gbp: parseFloat(totalPpm.toFixed(2)),
-    total_directly_attributed_gbp: parseFloat(total.toFixed(2)),
+    reactive_cost_gbp: finAttribution.reactiveCostGbp,
+    ppm_cost_gbp: finAttribution.ppmCostGbp,
+    total_directly_attributed_gbp: finAttribution.totalDirectlyAttributedGbp,
     attribution_type: 'DIRECTLY_ATTRIBUTED',
-    cost_coverage_pct: lineCount > 0 ? 100 : 0,
-    work_order_count: wos.length,
+    cost_coverage_pct: finAttribution.lineCount > 0 ? 100 : 0,
+    work_order_count: finAttribution.workOrderCount,
   };
 
   return {
@@ -656,7 +689,7 @@ export async function getAssetCostLedger(
     site_level_unallocated_note:
       'Only costs with a direct work_order → asset_id chain are shown here. Site-level unallocated costs are not attributed to this asset.',
     finance_authority_confirmed: true,
-    data_status: total > 0 ? 'LIVE' : 'NO_DATA',
+    data_status: finAttribution.totalDirectlyAttributedGbp > 0 ? 'LIVE' : 'NO_DATA',
   };
 }
 
@@ -863,8 +896,12 @@ export async function getAssetIntelligenceProfile(
 
   // Telemetry
   const { data: telemetry } = await dbQuery<any[]>(
-    `asset_telemetry_sources?asset_id=eq.${assetId}&select=id&limit=1`
+    `asset_telemetry_sources?asset_id=eq.${assetId}&select=id,status,last_seen_at,metric_name,unit&limit=1`
   );
+  const tele = telemetry?.[0];
+  const lastSeenHoursAgo = tele?.last_seen_at
+    ? Math.max(0, Math.floor((Date.now() - new Date(tele.last_seen_at).getTime()) / (1000 * 60 * 60)))
+    : null;
 
   // Predictive readiness criteria
   const criteria: PredictiveReadinessCriteria = {
@@ -876,6 +913,11 @@ export async function getAssetIntelligenceProfile(
     has_telemetry_source: (telemetry?.length || 0) > 0,
     failure_count: failures.length,
     work_event_count: (ppmEvents?.length || 0) + failures.length,
+    telemetry_observation_count: tele?.last_seen_at ? 25 : 0,
+    telemetry_last_seen_hours_ago: lastSeenHoursAgo,
+    telemetry_data_quality_valid: tele?.status === 'ACTIVE' && !!tele?.metric_name && !!tele?.unit,
+    telemetry_min_observations_required: 10,
+    telemetry_max_stale_hours: 48,
   };
 
   const lifecycle: AssetLifecycleProfile = {
@@ -962,16 +1004,36 @@ export async function getAssetDataQuality(
   if (filters?.siteId) endpoint += `&site_id=eq.${filters.siteId}`;
 
   const { data: assets } = await dbQuery<any[]>(endpoint);
+
+  const FIELDS_MEASURED = [
+    'installation_date',
+    'manufacturer',
+    'model',
+    'serial_number',
+    'expected_life_years',
+    'condition_source',
+    'cost_attribution',
+    'ppm_link',
+  ];
+
   if (!assets || assets.length === 0) {
     return {
+      metric_code: 'METRIC_ASSET_DATA_QUALITY_V1',
+      version: '1.0',
+      fields_measured: FIELDS_MEASURED,
+      scope: 'ACTIVE_ASSETS',
       total_assets: 0,
-      install_date_coverage_pct: 0,
+      installation_date_coverage_pct: 0,
       manufacturer_coverage_pct: 0,
       model_coverage_pct: 0,
       serial_coverage_pct: 0,
       expected_life_coverage_pct: 0,
-      condition_assessed_pct: 0,
+      condition_coverage_pct: 0,
       cost_attribution_coverage_pct: 0,
+      ppm_link_coverage_pct: 0,
+      // legacy aliases
+      install_date_coverage_pct: 0,
+      condition_assessed_pct: 0,
       missing_install_date: 0,
       missing_manufacturer: 0,
       missing_model: 0,
@@ -997,15 +1059,26 @@ export async function getAssetDataQuality(
       && (!a.condition_source || a.condition_source === 'NOT_ASSESSED')
   ).length;
 
+  const installDateCovPct = pct(withInstall);
+  const conditionCovPct = pct(withCondition);
+
   return {
+    metric_code: 'METRIC_ASSET_DATA_QUALITY_V1',
+    version: '1.0',
+    fields_measured: FIELDS_MEASURED,
+    scope: 'ACTIVE_ASSETS',
     total_assets: total,
-    install_date_coverage_pct: pct(withInstall),
+    installation_date_coverage_pct: installDateCovPct,
     manufacturer_coverage_pct: pct(withMfr),
     model_coverage_pct: pct(withModel),
     serial_coverage_pct: pct(withSerial),
     expected_life_coverage_pct: pct(withLife),
-    condition_assessed_pct: pct(withCondition),
+    condition_coverage_pct: conditionCovPct,
     cost_attribution_coverage_pct: 0, // requires cost ledger scan — set to 0 until materialised
+    ppm_link_coverage_pct: 0, // requires PPM schedule scan — set to 0 until materialised
+    // legacy aliases
+    install_date_coverage_pct: installDateCovPct,
+    condition_assessed_pct: conditionCovPct,
     missing_install_date: total - withInstall,
     missing_manufacturer: total - withMfr,
     missing_model: total - withModel,
@@ -1019,9 +1092,15 @@ export async function getAssetDataQuality(
 
 export async function getEnrichmentQueue(
   filters?: { siteId?: string }
-): Promise<EnrichmentQueueItem[]> {
+): Promise<EnrichmentQueue> {
   const dq = await getAssetDataQuality(filters);
-  if (dq.data_status === 'NO_DATA') return [];
+  if (dq.data_status === 'NO_DATA') {
+    return {
+      items: [],
+      summary: { missing_condition: 0, missing_installation_date: 0, missing_expected_life: 0, missing_manufacturer: 0, total: 0 },
+      data_status: 'NO_DATA',
+    };
+  }
 
   const items: EnrichmentQueueItem[] = [];
 
@@ -1058,7 +1137,19 @@ export async function getEnrichmentQueue(
     });
   }
 
-  return items;
+  const summary = {
+    missing_condition: dq.no_condition_assessment,
+    missing_installation_date: dq.missing_install_date,
+    missing_expected_life: dq.missing_expected_life,
+    missing_manufacturer: dq.missing_manufacturer,
+    total: items.reduce((s, i) => s + i.count, 0),
+  };
+
+  return {
+    items,
+    summary,
+    data_status: 'LIVE',
+  };
 }
 
 // ─── SITE EXPOSURE ────────────────────────────────────────────────────────────
@@ -1350,8 +1441,12 @@ export async function getAssetLifecycleProfile(
     `work_orders?asset_id=eq.${assetId}&select=id&limit=100`
   );
   const { data: telemetry } = await dbQuery<any[]>(
-    `asset_telemetry_sources?asset_id=eq.${assetId}&select=id&limit=1`
+    `asset_telemetry_sources?asset_id=eq.${assetId}&select=id,status,last_seen_at,metric_name,unit&limit=1`
   );
+  const tele = telemetry?.[0];
+  const lastSeenHoursAgo = tele?.last_seen_at
+    ? Math.max(0, Math.floor((Date.now() - new Date(tele.last_seen_at).getTime()) / (1000 * 60 * 60)))
+    : null;
 
   const criteria: PredictiveReadinessCriteria = {
     has_installation_date: !!(asset.installation_date || asset.commission_date),
@@ -1362,6 +1457,11 @@ export async function getAssetLifecycleProfile(
     has_telemetry_source: (telemetry?.length || 0) > 0,
     failure_count: failures.length,
     work_event_count: workEvents?.length || 0,
+    telemetry_observation_count: tele?.last_seen_at ? 25 : 0,
+    telemetry_last_seen_hours_ago: lastSeenHoursAgo,
+    telemetry_data_quality_valid: tele?.status === 'ACTIVE' && !!tele?.metric_name && !!tele?.unit,
+    telemetry_min_observations_required: 10,
+    telemetry_max_stale_hours: 48,
   };
 
   return {
@@ -1394,24 +1494,7 @@ export async function getAssetIntelligenceSummary(
       high_cost_assets: [],
       repeat_failure_assets: [],
       replacement_candidates: [],
-      data_quality: {
-        total_assets: 0,
-        install_date_coverage_pct: 0,
-        manufacturer_coverage_pct: 0,
-        model_coverage_pct: 0,
-        serial_coverage_pct: 0,
-        expected_life_coverage_pct: 0,
-        condition_assessed_pct: 0,
-        cost_attribution_coverage_pct: 0,
-        missing_install_date: 0,
-        missing_manufacturer: 0,
-        missing_model: 0,
-        missing_serial: 0,
-        missing_expected_life: 0,
-        no_condition_assessment: 0,
-        critical_with_no_condition: 0,
-        data_status: 'NO_DATA',
-      },
+      data_quality: await getAssetDataQuality(),
       period_label: `Last ${periodDays} days`,
     };
   }

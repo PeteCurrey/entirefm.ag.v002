@@ -64,16 +64,25 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    font-family: var(--font-work-sans), 'Work Sans', system-ui, -apple-system, sans-serif;
   }
 
   body {
     @apply bg-white text-brand-graphite font-sans antialiased;
-    /* Light body weight, matching entirefm.com. Inter at 400 reads heavier
-       than it looks in a spec, and against 200-weight display type it makes
-       the page feel bottom-heavy. */
+    /* Clean, architectural body weight with Work Sans. */
+    font-family: var(--font-work-sans), 'Work Sans', system-ui, -apple-system, sans-serif;
     font-weight: 300;
-    font-feature-settings: 'ss01', 'cv01';
     selection: auto;
+  }
+
+  /* Form & Native Control Normalisation — ensure native elements inherit Work Sans */
+  input,
+  button,
+  select,
+  textarea,
+  optgroup,
+  option {
+    font-family: var(--font-work-sans), 'Work Sans', system-ui, -apple-system, sans-serif;
   }
 
   ::selection {
@@ -156,7 +165,7 @@
 
   .btn {
     @apply relative inline-flex items-center justify-center gap-2 px-6 py-3.5
-           text-sm font-semibold tracking-tight rounded-sm
+           text-sm font-medium tracking-tight rounded-sm
            transition-all duration-300 ease-brand
            disabled:opacity-50 disabled:pointer-events-none;
   }
@@ -372,7 +381,7 @@
   }
 
   .stat-figure {
-    @apply text-display-md font-bold tracking-tight;
+    @apply text-display-md font-extralight tracking-tight;
     font-variant-numeric: tabular-nums;
   }
 

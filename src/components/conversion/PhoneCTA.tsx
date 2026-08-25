@@ -80,10 +80,10 @@ export function ProposalSection({
           {/* Left Column: Commercial Context */}
           <div className="lg:col-span-5 space-y-6">
             <span className="badge-gold">Commercial Partnership</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-white leading-tight">
               Direct Engineering Accountability. No Bureaucratic Delays.
             </h2>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-slate-300 text-sm leading-relaxed font-light">
               Whether you require a comprehensive Hard & Soft FM contract, single-site mechanical & electrical maintenance, or an urgent specialist survey, EntireFM deploys certified engineers and dedicated account managers nationwide.
             </p>
 
@@ -91,7 +91,7 @@ export function ProposalSection({
               <div className="flex items-start gap-3 p-4 bg-brand-carbon border border-brand-edge-dark rounded-sm">
                 <ShieldCheck className="w-5 h-5 text-brand-electric shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">Comprehensive Statutory Compliance Management</h4>
+                  <h4 className="text-sm font-medium text-white">Comprehensive Statutory Compliance Management</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
                     Structured PPM scheduling, periodic engineering testing, statutory record keeping, and digital audit logs.
                   </p>
@@ -101,7 +101,7 @@ export function ProposalSection({
               <div className="flex items-start gap-3 p-4 bg-brand-carbon border border-brand-edge-dark rounded-sm">
                 <Clock className="w-5 h-5 text-brand-electric shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">Central Operations Helpdesk</h4>
+                  <h4 className="text-sm font-medium text-white">Central Operations Helpdesk</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
                     Direct helpdesk triage, reactive engineer dispatch, and clear SLA performance tracking.
                   </p>

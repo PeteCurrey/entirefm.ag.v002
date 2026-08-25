@@ -46,6 +46,8 @@ function resolveSlugPath(slug: string[]): string {
 
 const DEDICATED_APP_PREFIXES = [
   '/client-portal',
+  '/supplier-portal',
+  '/suppliers',
   '/admin',
   '/api',
   '/client',

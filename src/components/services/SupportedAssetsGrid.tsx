@@ -43,15 +43,15 @@ export function SupportedAssetsGrid({
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-pink-light">
+            <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink-light">
               {eyebrow}
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-white">
             {title}
           </h2>
           {subtitle && (
-            <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
+            <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
               {subtitle}
             </p>
           )}

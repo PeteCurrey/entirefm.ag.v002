@@ -29,14 +29,14 @@ export function SectorRelatedServices({
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 mb-2.5">
               <span className="h-2 w-2 rounded-full bg-brand-pink" />
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+              <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
                 {eyebrow}
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+            <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-slate-900">
               {headline}
             </h2>
-            <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+            <p className="mt-2 text-sm text-slate-600 leading-relaxed font-light">
               {subheadline}
             </p>
           </div>

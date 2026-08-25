@@ -1152,11 +1152,14 @@ export async function processOfflineSyncQueue(
       result.results.push({ idempotencyKey: action.idempotencyKey, status: 'DUPLICATE' });
       continue;
     }
+    const engId = engineerPersonId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(engineerPersonId)
+      ? engineerPersonId
+      : null;
     await dbQuery<any>('field_sync_queue', {
       method: 'POST',
       body: JSON.stringify({
         device_id: deviceId,
-        engineer_person_id: engineerPersonId,
+        engineer_person_id: engId,
         idempotency_key: action.idempotencyKey,
         action_type: action.actionType,
         related_entity_type: action.relatedEntityType || null,

@@ -411,15 +411,18 @@ export async function executeCeoQuery(params: {
 
     // Predictive safety refusal: no unsupported failure probabilities
     if (q.includes('fail next') || q.includes('likely to fail') || q.includes('probability of failure') || q.includes('when will it fail')) {
+      const { data: assets } = await dbQuery<any[]>('assets?select=id&lifecycle_status=eq.ACTIVE&limit=1');
+      const hasAssets = (assets || []).length > 0;
+
       return {
         question,
-        direct_answer: 'EntireCAFM does not yet run a validated failure-prediction model. Rather than guessing, I can show assets with repeat failures, poor condition, high reactive cost, and ageing indicators.',
+        direct_answer: 'EntireCAFM does not currently run a validated asset failure-prediction model. Rather than guessing, deterministic indicators (repeat failures, condition assessments, and design life elapsed) provide actionable maintenance guidance.',
         key_drivers: [
           'No validated predictive model is currently active.',
-          'Deterministic risk indicators (repeat failures, poor condition, ageing) are available instead.',
+          hasAssets ? 'Deterministic risk indicators (repeat failures, poor condition, ageing) are available instead.' : '0 active assets in EntireCAFM.',
         ],
-        evidence: [],
-        data_status: 'LIVE',
+        evidence: hasAssets ? [] : [{ label: 'Active Assets', value: 0, data_status: 'ZERO', source_service: 'assets', computed_at }],
+        data_status: hasAssets ? 'LIVE' : 'NO_DATA',
         possible_actions: [
           { label: 'Asset Intelligence Dashboard', href: '/admin/estate/assets/intelligence', type: 'NAVIGATE' },
           { label: 'Replacement Reviews', href: '/admin/estate/assets/replacement-reviews', type: 'NAVIGATE' },
@@ -430,7 +433,7 @@ export async function executeCeoQuery(params: {
           interpretations: ['Deterministic condition, cost, and lifecycle metrics provide actionable maintenance guidance without speculation.'],
           recommendations: ['Review repeat-failure assets and assets exceeding expected design life.'],
         },
-        tool_runs: [{ tool_id: 'assets.intelligence_summary', domain: 'ASSET_INTELLIGENCE', status: 'SUCCESS', required_permission: 'asset_intelligence:view', permission_granted: true, executed_at: computedAt }],
+        tool_runs: [{ tool_id: 'assets.intelligence_summary', domain: 'ASSET_INTELLIGENCE', status: hasAssets ? 'SUCCESS' : 'EMPTY', required_permission: 'asset_intelligence:view', permission_granted: true, executed_at: computedAt }],
         computed_at,
       };
     }

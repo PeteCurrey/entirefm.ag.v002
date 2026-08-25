@@ -17,6 +17,7 @@ interface EnquiryFormProps {
   variant?: 'dark' | 'light';
   selectedService?: string;
   onServiceChange?: (service: string) => void;
+  className?: string;
 }
 
 export function EnquiryForm({
@@ -31,6 +32,7 @@ export function EnquiryForm({
   variant = 'light',
   selectedService,
   onServiceChange,
+  className = '',
 }: EnquiryFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -190,7 +192,7 @@ export function EnquiryForm({
           Submission Successful
         </span>
         <h3
-          className={`text-2xl sm:text-3xl font-extrabold tracking-tight mb-3 ${
+          className={`text-2xl sm:text-3xl font-light tracking-tight mb-3 ${
             isLight ? 'text-slate-900' : 'text-white'
           }`}
         >
@@ -260,24 +262,25 @@ export function EnquiryForm({
 
   return (
     <div
-      className={`rounded-sm shadow-elevated relative overflow-hidden transition-all ${
+      id="enquiry"
+      className={`relative rounded-sm border p-6 sm:p-10 shadow-elevated transition-all duration-300 ${
         isLight
-          ? 'bg-white border border-slate-200 p-7 sm:p-10 text-slate-900'
-          : 'bg-brand-carbon border border-brand-edge-dark p-6 sm:p-10 text-white'
-      }`}
+          ? 'bg-white border-brand-edge'
+          : 'bg-brand-carbon border-brand-edge-dark'
+      } ${className}`}
     >
-      {/* Top Brand Accent Line */}
+      {/* Visual Accent Top Bar */}
       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-pink-light via-brand-pink to-brand-magenta" />
 
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-2">
           <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-          <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+          <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
             {badgeText}
           </span>
         </div>
         <h2
-          className={`text-2xl sm:text-3xl font-extrabold tracking-tight mt-1 ${
+          className={`text-2xl sm:text-3xl font-light tracking-tight mt-1 ${
             isLight ? 'text-slate-900' : 'text-white'
           }`}
         >

@@ -138,14 +138,14 @@ export function TemplatePartnerNetwork({ route, content }: TemplateProps) {
             <div className="max-w-3xl mb-12">
               <div className="inline-flex items-center gap-2 mb-2.5">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-pink">
+                <span className="text-xs font-semibold uppercase tracking-wider text-brand-pink">
                   PARTNERSHIP FRAMEWORKS
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                 How We Work With Property Professionals
               </h2>
-              <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+              <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
                 Structured commercial relationships designed to support your operational teams and protect your clients&apos; assets.
               </p>
             </div>

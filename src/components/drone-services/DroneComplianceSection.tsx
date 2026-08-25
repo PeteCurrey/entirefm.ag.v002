@@ -58,11 +58,11 @@ export function DroneComplianceSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
             Commercial drone safety, planned properly
           </h2>
 
-          <p className="text-base text-slate-600 leading-relaxed">
+          <p className="text-base text-slate-600 leading-relaxed font-light">
             Commercial drone flights demand the same engineering rigor, regulatory compliance, and risk management as any high-level building operation. We plan every survey around site constraints, airspace regulations, and operational safety.
           </p>
         </div>

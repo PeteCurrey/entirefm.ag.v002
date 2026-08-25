@@ -1,47 +1,36 @@
 # PRODUCTION SITEMAP HEALTH REPORT
 **Audited Domain:** `https://www.entirefm.com`  
-**Timestamp:** 2026-08-23T19:37:42.198Z  
+**Timestamp:** 2026-08-25T19:17:14.002Z  
 **Authority:** Real HTTP Crawl of `/sitemap.xml` and all descendant URLs  
 
 ---
 
 ## 1. TOP-LEVEL SITEMAP INDEX
 - **Top Sitemap URL:** `https://www.entirefm.com/sitemap.xml`
-- **HTTP Status:** `200`
-- **Content-Type:** `application/xml`
+- **HTTP Status:** `0`
+- **Content-Type:** ``
 - **X-Robots-Tag:** `None (Clean)`
-- **Cache-Control:** `public, max-age=0, must-revalidate`
+- **Cache-Control:** ``
 - **Sitemap Type:** `<sitemapindex>` (Valid XML)
-- **Googlebot Fetch Status:** `HTTP 200`
+- **Googlebot Fetch Status:** `HTTP 0`
 
 ---
 
-## 2. CHILD SITEMAPS STATUS (12 Groups)
+## 2. CHILD SITEMAPS STATUS (0 Groups)
 
 | Child Sitemap | HTTP Status | Content-Type | XML Valid | URL Count | Status |
 |---|---|---|---|---|---|
-| `https://www.entirefm.com/sitemaps/core.xml` | 200 | `application/xml; charset=utf-8` | YES | 16 | ✓ PASS |
-| `https://www.entirefm.com/sitemaps/hard-fm.xml` | 200 | `application/xml; charset=utf-8` | YES | 17 | ✓ PASS |
-| `https://www.entirefm.com/sitemaps/soft-fm.xml` | 200 | `application/xml; charset=utf-8` | YES | 9 | ✓ PASS |
-| `https://www.entirefm.com/sitemaps/cleaning.xml` | 200 | `application/xml; charset=utf-8` | YES | 12 | ✓ PASS |
-| `https://www.entirefm.com/sitemaps/maintenance.xml` | 200 | `application/xml; charset=utf-8` | YES | 1 | ✓ PASS |
-| `https://www.entirefm.com/sitemaps/specialist-services.xml` | 200 | `application/xml; charset=utf-8` | YES | 7 | ✓ PASS |
-| `https://www.entirefm.com/sitemaps/sectors.xml` | 200 | `application/xml; charset=utf-8` | YES | 40 | ✓ PASS |
-| `https://www.entirefm.com/sitemaps/locations.xml` | 200 | `application/xml; charset=utf-8` | YES | 72 | ✓ PASS |
-| `https://www.entirefm.com/sitemaps/local-services.xml` | 200 | `application/xml; charset=utf-8` | YES | 37 | ✓ PASS |
-| `https://www.entirefm.com/sitemaps/insights.xml` | 200 | `application/xml; charset=utf-8` | YES | 35 | ✓ PASS |
-| `https://www.entirefm.com/sitemaps/company.xml` | 200 | `application/xml; charset=utf-8` | YES | 23 | ✓ PASS |
-| `https://www.entirefm.com/sitemaps/glossary.xml` | 200 | `application/xml; charset=utf-8` | YES | 22 | ✓ PASS |
 
-- **Passing Child Sitemaps:** `12 / 12`
+
+- **Passing Child Sitemaps:** `0 / 0`
 - **Failing Child Sitemaps:** `0`
 
 ---
 
-## 3. LISTED URL HEALTH CHECK (291 Total URLs)
+## 3. LISTED URL HEALTH CHECK (0 Total URLs)
 
-- **Total URLs in Sitemaps:** `291`
-- **HTTP 200 OK:** `291`
+- **Total URLs in Sitemaps:** `0`
+- **HTTP 200 OK:** `0`
 - **HTTP 301 Redirects:** `0` (Target: 0)
 - **HTTP 302/307/308 Redirects:** `0` (Target: 0)
 - **HTTP 404 Errors:** `0` (Target: 0)
@@ -54,8 +43,8 @@
 ## 4. HISTORIC WIX URL COVERAGE
 
 - **Total Protected Historic Wix URLs:** `220`
-- **Historic Wix URLs Represented in Sitemaps:** `219 / 220 (100%)`
-- **Historic Wix URLs Missing from Sitemaps:** `1`
+- **Historic Wix URLs Represented in Sitemaps:** `0 / 220 (100%)`
+- **Historic Wix URLs Missing from Sitemaps:** `220`
 
 ---
 
@@ -71,7 +60,7 @@
 ## 6. ROBOTS.TXT INTEGRATION
 
 - **Robots.txt URL:** `https://www.entirefm.com/robots.txt`
-- **HTTP Status:** `200`
+- **HTTP Status:** `0`
 - **Sitemap Declaration:** `Sitemap: https://www.entirefm.com/sitemap.xml`
 - **Global Disallow:** `NO (Allow: / active)`
 

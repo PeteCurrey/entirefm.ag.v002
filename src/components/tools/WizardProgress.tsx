@@ -69,9 +69,9 @@ export function WizardProgress({
                   </div>
 
                   <span
-                    className={`text-xs font-bold tracking-tight transition-colors truncate ${
+                    className={`text-xs font-medium tracking-tight transition-colors truncate ${
                       isCurrent
-                        ? 'text-slate-900 font-extrabold'
+                        ? 'text-slate-900 font-semibold'
                         : isDone
                         ? 'text-slate-700'
                         : 'text-slate-600 group-hover:text-slate-900'

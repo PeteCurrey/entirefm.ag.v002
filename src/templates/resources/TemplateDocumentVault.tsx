@@ -270,7 +270,7 @@ export function TemplateDocumentVault({ route, content }: TemplateProps) {
             <Breadcrumbs items={breadcrumbs} className="mb-6" />
             <div className="max-w-3xl">
               <span className="eyebrow eyebrow-dark inline-block mb-3">Downloadable FM Resources</span>
-              <h1 className="text-display-md text-white font-extrabold tracking-tight">
+              <h1 className="text-display-md text-white font-light tracking-tight">
                 FM Document Vault
               </h1>
               <p className="mt-4 text-base sm:text-lg leading-relaxed text-brand-mist/75">

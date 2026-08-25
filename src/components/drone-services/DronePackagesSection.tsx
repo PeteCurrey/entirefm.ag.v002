@@ -154,11 +154,11 @@ export function DronePackagesSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
             Commercial Drone Inspection Packs
           </h2>
 
-          <p className="text-base text-slate-600 leading-relaxed">
+          <p className="text-base text-slate-600 leading-relaxed font-light">
             Tailored inspection scopes designed around real facilities management, building fabric, and estate governance requirements.
           </p>
         </div>

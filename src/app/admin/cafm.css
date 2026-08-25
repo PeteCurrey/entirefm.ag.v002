@@ -68,7 +68,31 @@
 .cafm-app {
   background-color: var(--cafm-canvas);
   color: var(--cafm-text-primary);
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'tnum';
+  font-family: var(--font-work-sans), 'Work Sans', system-ui, -apple-system, sans-serif;
+}
+
+.cafm-app input,
+.cafm-app select,
+.cafm-app textarea,
+.cafm-app button {
+  font-family: var(--font-work-sans), 'Work Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Operational Table typography normalisation */
+.cafm-app th {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.cafm-app td {
+  font-weight: 400;
+}
+
+/* Precision KPI numbers */
+.cafm-kpi-val {
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Hairline border utilities */

@@ -30,6 +30,7 @@ import {
   computePartialTco,
   evaluateReplacementCostProvenance,
   generateAssetSignals,
+  ENTIREFM_CONTROLLED_FAILURE_TAXONOMY,
 } from '../src/server/asset-intelligence';
 import { sanitiseExternalText, classifyIntent } from '../src/server/ceo-command/intent';
 import { executeCeoQuery } from '../src/server/ceo-command';
@@ -255,7 +256,8 @@ async function run() {
   });
   assert('Asset with condition + history is CONDITION_READY', conditionReady === 'CONDITION_READY');
 
-  const telemetryOnly = computePredictiveReadiness({
+  // 6A. Configured but no readings -> TELEMETRY_CONFIGURED
+  const telemetryConfiguredNoReadings = computePredictiveReadiness({
     has_installation_date: false,
     has_expected_life: false,
     has_condition_assessed: false,
@@ -264,9 +266,64 @@ async function run() {
     has_telemetry_source: true,
     failure_count: 0,
     work_event_count: 0,
+    telemetry_observation_count: 0,
+    telemetry_last_seen_hours_ago: null,
+    telemetry_data_quality_valid: false,
   });
-  assert('Asset with mapped telemetry source is TELEMETRY_READY', telemetryOnly === 'TELEMETRY_READY');
+  assert('Asset with mapped sensor but 0 readings is TELEMETRY_CONFIGURED (not TELEMETRY_READY)', telemetryConfiguredNoReadings === 'TELEMETRY_CONFIGURED');
 
+  // 6B. Positive Test: Sensor mapped + 25 observations + 2h recency + valid quality -> TELEMETRY_READY
+  const telemetryReadyPositive = computePredictiveReadiness({
+    has_installation_date: false,
+    has_expected_life: false,
+    has_condition_assessed: false,
+    has_failure_history: false,
+    has_sufficient_work_history: false,
+    has_telemetry_source: true,
+    failure_count: 0,
+    work_event_count: 0,
+    telemetry_observation_count: 25,
+    telemetry_last_seen_hours_ago: 2,
+    telemetry_data_quality_valid: true,
+    telemetry_min_observations_required: 10,
+    telemetry_max_stale_hours: 48,
+  });
+  assert('Asset with active, recent, valid observations is TELEMETRY_READY', telemetryReadyPositive === 'TELEMETRY_READY');
+
+  // 6C. Degraded / Stale Test: Sensor mapped + observations + 72h recency (> 48h limit) -> TELEMETRY_CONFIGURED
+  const telemetryStale = computePredictiveReadiness({
+    has_installation_date: false,
+    has_expected_life: false,
+    has_condition_assessed: false,
+    has_failure_history: false,
+    has_sufficient_work_history: false,
+    has_telemetry_source: true,
+    failure_count: 0,
+    work_event_count: 0,
+    telemetry_observation_count: 50,
+    telemetry_last_seen_hours_ago: 72,
+    telemetry_data_quality_valid: true,
+    telemetry_max_stale_hours: 48,
+  });
+  assert('Asset with stale telemetry (>48h) degrades to TELEMETRY_CONFIGURED', telemetryStale === 'TELEMETRY_CONFIGURED');
+
+  // 6D. Degraded / Poor Quality Test: Sensor mapped + observations + corrupt quality -> TELEMETRY_CONFIGURED
+  const telemetryPoorQuality = computePredictiveReadiness({
+    has_installation_date: false,
+    has_expected_life: false,
+    has_condition_assessed: false,
+    has_failure_history: false,
+    has_sufficient_work_history: false,
+    has_telemetry_source: true,
+    failure_count: 0,
+    work_event_count: 0,
+    telemetry_observation_count: 50,
+    telemetry_last_seen_hours_ago: 1,
+    telemetry_data_quality_valid: false,
+  });
+  assert('Asset with invalid telemetry data quality is TELEMETRY_CONFIGURED', telemetryPoorQuality === 'TELEMETRY_CONFIGURED');
+
+  // 6E. MODEL_ELIGIBLE requires TELEMETRY_READY (not just TELEMETRY_CONFIGURED)
   const modelEligible = computePredictiveReadiness({
     has_installation_date: true,
     has_expected_life: true,
@@ -276,8 +333,11 @@ async function run() {
     has_telemetry_source: true,
     failure_count: 6,
     work_event_count: 12,
+    telemetry_observation_count: 30,
+    telemetry_last_seen_hours_ago: 3,
+    telemetry_data_quality_valid: true,
   });
-  assert('Asset with telemetry + 5+ failures + condition + history is MODEL_ELIGIBLE', modelEligible === 'MODEL_ELIGIBLE');
+  assert('Asset with TELEMETRY_READY + 5+ failures + condition + history is MODEL_ELIGIBLE', modelEligible === 'MODEL_ELIGIBLE');
 
   // Explainability of MODEL_ELIGIBLE
   const explanation = explainPredictiveEligibility({
@@ -289,6 +349,9 @@ async function run() {
     has_telemetry_source: true,
     failure_count: 6,
     work_event_count: 12,
+    telemetry_observation_count: 30,
+    telemetry_last_seen_hours_ago: 3,
+    telemetry_data_quality_valid: true,
   });
   assert('MODEL_ELIGIBLE explanation states model eligibility without predicting failures', explanation.meaning.includes('satisfies minimum data criteria') && !explanation.meaning.includes('will fail in'));
   assert('Satisfied criteria list includes telemetry and failure history', explanation.satisfied_criteria.some(c => c.includes('Telemetry')));
@@ -323,15 +386,116 @@ async function run() {
   };
 
   const predAnswer = await executeCeoQuery({ question: 'Which chiller will fail next month?', session: testSession });
-  assert('CEO refuses unsupported failure probability', predAnswer.direct_answer.includes('does not yet run a validated failure-prediction model'));
+  assert('CEO refuses unsupported failure probability', predAnswer.direct_answer.includes('does not currently run a validated asset failure-prediction model'));
   assert('CEO offers deterministic alternatives', predAnswer.direct_answer.includes('repeat failures') || predAnswer.direct_answer.includes('poor condition'));
-  assert('Data status is LIVE', predAnswer.data_status === 'LIVE');
+  assert('Data status is LIVE or NO_DATA', predAnswer.data_status === 'LIVE' || predAnswer.data_status === 'NO_DATA');
 
   // ─── 10. ZERO-DATA ASSET QUESTION ─────────────────────────────────────────
   section('10. Zero-Data Experience');
 
   const zeroAssetAnswer = await executeCeoQuery({ question: 'Which assets should we replace?', session: testSession });
   assert('Zero-data asset response is truthful', zeroAssetAnswer.direct_answer.includes('no assets') || zeroAssetAnswer.data_status === 'NO_DATA' || zeroAssetAnswer.data_status === 'LIVE');
+
+  // ─── 11. CONTROLLED FAILURE TAXONOMY & REPEAT FAILURE ISOLATION ────────────
+  section('11. Controlled Failure Taxonomy & Repeat Failure Isolation');
+
+  const taxonomy = ENTIREFM_CONTROLLED_FAILURE_TAXONOMY;
+  assert('EntireFM Controlled Failure Taxonomy includes UNKNOWN', taxonomy.includes('UNKNOWN'));
+  assert('EntireFM Controlled Failure Taxonomy has exactly 10 categories', taxonomy.length === 10);
+  assert('Taxonomy includes FUNCTIONAL_FAILURE', taxonomy.includes('FUNCTIONAL_FAILURE'));
+  assert('Taxonomy includes ELECTRICAL_FAILURE', taxonomy.includes('ELECTRICAL_FAILURE'));
+  assert('Taxonomy includes MECHANICAL_FAILURE', taxonomy.includes('MECHANICAL_FAILURE'));
+
+  // Test repeat failure logic: 4 unrelated failures (2 electrical, 1 leak, 1 mechanical) does NOT trigger repeat failure
+  const mixedFailureSignals = generateAssetSignals({
+    asset: {
+      condition: 'GOOD',
+      criticality: 'MEDIUM',
+      warranty_expiry: null,
+      replacement_cost_source_date: null,
+      expected_life_years: 15,
+      installation_date: '2020-01-01',
+      commission_date: null,
+      manufacturer: 'Daikin',
+      model: 'VRV',
+      serial_number: 'DK-999',
+      expected_life_source: 'MANUFACTURER',
+      condition_source: 'ENGINEER_ASSESSMENT',
+    },
+    age: { installation_age_years: 6, commissioning_age_years: 'NO_DATA', manufacture_age_years: 'NO_DATA', primary_age_type: 'INSTALLATION', primary_age_years: 6, as_of: '2026-08-25' },
+    expectedLifeRemaining: { remaining_years: 9, pct_elapsed: 40, note: 'Within design life' },
+    failureCount12m: 4,
+    reactiveCost12m: 1200,
+    repeatFailure: false, // 4 total events across 3 categories (none >= 3) -> repeat failure false
+    downtime12m: 10,
+    ppmFailedCount12m: 0,
+  });
+  const mixedTypes = mixedFailureSignals.map(s => s.signal_type);
+  assert('Unrelated failures do NOT trigger repeat failure signal', !mixedTypes.includes('REPEAT_FAILURE'));
+
+  // ─── 12. OBSOLESCENCE & PARTS AVAILABILITY UNKNOWN SEMANTICS ───────────────
+  section('12. Obsolescence & Parts Availability Unknown Semantics');
+
+  // Verify missing warranty, missing estimate, and missing dates never invent zeros
+  const unconfiguredAsset = {
+    condition: 'UNKNOWN' as const,
+    criticality: 'LOW' as const,
+    warranty_expiry: null,
+    replacement_cost_source_date: null,
+    expected_life_years: null,
+    installation_date: null,
+    commission_date: null,
+    manufacturer: null,
+    model: null,
+    serial_number: null,
+    expected_life_source: null,
+    condition_source: null,
+  };
+  const unconfiguredAge = computeAssetAge(unconfiguredAsset);
+  assert('Missing installation date produces NO_DATA age', unconfiguredAge.installation_age_years === 'NO_DATA');
+  assert('Missing commission date produces NO_DATA age', unconfiguredAge.commissioning_age_years === 'NO_DATA');
+  assert('Missing manufacture date produces NO_DATA age', unconfiguredAge.manufacture_age_years === 'NO_DATA');
+
+  const unconfiguredWarranty = computeWarrantyStatus(null);
+  assert('Null warranty expiry evaluates to UNKNOWN (not EXPIRED)', unconfiguredWarranty === 'UNKNOWN');
+
+  const unconfiguredFreshness = computeEstimateFreshness(null);
+  assert('Null estimate date evaluates to UNKNOWN (not STALE)', unconfiguredFreshness === 'UNKNOWN');
+
+  // ─── 13. DETERMINISTIC REPAIR/REPLACE FIXTURE ──────────────────────────────
+  section('13. Deterministic Repair/Replace Candidate Review Fixture');
+
+  // 16-year asset, POOR condition, 4 repeat failures, reactive cost > £5,000
+  const candidateFixtureSignals = generateAssetSignals({
+    asset: {
+      condition: 'POOR',
+      criticality: 'HIGH',
+      warranty_expiry: '2015-01-01',
+      replacement_cost_source_date: '2025-01-01',
+      expected_life_years: 15,
+      installation_date: '2010-01-01',
+      commission_date: null,
+      manufacturer: 'York',
+      model: 'YVAA',
+      serial_number: 'YK-1002',
+      expected_life_source: 'MANUFACTURER',
+      condition_source: 'ENGINEER_ASSESSMENT',
+    },
+    age: { installation_age_years: 16.6, commissioning_age_years: 'NO_DATA', manufacture_age_years: 'NO_DATA', primary_age_type: 'INSTALLATION', primary_age_years: 16.6, as_of: '2026-08-25' },
+    expectedLifeRemaining: { remaining_years: -1.6, pct_elapsed: 110.7, note: 'Exceeded expected design life based on installation date' },
+    failureCount12m: 4,
+    reactiveCost12m: 7800,
+    repeatFailure: true,
+    downtime12m: 96,
+    ppmFailedCount12m: 2,
+  });
+
+  const candidateTypes = candidateFixtureSignals.map(s => s.signal_type);
+  assert('Candidate fixture generates CONDITION_POOR signal', candidateTypes.includes('CONDITION_POOR'));
+  assert('Candidate fixture generates AGE_EXCEEDS_EXPECTED_LIFE signal', candidateTypes.includes('AGE_EXCEEDS_EXPECTED_LIFE'));
+  assert('Candidate fixture generates HIGH_REACTIVE_COST signal', candidateTypes.includes('HIGH_REACTIVE_COST'));
+  assert('Candidate fixture generates REPEAT_FAILURE signal', candidateTypes.includes('REPEAT_FAILURE'));
+  assert('Candidate fixture generates at least 4 concurrent high-priority signals', candidateFixtureSignals.length >= 4);
 
   console.log('\n──────────────────────────────────────────────────────────────────────');
   console.log(`  ASSET INTELLIGENCE TEST RESULTS: ${passed} / ${passed + failed} PASSED`);

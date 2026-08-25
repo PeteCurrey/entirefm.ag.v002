@@ -105,7 +105,7 @@ export function TemplateFmBriefing({ route, content }: TemplateProps) {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-7">
                 <span className="eyebrow eyebrow-dark">RECURRING FM PUBLICATION</span>
-                <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                <h1 className="mt-4 text-4xl sm:text-5xl font-light text-white tracking-tight leading-tight">
                   THE FM BRIEFING
                 </h1>
                 <p className="mt-3 text-lg font-medium text-pink-400">

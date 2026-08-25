@@ -38,7 +38,7 @@ import {
 
 import { UserSession, getRolePermissions } from '../src/server/identity';
 import { validateStorageUpload } from '../src/server/storage';
-import { isDbConfigured } from '../src/server/db/client';
+import { isDbConfigured, dbQuery } from '../src/server/db/client';
 
 function assert(condition: boolean, msg: string) {
   if (!condition) {
@@ -55,8 +55,8 @@ function skip(msg: string) {
 const dbAvailable = isDbConfigured();
 
 const engineerSession: UserSession = {
-  personId: 'eng-001',
-  orgId: 'org-entirefm',
+  personId: 'a1111111-1111-1111-1111-111111111111',
+  orgId: 'b1111111-1111-1111-1111-111111111111',
   orgName: 'EntireFM',
   orgType: 'ENTIREFM',
   email: 'engineer@entirefm.com',
@@ -68,21 +68,21 @@ const engineerSession: UserSession = {
 };
 
 const clientASession: UserSession = {
-  personId: 'client-a-user',
-  orgId: 'client-org-alpha',
+  personId: 'a2222222-2222-2222-2222-222222222222',
+  orgId: 'b2222222-2222-2222-2222-222222222222',
   orgName: 'Client Alpha Ltd',
   orgType: 'CLIENT',
   email: 'fm@clientalpha.com',
   role: 'CLIENT_USER',
   name: 'Client A FM',
   permissions: getRolePermissions('CLIENT_USER'),
-  scopes: [{ type: 'SITE', id: 'site-alpha-001' }],
+  scopes: [{ type: 'SITE', id: 'c2222222-2222-2222-2222-222222222222' }],
   expiresAt: Date.now() + 86400000,
 };
 
 const contractorSessionA: UserSession = {
-  personId: 'contractor-a-user',
-  orgId: 'provider-org-hvac-a',
+  personId: 'a3333333-3333-3333-3333-333333333333',
+  orgId: 'b3333333-3333-3333-3333-333333333333',
   orgName: 'HVAC Direct Ltd',
   orgType: 'PROVIDER',
   email: 'dispatch@hvacdirect.co.uk',
@@ -94,8 +94,8 @@ const contractorSessionA: UserSession = {
 };
 
 const contractorSessionB: UserSession = {
-  personId: 'contractor-b-user',
-  orgId: 'provider-org-hvac-b',
+  personId: 'a4444444-4444-4444-4444-444444444444',
+  orgId: 'b4444444-4444-4444-4444-444444444444',
   orgName: 'Airflow Mechanical Services',
   orgType: 'PROVIDER',
   email: 'ops@airflow.co.uk',
@@ -106,6 +106,8 @@ const contractorSessionB: UserSession = {
   expiresAt: Date.now() + 86400000,
 };
 
+import { Client } from 'pg';
+
 async function runFieldIntelligenceTests() {
   console.log('\n================================================================');
   console.log('⚡ ENTIREFM PHASE 0C-R: FIELD INTELLIGENCE INTEGRATION TEST SUITE');
@@ -114,6 +116,62 @@ async function runFieldIntelligenceTests() {
 
   let passedCount = 0;
   let skippedCount = 0;
+
+  const testOrgId = 'f0000000-0000-0000-0000-000000000001';
+  const testSiteId = 'f0000000-0000-0000-0000-000000000002';
+  const testWoId = 'f0000000-0000-0000-0000-000000000003';
+  const testVisitId = 'f0000000-0000-0000-0000-000000000004';
+  const testAssignment1Id = 'f0000000-0000-0000-0000-000000000005';
+  const testAssignment2Id = 'f0000000-0000-0000-0000-000000000006';
+
+  let pgClient: Client | null = null;
+  if (dbAvailable) {
+    pgClient = new Client({
+      connectionString: 'postgresql://postgres:Vivaro2104!!@db.tyrknahwlodspvzfkdzk.supabase.co:5432/postgres',
+      ssl: { rejectUnauthorized: false },
+    });
+    await pgClient.connect();
+
+    // Query person
+    const pRes = await pgClient.query('SELECT id FROM persons LIMIT 1');
+    if (pRes.rows.length > 0) {
+      engineerSession.personId = pRes.rows[0].id;
+      contractorSessionA.personId = pRes.rows[0].id;
+      contractorSessionB.personId = pRes.rows[0].id;
+    }
+
+    // Insert fixtures (run each statement separately to avoid pg multi-statement limitation)
+    await pgClient.query(
+      `INSERT INTO organisations (id, code, name, org_type, status)
+       VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING`,
+      [testOrgId, 'ORG-FIELD-TEST', 'Field Test Org', 'CLIENT', 'ACTIVE']
+    );
+    await pgClient.query(
+      `INSERT INTO sites (id, organisation_id, site_code, name, address_line1, city, postcode, status)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (id) DO NOTHING`,
+      [testSiteId, testOrgId, 'SITE-FIELD-TEST', 'Field Test Site', '1 High St', 'London', 'EC1A 1BB', 'ACTIVE']
+    );
+    await pgClient.query(
+      `INSERT INTO work_orders (id, work_order_number, organisation_id, site_id, title, description, work_type, priority, status)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) ON CONFLICT (id) DO NOTHING`,
+      [testWoId, `WO-FIELD-TEST-${Date.now()}`, testOrgId, testSiteId, 'Field Test WO', 'Field intelligence test work order', 'CORRECTIVE', 'P2', 'IN_PROGRESS']
+    );
+    await pgClient.query(
+      `INSERT INTO visits (id, work_order_id, visit_number, status)
+       VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING`,
+      [testVisitId, testWoId, 1, 'IN_PROGRESS']
+    );
+    await pgClient.query(
+      `INSERT INTO work_assignments (id, work_order_id, provider_org_id, status) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING`,
+      [testAssignment1Id, testWoId, testOrgId, 'OFFERED']
+    );
+    await pgClient.query(
+      `INSERT INTO work_assignments (id, work_order_id, provider_org_id, status) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING`,
+      [testAssignment2Id, testWoId, testOrgId, 'OFFERED']
+    );
+  }
+
+  try {
 
   // ─────────────────────────────────────────────────────────────
   // 1. Voice Intelligence Pipeline
@@ -215,7 +273,7 @@ Refrigerant: R32 3.10kg`;
   
   if (dbAvailable) {
     const quoteScopeRes = await createFieldQuoteScope({
-      visitId: 'visit-test-01',
+      visitId: testVisitId,
       scopeDescription: 'Supply fan bearing replacement and belt tensioning on AHU-04',
       engineersCount: 2,
       estimatedHours: 4.0,
@@ -239,8 +297,8 @@ Refrigerant: R32 3.10kg`;
   
   if (dbAvailable) {
     const rejectionRes = await rejectEvidence(
-      'evidence-001',
-      'visit-test-01',
+      'e1111111-1111-1111-1111-111111111111',
+      testVisitId,
       'After photo rejected — completed repair is obscured by safety barrier.',
       engineerSession
     );
@@ -263,7 +321,7 @@ Refrigerant: R32 3.10kg`;
   assert(reportNumber.includes(new Date().getFullYear().toString()), 'Report number includes current year');
   assert(!reportNumber.startsWith('EFM-SR-'), 'Confirmed no collision with EFM-SR Service Request format');
 
-  const draftReport = await generateDraftServiceReport('visit-test-01', engineerSession);
+  const draftReport = await generateDraftServiceReport(testVisitId, engineerSession);
   assert(draftReport.report?.report_number?.startsWith('EFM-FSR-') === true, 'Draft service report generated with EFM-FSR number');
   passedCount += 4;
 
@@ -272,7 +330,7 @@ Refrigerant: R32 3.10kg`;
   // ─────────────────────────────────────────────────────────────
   console.log('\n--- 8. Visit Completion vs Work Order Lifecycle ---');
   
-  const postVisitEvaluation = await evaluateWorkOrderPostVisit('wo-test-01', 'visit-test-01', engineerSession);
+  const postVisitEvaluation = await evaluateWorkOrderPostVisit(testWoId, testVisitId, engineerSession);
   assert(typeof postVisitEvaluation.newWorkOrderStatus === 'string', `Evaluated work order post-visit state (${postVisitEvaluation.newWorkOrderStatus})`);
   passedCount += 1;
 
@@ -318,14 +376,14 @@ Refrigerant: R32 3.10kg`;
   
   if (dbAvailable) {
     const declineRes = await declineAssignmentOffer(
-      'assignment-001',
+      testAssignment1Id,
       'NO_RESOURCE',
       'All certified HVAC engineers currently committed to emergency hospital repairs.',
       contractorSessionA
     );
     assert(declineRes.success === true, 'Contractor A declined offer with NO_RESOURCE reason');
 
-    const acceptRes = await acceptAssignmentOffer('assignment-002', contractorSessionB);
+    const acceptRes = await acceptAssignmentOffer(testAssignment2Id, contractorSessionB);
     assert(acceptRes.success === true, 'Contractor B accepted re-routed assignment offer');
     passedCount += 2;
   } else {
@@ -339,6 +397,20 @@ Refrigerant: R32 3.10kg`;
   console.log('\n================================================================');
   console.log(`✅ PHASE 0C-R INTEGRATION TESTS PASSED: ${passedCount} checks passed, ${skippedCount} live DB checks deferred`);
   console.log('================================================================\n');
+  } finally {
+    if (pgClient) {
+      await pgClient.query(`
+        DELETE FROM field_quote_scopes WHERE visit_id = '${testVisitId}';
+        DELETE FROM work_assignments WHERE work_order_id = '${testWoId}';
+        DELETE FROM visits WHERE id = '${testVisitId}';
+        DELETE FROM work_orders WHERE id = '${testWoId}';
+        DELETE FROM sites WHERE id = '${testSiteId}';
+        DELETE FROM organisations WHERE id = '${testOrgId}';
+        DELETE FROM field_sync_queue WHERE device_id = 'device-ios-01';
+      `);
+      await pgClient.end();
+    }
+  }
 }
 
 runFieldIntelligenceTests().catch(err => {

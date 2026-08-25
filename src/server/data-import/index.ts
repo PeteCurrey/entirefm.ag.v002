@@ -708,7 +708,7 @@ export async function applyMappingAndValidate(
           const hasLocalEnrichment =
             existingRec.updated_at &&
             existingRec.imported_at &&
-            new Date(existingRec.updated_at).getTime() > new Date(existingRec.imported_at).getTime() + 1000;
+            new Date(existingRec.updated_at).getTime() > new Date(existingRec.imported_at).getTime() + 10000;
 
           if (hasLocalEnrichment) {
             rowStatus = 'CONFLICT';
@@ -962,7 +962,8 @@ export async function commitImport(
           diff = typeof row.change_diff === 'string' ? JSON.parse(row.change_diff) : row.change_diff;
         }
         if (diff.length > 0) {
-          const patchBody: Record<string, any> = { updated_at: new Date().toISOString(), source_hash: rowHash };
+          const nowIso = new Date().toISOString();
+          const patchBody: Record<string, any> = { updated_at: nowIso, imported_at: nowIso, source_hash: rowHash };
           for (const d of diff) {
             patchBody[d.field] = d.newValue;
           }
@@ -1266,7 +1267,7 @@ export async function rollbackImport(
       }
 
       if (currentRecord?.updated_at && currentRecord?.imported_at &&
-          new Date(currentRecord.updated_at).getTime() > new Date(currentRecord.imported_at).getTime() + 1000) {
+          new Date(currentRecord.updated_at).getTime() > new Date(currentRecord.imported_at).getTime() + 10000) {
         dependencyReason = `Record was manually edited after import (updated_at: ${currentRecord.updated_at}). Rollback would destroy post-import enrichment.`;
       }
     }
@@ -1532,7 +1533,7 @@ export async function checkRollbackSafety(
       }
 
       if (currentRecord?.updated_at && currentRecord?.imported_at &&
-          new Date(currentRecord.updated_at).getTime() > new Date(currentRecord.imported_at).getTime() + 1000) {
+          new Date(currentRecord.updated_at).getTime() > new Date(currentRecord.imported_at).getTime() + 10000) {
         dependencyReason = `Record was manually edited after import (updated_at: ${currentRecord.updated_at}).`;
       }
     }

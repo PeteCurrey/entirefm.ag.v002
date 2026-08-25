@@ -360,7 +360,7 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                       REGIONAL OPERATING HUBS
                     </span>
                   </div>
-                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                  <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
                     Facilities Management by Region &amp; Commercial Market
                   </h2>
                   <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed">
@@ -372,7 +372,7 @@ export function TemplateHub({ route, content, hubType, items }: TemplateHubProps
                   <section key={rIdx} className="space-y-8">
                     <div className="flex items-center gap-3 border-b border-slate-200 pb-4">
                       <MapPin className="w-5 h-5 text-brand-pink" />
-                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900">{region.name}</h3>
+                      <h3 className="text-xl sm:text-2xl font-light text-slate-900">{region.name}</h3>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

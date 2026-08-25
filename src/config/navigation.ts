@@ -190,6 +190,7 @@ export const PRIMARY_NAV: NavSection[] = [
  */
 export const SECONDARY_NAV: NavLink[] = [
   { label: 'Client Portal', href: '/client-portal' },
+  { label: 'Suppliers', href: '/suppliers' },
   { label: 'About', href: '/about-entire-facilities-management' },
   { label: 'Contact', href: '/contact-us' },
 ];
@@ -233,9 +234,13 @@ export const FOOTER_NAV: NavColumn[] = [
     ],
   },
   {
-    heading: 'Resources & Company',
+    heading: 'Resources & Supply Chain',
     links: [
       { label: 'EntireCAFM Portal', href: '/client-portal' },
+      { label: 'Supplier & Partner Hub', href: '/suppliers' },
+      { label: 'Supplier Vetting & Standards', href: '/suppliers/vetting' },
+      { label: 'Partner with EntireFM', href: '/suppliers/partner-with-entirefm' },
+      { label: 'Supplier Application', href: '/suppliers/apply' },
       { label: 'Resource Hub', href: '/resources' },
       { label: 'FM Tools & Calculators', href: '/tools' },
       { label: 'Compliance Centre', href: '/compliance' },
@@ -243,7 +248,6 @@ export const FOOTER_NAV: NavColumn[] = [
       { label: 'FM Intelligence', href: '/fm-intelligence' },
       { label: 'The FM Briefing', href: '/fm-briefing' },
       { label: 'EntireFM Academy', href: '/academy' },
-      { label: 'Document Vault', href: '/resources/document-vault' },
       { label: 'About EntireFM', href: '/about-entire-facilities-management' },
       { label: 'Contact', href: '/contact-us' },
     ],

@@ -2147,3 +2147,72 @@ export async function recordDocumentExtractionCorrection(params: {
     is_ai: false,
   });
 }
+
+// ─── CANONICAL ASSET COST ATTRIBUTION SERVICE ───────────────────────────────────
+
+/**
+ * CANONICAL FINANCE ASSET COST ATTRIBUTION SERVICE
+ * ================================================
+ * Authority for attributing supplier invoice line costs to a specific asset.
+ * Enforces canonical financial rounding (roundMoney) and net cost aggregation.
+ * Site-level unallocated costs are strictly excluded.
+ */
+export async function getAssetFinancialCostAttribution(params: {
+  assetId: string;
+  sinceDate?: string;
+}): Promise<{
+  reactiveCostGbp: number;
+  ppmCostGbp: number;
+  totalDirectlyAttributedGbp: number;
+  lineCount: number;
+  workOrderCount: number;
+  financeAuthorityConfirmed: true;
+}> {
+  const { data: wos } = await dbQuery<any[]>(
+    `work_orders?asset_id=eq.${params.assetId}&select=id,work_type&order=created_at.desc`
+  );
+
+  if (!wos || wos.length === 0) {
+    return {
+      reactiveCostGbp: 0,
+      ppmCostGbp: 0,
+      totalDirectlyAttributedGbp: 0,
+      lineCount: 0,
+      workOrderCount: 0,
+      financeAuthorityConfirmed: true,
+    };
+  }
+
+  let totalReactive = 0;
+  let totalPpm = 0;
+  let lineCount = 0;
+
+  for (const wo of wos) {
+    const { data: lines } = await dbQuery<any[]>(
+      `supplier_invoice_lines?work_order_id=eq.${wo.id}&select=total_amount_gbp`
+    );
+    if (lines && lines.length > 0) {
+      const woTotal = lines.reduce((s: number, l: any) => s + (Number(l.total_amount_gbp) || 0), 0);
+      if (wo.work_type === 'PPM' || wo.work_type === 'STATUTORY') {
+        totalPpm += woTotal;
+      } else {
+        totalReactive += woTotal;
+      }
+      lineCount += lines.length;
+    }
+  }
+
+  const roundedReactive = roundMoney(totalReactive);
+  const roundedPpm = roundMoney(totalPpm);
+  const roundedTotal = roundMoney(totalReactive + totalPpm);
+
+  return {
+    reactiveCostGbp: roundedReactive,
+    ppmCostGbp: roundedPpm,
+    totalDirectlyAttributedGbp: roundedTotal,
+    lineCount,
+    workOrderCount: wos.length,
+    financeAuthorityConfirmed: true,
+  };
+}
+

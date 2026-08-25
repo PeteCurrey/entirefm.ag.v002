@@ -433,6 +433,17 @@ export const CEO_TOOL_REGISTRY: CeoTool[] = [
     freshness_minutes: 30,
     read_only: true,
   },
+  // ─── DATA PROVENANCE ──────────────────────────────────────────
+  {
+    tool_id: 'data.import_batches',
+    version: '1.0',
+    domain: 'DATA_PROVENANCE',
+    description: 'Data import batch history and provenance metadata',
+    required_permission: 'data_import:view',
+    authoritative_service: 'server/data-import.listImportBatches',
+    freshness_minutes: 15,
+    read_only: true,
+  },
 ];
 
 export function getToolById(toolId: string): CeoTool | undefined {
