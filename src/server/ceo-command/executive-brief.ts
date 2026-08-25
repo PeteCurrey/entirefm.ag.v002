@@ -25,6 +25,7 @@ export interface BriefSection {
 export interface ExecutiveBrief {
   generated_at: string;
   period_label: string;
+  headline?: string;
   sections: BriefSection[];
   signal_count: number;
   critical_signal_count: number;

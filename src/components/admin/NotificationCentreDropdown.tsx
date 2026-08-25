@@ -20,6 +20,7 @@ import {
   X,
 } from 'lucide-react';
 import { NotificationRecord, NotificationCategory } from '@/server/notifications/types';
+import { formatRelativeNotificationTime, formatExactNotificationDateTime } from '@/server/notifications/formatTime';
 
 interface NotificationCentreDropdownProps {
   initialUnreadCount?: number;
@@ -32,6 +33,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
   const [activeCategory, setActiveCategory] = useState<NotificationCategory | 'ALL'>('ALL');
   const [loading, setLoading] = useState(false);
   const [unreadByCat, setUnreadByCat] = useState<Record<string, number>>({});
+  const [nowMs, setNowMs] = useState<number>(() => Date.now());
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -45,6 +47,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
           setNotifications(data.notifications || []);
           setUnreadTotal(data.unreadTotal || 0);
           setUnreadByCat(data.unreadByCat || {});
+          setNowMs(Date.now());
         }
       }
     } catch (err) {
@@ -57,6 +60,14 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
     fetchNotifications();
     const interval = setInterval(fetchNotifications, 20000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Live timestamp recomputation ticker every 30 seconds
+  useEffect(() => {
+    const ticker = setInterval(() => {
+      setNowMs(Date.now());
+    }, 30000);
+    return () => clearInterval(ticker);
   }, []);
 
   // Close on outside click or escape
@@ -81,7 +92,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
   }, [isOpen]);
 
   const handleMarkAsRead = async (id: string, actionUrl: string) => {
-    // Optimistic UI update
+    // Optimistic UI update — preserves created_at immutability
     setNotifications((prev) =>
       prev.map((n) => (n.id === id ? { ...n, is_read: true, read_at: new Date().toISOString() } : n))
     );
@@ -102,7 +113,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
 
   const handleMarkAllRead = async () => {
     setLoading(true);
-    // Optimistic update
+    // Optimistic update — preserves created_at immutability
     setNotifications((prev) =>
       prev.map((n) =>
         activeCategory === 'ALL' || n.category === activeCategory
@@ -137,7 +148,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'LEADS':
-        return <Users className="h-3.5 w-3.5 text-pink-600" />;
+        return <Users className="h-3.5 w-3.5 text-[#EA580C]" />;
       case 'OPERATIONS':
         return <Clock className="h-3.5 w-3.5 text-amber-600" />;
       case 'COMPLIANCE':
@@ -165,7 +176,7 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
         );
       case 'ATTENTION':
         return (
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase font-mono bg-purple-100 text-purple-700 border border-purple-200">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-normal uppercase font-mono bg-orange-100 text-orange-700 border border-orange-200">
             Attention
           </span>
         );
@@ -175,25 +186,6 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
             Info
           </span>
         );
-    }
-  };
-
-  const formatRelativeTime = (isoString: string) => {
-    try {
-      const date = new Date(isoString);
-      const now = new Date();
-      const diffMs = now.getTime() - date.getTime();
-      const diffMins = Math.floor(diffMs / 60000);
-      const diffHours = Math.floor(diffMins / 60);
-      const diffDays = Math.floor(diffHours / 24);
-
-      if (diffMins < 1) return 'Just now';
-      if (diffMins < 60) return `${diffMins}m ago`;
-      if (diffHours < 24) return `${diffHours}h ago`;
-      if (diffDays === 1) return 'Yesterday';
-      return `${diffDays}d ago`;
-    } catch {
-      return '';
     }
   };
 
@@ -290,53 +282,62 @@ export function NotificationCentreDropdown({ initialUnreadCount = 0 }: Notificat
                 <p className="text-[11px] text-[#9B9B97]">No notifications in this category.</p>
               </div>
             ) : (
-              filteredNotifications.map((n) => (
-                <div
-                  key={n.id}
-                  onClick={() => handleMarkAsRead(n.id, n.action_url)}
-                  className={`p-3.5 flex items-start gap-3 hover:bg-[#F9F9F8] transition-colors cursor-pointer group ${
-                    !n.is_read ? 'bg-[#FBFBFA]' : ''
-                  }`}
-                >
-                  {/* Category Icon Badge */}
-                  <div className="h-7 w-7 rounded-[8px] bg-[#F0F0EE] border border-[#E4E4E1] flex items-center justify-center shrink-0 mt-0.5 group-hover:border-[#D1D1CD]">
-                    {getCategoryIcon(n.category)}
-                  </div>
+              filteredNotifications.map((n) => {
+                const exactTime = formatExactNotificationDateTime(n.created_at);
+                const relativeTime = formatRelativeNotificationTime(n.created_at, nowMs);
 
-                  {/* Body Content */}
-                  <div className="flex-1 min-w-0 space-y-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <h4
-                        className={`text-[12.5px] leading-tight truncate ${
-                          !n.is_read ? 'font-light text-[#101010]' : 'font-light text-[#333332]'
-                        }`}
-                      >
-                        {n.title}
-                      </h4>
-                      {getSeverityBadge(n.severity)}
+                return (
+                  <div
+                    key={n.id}
+                    onClick={() => handleMarkAsRead(n.id, n.action_url)}
+                    title={exactTime ? `Received: ${exactTime}` : undefined}
+                    className={`p-3.5 flex items-start gap-3 hover:bg-[#F9F9F8] transition-colors cursor-pointer group ${
+                      !n.is_read ? 'bg-[#FBFBFA]' : ''
+                    }`}
+                  >
+                    {/* Category Icon Badge */}
+                    <div className="h-7 w-7 rounded-[8px] bg-[#F0F0EE] border border-[#E4E4E1] flex items-center justify-center shrink-0 mt-0.5 group-hover:border-[#D1D1CD]">
+                      {getCategoryIcon(n.category)}
                     </div>
 
-                    <p className="text-[11.5px] text-[#686866] line-clamp-2 leading-relaxed">
-                      {n.message}
-                    </p>
+                    {/* Body Content */}
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <h4
+                          className={`text-[12.5px] leading-tight truncate ${
+                            !n.is_read ? 'font-light text-[#101010]' : 'font-light text-[#333332]'
+                          }`}
+                        >
+                          {n.title}
+                        </h4>
+                        {getSeverityBadge(n.severity)}
+                      </div>
 
-                    <div className="flex items-center justify-between pt-1">
-                      <span className="font-mono text-[10px] text-[#9B9B97]">
-                        {formatRelativeTime(n.created_at)}
-                      </span>
-                      <span className="inline-flex items-center gap-0.5 text-[11px] font-normal text-[#FF3E9D] opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span>View</span>
-                        <ArrowRight className="h-3 w-3" />
-                      </span>
+                      <p className="text-[11.5px] text-[#686866] line-clamp-2 leading-relaxed">
+                        {n.message}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-1">
+                        <span
+                          title={exactTime ? `Exact time: ${exactTime}` : undefined}
+                          className="font-mono text-[10.5px] text-[#9B9B97] hover:text-[#101010] transition-colors"
+                        >
+                          {relativeTime}
+                        </span>
+                        <span className="inline-flex items-center gap-0.5 text-[11px] font-normal text-[#EA580C] opacity-0 group-hover:opacity-100 transition-opacity">
+                          <span>View</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Unread Indicator Dot */}
-                  {!n.is_read && (
-                    <span className="h-2 w-2 rounded-full bg-[#FF3E9D] shrink-0 mt-1.5" />
-                  )}
-                </div>
-              ))
+                    {/* Unread Indicator Dot */}
+                    {!n.is_read && (
+                      <span className="h-2 w-2 rounded-full bg-[#EA580C] shrink-0 mt-1.5" />
+                    )}
+                  </div>
+                );
+              })
             )}
           </div>
 

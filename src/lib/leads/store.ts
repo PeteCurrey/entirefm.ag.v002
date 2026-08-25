@@ -124,6 +124,7 @@ export async function saveLead(lead: LeadInput): Promise<boolean> {
     entity_id: lead.enquiryId,
     action_url: `/admin/growth/leads/${lead.enquiryId}`,
     dedupe_key: `lead:${lead.enquiryId}:new`,
+    created_at: now,
     metadata: {
       email: lead.email,
       phone: lead.phone,

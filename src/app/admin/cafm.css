@@ -167,3 +167,57 @@
 .cafm-tool-btn:active {
   transform: translateY(0.5px);
 }
+
+/* ── EntireCAFM Precision Enterprise Cards & Panels ────────────────────── */
+.cafm-card {
+  background-color: var(--cafm-surface);
+  border: 1px solid var(--cafm-border);
+  border-radius: var(--cafm-radius-md);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.cafm-card-subtle {
+  background-color: var(--cafm-surface-subtle);
+  border: 1px solid var(--cafm-border);
+  border-radius: var(--cafm-radius-md);
+}
+
+.cafm-card-header {
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--cafm-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Filter tabs strip */
+.cafm-filter-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  border-radius: var(--cafm-radius-sm);
+  transition: all 120ms cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--cafm-text-secondary);
+}
+.cafm-filter-tab:hover {
+  color: var(--cafm-text-primary);
+  background-color: var(--cafm-surface-subtle);
+}
+.cafm-filter-tab.active {
+  color: var(--cafm-text-primary);
+  background-color: var(--cafm-surface);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  font-weight: 500;
+  border: 1px solid var(--cafm-border);
+}
+
+/* Enterprise status dots */
+.cafm-dot-new { background-color: var(--cafm-orange); }
+.cafm-dot-active { background-color: var(--cafm-green-dot); }
+.cafm-dot-warning { background-color: var(--cafm-amber-dot); }
+.cafm-dot-danger { background-color: var(--cafm-red-dot); }
+.cafm-dot-neutral { background-color: var(--cafm-neutral); }
+

@@ -11,6 +11,7 @@ import { NotificationRecord, NotificationCategory, NotificationSeverity, Notific
 import { listExtendedLeads } from '../growth/store';
 import { listActiveSLARisks, listWorkOrders } from '../work';
 import { listComplianceObligations } from '../compliance';
+export { formatRelativeNotificationTime, formatExactNotificationDateTime } from './formatTime';
 
 class MemoryNotificationStore {
   public notifications: Map<string, NotificationRecord> = new Map();
@@ -26,7 +27,8 @@ function generateNotificationId(): string {
 }
 
 /**
- * Create or upsert a notification with deduplication
+ * Create or upsert a notification with deduplication.
+ * Preserves canonical created_at timestamp.
  */
 export async function createNotification(input: {
   audience?: string;
@@ -40,18 +42,23 @@ export async function createNotification(input: {
   action_url: string;
   metadata?: Record<string, any>;
   dedupe_key?: string;
+  created_at?: string;
 }): Promise<NotificationRecord> {
   const dedupeKey = input.dedupe_key || `${input.entity_type}:${input.entity_id}:${input.type}`;
 
   // Check if notification with same dedupe_key already exists in memory
   for (const existing of notificationMemoryStore.notifications.values()) {
     if (existing.dedupe_key === dedupeKey) {
-      // If unread, don't duplicate
+      // If unread, don't duplicate and preserve its original created_at
       if (!existing.is_read) {
         return existing;
       }
     }
   }
+
+  const canonicalCreatedAt = input.created_at && !isNaN(new Date(input.created_at).getTime())
+    ? new Date(input.created_at).toISOString()
+    : new Date().toISOString();
 
   const notification: NotificationRecord = {
     id: generateNotificationId(),
@@ -65,7 +72,7 @@ export async function createNotification(input: {
     entity_id: input.entity_id,
     action_url: input.action_url,
     is_read: false,
-    created_at: new Date().toISOString(),
+    created_at: canonicalCreatedAt,
     read_at: null,
     metadata: input.metadata || {},
     dedupe_key: dedupeKey,
@@ -103,6 +110,7 @@ export async function createNotification(input: {
 
   return notification;
 }
+
 
 /**
  * List notifications with filtering
@@ -296,6 +304,7 @@ export async function syncOperationalNotifications(): Promise<void> {
           entity_id: leadId,
           action_url: `/admin/growth/leads/${leadId}`,
           dedupe_key: `lead:${leadId}:new`,
+          created_at: lead.received_at || (lead as any).created_at,
           metadata: {
             email: lead.email,
             phone: lead.phone,
@@ -313,6 +322,7 @@ export async function syncOperationalNotifications(): Promise<void> {
       if (wo.sla_resolution_due_at) {
         const dueTime = new Date(wo.sla_resolution_due_at).getTime();
         const diffMins = Math.round((dueTime - now) / 60000);
+        const woTimestamp = (wo as any).created_at || (wo as any).updated_at || new Date().toISOString();
 
         if (diffMins < 0) {
           // Breached
@@ -326,6 +336,7 @@ export async function syncOperationalNotifications(): Promise<void> {
             entity_id: wo.id,
             action_url: `/admin/operations/work-orders/${wo.id}`,
             dedupe_key: `workorder:${wo.id}:sla-breached`,
+            created_at: woTimestamp,
             metadata: { priority: wo.priority, siteName: (wo as any).site?.name },
           });
         } else if (diffMins <= 60) {
@@ -340,6 +351,7 @@ export async function syncOperationalNotifications(): Promise<void> {
             entity_id: wo.id,
             action_url: `/admin/operations/work-orders/${wo.id}`,
             dedupe_key: `workorder:${wo.id}:sla-risk`,
+            created_at: woTimestamp,
             metadata: { minsRemaining: diffMins, priority: wo.priority },
           });
         }
@@ -350,6 +362,7 @@ export async function syncOperationalNotifications(): Promise<void> {
     const obligations = await listComplianceObligations().catch(() => []);
     for (const ob of obligations) {
       const obTitle = ob.asset?.name || `Obligation #${ob.id.slice(0, 8)}`;
+      const obTimestamp = (ob as any).created_at || (ob as any).updated_at || new Date().toISOString();
       if (ob.status === 'OVERDUE') {
         await createNotification({
           type: 'COMPLIANCE_OVERDUE',
@@ -361,6 +374,7 @@ export async function syncOperationalNotifications(): Promise<void> {
           entity_id: ob.id,
           action_url: `/admin/compliance/obligations`,
           dedupe_key: `compliance:${ob.id}:overdue`,
+          created_at: obTimestamp,
         });
       } else if (ob.status === 'DUE_SOON' || ob.status === 'DUE') {
         await createNotification({
@@ -373,6 +387,7 @@ export async function syncOperationalNotifications(): Promise<void> {
           entity_id: ob.id,
           action_url: `/admin/compliance/obligations`,
           dedupe_key: `compliance:${ob.id}:due-soon`,
+          created_at: obTimestamp,
         });
       }
     }

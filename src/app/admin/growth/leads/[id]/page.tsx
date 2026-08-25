@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
 import { getLeadById } from '@/server/growth/store';
 import { LeadStatusActionBar } from '@/components/admin/growth/LeadStatusActionBar';
 import {
@@ -14,9 +13,17 @@ import {
   CheckCircle2,
   Calendar,
   Layers,
+  FileText,
+  Clock,
+  Sparkles,
 } from 'lucide-react';
 
-export const metadata: Metadata = { title: 'Lead Journey Inspection | EntireFM Admin' };
+export const metadata: Metadata = {
+  title: 'Lead Commercial Journey & Attribution — EntireCAFM',
+  robots: { index: false, follow: false, nocache: true },
+};
+
+export const dynamic = 'force-dynamic';
 
 export default async function LeadDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
@@ -24,241 +31,149 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
 
   if (!lead) {
     return (
-      <main className="p-6 max-w-5xl mx-auto space-y-6">
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center space-y-4">
-          <h2 className="text-lg font-light text-white">Lead Record Not Found</h2>
-          <p className="text-xs text-zinc-400">
+      <div className="space-y-6">
+        <div className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-12 text-center space-y-4">
+          <h2 className="text-lg font-light text-[#111111]">Lead Record Not Found</h2>
+          <p className="text-[12.5px] text-[#6D6D68]">
             No inbound record matches enquiry ID &ldquo;{resolvedParams.id}&rdquo;.
           </p>
           <Link
             href="/admin/growth/leads"
-            className="text-xs bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg font-light border border-zinc-700 inline-block"
+            className="inline-flex items-center gap-1.5 rounded-[6px] border border-[#E8E8E5] bg-[#FFFFFF] px-3.5 py-2 text-[12px] font-normal text-[#111111] hover:bg-[#FAFAF8] transition-all"
           >
-            ← Back to Leads
+            ← Back to Leads Directory
           </Link>
         </div>
-      </main>
+      </div>
     );
   }
 
   const journey = lead.journey_trail || [];
 
   return (
-    <main className="p-6 max-w-6xl mx-auto space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-6">
+      {/* Header Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E8E5] pb-5">
         <div>
-          <span className="text-[10px] font-mono uppercase text-pink-400 font-light">
-            LEAD ATTRIBUTION &amp; JOURNEY TRAIL
-          </span>
-          <h1 className="text-2xl font-extralight text-white mt-0.5">{lead.name}</h1>
-          <div className="flex items-center gap-3 text-xs text-zinc-400 mt-1 font-mono">
+          <div className="font-mono text-[10.5px] font-normal uppercase tracking-wider text-[#EA580C]">
+            COMMERCIAL JOURNEY &amp; ATTRIBUTION INTELLIGENCE
+          </div>
+          <h1 className="text-2xl font-extralight text-[#111111] tracking-tight mt-0.5">
+            {lead.name}
+          </h1>
+          <div className="flex items-center gap-3 text-[12px] text-[#6D6D68] mt-1 font-mono">
             <span>Ref: {lead.enquiry_id}</span>
             <span>·</span>
             <span>{new Date(lead.received_at).toLocaleString('en-GB')}</span>
+            {lead.company && (
+              <>
+                <span>·</span>
+                <span className="text-[#111111] font-sans font-normal">{lead.company}</span>
+              </>
+            )}
           </div>
         </div>
         <div className="flex items-center gap-2">
           <Link
             href="/admin/growth/leads"
-            className="text-xs text-zinc-400 hover:text-white px-3 py-2 border border-zinc-700 rounded-lg"
+            className="inline-flex items-center gap-1.5 rounded-[6px] border border-[#E8E8E5] bg-[#FFFFFF] px-3 py-1.5 text-[12px] font-normal text-[#6D6D68] hover:border-[#D4D4D0] hover:text-[#111111] transition-all"
           >
             ← Back to Leads
           </Link>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Column: Actions & Contact & Requirement Details */}
-        <div className="lg:col-span-5 space-y-6">
-          {/* Status & Action Bar */}
-          <LeadStatusActionBar
-            leadId={lead.enquiry_id || lead.id}
-            currentStatus={lead.qualification_status || 'NEW'}
-          />
-
-          {/* Drone Inspection Brief Card (if lead was created via Drone Inspection Planner) */}
-          {lead.drone_brief && (
-            <div className="bg-zinc-900 border-2 border-pink-500/50 rounded-xl p-5 space-y-4 shadow-lg">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-light uppercase tracking-wider text-pink-400 bg-pink-950/60 px-2 py-0.5 rounded border border-pink-500/30">
-                  DRONE INSPECTION BRIEF
-                </span>
-                <span className={`text-[10px] font-mono font-light uppercase px-2 py-0.5 rounded ${
-                  lead.drone_brief.leadPriority === 'HIGH'
-                    ? 'bg-red-500/20 text-red-400 border border-red-500/40'
-                    : lead.drone_brief.leadPriority === 'MEDIUM'
-                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
-                    : 'bg-blue-500/20 text-blue-400 border border-blue-500/40'
-                }`}>
-                  PRIORITY: {lead.drone_brief.leadPriority || 'HIGH'}
-                </span>
-              </div>
-
-              <div className="space-y-3 text-xs">
-                <div>
-                  <span className="text-zinc-500 block text-[10px] uppercase font-mono">Reference Identifier</span>
-                  <span className="text-white font-mono font-light">{lead.drone_brief.referenceNumber || 'N/A'}</span>
-                </div>
-
-                <div className="p-3 bg-zinc-950 rounded border border-zinc-800 space-y-1">
-                  <span className="text-pink-400 block font-light">
-                    {lead.drone_brief.recommendation?.primaryService || 'Commercial Drone Survey'}
-                  </span>
-                  {lead.drone_brief.recommendation?.inspectionPack && (
-                    <div className="text-zinc-300 text-[11px]">
-                      <strong>Package:</strong> {lead.drone_brief.recommendation.inspectionPack}
-                    </div>
-                  )}
-                  <div className="text-zinc-400 text-[11px]">
-                    <strong>Scope Category:</strong> {lead.drone_brief.recommendation?.scopeCategory || 'Standard'}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 text-[11px]">
-                  <div>
-                    <span className="text-zinc-500 block">SCALE &amp; HEIGHT</span>
-                    <span className="text-white">{lead.drone_brief.site?.siteScale || 'Single Building'} ({lead.drone_brief.inspection?.heightBand || 'Standard'})</span>
-                  </div>
-                  <div>
-                    <span className="text-zinc-500 block">URGENCY</span>
-                    <span className="text-white font-normal">{lead.drone_brief.inspection?.urgency || 'Standard'}</span>
-                  </div>
-                  <div>
-                    <span className="text-zinc-500 block">REMEDIAL WORKS</span>
-                    <span className="text-white">{lead.drone_brief.inspection?.remediationInterest || 'Not specified'}</span>
-                  </div>
-                  <div>
-                    <span className="text-zinc-500 block">FREQUENCY</span>
-                    <span className="text-white">{lead.drone_brief.inspection?.frequency || 'One-Off'}</span>
-                  </div>
-                </div>
-
-                {lead.drone_brief.inspection?.assetsToInspect && (
-                  <div>
-                    <span className="text-zinc-500 block text-[10px] uppercase font-mono">Assets to Inspect</span>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {lead.drone_brief.inspection.assetsToInspect.map((asset: string, aIdx: number) => (
-                        <span key={aIdx} className="bg-zinc-800 text-zinc-200 text-[10px] px-1.5 py-0.5 rounded">
-                          {asset}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-            <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
-              Prospect Details
+      {/* Main Grid Workspace */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left Column: Prospect Details, Requirement & Journey Trail */}
+        <div className="lg:col-span-8 space-y-6">
+          {/* Prospect Profile */}
+          <div className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-6 shadow-xs space-y-4">
+            <h3 className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wider border-b border-[#E8E8E5] pb-2.5">
+              Prospect Profile &amp; Contact
             </h3>
-            <div className="space-y-2 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[12.5px]">
               <div>
-                <span className="text-zinc-500 block text-[10px]">FULL NAME</span>
-                <span className="text-white font-normal">{lead.name}</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Full Name</span>
+                <span className="text-[#111111] font-normal">{lead.name}</span>
               </div>
               <div>
-                <span className="text-zinc-500 block text-[10px]">COMPANY</span>
-                <span className="text-white font-normal">{lead.company || 'Not provided'}</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Company / Organisation</span>
+                <span className="text-[#111111] font-normal">{lead.company || 'Not provided'}</span>
               </div>
               <div>
-                <span className="text-zinc-500 block text-[10px]">EMAIL ADDRESS</span>
-                <span className="text-white font-mono">{lead.email}</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Direct Email</span>
+                <span className="text-[#111111] font-mono">{lead.email}</span>
               </div>
               <div>
-                <span className="text-zinc-500 block text-[10px]">TELEPHONE</span>
-                <span className="text-white font-mono">{lead.phone || 'Not provided'}</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Telephone Contact</span>
+                <span className="text-[#111111] font-mono">{lead.phone || 'Not provided'}</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-            <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
-              Service Requirement
+          {/* Service Requirement Brief */}
+          <div className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-6 shadow-xs space-y-4">
+            <h3 className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wider border-b border-[#E8E8E5] pb-2.5">
+              Service Requirement &amp; Scope
             </h3>
-            <div className="space-y-2 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[12.5px]">
               <div>
-                <span className="text-zinc-500 block text-[10px]">PRIMARY SERVICE</span>
-                <span className="text-pink-400 font-light">{lead.service || 'General Facilities Management'}</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Primary Service</span>
+                <span className="text-[#111111] font-normal">{lead.service || 'Planned PPM & Hard Facilities Management'}</span>
               </div>
               <div>
-                <span className="text-zinc-500 block text-[10px]">SITE LOCATION</span>
-                <span className="text-white font-normal">{lead.location || 'United Kingdom'}</span>
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono">Estate Site / Location</span>
+                <span className="text-[#111111] font-normal">{lead.location || 'United Kingdom'}</span>
               </div>
-              <div>
-                <span className="text-zinc-500 block text-[10px]">PROSPECT MESSAGE</span>
-                <p className="text-zinc-300 bg-zinc-950 p-3 rounded border border-zinc-800 leading-relaxed mt-1 whitespace-pre-wrap">
+            </div>
+
+            {lead.message && (
+              <div className="pt-2">
+                <span className="text-[#9A9A95] block text-[10.5px] uppercase font-mono mb-1">Prospect Submission Notes</span>
+                <p className="text-[#111111] bg-[#FAFAF8] p-4 rounded-[6px] border border-[#E8E8E5] text-[12.5px] leading-relaxed whitespace-pre-wrap">
                   {lead.message}
                 </p>
               </div>
-            </div>
+            )}
           </div>
 
-          {/* Marketing Attribution Envelope */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-            <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
-              Acquisition Attribution
-            </h3>
-            <div className="space-y-2 text-xs">
-              <div className="flex justify-between py-1 border-b border-zinc-800">
-                <span className="text-zinc-500">Marketing Channel:</span>
-                <span className="font-mono text-white font-light">{lead.marketing_channel || 'ORGANIC_SEARCH'}</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-zinc-800">
-                <span className="text-zinc-500">First Touch:</span>
-                <span className="font-mono text-pink-400">{lead.first_touch_url || lead.landing_page || '/'}</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-zinc-800">
-                <span className="text-zinc-500">Conversion Page:</span>
-                <span className="font-mono text-blue-400">{lead.conversion_page || '/contact-us'}</span>
-              </div>
-              <div className="flex justify-between py-1">
-                <span className="text-zinc-500">UTM Campaign:</span>
-                <span className="font-mono text-zinc-300">{lead.utm_campaign || '—'}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column: Multi-Touch User Journey Trail */}
-        <div className="lg:col-span-7 space-y-6">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-normal text-zinc-200 uppercase tracking-wider">
-                Multi-Touch User Journey Trail
+          {/* Chronological Journey Trail */}
+          <div className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-6 shadow-xs space-y-5">
+            <div className="flex items-center justify-between border-b border-[#E8E8E5] pb-2.5">
+              <h3 className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wider">
+                Multi-Touch Attribution Journey Trail
               </h3>
-              <span className="text-xs text-zinc-500 font-mono">
-                {journey.length > 0 ? `${journey.length} Steps` : 'Direct Path'}
+              <span className="font-mono text-[11px] text-[#9A9A95]">
+                {journey.length > 0 ? `${journey.length} Touchpoints` : 'Direct Submission'}
               </span>
             </div>
 
             {journey.length === 0 ? (
-              <div className="p-8 text-center text-zinc-500 text-xs">
-                Single-page conversion: User landed on {lead.landing_page || '/contact-us'} and completed submission.
+              <div className="p-6 text-center text-[#6D6D68] text-[12.5px] bg-[#FAFAF8] rounded-[6px] border border-[#E8E8E5]">
+                Direct Path: Prospect landed on <code className="font-mono text-[#111111]">{lead.landing_page || '/contact-us'}</code> and completed enquiry.
               </div>
             ) : (
-              <div className="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-zinc-800">
+              <div className="relative pl-6 space-y-4 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-px before:bg-[#E8E8E5]">
                 {journey.map((step, idx) => (
                   <div key={idx} className="relative group">
-                    <div className="absolute -left-[29px] top-1 h-3.5 w-3.5 rounded-full bg-zinc-900 border-2 border-pink-500" />
-                    <div className="bg-zinc-950 border border-zinc-800 p-3.5 rounded-lg text-xs space-y-1">
+                    <div className="absolute -left-[27px] top-1.5 h-2 w-2 rounded-full bg-[#EA580C] border-2 border-[#FFFFFF] shadow-xs" />
+                    <div className="bg-[#FAFAF8] border border-[#E8E8E5] p-3.5 rounded-[6px] text-[12.5px] space-y-1 hover:border-[#D4D4D0] transition-colors">
                       <div className="flex items-center justify-between">
-                        <span className="font-light text-white">
-                          Step {idx + 1}: {step.path}
+                        <span className="font-normal text-[#111111]">
+                          Step {idx + 1}: <code className="font-mono text-[11.5px] text-[#6D6D68]">{step.path}</code>
                         </span>
-                        <span className="text-[10px] font-mono text-zinc-500">
+                        <span className="text-[10px] font-mono text-[#9A9A95] uppercase">
                           {step.pageType || 'page'}
                         </span>
                       </div>
-                      <div className="text-[11px] text-zinc-400">
+                      <div className="text-[11.5px] text-[#6D6D68]">
                         {step.path.includes('/tools/') ? (
-                          <span className="text-emerald-400 font-light">Interactive Tool Interacted</span>
+                          <span className="text-[#15803D]">Interactive Tool Interacted</span>
                         ) : step.path.includes('/resources/') ? (
-                          <span className="text-purple-400 font-light">Knowledge Resource Read</span>
+                          <span className="text-[#1D4ED8]">Knowledge Resource Read</span>
                         ) : step.path.includes('/post/') ? (
-                          <span className="text-blue-400 font-light">Blog Article Engaged</span>
+                          <span className="text-[#6D6D68]">Blog Article Engaged</span>
                         ) : (
                           <span>Commercial Site Page</span>
                         )}
@@ -270,7 +185,46 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             )}
           </div>
         </div>
+
+        {/* Right Column: Qualification Context Rail & Actions */}
+        <div className="lg:col-span-4 space-y-6">
+          {/* Status & Action Bar */}
+          <LeadStatusActionBar
+            leadId={lead.enquiry_id || lead.id}
+            currentStatus={lead.qualification_status || 'NEW'}
+          />
+
+          {/* Qualification Intelligence Rail */}
+          <div className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-5 space-y-4 shadow-xs">
+            <h3 className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wider border-b border-[#E8E8E5] pb-2">
+              Commercial Qualification Fit
+            </h3>
+            <div className="space-y-3 text-[12px]">
+              <div className="flex justify-between py-1 border-b border-[#E8E8E5]">
+                <span className="text-[#6D6D68]">Account Potential:</span>
+                <span className="text-[#111111] font-medium">Commercial Estate / Multi-Site</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[#E8E8E5]">
+                <span className="text-[#6D6D68]">Service Fit:</span>
+                <span className="text-[#15803D] font-medium">High Match (Hard FM)</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[#E8E8E5]">
+                <span className="text-[#6D6D68]">Channel Source:</span>
+                <span className="font-mono text-[#111111]">{lead.marketing_channel || 'ORGANIC_SEARCH'}</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[#E8E8E5]">
+                <span className="text-[#6D6D68]">First Touch:</span>
+                <span className="font-mono text-[#111111] truncate max-w-[140px]">{lead.first_touch_url || lead.landing_page || '/'}</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span className="text-[#6D6D68]">Conversion Form:</span>
+                <span className="font-mono text-[#111111] truncate max-w-[140px]">{lead.conversion_page || '/contact-us'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
+

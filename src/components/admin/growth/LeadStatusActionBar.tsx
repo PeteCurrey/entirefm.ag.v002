@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { CheckCircle2, PhoneCall, Sparkles, XCircle, ArrowRight, Loader2 } from 'lucide-react';
+import { CheckCircle2, PhoneCall, Sparkles, XCircle } from 'lucide-react';
+import { StatusDot } from '@/components/admin/DataTable';
 
 interface LeadStatusActionBarProps {
   leadId: string;
@@ -34,64 +35,71 @@ export function LeadStatusActionBar({ leadId, currentStatus }: LeadStatusActionB
     }
   };
 
+  const statusType: 'new' | 'active' | 'warning' | 'neutral' | 'completed' =
+    status === 'QUALIFIED' || status === 'WON'
+      ? 'active'
+      : status === 'OPPORTUNITY' || status === 'PROPOSAL' || status === 'CONTACTED'
+      ? 'warning'
+      : status === 'NEW'
+      ? 'new'
+      : 'neutral';
+
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xs font-normal text-zinc-300 uppercase tracking-wider">
-          Qualification &amp; Status Actions
+    <div className="rounded-[8px] border border-[#E8E8E5] bg-[#FFFFFF] p-5 space-y-4 shadow-xs">
+      <div className="flex items-center justify-between border-b border-[#E8E8E5] pb-3">
+        <h3 className="text-[11px] font-normal text-[#6D6D68] uppercase tracking-wider">
+          Qualification &amp; Status
         </h3>
-        <span
-          className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded border ${
-            status === 'QUALIFIED' || status === 'WON'
-              ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40'
-              : status === 'OPPORTUNITY' || status === 'CONTACTED'
-              ? 'bg-purple-950/60 text-purple-300 border-purple-800/40'
-              : status === 'UNQUALIFIED' || status === 'SPAM'
-              ? 'bg-red-950/60 text-red-300 border-red-800/40'
-              : 'bg-pink-950/60 text-pink-300 border-pink-800/40'
-          }`}
-        >
-          {status}
-        </span>
+        <StatusDot
+          status={statusType}
+          label={
+            <span className="font-mono text-[11px] uppercase tracking-wider text-[#111111]">
+              {status}
+            </span>
+          }
+        />
       </div>
 
-      <div className="flex flex-wrap gap-2 pt-1">
-        <button
-          onClick={() => handleUpdate('CONTACTED')}
-          disabled={loading || status === 'CONTACTED'}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-normal bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 disabled:opacity-50 transition-colors"
-        >
-          <PhoneCall className="h-3.5 w-3.5 text-blue-400" />
-          <span>Mark Contacted</span>
-        </button>
-
+      <div className="flex flex-col gap-2 pt-1">
         <button
           onClick={() => handleUpdate('QUALIFIED')}
           disabled={loading || status === 'QUALIFIED'}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-normal bg-emerald-900/60 hover:bg-emerald-800/80 text-emerald-200 border border-emerald-700/60 disabled:opacity-50 transition-colors"
+          className="inline-flex w-full items-center justify-center gap-1.5 px-3 py-2 rounded-[6px] text-[12.5px] font-normal bg-[#EA580C] hover:bg-[#C2410C] text-white shadow-xs disabled:opacity-40 transition-colors"
         >
-          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+          <CheckCircle2 className="h-3.5 w-3.5" />
           <span>Qualify Lead</span>
         </button>
 
-        <button
-          onClick={() => handleUpdate('OPPORTUNITY')}
-          disabled={loading || status === 'OPPORTUNITY'}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-normal bg-purple-900/60 hover:bg-purple-800/80 text-purple-200 border border-purple-700/60 disabled:opacity-50 transition-colors"
-        >
-          <Sparkles className="h-3.5 w-3.5 text-purple-400" />
-          <span>Move to Opportunity</span>
-        </button>
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            onClick={() => handleUpdate('CONTACTED')}
+            disabled={loading || status === 'CONTACTED'}
+            className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-[6px] text-[11.5px] font-normal bg-[#FAFAF8] hover:bg-[#F0F0EE] text-[#111111] border border-[#E8E8E5] disabled:opacity-40 transition-colors"
+          >
+            <PhoneCall className="h-3.5 w-3.5 text-[#6D6D68]" />
+            <span>Mark Contacted</span>
+          </button>
+
+          <button
+            onClick={() => handleUpdate('OPPORTUNITY')}
+            disabled={loading || status === 'OPPORTUNITY'}
+            className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-[6px] text-[11.5px] font-normal bg-[#FAFAF8] hover:bg-[#F0F0EE] text-[#111111] border border-[#E8E8E5] disabled:opacity-40 transition-colors"
+          >
+            <Sparkles className="h-3.5 w-3.5 text-[#EA580C]" />
+            <span>Opportunity</span>
+          </button>
+        </div>
 
         <button
           onClick={() => handleUpdate('UNQUALIFIED')}
           disabled={loading || status === 'UNQUALIFIED'}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-normal bg-zinc-800 hover:bg-red-950/40 text-zinc-400 hover:text-red-300 border border-zinc-700 disabled:opacity-50 transition-colors ml-auto"
+          className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-[6px] text-[11.5px] font-normal text-[#9A9A95] hover:text-[#B91C1C] hover:bg-[#FEF2F2] border border-transparent hover:border-[#FECACA] disabled:opacity-40 transition-colors mt-1"
         >
-          <XCircle className="h-3.5 w-3.5 text-zinc-500" />
-          <span>Unqualified</span>
+          <XCircle className="h-3.5 w-3.5" />
+          <span>Mark Unqualified / Archive</span>
         </button>
       </div>
     </div>
   );
 }
+
