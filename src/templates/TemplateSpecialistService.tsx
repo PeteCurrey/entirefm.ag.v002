@@ -16,25 +16,29 @@ import { TechnologyCafmSection } from '@/components/services/TechnologyCafmSecti
 import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
 import { FAQAccordion } from '@/components/content/CapabilityList';
 import { RelatedLinks } from '@/components/content/CaseStudyFeature';
+import { getServiceMedia } from '@/config/media-registry';
 import type { TemplateProps } from './types';
 
 export function TemplateSpecialistService({ route, content }: TemplateProps) {
   const breadcrumbs = content.breadcrumbs || [
     { name: 'Home', url: '/' },
-    { name: 'Services', url: '/services' },
+    { name: 'Specialist Services', url: '/services' },
     { name: content.h1, url: route.path },
   ];
 
+  const serviceMedia = getServiceMedia(route.path);
+
+  // Dynamic Scope Pillars based on specialist service type
   const scopePillars = [
     {
-      label: 'CERTIFIED SAFETY',
-      sublabel: 'RAMS & COSHH Assessed',
-      iconName: 'riskCompliance' as const,
+      label: 'SPECIALIST ACCESS',
+      sublabel: 'IPAF & IRATA Certified',
+      iconName: 'maintenanceTools' as const,
     },
     {
-      label: 'ACCESS RIGOR',
-      sublabel: 'IPAF & Specialized Plant',
-      iconName: 'maintenanceTools' as const,
+      label: 'SAFETY DOSSIER',
+      sublabel: 'Site-Specific RAMS',
+      iconName: 'complianceAudit' as const,
     },
     {
       label: 'SCHEDULED CARE',
@@ -46,15 +50,6 @@ export function TemplateSpecialistService({ route, content }: TemplateProps) {
       sublabel: 'Rapid Mobilisation',
       iconName: 'nationwideCoverage' as const,
     },
-  ];
-
-  const defaultImages = [
-    '/images/editorial/entirefm-external-distribution-dusk-2000w.webp',
-    '/images/editorial/entirefm-rooftop-plant-night-2000w.webp',
-    '/images/editorial/entirefm-site-arrival-2000w.webp',
-    '/images/editorial/entirefm-entirefm-premises-vans-2000w.webp',
-    '/images/editorial/entirefm-engineers-office-testing-2000w.webp',
-    '/images/editorial/entirefm-headquarters-exterior-2000w.webp',
   ];
 
   const rawCapabilities = (content.capabilities && content.capabilities.length > 0)
@@ -82,14 +77,17 @@ export function TemplateSpecialistService({ route, content }: TemplateProps) {
         },
       ];
 
-  const visualCapabilities = rawCapabilities.map((cap, idx) => ({
-    name: cap.name,
-    description: cap.description,
-    tag: cap.tag || 'Specialist Scope',
-    imageSrc: defaultImages[idx % defaultImages.length],
-    imageAlt: `EntireFM ${cap.name} specialist delivery`,
-    isFeatured: idx === 0,
-  }));
+  const visualCapabilities = rawCapabilities.map((cap, idx) => {
+    const assignedCap = serviceMedia.capabilities && serviceMedia.capabilities[idx];
+    return {
+      name: cap.name,
+      description: cap.description,
+      tag: cap.tag || 'Specialist Scope',
+      imageSrc: assignedCap?.imageSrc || serviceMedia.supporting01 || serviceMedia.card || serviceMedia.hero,
+      imageAlt: assignedCap?.imageAlt || `EntireFM ${cap.name} specialist delivery`,
+      isFeatured: idx === 0,
+    };
+  });
 
   const assetCategories = [
     {
@@ -98,34 +96,34 @@ export function TemplateSpecialistService({ route, content }: TemplateProps) {
       iconName: 'commercialCleaning' as const,
       assets: [
         'High-Pressure Hot Water Washers',
-        'Ride-On Industrial Scrubber-Dryers',
-        'ATEX-Rated Explosion-Proof Extractors',
-        'Chemical Degreasing & Stripping Kits',
-        'Truck-Mounted Boom & Scissor Lifts',
+        'High-Reach Carbon Fibre Poles (60ft+)',
+        'Heavy Industrial Scrubbing Machines',
+        'Mobile Elevated Work Platforms (MEWPs)',
+        'HEPA Filtration Dust Extraction Units',
       ],
     },
     {
-      title: 'Safety & Compliance Framework',
-      subtitle: 'Accreditations & Standards',
-      iconName: 'riskCompliance' as const,
+      title: 'Health, Safety & Governance',
+      subtitle: 'Audited Standards',
+      iconName: 'complianceAudit' as const,
       assets: [
-        'Site-Specific RAMS Risk Assessments',
-        'COSHH Safety Data Sheets & Dossiers',
-        'Lock-Out / Tag-Out (LOTO) Procedures',
-        'IPAF 3a/3b & PASMA Tower Certifications',
-        'Environmental Waste Disposal Manifests',
+        'Site-Specific Method Statements (RAMS)',
+        'COSHH Safety Data Management',
+        'Working at Height Regulations 2005',
+        'Directly Employed & Vetted Operatives',
+        'Digital Before & After CAFM Logs',
       ],
     },
     {
-      title: 'Commercial Environments',
+      title: 'Commercial Environment Types',
       subtitle: 'Facility Coverage',
-      iconName: 'nationwideCoverage' as const,
+      iconName: 'operationalExcellence' as const,
       assets: [
-        'Manufacturing Plants & Assembly Lines',
-        'High-Bay Logistics Hubs & Warehouses',
-        'Corporate Office Facades & Cladding',
-        'Retail Parks & Public Footfall Zones',
-        'Commercial Car Parks & Service Yards',
+        'Distribution Centres & Warehouses',
+        'Heavy Industrial & Manufacturing Plants',
+        'Multi-Storey Corporate Office Façades',
+        'Retail Parks & Public Atriums',
+        'Commercial Estate Roads & Car Parks',
       ],
     },
   ];
@@ -134,8 +132,8 @@ export function TemplateSpecialistService({ route, content }: TemplateProps) {
     ? content.faqs
     : [
         {
-          question: `What standards govern EntireFM’s ${content.h1}?`,
-          answer: `All ${content.h1.toLowerCase()} operations adhere to UK statutory health and safety regulations, COSHH assessments, IPAF/PASMA access standards, and environmental waste disposal guidelines.`,
+          question: `What safety protocols are enforced for ${content.h1}?`,
+          answer: 'All specialist works are delivered under site-specific RAMS, full COSHH compliance, and certified IPAF/IRATA operative training. Safety documentation is uploaded to EntireCAFM prior to commencement.',
         },
         {
           question: 'Can operations be conducted outside normal business hours?',
@@ -168,8 +166,8 @@ export function TemplateSpecialistService({ route, content }: TemplateProps) {
           eyebrow={content.eyebrow || 'SPECIALIST & INDUSTRIAL SERVICES'}
           title={content.h1}
           intro={content.heroIntro || content.metaDescription}
-          imageSrc="/images/editorial/entirefm-external-distribution-dusk-2000w.webp"
-          imageAlt={`EntireFM ${content.h1} specialist operations`}
+          imageSrc={serviceMedia.hero}
+          imageAlt={serviceMedia.heroAlt || `EntireFM ${content.h1} specialist operations`}
           breadcrumbs={breadcrumbs}
           primaryCta={{ label: 'Request a Proposal', href: '#enquiry' }}
           serviceFacts={[

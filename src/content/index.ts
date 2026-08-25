@@ -30,6 +30,7 @@ import { AI_RESOURCES_CONTENT } from './resources/ai-records';
 import { CLIENT_PORTAL_CONTENT } from './client-portal/records';
 import { WORKING_AT_HEIGHT_CONTENT } from './services/working-at-height';
 import { GEO_EXPANSION_CONTENT } from './locations/geo-expansion';
+import { BATCH1_GEO_CONTENT } from './locations/batch1-services';
 
 export type { ContentRecord };
 
@@ -71,7 +72,10 @@ export const COMPANY_CONTENT: Record<string, ContentRecord> = {
   ...WORKING_AT_HEIGHT_CONTENT,
   // Geo SEO Expansion Phase 1: 21 Location Hubs & 21 Service Overviews
   ...GEO_EXPANSION_CONTENT,
+  // Geo SEO Expansion Phase 2B: 10 High-Intent Batch 1 Service x City Pages
+  ...BATCH1_GEO_CONTENT,
 };
+
 
 /** Paths currently served by bespoke Tier 1 content. */
 export const TIER1_PATHS: ReadonlySet<string> = new Set(Object.keys(TIER1_CONTENT));

@@ -12,6 +12,7 @@ import { getComplianceKPIs, getOverdueObligations, listComplianceExceptions } fr
 import { getFinanceKPISummary, detectBillingLeakage } from '../finance';
 import { listActiveSLARisks } from '../work';
 import { listAIRuns } from '../ai';
+import { getPlatformIntegrationStates, summariseIntegrations } from '../platform/integrations';
 
 export interface BriefSection {
   title: string;
@@ -111,16 +112,21 @@ export async function generateExecutiveBrief(): Promise<ExecutiveBrief> {
   try {
     const kpis = await getComplianceKPIs();
     const overdue = await getOverdueObligations();
+    const hasComplianceData = (kpis.totalObligations || 0) > 0 || overdue.length > 0 || (kpis.openExceptionCount || 0) > 0;
     sections.push({
       title: 'Compliance',
-      status: 'LIVE',
-      summary: overdue.length === 0 ? `Compliance monitoring active. ${kpis.totalObligations || 0} obligation${kpis.totalObligations === 1 ? '' : 's'} tracked.` : `${overdue.length} obligation${overdue.length === 1 ? '' : 's'} overdue. ${kpis.openExceptionCount || 0} exception${kpis.openExceptionCount === 1 ? '' : 's'} open.`,
+      status: hasComplianceData ? 'LIVE' : 'ZERO',
+      summary: !hasComplianceData
+        ? 'No compliance obligations recorded. Compliance data not yet imported.'
+        : overdue.length === 0
+          ? `${kpis.totalObligations || 0} obligation${kpis.totalObligations === 1 ? '' : 's'} tracked. No overdue items.`
+          : `${overdue.length} obligation${overdue.length === 1 ? '' : 's'} overdue. ${kpis.openExceptionCount || 0} exception${kpis.openExceptionCount === 1 ? '' : 's'} open.`,
       items: [
-        { label: 'Total Obligations', value: kpis.totalObligations || 0 },
+        { label: 'Total Obligations', value: kpis.totalObligations || 0, status: (kpis.totalObligations || 0) > 0 ? 'LIVE' : 'ZERO' },
         { label: 'Overdue', value: overdue.length, status: overdue.length > 0 ? 'LIVE' : 'ZERO' },
         { label: 'Open Exceptions', value: kpis.openExceptionCount || 0, status: (kpis.openExceptionCount || 0) > 0 ? 'LIVE' : 'ZERO' },
       ],
-      evidence: [{ label: 'Source', value: 'Phase 0J Compliance Intelligence', data_status: 'LIVE', source_service: 'server/compliance.getComplianceKPIs', computed_at: now }],
+      evidence: [{ label: 'Source', value: 'Compliance Intelligence', data_status: hasComplianceData ? 'LIVE' : 'ZERO', source_service: 'server/compliance.getComplianceKPIs', computed_at: now }],
     });
   } catch {
     sections.push({ title: 'Compliance', status: 'NO_DATA', summary: 'Compliance data unavailable.', items: [], evidence: [] });
@@ -130,10 +136,15 @@ export async function generateExecutiveBrief(): Promise<ExecutiveBrief> {
   try {
     const kpi = await getFinanceKPISummary();
     const leakage = await detectBillingLeakage();
+    const hasFinanceData = kpi.billingReadyCount > 0 || kpi.supplierInvoicesAwaitingReview > 0 ||
+      leakage.length > 0 || kpi.clientOutstandingValue > 0 || kpi.bankDetailAlerts > 0 ||
+      kpi.financeExceptionCount > 0 || kpi.unbilledCompletedCount > 0;
     sections.push({
       title: 'Commercial & Finance',
-      status: 'LIVE',
-      summary: `${kpi.billingReadyCount} billing-ready. ${kpi.supplierInvoicesAwaitingReview} supplier invoice${kpi.supplierInvoicesAwaitingReview === 1 ? '' : 's'} awaiting review. ${leakage.length} billing leakage item${leakage.length === 1 ? '' : 's'}. Outstanding receivables: £${kpi.clientOutstandingValue.toFixed(2)}.`,
+      status: hasFinanceData ? 'LIVE' : 'ZERO',
+      summary: !hasFinanceData
+        ? 'No financial records exist. Finance data not yet imported.'
+        : `${kpi.billingReadyCount} billing-ready. ${kpi.supplierInvoicesAwaitingReview} supplier invoice${kpi.supplierInvoicesAwaitingReview === 1 ? '' : 's'} awaiting review. ${leakage.length} billing leakage item${leakage.length === 1 ? '' : 's'}. Outstanding receivables: £${kpi.clientOutstandingValue.toFixed(2)}.`,
       items: [
         { label: 'Billing Ready', value: kpi.billingReadyCount, status: kpi.billingReadyCount > 0 ? 'LIVE' : 'ZERO' },
         { label: 'Supplier Invoices Awaiting Review', value: kpi.supplierInvoicesAwaitingReview, status: kpi.supplierInvoicesAwaitingReview > 0 ? 'LIVE' : 'ZERO' },
@@ -141,7 +152,7 @@ export async function generateExecutiveBrief(): Promise<ExecutiveBrief> {
         { label: 'Outstanding Receivables (£)', value: kpi.clientOutstandingValue.toFixed(2), status: kpi.clientOutstandingValue > 0 ? 'LIVE' : 'ZERO' },
         { label: 'Bank Detail Alerts', value: kpi.bankDetailAlerts, status: kpi.bankDetailAlerts > 0 ? 'LIVE' : 'ZERO' },
       ],
-      evidence: [{ label: 'Source', value: 'Phase 0H Finance Automation', data_status: 'LIVE', source_service: 'server/finance.getFinanceKPISummary', computed_at: now }],
+      evidence: [{ label: 'Source', value: 'Finance Automation', data_status: hasFinanceData ? 'LIVE' : 'ZERO', source_service: 'server/finance.getFinanceKPISummary', computed_at: now }],
     });
   } catch {
     sections.push({ title: 'Commercial & Finance', status: 'NO_DATA', summary: 'Finance data unavailable.', items: [], evidence: [] });
@@ -168,17 +179,19 @@ export async function generateExecutiveBrief(): Promise<ExecutiveBrief> {
   }
 
   // ─── PLATFORM HEALTH ─────────────────────────────────────
+  // Read from canonical integration state service — not hardcoded
+  const platformIntegrations = await getPlatformIntegrationStates();
+  const hasLiveIntegration = platformIntegrations.some(i => i.state === 'LIVE');
+  const allIfOnly = platformIntegrations.every(i => i.state === 'INTERFACE_ONLY' || i.state === 'NOT_CONFIGURED');
+  const hasDegraded = platformIntegrations.some(i => i.state === 'DEGRADED' || i.state === 'FAILED');
+  const platformStatus: DataStatus = hasDegraded ? 'LIVE' : (hasLiveIntegration ? 'LIVE' : 'NOT_CONFIGURED');
+  const platformSummary = summariseIntegrations(platformIntegrations);
   sections.push({
     title: 'Platform Health',
-    status: 'LIVE',
-    summary: 'Accounting connectors (Xero, QuickBooks, Sage, NetSuite) are INTERFACE_ONLY — pending explicit activation per client.',
-    items: [
-      { label: 'Xero', value: 'INTERFACE_ONLY', status: 'NOT_CONFIGURED' as DataStatus },
-      { label: 'QuickBooks', value: 'INTERFACE_ONLY', status: 'NOT_CONFIGURED' as DataStatus },
-      { label: 'Sage', value: 'INTERFACE_ONLY', status: 'NOT_CONFIGURED' as DataStatus },
-      { label: 'NetSuite', value: 'INTERFACE_ONLY', status: 'NOT_CONFIGURED' as DataStatus },
-    ],
-    evidence: [{ label: 'Connector State Authority', value: 'Platform Integration Registry', data_status: 'LIVE', source_service: 'server/ceo-command.getPlatformIntegrations', computed_at: now }],
+    status: platformStatus,
+    summary: platformSummary,
+    items: platformIntegrations.map(i => ({ label: i.name, value: i.state, status: i.state === 'LIVE' ? 'LIVE' as DataStatus : 'NOT_CONFIGURED' as DataStatus })),
+    evidence: [{ label: 'Connector State Authority', value: 'Canonical Platform Integration Registry (DB)', data_status: 'LIVE', source_service: 'server/platform/integrations.getPlatformIntegrationStates', computed_at: now }],
   });
 
   const allZero = sections.every(s => s.status === 'ZERO' || s.status === 'NO_DATA' || s.status === 'NOT_CONFIGURED');

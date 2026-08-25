@@ -476,8 +476,8 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     id: 'retail',
     name: 'Retail, Shopping Centres & Retail Parks',
     heroBadge: 'RETAIL ESTATES & SHOPPING CENTRES',
-    heroImage: '/images/editorial/entirefm-client-review-2000w.webp',
-    heroImageAlt: 'EntireFM facilities management supporting retail store managers and commercial shopping centres',
+    heroImage: '/images/locations/birmingham/facilities-management-birmingham-gas-street-canal-1600w.webp',
+    heroImageAlt: 'EntireFM commercial facilities management across prime retail and high-footfall shopping destination',
     heroHighlightedTitle: 'Footfall, Presentation & Trading Hours',
     heroFacts: [
       { label: 'Trading Continuity', value: 'Zero Customer Disruption' },
@@ -878,8 +878,8 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     id: 'hospitality',
     name: 'Hotels, Hospitality & Restaurants',
     heroBadge: 'HOTELS, RESORTS & HOSPITALITY',
-    heroImage: '/images/editorial/entirefm-reception-2000w.webp',
-    heroImageAlt: 'EntireFM premium facilities management in luxury hotel and hospitality environment',
+    heroImage: '/images/locations/manchester/facilities-management-manchester-reception-front-of-house-1600w.webp',
+    heroImageAlt: 'EntireFM premium facilities management in luxury hotel and hospitality guest environment',
     heroHighlightedTitle: '24/7 Guest Comfort & Discreet Maintenance',
     heroFacts: [
       { label: 'Unobtrusive Delivery', value: 'Discreet Staff' },
@@ -898,15 +898,9 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     challenges: [
       {
         title: 'Morning Hot Water Pressure Drop in Full Occupancy',
-        problem: 'Peak morning shower demand causes hot water starvation or pressure drops across higher-floor guest rooms.',
-        solution: 'Quarterly balancing of circulation booster pumps, calorifier thermal storage optimization, and redundant boiler sequencing.',
-        statutoryStandard: 'Water Supply Regulations & CIBSE Hot Water Sizing Guides',
-      },
-      {
-        title: 'Noisy Fan Coil Units & Rattling AC in Guest Bedrooms',
-        problem: 'Vibrating fan motors or clicking condensate pumps ruin guest sleep and trigger aggressive TripAdvisor complaints.',
-        solution: 'Acoustic inspection of fan bearings, anti-vibration mount replacements, silent condensate pump installations, and regular coil cleaning.',
-        statutoryStandard: 'CIBSE Noise Criteria in Hotel Bedrooms',
+        problem: 'Simultaneous morning peak demand across hundreds of guest bathrooms causes pressure collapse and temperature fluctuations.',
+        solution: 'Duplex booster set sequencing, accumulator pre-charge checks, calorifier descaling, and secondary return balancing ensure uninterrupted hot water flow.',
+        statutoryStandard: 'CIBSE Guide G: Public Health Engineering & Water Services',
       },
       {
         title: 'Commercial Kitchen Canopy Fire Hazards (TR19)',
@@ -1146,7 +1140,7 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     id: 'residential-prs',
     name: 'Residential Property, Block Management & PRS',
     heroBadge: 'RESIDENTIAL BLOCKS & PRS ESTATES',
-    heroImage: '/images/editorial/entirefm-client-review-2000w.webp',
+    heroImage: '/images/locations/manchester/facilities-management-manchester-castlefield-viaduct-1600w.webp',
     heroImageAlt: 'EntireFM residential facilities management across modern multi-occupancy residential development',
     heroHighlightedTitle: 'Building Safety Act Compliance & Resident Wellbeing',
     heroFacts: [

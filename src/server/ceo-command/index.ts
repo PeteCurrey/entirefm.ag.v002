@@ -1,13 +1,18 @@
 /**
- * ENTIREFM CEO COMMAND — DOMAIN INDEX (Phase 0I)
- * ================================================
+ * ENTIREFM CEO COMMAND — DOMAIN INDEX (Phase 0I — Hardened)
+ * ==========================================================
  * Primary execution service for CEO Command + Enterprise Intelligence.
  * All access goes through this module.
  *
  * Execution pipeline:
- *   Question → Intent → Date Resolution → Authorization →
- *   Tool Plan → Canonical Services → Deterministic Analysis →
- *   Evidence → Answer
+ *   Question → Model Intent/Tool Plan (governed) → Authorization →
+ *   Canonical Services → Deterministic Analysis → Evidence →
+ *   Model Explanation (governed) → ExecutiveAnswer
+ *
+ * Model Execution Status: PARTIAL
+ *   Architecture is fully implemented. GEMINI_API_KEY not present
+ *   in this environment — falls back to deterministic answers.
+ *   Reported honestly in every ExecutiveAnswer.model_execution_status.
  */
 
 import type {
@@ -23,6 +28,8 @@ import { decomposeMargin, analyseRevenueLeakage, analyseSlaRootCause } from './d
 import { generateExecutiveBrief } from './executive-brief';
 import { CEO_TOOL_REGISTRY } from './tools/registry';
 import { dbQuery } from '../db/client';
+import { governedModelPlan, governedModelExplain, wrapUntrustedEvidence, detectSemanticInjection, checkModelBudget, MAX_TOOL_CALLS } from './model';
+import { getPlatformIntegrationStates, summariseIntegrations } from '../platform/integrations';
 
 import { listWorkOrders, listActiveSLARisks } from '../work';
 import { getComplianceKPIs, getOverdueObligations, getUpcomingObligations, listComplianceExceptions, getExpiringCertificates, generateAuditSnapshot } from '../compliance';
@@ -34,6 +41,7 @@ import type { ExecutiveBrief } from './executive-brief';
 export { generateExecutiveBrief } from './executive-brief';
 export { evaluateEnterpriseSignals } from './signals';
 export { decomposeMargin, analyseRevenueLeakage, analyseSlaRootCause } from './decomposition';
+
 
 // ============================================================
 // ZERO DATA SUMMARY
@@ -66,15 +74,13 @@ async function getZeroDataSummary(): Promise<ZeroDataSummary> {
 }
 
 // ============================================================
-// PLATFORM INTEGRATIONS
+// PLATFORM INTEGRATIONS — canonical service delegation
 // ============================================================
-export function getPlatformIntegrations() {
-  return [
-    { name: 'Xero', type: 'ACCOUNTING', state: 'INTERFACE_ONLY', note: 'Pending per-client activation.' },
-    { name: 'QuickBooks', type: 'ACCOUNTING', state: 'INTERFACE_ONLY', note: 'Pending per-client activation.' },
-    { name: 'Sage', type: 'ACCOUNTING', state: 'INTERFACE_ONLY', note: 'Pending per-client activation.' },
-    { name: 'NetSuite', type: 'ACCOUNTING', state: 'INTERFACE_ONLY', note: 'Pending per-client activation.' },
-  ];
+// getPlatformIntegrations() is now a compatibility shim that calls the
+// canonical platform/integrations.ts service. CEO Command does not
+// hardcode integration states — it reads them from the DB via that service.
+export async function getPlatformIntegrations() {
+  return getPlatformIntegrationStates();
 }
 
 // ============================================================
@@ -348,9 +354,10 @@ export async function executeCeoQuery(params: {
 
   // ─── Platform Health Queries ─────────────────────────────
   if (intent === 'PLATFORM_HEALTH') {
-    const integrations = getPlatformIntegrations();
-    evidence.push(...integrations.map(i => ({ label: i.name, value: i.state, data_status: i.state === 'LIVE' ? 'LIVE' as DataStatus : 'NOT_CONFIGURED' as DataStatus, source_service: 'ceo-command.getPlatformIntegrations', computed_at })));
-    return { question, direct_answer: 'Accounting connectors (Xero, QuickBooks, Sage, NetSuite) are currently INTERFACE_ONLY — they require explicit per-client activation. No other integrations configured.', key_drivers: integrations.map(i => `${i.name}: ${i.state}${i.note ? ` — ${i.note}` : ''}`), evidence, data_status: 'LIVE', possible_actions: [], fact_vs_interpretation: { facts: integrations.map(i => `${i.name}: ${i.state}`), calculations: [], interpretations: [], recommendations: ['Activate accounting connectors per-client as operational data is onboarded.'] }, tool_runs: [{ tool_id: 'platform.integrations', domain: 'PLATFORM_HEALTH', status: 'SUCCESS', required_permission: 'platform:admin', permission_granted: checkPermission(session, 'platform:admin'), executed_at: computedAt }], computed_at };
+    const integrations = await getPlatformIntegrations(); // canonical DB-backed service
+    const summary = summariseIntegrations(integrations);
+    evidence.push(...integrations.map(i => ({ label: i.name, value: i.state, data_status: i.state === 'LIVE' ? 'LIVE' as DataStatus : 'NOT_CONFIGURED' as DataStatus, source_service: 'platform/integrations.getPlatformIntegrationStates', computed_at })));
+    return { question, direct_answer: summary, key_drivers: integrations.map(i => `${i.name}: ${i.state}${i.note ? ` — ${i.note}` : ''}`), evidence, data_status: 'LIVE', possible_actions: [], fact_vs_interpretation: { facts: integrations.map(i => `${i.name}: ${i.state}`), calculations: [], interpretations: [], recommendations: ['Activate accounting connectors per-client as operational data is onboarded.'] }, tool_runs: [{ tool_id: 'platform.integrations', domain: 'PLATFORM_HEALTH', status: 'SUCCESS', required_permission: 'platform:admin', permission_granted: checkPermission(session, 'platform:admin'), executed_at: computedAt }], computed_at };
   }
 
   // ─── Executive Brief ─────────────────────────────────────

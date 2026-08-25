@@ -16,6 +16,7 @@ import { TechnologyCafmSection } from '@/components/services/TechnologyCafmSecti
 import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
 import { FAQAccordion } from '@/components/content/CapabilityList';
 import { RelatedLinks } from '@/components/content/CaseStudyFeature';
+import { getServiceMedia } from '@/config/media-registry';
 import type { TemplateProps } from './types';
 
 export function TemplateCoreService({ route, content }: TemplateProps) {
@@ -25,13 +26,12 @@ export function TemplateCoreService({ route, content }: TemplateProps) {
     { name: content.h1, url: route.path },
   ];
 
+  const serviceMedia = getServiceMedia(route.path);
+
   // Dynamic Scope Pillars based on service type
   const scopePillars = [
     {
       label: 'STATUTORY AUDIT',
-      // 'Guaranteed Compliance' is LEGAL_COMPLIANCE_GUARANTEE (DO_NOT_USE):
-      // it promises a legal outcome no provider can underwrite. What we can
-      // stand behind is that the compliance position is evidenced.
       sublabel: 'Evidenced Compliance',
       iconName: 'complianceAudit' as const,
     },
@@ -50,16 +50,6 @@ export function TemplateCoreService({ route, content }: TemplateProps) {
       sublabel: 'Digital Audit Archival',
       iconName: 'dataInsights' as const,
     },
-  ];
-
-  // Map capabilities to visual capabilities with appropriate imagery fallbacks
-  const defaultImages = [
-    '/images/editorial/entirefm-switchgear-inspection-2000w.webp',
-    '/images/editorial/entirefm-distribution-board-testing-2000w.webp',
-    '/images/editorial/entirefm-hvac-plant-deck-2000w.webp',
-    '/images/editorial/entirefm-hvac-plantroom-pumps-2000w.webp',
-    '/images/editorial/entirefm-access-control-install-2000w.webp',
-    '/images/editorial/entirefm-engineers-office-testing-2000w.webp',
   ];
 
   const rawCapabilities = (content.capabilities && content.capabilities.length > 0)
@@ -87,14 +77,17 @@ export function TemplateCoreService({ route, content }: TemplateProps) {
         },
       ];
 
-  const visualCapabilities = rawCapabilities.map((cap, idx) => ({
-    name: cap.name,
-    description: cap.description,
-    tag: cap.tag || 'Specialist Scope',
-    imageSrc: defaultImages[idx % defaultImages.length],
-    imageAlt: `EntireFM ${cap.name} engineering delivery`,
-    isFeatured: idx === 0,
-  }));
+  const visualCapabilities = rawCapabilities.map((cap, idx) => {
+    const assignedCap = serviceMedia.capabilities && serviceMedia.capabilities[idx];
+    return {
+      name: cap.name,
+      description: cap.description,
+      tag: cap.tag || 'Specialist Scope',
+      imageSrc: assignedCap?.imageSrc || serviceMedia.supporting01 || serviceMedia.card || serviceMedia.hero,
+      imageAlt: assignedCap?.imageAlt || `EntireFM ${cap.name} engineering delivery`,
+      isFeatured: idx === 0,
+    };
+  });
 
   const assetCategories = [
     {
@@ -173,8 +166,8 @@ export function TemplateCoreService({ route, content }: TemplateProps) {
           eyebrow={content.eyebrow || 'HARD FM & BUILDING ENGINEERING'}
           title={content.h1}
           intro={content.heroIntro || content.metaDescription}
-          imageSrc="/images/editorial/entirefm-switchgear-inspection-2000w.webp"
-          imageAlt={`EntireFM ${content.h1} engineering delivery`}
+          imageSrc={serviceMedia.hero}
+          imageAlt={serviceMedia.heroAlt || `EntireFM ${content.h1} engineering delivery`}
           breadcrumbs={breadcrumbs}
           primaryCta={{ label: 'Request a Proposal', href: '#enquiry' }}
           serviceFacts={[

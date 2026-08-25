@@ -14,7 +14,7 @@ const PRODUCTION_HOSTNAME = 'www.entirefm.com';
  * 4. Search Indexing Protection:
  *    Enforces 'X-Robots-Tag: noindex, nofollow, noarchive' across private routes.
  */
-export function proxy(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const host = request.headers.get('host') || '';
   const hostname = host.split(':')[0].toLowerCase();
   const { pathname, search } = request.nextUrl;
@@ -141,8 +141,6 @@ export function proxy(request: NextRequest) {
 
   return response;
 }
-
-export const middleware = proxy;
 
 export const config = {
   matcher: [

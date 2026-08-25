@@ -82,8 +82,8 @@ export function ServicePpm({ route, content }: TemplateProps) {
       name: 'Statutory Health & Safety Certification',
       description: 'Mandatory periodic execution and cloud archival of electrical EICRs, gas safety certificates, fire alarm tests, and water hygiene records.',
       tag: 'Compliance',
-      imageSrc: '/images/editorial/entirefm-switchgear-inspection-2000w.webp',
-      imageAlt: 'EntireFM engineer issuing statutory certification',
+      imageSrc: '/images/editorial/entirefm-distribution-board-testing-2000w.webp',
+      imageAlt: 'EntireFM engineer issuing statutory electrical certification',
       keyPoints: [
         'Guaranteed adherence to UK statutory inspection intervals',
         'Immediate defect identification and remediation pathways',
@@ -95,8 +95,8 @@ export function ServicePpm({ route, content }: TemplateProps) {
       name: 'Forward Lifecycle & Capital Planning',
       description: 'Forward-looking condition reports highlighting upcoming end-of-life plant replacement needs, preventing unbudgeted capital shocks for landlords.',
       tag: 'CapEx Planning',
-      imageSrc: '/images/editorial/entirefm-headquarters-exterior-2000w.webp',
-      imageAlt: 'EntireFM technical operations headquarters',
+      imageSrc: '/images/locations/manchester/facilities-management-manchester-rooftop-plant-engineers-1600w.webp',
+      imageAlt: 'EntireFM technical engineers assessing asset condition for capital planning',
       keyPoints: [
         '3-to-5 year forward capital expenditure modeling',
         'Total cost of ownership (TCO) asset health analysis',
@@ -107,8 +107,8 @@ export function ServicePpm({ route, content }: TemplateProps) {
       name: 'Commercial Building Fabric Care',
       description: 'Scheduled inspections of roof membranes, gutters, automated doors, external sealants, and fire doors to protect structural integrity.',
       tag: 'Fabric Care',
-      imageSrc: '/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp',
-      imageAlt: 'EntireFM technicians surveying commercial building fabric',
+      imageSrc: '/images/locations/derby/facilities-management-derby-rooftop-survey-1600w.webp',
+      imageAlt: 'EntireFM technicians surveying commercial building fabric and roof assets',
       keyPoints: [
         'Bi-annual gutter clearance and downpipe flushing',
         'Fire door gap, intumescent seal, and closer audits',

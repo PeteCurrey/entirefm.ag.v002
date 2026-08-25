@@ -82,8 +82,8 @@ export function ServiceHvac({ route, content }: TemplateProps) {
       name: 'Commercial Chillers & Cooling Plant',
       description: 'Preventative servicing for air-cooled and water-cooled chillers, compressor overhauls, glycol fluid analysis, and condenser fin cleaning.',
       tag: 'Chillers',
-      imageSrc: '/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp',
-      imageAlt: 'EntireFM engineers inspecting rooftop chillers at dusk',
+      imageSrc: '/images/editorial/entirefm-hvac-plant-deck-2000w.webp',
+      imageAlt: 'EntireFM engineers inspecting rooftop chiller plant deck',
       keyPoints: [
         'Compressor oil analysis and vibration monitoring',
         'Evaporator and condenser tube descaling',

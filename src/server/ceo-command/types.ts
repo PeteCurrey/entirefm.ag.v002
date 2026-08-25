@@ -106,6 +106,8 @@ export interface ExecutiveAnswer {
     date_range?: DateRange;
     filters?: Record<string, string>;
   };
+  /** Model execution status for this answer. PARTIAL means API key not configured; deterministic fallback used. */
+  model_execution_status?: 'LIVE' | 'PARTIAL' | 'NOT_IMPLEMENTED' | 'BUDGET_EXHAUSTED' | 'PROVIDER_UNAVAILABLE';
   computed_at: string;
 }
 

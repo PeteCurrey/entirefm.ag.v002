@@ -66,46 +66,74 @@ const HOME_FAQS = [
 
 const RAIL_ITEMS = [
   {
-    imageKey: 'switchgear-inspection',
-    eyebrow: 'Electrical',
-    title: 'Fixed wire testing and distribution',
-    body: 'Periodic inspection, EICR reporting and remedial works across HV and LV distribution, with the certificate filed against the asset.',
+    imageKey: 'distribution-board-testing',
+    eyebrow: 'Engineering',
+    title: 'Mechanical & Electrical',
+    body: 'Planned and reactive engineering for critical building systems, switchgear and plant rooms.',
     href: '/mechanical-electrical',
   },
   {
-    imageKey: 'rooftop-plant-night',
-    eyebrow: 'Plant',
-    title: 'Rooftop plant and HVAC',
-    body: 'Chillers, air handling units and condensers maintained around occupancy — including the out-of-hours work that keeps a building running.',
+    imageKey: 'hvac-rooftop-condensers',
+    eyebrow: 'Plant & Climate',
+    title: 'Commercial HVAC & Air Con',
+    body: 'Commercial heating, cooling and ventilation maintained for optimal efficiency and F-Gas compliance.',
     href: '/hvac-contractor',
   },
   {
+    imageKey: 'rope-access-bmu',
+    eyebrow: 'Specialist Access',
+    title: 'Rope Access & BMU Services',
+    body: 'IRATA-certified rope access, BMU cradle operations, high-level cleaning and difficult-access engineering.',
+    href: '/working-at-height-rope-access-bmu',
+  },
+  {
+    imageKey: 'switchgear-inspection',
+    eyebrow: 'Electrical',
+    title: 'Fixed Wire Testing & EICR',
+    body: 'Periodic statutory inspection, thermal imaging and remedial works across HV and LV distribution boards.',
+    href: '/mechanical-electrical',
+  },
+  {
+    imageKey: 'plumbing-booster-set',
+    eyebrow: 'Water & Gas',
+    title: 'Plumbing & Water Systems',
+    body: 'Commercial booster pump sets, calorifiers, pipework repairs and statutory Legionella water hygiene.',
+    href: '/plumbing-gas',
+  },
+  {
+    imageKey: 'commercial-cleaning',
+    eyebrow: 'Hygiene',
+    title: 'Commercial & Office Cleaning',
+    body: 'Professional contract cleaning, daytime janitorial support and specialist sanitisation across occupied estates.',
+    href: '/cleaning-services',
+  },
+  {
     imageKey: 'switchroom-survey',
-    eyebrow: 'Surveys',
-    title: 'Asset survey and condition',
-    body: 'The survey that makes a maintenance plan real: what is installed, what condition it is in, and what it is legally obliged to have done to it.',
+    eyebrow: 'Compliance',
+    title: 'Planned Maintenance (PPM)',
+    body: 'SFG20-aligned 52-week asset maintenance schedules formulated from physical barcoded asset condition audits.',
     href: '/ppm',
   },
   {
     imageKey: 'access-control-install',
     eyebrow: 'Security',
-    title: 'Access control and door entry',
-    body: 'Installation, maintenance and the fire-interface testing that is missed most often — every locked escape door must release on alarm.',
+    title: 'Access Control & CCTV',
+    body: 'Commercial door entry, biometric security, CCTV systems and mandatory fire-alarm release interface testing.',
     href: '/access-control',
   },
   {
-    imageKey: 'ev-charging',
-    eyebrow: 'Energy',
-    title: 'EV charging infrastructure',
-    body: 'Commercial charging equipment installed and maintained alongside the distribution capacity it depends on.',
-    href: '/mechanical-electrical',
+    imageKey: 'corporate-corridor',
+    eyebrow: 'Building Fabric',
+    title: 'Fabric & Building Care',
+    body: 'Internal and external structural upkeep, joinery, glazing and envelope maintenance preserving asset value.',
+    href: '/building-maintenance',
   },
   {
     imageKey: 'client-review',
-    eyebrow: 'Reporting',
-    title: 'Performance you can check',
-    body: 'Job status, PPM completion and spend reported by site, so service charge and budget questions can be answered with evidence.',
-    href: '/client-login',
+    eyebrow: 'Technology',
+    title: 'EntireCAFM Portal & Helpdesk',
+    body: 'Real-time asset tracking, digital compliance certification archives and 24/7 reactive emergency dispatch.',
+    href: '/client-portal',
   },
 ];
 
@@ -176,11 +204,12 @@ export function TemplateHome() {
 
         {/* Horizontal rail — capability detail, scrolled sideways. */}
         <HorizontalRail
-          eyebrow="Capability"
+          eyebrow="Capabilities"
           title="What we actually do on site"
-          intro="Six of the disciplines that make up a typical contract. Keep scrolling."
+          intro="Core engineering, compliance, specialist access, and workplace hygiene disciplines delivered across commercial estates."
           items={RAIL_ITEMS}
         />
+
 
         <CaseStudyFeature />
 

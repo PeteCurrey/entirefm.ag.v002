@@ -25,7 +25,7 @@ export interface ProtectedRoute {
 }
 
 export const PROTECTED_LEGACY_ROUTES: ProtectedRoute[] = [
-  {
+{
     "path": "/",
     "source": "wix-generation-1-and-2",
     "historic": true,
@@ -2543,6 +2543,96 @@ export const PROTECTED_LEGACY_ROUTES: ProtectedRoute[] = [
     "uniquePageRequired": true,
     "g1_url": "https://petercurrey.wixsite.com/efm-new/working-at-heights",
     "g2_url": null
+  },
+  {
+    "path": "/ppm-london",
+    "source": "NEW_GROWTH_ROUTE",
+    "historic": false,
+    "protected": true,
+    "statusRequired": 200,
+    "canonical": "self",
+    "uniquePageRequired": true
+  },
+  {
+    "path": "/ppm-manchester",
+    "source": "NEW_GROWTH_ROUTE",
+    "historic": false,
+    "protected": true,
+    "statusRequired": 200,
+    "canonical": "self",
+    "uniquePageRequired": true
+  },
+  {
+    "path": "/hvac-london",
+    "source": "NEW_GROWTH_ROUTE",
+    "historic": false,
+    "protected": true,
+    "statusRequired": 200,
+    "canonical": "self",
+    "uniquePageRequired": true
+  },
+  {
+    "path": "/mechanical-electrical-london",
+    "source": "NEW_GROWTH_ROUTE",
+    "historic": false,
+    "protected": true,
+    "statusRequired": 200,
+    "canonical": "self",
+    "uniquePageRequired": true
+  },
+  {
+    "path": "/ppm-birmingham",
+    "source": "NEW_GROWTH_ROUTE",
+    "historic": false,
+    "protected": true,
+    "statusRequired": 200,
+    "canonical": "self",
+    "uniquePageRequired": true
+  },
+  {
+    "path": "/hvac-manchester",
+    "source": "NEW_GROWTH_ROUTE",
+    "historic": false,
+    "protected": true,
+    "statusRequired": 200,
+    "canonical": "self",
+    "uniquePageRequired": true
+  },
+  {
+    "path": "/ppm-leeds",
+    "source": "NEW_GROWTH_ROUTE",
+    "historic": false,
+    "protected": true,
+    "statusRequired": 200,
+    "canonical": "self",
+    "uniquePageRequired": true
+  },
+  {
+    "path": "/ppm-sheffield",
+    "source": "NEW_GROWTH_ROUTE",
+    "historic": false,
+    "protected": true,
+    "statusRequired": 200,
+    "canonical": "self",
+    "uniquePageRequired": true
+  },
+  {
+    "path": "/commercial-cleaning-liverpool",
+    "source": "NEW_GROWTH_ROUTE",
+    "historic": false,
+    "protected": true,
+    "statusRequired": 200,
+    "canonical": "self",
+    "uniquePageRequired": true
+  },
+  {
+    "path": "/commercial-cleaning-derby",
+    "source": "NEW_GROWTH_ROUTE",
+    "historic": false,
+    "protected": true,
+    "statusRequired": 200,
+    "canonical": "self",
+    "uniquePageRequired": true
   }
 ];
 

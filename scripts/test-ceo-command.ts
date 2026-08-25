@@ -250,24 +250,35 @@ assert(sfg20Metric?.canonical_service === 'LICENSE_REQUIRED', 'SFG20 metric cano
 assert(sfg20Metric?.data_coverage_note?.includes('LICENSE_REQUIRED') ?? false, 'SFG20 metric coverage note mentions LICENSE_REQUIRED');
 
 // ============================================================
-// SECTION 8: PLATFORM INTEGRATIONS TRUTH
+// SECTION 8: PLATFORM INTEGRATIONS TRUTH — moved inside run() (async)
 // ============================================================
-section('8. Platform Integrations — INTERFACE_ONLY Truth');
-const integrations = getPlatformIntegrations();
-assert(integrations.length > 0, 'Platform integrations list non-empty');
-const xero = integrations.find(i => i.name === 'Xero');
-assert(xero?.state === 'INTERFACE_ONLY', 'Xero: state = INTERFACE_ONLY');
-const qb = integrations.find(i => i.name === 'QuickBooks');
-assert(qb?.state === 'INTERFACE_ONLY', 'QuickBooks: state = INTERFACE_ONLY');
-const sage = integrations.find(i => i.name === 'Sage');
-assert(sage?.state === 'INTERFACE_ONLY', 'Sage: state = INTERFACE_ONLY');
-const netsuite = integrations.find(i => i.name === 'NetSuite');
-assert(netsuite?.state === 'INTERFACE_ONLY', 'NetSuite: state = INTERFACE_ONLY');
+// (See async section below — getPlatformIntegrations() is now async)
+
 
 // ============================================================
 // ASYNC TEST SECTIONS — wrapped in run() for CJS compatibility
 // ============================================================
 async function run() {
+
+// ============================================================
+// SECTION 8: PLATFORM INTEGRATIONS TRUTH (async — reads from DB)
+// ============================================================
+section('8. Platform Integrations — Canonical State (not hardcoded)');
+try {
+  const integrations = await getPlatformIntegrations();
+  assert(Array.isArray(integrations), 'Platform integrations: returns array');
+  assert(integrations.length > 0, 'Platform integrations list non-empty');
+  const xero = integrations.find((i: any) => i.name === 'Xero');
+  assert(xero?.state === 'INTERFACE_ONLY', `Xero: state = INTERFACE_ONLY (got ${xero?.state})`);
+  const qb = integrations.find((i: any) => i.name === 'QuickBooks');
+  assert(qb?.state === 'INTERFACE_ONLY', `QuickBooks: state = INTERFACE_ONLY (got ${qb?.state})`);
+  const sage = integrations.find((i: any) => i.name === 'Sage');
+  assert(sage?.state === 'INTERFACE_ONLY', `Sage: state = INTERFACE_ONLY (got ${sage?.state})`);
+  const netsuite = integrations.find((i: any) => i.name === 'NetSuite');
+  assert(netsuite?.state === 'INTERFACE_ONLY', `NetSuite: state = INTERFACE_ONLY (got ${netsuite?.state})`);
+} catch (err: any) {
+  assert(false, 'Platform integrations: no exception', err.message);
+}
 
 // ============================================================
 // SECTION 9: ZERO DATA VERIFICATION (live remote DB)
@@ -626,7 +637,7 @@ try {
   assert(agents && agents.length === 1, 'CEO_COMMAND_AGENT registered in ai_agents');
   if (agents && agents.length > 0) {
     assert(agents[0].autonomy_level === 'ASSIST', 'CEO_COMMAND_AGENT autonomy_level = ASSIST');
-    assert(agents[0].max_daily_budget_gbp === 0 || agents[0].max_daily_budget_gbp === '0.00', 'CEO_COMMAND_AGENT max_daily_budget_gbp = 0 (read-only)');
+    assert(Number(agents[0].max_daily_budget_gbp) === 2.00, `CEO_COMMAND_AGENT max_daily_budget_gbp = 2.00 (dev cap, set by migration 0026) — got ${agents[0].max_daily_budget_gbp}`);
     assert(agents[0].is_active === true, 'CEO_COMMAND_AGENT is_active = true');
   }
 } catch (err: any) {

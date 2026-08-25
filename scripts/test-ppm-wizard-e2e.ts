@@ -5,7 +5,7 @@ import {
   CommercialAssetDefinition,
 } from '../src/lib/tools/asset-taxonomy';
 import { generateCsv } from '../src/lib/exports/csv-exporter';
-import { generatePdfReportHtml, PdfDocumentDefinition } from '../src/lib/pdf/generator';
+import { buildHtmlReport, PdfDocumentDefinition } from '../src/lib/pdf/generator';
 
 async function runWizardE2ETest() {
   console.log('\n======================================================');
@@ -200,7 +200,7 @@ async function runWizardE2ETest() {
     ],
   };
 
-  const html = generatePdfReportHtml(pdfDoc);
+  const html = buildHtmlReport(pdfDoc);
   if (!html || html.length < 500) {
     throw new Error('❌ FAIL: PDF HTML markup generation failed or was empty!');
   }

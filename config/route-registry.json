@@ -6,12 +6,12 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 374,
+    "total": 384,
     "LEGACY_VERIFIED": 201,
     "LEGACY_PROTECTED_BY_DIRECTIVE": 28,
     "CURRENT_LIVE_RETAINED": 5,
-    "NEW_GROWTH": 137,
-    "protected": 374,
+    "NEW_GROWTH": 147,
+    "protected": 384,
     "historic": 229
   },
   "routes": [
@@ -589,6 +589,78 @@
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/client-login/account-registration"
     },
     {
+      "path": "/client-portal",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/client-portal/compliance-reporting",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/client-portal/real-time-operations",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/client-portal/site-360",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
       "path": "/commercial-cleaning-birmingham",
       "routeType": "geographic-service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -629,6 +701,27 @@
       "location": "Chesterfield"
     },
     {
+      "path": "/commercial-cleaning-derby",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "h1": "Commercial Cleaning Services in Derby",
+      "metaTitle": "Commercial Cleaning Derby | Office & Contract Cleaning | EntireFM",
+      "metaDescription": "Commercial cleaning contractor in Derby. Contract office cleaning, corporate janitorial, business park hygiene, and industrial office cleaning across Pride Park and Derbyshire."
+    },
+    {
       "path": "/commercial-cleaning-leeds",
       "routeType": "geographic-service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -667,6 +760,27 @@
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/commercial-cleaning-lincoln",
       "location": "Lincoln"
+    },
+    {
+      "path": "/commercial-cleaning-liverpool",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "h1": "Commercial Cleaning Services in Liverpool",
+      "metaTitle": "Commercial Cleaning Liverpool | Office & Contract Cleaning | EntireFM",
+      "metaDescription": "Commercial cleaning contractor in Liverpool. Daily contract office cleaning, corporate janitorial, retail hygiene, and specialist floor care across Liverpool and Merseyside."
     },
     {
       "path": "/commercial-cleaning-london",
@@ -2793,6 +2907,38 @@
       "location": "Bradford"
     },
     {
+      "path": "/fm-briefing",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
+    },
+    {
+      "path": "/fm-briefing/unsubscribe",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
+    },
+    {
       "path": "/fm-bury",
       "routeType": "location",
       "routeProvenance": "NEW_GROWTH",
@@ -3602,6 +3748,48 @@
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/hvac-contractor"
     },
     {
+      "path": "/hvac-london",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "h1": "Commercial HVAC & Air Conditioning in London",
+      "metaTitle": "Commercial HVAC & Air Conditioning London | Servicing & Chillers | EntireFM",
+      "metaDescription": "Commercial HVAC contractor in London. Chiller maintenance, VRF/VRV air conditioning servicing, F-Gas compliance, and 24/7 emergency breakdown cover across Greater London."
+    },
+    {
+      "path": "/hvac-manchester",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "h1": "Commercial HVAC & Air Conditioning in Manchester",
+      "metaTitle": "Commercial HVAC & Air Conditioning Manchester | Chillers & Servicing | EntireFM",
+      "metaDescription": "Commercial HVAC contractor in Manchester. VRF/VRV air conditioning servicing, commercial chiller maintenance, F-Gas compliance, and 24/7 emergency response across Greater Manchester."
+    },
+    {
       "path": "/industrial-cleaning",
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -4047,6 +4235,804 @@
       ]
     },
     {
+      "path": "/locations/birmingham",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Birmingham"
+    },
+    {
+      "path": "/locations/birmingham/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Birmingham"
+    },
+    {
+      "path": "/locations/bolton",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bolton"
+    },
+    {
+      "path": "/locations/bolton/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bolton"
+    },
+    {
+      "path": "/locations/bradford",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bradford"
+    },
+    {
+      "path": "/locations/bradford/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bradford"
+    },
+    {
+      "path": "/locations/bury",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bury"
+    },
+    {
+      "path": "/locations/bury/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Bury"
+    },
+    {
+      "path": "/locations/chesterfield",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Chesterfield"
+    },
+    {
+      "path": "/locations/chesterfield/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Chesterfield"
+    },
+    {
+      "path": "/locations/derby",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Derby"
+    },
+    {
+      "path": "/locations/derby/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Derby"
+    },
+    {
+      "path": "/locations/doncaster",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Doncaster"
+    },
+    {
+      "path": "/locations/doncaster/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Doncaster"
+    },
+    {
+      "path": "/locations/grimsby",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Grimsby"
+    },
+    {
+      "path": "/locations/grimsby/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Grimsby"
+    },
+    {
+      "path": "/locations/leeds",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Leeds"
+    },
+    {
+      "path": "/locations/leeds/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Leeds"
+    },
+    {
+      "path": "/locations/lincoln",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Lincoln"
+    },
+    {
+      "path": "/locations/lincoln/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Lincoln"
+    },
+    {
+      "path": "/locations/liverpool",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Liverpool"
+    },
+    {
+      "path": "/locations/liverpool/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Liverpool"
+    },
+    {
+      "path": "/locations/london",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "London"
+    },
+    {
+      "path": "/locations/london/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "London"
+    },
+    {
+      "path": "/locations/manchester",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Manchester"
+    },
+    {
+      "path": "/locations/manchester/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Manchester"
+    },
+    {
+      "path": "/locations/matlock",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Matlock"
+    },
+    {
+      "path": "/locations/matlock/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Matlock"
+    },
+    {
+      "path": "/locations/nottingham",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Nottingham"
+    },
+    {
+      "path": "/locations/nottingham/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Nottingham"
+    },
+    {
+      "path": "/locations/oxford",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Oxford"
+    },
+    {
+      "path": "/locations/oxford/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Oxford"
+    },
+    {
+      "path": "/locations/preston",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Preston"
+    },
+    {
+      "path": "/locations/preston/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Preston"
+    },
+    {
+      "path": "/locations/rotherham",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Rotherham"
+    },
+    {
+      "path": "/locations/rotherham/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Rotherham"
+    },
+    {
+      "path": "/locations/sheffield",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Sheffield"
+    },
+    {
+      "path": "/locations/sheffield/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Sheffield"
+    },
+    {
+      "path": "/locations/telford",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Telford"
+    },
+    {
+      "path": "/locations/telford/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Telford"
+    },
+    {
+      "path": "/locations/wigan",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "location",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Wigan"
+    },
+    {
+      "path": "/locations/wigan/services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "geographic-service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "locations",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "location": "Wigan"
+    },
+    {
       "path": "/logistics-facilities-management",
       "routeType": "sector",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -4191,6 +5177,27 @@
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/mechanical-electrical"
     },
     {
+      "path": "/mechanical-electrical-london",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "h1": "Mechanical & Electrical Maintenance in London",
+      "metaTitle": "Mechanical & Electrical Maintenance London | Commercial M&E | EntireFM",
+      "metaDescription": "Commercial Mechanical & Electrical (M&E) engineering contractor in London. Hard FM maintenance, commercial electrical testing, plant room servicing, and 24/7 helpdesk."
+    },
+    {
       "path": "/mechanical-electrical/access-control",
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -4227,6 +5234,22 @@
         "wix-generation-2"
       ],
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/mechanical-electrical/emergency-light-testing"
+    },
+    {
+      "path": "/media",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P2",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
     },
     {
       "path": "/media-digital-displays",
@@ -4986,6 +6009,111 @@
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/ppm"
     },
     {
+      "path": "/ppm-birmingham",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "h1": "Planned Preventative Maintenance in Birmingham",
+      "metaTitle": "Planned Preventative Maintenance Birmingham | Commercial PPM & SFG20 | EntireFM",
+      "metaDescription": "Planned Preventative Maintenance (PPM) contractor in Birmingham. SFG20 asset care, HVAC servicing, electrical compliance, and building engineering across the West Midlands."
+    },
+    {
+      "path": "/ppm-leeds",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "h1": "Planned Preventative Maintenance in Leeds",
+      "metaTitle": "Planned Preventative Maintenance Leeds | Commercial PPM & SFG20 | EntireFM",
+      "metaDescription": "Planned Preventative Maintenance (PPM) contractor in Leeds. SFG20 asset care, HVAC servicing, commercial electrical testing, and building maintenance across West Yorkshire."
+    },
+    {
+      "path": "/ppm-london",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "h1": "Planned Preventative Maintenance in London",
+      "metaTitle": "Planned Preventative Maintenance London | Commercial PPM & SFG20 | EntireFM",
+      "metaDescription": "Planned Preventative Maintenance (PPM) contractor in London. SFG20 compliant asset maintenance, HVAC, electrical testing, and statutory building compliance for London commercial property."
+    },
+    {
+      "path": "/ppm-manchester",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "h1": "Planned Preventative Maintenance in Manchester",
+      "metaTitle": "Planned Preventative Maintenance Manchester | Commercial PPM & M&E | EntireFM",
+      "metaDescription": "Specialist Planned Preventative Maintenance (PPM) contractor in Manchester. SFG20 asset maintenance, commercial HVAC, electrical compliance, and building engineering across Greater Manchester."
+    },
+    {
+      "path": "/ppm-sheffield",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ],
+      "h1": "Planned Preventative Maintenance in Sheffield",
+      "metaTitle": "Planned Preventative Maintenance Sheffield | Industrial & Commercial PPM | EntireFM",
+      "metaDescription": "Planned Preventative Maintenance (PPM) contractor in Sheffield. SFG20 asset care, industrial engineering maintenance, commercial HVAC, and electrical compliance in South Yorkshire."
+    },
+    {
       "path": "/pressure-washing",
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -5473,6 +6601,86 @@
       ]
     },
     {
+      "path": "/resources/guides",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
+    },
+    {
+      "path": "/resources/guides/asset-register-guide",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
+    },
+    {
+      "path": "/resources/guides/facilities-management-guide",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
+    },
+    {
+      "path": "/resources/guides/fm-tender-guide",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
+    },
+    {
+      "path": "/resources/guides/ppm-guide",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
+    },
+    {
       "path": "/restaurant-facilities-management",
       "routeType": "sector",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -5864,24 +7072,6 @@
       ]
     },
     {
-      "path": "/tools/compliance-checker",
-      "routeType": "company",
-      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
-      "historic": true,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "insights",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "current-live-antigravity"
-      ]
-    },
-    {
       "path": "/tools/compliance-calendar",
       "routeType": "company",
       "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
@@ -5897,6 +7087,24 @@
       "designStatus": "COMPLETE",
       "historicSources": [
         "wix-generation-2",
+        "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/tools/compliance-checker",
+      "routeType": "company",
+      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
+      "historic": true,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "insights",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
         "current-live-antigravity"
       ]
     },
@@ -6148,225 +7356,6 @@
       "g1_url": "https://petercurrey.wixsite.com/efm-new/window-cleaning"
     },
     {
-      "path": "/working-at-heights",
-      "routeType": "service",
-      "routeProvenance": "LEGACY_VERIFIED",
-      "historic": true,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "hard-fm",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "NOT_STARTED",
-      "historicSources": [
-        "wix-generation-1"
-      ],
-      "g1_url": "https://petercurrey.wixsite.com/efm-new/working-at-heights"
-    },
-    {
-      "path": "/fm-briefing",
-      "routeType": "company",
-      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "insights",
-      "priority": "P2",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": []
-    },
-    {
-      "path": "/fm-briefing/unsubscribe",
-      "routeType": "company",
-      "routeProvenance": "LEGACY_PROTECTED_BY_DIRECTIVE",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "insights",
-      "priority": "P2",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": []
-    },
-    {
-      "path": "/resources/guides",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "insights",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": []
-    },
-    {
-      "path": "/resources/guides/facilities-management-guide",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "insights",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": []
-    },
-    {
-      "path": "/resources/guides/ppm-guide",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "insights",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": []
-    },
-    {
-      "path": "/resources/guides/asset-register-guide",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "insights",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": []
-    },
-    {
-      "path": "/resources/guides/fm-tender-guide",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "insights",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": []
-    },
-    {
-      "path": "/media",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P2",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": []
-    },
-    {
-      "path": "/client-portal",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "core",
-      "priority": "P0",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/client-portal/real-time-operations",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "core",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/client-portal/compliance-reporting",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "core",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/client-portal/site-360",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "core",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
       "path": "/working-at-height-rope-access-bmu",
       "routeProvenance": "NEW_GROWTH",
       "routeType": "service",
@@ -6385,802 +7374,23 @@
       ]
     },
     {
-      "path": "/locations/london",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
+      "path": "/working-at-heights",
+      "routeType": "service",
+      "routeProvenance": "LEGACY_VERIFIED",
+      "historic": true,
       "protected": true,
       "indexable": true,
       "statusRequired": 200,
       "canonical": "self",
       "uniquePageRequired": true,
-      "sitemapGroup": "locations",
+      "sitemapGroup": "hard-fm",
       "priority": "P1",
       "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
+      "designStatus": "NOT_STARTED",
       "historicSources": [
-        "new-growth-directive"
+        "wix-generation-1"
       ],
-      "location": "London"
-    },
-    {
-      "path": "/locations/london/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "London"
-    },
-    {
-      "path": "/locations/manchester",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Manchester"
-    },
-    {
-      "path": "/locations/manchester/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Manchester"
-    },
-    {
-      "path": "/locations/birmingham",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Birmingham"
-    },
-    {
-      "path": "/locations/birmingham/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Birmingham"
-    },
-    {
-      "path": "/locations/leeds",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Leeds"
-    },
-    {
-      "path": "/locations/leeds/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Leeds"
-    },
-    {
-      "path": "/locations/sheffield",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Sheffield"
-    },
-    {
-      "path": "/locations/sheffield/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Sheffield"
-    },
-    {
-      "path": "/locations/liverpool",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Liverpool"
-    },
-    {
-      "path": "/locations/liverpool/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Liverpool"
-    },
-    {
-      "path": "/locations/nottingham",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Nottingham"
-    },
-    {
-      "path": "/locations/nottingham/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Nottingham"
-    },
-    {
-      "path": "/locations/derby",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Derby"
-    },
-    {
-      "path": "/locations/derby/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Derby"
-    },
-    {
-      "path": "/locations/oxford",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Oxford"
-    },
-    {
-      "path": "/locations/oxford/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Oxford"
-    },
-    {
-      "path": "/locations/bradford",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Bradford"
-    },
-    {
-      "path": "/locations/bradford/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Bradford"
-    },
-    {
-      "path": "/locations/doncaster",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Doncaster"
-    },
-    {
-      "path": "/locations/doncaster/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Doncaster"
-    },
-    {
-      "path": "/locations/rotherham",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Rotherham"
-    },
-    {
-      "path": "/locations/rotherham/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Rotherham"
-    },
-    {
-      "path": "/locations/chesterfield",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Chesterfield"
-    },
-    {
-      "path": "/locations/chesterfield/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Chesterfield"
-    },
-    {
-      "path": "/locations/lincoln",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Lincoln"
-    },
-    {
-      "path": "/locations/lincoln/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Lincoln"
-    },
-    {
-      "path": "/locations/bolton",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Bolton"
-    },
-    {
-      "path": "/locations/bolton/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Bolton"
-    },
-    {
-      "path": "/locations/bury",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Bury"
-    },
-    {
-      "path": "/locations/bury/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Bury"
-    },
-    {
-      "path": "/locations/preston",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Preston"
-    },
-    {
-      "path": "/locations/preston/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Preston"
-    },
-    {
-      "path": "/locations/wigan",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Wigan"
-    },
-    {
-      "path": "/locations/wigan/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Wigan"
-    },
-    {
-      "path": "/locations/grimsby",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Grimsby"
-    },
-    {
-      "path": "/locations/grimsby/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Grimsby"
-    },
-    {
-      "path": "/locations/telford",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Telford"
-    },
-    {
-      "path": "/locations/telford/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Telford"
-    },
-    {
-      "path": "/locations/matlock",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "location",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Matlock"
-    },
-    {
-      "path": "/locations/matlock/services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "geographic-service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "locations",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ],
-      "location": "Matlock"
+      "g1_url": "https://petercurrey.wixsite.com/efm-new/working-at-heights"
     }
   ],
   "orphanRecovery": {

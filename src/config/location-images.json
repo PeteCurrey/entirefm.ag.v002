@@ -579,8 +579,29 @@
       },
       "src": "/images/editorial/entirefm-london-aerial-poster-2560w.webp",
       "video": "/video/entirefm-london-aerial.mp4"
+    },
+    "rope-access-bmu": {
+      "alt": "EntireFM IRATA-certified rope access technician performing high-level building maintenance on a commercial façade",
+      "source": "services/working-at-height/hero-rope-access.png",
+      "widths": {
+        "800": "/images/services/working-at-height/hero-rope-access.png",
+        "1200": "/images/services/working-at-height/hero-rope-access.png",
+        "2000": "/images/services/working-at-height/hero-rope-access.png"
+      },
+      "src": "/images/services/working-at-height/hero-rope-access.png"
+    },
+    "commercial-cleaning": {
+      "alt": "EntireFM commercial workplace hygiene and corporate office cleaning",
+      "source": "entire facilities management cleaning reception.png",
+      "widths": {
+        "800": "/images/editorial/entirefm-reception-800w.webp",
+        "1200": "/images/editorial/entirefm-reception-1200w.webp",
+        "2000": "/images/editorial/entirefm-reception-2000w.webp"
+      },
+      "src": "/images/editorial/entirefm-reception-2000w.webp"
     }
   }
 }
+
 
 

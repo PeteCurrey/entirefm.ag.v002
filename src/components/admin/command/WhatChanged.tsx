@@ -22,9 +22,10 @@ export function WhatChanged({ items }: Props) {
   if (items.length === 0) {
     return (
       <div className="rounded-lg border border-brand-edge-dark/40 bg-brand-void/20 p-4 text-center min-h-[120px] flex flex-col items-center justify-center">
-        <div className="text-[11px] font-mono text-brand-mist/30 uppercase">No recent changes</div>
-        <div className="text-[11px] text-brand-mist/25 mt-1">No operational events detected</div>
+        <div className="text-[11px] font-mono text-brand-mist/30 uppercase">No operational changes reported</div>
+        <div className="text-[11px] text-brand-mist/25 mt-1">No operational records are currently loaded — changes cannot be tracked</div>
       </div>
+
     );
   }
   return (

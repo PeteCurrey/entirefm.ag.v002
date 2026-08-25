@@ -79,13 +79,13 @@ assert(cpContent.includes('No financial data available'), 'CommercialPosition: p
 // 5. ActionRequiredQueue.tsx
 const arqContent = readFileSync(resolve(rootDir, 'src/components/admin/control-centre/ActionRequiredQueue.tsx'), 'utf8');
 assert(!arqContent.includes('Boiler Plant Primary Circulation Pump Trip'), 'ActionRequiredQueue: fake boiler pump incident removed');
-assert(arqContent.includes('No actions required'), 'ActionRequiredQueue: clean empty state present');
+assert(arqContent.includes('No immediate actions required'), 'ActionRequiredQueue: clean empty state present');
 
 // 6. FieldPresencePanel.tsx
 const fppContent = readFileSync(resolve(rootDir, 'src/components/admin/control-centre/FieldPresencePanel.tsx'), 'utf8');
 assert(!fppContent.includes('Marcus Vance'), 'FieldPresencePanel: fake Marcus Vance removed');
 assert(!fppContent.includes('David Reynolds'), 'FieldPresencePanel: fake David Reynolds removed');
-assert(fppContent.includes('No field activity data'), 'FieldPresencePanel: proper empty state present');
+assert(fppContent.includes('No active engineer telemetry'), 'FieldPresencePanel: proper empty state present');
 
 // 7. OperationsTimeline.tsx
 const otContent = readFileSync(resolve(rootDir, 'src/components/admin/control-centre/OperationsTimeline.tsx'), 'utf8');

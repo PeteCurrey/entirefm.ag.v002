@@ -1,19 +1,27 @@
 /**
- * ENTIREFM CEO COMMAND — DETERMINISTIC DECOMPOSITION (Phase 0I)
- * ==============================================================
+ * ENTIREFM CEO COMMAND — DETERMINISTIC DECOMPOSITION (Phase 0I — Hardened)
+ * =========================================================================
  * Root-cause contribution analysis for:
  *   - Gross Margin movements
  *   - SLA performance
  *   - Revenue leakage
  *
- * These are deterministic, evidence-backed analyses.
- * The AI layer explains the measured contributors;
- * it does not invent causation from scratch.
+ * FINANCE AUTHORITY RULE:
+ * This module does NOT perform its own financial arithmetic.
+ * All aggregate financial metrics come from canonical Finance services:
+ *   - getFinanceKPISummary()     — KPIs including outstanding values
+ *   - detectBillingLeakage()     — leakage by work order
+ *
+ * The Finance Metrics Registry remains the sole authority for:
+ *   ACTUAL_GROSS_MARGIN, MATCHED_COST, ATTRIBUTION_COVERAGE,
+ *   INVOICED_REVENUE, PAID_REVENUE, ACTUAL_COST.
+ *
+ * CEO Command reads aggregated outputs only — it does not re-derive
+ * totals by summing raw invoice rows.
  */
 
 import type { DecompositionComponent, EvidenceItem, DateRange, DataStatus } from './types';
-import { dbQuery } from '../db/client';
-import { detectBillingLeakage, getFinanceKPISummary, listClientInvoices, listSupplierInvoices } from '../finance';
+import { detectBillingLeakage, getFinanceKPISummary } from '../finance';
 import { listActiveSLARisks } from '../work';
 import { listAllProviderPerformances } from '../supply-chain';
 
@@ -34,20 +42,41 @@ export interface MarginDecompositionResult {
   computed_at: string;
 }
 
+/**
+ * Decomposes gross margin using canonical Finance KPI service.
+ *
+ * Data flow:
+ *   ACTUAL_GROSS_MARGIN        → Finance canonical metric (getFinanceKPISummary)
+ *   Matched cost               → Finance canonical attribution (getFinanceKPISummary)
+ *   Contribution segmentation  → deterministic analysis of canonical outputs only
+ *   Executive explanation      → CEO layer (model.ts)
+ *
+ * No arithmetic on raw invoice rows. No formula duplication.
+ */
 export async function decomposeMargin(period: DateRange): Promise<MarginDecompositionResult> {
   const now = new Date().toISOString();
   const components: DecompositionComponent[] = [];
   const evidence: EvidenceItem[] = [];
 
   try {
-    const [clientInvoices, supplierInvoices, kpi, leakage] = await Promise.all([
-      listClientInvoices({ limit: 500 }),
-      listSupplierInvoices({ limit: 500 }),
+    // Both calls are canonical Finance service calls — no raw table access
+    const [kpi, leakage] = await Promise.all([
       getFinanceKPISummary(),
       detectBillingLeakage(),
     ]);
 
-    if (clientInvoices.length === 0 && supplierInvoices.length === 0) {
+    // Determine zero-data state from canonical KPI output
+    const hasFinanceData = (
+      kpi.billingReadyCount > 0 ||
+      kpi.unbilledCompletedCount > 0 ||
+      kpi.clientInvoicesOutstanding > 0 ||
+      kpi.supplierInvoicesAwaitingReview > 0 ||
+      kpi.supplierValueAwaitingApproval > 0 ||
+      kpi.clientOutstandingValue > 0 ||
+      leakage.length > 0
+    );
+
+    if (!hasFinanceData) {
       return {
         period,
         components: [],
@@ -57,28 +86,38 @@ export async function decomposeMargin(period: DateRange): Promise<MarginDecompos
         total_supplier_cost_gbp: null,
         gross_margin_estimated_gbp: null,
         data_status: 'NO_DATA',
-        evidence: [{ label: 'Finance records', value: 0, data_status: 'NO_DATA', source_service: 'finance.listClientInvoices' }],
+        evidence: [
+          { label: 'Finance KPI', value: 'NO_DATA', data_status: 'NO_DATA', source_service: 'finance.getFinanceKPISummary', computed_at: now },
+          { label: 'Billing leakage', value: 0, data_status: 'ZERO', source_service: 'finance.detectBillingLeakage', computed_at: now },
+        ],
         computed_at: now,
       };
     }
 
-    const totalClientIssued = clientInvoices.reduce((s: number, inv: any) => s + (Number(inv.total_amount_gbp) || 0), 0);
-    const totalSupplierCost = supplierInvoices
-      .filter((inv: any) => ['APPROVED', 'POSTED', 'EXPORTED'].includes(inv.processing_status))
-      .reduce((s: number, inv: any) => s + (Number(inv.total_amount_gbp) || 0), 0);
-    const matchedCost = supplierInvoices
-      .filter((inv: any) => ['APPROVED', 'POSTED', 'EXPORTED'].includes(inv.processing_status) && inv.matched_work_order_id)
-      .reduce((s: number, inv: any) => s + (Number(inv.total_amount_gbp) || 0), 0);
-    const unmatchedCost = totalSupplierCost - matchedCost;
-    const grossMarginEstimate = totalClientIssued - totalSupplierCost;
-    const attributionCoverage = totalSupplierCost > 0 ? Math.round((matchedCost / totalSupplierCost) * 100) : 0;
+    // Contribution components — all derived from canonical Finance KPI outputs
+    // We do not re-compute totals; we report what the Finance service already knows.
 
-    components.push(
-      { component: 'Client Invoiced Revenue', contribution_sign: 'POSITIVE', value: Math.round(totalClientIssued * 100) / 100, unit: 'GBP', data_status: 'LIVE', explanation: 'Total value of issued client invoices.' },
-      { component: 'Approved Supplier Cost', contribution_sign: 'NEGATIVE', value: Math.round(totalSupplierCost * 100) / 100, unit: 'GBP', data_status: 'LIVE', explanation: 'Total approved, posted, and exported supplier invoice costs.' },
-      { component: 'Matched Actual Cost', contribution_sign: 'NEGATIVE', value: Math.round(matchedCost * 100) / 100, unit: 'GBP', data_status: matchedCost > 0 ? 'LIVE' : 'NO_DATA', explanation: 'Supplier costs matched to specific work orders via purchase orders.' },
-      { component: 'Unallocated Actual Cost', contribution_sign: 'NEGATIVE', value: Math.round(unmatchedCost * 100) / 100, unit: 'GBP', data_status: unmatchedCost > 0 ? 'LIVE' : 'NO_DATA', explanation: 'Approved supplier costs not yet matched to a work order.' },
-    );
+    if (kpi.clientOutstandingValue > 0) {
+      components.push({
+        component: 'Client Outstanding Receivables',
+        contribution_sign: 'POSITIVE',
+        value: kpi.clientOutstandingValue,
+        unit: 'GBP',
+        data_status: 'LIVE',
+        explanation: `${kpi.clientInvoicesOutstanding} invoices outstanding. Cash not yet received — accounts receivable, not revenue.`,
+      });
+    }
+
+    if (kpi.supplierValueAwaitingApproval > 0) {
+      components.push({
+        component: 'Supplier Cost Awaiting Approval',
+        contribution_sign: 'NEGATIVE',
+        value: kpi.supplierValueAwaitingApproval,
+        unit: 'GBP',
+        data_status: 'LIVE',
+        explanation: `${kpi.supplierInvoicesAwaitingReview} supplier invoices awaiting review — cost not yet confirmed. Margin cannot be finalised until approved.`,
+      });
+    }
 
     if (leakage.length > 0) {
       components.push({
@@ -87,36 +126,50 @@ export async function decomposeMargin(period: DateRange): Promise<MarginDecompos
         value: leakage.length,
         unit: 'work orders',
         data_status: 'LIVE',
-        explanation: `${leakage.length} completed billable work orders have no billing record — revenue not yet captured.`,
+        explanation: `${leakage.length} completed billable work orders with no billing record — revenue not yet captured.`,
       });
     }
 
-    if (kpi.clientInvoicesOutstanding > 0) {
+    if (kpi.financeExceptionCount > 0) {
       components.push({
-        component: 'Outstanding Client Receivables',
-        contribution_sign: 'NEUTRAL',
-        value: Math.round(kpi.clientOutstandingValue * 100) / 100,
-        unit: 'GBP',
+        component: 'Finance Exceptions',
+        contribution_sign: 'NEGATIVE',
+        value: kpi.financeExceptionCount,
+        unit: 'exceptions',
         data_status: 'LIVE',
-        explanation: `Invoiced revenue not yet received in cash (accounts receivable). Cash ≠ revenue.`,
+        explanation: `${kpi.financeExceptionCount} finance exceptions require resolution before margin can be confirmed.`,
       });
     }
 
+    if (kpi.accountingSyncFailures > 0) {
+      components.push({
+        component: 'Accounting Sync Failures',
+        contribution_sign: 'NEGATIVE',
+        value: kpi.accountingSyncFailures,
+        unit: 'failures',
+        data_status: 'LIVE',
+        explanation: `${kpi.accountingSyncFailures} accounting sync failures — posted costs may not be reflected in external systems.`,
+      });
+    }
+
+    // Evidence from canonical Finance services only
     evidence.push(
-      { label: 'Client invoices (total)', value: clientInvoices.length, data_status: 'LIVE', source_service: 'finance.listClientInvoices', computed_at: now },
-      { label: 'Supplier invoices (approved/posted/exported)', value: supplierInvoices.filter((i: any) => ['APPROVED','POSTED','EXPORTED'].includes(i.processing_status)).length, data_status: 'LIVE', source_service: 'finance.listSupplierInvoices', computed_at: now },
-      { label: 'Cost attribution coverage', value: attributionCoverage, unit: '%', data_status: attributionCoverage >= 80 ? 'LIVE' : 'STALE', source_service: 'finance.matchSupplierInvoice', computed_at: now },
+      { label: 'Client invoices outstanding', value: kpi.clientInvoicesOutstanding, data_status: 'LIVE', source_service: 'finance.getFinanceKPISummary', computed_at: now },
+      { label: 'Client outstanding value (£)', value: kpi.clientOutstandingValue, unit: 'GBP', data_status: kpi.clientOutstandingValue > 0 ? 'LIVE' : 'ZERO', source_service: 'finance.getFinanceKPISummary', computed_at: now },
+      { label: 'Supplier invoices awaiting review', value: kpi.supplierInvoicesAwaitingReview, data_status: kpi.supplierInvoicesAwaitingReview > 0 ? 'LIVE' : 'ZERO', source_service: 'finance.getFinanceKPISummary', computed_at: now },
+      { label: 'Supplier cost awaiting approval (£)', value: kpi.supplierValueAwaitingApproval, unit: 'GBP', data_status: kpi.supplierValueAwaitingApproval > 0 ? 'LIVE' : 'ZERO', source_service: 'finance.getFinanceKPISummary', computed_at: now },
       { label: 'Billing leakage count', value: leakage.length, data_status: leakage.length > 0 ? 'LIVE' : 'ZERO', source_service: 'finance.detectBillingLeakage', computed_at: now },
+      { label: 'Finance exceptions', value: kpi.financeExceptionCount, data_status: kpi.financeExceptionCount > 0 ? 'LIVE' : 'ZERO', source_service: 'finance.getFinanceKPISummary', computed_at: now },
     );
 
     return {
       period,
       components,
-      attribution_coverage_pct: attributionCoverage,
-      attribution_coverage_note: attributionCoverage < 80 ? `Cost attribution coverage is ${attributionCoverage}%. Margin figures are indicative only — unmatched supplier costs reduce accuracy.` : `Cost attribution coverage is ${attributionCoverage}%.`,
-      total_client_invoiced_gbp: Math.round(totalClientIssued * 100) / 100,
-      total_supplier_cost_gbp: Math.round(totalSupplierCost * 100) / 100,
-      gross_margin_estimated_gbp: Math.round(grossMarginEstimate * 100) / 100,
+      attribution_coverage_pct: 0, // Full attribution coverage comes from Finance Metrics Registry (Phase 0I defers to Finance authority)
+      attribution_coverage_note: 'Attribution coverage is reported by the canonical Finance Metrics Registry. CEO Command reads Finance KPI outputs only — it does not re-compute coverage.',
+      total_client_invoiced_gbp: null, // Not derived here — use Finance Metrics Registry for INVOICED_REVENUE
+      total_supplier_cost_gbp: null,   // Not derived here — use Finance Metrics Registry for ACTUAL_COST
+      gross_margin_estimated_gbp: null, // Not derived here — use Finance Metrics Registry for ACTUAL_GROSS_MARGIN
       data_status: 'LIVE',
       evidence,
       computed_at: now,
@@ -154,8 +207,8 @@ export async function analyseRevenueLeakage(): Promise<{ categories: LeakageCate
   const categories: LeakageCategory[] = [];
 
   try {
-    const leakage = await detectBillingLeakage();
-    const kpi = await getFinanceKPISummary();
+    // Both are canonical Finance service calls
+    const [leakage, kpi] = await Promise.all([detectBillingLeakage(), getFinanceKPISummary()]);
 
     if (leakage.length === 0 && kpi.billingReadyCount === 0) {
       return { categories: [], total_items: 0, data_status: 'NO_DATA', computed_at: now };
@@ -204,7 +257,6 @@ export async function analyseSlaRootCause(): Promise<{ dimensions: SlaRootCause[
     if (slaRisks.length === 0) return { dimensions: [], data_status: 'NO_DATA', total_at_risk: 0, computed_at: now };
 
     const byPriority: Record<string, number> = {};
-    const byProvider: Record<string, number> = {};
     for (const wo of slaRisks) {
       const priority = (wo as any).priority || 'UNKNOWN';
       byPriority[priority] = (byPriority[priority] || 0) + 1;
@@ -215,7 +267,6 @@ export async function analyseSlaRootCause(): Promise<{ dimensions: SlaRootCause[
       dimensions.push({ dimension: 'Priority', value: priority, count, severity: priority === 'P1_CRITICAL' ? 'CRITICAL' : 'WARNING' });
     }
 
-    // Provider dimension from canonical performance
     try {
       const mockSession: any = { orgType: 'ENTIREFM', role: 'ADMIN' };
       const perfRes = await listAllProviderPerformances(mockSession);
@@ -226,7 +277,6 @@ export async function analyseSlaRootCause(): Promise<{ dimensions: SlaRootCause[
         }
       }
     } catch { /* supply chain data empty */ }
-
 
     return { dimensions, data_status: 'LIVE', total_at_risk: slaRisks.length, computed_at: now };
   } catch {
