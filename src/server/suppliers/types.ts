@@ -536,3 +536,76 @@ export interface SupplierSupportTicket {
   created_at: string;
   updated_at: string;
 }
+
+
+/**
+ * CANONICAL POST-ONBOARDING SUPPLIER RELATIONSHIP & SCOPE TYPES (PHASE 2B)
+ * =======================================================================
+ */
+
+export interface ServiceScopeItem {
+  slug: string;
+  name: string;
+  category: string;
+  is_declared: boolean;
+  approval_status: 'APPROVED' | 'UNDER_REVIEW' | 'NOT_REQUESTED' | 'REJECTED';
+  approved_date?: string;
+  next_review_date?: string;
+  approved_geographies?: string[];
+  restrictions?: string[];
+  required_accreditations?: string[];
+  capability_notes?: string;
+}
+
+export interface CoverageScopeItem {
+  region: string;
+  is_declared: boolean;
+  approval_status: 'APPROVED' | 'UNDER_REVIEW' | 'NOT_REQUESTED';
+  approved_date?: string;
+  operating_bases?: string[];
+}
+
+export interface EntireFMAssignedContact {
+  role: string;
+  name: string;
+  email: string;
+  phone: string;
+  department: string;
+}
+
+export interface SupplierRelationshipOverview {
+  supplier_id: string;
+  legal_name: string;
+  trading_name: string;
+  relationship_tier: 'APPROVED_SUPPLIER' | 'PREFERRED_SUPPLIER' | 'STRATEGIC_PARTNER';
+  tier_explanation: string;
+  assurance_status: 'APPROVED' | 'CONDITIONALLY_APPROVED' | 'UNDER_REVIEW' | 'COMPLIANCE_HOLD';
+  assurance_effective_date: string;
+  next_formal_review_date: string;
+  relationship_since: string;
+  active_restrictions: string[];
+  compliance_holds: { type: string; reason: string; required_action: string }[];
+  assigned_entirefm_team: EntireFMAssignedContact[];
+}
+
+export interface SupplierComplianceRadarItem {
+  id: string;
+  item_name: string;
+  category: 'INSURANCE' | 'ACCREDITATION' | 'HEALTH_SAFETY' | 'GOVERNANCE' | 'TECHNICAL';
+  expiry_date: string;
+  days_remaining: number;
+  status: 'VALID' | 'EXPIRING_30' | 'EXPIRING_60' | 'EXPIRING_90' | 'EXPIRED';
+  document_id?: string;
+  action_required?: string;
+}
+
+export interface SupplierResourceItem {
+  id: string;
+  title: string;
+  category: 'STANDARDS' | 'HEALTH_SAFETY' | 'PORTAL_GUIDANCE' | 'COMMERCIAL' | 'TECHNICAL';
+  version: string;
+  effective_date: string;
+  summary: string;
+  file_format: string;
+  download_url: string;
+}

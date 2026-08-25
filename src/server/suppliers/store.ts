@@ -867,3 +867,300 @@ export async function submitMaterialProfileChange(supplierId: string, proposal: 
   materialProposals.set(supplierId, current);
   return rec;
 }
+
+
+import {
+  ServiceScopeItem,
+  CoverageScopeItem,
+  SupplierRelationshipOverview,
+  SupplierComplianceRadarItem,
+  SupplierResourceItem,
+} from './types';
+
+// In-Memory Scope Stores
+const supplierServicesScope = new Map<string, ServiceScopeItem[]>();
+const supplierCoverageScope = new Map<string, CoverageScopeItem[]>();
+
+// Seed default supplier scope for 'sup-test-01'
+supplierServicesScope.set('sup-test-01', [
+  {
+    slug: 'hvac',
+    name: 'HVAC, Chillers & Air Handling',
+    category: 'HARD_FM',
+    is_declared: true,
+    approval_status: 'APPROVED',
+    approved_date: '2026-02-15',
+    next_review_date: '2027-02-15',
+    approved_geographies: ['West Midlands', 'East Midlands'],
+    restrictions: [],
+    required_accreditations: ['REFCOM Elite F-Gas Company Certificate'],
+    capability_notes: 'Daikin, Mitsubishi & Carrier VRV/Chiller specialist',
+  },
+  {
+    slug: 'gas-heating',
+    name: 'Commercial Gas & Boilers',
+    category: 'HARD_FM',
+    is_declared: true,
+    approval_status: 'APPROVED',
+    approved_date: '2026-02-15',
+    next_review_date: '2027-02-15',
+    approved_geographies: ['West Midlands'],
+    restrictions: ['Commercial plant rooms up to 500kW only'],
+    required_accreditations: ['Gas Safe Register (Commercial)'],
+    capability_notes: 'Commercial heating plant, pipework & boiler servicing',
+  },
+  {
+    slug: 'electrical',
+    name: 'Electrical & Critical Power',
+    category: 'HARD_FM',
+    is_declared: false,
+    approval_status: 'NOT_REQUESTED',
+  },
+  {
+    slug: 'water-hygiene',
+    name: 'Water Hygiene & Legionella',
+    category: 'COMPLIANCE',
+    is_declared: false,
+    approval_status: 'NOT_REQUESTED',
+  },
+  {
+    slug: 'fire-safety',
+    name: 'Fire Alarms & Life Safety',
+    category: 'LIFE_SAFETY',
+    is_declared: false,
+    approval_status: 'NOT_REQUESTED',
+  },
+  {
+    slug: 'rope-access',
+    name: 'Rope Access & BMU Façade',
+    category: 'SPECIALIST',
+    is_declared: false,
+    approval_status: 'NOT_REQUESTED',
+  },
+]);
+
+supplierCoverageScope.set('sup-test-01', [
+  {
+    region: 'West Midlands (Birmingham, Coventry, Wolverhampton)',
+    is_declared: true,
+    approval_status: 'APPROVED',
+    approved_date: '2026-02-15',
+    operating_bases: ['Birmingham Head Depot (B6 7RH)'],
+  },
+  {
+    region: 'East Midlands (Leicester, Nottingham, Derby)',
+    is_declared: true,
+    approval_status: 'APPROVED',
+    approved_date: '2026-02-15',
+    operating_bases: ['Birmingham Head Depot (B6 7RH)'],
+  },
+  {
+    region: 'North West (Manchester, Liverpool)',
+    is_declared: true,
+    approval_status: 'UNDER_REVIEW',
+  },
+  {
+    region: 'Yorkshire & Humber (Leeds, Sheffield)',
+    is_declared: false,
+    approval_status: 'NOT_REQUESTED',
+  },
+  {
+    region: 'Greater London',
+    is_declared: false,
+    approval_status: 'NOT_REQUESTED',
+  },
+]);
+
+// Seed Canonical Supplier Resources
+const canonicalSupplierResources: SupplierResourceItem[] = [
+  {
+    id: 'res-01',
+    title: 'EntireFM Supplier Code of Conduct',
+    category: 'STANDARDS',
+    version: 'v2026.1',
+    effective_date: '2026-01-01',
+    summary: 'Core ethical, environmental, worker welfare, and site conduct standards for all supply chain partners.',
+    file_format: 'PDF (240 KB)',
+    download_url: '/resources/entirefm-supplier-code-of-conduct-v2026.1.pdf',
+  },
+  {
+    id: 'res-02',
+    title: 'CAFM Service Report & Defect Photography Standards',
+    category: 'TECHNICAL',
+    version: 'v2026.2',
+    effective_date: '2026-03-01',
+    summary: 'Guidelines for mandatory pre/post work photos, asset tag verification, and operative signature capture.',
+    file_format: 'PDF (420 KB)',
+    download_url: '/resources/entirefm-cafm-service-report-standards.pdf',
+  },
+  {
+    id: 'res-03',
+    title: 'RAMS & Site Risk Assessment Protocol',
+    category: 'HEALTH_SAFETY',
+    version: 'v2026.1',
+    effective_date: '2026-01-01',
+    summary: 'Dynamic point-of-work risk assessment and Permit-to-Work compliance requirements for commercial facilities.',
+    file_format: 'PDF (310 KB)',
+    download_url: '/resources/entirefm-rams-protocol.pdf',
+  },
+  {
+    id: 'res-04',
+    title: 'Supplier Invoice & Purchase Order Guide',
+    category: 'COMMERCIAL',
+    version: 'v2026.1',
+    effective_date: '2026-01-01',
+    summary: 'Instructions for submitting invoices against valid CAFM Purchase Orders to ensure prompt 30-day settlement.',
+    file_format: 'PDF (180 KB)',
+    download_url: '/resources/entirefm-supplier-invoice-guide.pdf',
+  },
+];
+
+/**
+ * Get Supplier Services Scope Matrix
+ */
+export async function getSupplierServicesScope(supplierId: string): Promise<ServiceScopeItem[]> {
+  return supplierServicesScope.get(supplierId) || [];
+}
+
+/**
+ * Request Additional Service Capability (places service into UNDER_REVIEW without mutating approved scope)
+ */
+export async function requestAdditionalService(supplierId: string, slug: string, capabilityNotes?: string): Promise<{ success: boolean; service: ServiceScopeItem }> {
+  let list = supplierServicesScope.get(supplierId) || [];
+  let item = list.find((s) => s.slug === slug);
+  if (!item) {
+    item = {
+      slug,
+      name: slug.toUpperCase(),
+      category: 'HARD_FM',
+      is_declared: true,
+      approval_status: 'UNDER_REVIEW',
+      capability_notes: capabilityNotes,
+    };
+    list.push(item);
+  } else {
+    item.is_declared = true;
+    item.approval_status = 'UNDER_REVIEW';
+    if (capabilityNotes) item.capability_notes = capabilityNotes;
+  }
+  supplierServicesScope.set(supplierId, list);
+  return { success: true, service: item };
+}
+
+/**
+ * Get Supplier Coverage Scope Matrix
+ */
+export async function getSupplierCoverageScope(supplierId: string): Promise<CoverageScopeItem[]> {
+  return supplierCoverageScope.get(supplierId) || [];
+}
+
+/**
+ * Request Additional Regional Coverage
+ */
+export async function requestAdditionalCoverage(supplierId: string, region: string): Promise<{ success: boolean; coverage: CoverageScopeItem }> {
+  let list = supplierCoverageScope.get(supplierId) || [];
+  let item = list.find((c) => c.region.toLowerCase().includes(region.toLowerCase()) || region.toLowerCase().includes(c.region.toLowerCase()));
+  if (!item) {
+    item = {
+      region,
+      is_declared: true,
+      approval_status: 'UNDER_REVIEW',
+    };
+    list.push(item);
+  } else {
+    item.is_declared = true;
+    item.approval_status = 'UNDER_REVIEW';
+  }
+  supplierCoverageScope.set(supplierId, list);
+  return { success: true, coverage: item };
+}
+
+/**
+ * Get Relationship Overview
+ */
+export async function getSupplierRelationshipOverview(supplierId: string): Promise<SupplierRelationshipOverview> {
+  return {
+    supplier_id: supplierId,
+    legal_name: 'Midlands Mechanical & HVAC Services Ltd',
+    trading_name: 'Midlands HVAC Pro',
+    relationship_tier: 'APPROVED_SUPPLIER',
+    tier_explanation: 'Approved Supplier status is an assurance outcome earned through successful technical vetting, valid statutory certifications, and adherence to EntireFM H&S standards.',
+    assurance_status: 'APPROVED',
+    assurance_effective_date: '2026-02-15',
+    next_formal_review_date: '2027-02-15',
+    relationship_since: '2024-03-10',
+    active_restrictions: ['Gas works restricted to commercial plant rooms up to 500kW'],
+    compliance_holds: [],
+    assigned_entirefm_team: [
+      {
+        role: 'Supplier Relationship Manager',
+        name: 'James Thornton',
+        email: 'j.thornton@entirefm.example.co.uk',
+        phone: '0114 555 0122',
+        department: 'Supply Chain & Partner Network',
+      },
+      {
+        role: 'Assurance & Vetting Officer',
+        name: 'Rachel Davies',
+        email: 'r.davies@entirefm.example.co.uk',
+        phone: '0114 555 0128',
+        department: 'Governance & Quality Assurance',
+      },
+      {
+        role: '24/7 Operations Desk Lead',
+        name: 'EntireFM Helpdesk Team',
+        email: 'operations@entirefm.example.co.uk',
+        phone: '0800 000 0000',
+        department: 'Facilities Operations & Dispatch',
+      },
+    ],
+  };
+}
+
+/**
+ * Get Supplier Compliance Radar (30/60/90 Days Expiries)
+ */
+export async function getSupplierComplianceRadar(supplierId: string): Promise<SupplierComplianceRadarItem[]> {
+  const docs = await listSupplierVaultDocuments(supplierId);
+  const now = new Date('2026-08-25T00:00:00Z');
+
+  const radar: SupplierComplianceRadarItem[] = [
+    {
+      id: 'rad-01',
+      item_name: 'Gas Safe Register (Commercial Certificate)',
+      category: 'ACCREDITATION',
+      expiry_date: '2026-06-01',
+      days_remaining: 45,
+      status: 'EXPIRING_60',
+      document_id: 'doc-02',
+      action_required: 'Upload renewed certificate before 01 June 2026 to maintain reactive gas dispatch eligibility.',
+    },
+    {
+      id: 'rad-02',
+      item_name: 'Public Liability Insurance (£10m)',
+      category: 'INSURANCE',
+      expiry_date: '2027-04-30',
+      days_remaining: 248,
+      status: 'VALID',
+      document_id: 'doc-01',
+    },
+    {
+      id: 'rad-03',
+      item_name: 'REFCOM Elite F-Gas Company Certificate',
+      category: 'ACCREDITATION',
+      expiry_date: '2028-01-01',
+      days_remaining: 494,
+      status: 'VALID',
+      document_id: 'doc-03',
+    },
+  ];
+
+  return radar;
+}
+
+/**
+ * List Supplier Resources
+ */
+export async function listSupplierResources(): Promise<SupplierResourceItem[]> {
+  return canonicalSupplierResources;
+}
