@@ -15,9 +15,12 @@ import {
   RecruitmentRequirementRecord,
   SupplierAuditRecord,
   ExecutiveSupplyChainMetrics,
+  AssurancePaymentRecord,
+  AssurancePaymentStatus,
 } from './types';
 import { dbQuery } from '../db/client';
 import { computeSupplyChainGaps, DEFAULT_COVERAGE_TARGETS } from './gap-engine';
+import { CANONICAL_PUBLIC_PRICING } from '@/config/supplier-data';
 
 class MemorySupplierStore {
   public organisations: Map<string, SupplierOrganisationRecord> = new Map();
@@ -776,7 +779,63 @@ export async function saveSupplierOnboardingDraft(supplierId: string, updates: P
 }
 
 /**
- * Submit full onboarding application
+ * Record Assurance Review Payment (Card, Invoice or Authorised Waiver)
+ */
+export async function recordAssurancePayment(
+  supplierId: string,
+  paymentMethod: 'CARD' | 'INVOICE' | 'WAIVER',
+  details: {
+    transactionRef?: string;
+    invoiceNumber?: string;
+    waivedBy?: string;
+    waiverReason?: string;
+  } = {}
+): Promise<AssurancePaymentRecord> {
+  const draft = await getSupplierOnboardingDraft(supplierId);
+  const pricing = CANONICAL_PUBLIC_PRICING.INITIAL_ASSURANCE_REVIEW;
+
+  const paymentRecord: AssurancePaymentRecord = {
+    status: paymentMethod === 'INVOICE' ? 'AWAITING_PAYMENT' : paymentMethod === 'WAIVER' ? 'WAIVED' : 'PAID',
+    product_id: pricing.id,
+    amount_gbp: pricing.priceGbp,
+    vat_amount_gbp: pricing.priceGbp * pricing.vatRate,
+    total_gbp: pricing.priceGbp * (1 + pricing.vatRate),
+    payment_method: paymentMethod,
+    transaction_reference: details.transactionRef || (paymentMethod === 'CARD' ? `txn_assur_${Date.now()}` : undefined),
+    invoice_number: details.invoiceNumber || (paymentMethod === 'INVOICE' ? `INV-ASSUR-${Date.now()}` : undefined),
+    paid_at: paymentMethod === 'CARD' ? new Date().toISOString() : undefined,
+    waived_by: details.waivedBy,
+    waiver_reason: details.waiverReason,
+  };
+
+  draft.assurance_payment = paymentRecord;
+  if (paymentRecord.status === 'PAID' || paymentRecord.status === 'WAIVED') {
+    draft.status = 'READY_TO_SUBMIT';
+  } else {
+    draft.status = 'AWAITING_PAYMENT';
+  }
+  draft.updated_at = new Date().toISOString();
+  onboardingDrafts.set(supplierId, draft);
+
+  return paymentRecord;
+}
+
+/**
+ * Authorised EntireFM Admin Waiver for Assurance Review Fee
+ */
+export async function waiveAssuranceFee(
+  supplierId: string,
+  waivedBy: string,
+  reason: string
+): Promise<AssurancePaymentRecord> {
+  return recordAssurancePayment(supplierId, 'WAIVER', {
+    waivedBy,
+    waiverReason: reason,
+  });
+}
+
+/**
+ * Submit full onboarding application (Gated by Initial Assurance Review Payment / Waiver)
  */
 export async function submitSupplierOnboardingApplication(supplierId: string): Promise<{ success: boolean; application_reference: string; error?: string }> {
   const draft = await getSupplierOnboardingDraft(supplierId);
@@ -790,6 +849,19 @@ export async function submitSupplierOnboardingApplication(supplierId: string): P
   }
   if (!draft.code_of_conduct_accepted || !draft.truthfulness_declaration_accepted) {
     return { success: false, application_reference: draft.application_reference, error: 'Mandatory declarations and Code of Conduct must be accepted.' };
+  }
+
+  // Pre-submission Assurance Review Payment Gate
+  const isPaidOrWaived =
+    draft.assurance_payment?.status === 'PAID' ||
+    draft.assurance_payment?.status === 'WAIVED';
+
+  if (!isPaidOrWaived) {
+    return {
+      success: false,
+      application_reference: draft.application_reference,
+      error: 'Initial Supplier Assurance Review payment or authorised waiver is required prior to formal submission.',
+    };
   }
 
   draft.status = 'SUBMITTED';

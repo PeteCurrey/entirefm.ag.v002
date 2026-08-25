@@ -2,6 +2,7 @@ import {
   getSupplierOnboardingDraft,
   saveSupplierOnboardingDraft,
   submitSupplierOnboardingApplication,
+  recordAssurancePayment,
   checkDuplicateOrganisation,
   listSupplierVaultDocuments,
   replaceSupplierVaultDocument,
@@ -149,6 +150,7 @@ async function runPhase2aOnboardingTestSuite() {
 
   // Test 4: Final Application Submission
   console.log('\n4. Testing Full Application Submission & Validation...');
+  await recordAssurancePayment(testSupId, 'CARD');
   const submission = await submitSupplierOnboardingApplication(testSupId);
   console.log(`   ✓ Submission Success: ${submission.success} (Application Ref: ${submission.application_reference})`);
   if (!submission.success) throw new Error(`Application submission failed: ${submission.error}`);

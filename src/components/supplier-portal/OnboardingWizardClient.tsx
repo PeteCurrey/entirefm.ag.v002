@@ -23,7 +23,7 @@ import {
   AlertCircle,
   Upload,
 } from 'lucide-react';
-import { CANONICAL_ACCREDITATIONS } from '@/config/supplier-data';
+import { CANONICAL_ACCREDITATIONS, CANONICAL_PUBLIC_PRICING } from '@/config/supplier-data';
 
 const STEPS = [
   { num: 1, key: 'company', title: 'Company Profile', icon: Building2 },
@@ -103,6 +103,10 @@ export function OnboardingWizardClient() {
     modernSlavery: true,
     codeOfConduct: true,
     truthfulnessDeclaration: true,
+
+    // Pre-submission Assurance Payment Gateway
+    paymentMethod: 'CARD' as 'CARD' | 'INVOICE' | 'WAIVER',
+    waiverReason: '',
   });
 
   const handleSave = () => {
@@ -150,20 +154,27 @@ export function OnboardingWizardClient() {
         </div>
 
         <div className="p-4 bg-slate-50 border border-slate-200 rounded text-left text-xs font-mono space-y-2">
-          <span className="font-bold text-slate-900 font-sans block">What Happens Next:</span>
+          <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+            <span className="font-bold text-slate-900 font-sans">Assurance Review Fee:</span>
+            <span className="text-emerald-700 font-bold">
+              {formData.paymentMethod === 'CARD' ? 'PAID — £350 + VAT (Card)' : formData.paymentMethod === 'INVOICE' ? 'INVOICE ISSUED — £350 + VAT' : 'WAIVED (Authorised)'}
+            </span>
+          </div>
+          <span className="font-bold text-slate-900 font-sans block pt-1">What Happens Next:</span>
           <ul className="space-y-1 text-slate-600 font-sans text-[11.5px]">
             <li>1. Technical review of insurance schedules and trade accreditations (3-5 business days).</li>
             <li>2. If clarifications or replacement documents are required, you will see an action banner in your portal.</li>
-            <li>3. Upon review completion, scoped service &amp; regional authorization decisions will appear in your portal.</li>
+            <li>3. Scoped service &amp; regional authorization decisions will appear in your portal.</li>
+            <li>4. Payment VAT receipt / invoice is available under your Supplier Portal Billing tab.</li>
           </ul>
         </div>
 
         <div className="pt-4 flex flex-wrap justify-center gap-4">
-          <Link href="/supplier-portal" className="btn-primary text-xs py-2.5 px-6">
+          <Link href="/supplier-portal" className="btn-primary text-xs py-2.5 px-6 font-bold">
             Go to Supplier Portal &rarr;
           </Link>
-          <Link href="/supplier-portal/documents" className="btn-secondary text-xs py-2.5 px-6">
-            View Document Vault
+          <Link href="/supplier-portal/billing" className="btn-secondary text-xs py-2.5 px-6">
+            View Billing &amp; Invoices
           </Link>
         </div>
       </div>
@@ -703,11 +714,77 @@ export function OnboardingWizardClient() {
                 </div>
               </div>
 
-              <div className="p-4 bg-emerald-50/80 border border-emerald-200 rounded text-emerald-950 space-y-1">
-                <span className="font-bold block">Ready for Submission:</span>
-                <p className="text-[11.5px] leading-relaxed">
-                  All 15 application sections are complete and validated. Click below to submit your profile for technical assurance review.
-                </p>
+              {/* INITIAL SUPPLIER ASSURANCE REVIEW GATEWAY */}
+              <div className="bg-[#FAF9FB] border-2 border-slate-900 rounded-sm p-5 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+                  <div>
+                    <span className="text-[10px] font-mono uppercase text-emerald-700 font-bold tracking-wider bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      PRE-SUBMISSION ASSURANCE GATEWAY
+                    </span>
+                    <h3 className="text-base font-bold text-slate-900 mt-1">
+                      {CANONICAL_PUBLIC_PRICING.INITIAL_ASSURANCE_REVIEW.name}
+                    </h3>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-lg font-mono font-bold text-slate-900">
+                      {CANONICAL_PUBLIC_PRICING.INITIAL_ASSURANCE_REVIEW.displayPrice}
+                    </span>
+                    <span className="text-[10px] text-slate-500 block font-mono">£420.00 inc. 20% VAT</span>
+                  </div>
+                </div>
+
+                <div className="text-[11.5px] text-slate-600 space-y-2">
+                  <p>
+                    The Initial Supplier Assurance Review fee covers the administration and independent review of applicable supplier-assurance information submitted by your organisation, including company identity, insurance schedules, H&amp;S competence, and trade qualifications.
+                  </p>
+                  
+                  {/* Critical Disclosure */}
+                  <div className="p-3 bg-amber-50 border border-amber-200 rounded text-amber-950 text-[11px] leading-relaxed">
+                    <strong>Critical Disclosure:</strong> Payment enables your completed application to be submitted for EntireFM assurance review. It does not guarantee approval, Preferred Supplier status, work allocation, or any minimum volume of work.
+                  </div>
+                </div>
+
+                {/* Payment Method Selection */}
+                <div className="space-y-2 pt-1">
+                  <span className="font-bold text-slate-900 text-xs block">Select Payment Method:</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <label
+                      className={`flex items-center gap-2.5 p-3 rounded border cursor-pointer text-xs ${
+                        formData.paymentMethod === 'CARD'
+                          ? 'bg-slate-900 text-white border-slate-900 font-bold'
+                          : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        checked={formData.paymentMethod === 'CARD'}
+                        onChange={() => setFormData({ ...formData, paymentMethod: 'CARD' })}
+                        className="text-brand-pink"
+                      />
+                      <CreditCard className="h-4 w-4 shrink-0" />
+                      <span>Credit / Debit Card (Stripe Instant)</span>
+                    </label>
+
+                    <label
+                      className={`flex items-center gap-2.5 p-3 rounded border cursor-pointer text-xs ${
+                        formData.paymentMethod === 'INVOICE'
+                          ? 'bg-slate-900 text-white border-slate-900 font-bold'
+                          : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        checked={formData.paymentMethod === 'INVOICE'}
+                        onChange={() => setFormData({ ...formData, paymentMethod: 'INVOICE' })}
+                        className="text-brand-pink"
+                      />
+                      <FileText className="h-4 w-4 shrink-0" />
+                      <span>Commercial Invoice (30-Day BACS)</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -728,7 +805,12 @@ export function OnboardingWizardClient() {
               </button>
             ) : (
               <button onClick={handleSubmit} className="btn-primary text-xs py-2 px-6 bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center gap-1.5">
-                Submit Application <CheckCircle2 className="h-3.5 w-3.5" />
+                {formData.paymentMethod === 'CARD'
+                  ? 'Pay Assurance Review Fee & Submit (£420.00)'
+                  : formData.paymentMethod === 'INVOICE'
+                  ? 'Issue Invoice & Submit Application'
+                  : 'Submit with Authorised Waiver'}
+                <CheckCircle2 className="h-3.5 w-3.5" />
               </button>
             )}
           </div>

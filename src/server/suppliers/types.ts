@@ -381,7 +381,19 @@ export interface SupplierOnboardingDraft {
   created_at: string;
   updated_at: string;
   submitted_at?: string;
-  status: 'DRAFT' | 'SUBMITTED' | 'UNDER_REVIEW' | 'APPROVED' | 'REJECTED';
+  status:
+    | 'DRAFT'
+    | 'READY_TO_SUBMIT'
+    | 'AWAITING_PAYMENT'
+    | 'PAYMENT_PROCESSING'
+    | 'PAID_READY_TO_SUBMIT'
+    | 'SUBMITTED'
+    | 'UNDER_REVIEW'
+    | 'INFORMATION_REQUIRED'
+    | 'CONDITIONALLY_APPROVED'
+    | 'APPROVED'
+    | 'DECLINED'
+    | 'REJECTED';
   current_step: number;
   
   // Section 01: Company Profile
@@ -478,7 +490,26 @@ export interface SupplierOnboardingDraft {
   code_of_conduct_accepted_at?: string;
   truthfulness_declaration_accepted: boolean;
 
+  // Assurance Payment Gateway (Pre-Submission Gate)
+  assurance_payment?: AssurancePaymentRecord;
+
   step_states: Record<string, OnboardingStepState>;
+}
+
+export type AssurancePaymentStatus = 'UNPAID' | 'AWAITING_PAYMENT' | 'PAYMENT_PROCESSING' | 'PAID' | 'WAIVED';
+
+export interface AssurancePaymentRecord {
+  status: AssurancePaymentStatus;
+  product_id: string;
+  amount_gbp: number;
+  vat_amount_gbp: number;
+  total_gbp: number;
+  payment_method?: 'CARD' | 'INVOICE' | 'WAIVER';
+  transaction_reference?: string;
+  invoice_number?: string;
+  paid_at?: string;
+  waived_by?: string;
+  waiver_reason?: string;
 }
 
 export interface SupplierDocumentVaultItem {

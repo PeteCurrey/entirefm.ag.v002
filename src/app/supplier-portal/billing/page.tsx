@@ -10,6 +10,18 @@ export const metadata = {
 export default function SupplierPortalBillingPage() {
   const invoices = [
     {
+      number: 'INV-2026-0012',
+      description: 'Initial Supplier Assurance Review (Technical Due Diligence & Vetting)',
+      issued: '15 Dec 2025',
+      due: '15 Dec 2025',
+      amountGbp: 350,
+      vatGbp: 70,
+      totalGbp: 420,
+      status: 'PAID',
+      paidDate: '15 Dec 2025',
+      receiptUrl: '/api/supplier/invoices/INV-2026-0012/receipt.pdf',
+    },
+    {
       number: 'INV-2026-0041',
       description: 'Supplier Network Membership (Annual Renewal 2026/27)',
       issued: '01 Jan 2026',

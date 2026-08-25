@@ -2,6 +2,7 @@ import {
   getSupplierOnboardingDraft,
   saveSupplierOnboardingDraft,
   submitSupplierOnboardingApplication,
+  recordAssurancePayment,
   checkDuplicateOrganisation,
   getSupplierRelationshipOverview,
   getSupplierServicesScope,
@@ -48,6 +49,7 @@ async function runPhase2cJourneyAuditTestSuite() {
     code_of_conduct_accepted: true,
     truthfulness_declaration_accepted: true,
   });
+  await recordAssurancePayment(smeSupId, 'CARD');
   const smeSubmit = await submitSupplierOnboardingApplication(smeSupId);
   console.log(`   ✓ Persona A Submitted: ${smeSubmit.application_reference} (Status: SUBMITTED)`);
   if (!smeSubmit.success) throw new Error('Journey A submission failed');
@@ -72,6 +74,7 @@ async function runPhase2cJourneyAuditTestSuite() {
     code_of_conduct_accepted: true,
     truthfulness_declaration_accepted: true,
   });
+  await recordAssurancePayment(natSupId, 'CARD');
   const natSubmit = await submitSupplierOnboardingApplication(natSupId);
   const natInvitedUser = await inviteSupplierPortalUser(natSupId, 'finance.lead@nfegroup.example.co.uk', 'Arthur Pendelton', 'FINANCE');
   console.log(`   ✓ Persona B Submitted: ${natSubmit.application_reference} (Services: ${natDraft.selected_service_slugs.length}, Users: ${natInvitedUser.role})`);

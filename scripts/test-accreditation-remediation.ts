@@ -3,6 +3,7 @@ import {
   saveSupplierOnboardingDraft,
   getSupplierOnboardingDraft,
   submitSupplierOnboardingApplication,
+  recordAssurancePayment,
 } from '../src/server/suppliers/store';
 
 async function testAccreditationRemediationSuite() {
@@ -108,9 +109,10 @@ async function testAccreditationRemediationSuite() {
 
   // 4. Test Application Submission
   console.log('\n4. Testing Application Submission with Structured Accreditations...');
-  const submitResult = await submitSupplierOnboardingApplication(testSupplierId);
-  console.log(`   ✓ Submission Success: ${submitResult.success} (Ref: ${submitResult.application_reference})`);
-  if (!submitResult.success) {
+  await recordAssurancePayment(testSupplierId, 'CARD');
+  const submission = await submitSupplierOnboardingApplication(testSupplierId);
+  console.log(`   ✓ Submission Success: ${submission.success} (Ref: ${submission.application_reference})`);
+  if (!submission.success) {
     throw new Error('Application submission failed');
   }
 

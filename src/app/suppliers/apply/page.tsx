@@ -174,7 +174,7 @@ export default function ApplyPage() {
                   <span>Commercial &amp; Fee Transparency</span>
                 </div>
                 <p className="text-slate-600 text-[11.5px] leading-relaxed">
-                  Starting an application is free. Where an assurance review, Partner Network membership or another paid service applies, the relevant charge will be shown before that service begins. Payment does not guarantee approval or work allocation.
+                  Starting and completing your supplier application is free. Once your application is complete, the applicable Initial Supplier Assurance Review fee (£350 + VAT) is payable before your application is formally submitted for review. Payment does not guarantee approval or work allocation.
                 </p>
               </div>
             </div>
