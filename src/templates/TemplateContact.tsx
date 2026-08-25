@@ -138,23 +138,23 @@ export function TemplateContact() {
             />
           </div>
 
-          {/* Dark Overlay with subtle illumination */}
+          {/* Dark Overlay with balanced illumination allowing background visibility */}
           <div
             aria-hidden="true"
             className="absolute inset-0 -z-10"
             style={{
               background:
-                'linear-gradient(96deg, rgba(11,18,32,0.95) 0%, rgba(11,18,32,0.85) 45%, rgba(11,18,32,0.60) 78%, rgba(11,18,32,0.40) 100%)',
+                'linear-gradient(96deg, rgba(11,18,32,0.85) 0%, rgba(11,18,32,0.70) 45%, rgba(11,18,32,0.45) 78%, rgba(11,18,32,0.25) 100%)',
             }}
           />
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 -z-10 h-36"
-            style={{ background: 'linear-gradient(to top, rgba(11,18,32,1), transparent)' }}
+            className="absolute inset-x-0 bottom-0 -z-10 h-28"
+            style={{ background: 'linear-gradient(to top, rgba(11,18,32,0.85), transparent)' }}
           />
           <div
             aria-hidden="true"
-            className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-30"
+            className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-20"
           />
 
           {/* Breadcrumbs offset by header height */}

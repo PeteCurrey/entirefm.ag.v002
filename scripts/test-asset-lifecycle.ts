@@ -15,6 +15,10 @@
 import {
   computeRepairToReplacementRatio,
   getAssetClassPerformance,
+  computeAssetAge,
+  computeExpectedLifeProfile,
+  computeWarrantyStatus,
+  computeEstimateFreshness,
 } from '../src/server/asset-intelligence';
 import type { AssetReplacementReview, ReplacementReviewStatus } from '../src/server/asset-intelligence/types';
 import { canAccessAsset } from '../src/server/identity';

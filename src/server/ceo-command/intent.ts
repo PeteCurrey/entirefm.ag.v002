@@ -153,13 +153,13 @@ interface IntentPattern {
 }
 
 const INTENT_PATTERNS: IntentPattern[] = [
-  { category: 'FINANCE', keywords: ['margin', 'revenue', 'profit', 'invoice', 'billing', 'cost', 'financial', 'cash', 'leakage', 'unbilled', 'wip', 'accounts receivable', 'payment', 'supplier invoice', 'gross margin', 'actual cost', 'matched cost', 'attribution', 'profitability'] },
+  { category: 'FINANCE', keywords: ['margin', 'revenue', 'profit', 'invoice', 'billing', 'financial', 'cash', 'leakage', 'unbilled', 'wip', 'accounts receivable', 'payment', 'supplier invoice', 'gross margin', 'actual cost', 'matched cost', 'attribution', 'profitability', 'finance cost', 'supplier cost', 'invoice cost'] },
   { category: 'COMPLIANCE', keywords: ['compliance', 'obligation', 'certificate', 'statutory', 'sfg20', 'audit', 'exception', 'regulation', 'legislation', 'standard', 'expiring', 'expired', 'overdue compliance', 'audit ready', 'audit readiness', 'mobilisation gap'] },
   { category: 'PPM', keywords: ['ppm', 'planned maintenance', 'maintenance due', 'scheduled maintenance', 'overdue maintenance', 'occurrence', 'maintenance plan', 'next 30 days maintenance', 'preventative'] },
   { category: 'OPERATIONS', keywords: ['work order', 'sla', 'backlog', 'helpdesk', 'service request', 'attendance', 'resolution', 'breach', 'dispatch', 'first time fix', 'recall rate', 'response time', 'completion rate', 'unassigned', 'open work', 'operational exception'] },
   { category: 'SUPPLY_CHAIN', keywords: ['provider', 'contractor', 'supplier performance', 'acceptance', 'decline', 'subcontractor', 'supply chain', 'trade', 'cost variance supplier', 'evidence quality', 'attendance sla', 'provider performance'] },
   { category: 'CLIENTS', keywords: ['client', 'account', 'customer', 'portfolio', 'profitability', 'least profitable', 'most profitable', 'client profitability', 'client account'] },
-  { category: 'ASSETS', keywords: ['asset', 'equipment', 'boiler', 'chiller', 'ahu', 'repeat failure', 'defect', 'callout', 'reactive asset', 'most costly asset', 'costly asset', 'replace', 'replacement', 'lifecycle', 'fail next', 'predictive', 'data quality', 'ageing asset', 'expected life', 'condition'] },
+  { category: 'ASSETS', keywords: ['asset', 'equipment', 'boiler', 'chiller', 'ahu', 'repeat failure', 'defect', 'callout', 'reactive asset', 'most costly asset', 'costly asset', 'replace', 'replacement', 'lifecycle', 'fail next', 'predictive', 'data quality', 'ageing asset', 'expected life', 'condition', 'maintenance cost', 'asset cost', 'reactive cost', 'most expensive asset', 'assets cost', 'cost us the most', 'costing the most'] },
   { category: 'ESTATE', keywords: ['site', 'building', 'floor', 'space', 'estate', 'property', 'managed site', 'facilities'] },
   { category: 'AI_AUTOMATION', keywords: ['ai', 'automation', 'automated', 'workflow', 'dispatch ai', 'ai activity', 'control plane', 'escalation', 'override', 'shadow mode'] },
   { category: 'PLATFORM_HEALTH', keywords: ['integration', 'connector', 'xero', 'quickbooks', 'sage', 'netsuite', 'platform health', 'system health', 'healthy'] },
