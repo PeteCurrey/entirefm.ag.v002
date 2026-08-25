@@ -2345,12 +2345,6 @@
       "reason": "Intent-matched: General legacy redirect to homepage"
     },
     {
-      "source": "/suppliers",
-      "destination": "/fm-supply-form",
-      "statusCode": 301,
-      "reason": "Semantic intent consolidation into protected historic page"
-    },
-    {
       "source": "/sustainability",
       "destination": "/about-entire-facilities-management",
       "statusCode": 301,
