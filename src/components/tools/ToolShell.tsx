@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
+import { Clock, FileCheck2, Shield, Sparkles } from 'lucide-react';
 
 export interface ToolShellProps {
   breadcrumbs: { name: string; url: string }[];
@@ -24,70 +25,76 @@ export function ToolShell({
   children,
 }: ToolShellProps) {
   return (
-    <div className="relative w-full bg-[#070b16] min-h-screen text-slate-100 flex flex-col selection:bg-[#FF3E9D]/30 selection:text-white overflow-hidden">
-      {/* 1. ATMOSPHERIC BLUE-HOUR TOOL STAGE LIGHTING */}
-      <div 
-        className="pointer-events-none absolute inset-0 z-0 opacity-40 mix-blend-screen"
-        style={{
-          backgroundImage: `
-            radial-gradient(ellipse 90% 50% at 50% -10%, rgba(30, 58, 138, 0.45), transparent 75%),
-            radial-gradient(ellipse 60% 40% at 85% 20%, rgba(255, 62, 157, 0.08), transparent 70%),
-            radial-gradient(ellipse 50% 50% at 15% 50%, rgba(14, 165, 233, 0.07), transparent 65%)
-          `,
-        }}
-      />
+    <div className="relative w-full min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col selection:bg-brand-electric/15 selection:text-brand-graphite">
+      {/* 1. BRANDED CORPORATE DARK HERO FRAMING */}
+      <header className="relative z-20 bg-[#0B1220] border-b border-brand-edge-dark overflow-hidden">
+        {/* Subtle architectural ambient gradient */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-40 mix-blend-screen"
+          style={{
+            backgroundImage: `
+              radial-gradient(ellipse 80% 60% at 50% -20%, rgba(37, 99, 235, 0.35), transparent 70%),
+              radial-gradient(ellipse 50% 50% at 85% 30%, rgba(124, 58, 237, 0.2), transparent 60%)
+            `,
+          }}
+        />
 
-      {/* 2. SUBTLE ARCHITECTURAL BLUEPRINT GRID */}
-      <div 
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.035]"
-        style={{
-          backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
-          backgroundSize: '48px 48px',
-        }}
-      />
+        {/* Hairline blueprint grid texture */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
+            backgroundSize: '32px 32px',
+          }}
+        />
 
-      {/* 3. REFINED BRAND TRANSITION EDGE LINE (WEBSITE -> DIGITAL TOOL) */}
-      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#0284C7] to-[#FF3E9D]/80 opacity-90 relative z-40" />
-
-      {/* 4. CINEMATIC EDITORIAL APP HEADER */}
-      <header className="relative z-30 border-b border-slate-800/80 bg-[#080e1c]/90 backdrop-blur-md sticky top-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between gap-4 mb-2.5">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-10">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
             <Breadcrumbs items={breadcrumbs} className="text-xs text-slate-400" />
-            <div className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#0284C7] animate-pulse" />
-              <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase">
-                {eyebrow}
-              </span>
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-electric animate-pulse" />
+              <span className="tracking-wider uppercase">{eyebrow}</span>
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 pt-1">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
             <div className="max-w-3xl">
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white font-display">
+              <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-bold tracking-tight text-white leading-[1.15]">
                 {title}
               </h1>
-              <p className="text-sm sm:text-base text-slate-300 mt-1.5 leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-300 mt-2.5 leading-relaxed font-normal">
                 {purpose}
               </p>
             </div>
 
-            {/* Restrained Editorial Metadata Strip */}
-            <div className="flex items-center gap-3 text-xs text-slate-400 font-mono shrink-0 pb-1">
-              <span className="text-slate-300 font-bold uppercase tracking-wider">{timeEstimate}</span>
-              <span className="text-slate-600">/</span>
-              <span className="text-slate-300">NO REGISTRATION</span>
-              <span className="text-slate-600">/</span>
-              <span className="text-slate-200 font-semibold">{outputs.join(' + ')}</span>
+            {/* Structured Executive Metadata Pills */}
+            <div className="flex flex-wrap items-center gap-2.5 text-xs text-slate-300 shrink-0">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/5 border border-white/10">
+                <Clock className="w-3.5 h-3.5 text-brand-electric" />
+                <span className="font-semibold text-white">{timeEstimate}</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/5 border border-white/10">
+                <Shield className="w-3.5 h-3.5 text-emerald-400" />
+                <span>No Registration</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-brand-electric/15 border border-brand-electric/30 text-white">
+                <FileCheck2 className="w-3.5 h-3.5 text-brand-electric" />
+                <span className="font-medium">{outputs.join(' + ')}</span>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Transition gradient rule from dark hero to light workspace */}
+        <div className="h-[2px] w-full bg-gradient-to-r from-brand-electric via-brand-violet to-brand-pink opacity-80" />
       </header>
 
-      {/* 5. MAIN CONTENT STAGE WORKSPACE */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow flex flex-col justify-start">
+      {/* 2. MAIN LIGHT-DOMINANT EDITORIAL WORKSPACE */}
+      <main className="relative z-10 flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {children}
-      </div>
+      </main>
     </div>
   );
 }

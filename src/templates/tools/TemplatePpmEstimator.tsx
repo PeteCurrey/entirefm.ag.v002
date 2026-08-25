@@ -10,11 +10,13 @@ import {
   Building2,
   Layers,
   TrendingUp,
+  Sliders,
+  CheckCircle2,
+  BadgePoundSterling,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ToolShell } from '@/components/tools/ToolShell';
-import { WizardProgress } from '@/components/tools/WizardProgress';
 import { ExportToolbar } from '@/components/tools/ExportToolbar';
 import { ToolConversionCTA } from '@/components/tools/ToolConversionCTA';
 import { downloadPdfReport, PdfDocumentDefinition } from '@/lib/pdf/generator';
@@ -36,11 +38,6 @@ const SECTORS: Record<string, SectorMultiplier> = {
   education: { name: 'Education & University Campuses', baseRateSqFt: 1.35, complexityFactor: 0.95 },
 };
 
-const WIZARD_STEPS = [
-  { id: 1, title: '01 Parameters', subtitle: 'Estate & Scope' },
-  { id: 2, title: '02 Budget Model', subtitle: 'Cost Allocation & PDF' },
-];
-
 export function TemplatePpmEstimator({ route, content }: TemplateProps) {
   const [sectorKey, setSectorKey] = useState<string>('office');
   const [floorArea, setFloorArea] = useState<number>(25000); // in sq ft
@@ -57,7 +54,7 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
 
   const sector = SECTORS[sectorKey] || SECTORS.office;
 
-  // Calculation logic
+  // Calculation logic (100% preserved)
   const estimate = useMemo(() => {
     const scopeMultiplier = serviceScope === 'compliance' ? 0.45 : serviceScope === 'hard_fm' ? 1.0 : 1.65;
     const ageMultiplier = plantAge === 'new' ? 0.85 : plantAge === 'mid' ? 1.0 : 1.3;
@@ -119,194 +116,233 @@ export function TemplatePpmEstimator({ route, content }: TemplateProps) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080d1a]">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
       <Header />
-      <main id="main" className="flex-grow pt-20">
+      <div className="flex-grow pt-16">
         <ToolShell
           breadcrumbs={breadcrumbs}
           title="PPM Cost Estimator"
-          purpose="Calculate indicative planned preventative maintenance budgets tailored to commercial estate size and sector."
+          purpose="Model indicative planned preventative maintenance expenditure ranges based on commercial estate footprint, sector complexity, and service intensity."
           timeEstimate="2 min"
           outputs={['PDF Budget Specification']}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* 7 Columns: Form Controls */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="border-b border-slate-800 pb-4">
-                <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase">
-                  01 / Estate Parameters
-                </span>
-                <h2 className="text-2xl font-bold text-white mt-1">
-                  Property &amp; Scope Specification
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-300 mt-1">
-                  Configure building parameters to generate an accurate SFG20 budget projection.
-                </p>
-              </div>
+              <div className="bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-sm space-y-6">
+                <div className="border-b border-slate-100 pb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-brand-electric" />
+                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-bold">
+                      01 / Estate Parameters
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+                    Property &amp; Scope Specification
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                    Configure your building parameters to calculate an indicative SFG20 maintenance budget projection.
+                  </p>
+                </div>
 
-              {/* Sector Selection */}
-              <div className="p-4 border border-slate-800 bg-[#09101f] rounded-[3px] space-y-2">
-                <label className="text-xs font-semibold text-slate-200 block">
-                  Property Sector / Building Type
-                </label>
-                <select
-                  value={sectorKey}
-                  onChange={(e) => setSectorKey(e.target.value)}
-                  className="w-full px-3 py-2 bg-[#0c1527] border border-slate-700 rounded-[2px] text-xs text-white"
-                >
-                  {Object.entries(SECTORS).map(([key, item]) => (
-                    <option key={key} value={key}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Floor Area Slider */}
-              <div className="p-4 border border-slate-800 bg-[#09101f] rounded-[3px] space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-200">
-                    Floor Area (sq ft)
+                {/* Sector Selection */}
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
+                    Property Sector / Building Type
                   </label>
-                  <span className="font-mono text-xs font-bold text-white">
-                    {floorArea.toLocaleString()} sq ft
-                  </span>
+                  <select
+                    value={sectorKey}
+                    onChange={(e) => setSectorKey(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                  >
+                    {Object.entries(SECTORS).map(([key, item]) => (
+                      <option key={key} value={key}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-                <input
-                  type="range"
-                  min="5000"
-                  max="200000"
-                  step="5000"
-                  value={floorArea}
-                  onChange={(e) => setFloorArea(Number(e.target.value))}
-                  className="w-full accent-slate-400 cursor-pointer"
-                />
-              </div>
 
-              {/* Scope Level Toggle */}
-              <div className="p-4 border border-slate-800 bg-[#09101f] rounded-[3px] space-y-2">
-                <label className="text-xs font-semibold text-slate-200 block">
-                  Service Scope Level
-                </label>
-                <div className="grid grid-cols-3 gap-2 text-xs">
-                  {[
-                    { key: 'compliance', label: 'Statutory Only', desc: 'Mandatory duties only' },
-                    { key: 'hard_fm', label: 'Full Hard FM', desc: 'Statutory + SFG20 plant care' },
-                    { key: 'total_fm', label: 'Total FM', desc: 'Hard FM + 24/7 helpdesk' },
-                  ].map((s) => (
-                    <button
-                      key={s.key}
-                      type="button"
-                      onClick={() => setServiceScope(s.key as any)}
-                      className={`p-2.5 rounded-[2px] border text-left transition-colors ${
-                        serviceScope === s.key
-                          ? 'border-slate-500 bg-[#0c1527] text-white'
-                          : 'border-slate-800 bg-slate-950/40 text-slate-400 hover:border-slate-700'
-                      }`}
-                    >
-                      <span className="font-bold block">{s.label}</span>
-                      <span className="text-[10px] text-slate-500 block">{s.desc}</span>
-                    </button>
-                  ))}
+                {/* Floor Area Slider */}
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      Gross Internal Floor Area
+                    </label>
+                    <span className="font-mono text-sm font-bold text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                      {floorArea.toLocaleString()} sq ft
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="5000"
+                    max="200000"
+                    step="5000"
+                    value={floorArea}
+                    onChange={(e) => setFloorArea(Number(e.target.value))}
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-electric"
+                  />
+                  <div className="flex justify-between text-[11px] font-mono text-slate-600">
+                    <span>5,000 sq ft</span>
+                    <span>100,000 sq ft</span>
+                    <span>200,000+ sq ft</span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Plant Age */}
-              <div className="p-4 border border-slate-800 bg-[#09101f] rounded-[3px] space-y-2">
-                <label className="text-xs font-semibold text-slate-200 block">
-                  Plant &amp; Asset Age Profile
-                </label>
-                <div className="grid grid-cols-3 gap-2 text-xs">
-                  {[
-                    { key: 'new', label: '0–3 Years', desc: 'Modern under warranty' },
-                    { key: 'mid', label: '4–10 Years', desc: 'Established plant' },
-                    { key: 'aged', label: '10+ Years', desc: 'Legacy systems' },
-                  ].map((a) => (
-                    <button
-                      key={a.key}
-                      type="button"
-                      onClick={() => setPlantAge(a.key as any)}
-                      className={`p-2.5 rounded-[2px] border text-left transition-colors ${
-                        plantAge === a.key
-                          ? 'border-slate-500 bg-[#0c1527] text-white'
-                          : 'border-slate-800 bg-slate-950/40 text-slate-400 hover:border-slate-700'
-                      }`}
-                    >
-                      <span className="font-bold block">{a.label}</span>
-                      <span className="text-[10px] text-slate-500 block">{a.desc}</span>
-                    </button>
-                  ))}
+                {/* Scope Level Toggle */}
+                <div className="space-y-2 pt-2">
+                  <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
+                    Service Scope Intensity
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {[
+                      { key: 'compliance', label: 'Statutory Only', desc: 'Mandatory duties only' },
+                      { key: 'hard_fm', label: 'Full Hard FM', desc: 'Statutory + SFG20 plant care' },
+                      { key: 'total_fm', label: 'Total FM Care', desc: 'Hard FM + 24/7 helpdesk' },
+                    ].map((s) => {
+                      const isActive = serviceScope === s.key;
+                      return (
+                        <button
+                          key={s.key}
+                          type="button"
+                          onClick={() => setServiceScope(s.key as any)}
+                          className={`p-3.5 rounded-sm border text-left transition-all ${
+                            isActive
+                              ? 'border-brand-electric bg-blue-50/60 ring-1 ring-brand-electric text-slate-900'
+                              : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
+                          }`}
+                        >
+                          <span className={`font-bold text-xs block ${isActive ? 'text-brand-electric' : 'text-slate-900'}`}>
+                            {s.label}
+                          </span>
+                          <span className="text-[11px] text-slate-600 block mt-0.5">
+                            {s.desc}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Plant Age */}
+                <div className="space-y-2 pt-2">
+                  <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
+                    Plant &amp; Primary Asset Age Profile
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {[
+                      { key: 'new', label: '0–3 Years', desc: 'Modern under warranty' },
+                      { key: 'mid', label: '4–10 Years', desc: 'Established plant' },
+                      { key: 'aged', label: '10+ Years', desc: 'Legacy aged systems' },
+                    ].map((a) => {
+                      const isActive = plantAge === a.key;
+                      return (
+                        <button
+                          key={a.key}
+                          type="button"
+                          onClick={() => setPlantAge(a.key as any)}
+                          className={`p-3.5 rounded-sm border text-left transition-all ${
+                            isActive
+                              ? 'border-brand-electric bg-blue-50/60 ring-1 ring-brand-electric text-slate-900'
+                              : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
+                          }`}
+                        >
+                          <span className={`font-bold text-xs block ${isActive ? 'text-brand-electric' : 'text-slate-900'}`}>
+                            {a.label}
+                          </span>
+                          <span className="text-[11px] text-slate-600 block mt-0.5">
+                            {a.desc}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* 5 Columns: Budget Projection Output */}
-            <div className="lg:col-span-5 border border-slate-800 bg-[#09101f] p-6 rounded-[4px] space-y-6 sticky top-36">
-              <div>
-                <span className="font-mono text-[11px] text-slate-400 uppercase tracking-widest">
-                  02 / Indicative Budget
-                </span>
-                <div className="mt-3 p-4 border border-slate-800 bg-[#0c1527] space-y-1">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block font-mono">
+            <div className="lg:col-span-5 space-y-6 sticky top-24">
+              <div className="bg-white border border-slate-200 rounded-sm shadow-md p-6 sm:p-7 space-y-6">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                  <span className="font-mono text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                    02 / Indicative Budget Model
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">
+                    <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                    Live Estimate
+                  </span>
+                </div>
+
+                {/* Primary Metric Banner */}
+                <div className="rounded-sm bg-[#0B1220] p-6 text-white space-y-2 relative overflow-hidden shadow-sm">
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 opacity-20"
+                    style={{
+                      backgroundImage: `radial-gradient(ellipse at 80% 0%, rgba(37, 99, 235, 0.6), transparent 70%)`,
+                    }}
+                  />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300 font-mono block">
                     Estimated Annual PPM Range
                   </span>
-                  <p className="text-2xl sm:text-3xl font-bold text-white font-mono tracking-tight">
+                  <p className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-display">
                     £{estimate.lowerBound.toLocaleString()} – £{estimate.upperBound.toLocaleString()}
                   </p>
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-800 text-xs text-slate-400">
-                    <span>Rate per sq ft:</span>
-                    <strong className="text-white font-mono">£{estimate.ratePerSqFt} / sq ft</strong>
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-300">
+                    <span>Target Rate:</span>
+                    <strong className="text-white font-mono text-sm">£{estimate.ratePerSqFt} / sq ft</strong>
                   </div>
                 </div>
-              </div>
 
-              {/* Trade Cost Breakdown Table */}
-              <div className="space-y-2 text-xs">
-                <h3 className="text-xs font-bold text-white uppercase tracking-wider font-mono">
-                  Indicative Trade Allocation
-                </h3>
-                <div className="border border-slate-800 bg-[#0c1527] divide-y divide-slate-800/80">
-                  <div className="p-2.5 flex items-center justify-between">
-                    <span className="text-slate-400">HVAC &amp; Mechanical (38%)</span>
-                    <strong className="text-white font-mono">£{estimate.breakdown.hvac.toLocaleString()}</strong>
-                  </div>
-                  <div className="p-2.5 flex items-center justify-between">
-                    <span className="text-slate-400">Electrical &amp; Lighting (22%)</span>
-                    <strong className="text-white font-mono">£{estimate.breakdown.electrical.toLocaleString()}</strong>
-                  </div>
-                  <div className="p-2.5 flex items-center justify-between">
-                    <span className="text-slate-400">Fire Safety &amp; Alarms (18%)</span>
-                    <strong className="text-white font-mono">£{estimate.breakdown.fireSafety.toLocaleString()}</strong>
-                  </div>
-                  <div className="p-2.5 flex items-center justify-between">
-                    <span className="text-slate-400">Water Hygiene &amp; LRA (12%)</span>
-                    <strong className="text-white font-mono">£{estimate.breakdown.waterHygiene.toLocaleString()}</strong>
-                  </div>
-                  <div className="p-2.5 flex items-center justify-between">
-                    <span className="text-slate-400">Fabric &amp; Drainage (10%)</span>
-                    <strong className="text-white font-mono">£{estimate.breakdown.otherFabric.toLocaleString()}</strong>
+                {/* Trade Cost Breakdown Table */}
+                <div className="space-y-2.5">
+                  <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    Indicative Trade Allocation
+                  </h3>
+                  <div className="border border-slate-200 rounded-sm bg-slate-50/50 divide-y divide-slate-200 text-xs">
+                    <div className="p-3 flex items-center justify-between">
+                      <span className="text-slate-700 font-medium">HVAC &amp; Mechanical (38%)</span>
+                      <strong className="text-slate-900 font-mono font-bold">£{estimate.breakdown.hvac.toLocaleString()}</strong>
+                    </div>
+                    <div className="p-3 flex items-center justify-between">
+                      <span className="text-slate-700 font-medium">Electrical &amp; Lighting (22%)</span>
+                      <strong className="text-slate-900 font-mono font-bold">£{estimate.breakdown.electrical.toLocaleString()}</strong>
+                    </div>
+                    <div className="p-3 flex items-center justify-between">
+                      <span className="text-slate-700 font-medium">Fire Safety &amp; Alarms (18%)</span>
+                      <strong className="text-slate-900 font-mono font-bold">£{estimate.breakdown.fireSafety.toLocaleString()}</strong>
+                    </div>
+                    <div className="p-3 flex items-center justify-between">
+                      <span className="text-slate-700 font-medium">Water Hygiene &amp; LRA (12%)</span>
+                      <strong className="text-slate-900 font-mono font-bold">£{estimate.breakdown.waterHygiene.toLocaleString()}</strong>
+                    </div>
+                    <div className="p-3 flex items-center justify-between">
+                      <span className="text-slate-700 font-medium">Fabric &amp; Drainage (10%)</span>
+                      <strong className="text-slate-900 font-mono font-bold">£{estimate.breakdown.otherFabric.toLocaleString()}</strong>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Export Toolbar */}
-              <ExportToolbar
-                toolName="PPM Cost Estimator"
-                onDownloadPdf={handleDownloadPdf}
-                pdfLabel="Download Budget Estimate (PDF)"
-              />
+                {/* Export Toolbar */}
+                <ExportToolbar
+                  toolName="PPM Cost Estimator"
+                  onDownloadPdf={handleDownloadPdf}
+                  pdfLabel="Download PDF Specification"
+                />
+              </div>
             </div>
           </div>
 
           <ToolConversionCTA
             toolName="PPM Cost Estimator"
-            heading="Require a formal competitive PPM tender?"
-            subheading="EntireFM delivers transparent fixed-price Planned Preventative Maintenance proposals tailored to Uniclass asset registers."
+            heading="Require a formal competitive PPM tender proposal?"
+            subheading="EntireFM delivers transparent fixed-price Planned Preventative Maintenance proposals tailored to your property asset register and SFG20 maintenance regimes."
             primaryActionLabel="Request Formal Tender Proposal"
             primaryActionHref="/contact-us#enquiry"
           />
         </ToolShell>
-      </main>
+      </div>
       <Footer />
     </div>
   );

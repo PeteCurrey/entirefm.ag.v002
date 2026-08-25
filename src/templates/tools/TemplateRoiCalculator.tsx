@@ -11,20 +11,17 @@ import {
   FileCheck,
   CheckCircle2,
   Building2,
+  PiggyBank,
+  BadgePercent,
+  Sparkles,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ToolShell } from '@/components/tools/ToolShell';
-import { WizardProgress } from '@/components/tools/WizardProgress';
 import { ExportToolbar } from '@/components/tools/ExportToolbar';
 import { ToolConversionCTA } from '@/components/tools/ToolConversionCTA';
 import { downloadPdfReport, PdfDocumentDefinition } from '@/lib/pdf/generator';
 import type { TemplateProps } from '../types';
-
-const WIZARD_STEPS = [
-  { id: 1, title: '01 Parameters', subtitle: 'Cost & Supplier Inputs' },
-  { id: 2, title: '02 Financial Model', subtitle: 'TCO & ROI Appraisal' },
-];
 
 export function TemplateRoiCalculator({ route, content }: TemplateProps) {
   // Inputs
@@ -43,7 +40,7 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
     { name: 'FM ROI / TCO Calculator', url: '/tools/fm-roi-calculator' },
   ];
 
-  // Mathematical Model
+  // Mathematical Model (100% preserved)
   const calculation = useMemo(() => {
     // Current Model
     const annualAdminCost = adminHoursPerMonth * 12 * hourlyAdminRate;
@@ -113,221 +110,248 @@ export function TemplateRoiCalculator({ route, content }: TemplateProps) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080d1a]">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
       <Header />
-      <main id="main" className="flex-grow pt-20">
+      <div className="flex-grow pt-16">
         <ToolShell
           breadcrumbs={breadcrumbs}
           title="FM ROI / TCO Calculator"
-          purpose="Model the total cost of ownership across fragmented contractor setups vs consolidated delivery."
+          purpose="Model the commercial total cost of ownership across fragmented contractor setups versus a consolidated planned delivery model."
           timeEstimate="2 min"
           outputs={['PDF Financial Model']}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Input Sliders Column (7 cols) */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="border-b border-slate-800 pb-4">
-                <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase">
-                  01 / Parameter Baseline
-                </span>
-                <h2 className="text-2xl font-bold text-white mt-1">
-                  Estate Operating Cost Inputs
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-300 mt-1">
-                  Adjust parameter values to match your building or portfolio operating profile.
-                </p>
-              </div>
+              <div className="bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-sm space-y-6">
+                <div className="border-b border-slate-100 pb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-brand-electric" />
+                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-bold">
+                      01 / Parameter Baseline
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+                    Estate Operating Cost Profile
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                    Adjust parameter sliders to reflect your current portfolio maintenance expenditure and management burden.
+                  </p>
+                </div>
 
-              {/* Reactive Spend */}
-              <div className="p-4 border border-slate-800 bg-[#09101f] rounded-[3px] space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-200">
-                    Annual Reactive Maintenance &amp; Callout Spend
-                  </label>
-                  <span className="font-mono text-xs font-bold text-white">
-                    £{reactiveSpend.toLocaleString()} / yr
+                {/* Reactive Spend Slider */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      Annual Reactive Repairs &amp; Callout Spend
+                    </label>
+                    <span className="font-mono text-sm font-bold text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                      £{reactiveSpend.toLocaleString()} / yr
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="5000"
+                    max="250000"
+                    step="5000"
+                    value={reactiveSpend}
+                    onChange={(e) => setReactiveSpend(Number(e.target.value))}
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-electric"
+                  />
+                  <span className="text-[11.5px] text-slate-600 block">
+                    Expenditure on reactive breakdown callouts, emergency contractor visits, and urgent repairs.
                   </span>
                 </div>
-                <input
-                  type="range"
-                  min="5000"
-                  max="250000"
-                  step="5000"
-                  value={reactiveSpend}
-                  onChange={(e) => setReactiveSpend(Number(e.target.value))}
-                  className="w-full accent-slate-400 cursor-pointer"
-                />
-                <span className="text-[11px] text-slate-500 block">
-                  Total annual expenditure on ad-hoc breakdown visits, out-of-hours callouts, and urgent repairs.
-                </span>
-              </div>
 
-              {/* Current PPM Spend */}
-              <div className="p-4 border border-slate-800 bg-[#09101f] rounded-[3px] space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-200">
-                    Annual Planned Maintenance (PPM) Contract Spend
-                  </label>
-                  <span className="font-mono text-xs font-bold text-white">
-                    £{currentPpmSpend.toLocaleString()} / yr
+                {/* Current PPM Spend Slider */}
+                <div className="space-y-2 pt-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      Annual Planned Maintenance (PPM) Contracts
+                    </label>
+                    <span className="font-mono text-sm font-bold text-brand-electric bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                      £{currentPpmSpend.toLocaleString()} / yr
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="5000"
+                    max="150000"
+                    step="5000"
+                    value={currentPpmSpend}
+                    onChange={(e) => setCurrentPpmSpend(Number(e.target.value))}
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-electric"
+                  />
+                  <span className="text-[11.5px] text-slate-600 block">
+                    Routine scheduled servicing contracts across HVAC, fire alarms, electrical, and water hygiene.
                   </span>
                 </div>
-                <input
-                  type="range"
-                  min="5000"
-                  max="150000"
-                  step="5000"
-                  value={currentPpmSpend}
-                  onChange={(e) => setCurrentPpmSpend(Number(e.target.value))}
-                  className="w-full accent-slate-400 cursor-pointer"
-                />
-                <span className="text-[11px] text-slate-500 block">
-                  Routine scheduled servicing contracts across HVAC, fire safety, water hygiene, and electrical.
-                </span>
-              </div>
 
-              {/* Supplier Count */}
-              <div className="p-4 border border-slate-800 bg-[#09101f] rounded-[3px] space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-200">
-                    Number of Independent FM Contractors
-                  </label>
-                  <span className="font-mono text-xs font-bold text-white">
-                    {supplierCount} Contractors
+                {/* Supplier Count Slider */}
+                <div className="space-y-2 pt-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      Number of Independent FM Contractors
+                    </label>
+                    <span className="font-mono text-sm font-bold text-slate-900 bg-slate-100 px-2.5 py-1 rounded-sm border border-slate-200">
+                      {supplierCount} Contractors
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="1"
+                    max="15"
+                    step="1"
+                    value={supplierCount}
+                    onChange={(e) => setSupplierCount(Number(e.target.value))}
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-electric"
+                  />
+                </div>
+
+                {/* Internal Admin Hours */}
+                <div className="space-y-2 pt-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      Internal Management &amp; Invoicing Overhead
+                    </label>
+                    <span className="font-mono text-sm font-bold text-slate-900 bg-slate-100 px-2.5 py-1 rounded-sm border border-slate-200">
+                      {adminHoursPerMonth} hrs / mo (~£{calculation.annualAdminCost.toLocaleString()}/yr)
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="5"
+                    max="60"
+                    step="5"
+                    value={adminHoursPerMonth}
+                    onChange={(e) => setAdminHoursPerMonth(Number(e.target.value))}
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-electric"
+                  />
+                  <span className="text-[11.5px] text-slate-600 block">
+                    Internal management hours spent chasing contractors, auditing work orders, and validating invoices.
                   </span>
                 </div>
-                <input
-                  type="range"
-                  min="1"
-                  max="15"
-                  step="1"
-                  value={supplierCount}
-                  onChange={(e) => setSupplierCount(Number(e.target.value))}
-                  className="w-full accent-slate-400 cursor-pointer"
-                />
-              </div>
 
-              {/* Internal Admin Hours */}
-              <div className="p-4 border border-slate-800 bg-[#09101f] rounded-[3px] space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-200">
-                    Internal Management &amp; Invoicing Overhead
-                  </label>
-                  <span className="font-mono text-xs font-bold text-white">
-                    {adminHoursPerMonth} hrs / mo (~£{calculation.annualAdminCost.toLocaleString()}/yr)
-                  </span>
+                {/* Outage / Disruption Assumptions */}
+                <div className="space-y-2 pt-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      Unplanned Asset Outages / Disruptions
+                    </label>
+                    <span className="font-mono text-sm font-bold text-rose-700 bg-rose-50 px-2.5 py-1 rounded-sm border border-rose-100">
+                      {unplannedOutages} Events (~£{calculation.annualOutageCost.toLocaleString()}/yr)
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="12"
+                    step="1"
+                    value={unplannedOutages}
+                    onChange={(e) => setUnplannedOutages(Number(e.target.value))}
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-electric"
+                  />
                 </div>
-                <input
-                  type="range"
-                  min="5"
-                  max="60"
-                  step="5"
-                  value={adminHoursPerMonth}
-                  onChange={(e) => setAdminHoursPerMonth(Number(e.target.value))}
-                  className="w-full accent-slate-400 cursor-pointer"
-                />
-                <span className="text-[11px] text-slate-500 block">
-                  Staff time spent coordinating visits, validating supplier invoices, and tracking certificates.
-                </span>
-              </div>
-
-              {/* Outage / Disruption Assumptions */}
-              <div className="p-4 border border-slate-800 bg-[#09101f] rounded-[3px] space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-200">
-                    Unplanned Outages / Business Disruptions
-                  </label>
-                  <span className="font-mono text-xs font-bold text-white">
-                    {unplannedOutages} Events (~£{calculation.annualOutageCost.toLocaleString()}/yr)
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="12"
-                  step="1"
-                  value={unplannedOutages}
-                  onChange={(e) => setUnplannedOutages(Number(e.target.value))}
-                  className="w-full accent-slate-400 cursor-pointer"
-                />
               </div>
             </div>
 
             {/* Financial Dashboard Column (5 cols) */}
-            <div className="lg:col-span-5 border border-slate-800 bg-[#09101f] p-6 rounded-[4px] space-y-6 sticky top-36">
-              <div>
-                <span className="font-mono text-[11px] text-slate-400 uppercase tracking-widest">
-                  02 / Financial Appraisal
-                </span>
-                <div className="mt-3 p-4 border border-slate-800 bg-[#0c1527] space-y-1">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block font-mono">
+            <div className="lg:col-span-5 space-y-6 sticky top-24">
+              <div className="bg-white border border-slate-200 rounded-sm shadow-md p-6 sm:p-7 space-y-6">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                  <span className="font-mono text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                    02 / Financial Model Output
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">
+                    <TrendingUp className="w-3 h-3 text-emerald-600" />
+                    {calculation.percentageSavings}% Efficiency Gain
+                  </span>
+                </div>
+
+                {/* Primary Financial Benefit Card */}
+                <div className="rounded-sm bg-[#0B1220] p-6 text-white space-y-2 relative overflow-hidden shadow-sm">
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 opacity-20"
+                    style={{
+                      backgroundImage: `radial-gradient(ellipse at 80% 0%, rgba(37, 99, 235, 0.6), transparent 70%)`,
+                    }}
+                  />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300 font-mono block">
                     Projected Annual TCO Reduction
                   </span>
-                  <p className="text-3xl sm:text-4xl font-bold text-white font-mono tracking-tight">
+                  <p className="text-3xl sm:text-4xl font-extrabold text-emerald-400 tracking-tight font-display">
                     £{calculation.totalPotentialSavings.toLocaleString()}
                   </p>
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-800 text-xs text-slate-400">
-                    <span>5-Year Lifecycle Value:</span>
-                    <strong className="text-white font-mono">£{calculation.fiveYearSavings.toLocaleString()}</strong>
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-300">
+                    <span>5-Year Cumulative Value:</span>
+                    <strong className="text-white font-mono text-sm">£{calculation.fiveYearSavings.toLocaleString()}</strong>
                   </div>
                 </div>
-              </div>
 
-              {/* Cost Breakdown Table */}
-              <div className="space-y-2 text-xs">
-                <h3 className="text-xs font-bold text-white uppercase tracking-wider font-mono">
-                  Comparative Annual Breakdown
-                </h3>
-                <div className="border border-slate-800 bg-[#0c1527] divide-y divide-slate-800/80">
-                  <div className="p-2.5 flex items-center justify-between">
-                    <span className="text-slate-400">Reactive Spend</span>
-                    <div className="text-right">
-                      <span className="text-slate-400 line-through text-[11px] mr-2">£{reactiveSpend.toLocaleString()}</span>
-                      <strong className="text-white font-mono">£{calculation.projectedReactiveSpend.toLocaleString()}</strong>
+                {/* Comparative Breakdown Table */}
+                <div className="space-y-2.5">
+                  <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    Comparative Annual Cost Allocation
+                  </h3>
+                  <div className="border border-slate-200 rounded-sm bg-slate-50/50 divide-y divide-slate-200 text-xs">
+                    <div className="p-3 flex items-center justify-between">
+                      <span className="text-slate-700 font-medium">Reactive Spend</span>
+                      <div className="text-right">
+                        <span className="text-slate-600 line-through text-[11px] mr-2">£{reactiveSpend.toLocaleString()}</span>
+                        <strong className="text-slate-900 font-mono font-bold">£{calculation.projectedReactiveSpend.toLocaleString()}</strong>
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-2.5 flex items-center justify-between">
-                    <span className="text-slate-400">PPM Investment</span>
-                    <div className="text-right">
-                      <span className="text-slate-400 line-through text-[11px] mr-2">£{currentPpmSpend.toLocaleString()}</span>
-                      <strong className="text-white font-mono">£{calculation.projectedPpmSpend.toLocaleString()}</strong>
+                    <div className="p-3 flex items-center justify-between">
+                      <span className="text-slate-700 font-medium">PPM Maintenance</span>
+                      <div className="text-right">
+                        <span className="text-slate-600 line-through text-[11px] mr-2">£{currentPpmSpend.toLocaleString()}</span>
+                        <strong className="text-slate-900 font-mono font-bold">£{calculation.projectedPpmSpend.toLocaleString()}</strong>
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-2.5 flex items-center justify-between">
-                    <span className="text-slate-400">Contract Administration</span>
-                    <div className="text-right">
-                      <span className="text-slate-400 line-through text-[11px] mr-2">£{calculation.annualAdminCost.toLocaleString()}</span>
-                      <strong className="text-white font-mono">£{calculation.projectedAdminCost.toLocaleString()}</strong>
+                    <div className="p-3 flex items-center justify-between">
+                      <span className="text-slate-700 font-medium">Contract Administration</span>
+                      <div className="text-right">
+                        <span className="text-slate-600 line-through text-[11px] mr-2">£{calculation.annualAdminCost.toLocaleString()}</span>
+                        <strong className="text-slate-900 font-mono font-bold">£{calculation.projectedAdminCost.toLocaleString()}</strong>
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-2.5 flex items-center justify-between">
-                    <span className="text-slate-400">Outage Risk Cost</span>
-                    <div className="text-right">
-                      <span className="text-slate-400 line-through text-[11px] mr-2">£{calculation.annualOutageCost.toLocaleString()}</span>
-                      <strong className="text-white font-mono">£{calculation.projectedOutageCost.toLocaleString()}</strong>
+                    <div className="p-3 flex items-center justify-between">
+                      <span className="text-slate-700 font-medium">Outage Disruption Risk</span>
+                      <div className="text-right">
+                        <span className="text-slate-600 line-through text-[11px] mr-2">£{calculation.annualOutageCost.toLocaleString()}</span>
+                        <strong className="text-slate-900 font-mono font-bold">£{calculation.projectedOutageCost.toLocaleString()}</strong>
+                      </div>
+                    </div>
+                    <div className="p-3 bg-blue-50/70 flex items-center justify-between font-bold">
+                      <span className="text-slate-900">Total Estate TCO</span>
+                      <div className="text-right">
+                        <span className="text-slate-600 line-through text-[11px] mr-2 font-normal">£{calculation.currentTotalTco.toLocaleString()}</span>
+                        <strong className="text-brand-electric font-mono text-sm">£{calculation.projectedTotalTco.toLocaleString()}</strong>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Export Toolbar */}
-              <ExportToolbar
-                toolName="FM ROI / TCO Calculator"
-                onDownloadPdf={handleDownloadPdf}
-                pdfLabel="Download Financial Model (PDF)"
-              />
+                {/* Export Toolbar */}
+                <ExportToolbar
+                  toolName="FM ROI / TCO Calculator"
+                  onDownloadPdf={handleDownloadPdf}
+                  pdfLabel="Download Financial Model (PDF)"
+                />
+              </div>
             </div>
           </div>
 
           <ToolConversionCTA
             toolName="FM ROI / TCO Calculator"
             heading="Explore a consolidated FM contract tender?"
-            subheading="EntireFM delivers consolidated Hard FM, compliance tracking, and Helpdesk operations with guaranteed SLA performance."
+            subheading="EntireFM delivers consolidated Hard FM, compliance tracking, and Helpdesk operations with guaranteed SLA performance across commercial estates."
             primaryActionLabel="Request Contract Benchmark"
             primaryActionHref="/contact-us#enquiry"
           />
         </ToolShell>
-      </main>
+      </div>
       <Footer />
     </div>
   );

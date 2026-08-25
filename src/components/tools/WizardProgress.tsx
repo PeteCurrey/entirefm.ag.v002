@@ -19,9 +19,9 @@ export function WizardProgress({
   onSelectStep?: (index: number) => void;
 }) {
   return (
-    <div className="w-full mb-10">
-      {/* Desktop Architectural Engineering Stepper */}
-      <nav aria-label="Progress" className="hidden md:block border-b border-slate-800/90 pb-5">
+    <div className="w-full mb-8">
+      {/* Desktop Stepper */}
+      <nav aria-label="Progress" className="hidden md:block border-b border-slate-200 pb-5">
         <ol className="flex items-center justify-between gap-4">
           {steps.map((step, idx) => {
             const isDone = idx < currentStep;
@@ -42,46 +42,50 @@ export function WizardProgress({
                 >
                   <div className="flex items-center justify-between gap-2 mb-1.5">
                     <span
-                      className={`text-xs font-mono font-bold transition-colors ${
+                      className={`text-xs font-mono font-bold transition-colors inline-flex items-center gap-1.5 ${
                         isCurrent
-                          ? 'text-white'
+                          ? 'text-brand-electric'
                           : isDone
-                          ? 'text-emerald-400'
-                          : 'text-slate-400 group-hover:text-slate-300'
+                          ? 'text-emerald-600'
+                          : 'text-slate-600 group-hover:text-slate-900'
                       }`}
                     >
                       {isDone ? (
-                        <span className="inline-flex items-center gap-1">
-                          <Check className="w-3 h-3 stroke-[2.5]" />
-                          {stepNum}
+                        <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-emerald-100 text-emerald-700">
+                          <Check className="w-2.5 h-2.5 stroke-[3]" />
                         </span>
                       ) : (
-                        stepNum
+                        <span className={`inline-flex items-center justify-center w-4 h-4 rounded-full text-[10px] ${
+                          isCurrent ? 'bg-brand-electric text-white' : 'bg-slate-100 text-slate-600'
+                        }`}>
+                          {stepNum}
+                        </span>
                       )}
+                      <span>STEP {stepNum}</span>
                     </span>
-                    <span className="text-[10px] font-mono text-slate-400 hidden xl:inline">
+                    <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider hidden xl:inline">
                       {isDone ? 'COMPLETE' : isCurrent ? 'ACTIVE' : 'QUEUED'}
                     </span>
                   </div>
 
                   <span
-                    className={`text-xs font-bold tracking-wider uppercase transition-colors truncate ${
+                    className={`text-xs font-bold tracking-tight transition-colors truncate ${
                       isCurrent
-                        ? 'text-white'
+                        ? 'text-slate-900 font-extrabold'
                         : isDone
-                        ? 'text-slate-300'
-                        : 'text-slate-400 group-hover:text-slate-300'
+                        ? 'text-slate-700'
+                        : 'text-slate-600 group-hover:text-slate-900'
                     }`}
                   >
                     {cleanTitle}
                   </span>
 
-                  {/* Engineering Indicator Bar */}
-                  <div className="mt-2.5 w-full h-[2px] rounded-full overflow-hidden bg-slate-800">
+                  {/* Indicator Track */}
+                  <div className="mt-2.5 w-full h-[3px] rounded-full overflow-hidden bg-slate-200">
                     <div
                       className={`h-full transition-all duration-300 ${
                         isCurrent
-                          ? 'w-full bg-gradient-to-r from-[#0284C7] to-[#FF3E9D]'
+                          ? 'w-full bg-gradient-to-r from-brand-electric via-brand-indigo to-brand-violet'
                           : isDone
                           ? 'w-full bg-emerald-500'
                           : 'w-0 bg-transparent'
@@ -91,7 +95,7 @@ export function WizardProgress({
                 </button>
 
                 {idx < steps.length - 1 && (
-                  <div className="h-4 w-px bg-slate-800 mx-2 self-center shrink-0 hidden lg:block" />
+                  <div className="h-4 w-px bg-slate-200 mx-3 self-center shrink-0 hidden lg:block" />
                 )}
               </li>
             );
@@ -99,13 +103,13 @@ export function WizardProgress({
         </ol>
       </nav>
 
-      {/* Mobile Compact Engineering Progress */}
-      <div className="md:hidden border-b border-slate-800 pb-3 flex items-center justify-between">
+      {/* Mobile Compact Progress */}
+      <div className="md:hidden border-b border-slate-200 pb-3 flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono tracking-wider text-slate-400 uppercase">
+          <span className="text-[10px] font-mono tracking-wider text-slate-600 uppercase font-semibold">
             Step {currentStep + 1} of {steps.length}
           </span>
-          <div className="text-sm font-bold text-white mt-0.5">
+          <div className="text-sm font-bold text-slate-900 mt-0.5">
             {steps[currentStep]?.title.replace(/^\d+\s*/, '')}
           </div>
         </div>
@@ -115,10 +119,10 @@ export function WizardProgress({
               key={idx}
               className={`h-1.5 rounded-full transition-all ${
                 idx === currentStep
-                  ? 'w-7 bg-gradient-to-r from-[#0284C7] to-[#FF3E9D]'
+                  ? 'w-6 bg-gradient-to-r from-brand-electric to-brand-violet'
                   : idx < currentStep
-                  ? 'w-2 bg-emerald-400'
-                  : 'w-2 bg-slate-800'
+                  ? 'w-2 bg-emerald-500'
+                  : 'w-2 bg-slate-200'
               }`}
             />
           ))}

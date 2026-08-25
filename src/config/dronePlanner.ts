@@ -601,20 +601,26 @@ export function calculateLeadPriority(
 
   // Commercial scale
   if (site.siteScale === 'Estate / Campus' || site.siteScale === 'Multiple Buildings') score += 2;
-  if (site.siteType === 'Industrial / Manufacturing' || site.siteType === 'Warehouse / Logistics' || site.siteType === 'Construction Site') score += 1;
+  if (site.siteScale === 'Large External Site') score += 2;
+  if (site.siteType === 'Industrial / Manufacturing' || site.siteType === 'Warehouse / Logistics' || site.siteType === 'Construction Site' || site.siteType === 'Solar Installation') score += 1;
 
   // Urgency & Criticality
   if (insp.urgency === 'Emergency / Immediate Concern' || insp.urgency === 'Within 24–48 Hours') score += 2;
   if (insp.urgency === 'Within 7 Days') score += 1;
 
-  // Commercial intent (Remediation & PPM)
+  // Commercial intent (Remediation & PPM & Construction)
   if (insp.remediationInterest === 'Yes — inspection and remedial works') score += 3;
   if (insp.remediationInterest === 'Possibly — advise me after the survey') score += 1;
   if (insp.frequency === 'Quarterly' || insp.frequency === 'Every 6 Months' || insp.frequency === 'Annually' || insp.frequency === 'Ongoing Programme') score += 3;
-  if (insp.frequency === 'Construction Milestones') score += 2;
+  if (insp.frequency === 'Construction Milestones') score += 3;
+
+  // Specific high-intent problem areas
+  if (insp.inspectionReasons?.includes('Construction progress') || site.siteType === 'Construction Site') score += 2;
+  if (insp.inspectionReasons?.includes('Solar performance issue') || site.siteType === 'Solar Installation' || insp.solarCapacity === 'Large commercial' || insp.solarCapacity === 'Utility-scale') score += 2;
+  if (insp.inspectionReasons?.includes('Water ingress / leak') || insp.inspectionReasons?.includes('Storm damage') || insp.inspectionReasons?.includes('Insurance evidence')) score += 1;
 
   // Asset complexity
-  if (insp.assetsToInspect?.length >= 3) score += 1;
+  if ((insp.assetsToInspect?.length || 0) >= 2) score += 1;
   if (insp.heightBand === '11+ Storeys' || insp.heightBand === '6–10 Storeys') score += 1;
 
   // Corporate email check
@@ -623,8 +629,8 @@ export function calculateLeadPriority(
     if (!isFreeEmail) score += 1;
   }
 
-  if (score >= 5) return 'HIGH';
-  if (score >= 3) return 'MEDIUM';
+  if (score >= 4) return 'HIGH';
+  if (score >= 2) return 'MEDIUM';
   return 'STANDARD';
 }
 

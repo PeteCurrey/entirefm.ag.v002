@@ -98,329 +98,318 @@ const COMPLIANCE_QUESTIONS: ComplianceQuestion[] = [
         label: 'Weekly call point tests are formally logged; 6-monthly BAFE engineering certificates on file.',
         points: 2,
         status: 'COMPLIANT',
-        finding: 'Full statutory logbook routine and accredited engineering certification active.',
-        action: 'Maintain existing scheduled engineer testing and weekly call-point rota.',
+        finding: 'Full BS 5839-1 testing compliance with zero overdue servicing intervals.',
+        action: 'Maintain routine weekly testing and ensure contractor holds active BAFE SP203 accreditation.',
         priority: 'Compliant',
       },
       {
-        label: 'Engineers attend periodically, but weekly testing log is incomplete or missing entries.',
+        label: 'Servicing takes place annually, but weekly call point tests are irregular or unlogged.',
         points: 1,
         status: 'ACTION_REQUIRED',
-        finding: 'Periodic engineering servicing maintained, but user logbook has evidence gaps.',
-        action: 'Reinstate structured weekly manual call point rotation and record in digital CAFM logbook.',
+        finding: 'Missing weekly call point tests leave a gap in statutory fire logbook compliance.',
+        action: 'Implement formal digital/physical weekly fire log and confirm 6-monthly engineering inspection schedule.',
         priority: 'Medium',
       },
       {
-        label: 'No scheduled 6-monthly maintenance, or system has persistent open faults/isolated zones.',
+        label: 'No recorded servicing within the past 12 months or active system faults/disconnections.',
         points: 0,
         status: 'CRITICAL_GAP',
-        finding: 'Unmaintained fire alarm system creates severe life safety exposure and invalidates insurance.',
-        action: 'Execute emergency fire alarm service visit and rectify system faults immediately.',
+        finding: 'Unmaintained fire detection systems represent life-safety danger and violate insurance terms.',
+        action: 'Arrange emergency fire alarm service inspection and fault diagnosis immediately.',
         priority: 'Immediate',
       },
     ],
   },
   {
-    id: 'comp-emerg-light',
+    id: 'comp-emergency-lighting',
     regimeKey: 'EMERGENCY_LIGHTING',
-    title: 'Emergency Escape Lighting',
-    category: 'Fire & Life Safety',
-    question: 'Are monthly 30-minute flick tests and annual 3-hour battery discharge tests completed?',
-    legislation: 'BS 5266-1:2016 / RRO 2005',
+    title: 'Emergency Lighting Inspection',
+    category: 'Life Safety & Electrical',
+    question: 'Are emergency lighting luminaires subjected to monthly flick tests and annual 3-hour discharge tests?',
+    legislation: 'BS 5266-1 / RRO 2005 Article 14',
     options: [
       {
-        label: 'Monthly functional flick tests logged; annual 3-hour full discharge certificate on record.',
+        label: 'Monthly key-switch flick tests and annual 3-hour battery discharge certified with logbook.',
         points: 2,
         status: 'COMPLIANT',
-        finding: 'Complete BS 5266 compliance regime with battery duration certified.',
-        action: 'Continue planned monthly flick and annual 3-hour discharge tests.',
+        finding: 'Full compliance with BS 5266-1; battery autonomy verified across all exit routes.',
+        action: 'Continue scheduled testing and replace degraded battery packs promptly.',
         priority: 'Compliant',
       },
       {
-        label: 'Annual discharge completed, but known failed luminaires / battery units have not been replaced.',
+        label: 'Annual test completed, but monthly functional checks are inconsistent or luminaire failures unrectified.',
         points: 1,
         status: 'ACTION_REQUIRED',
-        finding: 'Emergency lighting luminaire failures present unlit escape paths in blackout.',
-        action: 'Raise remedial work order to replace failed emergency battery packs / LED luminaires.',
+        finding: 'Partial compliance; unrecorded monthly tests or outstanding luminaire battery defects.',
+        action: 'Conduct full emergency lighting drop test, log all luminaires, and replace failed units.',
         priority: 'High',
       },
       {
-        label: 'No formal testing regime, no logbook records, or 3-hour discharge never conducted.',
+        label: 'No recorded testing in over 12 months or known widespread luminaire battery failures.',
         points: 0,
         status: 'CRITICAL_GAP',
-        finding: 'Complete absence of emergency lighting certification breaches RRO 2005 Article 17.',
-        action: 'Perform full estate 3-hour discharge test and log all defective units for immediate repair.',
-        priority: 'Immediate',
-      },
-    ],
-  },
-  {
-    id: 'comp-fire-doors',
-    regimeKey: 'FIRE_DOORS',
-    title: 'Fire Doors & Compartmentation',
-    category: 'Fire & Life Safety',
-    question: 'What is the inspection and maintenance status of your estate fire doors and smoke seals?',
-    legislation: 'BS 8214:2016 / Fire Safety (England) Regs 2022',
-    options: [
-      {
-        label: 'Formal 6-monthly recorded inspections (gaps, intumescent seals, closers, hinges) with defects rectified.',
-        points: 2,
-        status: 'COMPLIANT',
-        finding: 'Compliant compartmentation control and documented gap-measuring records.',
-        action: 'Maintain regular door closer checks and 6-monthly full register inspection.',
-        priority: 'Compliant',
-      },
-      {
-        label: 'Fire doors are inspected ad-hoc; some self-closers disconnected, wedged open, or seals damaged.',
-        points: 1,
-        status: 'ACTION_REQUIRED',
-        finding: 'Compromised fire doors allow smoke and thermal breach across compartment boundaries.',
-        action: 'Remove all door wedges, replace damaged intumescent brush strips, and adjust closers.',
-        priority: 'High',
-      },
-      {
-        label: 'No fire door register, doors are uncertified, or extensive compartmentation penetrations unsealed.',
-        points: 0,
-        status: 'CRITICAL_GAP',
-        finding: 'Critical fire stopping failures create immediate risk of rapid vertical/lateral fire spread.',
-        action: 'Conduct formal fire door and compartmentation survey; seal all unstopped riser penetrations.',
+        finding: 'Non-functional emergency lighting creates severe escape route hazard during power failure.',
+        action: 'Commission an urgent 3-hour discharge audit and luminaire remedial rectification.',
         priority: 'Immediate',
       },
     ],
   },
   {
     id: 'comp-eicr',
-    regimeKey: 'ELECTRICAL_EICR',
-    title: 'Fixed Electrical Wiring (EICR)',
-    category: 'Electrical Infrastructure',
-    question: 'When was the last Electrical Installation Condition Report (EICR) completed across the property?',
-    legislation: 'Electricity at Work Regulations 1989 / BS 7671 (18th Edition)',
+    regimeKey: 'FIXED_WIRE_EICR',
+    title: 'Fixed Electrical Testing (EICR)',
+    category: 'Electrical Safety',
+    question: 'What is the certification date and defect status of your fixed wire installation?',
+    legislation: 'Electricity at Work Regulations 1989 / BS 7671',
     options: [
       {
-        label: 'Satisfactory EICR certificate on file within the past 5 years with zero outstanding C1/C2 codes.',
+        label: 'Satisfactory EICR certificate on file within the statutory 5-year cycle with zero open C1/C2 defects.',
         points: 2,
         status: 'COMPLIANT',
-        finding: 'Fixed wiring meets BS 7671 safety standards with full distribution board testing on record.',
-        action: 'Schedule next 5-yearly periodic inspection (or 20% annual rolling programme).',
+        finding: 'Fixed wiring certified satisfactory under BS 7671 (18th Edition Amendment 2).',
+        action: 'Retain certification and plan next 5-yearly periodic inspection before expiry.',
         priority: 'Compliant',
       },
       {
-        label: 'EICR was completed within 5 years, but reported C2 (Potentially Dangerous) observations remain unrectified.',
+        label: 'EICR was completed within 5 years, but C2 (Potentially Dangerous) observations remain open.',
         points: 1,
         status: 'ACTION_REQUIRED',
-        finding: 'Open C2 electrical observations expose building to potential fire or electric shock.',
-        action: 'Commission NICEIC electrical contractor to quote and rectify all C2 items for clean certification.',
+        finding: 'Open C2 defects render the installation officially "Unsatisfactory" under BS 7671.',
+        action: 'Instruct NICEIC/ECA registered electrical contractor to rectify all open C1/C2 defects.',
         priority: 'High',
       },
       {
-        label: 'EICR expired (>5 years), report is "Unsatisfactory" with open C1 codes, or records are missing.',
+        label: 'EICR has expired (>5 years), no record exists, or active C1 (Danger Present) defects exist.',
         points: 0,
         status: 'CRITICAL_GAP',
-        finding: 'Operating fixed wiring under an Unsatisfactory EICR directly breaches EAWR 1989 Regulation 4.',
-        action: 'Commission urgent full-building EICR inspection and isolate any immediate Danger (C1) circuits.',
+        finding: 'Expired EICR violates EAWR 1989 Reg 4 and creates fire and electric shock risk.',
+        action: 'Commission full 100% fixed wire electrical inspection and condition report (EICR) immediately.',
         priority: 'Immediate',
       },
     ],
   },
   {
-    id: 'comp-gas',
-    regimeKey: 'GAS_SAFETY',
-    title: 'Commercial Gas Safety (CP15/CP17/CP42)',
-    category: 'Mechanical & Heating',
-    question: 'What is the certification status of non-domestic gas boilers, water heaters, and pipework?',
-    legislation: 'Gas Safety (Installation and Use) Regulations 1998 (GSIUR)',
+    id: 'comp-pat',
+    regimeKey: 'PORTABLE_APPLIANCES',
+    title: 'Portable Appliance Testing (PAT)',
+    category: 'Electrical Safety',
+    question: 'Are portable plug-in electrical appliances inspected and tested in accordance with risk policy?',
+    legislation: 'Electricity at Work Regulations 1989 / IET Code of Practice',
     options: [
       {
-        label: 'Annual Gas Safe non-domestic inspection certificate (CP15/CP17) current within last 12 months.',
+        label: 'Annual/risk-based PAT register active with pass labels and removal of failed equipment.',
         points: 2,
         status: 'COMPLIANT',
-        finding: 'Commercial gas appliance flue gas analysis, safety interlocks, and soundness tests certified.',
-        action: 'Keep automated annual gas service renewal scheduled 30 days ahead of expiry.',
+        finding: 'Formal in-service inspection and testing register maintained across all plug-in assets.',
+        action: 'Maintain periodic testing schedule based on equipment environment and duty cycle.',
         priority: 'Compliant',
       },
       {
-        label: 'Boilers serviced for efficiency, but formal Gas Safe commercial compliance certificate is missing.',
+        label: 'PAT testing carried out sporadically; unlabelled or unverified staff appliances present.',
         points: 1,
         status: 'ACTION_REQUIRED',
-        finding: 'Operational maintenance done without formal CP15/CP17 statutory documentation.',
-        action: 'Ensure next maintenance visit includes full Gas Safe commercial certification sign-off.',
+        finding: 'Informal equipment introduction introduces electrical risk and logbook gaps.',
+        action: 'Execute estate-wide PAT audit and enforce strict policy on personal electrical appliances.',
         priority: 'Medium',
       },
       {
-        label: 'Commercial gas certificate expired (>12 months ago) or gas appliances unmaintained.',
+        label: 'No PAT testing performed across the site for over 24 months.',
         points: 0,
         status: 'CRITICAL_GAP',
-        finding: 'Uncertified commercial gas installations breach GSIUR Reg 35 and carry explosion/CO poisoning risk.',
-        action: 'Book immediate emergency Gas Safe commercial engineer inspection and tightness testing.',
+        finding: 'Unchecked portable equipment is a leading cause of commercial electrical fires.',
+        action: 'Schedule comprehensive in-service electrical equipment testing (PAT) across all tenancies.',
+        priority: 'High',
+      },
+    ],
+  },
+  {
+    id: 'comp-gas-cp17',
+    regimeKey: 'GAS_SAFETY',
+    title: 'Commercial Gas & Boilers (CP17)',
+    category: 'Mechanical & Gas',
+    question: 'Are commercial gas appliances, flues, and pipework certified annually under Gas Safe CP17/CP12?',
+    legislation: 'Gas Safety (Installation and Use) Regulations 1998 Reg 36',
+    options: [
+      {
+        label: 'Annual CP17 Gas Safety Certificate valid (<12 months) by Gas Safe commercial engineer.',
+        points: 2,
+        status: 'COMPLIANT',
+        finding: 'All gas-fired plant serviced with flue combustion analysis and tightness testing logged.',
+        action: 'Maintain annual servicing cycle and schedule next service 30 days before expiry.',
+        priority: 'Compliant',
+      },
+      {
+        label: 'Boilers serviced for efficiency, but formal Gas Safe CP17 safety record is missing.',
+        points: 1,
+        status: 'ACTION_REQUIRED',
+        finding: 'Maintenance contractor performed servicing without issuing statutory CP17 certificate.',
+        action: 'Instruct Gas Safe registered commercial engineer to issue formal CP17 inspection certificate.',
+        priority: 'High',
+      },
+      {
+        label: 'Gas appliances overdue annual inspection (>12 months) or warning notices present.',
+        points: 0,
+        status: 'CRITICAL_GAP',
+        finding: 'Direct criminal offence under Gas Safety Regs; risk of carbon monoxide poisoning and explosion.',
+        action: 'Isolate uncertified gas appliances if unsafe and commission emergency Gas Safe inspection.',
         priority: 'Immediate',
       },
     ],
   },
   {
-    id: 'comp-legionella',
-    regimeKey: 'WATER_LEGIONELLA',
-    title: 'Water Hygiene & Legionella Control',
-    category: 'Water Hygiene & Public Health',
-    question: 'Do you have a current Legionella Risk Assessment (LRA) and logged monthly temperature checks?',
-    legislation: 'ACOP L8 / Health and Safety at Work etc. Act 1974 / COSHH 2002',
+    id: 'comp-legionella-lra',
+    regimeKey: 'WATER_HYGIENE',
+    title: 'Legionella & Water Hygiene (ACOP L8)',
+    category: 'Water Hygiene',
+    question: 'What is the status of your Legionella Risk Assessment (LRA) and monthly temperature monitoring?',
+    legislation: 'HSE ACoP L8 / HSG274 / COSHH Regulations 2002',
     options: [
       {
-        label: 'Valid LRA within 2 years; monthly sentinel temp checks and regular flushing logged in CAFM.',
+        label: 'LRA current (<2 yrs) with digital/paper log of monthly sentinel temperatures and outlet flushing.',
         points: 2,
         status: 'COMPLIANT',
-        finding: 'ACOP L8 written scheme of control active with compliant temperature monitoring.',
-        action: 'Maintain routine monthly sentinel logging and annual cold storage tank inspections.',
+        finding: 'Structured water safety management in full compliance with HSE ACoP L8 / HSG274.',
+        action: 'Maintain monthly sentinel logging, quarterly showerhead cleans, and annual calorifier inspection.',
         priority: 'Compliant',
       },
       {
-        label: 'Legionella Risk Assessment is on file, but monthly sentinel water temperatures are not consistently taken.',
+        label: 'LRA on file, but monthly temperature logs and outlet flushing are irregular or incomplete.',
         points: 1,
         status: 'ACTION_REQUIRED',
-        finding: 'Incomplete temperature records create evidentiary gap if biological contamination occurs.',
-        action: 'Reinstate disciplined monthly sentinel temperature logging (Hot >50°C, Cold <20°C).',
+        finding: 'LRA recommendations not systematically executed; monitoring logs have critical data gaps.',
+        action: 'Implement rigorous digital temperature logging regime and close out open LRA remedial tasks.',
         priority: 'High',
       },
       {
-        label: 'No Legionella Risk Assessment exists, or water tanks are uninspected and dead legs unmanaged.',
+        label: 'No valid Legionella Risk Assessment on file, or water systems completely unmonitored.',
         points: 0,
         status: 'CRITICAL_GAP',
-        finding: 'Lack of Legionella management constitutes severe HSE enforcement risk under ACOP L8.',
-        action: 'Commission immediate commercial Legionella Risk Assessment and microbiological sampling.',
+        finding: 'Absence of LRA is a primary breach of HSE guidelines and creates Legionnaires disease risk.',
+        action: 'Commission an immediate commercial Legionella Risk Assessment (LRA) by a certified water hygienist.',
+        priority: 'Immediate',
+      },
+    ],
+  },
+  {
+    id: 'comp-asbestos-car',
+    regimeKey: 'ASBESTOS_CAR',
+    title: 'Asbestos Management Plan (CAR 2012)',
+    category: 'Health & Safety',
+    question: 'If building is pre-2000, is an Asbestos Management Plan and Asbestos Register active on site?',
+    legislation: 'Control of Asbestos Regulations 2012 (CAR 2012) Regulation 4',
+    options: [
+      {
+        label: 'Building post-2000 OR Asbestos Register & Management Plan fully updated with annual re-inspections.',
+        points: 2,
+        status: 'COMPLIANT',
+        finding: 'Statutory duty to manage asbestos fulfilled with active contractor sign-in protocol.',
+        action: 'Maintain annual condition monitoring for known ACMs and ensure contractors review register.',
+        priority: 'Compliant',
+      },
+      {
+        label: 'Asbestos survey exists (pre-2000 building), but annual condition re-inspection is overdue.',
+        points: 1,
+        status: 'ACTION_REQUIRED',
+        finding: 'Condition of known Asbestos Containing Materials (ACMs) has not been verified within 12 months.',
+        action: 'Commission competent asbestos surveyor to complete annual ACM re-inspection audit.',
+        priority: 'High',
+      },
+      {
+        label: 'Pre-2000 building with no Asbestos Register, or refurbishment works ongoing without R&D survey.',
+        points: 0,
+        status: 'CRITICAL_GAP',
+        finding: 'Major HSE enforcement liability; risk of asbestos fibre release and workforce contamination.',
+        action: 'Commission immediate Management Asbestos Survey and establish site Asbestos Register.',
         priority: 'Immediate',
       },
     ],
   },
   {
     id: 'comp-loler',
-    regimeKey: 'LIFTING_LOLER',
-    title: 'Lifting Equipment & Passenger Lifts (LOLER)',
-    category: 'Vertical Transport & Height',
-    question: 'Are passenger/goods lifts and BMUs subject to 6-monthly independent thorough examinations?',
-    legislation: 'Lifting Operations and Lifting Equipment Regulations 1998 (LOLER)',
+    regimeKey: 'LIFTING_EQUIPMENT_LOLER',
+    title: 'Lifting Operations & Lifts (LOLER)',
+    category: 'Vertical Transport',
+    question: 'Are passenger/goods lifts and lifting accessories inspected 6-monthly under LOLER Thorough Examination?',
+    legislation: 'LOLER 1998 Regulation 9 / PUWER 1998',
     options: [
       {
-        label: '6-monthly independent Competent Person examination certificates current with zero open Section A defects.',
+        label: 'Current LOLER Thorough Examination certificate on file (<6 months) with all defects closed out.',
         points: 2,
         status: 'COMPLIANT',
-        finding: 'LOLER Thorough Examination reports on file alongside routine monthly maintenance contracts.',
-        action: 'Continue coordinating independent insurance surveyor visits every 6 months.',
+        finding: 'Statutory 6-monthly independent engineering inspection certified with zero open Category A defects.',
+        action: 'Retain inspection reports for 2 years and ensure routine maintenance servicing continues.',
         priority: 'Compliant',
       },
       {
-        label: 'Examinations completed, but Section B remedial defect notices remain uncompleted by lift contractor.',
+        label: 'Lift contractor maintains the lift, but formal independent LOLER Thorough Exam report is missing.',
         points: 1,
         status: 'ACTION_REQUIRED',
-        finding: 'Open Section B defects indicate deferred maintenance that may escalate to dangerous conditions.',
-        action: 'Instruct lift maintenance provider to rectify and certify all outstanding examination defects.',
+        finding: 'Routine maintenance is active, but statutory insurance Thorough Examination is unverified.',
+        action: 'Engage an independent engineering inspection body to conduct formal LOLER examination.',
         priority: 'High',
       },
       {
-        label: 'Lifts or BMUs have overdue examination reports, or open Section A (Immediate Danger) notices exist.',
+        label: 'LOLER inspection overdue (>6 months for passenger lift) or uncertified lifting plant in use.',
         points: 0,
         status: 'CRITICAL_GAP',
-        finding: 'Operating lifting equipment without current LOLER certification is illegal under UK health & safety law.',
-        action: 'Remove lift from service immediately until competent surveyor inspection and repair are complete.',
+        finding: 'Operating uncertified passenger lifting equipment represents immediate safety and legal liability.',
+        action: 'Schedule emergency LOLER examination immediately; ground equipment if safety faults suspect.',
         priority: 'Immediate',
       },
     ],
   },
   {
-    id: 'comp-fall-arrest',
-    regimeKey: 'WORKING_AT_HEIGHT',
-    title: 'Roof Fall Arrest & Mansafe Systems',
-    category: 'Vertical Transport & Height',
-    question: 'Have roof safety wire lines, eyebolts, and edge guardrails received annual pull testing?',
-    legislation: 'Work at Height Regulations 2005 / BS EN 795',
+    id: 'comp-fgas-tm44',
+    regimeKey: 'AIR_CONDITIONING_FGAS',
+    title: 'F-Gas & Air Conditioning (TM44)',
+    category: 'HVAC & Environmental',
+    question: 'Are refrigerant logbooks maintained and is a valid TM44 Air Conditioning Inspection lodged?',
+    legislation: 'Fluorinated Greenhouse Gases Regs 2015 / EPB Regulations 2012 (TM44)',
     options: [
       {
-        label: 'Annual certification and pull-testing completed within 12 months with tags/register up to date.',
+        label: 'F-Gas refrigerant logbooks up to date AND valid TM44 energy certificate lodged (<5 yrs for >12kW).',
         points: 2,
         status: 'COMPLIANT',
-        finding: 'Fall protection anchors certified for contractor roof access and gutter/plant maintenance.',
-        action: 'Ensure annual re-certification date is calendared before contractor high-level access.',
+        finding: 'F-Gas quota leak checks logged and statutory TM44 certificate registered on EPC portal.',
+        action: 'Maintain annual leak checks (or 6-monthly if >50t CO2e) and plan next TM44 renewal.',
         priority: 'Compliant',
       },
       {
-        label: 'System is installed and looks intact, but annual proof-load / re-test certificate has lapsed.',
+        label: 'F-Gas logbooks kept, but TM44 air conditioning inspection is expired (>5 years) or unlodged.',
         points: 1,
         status: 'ACTION_REQUIRED',
-        finding: 'Uncertified fall arrest cables cannot legally be used for roof work restraint or arrest.',
-        action: 'Schedule specialist fall-protection testing company for annual re-certification.',
-        priority: 'High',
+        finding: 'TM44 inspection non-compliance attracts statutory financial penalties from Trading Standards.',
+        action: 'Commission an accredited Level 3/4 Air Conditioning Energy Assessor to lodge valid TM44 report.',
+        priority: 'Medium',
       },
       {
-        label: 'No fall arrest certification, or contractors access unprotected roof edges without permit-to-work.',
+        label: 'No F-Gas logs on site for refrigerant circuits and no TM44 inspection ever completed.',
         points: 0,
         status: 'CRITICAL_GAP',
-        finding: 'Uncontrolled roof access without tested arrest systems exposes duty holders to corporate manslaughter risk.',
-        action: 'Lock off roof access points immediately; install compliant demarcation or certified Mansafe systems.',
-        priority: 'Immediate',
-      },
-    ],
-  },
-  {
-    id: 'comp-asbestos',
-    regimeKey: 'ASBESTOS_CAR',
-    title: 'Asbestos Management & Re-Inspection',
-    category: 'Hazardous Materials & Fabric',
-    question: 'If building was constructed prior to 2000, do you have an active Asbestos Management Plan?',
-    legislation: 'Control of Asbestos Regulations 2012 (CAR 2012)',
-    options: [
-      {
-        label: 'Management Asbestos Survey on site; annual condition re-inspections logged; register signed by contractors.',
-        points: 2,
-        status: 'COMPLIANT',
-        finding: 'Compliant Duty to Manage Asbestos under CAR 2012 Reg 4 with contractor sign-in controls.',
-        action: 'Maintain annual visual condition inspection of identified ACMs.',
-        priority: 'Compliant',
-      },
-      {
-        label: 'Asbestos register exists, but annual re-inspection is overdue or not shown to visiting contractors.',
-        points: 1,
-        status: 'ACTION_REQUIRED',
-        finding: 'Failure to inform contractors of ACM locations breaches CAR 2012 and creates liability.',
-        action: 'Implement mandatory contractor asbestos register sign-in procedure and book re-inspection.',
+        finding: 'Breach of environmental regulations and building efficiency mandates.',
+        action: 'Compile equipment asset register with refrigerant charges and arrange TM44 survey.',
         priority: 'High',
-      },
-      {
-        label: 'Pre-2000 building with no Asbestos Management Survey, or damaged ACMs reported without encapsulation.',
-        points: 0,
-        status: 'CRITICAL_GAP',
-        finding: 'Operating a pre-2000 building without an Asbestos Register is a direct statutory offence.',
-        action: 'Commission an immediate UKAS-accredited Management Asbestos Survey across all accessible areas.',
-        priority: 'Immediate',
       },
     ],
   },
 ];
 
 const WIZARD_STEPS = [
-  { id: 1, title: '01 Audit', subtitle: '10 Statutory Regimes' },
-  { id: 2, title: '02 Results', subtitle: 'Risk Band & Remedial Plan' },
+  { id: 0, title: '01 Questionnaire', subtitle: '10 Statutory Disciplines' },
+  { id: 1, title: '02 Audit Report', subtitle: 'Risk & Action Plan' },
 ];
 
 export function TemplateComplianceChecker({ route, content }: TemplateProps) {
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const [siteName, setSiteName] = useState('Apex Plaza HQ');
-  const [organisationName, setOrganisationName] = useState('Acme Commercial Estates');
-  const [answers, setAnswers] = useState<Record<string, number>>({
-    'comp-fire-ra': 2,
-    'comp-fire-alarm': 2,
-    'comp-emerg-light': 1,
-    'comp-fire-doors': 1,
-    'comp-eicr': 2,
-    'comp-gas': 2,
-    'comp-legionella': 1,
-    'comp-loler': 2,
-    'comp-fall-arrest': 1,
-    'comp-asbestos': 2,
-  });
+  const [siteName, setSiteName] = useState('Commercial Estate');
+  const [organisationName, setOrganisationName] = useState('Managing Agent / Duty Holder');
+  const [answers, setAnswers] = useState<Record<string, number>>({});
 
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Resources', url: '/resources' },
     { name: 'Interactive Tools', url: '/tools' },
-    { name: 'Compliance Checker', url: '/tools/compliance-checker' },
+    { name: 'FM Compliance Checker', url: '/tools/compliance-checker' },
   ];
 
   const totalQuestions = COMPLIANCE_QUESTIONS.length;
@@ -428,20 +417,17 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
   const progressPercent = Math.round((answeredCount / totalQuestions) * 100);
 
   const handleSelectOption = (questionId: string, optionIndex: number) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [questionId]: optionIndex,
-    }));
+    setAnswers((prev) => ({ ...prev, [questionId]: optionIndex }));
   };
 
-  // Calculate results
+  // Results computation (100% preserved)
   const results = useMemo(() => {
     let earnedPoints = 0;
     const maxPoints = totalQuestions * 2;
 
-    const criticalFindings: Array<{ title: string; legislation: string; finding: string; action: string }> = [];
-    const actionRequiredFindings: Array<{ title: string; legislation: string; finding: string; action: string }> = [];
-    const compliantFindings: Array<{ title: string; legislation: string; finding: string }> = [];
+    const criticalFindings: { title: string; legislation: string; finding: string; action: string }[] = [];
+    const actionRequiredFindings: { title: string; legislation: string; finding: string; action: string }[] = [];
+    const compliantFindings: { title: string; legislation: string; finding: string }[] = [];
 
     COMPLIANCE_QUESTIONS.forEach((q) => {
       const selectedOptIdx = answers[q.id];
@@ -477,16 +463,16 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
 
     let riskBandLabel = 'Robust Statutory Assurance';
     let riskDescription = 'Your estate exhibits strong compliance control with up-to-date statutory certification and recorded servicing routines across core building systems.';
-    let riskColor = 'text-emerald-400 bg-emerald-950/30 border-emerald-800/40';
+    let riskColor = 'text-emerald-700 bg-emerald-50 border-emerald-200';
 
     if (criticalFindings.length > 0 || scoreOutOf100 < 50) {
       riskBandLabel = 'Critical Statutory Liability & Enforcement Risk';
       riskDescription = 'Urgent compliance gaps identified across key life-safety or statutory systems. These represent potential criminal liabilities under UK law and may invalidate building insurance.';
-      riskColor = 'text-rose-400 bg-rose-950/30 border-rose-800/40';
+      riskColor = 'text-rose-700 bg-rose-50 border-rose-200';
     } else if (actionRequiredFindings.length > 0 || scoreOutOf100 < 80) {
       riskBandLabel = 'Moderate Assurance · Remedial Actions Required';
       riskDescription = 'Core maintenance is occurring, but open remedial defects, incomplete logbooks, or overdue testing create compliance vulnerabilities requiring corrective action.';
-      riskColor = 'text-amber-400 bg-amber-950/30 border-amber-800/40';
+      riskColor = 'text-amber-800 bg-amber-50 border-amber-200';
     }
 
     return {
@@ -562,13 +548,13 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080d1a]">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
       <Header />
-      <main id="main" className="flex-grow pt-20">
+      <div className="flex-grow pt-16">
         <ToolShell
           breadcrumbs={breadcrumbs}
           title="FM Compliance Checker"
-          purpose="Screen your commercial building compliance across 10 statutory regimes and receive an instant risk assessment."
+          purpose="Screen your commercial building compliance across 10 statutory regimes and receive an instant risk assessment and prioritised remedial action plan."
           timeEstimate="3–5 min"
           outputs={['PDF Audit Report']}
           icon={ShieldCheck}
@@ -586,39 +572,39 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
           {currentStep === 0 && (
             <div className="space-y-8 max-w-4xl mx-auto">
               {/* Site metadata bar */}
-              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 backdrop-blur-sm">
-                <div className="grid sm:grid-cols-2 gap-4 w-full sm:w-auto flex-1">
+              <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full sm:w-auto flex-1">
                   <div>
-                    <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                       Site / Property Name
                     </label>
                     <input
                       type="text"
                       value={siteName}
                       onChange={(e) => setSiteName(e.target.value)}
-                      className="w-full px-3.5 py-2 rounded-xl bg-slate-950/80 border border-slate-700 text-xs font-semibold text-white focus:outline-none focus:border-[#FF3E9D]"
+                      className="w-full px-3.5 py-2 rounded-sm bg-slate-50 border border-slate-300 text-xs font-semibold text-slate-900 focus:bg-white focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                       Managing Agent / Organisation
                     </label>
                     <input
                       type="text"
                       value={organisationName}
                       onChange={(e) => setOrganisationName(e.target.value)}
-                      className="w-full px-3.5 py-2 rounded-xl bg-slate-950/80 border border-slate-700 text-xs font-semibold text-white focus:outline-none focus:border-[#FF3E9D]"
+                      className="w-full px-3.5 py-2 rounded-sm bg-slate-50 border border-slate-300 text-xs font-semibold text-slate-900 focus:bg-white focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric"
                     />
                   </div>
                 </div>
 
                 <div className="flex flex-col items-end shrink-0 text-right">
-                  <div className="font-mono text-xs text-slate-400">
-                    Questions Completed: <strong className="text-white">{answeredCount}/{totalQuestions}</strong>
+                  <div className="font-mono text-xs text-slate-600">
+                    Questions Completed: <strong className="text-slate-900 font-bold">{answeredCount}/{totalQuestions}</strong>
                   </div>
-                  <div className="w-36 h-2 bg-slate-800 rounded-full mt-1.5 overflow-hidden">
+                  <div className="w-36 h-2 bg-slate-200 rounded-full mt-1.5 overflow-hidden">
                     <div
-                      className="h-full bg-[#FF3E9D] transition-all duration-300"
+                      className="h-full bg-gradient-to-r from-brand-electric to-brand-violet transition-all duration-300"
                       style={{ width: `${progressPercent}%` }}
                     />
                   </div>
@@ -633,34 +619,34 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                   return (
                     <div
                       key={q.id}
-                      className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-7 shadow-xl space-y-4 backdrop-blur-sm"
+                      className="bg-white border border-slate-200 rounded-sm p-6 sm:p-7 shadow-sm space-y-4"
                     >
-                      <div className="flex items-start justify-between gap-4 border-b border-slate-800/80 pb-3">
+                      <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-3">
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                            <span className="font-mono text-[10.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm bg-blue-50 text-brand-electric border border-blue-100">
                               {q.category}
                             </span>
                             <span className="font-mono text-xs text-slate-500">
                               Question {qIdx + 1} of {totalQuestions}
                             </span>
                           </div>
-                          <h3 className="text-base sm:text-lg font-bold text-white">{q.title}</h3>
-                          <p className="text-xs text-slate-400 font-mono">{q.legislation}</p>
+                          <h3 className="text-base sm:text-lg font-bold text-slate-900">{q.title}</h3>
+                          <p className="text-xs text-slate-500 font-mono">{q.legislation}</p>
                         </div>
 
                         {selectedOptIdx !== undefined && (
-                          <span className="shrink-0 p-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                          <span className="shrink-0 p-1 rounded-full bg-emerald-100 text-emerald-700">
                             <CheckCircle2 className="w-4 h-4" />
                           </span>
                         )}
                       </div>
 
-                      <p className="text-xs sm:text-sm font-medium text-slate-200 leading-snug">
+                      <p className="text-xs sm:text-sm font-medium text-slate-800 leading-snug">
                         {q.question}
                       </p>
 
-                      <div className="space-y-2 pt-1">
+                      <div className="space-y-2.5 pt-1">
                         {q.options.map((opt, optIdx) => {
                           const isSelected = selectedOptIdx === optIdx;
 
@@ -668,24 +654,24 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                             <div
                               key={optIdx}
                               onClick={() => handleSelectOption(q.id, optIdx)}
-                              className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-start gap-3 text-left ${
+                              className={`p-3.5 rounded-sm border transition-all cursor-pointer flex items-start gap-3 text-left ${
                                 isSelected
-                                  ? 'border-[#FF3E9D]/80 bg-[#FF3E9D]/10 shadow-sm ring-1 ring-[#FF3E9D]/30'
-                                  : 'border-slate-800 hover:border-slate-700 bg-slate-950/60'
+                                  ? 'border-brand-electric bg-blue-50/70 shadow-2xs ring-1 ring-brand-electric'
+                                  : 'border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-slate-100/70'
                               }`}
                             >
                               <div
                                 className={`w-4 h-4 rounded-full mt-0.5 flex items-center justify-center border transition-all shrink-0 ${
                                   isSelected
-                                    ? 'bg-[#FF3E9D] border-[#FF3E9D] text-white'
-                                    : 'border-slate-700 bg-slate-900'
+                                    ? 'bg-brand-electric border-brand-electric text-white'
+                                    : 'border-slate-300 bg-white'
                                 }`}
                               >
                                 {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                               </div>
 
                               <div className="flex-1 min-w-0">
-                                <p className="text-xs sm:text-sm font-semibold text-slate-200 leading-snug">
+                                <p className={`text-xs sm:text-sm font-medium leading-snug ${isSelected ? 'text-slate-900 font-bold' : 'text-slate-700'}`}>
                                   {opt.label}
                                 </p>
                               </div>
@@ -699,13 +685,13 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
               </div>
 
               {/* Bottom Generate Actions */}
-              <div className="sticky bottom-4 z-20 bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 text-white shadow-2xl backdrop-blur-md flex flex-wrap items-center justify-between gap-4">
+              <div className="sticky bottom-4 z-20 bg-[#0B1220] border border-slate-800 rounded-sm p-4 sm:p-5 text-white shadow-2xl flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <div className="text-sm font-bold">
                     {answeredCount === totalQuestions ? 'All Questions Complete' : `${answeredCount}/${totalQuestions} Answered`}
                   </div>
-                  <div className="text-xs text-slate-400">
-                    Calculates statutory risk band, critical liabilities, and remedial action roadmap
+                  <div className="text-xs text-slate-300">
+                    Calculates statutory risk rating, critical exposures, and remedial roadmap
                   </div>
                 </div>
 
@@ -713,7 +699,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                   type="button"
                   disabled={answeredCount === 0}
                   onClick={() => setCurrentStep(1)}
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-[#FF3E9D] to-[#D91B7D] text-white font-bold text-xs shadow-lg hover:opacity-95 transition-all disabled:opacity-50"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-sm bg-gradient-to-r from-brand-electric to-brand-violet text-white font-bold text-xs shadow-md hover:opacity-95 transition-all disabled:opacity-50"
                 >
                   <span>Generate Compliance Report</span>
                   <ArrowRight className="w-4 h-4" />
@@ -727,44 +713,44 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
           {/* ========================================================================= */}
           {currentStep === 1 && (
             <div className="space-y-8 max-w-5xl mx-auto">
-              <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+              <div className="bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-md space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                   <div>
-                    <span className="font-mono text-xs font-bold text-[#FF3E9D] uppercase tracking-wider">
+                    <span className="font-mono text-xs font-bold text-brand-electric uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100 inline-block mb-1">
                       Statutory Compliance Review
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
                       {siteName} — Compliance Audit Report
                     </h2>
-                    <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                      Client: <strong className="text-slate-200">{organisationName}</strong> · Evaluated Regimes: <strong className="text-slate-200">{answeredCount} statutory disciplines</strong>
+                    <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                      Client: <strong className="text-slate-900">{organisationName}</strong> · Evaluated Regimes: <strong className="text-slate-900">{answeredCount} statutory disciplines</strong>
                     </p>
                   </div>
 
                   <button
                     type="button"
                     onClick={() => setCurrentStep(0)}
-                    className="px-3.5 py-2 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all"
+                    className="px-3.5 py-2 rounded-sm border border-slate-200 bg-slate-50 text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-xs font-semibold transition-all"
                   >
-                    ← Edit Answers
+                    ← Edit Questionnaire
                   </button>
                 </div>
 
                 {/* Score and Risk Band Banner */}
-                <div className={`p-6 rounded-2xl border ${results.riskColor} flex flex-col md:flex-row md:items-center justify-between gap-6`}>
+                <div className={`p-6 rounded-sm border ${results.riskColor} flex flex-col md:flex-row md:items-center justify-between gap-6`}>
                   <div className="space-y-2 max-w-2xl">
                     <div className="font-mono text-xs font-bold uppercase tracking-wider">
                       Compliance Rating
                     </div>
                     <h3 className="text-xl sm:text-2xl font-bold">{results.riskBandLabel}</h3>
-                    <p className="text-xs sm:text-sm leading-relaxed opacity-90">{results.riskDescription}</p>
+                    <p className="text-xs sm:text-sm leading-relaxed opacity-95">{results.riskDescription}</p>
                   </div>
 
-                  <div className="flex flex-col items-center justify-center p-4 rounded-xl bg-slate-950/80 border border-slate-800 shadow-sm shrink-0 min-w-[130px]">
-                    <span className="text-3xl sm:text-4xl font-extrabold text-white font-mono">
+                  <div className="flex flex-col items-center justify-center p-5 rounded-sm bg-white border border-slate-200 shadow-sm shrink-0 min-w-[130px]">
+                    <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-mono">
                       {results.scoreOutOf100}
                     </span>
-                    <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold mt-0.5">
+                    <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-bold mt-0.5">
                       out of 100
                     </span>
                   </div>
@@ -772,34 +758,34 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
 
                 {/* Findings Breakdown Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="p-4 rounded-xl bg-rose-950/20 border border-rose-800/40">
-                    <div className="font-mono text-[10px] uppercase tracking-wider text-rose-400 font-semibold">
+                  <div className="p-4 rounded-sm bg-rose-50 border border-rose-200">
+                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-rose-700 font-bold">
                       Critical Gaps
                     </div>
-                    <div className="text-2xl font-bold text-rose-400 mt-1 font-mono">
+                    <div className="text-2xl font-extrabold text-rose-700 mt-1 font-mono">
                       {results.criticalFindings.length} Regimes
                     </div>
-                    <div className="text-[11px] text-rose-300/70 mt-0.5">Immediate legal exposure</div>
+                    <div className="text-[11.5px] text-rose-800/80 mt-0.5">Immediate legal exposure</div>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-800/40">
-                    <div className="font-mono text-[10px] uppercase tracking-wider text-amber-400 font-semibold">
+                  <div className="p-4 rounded-sm bg-amber-50 border border-amber-200">
+                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-amber-800 font-bold">
                       Action Required
                     </div>
-                    <div className="text-2xl font-bold text-amber-400 mt-1 font-mono">
+                    <div className="text-2xl font-extrabold text-amber-800 mt-1 font-mono">
                       {results.actionRequiredFindings.length} Regimes
                     </div>
-                    <div className="text-[11px] text-amber-300/70 mt-0.5">Remedial work required</div>
+                    <div className="text-[11.5px] text-amber-900/80 mt-0.5">Remedial work required</div>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-800/40">
-                    <div className="font-mono text-[10px] uppercase tracking-wider text-emerald-400 font-semibold">
+                  <div className="p-4 rounded-sm bg-emerald-50 border border-emerald-200">
+                    <div className="font-mono text-[10.5px] uppercase tracking-wider text-emerald-700 font-bold">
                       Documented Control
                     </div>
-                    <div className="text-2xl font-bold text-emerald-400 mt-1 font-mono">
+                    <div className="text-2xl font-extrabold text-emerald-700 mt-1 font-mono">
                       {results.compliantFindings.length} Regimes
                     </div>
-                    <div className="text-[11px] text-emerald-300/70 mt-0.5">Satisfactory evidence on file</div>
+                    <div className="text-[11.5px] text-emerald-800/80 mt-0.5">Satisfactory evidence on file</div>
                   </div>
                 </div>
 
@@ -812,13 +798,13 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
               </div>
 
               {/* REMEDIAL ACTION SCHEDULE TABLE */}
-              <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
+              <div className="bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-sm space-y-6">
                 <div>
-                  <h3 className="text-lg font-bold text-white">
+                  <h3 className="text-lg font-bold text-slate-900">
                     Prioritised Statutory Remedial Action Plan
                   </h3>
-                  <p className="text-xs text-slate-400">
-                    Recommended engineering interventions ordered by legal priority.
+                  <p className="text-xs sm:text-sm text-slate-600">
+                    Recommended engineering interventions ordered by statutory urgency.
                   </p>
                 </div>
 
@@ -826,53 +812,53 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
                   {results.criticalFindings.map((f, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-xl border border-rose-800/50 bg-rose-950/20 border-l-4 border-l-rose-500 space-y-2"
+                      className="p-4 rounded-sm border border-rose-200 bg-rose-50/60 border-l-4 border-l-rose-600 space-y-2"
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <span className="text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-900/60 text-rose-300 mr-2 border border-rose-800/50">
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm bg-rose-100 text-rose-800 mr-2 border border-rose-200">
                             Critical Priority
                           </span>
-                          <span className="font-bold text-sm text-white">{f.title}</span>
-                          <span className="text-xs text-slate-400 font-mono ml-2">({f.legislation})</span>
+                          <span className="font-bold text-sm text-slate-900">{f.title}</span>
+                          <span className="text-xs text-slate-500 font-mono ml-2">({f.legislation})</span>
                         </div>
                       </div>
-                      <p className="text-xs text-slate-300"><strong>Finding:</strong> {f.finding}</p>
-                      <p className="text-xs text-rose-300 font-medium"><strong>Remedial Action:</strong> {f.action}</p>
+                      <p className="text-xs text-slate-700"><strong>Observed Finding:</strong> {f.finding}</p>
+                      <p className="text-xs text-rose-800 font-medium"><strong>Remedial Action:</strong> {f.action}</p>
                     </div>
                   ))}
 
                   {results.actionRequiredFindings.map((f, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-xl border border-amber-800/50 bg-amber-950/20 border-l-4 border-l-amber-500 space-y-2"
+                      className="p-4 rounded-sm border border-amber-200 bg-amber-50/60 border-l-4 border-l-amber-600 space-y-2"
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <span className="text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-900/60 text-amber-300 mr-2 border border-amber-800/50">
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm bg-amber-100 text-amber-800 mr-2 border border-amber-200">
                             Action Required
                           </span>
-                          <span className="font-bold text-sm text-white">{f.title}</span>
-                          <span className="text-xs text-slate-400 font-mono ml-2">({f.legislation})</span>
+                          <span className="font-bold text-sm text-slate-900">{f.title}</span>
+                          <span className="text-xs text-slate-500 font-mono ml-2">({f.legislation})</span>
                         </div>
                       </div>
-                      <p className="text-xs text-slate-300"><strong>Finding:</strong> {f.finding}</p>
-                      <p className="text-xs text-amber-300 font-medium"><strong>Remedial Action:</strong> {f.action}</p>
+                      <p className="text-xs text-slate-700"><strong>Observed Finding:</strong> {f.finding}</p>
+                      <p className="text-xs text-amber-900 font-medium"><strong>Remedial Action:</strong> {f.action}</p>
                     </div>
                   ))}
 
                   {results.compliantFindings.map((f, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-xl border border-emerald-800/50 bg-emerald-950/20 border-l-4 border-l-emerald-500 space-y-1"
+                      className="p-4 rounded-sm border border-emerald-200 bg-emerald-50/60 border-l-4 border-l-emerald-600 space-y-1"
                     >
                       <div className="flex items-center gap-2">
-                        <span className="text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-900/60 text-emerald-300 border border-emerald-800/50">
-                          Documented
+                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm bg-emerald-100 text-emerald-800 border border-emerald-200">
+                          Documented Control
                         </span>
-                        <span className="font-bold text-sm text-white">{f.title}</span>
+                        <span className="font-bold text-sm text-slate-900">{f.title}</span>
                       </div>
-                      <p className="text-xs text-slate-400">{f.finding}</p>
+                      <p className="text-xs text-slate-600">{f.finding}</p>
                     </div>
                   ))}
                 </div>
@@ -889,7 +875,7 @@ export function TemplateComplianceChecker({ route, content }: TemplateProps) {
             </div>
           )}
         </ToolShell>
-      </main>
+      </div>
       <Footer />
     </div>
   );

@@ -13,20 +13,16 @@ import {
   CheckSquare,
   Square,
   ShieldCheck,
+  Briefcase,
+  FileCheck2,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ToolShell } from '@/components/tools/ToolShell';
-import { WizardProgress } from '@/components/tools/WizardProgress';
 import { ExportToolbar } from '@/components/tools/ExportToolbar';
 import { ToolConversionCTA } from '@/components/tools/ToolConversionCTA';
 import { downloadPdfReport, PdfDocumentDefinition } from '@/lib/pdf/generator';
 import type { TemplateProps } from '../types';
-
-const WIZARD_STEPS = [
-  { id: 1, title: '01 Parameters', subtitle: 'Scope & SLA Specification' },
-  { id: 2, title: '02 Tender Document', subtitle: 'Interactive RFP Preview' },
-];
 
 export function TemplateTenderBrief({ route, content }: TemplateProps) {
   // Form State
@@ -50,7 +46,6 @@ export function TemplateTenderBrief({ route, content }: TemplateProps) {
   const [slaTarget, setSlaTarget] = useState('2-hour emergency response / 24-hour routine');
   const [painPoints, setPainPoints] = useState('Uncoordinated subcontractors, fragmented compliance records, and lack of real-time CAFM reporting.');
   const [copied, setCopied] = useState(false);
-  const [generated, setGenerated] = useState(false);
 
   const breadcrumbs = [
     { name: 'Home', url: '/' },
@@ -162,133 +157,167 @@ Proposals should include company accreditations (ISO 9001/14001/45001, SafeContr
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080d1a]">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
       <Header />
-      <main id="main" className="flex-grow pt-20">
+      <div className="flex-grow pt-16">
         <ToolShell
           breadcrumbs={breadcrumbs}
           title="Tender / RFP Brief Generator"
-          purpose="Generate structured Facilities Management tender briefs and RFP scopes for contractor procurement."
+          purpose="Configure procurement requirements to generate structured Facilities Management tender briefs and RFP specifications."
           timeEstimate="3 min"
           outputs={['PDF Tender Document', 'Markdown RFP']}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Form Column (6 cols) */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="border-b border-slate-800 pb-4">
-                <span className="text-[11px] font-mono tracking-widest text-slate-400 uppercase">
-                  01 / Contract Scope
-                </span>
-                <h2 className="text-2xl font-bold text-white mt-1">
-                  Procurement Specifications
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-300 mt-1">
-                  Define your estate parameters to automatically build a procurement-ready ITT.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <div>
-                  <label className="text-xs font-semibold text-slate-200 block mb-1">
-                    Client Organisation Name
-                  </label>
-                  <input
-                    type="text"
-                    value={orgName}
-                    onChange={(e) => setOrgName(e.target.value)}
-                    className="w-full px-3 py-2 bg-[#0c1527] border border-slate-700 rounded-[2px] text-xs text-white"
-                  />
+              <div className="bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-sm space-y-6">
+                <div className="border-b border-slate-100 pb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-brand-electric" />
+                    <span className="text-[11px] font-mono tracking-widest text-slate-500 uppercase font-bold">
+                      01 / Contract Scope &amp; Parameters
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+                    Procurement Specifications
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                    Define your estate parameters to automatically build a procurement-ready ITT.
+                  </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-4">
                   <div>
-                    <label className="text-xs font-semibold text-slate-200 block mb-1">
-                      Property Sector
+                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                      Client Organisation Name
                     </label>
                     <input
                       type="text"
-                      value={sector}
-                      onChange={(e) => setSector(e.target.value)}
-                      className="w-full px-3 py-2 bg-[#0c1527] border border-slate-700 rounded-[2px] text-xs text-white"
+                      value={orgName}
+                      onChange={(e) => setOrgName(e.target.value)}
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
                     />
                   </div>
-                  <div>
-                    <label className="text-xs font-semibold text-slate-200 block mb-1">
-                      Total Floor Area
-                    </label>
-                    <input
-                      type="text"
-                      value={totalSqFt}
-                      onChange={(e) => setTotalSqFt(e.target.value)}
-                      className="w-full px-3 py-2 bg-[#0c1527] border border-slate-700 rounded-[2px] text-xs text-white"
-                    />
-                  </div>
-                </div>
 
-                {/* Services Checkboxes */}
-                <div>
-                  <label className="text-xs font-semibold text-slate-200 block mb-2">
-                    Scope of Services Required ({services.length} Selected)
-                  </label>
-                  <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1 scrollbar-thin border border-slate-800 p-2.5 bg-[#09101f] rounded-[3px]">
-                    {ALL_SERVICES.map((srv) => {
-                      const isChecked = services.includes(srv);
-                      return (
-                        <div
-                          key={srv}
-                          onClick={() => toggleService(srv)}
-                          className="flex items-center gap-2 text-xs text-slate-300 hover:text-white cursor-pointer py-1"
-                        >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                        Property Sector
+                      </label>
+                      <input
+                        type="text"
+                        value={sector}
+                        onChange={(e) => setSector(e.target.value)}
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                        Total Floor Area
+                      </label>
+                      <input
+                        type="text"
+                        value={totalSqFt}
+                        onChange={(e) => setTotalSqFt(e.target.value)}
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                        Locations / Regions
+                      </label>
+                      <input
+                        type="text"
+                        value={locations}
+                        onChange={(e) => setLocations(e.target.value)}
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                        Contract Term
+                      </label>
+                      <input
+                        type="text"
+                        value={contractTerm}
+                        onChange={(e) => setContractTerm(e.target.value)}
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Services Checkboxes */}
+                  <div>
+                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-2">
+                      Required Services Scope ({services.length} Selected)
+                    </label>
+                    <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1 scrollbar-thin border border-slate-200 p-3 bg-slate-50 rounded-sm">
+                      {ALL_SERVICES.map((srv) => {
+                        const isChecked = services.includes(srv);
+                        return (
                           <div
-                            className={`w-3.5 h-3.5 rounded-[2px] border flex items-center justify-center ${
-                              isChecked ? 'bg-slate-700 border-slate-500 text-white' : 'border-slate-700'
-                            }`}
+                            key={srv}
+                            onClick={() => toggleService(srv)}
+                            className="flex items-center gap-2.5 text-xs text-slate-700 hover:text-slate-900 cursor-pointer py-1 select-none"
                           >
-                            {isChecked && <Check className="w-3 h-3 stroke-[2.5]" />}
+                            <div
+                              className={`w-4 h-4 rounded-xs border flex items-center justify-center transition-colors ${
+                                isChecked ? 'bg-brand-electric border-brand-electric text-white' : 'border-slate-300 bg-white'
+                              }`}
+                            >
+                              {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
+                            </div>
+                            <span className={isChecked ? 'font-semibold text-slate-900' : 'text-slate-600'}>{srv}</span>
                           </div>
-                          <span>{srv}</span>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <label className="text-xs font-semibold text-slate-200 block mb-1">
-                    Current Challenges / Pain Points
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={painPoints}
-                    onChange={(e) => setPainPoints(e.target.value)}
-                    className="w-full px-3 py-2 bg-[#0c1527] border border-slate-700 rounded-[2px] text-xs text-white"
-                  />
+                  <div>
+                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1.5">
+                      Current Contract Challenges / Pain Points
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={painPoints}
+                      onChange={(e) => setPainPoints(e.target.value)}
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-sm text-sm text-slate-900 font-medium focus:bg-white focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Live Preview Column (6 cols) */}
-            <div className="lg:col-span-6 border border-slate-800 bg-[#09101f] p-6 rounded-[4px] space-y-4 sticky top-36">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <span className="font-mono text-[11px] text-slate-400 uppercase tracking-widest">
-                  02 / Tender Document Preview
-                </span>
-                <span className="text-[10px] font-mono text-emerald-400">Live Markdown</span>
-              </div>
+            <div className="lg:col-span-6 space-y-6 sticky top-24">
+              <div className="bg-white border border-slate-200 rounded-sm shadow-md p-6 sm:p-7 space-y-4">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                  <span className="font-mono text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                    02 / Tender Document Preview
+                  </span>
+                  <span className="text-[11px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">
+                    Live Markdown Preview
+                  </span>
+                </div>
 
-              <div className="p-4 border border-slate-800 bg-[#0c1527] text-slate-300 font-mono text-xs max-h-[380px] overflow-y-auto whitespace-pre-wrap leading-relaxed rounded-[2px] scrollbar-thin">
-                {tenderMarkdown}
-              </div>
+                <div className="p-5 bg-slate-900 text-slate-100 font-mono text-xs max-h-[400px] overflow-y-auto whitespace-pre-wrap leading-relaxed rounded-sm border border-slate-800 shadow-inner scrollbar-thin">
+                  {tenderMarkdown}
+                </div>
 
-              {/* Export Toolbar */}
-              <ExportToolbar
-                toolName="Tender / RFP Brief Generator"
-                onDownloadPdf={handleDownloadPdf}
-                onCopyContent={handleCopy}
-                isCopied={copied}
-                pdfLabel="Download RFP (PDF)"
-                copyLabel="Copy Markdown RFP"
-              />
+                {/* Export Toolbar */}
+                <ExportToolbar
+                  toolName="Tender / RFP Brief Generator"
+                  onDownloadPdf={handleDownloadPdf}
+                  onCopyContent={handleCopy}
+                  isCopied={copied}
+                  pdfLabel="Download RFP Brief (PDF)"
+                  copyLabel="Copy Markdown RFP"
+                />
+              </div>
             </div>
           </div>
 
@@ -300,7 +329,7 @@ Proposals should include company accreditations (ISO 9001/14001/45001, SafeContr
             primaryActionHref="/contact-us#enquiry"
           />
         </ToolShell>
-      </main>
+      </div>
       <Footer />
     </div>
   );

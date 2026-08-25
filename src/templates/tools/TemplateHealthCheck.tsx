@@ -16,6 +16,7 @@ import {
   Droplets,
   Wind,
   Layers,
+  AlertCircle,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -101,51 +102,51 @@ const QUESTIONS: Question[] = [
         points: 2,
       },
       {
-        label: 'LRA Completed but Inconsistent Logging',
-        description: 'Risk assessment is on file but monthly temperature checks or flushing records are intermittent.',
+        label: 'LRA on File but Logging is Inconsistent',
+        description: 'A Legionella assessment exists, but monthly temperature logs and outlet flushing are irregular or missing data.',
         points: 1,
       },
       {
-        label: 'No Current LRA or Monitoring Programme',
-        description: 'No formal written risk assessment or periodic temperature control records exist.',
+        label: 'Expired LRA (>2 yrs) or No Logbook Maintained',
+        description: 'No active water hygiene monitoring regime or no competent responsible person designated for water safety.',
         points: 0,
       },
     ],
   },
   {
-    id: 'gas-hvac',
-    category: 'Commercial Gas & Heating Plant',
-    question: 'Are commercial boilers and gas appliances certified with annual CP12/CP17 records?',
-    explanation: 'Gas Safety (Installation and Use) Regulations 1998 mandate annual safety inspections on commercial gas plant by a Gas Safe registered engineer.',
-    statutoryBasis: 'Gas Safety (Installation and Use) Regs 1998',
+    id: 'gas-safety',
+    category: 'Gas & Commercial Boiler Plant',
+    question: 'Are commercial gas appliances certified annually under CP12 / CP17 gas safety checks?',
+    explanation: 'Gas Safety (Installation and Use) Regulations 1998 mandate that commercial boilers, flues, and pipework undergo annual servicing and CP17 certification by a Gas Safe registered engineer.',
+    statutoryBasis: 'Gas Safety (Installation & Use) Regs 1998 Reg 36',
     options: [
       {
-        label: 'Annual CP17 Certificate on File (<12 months)',
-        description: 'All boilers, burners, gas valves, and flues inspected within the past 12 months with sound gas tightness testing.',
+        label: 'Annual CP17 Certificate Current & Logged (<12 months)',
+        description: 'All plant serviced by Gas Safe registered commercial engineers with combustion efficiency and safety shut-off tests verified.',
         points: 2,
       },
       {
-        label: 'Servicing Occurred but Formal Certification Missing',
-        description: 'General engineer maintenance took place but statutory gas safety certificate is unrecorded.',
+        label: 'Serviced Regularly but Certificate Documentation Missing',
+        description: 'Boilers have been serviced by a contractor, but formal Gas Safe CP17 certification paperwork is incomplete.',
         points: 1,
       },
       {
-        label: 'No Gas Safety Certification (<12 months) or Overdue',
-        description: 'No current gas inspection records on file for active commercial heating appliances.',
+        label: 'Overdue Annual Inspection (>12 months)',
+        description: 'Gas plant has not received annual statutory servicing or warning notices have been issued.',
         points: 0,
       },
     ],
   },
   {
     id: 'emergency-lighting',
-    category: 'Emergency Lighting',
-    question: 'How regularly is emergency lighting functionally tested and duration-discharged?',
-    explanation: 'BS 5266-1 mandates monthly functional flick tests and an annual 3-hour battery discharge test recorded in a logbook.',
-    statutoryBasis: 'BS 5266-1 / RRO 2005 Article 14',
+    category: 'Emergency Lighting (BS 5266)',
+    question: 'Are emergency lighting luminaires tested monthly and subjected to an annual 3-hour discharge test?',
+    explanation: 'BS 5266-1 and the Fire Safety Order require monthly functional flick testing and an annual full-duration battery discharge test with logbook records.',
+    statutoryBasis: 'BS 5266-1 / RRO 2005 Article 17',
     options: [
       {
-        label: 'Monthly Tests + Annual 3-Hour Discharge Logged',
-        description: 'Complete audit trail of monthly operational checks and annual full discharge with zero unaddressed failures.',
+        label: 'Monthly Flick Tests & Annual 3-Hour Discharge Logged',
+        description: 'Full compliance with BS 5266-1 with all failed lamps, ballasts, and batteries promptly replaced.',
         points: 2,
       },
       {
@@ -246,7 +247,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
     setCompleted(false);
   };
 
-  // Calculate scores
+  // Calculate scores (100% preserved)
   const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
   const maxScore = QUESTIONS.length * 2;
   const percentage = Math.round((totalScore / maxScore) * 100);
@@ -303,13 +304,13 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080d1a]">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
       <Header />
-      <main id="main" className="flex-grow pt-20">
+      <div className="flex-grow pt-16">
         <ToolShell
           breadcrumbs={breadcrumbs}
           title="FM Building Health Check"
-          purpose="Evaluate your estate across 7 core building engineering and statutory maintenance baselines."
+          purpose="Evaluate your estate across 7 core building engineering and statutory maintenance baselines to identify operational risks and audit gaps."
           timeEstimate="3 min"
           outputs={['PDF Diagnostic Report']}
         >
@@ -328,59 +329,63 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
             {!completed ? (
               /* Diagnostic Questions View */
               <div className="space-y-6">
-                <div className="border border-slate-800 bg-[#09101f] p-6 sm:p-8 rounded-[4px] space-y-6">
+                <div className="bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-sm space-y-6">
                   {/* Progress Header */}
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-                    <span className="text-[11px] font-mono text-slate-400 uppercase tracking-widest">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-brand-electric uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-100">
+                      <span className="h-1.5 w-1.5 rounded-full bg-brand-electric" />
                       {currentQ.category}
                     </span>
-                    <span className="font-mono text-xs text-slate-400">
-                      Discipline <strong className="text-white">{currentStep + 1}</strong> of {QUESTIONS.length}
+                    <span className="font-mono text-xs text-slate-500">
+                      Discipline <strong className="text-slate-900">{currentStep + 1}</strong> of {QUESTIONS.length}
                     </span>
                   </div>
 
                   {/* Question */}
                   <div className="space-y-2">
-                    <h2 className="text-xl sm:text-2xl font-bold text-white leading-snug">
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900 leading-snug">
                       {currentQ.question}
                     </h2>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                       {currentQ.explanation}
                     </p>
-                    <div className="text-[11px] font-mono text-slate-400 pt-1">
-                      <span className="text-slate-500">Basis:</span> {currentQ.statutoryBasis}
+                    <div className="text-[11.5px] font-mono text-slate-500 pt-1 flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
+                      <span className="text-slate-700 font-semibold">Statutory Basis:</span> {currentQ.statutoryBasis}
                     </div>
                   </div>
 
                   {/* Options */}
-                  <div className="space-y-2.5 pt-2">
+                  <div className="space-y-3 pt-2">
                     {currentQ.options.map((opt, idx) => (
                       <button
                         key={idx}
                         type="button"
                         onClick={() => handleSelectOption(opt.points)}
-                        className="w-full text-left p-4 rounded-[3px] border border-slate-800 bg-[#0c1527] hover:border-slate-600 hover:bg-[#111e38] transition-colors flex items-start justify-between gap-4"
+                        className="w-full text-left p-4 sm:p-5 rounded-sm border border-slate-200 bg-slate-50 hover:bg-white hover:border-brand-electric hover:shadow-sm transition-all flex items-start justify-between gap-4 group"
                       >
                         <div className="space-y-1 min-w-0">
-                          <div className="text-sm font-bold text-white">
+                          <div className="text-sm font-bold text-slate-900 group-hover:text-brand-electric transition-colors">
                             {opt.label}
                           </div>
-                          <p className="text-xs text-slate-400 leading-relaxed">
+                          <p className="text-xs text-slate-600 leading-relaxed">
                             {opt.description}
                           </p>
                         </div>
-                        <ArrowRight className="h-4 w-4 text-slate-500 shrink-0 mt-1" />
+                        <div className="h-6 w-6 rounded-full bg-slate-200 group-hover:bg-brand-electric group-hover:text-white flex items-center justify-center shrink-0 mt-0.5 transition-colors">
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </div>
                       </button>
                     ))}
                   </div>
 
                   {/* Navigation Back */}
                   {currentStep > 0 && (
-                    <div className="pt-3 border-t border-slate-800">
+                    <div className="pt-3 border-t border-slate-100">
                       <button
                         type="button"
                         onClick={() => setCurrentStep(currentStep - 1)}
-                        className="text-xs font-semibold text-slate-400 hover:text-white inline-flex items-center gap-1.5 transition-colors"
+                        className="text-xs font-semibold text-slate-600 hover:text-slate-900 inline-flex items-center gap-1.5 transition-colors"
                       >
                         <ArrowLeft className="h-3.5 w-3.5" /> Previous Question
                       </button>
@@ -391,47 +396,47 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
             ) : (
               /* Results Dashboard View */
               <div className="space-y-8">
-                <div className="border border-slate-800 bg-[#09101f] p-6 sm:p-8 rounded-[4px] space-y-6">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                <div className="bg-white border border-slate-200 rounded-sm shadow-md p-6 sm:p-8 space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                     <div>
-                      <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
+                      <span className="font-mono text-xs text-emerald-700 font-bold uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded-sm border border-emerald-200 inline-block mb-1.5">
                         Diagnostic Assessment Complete
                       </span>
-                      <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
                         Estate Health Summary
                       </h2>
-                      <p className="text-xs text-slate-400 mt-1">
-                        Evaluated across 7 core building engineering and statutory disciplines.
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                        Evaluated across 7 core building engineering and statutory regimes.
                       </p>
                     </div>
 
                     <button
                       type="button"
                       onClick={handleReset}
-                      className="px-3.5 py-2 rounded-[3px] border border-slate-700 bg-slate-900 text-slate-300 hover:text-white text-xs font-semibold self-start sm:self-center transition-colors inline-flex items-center gap-1.5"
+                      className="px-3.5 py-2 rounded-sm border border-slate-200 bg-slate-50 text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-xs font-semibold self-start sm:self-center transition-colors inline-flex items-center gap-1.5"
                     >
-                      <RotateCcw className="h-3.5 w-3.5" /> Restart
+                      <RotateCcw className="h-3.5 w-3.5" /> Restart Evaluation
                     </button>
                   </div>
 
                   {/* Scoreboard Metrics Strip */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-2 border-b border-slate-800">
-                    <div className="border-r border-slate-800 pr-4">
-                      <span className="text-[11px] font-mono text-slate-400 uppercase block">Assurance Rating</span>
-                      <div className="text-3xl font-bold text-white font-mono mt-1">{percentage}%</div>
-                      <span className="text-xs text-slate-500">{levelLabel}</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-2 border-b border-slate-100">
+                    <div className="sm:border-r border-slate-200 pr-4">
+                      <span className="text-[11px] font-mono text-slate-500 font-bold uppercase block">Assurance Rating</span>
+                      <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-mono mt-1">{percentage}%</div>
+                      <span className="text-xs text-slate-600 font-medium">{levelLabel}</span>
                     </div>
 
-                    <div className="border-r border-slate-800 pr-4">
-                      <span className="text-[11px] font-mono text-emerald-400 uppercase block">Verified Strong</span>
-                      <div className="text-3xl font-bold text-emerald-400 font-mono mt-1">{strongAreas.length} / 7</div>
-                      <span className="text-xs text-slate-500">Documented Control</span>
+                    <div className="sm:border-r border-slate-200 pr-4">
+                      <span className="text-[11px] font-mono text-emerald-700 font-bold uppercase block">Verified Strong</span>
+                      <div className="text-3xl sm:text-4xl font-extrabold text-emerald-600 font-mono mt-1">{strongAreas.length} / 7</div>
+                      <span className="text-xs text-slate-600">Documented Controls</span>
                     </div>
 
                     <div>
-                      <span className="text-[11px] font-mono text-rose-400 uppercase block">Remedial Attention</span>
-                      <div className="text-3xl font-bold text-rose-400 font-mono mt-1">{priorityGaps.length + reviewAreas.length}</div>
-                      <span className="text-xs text-slate-500">Statutory / Standard Gaps</span>
+                      <span className="text-[11px] font-mono text-rose-700 font-bold uppercase block">Remedial Attention</span>
+                      <div className="text-3xl sm:text-4xl font-extrabold text-rose-600 font-mono mt-1">{priorityGaps.length + reviewAreas.length}</div>
+                      <span className="text-xs text-slate-600">Statutory / Standard Gaps</span>
                     </div>
                   </div>
 
@@ -444,27 +449,27 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                 </div>
 
                 {/* Findings Breakdown */}
-                <div className="border border-slate-800 bg-[#09101f] p-6 rounded-[4px] space-y-4">
-                  <h3 className="text-xs font-bold text-white uppercase tracking-wider font-mono">
-                    Discipline Risk Register
+                <div className="bg-white border border-slate-200 rounded-sm shadow-sm p-6 sm:p-8 space-y-4">
+                  <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                    Discipline Risk Register &amp; Statutory References
                   </h3>
 
-                  <div className="divide-y divide-slate-800/80 text-xs">
+                  <div className="divide-y divide-slate-100 text-xs">
                     {QUESTIONS.map((q) => {
                       const score = answers[q.id] ?? 0;
                       return (
-                        <div key={q.id} className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div key={q.id} className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
-                            <span className="font-semibold text-white block">{q.category}</span>
-                            <span className="text-[11px] font-mono text-slate-400">{q.statutoryBasis}</span>
+                            <span className="font-bold text-slate-900 text-sm block">{q.category}</span>
+                            <span className="text-[11px] font-mono text-slate-500">{q.statutoryBasis}</span>
                           </div>
                           <span
-                            className={`px-2 py-0.5 border text-[10px] font-mono font-bold uppercase rounded-[2px] self-start sm:self-center ${
+                            className={`px-2.5 py-1 border text-[10.5px] font-mono font-bold uppercase rounded-sm self-start sm:self-center ${
                               score === 2
-                                ? 'border-emerald-800 text-emerald-300'
+                                ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
                                 : score === 1
-                                ? 'border-amber-800 text-amber-300'
-                                : 'border-rose-800 text-rose-300'
+                                ? 'bg-amber-50 border-amber-200 text-amber-800'
+                                : 'bg-rose-50 border-rose-200 text-rose-700'
                             }`}
                           >
                             {score === 2 ? 'COMPLIANT & LOGGED' : score === 1 ? 'PARTIAL / ACTION REQ' : 'STATUTORY GAP'}
@@ -479,7 +484,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
                 <ToolConversionCTA
                   toolName="FM Building Health Check"
                   heading="Require on-site statutory compliance verification?"
-                  subheading="EntireFM mobilises certified engineering teams to audit statutory logbooks, certify physical plant, and eliminate duty-holder liability."
+                  subheading="EntireFM mobilises certified engineering teams to audit statutory logbooks, certify physical plant, and eliminate duty-holder liability across commercial estates."
                   primaryActionLabel="Request Engineering Audit"
                   primaryActionHref="/contact-us#enquiry"
                 />
@@ -487,7 +492,7 @@ export function TemplateHealthCheck({ route, content }: TemplateProps) {
             )}
           </div>
         </ToolShell>
-      </main>
+      </div>
       <Footer />
     </div>
   );
