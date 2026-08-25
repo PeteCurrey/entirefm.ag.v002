@@ -7,11 +7,19 @@ import { usePathname } from 'next/navigation';
 export interface TabItem {
   name: string;
   href: string;
-  category?: 'STRATEGY' | 'ASSURANCE' | 'COMMERCIAL';
+  category?: 'STRATEGY' | 'ASSURANCE' | 'PERFORMANCE' | 'COMMERCIAL';
 }
 
 export const SUPPLIER_TABS: TabItem[] = [
   { name: 'Overview', href: '/admin/suppliers', category: 'STRATEGY' },
+  { name: 'Performance Hub', href: '/admin/suppliers/performance', category: 'PERFORMANCE' },
+  { name: 'Scorecards', href: '/admin/suppliers/performance/scorecards', category: 'PERFORMANCE' },
+  { name: 'SLA & Attendance', href: '/admin/suppliers/performance/sla', category: 'PERFORMANCE' },
+  { name: 'Quality & FTF', href: '/admin/suppliers/performance/quality', category: 'PERFORMANCE' },
+  { name: 'Evidence Gating', href: '/admin/suppliers/performance/evidence', category: 'PERFORMANCE' },
+  { name: 'Commercial Accuracy', href: '/admin/suppliers/performance/commercial', category: 'PERFORMANCE' },
+  { name: 'Improvement Plans', href: '/admin/suppliers/performance/improvement', category: 'PERFORMANCE' },
+  { name: 'QBR Reviews', href: '/admin/suppliers/performance/reviews', category: 'PERFORMANCE' },
   { name: 'Onboarding Pipeline', href: '/admin/suppliers/onboarding', category: 'ASSURANCE' },
   { name: 'Assurance Reviews', href: '/admin/suppliers/reviews', category: 'ASSURANCE' },
   { name: 'Compliance Control', href: '/admin/suppliers/compliance', category: 'ASSURANCE' },
@@ -38,6 +46,7 @@ export const SUPPLIER_TABS: TabItem[] = [
   { name: 'Events', href: '/admin/suppliers/commercial/events', category: 'COMMERCIAL' },
   { name: 'Audit Ledger', href: '/admin/suppliers/audit', category: 'ASSURANCE' },
   { name: 'Assurance Settings', href: '/admin/suppliers/settings/assurance', category: 'ASSURANCE' },
+  { name: 'Performance Settings', href: '/admin/suppliers/performance/settings', category: 'PERFORMANCE' },
 ];
 
 export function SupplierHeaderNav() {

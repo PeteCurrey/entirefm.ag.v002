@@ -1399,9 +1399,10 @@ export async function getAssetClassPerformance(
     let failureCount = 0;
     let repeatCount = 0;
 
-    // Skip cost scan for groups with too many assets (performance) — show counts only
-    for (const assetId of group.assetIds.slice(0, 50)) {
-      const ledger = await getAssetCostLedger(assetId, periodDays);
+    // Fetch cost ledgers in parallel for performance
+    const costSample = group.assetIds.slice(0, 50);
+    const ledgers = await Promise.all(costSample.map((id) => getAssetCostLedger(id, periodDays)));
+    for (const ledger of ledgers) {
       totalCost += ledger.periods[0]?.reactive_cost_gbp ?? 0;
     }
 

@@ -13,6 +13,7 @@ import {
   listRemediationActions,
   listSupplierAuditLogs,
 } from '@/server/suppliers/assurance-store';
+import { getSupplierScorecard } from '@/server/suppliers/performance-store';
 import {
   ShieldCheck,
   ShieldAlert,
@@ -60,6 +61,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
     complianceHolds,
     remediationActions,
     auditLogs,
+    scorecard,
   ] = await Promise.all([
     getSupplierMembership(supplier.id),
     listPartnerInvoices({ supplierId: supplier.id }),
@@ -71,6 +73,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
     listComplianceHolds(supplier.id),
     listRemediationActions(supplier.id),
     listSupplierAuditLogs(supplier.id),
+    getSupplierScorecard(supplier.id),
   ]);
 
   const activeHolds = complianceHolds.filter((h) => h.is_active);
@@ -145,8 +148,52 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
 
       {/* Main Grid: Operational Scope, Onboarding, Documents & Commercial */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Column (8 cols): Scoped Approvals, Onboarding Plan, Documents */}
+        {/* Left Column (8 cols): Scorecard, Scoped Approvals, Onboarding Plan, Documents */}
         <div className="lg:col-span-8 space-y-6">
+          {/* Operational Performance Scorecard (Phase 4) */}
+          {scorecard && (
+            <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+                    Operational Performance Scorecard
+                  </h3>
+                  <span className="text-xs text-slate-500 font-mono">
+                    Window: {scorecard.measurement_window.replace('_', ' ')} &middot; {scorecard.total_completed_jobs} Completed Jobs
+                  </span>
+                </div>
+                <span className={`text-xs font-mono font-bold px-2.5 py-1 rounded ${
+                  scorecard.overall_status === 'EXCELLENT' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-800'
+                }`}>
+                  STATUS: {scorecard.overall_status}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+                <div className="p-3 bg-slate-50 rounded border border-slate-200 space-y-1">
+                  <span className="text-slate-400 text-[10px] uppercase block">SLA ATTENDANCE</span>
+                  <div className="text-xl font-bold text-emerald-700">{scorecard.sla_attendance_rate.value}%</div>
+                  <span className="text-[10px] text-slate-500">Target: 90%</span>
+                </div>
+                <div className="p-3 bg-slate-50 rounded border border-slate-200 space-y-1">
+                  <span className="text-slate-400 text-[10px] uppercase block">FIRST-TIME FIX</span>
+                  <div className="text-xl font-bold text-slate-900">{scorecard.first_time_fix_rate.value}%</div>
+                  <span className="text-[10px] text-slate-500">Single Visit Fix</span>
+                </div>
+                <div className="p-3 bg-slate-50 rounded border border-slate-200 space-y-1">
+                  <span className="text-slate-400 text-[10px] uppercase block">EVIDENCE ACCURACY</span>
+                  <div className="text-xl font-bold text-slate-900">{scorecard.evidence_acceptance_rate.value}%</div>
+                  <span className="text-[10px] text-slate-500">Report Acceptance</span>
+                </div>
+                <div className="p-3 bg-slate-50 rounded border border-slate-200 space-y-1">
+                  <span className="text-slate-400 text-[10px] uppercase block">INVOICE MATCH</span>
+                  <div className="text-xl font-bold text-slate-900">{scorecard.invoice_accuracy_rate.value}%</div>
+                  <span className="text-[10px] text-slate-500">3-Way PO Match</span>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Dynamic Onboarding Plan */}
           <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
