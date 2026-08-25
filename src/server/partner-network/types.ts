@@ -102,6 +102,7 @@ export interface CommercialProduct {
   vat_rate: number; // e.g. 0.20 for 20% standard VAT
   billing_frequency: BillingFrequency;
   is_active: boolean;
+  publicly_visible?: boolean;
   stripe_product_id?: string;
   stripe_price_id?: string;
   invoice_eligible: boolean;

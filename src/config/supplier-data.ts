@@ -1,7 +1,8 @@
 /**
  * CANONICAL PURE DATA MODULE FOR SUPPLIERS & PARTNERS
  * ===================================================
- * Safe for Next.js static prerendering (SSG) & client hydration.
+ * Single source of truth for public supplier pricing, capability disciplines,
+ * and commercial transparency FAQ dataset.
  */
 
 export interface FAQEntry {
@@ -12,6 +13,55 @@ export interface FAQEntry {
 }
 
 export type SupplierFaqItem = FAQEntry;
+
+export interface CanonicalPublicProduct {
+  id: string;
+  name: string;
+  priceGbp: number;
+  vatRate: number;
+  billingFrequency: 'ANNUAL' | 'ONE_OFF';
+  displayPrice: string;
+  description: string;
+}
+
+export const CANONICAL_PUBLIC_PRICING: Record<string, CanonicalPublicProduct> = {
+  REGISTERED: {
+    id: 'prod-mem-reg',
+    name: 'Registered Supplier',
+    priceGbp: 0,
+    vatRate: 0.20,
+    billingFrequency: 'ANNUAL',
+    displayPrice: '£0',
+    description: 'Initial supplier registration and application profile.',
+  },
+  SUPPLIER_NETWORK_MEMBER: {
+    id: 'prod-mem-verified',
+    name: 'Supplier Network Membership',
+    priceGbp: 495,
+    vatRate: 0.20,
+    billingFrequency: 'ANNUAL',
+    displayPrice: '£495 + VAT/year',
+    description: 'Commercial network membership and digital portal services.',
+  },
+  NETWORK_PARTNER: {
+    id: 'prod-mem-partner',
+    name: 'Network Partner Membership',
+    priceGbp: 1250,
+    vatRate: 0.20,
+    billingFrequency: 'ANNUAL',
+    displayPrice: '£1,250 + VAT/year',
+    description: 'Expanded commercial network participation and technical forum benefits.',
+  },
+  INITIAL_ASSURANCE_REVIEW: {
+    id: 'prod-fee-assurance',
+    name: 'Initial Supplier Assurance Review',
+    priceGbp: 350,
+    vatRate: 0.20,
+    billingFrequency: 'ONE_OFF',
+    displayPrice: '£350 + VAT one-off',
+    description: 'Administration and independent review of applicable company, H&S, and trade qualifications.',
+  },
+};
 
 export interface DisciplineCategory {
   id: string;
@@ -120,6 +170,7 @@ export const CAPABILITY_DISCIPLINES: DisciplineCategory[] = [
 ];
 
 export const SUPPLIER_FAQS: SupplierFaqItem[] = [
+  // 1. GENERAL
   {
     id: 'faq-01',
     category: 'onboarding',
@@ -150,191 +201,201 @@ export const SUPPLIER_FAQS: SupplierFaqItem[] = [
     question: 'What is the EntireFM Partner Network?',
     answer: 'The EntireFM Partner Network is a professionally managed facilities management ecosystem that connects verified contractors, specialists, OEMs, and technology companies with structured commercial opportunities, digital job management tools, and collaborative industry events.',
   },
+
+  // 2. ASSURANCE & SCOPED APPROVALS
   {
     id: 'faq-06',
+    category: 'compliance',
+    question: 'What is an Approved or Verified Supplier?',
+    answer: 'A Verified or Approved Supplier is an organisation that has successfully completed the applicable EntireFM supplier assurance process for defined services and, where relevant, defined geographies. Verification is an assurance outcome and cannot be purchased.',
+  },
+  {
+    id: 'faq-07',
     category: 'compliance',
     question: 'What is scoped supplier approval?',
     answer: 'Approval at EntireFM is specific, not blanket. A supplier is approved for defined service disciplines (e.g. HVAC & Chillers) and defined geographic areas (e.g. Greater Manchester) where their competency and capacity are verified, rather than an unverified open pass.',
   },
   {
-    id: 'faq-07',
+    id: 'faq-08',
     category: 'compliance',
     question: 'Can I be approved for only one service or one region?',
     answer: 'Yes. Scoped approvals ensure that you are only asked to deliver work within your proven technical capabilities and geographic boundaries.',
   },
   {
-    id: 'faq-08',
+    id: 'faq-09',
     category: 'compliance',
     question: 'What insurance do I need?',
     answer: 'Requirements are risk-proportionate. Standard commercial requirements typically include Public Liability (minimum £5m for high/medium risk engineering, £2m for selected soft services), Employers Liability (£10m where staff are employed), and Professional Indemnity where design or technical consulting applies.',
   },
   {
-    id: 'faq-09',
+    id: 'faq-10',
     category: 'compliance',
     question: 'Which accreditations are required?',
     answer: 'Accreditations are trade-specific. For example, gas engineers require Gas Safe; HVAC technicians require F-Gas/REFCOM; electrical contractors require NICEIC/ECA; rope access teams require IRATA. Soft services require BICSc, and health & safety is supported by SSIP accreditation (CHAS, SafeContractor, Constructionline).',
   },
   {
-    id: 'faq-10',
+    id: 'faq-11',
     category: 'compliance',
     question: 'Do I need every accreditation listed on the website?',
     answer: 'No. Requirements are strictly tailored to your specific service discipline, operational risk level, and work environment.',
   },
   {
-    id: 'faq-11',
+    id: 'faq-12',
     category: 'compliance',
     question: 'How long does onboarding take?',
     answer: 'Once all required compliance documents, insurances, and competency evidence are submitted via the Supplier Portal, technical review is typically completed within 3 to 5 business days.',
   },
   {
-    id: 'faq-12',
+    id: 'faq-13',
     category: 'compliance',
     question: 'How will I know what information is required?',
     answer: 'Upon registration, our assurance engine automatically generates a dynamic, tailored requirement checklist in your Supplier Portal based on your specific trade and operating profile.',
   },
   {
-    id: 'faq-13',
+    id: 'faq-14',
     category: 'compliance',
     question: 'What happens if one of my documents expires?',
     answer: 'Our automated radar notifies you 90, 60, 30, and 7 days prior to document expiry. If a critical document (such as Public Liability insurance) expires without renewal, a temporary compliance hold automatically applies to prevent unsafe dispatch until the renewed certificate is uploaded.',
   },
   {
-    id: 'faq-14',
+    id: 'faq-15',
     category: 'compliance',
     question: 'Can I subcontract work?',
     answer: 'Second-tier subcontracting is restricted unless explicitly declared and approved during technical assurance. EntireFM enforces strict supply chain traceability for client security and health & safety.',
   },
-  {
-    id: 'faq-15',
-    category: 'commercial',
-    question: 'Is supplier registration free?',
-    answer: 'Yes. Registering your company interest, creating an initial supplier profile, and exploring network requirements is completely free (£0).',
-  },
+
+  // 3. MEMBERSHIP & FEES
   {
     id: 'faq-16',
     category: 'commercial',
-    question: 'What is the Verified Supplier Network Membership?',
-    answer: 'Verified Supplier Membership (£495 + VAT/year) is a commercial network tier that supports ongoing digital compliance maintenance, supplier portal tools, document vault storage, expiry monitoring, and eligibility for operational work consideration once technically approved.',
+    question: 'Is supplier registration free?',
+    answer: 'Yes. Registering your company interest, creating an initial supplier profile, and exploring network requirements is completely free (£0). Registration does not constitute supplier approval.',
   },
   {
     id: 'faq-17',
     category: 'commercial',
-    question: 'Why is there an annual membership fee?',
-    answer: 'Maintaining a secure, auditable, and continuously monitored supply chain requires substantial ongoing administration, digital compliance infrastructure, dedicated technical review desks, and automated notification systems. Applicable fees directly support these operational systems.',
+    question: 'What is Supplier Network Membership?',
+    answer: 'Supplier Network Membership (£495 + VAT/year) is a commercial Partner Network product that supports applicable digital portal services, compliance administration, document vault storage, and network communications. Holding membership does not itself make an organisation an Approved Supplier.',
   },
   {
     id: 'faq-18',
     category: 'commercial',
-    question: 'Is there an onboarding or assurance fee?',
-    answer: 'Certain complex or high-risk technical assurance reviews (such as comprehensive multi-discipline H&S and technical audits) carry a one-off administration fee (currently £350 + VAT), which is confirmed prior to the review commencing.',
+    question: 'Why is there an annual membership fee?',
+    answer: 'Maintaining a secure, auditable, and continuously monitored supply chain requires ongoing administration, digital compliance infrastructure, dedicated technical review desks, and automated notification systems. Applicable fees directly support these operational systems.',
   },
   {
     id: 'faq-19',
+    category: 'commercial',
+    question: 'What is the Initial Supplier Assurance Review fee (£350 + VAT)?',
+    answer: 'The Initial Supplier Assurance Review fee contributes towards the administration and review of the applicable supplier-assurance requirements generated for your organisation. Requirements vary according to services, risk, capability and client needs. Payment does not guarantee successful approval.',
+  },
+  {
+    id: 'faq-20',
     category: 'commercial',
     question: 'What does the supplier fee pay for?',
     answer: 'Fees pay for digital supplier portal infrastructure, dedicated compliance review officers, automated document verification, insurance renewal tracking, secure bank detail verification, and partner communications.',
   },
   {
-    id: 'faq-20',
+    id: 'faq-21',
     category: 'commercial',
     question: 'Does paying a fee guarantee supplier approval?',
     answer: 'No. Supplier approval is strictly based on technical competence, verified accreditation, valid insurance, and safe working practices. Paying a fee does not bypass technical scrutiny.',
   },
   {
-    id: 'faq-21',
+    id: 'faq-22',
     category: 'commercial',
     question: 'Does paying guarantee work?',
     answer: 'No. Registration, membership, assurance fees, event attendance, and sponsorship do NOT guarantee work allocation. Work opportunities are awarded based on technical capability, operational SLA performance, geographical proximity, client requirements, and competitive commercial pricing.',
   },
   {
-    id: 'faq-22',
+    id: 'faq-23',
     category: 'commercial',
     question: 'Does paying more mean I receive more work?',
     answer: 'No. EntireFM operates a non-negotiable procurement firewall. Commercial membership tiers (e.g. £1,250 Network Partner) provide enhanced networking, public profile listings, and additional user seats, but provide ZERO advantage in operational work allocation algorithms.',
   },
   {
-    id: 'faq-23',
+    id: 'faq-24',
     category: 'commercial',
     question: 'Can I pay to become a Preferred Supplier?',
     answer: 'No. Preferred Supplier status cannot be purchased. It is earned through sustained high operational performance, first-time fix excellence, SLA adherence, and reliable evidence submission.',
   },
   {
-    id: 'faq-24',
+    id: 'faq-25',
     category: 'commercial',
     question: 'Can I pay to become a Strategic Partner?',
     answer: 'No. Strategic Partner status is an invitation-only executive relationship based on significant national scale, deep technical integration, or critical OEM support.',
   },
   {
-    id: 'faq-25',
+    id: 'faq-26',
     category: 'commercial',
     question: 'What is the difference between membership and approval?',
     answer: 'Approval is a technical, safety, and compliance gate (authorising you to perform work safely). Membership is a commercial subscription supporting digital portal services, profile maintenance, and network participation.',
   },
-  {
-    id: 'faq-26',
-    category: 'commercial',
-    question: 'How are suppliers paid for completed operational work?',
-    answer: 'Operational work completed for EntireFM is paid against verified purchase orders and approved digital service reports, processed under agreed commercial payment terms.',
-  },
+
+  // 4. PAYMENTS & COMMERCIAL SEPARATION
   {
     id: 'faq-27',
+    category: 'commercial',
+    question: 'How are suppliers paid for completed operational work?',
+    answer: 'Work completed for EntireFM is managed through the applicable work order, purchase order, approval and invoicing process. Partner Network fees and supplier operational payments are accounted for separately under agreed commercial payment terms.',
+  },
+  {
+    id: 'faq-28',
     category: 'commercial',
     question: 'Are Partner Network fees deducted from money EntireFM owes me for operational work?',
     answer: 'No. EntireFM maintains complete separation between payables (what we pay you for operational work) and receivables (membership/event fees). Unrelated balances are not netted without explicit written agreement.',
   },
   {
-    id: 'faq-28',
+    id: 'faq-29',
     category: 'commercial',
     question: 'Can I pay fees by card or invoice?',
     answer: 'Yes. Fees can be paid securely via credit/debit card (Stripe) or via invoice for established partner accounts.',
   },
   {
-    id: 'faq-29',
+    id: 'faq-30',
     category: 'commercial',
     question: 'Where can I see my commercial invoices and membership status?',
     answer: 'All commercial subscriptions, invoices, payment receipts, and renewal dates are clearly visible in the Billing section of your Supplier Portal.',
   },
+
+  // 5. OPERATIONS & PERFORMANCE
   {
-    id: 'faq-30',
+    id: 'faq-31',
     category: 'delivery',
     question: 'How are suppliers considered for work once approved?',
     answer: 'When a work order arises, our allocation engine evaluates hard compliance gates (scoped service, region, active status) and calculates suitability based on performance history, engineer availability, and travel distance. Authorised EntireFM controllers review candidates and make the award decision.',
   },
   {
-    id: 'faq-31',
+    id: 'faq-32',
     category: 'delivery',
     question: 'Are suppliers performance monitored?',
     answer: 'Yes. We track objective operational metrics: on-time SLA attendance, first-time fix rate, service report accuracy, invoice matching, and client feedback. These are transparently visible in your portal.',
   },
   {
-    id: 'faq-32',
+    id: 'faq-33',
     category: 'delivery',
     question: 'What is the Supplier Academy?',
     answer: 'The Supplier Academy provides practical guidance, portal onboarding modules, RAMS standards, and technical briefings to help our supply chain deliver exemplary facilities management.',
   },
-  {
-    id: 'faq-33',
-    category: 'delivery',
-    question: 'Can manufacturers and OEMs join?',
-    answer: 'Yes. Equipment manufacturers and OEMs partner with EntireFM for technical training, warranty-backed maintenance ecosystems, product demonstrations, and asset intelligence collaboration.',
-  },
+
+  // 6. EVENTS & INDUSTRY PARTNERS
   {
     id: 'faq-34',
     category: 'delivery',
-    question: 'Can technology companies join?',
-    answer: 'Yes. We collaborate with IoT sensor developers, smart building software providers, drone inspection innovators, and energy analytics platforms through our Industry Partner programme.',
+    question: 'Can equipment manufacturers and OEMs join?',
+    answer: 'Yes. Equipment manufacturers and OEMs partner with EntireFM for technical training, warranty-backed maintenance ecosystems, product demonstrations, and asset intelligence collaboration.',
   },
   {
     id: 'faq-35',
-    category: 'commercial',
-    question: 'Can I sponsor an EntireFM supplier event?',
-    answer: 'Yes. We offer commercial sponsorship packages for Meet the Manufacturer sessions, technical roundtables, and regional supplier forums.',
+    category: 'delivery',
+    question: 'Can technology companies participate in live property pilots?',
+    answer: 'EntireFM may explore appropriate technology trials or pilots with industry partners where there is a genuine operational use case and the required technical, contractual, and client approvals are in place. Participation in the Industry Partner programme does not guarantee a pilot.',
   },
   {
     id: 'faq-36',
     category: 'commercial',
-    question: 'Does event sponsorship improve procurement status?',
-    answer: 'No. Event sponsorship provides high-visibility industry branding and networking, but has zero influence on technical approval or work order allocation.',
+    question: 'Can I sponsor an EntireFM supplier event?',
+    answer: 'Yes. We offer commercial sponsorship packages for Meet the Manufacturer sessions, technical roundtables, and regional supplier forums.',
   },
   {
     id: 'faq-37',

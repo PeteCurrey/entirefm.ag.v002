@@ -51,6 +51,7 @@ class MemoryPartnerCommercialStore {
         vat_rate: 0.20,
         billing_frequency: 'ANNUAL',
         is_active: true,
+        publicly_visible: true,
         invoice_eligible: false,
         eligible_supplier_types: ['LOCAL_SME', 'REGIONAL_CONTRACTOR', 'SPECIALIST_CONTRACTOR'],
         benefits: ['Directory listing', 'Application intake access', 'Network newsletters'],
@@ -59,14 +60,15 @@ class MemoryPartnerCommercialStore {
       {
         id: 'prod-mem-verified',
         internal_id: 'MEM-VER-01',
-        public_name: 'Verified Supplier Network Membership',
-        internal_name: 'Verified Network Member (£495/yr)',
+        public_name: 'Supplier Network Membership',
+        internal_name: 'Supplier Network Member (£495/yr)',
         description: 'Active compliance document management, automated expiry tracking, priority supplier communications, and verified badge.',
         category: 'SUPPLIER_MEMBERSHIP',
         price_gbp: 495,
         vat_rate: 0.20,
         billing_frequency: 'ANNUAL',
         is_active: true,
+        publicly_visible: true,
         invoice_eligible: true,
         eligible_supplier_types: ['LOCAL_SME', 'REGIONAL_CONTRACTOR', 'SPECIALIST_CONTRACTOR', 'NATIONAL_CONTRACTOR'],
         benefits: ['Full CAFM document vault', 'Automated ticket expiry tracking', 'Verified Network Partner Badge', 'Event priority booking'],
@@ -83,6 +85,7 @@ class MemoryPartnerCommercialStore {
         vat_rate: 0.20,
         billing_frequency: 'ANNUAL',
         is_active: true,
+        publicly_visible: true,
         invoice_eligible: true,
         eligible_supplier_types: ['REGIONAL_CONTRACTOR', 'NATIONAL_CONTRACTOR', 'SPECIALIST_CONTRACTOR'],
         benefits: ['5 Portal User Seats', 'Expanded multi-region profile', '2 Free Technical Breakfast Tickets', 'Supplier Spotlight Feature'],
@@ -99,6 +102,7 @@ class MemoryPartnerCommercialStore {
         vat_rate: 0.20,
         billing_frequency: 'ONE_OFF',
         is_active: true,
+        publicly_visible: true,
         invoice_eligible: true,
         eligible_supplier_types: ['ALL'],
         benefits: ['Independent audit sign-off', 'Direct broker insurance check', 'SSIP equivalence review'],
@@ -115,6 +119,7 @@ class MemoryPartnerCommercialStore {
         vat_rate: 0.20,
         billing_frequency: 'ANNUAL',
         is_active: true,
+        publicly_visible: false,
         invoice_eligible: true,
         eligible_supplier_types: ['MANUFACTURER', 'OEM', 'TECHNOLOGY_PROVIDER'],
         benefits: ['Meet the Manufacturer Hosting', 'CAFM Telemetry Collaboration', 'Executive Procurement Roundtable', 'Technical Whitepaper Feature'],
@@ -500,4 +505,16 @@ export async function getCommercialDashboardMetrics(): Promise<CommercialDashboa
     complimentaryMembershipsCount: memberships.filter((m) => m.is_complimentary).length,
     totalDiscountsGrantedGbp: 0,
   };
+}
+
+export async function listPublicCommercialProducts(): Promise<CommercialProduct[]> {
+  const products = await listCommercialProducts(undefined, true);
+  return products.filter((p) => p.publicly_visible !== false);
+}
+
+export async function getCommercialProduct(id: string): Promise<CommercialProduct | null> {
+  const product = partnerCommercialStore.products.get(id);
+  if (product) return product;
+  const list = Array.from(partnerCommercialStore.products.values());
+  return list.find((p) => p.internal_id === id) || null;
 }

@@ -45,7 +45,62 @@ export default function ApplyPage() {
 
         {/* APPLICATION FORM SECTION */}
         <section id="application-form" className="py-20 bg-white border-b border-slate-200">
-          <div className="container-custom max-w-4xl">
+          <div className="container-custom max-w-4xl space-y-8">
+            {/* 8-Stage Journey & Commercial Disclosure */}
+            <div className="bg-slate-50 border border-slate-200 p-6 sm:p-8 rounded-sm space-y-5">
+              <div className="space-y-1">
+                <span className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
+                  QUALIFICATION WORKFLOW
+                </span>
+                <h2 className="text-xl font-bold text-slate-900">What Happens When You Apply</h2>
+                <p className="text-xs text-slate-600 font-light">
+                  A structured, transparent operational journey from initial registration to scoped approval and portal activation.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+                <div className="p-3 bg-white border border-slate-200 rounded space-y-0.5">
+                  <span className="text-brand-pink font-bold block">1. Register</span>
+                  <span className="text-slate-600 text-[11px] font-sans">Initial profile &amp; scope</span>
+                </div>
+                <div className="p-3 bg-white border border-slate-200 rounded space-y-0.5">
+                  <span className="text-brand-pink font-bold block">2. Screening</span>
+                  <span className="text-slate-600 text-[11px] font-sans">Risk &amp; capability triage</span>
+                </div>
+                <div className="p-3 bg-white border border-slate-200 rounded space-y-0.5">
+                  <span className="text-brand-pink font-bold block">3. Assurance</span>
+                  <span className="text-slate-600 text-[11px] font-sans">Upload credentials</span>
+                </div>
+                <div className="p-3 bg-white border border-slate-200 rounded space-y-0.5">
+                  <span className="text-brand-pink font-bold block">4. Tech Review</span>
+                  <span className="text-slate-600 text-[11px] font-sans">Competency check</span>
+                </div>
+                <div className="p-3 bg-white border border-slate-200 rounded space-y-0.5">
+                  <span className="text-brand-pink font-bold block">5. Scoped Approval</span>
+                  <span className="text-slate-600 text-[11px] font-sans">Trade &amp; region authorisation</span>
+                </div>
+                <div className="p-3 bg-white border border-slate-200 rounded space-y-0.5">
+                  <span className="text-brand-pink font-bold block">6. Commercial</span>
+                  <span className="text-slate-600 text-[11px] font-sans">Membership if applicable</span>
+                </div>
+                <div className="p-3 bg-white border border-slate-200 rounded space-y-0.5">
+                  <span className="text-brand-pink font-bold block">7. Portal Access</span>
+                  <span className="text-slate-600 text-[11px] font-sans">Live dashboard setup</span>
+                </div>
+                <div className="p-3 bg-white border border-slate-200 rounded space-y-0.5">
+                  <span className="text-brand-pink font-bold block">8. Work Eligible</span>
+                  <span className="text-slate-600 text-[11px] font-sans">Considered for jobs</span>
+                </div>
+              </div>
+
+              <div className="p-4 bg-amber-50/80 border border-amber-200 rounded text-xs text-amber-950 space-y-1">
+                <span className="font-bold block font-sans">Commercial &amp; Assurance Disclosure:</span>
+                <p className="text-[11.5px] leading-relaxed font-sans">
+                  Registration is free (£0). Where an assurance review fee or paid Partner Network membership applies, the price will be confirmed before the service begins. Payment does not guarantee supplier approval or work allocation.
+                </p>
+              </div>
+            </div>
+
             <SupplierApplicationForm />
           </div>
         </section>

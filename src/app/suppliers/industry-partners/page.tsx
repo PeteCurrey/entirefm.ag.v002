@@ -48,10 +48,10 @@ export default function IndustryPartnersPublicPage() {
               <Cpu className="h-6 w-6 text-slate-900" />
               <h3 className="text-lg font-bold text-slate-900 font-sans">Technology &amp; Innovation</h3>
               <p className="text-slate-600 font-light leading-relaxed">
-                Integrate IoT telemetry, AI anomaly detection, drone surveying, and building analytics into live managed property portfolios.
+                Integrate IoT telemetry, predictive analytics, drone surveying, and building intelligence feeds into live facilities management workflows.
               </p>
               <ul className="space-y-1.5 text-slate-700 font-mono text-[11px]">
-                <li>&bull; Live pilot testing in commercial assets</li>
+                <li>&bull; Potential technology evaluation &amp; agreed pilot opportunities (subject to client approval and suitability)</li>
                 <li>&bull; Energy &amp; carbon reduction validation</li>
                 <li>&bull; Joint technical briefings &amp; case studies</li>
               </ul>
@@ -63,7 +63,7 @@ export default function IndustryPartnersPublicPage() {
             <p className="text-xs text-slate-600 font-light max-w-md mx-auto">
               Speak with our Head of Supply Chain &amp; Innovation to explore tailored technology or OEM collaboration.
             </p>
-            <Link href="/contact" className="btn-primary text-xs py-2.5 px-6 inline-block">
+            <Link href="/contact-us" className="btn-primary text-xs py-2.5 px-6 inline-block">
               Contact Innovation Team &rarr;
             </Link>
           </div>
