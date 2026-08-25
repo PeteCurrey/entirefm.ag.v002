@@ -1,5 +1,5 @@
 import React from 'react';
-import { CAPABILITY_DISCIPLINES } from '@/components/suppliers/CapabilityLandscape';
+import { CAPABILITY_DISCIPLINES } from '@/config/supplier-data';
 
 export const dynamic = 'force-dynamic';
 

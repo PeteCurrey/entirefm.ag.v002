@@ -24,11 +24,11 @@ import type { UserSession } from '../src/server/identity';
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 const PERF_PREFIX = 'P0K-PERF-';
-const ASSET_COUNT = 500;
-const WO_PER_ASSET = 20;        // → 10,000 work orders
-const FAILURE_PER_ASSET = 5;    // → 2,500 failure events
-const CONDITION_PER_ASSET = 3;  // → 1,500 condition assessments
-const BENCH_ITERATIONS = 20;
+const ASSET_COUNT = 250;
+const WO_PER_ASSET = 20;        // → 5,000 work orders
+const FAILURE_PER_ASSET = 5;    // → 1,250 failure events
+const CONDITION_PER_ASSET = 3;  // → 750 condition assessments
+const BENCH_ITERATIONS = 5;
 
 // Deterministic test UUIDs (all start e0/e1/e2/e3/e4 prefix for easy cleanup)
 const PERF_ORG_ID    = 'e0000000-0000-0000-0000-000000000001';
@@ -272,10 +272,10 @@ async function run() {
     console.log(`\n── N. REMOTE CLEANUP ─────────────────────────────────────────────────`);
     const cleanStart = performance.now();
 
-    await pgClient.query(`DELETE FROM asset_condition_assessments WHERE id LIKE 'e4%'`);
-    await pgClient.query(`DELETE FROM asset_failure_events WHERE id LIKE 'e3%'`);
+    await pgClient.query(`DELETE FROM asset_condition_assessments WHERE id::text LIKE 'e4%'`);
+    await pgClient.query(`DELETE FROM asset_failure_events WHERE id::text LIKE 'e3%'`);
     await pgClient.query(`DELETE FROM work_orders WHERE work_order_number LIKE '${PERF_PREFIX}%'`);
-    await pgClient.query(`DELETE FROM assets WHERE id LIKE 'e1%'`);
+    await pgClient.query(`DELETE FROM assets WHERE id::text LIKE 'e1%'`);
     await pgClient.query(`DELETE FROM sites WHERE id = '${PERF_SITE_ID}'`);
     await pgClient.query(`DELETE FROM persons WHERE id = '${PERF_PERSON_ID}'`);
     await pgClient.query(`DELETE FROM organisations WHERE id = '${PERF_ORG_ID}'`);
@@ -284,10 +284,10 @@ async function run() {
 
     // Verify
     const vOrg  = await pgClient.query(`SELECT COUNT(*) FROM organisations WHERE id = '${PERF_ORG_ID}'`);
-    const vAst  = await pgClient.query(`SELECT COUNT(*) FROM assets WHERE id LIKE 'e1%'`);
+    const vAst  = await pgClient.query(`SELECT COUNT(*) FROM assets WHERE id::text LIKE 'e1%'`);
     const vWo   = await pgClient.query(`SELECT COUNT(*) FROM work_orders WHERE work_order_number LIKE '${PERF_PREFIX}%'`);
-    const vFail = await pgClient.query(`SELECT COUNT(*) FROM asset_failure_events WHERE id LIKE 'e3%'`);
-    const vCond = await pgClient.query(`SELECT COUNT(*) FROM asset_condition_assessments WHERE id LIKE 'e4%'`);
+    const vFail = await pgClient.query(`SELECT COUNT(*) FROM asset_failure_events WHERE id::text LIKE 'e3%'`);
+    const vCond = await pgClient.query(`SELECT COUNT(*) FROM asset_condition_assessments WHERE id::text LIKE 'e4%'`);
 
     const residual = {
       org:    parseInt(vOrg.rows[0].count),

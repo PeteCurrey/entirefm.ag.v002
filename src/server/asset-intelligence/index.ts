@@ -777,26 +777,32 @@ export async function getHighCostAssets(
   if (!assets || assets.length === 0) return [];
 
   const ranked: RankedAsset[] = [];
-  let rank = 1;
 
-  for (const asset of assets) {
-    const ledger = await getAssetCostLedger(asset.id, periodDays);
-    const cost = ledger.periods[0]?.total_directly_attributed_gbp ?? 0;
-    if (cost > 0) {
-      ranked.push({
-        asset_id: asset.id,
-        asset_reference: asset.asset_reference,
-        asset_name: asset.name,
-        category: asset.category,
-        site_name: asset.site?.name || 'Unknown',
-        site_code: asset.site?.site_code || '',
-        rank,
-        metric_value: cost,
-        metric_label: `£${cost.toFixed(0)} attributable cost`,
-        condition: asset.condition as any,
-        criticality: asset.criticality as any,
-        period_label: periodLabel,
-      });
+  // Fetch cost ledgers in parallel chunks of 25 to avoid sequential bottleneck
+  const chunkSize = 25;
+  for (let i = 0; i < assets.length; i += chunkSize) {
+    const chunk = assets.slice(i, i + chunkSize);
+    const ledgers = await Promise.all(chunk.map((a) => getAssetCostLedger(a.id, periodDays)));
+    for (let j = 0; j < chunk.length; j++) {
+      const asset = chunk[j];
+      const ledger = ledgers[j];
+      const cost = ledger.periods[0]?.total_directly_attributed_gbp ?? 0;
+      if (cost > 0) {
+        ranked.push({
+          asset_id: asset.id,
+          asset_reference: asset.asset_reference,
+          asset_name: asset.name,
+          category: asset.category,
+          site_name: asset.site?.name || 'Unknown',
+          site_code: asset.site?.site_code || '',
+          rank: 0,
+          metric_value: cost,
+          metric_label: `£${cost.toFixed(0)} attributable cost`,
+          condition: asset.condition as any,
+          criticality: asset.criticality as any,
+          period_label: periodLabel,
+        });
+      }
     }
   }
 
