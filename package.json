@@ -61,7 +61,11 @@
     "verify:sitemap": "node scripts/verify-sitemap.js",
     "seo:geo-audit": "node scripts/generate-geo-strengthening-audit.js",
     "phase09r2:qa": "node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit",
-    "phase09r3:qa": "node scripts/test-encoded-routes.js && node scripts/validate-manifest-registry.js && node scripts/validate-redirects.js && node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit"
+    "phase09r3:qa": "node scripts/test-encoded-routes.js && node scripts/validate-manifest-registry.js && node scripts/validate-redirects.js && node scripts/verify-contacts.js && node scripts/verify-lead-pipeline.js && node scripts/rendered-audit.js && npm run validate:routes && npm run migration:audit",
+    "test:telemetry": "tsx --env-file=.env.local scripts/test-telemetry.ts",
+    "test:reliability-intelligence": "tsx --env-file=.env.local scripts/test-reliability-intelligence.ts",
+    "test:predictive-foundation": "tsx --env-file=.env.local scripts/test-predictive-foundation.ts",
+    "test:phase0l-seal": "tsx --env-file=.env.local scripts/test-phase0l-seal.ts"
   },
   "dependencies": {
     "lucide-react": "^1.33.0",
@@ -69,6 +73,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sharp": "^0.35.3",
+    "stripe": "^22.5.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

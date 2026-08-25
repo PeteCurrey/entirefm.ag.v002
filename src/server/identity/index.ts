@@ -154,7 +154,16 @@ export type PermissionCode =
   | 'asset_condition:assess'
   | 'asset_lifecycle:manage'
   | 'asset_replacement:view'
-  | 'asset_replacement:manage';
+  | 'asset_replacement:manage'
+  // Telemetry, Reliability & Predictive Foundation (Phase 0L)
+  | 'telemetry:view'
+  | 'telemetry:ingest'
+  | 'telemetry:admin'
+  | 'reliability:view'
+  | 'reliability:manage'
+  | 'predictive:view'
+  | 'predictive:manage'
+  | 'predictive:approve';
 
 export interface Person {
   id: string;
@@ -258,6 +267,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
     'enterprise_intelligence:view', 'enterprise_intelligence:executive', 'enterprise_intelligence:brief_generate', 'enterprise_intelligence:history_view',
     'asset_intelligence:view', 'asset_intelligence:manage', 'asset_condition:assess', 'asset_lifecycle:manage', 'asset_replacement:view', 'asset_replacement:manage',
+    'telemetry:view', 'telemetry:ingest', 'telemetry:admin', 'reliability:view', 'reliability:manage', 'predictive:view', 'predictive:manage', 'predictive:approve',
   ],
   CEO: [
     'command:access', 'command:ceo', 'operations:read', 'operations:write', 'operations:dispatch',
@@ -270,6 +280,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
     'enterprise_intelligence:view', 'enterprise_intelligence:executive', 'enterprise_intelligence:brief_generate', 'enterprise_intelligence:history_view',
     'asset_intelligence:view', 'asset_intelligence:manage', 'asset_condition:assess', 'asset_lifecycle:manage', 'asset_replacement:view', 'asset_replacement:manage',
+    'telemetry:view', 'telemetry:admin', 'reliability:view', 'reliability:manage', 'predictive:view', 'predictive:manage', 'predictive:approve',
   ],
   DIRECTOR: [
     'command:access', 'operations:read', 'operations:write', 'estate:read', 'ppm:manage',
@@ -279,6 +290,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'audit:read',
     'enterprise_intelligence:view', 'enterprise_intelligence:executive', 'enterprise_intelligence:brief_generate', 'enterprise_intelligence:history_view',
     'asset_intelligence:view', 'asset_intelligence:manage', 'asset_condition:assess', 'asset_lifecycle:manage', 'asset_replacement:view', 'asset_replacement:manage',
+    'telemetry:view', 'reliability:view', 'predictive:view', 'predictive:manage', 'predictive:approve',
   ],
   OPERATIONS_MANAGER: [
     'command:access', 'operations:read', 'operations:write', 'operations:dispatch',
@@ -288,6 +300,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'supply_chain:write', 'commercial:read', 'comms:access', 'reporting:view', 'growth:access', 'audit:read',
     'data_import:view',
     'asset_intelligence:view', 'asset_condition:assess', 'asset_lifecycle:manage', 'asset_replacement:view', 'asset_replacement:manage',
+    'telemetry:view', 'reliability:view', 'reliability:manage', 'predictive:view',
   ],
   OPERATIONS_USER: [
     'command:access', 'operations:read', 'operations:write', 'operations:dispatch',
@@ -382,11 +395,13 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
     'enterprise_intelligence:view', 'enterprise_intelligence:history_view',
     'asset_intelligence:view', 'asset_intelligence:manage', 'asset_condition:assess', 'asset_lifecycle:manage', 'asset_replacement:view', 'asset_replacement:manage',
+    'telemetry:view', 'telemetry:ingest', 'telemetry:admin', 'reliability:view', 'reliability:manage', 'predictive:view', 'predictive:manage', 'predictive:approve',
   ],
   READ_ONLY: [
     'command:access', 'operations:read', 'estate:read', 'compliance:read', 'compliance:view',
     'supply_chain:read', 'commercial:read', 'reporting:view', 'audit:read',
     'asset_intelligence:view', 'asset_replacement:view',
+    'telemetry:view', 'reliability:view', 'predictive:view',
   ],
   // Client Roles
   CLIENT_ADMIN: [

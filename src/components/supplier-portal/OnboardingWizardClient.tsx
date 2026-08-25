@@ -48,6 +48,8 @@ export function OnboardingWizardClient() {
   const [lastSaved, setLastSaved] = useState<string>('Just now');
   const [submitted, setSubmitted] = useState(false);
   const [appRef, setAppRef] = useState('SUP-260825-9921');
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -129,7 +131,37 @@ export function OnboardingWizardClient() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setPaymentError(null);
+
+    if (formData.paymentMethod === 'CARD') {
+      setIsProcessingPayment(true);
+      try {
+        const res = await fetch('/api/supplier/application/payment/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ supplierId: 'sup-test-01' }),
+        });
+
+        const data = await res.json();
+        if (data.checkoutUrl) {
+          window.location.href = data.checkoutUrl;
+          return;
+        } else if (data.alreadyPaid) {
+          setSubmitted(true);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        } else {
+          setPaymentError(data.error || 'Failed to initialize Stripe Checkout session');
+          setIsProcessingPayment(false);
+        }
+      } catch (err: any) {
+        setPaymentError(err.message || 'Payment network error. Please try again.');
+        setIsProcessingPayment(false);
+      }
+      return;
+    }
+
     setSubmitted(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -785,6 +817,13 @@ export function OnboardingWizardClient() {
                     </label>
                   </div>
                 </div>
+
+                {paymentError && (
+                  <div className="p-3 bg-rose-50 border border-rose-200 rounded text-rose-800 text-xs flex items-center gap-2">
+                    <AlertCircle className="h-4 w-4 shrink-0 text-rose-600" />
+                    <span>{paymentError}</span>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -793,7 +832,7 @@ export function OnboardingWizardClient() {
           <div className="flex items-center justify-between pt-6 border-t border-slate-200">
             <button
               onClick={handlePrev}
-              disabled={currentStep === 1}
+              disabled={currentStep === 1 || isProcessingPayment}
               className="btn-secondary text-xs py-2 px-4 flex items-center gap-1.5 disabled:opacity-30 disabled:pointer-events-none"
             >
               <ArrowLeft className="h-3.5 w-3.5" /> Back
@@ -804,13 +843,32 @@ export function OnboardingWizardClient() {
                 Continue to Step {currentStep + 1} <ArrowRight className="h-3.5 w-3.5" />
               </button>
             ) : (
-              <button onClick={handleSubmit} className="btn-primary text-xs py-2 px-6 bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center gap-1.5">
-                {formData.paymentMethod === 'CARD'
-                  ? 'Pay Assurance Review Fee & Submit (£420.00)'
-                  : formData.paymentMethod === 'INVOICE'
-                  ? 'Issue Invoice & Submit Application'
-                  : 'Submit with Authorised Waiver'}
-                <CheckCircle2 className="h-3.5 w-3.5" />
+              <button
+                onClick={handleSubmit}
+                disabled={isProcessingPayment}
+                className="btn-primary text-xs py-2.5 px-6 bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center gap-1.5 disabled:opacity-50"
+              >
+                {isProcessingPayment ? (
+                  <>
+                    <div className="h-3.5 w-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span>Redirecting to Stripe...</span>
+                  </>
+                ) : formData.paymentMethod === 'CARD' ? (
+                  <>
+                    <span>Pay Assurance Review Fee &amp; Submit (£420.00)</span>
+                    <CheckCircle2 className="h-3.5 w-3.5" />
+                  </>
+                ) : formData.paymentMethod === 'INVOICE' ? (
+                  <>
+                    <span>Issue Invoice &amp; Submit Application</span>
+                    <CheckCircle2 className="h-3.5 w-3.5" />
+                  </>
+                ) : (
+                  <>
+                    <span>Submit with Authorised Waiver</span>
+                    <CheckCircle2 className="h-3.5 w-3.5" />
+                  </>
+                )}
               </button>
             )}
           </div>
