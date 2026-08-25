@@ -404,3 +404,119 @@ export const SUPPLIER_FAQS: SupplierFaqItem[] = [
     answer: 'Meet the Buyer events allow suppliers to understand EntireFM’s upcoming procurement themes, client property challenges, and standards in a transparent forum. Attendance does not constitute an automatic contract award.',
   }
 ];
+
+export interface CanonicalAccreditationScheme {
+  name: string;
+  category: 'SSIP' | 'ISO' | 'TRADE' | 'SPECIALIST';
+  requiresIdentifier: boolean;
+  identifierLabel: string;
+  placeholder: string;
+}
+
+export const CANONICAL_ACCREDITATIONS: CanonicalAccreditationScheme[] = [
+  {
+    name: 'SafeContractor (SSIP)',
+    category: 'SSIP',
+    requiresIdentifier: true,
+    identifierLabel: 'SafeContractor Membership / Supplier Number',
+    placeholder: 'e.g. SC-009882',
+  },
+  {
+    name: 'CHAS Accredited',
+    category: 'SSIP',
+    requiresIdentifier: true,
+    identifierLabel: 'CHAS Membership / Supplier Number',
+    placeholder: 'e.g. CHAS-889921',
+  },
+  {
+    name: 'Constructionline (Gold / Silver)',
+    category: 'SSIP',
+    requiresIdentifier: true,
+    identifierLabel: 'Constructionline Membership Number',
+    placeholder: 'e.g. CL-104928',
+  },
+  {
+    name: 'SMAS Worksafe',
+    category: 'SSIP',
+    requiresIdentifier: true,
+    identifierLabel: 'SMAS Certificate / Membership Number',
+    placeholder: 'e.g. SMAS-55421',
+  },
+  {
+    name: 'Altius Assured',
+    category: 'SSIP',
+    requiresIdentifier: true,
+    identifierLabel: 'Altius Supplier Number',
+    placeholder: 'e.g. ALT-99214',
+  },
+  {
+    name: 'ISO 9001 Quality Management',
+    category: 'ISO',
+    requiresIdentifier: true,
+    identifierLabel: 'ISO 9001 Certificate Number',
+    placeholder: 'e.g. CERT-9001-2024',
+  },
+  {
+    name: 'ISO 14001 Environmental',
+    category: 'ISO',
+    requiresIdentifier: true,
+    identifierLabel: 'ISO 14001 Certificate Number',
+    placeholder: 'e.g. CERT-14001-2024',
+  },
+  {
+    name: 'ISO 45001 Health & Safety',
+    category: 'ISO',
+    requiresIdentifier: true,
+    identifierLabel: 'ISO 45001 Certificate Number',
+    placeholder: 'e.g. CERT-45001-2024',
+  },
+  {
+    name: 'Gas Safe Register',
+    category: 'TRADE',
+    requiresIdentifier: true,
+    identifierLabel: 'Gas Safe Registration Number',
+    placeholder: 'e.g. 654321',
+  },
+  {
+    name: 'NICEIC Approved Contractor',
+    category: 'TRADE',
+    requiresIdentifier: true,
+    identifierLabel: 'NICEIC Registration Number',
+    placeholder: 'e.g. 045678',
+  },
+  {
+    name: 'REFCOM / F-Gas Company Certified',
+    category: 'TRADE',
+    requiresIdentifier: true,
+    identifierLabel: 'REFCOM / F-Gas Company Number',
+    placeholder: 'e.g. REF101234',
+  },
+  {
+    name: 'IRATA Member Company',
+    category: 'SPECIALIST',
+    requiresIdentifier: true,
+    identifierLabel: 'IRATA Membership Number',
+    placeholder: 'e.g. IRATA-7788',
+  },
+  {
+    name: 'BAFE Registered',
+    category: 'TRADE',
+    requiresIdentifier: true,
+    identifierLabel: 'BAFE Registration Number',
+    placeholder: 'e.g. SP203-10023',
+  },
+  {
+    name: 'SIA Approved Contractor Scheme',
+    category: 'SPECIALIST',
+    requiresIdentifier: true,
+    identifierLabel: 'SIA ACS Registration Number',
+    placeholder: 'e.g. SIA-ACS-4491',
+  },
+  {
+    name: 'BICSc Corporate Member',
+    category: 'TRADE',
+    requiresIdentifier: true,
+    identifierLabel: 'BICSc Membership Number',
+    placeholder: 'e.g. BICSC-99882',
+  },
+];

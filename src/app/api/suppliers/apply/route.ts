@@ -21,6 +21,7 @@ const SupplierApplicationSchema = z.object({
   employersLiabilityCover: z.string().optional().default(''),
   professionalIndemnityCover: z.string().optional().default(''),
   ssipAccreditations: z.array(z.string()).optional().default([]),
+  accreditationNumbers: z.record(z.string(), z.string()).optional().default({}),
   tradeCertifications: z.string().optional().default(''),
   additionalNotes: z.string().optional().default(''),
   complianceDeclaration: z.boolean().refine((v) => v === true, 'You must confirm compliance standards declaration'),
@@ -42,6 +43,12 @@ export async function POST(request: Request) {
     const data = parsed.data;
     const applicationId = `SUP-${Date.now()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 
+    // Format structured accreditations
+    const formattedAccreditations = data.ssipAccreditations.map((a) => {
+      const num = data.accreditationNumbers[a];
+      return num ? `${a} (Scheme #: ${num})` : a;
+    });
+
     // Structure summary message for admin review
     const message = [
       `[SUPPLIER APPLICATION — PHASE 1 QUALIFICATION]`,
@@ -60,8 +67,8 @@ export async function POST(request: Request) {
       `Public Liability: ${data.publicLiabilityCover}`,
       data.employersLiabilityCover ? `Employers Liability: ${data.employersLiabilityCover}` : null,
       data.professionalIndemnityCover ? `Professional Indemnity: ${data.professionalIndemnityCover}` : null,
-      data.ssipAccreditations.length > 0 ? `Accreditations: ${data.ssipAccreditations.join(', ')}` : null,
-      data.tradeCertifications ? `Certifications / Schemes: ${data.tradeCertifications}` : null,
+      formattedAccreditations.length > 0 ? `Accreditations & Scheme Numbers:\n  • ${formattedAccreditations.join('\n  • ')}` : null,
+      data.tradeCertifications ? `Legacy Trade Certifications: ${data.tradeCertifications}` : null,
       data.additionalNotes ? `\nApplicant Statement / Notes:\n${data.additionalNotes}` : null,
     ]
       .filter(Boolean)

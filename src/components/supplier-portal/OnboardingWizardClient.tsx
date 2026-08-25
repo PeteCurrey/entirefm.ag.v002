@@ -23,6 +23,7 @@ import {
   AlertCircle,
   Upload,
 } from 'lucide-react';
+import { CANONICAL_ACCREDITATIONS } from '@/config/supplier-data';
 
 const STEPS = [
   { num: 1, key: 'company', title: 'Company Profile', icon: Building2 },
@@ -82,9 +83,16 @@ export function OnboardingWizardClient() {
     plCoverLimit: '£10,000,000',
     plExpiryDate: '2027-04-30',
 
-    gasSafeNumber: 'GS-554921',
+    selectedAccreditations: ['Gas Safe Register', 'REFCOM / F-Gas Company Certified', 'SafeContractor (SSIP)'],
+    accreditationNumbers: {
+      'Gas Safe Register': '654321',
+      'REFCOM / F-Gas Company Certified': 'REF101234',
+      'SafeContractor (SSIP)': 'SC-009882',
+    } as Record<string, string>,
+
+    gasSafeNumber: '654321',
     gasSafeExpiry: '2026-06-01',
-    fGasNumber: 'REF-100921',
+    fGasNumber: 'REF101234',
     fGasExpiry: '2028-01-01',
 
     hasHsPolicy: true,
@@ -521,6 +529,89 @@ export function OnboardingWizardClient() {
             </div>
           )}
 
+          {currentStep === 8 && (
+            <div className="space-y-4 text-xs font-sans">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="font-bold text-slate-900 block">SSIP &amp; Industry Accreditations</span>
+                  <p className="text-slate-500 font-light text-[11.5px]">
+                    Select each active accreditation held by your organisation and provide the scheme registration or certificate number.
+                  </p>
+                </div>
+                <span className="text-[11px] font-mono text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
+                  {formData.selectedAccreditations.length} Selected
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
+                {CANONICAL_ACCREDITATIONS.map((accred) => {
+                  const isChecked = formData.selectedAccreditations.includes(accred.name);
+                  return (
+                    <div
+                      key={accred.name}
+                      onClick={() => {
+                        const updated = isChecked
+                          ? formData.selectedAccreditations.filter((x) => x !== accred.name)
+                          : [...formData.selectedAccreditations, accred.name];
+                        setFormData({ ...formData, selectedAccreditations: updated });
+                        handleSave();
+                      }}
+                      className={`p-3.5 rounded border cursor-pointer transition-all flex flex-col justify-between ${
+                        isChecked
+                          ? 'bg-emerald-50/60 border-emerald-300 shadow-xs'
+                          : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => {}} // Handled by card click
+                          className="h-4 w-4 rounded text-emerald-600 focus:ring-emerald-500 shrink-0"
+                        />
+                        <div>
+                          <span className={`text-[12px] block ${isChecked ? 'font-bold text-slate-900' : 'text-slate-700'}`}>
+                            {accred.name}
+                          </span>
+                          <span className="text-[10px] font-mono text-slate-400 uppercase">
+                            {accred.category}
+                          </span>
+                        </div>
+                      </div>
+
+                      {isChecked && accred.requiresIdentifier && (
+                        <div
+                          className="mt-3 pt-3 border-t border-emerald-200/80 w-full space-y-1.5"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <label className="block text-[10.5px] font-mono font-bold text-slate-800">
+                            {accred.identifierLabel} *
+                          </label>
+                          <input
+                            type="text"
+                            value={formData.accreditationNumbers[accred.name] || ''}
+                            onChange={(e) => {
+                              setFormData({
+                                ...formData,
+                                accreditationNumbers: {
+                                  ...formData.accreditationNumbers,
+                                  [accred.name]: e.target.value,
+                                },
+                              });
+                            }}
+                            onBlur={handleSave}
+                            placeholder={accred.placeholder}
+                            className="w-full p-2 bg-white border border-emerald-300 rounded text-xs text-slate-900 font-mono focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {currentStep === 14 && (
             <div className="space-y-4 text-xs font-sans">
               <span className="font-bold text-slate-900 block">Declarations &amp; Code of Conduct</span>
@@ -582,6 +673,24 @@ export function OnboardingWizardClient() {
                   <div>
                     <span className="font-bold text-slate-900 block">Public Liability Insurance</span>
                     <span className="text-slate-500 text-[11px]">{formData.plCoverLimit} (Exp: {formData.plExpiryDate})</span>
+                  </div>
+                  <span className="text-emerald-700 font-bold font-mono text-[10.5px]">COMPLETE</span>
+                </div>
+                <div className="p-3.5 flex items-start justify-between">
+                  <div>
+                    <span className="font-bold text-slate-900 block">Accreditations &amp; Trade Schemes</span>
+                    <div className="text-slate-600 text-[11px] mt-1 space-y-0.5">
+                      {formData.selectedAccreditations.map((acc) => (
+                        <div key={acc} className="flex items-center gap-1.5">
+                          <span className="font-medium text-slate-900">{acc}</span>
+                          {formData.accreditationNumbers[acc] && (
+                            <span className="font-mono text-slate-500 text-[10.5px]">
+                              (Ref: {formData.accreditationNumbers[acc]})
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   <span className="text-emerald-700 font-bold font-mono text-[10.5px]">COMPLETE</span>
                 </div>

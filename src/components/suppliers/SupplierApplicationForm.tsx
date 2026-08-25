@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { CheckCircle2, AlertCircle, ShieldCheck, ArrowRight, Upload, Building2, Wrench } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics/tracker';
+import { CANONICAL_ACCREDITATIONS } from '@/config/supplier-data';
 
 const TRADE_CATEGORIES = [
   'Electrical & Fixed Wire (NICEIC / ECA)',
@@ -28,24 +29,6 @@ const TRADE_CATEGORIES = [
   'IoT, Telemetry & Sensor Deployment',
   'Drone Aerial Inspection & Thermography',
   'Specialist Equipment Manufacturer (OEM)',
-];
-
-const ACCREDITATION_LIST = [
-  'SafeContractor (SSIP)',
-  'CHAS Accredited',
-  'Constructionline (Gold / Silver)',
-  'SMAS Worksafe',
-  'Altius Assured',
-  'ISO 9001 Quality Management',
-  'ISO 14001 Environmental',
-  'ISO 45001 Health & Safety',
-  'Gas Safe Register',
-  'NICEIC Approved Contractor',
-  'REFCOM / F-Gas Company Certified',
-  'IRATA Member Company',
-  'BAFE Registered',
-  'SIA Approved Contractor Scheme',
-  'BICSc Corporate Member',
 ];
 
 export function SupplierApplicationForm() {
@@ -73,6 +56,7 @@ export function SupplierApplicationForm() {
     employersLiabilityCover: '£10M Employers Liability',
     professionalIndemnityCover: 'None / Not Applicable',
     ssipAccreditations: [] as string[],
+    accreditationNumbers: {} as Record<string, string>,
     tradeCertifications: '',
     additionalNotes: '',
     complianceDeclaration: false,
@@ -88,12 +72,12 @@ export function SupplierApplicationForm() {
     }));
   };
 
-  const toggleAccreditation = (accred: string) => {
+  const toggleAccreditation = (accredName: string) => {
     setForm((prev) => ({
       ...prev,
-      ssipAccreditations: prev.ssipAccreditations.includes(accred)
-        ? prev.ssipAccreditations.filter((a) => a !== accred)
-        : [...prev.ssipAccreditations, accred],
+      ssipAccreditations: prev.ssipAccreditations.includes(accredName)
+        ? prev.ssipAccreditations.filter((a) => a !== accredName)
+        : [...prev.ssipAccreditations, accredName],
     }));
   };
 
@@ -114,10 +98,17 @@ export function SupplierApplicationForm() {
     });
 
     try {
+      const tradeCertifications = form.ssipAccreditations
+        .map((a) => (form.accreditationNumbers[a] ? `${a}: ${form.accreditationNumbers[a]}` : a))
+        .join('; ');
+
       const res = await fetch('/api/suppliers/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          tradeCertifications,
+        }),
       });
 
       const data = await res.json();
@@ -493,41 +484,57 @@ export function SupplierApplicationForm() {
                 SSIP &amp; Industry Accreditations Held
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-                {ACCREDITATION_LIST.map((accred) => {
-                  const isChecked = form.ssipAccreditations.includes(accred);
+                {CANONICAL_ACCREDITATIONS.map((accred) => {
+                  const isChecked = form.ssipAccreditations.includes(accred.name);
                   return (
-                    <label
-                      key={accred}
-                      className={`flex items-center gap-2.5 p-3 rounded-sm border cursor-pointer transition-all ${
+                    <div
+                      key={accred.name}
+                      onClick={() => toggleAccreditation(accred.name)}
+                      className={`p-3 rounded-sm border cursor-pointer transition-all flex flex-col justify-between ${
                         isChecked
-                          ? 'bg-slate-900 text-white border-slate-900'
+                          ? 'bg-slate-900 text-white border-slate-900 shadow-xs'
                           : 'bg-white border-slate-300 text-slate-700 hover:border-slate-400'
                       }`}
                     >
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => toggleAccreditation(accred)}
-                        className="h-3.5 w-3.5 rounded border-slate-300 text-brand-pink focus:ring-brand-pink"
-                      />
-                      <span className="text-[11.5px] font-normal leading-snug">{accred}</span>
-                    </label>
+                      <div className="flex items-center gap-2.5">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => {}} // Click handled by card container
+                          className="h-3.5 w-3.5 rounded border-slate-300 text-brand-pink focus:ring-brand-pink shrink-0"
+                        />
+                        <span className="text-[11.5px] font-normal leading-snug">{accred.name}</span>
+                      </div>
+
+                      {isChecked && accred.requiresIdentifier && (
+                        <div
+                          className="mt-2.5 pt-2.5 border-t border-slate-700/60 w-full"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <label className="block text-[10px] font-mono text-slate-300 mb-1">
+                            {accred.identifierLabel} *
+                          </label>
+                          <input
+                            type="text"
+                            value={form.accreditationNumbers[accred.name] || ''}
+                            onChange={(e) =>
+                              setForm((prev) => ({
+                                ...prev,
+                                accreditationNumbers: {
+                                  ...prev.accreditationNumbers,
+                                  [accred.name]: e.target.value,
+                                },
+                              }))
+                            }
+                            placeholder={accred.placeholder}
+                            className="w-full px-2.5 py-1.5 bg-slate-800 border border-slate-700 rounded text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-brand-pink"
+                          />
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
               </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-normal uppercase tracking-wider text-slate-700 mb-1.5">
-                Specific Trade Scheme Numbers (Gas Safe, NICEIC, REFCOM, IRATA, BAFE etc.)
-              </label>
-              <input
-                type="text"
-                value={form.tradeCertifications}
-                onChange={(e) => setForm({ ...form, tradeCertifications: e.target.value })}
-                placeholder="e.g. Gas Safe: 654321 / NICEIC: 045678 / REFCOM: REF101234"
-                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-sm text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-brand-pink"
-              />
             </div>
           </div>
 

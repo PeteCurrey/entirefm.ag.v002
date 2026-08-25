@@ -48,6 +48,27 @@ export default function SupplierCompanyProfilePage() {
               Specialist commercial building engineering firm providing planned chiller maintenance, commercial gas heating, and 24/7 reactive HVAC callout across the West Midlands.
             </p>
           </div>
+
+          <div className="space-y-2 md:col-span-2 pt-4 border-t border-slate-100">
+            <span className="font-bold text-slate-400 text-[10px] uppercase font-mono block">Active Scheme Accreditations &amp; Registrations</span>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded">
+                <span className="font-bold text-slate-900 block text-xs">Gas Safe Register</span>
+                <span className="text-[11px] font-mono text-emerald-700 font-bold block mt-0.5">Reg: 654321</span>
+                <span className="text-[10px] text-slate-500 block">Valid until 01 JUN 2026</span>
+              </div>
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded">
+                <span className="font-bold text-slate-900 block text-xs">REFCOM / F-Gas Certified</span>
+                <span className="text-[11px] font-mono text-emerald-700 font-bold block mt-0.5">Co #: REF101234</span>
+                <span className="text-[10px] text-slate-500 block">Valid until 01 JAN 2028</span>
+              </div>
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded">
+                <span className="font-bold text-slate-900 block text-xs">SafeContractor (SSIP)</span>
+                <span className="text-[11px] font-mono text-emerald-700 font-bold block mt-0.5">Supplier #: SC-009882</span>
+                <span className="text-[10px] text-slate-500 block">Valid until 30 APR 2027</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
