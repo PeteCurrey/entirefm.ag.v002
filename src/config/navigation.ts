@@ -53,6 +53,9 @@ export const PRIMARY_NAV: NavSection[] = [
           { label: 'Plumbing & Gas', href: '/plumbing-gas', detail: 'Commercial plumbing, drainage and gas safety' },
           { label: 'Fire & Emergency Systems', href: '/fire-emergency-systems', detail: 'Detection, alarms and emergency lighting' },
           { label: 'Building Maintenance', href: '/building-maintenance', detail: 'Fabric, roofing and structural repair' },
+          { label: 'Electrical Testing & Compliance', href: '/compliance/fixed-wire-testing-eicr', detail: 'EICR, PAT, emergency lighting & fixed-wire testing' },
+          { label: 'Water Hygiene & Legionella', href: '/compliance/legionella-water-hygiene', detail: 'Risk assessments, monitoring, sampling & compliance' },
+          { label: 'BMS & Building Controls', href: '/mechanical-electrical', detail: 'Controls, optimisation, monitoring & energy performance' },
         ],
       },
       {
@@ -64,6 +67,9 @@ export const PRIMARY_NAV: NavSection[] = [
           { label: 'Security Services', href: '/security-services', detail: 'Guarding, CCTV and access control' },
           { label: 'Grounds Maintenance', href: '/grounds-maintenance', detail: 'External estates and landscaping' },
           { label: 'Crane Hire & Lifting', href: '/mobile-crane-hire', detail: 'Contract lifts and plant replacement' },
+          { label: 'Waste Management', href: '/soft-services', detail: 'Commercial waste, recycling & environmental compliance' },
+          { label: 'Pest Control', href: '/soft-services', detail: 'Prevention, monitoring & responsive pest management' },
+          { label: 'Washroom & Hygiene', href: '/washroom-management', detail: 'Washroom services, consumables & hygiene management' },
         ],
       },
       {
@@ -77,7 +83,6 @@ export const PRIMARY_NAV: NavSection[] = [
           { label: 'Surveying & Mapping', href: '/services/drone-services/surveying-mapping', detail: 'Orthomosaics, photogrammetry & terrain models' },
           { label: 'Construction Monitoring', href: '/services/drone-services/construction-monitoring', detail: 'Repeat milestone capture & project records' },
           { label: 'Digital Twin & 3D Capture', href: '/services/drone-services/digital-twin-3d-capture', detail: 'Reality mesh models & asset visualisation' },
-          { label: 'Emergency & Insurance Surveys', href: '/services/drone-services/emergency-insurance-surveys', detail: 'Rapid storm damage & incident evidence' },
           { label: 'View All Drone Services →', href: '/services/drone-services', detail: 'Complete aerial inspection & asset intelligence suite' },
         ],
       },

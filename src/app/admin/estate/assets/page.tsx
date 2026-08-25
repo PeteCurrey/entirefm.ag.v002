@@ -15,9 +15,17 @@ export default async function AssetsPage() {
         title="Asset Registry"
         description="Canonical asset database tracking mechanical, electrical, and statutory systems with QR/NFC identifiers."
         action={
-          <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow hover:bg-brand-indigo">
-            + Register Asset
-          </button>
+          <div className="flex items-center gap-3">
+            <a
+              href="/admin/estate/assets/intelligence"
+              className="rounded border border-brand-edge-dark bg-brand-carbon/60 px-3.5 py-1.5 text-[12.5px] font-medium text-brand-mist/80 hover:bg-brand-carbon hover:text-white"
+            >
+              Asset Intelligence & Lifecycle
+            </a>
+            <button className="rounded bg-brand-electric px-3.5 py-1.5 text-[12.5px] font-medium text-white shadow hover:bg-brand-indigo">
+              + Register Asset
+            </button>
+          </div>
         }
       />
 

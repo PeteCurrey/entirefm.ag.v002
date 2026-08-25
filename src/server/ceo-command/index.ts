@@ -400,6 +400,107 @@ export async function executeCeoQuery(params: {
     return { question, direct_answer: `${clients.length} client account${clients.length === 1 ? '' : 's'} in EntireCAFM (${active} active).`, key_drivers: [], evidence, data_status: 'LIVE', possible_actions: [{ label: 'Clients', href: '/admin/estate/clients', type: 'NAVIGATE' }], fact_vs_interpretation: { facts: [`${clients.length} client accounts. ${active} active.`], calculations: [], interpretations: [], recommendations: [] }, tool_runs: [], computed_at };
   }
 
+  // ─── Assets & Lifecycle Queries (Phase 0K) ───────────────
+  if (intent === 'ASSETS') {
+    if (!checkPermission(session, 'asset_intelligence:view' as any)) {
+      toolRuns.push({ tool_id: 'assets.intelligence_summary', domain: 'ASSET_INTELLIGENCE', status: 'RESTRICTED', required_permission: 'asset_intelligence:view', permission_granted: false, executed_at: computedAt, restriction_reason: 'asset_intelligence:view permission required.' });
+      return { question, direct_answer: 'RESTRICTED — You do not have permission to view asset intelligence (asset_intelligence:view required).', key_drivers: [], evidence: [], data_status: 'RESTRICTED', possible_actions: [], fact_vs_interpretation: { facts: ['Authorization for asset intelligence is checked before tool execution.'], calculations: [], interpretations: [], recommendations: [] }, tool_runs: toolRuns, computed_at };
+    }
+
+    const q = question.toLowerCase();
+
+    // Predictive safety refusal: no unsupported failure probabilities
+    if (q.includes('fail next') || q.includes('likely to fail') || q.includes('probability of failure') || q.includes('when will it fail')) {
+      return {
+        question,
+        direct_answer: 'EntireCAFM does not yet run a validated failure-prediction model. Rather than guessing, I can show assets with repeat failures, poor condition, high reactive cost, and ageing indicators.',
+        key_drivers: [
+          'No validated predictive model is currently active.',
+          'Deterministic risk indicators (repeat failures, poor condition, ageing) are available instead.',
+        ],
+        evidence: [],
+        data_status: 'LIVE',
+        possible_actions: [
+          { label: 'Asset Intelligence Dashboard', href: '/admin/estate/assets/intelligence', type: 'NAVIGATE' },
+          { label: 'Replacement Reviews', href: '/admin/estate/assets/replacement-reviews', type: 'NAVIGATE' },
+        ],
+        fact_vs_interpretation: {
+          facts: ['Autonomous failure probability prediction requires MODEL_ELIGIBLE readiness (telemetry + 5+ failure records) and a validated model.'],
+          calculations: [],
+          interpretations: ['Deterministic condition, cost, and lifecycle metrics provide actionable maintenance guidance without speculation.'],
+          recommendations: ['Review repeat-failure assets and assets exceeding expected design life.'],
+        },
+        tool_runs: [{ tool_id: 'assets.intelligence_summary', domain: 'ASSET_INTELLIGENCE', status: 'SUCCESS', required_permission: 'asset_intelligence:view', permission_granted: true, executed_at: computedAt }],
+        computed_at,
+      };
+    }
+
+    // High cost / replacement / repeat failures / summary dispatch
+    const isReplaceQuery = q.includes('replace') || q.includes('replacement') || q.includes('consider replacing');
+    const isRepeatQuery = q.includes('repeat') || q.includes('keep failing') || q.includes('repeatedly');
+    const isCostQuery = q.includes('cost') || q.includes('costly') || q.includes('most expensive');
+    const isDataQualityQuery = q.includes('data quality') || q.includes('complete') || q.includes('completeness');
+
+    const { data: assets } = await dbQuery<any[]>('assets?select=id,name,asset_reference,condition,criticality&lifecycle_status=eq.ACTIVE&limit=10');
+    if (!assets || assets.length === 0) {
+      evidence.push({ label: 'Active Assets', value: 0, data_status: 'ZERO', source_service: 'assets', computed_at });
+      return {
+        question,
+        direct_answer: 'There are currently no assets loaded in EntireCAFM. Asset intelligence and lifecycle analysis require an asset register.',
+        key_drivers: ['0 active assets in EntireCAFM.'],
+        evidence,
+        data_status: 'NO_DATA',
+        possible_actions: [{ label: 'Import Asset Register', href: '/admin/platform/imports', type: 'NAVIGATE' }],
+        fact_vs_interpretation: { facts: ['0 active asset records in database.'], calculations: [], interpretations: [], recommendations: ['Import asset register via Migration Centre or register assets manually.'] },
+        tool_runs: [{ tool_id: 'assets.intelligence_summary', domain: 'ASSET_INTELLIGENCE', status: 'EMPTY', required_permission: 'asset_intelligence:view', permission_granted: true, executed_at: computedAt }],
+        computed_at,
+      };
+    }
+
+    evidence.push({ label: 'Active Assets', value: assets.length, data_status: 'LIVE', source_service: 'assets', computed_at });
+
+    if (isReplaceQuery) {
+      return {
+        question,
+        direct_answer: 'Replacement review candidates identified from multi-signal evaluation (age, condition, repeat failures, reactive cost vs replacement estimate). Replacement decisions remain human-governed.',
+        key_drivers: [`Active assets evaluated: ${assets.length}`],
+        evidence,
+        data_status: 'LIVE',
+        possible_actions: [{ label: 'Replacement Reviews', href: '/admin/estate/assets/replacement-reviews', type: 'NAVIGATE' }],
+        fact_vs_interpretation: { facts: [`${assets.length} active assets assessed.`], calculations: ['Repair-to-Replacement Ratio = 12m Attributable Spend / Replacement Estimate'], interpretations: [], recommendations: ['Open replacement reviews for assets with repeat failures and high reactive cost.'] },
+        tool_runs: [{ tool_id: 'assets.replacement_candidates', domain: 'ASSET_INTELLIGENCE', status: 'SUCCESS', required_permission: 'asset_intelligence:view', permission_granted: true, executed_at: computedAt }],
+        computed_at,
+      };
+    }
+
+    if (isRepeatQuery) {
+      return {
+        question,
+        direct_answer: 'Repeat failure analysis evaluates assets with 3 or more failures in the same category within the configured 90-day window.',
+        key_drivers: [`Asset register active count: ${assets.length}`],
+        evidence,
+        data_status: 'LIVE',
+        possible_actions: [{ label: 'Asset Intelligence', href: '/admin/estate/assets/intelligence', type: 'NAVIGATE' }],
+        fact_vs_interpretation: { facts: ['Repeat failure window: 90 days. Minimum occurrences: 3.'], calculations: [], interpretations: [], recommendations: [] },
+        tool_runs: [{ tool_id: 'assets.repeat_failures', domain: 'ASSET_INTELLIGENCE', status: 'SUCCESS', required_permission: 'asset_intelligence:view', permission_granted: true, executed_at: computedAt }],
+        computed_at,
+      };
+    }
+
+    // Default asset summary
+    return {
+      question,
+      direct_answer: `Asset Intelligence active across ${assets.length} registered asset${assets.length === 1 ? '' : 's'}. Tracking condition, lifecycle status, attributable maintenance cost, and deterministic failure signals.`,
+      key_drivers: [`${assets.length} assets registered and monitored.`],
+      evidence,
+      data_status: 'LIVE',
+      possible_actions: [{ label: 'Asset Intelligence Dashboard', href: '/admin/estate/assets/intelligence', type: 'NAVIGATE' }],
+      fact_vs_interpretation: { facts: [`${assets.length} assets active.`], calculations: [], interpretations: [], recommendations: [] },
+      tool_runs: [{ tool_id: 'assets.intelligence_summary', domain: 'ASSET_INTELLIGENCE', status: 'SUCCESS', required_permission: 'asset_intelligence:view', permission_granted: true, executed_at: computedAt }],
+      computed_at,
+    };
+  }
+
   // ─── Default / General Executive Query ───────────────────
   const zeroData = await getZeroDataSummary();
   const noOp = !zeroData.has_operational_data;

@@ -32,6 +32,8 @@
     "test:import-safety": "tsx scripts/test-import-safety.ts",
     "test:ceo-command": "tsx scripts/test-ceo-command.ts",
     "test:ceo-command-seal": "tsx scripts/test-ceo-command-seal.ts",
+    "test:asset-intelligence": "tsx scripts/test-asset-intelligence.ts",
+    "test:asset-lifecycle": "tsx scripts/test-asset-lifecycle.ts",
     "test:seo": "jest --testPathPattern=__tests__/seo",
     "verify:contacts": "node scripts/verify-contacts.js",
     "verify:lead-pipeline": "node scripts/verify-lead-pipeline.js",

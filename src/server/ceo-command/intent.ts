@@ -159,7 +159,7 @@ const INTENT_PATTERNS: IntentPattern[] = [
   { category: 'OPERATIONS', keywords: ['work order', 'sla', 'backlog', 'helpdesk', 'service request', 'attendance', 'resolution', 'breach', 'dispatch', 'first time fix', 'recall rate', 'response time', 'completion rate', 'unassigned', 'open work', 'operational exception'] },
   { category: 'SUPPLY_CHAIN', keywords: ['provider', 'contractor', 'supplier performance', 'acceptance', 'decline', 'subcontractor', 'supply chain', 'trade', 'cost variance supplier', 'evidence quality', 'attendance sla', 'provider performance'] },
   { category: 'CLIENTS', keywords: ['client', 'account', 'customer', 'portfolio', 'profitability', 'least profitable', 'most profitable', 'client profitability', 'client account'] },
-  { category: 'ASSETS', keywords: ['asset', 'equipment', 'boiler', 'chiller', 'ahu', 'repeat failure', 'defect', 'callout', 'reactive asset', 'most costly asset', 'costly asset'] },
+  { category: 'ASSETS', keywords: ['asset', 'equipment', 'boiler', 'chiller', 'ahu', 'repeat failure', 'defect', 'callout', 'reactive asset', 'most costly asset', 'costly asset', 'replace', 'replacement', 'lifecycle', 'fail next', 'predictive', 'data quality', 'ageing asset', 'expected life', 'condition'] },
   { category: 'ESTATE', keywords: ['site', 'building', 'floor', 'space', 'estate', 'property', 'managed site', 'facilities'] },
   { category: 'AI_AUTOMATION', keywords: ['ai', 'automation', 'automated', 'workflow', 'dispatch ai', 'ai activity', 'control plane', 'escalation', 'override', 'shadow mode'] },
   { category: 'PLATFORM_HEALTH', keywords: ['integration', 'connector', 'xero', 'quickbooks', 'sage', 'netsuite', 'platform health', 'system health', 'healthy'] },
@@ -172,7 +172,13 @@ export function classifyIntent(question: string): QueryIntentCategory {
   let bestMatch: QueryIntentCategory = 'UNKNOWN';
   let bestScore = 0;
   for (const pattern of INTENT_PATTERNS) {
-    const score = pattern.keywords.filter(k => q.includes(k)).length;
+    let score = 0;
+    for (const keyword of pattern.keywords) {
+      if (q.includes(keyword)) {
+        // Longer matching phrases give higher confidence weighting
+        score += keyword.includes(' ') ? 3 : 1;
+      }
+    }
     if (score > bestScore) {
       bestScore = score;
       bestMatch = pattern.category;

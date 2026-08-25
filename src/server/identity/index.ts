@@ -147,7 +147,14 @@ export type PermissionCode =
   | 'enterprise_intelligence:view'
   | 'enterprise_intelligence:executive'
   | 'enterprise_intelligence:brief_generate'
-  | 'enterprise_intelligence:history_view';
+  | 'enterprise_intelligence:history_view'
+  // Asset Intelligence & Lifecycle (Phase 0K)
+  | 'asset_intelligence:view'
+  | 'asset_intelligence:manage'
+  | 'asset_condition:assess'
+  | 'asset_lifecycle:manage'
+  | 'asset_replacement:view'
+  | 'asset_replacement:manage';
 
 export interface Person {
   id: string;
@@ -250,6 +257,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'platform:users_manage', 'platform:view_as', 'users:view', 'users:manage', 'audit:export',
     'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
     'enterprise_intelligence:view', 'enterprise_intelligence:executive', 'enterprise_intelligence:brief_generate', 'enterprise_intelligence:history_view',
+    'asset_intelligence:view', 'asset_intelligence:manage', 'asset_condition:assess', 'asset_lifecycle:manage', 'asset_replacement:view', 'asset_replacement:manage',
   ],
   CEO: [
     'command:access', 'command:ceo', 'operations:read', 'operations:write', 'operations:dispatch',
@@ -261,6 +269,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'platform:admin', 'audit:read',
     'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
     'enterprise_intelligence:view', 'enterprise_intelligence:executive', 'enterprise_intelligence:brief_generate', 'enterprise_intelligence:history_view',
+    'asset_intelligence:view', 'asset_intelligence:manage', 'asset_condition:assess', 'asset_lifecycle:manage', 'asset_replacement:view', 'asset_replacement:manage',
   ],
   DIRECTOR: [
     'command:access', 'operations:read', 'operations:write', 'estate:read', 'ppm:manage',
@@ -269,6 +278,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'finance:read', 'finance:write', 'finance:approve', 'finance:billing',
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'audit:read',
     'enterprise_intelligence:view', 'enterprise_intelligence:executive', 'enterprise_intelligence:brief_generate', 'enterprise_intelligence:history_view',
+    'asset_intelligence:view', 'asset_intelligence:manage', 'asset_condition:assess', 'asset_lifecycle:manage', 'asset_replacement:view', 'asset_replacement:manage',
   ],
   OPERATIONS_MANAGER: [
     'command:access', 'operations:read', 'operations:write', 'operations:dispatch',
@@ -277,6 +287,7 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'compliance:rule_view', 'compliance:audit_generate', 'supply_chain:read',
     'supply_chain:write', 'commercial:read', 'comms:access', 'reporting:view', 'growth:access', 'audit:read',
     'data_import:view',
+    'asset_intelligence:view', 'asset_condition:assess', 'asset_lifecycle:manage', 'asset_replacement:view', 'asset_replacement:manage',
   ],
   OPERATIONS_USER: [
     'command:access', 'operations:read', 'operations:write', 'operations:dispatch',
@@ -370,29 +381,35 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'comms:access', 'ai:control', 'reporting:view', 'growth:access', 'platform:admin', 'audit:read',
     'data_import:view', 'data_import:create', 'data_import:map', 'data_import:commit', 'data_import:rollback', 'data_import:admin',
     'enterprise_intelligence:view', 'enterprise_intelligence:history_view',
+    'asset_intelligence:view', 'asset_intelligence:manage', 'asset_condition:assess', 'asset_lifecycle:manage', 'asset_replacement:view', 'asset_replacement:manage',
   ],
   READ_ONLY: [
     'command:access', 'operations:read', 'estate:read', 'compliance:read', 'compliance:view',
     'supply_chain:read', 'commercial:read', 'reporting:view', 'audit:read',
+    'asset_intelligence:view', 'asset_replacement:view',
   ],
   // Client Roles
   CLIENT_ADMIN: [
     'estate:read', 'operations:read', 'operations:write', 'commercial:read',
     'compliance:read', 'client:compliance_view', 'client:compliance_documents', 'client:compliance_report', 'client:admin',
+    'asset_intelligence:view', 'asset_replacement:view',
   ],
   CLIENT_FM_MANAGER: [
     'estate:read', 'operations:read', 'operations:write', 'ppm:manage',
     'compliance:read', 'client:compliance_view', 'client:compliance_documents', 'client:compliance_report', 'commercial:read',
+    'asset_intelligence:view', 'asset_replacement:view',
   ],
   CLIENT_SITE_MANAGER: [
     'estate:read', 'operations:read', 'operations:write', 'compliance:read',
     'client:compliance_view', 'client:compliance_documents',
+    'asset_intelligence:view',
   ],
   CLIENT_FINANCE: [
     'estate:read', 'commercial:read', 'finance:read',
   ],
   CLIENT_READ_ONLY: [
     'estate:read', 'operations:read', 'compliance:read', 'client:compliance_view', 'client:compliance_documents',
+    'asset_intelligence:view',
   ],
   CLIENT_USER: [
     'estate:read', 'operations:read', 'operations:write',
@@ -419,10 +436,12 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
   ],
   CONTRACTOR_ENGINEER: [
     'operations:read', 'operations:write', 'contractor:compliance_manage',
+    'asset_condition:assess',
   ],
   // Field Engineer Roles
   ENGINEER: [
     'operations:read', 'operations:write', 'estate:read', 'compliance:read', 'compliance:write',
+    'asset_condition:assess',
   ],
 };
 
