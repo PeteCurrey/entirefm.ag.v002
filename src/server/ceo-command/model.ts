@@ -219,7 +219,7 @@ Rules:
 - Do not add tools outside the list`;
 
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -324,7 +324,7 @@ Provide a direct executive answer. Return ONLY valid JSON:
 }`;
 
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -354,7 +354,7 @@ Provide a direct executive answer. Return ONLY valid JSON:
     const inputTokens: number = data?.usageMetadata?.promptTokenCount ?? 0;
     const outputTokens: number = data?.usageMetadata?.candidatesTokenCount ?? 0;
     const tokensUsed: number = data?.usageMetadata?.totalTokenCount ?? (inputTokens + outputTokens);
-    const MODEL_NAME = 'gemini-1.5-flash';
+    const MODEL_NAME = 'gemini-2.5-flash';
     // Gemini 1.5 Flash pricing (as of 2025): ~$0.075 / 1M input tokens, ~$0.30 / 1M output tokens
     const costUsd = (inputTokens * 0.075 + outputTokens * 0.30) / 1_000_000;
     const costGbp = Math.round(costUsd * 0.79 * 1_000_000) / 1_000_000; // approx GBP

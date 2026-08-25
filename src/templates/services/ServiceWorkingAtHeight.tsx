@@ -669,6 +669,45 @@ export function ServiceWorkingAtHeight({ route, content }: TemplateProps) {
         </section>
 
         {/* ========================================================================= */}
+        {/* 6B. DRONE SCREENING INTEGRATION */}
+        {/* ========================================================================= */}
+        <section className="py-14 bg-white border-b border-slate-200">
+          <div className="container-custom">
+            <div className="p-8 rounded-[16px] bg-[#0B1220] text-white flex flex-col lg:flex-row items-center justify-between gap-8">
+              <div className="space-y-2 max-w-2xl">
+                <div className="inline-flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-pink">
+                    RISK REDUCTION &amp; INITIAL SURVEYS
+                  </span>
+                </div>
+                <h3 className="text-2xl font-bold text-white">
+                  Aerial Drone Surveys Before Physical Access
+                </h3>
+                <p className="text-sm text-slate-300 leading-relaxed">
+                  Reduce work-at-height risk by conducting initial high-level screening with EntireFM Drone Services. We capture ultra-high-resolution aerial imagery to pinpoint exact defect coordinates before deploying rope access technicians or BMU cradles.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-3 shrink-0">
+                <Link
+                  href="/services/drone-services/building-envelope-inspections"
+                  className="inline-flex items-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-5 py-3 text-xs font-semibold text-white shadow-md hover:scale-[1.02] transition-all"
+                >
+                  <span>Façade Drone Surveys</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+                <Link
+                  href="/services/drone-services/roof-inspections"
+                  className="inline-flex items-center gap-2 rounded-sm border border-white/20 bg-white/10 px-5 py-3 text-xs font-medium text-white hover:bg-white/20 transition-all"
+                >
+                  <span>Roof Drone Surveys</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
         {/* 7. TYPICAL ENVIRONMENTS & SECTORS */}
         {/* ========================================================================= */}
         <section className="py-20 bg-white border-b border-slate-200">

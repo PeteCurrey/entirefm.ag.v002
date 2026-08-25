@@ -127,6 +127,20 @@ export function ServicePpm({ route, content }: TemplateProps) {
         'Energy dilapidation surveys and TM44 compliance',
       ],
     },
+    {
+      name: 'Drone Aerial PPM & Thermal Surveys',
+      description: 'Scheduled quarterly drainage sweeps, biannual roof membrane surveys, and annual thermographic scans embedded into SFG20 maintenance regimes.',
+      tag: 'Drone PPM',
+      imageSrc: '/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp',
+      imageAlt: 'EntireFM aerial drone inspection for planned preventative maintenance',
+      keyPoints: [
+        'Quarterly gutter, valley & drain condition tracking',
+        'Biannual high-resolution roof waterproofing reviews',
+        'Annual radiometric FLIR heat loss & solar array scans',
+        'Full longitudinal defect history logged in EntireCAFM',
+      ],
+      href: '/services/drone-services',
+    },
   ];
 
   const assetCategories = [

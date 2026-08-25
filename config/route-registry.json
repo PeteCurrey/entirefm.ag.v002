@@ -6,12 +6,12 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 384,
+    "total": 396,
     "LEGACY_VERIFIED": 201,
     "LEGACY_PROTECTED_BY_DIRECTIVE": 28,
     "CURRENT_LIVE_RETAINED": 5,
-    "NEW_GROWTH": 147,
-    "protected": 384,
+    "NEW_GROWTH": 159,
+    "protected": 396,
     "historic": 229
   },
   "routes": [
@@ -7391,6 +7391,222 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/working-at-heights"
+    },
+    {
+      "path": "/services/drone-services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/drone-inspections",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/roof-inspections",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/building-envelope-inspections",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/thermal-imaging",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/solar-pv-inspections",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/surveying-mapping",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/construction-monitoring",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/emergency-insurance-surveys",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/digital-twin-3d-capture",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/volumetric-surveys",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/aerial-photography-video",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
     }
   ],
   "orphanRecovery": {

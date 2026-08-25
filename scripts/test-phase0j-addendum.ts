@@ -174,27 +174,30 @@ const sessionAIAgent = makeSession({
 // A. PHASE 0I STATUS
 // ──────────────────────────────────────────────────────────────────────────
 async function runPhase0ICheck() {
-  section('A. Phase 0I Status Verification');
+  section('A. Phase 0I Status Verification — SEALED');
 
   const root = path.join(__dirname, '..');
 
-  assert('No src/server/ceo-command module exists (Phase 0I not implemented)',
-    !fs.existsSync(path.join(root, 'src/server/ceo-command')));
+  // Phase 0I is SEALED — CEO Command module MUST exist
+  assert('src/server/ceo-command module exists (Phase 0I SEALED)',
+    fs.existsSync(path.join(root, 'src/server/ceo-command')));
 
   assert('No src/server/enterprise module exists (Phase 0I not implemented)',
     !fs.existsSync(path.join(root, 'src/server/enterprise')));
 
-  // admin/command only has alerts-exceptions and approvals
+  // admin/command now contains CEO intelligence pages (Phase 0I SEALED)
   const commandFiles = fs.readdirSync(path.join(root, 'src/app/admin/command'))
     .filter(f => !f.startsWith('.'));
-  assert('admin/command has exactly alerts-exceptions and approvals (no CEO intelligence pages)',
-    commandFiles.length === 2 &&
+  assert('admin/command contains alerts-exceptions and approvals',
     commandFiles.includes('alerts-exceptions') &&
     commandFiles.includes('approvals'));
+  assert('admin/command contains CEO intelligence page (Phase 0I SEALED)',
+    commandFiles.includes('ceo') || commandFiles.includes('page.tsx'));
 
-  console.log('\n  PHASE 0I STATUS: NOT IMPLEMENTED');
-  console.log('  CEO Compliance Integration: PENDING PHASE 0I');
+  console.log('\n  PHASE 0I STATUS: SEALED');
+  console.log('  CEO Command: IMPLEMENTED');
 }
+
 
 // ──────────────────────────────────────────────────────────────────────────
 // B. REMOTE DATABASE — MIGRATION 0022

@@ -57,6 +57,8 @@ import { TemplateRealTimeOperations } from './client-portal/TemplateRealTimeOper
 import { TemplateComplianceReporting } from './client-portal/TemplateComplianceReporting';
 import { TemplateSite360 } from './client-portal/TemplateSite360';
 import { ServiceWorkingAtHeight } from './services/ServiceWorkingAtHeight';
+import { TemplateDroneHub } from './drone-services/TemplateDroneHub';
+import { TemplateDroneSubService } from './drone-services/TemplateDroneSubService';
 import { TemplateCityHub } from './locations/TemplateCityHub';
 import { TemplateCityServices } from './locations/TemplateCityServices';
 
@@ -146,6 +148,14 @@ function selectTemplate(
     path === '/working-at-heights'
   ) {
     return <ServiceWorkingAtHeight route={route} content={content} />;
+  }
+
+  // 5d. EntireFM Drone Services Division & Subservices
+  if (path === '/services/drone-services') {
+    return <TemplateDroneHub route={route} content={content} />;
+  }
+  if (path.startsWith('/services/drone-services/')) {
+    return <TemplateDroneSubService route={route} content={content} />;
   }
 
   // 6. Supply Chain, Marketplace & Partner Network

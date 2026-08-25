@@ -16,7 +16,7 @@ const record: ContentRecord = {
   "eyebrow": "Specialist High-Reach Surveys",
   "heroIntro": "Safe, rapid, and high-resolution aerial drone inspections for commercial roofs, cladding, chimneys, and high-reach structures without expensive scaffolding or cherry pickers.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-  "heroImage": "/branding/EntireFM Branding 001.png",
+  "heroImage": "/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp",
   "historicIntent": "Historic commercial search intent for aerial drone building inspection",
   "primaryIntent": "aerial drone building inspection services",
   "secondaryIntents": [
@@ -24,7 +24,7 @@ const record: ContentRecord = {
     "aerial drone building inspection contractor UK"
   ],
   "pageType": "service",
-  "service": null,
+  "service": "Drone Services",
   "sector": null,
   "location": null,
   "historicTopics": [
@@ -43,7 +43,7 @@ const record: ContentRecord = {
   "sections": [
     {
       "heading": "Safe, Cost-Effective High-Level Building Assessments",
-      "body": "Inspecting commercial roofs traditionally requires expensive access equipment, road permits, and working at height risks. EntireFM uses drone surveys to capture comprehensive structural imagery in hours rather than days."
+      "body": "Inspecting commercial roofs traditionally requires expensive access equipment, road permits, and working at height risks. EntireFM uses drone surveys to capture comprehensive structural imagery in hours rather than days, directly integrated with our full Drone Services division and remedial maintenance engineering."
     }
   ],
   "capabilities": [
@@ -90,7 +90,11 @@ const record: ContentRecord = {
     }
   ],
   "relatedRoutes": [
-    "/mechanical-electrical",
+    "/services/drone-services",
+    "/services/drone-services/roof-inspections",
+    "/services/drone-services/building-envelope-inspections",
+    "/services/drone-services/thermal-imaging",
+    "/working-at-height-rope-access-bmu",
     "/ppm",
     "/hard-services",
     "/contact-us"

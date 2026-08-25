@@ -428,10 +428,18 @@ export function EnquiryForm({
               }`}
             >
               <option value="Total Facilities Management">Total Facilities Management</option>
+              <option value="Drone Services (Aerial Survey & Inspection)">Drone Services (Aerial Survey & Inspection)</option>
+              <option value="Drone Roof & Gutter Survey">Drone Roof & Gutter Survey</option>
+              <option value="Façade & Building Envelope Drone Survey">Façade & Building Envelope Drone Survey</option>
+              <option value="Thermal Drone Survey & Heat Loss Audit">Thermal Drone Survey & Heat Loss Audit</option>
+              <option value="Solar PV Drone Inspection">Solar PV Drone Inspection</option>
+              <option value="Construction Progress Drone Monitoring">Construction Progress Drone Monitoring</option>
+              <option value="Drone Surveying & 3D Reality Capture">Drone Surveying & 3D Reality Capture</option>
               <option value="Mechanical & Electrical (M&E)">Mechanical & Electrical (M&E)</option>
               <option value="HVAC & Air Conditioning">HVAC & Air Conditioning</option>
               <option value="Planned Maintenance (PPM)">Planned Maintenance (PPM)</option>
               <option value="Hard FM Services">Hard FM Services</option>
+              <option value="Working at Height & Rope Access">Working at Height & Rope Access</option>
               <option value="Commercial Cleaning">Commercial Cleaning</option>
               <option value="Industrial Cleaning">Industrial Cleaning</option>
               <option value="Building Fabric Maintenance">Building Fabric Maintenance</option>

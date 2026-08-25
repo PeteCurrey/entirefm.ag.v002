@@ -121,20 +121,20 @@ export function ClientLogoRail() {
               <div
                 key={client.id}
                 title={`${client.name} — ${client.category}`}
-                className="group relative flex flex-col items-center justify-center rounded-sm border border-brand-edge bg-white px-4 py-4 min-h-[86px] shadow-sm transition-all duration-300 ease-brand hover:border-brand-electric/40 hover:shadow-md"
-                style={{ '--reveal-delay': `${i * 35}ms` } as React.CSSProperties}
+                className="group relative flex items-center justify-center rounded-sm border border-brand-edge bg-white px-3.5 py-2.5 h-[84px] sm:h-[90px] shadow-sm transition-all duration-300 ease-brand hover:border-brand-electric/40 hover:shadow-md"
+                style={{ '--reveal-delay': `${i * 30}ms` } as React.CSSProperties}
               >
                 <span
                   aria-hidden="true"
                   className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-brand-spectrum transition-transform duration-300 ease-brand group-hover:scale-x-100"
                 />
-                <div className="flex items-center justify-center w-full h-full p-1">
+                <div className="flex items-center justify-center w-full h-full">
                   <Image
                     src={client.logoSrc}
                     alt={`${client.name} logo`}
-                    width={160}
-                    height={48}
-                    className="max-h-7 sm:max-h-8 w-auto max-w-[130px] object-contain transition-transform duration-300 group-hover:scale-105"
+                    width={180}
+                    height={70}
+                    className="max-h-10 sm:max-h-11 w-auto max-w-[135px] object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
                 <span className="sr-only">{client.name} ({client.category})</span>
