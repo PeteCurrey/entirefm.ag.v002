@@ -108,8 +108,13 @@ export interface ExecutiveAnswer {
   };
   /** Model execution status for this answer: LIVE | FALLBACK | DISABLED | FAILED */
   model_execution_status?: 'LIVE' | 'FALLBACK' | 'DISABLED' | 'FAILED';
+  model_name?: string;
+  model_tokens_used?: number;
+  model_latency_ms?: number;
+  model_cost_gbp?: number;
   computed_at: string;
 }
+
 
 
 export interface QuerySession {

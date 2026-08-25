@@ -199,9 +199,19 @@ export async function executeCeoQuery(params: {
     };
   }
 
+  // Model planning: tool selection from approved registry
+  const approvedToolIds = CEO_TOOL_REGISTRY.map(t => t.tool_id);
+  const modelPlan = await governedModelPlan(question, approvedToolIds, session).catch(() => ({
+    tool_ids: [],
+    reasoning: 'Model plan failed; using deterministic intent.',
+    model_execution_status: 'FALLBACK' as const,
+  }));
+
   const intent = classifyIntent(question);
   const dateExpr = extractDateExpression(question);
   const dateRange = sessionContext?.dateRange || resolveDateRange(dateExpr);
+
+
 
   // ─── Finance Queries ─────────────────────────────────────
   if (intent === 'FINANCE') {
@@ -390,20 +400,56 @@ export async function executeCeoQuery(params: {
     return { question, direct_answer: `${clients.length} client account${clients.length === 1 ? '' : 's'} in EntireCAFM (${active} active).`, key_drivers: [], evidence, data_status: 'LIVE', possible_actions: [{ label: 'Clients', href: '/admin/estate/clients', type: 'NAVIGATE' }], fact_vs_interpretation: { facts: [`${clients.length} client accounts. ${active} active.`], calculations: [], interpretations: [], recommendations: [] }, tool_runs: [], computed_at };
   }
 
-  // ─── Default / Unknown ───────────────────────────────────
+  // ─── Default / General Executive Query ───────────────────
   const zeroData = await getZeroDataSummary();
   const noOp = !zeroData.has_operational_data;
+
+  // Build canonical operational summary for evidence
+  if (noOp) {
+    evidence.push(
+      { label: 'Client Accounts', value: zeroData.clients, data_status: 'ZERO', source_service: 'client_accounts', computed_at },
+      { label: 'Managed Sites', value: zeroData.sites, data_status: 'ZERO', source_service: 'sites', computed_at },
+      { label: 'Open Work Orders', value: zeroData.open_work_orders, data_status: 'ZERO', source_service: 'work_orders', computed_at },
+    );
+  }
+
+  const deterministicAnswer = noOp
+    ? 'EntireCAFM has no operational data loaded yet. Please import your operational data using the Migration Centre to enable CEO Command analytics.'
+    : 'I was not able to classify this question clearly. Please try rephrasing or use a more specific question from the suggested examples.';
+
+  // Governed model explanation over canonical evidence
+  const modelExplanation = await governedModelExplain(
+    question,
+    evidence,
+    toolRuns,
+    approvedToolIds,
+    session,
+    deterministicAnswer
+  );
+
   return {
     question,
-    direct_answer: noOp
-      ? 'EntireCAFM has no operational data loaded yet. Please import your operational data using the Migration Centre to enable CEO Command analytics.'
-      : 'I was not able to classify this question clearly. Please try rephrasing or use a more specific question from the suggested examples.',
-    key_drivers: noOp ? [`Clients: ${zeroData.clients}`, `Sites: ${zeroData.sites}`, `Open Work Orders: ${zeroData.open_work_orders}`] : [],
-    evidence: [],
+    direct_answer: modelExplanation.direct_answer,
+    key_drivers: modelExplanation.key_drivers.length > 0
+      ? modelExplanation.key_drivers
+      : (noOp ? [`Clients: ${zeroData.clients}`, `Sites: ${zeroData.sites}`, `Open Work Orders: ${zeroData.open_work_orders}`] : []),
+    evidence,
     data_status: noOp ? 'NO_DATA' : 'LIVE',
     possible_actions: noOp ? [{ label: 'Open Migration Centre', href: '/admin/platform/imports', type: 'NAVIGATE' }] : [{ label: 'CEO Command', href: '/admin/command', type: 'NAVIGATE' }],
-    fact_vs_interpretation: { facts: [], calculations: [], interpretations: [], recommendations: [] },
-    tool_runs: [],
+    fact_vs_interpretation: {
+      facts: modelExplanation.facts.length > 0 ? modelExplanation.facts : (noOp ? ['0 operational records loaded.'] : []),
+      calculations: modelExplanation.calculations,
+      interpretations: [],
+      recommendations: modelExplanation.recommendations.length > 0 ? modelExplanation.recommendations : (noOp ? ['Use Migration Centre to import initial operational dataset.'] : []),
+    },
+    tool_runs: toolRuns,
+    model_execution_status: modelExplanation.model_execution_status,
+    model_name: modelExplanation.model_name,
+    model_tokens_used: modelExplanation.model_tokens_used,
+    model_latency_ms: modelExplanation.model_latency_ms,
+    model_cost_gbp: modelExplanation.model_cost_gbp,
     computed_at,
   };
 }
+
+

@@ -60,9 +60,14 @@ export interface ModelExplanation {
   calculations: string[];
   recommendations: string[];
   model_execution_status: ModelExecutionStatus;
+  model_name?: string;
   model_tokens_used?: number;
+  input_tokens?: number;
+  output_tokens?: number;
   model_latency_ms?: number;
+  model_cost_gbp?: number;
 }
+
 
 // ── Untrusted Evidence Wrapper & Escaping ────────────────────────────────────
 /**
@@ -346,11 +351,40 @@ Provide a direct executive answer. Return ONLY valid JSON:
     }
 
     const data = await res.json() as any;
-    const tokensUsed = data?.usageMetadata?.totalTokenCount;
+    const inputTokens: number = data?.usageMetadata?.promptTokenCount ?? 0;
+    const outputTokens: number = data?.usageMetadata?.candidatesTokenCount ?? 0;
+    const tokensUsed: number = data?.usageMetadata?.totalTokenCount ?? (inputTokens + outputTokens);
+    const MODEL_NAME = 'gemini-1.5-flash';
+    // Gemini 1.5 Flash pricing (as of 2025): ~$0.075 / 1M input tokens, ~$0.30 / 1M output tokens
+    const costUsd = (inputTokens * 0.075 + outputTokens * 0.30) / 1_000_000;
+    const costGbp = Math.round(costUsd * 0.79 * 1_000_000) / 1_000_000; // approx GBP
+
     const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
 
     let parsed: any = {};
     try { parsed = JSON.parse(text); } catch { parsed = { direct_answer: deterministicFallback }; }
+
+    // ── AI Control Plane: log run ──────────────────────────────
+    try {
+      const runId = crypto.randomUUID();
+      await dbQuery('ai_runs', {
+        method: 'POST',
+        body: {
+          id: runId,
+          ai_agent_id: 'CEO_COMMAND_AGENT',
+          model_name: MODEL_NAME,
+          input_tokens: inputTokens,
+          output_tokens: outputTokens,
+          tokens_used: tokensUsed,
+          total_cost_gbp: costGbp,
+          latency_ms: latencyMs,
+          status: 'COMPLETED',
+          run_at: new Date().toISOString(),
+        },
+      });
+    } catch {
+      // Non-fatal — logging failure does not affect query response
+    }
 
     return {
       direct_answer: parsed.direct_answer || deterministicFallback,
@@ -359,8 +393,12 @@ Provide a direct executive answer. Return ONLY valid JSON:
       calculations: Array.isArray(parsed.calculations) ? parsed.calculations : [],
       recommendations: Array.isArray(parsed.recommendations) ? parsed.recommendations : [],
       model_execution_status: 'LIVE',
+      model_name: MODEL_NAME,
       model_tokens_used: tokensUsed,
+      input_tokens: inputTokens,
+      output_tokens: outputTokens,
       model_latency_ms: latencyMs,
+      model_cost_gbp: costGbp,
     };
   } catch (err) {
     return {

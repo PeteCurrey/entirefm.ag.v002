@@ -25,9 +25,7 @@ import { buildMarkPlates, buildMarkEdges, MARK_BOUNDS } from '../src/lib/brand/m
 
 const SIZE = 64;
 /** The mark occupies this fraction of the tile's width. */
-const FILL = 0.78;
-const RADIUS = 12;
-const GROUND = '#0b1220';
+const FILL = 0.92;
 
 const markWidth = MARK_BOUNDS.maxX - MARK_BOUNDS.minX;
 const scale = (SIZE * FILL) / markWidth;
@@ -52,13 +50,13 @@ const edges = buildMarkEdges()
   .join('\n');
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}" width="${SIZE}" height="${SIZE}" role="img" aria-label="EntireFM">
-  <rect width="${SIZE}" height="${SIZE}" rx="${RADIUS}" fill="${GROUND}"/>
 ${plates}
   <g stroke="rgba(255,255,255,0.6)" stroke-width="0.5" stroke-linecap="round">
 ${edges}
   </g>
 </svg>
 `;
+
 
 const out = join(__dirname, '..', 'src', 'app', 'icon.svg');
 writeFileSync(out, svg);
