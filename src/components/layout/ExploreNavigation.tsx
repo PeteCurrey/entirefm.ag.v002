@@ -120,8 +120,11 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
       role="dialog"
       aria-modal="true"
       aria-label="Site Navigation"
-      className={`fixed inset-0 z-50 bg-brand-void transition-opacity duration-300 ease-brand ${
-        open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+      aria-hidden={!open}
+      className={`fixed inset-0 z-50 bg-brand-void transition-all duration-300 ease-brand ${
+        open
+          ? 'opacity-100 visible pointer-events-auto'
+          : 'opacity-0 invisible pointer-events-none'
       }`}
     >
       {/* Close button */}
