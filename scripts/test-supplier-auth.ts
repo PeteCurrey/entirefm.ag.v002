@@ -94,8 +94,8 @@ async function runTests() {
   const draft = await getOrCreateApplicationDraft(orgResult.organisation!.id);
   assert(draft.orgId === orgResult.organisation!.id, 'Draft linked to correct organisation');
   assert(draft.applicationReference === orgResult.organisation!.applicationReference, 'Draft references canonical application ID');
-  assert(draft.services.length === 0, 'Draft starts with 0 pre-selected services (no mock default)');
-  assert(draft.regions.length === 0, 'Draft starts with 0 pre-selected regions (no mock default)');
+  assert(draft.selectedServices.length === 0, 'Draft starts with 0 pre-selected services (no mock default)');
+  assert(draft.selectedRegions.length === 0, 'Draft starts with 0 pre-selected regions (no mock default)');
   assert(draft.primaryContactName === '', 'Draft primary contact is blank');
   assert(draft.gasSafeNumber === '', 'Draft Gas Safe number is blank');
 
@@ -112,7 +112,7 @@ async function runTests() {
   console.log('\n5. Portal Status Presentation');
   const org = await getSupplierOrganisationById(orgResult.organisation!.id);
   const displayDraft = getPortalStatusDisplay(org!);
-  assert(displayDraft.label === 'Application in Progress', 'Formats REGISTERED status as "Application in Progress"');
+  assert(displayDraft.statusLabel === 'Application in Progress', 'Formats REGISTERED status as "Application in Progress"');
   assert(displayDraft.isApproved === false, 'Draft organisation is not marked as approved');
 
   // Test 6: Unified Session Token
@@ -137,7 +137,7 @@ async function runTests() {
   assert(verified?.orgType === 'SUPPLIER', 'Preserves SUPPLIER orgType');
   assert(verified?.role === 'SUPPLIER_ADMIN', 'Preserves SUPPLIER_ADMIN role');
 
-  const postLogin = getPostLoginRedirect(verified as any);
+  const postLogin = getPostLoginRedirect(verified!.role as any, verified!.orgType as any);
   assert(postLogin === '/supplier-portal/resume', 'Supplier post-login redirect is /supplier-portal/resume');
 
   // Test 7: Production Codebase Audit (Zero Mock Fallback Strings)
