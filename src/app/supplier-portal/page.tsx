@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCurrentSession } from '@/server/identity';
 import Link from 'next/link';
 import {
   ShieldCheck,
@@ -28,8 +29,10 @@ export const metadata = {
 };
 
 export default async function SupplierPortalDashboardPage() {
-  const relationship = await getSupplierRelationshipOverview('sup-test-01');
-  const radar = await getSupplierComplianceRadar('sup-test-01');
+  const session = await getCurrentSession();
+  const orgId = session?.orgId ?? 'no-org';
+  const relationship = await getSupplierRelationshipOverview(orgId);
+  const radar = await getSupplierComplianceRadar(orgId);
   const expiringItems = radar.filter((r) => r.status.startsWith('EXPIRING'));
 
   return (

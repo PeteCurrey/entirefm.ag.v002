@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCurrentSession } from '@/server/identity';
 import Link from 'next/link';
 import { Building2, ShieldCheck, Users, Mail, Phone, Calendar, CheckCircle2 } from 'lucide-react';
 import { getSupplierRelationshipOverview } from '@/server/suppliers/store';
@@ -9,7 +10,9 @@ export const metadata = {
 };
 
 export default async function SupplierRelationshipPage() {
-  const rel = await getSupplierRelationshipOverview('sup-test-01');
+  const session = await getCurrentSession();
+  const orgId = session?.orgId ?? 'no-org';
+  const rel = await getSupplierRelationshipOverview(orgId);
 
   return (
     <div className="space-y-8">

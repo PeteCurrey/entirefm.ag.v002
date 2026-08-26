@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCurrentSession } from '@/server/identity';
 import { MapPin, Plus, CheckCircle2, Clock } from 'lucide-react';
 import { getSupplierCoverageScope } from '@/server/suppliers/store';
 
@@ -8,7 +9,9 @@ export const metadata = {
 };
 
 export default async function SupplierCoveragePage() {
-  const coverage = await getSupplierCoverageScope('sup-test-01');
+  const session = await getCurrentSession();
+  const orgId = session?.orgId ?? 'no-org';
+  const coverage = await getSupplierCoverageScope(orgId);
 
   return (
     <div className="space-y-8">

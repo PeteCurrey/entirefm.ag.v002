@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCurrentSession } from '@/server/identity';
 import Link from 'next/link';
 import { ShieldCheck, AlertCircle, Clock, CheckCircle2, Upload, FileText } from 'lucide-react';
 import { getSupplierComplianceRadar } from '@/server/suppliers/store';
@@ -9,7 +10,9 @@ export const metadata = {
 };
 
 export default async function SupplierComplianceRadarPage() {
-  const radar = await getSupplierComplianceRadar('sup-test-01');
+  const session = await getCurrentSession();
+  const orgId = session?.orgId ?? 'no-org';
+  const radar = await getSupplierComplianceRadar(orgId);
 
   return (
     <div className="space-y-8">

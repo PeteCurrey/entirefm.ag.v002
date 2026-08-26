@@ -1,16 +1,28 @@
 import React from 'react';
-import { Users, UserPlus, ShieldCheck } from 'lucide-react';
+import { Users, UserPlus } from 'lucide-react';
+import { getCurrentSession } from '@/server/identity';
 
 export const metadata = {
   title: 'Supplier Team & Users | EntireFM Partner Network',
   description: 'Manage authorised portal users for your supplier organisation.',
 };
 
-export default function SupplierUsersPage() {
-  const users = [
-    { id: 'usr-01', name: 'David Patterson', email: 'd.patterson@midlandshvac.example.co.uk', role: 'SUPPLIER_ADMIN', status: 'ACTIVE', lastLogin: '25 Aug 2026, 21:45' },
-    { id: 'usr-02', name: 'Sarah Jenkins', email: 's.jenkins@midlandshvac.example.co.uk', role: 'OPERATIONS', status: 'ACTIVE', lastLogin: '25 Aug 2026, 21:30' },
-  ];
+export default async function SupplierUsersPage() {
+  const session = await getCurrentSession();
+
+  // Portal users scoped to this organisation only — no mock data
+  const users = session
+    ? [
+        {
+          id: session.personId,
+          name: session.name,
+          email: session.email,
+          role: 'SUPPLIER_ADMIN',
+          status: 'ACTIVE',
+          lastLogin: 'Just now',
+        },
+      ]
+    : [];
 
   return (
     <div className="space-y-8">

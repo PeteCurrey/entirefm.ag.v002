@@ -43,73 +43,76 @@ const STEPS = [
   { num: 15, key: 'review', title: 'Review & Submit', icon: Save },
 ];
 
-export function OnboardingWizardClient() {
+export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', initialLegalName = '', initialTradingName = '' }: {
+  initialOrgId?: string;
+  initialAppRef?: string;
+  initialLegalName?: string;
+  initialTradingName?: string;
+}) {
   const [currentStep, setCurrentStep] = useState(1);
-  const [lastSaved, setLastSaved] = useState<string>('Just now');
+  const [lastSaved, setLastSaved] = useState<string>('Not yet saved');
   const [submitted, setSubmitted] = useState(false);
-  const [appRef, setAppRef] = useState('SUP-260825-9921');
+  const [appRef, setAppRef] = useState(initialAppRef);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
 
-  // Form State
+  // Form State — all fields blank; only pre-populate from legitimate server-provided data
   const [formData, setFormData] = useState({
-    legalCompanyName: 'Midlands Mechanical & HVAC Services Ltd',
-    tradingName: 'Midlands HVAC Pro',
-    companyNumber: '08923412',
-    vatNumber: 'GB982341290',
-    websiteUrl: 'https://midlandshvac.example.co.uk',
-    yearEstablished: '2014',
-    employeeCount: '18',
-    tradingAddress: '14 Industrial Way, Aston, Birmingham, B6 7RH',
-    mainPhone: '0121 555 0192',
-    generalEmail: 'info@midlandshvac.example.co.uk',
-    businessType: 'Regional Contractor',
-    companySummary: 'Commercial building engineering firm specializing in planned chiller maintenance, commercial gas heating, and 24/7 reactive HVAC callout.',
+    legalCompanyName: initialLegalName,
+    tradingName: initialTradingName,
+    companyNumber: '',
+    vatNumber: '',
+    websiteUrl: '',
+    yearEstablished: '',
+    employeeCount: '',
+    tradingAddress: '',
+    mainPhone: '',
+    generalEmail: '',
+    businessType: '',
+    companySummary: '',
 
-    primaryContactName: 'David Patterson',
-    primaryContactEmail: 'd.patterson@midlandshvac.example.co.uk',
-    primaryContactPhone: '07700 900123',
-    opsContactName: 'Sarah Jenkins',
-    opsContactEmail: 's.jenkins@midlandshvac.example.co.uk',
+    primaryContactName: '',
+    primaryContactEmail: '',
+    primaryContactPhone: '',
+    opsContactName: '',
+    opsContactEmail: '',
 
-    selectedServices: ['hvac', 'gas-heating'],
-    selectedRegions: ['Birmingham', 'Coventry', 'Wolverhampton', 'Leicester'],
-    has247: true,
-    emergencySlaHours: '4',
+    selectedServices: [] as string[],
+    selectedRegions: [] as string[],
+    has247: false,
+    emergencySlaHours: '',
 
     hasSubcontractors: false,
-    directEngineers: '12',
+    directEngineers: '',
 
-    plInsurer: 'Aviva Insurance Ltd',
-    plPolicyNumber: 'AV-PL-889921',
-    plCoverLimit: '£10,000,000',
-    plExpiryDate: '2027-04-30',
+    plInsurer: '',
+    plPolicyNumber: '',
+    plCoverLimit: '',
+    plExpiryDate: '',
 
-    selectedAccreditations: ['Gas Safe Register', 'REFCOM / F-Gas Company Certified', 'SafeContractor (SSIP)'],
-    accreditationNumbers: {
-      'Gas Safe Register': '654321',
-      'REFCOM / F-Gas Company Certified': 'REF101234',
-      'SafeContractor (SSIP)': 'SC-009882',
-    } as Record<string, string>,
+    selectedAccreditations: [] as string[],
+    accreditationNumbers: {} as Record<string, string>,
 
-    gasSafeNumber: '654321',
-    gasSafeExpiry: '2026-06-01',
-    fGasNumber: 'REF101234',
-    fGasExpiry: '2028-01-01',
+    gasSafeNumber: '',
+    gasSafeExpiry: '',
+    fGasNumber: '',
+    fGasExpiry: '',
 
-    hasHsPolicy: true,
-    hasRams: true,
+    hasHsPolicy: false,
+    hasRams: false,
     hasIncidentHistory: false,
 
-    antiBribery: true,
-    modernSlavery: true,
-    codeOfConduct: true,
-    truthfulnessDeclaration: true,
+    antiBribery: false,
+    modernSlavery: false,
+    codeOfConduct: false,
+    truthfulnessDeclaration: false,
 
     // Pre-submission Assurance Payment Gateway
     paymentMethod: 'CARD' as 'CARD' | 'INVOICE' | 'WAIVER',
     waiverReason: '',
   });
+
+
 
   const handleSave = () => {
     setLastSaved(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
@@ -140,7 +143,7 @@ export function OnboardingWizardClient() {
         const res = await fetch('/api/supplier/application/payment/create-checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ supplierId: 'sup-test-01' }),
+          body: JSON.stringify({ supplierId: initialOrgId || 'supplier-draft' }),
         });
 
         const data = await res.json();

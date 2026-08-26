@@ -447,3 +447,172 @@ export async function getTelemetryCoverage(): Promise<TelemetryCoverageSummary> 
         : undefined,
   };
 }
+
+// ─── SOURCE AUTHORITY VALIDATION ─────────────────────────────────────────────
+
+export interface SourceValidationResult {
+  valid: boolean;
+  source?: TelemetrySource;
+  rejection_reason?: string;
+  status_code: number;
+}
+
+export async function validateSourceAuthority(
+  sourceId: string,
+  assetId: string
+): Promise<SourceValidationResult> {
+  const { data, error } = await dbQuery<TelemetrySource[]>(
+    `asset_telemetry_sources?id=eq.${sourceId}`
+  );
+
+  if (error || !data || data.length === 0) {
+    return {
+      valid: false,
+      rejection_reason: `Unknown or unregistered telemetry source: ${sourceId}`,
+      status_code: 404,
+    };
+  }
+
+  const source = data[0];
+
+  if (source.connector_state === 'DISABLED') {
+    return {
+      valid: false,
+      source,
+      rejection_reason: `Telemetry source is DISABLED: ${sourceId}`,
+      status_code: 403,
+    };
+  }
+
+  if (source.asset_id !== assetId) {
+    return {
+      valid: false,
+      source,
+      rejection_reason: `Source ${sourceId} is not mapped to asset ${assetId}`,
+      status_code: 403,
+    };
+  }
+
+  return {
+    valid: true,
+    source,
+    status_code: 200,
+  };
+}
+
+// ─── AGGREGATE COMPUTATION ENGINE ─────────────────────────────────────────────
+
+export async function computeAggregates(
+  assetId: string,
+  metricCode: MetricCode,
+  windowType: AggregateWindowType,
+  windowStart: string,
+  windowEnd: string,
+  sensorId?: string
+): Promise<TelemetryAggregate | null> {
+  let url = `telemetry_observations?asset_id=eq.${assetId}&metric_code=eq.${metricCode}&observed_at=gte.${windowStart}&observed_at=lt.${windowEnd}`;
+  if (sensorId) url += `&sensor_id=eq.${sensorId}`;
+
+  const { data: obs } = await dbQuery<TelemetryObservation[]>(url);
+  if (!obs || obs.length === 0) return null;
+
+  const validObs = obs.filter(o => o.quality === 'VALID' || o.quality === 'SUSPECT');
+  const values = validObs
+    .map(o => o.normalised_value)
+    .filter((v): v is number => v !== null && !isNaN(v))
+    .sort((a, b) => a - b);
+
+  let aggMin: number | null = null;
+  let aggMax: number | null = null;
+  let aggMean: number | null = null;
+  let aggMedian: number | null = null;
+  let aggStddev: number | null = null;
+  let aggP95: number | null = null;
+
+  if (values.length > 0) {
+    aggMin = values[0];
+    aggMax = values[values.length - 1];
+    const sum = values.reduce((acc, v) => acc + v, 0);
+    aggMean = sum / values.length;
+
+    // Median
+    const mid = Math.floor(values.length / 2);
+    aggMedian = values.length % 2 !== 0 ? values[mid] : (values[mid - 1] + values[mid]) / 2;
+
+    // Stddev
+    const variance = values.reduce((acc, v) => acc + Math.pow(v - aggMean!, 2), 0) / values.length;
+    aggStddev = Math.sqrt(variance);
+
+    // P95
+    const p95Idx = Math.min(values.length - 1, Math.floor(values.length * 0.95));
+    aggP95 = values[p95Idx];
+  }
+
+  const aggregateRecord: Record<string, unknown> = {
+    asset_id: assetId,
+    sensor_id: sensorId ?? null,
+    metric_code: metricCode,
+    window_type: windowType,
+    window_start: windowStart,
+    window_end: windowEnd,
+    sample_count: obs.length,
+    valid_sample_count: validObs.length,
+    agg_min: aggMin,
+    agg_max: aggMax,
+    agg_mean: aggMean !== null ? parseFloat(aggMean.toFixed(4)) : null,
+    agg_median: aggMedian !== null ? parseFloat(aggMedian.toFixed(4)) : null,
+    agg_stddev: aggStddev !== null ? parseFloat(aggStddev.toFixed(4)) : null,
+    agg_p95: aggP95 !== null ? parseFloat(aggP95.toFixed(4)) : null,
+    computed_at: new Date().toISOString(),
+  };
+
+  const { data: saved } = await dbQuery<TelemetryAggregate[]>('telemetry_aggregates', {
+    method: 'POST',
+    body: aggregateRecord,
+    headers: { Prefer: 'return=representation' },
+  });
+
+  return saved?.[0] ?? null;
+}
+
+// ─── RETENTION POLICY EXECUTION ───────────────────────────────────────────────
+
+export interface RetentionPolicyExecutionResult {
+  policy_class: string;
+  retention_days: number;
+  records_evaluated: number;
+  records_pruned: number;
+  cutoff_date: string;
+}
+
+export async function applyRetentionPolicies(): Promise<RetentionPolicyExecutionResult[]> {
+  const { data: classes } = await dbQuery<any[]>('telemetry_retention_classes');
+  if (!classes || classes.length === 0) return [];
+
+  const results: RetentionPolicyExecutionResult[] = [];
+
+  for (const rc of classes) {
+    const retentionDays = rc.retention_days ?? 30;
+    const cutoff = new Date(Date.now() - retentionDays * 86400 * 1000).toISOString();
+
+    // Query candidates older than cutoff
+    let table = 'telemetry_observations';
+    if (rc.class_name.includes('AGGREGATE')) {
+      table = 'telemetry_aggregates';
+    }
+
+    const dateCol = table === 'telemetry_observations' ? 'observed_at' : 'window_start';
+    const { data: older } = await dbQuery<any[]>(`${table}?${dateCol}=lt.${cutoff}&limit=1000`);
+
+    results.push({
+      policy_class: rc.class_name,
+      retention_days: retentionDays,
+      records_evaluated: older?.length ?? 0,
+      records_pruned: 0, // In non-destructive / inspection mode
+      cutoff_date: cutoff,
+    });
+  }
+
+  return results;
+}
+

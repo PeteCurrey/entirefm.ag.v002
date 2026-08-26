@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCurrentSession } from '@/server/identity';
 import type { Metadata } from 'next';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default async function SupplierPortalActionCentrePage() {
-  const supplierId = 'sup-test-01';
+  const session = await getCurrentSession();
+  const orgId = session?.orgId ?? 'no-org';
+  const supplierId = orgId;
   const rfis = await listSupplierRfis(supplierId);
 
   return (

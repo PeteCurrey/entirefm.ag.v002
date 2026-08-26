@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCurrentSession } from '@/server/identity';
 import Link from 'next/link';
 import { Building2, Edit3, ShieldCheck, MapPin, Wrench } from 'lucide-react';
 
@@ -7,7 +8,8 @@ export const metadata = {
   description: 'View and maintain your commercial Partner Profile, trade capabilities, and declared operating bases.',
 };
 
-export default function SupplierCompanyProfilePage() {
+export default async function SupplierCompanyProfilePage() {
+  const session = await getCurrentSession();
   return (
     <div className="space-y-8">
       <div>
@@ -25,8 +27,8 @@ export default function SupplierCompanyProfilePage() {
       <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
           <div>
-            <h2 className="text-xl font-bold text-slate-900">Midlands Mechanical &amp; HVAC Services Ltd</h2>
-            <span className="text-xs text-slate-500 font-mono">Company No: 08923412 &middot; VAT: GB982341290</span>
+            <h2 className="text-xl font-bold text-slate-900">{session?.orgName ?? "Your Company"}</h2>
+            <span className="text-xs text-slate-500 font-mono">Company details will appear once your application is complete.</span>
           </div>
           <span className="bg-emerald-100 text-emerald-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold self-start sm:self-auto">
             APPROVED SUPPLIER

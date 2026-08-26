@@ -60,7 +60,10 @@ export type RoleCode =
   | 'CONTRACTOR_READ_ONLY'
   | 'CONTRACTOR_ENGINEER'
   // Field Engineer Roles
-  | 'ENGINEER';
+  | 'ENGINEER'
+  // Supplier Portal Roles
+  | 'SUPPLIER_ADMIN'
+  | 'SUPPLIER_USER';
 
 export type PermissionCode =
   // Executive & Command
@@ -458,6 +461,14 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<RoleCode, PermissionCode[]> = {
     'operations:read', 'operations:write', 'estate:read', 'compliance:read', 'compliance:write',
     'asset_condition:assess',
   ],
+  // Supplier Portal Roles
+  SUPPLIER_ADMIN: [
+    'supply_chain:read', 'finance:view', 'finance:billing', 'compliance:view',
+    'users:view', 'users:manage',
+  ],
+  SUPPLIER_USER: [
+    'supply_chain:read', 'compliance:view',
+  ],
 };
 
 function getAuthSecret(): string {
@@ -612,6 +623,9 @@ export function getPostLoginRedirect(role: RoleCode, orgType: OrgType): string {
   }
   if (orgType === 'CONTRACTOR' || ['CONTRACTOR_ADMIN', 'CONTRACTOR_DISPATCHER', 'CONTRACTOR_COMMERCIAL', 'CONTRACTOR_COMPLIANCE', 'CONTRACTOR_READ_ONLY'].includes(role)) {
     return '/contractor';
+  }
+  if (orgType === 'SUPPLIER' || role === 'SUPPLIER_ADMIN' || role === 'SUPPLIER_USER') {
+    return '/supplier-portal/resume';
   }
   if (orgType === 'ENTIREFM') {
     return '/admin';

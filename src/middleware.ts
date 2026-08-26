@@ -59,10 +59,30 @@ export function middleware(request: NextRequest) {
   const isPrivateContractor = pathname === '/contractor' || pathname.startsWith('/contractor/');
   const isPrivateEngineer = pathname === '/engineer' || pathname.startsWith('/engineer/');
 
-  if (isPrivateAdmin || isPrivateClients || isPrivateContractor || isPrivateEngineer) {
+  // Supplier portal auth-free routes (registration, sign-in, forgot-password)
+  const SUPPLIER_PUBLIC_PATHS = [
+    '/supplier-portal/register',
+    '/supplier-portal/sign-in',
+    '/supplier-portal/forgot-password',
+    '/supplier-portal/verify-email',
+    '/supplier-portal/org-setup',
+  ];
+  const isSupplierPortal = pathname === '/supplier-portal' || pathname.startsWith('/supplier-portal/');
+  const isSupplierPublicPath = SUPPLIER_PUBLIC_PATHS.some(
+    (p) => pathname === p || pathname.startsWith(p + '/')
+  );
+  const isPrivateSupplierPortal = isSupplierPortal && !isSupplierPublicPath;
+
+  if (isPrivateAdmin || isPrivateClients || isPrivateContractor || isPrivateEngineer || isPrivateSupplierPortal) {
     const token = request.cookies.get('efm_session')?.value || request.cookies.get('efm_admin')?.value;
 
     if (!token) {
+      if (isPrivateSupplierPortal) {
+        const registerUrl = new URL('/supplier-portal/register', request.url);
+        const response = NextResponse.redirect(registerUrl);
+        response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+        return response;
+      }
       const loginUrl = new URL('/login', request.url);
       loginUrl.searchParams.set('redirect', pathname);
       const response = NextResponse.redirect(loginUrl);
@@ -79,33 +99,39 @@ export function middleware(request: NextRequest) {
 
         // Check token expiry
         if (session.expiresAt && session.expiresAt < Date.now()) {
-          const loginUrl = new URL('/login?error=expired', request.url);
-          return NextResponse.redirect(loginUrl);
+          if (isPrivateSupplierPortal) {
+            return NextResponse.redirect(new URL('/supplier-portal/sign-in?error=session_expired', request.url));
+          }
+          return NextResponse.redirect(new URL('/login?error=expired', request.url));
         }
 
         const isViewAs = !!session.viewAsContext?.isViewAs;
 
+        // /supplier-portal/* requires SUPPLIER orgType
+        if (isPrivateSupplierPortal) {
+          if (session.orgType !== 'SUPPLIER' && session.orgType !== 'ENTIREFM') {
+            return NextResponse.redirect(new URL('/supplier-portal/register', request.url));
+          }
+        }
+
         // /admin is STRICTLY INTERNAL EntireFM
         if (isPrivateAdmin) {
           if (session.orgType !== 'ENTIREFM') {
-            const forbiddenUrl = new URL('/login?error=forbidden_admin', request.url);
-            return NextResponse.redirect(forbiddenUrl);
+            return NextResponse.redirect(new URL('/login?error=forbidden_admin', request.url));
           }
         }
 
         // /clients is STRICTLY CLIENT (or internal View-As)
         if (isPrivateClients) {
           if (session.orgType !== 'CLIENT' && !isViewAs) {
-            const forbiddenUrl = new URL('/login?error=forbidden_client', request.url);
-            return NextResponse.redirect(forbiddenUrl);
+            return NextResponse.redirect(new URL('/login?error=forbidden_client', request.url));
           }
         }
 
         // /contractor is STRICTLY CONTRACTOR (or internal View-As)
         if (isPrivateContractor) {
           if (session.orgType !== 'CONTRACTOR' && !isViewAs) {
-            const forbiddenUrl = new URL('/login?error=forbidden_contractor', request.url);
-            return NextResponse.redirect(forbiddenUrl);
+            return NextResponse.redirect(new URL('/login?error=forbidden_contractor', request.url));
           }
         }
 
@@ -113,14 +139,15 @@ export function middleware(request: NextRequest) {
         if (isPrivateEngineer) {
           const isEngineerRole = session.role === 'ENGINEER' || session.role === 'CONTRACTOR_ENGINEER';
           if (!isEngineerRole && !isViewAs && session.orgType !== 'ENTIREFM') {
-            const forbiddenUrl = new URL('/login?error=forbidden_engineer', request.url);
-            return NextResponse.redirect(forbiddenUrl);
+            return NextResponse.redirect(new URL('/login?error=forbidden_engineer', request.url));
           }
         }
       }
     } catch {
-      const loginUrl = new URL('/login?error=invalid_session', request.url);
-      return NextResponse.redirect(loginUrl);
+      if (isPrivateSupplierPortal) {
+        return NextResponse.redirect(new URL('/supplier-portal/sign-in?error=session_expired', request.url));
+      }
+      return NextResponse.redirect(new URL('/login?error=invalid_session', request.url));
     }
 
     const response = NextResponse.next();

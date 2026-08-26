@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCurrentSession } from '@/server/identity';
 import { Wrench, Plus, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
 import { getSupplierServicesScope } from '@/server/suppliers/store';
 
@@ -8,7 +9,9 @@ export const metadata = {
 };
 
 export default async function SupplierServicesScopePage() {
-  const services = await getSupplierServicesScope('sup-test-01');
+  const session = await getCurrentSession();
+  const orgId = session?.orgId ?? 'no-org';
+  const services = await getSupplierServicesScope(orgId);
 
   return (
     <div className="space-y-8">

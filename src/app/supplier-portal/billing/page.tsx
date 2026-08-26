@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCurrentSession } from '@/server/identity';
 import Link from 'next/link';
 import { CreditCard, Download, CheckCircle2, Receipt, AlertCircle } from 'lucide-react';
 
@@ -7,7 +8,8 @@ export const metadata = {
   description: 'View commercial invoices, download VAT receipts, and manage payment instructions.',
 };
 
-export default function SupplierPortalBillingPage() {
+export default async function SupplierPortalBillingPage() {
+  const session = await getCurrentSession();
   const invoices = [
     {
       number: 'INV-2026-0012',
@@ -66,7 +68,7 @@ export default function SupplierPortalBillingPage() {
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
           <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">FINANCE CONTACT</span>
           <div className="text-xs font-bold text-slate-900 truncate font-sans">David Patterson</div>
-          <span className="text-[10.5px] text-slate-500 font-mono truncate">accounts@midlandshvac.example.co.uk</span>
+          <span className="text-[10.5px] text-slate-500 font-mono truncate">{session?.email ?? "—"}</span>
         </div>
       </div>
 

@@ -12,20 +12,20 @@ export default async function InboundApplicationsPage() {
     (l: any) => l.pageType === 'supplier-application' || l.source === 'SUPPLIER_APPLICATION'
   );
 
-  // Load sample active onboarding draft
-  const sampleDraft = await getSupplierOnboardingDraft('sup-test-01');
+  // Load sample active onboarding draft if present
+  const sampleDraft = await getSupplierOnboardingDraft('sup-active-demo');
 
   const structuredApplications = [
-    {
-      id: 'sup-test-01',
-      ref: sampleDraft.application_reference || 'SUP-260825-9921',
-      name: sampleDraft.legal_company_name || 'Midlands Mechanical & HVAC Services Ltd',
-      trades: sampleDraft.selected_service_slugs?.join(', ') || 'HVAC, Gas Heating',
-      regions: sampleDraft.selected_regions?.join(', ') || 'West Midlands, East Midlands',
+    ...(sampleDraft && sampleDraft.legal_company_name ? [{
+      id: sampleDraft.supplier_id,
+      ref: sampleDraft.application_reference,
+      name: sampleDraft.legal_company_name,
+      trades: sampleDraft.selected_service_slugs?.join(', ') || 'General Maintenance',
+      regions: sampleDraft.selected_regions?.join(', ') || 'National',
       status: sampleDraft.status || 'UNDER_REVIEW',
       paymentStatus: sampleDraft.assurance_payment?.status || 'PAID',
       submittedAt: sampleDraft.submitted_at || '2026-08-25',
-    },
+    }] : []),
     {
       id: 'sup-sme-journey-a',
       ref: 'SUP-260825-3050',

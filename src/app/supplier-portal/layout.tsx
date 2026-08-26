@@ -13,18 +13,66 @@ import {
   Calendar,
   BookOpen,
   HelpCircle,
-  Briefcase,
-  Layers,
   Clock,
-  Sparkles,
+  ClipboardList,
 } from 'lucide-react';
+import { getCurrentSession } from '@/server/identity';
+import {
+  getSupplierOrganisationById,
+  getPortalStatusDisplay,
+} from '@/server/suppliers/supplier-auth-store';
 
-export default function SupplierPortalLayout({
+export default async function SupplierPortalLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const navSections = [
+  const session = await getCurrentSession();
+  const isSupplier = (session?.orgType as string) === 'SUPPLIER';
+
+  // Resolve organisation and lifecycle status
+  let orgDisplay = {
+    orgName: 'New Supplier Application',
+    statusLabel: 'Draft',
+    statusColour: 'slate' as 'slate' | 'green' | 'amber',
+    isApproved: false,
+  };
+  if (isSupplier && session?.orgId && session.orgId !== session.personId) {
+    const org = await getSupplierOrganisationById(session.orgId);
+    orgDisplay = getPortalStatusDisplay(org);
+  }
+
+  const isApproved = orgDisplay.isApproved;
+
+  // Application-phase navigation (pre-approval)
+  const applicationNav = [
+    {
+      heading: 'APPLICATION',
+      items: [
+        { href: '/supplier-portal/onboarding', label: 'Supplier Application', icon: LayoutDashboard },
+        { href: '/supplier-portal/documents', label: 'Document Vault', icon: FileText },
+        { href: '/supplier-portal/actions', label: 'Actions & Requests', icon: ClipboardList },
+      ],
+    },
+    {
+      heading: 'ACCOUNT',
+      items: [
+        { href: '/supplier-portal/company', label: 'Company Profile', icon: Building2 },
+        { href: '/supplier-portal/billing', label: 'Billing', icon: Receipt },
+        { href: '/supplier-portal', label: 'Application Status', icon: ShieldCheck },
+      ],
+    },
+    {
+      heading: 'HELP',
+      items: [
+        { href: '/supplier-portal/resources', label: 'Standards & Guides', icon: BookOpen },
+        { href: '/supplier-portal/support', label: 'Support Desk', icon: HelpCircle },
+      ],
+    },
+  ];
+
+  // Full approved partner navigation
+  const approvedNav = [
     {
       heading: 'OVERVIEW',
       items: [
@@ -66,6 +114,14 @@ export default function SupplierPortalLayout({
     },
   ];
 
+  const navSections = isApproved ? approvedNav : applicationNav;
+
+  const statusColor = {
+    green: 'text-emerald-400',
+    amber: 'text-amber-400',
+    slate: 'text-slate-400',
+  }[orgDisplay.statusColour];
+
   return (
     <div className="min-h-screen bg-[#F7F6F9] text-slate-900 flex flex-col md:flex-row">
       {/* Sidebar */}
@@ -74,7 +130,9 @@ export default function SupplierPortalLayout({
           <div className="p-6 border-b border-slate-800 flex items-center justify-between">
             <Link href="/supplier-portal" className="font-bold text-lg tracking-tight">
               Entire<span className="text-brand-pink">FM</span>{' '}
-              <span className="text-xs font-mono font-light text-slate-400 block">Partner Portal</span>
+              <span className="text-xs font-mono font-light text-slate-400 block">
+                {isApproved ? 'Partner Portal' : 'Supplier Application'}
+              </span>
             </Link>
           </div>
 
@@ -102,9 +160,10 @@ export default function SupplierPortalLayout({
           </nav>
         </div>
 
+        {/* Org status footer — lifecycle-aware, no mock data */}
         <div className="p-4 border-t border-slate-800 text-[11px] font-mono text-slate-400">
-          <span className="text-slate-300 font-bold block">Midlands HVAC Pro</span>
-          <span className="text-[10px] text-emerald-400 block mt-0.5">● Approved Supplier</span>
+          <span className="text-slate-300 font-bold block truncate">{orgDisplay.orgName}</span>
+          <span className={`text-[10px] block mt-0.5 ${statusColor}`}>{orgDisplay.statusLabel}</span>
         </div>
       </aside>
 

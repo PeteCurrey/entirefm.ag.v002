@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { ingestBatch } from '@/server/telemetry';
+import { ingestBatch, validateSourceAuthority } from '@/server/telemetry';
 
 const ObservationSchema = z.object({
   source_id: z.string().uuid(),
@@ -37,6 +37,22 @@ export async function POST(req: NextRequest) {
         { error: 'Validation failed', details: parsed.error.format() },
         { status: 422 }
       );
+    }
+
+    // Source validation on the first unique sources in batch
+    const uniqueSourceAssetPairs = Array.from(
+      new Set(parsed.data.observations.map(o => `${o.source_id}:${o.asset_id}`))
+    );
+
+    for (const pair of uniqueSourceAssetPairs) {
+      const [sourceId, assetId] = pair.split(':');
+      const auth = await validateSourceAuthority(sourceId, assetId);
+      if (!auth.valid) {
+        return NextResponse.json(
+          { error: auth.rejection_reason },
+          { status: auth.status_code }
+        );
+      }
     }
 
     const result = await ingestBatch(parsed.data.observations);

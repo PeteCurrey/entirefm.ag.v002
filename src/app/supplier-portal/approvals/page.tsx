@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCurrentSession } from '@/server/identity';
 import { ShieldCheck, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { getSupplierRelationshipOverview, getSupplierServicesScope } from '@/server/suppliers/store';
 
@@ -8,8 +9,10 @@ export const metadata = {
 };
 
 export default async function SupplierApprovalsPage() {
-  const rel = await getSupplierRelationshipOverview('sup-test-01');
-  const services = await getSupplierServicesScope('sup-test-01');
+  const session = await getCurrentSession();
+  const orgId = session?.orgId ?? 'no-org';
+  const rel = await getSupplierRelationshipOverview(orgId);
+  const services = await getSupplierServicesScope(orgId);
   const approvedServices = services.filter((s) => s.approval_status === 'APPROVED');
 
   return (

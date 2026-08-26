@@ -84,7 +84,7 @@ export default function ApplyPage() {
 
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
                 <Link
-                  href="/supplier-portal/onboarding"
+                  href="/supplier-portal/register"
                   className="btn-primary text-sm py-3.5 px-8 text-center flex-1 font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow"
                 >
                   <span>Start Supplier Application</span>
@@ -187,7 +187,7 @@ export default function ApplyPage() {
               </p>
               <div className="pt-2">
                 <Link
-                  href="/supplier-portal/onboarding"
+                  href="/supplier-portal/sign-in"
                   className="btn-primary text-xs py-3 px-8 inline-flex items-center gap-2 font-bold"
                 >
                   <span>Start Supplier Application</span>
