@@ -28,7 +28,6 @@ const COMPANY_LINKS = [
   { label: 'Contact', href: '/contact-us', detail: 'Get in touch with our team' },
   { label: 'Careers', href: '/contact-us', detail: 'Join the EntireFM team' },
   { label: 'Legal Centre', href: '/legal', detail: 'Privacy, terms and governance' },
-  { label: 'HTML Sitemap', href: '/html-sitemap', detail: 'Full site structure' },
 ];
 
 type PrimaryCategory = {
