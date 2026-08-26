@@ -348,8 +348,8 @@ export const SUPPLIER_FAQS: SupplierFaqItem[] = [
   {
     id: 'faq-29',
     category: 'commercial',
-    question: 'Can I pay fees by card or invoice?',
-    answer: 'Yes. Fees can be paid securely via credit/debit card (Stripe) or via invoice for established partner accounts.',
+    question: 'Can I pay the assurance review fee by card or invoice?',
+    answer: 'Yes. The Initial Supplier Assurance Review fee can be paid securely by card (via Stripe) or by VAT invoice/BACS bank transfer. Both options require payment before your application is formally submitted for EntireFM assurance review. Invoices are due immediately — this is not a credit facility. Applications are formally submitted for review once payment has been received and confirmed.',
   },
   {
     id: 'faq-30',

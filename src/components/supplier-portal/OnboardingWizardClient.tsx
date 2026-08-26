@@ -177,38 +177,60 @@ export function OnboardingWizardClient({
   };
 
   if (submitted) {
+    const isInvoicePending = formData.paymentMethod === 'INVOICE';
+
     return (
       <div className="bg-white border border-slate-200 rounded-sm p-8 sm:p-12 shadow-sm text-center max-w-2xl mx-auto space-y-6">
-        <div className="h-16 w-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto">
-          <CheckCircle2 className="h-8 w-8" />
+        <div className={`h-16 w-16 ${isInvoicePending ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'} rounded-full flex items-center justify-center mx-auto`}>
+          {isInvoicePending ? <AlertCircle className="h-8 w-8" /> : <CheckCircle2 className="h-8 w-8" />}
         </div>
         <div className="space-y-2">
           <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
-            APPLICATION SUBMISSION CONFIRMED
+            {isInvoicePending ? 'VAT INVOICE ISSUED — AWAITING PAYMENT' : 'APPLICATION SUBMISSION CONFIRMED'}
           </span>
           <h1 className="text-2xl sm:text-3xl font-extralight tracking-tight text-slate-900">
-            Application Submitted Successfully
+            {isInvoicePending ? 'Payment Required to Complete Submission' : 'Application Submitted Successfully'}
           </h1>
           <p className="text-xs text-slate-600 font-light max-w-md mx-auto">
-            Your supplier application reference is{' '}
-            <strong className="text-slate-900 font-medium">{appRef}</strong>. Our supply chain assurance desk has received your documentation.
+            {isInvoicePending
+              ? <>Your application reference is{' '}<strong className="text-slate-900 font-medium">{appRef}</strong>. A VAT invoice has been issued. Your application will be formally submitted for EntireFM assurance review once payment has been received and confirmed.</>
+              : <>Your application reference is{' '}<strong className="text-slate-900 font-medium">{appRef}</strong>. Our supply chain assurance desk has received your documentation.</>
+            }
           </p>
         </div>
 
         <div className="p-4 bg-slate-50 border border-slate-200 rounded text-left text-xs font-light space-y-2">
           <div className="flex items-center justify-between border-b border-slate-200 pb-2">
             <span className="font-bold text-slate-900 font-sans">Assurance Review Fee:</span>
-            <span className="text-emerald-700 font-bold">
-              {formData.paymentMethod === 'CARD' ? 'PAID — £350 + VAT (Card)' : formData.paymentMethod === 'INVOICE' ? 'INVOICE ISSUED — £350 + VAT' : 'WAIVED (Authorised)'}
+            <span className={`font-bold ${isInvoicePending ? 'text-amber-700' : 'text-emerald-700'}`}>
+              {formData.paymentMethod === 'CARD' ? 'PAID — £350 + VAT (Card)' : formData.paymentMethod === 'INVOICE' ? 'AWAITING PAYMENT — VAT Invoice Issued' : 'WAIVED (Authorised)'}
             </span>
           </div>
-          <span className="font-bold text-slate-900 font-sans block pt-1">What Happens Next:</span>
-          <ul className="space-y-1 text-slate-600 font-sans text-[11.5px]">
-            <li>1. Technical review of insurance schedules and trade accreditations (3-5 business days).</li>
-            <li>2. If clarifications or replacement documents are required, you will see an action banner in your portal.</li>
-            <li>3. Scoped service &amp; regional authorization decisions will appear in your portal.</li>
-            <li>4. Payment VAT receipt / invoice is available under your Supplier Portal Billing tab.</li>
-          </ul>
+
+          {isInvoicePending ? (
+            <>
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded text-amber-900 text-[11px] leading-relaxed">
+                <strong>Payment is due immediately.</strong> Please pay by BACS using the reference on your invoice. Your application remains pending until payment is confirmed by EntireFM finance.
+              </div>
+              <span className="font-bold text-slate-900 font-sans block pt-1">What Happens Next:</span>
+              <ul className="space-y-1 text-slate-600 font-sans text-[11.5px]">
+                <li>1. Download your VAT invoice from the Billing tab in your Supplier Portal.</li>
+                <li>2. Pay the invoice amount by BACS to the bank details shown on the invoice. Use your invoice reference as the payment reference.</li>
+                <li>3. Once EntireFM finance confirms receipt of payment, your application will be formally submitted for technical assurance review (3–5 business days).</li>
+                <li>4. Your portal status will update automatically when payment is matched.</li>
+              </ul>
+            </>
+          ) : (
+            <>
+              <span className="font-bold text-slate-900 font-sans block pt-1">What Happens Next:</span>
+              <ul className="space-y-1 text-slate-600 font-sans text-[11.5px]">
+                <li>1. Technical review of insurance schedules and trade accreditations (3–5 business days).</li>
+                <li>2. If clarifications or replacement documents are required, you will see an action banner in your portal.</li>
+                <li>3. Scoped service &amp; regional authorisation decisions will appear in your portal.</li>
+                <li>4. Your VAT receipt is available under your Supplier Portal Billing tab.</li>
+              </ul>
+            </>
+          )}
         </div>
 
         <div className="pt-4 flex flex-wrap justify-center gap-4">
@@ -216,12 +238,13 @@ export function OnboardingWizardClient({
             Go to Supplier Portal &rarr;
           </Link>
           <Link href="/supplier-portal/billing" className="btn-secondary text-xs py-2.5 px-6">
-            View Billing &amp; Invoices
+            {isInvoicePending ? 'Download Invoice' : 'View Billing & Invoices'}
           </Link>
         </div>
       </div>
     );
   }
+
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -823,9 +846,16 @@ export function OnboardingWizardClient({
                         className="text-brand-pink"
                       />
                       <FileText className="h-4 w-4 shrink-0" />
-                      <span>Commercial Invoice (30-Day BACS)</span>
+                      <span>Invoice / BACS</span>
                     </label>
                   </div>
+
+                  {/* Invoice / BACS payment terms notice */}
+                  {formData.paymentMethod === 'INVOICE' && (
+                    <div className="p-3 bg-amber-50 border border-amber-200 rounded text-amber-900 text-[11px] leading-relaxed">
+                      <strong>Invoice / BACS — Payment Terms: Due Immediately.</strong> We will issue a VAT invoice for the assurance review fee. Payment is due immediately by BACS. Your application will be formally submitted for EntireFM assurance review once payment has been received and confirmed. This is not a credit facility.
+                    </div>
+                  )}
                 </div>
 
                 {paymentError && (
@@ -870,8 +900,8 @@ export function OnboardingWizardClient({
                   </>
                 ) : formData.paymentMethod === 'INVOICE' ? (
                   <>
-                    <span>Issue Invoice &amp; Submit Application</span>
-                    <CheckCircle2 className="h-3.5 w-3.5" />
+                    <span>Issue VAT Invoice (Pay by BACS to Submit)</span>
+                    <FileText className="h-3.5 w-3.5" />
                   </>
                 ) : (
                   <>
