@@ -520,3 +520,316 @@ export const CANONICAL_ACCREDITATIONS: CanonicalAccreditationScheme[] = [
     placeholder: 'e.g. BICSC-99882',
   },
 ];
+
+
+// ============================================================================
+// HIERARCHICAL SUPPLIER SERVICE TAXONOMY
+// ============================================================================
+
+export interface TaxonomyTradeItem {
+  id: string;
+  name: string;
+  category: string;
+  requiresAccreditation?: string;
+  suggestedQualifications?: string[];
+  highRisk?: boolean;
+}
+
+export interface TaxonomyCategory {
+  id: string;
+  title: string;
+  eyebrow: string;
+  description: string;
+  trades: TaxonomyTradeItem[];
+}
+
+export const SUPPLIER_SERVICE_TAXONOMY: TaxonomyCategory[] = [
+  {
+    id: "hard-fm",
+    title: "Hard FM / Engineering",
+    eyebrow: "CORE ENGINEERING & COMPLIANCE",
+    description: "Planned and reactive engineering for electrical, HVAC, gas, heating, fire safety, and life-critical plant systems.",
+    trades: [
+      { id: "electrical", name: "Electrical", category: "hard-fm", requiresAccreditation: "NICEIC / ECA", suggestedQualifications: ["ECS", "18th Edition"] },
+      { id: "mechanical", name: "Mechanical", category: "hard-fm" },
+      { id: "hvac", name: "HVAC", category: "hard-fm", requiresAccreditation: "REFCOM / F-Gas", suggestedQualifications: ["F-Gas Cat 1"] },
+      { id: "air-conditioning", name: "Air Conditioning", category: "hard-fm", requiresAccreditation: "REFCOM / F-Gas" },
+      { id: "heating", name: "Heating", category: "hard-fm" },
+      { id: "boilers", name: "Boilers", category: "hard-fm", requiresAccreditation: "Gas Safe Register" },
+      { id: "plumbing", name: "Plumbing", category: "hard-fm" },
+      { id: "drainage", name: "Drainage", category: "hard-fm" },
+      { id: "pumps", name: "Pumps & Pumping Stations", category: "hard-fm" },
+      { id: "water-hygiene", name: "Water Hygiene", category: "hard-fm", requiresAccreditation: "LCA (Legionella Control Association)" },
+      { id: "legionella-services", name: "Legionella Services", category: "hard-fm", requiresAccreditation: "LCA" },
+      { id: "bms-controls", name: "BMS / Controls", category: "hard-fm" },
+      { id: "building-management-systems", name: "Building Management Systems", category: "hard-fm" },
+      { id: "gas-services", name: "Gas Services", category: "hard-fm", requiresAccreditation: "Gas Safe Register" },
+      { id: "commercial-gas", name: "Commercial Gas", category: "hard-fm", requiresAccreditation: "Gas Safe Register (Commercial)" },
+      { id: "refrigeration", name: "Refrigeration", category: "hard-fm", requiresAccreditation: "REFCOM / F-Gas" },
+      { id: "fire-alarm-systems", name: "Fire Alarm Systems", category: "hard-fm", requiresAccreditation: "BAFE / FIA" },
+      { id: "fire-extinguishers", name: "Fire Extinguishers", category: "hard-fm", requiresAccreditation: "BAFE SP101" },
+      { id: "sprinklers", name: "Sprinklers", category: "hard-fm", requiresAccreditation: "BAFE / FIRAS" },
+      { id: "dry-wet-risers", name: "Dry Risers / Wet Risers", category: "hard-fm" },
+      { id: "emergency-lighting", name: "Emergency Lighting", category: "hard-fm", requiresAccreditation: "NICEIC / ECA / BAFE" },
+      { id: "lightning-protection", name: "Lightning Protection", category: "hard-fm", requiresAccreditation: "ATLAS" },
+      { id: "pat-testing", name: "PAT Testing", category: "hard-fm" },
+      { id: "fixed-wire-testing", name: "Fixed Wire Testing / EICR", category: "hard-fm", requiresAccreditation: "NICEIC Approved / ECA" },
+      { id: "generators", name: "Generators & Critical Power", category: "hard-fm" },
+      { id: "ups-systems", name: "UPS Systems", category: "hard-fm" },
+      { id: "lift-maintenance", name: "Lift Maintenance", category: "hard-fm", requiresAccreditation: "LEIA Member" },
+      { id: "automatic-doors", name: "Automatic Doors", category: "hard-fm", requiresAccreditation: "ADSA Certified" },
+      { id: "roller-shutters", name: "Roller Shutters", category: "hard-fm", requiresAccreditation: "DHF Member" },
+      { id: "dock-levellers", name: "Dock Levellers", category: "hard-fm" },
+      { id: "access-control", name: "Access Control", category: "hard-fm", requiresAccreditation: "NSI / SSAIB" },
+      { id: "cctv", name: "CCTV", category: "hard-fm", requiresAccreditation: "NSI / SSAIB" },
+      { id: "intruder-alarms", name: "Intruder Alarms", category: "hard-fm", requiresAccreditation: "NSI / SSAIB" },
+    ],
+  },
+  {
+    id: "fabric",
+    title: "Fabric / Building Services",
+    eyebrow: "BUILDING INTEGRITY & FABRIC",
+    description: "Internal and external building fabric repairs, structural envelope maintenance, roofing, glazing, and fit-out trades.",
+    trades: [
+      { id: "general-building", name: "General Building", category: "fabric" },
+      { id: "carpentry-joinery", name: "Carpentry / Joinery", category: "fabric" },
+      { id: "roofing", name: "Roofing", category: "fabric", requiresAccreditation: "NFRC Member", highRisk: true },
+      { id: "flat-roofing", name: "Flat Roofing", category: "fabric", highRisk: true },
+      { id: "cladding", name: "Cladding", category: "fabric", highRisk: true },
+      { id: "glazing", name: "Glazing", category: "fabric" },
+      { id: "doors", name: "Doors & Fire Doors", category: "fabric", requiresAccreditation: "BM TRADA Q-Mark / FIRAS" },
+      { id: "locksmiths", name: "Locksmiths", category: "fabric", requiresAccreditation: "MLA (Master Locksmiths)" },
+      { id: "flooring", name: "Flooring", category: "fabric" },
+      { id: "decorating", name: "Decorating", category: "fabric" },
+      { id: "plastering", name: "Plastering", category: "fabric" },
+      { id: "brickwork", name: "Brickwork", category: "fabric" },
+      { id: "groundworks", name: "Groundworks", category: "fabric" },
+      { id: "concrete-repairs", name: "Concrete Repairs", category: "fabric" },
+      { id: "fencing", name: "Fencing", category: "fabric" },
+      { id: "gates", name: "Gates & Automation", category: "fabric", requiresAccreditation: "DHF Gate Safety" },
+      { id: "barriers", name: "Barriers & Turnstiles", category: "fabric" },
+      { id: "surfacing", name: "Surfacing", category: "fabric" },
+      { id: "line-marking", name: "Line Marking", category: "fabric" },
+      { id: "signage", name: "Signage", category: "fabric" },
+      { id: "handyman-services", name: "Handyman Services", category: "fabric" },
+    ],
+  },
+  {
+    id: "soft-fm",
+    title: "Soft FM",
+    eyebrow: "FACILITIES HYGIENE & WORKPLACE SERVICES",
+    description: "Daily and periodic commercial cleaning, specialist decontamination, grounds maintenance, and manned security services.",
+    trades: [
+      { id: "commercial-cleaning", name: "Commercial Cleaning", category: "soft-fm", requiresAccreditation: "BICSc Corporate" },
+      { id: "deep-cleaning", name: "Deep Cleaning", category: "soft-fm", requiresAccreditation: "BICSc" },
+      { id: "specialist-cleaning", name: "Specialist Cleaning (TR19 / Kitchen)", category: "soft-fm", requiresAccreditation: "BESA TR19" },
+      { id: "window-cleaning", name: "Window Cleaning", category: "soft-fm", requiresAccreditation: "FWC (Federation of Window Cleaners)" },
+      { id: "high-level-cleaning", name: "High-Level Cleaning", category: "soft-fm", highRisk: true },
+      { id: "washroom-services", name: "Washroom Services", category: "soft-fm" },
+      { id: "waste-management", name: "Waste Management", category: "soft-fm", requiresAccreditation: "Environment Agency Upper Tier Carrier" },
+      { id: "pest-control", name: "Pest Control", category: "soft-fm", requiresAccreditation: "BPCA / NPTA Member" },
+      { id: "grounds-maintenance", name: "Grounds Maintenance", category: "soft-fm", requiresAccreditation: "BALI Member" },
+      { id: "landscaping", name: "Landscaping", category: "soft-fm" },
+      { id: "gritting-snow-clearance", name: "Gritting / Snow Clearance", category: "soft-fm" },
+      { id: "security-guarding", name: "Security Guarding", category: "soft-fm", requiresAccreditation: "SIA ACS Approved" },
+      { id: "manned-guarding", name: "Manned Guarding", category: "soft-fm", requiresAccreditation: "SIA ACS Approved" },
+      { id: "reception", name: "Reception", category: "soft-fm" },
+      { id: "concierge", name: "Concierge", category: "soft-fm" },
+      { id: "porterage", name: "Porterage", category: "soft-fm" },
+      { id: "janitorial-services", name: "Janitorial Services", category: "soft-fm" },
+    ],
+  },
+  {
+    id: "specialist-access",
+    title: "Specialist Access",
+    eyebrow: "WORKING AT HEIGHT & ROPE ACCESS",
+    description: "Industrial rope access, BMU suspended access equipment, mobile towers, scaffolding, and fall protection certification.",
+    trades: [
+      { id: "rope-access", name: "Rope Access", category: "specialist-access", requiresAccreditation: "IRATA Member Company", highRisk: true },
+      { id: "abseiling", name: "Abseiling", category: "specialist-access", requiresAccreditation: "IRATA Certified", highRisk: true },
+      { id: "bmu-services", name: "BMU Services", category: "specialist-access", requiresAccreditation: "BS EN 1808 Specialist", highRisk: true },
+      { id: "mewp-services", name: "MEWP Services", category: "specialist-access", requiresAccreditation: "IPAF Rental+ / Member", highRisk: true },
+      { id: "scaffolding", name: "Scaffolding", category: "specialist-access", requiresAccreditation: "NASC Member", highRisk: true },
+      { id: "mobile-towers", name: "Mobile Towers", category: "specialist-access", requiresAccreditation: "PASMA Certified" },
+      { id: "fall-protection", name: "Fall Protection", category: "specialist-access" },
+      { id: "mansafe-systems", name: "Mansafe Systems (Testing & Recertification)", category: "specialist-access" },
+      { id: "roof-access-systems", name: "Roof Access Systems", category: "specialist-access" },
+    ],
+  },
+  {
+    id: "compliance-testing",
+    title: "Compliance & Specialist Testing",
+    eyebrow: "STATUTORY RISK & ASSURANCE SURVEYS",
+    description: "Independent statutory risk assessments, environmental air quality testing, energy certification, and mechanical inspection.",
+    trades: [
+      { id: "fire-risk-assessments", name: "Fire Risk Assessments", category: "compliance-testing", requiresAccreditation: "IFE / BAFE SP205" },
+      { id: "water-risk-assessments", name: "Water Risk Assessments", category: "compliance-testing", requiresAccreditation: "LCA Registered" },
+      { id: "asbestos-surveys", name: "Asbestos Surveys", category: "compliance-testing", requiresAccreditation: "UKAS Accredited (ISO 17020)" },
+      { id: "air-quality-testing", name: "Air Quality Testing", category: "compliance-testing" },
+      { id: "electrical-testing", name: "Electrical Testing", category: "compliance-testing", requiresAccreditation: "NICEIC / ECA" },
+      { id: "thermographic-surveys", name: "Thermographic Surveys", category: "compliance-testing", requiresAccreditation: "PCN Level 2 / ITC Certified" },
+      { id: "energy-assessments", name: "Energy Assessments (EPC / DEC / TM44)", category: "compliance-testing", requiresAccreditation: "CIBSE Accredited Assessor" },
+      { id: "pressure-systems", name: "Pressure Systems (PSSR 2000)", category: "compliance-testing", requiresAccreditation: "Competent Person (PSSR)" },
+      { id: "lev-testing", name: "LEV Testing (COSHH Reg 9)", category: "compliance-testing", requiresAccreditation: "BOHS P601" },
+      { id: "loler-inspection", name: "LOLER Inspection", category: "compliance-testing", requiresAccreditation: "Competent Person (LOLER)" },
+      { id: "puwer-inspection", name: "PUWER Inspection", category: "compliance-testing" },
+      { id: "gas-safety", name: "Gas Safety Inspections (CP12 / CP15)", category: "compliance-testing", requiresAccreditation: "Gas Safe Register" },
+      { id: "tm44-assessments", name: "TM44 Assessments", category: "compliance-testing", requiresAccreditation: "CIBSE / Energy Assessor" },
+    ],
+  },
+  {
+    id: "drainage-environmental",
+    title: "Drainage & Environmental",
+    eyebrow: "CIVIL DRAINAGE & EMERGENCY SPILL",
+    description: "High-pressure water jetting, CCTV structural surveys, tanker waste disposal, sewage management, and flood response.",
+    trades: [
+      { id: "drain-unblocking", name: "Drain Unblocking", category: "drainage-environmental" },
+      { id: "cctv-drain-surveys", name: "CCTV Drain Surveys", category: "drainage-environmental", requiresAccreditation: "NADC / WRc Certified" },
+      { id: "jetting", name: "High-Pressure Water Jetting", category: "drainage-environmental", requiresAccreditation: "WJA (Water Jetting Assoc)" },
+      { id: "tankering", name: "Tankering & Vacuum Extraction", category: "drainage-environmental", requiresAccreditation: "EA Waste Carrier" },
+      { id: "sewage", name: "Sewage Treatment & Pump Stations", category: "drainage-environmental" },
+      { id: "grease-traps", name: "Grease Traps Maintenance", category: "drainage-environmental" },
+      { id: "interceptors", name: "Interceptors & Separators (PPG3)", category: "drainage-environmental" },
+      { id: "flood-response", name: "Flood Response & Dewatering", category: "drainage-environmental" },
+      { id: "environmental-services", name: "Environmental Remediation", category: "drainage-environmental" },
+      { id: "spill-response", name: "Spill Response & Chemical Containment", category: "drainage-environmental" },
+    ],
+  },
+  {
+    id: "external-civils",
+    title: "External & Civils",
+    eyebrow: "CIVIL ENGINEERING & INFRASTRUCTURE",
+    description: "Hard landscaping, tarmac roadway repairs, external lighting, perimeter security barriers, bollards, and civil groundwork.",
+    trades: [
+      { id: "grounds-works", name: "Grounds Works", category: "external-civils" },
+      { id: "excavation", name: "Excavation", category: "external-civils", highRisk: true },
+      { id: "car-parks", name: "Car Parks Maintenance", category: "external-civils" },
+      { id: "roads", name: "Roads & Tarmacadam", category: "external-civils" },
+      { id: "paving", name: "Paving & Kerbing", category: "external-civils" },
+      { id: "kerbing", name: "Kerbing", category: "external-civils" },
+      { id: "civils-drainage", name: "Civil Drainage", category: "external-civils" },
+      { id: "civils-fencing", name: "Fencing & Security Hoarding", category: "external-civils" },
+      { id: "civils-gates", name: "Gates & Turnstiles", category: "external-civils" },
+      { id: "bollards", name: "Bollards & Traffic Calming", category: "external-civils" },
+      { id: "street-furniture", name: "Street Furniture & Shelters", category: "external-civils" },
+      { id: "external-lighting", name: "External & Car Park Lighting", category: "external-civils", requiresAccreditation: "NICEIC / HEA" },
+    ],
+  },
+  {
+    id: "specialist-services",
+    title: "Specialist Services",
+    eyebrow: "INNOVATION & SPECIALIST RECOVERY",
+    description: "Drone asset thermography, non-destructive leak detection, disaster recovery drying, and temporary site services.",
+    trades: [
+      { id: "drone-inspections", name: "Drone Inspections & Aerial Photogrammetry", category: "specialist-services", requiresAccreditation: "CAA Operational Authorisation" },
+      { id: "thermal-imaging", name: "Thermal Imaging & Enclosure Integrity", category: "specialist-services" },
+      { id: "roof-surveys", name: "Roof Surveys & Electronic Leak Detection", category: "specialist-services" },
+      { id: "facade-surveys", name: "Façade Surveys & Material Testing", category: "specialist-services" },
+      { id: "leak-detection", name: "Acoustic & Tracer Gas Leak Detection", category: "specialist-services" },
+      { id: "emergency-response", name: "24/7 Disaster Emergency Response", category: "specialist-services" },
+      { id: "disaster-recovery", name: "Disaster Recovery & Flood Drying (BDMA)", category: "specialist-services", requiresAccreditation: "BDMA Corporate" },
+      { id: "temporary-power", name: "Temporary Power & Generator Hire", category: "specialist-services" },
+      { id: "temporary-heating", name: "Temporary Heating & Chilling Solutions", category: "specialist-services" },
+      { id: "specialist-surveys", name: "Specialist Engineering Surveys", category: "specialist-services" },
+    ],
+  },
+];
+
+// ============================================================================
+// ENTIREFM SUPPLIER CODE OF CONDUCT (v2026.1)
+// ============================================================================
+
+export interface CodeOfConductSection {
+  title: string;
+  points: string[];
+}
+
+export const SUPPLIER_CODE_OF_CONDUCT_V2026_1: CodeOfConductSection[] = [
+  {
+    title: "1. Professional Conduct & Business Ethics",
+    points: [
+      "All suppliers and their personnel must act with the highest standards of integrity, professionalism, and honesty at all times.",
+      "Suppliers must strictly comply with all applicable UK and local laws, regulations, statutory instruments, and British/European standards.",
+      "Fraudulent, misleading, or deceptive business conduct, including falsifying worksheets, time records, or material invoices, is strictly prohibited and results in immediate termination.",
+    ],
+  },
+  {
+    title: "2. Health, Safety & Environmental Protection",
+    points: [
+      "The health, safety, and welfare of building occupants, client personnel, the public, and our workforce is paramount.",
+      "Suppliers must produce site-specific and task-specific Risk Assessments and Method Statements (RAMS) before commencing work on any EntireFM managed site.",
+      "Operatives must be fully briefed on and formally sign onto RAMS before starting work.",
+      "All work at height, hot works, electrical isolation (LOTO), confined space entry, and asbestos disturbance must be governed by authorized permits-to-work.",
+      "Suppliers must maintain a zero-tolerance approach to unsafe work practices. Any operative or supervisor has the absolute right and obligation to stop unsafe work immediately.",
+      "Environmental regulations, COSHH guidelines, waste duty-of-care, and F-Gas stewardship must be strictly upheld.",
+    ],
+  },
+  {
+    title: "3. Workforce Competence & Subcontractor Responsibility",
+    points: [
+      "All engineers and operatives deployed on EntireFM work must hold relevant, verified statutory trade qualifications (e.g. Gas Safe, F-Gas, NICEIC, ECS/CSCS, IRATA).",
+      "Suppliers must ensure regular toolbox talks, site inductions, and ongoing competency refreshers are conducted and recorded in an auditable matrix.",
+      "Second-tier subcontracting without prior written authorization from EntireFM is prohibited.",
+      "Where authorized subcontractors are used, the primary supplier accepts full legal, technical, and operational liability for ensuring the subcontractor meets all EntireFM standards.",
+    ],
+  },
+  {
+    title: "4. Anti-Bribery, Gifts & Conflicts of Interest",
+    points: [
+      "EntireFM enforces a strict zero-tolerance policy towards bribery, corruption, extortion, and facilitation payments in accordance with the Bribery Act 2010.",
+      "Suppliers must never offer, promise, give, or accept gifts, hospitality, or commercial inducements to EntireFM staff, clients, or agents to gain an unfair business advantage.",
+      "Any actual, potential, or perceived conflicts of interest must be disclosed in writing to the EntireFM compliance desk immediately.",
+    ],
+  },
+  {
+    title: "5. Modern Slavery & Worker Welfare",
+    points: [
+      "Suppliers must actively eliminate modern slavery, human trafficking, forced labor, and child labor from their business and supply chains, in compliance with the Modern Slavery Act 2015.",
+      "All workers must be verified for right-to-work in the UK and paid at or above statutory national minimum and living wages.",
+      "Suppliers must uphold fair employment practices, non-discrimination, equality, diversity, and worker welfare standards.",
+      "A confidential whistleblowing channel must be maintained to allow workers to report ethical or safety concerns without fear of retaliation.",
+    ],
+  },
+  {
+    title: "6. Information Security, Privacy & Confidentiality",
+    points: [
+      "Suppliers must protect confidential client property information, access credentials, building layouts, and security telemetry.",
+      "Personal data must be processed in strict compliance with the UK GDPR, Data Protection Act 2018, and Data (Use and Access) Act 2025.",
+      "Multi-factor authentication (MFA), endpoint encryption, and regular software patching must be enforced on systems processing EntireFM data.",
+      "Any material cyber security incident or personal data breach must be notified to EntireFM within 24 hours of discovery.",
+    ],
+  },
+  {
+    title: "7. Client Premises Standards & Site Conduct",
+    points: [
+      "Suppliers must display company photographic identification at all times while on client property.",
+      "Clean, professional, branded workwear and appropriate PPE must be worn by all attending personnel.",
+      "Substance misuse, including alcohol and illegal drugs, is strictly prohibited. EntireFM and our clients operate random drug and alcohol testing policies.",
+      "Smoking and vaping are prohibited on all client premises except within designated external zones.",
+      "Suppliers must treat building occupants, clients, and fellow contractors with dignity, courtesy, and respect at all times.",
+    ],
+  },
+  {
+    title: "8. Digital Job Management & Evidence Quality",
+    points: [
+      "Suppliers must utilize EntireCAFM or designated digital portals to receive job dispatches, log arrival times, capture photographic proof of work, obtain client digital sign-offs, and submit worksheets.",
+      "Clear before-and-after photographic evidence must accompany all completion reports for maintenance and reactive work orders.",
+      "Accurate, transparent asset condition notes and statutory certification documents must be uploaded within 24 hours of job completion.",
+    ],
+  },
+  {
+    title: "9. Regulatory Disclosures & Material Changes",
+    points: [
+      "Suppliers have an ongoing affirmative duty to notify EntireFM within 5 business days of any material change in business status, loss of trade accreditation, insurance cancellation/lapse, HSE enforcement notice, RIDDOR prosecution, or regulatory sanction.",
+      "Failure to maintain mandatory insurances or qualifications will result in an immediate automated hold on work allocation.",
+    ],
+  },
+  {
+    title: "10. Compliance Audits & Breach Termination",
+    points: [
+      "EntireFM reserves the right to conduct announced and unannounced safety and quality audits of supplier operations, paperwork, vehicles, and active site works.",
+      "Suppliers must cooperate fully with all EntireFM quality assurance officers and audit requests.",
+      "Material or persistent breach of this Supplier Code of Conduct will result in immediate suspension or permanent removal from the EntireFM Supplier Network.",
+    ],
+  },
+];

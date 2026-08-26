@@ -70,11 +70,28 @@ export interface SupplierOrganisationRecord {
   updatedAt: string;
 }
 
+export interface SupplierDocItem {
+  id: string;
+  category: 'MANDATORY' | 'ACCREDITATION' | 'POLICY' | 'SUPPORTING';
+  documentType: string;
+  fileName: string;
+  fileSizeBytes?: number;
+  fileUrl?: string;
+  issueDate?: string;
+  expiryDate?: string;
+  status: 'UPLOADED' | 'UNDER_REVIEW' | 'ACCEPTED' | 'REJECTED' | 'EXPIRED';
+  uploadedBy?: string;
+  uploadedAt: string;
+  notes?: string;
+}
+
 export interface SupplierApplicationDraft {
   orgId: string;
   applicationReference: string;
   currentStep: number;
   lifecycleStatus: SupplierLifecycleStatus;
+  
+  // 01: Company Profile
   legalCompanyName: string;
   tradingName: string;
   companyNumber: string;
@@ -87,36 +104,189 @@ export interface SupplierApplicationDraft {
   generalEmail: string;
   businessType: string;
   companySummary: string;
+  
+  // 02: Contacts & Roles
   primaryContactName: string;
   primaryContactEmail: string;
   primaryContactPhone: string;
   opsContactName: string;
   opsContactEmail: string;
+  opsContactPhone?: string;
+  financeContactName?: string;
+  financeContactEmail?: string;
+  financeContactPhone?: string;
+  hsContactName?: string;
+  hsContactEmail?: string;
+  hsContactPhone?: string;
+  
+  // 03: Services & Trades
   selectedServices: string[];
+  serviceDetails?: Record<string, {
+    deliveryModel: 'SELF' | 'SUB' | 'BOTH';
+    directOperatives?: number;
+    has247?: boolean;
+    offersPpm?: boolean;
+    offersReactive?: boolean;
+    offersProjects?: boolean;
+    offersTesting?: boolean;
+  }>;
+  customServices?: string;
+  
+  // 04: Coverage & Bases
+  coverageType: 'NATIONAL' | 'REGIONAL' | 'RADIUS';
   selectedRegions: string[];
+  operatingBases?: Array<{ name: string; postcode: string; city: string; isHeadquarters?: boolean }>;
+  operationalRadiusMiles?: number;
+  nationalMobilisation?: boolean;
+  
+  // 05: Operational Capability
+  serviceDeliveryTypes?: string[];
+  standardOperatingHours?: string;
   has247: boolean;
   emergencySlaHours: string;
-  hasSubcontractors: boolean;
+  emergency247Staffing?: 'DIRECT' | 'ON_CALL' | 'NONE';
+  emergencyContactMechanism?: string;
+  responseTimeP1?: string;
+  responseTimeP2?: string;
+  responseTimeP3?: string;
+  vehicleCount?: number;
+  brandedFleet?: boolean;
+  gpsTracking?: boolean;
+  vehicleStock?: boolean;
+  specialistEquipmentAvailable?: boolean;
+  specialistEquipmentDetails?: string;
+  workManagementMethods?: string[];
+  engineerDeviceCapabilities?: string[];
+  
+  // 06: Workforce & Subcontractors
   directEngineers: string;
+  fieldOperativesCount?: number;
+  qualifiedEngineersCount?: number;
+  supervisorsCount?: number;
+  officeStaffCount?: number;
+  apprenticesCount?: number;
+  employmentModel?: 'DIRECT_ONLY' | 'DIRECT_PRIMARY' | 'MIXED' | 'SUBCONTRACT_PRIMARY';
+  qualificationsHeld?: string[];
+  customQualifications?: string;
+  hasSubcontractors: boolean;
+  subcontractorPct?: number;
+  subcontractorTrades?: string[];
+  subcontractorApprovalProcess?: string;
+  subChecksCompetency?: boolean;
+  subChecksInsurance?: boolean;
+  subChecksHs?: boolean;
+  subChecksAccreditation?: boolean;
+  subMonitorsPerformance?: boolean;
+  subEntirefmCompliance?: boolean;
+  subStandardsAccepted?: boolean;
+  
+  // 07: Insurance Schedules
   plInsurer: string;
   plPolicyNumber: string;
   plCoverLimit: string;
   plExpiryDate: string;
+  elInsurer?: string;
+  elPolicyNumber?: string;
+  elCoverLimit?: string;
+  elExpiryDate?: string;
+  piApplicable?: boolean;
+  piInsurer?: string;
+  piPolicyNumber?: string;
+  piCoverLimit?: string;
+  piExpiryDate?: string;
+  
+  // 08: Accreditations
   selectedAccreditations: string[];
   accreditationNumbers: Record<string, string>;
+  accreditationExpiries?: Record<string, string>;
   gasSafeNumber: string;
   gasSafeExpiry: string;
   fGasNumber: string;
   fGasExpiry: string;
+  
+  // 09: Health & Safety
   hasHsPolicy: boolean;
+  hsPolicyReviewDate?: string;
+  competentPersonName?: string;
+  competentPersonRole?: string;
+  competentPersonType?: 'INTERNAL' | 'EXTERNAL';
   hasRams: boolean;
+  ramsApproverRole?: string;
+  ramsProvidedPreAttendance?: boolean;
+  ramsOperativesBriefed?: boolean;
+  highRiskControls?: string[];
   hasIncidentHistory: boolean;
-  antiBribery: boolean;
+  incidentRiddorCount?: number;
+  incidentLtiCount?: number;
+  incidentImprovementNoticesCount?: number;
+  incidentProhibitionNoticesCount?: number;
+  incidentProsecutionsCount?: number;
+  incidentDetails?: string;
+  trainingMatrixMaintained?: boolean;
+  certificationsMonitored?: boolean;
+  toolboxTalksRegular?: boolean;
+  siteInductionsSupported?: boolean;
+  
+  // 10: Governance & Ethics
   modernSlavery: boolean;
+  modernSlaveryPolicy?: boolean;
+  modernSlaveryStatement?: boolean;
+  modernSlaverySupplyControls?: boolean;
+  antiBribery: boolean;
+  antiBriberyPolicy?: boolean;
+  giftsHospitalityControls?: boolean;
+  conflictsInterestControls?: boolean;
+  equalityDiversityPolicy?: boolean;
+  rightToWorkChecks?: boolean;
+  fairEmploymentPractices?: boolean;
+  whistleblowingProcedure?: boolean;
+  disclosureCriminalConvictions?: boolean;
+  disclosureFraudConvictions?: boolean;
+  disclosureBriberyConvictions?: boolean;
+  disclosureRegulatoryEnforcement?: boolean;
+  disclosureInsolvencyDisqualification?: boolean;
+  disclosureDetails?: string;
+  sanctionsConfirmed?: boolean;
+  
+  // 11: Information Security
+  infosecPolicy?: boolean;
+  dataProtectionPolicy?: boolean;
+  gdprProcedures?: boolean;
+  dpoContactName?: string;
+  dpoContactEmail?: string;
+  cyberCertifications?: string[];
+  cyberCertNumber?: string;
+  cyberControls?: string[];
+  processesPersonalData?: boolean;
+  personalDataSafeguards?: string;
+  cyberBreachPast3yr?: boolean;
+  cyberBreachDetails?: string;
+  
+  // 12: Document Vault
+  documentVault?: SupplierDocItem[];
+  
+  // 13: Commercial Information
+  turnoverBand?: string;
+  largestContractBand?: string;
+  maxMobilisationSize?: string;
+  multiSiteCapability?: boolean;
+  accountsPayableEmail?: string;
+  requiresPo?: boolean;
+  
+  // 14: Declarations
   codeOfConduct: boolean;
   truthfulnessDeclaration: boolean;
+  declarantName?: string;
+  declarantRole?: string;
+  declarantUserId?: string;
+  declaredAt?: string;
+  codeOfConductVersion?: string;
+  legalAcceptances?: Record<string, { accepted: boolean; version: string; timestamp: string; userId?: string }>;
+  
+  // 15: Payment
   paymentMethod: 'CARD' | 'INVOICE' | 'WAIVER';
   waiverReason: string;
+  
   createdAt: string;
   updatedAt: string;
 }
@@ -259,32 +429,145 @@ function mapDbDraftToRecord(row: any): SupplierApplicationDraft {
     primaryContactPhone: row.primary_contact_phone || '',
     opsContactName: row.ops_contact_name || '',
     opsContactEmail: row.ops_contact_email || '',
+    opsContactPhone: row.ops_contact_phone || '',
+    financeContactName: row.finance_contact_name || '',
+    financeContactEmail: row.finance_contact_email || '',
+    financeContactPhone: row.finance_contact_phone || '',
+    hsContactName: row.hs_contact_name || '',
+    hsContactEmail: row.hs_contact_email || '',
+    hsContactPhone: row.hs_contact_phone || '',
     selectedServices: Array.isArray(row.selected_services) ? row.selected_services : [],
+    serviceDetails: row.service_details && typeof row.service_details === 'object' ? row.service_details : {},
+    customServices: row.custom_services || '',
+    coverageType: row.coverage_type || 'REGIONAL',
     selectedRegions: Array.isArray(row.selected_regions) ? row.selected_regions : [],
+    operatingBases: Array.isArray(row.operating_bases) ? row.operating_bases : [],
+    operationalRadiusMiles: typeof row.operational_radius_miles === 'number' ? row.operational_radius_miles : 50,
+    nationalMobilisation: Boolean(row.national_mobilisation),
+    serviceDeliveryTypes: Array.isArray(row.service_delivery_types) ? row.service_delivery_types : [],
+    standardOperatingHours: row.standard_operating_hours || '08:00 - 17:00 (Mon-Fri)',
     has247: Boolean(row.has_247),
     emergencySlaHours: row.emergency_sla_hours || '',
-    hasSubcontractors: Boolean(row.has_subcontractors),
+    emergency247Staffing: row.emergency_24_7_staffing || 'DIRECT',
+    emergencyContactMechanism: row.emergency_contact_mechanism || '',
+    responseTimeP1: row.response_time_p1 || '',
+    responseTimeP2: row.response_time_p2 || '',
+    responseTimeP3: row.response_time_p3 || '',
+    vehicleCount: typeof row.vehicle_count === 'number' ? row.vehicle_count : 0,
+    brandedFleet: Boolean(row.branded_fleet),
+    gpsTracking: Boolean(row.gps_tracking),
+    vehicleStock: Boolean(row.vehicle_stock),
+    specialistEquipmentAvailable: Boolean(row.specialist_equipment_available),
+    specialistEquipmentDetails: row.specialist_equipment_details || '',
+    workManagementMethods: Array.isArray(row.work_management_methods) ? row.work_management_methods : [],
+    engineerDeviceCapabilities: Array.isArray(row.engineer_device_capabilities) ? row.engineer_device_capabilities : [],
     directEngineers: row.direct_engineers || '',
+    fieldOperativesCount: typeof row.field_operatives_count === 'number' ? row.field_operatives_count : 0,
+    qualifiedEngineersCount: typeof row.qualified_engineers_count === 'number' ? row.qualified_engineers_count : 0,
+    supervisorsCount: typeof row.supervisors_count === 'number' ? row.supervisors_count : 0,
+    officeStaffCount: typeof row.office_staff_count === 'number' ? row.office_staff_count : 0,
+    apprenticesCount: typeof row.apprentices_count === 'number' ? row.apprentices_count : 0,
+    employmentModel: row.employment_model || 'DIRECT_PRIMARY',
+    qualificationsHeld: Array.isArray(row.qualifications_held) ? row.qualifications_held : [],
+    customQualifications: row.custom_qualifications || '',
+    hasSubcontractors: Boolean(row.has_subcontractors),
+    subcontractorPct: typeof row.subcontractor_pct === 'number' ? row.subcontractor_pct : 0,
+    subcontractorTrades: Array.isArray(row.subcontractor_trades) ? row.subcontractor_trades : [],
+    subcontractorApprovalProcess: row.subcontractor_approval_process || '',
+    subChecksCompetency: row.sub_checks_competency !== false,
+    subChecksInsurance: row.sub_checks_insurance !== false,
+    subChecksHs: row.sub_checks_hs !== false,
+    subChecksAccreditation: row.sub_checks_accreditation !== false,
+    subMonitorsPerformance: row.sub_monitors_performance !== false,
+    subEntirefmCompliance: row.sub_entirefm_compliance !== false,
+    subStandardsAccepted: Boolean(row.sub_standards_accepted),
     plInsurer: row.pl_insurer || '',
     plPolicyNumber: row.pl_policy_number || '',
     plCoverLimit: row.pl_cover_limit || '',
     plExpiryDate: row.pl_expiry_date || '',
+    elInsurer: row.el_insurer || '',
+    elPolicyNumber: row.el_policy_number || '',
+    elCoverLimit: row.el_cover_limit || '',
+    elExpiryDate: row.el_expiry_date || '',
+    piApplicable: Boolean(row.pi_applicable),
+    piInsurer: row.pi_insurer || '',
+    piPolicyNumber: row.pi_policy_number || '',
+    piCoverLimit: row.pi_cover_limit || '',
+    piExpiryDate: row.pi_expiry_date || '',
     selectedAccreditations: Array.isArray(row.selected_accreditations) ? row.selected_accreditations : [],
-    accreditationNumbers:
-      row.accreditation_numbers && typeof row.accreditation_numbers === 'object'
-        ? row.accreditation_numbers
-        : {},
+    accreditationNumbers: row.accreditation_numbers && typeof row.accreditation_numbers === 'object' ? row.accreditation_numbers : {},
+    accreditationExpiries: row.accreditation_expiries && typeof row.accreditation_expiries === 'object' ? row.accreditation_expiries : {},
     gasSafeNumber: row.gas_safe_number || '',
     gasSafeExpiry: row.gas_safe_expiry || '',
     fGasNumber: row.f_gas_number || '',
     fGasExpiry: row.f_gas_expiry || '',
     hasHsPolicy: Boolean(row.has_hs_policy),
+    hsPolicyReviewDate: row.hs_policy_review_date || '',
+    competentPersonName: row.competent_person_name || '',
+    competentPersonRole: row.competent_person_role || '',
+    competentPersonType: row.competent_person_type || 'INTERNAL',
     hasRams: Boolean(row.has_rams),
+    ramsApproverRole: row.rams_approver_role || '',
+    ramsProvidedPreAttendance: row.rams_provided_pre_attendance !== false,
+    ramsOperativesBriefed: row.rams_operatives_briefed !== false,
+    highRiskControls: Array.isArray(row.high_risk_controls) ? row.high_risk_controls : [],
     hasIncidentHistory: Boolean(row.has_incident_history),
-    antiBribery: Boolean(row.anti_bribery),
+    incidentRiddorCount: typeof row.incident_riddor_count === 'number' ? row.incident_riddor_count : 0,
+    incidentLtiCount: typeof row.incident_lti_count === 'number' ? row.incident_lti_count : 0,
+    incidentImprovementNoticesCount: typeof row.incident_improvement_notices_count === 'number' ? row.incident_improvement_notices_count : 0,
+    incidentProhibitionNoticesCount: typeof row.incident_prohibition_notices_count === 'number' ? row.incident_prohibition_notices_count : 0,
+    incidentProsecutionsCount: typeof row.incident_prosecutions_count === 'number' ? row.incident_prosecutions_count : 0,
+    incidentDetails: row.incident_details || '',
+    trainingMatrixMaintained: row.training_matrix_maintained !== false,
+    certificationsMonitored: row.certifications_monitored !== false,
+    toolboxTalksRegular: row.toolbox_talks_regular !== false,
+    siteInductionsSupported: row.site_inductions_supported !== false,
     modernSlavery: Boolean(row.modern_slavery),
+    modernSlaveryPolicy: row.modern_slavery_policy !== false,
+    modernSlaveryStatement: Boolean(row.modern_slavery_statement),
+    modernSlaverySupplyControls: row.modern_slavery_supply_controls !== false,
+    antiBribery: Boolean(row.anti_bribery),
+    antiBriberyPolicy: row.anti_bribery_policy !== false,
+    giftsHospitalityControls: row.gifts_hospitality_controls !== false,
+    conflictsInterestControls: row.conflicts_interest_controls !== false,
+    equalityDiversityPolicy: row.equality_diversity_policy !== false,
+    rightToWorkChecks: row.right_to_work_checks !== false,
+    fairEmploymentPractices: row.fair_employment_practices !== false,
+    whistleblowingProcedure: row.whistleblowing_procedure !== false,
+    disclosureCriminalConvictions: Boolean(row.disclosure_criminal_convictions),
+    disclosureFraudConvictions: Boolean(row.disclosure_fraud_convictions),
+    disclosureBriberyConvictions: Boolean(row.disclosure_bribery_convictions),
+    disclosureRegulatoryEnforcement: Boolean(row.disclosure_regulatory_enforcement),
+    disclosureInsolvencyDisqualification: Boolean(row.disclosure_insolvency_disqualification),
+    disclosureDetails: row.disclosure_details || '',
+    sanctionsConfirmed: row.sanctions_confirmed !== false,
+    infosecPolicy: row.infosec_policy !== false,
+    dataProtectionPolicy: row.data_protection_policy !== false,
+    gdprProcedures: row.gdpr_procedures !== false,
+    dpoContactName: row.dpo_contact_name || '',
+    dpoContactEmail: row.dpo_contact_email || '',
+    cyberCertifications: Array.isArray(row.cyber_certifications) ? row.cyber_certifications : [],
+    cyberCertNumber: row.cyber_cert_number || '',
+    cyberControls: Array.isArray(row.cyber_controls) ? row.cyber_controls : [],
+    processesPersonalData: Boolean(row.processes_personal_data),
+    personalDataSafeguards: row.personal_data_safeguards || '',
+    cyberBreachPast3yr: Boolean(row.cyber_breach_past_3yr),
+    cyberBreachDetails: row.cyber_breach_details || '',
+    documentVault: Array.isArray(row.document_vault) ? row.document_vault : [],
+    turnoverBand: row.turnover_band || '',
+    largestContractBand: row.largest_contract_band || '',
+    maxMobilisationSize: row.max_mobilisation_size || '',
+    multiSiteCapability: row.multi_site_capability !== false,
+    accountsPayableEmail: row.accounts_payable_email || '',
+    requiresPo: row.requires_po !== false,
     codeOfConduct: Boolean(row.code_of_conduct),
     truthfulnessDeclaration: Boolean(row.truthfulness_declaration),
+    declarantName: row.declarant_name || '',
+    declarantRole: row.declarant_role || '',
+    declarantUserId: row.declarant_user_id || '',
+    declaredAt: row.declared_at || '',
+    codeOfConductVersion: row.code_of_conduct_version || '2026.1',
+    legalAcceptances: row.legal_acceptances && typeof row.legal_acceptances === 'object' ? row.legal_acceptances : {},
     paymentMethod: (row.payment_method || 'CARD') as 'CARD' | 'INVOICE' | 'WAIVER',
     waiverReason: row.waiver_reason || '',
     createdAt: row.created_at || new Date().toISOString(),
@@ -315,29 +598,145 @@ function mapDraftRecordToDb(draft: SupplierApplicationDraft): Record<string, any
     primary_contact_phone: draft.primaryContactPhone,
     ops_contact_name: draft.opsContactName,
     ops_contact_email: draft.opsContactEmail,
+    ops_contact_phone: draft.opsContactPhone,
+    finance_contact_name: draft.financeContactName,
+    finance_contact_email: draft.financeContactEmail,
+    finance_contact_phone: draft.financeContactPhone,
+    hs_contact_name: draft.hsContactName,
+    hs_contact_email: draft.hsContactEmail,
+    hs_contact_phone: draft.hsContactPhone,
     selected_services: draft.selectedServices,
+    service_details: draft.serviceDetails || {},
+    custom_services: draft.customServices,
+    coverage_type: draft.coverageType,
     selected_regions: draft.selectedRegions,
+    operating_bases: draft.operatingBases || [],
+    operational_radius_miles: draft.operationalRadiusMiles,
+    national_mobilisation: draft.nationalMobilisation,
+    service_delivery_types: draft.serviceDeliveryTypes || [],
+    standard_operating_hours: draft.standardOperatingHours,
     has_247: draft.has247,
     emergency_sla_hours: draft.emergencySlaHours,
-    has_subcontractors: draft.hasSubcontractors,
+    emergency_24_7_staffing: draft.emergency247Staffing,
+    emergency_contact_mechanism: draft.emergencyContactMechanism,
+    response_time_p1: draft.responseTimeP1,
+    response_time_p2: draft.responseTimeP2,
+    response_time_p3: draft.responseTimeP3,
+    vehicle_count: draft.vehicleCount,
+    branded_fleet: draft.brandedFleet,
+    gps_tracking: draft.gpsTracking,
+    vehicle_stock: draft.vehicleStock,
+    specialist_equipment_available: draft.specialistEquipmentAvailable,
+    specialist_equipment_details: draft.specialistEquipmentDetails,
+    work_management_methods: draft.workManagementMethods || [],
+    engineer_device_capabilities: draft.engineerDeviceCapabilities || [],
     direct_engineers: draft.directEngineers,
+    field_operatives_count: draft.fieldOperativesCount,
+    qualified_engineers_count: draft.qualifiedEngineersCount,
+    supervisors_count: draft.supervisorsCount,
+    office_staff_count: draft.officeStaffCount,
+    apprentices_count: draft.apprenticesCount,
+    employment_model: draft.employmentModel,
+    qualifications_held: draft.qualificationsHeld || [],
+    custom_qualifications: draft.customQualifications,
+    has_subcontractors: draft.hasSubcontractors,
+    subcontractor_pct: draft.subcontractorPct,
+    subcontractor_trades: draft.subcontractorTrades || [],
+    subcontractor_approval_process: draft.subcontractorApprovalProcess,
+    sub_checks_competency: draft.subChecksCompetency,
+    sub_checks_insurance: draft.subChecksInsurance,
+    sub_checks_hs: draft.subChecksHs,
+    sub_checks_accreditation: draft.subChecksAccreditation,
+    sub_monitors_performance: draft.subMonitorsPerformance,
+    sub_entirefm_compliance: draft.subEntirefmCompliance,
+    sub_standards_accepted: draft.subStandardsAccepted,
     pl_insurer: draft.plInsurer,
     pl_policy_number: draft.plPolicyNumber,
     pl_cover_limit: draft.plCoverLimit,
     pl_expiry_date: draft.plExpiryDate,
+    el_insurer: draft.elInsurer,
+    el_policy_number: draft.elPolicyNumber,
+    el_cover_limit: draft.elCoverLimit,
+    el_expiry_date: draft.elExpiryDate,
+    pi_applicable: draft.piApplicable,
+    pi_insurer: draft.piInsurer,
+    pi_policy_number: draft.piPolicyNumber,
+    pi_cover_limit: draft.piCoverLimit,
+    pi_expiry_date: draft.piExpiryDate,
     selected_accreditations: draft.selectedAccreditations,
-    accreditation_numbers: draft.accreditationNumbers,
+    accreditation_numbers: draft.accreditationNumbers || {},
+    accreditation_expiries: draft.accreditationExpiries || {},
     gas_safe_number: draft.gasSafeNumber,
     gas_safe_expiry: draft.gasSafeExpiry,
     f_gas_number: draft.fGasNumber,
     f_gas_expiry: draft.fGasExpiry,
     has_hs_policy: draft.hasHsPolicy,
+    hs_policy_review_date: draft.hsPolicyReviewDate,
+    competent_person_name: draft.competentPersonName,
+    competent_person_role: draft.competentPersonRole,
+    competent_person_type: draft.competentPersonType,
     has_rams: draft.hasRams,
+    rams_approver_role: draft.ramsApproverRole,
+    rams_provided_pre_attendance: draft.ramsProvidedPreAttendance,
+    rams_operatives_briefed: draft.ramsOperativesBriefed,
+    high_risk_controls: draft.highRiskControls || [],
     has_incident_history: draft.hasIncidentHistory,
-    anti_bribery: draft.antiBribery,
+    incident_riddor_count: draft.incidentRiddorCount,
+    incident_lti_count: draft.incidentLtiCount,
+    incident_improvement_notices_count: draft.incidentImprovementNoticesCount,
+    incident_prohibition_notices_count: draft.incidentProhibitionNoticesCount,
+    incident_prosecutions_count: draft.incidentProsecutionsCount,
+    incident_details: draft.incidentDetails,
+    training_matrix_maintained: draft.trainingMatrixMaintained,
+    certifications_monitored: draft.certificationsMonitored,
+    toolbox_talks_regular: draft.toolboxTalksRegular,
+    site_inductions_supported: draft.siteInductionsSupported,
     modern_slavery: draft.modernSlavery,
+    modern_slavery_policy: draft.modernSlaveryPolicy,
+    modern_slavery_statement: draft.modernSlaveryStatement,
+    modern_slavery_supply_controls: draft.modernSlaverySupplyControls,
+    anti_bribery: draft.antiBribery,
+    anti_bribery_policy: draft.antiBriberyPolicy,
+    gifts_hospitality_controls: draft.giftsHospitalityControls,
+    conflicts_interest_controls: draft.conflictsInterestControls,
+    equality_diversity_policy: draft.equalityDiversityPolicy,
+    right_to_work_checks: draft.rightToWorkChecks,
+    fair_employment_practices: draft.fairEmploymentPractices,
+    whistleblowing_procedure: draft.whistleblowingProcedure,
+    disclosure_criminal_convictions: draft.disclosureCriminalConvictions,
+    disclosure_fraud_convictions: draft.disclosureFraudConvictions,
+    disclosure_bribery_convictions: draft.disclosureBriberyConvictions,
+    disclosure_regulatory_enforcement: draft.disclosureRegulatoryEnforcement,
+    disclosure_insolvency_disqualification: draft.disclosureInsolvencyDisqualification,
+    disclosure_details: draft.disclosureDetails,
+    sanctions_confirmed: draft.sanctionsConfirmed,
+    infosec_policy: draft.infosecPolicy,
+    data_protection_policy: draft.dataProtectionPolicy,
+    gdpr_procedures: draft.gdprProcedures,
+    dpo_contact_name: draft.dpoContactName,
+    dpo_contact_email: draft.dpoContactEmail,
+    cyber_certifications: draft.cyberCertifications || [],
+    cyber_cert_number: draft.cyberCertNumber,
+    cyber_controls: draft.cyberControls || [],
+    processes_personal_data: draft.processesPersonalData,
+    personal_data_safeguards: draft.personalDataSafeguards,
+    cyber_breach_past_3yr: draft.cyberBreachPast3yr,
+    cyber_breach_details: draft.cyberBreachDetails,
+    document_vault: draft.documentVault || [],
+    turnover_band: draft.turnoverBand,
+    largest_contract_band: draft.largestContractBand,
+    max_mobilisation_size: draft.maxMobilisationSize,
+    multi_site_capability: draft.multiSiteCapability,
+    accounts_payable_email: draft.accountsPayableEmail,
+    requires_po: draft.requiresPo,
     code_of_conduct: draft.codeOfConduct,
     truthfulness_declaration: draft.truthfulnessDeclaration,
+    declarant_name: draft.declarantName,
+    declarant_role: draft.declarantRole,
+    declarant_user_id: draft.declarantUserId,
+    declared_at: draft.declaredAt,
+    code_of_conduct_version: draft.codeOfConductVersion || '2026.1',
+    legal_acceptances: draft.legalAcceptances || {},
     payment_method: draft.paymentMethod,
     waiver_reason: draft.waiverReason,
     created_at: draft.createdAt,
@@ -902,6 +1301,7 @@ export async function getOrCreateApplicationDraft(
     opsContactName: '',
     opsContactEmail: '',
     selectedServices: [],
+    coverageType: 'REGIONAL',
     selectedRegions: [],
     has247: false,
     emergencySlaHours: '',

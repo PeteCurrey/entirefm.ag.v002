@@ -22,6 +22,7 @@ export default async function OnboardingWizardPage() {
     authState?.supplierUser?.organisation_id ||
     (session?.orgId && session.orgId !== session?.personId ? session.orgId : '');
 
+  let draft = null;
   let initialLegalName = '';
   let initialTradingName = '';
   let initialCompanyNumber = '';
@@ -35,7 +36,7 @@ export default async function OnboardingWizardPage() {
       initialCompanyNumber = org.companyNumber || '';
       initialAppRef = org.applicationReference || '';
     }
-    const draft = await getOrCreateApplicationDraft(orgId);
+    draft = await getOrCreateApplicationDraft(orgId);
     if (draft) {
       if (!initialLegalName) initialLegalName = draft.legalCompanyName || '';
       if (!initialTradingName) initialTradingName = draft.tradingName || '';
@@ -48,10 +49,10 @@ export default async function OnboardingWizardPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
-          Supplier Application
+          Supplier Qualification Application
         </h1>
         <p className="text-xs text-slate-500 font-light mt-1">
-          Complete your company profile and supplier assurance information. Your progress is saved automatically.
+          Complete your trade capabilities, assurance credentials, health &amp; safety standards, and compliance profile. Progress is saved automatically.
         </p>
       </div>
 
@@ -61,6 +62,7 @@ export default async function OnboardingWizardPage() {
         initialLegalName={initialLegalName}
         initialTradingName={initialTradingName}
         initialCompanyNumber={initialCompanyNumber}
+        initialDraft={draft}
       />
     </div>
   );
