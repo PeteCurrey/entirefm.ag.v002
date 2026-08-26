@@ -12,7 +12,9 @@ import {
   CheckCircle2,
   ChevronRight,
   Info,
+  ArrowRight
 } from 'lucide-react';
+import Link from 'next/link';
 
 interface Hotspot {
   id: string;
@@ -21,7 +23,6 @@ interface Hotspot {
   badge: string;
   description: string;
   operationalImpact: string;
-  // Position as percentage from top-left
   top: number; // percentage
   left: number; // percentage
   icon: React.ElementType;
@@ -82,8 +83,8 @@ const HOTSPOTS: Hotspot[] = [
   },
   {
     id: 'entire-intelligence',
-    title: 'Entire Intelligence Synthesis',
-    category: 'Operational Reasoning',
+    title: 'Operational Reasoning & Synthesis',
+    category: 'Asset Intelligence',
     badge: 'AI Governance Ledger',
     description:
       'Surfaces repeat reactive ingress patterns at Manchester Hub, correlating primary HVAC condensate trays with roof gulley junctions, verified against canonical FM records.',
@@ -97,149 +98,131 @@ const HOTSPOTS: Hotspot[] = [
 
 export function InteractivePortalTour() {
   const [activeHotspotId, setActiveHotspotId] = useState<string>(HOTSPOTS[0].id);
-
   const activeHotspot = HOTSPOTS.find((h) => h.id === activeHotspotId) || HOTSPOTS[0];
+  const Icon = activeHotspot.icon;
 
   return (
-    <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-4 sm:p-6 lg:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-      {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-[#F0F0EE] pb-6">
-        <div>
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2 py-0.5 font-mono text-[10px] font-normal text-[#C2410C]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#EA580C] animate-pulse" />
-              INTERACTIVE TOUR
-            </span>
-            <span className="font-mono text-[11px] text-[#686866]">
-              Explore Live EntireCAFM Architecture
-            </span>
+    <section id="interactive-tour" className="py-24 bg-white border-b border-slate-200 scroll-mt-24">
+      <div className="container-wide">
+        {/* Section Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 pb-10 border-b border-slate-200 mb-10">
+          <div className="max-w-3xl">
+            <span className="eyebrow eyebrow-light">LIVE PLATFORM ARCHITECTURE</span>
+            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-slate-900 leading-tight">
+              One portal. The complete operational picture.
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
+              Explore the five core functional zones of the live EntireCAFM console. Click on any module to inspect its real-world role in facilities management delivery.
+            </p>
           </div>
-          <h3 className="text-xl sm:text-2xl font-light text-[#101010] tracking-tight">
-            One portal. The complete operational picture.
-          </h3>
-          <p className="text-[13px] text-[#686866] mt-1 max-w-2xl">
-            Select an operational layer below to see how EntireCAFM connects high-level portfolio governance to plantroom execution.
-          </p>
+
+          {/* Module Selector Chips */}
+          <div className="flex flex-wrap gap-2">
+            {HOTSPOTS.map((h) => {
+              const isSelected = h.id === activeHotspotId;
+              const HIcon = h.icon;
+              return (
+                <button
+                  key={h.id}
+                  onClick={() => setActiveHotspotId(h.id)}
+                  className={`inline-flex items-center gap-2 rounded-sm px-3.5 py-2 text-xs font-light tracking-wide transition-all ${
+                    isSelected
+                      ? 'bg-slate-900 text-white font-normal shadow-sm border border-slate-900'
+                      : 'bg-[#FAF9FB] text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900'
+                  }`}
+                >
+                  <HIcon className={`h-3.5 w-3.5 ${isSelected ? 'text-brand-pink' : 'text-slate-500'}`} />
+                  <span>{h.title.split(' ')[0]}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Layer Selector Chips */}
-        <div className="flex flex-wrap gap-1.5">
-          {HOTSPOTS.map((h) => {
-            const isSelected = h.id === activeHotspotId;
-            return (
-              <button
-                key={h.id}
-                onClick={() => setActiveHotspotId(h.id)}
-                className={`inline-flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-[12px] font-normal transition-all ${
-                  isSelected
-                    ? 'bg-[#101010] text-white shadow-sm'
-                    : 'bg-[#F5F5F3] text-[#686866] hover:bg-[#E4E4E1] hover:text-[#101010]'
-                }`}
-              >
-                <h.icon className={`h-3.5 w-3.5 ${isSelected ? 'text-[#EA580C]' : 'text-[#9B9B97]'}`} />
-                <span>{h.title.split(' ')[0]}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
+        {/* Main Interactive Presentation */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Screenshot Canvas with Interactive Hotspot Markers */}
+          <div className="lg:col-span-8 relative rounded-sm border border-slate-200 bg-slate-900 overflow-hidden shadow-md aspect-[16/10]">
+            <Image
+              src="/images/client-portal/entirecafm-dashboard-live.png"
+              alt="EntireCAFM Live Production Platform Dashboard"
+              fill
+              sizes="(max-width: 1024px) 100vw, 65vw"
+              className="object-cover object-top"
+            />
 
-      {/* Main Interactive Presentation */}
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Screenshot Canvas with Pulsing Hotspot Markers */}
-        <div className="lg:col-span-8 relative rounded-[10px] border border-[#E4E4E1] bg-[#F5F5F3] overflow-hidden shadow-inner aspect-[16/10]">
-          <Image
-            src="/images/client-portal/entirecafm-dashboard-live.png"
-            alt="EntireCAFM Estate-Wide Live Control Dashboard"
-            fill
-            className="object-cover object-top"
-            sizes="(max-width: 1024px) 100vw, 65vw"
-          />
-
-          {/* Render Interactive Hotspot Pins */}
-          {HOTSPOTS.map((h) => {
-            const isSelected = h.id === activeHotspotId;
-            return (
-              <button
-                key={h.id}
-                onClick={() => setActiveHotspotId(h.id)}
-                style={{ top: `${h.top}%`, left: `${h.left}%` }}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none z-10 transition-transform ${
-                  isSelected ? 'scale-125' : 'hover:scale-110'
-                }`}
-                title={h.title}
-                aria-label={`Inspect ${h.title}`}
-              >
-                <span className="relative flex h-8 w-8 items-center justify-center">
-                  <span
-                    className={`absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping ${
-                      isSelected ? 'bg-[#EA580C]' : 'bg-[#2563EB]'
-                    }`}
-                  />
-                  <span
-                    className={`relative inline-flex h-6 w-6 items-center justify-center rounded-full text-white shadow-lg border-2 border-white ${
-                      isSelected ? 'bg-[#EA580C]' : 'bg-[#101010]'
-                    }`}
-                  >
-                    <h.icon className="h-3 w-3" />
+            {/* Pulsing Hotspots */}
+            {HOTSPOTS.map((h) => {
+              const isSelected = h.id === activeHotspotId;
+              return (
+                <button
+                  key={h.id}
+                  onClick={() => setActiveHotspotId(h.id)}
+                  style={{ top: `${h.top}%`, left: `${h.left}%` }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none z-20"
+                  aria-label={`Inspect ${h.title}`}
+                >
+                  <span className="relative flex h-7 w-7 items-center justify-center">
+                    <span
+                      className={`absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping ${
+                        isSelected ? 'bg-brand-pink' : 'bg-white'
+                      }`}
+                    />
+                    <span
+                      className={`relative inline-flex h-6 w-6 items-center justify-center rounded-full text-white text-[11px] font-normal shadow-lg transition-transform ${
+                        isSelected
+                          ? 'bg-brand-pink scale-110 ring-2 ring-white'
+                          : 'bg-slate-900/90 border border-white/40 hover:scale-105'
+                      }`}
+                    >
+                      +
+                    </span>
                   </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right Column: Selected Hotspot Explanation */}
+          <div className="lg:col-span-4 bg-[#FAF9FB] border border-slate-200 rounded-sm p-7 space-y-6 shadow-sm">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-normal uppercase tracking-wider text-brand-pink font-semibold">
+                  {activeHotspot.category}
                 </span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Detailed Inspector Card */}
-        <div className="lg:col-span-4 rounded-[10px] border border-[#E4E4E1] bg-[#FBFBFA] p-5 flex flex-col justify-between min-h-[380px]">
-          <div>
-            <div className="flex items-center justify-between gap-2 border-b border-[#E4E4E1] pb-3 mb-3">
-              <span className="text-[10px] font-mono font-light uppercase tracking-wider text-[#EA580C]">
-                {activeHotspot.category}
-              </span>
-              <span className="rounded-[4px] border border-[#E4E4E1] bg-white px-2 py-0.5 font-mono text-[10px] text-[#686866]">
-                {activeHotspot.badge}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2.5 mb-2">
-              <div className="h-8 w-8 rounded-[6px] bg-[#101010] text-white flex items-center justify-center shrink-0">
-                <activeHotspot.icon className="h-4 w-4 text-[#EA580C]" />
+                <span className="px-2 py-0.5 rounded-sm bg-white border border-slate-200 text-[10.5px] text-slate-700 font-light">
+                  {activeHotspot.badge}
+                </span>
               </div>
-              <h4 className="text-[16px] font-normal text-[#101010] leading-snug">
+              <h3 className="text-xl font-light text-slate-900">
                 {activeHotspot.title}
-              </h4>
+              </h3>
             </div>
 
-            <p className="text-[12.5px] text-[#4B5563] leading-relaxed mt-2.5">
+            <p className="text-xs text-slate-700 font-light leading-relaxed">
               {activeHotspot.description}
             </p>
 
-            <div className="mt-4 rounded-[8px] border border-[#FED7AA] bg-[#FFF7ED] p-3">
-              <div className="flex items-center gap-1.5 text-[10.5px] font-mono font-light text-[#C2410C] mb-1">
-                <Info className="h-3 w-3 shrink-0" />
-                <span>OPERATIONAL ADVANTAGE</span>
-              </div>
-              <p className="text-[11.5px] text-[#7C2D12] leading-normal">
+            <div className="bg-white p-4 rounded-sm border border-slate-200 space-y-1.5">
+              <span className="text-[10.5px] font-normal uppercase tracking-wider text-slate-500 block">
+                OPERATIONAL IMPACT
+              </span>
+              <p className="text-xs text-slate-900 font-light leading-relaxed">
                 {activeHotspot.operationalImpact}
               </p>
             </div>
-          </div>
 
-          <div className="pt-4 border-t border-[#E4E4E1] mt-4 flex items-center justify-between text-[11px] font-mono text-[#9B9B97]">
-            <span>Layer {HOTSPOTS.findIndex((h) => h.id === activeHotspotId) + 1} of {HOTSPOTS.length}</span>
-            <div className="flex items-center gap-1">
-              {HOTSPOTS.map((h) => (
-                <span
-                  key={h.id}
-                  className={`h-1.5 rounded-full transition-all ${
-                    h.id === activeHotspotId ? 'w-4 bg-[#EA580C]' : 'w-1.5 bg-[#D1D1CD]'
-                  }`}
-                />
-              ))}
+            <div className="pt-2">
+              <Link
+                href="/contact-us?subject=Book%20a%20Live%20Client%20Portal%20Demonstration"
+                className="btn-primary w-full justify-center text-xs py-3"
+              >
+                Schedule Live Platform Walkthrough <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

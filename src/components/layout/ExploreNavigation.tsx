@@ -196,8 +196,8 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
               );
             })}
 
-            {/* Secondary nav items */}
-            <li className="pt-6 mt-2 border-t border-white/[0.06]">
+            {/* Direct Main Navigation Items: Client Portal & Contact */}
+            <li className="pt-4 mt-2 border-t border-white/[0.06]">
               <ul className="space-y-1">
                 {SECONDARY_NAV.filter(l => !CATEGORIES.some(c => c.href === l.href)).map((link) => (
                   <li key={link.href}>
@@ -205,9 +205,16 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                       href={link.href}
                       onClick={onClose}
                       tabIndex={open ? 0 : -1}
-                      className="block py-2 px-4 text-[13px] font-light text-brand-mist/55 hover:text-white transition-colors rounded-sm hover:bg-white/[0.03]"
+                      className="group w-full flex items-center justify-between py-3 px-4 rounded-sm text-left transition-all duration-200 text-brand-mist/70 hover:text-white hover:bg-white/[0.03]"
                     >
-                      {link.label}
+                      <span className="text-[15px] font-light tracking-tight text-brand-mist/70 group-hover:text-white transition-colors">
+                        {link.label}
+                      </span>
+                      {link.href === '/client-portal' ? (
+                        <ArrowUpRight className="h-3.5 w-3.5 text-brand-mist/40 group-hover:text-white transition-colors" />
+                      ) : (
+                        <ArrowRight className="h-3.5 w-3.5 text-brand-mist/40 group-hover:text-white transition-colors" />
+                      )}
                     </Link>
                   </li>
                 ))}

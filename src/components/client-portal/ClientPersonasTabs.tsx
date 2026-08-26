@@ -8,30 +8,43 @@ import {
   ShieldCheck,
   Wrench,
   CheckCircle2,
+  ArrowRight,
+  Lock
 } from 'lucide-react';
+import Link from 'next/link';
 
 const PERSONAS = [
   {
     id: 'fm-director',
     label: 'FM Director',
-    role: 'Estates & Technical Leadership',
+    role: 'ESTATES & TECHNICAL LEADERSHIP',
     icon: UserCheck,
-    focus: 'Strategic portfolio health, SLA performance, and contract delivery',
-    metrics: ['96.2% SLA Performance', '98.4% Statutory Compliance', '42 Managed Facilities', '127 Open Jobs'],
+    focus: 'Strategic portfolio health, SLA governance, and contract delivery',
+    metrics: [
+      { label: 'SLA Performance', value: '96.2%' },
+      { label: 'Statutory Compliance', value: '98.4%' },
+      { label: 'Managed Facilities', value: '42 Sites' },
+      { label: 'Open Work Orders', value: '127 Jobs' },
+    ],
     bullets: [
-      'Estate-wide telemetry view showing live contractor status and open work orders.',
-      'SLA risk radar alerting you to jobs nearing breach windows before failure occurs.',
-      'Comprehensive maintenance schedule visibility across both Hard and Soft FM services.',
+      'Estate-wide telemetry view showing live contractor status and open work orders across all sites.',
+      'SLA risk radar alerting you to jobs nearing breach windows before a failure occurs.',
+      'Comprehensive maintenance schedule visibility across both Hard and Soft FM disciplines.',
       'Autonomous escalation triggers for high-risk critical plantroom incidents.',
     ],
   },
   {
     id: 'property-director',
-    label: 'Property / Estates Director',
-    role: 'Asset Strategy & Occupier Governance',
+    label: 'Property / Asset Director',
+    role: 'ASSET STRATEGY & OCCUPIER GOVERNANCE',
     icon: Building,
     focus: 'Building condition, asset lifecycle preservation, and tenant continuity',
-    metrics: ['3,846 Registered Assets', '48 Live Sensor Feeds', '8,450 m² GIA Monitored', '0 Missed Statutory Tasks'],
+    metrics: [
+      { label: 'Registered Assets', value: '3,846' },
+      { label: 'Live Sensor Nodes', value: '48 Nodes' },
+      { label: 'Monitored GIA', value: '8,450 m²' },
+      { label: 'Statutory Misses', value: '0 Breaches' },
+    ],
     bullets: [
       'Site 360 physical asset canvas providing a complete digital operating picture of every building.',
       'Full asset hierarchy from central plant chillers down to tenant-floor distribution boards.',
@@ -41,11 +54,16 @@ const PERSONAS = [
   },
   {
     id: 'compliance',
-    label: 'Compliance Officer',
-    role: 'Statutory Safety & Legal Audit',
+    label: 'Compliance & Safety Officer',
+    role: 'STATUTORY SAFETY & LEGAL AUDIT',
     icon: ShieldCheck,
     focus: 'Statutory testing schedules, certification vault, and verifiable audit trails',
-    metrics: ['100% SFG20 Alignment', '16 Compliance Vault Categories', 'BS 7671 / Gas Safe Verified', 'Zero Audit Violations'],
+    metrics: [
+      { label: 'SFG20 Alignment', value: '100%' },
+      { label: 'Vault Categories', value: '16 Disciplines' },
+      { label: 'Trade Verification', value: 'Gas / NICEIC' },
+      { label: 'Audit Violations', value: '0 Violations' },
+    ],
     bullets: [
       'Auditable digital compliance vault storing EICR certificates, gas CP12/15s, and water logbooks.',
       'Immutable chronological activity ledger documenting exactly when and who performed every check.',
@@ -55,11 +73,16 @@ const PERSONAS = [
   },
   {
     id: 'finance',
-    label: 'Finance / Commercial',
-    role: 'Commercial Control & Procurement',
+    label: 'Finance / Commercial Lead',
+    role: 'COMMERCIAL CONTROL & PROCUREMENT',
     icon: DollarSign,
-    focus: 'Works in progress (WIP), quote authorizations, and transparent billing',
-    metrics: ['£185k Works in Progress', '£4,850 Pending Authorizations', '100% Digital Work Orders', 'Zero Disputed Invoices'],
+    focus: 'Works in progress (WIP), quote authorisations, and transparent billing',
+    metrics: [
+      { label: 'Works in Progress', value: '£185k' },
+      { label: 'Pending Quotes', value: '£4,850' },
+      { label: 'Digital Orders', value: '100%' },
+      { label: 'Disputed Invoices', value: '0 Invoices' },
+    ],
     bullets: [
       'Live WIP tracking showing committed, approved, and completed reactive works expenditure.',
       'Digital approval gates allowing instant review and authorisation of quoted repair variations.',
@@ -69,11 +92,16 @@ const PERSONAS = [
   },
   {
     id: 'site-team',
-    label: 'Site / Building Team',
-    role: 'Day-to-Day Facility Operations',
+    label: 'Site & Facilities Team',
+    role: 'DAY-TO-DAY BUILDING OPERATIONS',
     icon: Wrench,
     focus: 'On-site engineer attendance, access protocols, and immediate defect logging',
-    metrics: ['2 Active Engineers on Site', '24/7 Keyholder Access', 'Direct Incident Logging', '< 34m ETA on Criticals'],
+    metrics: [
+      { label: 'Engineers on Site', value: '2 Active' },
+      { label: 'Access Protocols', value: '24/7 Monitored' },
+      { label: 'Defect Logging', value: 'Instant' },
+      { label: 'Critical Response', value: '< 34m ETA' },
+    ],
     bullets: [
       'Real-time view of verified engineers checked into the building with valid access permits.',
       'Immediate defect reporting via direct portal submission without telephone hold times.',
@@ -86,93 +114,111 @@ const PERSONAS = [
 export function ClientPersonasTabs() {
   const [activePersonaId, setActivePersonaId] = useState(PERSONAS[0].id);
   const activePersona = PERSONAS.find((p) => p.id === activePersonaId) || PERSONAS[0];
+  const Icon = activePersona.icon;
 
   return (
-    <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-      {/* Header */}
-      <div className="max-w-2xl mb-8">
-        <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
-          ROLE-BASED GOVERNANCE
-        </span>
-        <h3 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
-          Different roles. One version of the truth.
-        </h3>
-        <p className="text-[13.5px] text-[#686866] mt-1.5">
-          Authorised users receive granular permissions and tailored dashboards matching their operational responsibilities.
-        </p>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex flex-wrap gap-2 border-b border-[#E4E4E1] pb-4 mb-6">
-        {PERSONAS.map((p) => {
-          const isSelected = p.id === activePersonaId;
-          return (
-            <button
-              key={p.id}
-              onClick={() => setActivePersonaId(p.id)}
-              className={`inline-flex items-center gap-2 rounded-[8px] px-3.5 py-2 text-[13px] font-normal transition-all ${
-                isSelected
-                  ? 'bg-[#101010] text-white shadow-sm'
-                  : 'bg-[#F5F5F3] text-[#686866] hover:bg-[#E4E4E1] hover:text-[#101010]'
-              }`}
-            >
-              <p.icon className={`h-4 w-4 ${isSelected ? 'text-[#EA580C]' : 'text-[#9B9B97]'}`} />
-              <span>{p.label}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Selected Persona Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-7 space-y-4">
-          <div>
-            <span className="font-mono text-[11px] uppercase tracking-wider text-[#EA580C] font-light">
-              {activePersona.role}
-            </span>
-            <h4 className="text-xl font-light text-[#101010] mt-0.5">
-              {activePersona.focus}
-            </h4>
-          </div>
-
-          <ul className="space-y-3 pt-2">
-            {activePersona.bullets.map((bullet, idx) => (
-              <li key={idx} className="flex items-start gap-2.5">
-                <CheckCircle2 className="h-4 w-4 text-[#059669] shrink-0 mt-0.5" />
-                <span className="text-[13px] text-[#374151] leading-relaxed">
-                  {bullet}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Right: Key Telemetry Points */}
-        <div className="lg:col-span-5 rounded-[10px] border border-[#E4E4E1] bg-[#FBFBFA] p-5">
-          <p className="font-mono text-[10px] font-normal uppercase tracking-wider text-[#9B9B97] mb-3">
-            Key Telemetry Available in this View
+    <section className="py-24 bg-[#FAF9FB] border-b border-slate-200">
+      <div className="container-wide">
+        {/* Section Header */}
+        <div className="max-w-3xl mb-14">
+          <span className="eyebrow eyebrow-light">ROLE-BASED GOVERNANCE</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-slate-900 leading-tight">
+            Different roles. One version of the truth.
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
+            Authorised stakeholders receive granular role-based permissions and dedicated workspaces aligned precisely with their operational responsibilities.
           </p>
-          <div className="grid grid-cols-2 gap-3">
-            {activePersona.metrics.map((m, idx) => (
-              <div
-                key={idx}
-                className="rounded-[8px] border border-[#E4E4E1] bg-white p-3 shadow-sm"
+        </div>
+
+        {/* Tab Selector */}
+        <div className="flex flex-wrap gap-2 pb-6 border-b border-slate-200 mb-8">
+          {PERSONAS.map((p) => {
+            const isSelected = p.id === activePersonaId;
+            const TabIcon = p.icon;
+            return (
+              <button
+                key={p.id}
+                onClick={() => setActivePersonaId(p.id)}
+                className={`inline-flex items-center gap-2 rounded-sm px-4 py-2.5 text-xs font-light tracking-wide transition-all ${
+                  isSelected
+                    ? 'bg-slate-900 text-white font-normal shadow-sm border border-slate-900'
+                    : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900'
+                }`}
               >
-                <span className="font-mono text-[12.5px] font-normal text-[#101010] block">
-                  {m.split(' ')[0]}
-                </span>
-                <span className="text-[11px] text-[#686866] block mt-0.5">
-                  {m.split(' ').slice(1).join(' ')}
-                </span>
+                <TabIcon className={`h-3.5 w-3.5 ${isSelected ? 'text-brand-pink' : 'text-slate-400'}`} />
+                <span>{p.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Selected Persona Deck */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white border border-slate-200 rounded-sm p-8 lg:p-12 shadow-sm">
+          {/* Left Column: Role Details & Key Capabilities */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="flex items-center gap-3.5">
+              <div className="w-12 h-12 rounded-sm bg-slate-900 text-white flex items-center justify-center">
+                <Icon className="h-6 w-6 text-brand-pink" />
               </div>
-            ))}
+              <div>
+                <span className="text-[10px] font-normal uppercase tracking-wider text-brand-pink font-semibold">
+                  {activePersona.role}
+                </span>
+                <h3 className="text-2xl font-light text-slate-900">{activePersona.label}</h3>
+              </div>
+            </div>
+
+            <p className="text-base font-light text-slate-800 italic">
+              &ldquo;{activePersona.focus}&rdquo;
+            </p>
+
+            <div className="pt-2 space-y-3">
+              <span className="text-[11px] font-normal uppercase tracking-wider text-slate-500 block">
+                CORE PORTAL WORKFLOWS
+              </span>
+              <ul className="space-y-2.5">
+                {activePersona.bullets.map((bullet, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700 font-light">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-[#E4E4E1] text-[11px] font-mono text-[#9B9B97]">
-            EntireCAFM enforces fine-grained RBAC with full multi-factor authentication.
+          {/* Right Column: Key Telemetry Points & Action */}
+          <div className="lg:col-span-5 bg-[#FAF9FB] p-7 rounded-sm border border-slate-200 space-y-6 flex flex-col justify-between">
+            <div className="space-y-4">
+              <span className="text-[10.5px] font-normal uppercase tracking-wider text-slate-500 block">
+                REPRESENTATIVE TELEMETRY FOCUS
+              </span>
+
+              <div className="grid grid-cols-2 gap-3">
+                {activePersona.metrics.map((m, i) => (
+                  <div key={i} className="p-3.5 bg-white border border-slate-200 rounded-sm">
+                    <div className="text-lg font-light text-slate-900">{m.value}</div>
+                    <div className="text-[11px] text-slate-500 font-light mt-0.5">{m.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-2 text-xs text-slate-500 font-light leading-relaxed">
+                Protected by granular role-based access control (RBAC) and enterprise single sign-on (SSO).
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-200">
+              <Link
+                href="/contact-us?subject=Book%20a%20Live%20Client%20Portal%20Demonstration"
+                className="btn-primary w-full justify-center text-xs py-3"
+              >
+                Demonstrate {activePersona.label} View <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

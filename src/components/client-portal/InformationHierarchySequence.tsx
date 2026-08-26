@@ -2,176 +2,251 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import {
-  Layers,
-  Building2,
-  SlidersHorizontal,
-  Box,
-  ChevronRight,
+import { 
+  Building2, 
+  MapPin, 
+  Layers, 
+  Cpu, 
+  FileCheck, 
+  ChevronRight, 
   ArrowRight,
+  ShieldCheck
 } from 'lucide-react';
 
 const HIERARCHY_STEPS = [
   {
     step: '01',
-    level: 'Portfolio Level',
-    title: 'Estate Overview',
-    scope: '42 Managed UK Facilities',
+    level: 'PORTFOLIO LEVEL',
+    title: 'National Estate Visibility',
+    scope: '42 Managed UK Facilities &bull; 3,846 Assets',
     description:
-      'National visibility across 3,846 registered assets, real-time SLA metrics (96.2%), statutory compliance (98.4%), and aggregated works WIP (£185k).',
+      'National strategic visibility across all managed facilities: aggregate SLA performance (96.2%), statutory compliance posture (98.4%), live operational incidents, and total committed works WIP (£185k).',
     image: '/images/client-portal/entirecafm-dashboard-live.png',
-    caption: 'Estate Pulse & Live Workspace — National Portfolio View',
-    pill: '42 Sites · 3,846 Assets',
+    caption: 'National Portfolio Command View — Aggregate Operational Health',
+    keyPoints: [
+      'Multi-region portfolio aggregation across corporate, retail, and industrial estates',
+      'Real-time SLA health matrix with instant drill-down to regional clusters',
+      'Unified statutory compliance reporting across all UK property assets',
+    ],
+    icon: Building2,
   },
   {
     step: '02',
-    level: 'Facility Level',
-    title: 'Site Drawer & Profile',
-    scope: 'Victoria House · London NW1 7JE',
+    level: 'FACILITY LEVEL',
+    title: 'Building-Level Operational Control',
+    scope: 'Victoria House &bull; London NW1',
     description:
-      'Instantly slide out specific property telemetry without losing portfolio context: active incidents, 2 on-site engineers, access protocols, and SLA countdowns.',
+      'Slide out specific property telemetry instantly without losing national portfolio context: 3 open reactive tickets, 2 on-site verified engineers, building access protocols, and SLA countdowns.',
     image: '/images/client-portal/entirecafm-site-drawer.png',
     caption: 'Victoria House Commercial Complex — Quick Inspection Drawer',
-    pill: '3 Open Jobs · 2 Active Engineers',
+    keyPoints: [
+      'Single-click facility drawer revealing site-specific risk posture',
+      'Live engineer GPS check-in logs and active permit-to-work statuses',
+      'Direct contact with dedicated EntireFM Regional Operations Manager',
+    ],
+    icon: MapPin,
   },
   {
     step: '03',
-    level: 'Physical Canvas',
-    title: 'Site 360 Workspace',
-    scope: 'Building Digital Operating Picture',
+    level: 'PHYSICAL ENVIRONMENT',
+    title: 'Spatial Canvas & Floorplans (Site 360)',
+    scope: '8,450 m² GIA &bull; 48 Telemetry Nodes',
     description:
-      'Photographic reality layer with real-time sensor overlays (48 online), floor plans / CAD views, spatial access rules, and full physical asset hierarchy.',
+      'High-resolution spatial photography and floorplan overlays showing plantroom zones, tenant floor boundaries, emergency shut-off valves, and live IoT vibration and thermal sensor feeds.',
     image: '/images/client-portal/entirecafm-site-360-workspace.png',
-    caption: 'Site 360 Physical Asset Canvas with Live Sensor & Asset Nodes',
-    pill: '8,450 m² GIA · 48 Live Sensors',
+    caption: 'Site 360 Workspace — Physical Asset Canvas & Sensor Telemetry',
+    keyPoints: [
+      'Interactive spatial plantroom layouts and photographic reality capture',
+      '48 live IoT wireless sensor nodes tracking pump vibration and pipe temperatures',
+      'Clear zoning for fire compartments, risers, and high-voltage switchrooms',
+    ],
+    icon: Layers,
   },
   {
     step: '04',
-    level: 'Maintenance Engine',
-    title: 'PPM Autopilot Control',
-    scope: 'Autonomous Statutory Orchestration',
+    level: 'PLANTROOM ASSET',
+    title: 'Every Maintainable Asset Connected',
+    scope: 'Asset ID: CH-01-VH &bull; Daikin Centrifugal Chiller',
     description:
-      'Statutory maintenance schedules (99.7% compliance), auto-dispatched SFG20 occurrences, vibration anomaly triage, and certified mobile engineer capacity.',
+      'Every chiller, boiler, pump, AHU, and distribution board holds a complete digital birth certificate: manufacturer specs, serial numbers, warranty terms, historical maintenance ledgers, and live telemetry curves.',
+    image: '/images/client-portal/entirecafm-site-360-workspace.png',
+    caption: 'Asset Ledger: Complete maintenance history, parts provenance, and warranty data',
+    keyPoints: [
+      'Empirical asset run-hours, failure frequency, and lifecycle condition scores',
+      'Direct link to manufacturer OEM warranty terms and genuine parts catalog',
+      'Complete chronological service history since initial building commissioning',
+    ],
+    icon: Cpu,
+  },
+  {
+    step: '05',
+    level: 'ACTION & GOVERNANCE',
+    title: 'PPM Autopilot, Work Orders & Evidence',
+    scope: 'SFG20 Statutory Compliance &bull; Milestone Sign-Off',
+    description:
+      'Autonomous SFG20 maintenance scheduling, reactive work order dispatch, dynamic risk assessments, before/after photographic proof, and immutable statutory compliance certificate deposits.',
     image: '/images/client-portal/entirecafm-ppm-autopilot.png',
-    caption: 'PPM Autopilot Control Desk — Asset-Led Maintenance Engine',
-    pill: '1,428 Active Plan Items · 94.2% Auto-Dispatch',
+    caption: 'PPM Autopilot Desk — SFG20 Statutory Orchestration & Sign-Off',
+    keyPoints: [
+      'Automated SFG20 task generation and mobile engineer dispatch',
+      'Point-of-work before/after photos and digital customer signature',
+      'Instant deposit of verified EICR, Gas CP12, and water logbook certificates',
+    ],
+    icon: FileCheck,
   },
 ];
 
 export function InformationHierarchySequence() {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const activeStep = HIERARCHY_STEPS[activeStepIndex];
+  const StepIcon = activeStep.icon;
 
   return (
-    <div className="space-y-6">
-      {/* Step Navigation Bar */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        {HIERARCHY_STEPS.map((step, idx) => {
-          const isSelected = idx === activeStepIndex;
-          return (
-            <button
-              key={step.step}
-              onClick={() => setActiveStepIndex(idx)}
-              className={`text-left rounded-[10px] border p-4 transition-all duration-200 ${
-                isSelected
-                  ? 'border-[#EA580C] bg-white shadow-[0_4px_16px_rgba(234,88,12,0.1)] ring-1 ring-[#EA580C]'
-                  : 'border-[#E4E4E1] bg-[#FBFBFA] hover:bg-white hover:border-[#D1D1CD]'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-1.5">
-                <span
-                  className={`font-mono text-[11px] font-normal ${
-                    isSelected ? 'text-[#EA580C]' : 'text-[#9B9B97]'
-                  }`}
-                >
-                  STEP {step.step}
-                </span>
-                <span className="rounded bg-[#F0F0EE] px-1.5 py-0.5 font-mono text-[9.5px] text-[#686866]">
-                  {step.level}
-                </span>
+    <section className="py-24 bg-white border-b border-slate-200">
+      <div className="container-wide">
+        {/* Section Header */}
+        <div className="max-w-3xl mb-14">
+          <span className="eyebrow eyebrow-light">THE PHYSICAL HIERARCHY</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-slate-900 leading-tight">
+            From National Estate to Plantroom Asset
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
+            Move effortlessly between high-level executive portfolio governance and individual physical plantroom components without switching systems or losing operational context.
+          </p>
+        </div>
+
+        {/* 5-Step Horizontal Hierarchy Rail */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-8">
+          {HIERARCHY_STEPS.map((step, idx) => {
+            const isSelected = idx === activeStepIndex;
+            const Icon = step.icon;
+            return (
+              <button
+                key={step.step}
+                onClick={() => setActiveStepIndex(idx)}
+                className={`text-left rounded-sm border p-5 transition-all flex flex-col justify-between ${
+                  isSelected
+                    ? 'border-brand-pink bg-slate-900 text-white shadow-md'
+                    : 'border-slate-200 bg-[#FAF9FB] text-slate-700 hover:border-slate-300 hover:bg-white'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span
+                    className={`text-[10px] font-normal uppercase tracking-wider ${
+                      isSelected ? 'text-brand-pink' : 'text-slate-400'
+                    }`}
+                  >
+                    LEVEL {step.step}
+                  </span>
+                  <div
+                    className={`p-1.5 rounded-xs ${
+                      isSelected ? 'bg-brand-pink text-white' : 'bg-slate-200/70 text-slate-600'
+                    }`}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-light leading-snug line-clamp-1 mb-1">
+                    {step.title}
+                  </h3>
+                  <span
+                    className={`text-[11px] font-light truncate block ${
+                      isSelected ? 'text-slate-300' : 'text-slate-500'
+                    }`}
+                  >
+                    {step.level}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Selected Hierarchy Detail Deck */}
+        <div className="rounded-sm border border-slate-200 bg-[#FAF9FB] p-8 lg:p-12 shadow-sm">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Left: Explanatory Context */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-sm bg-slate-900 text-brand-pink flex items-center justify-center">
+                    <StepIcon className="h-4 w-4" />
+                  </div>
+                  <span className="text-[10.5px] font-normal uppercase tracking-wider text-brand-pink font-semibold">
+                    {activeStep.level}
+                  </span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-light text-slate-900 tracking-tight">
+                  {activeStep.title}
+                </h3>
+                <div
+                  className="text-xs text-slate-500 font-light"
+                  dangerouslySetInnerHTML={{ __html: activeStep.scope }}
+                />
               </div>
-              <h4 className="text-[14px] font-normal text-[#101010]">
-                {step.title}
-              </h4>
-              <p className="text-[11.5px] text-[#686866] mt-0.5 truncate">
-                {step.scope}
+
+              <p className="text-xs sm:text-sm text-slate-700 font-light leading-relaxed">
+                {activeStep.description}
               </p>
-            </button>
-          );
-        })}
-      </div>
 
-      {/* Main Display Pane */}
-      <div className="rounded-[14px] border border-[#E4E4E1] bg-white p-4 sm:p-6 shadow-[0_6px_24px_rgba(0,0,0,0.05)]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-          {/* Left: Explanatory Context */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2 py-0.5 font-mono text-[10px] font-normal text-[#C2410C]">
-                {activeStep.level.toUpperCase()}
-              </span>
-              <span className="font-mono text-[11px] text-[#059669] font-medium">
-                {activeStep.pill}
-              </span>
+              {/* Key Capabilities */}
+              <div className="space-y-2.5 pt-2">
+                <span className="text-[11px] font-normal uppercase tracking-wider text-slate-500 block">
+                  OPERATIONAL CAPABILITIES
+                </span>
+                <ul className="space-y-2">
+                  {activeStep.keyPoints.map((point, i) => (
+                    <li key={i} className="flex items-start gap-2 text-xs sm:text-[12.5px] text-slate-700 font-light">
+                      <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Step Navigation Buttons */}
+              <div className="flex items-center gap-3 pt-4 border-t border-slate-200">
+                <button
+                  disabled={activeStepIndex === 0}
+                  onClick={() => setActiveStepIndex((prev) => Math.max(0, prev - 1))}
+                  className="rounded-sm border border-slate-200 bg-white px-3.5 py-2 text-xs font-light text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors"
+                >
+                  &larr; Previous Level
+                </button>
+                <button
+                  disabled={activeStepIndex === HIERARCHY_STEPS.length - 1}
+                  onClick={() =>
+                    setActiveStepIndex((prev) =>
+                      Math.min(HIERARCHY_STEPS.length - 1, prev + 1)
+                    )
+                  }
+                  className="btn-primary text-xs py-2 px-4 disabled:opacity-40 disabled:pointer-events-none"
+                >
+                  Next Level &rarr;
+                </button>
+              </div>
             </div>
 
-            <h3 className="text-2xl font-light text-[#101010] tracking-tight">
-              {activeStep.title}
-            </h3>
-
-            <p className="text-[13.5px] text-[#4B5563] leading-relaxed">
-              {activeStep.description}
-            </p>
-
-            <div className="rounded-[8px] border border-[#E4E4E1] bg-[#FBFBFA] p-3.5 space-y-2">
-              <p className="font-mono text-[10px] font-normal uppercase tracking-wider text-[#9B9B97]">
-                Why this matters in FM
+            {/* Right: High-Res Real Screenshot Presentation */}
+            <div className="lg:col-span-7 space-y-2">
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm border border-slate-200 bg-slate-900 shadow-md">
+                <Image
+                  src={activeStep.image}
+                  alt={activeStep.caption}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  className="object-cover object-top"
+                />
+              </div>
+              <p className="text-[11.5px] text-slate-500 font-light italic text-right">
+                {activeStep.caption}
               </p>
-              <p className="text-[12px] text-[#374151]">
-                Clients don&apos;t have to log out or export CSV files to inspect a defect. You drill straight from an estate metric down into the plantroom asset and the engineer holding the tool.
-              </p>
             </div>
-
-            {/* Step Controls */}
-            <div className="flex items-center gap-3 pt-2">
-              <button
-                disabled={activeStepIndex === 0}
-                onClick={() => setActiveStepIndex((prev) => Math.max(0, prev - 1))}
-                className="rounded-[8px] border border-[#E4E4E1] px-3 py-1.5 text-[12px] font-normal text-[#686866] hover:bg-[#F5F5F3] disabled:opacity-40 disabled:pointer-events-none transition-colors"
-              >
-                ← Previous Layer
-              </button>
-              <button
-                disabled={activeStepIndex === HIERARCHY_STEPS.length - 1}
-                onClick={() =>
-                  setActiveStepIndex((prev) =>
-                    Math.min(HIERARCHY_STEPS.length - 1, prev + 1)
-                  )
-                }
-                className="inline-flex items-center gap-1 rounded-[8px] bg-[#101010] px-3.5 py-1.5 text-[12px] font-normal text-white hover:bg-[#252525] disabled:opacity-40 disabled:pointer-events-none transition-colors"
-              >
-                Next Layer →
-              </button>
-            </div>
-          </div>
-
-          {/* Right: High-Res Frame */}
-          <div className="lg:col-span-7">
-            <div className="relative rounded-[10px] border border-[#E4E4E1] bg-[#F5F5F3] overflow-hidden shadow-md aspect-[16/10]">
-              <Image
-                src={activeStep.image}
-                alt={activeStep.caption}
-                fill
-                className="object-cover object-top transition-opacity duration-300"
-                sizes="(max-width: 1024px) 100vw, 55vw"
-              />
-            </div>
-            <p className="mt-2 text-center font-mono text-[11px] text-[#9B9B97]">
-              {activeStep.caption}
-            </p>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
