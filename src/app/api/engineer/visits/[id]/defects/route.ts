@@ -16,6 +16,8 @@ export async function POST(
       stop_work_triggered = false,
       recommended_action,
       evidence_photo_ids,
+      operativeId = 'op-jack-turner',
+      idempotencyKey = req.headers.get('x-idempotency-key') || undefined,
     } = body;
 
     if (!title || !description || !recommended_action) {
@@ -25,18 +27,23 @@ export async function POST(
       );
     }
 
-    const result = await raiseOperationalDefect(id, {
-      title,
-      description,
-      severity,
-      make_safe_status,
-      stop_work_triggered,
-      recommended_action,
-      evidence_photo_ids,
-    });
+    const result = await raiseOperationalDefect(
+      id,
+      {
+        title,
+        description,
+        severity,
+        make_safe_status,
+        stop_work_triggered,
+        recommended_action,
+        evidence_photo_ids,
+      },
+      idempotencyKey,
+      operativeId
+    );
 
     if (!result.success) {
-      return NextResponse.json({ error: 'Failed to raise defect' }, { status: 400 });
+      return NextResponse.json({ error: result.error || 'Failed to raise defect' }, { status: 400 });
     }
 
     return NextResponse.json({

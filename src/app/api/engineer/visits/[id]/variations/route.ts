@@ -8,7 +8,14 @@ export async function POST(
   try {
     const { id } = await params;
     const body = await req.json();
-    const { reason, additional_scope, estimated_labour_hours, estimated_parts_cost_gbp } = body;
+    const {
+      reason,
+      additional_scope,
+      estimated_labour_hours,
+      estimated_parts_cost_gbp,
+      operativeId = 'op-jack-turner',
+      idempotencyKey = req.headers.get('x-idempotency-key') || undefined,
+    } = body;
 
     if (!reason || !additional_scope || estimated_labour_hours === undefined || estimated_parts_cost_gbp === undefined) {
       return NextResponse.json(
@@ -17,12 +24,17 @@ export async function POST(
       );
     }
 
-    const result = await requestVariation(id, {
-      reason,
-      additional_scope,
-      estimated_labour_hours: Number(estimated_labour_hours),
-      estimated_parts_cost_gbp: Number(estimated_parts_cost_gbp),
-    });
+    const result = await requestVariation(
+      id,
+      {
+        reason,
+        additional_scope,
+        estimated_labour_hours: Number(estimated_labour_hours),
+        estimated_parts_cost_gbp: Number(estimated_parts_cost_gbp),
+      },
+      idempotencyKey,
+      operativeId
+    );
 
     if (!result.success) {
       return NextResponse.json({ error: result.error }, { status: 400 });

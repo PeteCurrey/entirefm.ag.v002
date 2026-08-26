@@ -14,14 +14,20 @@ export async function POST(
       engineer_recommendations = 'Continue routine planned maintenance schedule.',
       completion_outcome = 'COMPLETED',
       site_signatory,
+      idempotencyKey = req.headers.get('x-idempotency-key') || undefined,
     } = body;
 
-    const result = await submitDigitalServiceReport(id, operativeId, {
-      work_completed_narrative,
-      engineer_recommendations,
-      completion_outcome,
-      site_signatory,
-    });
+    const result = await submitDigitalServiceReport(
+      id,
+      operativeId,
+      {
+        work_completed_narrative,
+        engineer_recommendations,
+        completion_outcome,
+        site_signatory,
+      },
+      idempotencyKey
+    );
 
     if (!result.success) {
       return NextResponse.json({ error: result.error }, { status: 400 });
@@ -31,6 +37,7 @@ export async function POST(
       success: true,
       report: result.report,
       reportNumber: result.report?.report_number,
+      revisionNumber: result.report?.revision_number,
       message: 'Service report submitted successfully for EntireFM Operations validation.',
     });
   } catch (error: any) {

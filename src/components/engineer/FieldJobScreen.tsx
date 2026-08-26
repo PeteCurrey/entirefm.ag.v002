@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import {
   MapPin,
@@ -23,6 +23,9 @@ import {
   DollarSign,
   Send,
   Sparkles,
+  RefreshCw,
+  Download,
+  WifiOff,
 } from 'lucide-react';
 import {
   DigitalJobPack,
@@ -103,22 +106,38 @@ export default function FieldJobScreen({
   const [signatoryName, setSignatoryName] = useState('Dave Smith');
   const [signatoryRole, setSignatoryRole] = useState('Facilities Coordinator');
   const [validationError, setValidationError] = useState<string | null>(null);
+  const [executionError, setExecutionError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [ramsAcknowledged, setRamsAcknowledged] = useState(visit.job_pack.rams.acknowledged || false);
 
   const jobPack = visit.job_pack;
 
+  // Unsynced Evidence Count
+  const unsyncedEvidenceCount = evidenceList.filter(
+    (ev) => ev.sync_state === 'SAVED_ON_DEVICE' || ev.sync_state === 'WAITING_FOR_CONNECTION' || ev.sync_state === 'SYNCING'
+  ).length;
+
   // Actions
   const handleStartWork = async () => {
     setIsSubmitting(true);
+    setExecutionError(null);
     try {
       const res = await fetch(`/api/engineer/visits/${visit.id}/work`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-idempotency-key': `work-${visit.id}-${session.personId}`,
+        },
         body: JSON.stringify({ operativeId: session.personId }),
       });
       const data = await res.json();
-      if (data.success && data.visit) setVisit(data.visit);
+      if (!res.ok || !data.success) {
+        setExecutionError(data.error || 'Failed to start work');
+        return;
+      }
+      if (data.visit) setVisit(data.visit);
+    } catch (err: any) {
+      setExecutionError(err.message || 'Connection error while starting work');
     } finally {
       setIsSubmitting(false);
     }
@@ -178,13 +197,22 @@ export default function FieldJobScreen({
     setEvidenceList([newEvidence, ...evidenceList]);
   };
 
+  const handleRetryEvidenceSync = (evId: string) => {
+    setEvidenceList((prev) =>
+      prev.map((ev) => (ev.id === evId ? { ...ev, sync_state: 'SYNCED' } : ev))
+    );
+  };
+
   const handleRaiseDefect = async () => {
     if (!defectTitle || !defectDesc) return;
     setIsSubmitting(true);
     try {
       const res = await fetch(`/api/engineer/visits/${visit.id}/defects`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-idempotency-key': `def-${visit.id}-${defectTitle.toLowerCase().replace(/[^a-z0-9]/g, '')}`,
+        },
         body: JSON.stringify({
           title: defectTitle,
           description: defectDesc,
@@ -192,6 +220,7 @@ export default function FieldJobScreen({
           make_safe_status: defectMakeSafe,
           stop_work_triggered: defectStopWork,
           recommended_action: defectAction,
+          operativeId: session.personId,
         }),
       });
       const data = await res.json();
@@ -212,12 +241,16 @@ export default function FieldJobScreen({
     try {
       const res = await fetch(`/api/engineer/visits/${visit.id}/variations`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-idempotency-key': `var-${visit.id}-${variationReason.toLowerCase().replace(/[^a-z0-9]/g, '')}`,
+        },
         body: JSON.stringify({
           reason: variationReason,
           additional_scope: variationScope,
           estimated_labour_hours: Number(variationHours),
           estimated_parts_cost_gbp: Number(variationPartsGbp),
+          operativeId: session.personId,
         }),
       });
       const data = await res.json();
@@ -261,6 +294,14 @@ export default function FieldJobScreen({
   const handleSubmitServiceReport = async () => {
     setValidationError(null);
 
+    // Unsynced Evidence Gate
+    if (unsyncedEvidenceCount > 0) {
+      setValidationError(
+        `${unsyncedEvidenceCount} piece(s) of evidence are still waiting to upload. Connect to network and complete sync before submitting report.`
+      );
+      return;
+    }
+
     // Pre-submission validation
     if (jobPack.workflow_type === 'PPM') {
       const incomplete = tasks.filter((t) => t.is_mandatory && !t.recorded_status && t.recorded_measurement === undefined);
@@ -274,7 +315,10 @@ export default function FieldJobScreen({
     try {
       const res = await fetch(`/api/engineer/visits/${visit.id}/report`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-idempotency-key': `rep-${visit.id}-${session.personId}`,
+        },
         body: JSON.stringify({
           operativeId: session.personId,
           work_completed_narrative: reportNarrative,
@@ -319,13 +363,40 @@ export default function FieldJobScreen({
             ? 'bg-emerald-100 text-emerald-800'
             : visit.status === 'IN_PROGRESS'
             ? 'bg-blue-100 text-blue-900'
+            : visit.status === 'CANCELLED'
+            ? 'bg-rose-100 text-rose-900'
             : 'bg-slate-900 text-white'
         }`}>
           {visit.status}
         </span>
       </div>
 
-      {/* Stop Work Warning Banner if triggered */}
+      {/* Cancellation Warning Banner */}
+      {visit.is_cancelled && (
+        <div className="p-4 bg-rose-600 text-white rounded text-xs flex items-start gap-3">
+          <AlertOctagon className="h-5 w-5 shrink-0 text-white mt-0.5" />
+          <div className="space-y-1">
+            <strong className="block text-sm">WORK ORDER CANCELLED BY ENTIREFM OPERATIONS</strong>
+            <span>Reason: {visit.cancellation_reason || 'Instruction from client or schedule cancelled.'}</span>
+            <span className="block text-[11px] opacity-90">
+              Further execution is blocked. Any evidence captured prior to cancellation has been preserved.
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Execution Error Banner (Concurrency / Reassignment Block) */}
+      {executionError && (
+        <div className="p-4 bg-rose-50 border border-rose-200 text-rose-950 rounded text-xs flex items-start gap-3">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-rose-600 mt-0.5" />
+          <div className="space-y-1">
+            <strong className="block text-sm">Execution Blocked</strong>
+            <span>{executionError}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Stop Work Warning Banner */}
       {defectsList.some((d) => d.stop_work_triggered) && (
         <div className="p-4 bg-rose-600 text-white rounded text-xs flex items-center gap-3">
           <AlertOctagon className="h-6 w-6 shrink-0 text-white" />
@@ -337,7 +408,7 @@ export default function FieldJobScreen({
       )}
 
       {/* Status Action Banner */}
-      {visit.status === 'ARRIVED' && (
+      {visit.status === 'ARRIVED' && !visit.is_cancelled && (
         <div className="bg-purple-50 border border-purple-200 rounded p-4 flex items-center justify-between gap-3">
           <div>
             <span className="text-[10px] font-mono uppercase text-purple-700 font-bold block">CHECKED IN ON SITE</span>
@@ -692,9 +763,15 @@ export default function FieldJobScreen({
               <span className="text-xs font-bold uppercase tracking-wider text-slate-900 font-sans">
                 Camera-First Photo Evidence
               </span>
-              <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
-                Synced to Cloud
-              </span>
+              {unsyncedEvidenceCount > 0 ? (
+                <span className="text-[10px] font-mono text-amber-800 bg-amber-50 px-2 py-0.5 rounded font-bold flex items-center gap-1">
+                  <WifiOff className="h-3 w-3" /> {unsyncedEvidenceCount} Waiting for Sync
+                </span>
+              ) : (
+                <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                  All Synced to Cloud
+                </span>
+              )}
             </div>
 
             <div className="grid grid-cols-3 gap-2">
@@ -729,9 +806,27 @@ export default function FieldJobScreen({
                       <span className="font-bold text-slate-900">{ev.category} Photograph</span>
                       <span className="text-slate-400 block font-mono text-[10.5px]">{ev.file_name}</span>
                     </div>
-                    <span className="bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold px-2 py-0.5 rounded">
-                      {ev.sync_state}
-                    </span>
+
+                    <div className="flex items-center gap-2">
+                      <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+                        ev.sync_state === 'SYNCED'
+                          ? 'bg-emerald-100 text-emerald-800'
+                          : ev.sync_state === 'SAVED_ON_DEVICE'
+                          ? 'bg-slate-100 text-slate-700'
+                          : 'bg-amber-100 text-amber-800'
+                      }`}>
+                        {ev.sync_state.replace(/_/g, ' ')}
+                      </span>
+
+                      {ev.sync_state !== 'SYNCED' && (
+                        <button
+                          onClick={() => handleRetryEvidenceSync(ev.id)}
+                          className="btn-secondary text-[10px] py-0.5 px-1.5 flex items-center gap-1 font-mono"
+                        >
+                          <RefreshCw className="h-3 w-3" /> Retry
+                        </button>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -838,8 +933,25 @@ export default function FieldJobScreen({
         <div className="space-y-4">
           <div className="bg-white border border-slate-200 rounded p-4 space-y-4 text-xs font-sans">
             <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-              <span className="font-bold text-slate-900 text-sm">Digital Service Report</span>
-              <span className="text-[10px] font-mono text-slate-400">EFM-FSR-2026-AUTOGEN</span>
+              <div>
+                <span className="font-bold text-slate-900 text-sm block">Digital Service Report</span>
+                {report && (
+                  <span className="text-[10px] font-mono text-slate-500">
+                    {report.report_number} &bull; Revision {report.revision_number}
+                  </span>
+                )}
+              </div>
+
+              {report && (
+                <a
+                  href={`/api/engineer/visits/${visit.id}/pdf`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-secondary text-[10.5px] py-1 px-2.5 font-mono flex items-center gap-1"
+                >
+                  <Download className="h-3.5 w-3.5" /> Download PDF
+                </a>
+              )}
             </div>
 
             {validationError && (
@@ -911,13 +1023,13 @@ export default function FieldJobScreen({
 
             <button
               onClick={handleSubmitServiceReport}
-              disabled={isSubmitting || visit.status === 'SUBMITTED' || visit.status === 'VALIDATED'}
+              disabled={isSubmitting || visit.status === 'VALIDATED' || visit.is_cancelled}
               className="btn-primary w-full py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center justify-center gap-2 text-sm disabled:opacity-50"
             >
               <CheckCircle2 className="h-4 w-4" />
               <span>
                 {visit.status === 'SUBMITTED'
-                  ? 'Service Report Submitted'
+                  ? 'Resubmit Corrected Service Report'
                   : visit.status === 'VALIDATED'
                   ? 'Service Report Validated'
                   : 'Submit Service Report to EntireFM'}

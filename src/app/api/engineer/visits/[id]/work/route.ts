@@ -8,9 +8,12 @@ export async function POST(
   try {
     const { id } = await params;
     const body = await req.json().catch(() => ({}));
-    const { operativeId = 'op-jack-turner' } = body;
+    const {
+      operativeId = 'op-jack-turner',
+      idempotencyKey = req.headers.get('x-idempotency-key') || undefined,
+    } = body;
 
-    const result = await startWork(id, operativeId);
+    const result = await startWork(id, operativeId, idempotencyKey);
     if (!result.success) {
       return NextResponse.json({ error: result.error }, { status: 400 });
     }
