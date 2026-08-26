@@ -118,7 +118,8 @@ const record: ContentRecord = {
     }
   ],
   "relatedRoutes": [
-    "/mechanical-electrical",
+    "/facilities-management-london",
+    "/mechanical-electrical-london",
     "/ppm",
     "/hard-services",
     "/contact-us"

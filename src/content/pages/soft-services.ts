@@ -90,9 +90,10 @@ const record: ContentRecord = {
     }
   ],
   "relatedRoutes": [
-    "/mechanical-electrical",
-    "/ppm",
+    "/facilities-management-london",
+    "/cleaning-services",
     "/hard-services",
+    "/commercial-cleaning-london",
     "/contact-us"
   ],
   "conversionGoal": "Generate commercial enquiries and survey requests for soft services.",

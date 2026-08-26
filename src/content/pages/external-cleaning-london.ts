@@ -90,9 +90,9 @@ const record: ContentRecord = {
     }
   ],
   "relatedRoutes": [
-    "/mechanical-electrical",
-    "/ppm",
-    "/hard-services",
+    "/facilities-management-london",
+    "/pressure-washing-london",
+    "/commercial-cleaning-london",
     "/contact-us"
   ],
   "conversionGoal": "Generate commercial enquiries and survey requests for external cleaning london.",

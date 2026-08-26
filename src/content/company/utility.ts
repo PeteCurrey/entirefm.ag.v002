@@ -139,4 +139,12 @@ export const UTILITY_CONTENT: Record<string, ContentRecord> = {
     'A legacy address from our previous site. If you are looking to discuss a maintenance scope, a compliance review or a single-site requirement, this is the right company and the contact details are below.',
     'EntireFM maintains commercial property across the UK. Most conversations start in one of three places: an estate whose current provider is not evidencing compliance, a building with a recurring fault nobody has owned, or a contract coming up for renewal where the incumbent scope has drifted from what the site actually needs. Any of those is a reasonable place to begin.'
   ),
+
+  '/facilities-management-services-lond': entryPoint(
+    '/facilities-management-services-lond',
+    'Facilities Management Services London | EntireFM',
+    'Facilities Management Services in London',
+    'A legacy address variant from our historic site for London facilities management services. For complete details on our London commercial operations, planned maintenance, and 24/7 reactive response, visit our primary London facilities management operations hub.',
+    'EntireFM maintains commercial property across Greater London and the M25 corridor. Our primary London operations hub at /facilities-management-london provides complete single-source facilities management, mechanical & electrical engineering, and statutory compliance management for commercial property owners and managing agents.'
+  ),
 };

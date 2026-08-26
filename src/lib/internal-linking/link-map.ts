@@ -20,12 +20,46 @@ export interface InternalLink {
 /** Explicit internal linking map — intentional only */
 const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
 
+  // ── Core Hubs ──────────────────────────────────────────────────────────────
+
+  '/': [
+    { path: '/services', label: 'Facilities Management Services', context: 'related-service' },
+    { path: '/facilities-management-london', label: 'Facilities Management London Operations', context: 'related-location' },
+    { path: '/mechanical-electrical', label: 'Mechanical & Electrical Engineering', context: 'related-service' },
+    { path: '/ppm', label: 'Planned Preventative Maintenance', context: 'related-service' },
+    { path: '/locations', label: 'UK Service Locations', context: 'related-location' },
+  ],
+
+  '/locations': [
+    { path: '/facilities-management-london', label: 'Facilities Management London (Flagship)', context: 'related-location' },
+    { path: '/facilities-management-manchester', label: 'Facilities Management Manchester', context: 'related-location' },
+    { path: '/facilities-management-birmingham', label: 'Facilities Management Birmingham', context: 'related-location' },
+    { path: '/facilities-management-leeds', label: 'Facilities Management Leeds', context: 'related-location' },
+    { path: '/facilities-management-sheffield', label: 'Facilities Management Sheffield', context: 'related-location' },
+  ],
+
+  '/services': [
+    { path: '/mechanical-electrical', label: 'Mechanical & Electrical Services', context: 'related-service' },
+    { path: '/ppm', label: 'Planned Preventative Maintenance', context: 'related-service' },
+    { path: '/hard-services', label: 'Hard Facilities Management', context: 'related-service' },
+    { path: '/soft-services', label: 'Soft Facilities Management', context: 'related-service' },
+    { path: '/facilities-management-london', label: 'London FM Operations', context: 'related-location' },
+  ],
+
+  '/commercial-facilities-management': [
+    { path: '/facilities-management-london', label: 'Commercial FM in London', context: 'related-location' },
+    { path: '/ppm', label: 'Planned Preventative Maintenance', context: 'related-service' },
+    { path: '/mechanical-electrical', label: 'M&E Engineering', context: 'related-service' },
+    { path: '/hard-services', label: 'Hard FM Services', context: 'related-service' },
+  ],
+
   // ── Hard FM Services ───────────────────────────────────────────────────────
 
   '/mechanical-electrical': [
     { path: '/hvac-contractor', label: 'HVAC & Ventilation Contractor', context: 'related-service' },
     { path: '/ppm', label: 'Planned Preventative Maintenance', context: 'related-service' },
     { path: '/hard-services', label: 'Hard Facilities Management', context: 'related-service' },
+    { path: '/facilities-management-london', label: 'London Facilities Management', context: 'related-location' },
     { path: '/mechanical-electrical/emergency-light-testing', label: 'Emergency Light Testing', context: 'related-service' },
     { path: '/mechanical-electrical/access-control', label: 'Access Control Systems', context: 'related-service' },
     { path: '/plumbing-gas', label: 'Plumbing & Gas Services', context: 'related-service' },
@@ -35,6 +69,7 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
     { path: '/mechanical-electrical', label: 'Mechanical & Electrical Services', context: 'related-service' },
     { path: '/ppm', label: 'Planned Preventative Maintenance', context: 'related-service' },
     { path: '/hard-services', label: 'Hard Facilities Management', context: 'related-service' },
+    { path: '/facilities-management-london', label: 'Facilities Management London Operations', context: 'related-location' },
     { path: '/fire-emergency-systems', label: 'Fire & Emergency Systems', context: 'related-service' },
   ],
 
@@ -42,6 +77,7 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
     { path: '/mechanical-electrical', label: 'Mechanical & Electrical Services', context: 'related-service' },
     { path: '/hvac-contractor', label: 'HVAC & Ventilation Contractor', context: 'related-service' },
     { path: '/hard-services', label: 'Hard Facilities Management', context: 'related-service' },
+    { path: '/facilities-management-london', label: 'Facilities Management Services across London', context: 'related-location' },
     { path: '/building-maintenance', label: 'Building Maintenance', context: 'related-service' },
   ],
 
@@ -49,6 +85,7 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
     { path: '/mechanical-electrical', label: 'Mechanical & Electrical', context: 'related-service' },
     { path: '/hvac-contractor', label: 'HVAC Contractor', context: 'related-service' },
     { path: '/ppm', label: 'Planned Preventative Maintenance', context: 'related-service' },
+    { path: '/facilities-management-london', label: 'Facilities Management London', context: 'related-location' },
     { path: '/fire-emergency-systems', label: 'Fire & Emergency Systems', context: 'related-service' },
     { path: '/plumbing-gas', label: 'Plumbing & Gas', context: 'related-service' },
     { path: '/soft-services', label: 'Soft FM Services', context: 'related-service' },
@@ -57,6 +94,7 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
   '/soft-services': [
     { path: '/hard-services', label: 'Hard FM Services', context: 'related-service' },
     { path: '/cleaning-services', label: 'Commercial Cleaning Services', context: 'related-service' },
+    { path: '/facilities-management-london', label: 'Commercial FM in London', context: 'related-location' },
     { path: '/industrial-cleaning', label: 'Industrial Cleaning', context: 'related-service' },
     { path: '/security-services', label: 'Security Services', context: 'related-service' },
     { path: '/concierge-services', label: 'Concierge Services', context: 'related-service' },
@@ -64,27 +102,123 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
 
   // ── London ─────────────────────────────────────────────────────────────────
 
+  '/facilities-management-london': [
+    { path: '/fm-london', label: 'Outsourced FM London (24/7 Response)', context: 'related-location' },
+    { path: '/london-facilities-management', label: 'Multi-Site Estate Facilities Management London', context: 'related-location' },
+    { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
+    { path: '/contract-cleaning-london', label: 'Contract Cleaning London', context: 'related-service' },
+    { path: '/office-cleaning-london', label: 'Corporate Office Cleaning London', context: 'related-service' },
+    { path: '/industrial-cleaning-london', label: 'Industrial Cleaning London', context: 'related-service' },
+    { path: '/mechanical-electrical-london', label: 'Mechanical & Electrical Maintenance London', context: 'related-service' },
+    { path: '/ppm-london', label: 'Planned Preventative Maintenance London', context: 'related-service' },
+    { path: '/hvac-london', label: 'Commercial HVAC & Air Conditioning London', context: 'related-service' },
+    { path: '/london-facilities-management-areas', label: 'London FM Coverage Areas', context: 'related-location' },
+    { path: '/mechanical-electrical', label: 'Mechanical & Electrical Engineering', context: 'related-service' },
+    { path: '/ppm', label: 'Planned Preventative Maintenance (SFG20)', context: 'related-service' },
+    { path: '/hard-services', label: 'Hard Facilities Management', context: 'related-service' },
+  ],
+
   '/fm-london': [
-    { path: '/facilities-management-london', label: 'Facilities Management London', context: 'related-location' },
-    { path: '/london-facilities-management', label: 'London Facilities Management Company', context: 'related-location' },
+    { path: '/facilities-management-london', label: 'Facilities Management London (Flagship)', context: 'related-location' },
+    { path: '/london-facilities-management', label: 'London Facilities Management for Multi-Site Estates', context: 'related-location' },
     { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
     { path: '/industrial-cleaning-london', label: 'Industrial Cleaning London', context: 'related-service' },
     { path: '/contract-cleaning-london', label: 'Contract Cleaning London', context: 'related-service' },
     { path: '/london-facilities-management-areas', label: 'London Coverage Areas', context: 'related-location' },
   ],
 
-  '/facilities-management-london': [
-    { path: '/fm-london', label: 'FM London (24/7 Response)', context: 'related-location' },
-    { path: '/london-facilities-management', label: 'London FM Company (Corporate)', context: 'related-location' },
+  '/london-facilities-management': [
+    { path: '/facilities-management-london', label: 'Facilities Management London Operations', context: 'related-location' },
+    { path: '/fm-london', label: 'Outsourced FM London (24/7 Response)', context: 'related-location' },
+    { path: '/office-cleaning-london', label: 'Office Cleaning London', context: 'related-service' },
     { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
+    { path: '/mechanical-electrical-london', label: 'M&E Maintenance London', context: 'related-service' },
+    { path: '/hard-services', label: 'Hard FM Services', context: 'related-service' },
+  ],
+
+  '/london-facilities-management-areas': [
+    { path: '/facilities-management-london', label: 'Facilities Management London Hub', context: 'related-location' },
+    { path: '/fm-london', label: 'FM London (24/7 Response)', context: 'related-location' },
+    { path: '/london-facilities-management', label: 'London Estate Facilities Management', context: 'related-location' },
+    { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
+  ],
+
+  '/commercial-cleaning-london': [
+    { path: '/facilities-management-london', label: 'Facilities Management London', context: 'related-location' },
+    { path: '/contract-cleaning-london', label: 'Contract Cleaning London', context: 'related-service' },
+    { path: '/office-cleaning-london', label: 'Office Cleaning London', context: 'related-service' },
+    { path: '/industrial-cleaning-london', label: 'Industrial Cleaning London', context: 'related-service' },
+  ],
+
+  '/contract-cleaning-london': [
+    { path: '/facilities-management-london', label: 'London Facilities Management', context: 'related-location' },
+    { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
+    { path: '/office-cleaning-london', label: 'Office Cleaning London', context: 'related-service' },
+  ],
+
+  '/office-cleaning-london': [
+    { path: '/facilities-management-london', label: 'Commercial FM in London', context: 'related-location' },
+    { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
+    { path: '/contract-cleaning-london', label: 'Contract Cleaning London', context: 'related-service' },
+  ],
+
+  '/industrial-cleaning-london': [
+    { path: '/facilities-management-london', label: 'Facilities Management Services across London', context: 'related-location' },
+    { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
+    { path: '/industrial-cleaning', label: 'National Industrial Cleaning', context: 'related-service' },
+  ],
+
+  '/external-cleaning-london': [
+    { path: '/facilities-management-london', label: 'London Facilities Management Operations', context: 'related-location' },
+    { path: '/pressure-washing-london', label: 'Pressure Washing London', context: 'related-service' },
+    { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
+  ],
+
+  '/pressure-washing-london': [
+    { path: '/facilities-management-london', label: 'Facilities Management London', context: 'related-location' },
+    { path: '/external-cleaning-london', label: 'External Cleaning London', context: 'related-service' },
+    { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
+  ],
+
+  '/mechanical-electrical-london': [
+    { path: '/facilities-management-london', label: 'Facilities Management London (Flagship)', context: 'related-location' },
+    { path: '/ppm-london', label: 'Planned Preventative Maintenance London', context: 'related-service' },
+    { path: '/hvac-london', label: 'Commercial HVAC London', context: 'related-service' },
     { path: '/mechanical-electrical', label: 'Mechanical & Electrical Services', context: 'related-service' },
   ],
 
-  '/london-facilities-management': [
-    { path: '/fm-london', label: 'FM London (24/7 Response)', context: 'related-location' },
+  '/ppm-london': [
+    { path: '/facilities-management-london', label: 'London Facilities Management', context: 'related-location' },
+    { path: '/mechanical-electrical-london', label: 'Mechanical & Electrical London', context: 'related-service' },
+    { path: '/hvac-london', label: 'Commercial HVAC London', context: 'related-service' },
+    { path: '/ppm', label: 'Planned Preventative Maintenance', context: 'related-service' },
+  ],
+
+  '/hvac-london': [
+    { path: '/facilities-management-london', label: 'Our London FM Operations', context: 'related-location' },
+    { path: '/mechanical-electrical-london', label: 'M&E Maintenance London', context: 'related-service' },
+    { path: '/ppm-london', label: 'Planned Maintenance London', context: 'related-service' },
+    { path: '/hvac-contractor', label: 'Commercial HVAC Services', context: 'related-service' },
+  ],
+
+  '/locations/london': [
     { path: '/facilities-management-london', label: 'Facilities Management London', context: 'related-location' },
-    { path: '/office-cleaning-london', label: 'Office Cleaning London', context: 'related-service' },
-    { path: '/hard-services', label: 'Hard FM Services', context: 'related-service' },
+    { path: '/fm-london', label: 'FM London (Outsourced)', context: 'related-location' },
+    { path: '/london-facilities-management', label: 'London FM (Multi-Site Estates)', context: 'related-location' },
+    { path: '/locations/london/services', label: 'London Regional Services', context: 'related-service' },
+  ],
+
+  '/locations/london/services': [
+    { path: '/facilities-management-london', label: 'Facilities Management London (Flagship)', context: 'related-location' },
+    { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
+    { path: '/mechanical-electrical-london', label: 'Mechanical & Electrical London', context: 'related-service' },
+    { path: '/ppm-london', label: 'Planned Maintenance London', context: 'related-service' },
+  ],
+
+  '/facilities-management-glossary-london': [
+    { path: '/facilities-management-london', label: 'Facilities Management London', context: 'related-location' },
+    { path: '/fm-london', label: 'Outsourced FM London', context: 'related-location' },
+    { path: '/london-facilities-management', label: 'Multi-Site FM London', context: 'related-location' },
   ],
 
   // ── Manchester ─────────────────────────────────────────────────────────────

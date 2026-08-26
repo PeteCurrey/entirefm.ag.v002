@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ImportStepper } from '@/components/admin/imports/ImportStepper';
 import { FileUp, Users, Building2, Wrench, AlertCircle, CheckCircle2 } from 'lucide-react';
@@ -18,10 +18,10 @@ const SOURCE_SYSTEMS = [
   { id: 'GENERIC_CSV', label: 'Generic CSV' },
 ];
 
-export default function NewImportPage() {
+function NewImportForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const preselectedType = searchParams.get('type') || '';
+  const preselectedType = searchParams?.get('type') || '';
 
   const [selectedEntityType, setSelectedEntityType] = useState<string>(preselectedType);
   const [selectedSourceSystem, setSelectedSourceSystem] = useState<string>('SIMPRO');
@@ -197,5 +197,13 @@ export default function NewImportPage() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function NewImportPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-sm text-[#686866]">Loading import wizard...</div>}>
+      <NewImportForm />
+    </Suspense>
   );
 }

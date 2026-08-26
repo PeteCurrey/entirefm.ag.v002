@@ -86,6 +86,7 @@ const record: ContentRecord = {
     }
   ],
   "relatedRoutes": [
+    "/facilities-management-london",
     "/mechanical-electrical",
     "/ppm",
     "/hard-services",
