@@ -136,18 +136,40 @@ export function generateApplicationReference(): string {
   return `SUP-${yymmdd}-${rand}`;
 }
 
-// ── In-Memory Domain Stores ───────────────────────────────────────────────────
+// ── In-Memory Domain Stores (Preserved via globalThis Singletons) ─────────────
+
+interface GlobalSupplierStore {
+  supplierUsersByAuthId: Map<string, SupplierUserRecord>;
+  authIdByEmail: Map<string, string>;
+  supplierOrganisations: Map<string, SupplierOrganisationRecord>;
+  supplierApplicationDrafts: Map<string, SupplierApplicationDraft>;
+  supplierInvitations: Map<string, SupplierInvitationRecord>;
+}
+
+const g = globalThis as unknown as { __efm_supplier_store?: GlobalSupplierStore };
+
+if (!g.__efm_supplier_store) {
+  g.__efm_supplier_store = {
+    supplierUsersByAuthId: new Map(),
+    authIdByEmail: new Map(),
+    supplierOrganisations: new Map(),
+    supplierApplicationDrafts: new Map(),
+    supplierInvitations: new Map(),
+  };
+}
+
+const store = g.__efm_supplier_store;
 
 /** auth_user_id (Supabase UUID) → SupplierUserRecord */
-const supplierUsersByAuthId = new Map<string, SupplierUserRecord>();
+const supplierUsersByAuthId = store.supplierUsersByAuthId;
 /** normalized email → auth_user_id */
-const authIdByEmail = new Map<string, string>();
+const authIdByEmail = store.authIdByEmail;
 /** orgId → SupplierOrganisationRecord */
-const supplierOrganisations = new Map<string, SupplierOrganisationRecord>();
+const supplierOrganisations = store.supplierOrganisations;
 /** orgId → SupplierApplicationDraft */
-const supplierApplicationDrafts = new Map<string, SupplierApplicationDraft>();
+const supplierApplicationDrafts = store.supplierApplicationDrafts;
 /** token / id → SupplierInvitationRecord */
-const supplierInvitations = new Map<string, SupplierInvitationRecord>();
+const supplierInvitations = store.supplierInvitations;
 
 // ── Supplier User Operations (Linked to Supabase Auth) ────────────────────────
 
@@ -361,11 +383,32 @@ export async function createSupplierOrganisation(
   tradingName?: string,
   companyNumber?: string
 ): Promise<CreateOrganisationResult> {
-  // Duplicate check by Companies House number
+  // 1. If user already has an organisation linked, return it idempotently
+  const existingUser = supplierUsersByAuthId.get(ownerAuthUserId);
+  if (existingUser?.organisation_id) {
+    const existingOrg = supplierOrganisations.get(existingUser.organisation_id);
+    if (existingOrg) {
+      // Ensure draft exists
+      await getOrCreateApplicationDraft(existingOrg.id);
+      return { success: true, organisation: existingOrg };
+    }
+  }
+
+  // 2. Duplicate check by Companies House number
   if (companyNumber) {
     const normalised = companyNumber.trim().toUpperCase();
     for (const org of supplierOrganisations.values()) {
       if (org.companyNumber?.toUpperCase() === normalised) {
+        // If the same user owns this existing organisation, return it idempotently
+        if (org.ownerId === ownerAuthUserId) {
+          if (existingUser) {
+            existingUser.organisation_id = org.id;
+            existingUser.role = 'SUPPLIER_ADMIN';
+            existingUser.updated_at = new Date().toISOString();
+          }
+          await getOrCreateApplicationDraft(org.id);
+          return { success: true, organisation: org };
+        }
         return {
           success: false,
           duplicate: true,
@@ -375,10 +418,20 @@ export async function createSupplierOrganisation(
     }
   }
 
-  // Duplicate check by legal name
+  // 3. Duplicate check by legal name
   const normName = legalName.trim().toLowerCase();
   for (const org of supplierOrganisations.values()) {
     if (org.legalName.trim().toLowerCase() === normName) {
+      // If the same user owns this existing organisation, return it idempotently
+      if (org.ownerId === ownerAuthUserId) {
+        if (existingUser) {
+          existingUser.organisation_id = org.id;
+          existingUser.role = 'SUPPLIER_ADMIN';
+          existingUser.updated_at = new Date().toISOString();
+        }
+        await getOrCreateApplicationDraft(org.id);
+        return { success: true, organisation: org };
+      }
       return {
         success: false,
         duplicate: true,
@@ -387,8 +440,10 @@ export async function createSupplierOrganisation(
     }
   }
 
+  // 4. Provision organisation atomically
   const orgId = `sorg-${Date.now()}-${randomBytes(4).toString('hex')}`;
   const now = new Date().toISOString();
+  const appRef = generateApplicationReference();
 
   const organisation: SupplierOrganisationRecord = {
     id: orgId,
@@ -397,16 +452,19 @@ export async function createSupplierOrganisation(
     companyNumber: companyNumber?.trim() || null,
     vatNumber: null,
     ownerId: ownerAuthUserId,
-    applicationReference: generateApplicationReference(),
-    lifecycleStatus: 'REGISTERED',
+    applicationReference: appRef,
+    lifecycleStatus: 'DRAFT',
     createdAt: now,
     updatedAt: now,
   };
 
   supplierOrganisations.set(orgId, organisation);
 
-  // Link user to organisation
+  // 5. Link user to organisation with SUPPLIER_ADMIN role
   await setSupplierUserOrganisation(ownerAuthUserId, orgId);
+
+  // 6. Atomically provision canonical DRAFT application with pre-populated company data
+  await getOrCreateApplicationDraft(orgId);
 
   return { success: true, organisation };
 }
@@ -531,7 +589,11 @@ export type ResumeDestination =
   | '/supplier-portal';
 
 export async function resolveResumeDestination(authUserId: string): Promise<ResumeDestination> {
-  const user = supplierUsersByAuthId.get(authUserId);
+  let user = supplierUsersByAuthId.get(authUserId);
+  if (!user) {
+    const authState = await validateSupplierAuthUser(authUserId);
+    user = authState.supplierUser || undefined;
+  }
   if (!user) return '/supplier-portal/register';
   if (!user.organisation_id) return '/supplier-portal/org-setup';
 

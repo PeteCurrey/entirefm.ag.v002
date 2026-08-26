@@ -67,7 +67,7 @@ export default function SupplierMembershipPublicPage() {
             <Breadcrumbs items={breadcrumbs} />
 
             <div className="space-y-4">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink block font-bold">
+              <span className="text-[11px] font-normal uppercase tracking-wider text-brand-pink block font-medium">
                 COMMERCIAL TRANSPARENCY &amp; GOVERNANCE
               </span>
               <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight text-white max-w-3xl leading-tight">
@@ -101,7 +101,7 @@ export default function SupplierMembershipPublicPage() {
         <section className="py-12 bg-white border-y border-slate-200">
           <div className="container-custom max-w-5xl space-y-6">
             <div className="space-y-1">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold tracking-wider">
+              <span className="text-[10px] font-normal uppercase tracking-wider text-slate-400 font-medium">
                 RELATIONSHIP &amp; COMMERCIAL COMPARISON
               </span>
               <h2 className="text-2xl font-light text-slate-900">
@@ -169,7 +169,7 @@ export default function SupplierMembershipPublicPage() {
         <section className="py-12 bg-white border-b border-slate-200">
           <div className="container-custom max-w-5xl space-y-6 text-xs font-light">
             <div className="space-y-1 font-sans">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold tracking-wider">
+              <span className="text-[10px] font-normal uppercase tracking-wider text-slate-400 font-medium">
                 TECHNICAL VETTING
               </span>
               <h3 className="text-xl font-bold text-slate-900">

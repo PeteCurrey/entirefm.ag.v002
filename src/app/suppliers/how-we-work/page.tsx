@@ -85,7 +85,7 @@ export default function HowWeWorkPage() {
             <Breadcrumbs items={breadcrumbs} />
 
             <div className="space-y-4">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink block font-bold">
+              <span className="text-[11px] font-normal uppercase tracking-wider text-brand-pink block font-medium">
                 OPERATIONAL LIFECYCLE &amp; PROCUREMENT APPROACH
               </span>
               <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight text-white max-w-3xl leading-tight">
@@ -103,19 +103,19 @@ export default function HowWeWorkPage() {
           <div className="container-custom max-w-5xl">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-600 font-light">
               <div className="p-5 bg-[#FAF9FB] rounded-sm border border-slate-200/80 space-y-2">
-                <span className="font-mono text-[10px] uppercase text-brand-pink font-semibold">1. RIGOROUS STANDARDS</span>
+                <span className="font-normal text-[10px] uppercase text-brand-pink font-semibold">1. RIGOROUS STANDARDS</span>
                 <p>
                   Every supplier aligns with our published <Link href="/suppliers/standards" className="text-slate-900 font-normal underline hover:text-brand-pink">Supplier Standards</Link> and passes <Link href="/suppliers/vetting" className="text-slate-900 font-normal underline hover:text-brand-pink">proportional 6-pillar vetting</Link> prior to site allocation.
                 </p>
               </div>
               <div className="p-5 bg-[#FAF9FB] rounded-sm border border-slate-200/80 space-y-2">
-                <span className="font-mono text-[10px] uppercase text-brand-pink font-semibold">2. STREAMLINED ONBOARDING</span>
+                <span className="font-normal text-[10px] uppercase text-brand-pink font-semibold">2. STREAMLINED ONBOARDING</span>
                 <p>
                   Our <Link href="/suppliers/onboarding" className="text-slate-900 font-normal underline hover:text-brand-pink">4-phase onboarding workflow</Link> verifies bank details, insurance limits, and operative competence with zero delays.
                 </p>
               </div>
               <div className="p-5 bg-[#FAF9FB] rounded-sm border border-slate-200/80 space-y-2">
-                <span className="font-mono text-[10px] uppercase text-brand-pink font-semibold">3. FAIR WORK ALLOCATION</span>
+                <span className="font-normal text-[10px] uppercase text-brand-pink font-semibold">3. FAIR WORK ALLOCATION</span>
                 <p>
                   Work orders are dispatched directly via CAFM based on verified trade competence. Read our <Link href="/suppliers/faq" className="text-slate-900 font-normal underline hover:text-brand-pink">Supplier FAQ</Link> or <Link href="/suppliers/apply" className="text-brand-pink font-medium hover:underline">apply now →</Link>
                 </p>
@@ -128,7 +128,7 @@ export default function HowWeWorkPage() {
           {/* 12 Steps */}
           <div className="space-y-6">
             <div className="space-y-1">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">END-TO-END JOURNEY</span>
+              <span className="text-[10px] font-normal uppercase tracking-wider text-slate-400 font-medium">END-TO-END JOURNEY</span>
               <h2 className="text-2xl sm:text-3xl font-light text-slate-900">The 12-Stage Supplier Lifecycle</h2>
             </div>
 

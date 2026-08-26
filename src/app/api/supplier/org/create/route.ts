@@ -56,15 +56,35 @@ export async function POST(request: Request) {
       );
     }
 
-    // Idempotent: if user already has an org, return it
+    // Idempotent: if user already has an org, return it and ensure session cookie is refreshed
     if (user.organisation_id) {
+      const existingOrg = await getSupplierOrganisationById(user.organisation_id);
       const draft = await getOrCreateApplicationDraft(user.organisation_id);
-      return NextResponse.json({
+
+      const updatedSession = {
+        ...session,
+        orgId: user.organisation_id,
+        orgName: existingOrg?.tradingName || existingOrg?.legalName || 'Supplier Organisation',
+        expiresAt: Date.now() + SUPPLIER_SESSION_MAX_AGE * 1000,
+      };
+      const newToken = createSessionToken(updatedSession as any);
+
+      const response = NextResponse.json({
         success: true,
         orgId: user.organisation_id,
         applicationReference: draft.applicationReference,
         alreadyExists: true,
       });
+
+      response.cookies.set(AUTH_COOKIE_NAME, newToken, {
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+        maxAge: SUPPLIER_SESSION_MAX_AGE,
+      });
+
+      return response;
     }
 
     const result = await createSupplierOrganisation(

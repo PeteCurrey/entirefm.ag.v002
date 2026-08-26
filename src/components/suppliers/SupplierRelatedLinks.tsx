@@ -26,7 +26,7 @@ export function SupplierRelatedLinks({
     <section className="py-14 bg-white border-t border-slate-200">
       <div className="container-custom max-w-5xl">
         <div className="mb-8">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+          <span className="text-[10px] font-normal uppercase tracking-wider text-slate-400 block mb-1">
             {eyebrow}
           </span>
           <h2 className="text-xl sm:text-2xl font-light text-slate-900">
@@ -43,7 +43,7 @@ export function SupplierRelatedLinks({
             >
               <div className="space-y-2">
                 {link.tag && (
-                  <span className="text-[9.5px] font-mono uppercase text-brand-pink tracking-wider">
+                  <span className="text-[9.5px] font-normal uppercase text-brand-pink tracking-wider">
                     {link.tag}
                   </span>
                 )}

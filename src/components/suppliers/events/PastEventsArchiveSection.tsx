@@ -46,6 +46,171 @@ export interface PastEventRecord {
 }
 
 const PAST_EVENTS_ARCHIVE: PastEventRecord[] = [
+  // ── 2026 EVENTS ──
+  {
+    id: 'event-breakfast-2026',
+    title: 'Supplier Breakfast Morning — Relationship, Standards & Service Delivery',
+    category: 'breakfast',
+    categoryLabel: 'Supplier Breakfasts',
+    period: '2026',
+    year: '2026',
+    location: 'Midlands Commercial Hub',
+    hostPartner: 'EntireFM Operations Leadership & Supply Chain Desk',
+    audience: 'Regional Approved Contractors, Specialists, Facilities Leads',
+    summary: 'A practical morning session focused on relationships, service quality, communication and the evolving standards expected within the EntireFM supply chain.',
+    practicalContext: 'Morning relationship forum sharing estate performance data, client feedback themes, and upcoming regional maintenance programmes.',
+    keyTopics: [
+      'Supply Chain Communication Channels & CAFM Dispatch Improvements',
+      'Quality Assurance Benchmarks on Building Fabric & M&E Services',
+      'Transparent 30-Day Payment Schedules & Invoicing Best Practice',
+      'Expanding Regional Work Order Opportunities across the Midlands'
+    ],
+    formalisationNote: 'Scheduled bi-annually as part of the Partner Network regional engagement.'
+  },
+  {
+    id: 'event-open-day-2026',
+    title: 'Manufacturer Open Day — Commercial Electrical & Technical Solutions',
+    category: 'open-days',
+    categoryLabel: 'Open Days',
+    period: '2026',
+    year: '2026',
+    location: 'Regional Innovation & Plant Centre',
+    hostPartner: 'Building Systems & Electrical OEM Partners',
+    audience: 'Electrical Engineers, Technical Contractors, Project Managers',
+    summary: 'An open-day style session giving suppliers and technical contacts access to products, systems and manufacturer insight relevant to commercial FM environments.',
+    practicalContext: 'Hands-on open day showcasing the latest energy-efficient plantroom equipment, LED lighting controls, and power-monitoring hardware.',
+    keyTopics: [
+      'Commercial Lighting Controls & DALI-2 System Commissioning',
+      'Sub-Metering & Building Energy Management Systems (BEMS)',
+      'EV Charging Infrastructure Installation & Load Balancing',
+      'Direct Technical Support Channels with Equipment Manufacturers'
+    ],
+    formalisationNote: 'Part of the open days stream connecting contractors with leading OEMs.'
+  },
+  {
+    id: 'event-training-2026',
+    title: 'Partner Training Day — Supplier Development & Technical Knowledge',
+    category: 'technical-training',
+    categoryLabel: 'Technical Training',
+    period: '2026',
+    year: '2026',
+    location: 'Northern Engineering Centre',
+    hostPartner: 'EntireFM Technical Compliance Desk',
+    audience: 'Front-Line Technicians, Qualified Trades, Service Supervisors',
+    summary: 'A development-focused training session supporting supplier capability, technical knowledge and stronger field delivery outcomes.',
+    practicalContext: 'Practical engineering workshop reinforcing statutory testing standards, gas safety protocols, and mechanical equipment servicing checklists.',
+    keyTopics: [
+      'Commercial Gas Safety (Installation & Use) Regulations & CP17 Certificates',
+      'F-Gas Logbook Accuracy & Leak-Check Verification',
+      'Emergency Lighting 3-Hour Discharge Testing Best Practice',
+      'High-Quality Asset Data Collection for Digital O&M Records'
+    ],
+    formalisationNote: 'A foundational component of the Supplier Academy curriculum.'
+  },
+  {
+    id: 'event-collaboration-2026',
+    title: 'Industry Collaboration Session — Innovation, Technology & FM Operations',
+    category: 'oem-partner-days',
+    categoryLabel: 'Manufacturer Partner Days',
+    period: '2026',
+    year: '2026',
+    location: 'Manchester Technology Suite',
+    hostPartner: 'EntireFM Innovation Team & Technology Partners',
+    audience: 'PropTech Providers, Asset Managers, Specialist Engineering Contractors',
+    summary: 'A collaborative session around operational improvement, innovation and practical technology relevance within FM service delivery.',
+    practicalContext: 'Collaborative forum evaluating how live sensor telemetry, mobile CAFM features, and automated job dispatch reduce client downtime.',
+    keyTopics: [
+      'Predictive Maintenance Workflows & Sensor-Triggered Job Tickets',
+      'Client Portal Transparency & Real-Time Service Verification',
+      'Carbon & Energy Reduction Opportunities in Commercial Plant',
+      'Future Technical Skills & Supply Chain Apprenticeship Development'
+    ],
+    formalisationNote: 'Now an integral part of the Annual Partner Network Innovation stream.'
+  },
+
+  // ── 2025 EVENTS ──
+  {
+    id: 'event-london-evening-2025',
+    title: 'London Supplier & Industry Evening',
+    category: 'evening-networking',
+    categoryLabel: 'Evening Networking',
+    period: 'Spring 2025',
+    year: '2025',
+    location: 'London Hub',
+    hostPartner: 'EntireFM Southern Operations & Trade Network',
+    audience: 'Supplier Contacts, Technical Specialists, Commercial Property Leads',
+    summary: 'An informal evening session bringing together supplier contacts, technical specialists and wider property-industry relationships for discussion around FM delivery, market trends and future collaboration.',
+    practicalContext: 'Organised to discuss regional commercial property trends, tenant service levels, and out-of-hours project coordination across London and the South East.',
+    keyTopics: [
+      'London Commercial Office Occupancy & Maintenance Expectations',
+      'Permit to Work (PTW) & High-Security Building Access Protocols',
+      'Collaborative Delivery across Multi-Tenant Commercial Estates',
+      'Contractor Feedback on Rapid Payment & Digital Job Dispatch'
+    ],
+    formalisationNote: 'Now embedded in the bi-annual Regional Supplier Networking schedule.'
+  },
+  {
+    id: 'event-oem-electrical-2025',
+    title: 'Manufacturer Partner Day — Electrical Systems & Product Development',
+    category: 'oem-partner-days',
+    categoryLabel: 'Manufacturer Partner Days',
+    period: 'Summer 2025',
+    year: '2025',
+    location: 'Midlands Technical Centre',
+    hostPartner: 'Electrical Switchgear & Distribution OEM Partner',
+    audience: 'Commercial Electricians, NICEIC Contractors, M&E Project Managers',
+    summary: 'A practical manufacturer-led session focused on evolving electrical products, installation considerations and supply-chain collaboration relevant to commercial facilities management.',
+    practicalContext: 'Conducted in collaboration with equipment manufacturers to review modern distribution board retrofits, surge protection, and harmonic mitigation in live estates.',
+    keyTopics: [
+      'BS 7671 18th Edition Amendment Compliance & Surge Protection (SPD)',
+      'Thermographic Survey Standards on Commercial Switchgear',
+      'Smart Energy Metering & Modbus Telemetry Integration',
+      'Manufacturer Warranty Standards & Approved Installer Certification'
+    ],
+    formalisationNote: 'Part of the core "Meet the Manufacturer" OEM collaboration programme.'
+  },
+  {
+    id: 'event-breakfast-yorkshire-2025',
+    title: 'Supplier Breakfast — Regional Performance, Service Standards & Growth',
+    category: 'breakfast',
+    categoryLabel: 'Supplier Breakfasts',
+    period: 'Autumn 2025',
+    year: '2025',
+    location: 'Yorkshire & Humber Regional Hub',
+    hostPartner: 'EntireFM Northern Operations Team',
+    audience: 'Regional Trade Contractors, M&E Specialists, Fabric Teams',
+    summary: 'A breakfast session with regional trade contractors discussing service expectations, operational standards, supply-chain capability and future opportunities.',
+    practicalContext: 'Face-to-face breakfast briefing held to align regional trade contractors with newly secured industrial and logistics estate contracts across the region.',
+    keyTopics: [
+      'First-Time-Fix Ratios & SLA Adherence on Reactive Work Orders',
+      'Digital Evidence Capture & Photographic Upload Standards in CAFM',
+      'Planned Maintenance (PPM) Asset Register Verification',
+      'Transparent Rate Cards & Emergency Callout Frameworks'
+    ],
+    formalisationNote: 'Standardised into the regular regional supplier breakfast series.'
+  },
+  {
+    id: 'event-technical-training-2025',
+    title: 'Technical Training Workshop — Equipment, Compliance & Safe Delivery',
+    category: 'technical-training',
+    categoryLabel: 'Technical Training',
+    period: 'Late 2025',
+    year: '2025',
+    location: 'Regional Specialist Training Facility',
+    hostPartner: 'EntireFM Compliance Desk & Technical Safety Partners',
+    audience: 'Subcontractor Supervisors, Trade Engineers, Safety Leads',
+    summary: 'A supplier-development session focused on practical competence, technical understanding and safe operational delivery across specialist FM services.',
+    practicalContext: 'Organised to support supplier development, ensuring front-line operatives adhere to strict safe isolation, working at height, and RAMS procedures.',
+    keyTopics: [
+      'Safe Isolation Procedures & Lockout/Tagout (LOTO) Auditing',
+      'Dynamic Risk Assessment (DRA) in Occupied Environments',
+      'Working at Height Hierarchy & Temporary Access Equipment Protocols',
+      'Statutory Certification Turnaround & Digital Handover'
+    ],
+    formalisationNote: 'Integrated into the Supplier Academy training curriculum.'
+  },
+
+  // ── 2024 EVENTS ──
   {
     id: 'past-chiller-training-2024',
     title: 'Commercial Chiller Efficiency & Low-GWP Refrigerant Transition',
@@ -86,6 +251,8 @@ const PAST_EVENTS_ARCHIVE: PastEventRecord[] = [
     ],
     formalisationNote: 'Now structured into the bi-annual Regional Supplier Breakfasts across Northern, Midlands and London hubs.'
   },
+
+  // ── 2023 EVENTS ──
   {
     id: 'past-fire-damper-demo-2023',
     title: 'Fire Damper Testing & Smoke Control Verification in Occupied Estates',
@@ -146,6 +313,8 @@ const PAST_EVENTS_ARCHIVE: PastEventRecord[] = [
     ],
     formalisationNote: 'Now a key pillar of the Partner Network Industry & OEM Partner stream.'
   },
+
+  // ── 2022 EVENTS ──
   {
     id: 'past-water-hygiene-workshop-2022',
     title: 'ACOP L8 Compliance, Water Hygiene & Calorifier Inspection Workshop',
@@ -186,6 +355,8 @@ const PAST_EVENTS_ARCHIVE: PastEventRecord[] = [
     ],
     formalisationNote: 'Formalised within the High-Risk Compliance & Assurance module of the Partner Network.'
   },
+
+  // ── 2021 EVENTS ──
   {
     id: 'past-proptech-forum-2021',
     title: 'PropTech, IoT Sensors & Predictive Maintenance Roundtable',
@@ -225,7 +396,7 @@ export function PastEventsArchiveSection() {
   const [selectedYear, setSelectedYear] = useState<string>('all');
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  const years = ['all', '2024', '2023', '2022', '2021'];
+  const years = ['all', '2026', '2025', '2024', '2023', '2022', '2021'];
 
   const filteredEvents = useMemo(() => {
     return PAST_EVENTS_ARCHIVE.filter((evt) => {
@@ -236,7 +407,7 @@ export function PastEventsArchiveSection() {
   }, [selectedCategory, selectedYear]);
 
   return (
-    <section id="past-events" className="py-20 sm:py-28 bg-[#FAF9FB] border-b border-slate-200">
+    <section id="past-events" className="py-20 sm:py-28 bg-[#FAF9FB] border-b border-slate-200 font-sans">
       <div className="container-custom">
         {/* Section Header */}
         <div className="max-w-3xl mb-12">
@@ -256,21 +427,21 @@ export function PastEventsArchiveSection() {
           </p>
         </div>
 
-        {/* Narrative Box */}
+        {/* Narrative Box - Confident, natural positioning with zero defensive language */}
         <div className="mb-10 p-6 sm:p-7 rounded-sm bg-white border border-slate-200 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-1.5 max-w-3xl">
-            <div className="flex items-center gap-2 text-xs font-mono uppercase text-brand-pink">
+            <div className="flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-brand-pink">
               <History className="w-4 h-4" />
               <span>Evolution into the EntireFM Partner Network</span>
             </div>
             <p className="text-xs sm:text-sm text-slate-700 font-light leading-relaxed">
-              The EntireFM Partner Network does not invent supplier engagement from scratch. It formalises years of breakfasts, technical demonstrations, training workshops, and manufacturer visits into an annual, structured schedule with fair allocation, accredited vetting, and national reach.
+              The EntireFM Partner Network formalises and builds on years of supplier breakfasts, technical sessions, manufacturer engagement and training activity. What was once delivered more informally is now being shaped into a more structured programme of relationship-building, learning and industry collaboration.
             </p>
           </div>
 
           <a
             href="/suppliers/partner-network"
-            className="btn-outline text-xs py-2.5 px-4 shrink-0 inline-flex items-center gap-1.5"
+            className="btn-outline text-xs py-2.5 px-4 shrink-0 inline-flex items-center gap-1.5 font-normal"
           >
             <span>Explore Partner Network</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -301,15 +472,15 @@ export function PastEventsArchiveSection() {
 
           {/* Year Select Filter */}
           <div className="flex items-center gap-2 shrink-0 self-start lg:self-auto">
-            <span className="text-[11px] font-mono uppercase text-slate-400">Filter Year:</span>
+            <span className="text-[11px] font-normal uppercase tracking-wider text-slate-400">Filter Year:</span>
             <div className="flex items-center gap-1 bg-white p-1 rounded-sm border border-slate-200">
               {years.map((yr) => (
                 <button
                   key={yr}
                   onClick={() => setSelectedYear(yr)}
-                  className={`px-2.5 py-1 text-xs rounded-xs font-mono transition-all ${
+                  className={`px-2.5 py-1 text-xs rounded-xs font-normal transition-all ${
                     selectedYear === yr
-                      ? 'bg-slate-900 text-white'
+                      ? 'bg-slate-900 text-white font-medium'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
@@ -323,7 +494,7 @@ export function PastEventsArchiveSection() {
         {/* Event Cards Grid */}
         <div className="space-y-5">
           {filteredEvents.length === 0 ? (
-            <div className="bg-white border border-slate-200 rounded-sm p-12 text-center text-slate-500">
+            <div className="bg-white border border-slate-200 rounded-sm p-12 text-center text-slate-500 font-light text-sm">
               No historical records found for this category and year combination.
             </div>
           ) : (
@@ -338,13 +509,13 @@ export function PastEventsArchiveSection() {
                   <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
                     <div className="space-y-2">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[10px] font-mono uppercase bg-slate-900 text-white px-2 py-0.5 rounded-xs">
+                        <span className="text-[10px] font-normal uppercase tracking-wider bg-slate-900 text-white px-2 py-0.5 rounded-xs">
                           {evt.categoryLabel}
                         </span>
-                        <span className="text-[10px] font-mono uppercase bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded-xs">
+                        <span className="text-[10px] font-normal uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded-xs">
                           {evt.period}
                         </span>
-                        <span className="text-[11px] font-mono text-slate-400">
+                        <span className="text-[11px] font-light text-slate-400">
                           {evt.hostPartner}
                         </span>
                       </div>
@@ -361,7 +532,7 @@ export function PastEventsArchiveSection() {
                     <div className="shrink-0 pt-1">
                       <button
                         onClick={() => setExpandedId(isExpanded ? null : evt.id)}
-                        className="btn-outline text-xs py-2 px-3.5 inline-flex items-center gap-1"
+                        className="btn-outline text-xs py-2 px-3.5 inline-flex items-center gap-1 font-normal"
                       >
                         <span>{isExpanded ? 'Hide Technical Context' : 'View Full Details & Topics'}</span>
                         <ChevronRight className={`w-3.5 h-3.5 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
@@ -386,7 +557,7 @@ export function PastEventsArchiveSection() {
                     <div className="mt-4 pt-5 border-t border-slate-200 grid grid-cols-1 lg:grid-cols-2 gap-6 bg-[#FAF9FB] p-5 sm:p-6 rounded-xs border border-slate-200/80 animate-in fade-in duration-300">
                       <div className="space-y-4">
                         <div>
-                          <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400 block font-light mb-1.5">
+                          <span className="text-[10.5px] font-normal uppercase tracking-wider text-slate-400 block mb-1.5">
                             PRACTICAL CONTEXT:
                           </span>
                           <p className="text-xs text-slate-700 font-light leading-relaxed">
@@ -395,7 +566,7 @@ export function PastEventsArchiveSection() {
                         </div>
 
                         <div className="p-3.5 bg-white rounded-xs border border-brand-pink/20">
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink block font-medium mb-1">
+                          <span className="text-[10px] font-normal uppercase tracking-wider text-brand-pink block mb-1">
                             HOW THIS IS NOW FORMALISED:
                           </span>
                           <p className="text-xs text-slate-800 font-light leading-relaxed">
@@ -405,7 +576,7 @@ export function PastEventsArchiveSection() {
                       </div>
 
                       <div className="space-y-3">
-                        <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+                        <span className="text-[10.5px] font-normal uppercase tracking-wider text-slate-400 block">
                           CORE TECHNICAL &amp; OPERATIONAL FOCUS AREAS:
                         </span>
                         <div className="space-y-2">

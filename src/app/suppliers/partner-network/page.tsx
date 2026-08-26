@@ -82,7 +82,7 @@ export default function PartnerNetworkPublicPage() {
             <Breadcrumbs items={breadcrumbs} />
 
             <div className="space-y-4">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink block font-bold">
+              <span className="text-[11px] font-normal uppercase tracking-wider text-brand-pink block font-medium">
                 ENTIREFM PARTNER NETWORK
               </span>
               <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight text-white max-w-3xl leading-tight">
@@ -113,19 +113,19 @@ export default function PartnerNetworkPublicPage() {
           <div className="container-custom max-w-5xl">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-light">
               <Link href="/suppliers/how-we-work" className="p-4 rounded-sm bg-[#FAF9FB] border border-slate-200/80 hover:border-brand-pink transition-all space-y-1 block">
-                <span className="text-[10.5px] font-mono uppercase text-brand-pink block font-medium">1. HOW WE WORK</span>
+                <span className="text-[10.5px] font-normal uppercase text-brand-pink block font-medium">1. HOW WE WORK</span>
                 <p className="text-slate-700">12-stage lifecycle &amp; fair allocation →</p>
               </Link>
               <Link href="/suppliers/events" className="p-4 rounded-sm bg-[#FAF9FB] border border-slate-200/80 hover:border-brand-pink transition-all space-y-1 block">
-                <span className="text-[10.5px] font-mono uppercase text-brand-pink block font-medium">2. EVENTS &amp; FORUMS</span>
+                <span className="text-[10.5px] font-normal uppercase text-brand-pink block font-medium">2. EVENTS &amp; FORUMS</span>
                 <p className="text-slate-700">Breakfasts, OEM days &amp; technical talks →</p>
               </Link>
               <Link href="/suppliers/industry-partners" className="p-4 rounded-sm bg-[#FAF9FB] border border-slate-200/80 hover:border-brand-pink transition-all space-y-1 block">
-                <span className="text-[10.5px] font-mono uppercase text-brand-pink block font-medium">3. OEM &amp; INDUSTRY</span>
+                <span className="text-[10.5px] font-normal uppercase text-brand-pink block font-medium">3. OEM &amp; INDUSTRY</span>
                 <p className="text-slate-700">Factory-backed equipment partnerships →</p>
               </Link>
               <Link href="/suppliers/innovation" className="p-4 rounded-sm bg-[#FAF9FB] border border-slate-200/80 hover:border-brand-pink transition-all space-y-1 block">
-                <span className="text-[10.5px] font-mono uppercase text-brand-pink block font-medium">4. INNOVATION</span>
+                <span className="text-[10.5px] font-normal uppercase text-brand-pink block font-medium">4. INNOVATION</span>
                 <p className="text-slate-700">PropTech, IoT &amp; predictive maintenance →</p>
               </Link>
             </div>
@@ -136,7 +136,7 @@ export default function PartnerNetworkPublicPage() {
         <section className="py-16 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-custom max-w-5xl space-y-12">
             <div className="space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
+              <span className="text-[10px] font-normal uppercase tracking-wider text-slate-400 font-medium">
                 COLLABORATIVE ECOSYSTEM
               </span>
               <h2 className="text-2xl sm:text-3xl font-light text-slate-900">
@@ -184,7 +184,7 @@ export default function PartnerNetworkPublicPage() {
         <section className="py-16 bg-white border-t border-slate-200">
           <div className="container-custom max-w-5xl space-y-8">
             <div className="space-y-2 text-center max-w-2xl mx-auto">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
+              <span className="text-[10px] font-normal uppercase tracking-wider text-slate-400 font-medium">
                 COMMERCIAL CLARITY
               </span>
               <h2 className="text-2xl sm:text-3xl font-light text-slate-900">
