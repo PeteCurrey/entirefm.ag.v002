@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { ArrowRight, Calendar, Users, History } from 'lucide-react';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 
@@ -12,25 +13,45 @@ export function EventHero() {
   ];
 
   return (
-    <section className="bg-brand-graphite text-white relative overflow-hidden pt-28 pb-20 lg:pt-36 lg:pb-28 border-b border-brand-edge-dark">
-      {/* Ambient facet pattern */}
-      <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 opacity-20" />
-      
-      {/* Background Gradient */}
+    <section className="bg-brand-graphite text-white relative overflow-hidden pt-28 pb-20 lg:pt-36 lg:pb-28 border-b border-brand-edge-dark isolate">
+      {/* Background Hero Image */}
+      <div className="absolute inset-0 -z-30">
+        <Image
+          src="/images/suppliers/supplier-events-hero.jpg"
+          alt="EntireFM supplier relationship meeting overlooking city skyline"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center lg:object-right"
+        />
+      </div>
+
+      {/* Cinematic Gradient Scrim for crisp text contrast */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 -z-20"
         style={{
-          background: 'linear-gradient(135deg, rgba(11,18,32,0.98) 0%, rgba(17,26,46,0.92) 50%, rgba(11,18,32,0.98) 100%)',
+          background:
+            'linear-gradient(98deg, rgba(11,18,32,0.96) 0%, rgba(11,18,32,0.90) 45%, rgba(11,18,32,0.65) 75%, rgba(11,18,32,0.45) 100%)',
         }}
       />
+      
+      {/* Bottom Vignette to ground the section */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 -z-10 h-32"
+        style={{ background: 'linear-gradient(to top, rgba(11,18,32,0.98), transparent)' }}
+      />
+
+      {/* Ambient facet pattern */}
+      <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-20" />
 
       <div className="container-custom relative">
         <div className="mb-6">
           <Breadcrumbs items={breadcrumbs} />
         </div>
 
-        <div className="max-w-4xl space-y-6">
+        <div className="max-w-3xl space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/10 border border-white/15 backdrop-blur-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-pink animate-pulse" />
             <span className="text-[11px] font-normal uppercase tracking-wider text-brand-pink-light">
@@ -42,7 +63,7 @@ export function EventHero() {
             Better supplier relationships happen face to face.
           </h1>
 
-          <p className="text-base sm:text-xl text-brand-mist/90 font-light leading-relaxed max-w-3xl">
+          <p className="text-base sm:text-xl text-brand-mist/90 font-light leading-relaxed max-w-2xl">
             From technical training and manufacturer days to supplier breakfasts and informal industry evenings, EntireFM has long invested time in building relationships beyond individual work orders. Our Partner Network now gives that engagement a more structured platform.
           </p>
 
