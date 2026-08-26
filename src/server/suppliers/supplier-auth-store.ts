@@ -1,12 +1,17 @@
 /**
  * ENTIREFM SUPPLIER DOMAIN & ORGANISATION REPOSITORY
  * ====================================================
- * Single Source of Truth for:
+ * Canonical Source of Truth for:
  * 1. Supplier Domain User records (linked to canonical Supabase Auth user UUIDs)
  * 2. Supplier Organisations & multi-tenant isolation
  * 3. Supplier Application Drafts & Lifecycle states
  * 4. Supplier Invitations & Team RBAC
  * 5. Lifecycle-aware resume routing & portal status presentation
+ *
+ * PERSISTENCE ARCHITECTURE:
+ * Persisted durably to Supabase via PostgREST (dbQuery).
+ * In-memory global store is maintained as an active read-through cache
+ * and zero-downtime offline fallback.
  *
  * NON-NEGOTIABLE SECURITY INVARIANT:
  * This store NEVER handles, hashes, or stores user passwords or credentials.
@@ -15,6 +20,7 @@
 
 import { randomBytes } from 'node:crypto';
 import { supabaseAdminGetUser, type SupabaseAuthUser } from '@/server/auth/supabase-auth';
+import { dbQuery, isDbConfigured } from '@/server/db/client';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -136,7 +142,7 @@ export function generateApplicationReference(): string {
   return `SUP-${yymmdd}-${rand}`;
 }
 
-// ── In-Memory Domain Stores (Preserved via globalThis Singletons) ─────────────
+// ── In-Memory Domain Cache (Preserved via globalThis Singletons) ─────────────
 
 interface GlobalSupplierStore {
   supplierUsersByAuthId: Map<string, SupplierUserRecord>;
@@ -160,18 +166,214 @@ if (!g.__efm_supplier_store) {
 
 const store = g.__efm_supplier_store;
 
-/** auth_user_id (Supabase UUID) → SupplierUserRecord */
 const supplierUsersByAuthId = store.supplierUsersByAuthId;
-/** normalized email → auth_user_id */
 const authIdByEmail = store.authIdByEmail;
-/** orgId → SupplierOrganisationRecord */
 const supplierOrganisations = store.supplierOrganisations;
-/** orgId → SupplierApplicationDraft */
 const supplierApplicationDrafts = store.supplierApplicationDrafts;
-/** token / id → SupplierInvitationRecord */
 const supplierInvitations = store.supplierInvitations;
 
-// ── Supplier User Operations (Linked to Supabase Auth) ────────────────────────
+// ── Database Row Converters ──────────────────────────────────────────────────
+
+function mapDbUserToRecord(row: any): SupplierUserRecord {
+  return {
+    id: row.id,
+    auth_user_id: row.auth_user_id,
+    email: row.email,
+    first_name: row.first_name || '',
+    last_name: row.last_name || '',
+    organisation_id: row.organisation_id || null,
+    role: (row.role || 'SUPPLIER_ADMIN') as SupplierRole,
+    status: (row.status || 'ACTIVE') as 'ACTIVE' | 'SUSPENDED',
+    email_verified: Boolean(row.email_verified),
+    created_at: row.created_at || new Date().toISOString(),
+    updated_at: row.updated_at || new Date().toISOString(),
+  };
+}
+
+function mapUserRecordToDb(user: SupplierUserRecord): Record<string, any> {
+  return {
+    id: user.id,
+    auth_user_id: user.auth_user_id,
+    email: user.email,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    organisation_id: user.organisation_id,
+    role: user.role,
+    status: user.status,
+    email_verified: user.email_verified,
+    created_at: user.created_at,
+    updated_at: user.updated_at,
+  };
+}
+
+function mapDbOrgToRecord(row: any): SupplierOrganisationRecord {
+  return {
+    id: row.id,
+    legalName: row.legal_name,
+    tradingName: row.trading_name || null,
+    companyNumber: row.company_number || null,
+    vatNumber: row.vat_number || null,
+    ownerId: row.owner_id,
+    applicationReference: row.application_reference,
+    lifecycleStatus: (row.lifecycle_status || 'DRAFT') as SupplierLifecycleStatus,
+    createdAt: row.created_at || new Date().toISOString(),
+    updatedAt: row.updated_at || new Date().toISOString(),
+  };
+}
+
+function mapOrgRecordToDb(org: SupplierOrganisationRecord): Record<string, any> {
+  return {
+    id: org.id,
+    legal_name: org.legalName,
+    trading_name: org.tradingName,
+    company_number: org.companyNumber,
+    vat_number: org.vatNumber,
+    owner_id: org.ownerId,
+    application_reference: org.applicationReference,
+    lifecycle_status: org.lifecycleStatus,
+    created_at: org.createdAt,
+    updated_at: org.updatedAt,
+  };
+}
+
+function mapDbDraftToRecord(row: any): SupplierApplicationDraft {
+  return {
+    orgId: row.org_id,
+    applicationReference: row.application_reference,
+    currentStep: typeof row.current_step === 'number' ? row.current_step : 1,
+    lifecycleStatus: (row.lifecycle_status || 'DRAFT') as SupplierLifecycleStatus,
+    legalCompanyName: row.legal_company_name || '',
+    tradingName: row.trading_name || '',
+    companyNumber: row.company_number || '',
+    vatNumber: row.vat_number || '',
+    websiteUrl: row.website_url || '',
+    yearEstablished: row.year_established || '',
+    employeeCount: row.employee_count || '',
+    tradingAddress: row.trading_address || '',
+    mainPhone: row.main_phone || '',
+    generalEmail: row.general_email || '',
+    businessType: row.business_type || '',
+    companySummary: row.company_summary || '',
+    primaryContactName: row.primary_contact_name || '',
+    primaryContactEmail: row.primary_contact_email || '',
+    primaryContactPhone: row.primary_contact_phone || '',
+    opsContactName: row.ops_contact_name || '',
+    opsContactEmail: row.ops_contact_email || '',
+    selectedServices: Array.isArray(row.selected_services) ? row.selected_services : [],
+    selectedRegions: Array.isArray(row.selected_regions) ? row.selected_regions : [],
+    has247: Boolean(row.has_247),
+    emergencySlaHours: row.emergency_sla_hours || '',
+    hasSubcontractors: Boolean(row.has_subcontractors),
+    directEngineers: row.direct_engineers || '',
+    plInsurer: row.pl_insurer || '',
+    plPolicyNumber: row.pl_policy_number || '',
+    plCoverLimit: row.pl_cover_limit || '',
+    plExpiryDate: row.pl_expiry_date || '',
+    selectedAccreditations: Array.isArray(row.selected_accreditations) ? row.selected_accreditations : [],
+    accreditationNumbers:
+      row.accreditation_numbers && typeof row.accreditation_numbers === 'object'
+        ? row.accreditation_numbers
+        : {},
+    gasSafeNumber: row.gas_safe_number || '',
+    gasSafeExpiry: row.gas_safe_expiry || '',
+    fGasNumber: row.f_gas_number || '',
+    fGasExpiry: row.f_gas_expiry || '',
+    hasHsPolicy: Boolean(row.has_hs_policy),
+    hasRams: Boolean(row.has_rams),
+    hasIncidentHistory: Boolean(row.has_incident_history),
+    antiBribery: Boolean(row.anti_bribery),
+    modernSlavery: Boolean(row.modern_slavery),
+    codeOfConduct: Boolean(row.code_of_conduct),
+    truthfulnessDeclaration: Boolean(row.truthfulness_declaration),
+    paymentMethod: (row.payment_method || 'CARD') as 'CARD' | 'INVOICE' | 'WAIVER',
+    waiverReason: row.waiver_reason || '',
+    createdAt: row.created_at || new Date().toISOString(),
+    updatedAt: row.updated_at || new Date().toISOString(),
+  };
+}
+
+function mapDraftRecordToDb(draft: SupplierApplicationDraft): Record<string, any> {
+  return {
+    org_id: draft.orgId,
+    application_reference: draft.applicationReference,
+    current_step: draft.currentStep,
+    lifecycle_status: draft.lifecycleStatus,
+    legal_company_name: draft.legalCompanyName,
+    trading_name: draft.tradingName,
+    company_number: draft.companyNumber,
+    vat_number: draft.vatNumber,
+    website_url: draft.websiteUrl,
+    year_established: draft.yearEstablished,
+    employee_count: draft.employeeCount,
+    trading_address: draft.tradingAddress,
+    main_phone: draft.mainPhone,
+    general_email: draft.generalEmail,
+    business_type: draft.businessType,
+    company_summary: draft.companySummary,
+    primary_contact_name: draft.primaryContactName,
+    primary_contact_email: draft.primaryContactEmail,
+    primary_contact_phone: draft.primaryContactPhone,
+    ops_contact_name: draft.opsContactName,
+    ops_contact_email: draft.opsContactEmail,
+    selected_services: draft.selectedServices,
+    selected_regions: draft.selectedRegions,
+    has_247: draft.has247,
+    emergency_sla_hours: draft.emergencySlaHours,
+    has_subcontractors: draft.hasSubcontractors,
+    direct_engineers: draft.directEngineers,
+    pl_insurer: draft.plInsurer,
+    pl_policy_number: draft.plPolicyNumber,
+    pl_cover_limit: draft.plCoverLimit,
+    pl_expiry_date: draft.plExpiryDate,
+    selected_accreditations: draft.selectedAccreditations,
+    accreditation_numbers: draft.accreditationNumbers,
+    gas_safe_number: draft.gasSafeNumber,
+    gas_safe_expiry: draft.gasSafeExpiry,
+    f_gas_number: draft.fGasNumber,
+    f_gas_expiry: draft.fGasExpiry,
+    has_hs_policy: draft.hasHsPolicy,
+    has_rams: draft.hasRams,
+    has_incident_history: draft.hasIncidentHistory,
+    anti_bribery: draft.antiBribery,
+    modern_slavery: draft.modernSlavery,
+    code_of_conduct: draft.codeOfConduct,
+    truthfulness_declaration: draft.truthfulnessDeclaration,
+    payment_method: draft.paymentMethod,
+    waiver_reason: draft.waiverReason,
+    created_at: draft.createdAt,
+    updated_at: draft.updatedAt,
+  };
+}
+
+function mapDbInvitationToRecord(row: any): SupplierInvitationRecord {
+  return {
+    id: row.id,
+    organisationId: row.organisation_id,
+    email: row.email,
+    role: (row.role || 'SUPPLIER_ADMIN') as SupplierRole,
+    invitedByAuthId: row.invited_by_auth_id,
+    status: (row.status || 'PENDING') as 'PENDING' | 'ACCEPTED' | 'REVOKED',
+    token: row.token,
+    createdAt: row.created_at || new Date().toISOString(),
+    expiresAt: row.expires_at || new Date().toISOString(),
+  };
+}
+
+function mapInvitationRecordToDb(inv: SupplierInvitationRecord): Record<string, any> {
+  return {
+    id: inv.id,
+    organisation_id: inv.organisationId,
+    email: inv.email,
+    role: inv.role,
+    invited_by_auth_id: inv.invitedByAuthId,
+    status: inv.status,
+    token: inv.token,
+    created_at: inv.createdAt,
+    expires_at: inv.expiresAt,
+  };
+}
+
+// ── Supplier User Operations (Linked to Supabase Auth & PostgREST) ────────────
 
 export interface ProvisionSupplierUserResult {
   success: boolean;
@@ -193,15 +395,26 @@ export async function createOrLinkSupplierUser(
   emailVerified: boolean = false
 ): Promise<ProvisionSupplierUserResult> {
   const normEmail = email.trim().toLowerCase();
-  const existing = supplierUsersByAuthId.get(authUserId);
+
+  // 1. Check existing record from DB first, then fallback to cache
+  let existing = await getSupplierUserByAuthId(authUserId);
 
   if (existing) {
-    // Update contact metadata if changed
     existing.email = normEmail;
     existing.first_name = firstName.trim() || existing.first_name;
     existing.last_name = lastName.trim() || existing.last_name;
     existing.email_verified = emailVerified || existing.email_verified;
     existing.updated_at = new Date().toISOString();
+
+    // Persist update to DB if configured
+    if (isDbConfigured()) {
+      await dbQuery(`supplier_users?auth_user_id=eq.${encodeURIComponent(authUserId)}`, {
+        method: 'PATCH',
+        body: mapUserRecordToDb(existing),
+      });
+    }
+
+    supplierUsersByAuthId.set(authUserId, existing);
     authIdByEmail.set(normEmail, authUserId);
     return { success: true, user: existing, isNew: false };
   }
@@ -223,18 +436,44 @@ export async function createOrLinkSupplierUser(
     updated_at: now,
   };
 
-  supplierUsersByAuthId.set(authUserId, user);
-  authIdByEmail.set(normEmail, authUserId);
-
   // Check if user had any pending invitations
-  for (const inv of supplierInvitations.values()) {
-    if (inv.email === normEmail && inv.status === 'PENDING') {
+  if (isDbConfigured()) {
+    const { data: invs } = await dbQuery<any[]>(
+      `supplier_invitations?email=eq.${encodeURIComponent(normEmail)}&status=eq.PENDING&limit=1`
+    );
+    if (invs && invs.length > 0) {
+      const inv = mapDbInvitationToRecord(invs[0]);
       user.organisation_id = inv.organisationId;
       user.role = inv.role;
-      inv.status = 'ACCEPTED';
-      break;
+      await dbQuery(`supplier_invitations?id=eq.${encodeURIComponent(inv.id)}`, {
+        method: 'PATCH',
+        body: { status: 'ACCEPTED' },
+      });
     }
   }
+
+  // Also check local invitations cache for fallback
+  if (!user.organisation_id) {
+    for (const inv of supplierInvitations.values()) {
+      if (inv.email === normEmail && inv.status === 'PENDING') {
+        user.organisation_id = inv.organisationId;
+        user.role = inv.role;
+        inv.status = 'ACCEPTED';
+        break;
+      }
+    }
+  }
+
+  // Persist new user to Supabase
+  if (isDbConfigured()) {
+    await dbQuery('supplier_users', {
+      method: 'POST',
+      body: mapUserRecordToDb(user),
+    });
+  }
+
+  supplierUsersByAuthId.set(authUserId, user);
+  authIdByEmail.set(normEmail, authUserId);
 
   return { success: true, user, isNew: true };
 }
@@ -242,13 +481,42 @@ export async function createOrLinkSupplierUser(
 export async function getSupplierUserByAuthId(
   authUserId: string
 ): Promise<SupplierUserRecord | null> {
+  if (!authUserId) return null;
+
+  if (isDbConfigured()) {
+    const { data, error } = await dbQuery<any[]>(
+      `supplier_users?auth_user_id=eq.${encodeURIComponent(authUserId)}&limit=1`
+    );
+    if (!error && data && data.length > 0) {
+      const record = mapDbUserToRecord(data[0]);
+      supplierUsersByAuthId.set(authUserId, record);
+      authIdByEmail.set(record.email, authUserId);
+      return record;
+    }
+  }
+
   return supplierUsersByAuthId.get(authUserId) || null;
 }
 
 export async function getSupplierUserByEmail(
   email: string
 ): Promise<SupplierUserRecord | null> {
-  const authId = authIdByEmail.get(email.trim().toLowerCase());
+  const normEmail = email.trim().toLowerCase();
+  if (!normEmail) return null;
+
+  if (isDbConfigured()) {
+    const { data, error } = await dbQuery<any[]>(
+      `supplier_users?email=eq.${encodeURIComponent(normEmail)}&limit=1`
+    );
+    if (!error && data && data.length > 0) {
+      const record = mapDbUserToRecord(data[0]);
+      supplierUsersByAuthId.set(record.auth_user_id, record);
+      authIdByEmail.set(normEmail, record.auth_user_id);
+      return record;
+    }
+  }
+
+  const authId = authIdByEmail.get(normEmail);
   if (!authId) return null;
   return supplierUsersByAuthId.get(authId) || null;
 }
@@ -257,10 +525,18 @@ export async function setSupplierUserEmailVerified(
   authUserId: string,
   verified: boolean = true
 ): Promise<void> {
+  const now = new Date().toISOString();
+  if (isDbConfigured()) {
+    await dbQuery(`supplier_users?auth_user_id=eq.${encodeURIComponent(authUserId)}`, {
+      method: 'PATCH',
+      body: { email_verified: verified, updated_at: now },
+    });
+  }
+
   const user = supplierUsersByAuthId.get(authUserId);
   if (user) {
     user.email_verified = verified;
-    user.updated_at = new Date().toISOString();
+    user.updated_at = now;
   }
 }
 
@@ -268,10 +544,18 @@ export async function setSupplierUserOrganisation(
   authUserId: string,
   orgId: string
 ): Promise<void> {
+  const now = new Date().toISOString();
+  if (isDbConfigured()) {
+    await dbQuery(`supplier_users?auth_user_id=eq.${encodeURIComponent(authUserId)}`, {
+      method: 'PATCH',
+      body: { organisation_id: orgId, updated_at: now },
+    });
+  }
+
   const user = supplierUsersByAuthId.get(authUserId);
   if (user) {
     user.organisation_id = orgId;
-    user.updated_at = new Date().toISOString();
+    user.updated_at = now;
   }
 }
 
@@ -279,10 +563,18 @@ export async function setSupplierUserStatus(
   authUserId: string,
   status: 'ACTIVE' | 'SUSPENDED'
 ): Promise<void> {
+  const now = new Date().toISOString();
+  if (isDbConfigured()) {
+    await dbQuery(`supplier_users?auth_user_id=eq.${encodeURIComponent(authUserId)}`, {
+      method: 'PATCH',
+      body: { status, updated_at: now },
+    });
+  }
+
   const user = supplierUsersByAuthId.get(authUserId);
   if (user) {
     user.status = status;
-    user.updated_at = new Date().toISOString();
+    user.updated_at = now;
   }
 }
 
@@ -311,9 +603,9 @@ export async function validateSupplierAuthUser(
     // Definitively deleted or non-existent in Supabase Auth
     supplierUsersByAuthId.delete(authUserId);
     return { valid: false, reason: 'AUTH_USER_NOT_FOUND', authUser: null, supplierUser: null, isVerified: false };
-  } else if (adminRes.error && (adminRes.error.message.includes('not configured') || adminRes.error.status === 500)) {
+  } else if (adminRes.error && (adminRes.error.message?.includes('not configured') || adminRes.error.status === 500)) {
     // Fallback for offline testing environments without Supabase credentials
-    const localUser = supplierUsersByAuthId.get(authUserId);
+    const localUser = await getSupplierUserByAuthId(authUserId);
     if (!localUser) {
       return { valid: false, reason: 'AUTH_USER_NOT_FOUND', authUser: null, supplierUser: null, isVerified: false };
     }
@@ -337,7 +629,7 @@ export async function validateSupplierAuthUser(
 
   // 2. Resolve or Idempotently Provision Domain User
   let supplierUser = await getSupplierUserByAuthId(authUserId);
-  const isVerified = !!authUser.email_confirmed_at;
+  const isVerified = Boolean(authUser.email_confirmed_at);
 
   if (!supplierUser) {
     // Valid Supabase user exists, but domain user missing -> idempotently restore domain record
@@ -353,6 +645,7 @@ export async function validateSupplierAuthUser(
     supplierUser = prov.user || null;
   } else if (isVerified && !supplierUser.email_verified) {
     supplierUser.email_verified = true;
+    await setSupplierUserEmailVerified(authUserId, true);
   }
 
   if (supplierUser && supplierUser.status === 'SUSPENDED') {
@@ -383,23 +676,46 @@ export async function createSupplierOrganisation(
   tradingName?: string,
   companyNumber?: string
 ): Promise<CreateOrganisationResult> {
+  const normLegalName = legalName.trim();
+  const normTradingName = tradingName?.trim() || null;
+  const normCompanyNumber = companyNumber?.trim() ? companyNumber.trim().toUpperCase() : null;
+
   // 1. If user already has an organisation linked, return it idempotently
-  const existingUser = supplierUsersByAuthId.get(ownerAuthUserId);
+  const existingUser = await getSupplierUserByAuthId(ownerAuthUserId);
   if (existingUser?.organisation_id) {
-    const existingOrg = supplierOrganisations.get(existingUser.organisation_id);
+    const existingOrg = await getSupplierOrganisationById(existingUser.organisation_id);
     if (existingOrg) {
-      // Ensure draft exists
       await getOrCreateApplicationDraft(existingOrg.id);
       return { success: true, organisation: existingOrg };
     }
   }
 
   // 2. Duplicate check by Companies House number
-  if (companyNumber) {
-    const normalised = companyNumber.trim().toUpperCase();
+  if (normCompanyNumber) {
+    if (isDbConfigured()) {
+      const { data: matchedOrgs } = await dbQuery<any[]>(
+        `supplier_organisations?company_number=eq.${encodeURIComponent(normCompanyNumber)}&limit=1`
+      );
+      if (matchedOrgs && matchedOrgs.length > 0) {
+        const org = mapDbOrgToRecord(matchedOrgs[0]);
+        if (org.ownerId === ownerAuthUserId) {
+          if (existingUser) {
+            await setSupplierUserOrganisation(ownerAuthUserId, org.id);
+          }
+          await getOrCreateApplicationDraft(org.id);
+          return { success: true, organisation: org };
+        }
+        return {
+          success: false,
+          duplicate: true,
+          error: 'This organisation may already have an EntireFM supplier account. Please contact supplier support or request access.',
+        };
+      }
+    }
+
+    // In-memory duplicate check
     for (const org of supplierOrganisations.values()) {
-      if (org.companyNumber?.toUpperCase() === normalised) {
-        // If the same user owns this existing organisation, return it idempotently
+      if (org.companyNumber?.toUpperCase() === normCompanyNumber) {
         if (org.ownerId === ownerAuthUserId) {
           if (existingUser) {
             existingUser.organisation_id = org.id;
@@ -419,10 +735,30 @@ export async function createSupplierOrganisation(
   }
 
   // 3. Duplicate check by legal name
-  const normName = legalName.trim().toLowerCase();
+  if (isDbConfigured()) {
+    const { data: matchedOrgs } = await dbQuery<any[]>(
+      `supplier_organisations?legal_name=ilike.${encodeURIComponent(normLegalName)}&limit=1`
+    );
+    if (matchedOrgs && matchedOrgs.length > 0) {
+      const org = mapDbOrgToRecord(matchedOrgs[0]);
+      if (org.ownerId === ownerAuthUserId) {
+        if (existingUser) {
+          await setSupplierUserOrganisation(ownerAuthUserId, org.id);
+        }
+        await getOrCreateApplicationDraft(org.id);
+        return { success: true, organisation: org };
+      }
+      return {
+        success: false,
+        duplicate: true,
+        error: 'This organisation may already have an EntireFM supplier account. Please contact supplier support or request access.',
+      };
+    }
+  }
+
+  const normNameLower = normLegalName.toLowerCase();
   for (const org of supplierOrganisations.values()) {
-    if (org.legalName.trim().toLowerCase() === normName) {
-      // If the same user owns this existing organisation, return it idempotently
+    if (org.legalName.trim().toLowerCase() === normNameLower) {
       if (org.ownerId === ownerAuthUserId) {
         if (existingUser) {
           existingUser.organisation_id = org.id;
@@ -447,9 +783,9 @@ export async function createSupplierOrganisation(
 
   const organisation: SupplierOrganisationRecord = {
     id: orgId,
-    legalName: legalName.trim(),
-    tradingName: tradingName?.trim() || null,
-    companyNumber: companyNumber?.trim() || null,
+    legalName: normLegalName,
+    tradingName: normTradingName,
+    companyNumber: normCompanyNumber,
     vatNumber: null,
     ownerId: ownerAuthUserId,
     applicationReference: appRef,
@@ -457,6 +793,14 @@ export async function createSupplierOrganisation(
     createdAt: now,
     updatedAt: now,
   };
+
+  // Persist to Supabase
+  if (isDbConfigured()) {
+    await dbQuery('supplier_organisations', {
+      method: 'POST',
+      body: mapOrgRecordToDb(organisation),
+    });
+  }
 
   supplierOrganisations.set(orgId, organisation);
 
@@ -472,6 +816,19 @@ export async function createSupplierOrganisation(
 export async function getSupplierOrganisationById(
   orgId: string
 ): Promise<SupplierOrganisationRecord | null> {
+  if (!orgId) return null;
+
+  if (isDbConfigured()) {
+    const { data, error } = await dbQuery<any[]>(
+      `supplier_organisations?id=eq.${encodeURIComponent(orgId)}&limit=1`
+    );
+    if (!error && data && data.length > 0) {
+      const record = mapDbOrgToRecord(data[0]);
+      supplierOrganisations.set(orgId, record);
+      return record;
+    }
+  }
+
   return supplierOrganisations.get(orgId) || null;
 }
 
@@ -479,10 +836,18 @@ export async function updateOrganisationLifecycle(
   orgId: string,
   status: SupplierLifecycleStatus
 ): Promise<void> {
+  const now = new Date().toISOString();
+  if (isDbConfigured()) {
+    await dbQuery(`supplier_organisations?id=eq.${encodeURIComponent(orgId)}`, {
+      method: 'PATCH',
+      body: { lifecycle_status: status, updated_at: now },
+    });
+  }
+
   const org = supplierOrganisations.get(orgId);
   if (org) {
     org.lifecycleStatus = status;
-    org.updatedAt = new Date().toISOString();
+    org.updatedAt = now;
   }
 }
 
@@ -495,10 +860,23 @@ export async function updateOrganisationLifecycle(
 export async function getOrCreateApplicationDraft(
   orgId: string
 ): Promise<SupplierApplicationDraft> {
+  if (!orgId) throw new Error('Organisation ID is required to get or create draft');
+
+  if (isDbConfigured()) {
+    const { data, error } = await dbQuery<any[]>(
+      `supplier_application_drafts?org_id=eq.${encodeURIComponent(orgId)}&limit=1`
+    );
+    if (!error && data && data.length > 0) {
+      const record = mapDbDraftToRecord(data[0]);
+      supplierApplicationDrafts.set(orgId, record);
+      return record;
+    }
+  }
+
   const existing = supplierApplicationDrafts.get(orgId);
   if (existing) return existing;
 
-  const org = supplierOrganisations.get(orgId);
+  const org = await getSupplierOrganisationById(orgId);
   const now = new Date().toISOString();
 
   const draft: SupplierApplicationDraft = {
@@ -552,11 +930,17 @@ export async function getOrCreateApplicationDraft(
     updatedAt: now,
   };
 
+  if (isDbConfigured()) {
+    await dbQuery('supplier_application_drafts', {
+      method: 'POST',
+      body: mapDraftRecordToDb(draft),
+    });
+  }
+
   supplierApplicationDrafts.set(orgId, draft);
 
   if (org && org.lifecycleStatus === 'REGISTERED') {
-    org.lifecycleStatus = 'DRAFT';
-    org.updatedAt = now;
+    await updateOrganisationLifecycle(orgId, 'DRAFT');
   }
 
   return draft;
@@ -566,9 +950,22 @@ export async function updateApplicationDraft(
   orgId: string,
   updates: Partial<SupplierApplicationDraft>
 ): Promise<SupplierApplicationDraft | null> {
-  const draft = supplierApplicationDrafts.get(orgId);
+  const draft = await getOrCreateApplicationDraft(orgId);
   if (!draft) return null;
-  const updated = { ...draft, ...updates, updatedAt: new Date().toISOString() };
+
+  const updated: SupplierApplicationDraft = {
+    ...draft,
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
+
+  if (isDbConfigured()) {
+    await dbQuery(`supplier_application_drafts?org_id=eq.${encodeURIComponent(orgId)}`, {
+      method: 'PATCH',
+      body: mapDraftRecordToDb(updated),
+    });
+  }
+
   supplierApplicationDrafts.set(orgId, updated);
   return updated;
 }
@@ -576,6 +973,19 @@ export async function updateApplicationDraft(
 export async function getApplicationDraft(
   orgId: string
 ): Promise<SupplierApplicationDraft | null> {
+  if (!orgId) return null;
+
+  if (isDbConfigured()) {
+    const { data, error } = await dbQuery<any[]>(
+      `supplier_application_drafts?org_id=eq.${encodeURIComponent(orgId)}&limit=1`
+    );
+    if (!error && data && data.length > 0) {
+      const record = mapDbDraftToRecord(data[0]);
+      supplierApplicationDrafts.set(orgId, record);
+      return record;
+    }
+  }
+
   return supplierApplicationDrafts.get(orgId) || null;
 }
 
@@ -589,15 +999,15 @@ export type ResumeDestination =
   | '/supplier-portal';
 
 export async function resolveResumeDestination(authUserId: string): Promise<ResumeDestination> {
-  let user = supplierUsersByAuthId.get(authUserId);
+  let user = await getSupplierUserByAuthId(authUserId);
   if (!user) {
     const authState = await validateSupplierAuthUser(authUserId);
-    user = authState.supplierUser || undefined;
+    user = authState.supplierUser || null;
   }
   if (!user) return '/supplier-portal/register';
   if (!user.organisation_id) return '/supplier-portal/org-setup';
 
-  const org = supplierOrganisations.get(user.organisation_id);
+  const org = await getSupplierOrganisationById(user.organisation_id);
   if (!org) return '/supplier-portal/org-setup';
 
   switch (org.lifecycleStatus) {
@@ -705,19 +1115,49 @@ export async function inviteSupplierUser(
     expiresAt,
   };
 
+  if (isDbConfigured()) {
+    await dbQuery('supplier_invitations', {
+      method: 'POST',
+      body: mapInvitationRecordToDb(invitation),
+    });
+  }
+
   supplierInvitations.set(token, invitation);
 
   // If user already exists, link immediately
   const existingUser = await getSupplierUserByEmail(normEmail);
   if (existingUser) {
-    existingUser.organisation_id = orgId;
+    await setSupplierUserOrganisation(existingUser.auth_user_id, orgId);
+    if (isDbConfigured()) {
+      await dbQuery(`supplier_users?auth_user_id=eq.${encodeURIComponent(existingUser.auth_user_id)}`, {
+        method: 'PATCH',
+        body: { role },
+      });
+    }
     existingUser.role = role;
     invitation.status = 'ACCEPTED';
+    if (isDbConfigured()) {
+      await dbQuery(`supplier_invitations?id=eq.${encodeURIComponent(invitation.id)}`, {
+        method: 'PATCH',
+        body: { status: 'ACCEPTED' },
+      });
+    }
   }
 
   return { success: true, invitation };
 }
 
 export async function listSupplierUsersByOrg(orgId: string): Promise<SupplierUserRecord[]> {
+  if (!orgId) return [];
+
+  if (isDbConfigured()) {
+    const { data, error } = await dbQuery<any[]>(
+      `supplier_users?organisation_id=eq.${encodeURIComponent(orgId)}&order=created_at.asc`
+    );
+    if (!error && data) {
+      return data.map(mapDbUserToRecord);
+    }
+  }
+
   return Array.from(supplierUsersByAuthId.values()).filter((u) => u.organisation_id === orgId);
 }
