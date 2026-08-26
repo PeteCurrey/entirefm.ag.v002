@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
+import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ArrowRight, CheckCircle2, TrendingUp, Building2, Wrench, Cpu, Users, Award, ShieldCheck } from 'lucide-react';
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
@@ -192,6 +193,44 @@ export default function PartnerWithEntireFMPage() {
             </div>
           </div>
         </section>
+
+        {/* Related Supplier Information */}
+        <SupplierRelatedLinks
+          eyebrow="PARTNERSHIP OPPORTUNITIES"
+          heading="Related supplier information"
+          links={[
+            {
+              title: 'Partner Network',
+              href: '/suppliers/partner-network',
+              description: 'Collaborative ecosystem for contractors, specialists, OEMs, and innovators.',
+              tag: 'NETWORK',
+            },
+            {
+              title: 'How We Work',
+              href: '/suppliers/how-we-work',
+              description: 'The 12-stage operational journey from registration to work delivery.',
+              tag: 'PROCESS',
+            },
+            {
+              title: 'Supplier Vetting',
+              href: '/suppliers/vetting',
+              description: 'Risk-proportional 6-pillar assurance before any site allocation.',
+              tag: 'VETTING',
+            },
+            {
+              title: 'Events & Forums',
+              href: '/suppliers/events',
+              description: 'Engagement forums, technical sessions, and partner open days.',
+              tag: 'EVENTS',
+            },
+            {
+              title: 'Become a Supplier',
+              href: '/suppliers/apply',
+              description: 'Start your pre-qualification submission to join our supply chain.',
+              tag: 'APPLY',
+            },
+          ]}
+        />
       </main>
 
       <Footer />

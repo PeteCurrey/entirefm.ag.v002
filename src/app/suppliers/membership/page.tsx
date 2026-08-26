@@ -2,10 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { CommercialTransparencyBanner } from '@/components/suppliers/CommercialTransparencyBanner';
 import { MembershipTierCards } from '@/components/suppliers/MembershipTierCards';
+import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { CANONICAL_PUBLIC_PRICING } from '@/config/supplier-data';
-import { CreditCard, FileText, Lock, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { CreditCard, FileText, Lock, ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export const metadata = {
   title: 'Supplier Membership & Fees | EntireFM Partner Network',
@@ -15,6 +17,45 @@ export const metadata = {
 export default function SupplierMembershipPublicPage() {
   const fee = CANONICAL_PUBLIC_PRICING.INITIAL_ASSURANCE_REVIEW;
 
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Suppliers', url: '/suppliers' },
+    { name: 'Membership & Fees', url: '/suppliers/membership' },
+  ];
+
+  const relatedLinks = [
+    {
+      title: 'Partner Network',
+      href: '/suppliers/partner-network',
+      description: 'Collaborative ecosystem for regional contractors, specialists, OEMs, and innovators.',
+      tag: 'NETWORK',
+    },
+    {
+      title: 'Events & Forums',
+      href: '/suppliers/events',
+      description: 'Technical breakfasts, manufacturer seminars, training days, and industry roundtables.',
+      tag: 'EVENTS',
+    },
+    {
+      title: 'How We Work',
+      href: '/suppliers/how-we-work',
+      description: 'Understand the 12-stage operational journey from registration to work allocation.',
+      tag: 'LIFECYCLE',
+    },
+    {
+      title: 'Supplier FAQ',
+      href: '/suppliers/faq',
+      description: 'Clear answers on assurance fees, commercial separation, and payment terms.',
+      tag: 'FAQ',
+    },
+    {
+      title: 'Become a Supplier',
+      href: '/suppliers/apply',
+      description: 'Start your pre-qualification submission to join the EntireFM supplier network.',
+      tag: 'APPLY',
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-[#FAF9FB] text-slate-900 flex flex-col">
       <Header solid />
@@ -23,15 +64,31 @@ export default function SupplierMembershipPublicPage() {
         {/* Hero */}
         <section className="bg-slate-900 text-white py-20 lg:py-28">
           <div className="container-custom max-w-5xl space-y-6">
-            <span className="text-[11px] font-light uppercase tracking-wider text-brand-pink font-bold">
-              COMMERCIAL TRANSPARENCY
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight tracking-tight text-white max-w-3xl leading-tight">
-              Transparent membership. Independent procurement.
-            </h1>
-            <p className="text-base sm:text-lg text-slate-300 font-light max-w-2xl leading-relaxed">
-              EntireFM operates a commercial Partner Network supporting supplier administration, digital services, ongoing engagement and network activity. Membership remains separate from supplier assurance, operational approval and procurement decisions.
+            <Breadcrumbs items={breadcrumbs} />
+
+            <div className="space-y-4">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-brand-pink block font-bold">
+                COMMERCIAL TRANSPARENCY &amp; GOVERNANCE
+              </span>
+              <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight text-white max-w-3xl leading-tight">
+                Transparent membership. Independent procurement.
+              </h1>
+              <p className="text-base sm:text-lg text-slate-300 font-light max-w-2xl leading-relaxed">
+                EntireFM operates a commercial Partner Network supporting supplier administration, digital services, ongoing engagement and network activity. Membership remains separate from supplier assurance, operational approval and procurement decisions.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Strategic Framing Note */}
+        <section className="py-8 bg-white border-b border-slate-200">
+          <div className="container-custom max-w-5xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-slate-600">
+            <p className="font-light">
+              Looking to understand how commercial tiers relate to operational work orders? Read <Link href="/suppliers/how-we-work" className="text-slate-900 font-medium underline hover:text-brand-pink">How We Work</Link> or view our <Link href="/suppliers/events" className="text-slate-900 font-medium underline hover:text-brand-pink">Events &amp; Forums Programme</Link>.
             </p>
+            <Link href="/suppliers/apply" className="btn-primary text-xs py-2 px-4 shrink-0">
+              Start Application →
+            </Link>
           </div>
         </section>
 
@@ -44,7 +101,7 @@ export default function SupplierMembershipPublicPage() {
         <section className="py-12 bg-white border-y border-slate-200">
           <div className="container-custom max-w-5xl space-y-6">
             <div className="space-y-1">
-              <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold tracking-wider">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold tracking-wider">
                 RELATIONSHIP &amp; COMMERCIAL COMPARISON
               </span>
               <h2 className="text-2xl font-light text-slate-900">
@@ -112,14 +169,14 @@ export default function SupplierMembershipPublicPage() {
         <section className="py-12 bg-white border-b border-slate-200">
           <div className="container-custom max-w-5xl space-y-6 text-xs font-light">
             <div className="space-y-1 font-sans">
-              <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold tracking-wider">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold tracking-wider">
                 TECHNICAL VETTING
               </span>
               <h3 className="text-xl font-bold text-slate-900">
                 Initial Supplier Assurance Review ({fee.displayPrice})
               </h3>
               <p className="text-xs text-slate-600 font-light">
-                The Initial Supplier Assurance Review supports the administration and review of applicable company, insurance, health &amp; safety, competency, compliance and commercial information according to the supplier's services and risk profile.
+                The Initial Supplier Assurance Review supports the administration and review of applicable company, insurance, health &amp; safety, competency, compliance and commercial information according to the supplier&apos;s services and risk profile.
               </p>
             </div>
 
@@ -145,6 +202,13 @@ export default function SupplierMembershipPublicPage() {
         <section className="py-16 container-custom max-w-5xl">
           <CommercialTransparencyBanner />
         </section>
+
+        {/* Related Supplier Information */}
+        <SupplierRelatedLinks
+          eyebrow="COMMERCIAL TRANSPARENCY &amp; SUPPORT"
+          heading="Related supplier information"
+          links={relatedLinks}
+        />
       </main>
 
       <Footer />

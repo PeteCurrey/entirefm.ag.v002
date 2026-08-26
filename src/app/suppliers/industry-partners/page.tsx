@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { Cpu, Zap, Building2, ShieldCheck, ArrowRight, Wrench } from 'lucide-react';
 
 export const metadata = {
@@ -80,6 +81,44 @@ export default function IndustryPartnersPublicPage() {
             </div>
           </div>
         </section>
+
+        {/* Related Supplier Information */}
+        <SupplierRelatedLinks
+          eyebrow="INDUSTRY &amp; OEM PARTNERSHIPS"
+          heading="Related supplier information"
+          links={[
+            {
+              title: 'Partner Network',
+              href: '/suppliers/partner-network',
+              description: 'Collaborative ecosystem for contractors, specialists, and OEMs.',
+              tag: 'NETWORK',
+            },
+            {
+              title: 'Innovation & PropTech',
+              href: '/suppliers/innovation',
+              description: 'IoT sensors, AI diagnostics, smart metering, and predictive maintenance.',
+              tag: 'INNOVATION',
+            },
+            {
+              title: 'Events & Forums',
+              href: '/suppliers/events',
+              description: 'Manufacturer open days, product demonstrations, and technical sessions.',
+              tag: 'EVENTS',
+            },
+            {
+              title: 'Sustainability & ESG',
+              href: '/suppliers/sustainability',
+              description: 'Responsible sourcing, carbon targets, and supply chain ESG commitments.',
+              tag: 'ESG',
+            },
+            {
+              title: 'Become a Supplier',
+              href: '/suppliers/apply',
+              description: 'Start your OEM or technology provider application today.',
+              tag: 'APPLY',
+            },
+          ]}
+        />
       </main>
 
       <Footer />

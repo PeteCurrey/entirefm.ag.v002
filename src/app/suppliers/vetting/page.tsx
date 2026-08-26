@@ -4,6 +4,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
 import { AssuranceFrameworkGraphic } from '@/components/suppliers/AssuranceFrameworkGraphic';
+import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ArrowRight, CheckCircle2, ShieldCheck, FileText, AlertTriangle, Building, Award } from 'lucide-react';
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
@@ -130,6 +131,44 @@ export default function VettingPage() {
             </div>
           </div>
         </section>
+
+        {/* Related Supplier Information */}
+        <SupplierRelatedLinks
+          eyebrow="ASSURANCE &amp; GOVERNANCE"
+          heading="Related supplier information"
+          links={[
+            {
+              title: 'Supplier Standards',
+              href: '/suppliers/standards',
+              description: 'Operational principles, ethical benchmarks, and the Supplier Code of Conduct.',
+              tag: 'STANDARDS',
+            },
+            {
+              title: 'Onboarding Process',
+              href: '/suppliers/onboarding',
+              description: '4-phase structured compliance verification, agreement execution, and mobilization.',
+              tag: 'ONBOARDING',
+            },
+            {
+              title: 'Compliance & Insurance',
+              href: '/suppliers/compliance',
+              description: 'Public liability thresholds, dynamic RAMS, CSCS verification, and annual audits.',
+              tag: 'COMPLIANCE',
+            },
+            {
+              title: 'How We Work',
+              href: '/suppliers/how-we-work',
+              description: '12-stage operational journey from registration to work allocation and invoicing.',
+              tag: 'PROCESS',
+            },
+            {
+              title: 'Start Application',
+              href: '/suppliers/apply',
+              description: 'Submit your trade qualifications to join the approved supply chain.',
+              tag: 'APPLY',
+            },
+          ]}
+        />
       </main>
 
       <Footer />

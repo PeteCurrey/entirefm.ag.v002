@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
+import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ArrowRight, Cpu, Radio, Eye, Zap, Layers, Sparkles, CheckCircle2 } from 'lucide-react';
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
@@ -124,6 +125,44 @@ export default function InnovationPage() {
             </div>
           </div>
         </section>
+
+        {/* Related Supplier Information */}
+        <SupplierRelatedLinks
+          eyebrow="INNOVATION &amp; TECHNOLOGY"
+          heading="Related supplier information"
+          links={[
+            {
+              title: 'Industry & OEM Partners',
+              href: '/suppliers/industry-partners',
+              description: 'Factory-backed equipment partnerships and manufacturer engagement.',
+              tag: 'OEM',
+            },
+            {
+              title: 'Partner Network',
+              href: '/suppliers/partner-network',
+              description: 'Ecosystem of contractors, specialists, and technology innovators.',
+              tag: 'NETWORK',
+            },
+            {
+              title: 'Events & Forums',
+              href: '/suppliers/events',
+              description: 'FM innovation sessions, product demonstrations, and tech roundtables.',
+              tag: 'EVENTS',
+            },
+            {
+              title: 'Sustainability & ESG',
+              href: '/suppliers/sustainability',
+              description: 'IoT-enabled energy management and carbon reduction commitments.',
+              tag: 'ESG',
+            },
+            {
+              title: 'Discuss a Partnership',
+              href: '/suppliers/apply',
+              description: 'Begin your technology integration or innovation partnership discussion.',
+              tag: 'APPLY',
+            },
+          ]}
+        />
       </main>
 
       <Footer />

@@ -4,6 +4,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SUPPLIER_FAQS } from '@/config/supplier-data';
 import { CommercialTransparencyBanner } from '@/components/suppliers/CommercialTransparencyBanner';
+import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { HelpCircle, ChevronDown } from 'lucide-react';
 
 export const metadata = {
@@ -72,6 +73,44 @@ export default function SupplierFaqPage() {
             <CommercialTransparencyBanner />
           </div>
         </section>
+
+        {/* Related Supplier Information */}
+        <SupplierRelatedLinks
+          eyebrow="SUPPLIER INFORMATION &amp; RESOURCES"
+          heading="Related supplier information"
+          links={[
+            {
+              title: 'How We Work',
+              href: '/suppliers/how-we-work',
+              description: 'End-to-end 12-stage lifecycle from registration to work delivery.',
+              tag: 'PROCESS',
+            },
+            {
+              title: 'Membership & Fees',
+              href: '/suppliers/membership',
+              description: 'Commercial transparency on membership tiers, fees, and procurement separation.',
+              tag: 'COMMERCIAL',
+            },
+            {
+              title: 'Supplier Vetting',
+              href: '/suppliers/vetting',
+              description: '6-pillar assurance framework and trade competency benchmarks.',
+              tag: 'VETTING',
+            },
+            {
+              title: 'Compliance & Insurance',
+              href: '/suppliers/compliance',
+              description: 'Insurance thresholds, RAMS, CSCS, and certification requirements.',
+              tag: 'COMPLIANCE',
+            },
+            {
+              title: 'Become a Supplier',
+              href: '/suppliers/apply',
+              description: 'Start your pre-qualification submission for the EntireFM supply chain.',
+              tag: 'APPLY',
+            },
+          ]}
+        />
       </main>
 
       <Footer />

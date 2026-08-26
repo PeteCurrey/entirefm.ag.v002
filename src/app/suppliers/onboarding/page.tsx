@@ -4,6 +4,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
 import { SupplierLifecycleModel } from '@/components/suppliers/SupplierLifecycleModel';
+import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ArrowRight, CheckCircle2, FileText, Upload, Clock, UserCheck, ShieldCheck, Laptop } from 'lucide-react';
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
@@ -139,6 +140,44 @@ export default function OnboardingPage() {
             </div>
           </div>
         </section>
+
+        {/* Related Supplier Information */}
+        <SupplierRelatedLinks
+          eyebrow="ONBOARDING &amp; MOBILISATION"
+          heading="Related supplier information"
+          links={[
+            {
+              title: 'Supplier Vetting',
+              href: '/suppliers/vetting',
+              description: '6-pillar risk-proportional assessment before scoped approval.',
+              tag: 'VETTING',
+            },
+            {
+              title: 'Supplier Standards',
+              href: '/suppliers/standards',
+              description: 'Operational principles and ethical Code of Conduct requirements.',
+              tag: 'STANDARDS',
+            },
+            {
+              title: 'Compliance & Insurance',
+              href: '/suppliers/compliance',
+              description: 'Insurance schedules, RAMS templates, and certificate tracking.',
+              tag: 'COMPLIANCE',
+            },
+            {
+              title: 'How We Work',
+              href: '/suppliers/how-we-work',
+              description: 'Complete 12-stage journey from registration to work allocation.',
+              tag: 'LIFECYCLE',
+            },
+            {
+              title: 'Start Application',
+              href: '/suppliers/apply',
+              description: 'Begin your supplier pre-qualification submission today.',
+              tag: 'APPLY',
+            },
+          ]}
+        />
       </main>
 
       <Footer />

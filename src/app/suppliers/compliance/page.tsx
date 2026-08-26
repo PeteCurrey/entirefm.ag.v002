@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
+import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ArrowRight, CheckCircle2, ShieldCheck, FileCheck, Lock, Leaf, Scale, Building, Users, Award } from 'lucide-react';
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
@@ -140,6 +141,44 @@ export default function CompliancePage() {
             </div>
           </div>
         </section>
+
+        {/* Related Supplier Information */}
+        <SupplierRelatedLinks
+          eyebrow="COMPLIANCE &amp; GOVERNANCE"
+          heading="Related supplier information"
+          links={[
+            {
+              title: 'Supplier Standards',
+              href: '/suppliers/standards',
+              description: 'Operational principles, Code of Conduct, and minimum expectations.',
+              tag: 'STANDARDS',
+            },
+            {
+              title: 'Supplier Vetting',
+              href: '/suppliers/vetting',
+              description: '6-pillar risk-proportional assurance before site dispatch.',
+              tag: 'VETTING',
+            },
+            {
+              title: 'Onboarding Process',
+              href: '/suppliers/onboarding',
+              description: '10-stage structured induction and digital agreement execution.',
+              tag: 'ONBOARDING',
+            },
+            {
+              title: 'Sustainability & ESG',
+              href: '/suppliers/sustainability',
+              description: 'Environmental commitments, carbon, waste, and responsible sourcing.',
+              tag: 'ESG',
+            },
+            {
+              title: 'Supplier FAQ',
+              href: '/suppliers/faq',
+              description: 'Answers on insurance thresholds, renewal intervals, and SSIP recognition.',
+              tag: 'FAQ',
+            },
+          ]}
+        />
       </main>
 
       <Footer />

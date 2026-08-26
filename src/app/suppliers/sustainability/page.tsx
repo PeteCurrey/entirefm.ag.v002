@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
+import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ArrowRight, Leaf, Truck, Recycle, Zap, Users, HeartHandshake, CheckCircle2 } from 'lucide-react';
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
@@ -121,6 +122,44 @@ export default function SustainabilityPage() {
             </div>
           </div>
         </section>
+
+        {/* Related Supplier Information */}
+        <SupplierRelatedLinks
+          eyebrow="SUSTAINABILITY &amp; ESG"
+          heading="Related supplier information"
+          links={[
+            {
+              title: 'Supplier Standards',
+              href: '/suppliers/standards',
+              description: 'Operational principles including environmental responsibility requirements.',
+              tag: 'STANDARDS',
+            },
+            {
+              title: 'Compliance & Governance',
+              href: '/suppliers/compliance',
+              description: 'COSHH, F-Gas, and waste legislation compliance requirements.',
+              tag: 'COMPLIANCE',
+            },
+            {
+              title: 'Innovation & PropTech',
+              href: '/suppliers/innovation',
+              description: 'IoT energy metering, predictive asset management, and carbon reporting.',
+              tag: 'INNOVATION',
+            },
+            {
+              title: 'Industry & OEM Partners',
+              href: '/suppliers/industry-partners',
+              description: 'Manufacturer partnerships for energy-efficient building equipment.',
+              tag: 'OEM',
+            },
+            {
+              title: 'Become a Supplier',
+              href: '/suppliers/apply',
+              description: 'Apply to join a supply chain committed to responsible delivery.',
+              tag: 'APPLY',
+            },
+          ]}
+        />
       </main>
 
       <Footer />

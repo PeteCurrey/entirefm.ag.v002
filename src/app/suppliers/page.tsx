@@ -4,6 +4,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
 import { CapabilityLandscape } from '@/components/suppliers/CapabilityLandscape';
+import { SupplierEcosystemDirectory } from '@/components/suppliers/SupplierEcosystemDirectory';
 import { DualAudienceSplit } from '@/components/suppliers/DualAudienceSplit';
 import { AssuranceFrameworkGraphic } from '@/components/suppliers/AssuranceFrameworkGraphic';
 import { OperationalJourneySteps } from '@/components/suppliers/OperationalJourneySteps';
@@ -57,7 +58,10 @@ export default function SupplierHubPage() {
         {/* 3. CAPABILITY LANDSCAPE */}
         <CapabilityLandscape />
 
-        {/* 4. ASSURANCE FRAMEWORK */}
+        {/* 4. COMPLETE SUPPLIER & PARTNER ECOSYSTEM DIRECTORY */}
+        <SupplierEcosystemDirectory />
+
+        {/* 5. ASSURANCE FRAMEWORK */}
         <AssuranceFrameworkGraphic />
 
         {/* 5. 10-STAGE OPERATIONAL JOURNEY */}

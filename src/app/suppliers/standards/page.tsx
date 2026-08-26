@@ -4,6 +4,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
 import { SupplierStandardsGrid } from '@/components/suppliers/SupplierStandardsGrid';
+import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ArrowRight, ShieldCheck, Scale, FileCheck, Users, Lock, HeartHandshake } from 'lucide-react';
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
@@ -125,6 +126,50 @@ export default function StandardsPage() {
             </div>
           </div>
         </section>
+
+        {/* Related Supplier Information */}
+        <SupplierRelatedLinks
+          eyebrow="STANDARDS &amp; GOVERNANCE"
+          heading="Related supplier information"
+          links={[
+            {
+              title: 'Supplier Vetting',
+              href: '/suppliers/vetting',
+              description: 'The 6-pillar assessment process applied to verify compliance and competencies.',
+              tag: 'VETTING',
+            },
+            {
+              title: 'Onboarding Process',
+              href: '/suppliers/onboarding',
+              description: '4-phase structured induction and digital compliance mobilization.',
+              tag: 'ONBOARDING',
+            },
+            {
+              title: 'Compliance & Safety',
+              href: '/suppliers/compliance',
+              description: 'Insurance minimums, dynamic RAMS, and competence card matrices.',
+              tag: 'COMPLIANCE',
+            },
+            {
+              title: 'Sustainability & ESG',
+              href: '/suppliers/sustainability',
+              description: 'Environmental policies, zero-landfill goals, and carbon reduction.',
+              tag: 'ESG',
+            },
+            {
+              title: 'How We Work',
+              href: '/suppliers/how-we-work',
+              description: 'Understand the end-to-end 12-stage supplier lifecycle and SLA management.',
+              tag: 'PROCESS',
+            },
+            {
+              title: 'Start Application',
+              href: '/suppliers/apply',
+              description: 'Submit your trade qualifications to join the approved supply chain.',
+              tag: 'APPLY',
+            },
+          ]}
+        />
       </main>
 
       <Footer />

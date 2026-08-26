@@ -134,7 +134,7 @@ export function Footer() {
             </div>
 
             {/* Navigation */}
-            <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
+            <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
               {FOOTER_NAV.map((column) => (
                 <div key={column.heading}>
                   <p className="eyebrow eyebrow-dark">{column.heading}</p>
