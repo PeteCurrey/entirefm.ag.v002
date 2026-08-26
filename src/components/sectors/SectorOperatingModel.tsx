@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import type { SectorOperatingStep } from '@/data/sectors/archetypes';
 
 export interface SectorOperatingModelProps {
@@ -12,7 +11,7 @@ export interface SectorOperatingModelProps {
 }
 
 export function SectorOperatingModel({
-  eyebrow = 'DELIVERY ARCHITECTURE',
+  eyebrow = 'DELIVERY METHODOLOGY',
   headline,
   subheadline,
   steps,
@@ -20,59 +19,44 @@ export function SectorOperatingModel({
   if (!steps || steps.length === 0) return null;
 
   return (
-    <section className="py-20 sm:py-28 bg-brand-graphite text-white relative overflow-hidden border-b border-brand-edge-dark">
-      <div
-        aria-hidden="true"
-        className="facet-rule pointer-events-none absolute inset-0 opacity-25"
-      />
-
-      <div className="container-custom relative z-10">
+    <section className="py-20 sm:py-28 bg-slate-950 text-white border-b border-slate-800 relative overflow-hidden">
+      <div className="container-custom">
         {/* Header */}
-        <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 mb-2.5">
-            <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
+        <div className="max-w-3xl mb-14 sm:mb-18 space-y-3.5">
+          <div className="inline-flex items-center gap-2.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+            <span className="text-xs font-light uppercase tracking-[0.2em] text-slate-400">
               {eyebrow}
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-white leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-white leading-tight">
             {headline}
           </h2>
-          <p className="mt-3.5 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+          <p className="text-sm sm:text-base text-slate-400 font-light leading-relaxed">
             {subheadline}
           </p>
         </div>
 
-        {/* Operating Process Flow */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6 relative">
+        {/* 5-Phase Horizontal Timeline Strip */}
+        <div className="grid grid-cols-1 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-slate-800/90 border-y border-slate-800/90">
           {steps.map((s, idx) => (
             <div
               key={idx}
-              className="bg-brand-carbon border border-brand-edge-dark rounded-sm p-6 flex flex-col justify-between group hover:border-brand-pink/40 hover:bg-slate-900 transition-all duration-300 relative"
+              className="py-8 md:py-10 md:px-6 first:pl-0 last:pr-0 space-y-4 group"
             >
-              <div>
-                {/* Step indicator */}
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-extralight font-mono text-brand-pink/80 group-hover:text-brand-pink-light transition-colors">
-                    {s.step}
-                  </span>
-                  {idx < steps.length - 1 && (
-                    <ArrowRight className="hidden md:block w-4 h-4 text-slate-600 group-hover:text-brand-pink transition-colors" />
-                  )}
-                </div>
-
-                <h3 className="text-sm font-light text-white mb-2 group-hover:text-brand-pink-light transition-colors leading-snug">
-                  {s.title}
-                </h3>
-                <p className="text-xs text-slate-400 leading-relaxed font-light">
-                  {s.desc}
-                </p>
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-sm text-brand-pink font-light">
+                  PHASE // {s.step}
+                </span>
               </div>
 
-              {/* Bottom line */}
-              <div className="mt-6 pt-3 border-t border-brand-edge-dark/60 text-[10px] font-mono uppercase tracking-wider text-slate-500">
-                Phase {s.step} Execution
-              </div>
+              <h3 className="text-base font-light text-white tracking-tight leading-snug group-hover:text-brand-pink-light transition-colors">
+                {s.title}
+              </h3>
+
+              <p className="text-xs sm:text-[13px] text-slate-400 font-light leading-relaxed">
+                {s.desc}
+              </p>
             </div>
           ))}
         </div>

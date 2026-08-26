@@ -3,20 +3,21 @@
 import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
-import { ServiceHero } from '@/components/services/ServiceHero';
-import { SectorSnapshot } from '@/components/sectors/SectorSnapshot';
-import { SectorChallenges } from '@/components/sectors/SectorChallenges';
-import { SectorSystems } from '@/components/sectors/SectorSystems';
+import { TrustBar } from '@/components/trust/TrustBar';
+import { SectorCinematicHero } from '@/components/sectors/SectorCinematicHero';
+import { SectorOperationalReality } from '@/components/sectors/SectorOperationalReality';
+import { SectorSystemsNavigator } from '@/components/sectors/SectorSystemsNavigator';
+import { SectorRiskCasebook } from '@/components/sectors/SectorRiskCasebook';
+import { SectorEstateAnatomy } from '@/components/sectors/SectorEstateAnatomy';
 import { SectorOperatingModel } from '@/components/sectors/SectorOperatingModel';
-import { TechnologyCafmSection } from '@/components/services/TechnologyCafmSection';
+import { SectorCAFMShowcase } from '@/components/sectors/SectorCAFMShowcase';
+import { SectorEvidence } from '@/components/sectors/SectorEvidence';
+import { SectorTenderCTA } from '@/components/sectors/SectorTenderCTA';
+import { SectorFAQ } from '@/components/sectors/SectorFAQ';
 import { SectorRelatedServices } from '@/components/sectors/SectorRelatedServices';
-import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
-import { FAQAccordion } from '@/components/content/CapabilityList';
+import { SectorFinalCTA } from '@/components/sectors/SectorFinalCTA';
 import { resolveSectorArchetype } from '@/data/sectors/archetypes';
 import { listPublishedCaseStudies } from '@/server/trust/case-studies';
-import Link from 'next/link';
-import { ArrowRight, CheckCircle2, ShieldCheck, FileCheck2, HelpCircle } from 'lucide-react';
 import type { TemplateProps } from './types';
 
 export function TemplateSector({ route, content }: TemplateProps) {
@@ -30,8 +31,14 @@ export function TemplateSector({ route, content }: TemplateProps) {
   const archetype = resolveSectorArchetype(route.path);
   const caseStudies = listPublishedCaseStudies();
 
+  // Filter case studies relevant to this sector if possible, otherwise use published list
+  const filteredCaseStudies = caseStudies.filter((cs) =>
+    cs.sector.toLowerCase().includes(archetype.name.toLowerCase().split(' ')[0]) ||
+    archetype.name.toLowerCase().includes(cs.sector.toLowerCase())
+  );
+  const displayCaseStudies = filteredCaseStudies.length > 0 ? filteredCaseStudies : caseStudies;
+
   // Sector content components with fallbacks preserving existing SEO data
-  const rawCapabilities = content.capabilities || [];
   const faqs = content.faqs && content.faqs.length > 0 ? content.faqs : [
     {
       question: `How does EntireFM structure facilities management for ${archetype.name} estates?`,
@@ -43,104 +50,70 @@ export function TemplateSector({ route, content }: TemplateProps) {
     },
     {
       question: 'Can you consolidate existing multi-supplier contracts into a single agreement?',
-      answer: 'Yes. EntireFM frequently acts as the single-source facilities management partner, self-delivering core M&E, HVAC, building maintenance, and cleaning under one consolidated SLA and transparent monthly reporting framework.',
+      answer: 'Yes. EntireFM acts as a single-source facilities management partner, self-delivering core M&E, HVAC, building maintenance, and cleaning under one consolidated SLA and transparent monthly reporting framework.',
     },
   ];
 
-  // Map related services
-  const relatedServices = archetype.relatedServiceSlugs;
-
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-brand-pink/20 selection:text-brand-pink">
       <Header />
 
       <main id="main" className="flex-grow">
-        {/* 1. SECTOR CINEMATIC HERO */}
-        <ServiceHero
+        {/* 1. SECTOR CINEMATIC HERO (Full-Viewport / High-Impact Photography) */}
+        <SectorCinematicHero
           eyebrow={archetype.heroBadge}
-          title={content.h1}
-          highlightedTitle={content.h1.includes('—') ? undefined : archetype.heroHighlightedTitle}
-          intro={content.heroIntro || content.metaDescription}
+          headline={archetype.heroHeadline}
+          subline={archetype.heroSubline}
           imageSrc={archetype.heroImage}
           imageAlt={archetype.heroImageAlt}
           breadcrumbs={breadcrumbs}
+          facts={archetype.heroFacts}
           primaryCta={{ label: 'Discuss Your Estate', href: '#enquiry' }}
-          secondaryCta={{ label: 'Speak with an Operations Director', href: '#enquiry' }}
-          serviceFacts={archetype.heroFacts}
         />
 
         {/* 2. TRUST / ACCREDITATIONS BAR */}
         <TrustBar />
 
-        {/* 3. INTRODUCTORY SECTOR SNAPSHOT */}
-        <SectorSnapshot
-          leadText={archetype.snapshotLead}
-          priorities={archetype.snapshotPriorities}
+        {/* 3. SIGNATURE OPERATIONAL REALITY SECTION (60/40 Editorial Split) */}
+        <SectorOperationalReality
+          statement={archetype.operationalStatement}
+          leadText={archetype.operationalLead}
+          imageSrc={archetype.realityImage}
+          imageAlt={archetype.realityImageAlt}
+          imageCaption={archetype.realityImageCaption}
+          realities={archetype.operationalRealities}
         />
 
-        {/* 4. OPERATING CONTEXT & EDITORIAL CONTENT (PRESERVE ALL EXISTING SEO CONTENT) */}
-        {content.sections && content.sections.length > 0 && (
-          <section className="py-20 sm:py-28 bg-white border-b border-slate-200">
-            <div className="container-custom">
-              <div className="max-w-3xl mb-12">
-                <div className="inline-flex items-center gap-2 mb-2.5">
-                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
-                    ESTATE CONTEXT &amp; OPERATIONAL DEMAND
-                  </span>
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
-                  Tailored Facilities Governance for {archetype.name}
-                </h2>
-                <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
-                  Understanding what actually matters across the physical estate: uptime, safety, regulatory compliance, and occupant satisfaction.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {content.sections.map((sec, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-[#FAF9FB] p-8 rounded-sm border border-slate-200/90 space-y-4 shadow-sm flex flex-col justify-between"
-                  >
-                    <div>
-                      <h3 className="text-xl font-light text-slate-900 leading-snug">{sec.heading}</h3>
-                      <p className="mt-3 text-sm text-slate-700 leading-relaxed font-light">{sec.body}</p>
-                      {sec.bullets && sec.bullets.length > 0 && (
-                        <ul className="space-y-2 pt-4 mt-4 border-t border-slate-200">
-                          {sec.bullets.map((b, bIdx) => (
-                            <li key={bIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                              <span>{b}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* 5. SECTOR-SPECIFIC FACILITIES SYSTEM (4-COLUMN ARCHITECTURE) */}
-        <SectorSystems
-          eyebrow="ENGINEERED SCOPES & DISCIPLINES"
+        {/* 4. ESTATE DISCIPLINES & SYSTEMS NAVIGATOR (Interactive Discipline Browser) */}
+        <SectorSystemsNavigator
+          eyebrow="ESTATE DISCIPLINES & SCOPES"
           headline={archetype.systemsHeadline}
           subheadline={archetype.systemsSubline}
           groups={archetype.systemGroups}
+          fallbackImage={archetype.heroImage}
         />
 
-        {/* 6. OPERATIONAL CHALLENGES & ENTIREFM MITIGATION */}
-        <SectorChallenges
-          eyebrow="OPERATIONAL CHALLENGES & VULNERABILITY MITIGATION"
+        {/* 5. OPERATIONAL RISK & MITIGATION CASEBOOK (Technical Consultancy Format) */}
+        <SectorRiskCasebook
+          eyebrow="OPERATIONAL RISK & MITIGATION CASEBOOK"
           headline={archetype.challengesHeadline}
           subheadline={archetype.challengesSubline}
           challenges={archetype.challenges}
         />
 
-        {/* 7. VISUAL OPERATING MODEL (5-STAGE FLOW) */}
+        {/* 6. ESTATE ANATOMY BREAKDOWN (Visual Touchpoints) */}
+        {archetype.anatomy && (
+          <SectorEstateAnatomy
+            eyebrow="ESTATE ANATOMY"
+            headline={archetype.anatomy.headline}
+            subline={archetype.anatomy.subline}
+            imageSrc={archetype.anatomy.imageSrc}
+            imageAlt={archetype.anatomy.imageAlt}
+            callouts={archetype.anatomy.callouts}
+          />
+        )}
+
+        {/* 7. VISUAL OPERATING MODEL (5-Phase Horizontal Timeline) */}
         <SectorOperatingModel
           eyebrow="DELIVERY METHODOLOGY"
           headline={archetype.operatingModelHeadline}
@@ -148,180 +121,51 @@ export function TemplateSector({ route, content }: TemplateProps) {
           steps={archetype.operatingSteps}
         />
 
-        {/* 8. TECHNOLOGY & CAFM REPORTING SECTION */}
-        <TechnologyCafmSection
+        {/* 8. ENTIRECAFM DIGITAL PLATFORM SHOWCASE (Real Product Interface) */}
+        <SectorCAFMShowcase
           eyebrow={archetype.technologyFocus.badge}
-          title={archetype.technologyFocus.title}
-          subtitle={archetype.technologyFocus.description}
+          headline={archetype.technologyFocus.title}
+          subline={archetype.technologyFocus.description}
+          features={archetype.technologyFocus.features}
         />
 
-        {/* 9. PROOF / NUMBERS / VERIFIED KPI METRICS */}
-        <section className="py-16 bg-slate-900 border-b border-slate-800 text-white">
-          <div className="container-custom">
-            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-800">
-              {archetype.metrics.map((m, idx) => (
-                <div key={idx} className="p-6 md:p-8 text-center sm:text-left space-y-2">
-                  <div className="text-3xl sm:text-4xl font-light text-brand-pink-light font-mono">
-                    {m.figure}
-                  </div>
-                  <div className="text-xs font-normal uppercase tracking-wider text-white">
-                    {m.label}
-                  </div>
-                  <p className="text-xs text-slate-400 leading-relaxed font-light">
-                    {m.detail}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* 9. VERIFIED CASE STUDY PROOF */}
+        <SectorEvidence
+          eyebrow="VERIFIED OPERATIONAL EVIDENCE"
+          headline="Demonstrated Engineering Delivery & Compliance Governance"
+          subline="Operational performance, statutory audit readiness, and asset lifecycle optimization across UK commercial facilities."
+          caseStudies={displayCaseStudies}
+        />
 
         {/* 10. TENDER / PROCUREMENT BRIEF TOOL ADVISORY */}
-        <section className="py-16 bg-[#FAF9FB] border-b border-slate-200">
-          <div className="container-custom">
-            <div className="bg-white border border-slate-200/90 rounded-sm p-8 shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-              <div className="max-w-2xl space-y-2">
-                <div className="inline-flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-700 font-light">
-                    PROCUREMENT &amp; TENDER PLANNING
-                  </span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-extralight text-slate-900">
-                  Structuring an FM Invitation to Tender (ITT) for Your Estate?
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Use our free interactive Tender Brief Generator to specify plant assets, maintenance frequencies, access windows, and contracted SLA KPIs.
-                </p>
-              </div>
+        <SectorTenderCTA
+          eyebrow="PROCUREMENT & TENDER PLANNING"
+          headline="Structuring an FM Invitation to Tender (ITT) for Your Estate?"
+          subline="Use our free interactive Tender Brief Generator to specify plant assets, maintenance frequencies, access windows, and contracted SLA KPIs."
+          buttonText="Open Tender Brief Generator"
+          href="/tools/tender-brief"
+        />
 
-              <Link
-                href="/tools/tender-brief"
-                className="inline-flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-white bg-slate-900 hover:bg-slate-800 px-5 py-3 rounded-sm shadow-sm transition-all whitespace-nowrap"
-              >
-                <FileCheck2 className="w-4 h-4 text-brand-pink-light" />
-                <span>Open Tender Brief Generator</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </div>
-        </section>
+        {/* 11. SECTOR FAQS (Clean Understated Accordion) */}
+        <SectorFAQ
+          eyebrow="EXPERT GUIDANCE"
+          headline={`Frequently Asked Questions — ${archetype.name}`}
+          subline="Clear answers on contract mobilisation, access windows, statutory compliance, and operational governance."
+          faqs={faqs}
+        />
 
-        {/* 11. VERIFIED CASE STUDY PROOF */}
-        {caseStudies.length > 0 && (
-          <section className="py-20 bg-white border-b border-slate-200">
-            <div className="container-custom space-y-12">
-              <div className="max-w-3xl">
-                <div className="inline-flex items-center gap-2 mb-2.5">
-                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
-                    VERIFIED EVIDENCE
-                  </span>
-                </div>
-                <h2 className="text-3xl font-light text-slate-900">
-                  Operational Project Proof &amp; Case Studies
-                </h2>
-                <p className="mt-2 text-sm text-slate-600 font-light">
-                  Demonstrated engineering delivery, statutory governance, and asset lifecycle optimization across UK commercial facilities.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {caseStudies.slice(0, 3).map((cs) => (
-                  <div
-                    key={cs.id}
-                    className="bg-[#FAF9FB] p-6 rounded-sm border border-slate-200/90 flex flex-col justify-between shadow-sm hover:border-brand-pink/40 hover:shadow-md transition-all group"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink font-light">
-                          {cs.sector}
-                        </span>
-                        <span className="text-[10px] font-mono text-slate-600 font-normal bg-slate-200/70 px-2 py-0.5 rounded-sm">
-                          {cs.location}
-                        </span>
-                      </div>
-                      <h3 className="text-base font-light text-slate-900 leading-snug group-hover:text-brand-graphite transition-colors">
-                        {cs.title}
-                      </h3>
-                      <p className="mt-2 text-xs text-slate-600 leading-relaxed font-light">
-                        {cs.challenge}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 mt-4 border-t border-slate-200/80">
-                      <span className="text-[11px] font-normal text-emerald-700 block">
-                        Result: {cs.outcome}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* 12. CONTRACTOR & SUPPLY CHAIN GOVERNANCE */}
-        <section className="py-16 bg-[#FAF9FB] border-b border-slate-200">
-          <div className="container-custom">
-            <div className="bg-slate-900 text-white rounded-sm p-8 sm:p-10 border border-slate-800 shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-              <div className="max-w-2xl space-y-3">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink-light font-normal bg-white/10 px-2.5 py-1 rounded-sm">
-                  SUPPLY CHAIN ASSURANCE
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-light text-white">
-                  Audited Specialist Contractor Network
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                  Every trade contractor deployed across your estate is vetted for public liability insurance (£10M+), ISO 9001/45001 safety governance, DBS clearance, and trade certifications (Gas Safe, NICEIC, FGAS, BAFE).
-                </p>
-              </div>
-
-              <Link
-                href="/partner-network"
-                className="inline-flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-slate-900 bg-white hover:bg-slate-100 px-5 py-3 rounded-sm shadow-sm transition-all whitespace-nowrap"
-              >
-                <span>Explore Supply Chain Standards</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* 13. SECTOR FAQS */}
-        {faqs.length > 0 && (
-          <section className="py-20 bg-white border-b border-slate-200">
-            <div className="container-custom max-w-4xl">
-              <div className="text-center max-w-2xl mx-auto mb-12">
-                <div className="inline-flex items-center gap-2 mb-2.5">
-                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="text-xs font-normal uppercase tracking-wider text-brand-pink">
-                    EXPERT GUIDANCE
-                  </span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-light text-slate-900">
-                  Frequently Asked Questions — {archetype.name}
-                </h2>
-              </div>
-              <FAQAccordion faqs={faqs} />
-            </div>
-          </section>
-        )}
-
-        {/* 14. RELATED SERVICES DISCIPLINE LINKS */}
+        {/* 12. RELATED SERVICES DISCIPLINE LINKS */}
         <SectorRelatedServices
-          services={relatedServices}
+          services={archetype.relatedServiceSlugs}
           allSectorsHref="/sectors"
         />
 
-        {/* 15. SECTOR-SPECIFIC CONVERSION & PROPOSAL SECTION */}
-        <ServiceConversionSection
+        {/* 13. SECTOR-SPECIFIC CONVERSION & PROPOSAL SECTION */}
+        <SectorFinalCTA
           serviceName={content.h1}
           headline={archetype.conversionCta.headline}
-          subheadline={archetype.conversionCta.subheadline}
-          badgeText={archetype.conversionCta.badgeText}
-          ctaButtonText="Request Sector Proposal"
-          directDeskNote="Connect directly with an Operations Director or Regional Engineering Manager."
+          subline={archetype.conversionCta.subheadline}
+          imageSrc={archetype.heroImage}
         />
       </main>
 
