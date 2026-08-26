@@ -32,12 +32,6 @@ export function OperationalTelemetryStrip() {
       detail: 'Commercial Control Ledger',
       highlight: 'text-brand-pink',
     },
-    {
-      value: '48',
-      label: 'Connected Telemetry Nodes',
-      detail: 'Vibration & Thermal Sensors',
-      highlight: 'text-slate-900',
-    },
   ];
 
   return (
@@ -47,7 +41,7 @@ export function OperationalTelemetryStrip() {
           LIVE OPERATIONAL TELEMETRY // AUTHORISED CLIENT ESTATE AGGREGATE
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 lg:gap-0 lg:divide-x lg:divide-slate-200">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-0 lg:divide-x lg:divide-slate-200">
           {metrics.map((m, idx) => (
             <div
               key={m.label}
