@@ -114,9 +114,12 @@ export default function InnovationPage() {
             <p className="text-sm text-brand-mist/80 max-w-xl mx-auto font-light leading-relaxed">
               Connect directly with our engineering and technology team to explore technical integrations across live commercial facilities.
             </p>
-            <div className="pt-2">
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
               <Link href="/suppliers/apply" className="btn-primary inline-flex">
                 Discuss an Innovation Partnership <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/suppliers/events" className="btn-ghost-light inline-flex">
+                Explore FM Innovation Sessions
               </Link>
             </div>
           </div>

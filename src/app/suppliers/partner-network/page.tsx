@@ -44,7 +44,10 @@ export default function PartnerNetworkPublicPage() {
               <Link href="/suppliers/apply" className="btn-primary text-xs py-3 px-6">
                 Become an EntireFM Supplier
               </Link>
-              <Link href="/suppliers/membership" className="btn-secondary text-xs py-3 px-6 text-white border-white/20 hover:bg-white/10">
+              <Link href="/suppliers/events" className="btn-secondary text-xs py-3 px-6 text-white border-white/20 hover:bg-white/10">
+                Events &amp; Forums Programme
+              </Link>
+              <Link href="/suppliers/membership" className="btn-ghost-light text-xs py-3 px-6 text-white border-white/20 hover:bg-white/10">
                 View Membership Tiers
               </Link>
             </div>

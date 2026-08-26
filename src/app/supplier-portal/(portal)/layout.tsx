@@ -22,6 +22,7 @@ import { getCurrentSession } from '@/server/identity';
 import {
   getSupplierOrganisationById,
   getPortalStatusDisplay,
+  validateSupplierAuthUser,
 } from '@/server/suppliers/supplier-auth-store';
 
 export const metadata = {
@@ -39,6 +40,12 @@ export default async function AuthenticatedSupplierPortalLayout({
   // 1. Mandatory Server-Side Session Resolution (Fail-Closed)
   const session = await getCurrentSession();
   if (!session || session.orgType !== 'SUPPLIER') {
+    redirect('/supplier-portal/sign-in');
+  }
+
+  // Live Supabase Auth Validation
+  const authState = await validateSupplierAuthUser(session.personId || session.authUserId || '');
+  if (!authState.valid || !authState.authUser) {
     redirect('/supplier-portal/sign-in');
   }
 

@@ -9,7 +9,7 @@
 import { NextResponse } from 'next/server';
 import {
   createSupplierOrganisation,
-  getSupplierUserByAuthId,
+  validateSupplierAuthUser,
   getOrCreateApplicationDraft,
 } from '@/server/suppliers/supplier-auth-store';
 import {
@@ -23,13 +23,28 @@ const SUPPLIER_SESSION_MAX_AGE = 60 * 60 * 24 * 7;
 
 export async function POST(request: Request) {
   try {
-    const jar = await cookies();
-    const token = jar.get(AUTH_COOKIE_NAME)?.value;
+    let token: string | undefined;
+    try {
+      const jar = await cookies();
+      token = jar.get(AUTH_COOKIE_NAME)?.value;
+    } catch {
+      const cookieHeader = request.headers.get('cookie') || '';
+      const match = cookieHeader.match(new RegExp(`(?:^|;\\s*)${AUTH_COOKIE_NAME}=([^;]+)`));
+      token = match ? match[1] : undefined;
+    }
     const session = verifySessionToken(token);
 
     if (!session || (session.orgType as string) !== 'SUPPLIER') {
       return NextResponse.json({ success: false, error: 'Authentication required.' }, { status: 401 });
     }
+
+    // Live Supabase Auth User Validation
+    const authState = await validateSupplierAuthUser(session.personId || session.authUserId || '');
+    if (!authState.valid || !authState.authUser || !authState.supplierUser) {
+      return NextResponse.json({ success: false, error: 'Valid supplier authentication identity required.' }, { status: 401 });
+    }
+
+    const user = authState.supplierUser;
 
     const body = await request.json().catch(() => ({}));
     const { legalName, tradingName, companyNumber } = body as Record<string, string>;
@@ -39,11 +54,6 @@ export async function POST(request: Request) {
         { success: false, error: 'Legal company name is required.' },
         { status: 400 }
       );
-    }
-
-    const user = await getSupplierUserByAuthId(session.personId);
-    if (!user) {
-      return NextResponse.json({ success: false, error: 'User account not found.' }, { status: 404 });
     }
 
     // Idempotent: if user already has an org, return it

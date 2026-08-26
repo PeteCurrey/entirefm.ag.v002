@@ -322,8 +322,10 @@ function MegaMenu({
         <div className="rule-spectrum absolute inset-x-0 top-0" />
 
         <div
-          className={`container-custom relative grid gap-8 py-9 ${
-            section.columns.length >= 3
+          className={`container-wide relative grid gap-6 xl:gap-8 py-9 ${
+            section.columns.length >= 4
+              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-[1fr_1fr_1fr_1fr_minmax(250px,300px)]'
+              : section.columns.length === 3
               ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.05fr_1.05fr_1.05fr_minmax(260px,310px)]'
               : 'grid-cols-1 md:grid-cols-[1fr_1fr_minmax(260px,340px)]'
           }`}

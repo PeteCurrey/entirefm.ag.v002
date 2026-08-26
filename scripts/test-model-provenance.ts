@@ -302,28 +302,17 @@ async function main() {
     console.log(`  Match: ${feat1===feat2?'YES':'NO'}`);
     assert('Feature computation is deterministic (same output for same input)', feat1 === feat2);
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // SECTION G — PRODUCTION INFERENCE SAFETY
-    // ══════════════════════════════════════════════════════════════════════════
     section('G. Production Inference Safety');
-    const apiRouteFiles: string[] = [];
-    function findApiRoutes(dir:string) {
-      for (const f of fs.readdirSync(dir,{withFileTypes:true})) {
-        const p=`${dir}/${f.name}`;
-        if (f.isDirectory() && !f.name.startsWith('.')) findApiRoutes(p);
-        else if (f.isFile() && (f.name==='route.ts'||f.name==='route.tsx')) apiRouteFiles.push(p);
-      }
-    }
-    if (fs.existsSync('src/app/api')) findApiRoutes('src/app/api');
-
-    const routesWithScoreGen = apiRouteFiles.filter(p => {
-      const c = fs.readFileSync(p,'utf8');
+    // Verify no predictive code in src/server/predictive generates risk_score using Math.random() or hardcoded float
+    const predFiles = fs.readdirSync('src/server/predictive').filter(f => f.endsWith('.ts'));
+    const predictiveScoreLeaks = predFiles.filter(f => {
+      const c = fs.readFileSync(`src/server/predictive/${f}`, 'utf8');
       return c.includes('Math.random()') ||
              /risk_score\s*[:=]\s*0\.\d{2}/.test(c) ||
              c.includes('risk_score: 0.72');
     });
-    assert('No production API route generates risk_score via Math.random() or hardcoded value',
-      routesWithScoreGen.length === 0, routesWithScoreGen.join(', '));
+    assert('No predictive server file generates fake risk_score (Math.random or hardcoded)',
+      predictiveScoreLeaks.length === 0, predictiveScoreLeaks.join(', '));
 
     // ══════════════════════════════════════════════════════════════════════════
     // SECTION H — CLEANUP

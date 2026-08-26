@@ -183,6 +183,54 @@ export const PRIMARY_NAV: NavSection[] = [
       imageKey: 'client-review',
     },
   },
+  {
+    label: 'Suppliers',
+    href: '/suppliers',
+    columns: [
+      {
+        heading: 'Work with EntireFM',
+        links: [
+          { label: 'Become a Supplier', href: '/suppliers/partner-with-entirefm', detail: 'Join our trusted UK supplier & contractor network' },
+          { label: 'Start Supplier Application', href: '/suppliers/apply', detail: 'Online pre-qualification & onboarding submission' },
+          { label: 'How We Work', href: '/suppliers/how-we-work', detail: 'Procurement ethics, prompt payment and work allocation' },
+          { label: 'Supplier Standards', href: '/suppliers/standards', detail: 'H&S, environmental, quality and insurance benchmarks' },
+        ],
+      },
+      {
+        heading: 'Assurance & Compliance',
+        links: [
+          { label: 'Supplier Vetting', href: '/suppliers/vetting', detail: 'Rigorous 6-pillar compliance & competence auditing' },
+          { label: 'Onboarding', href: '/suppliers/onboarding', detail: 'Structured 4-phase onboarding and induction process' },
+          { label: 'Compliance', href: '/suppliers/compliance', detail: 'Insurance, RAMS, competence cards and certification' },
+          { label: 'Membership & Fees', href: '/suppliers/membership', detail: 'Partner Network tiers, annual vetting and benefits' },
+        ],
+      },
+      {
+        heading: 'Partner Network',
+        links: [
+          { label: 'Partner Network', href: '/suppliers/partner-network', detail: 'Collaborative ecosystem of specialists and OEMs' },
+          { label: 'Events & Forums', href: '/suppliers/events', detail: 'Technical breakfasts, manufacturer sessions and roundtables' },
+          { label: 'Industry & OEM Partners', href: '/suppliers/industry-partners', detail: 'Factory-backed technical and equipment partnerships' },
+          { label: 'Innovation', href: '/suppliers/innovation', detail: 'PropTech, IoT, AI, telemetry and sustainability partners' },
+        ],
+      },
+      {
+        heading: 'Existing Suppliers',
+        links: [
+          { label: 'Supplier Portal', href: '/supplier-portal', detail: 'Secure portal for job tickets, compliance & invoicing' },
+          { label: 'Supplier FAQ', href: '/suppliers/faq', detail: 'Frequently asked questions on vetting, payment & operations' },
+        ],
+      },
+    ],
+    feature: {
+      eyebrow: 'Partner Network',
+      title: 'A professionally managed network',
+      body: 'Connecting capable contractors, technical specialists, manufacturers and technology innovators with nationwide commercial estates.',
+      href: '/suppliers/partner-network',
+      cta: 'Explore Partner Network',
+      imageKey: 'headquarters-exterior',
+    },
+  },
 ];
 
 /**
@@ -190,7 +238,6 @@ export const PRIMARY_NAV: NavSection[] = [
  */
 export const SECONDARY_NAV: NavLink[] = [
   { label: 'Client Portal', href: '/client-portal' },
-  { label: 'Suppliers', href: '/suppliers' },
   { label: 'About', href: '/about-entire-facilities-management' },
   { label: 'Contact', href: '/contact-us' },
 ];

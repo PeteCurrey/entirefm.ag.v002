@@ -14,6 +14,7 @@
  */
 
 import { randomBytes } from 'node:crypto';
+import { supabaseAdminGetUser, type SupabaseAuthUser } from '@/server/auth/supabase-auth';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -263,6 +264,88 @@ export async function setSupplierUserStatus(
   }
 }
 
+export interface SupplierAuthValidationResult {
+  valid: boolean;
+  reason?: 'VALID' | 'AUTH_USER_NOT_FOUND' | 'SERVICE_UNAVAILABLE' | 'UNVERIFIED' | 'SUSPENDED';
+  authUser: SupabaseAuthUser | null;
+  supplierUser: SupplierUserRecord | null;
+  isVerified: boolean;
+}
+
+export async function validateSupplierAuthUser(
+  authUserId: string
+): Promise<SupplierAuthValidationResult> {
+  if (!authUserId) {
+    return { valid: false, reason: 'AUTH_USER_NOT_FOUND', authUser: null, supplierUser: null, isVerified: false };
+  }
+
+  // 1. Validate against canonical Supabase Auth
+  let authUser: SupabaseAuthUser | null = null;
+  const adminRes = await supabaseAdminGetUser(authUserId);
+
+  if (adminRes.data) {
+    authUser = adminRes.data;
+  } else if (adminRes.error && adminRes.error.status === 404) {
+    // Definitively deleted or non-existent in Supabase Auth
+    supplierUsersByAuthId.delete(authUserId);
+    return { valid: false, reason: 'AUTH_USER_NOT_FOUND', authUser: null, supplierUser: null, isVerified: false };
+  } else if (adminRes.error && (adminRes.error.message.includes('not configured') || adminRes.error.status === 500)) {
+    // Fallback for offline testing environments without Supabase credentials
+    const localUser = supplierUsersByAuthId.get(authUserId);
+    if (!localUser) {
+      return { valid: false, reason: 'AUTH_USER_NOT_FOUND', authUser: null, supplierUser: null, isVerified: false };
+    }
+    return {
+      valid: localUser.status === 'ACTIVE',
+      reason: localUser.status === 'ACTIVE' ? 'VALID' : 'SUSPENDED',
+      authUser: {
+        id: localUser.auth_user_id,
+        email: localUser.email,
+        email_confirmed_at: localUser.email_verified ? localUser.created_at : null,
+        created_at: localUser.created_at,
+      },
+      supplierUser: localUser,
+      isVerified: localUser.email_verified,
+    };
+  } else {
+    // Other error / not found in Supabase Auth
+    supplierUsersByAuthId.delete(authUserId);
+    return { valid: false, reason: 'AUTH_USER_NOT_FOUND', authUser: null, supplierUser: null, isVerified: false };
+  }
+
+  // 2. Resolve or Idempotently Provision Domain User
+  let supplierUser = await getSupplierUserByAuthId(authUserId);
+  const isVerified = !!authUser.email_confirmed_at;
+
+  if (!supplierUser) {
+    // Valid Supabase user exists, but domain user missing -> idempotently restore domain record
+    const meta = authUser.user_metadata || {};
+    const prov = await createOrLinkSupplierUser(
+      authUser.id,
+      authUser.email,
+      meta.first_name || 'Supplier',
+      meta.last_name || 'User',
+      'SUPPLIER_ADMIN',
+      isVerified
+    );
+    supplierUser = prov.user || null;
+  } else if (isVerified && !supplierUser.email_verified) {
+    supplierUser.email_verified = true;
+  }
+
+  if (supplierUser && supplierUser.status === 'SUSPENDED') {
+    return { valid: false, reason: 'SUSPENDED', authUser, supplierUser, isVerified };
+  }
+
+  return {
+    valid: true,
+    reason: 'VALID',
+    authUser,
+    supplierUser,
+    isVerified,
+  };
+}
+
 // ── Organisation Operations ───────────────────────────────────────────────────
 
 export interface CreateOrganisationResult {
@@ -441,6 +524,7 @@ export async function getApplicationDraft(
 // ── Resume Logic ──────────────────────────────────────────────────────────────
 
 export type ResumeDestination =
+  | '/supplier-portal/register'
   | '/supplier-portal/org-setup'
   | '/supplier-portal/onboarding'
   | '/supplier-portal/actions'
@@ -448,7 +532,8 @@ export type ResumeDestination =
 
 export async function resolveResumeDestination(authUserId: string): Promise<ResumeDestination> {
   const user = supplierUsersByAuthId.get(authUserId);
-  if (!user || !user.organisation_id) return '/supplier-portal/org-setup';
+  if (!user) return '/supplier-portal/register';
+  if (!user.organisation_id) return '/supplier-portal/org-setup';
 
   const org = supplierOrganisations.get(user.organisation_id);
   if (!org) return '/supplier-portal/org-setup';

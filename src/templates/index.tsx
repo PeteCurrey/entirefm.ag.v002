@@ -62,6 +62,7 @@ import { TemplateDroneSubService } from './drone-services/TemplateDroneSubServic
 import { TemplateDroneInspectionPlanner } from './tools/TemplateDroneInspectionPlanner';
 import { TemplateCityHub } from './locations/TemplateCityHub';
 import { TemplateCityServices } from './locations/TemplateCityServices';
+import { TemplateServicesOverview } from './services/TemplateServicesOverview';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const content = loadContentRecord(route.path);
@@ -277,8 +278,10 @@ function selectTemplate(
   if (path === '/sectors') {
     return <TemplateSectorsHub route={route} content={content} />;
   }
+  if (path === '/services') {
+    return <TemplateServicesOverview route={route} content={content} />;
+  }
   if (
-    path === '/services' ||
     path === '/locations' ||
     path === '/items'
   ) {

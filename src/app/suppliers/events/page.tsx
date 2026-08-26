@@ -1,69 +1,73 @@
 import React from 'react';
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { Calendar, Users, Cpu, ShieldCheck, ArrowRight } from 'lucide-react';
+import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
 
-export const metadata = {
+import { EventHero } from '@/components/suppliers/events/EventHero';
+import { EventFormatGrid } from '@/components/suppliers/events/EventFormatGrid';
+import { AnnualProgrammeTimeline } from '@/components/suppliers/events/AnnualProgrammeTimeline';
+import { UpcomingEventsCalendar } from '@/components/suppliers/events/UpcomingEventsCalendar';
+import { RegionalProgrammeSection } from '@/components/suppliers/events/RegionalProgrammeSection';
+import { SummitPositioningSection } from '@/components/suppliers/events/SummitPositioningSection';
+import { PastEventsArchiveSection } from '@/components/suppliers/events/PastEventsArchiveSection';
+import { EventSponsorshipSection } from '@/components/suppliers/events/EventSponsorshipSection';
+import { EventInterestForm } from '@/components/suppliers/events/EventInterestForm';
+import { SupplierPortalConnectionBanner } from '@/components/suppliers/events/SupplierPortalConnectionBanner';
+
+export const metadata: Metadata = {
   title: 'Partner Network Events & Supplier Forums | EntireFM',
-  description: 'Connect with facilities managers, engineering specialists, and equipment manufacturers at EntireFM Partner Network events, technical breakfasts, and forums.',
+  description: 'Connect with facilities managers, engineering specialists, and equipment manufacturers at EntireFM Partner Network events, technical breakfasts, OEM sessions, and supplier forums across the UK.',
+  openGraph: {
+    title: 'EntireFM Partner Network Events & Forums',
+    description: 'A programme bringing together contractors, manufacturers, technical specialists, and facilities professionals around practical property and engineering challenges.',
+    url: 'https://www.entirefm.com/suppliers/events',
+  },
 };
 
 export default function SupplierEventsPublicPage() {
   return (
-    <div className="min-h-screen bg-[#FAF9FB] text-slate-900 flex flex-col">
-      <Header solid />
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col">
+      <Header />
 
-      <main className="flex-1">
-        <section className="bg-slate-900 text-white py-20 lg:py-28">
-          <div className="container-custom max-w-5xl space-y-6">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-brand-pink font-bold">
-              INDUSTRY ENGAGEMENT
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white max-w-3xl leading-tight">
-              Partner Network Events &amp; Forums
-            </h1>
-            <p className="text-base sm:text-lg text-slate-300 font-light max-w-2xl leading-relaxed">
-              Bringing suppliers, technical specialists, equipment manufacturers, and EntireFM operational teams together around real engineering challenges.
-            </p>
-          </div>
-        </section>
+      <main id="main" className="flex-grow">
+        {/* ── SECTION 01: HERO ── */}
+        <EventHero />
 
-        <section className="py-16 container-custom max-w-5xl space-y-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
-            <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3 shadow-sm">
-              <Users className="h-5 w-5 text-brand-pink" />
-              <h3 className="font-bold text-slate-900 font-sans text-sm">Meet the Supplier</h3>
-              <p className="text-slate-600 font-light leading-relaxed">
-                Technical roundtables showcasing contractor innovation, specialist access methodologies, and sustainable FM delivery.
-              </p>
-            </div>
+        {/* Brand Trust Bar */}
+        <TrustBar />
 
-            <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3 shadow-sm">
-              <Cpu className="h-5 w-5 text-brand-pink" />
-              <h3 className="font-bold text-slate-900 font-sans text-sm">Meet the Manufacturer</h3>
-              <p className="text-slate-600 font-light leading-relaxed">
-                Factory-backed technical sessions exploring chiller efficiency, building controls, IoT telemetry, and emerging FM tech.
-              </p>
-            </div>
+        {/* ── SECTION 02: 8 PROGRAMME FORMATS ── */}
+        <EventFormatGrid />
 
-            <div className="p-6 bg-white border border-slate-200 rounded-sm space-y-3 shadow-sm">
-              <Calendar className="h-5 w-5 text-brand-pink" />
-              <h3 className="font-bold text-slate-900 font-sans text-sm">Meet the Buyer</h3>
-              <p className="text-slate-600 font-light leading-relaxed">
-                Transparent briefings on EntireFM procurement themes and standards. <em>(Attendance does not guarantee contract award).</em>
-              </p>
-            </div>
-          </div>
+        {/* ── SECTION 03: 4-QUARTER INDICATIVE PROGRAMME ── */}
+        <AnnualProgrammeTimeline />
 
-          <div className="bg-slate-900 text-white p-8 rounded-sm text-center space-y-4">
-            <h3 className="text-xl font-bold">Upcoming 2026 Event Programme</h3>
-            <p className="text-xs text-slate-300 font-light max-w-xl mx-auto">
-              Our 2026 event schedule is currently being finalized across London, Manchester, and Birmingham. Register your supplier profile to receive early invitations.
-            </p>
-            <Link href="/suppliers/apply" className="btn-primary text-xs py-2.5 px-6 inline-block">
-              Register for Event Notifications &rarr;
-            </Link>
+        {/* ── SECTION 04: UPCOMING EVENTS CALENDAR & LIST UX ── */}
+        <UpcomingEventsCalendar />
+
+        {/* ── SECTION 05: REGIONAL HUBS DELIVERY ── */}
+        <RegionalProgrammeSection />
+
+        {/* ── SECTION 06: SUMMIT FOUNDATION (DARK BREAK) ── */}
+        <SummitPositioningSection />
+
+        {/* ── SECTION 07: PAST EVENTS ARCHIVE (TRUTHFUL EMPTY STATE) ── */}
+        <PastEventsArchiveSection />
+
+        {/* ── SECTION 08: SPONSORSHIP & OEM PARTNERSHIP ── */}
+        <EventSponsorshipSection />
+
+        {/* ── SECTION 09: EVENT INTEREST REGISTRATION FORM ── */}
+        <EventInterestForm />
+
+        {/* ── SECTION 10: SUPPLIER PORTAL & ECOSYSTEM CROSS-LINKS ── */}
+        <SupplierPortalConnectionBanner />
+
+        {/* Accreditations Trust Rail */}
+        <section className="py-12 bg-white border-t border-slate-200">
+          <div className="container-custom">
+            <AccreditationRail />
           </div>
         </section>
       </main>

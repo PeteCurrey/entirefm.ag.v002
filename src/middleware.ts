@@ -90,19 +90,14 @@ export function middleware(request: NextRequest) {
   );
   const isPrivateSupplierPortal = isSupplierPortal && !isPublicSupplierRoute;
 
-  // If already authenticated as a supplier, redirect away from public auth pages to resume destination
-  if (isPublicSupplierRoute && (pathname === '/supplier-portal/register' || pathname === '/supplier-portal/sign-in')) {
-    const token = request.cookies.get('efm_session')?.value;
-    if (token) {
-      try {
-        const parts = token.split('.');
-        if (parts.length === 2) {
-          const session = JSON.parse(Buffer.from(parts[0], 'base64url').toString('utf8'));
-          if (session.orgType === 'SUPPLIER' && (!session.expiresAt || session.expiresAt > Date.now())) {
-            return NextResponse.redirect(new URL('/supplier-portal/resume', request.url));
-          }
-        }
-      } catch {}
+  // Explicit gate for /supplier-portal/org-setup
+  if (isSetupRoute) {
+    const setupToken = request.cookies.get('efm_session')?.value;
+    if (!setupToken) {
+      const registerUrl = new URL('/supplier-portal/register', request.url);
+      const response = NextResponse.redirect(registerUrl);
+      response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return response;
     }
   }
 

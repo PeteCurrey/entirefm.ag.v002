@@ -58,14 +58,26 @@ export default function IndustryPartnersPublicPage() {
             </div>
           </div>
 
-          <div className="p-8 bg-slate-50 border border-slate-200 rounded-sm text-center space-y-4">
-            <h3 className="text-lg font-bold text-slate-900">Discuss an Industry Partnership</h3>
-            <p className="text-xs text-slate-600 font-light max-w-md mx-auto">
-              Speak with our Head of Supply Chain &amp; Innovation to explore tailored technology or OEM collaboration.
-            </p>
-            <Link href="/contact-us" className="btn-primary text-xs py-2.5 px-6 inline-block">
-              Contact Innovation Team &rarr;
-            </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+            <div className="p-8 bg-slate-50 border border-slate-200 rounded-sm text-center space-y-4">
+              <h3 className="text-lg font-bold text-slate-900">Partner Network Events &amp; Forums</h3>
+              <p className="text-xs text-slate-600 font-light max-w-md mx-auto">
+                Explore our upcoming technical breakfasts, manufacturer sessions, and regional FM forums.
+              </p>
+              <Link href="/suppliers/events" className="btn-secondary text-xs py-2.5 px-6 inline-block">
+                View Event Programme &rarr;
+              </Link>
+            </div>
+
+            <div className="p-8 bg-slate-50 border border-slate-200 rounded-sm text-center space-y-4">
+              <h3 className="text-lg font-bold text-slate-900">Discuss an Industry Partnership</h3>
+              <p className="text-xs text-slate-600 font-light max-w-md mx-auto">
+                Speak with our Head of Supply Chain &amp; Innovation to explore tailored technology or OEM collaboration.
+              </p>
+              <Link href="/contact-us" className="btn-primary text-xs py-2.5 px-6 inline-block">
+                Contact Innovation Team &rarr;
+              </Link>
+            </div>
           </div>
         </section>
       </main>
