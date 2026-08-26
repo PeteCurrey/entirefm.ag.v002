@@ -1,15 +1,48 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Mail, ArrowRight } from 'lucide-react';
-import { getCurrentSession } from '@/server/identity';
-import { redirect } from 'next/navigation';
+import { Mail, RefreshCw, CheckCircle2, ArrowRight } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
-export default async function VerifyEmailPage() {
-  const session = await getCurrentSession();
+export default function VerifyEmailPage() {
+  const searchParams = useSearchParams();
+  const [email, setEmail] = useState<string>('');
+  const [resending, setResending] = useState(false);
+  const [resent, setResent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Must be authenticated as a supplier to see this page
-  if (!session || (session.orgType as string) !== 'SUPPLIER') {
-    redirect('/supplier-portal/register');
+  useEffect(() => {
+    const qEmail = searchParams.get('email');
+    if (qEmail) {
+      setEmail(qEmail);
+    }
+  }, [searchParams]);
+
+  async function handleResend() {
+    if (!email) return;
+    setResending(true);
+    setError(null);
+    setResent(false);
+
+    try {
+      const res = await fetch('/api/supplier/auth/resend-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setResent(true);
+      } else {
+        setError(data.error || 'Failed to resend confirmation email.');
+      }
+    } catch {
+      setError('Network error. Please try again.');
+    } finally {
+      setResending(false);
+    }
   }
 
   return (
@@ -24,6 +57,12 @@ export default async function VerifyEmailPage() {
               Supplier Portal
             </span>
           </Link>
+          <Link
+            href="/supplier-portal/sign-in"
+            className="text-[12px] font-normal text-slate-400 transition-colors hover:text-white"
+          >
+            ← Sign In
+          </Link>
         </div>
       </header>
 
@@ -36,31 +75,62 @@ export default async function VerifyEmailPage() {
             </div>
 
             <div className="space-y-2">
-              <h1 className="text-2xl font-light tracking-tight text-white">Check your email</h1>
+              <h1 className="text-2xl font-light tracking-tight text-white">Verify your work email</h1>
               <p className="text-[13.5px] text-slate-300">
-                We&apos;ve sent a verification link to:
+                A verification link has been sent to:
               </p>
-              <p className="text-[14px] font-medium text-white bg-slate-800 rounded px-4 py-2 font-mono">
-                {session.email}
-              </p>
+              {email ? (
+                <p className="text-[14px] font-medium text-white bg-slate-800 rounded px-4 py-2 font-mono break-all">
+                  {email}
+                </p>
+              ) : (
+                <p className="text-[13px] text-slate-400 italic">
+                  your registered email address
+                </p>
+              )}
               <p className="text-[12.5px] text-slate-400 leading-relaxed pt-1">
-                Click the link in the email to verify your account and continue your supplier application.
+                Please check your inbox and click the confirmation link to activate your supplier account and proceed to organisation setup.
               </p>
             </div>
 
-            {/* For this phase: bypass verification to complete the flow */}
+            {resent && (
+              <div className="rounded border border-emerald-500/30 bg-emerald-500/10 p-3 text-[12.5px] text-emerald-300 flex items-center justify-center gap-2">
+                <CheckCircle2 className="h-4 w-4 shrink-0" />
+                <span>Verification email resent successfully.</span>
+              </div>
+            )}
+
+            {error && (
+              <div className="rounded border border-rose-500/30 bg-rose-500/10 p-3 text-[12.5px] text-rose-300">
+                {error}
+              </div>
+            )}
+
             <div className="border-t border-slate-700/60 pt-5 space-y-3">
-              <p className="text-[11.5px] text-slate-500">
-                Email not arrived yet? Check your spam folder.
-              </p>
-              <Link
-                href="/supplier-portal/org-setup"
-                className="inline-flex w-full items-center justify-center gap-2 rounded bg-brand-pink py-2.5 text-[13.5px] font-medium text-white shadow-md transition-all hover:bg-brand-pink/90 focus:outline-none focus:ring-2 focus:ring-brand-pink focus:ring-offset-2 focus:ring-offset-slate-950"
+              <button
+                type="button"
+                onClick={handleResend}
+                disabled={resending || !email}
+                className="inline-flex w-full items-center justify-center gap-2 rounded border border-slate-700 bg-slate-800 py-2.5 text-[13px] font-medium text-slate-200 hover:bg-slate-700 transition-colors disabled:opacity-50"
               >
-                Continue to Company Setup <ArrowRight className="h-4 w-4" />
-              </Link>
+                <RefreshCw className={`h-3.5 w-3.5 ${resending ? 'animate-spin' : ''}`} />
+                {resending ? 'Resending…' : 'Resend verification email'}
+              </button>
+
+              <div className="pt-2">
+                <Link
+                  href="/supplier-portal/org-setup"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded bg-brand-pink py-2.5 text-[13.5px] font-medium text-white shadow-md transition-all hover:bg-brand-pink/90 focus:outline-none"
+                >
+                  Continue to Organisation Setup <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+
               <p className="text-[11px] text-slate-500">
-                You can also verify your email later from the supplier portal.
+                Already verified? Proceed to setup. If not received, please check your spam folder or contact{' '}
+                <a href="mailto:supplier-support@entirefm.com" className="text-brand-pink hover:underline">
+                  supplier-support@entirefm.com
+                </a>
               </p>
             </div>
           </div>
@@ -68,7 +138,7 @@ export default async function VerifyEmailPage() {
       </main>
 
       <footer className="border-t border-slate-800/60 py-4 text-center text-[11px] text-slate-500">
-        EntireFM Partner Network · Secure Supplier Portal
+        EntireFM Partner Network · Canonical Supabase Auth
       </footer>
     </div>
   );

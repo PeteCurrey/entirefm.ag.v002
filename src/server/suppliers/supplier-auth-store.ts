@@ -1,15 +1,19 @@
 /**
- * ENTIREFM SUPPLIER AUTHENTICATION STORE
- * =======================================
- * In-memory supplier user registry, organisation management, and application
- * lifecycle tracking. Mirrors the server-side store pattern used across the platform.
+ * ENTIREFM SUPPLIER DOMAIN & ORGANISATION REPOSITORY
+ * ====================================================
+ * Single Source of Truth for:
+ * 1. Supplier Domain User records (linked to canonical Supabase Auth user UUIDs)
+ * 2. Supplier Organisations & multi-tenant isolation
+ * 3. Supplier Application Drafts & Lifecycle states
+ * 4. Supplier Invitations & Team RBAC
+ * 5. Lifecycle-aware resume routing & portal status presentation
  *
- * Lifecycle states:
- *   REGISTERED → DRAFT → PAYMENT_PENDING → SUBMITTED → UNDER_REVIEW
- *   → INFORMATION_REQUIRED → APPROVED | DECLINED | CONDITIONAL_APPROVAL
+ * NON-NEGOTIABLE SECURITY INVARIANT:
+ * This store NEVER handles, hashes, or stores user passwords or credentials.
+ * Supabase Auth is the sole authority for credentials, passwords, email verification, and recovery.
  */
 
-import { createHmac, randomBytes } from 'node:crypto';
+import { randomBytes } from 'node:crypto';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -24,16 +28,26 @@ export type SupplierLifecycleStatus =
   | 'APPROVED'
   | 'DECLINED';
 
-export interface SupplierAuthUser {
+export type SupplierRole =
+  | 'SUPPLIER_ADMIN'
+  | 'OPERATIONS'
+  | 'COMPLIANCE'
+  | 'FINANCE'
+  | 'FIELD_USER'
+  | 'VIEWER';
+
+export interface SupplierUserRecord {
   id: string;
-  email: string;
-  passwordHash: string;
-  firstName: string;
-  lastName: string;
-  createdAt: string;
-  emailVerified: boolean;
+  auth_user_id: string; // Supabase Auth User UUID (Canonical Authority)
+  email: string; // Denormalised contact email only
+  first_name: string;
+  last_name: string;
+  organisation_id: string | null;
+  role: SupplierRole;
   status: 'ACTIVE' | 'SUSPENDED';
-  organisationId: string | null;
+  email_verified: boolean;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface SupplierOrganisationRecord {
@@ -42,7 +56,7 @@ export interface SupplierOrganisationRecord {
   tradingName: string | null;
   companyNumber: string | null;
   vatNumber: string | null;
-  ownerId: string;
+  ownerId: string; // auth_user_id of primary admin
   applicationReference: string;
   lifecycleStatus: SupplierLifecycleStatus;
   createdAt: string;
@@ -100,35 +114,16 @@ export interface SupplierApplicationDraft {
   updatedAt: string;
 }
 
-// ── Password Utilities (HMAC-SHA256 — consistent with existing auth pattern) ──
-
-const AUTH_SECRET =
-  process.env.ADMIN_PASSWORD || process.env.AUTH_SECRET || 'entirefm-unified-ops-secret-key-2026';
-
-/**
- * Hash a plain-text password with a random salt using HMAC-SHA256.
- * Returns `salt:hash` format.
- */
-export function hashPassword(plain: string): string {
-  const salt = randomBytes(16).toString('hex');
-  const hash = createHmac('sha256', AUTH_SECRET).update(`${salt}:${plain}`).digest('hex');
-  return `${salt}:${hash}`;
-}
-
-/**
- * Verify a plain-text password against a stored `salt:hash`.
- */
-export function verifyPassword(plain: string, stored: string): boolean {
-  const [salt, hash] = stored.split(':');
-  if (!salt || !hash) return false;
-  const expected = createHmac('sha256', AUTH_SECRET).update(`${salt}:${plain}`).digest('hex');
-  // Constant-time comparison
-  if (expected.length !== hash.length) return false;
-  let mismatch = 0;
-  for (let i = 0; i < expected.length; i++) {
-    mismatch |= expected.charCodeAt(i) ^ hash.charCodeAt(i);
-  }
-  return mismatch === 0;
+export interface SupplierInvitationRecord {
+  id: string;
+  organisationId: string;
+  email: string;
+  role: SupplierRole;
+  invitedByAuthId: string;
+  status: 'PENDING' | 'ACCEPTED' | 'REVOKED';
+  token: string;
+  createdAt: string;
+  expiresAt: string;
 }
 
 // ── Application Reference Generator ──────────────────────────────────────────
@@ -140,80 +135,131 @@ export function generateApplicationReference(): string {
   return `SUP-${yymmdd}-${rand}`;
 }
 
-// ── In-Memory Stores ──────────────────────────────────────────────────────────
+// ── In-Memory Domain Stores ───────────────────────────────────────────────────
 
-/** Email → SupplierAuthUser */
-const supplierUsersByEmail = new Map<string, SupplierAuthUser>();
-/** userId → SupplierAuthUser */
-const supplierUsersById = new Map<string, SupplierAuthUser>();
+/** auth_user_id (Supabase UUID) → SupplierUserRecord */
+const supplierUsersByAuthId = new Map<string, SupplierUserRecord>();
+/** normalized email → auth_user_id */
+const authIdByEmail = new Map<string, string>();
 /** orgId → SupplierOrganisationRecord */
 const supplierOrganisations = new Map<string, SupplierOrganisationRecord>();
 /** orgId → SupplierApplicationDraft */
 const supplierApplicationDrafts = new Map<string, SupplierApplicationDraft>();
+/** token / id → SupplierInvitationRecord */
+const supplierInvitations = new Map<string, SupplierInvitationRecord>();
 
-// ── User Operations ───────────────────────────────────────────────────────────
+// ── Supplier User Operations (Linked to Supabase Auth) ────────────────────────
 
-export interface CreateSupplierUserResult {
+export interface ProvisionSupplierUserResult {
   success: boolean;
-  user?: SupplierAuthUser;
+  user?: SupplierUserRecord;
   error?: string;
+  isNew?: boolean;
 }
 
-export async function createSupplierUser(
+/**
+ * Creates or idempotently links a supplier domain record for an authenticated Supabase user.
+ * ZERO password handling — authentication was already performed by Supabase.
+ */
+export async function createOrLinkSupplierUser(
+  authUserId: string,
   email: string,
-  plainPassword: string,
   firstName: string,
-  lastName: string
-): Promise<CreateSupplierUserResult> {
+  lastName: string,
+  role: SupplierRole = 'SUPPLIER_ADMIN',
+  emailVerified: boolean = false
+): Promise<ProvisionSupplierUserResult> {
   const normEmail = email.trim().toLowerCase();
+  const existing = supplierUsersByAuthId.get(authUserId);
 
-  if (supplierUsersByEmail.has(normEmail)) {
-    return { success: false, error: 'An account with this email address already exists. Please sign in.' };
+  if (existing) {
+    // Update contact metadata if changed
+    existing.email = normEmail;
+    existing.first_name = firstName.trim() || existing.first_name;
+    existing.last_name = lastName.trim() || existing.last_name;
+    existing.email_verified = emailVerified || existing.email_verified;
+    existing.updated_at = new Date().toISOString();
+    authIdByEmail.set(normEmail, authUserId);
+    return { success: true, user: existing, isNew: false };
   }
 
-  const passwordHash = hashPassword(plainPassword);
-  const id = `suser-${Date.now()}-${randomBytes(4).toString('hex')}`;
+  const domainUserId = `suser-${Date.now()}-${randomBytes(4).toString('hex')}`;
   const now = new Date().toISOString();
 
-  const user: SupplierAuthUser = {
-    id,
+  const user: SupplierUserRecord = {
+    id: domainUserId,
+    auth_user_id: authUserId,
     email: normEmail,
-    passwordHash,
-    firstName: firstName.trim(),
-    lastName: lastName.trim(),
-    createdAt: now,
-    emailVerified: false,
+    first_name: firstName.trim(),
+    last_name: lastName.trim(),
+    organisation_id: null,
+    role,
     status: 'ACTIVE',
-    organisationId: null,
+    email_verified: emailVerified,
+    created_at: now,
+    updated_at: now,
   };
 
-  supplierUsersByEmail.set(normEmail, user);
-  supplierUsersById.set(id, user);
+  supplierUsersByAuthId.set(authUserId, user);
+  authIdByEmail.set(normEmail, authUserId);
 
-  return { success: true, user };
+  // Check if user had any pending invitations
+  for (const inv of supplierInvitations.values()) {
+    if (inv.email === normEmail && inv.status === 'PENDING') {
+      user.organisation_id = inv.organisationId;
+      user.role = inv.role;
+      inv.status = 'ACCEPTED';
+      break;
+    }
+  }
+
+  return { success: true, user, isNew: true };
 }
 
-export async function findSupplierByEmail(email: string): Promise<SupplierAuthUser | null> {
-  return supplierUsersByEmail.get(email.trim().toLowerCase()) || null;
+export async function getSupplierUserByAuthId(
+  authUserId: string
+): Promise<SupplierUserRecord | null> {
+  return supplierUsersByAuthId.get(authUserId) || null;
 }
 
-export async function findSupplierById(id: string): Promise<SupplierAuthUser | null> {
-  return supplierUsersById.get(id) || null;
+export async function getSupplierUserByEmail(
+  email: string
+): Promise<SupplierUserRecord | null> {
+  const authId = authIdByEmail.get(email.trim().toLowerCase());
+  if (!authId) return null;
+  return supplierUsersByAuthId.get(authId) || null;
 }
 
-export async function markEmailVerified(userId: string): Promise<void> {
-  const user = supplierUsersById.get(userId);
+export async function setSupplierUserEmailVerified(
+  authUserId: string,
+  verified: boolean = true
+): Promise<void> {
+  const user = supplierUsersByAuthId.get(authUserId);
   if (user) {
-    user.emailVerified = true;
-    supplierUsersByEmail.set(user.email, user);
+    user.email_verified = verified;
+    user.updated_at = new Date().toISOString();
   }
 }
 
-export async function updateUserOrganisation(userId: string, orgId: string): Promise<void> {
-  const user = supplierUsersById.get(userId);
+export async function setSupplierUserOrganisation(
+  authUserId: string,
+  orgId: string
+): Promise<void> {
+  const user = supplierUsersByAuthId.get(authUserId);
   if (user) {
-    user.organisationId = orgId;
-    supplierUsersByEmail.set(user.email, user);
+    user.organisation_id = orgId;
+    user.updated_at = new Date().toISOString();
+  }
+}
+
+export async function setSupplierUserStatus(
+  authUserId: string,
+  status: 'ACTIVE' | 'SUSPENDED'
+): Promise<void> {
+  const user = supplierUsersByAuthId.get(authUserId);
+  if (user) {
+    user.status = status;
+    user.updated_at = new Date().toISOString();
   }
 }
 
@@ -227,7 +273,7 @@ export interface CreateOrganisationResult {
 }
 
 export async function createSupplierOrganisation(
-  ownerId: string,
+  ownerAuthUserId: string,
   legalName: string,
   tradingName?: string,
   companyNumber?: string
@@ -246,7 +292,7 @@ export async function createSupplierOrganisation(
     }
   }
 
-  // Fuzzy duplicate check by legal name
+  // Duplicate check by legal name
   const normName = legalName.trim().toLowerCase();
   for (const org of supplierOrganisations.values()) {
     if (org.legalName.trim().toLowerCase() === normName) {
@@ -267,7 +313,7 @@ export async function createSupplierOrganisation(
     tradingName: tradingName?.trim() || null,
     companyNumber: companyNumber?.trim() || null,
     vatNumber: null,
-    ownerId,
+    ownerId: ownerAuthUserId,
     applicationReference: generateApplicationReference(),
     lifecycleStatus: 'REGISTERED',
     createdAt: now,
@@ -277,7 +323,7 @@ export async function createSupplierOrganisation(
   supplierOrganisations.set(orgId, organisation);
 
   // Link user to organisation
-  await updateUserOrganisation(ownerId, orgId);
+  await setSupplierUserOrganisation(ownerAuthUserId, orgId);
 
   return { success: true, organisation };
 }
@@ -303,8 +349,7 @@ export async function updateOrganisationLifecycle(
 
 /**
  * Idempotent: returns existing draft or creates a blank one.
- * Blank initial state — no mock data, no pre-population except
- * legitimate org-setup fields.
+ * Blank initial state — no mock data, populated only with legitimate org data.
  */
 export async function getOrCreateApplicationDraft(
   orgId: string
@@ -320,7 +365,6 @@ export async function getOrCreateApplicationDraft(
     applicationReference: org?.applicationReference || generateApplicationReference(),
     currentStep: 1,
     lifecycleStatus: 'DRAFT',
-    // Only pre-populate from legitimate org-setup data
     legalCompanyName: org?.legalName || '',
     tradingName: org?.tradingName || '',
     companyNumber: org?.companyNumber || '',
@@ -369,8 +413,7 @@ export async function getOrCreateApplicationDraft(
 
   supplierApplicationDrafts.set(orgId, draft);
 
-  // Transition org to DRAFT status
-  if (org) {
+  if (org && org.lifecycleStatus === 'REGISTERED') {
     org.lifecycleStatus = 'DRAFT';
     org.updatedAt = now;
   }
@@ -403,11 +446,11 @@ export type ResumeDestination =
   | '/supplier-portal/actions'
   | '/supplier-portal';
 
-export async function resolveResumeDestination(userId: string): Promise<ResumeDestination> {
-  const user = supplierUsersById.get(userId);
-  if (!user || !user.organisationId) return '/supplier-portal/org-setup';
+export async function resolveResumeDestination(authUserId: string): Promise<ResumeDestination> {
+  const user = supplierUsersByAuthId.get(authUserId);
+  if (!user || !user.organisation_id) return '/supplier-portal/org-setup';
 
-  const org = supplierOrganisations.get(user.organisationId);
+  const org = supplierOrganisations.get(user.organisation_id);
   if (!org) return '/supplier-portal/org-setup';
 
   switch (org.lifecycleStatus) {
@@ -488,4 +531,46 @@ export function getPortalStatusDisplay(
         isApproved: false,
       };
   }
+}
+
+// ── Supplier Team Invitation Operations ───────────────────────────────────────
+
+export async function inviteSupplierUser(
+  inviterAuthUserId: string,
+  orgId: string,
+  email: string,
+  role: SupplierRole
+): Promise<{ success: boolean; invitation?: SupplierInvitationRecord; error?: string }> {
+  const normEmail = email.trim().toLowerCase();
+  const token = randomBytes(24).toString('hex');
+  const now = new Date();
+  const expiresAt = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString();
+
+  const invitation: SupplierInvitationRecord = {
+    id: `inv-${Date.now()}`,
+    organisationId: orgId,
+    email: normEmail,
+    role,
+    invitedByAuthId: inviterAuthUserId,
+    status: 'PENDING',
+    token,
+    createdAt: now.toISOString(),
+    expiresAt,
+  };
+
+  supplierInvitations.set(token, invitation);
+
+  // If user already exists, link immediately
+  const existingUser = await getSupplierUserByEmail(normEmail);
+  if (existingUser) {
+    existingUser.organisation_id = orgId;
+    existingUser.role = role;
+    invitation.status = 'ACCEPTED';
+  }
+
+  return { success: true, invitation };
+}
+
+export async function listSupplierUsersByOrg(orgId: string): Promise<SupplierUserRecord[]> {
+  return Array.from(supplierUsersByAuthId.values()).filter((u) => u.organisation_id === orgId);
 }

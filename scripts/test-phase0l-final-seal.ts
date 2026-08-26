@@ -98,14 +98,14 @@ async function main() {
 
     // Create test site, asset and source
     await pgClient.query(`
-      INSERT INTO sites (id, organisation_id, name, address_line1, city, postal_code, status, is_active)
-      VALUES ($1, $2, 'Seal Test Site', '100 Seal Way', 'Manchester', 'M1 1AA', 'ACTIVE', true)
+      INSERT INTO sites (id, organisation_id, site_code, name, address_line1, city, postcode, status)
+      VALUES ($1, $2, 'SITE_SEAL_001', 'Seal Test Site', '100 Seal Way', 'Manchester', 'M1 1AA', 'ACTIVE')
       ON CONFLICT (id) DO NOTHING
     `, [testSiteId, testOrgId]);
 
     await pgClient.query(`
-      INSERT INTO assets (id, site_id, name, asset_class, condition, status, is_active)
-      VALUES ($1, $2, 'Seal Test Chiller', 'CHILLER', 'GOOD', 'OPERATIONAL', true)
+      INSERT INTO assets (id, site_id, asset_reference, name, category, condition, status)
+      VALUES ($1, $2, 'AST_SEAL_001', 'Seal Test Chiller', 'CHILLER', 'GOOD', 'OPERATIONAL')
       ON CONFLICT (id) DO NOTHING
     `, [testAssetId, testSiteId]);
 
@@ -328,10 +328,10 @@ async function main() {
     assert('Model version created in DRAFT', version.status === 'DRAFT');
 
     // Progress DRAFT -> VALIDATING -> SHADOW
-    const p1 = await promoteModelVersion(version.id, 'VALIDATING', { reviewer_id: 'SYSTEM', reviewer_name: 'AutoValidator', notes: 'Metrics valid' });
+    const p1 = await promoteModelVersion(version.id, 'VALIDATING', { reviewer_id: '00000000-0000-0000-0000-000000000000', reviewer_name: 'AutoValidator', notes: 'Metrics valid' });
     assert('Model promoted to VALIDATING', p1.status === 'VALIDATING');
 
-    const p2 = await promoteModelVersion(version.id, 'SHADOW', { reviewer_id: 'SYSTEM', reviewer_name: 'PilotLead', notes: 'Deploying to shadow' });
+    const p2 = await promoteModelVersion(version.id, 'SHADOW', { reviewer_id: '00000000-0000-0000-0000-000000000000', reviewer_name: 'PilotLead', notes: 'Deploying to shadow' });
     assert('Model promoted to SHADOW', p2.status === 'SHADOW');
 
     // ─── 11. SHADOW PREDICTIONS & OUTCOMES ──────────────────────────────
@@ -372,7 +372,7 @@ async function main() {
     section('12. Mandatory Human Approval for SHADOW → ASSIST');
 
     const assistPromotion = await promoteModelVersion(version.id, 'ASSIST', {
-      reviewer_id: 'USER_ADMIN_01',
+      reviewer_id: '00000000-0000-0000-0000-000000000001',
       reviewer_name: 'Lead Reliability Engineer',
       notes: 'Pilot performance metrics and outcomes verified. Approved for human-in-the-loop ASSIST.',
     });
@@ -455,8 +455,8 @@ async function main() {
     await pgClient.query(`DELETE FROM predictive_reviews WHERE asset_id = $1`, [testAssetId]);
     await pgClient.query(`DELETE FROM predictive_prediction_outcomes WHERE asset_id = $1`, [testAssetId]);
     await pgClient.query(`DELETE FROM predictive_predictions WHERE asset_id = $1`, [testAssetId]);
-    await pgClient.query(`DELETE FROM predictive_model_approvals WHERE notes LIKE '%${testRunId}%' OR reviewer_id='USER_ADMIN_01'`);
-    await pgClient.query(`DELETE FROM predictive_model_versions WHERE hyperparameters::text LIKE '%${testRunId}%' OR model_id IN (SELECT id FROM predictive_models WHERE name LIKE '%${testRunId}%')`);
+    await pgClient.query(`DELETE FROM predictive_model_approvals WHERE notes LIKE '%${testRunId}%' OR reviewer_name='Lead Reliability Engineer'`);
+    await pgClient.query(`DELETE FROM predictive_model_versions WHERE model_id IN (SELECT id FROM predictive_models WHERE name LIKE '%${testRunId}%')`);
     await pgClient.query(`DELETE FROM predictive_models WHERE name LIKE '%${testRunId}%'`);
     await pgClient.query(`DELETE FROM predictive_training_datasets WHERE name LIKE '%${testRunId}%'`);
     await pgClient.query(`DELETE FROM telemetry_aggregates WHERE asset_id = $1`, [testAssetId]);

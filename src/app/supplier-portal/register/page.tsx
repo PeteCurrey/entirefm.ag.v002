@@ -59,17 +59,16 @@ export default function SupplierRegisterPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
-        redirect: 'manual',
       });
 
-      if (res.type === 'opaqueredirect' || res.status === 303 || res.ok) {
-        // Registration succeeded — follow the redirect
-        window.location.href = '/supplier-portal/verify-email';
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success) {
+        window.location.href = data.redirectUrl || `/supplier-portal/verify-email?email=${encodeURIComponent(form.email)}`;
         return;
       }
 
-      const data = await res.json().catch(() => ({ errors: ['Registration failed. Please try again.'] }));
-      setErrors(data.errors || [data.error || 'Registration failed.']);
+      setErrors(data.errors || [data.error || 'Registration failed. Please verify your details and try again.']);
     } catch {
       setErrors(['Network error. Please check your connection and try again.']);
     } finally {

@@ -1,13 +1,13 @@
 /**
  * POST /api/supplier/auth/forgot-password
  * ========================================
- * Accepts supplier email and returns a confirmation.
- * In production this would send a reset link via email provider.
- * For this phase: returns confirmation UI state.
+ * Trigger secure password recovery using Supabase Auth (Canonical Authority).
+ * EntireFM does NOT generate reset tokens or email passwords.
+ * Supabase handles secure recovery link delivery.
  */
 
 import { NextResponse } from 'next/server';
-import { findSupplierByEmail } from '@/server/suppliers/supplier-auth-store';
+import { supabaseRecoverPassword } from '@/server/auth/supabase-auth';
 
 export async function POST(request: Request) {
   try {
@@ -25,11 +25,14 @@ export async function POST(request: Request) {
       );
     }
 
-    // Constant-time: always respond the same way regardless of whether account exists
-    await new Promise((r) => setTimeout(r, 400));
+    const host = request.headers.get('host') || 'localhost:3000';
+    const proto = request.headers.get('x-forwarded-proto') || 'http';
+    const redirectTo = `${proto}://${host}/supplier-portal/reset-password`;
 
-    // In production: send reset link via email provider
-    // For this phase: return confirmation state
+    // 1. Delegate recovery to Supabase Auth
+    await supabaseRecoverPassword(email, redirectTo);
+
+    // 2. Safe enumeration-free response
     const maskedEmail = email.replace(/(.{2}).+(@.+)/, '$1•••$2');
     const encodedEmail = encodeURIComponent(maskedEmail);
 
@@ -37,8 +40,8 @@ export async function POST(request: Request) {
       new URL(`/supplier-portal/forgot-password?sent=1&to=${encodedEmail}`, request.url),
       { status: 303 }
     );
-  } catch (err) {
-    console.error('Forgot password error:', err);
+  } catch (err: any) {
+    console.error('[SUPPLIER_FORGOT_PASSWORD] Error:', err);
     return NextResponse.redirect(
       new URL('/supplier-portal/forgot-password?error=server', request.url),
       { status: 303 }

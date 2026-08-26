@@ -59,11 +59,12 @@ export function middleware(request: NextRequest) {
   const isPrivateContractor = pathname === '/contractor' || pathname.startsWith('/contractor/');
   const isPrivateEngineer = pathname === '/engineer' || pathname.startsWith('/engineer/');
 
-  // Supplier portal auth-free routes (registration, sign-in, forgot-password)
+  // Supplier portal auth-free routes (registration, sign-in, forgot-password, reset-password, verify-email)
   const SUPPLIER_PUBLIC_PATHS = [
     '/supplier-portal/register',
     '/supplier-portal/sign-in',
     '/supplier-portal/forgot-password',
+    '/supplier-portal/reset-password',
     '/supplier-portal/verify-email',
     '/supplier-portal/org-setup',
   ];

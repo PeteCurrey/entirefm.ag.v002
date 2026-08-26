@@ -1,14 +1,16 @@
 /**
  * POST /api/supplier/auth/signin
  * ==============================
- * Authenticate a supplier user by email + password.
- * Sets session cookie and resolves lifecycle-aware redirect.
+ * Authenticate a supplier user using Supabase Auth (Canonical Authority).
+ * EntireFM does NOT compare or store passwords.
+ * Sets session cookie on successful verification and resolves lifecycle destination.
  */
 
 import { NextResponse } from 'next/server';
+import { supabaseSignIn } from '@/server/auth/supabase-auth';
 import {
-  findSupplierByEmail,
-  verifyPassword,
+  createOrLinkSupplierUser,
+  getSupplierUserByAuthId,
   resolveResumeDestination,
 } from '@/server/suppliers/supplier-auth-store';
 import {
@@ -37,42 +39,68 @@ export async function POST(request: Request) {
       );
     }
 
-    const user = await findSupplierByEmail(email);
+    // 1. Authenticate with Supabase Auth
+    const { data: authSession, error: authError } = await supabaseSignIn(email, password);
 
-    if (!user || !verifyPassword(password, user.passwordHash)) {
-      // Constant-time response regardless of whether user exists
-      await new Promise((r) => setTimeout(r, 350));
+    if (authError || !authSession?.user) {
       return NextResponse.redirect(
         new URL('/supplier-portal/sign-in?error=invalid_credentials', request.url),
         { status: 303 }
       );
     }
 
-    if (user.status !== 'ACTIVE') {
+    const authUser = authSession.user;
+    const isEmailConfirmed = !!authUser.email_confirmed_at;
+
+    // 2. Resolve or Idempotently Provision Supplier Domain Identity
+    let supplierUser = await getSupplierUserByAuthId(authUser.id);
+    if (!supplierUser) {
+      const meta = authUser.user_metadata || {};
+      const provResult = await createOrLinkSupplierUser(
+        authUser.id,
+        email,
+        meta.first_name || 'Supplier',
+        meta.last_name || 'User',
+        'SUPPLIER_ADMIN',
+        isEmailConfirmed
+      );
+      supplierUser = provResult.user || null;
+    }
+
+    if (!supplierUser) {
+      return NextResponse.redirect(
+        new URL('/supplier-portal/sign-in?error=provisioning_failed', request.url),
+        { status: 303 }
+      );
+    }
+
+    if (supplierUser.status === 'SUSPENDED') {
       return NextResponse.redirect(
         new URL('/supplier-portal/sign-in?error=account_suspended', request.url),
         { status: 303 }
       );
     }
 
+    // 3. Build Unified Session
     const session = {
-      personId: user.id,
-      email: user.email,
-      name: `${user.firstName} ${user.lastName}`.trim(),
-      role: 'SUPPLIER_ADMIN' as const,
-      orgId: user.organisationId || user.id,
-      orgName: 'Supplier',
+      personId: authUser.id,
+      authUserId: authUser.id,
+      email: supplierUser.email,
+      name: `${supplierUser.first_name} ${supplierUser.last_name}`.trim(),
+      role: supplierUser.role,
+      orgId: supplierUser.organisation_id || authUser.id,
+      orgName: 'Supplier Organisation',
       orgType: 'SUPPLIER' as const,
       activeApplication: 'ADMIN' as const,
-      permissions: getRolePermissions('SUPPLIER_ADMIN' as any),
+      permissions: getRolePermissions(supplierUser.role as any),
       scopes: [],
       expiresAt: Date.now() + SUPPLIER_SESSION_MAX_AGE * 1000,
     };
 
     const token = createSessionToken(session as any);
 
-    // Resolve lifecycle-aware destination
-    const destination = redirectParam || (await resolveResumeDestination(user.id));
+    // 4. Resolve lifecycle-aware destination
+    const destination = redirectParam || (await resolveResumeDestination(authUser.id));
 
     const response = NextResponse.redirect(new URL(destination, request.url), { status: 303 });
 
@@ -85,8 +113,8 @@ export async function POST(request: Request) {
     });
 
     return response;
-  } catch (err) {
-    console.error('Supplier sign-in error:', err);
+  } catch (err: any) {
+    console.error('[SUPPLIER_SIGNIN] Unexpected error:', err);
     return NextResponse.redirect(
       new URL('/supplier-portal/sign-in?error=server', request.url),
       { status: 303 }

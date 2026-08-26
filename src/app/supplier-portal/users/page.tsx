@@ -1,6 +1,7 @@
 import React from 'react';
 import { Users, UserPlus } from 'lucide-react';
 import { getCurrentSession } from '@/server/identity';
+import { listSupplierUsersByOrg } from '@/server/suppliers/supplier-auth-store';
 
 export const metadata = {
   title: 'Supplier Team & Users | EntireFM Partner Network',
@@ -10,19 +11,34 @@ export const metadata = {
 export default async function SupplierUsersPage() {
   const session = await getCurrentSession();
 
-  // Portal users scoped to this organisation only — no mock data
-  const users = session
-    ? [
-        {
-          id: session.personId,
-          name: session.name,
-          email: session.email,
-          role: 'SUPPLIER_ADMIN',
-          status: 'ACTIVE',
-          lastLogin: 'Just now',
-        },
-      ]
-    : [];
+  let orgUsers: any[] = [];
+  if (session?.orgId && session.orgId !== session.personId) {
+    const list = await listSupplierUsersByOrg(session.orgId);
+    orgUsers = list.map((u) => ({
+      id: u.id,
+      name: `${u.first_name} ${u.last_name}`.trim(),
+      email: u.email,
+      role: u.role,
+      status: u.status,
+      lastLogin: 'Active',
+    }));
+  }
+
+  // Fallback to current session user if org listing is empty
+  const users = orgUsers.length > 0
+    ? orgUsers
+    : (session
+        ? [
+            {
+              id: session.personId,
+              name: session.name,
+              email: session.email,
+              role: session.role || 'SUPPLIER_ADMIN',
+              status: 'ACTIVE',
+              lastLogin: 'Just now',
+            },
+          ]
+        : []);
 
   return (
     <div className="space-y-8">
@@ -52,7 +68,7 @@ export default async function SupplierUsersPage() {
               <th className="p-3.5">Email</th>
               <th className="p-3.5">Role</th>
               <th className="p-3.5">Status</th>
-              <th className="p-3.5">Last Login</th>
+              <th className="p-3.5">Access State</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-200">

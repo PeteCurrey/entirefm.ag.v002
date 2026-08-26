@@ -9,14 +9,13 @@
 import { NextResponse } from 'next/server';
 import {
   createSupplierOrganisation,
-  findSupplierById,
+  getSupplierUserByAuthId,
   getOrCreateApplicationDraft,
 } from '@/server/suppliers/supplier-auth-store';
 import {
   AUTH_COOKIE_NAME,
   createSessionToken,
   verifySessionToken,
-  getRolePermissions,
 } from '@/server/identity';
 import { cookies } from 'next/headers';
 
@@ -28,7 +27,7 @@ export async function POST(request: Request) {
     const token = jar.get(AUTH_COOKIE_NAME)?.value;
     const session = verifySessionToken(token);
 
-    if (!session || session.orgType !== 'SUPPLIER') {
+    if (!session || (session.orgType as string) !== 'SUPPLIER') {
       return NextResponse.json({ success: false, error: 'Authentication required.' }, { status: 401 });
     }
 
@@ -42,24 +41,24 @@ export async function POST(request: Request) {
       );
     }
 
-    const user = await findSupplierById(session.personId);
+    const user = await getSupplierUserByAuthId(session.personId);
     if (!user) {
       return NextResponse.json({ success: false, error: 'User account not found.' }, { status: 404 });
     }
 
     // Idempotent: if user already has an org, return it
-    if (user.organisationId) {
-      const draft = await getOrCreateApplicationDraft(user.organisationId);
+    if (user.organisation_id) {
+      const draft = await getOrCreateApplicationDraft(user.organisation_id);
       return NextResponse.json({
         success: true,
-        orgId: user.organisationId,
+        orgId: user.organisation_id,
         applicationReference: draft.applicationReference,
         alreadyExists: true,
       });
     }
 
     const result = await createSupplierOrganisation(
-      user.id,
+      user.auth_user_id,
       legalName.trim(),
       tradingName?.trim(),
       companyNumber?.trim()
@@ -105,8 +104,8 @@ export async function POST(request: Request) {
     });
 
     return response;
-  } catch (err) {
-    console.error('Org create error:', err);
+  } catch (err: any) {
+    console.error('[SUPPLIER_ORG_CREATE] Error:', err);
     return NextResponse.json(
       { success: false, error: 'An unexpected error occurred.' },
       { status: 500 }
