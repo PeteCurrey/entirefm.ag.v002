@@ -20,10 +20,10 @@ export function AssuranceFrameworkGraphic() {
 
         {/* Formula Representation */}
         <div className="mb-14 p-6 sm:p-8 bg-[#FAF9FB] border border-slate-200 rounded-sm">
-          <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-4">
+          <p className="text-[11px] font-light uppercase tracking-wider text-slate-500 mb-4">
             PROPORTIONATE ASSURANCE FORMULA
           </p>
-          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm font-mono text-slate-800">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm font-light text-slate-800">
             <span className="px-3 py-1.5 bg-white border border-slate-300 rounded-sm font-light text-slate-900">
               Supplier Type
             </span>
@@ -54,7 +54,7 @@ export function AssuranceFrameworkGraphic() {
               <div className="w-10 h-10 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                 <FileCheck className="h-5 w-5" />
               </div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">PILLAR 01</span>
+              <span className="text-[10px] font-light uppercase tracking-wider text-slate-400">PILLAR 01</span>
               <h3 className="text-base font-light text-slate-900">Corporate &amp; Financial Verification</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-light">
                 Companies House standing, registered trading details, director verification, operational history, VAT &amp; tax compliance, and commercial bank validation.
@@ -78,7 +78,7 @@ export function AssuranceFrameworkGraphic() {
               <div className="w-10 h-10 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                 <ShieldCheck className="h-5 w-5" />
               </div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">PILLAR 02</span>
+              <span className="text-[10px] font-light uppercase tracking-wider text-slate-400">PILLAR 02</span>
               <h3 className="text-base font-light text-slate-900">Insurance Thresholds &amp; Indemnity</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-light">
                 Mandatory £5M–£20M Public Liability, £10M Employers Liability, Professional Indemnity for design scopes, and motor fleet cover verified on policy renewal.
@@ -102,7 +102,7 @@ export function AssuranceFrameworkGraphic() {
               <div className="w-10 h-10 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                 <ShieldAlert className="h-5 w-5" />
               </div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">PILLAR 03</span>
+              <span className="text-[10px] font-light uppercase tracking-wider text-slate-400">PILLAR 03</span>
               <h3 className="text-base font-light text-slate-900">Health, Safety &amp; SSIP Schemes</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-light">
                 H&amp;S policy appraisal, RAMS methodology review, RIDDOR reporting history, COSHH documentation, and SSIP accreditation (CHAS, SafeContractor, SMAS).
@@ -126,7 +126,7 @@ export function AssuranceFrameworkGraphic() {
               <div className="w-10 h-10 rounded-sm bg-slate-900 text-white flex items-center justify-center">
                 <Award className="h-5 w-5" />
               </div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">PILLAR 04</span>
+              <span className="text-[10px] font-light uppercase tracking-wider text-slate-400">PILLAR 04</span>
               <h3 className="text-base font-light text-slate-900">Technical Competence &amp; Licences</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-light">
                 Direct trade accreditations: Gas Safe, NICEIC/NAPIT, F-Gas/REFCOM, IRATA rope access, IPAF, PASMA, manufacturer OEM tickets, and CSCS/ECS cards.

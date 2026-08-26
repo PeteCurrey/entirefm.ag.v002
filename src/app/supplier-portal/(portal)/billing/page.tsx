@@ -35,10 +35,10 @@ export default async function SupplierPortalBillingPage() {
   return (
     <div className="space-y-8">
       <div>
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+        <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
           COMMERCIAL FINANCE &amp; LEDGER
         </span>
-        <h1 className="text-2xl font-bold text-slate-900 mt-1">
+        <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
           Invoices &amp; Commercial Billing
         </h1>
         <p className="text-xs text-slate-500 font-light mt-1">
@@ -49,25 +49,25 @@ export default async function SupplierPortalBillingPage() {
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">OUTSTANDING BALANCE</span>
-          <div className="text-2xl font-mono font-bold text-emerald-600">£0.00</div>
-          <span className="text-[10.5px] text-slate-500 font-mono">Account up to date</span>
+          <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">OUTSTANDING BALANCE</span>
+          <div className="text-2xl font-medium text-emerald-600">£0.00</div>
+          <span className="text-[10.5px] text-slate-500 font-light">Account up to date</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">ASSURANCE PAYMENT</span>
-          <div className="text-xl font-mono font-bold text-slate-900">
+          <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">ASSURANCE PAYMENT</span>
+          <div className="text-xl font-light text-slate-900">
             {draft?.assurance_payment?.status === 'PAID' ? 'Settled' : 'Pending Review'}
           </div>
-          <span className="text-[10.5px] text-slate-500 font-mono">
+          <span className="text-[10.5px] text-slate-500 font-light">
             {draft?.assurance_payment?.status === 'PAID' ? '£350.00 + VAT Paid' : 'Due prior to technical review'}
           </span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">ACCOUNT CONTACT</span>
+          <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">ACCOUNT CONTACT</span>
           <div className="text-xs font-bold text-slate-900 truncate font-sans">{financeContactName}</div>
-          <span className="text-[10.5px] text-slate-500 font-mono truncate">{financeContactEmail}</span>
+          <span className="text-[10.5px] text-slate-500 font-light truncate">{financeContactEmail}</span>
         </div>
       </div>
 
@@ -77,13 +77,13 @@ export default async function SupplierPortalBillingPage() {
           <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 font-sans">
             Commercial Partner Invoices
           </h3>
-          <span className="text-xs font-mono text-slate-500">{invoices.length} Total Record(s)</span>
+          <span className="text-xs font-light text-slate-500">{invoices.length} Total Record(s)</span>
         </div>
 
         {invoices.length > 0 ? (
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs font-mono">
-              <thead className="bg-slate-900 text-white font-mono uppercase text-[10px]">
+            <table className="w-full text-left border-collapse text-xs font-light">
+              <thead className="bg-slate-900 text-white font-light uppercase tracking-wider text-[10px]">
                 <tr>
                   <th className="p-3">Invoice #</th>
                   <th className="p-3">Description</th>
@@ -101,7 +101,7 @@ export default async function SupplierPortalBillingPage() {
                     <td className="p-3 text-slate-500">{inv.issued}</td>
                     <td className="p-3 font-bold text-slate-900">£{inv.totalGbp.toFixed(2)}</td>
                     <td className="p-3">
-                      <span className="bg-emerald-100 text-emerald-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                      <span className="bg-emerald-100 text-emerald-800 text-[10.5px] font-light px-2 py-0.5 rounded font-bold">
                         {inv.status}
                       </span>
                     </td>

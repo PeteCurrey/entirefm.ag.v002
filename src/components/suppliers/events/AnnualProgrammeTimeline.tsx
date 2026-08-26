@@ -68,7 +68,7 @@ export function AnnualProgrammeTimeline() {
             </p>
           </div>
 
-          <div className="text-xs text-slate-500 font-mono bg-white px-3.5 py-2 rounded-xs border border-slate-200 shadow-2xs shrink-0 self-start lg:self-auto">
+          <div className="text-xs text-slate-500 font-light bg-white px-3.5 py-2 rounded-xs border border-slate-200 shadow-2xs shrink-0 self-start lg:self-auto">
             * 2026/2027 Indicative Rhythm
           </div>
         </div>
@@ -82,16 +82,16 @@ export function AnnualProgrammeTimeline() {
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                  <span className="text-2xl font-light font-mono text-brand-pink">
+                  <span className="text-2xl font-light text-brand-pink">
                     {q.period}
                   </span>
-                  <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">
+                  <span className="text-[10px] font-light text-slate-400 uppercase tracking-wider">
                     {q.season}
                   </span>
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-mono uppercase text-slate-500 block mb-1">
+                  <span className="text-[11px] font-light uppercase tracking-wider text-slate-500 block mb-1">
                     {q.primaryTheme}
                   </span>
                   <h3 className="text-base font-medium text-slate-900 leading-snug group-hover:text-brand-pink transition-colors">
@@ -104,7 +104,7 @@ export function AnnualProgrammeTimeline() {
               </div>
 
               <div className="pt-4 border-t border-slate-100 space-y-1.5">
-                <span className="text-[10px] font-mono uppercase text-slate-400 block font-light">
+                <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 block font-light">
                   Quarterly Focus Topics:
                 </span>
                 {q.disciplines.map((d, idx) => (

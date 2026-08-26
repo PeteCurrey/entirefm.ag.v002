@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Calendar, Users, ShieldCheck, MapPin, ArrowRight, Phone } from 'lucide-react';
+import { ArrowRight, Calendar, Users, History } from 'lucide-react';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 
 export function EventHero() {
@@ -34,69 +34,70 @@ export function EventHero() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/10 border border-white/15 backdrop-blur-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-pink animate-pulse" />
             <span className="text-[11px] font-normal uppercase tracking-wider text-brand-pink-light">
-              ENTIREFM PARTNER NETWORK PROGRAMME
+              ENTIREFM PARTNER NETWORK &amp; EVENTS HUB
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.12]">
-            Better supplier relationships don’t happen through email alone.
+            Better supplier relationships happen face to face.
           </h1>
 
           <p className="text-base sm:text-xl text-brand-mist/90 font-light leading-relaxed max-w-3xl">
-            The EntireFM Partner Network is built around direct engagement, technical discussion, supplier development and practical collaboration between contractors, OEMs, facilities leaders, and our central operations team.
+            From technical training and manufacturer days to supplier breakfasts and informal industry evenings, EntireFM has long invested time in building relationships beyond individual work orders. Our Partner Network now gives that engagement a more structured platform.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-4">
             <a
-              href="#event-interest"
+              href="#past-events"
               onClick={(e) => {
                 e.preventDefault();
-                document.querySelector('#event-interest')?.scrollIntoView({ behavior: 'smooth' });
+                document.querySelector('#past-events')?.scrollIntoView({ behavior: 'smooth' });
               }}
               className="btn-hero-pink text-xs py-3.5 px-6 inline-flex items-center gap-2"
             >
-              <span>Register Interest in Partner Events</span>
-              <ArrowRight className="w-4 h-4" />
+              <History className="w-4 h-4" />
+              <span>View Past Events</span>
             </a>
 
             <a
-              href="#event-programme"
+              href="#upcoming-events"
               onClick={(e) => {
                 e.preventDefault();
-                document.querySelector('#event-programme')?.scrollIntoView({ behavior: 'smooth' });
+                document.querySelector('#upcoming-events')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="btn-ghost-light text-xs py-3.5 px-6"
+              className="btn-ghost-light text-xs py-3.5 px-6 inline-flex items-center gap-2"
             >
-              Explore 2026/2027 Programme
+              <Calendar className="w-4 h-4" />
+              <span>Upcoming Programme</span>
             </a>
           </div>
 
           {/* Operational Proof Points */}
           <div className="pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="p-4 rounded-sm bg-white/[0.04] border border-white/10 backdrop-blur-sm">
-              <span className="text-[10.5px] font-mono uppercase text-brand-pink-light block mb-1">
-                8 EVENT FORMATS
+              <span className="text-[10.5px] font-light uppercase tracking-wider text-brand-pink-light block mb-1">
+                HISTORICAL COLLABORATION
               </span>
               <span className="text-sm font-light text-white">
-                Technical Breakfasts to OEM Sessions
+                Years of Supplier, OEM &amp; Training Sessions
               </span>
             </div>
 
             <div className="p-4 rounded-sm bg-white/[0.04] border border-white/10 backdrop-blur-sm">
-              <span className="text-[10.5px] font-mono uppercase text-brand-pink-light block mb-1">
-                REGIONAL PROGRAMME
+              <span className="text-[10.5px] font-light uppercase tracking-wider text-brand-pink-light block mb-1">
+                STRUCTURED EVOLUTION
               </span>
               <span className="text-sm font-light text-white">
-                London, Manchester, Midlands &amp; Yorkshire
+                Formalised via EntireFM Partner Network
               </span>
             </div>
 
             <div className="p-4 rounded-sm bg-white/[0.04] border border-white/10 backdrop-blur-sm">
-              <span className="text-[10.5px] font-mono uppercase text-brand-pink-light block mb-1">
-                PROCUREMENT INDEPENDENCE
+              <span className="text-[10.5px] font-light uppercase tracking-wider text-brand-pink-light block mb-1">
+                REGIONAL HUBS
               </span>
               <span className="text-sm font-light text-white">
-                100% Assurance &amp; Fair Allocation
+                London, Manchester, Yorkshire &amp; Midlands
               </span>
             </div>
           </div>

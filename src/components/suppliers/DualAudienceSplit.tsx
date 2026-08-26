@@ -31,11 +31,11 @@ export function DualAudienceSplit() {
                     <ShieldCheck className="h-5 w-5" />
                   </div>
                   <div>
-                    <span className="text-[10.5px] font-mono uppercase tracking-widest text-slate-500">FOR PROPERTY DIRECTORS &amp; ESTATES</span>
+                    <span className="text-[10.5px] font-light uppercase tracking-wider text-slate-500">FOR PROPERTY DIRECTORS &amp; ESTATES</span>
                     <h3 className="text-xl font-light text-slate-900">Total Supply Chain Assurance</h3>
                   </div>
                 </div>
-                <span className="hidden sm:inline-block text-[11px] font-mono px-2.5 py-1 bg-slate-100 text-slate-700 rounded-sm">
+                <span className="hidden sm:inline-block text-[11.5px] font-light px-2.5 py-1 bg-slate-100 text-slate-700 rounded-sm">
                   CLIENT VALUE
                 </span>
               </div>
@@ -79,11 +79,11 @@ export function DualAudienceSplit() {
                     <TrendingUp className="h-5 w-5" />
                   </div>
                   <div>
-                    <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-mist/60">FOR CONTRACTORS, SMES &amp; OEMS</span>
+                    <span className="text-[10.5px] font-light uppercase tracking-wider text-brand-mist/60">FOR CONTRACTORS, SMES &amp; OEMS</span>
                     <h3 className="text-xl font-light text-white">Commercial Growth &amp; Structured Work</h3>
                   </div>
                 </div>
-                <span className="hidden sm:inline-block text-[11px] font-mono px-2.5 py-1 bg-white/10 text-brand-mist/90 rounded-sm">
+                <span className="hidden sm:inline-block text-[11.5px] font-light px-2.5 py-1 bg-white/10 text-brand-mist/90 rounded-sm">
                   SUPPLIER VALUE
                 </span>
               </div>

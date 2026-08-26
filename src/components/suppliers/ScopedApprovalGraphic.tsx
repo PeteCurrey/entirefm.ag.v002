@@ -5,7 +5,7 @@ export function ScopedApprovalGraphic() {
   return (
     <div className="bg-white border border-slate-200 p-6 sm:p-8 rounded-sm shadow-sm space-y-6">
       <div className="space-y-1 pb-4 border-b border-slate-200">
-        <span className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
+        <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold tracking-wider">
           ASSURANCE CREDIBILITY
         </span>
         <h3 className="text-xl font-bold text-slate-900">
@@ -17,7 +17,7 @@ export function ScopedApprovalGraphic() {
       </div>
 
       {/* Scoped Grid Example */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-light">
         <div className="p-4 bg-emerald-50/60 border border-emerald-200 rounded space-y-1">
           <div className="flex items-center justify-between">
             <span className="font-bold text-slate-900 font-sans">HVAC &amp; Chillers</span>

@@ -15,15 +15,15 @@ export default async function SupplierPortalPerformancePage() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
-          <span className="text-[10.5px] font-mono uppercase tracking-widest text-slate-400">
+          <span className="text-[10.5px] font-light uppercase tracking-wider text-slate-400">
             ENTIRECAFM // PERFORMANCE SCORECARD
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
             Operational Performance Transparency
           </h1>
         </div>
 
-        <span className="inline-block text-xs font-mono font-bold px-3 py-1 bg-slate-100 text-slate-800 rounded-sm self-start sm:self-auto">
+        <span className="inline-block text-xs font-medium px-3 py-1 bg-slate-100 text-slate-800 rounded-sm self-start sm:self-auto">
           STATUS: {statusDisplay.isApproved ? 'BENCHMARKED' : 'UNRATED (NEW APPLICANT)'}
         </span>
       </div>
@@ -31,29 +31,29 @@ export default async function SupplierPortalPerformancePage() {
       {/* Metric Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">SLA ATTENDANCE</span>
-          <div className="text-2xl font-mono font-bold text-slate-900">
+          <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">SLA ATTENDANCE</span>
+          <div className="text-2xl font-light text-slate-900">
             {statusDisplay.isApproved ? '94.8%' : '—'}
           </div>
-          <span className="text-[10.5px] text-slate-500 font-mono">
+          <span className="text-[10.5px] text-slate-500 font-light">
             {statusDisplay.isApproved ? 'Target SLA Attendance' : 'Calculated after 5 completed work orders'}
           </span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">FIRST-TIME FIX</span>
-          <div className="text-2xl font-mono font-bold text-slate-900">
+          <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">FIRST-TIME FIX</span>
+          <div className="text-2xl font-light text-slate-900">
             {statusDisplay.isApproved ? '88.5%' : '—'}
           </div>
-          <span className="text-[10.5px] text-slate-500 font-mono">Single Visit Resolution</span>
+          <span className="text-[10.5px] text-slate-500 font-light">Single Visit Resolution</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-1">
-          <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">REPORT ACCURACY</span>
-          <div className="text-2xl font-mono font-bold text-slate-900">
+          <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">REPORT ACCURACY</span>
+          <div className="text-2xl font-light text-slate-900">
             {statusDisplay.isApproved ? '96.0%' : '—'}
           </div>
-          <span className="text-[10.5px] text-slate-500 font-mono">First-Time Approved Reports</span>
+          <span className="text-[10.5px] text-slate-500 font-light">First-Time Approved Reports</span>
         </div>
       </div>
 

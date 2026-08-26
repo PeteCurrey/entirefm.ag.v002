@@ -72,7 +72,7 @@ export function EventSponsorshipSection() {
               className="p-6 bg-white border border-slate-200/90 rounded-sm shadow-xs flex flex-col justify-between space-y-6 hover:border-brand-pink transition-all duration-200"
             >
               <div className="space-y-3">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-pink bg-brand-pink/10 border border-brand-pink/20 px-2 py-0.5 rounded-xs inline-block">
+                <span className="text-[10px] font-light uppercase tracking-wider text-brand-pink bg-brand-pink/10 border border-brand-pink/20 px-2 py-0.5 rounded-xs inline-block">
                   {tier.badge}
                 </span>
                 <h3 className="text-xl font-normal text-slate-900">
@@ -84,7 +84,7 @@ export function EventSponsorshipSection() {
               </div>
 
               <div className="pt-4 border-t border-slate-100 space-y-2">
-                <span className="text-[10.5px] font-mono uppercase text-slate-400 block font-light">
+                <span className="text-[10.5px] font-light uppercase tracking-wider text-slate-400 block font-light">
                   Key Inclusions:
                 </span>
                 {tier.deliverables.map((item, dIdx) => (

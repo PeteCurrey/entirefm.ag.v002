@@ -22,10 +22,10 @@ export default async function SupplierApprovalsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+        <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
           AUTHORISED WORK SCOPE &amp; BOUNDARIES
         </span>
-        <h1 className="text-2xl font-bold text-slate-900 mt-1">
+        <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
           EntireFM Approvals &amp; Restrictions
         </h1>
         <p className="text-xs text-slate-500 font-light mt-1">
@@ -36,10 +36,10 @@ export default async function SupplierApprovalsPage() {
       <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
           <div>
-            <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">ASSURANCE STATUS</span>
-            <h2 className="text-xl font-bold text-slate-900 mt-0.5">{statusDisplay.statusLabel}</h2>
+            <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">ASSURANCE STATUS</span>
+            <h2 className="text-xl font-light text-slate-900 mt-0.5">{statusDisplay.statusLabel}</h2>
           </div>
-          <span className={`text-[10px] font-mono px-2.5 py-1 rounded font-bold self-start sm:self-auto ${
+          <span className={`text-[10.5px] font-light px-2.5 py-1 rounded font-bold self-start sm:self-auto ${
             statusDisplay.isApproved ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
           }`}>
             {statusDisplay.isApproved ? `EFFECTIVE ${rel.assurance_effective_date}` : 'IN REVIEW'}
@@ -54,7 +54,7 @@ export default async function SupplierApprovalsPage() {
                 <div key={s.slug} className="p-4 space-y-1">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-slate-900 text-xs">{s.name}</span>
-                    <span className="text-emerald-700 font-mono font-bold text-[10px]">APPROVED</span>
+                    <span className="text-emerald-700 font-medium text-[10px]">APPROVED</span>
                   </div>
                   <span className="text-slate-500 text-[11px] block">
                     Geographies: {s.approved_geographies?.join(', ') || 'Declared Regions'}

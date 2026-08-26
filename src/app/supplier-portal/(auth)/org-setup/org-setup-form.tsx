@@ -66,7 +66,7 @@ export function OrgSetupForm() {
             <Building2 className="h-3.5 w-3.5 text-brand-pink" />
             Company Setup
           </div>
-          <h1 className="text-2xl font-light tracking-tight text-white">
+          <h1 className="text-2xl font-extralight tracking-tight text-white">
             Tell us about your company
           </h1>
           <p className="mt-2 text-[13px] leading-relaxed text-slate-400">
@@ -101,7 +101,7 @@ export function OrgSetupForm() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Legal Company Name */}
           <div>
-            <label className="block font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-1.5">
+            <label className="block font-light text-[11.5px] uppercase tracking-wider text-slate-400 mb-1.5">
               Legal Company Name *
             </label>
             <input
@@ -116,7 +116,7 @@ export function OrgSetupForm() {
 
           {/* Trading Name */}
           <div>
-            <label className="block font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-1.5">
+            <label className="block font-light text-[11.5px] uppercase tracking-wider text-slate-400 mb-1.5">
               Trading Name{' '}
               <span className="text-slate-600 normal-case font-normal">(if different from legal name)</span>
             </label>
@@ -131,7 +131,7 @@ export function OrgSetupForm() {
 
           {/* Companies House Number */}
           <div>
-            <label className="block font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-1.5">
+            <label className="block font-light text-[11.5px] uppercase tracking-wider text-slate-400 mb-1.5">
               Companies House Number{' '}
               <span className="text-slate-600 normal-case font-normal">(optional at this stage)</span>
             </label>
@@ -159,7 +159,7 @@ export function OrgSetupForm() {
         </form>
       </div>
 
-      <p className="mt-5 text-center text-[11px] text-slate-500 font-mono">
+      <p className="mt-5 text-center text-[11.5px] text-slate-500 font-light">
         Your organisation data is private and scoped to your account only
       </p>
     </div>

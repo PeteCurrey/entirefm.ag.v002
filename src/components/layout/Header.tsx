@@ -362,9 +362,7 @@ function MegaMenu({
           {section.feature && (() => {
             const image = IMAGES[section.feature.imageKey];
             return (
-              <Link
-                href={section.feature.href}
-                tabIndex={open ? 0 : -1}
+              <div
                 className="edge-lit group/feature relative flex min-h-[17rem] flex-col justify-end overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-graphite"
               >
                 {image && (
@@ -379,24 +377,43 @@ function MegaMenu({
                     {/* Scrim keeps the copy legible over any frame. */}
                     <span
                       aria-hidden="true"
-                      className="absolute inset-0 bg-gradient-to-t from-brand-graphite via-brand-graphite/80 to-brand-graphite/25"
+                      className="absolute inset-0 bg-gradient-to-t from-brand-graphite via-brand-graphite/85 to-brand-graphite/25"
                     />
                   </>
                 )}
-                <span className="relative block p-6">
+                <div className="relative block p-6">
                   <span className="eyebrow eyebrow-dark">{section.feature.eyebrow}</span>
-                  <span className="mt-3.5 block text-[15px] font-light leading-snug text-white">
+                  <Link
+                    href={section.feature.href}
+                    tabIndex={open ? 0 : -1}
+                    className="mt-3.5 block text-[15px] font-light leading-snug text-white hover:text-brand-electric-bright transition-colors"
+                  >
                     {section.feature.title}
-                  </span>
+                  </Link>
                   <span className="mt-2.5 block text-[12.5px] leading-relaxed text-brand-mist/65 font-light">
                     {section.feature.body}
                   </span>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-[12.5px] font-normal text-brand-electric-bright">
-                    {section.feature.cta}
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover/feature:translate-x-1" />
-                  </span>
-                </span>
-              </Link>
+                  <div className="mt-5 flex flex-wrap items-center gap-3">
+                    <Link
+                      href={section.feature.href}
+                      tabIndex={open ? 0 : -1}
+                      className="inline-flex items-center gap-1.5 text-[12.5px] font-normal text-brand-electric-bright hover:underline"
+                    >
+                      {section.feature.cta}
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 ease-brand group-hover/feature:translate-x-1" />
+                    </Link>
+                    {section.feature.secondaryHref && section.feature.secondaryCta && (
+                      <Link
+                        href={section.feature.secondaryHref}
+                        tabIndex={open ? 0 : -1}
+                        className="inline-flex items-center gap-1 text-[12px] font-light text-brand-mist/75 hover:text-white transition-colors"
+                      >
+                        {section.feature.secondaryCta} →
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </div>
             );
           })()}
         </div>

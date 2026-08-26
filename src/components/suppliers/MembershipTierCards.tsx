@@ -14,14 +14,14 @@ export function MembershipTierCards() {
       <div className="bg-white border border-slate-200 p-8 rounded-sm shadow-sm flex flex-col justify-between space-y-6">
         <div className="space-y-4">
           <div className="space-y-1">
-            <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">ENTRY STAGE</span>
+            <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">ENTRY STAGE</span>
             <h3 className="text-xl font-bold text-slate-900">{reg.name}</h3>
             <p className="text-xs text-slate-500 font-light">
               Create your initial profile, register your trade disciplines, and begin the assurance process.
             </p>
           </div>
 
-          <div className="font-mono pt-2 border-t border-slate-100">
+          <div className="pt-2 border-t border-slate-100">
             <div className="text-3xl font-bold text-slate-900">{reg.displayPrice}</div>
             <span className="text-[11px] text-slate-400">Free to register · Does not constitute approval</span>
           </div>
@@ -49,20 +49,20 @@ export function MembershipTierCards() {
 
       {/* Tier 2: Supplier Network Membership */}
       <div className="bg-white border-2 border-slate-900 p-8 rounded-sm shadow-md flex flex-col justify-between space-y-6 relative">
-        <div className="absolute -top-3 left-6 bg-slate-900 text-white text-[9.5px] font-mono uppercase font-bold px-2.5 py-0.5 rounded">
+        <div className="absolute -top-3 left-6 bg-slate-900 text-white text-[9.5px] font-light uppercase tracking-wider font-bold px-2.5 py-0.5 rounded">
           STANDARD COMMERCIAL TIER
         </div>
 
         <div className="space-y-4">
           <div className="space-y-1 pt-1">
-            <span className="text-[10px] font-mono uppercase text-brand-pink font-bold">NETWORK MEMBERSHIP</span>
+            <span className="text-[10px] font-light uppercase tracking-wider text-brand-pink font-bold">NETWORK MEMBERSHIP</span>
             <h3 className="text-xl font-bold text-slate-900">{member.name}</h3>
             <p className="text-xs text-slate-500 font-light">
               For suppliers requiring active compliance document administration, digital portal tools, and network engagement.
             </p>
           </div>
 
-          <div className="font-mono pt-2 border-t border-slate-100">
+          <div className="pt-2 border-t border-slate-100">
             <div className="text-3xl font-bold text-slate-900">£{member.priceGbp}</div>
             <span className="text-[11px] text-slate-400">+ VAT per year · Separate from assurance approval</span>
           </div>
@@ -100,14 +100,14 @@ export function MembershipTierCards() {
       <div className="bg-white border border-slate-200 p-8 rounded-sm shadow-sm flex flex-col justify-between space-y-6">
         <div className="space-y-4">
           <div className="space-y-1">
-            <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">EXPANDED FOOTPRINT</span>
+            <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">EXPANDED FOOTPRINT</span>
             <h3 className="text-xl font-bold text-slate-900">{partner.name}</h3>
             <p className="text-xs text-slate-500 font-light">
               For larger regional or multi-discipline providers with multiple portal users, wider scope, and active forum engagement.
             </p>
           </div>
 
-          <div className="font-mono pt-2 border-t border-slate-100">
+          <div className="pt-2 border-t border-slate-100">
             <div className="text-3xl font-bold text-slate-900">£{partner.priceGbp.toLocaleString()}</div>
             <span className="text-[11px] text-slate-400">+ VAT per year · Does not buy Preferred status</span>
           </div>

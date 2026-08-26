@@ -69,7 +69,7 @@ export function CapabilityLandscape() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-graphite via-brand-graphite/60 to-transparent" />
             <div className="absolute bottom-0 inset-x-0 p-6">
-              <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright">
+              <span className="text-[10.5px] font-light uppercase tracking-wider text-brand-electric-bright">
                 {active.eyebrow}
               </span>
               <h3 className="text-xl sm:text-2xl font-light text-white mt-1">
@@ -84,7 +84,7 @@ export function CapabilityLandscape() {
           <div className="lg:col-span-7 bg-brand-graphite/70 border border-brand-edge-dark p-6 sm:p-8 rounded-sm flex flex-col justify-between">
             <div className="space-y-6">
               <div>
-                <p className="text-[11px] font-mono uppercase tracking-wider text-brand-mist/50 mb-3">
+                <p className="text-[11px] font-light uppercase tracking-wider text-brand-mist/50 mb-3">
                   APPROVED TRADE DISCIPLINES &amp; SPECIALISMS
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -101,14 +101,14 @@ export function CapabilityLandscape() {
               </div>
 
               <div className="pt-4 border-t border-white/10">
-                <p className="text-[11px] font-mono uppercase tracking-wider text-brand-mist/50 mb-3">
+                <p className="text-[11px] font-light uppercase tracking-wider text-brand-mist/50 mb-3">
                   GOVERNING COMPLIANCE &amp; ACCREDITATION BENCHMARKS
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {active.standards.map((std, idx) => (
                     <span
                       key={idx}
-                      className="inline-flex items-center text-[11px] font-mono bg-white/[0.06] text-brand-mist/90 px-3 py-1 rounded-sm border border-white/10"
+                      className="inline-flex items-center text-[11.5px] font-light bg-white/[0.06] text-brand-mist/90 px-3 py-1 rounded-sm border border-white/10"
                     >
                       {std}
                     </span>

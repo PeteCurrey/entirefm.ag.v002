@@ -15,7 +15,7 @@ export default function SupplierPaymentSuccessPage() {
       <Header solid />
       <main className="flex-1 py-16 px-4">
         <div className="max-w-2xl mx-auto">
-          <Suspense fallback={<div className="p-8 text-center text-xs font-mono">Verifying payment session...</div>}>
+          <Suspense fallback={<div className="p-8 text-center text-xs font-light">Verifying payment session...</div>}>
             <PaymentSuccessClient />
           </Suspense>
         </div>

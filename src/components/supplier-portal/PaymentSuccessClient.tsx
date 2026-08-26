@@ -67,7 +67,7 @@ export function PaymentSuccessClient() {
       <div className="bg-white border border-slate-200 rounded-sm p-10 shadow-sm text-center space-y-4">
         <div className="h-12 w-12 border-2 border-slate-900 border-t-transparent rounded-full animate-spin mx-auto" />
         <div className="space-y-1">
-          <h2 className="text-lg font-bold text-slate-900">Confirming Payment with Stripe</h2>
+          <h2 className="text-lg font-light text-slate-900">Confirming Payment with Stripe</h2>
           <p className="text-xs text-slate-500 font-light">
             We are confirming your transaction and submitting your supplier application into the review queue...
           </p>
@@ -83,7 +83,7 @@ export function PaymentSuccessClient() {
       </div>
 
       <div className="space-y-2">
-        <span className="text-[10.5px] font-mono uppercase tracking-widest text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 inline-block">
+        <span className="text-[10.5px] font-light uppercase tracking-wider text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 inline-block">
           PAYMENT CONFIRMED &bull; APPLICATION SUBMITTED
         </span>
         <h1 className="text-2xl sm:text-3xl font-extralight text-slate-900 tracking-tight">
@@ -91,7 +91,7 @@ export function PaymentSuccessClient() {
         </h1>
         <p className="text-xs text-slate-600 font-light max-w-md mx-auto leading-relaxed">
           Your supplier application reference is{' '}
-          <strong className="text-slate-900 font-mono font-bold">
+          <strong className="text-slate-900 font-medium">
             {appData?.applicationRef || 'SUP-260826-CONFIRMED'}
           </strong>
           . EntireFM has received your assurance documentation.
@@ -99,7 +99,7 @@ export function PaymentSuccessClient() {
       </div>
 
       {/* Transaction & Status Summary */}
-      <div className="p-5 bg-slate-50 border border-slate-200 rounded-sm text-left text-xs font-mono space-y-3">
+      <div className="p-5 bg-slate-50 border border-slate-200 rounded-sm text-left text-xs font-light space-y-3">
         <div className="flex items-center justify-between border-b border-slate-200 pb-2">
           <span className="font-bold text-slate-900 font-sans">Initial Assurance Review:</span>
           <span className="text-emerald-700 font-bold">PAID (£420.00 inc. VAT)</span>

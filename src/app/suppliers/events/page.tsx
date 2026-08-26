@@ -5,22 +5,22 @@ import { Footer } from '@/components/layout/Footer';
 import { TrustBar, AccreditationRail } from '@/components/trust/TrustBar';
 
 import { EventHero } from '@/components/suppliers/events/EventHero';
+import { PastEventsArchiveSection } from '@/components/suppliers/events/PastEventsArchiveSection';
 import { EventFormatGrid } from '@/components/suppliers/events/EventFormatGrid';
 import { AnnualProgrammeTimeline } from '@/components/suppliers/events/AnnualProgrammeTimeline';
 import { UpcomingEventsCalendar } from '@/components/suppliers/events/UpcomingEventsCalendar';
 import { RegionalProgrammeSection } from '@/components/suppliers/events/RegionalProgrammeSection';
 import { SummitPositioningSection } from '@/components/suppliers/events/SummitPositioningSection';
-import { PastEventsArchiveSection } from '@/components/suppliers/events/PastEventsArchiveSection';
 import { EventSponsorshipSection } from '@/components/suppliers/events/EventSponsorshipSection';
 import { EventInterestForm } from '@/components/suppliers/events/EventInterestForm';
 import { SupplierPortalConnectionBanner } from '@/components/suppliers/events/SupplierPortalConnectionBanner';
 
 export const metadata: Metadata = {
-  title: 'Partner Network Events & Supplier Forums | EntireFM',
-  description: 'Connect with facilities managers, engineering specialists, and equipment manufacturers at EntireFM Partner Network events, technical breakfasts, OEM sessions, and supplier forums across the UK.',
+  title: 'Supplier Events, Training & Industry Engagement | EntireFM Partner Network',
+  description: 'EntireFM has always believed that strong supply chains are built through direct relationships, technical understanding and shared knowledge. Explore our historical supplier breakfasts, manufacturer days, technical training and the forward Partner Network programme.',
   openGraph: {
-    title: 'EntireFM Partner Network Events & Forums',
-    description: 'A programme bringing together contractors, manufacturers, technical specialists, and facilities professionals around practical property and engineering challenges.',
+    title: 'Supplier Events, Training & Industry Engagement | EntireFM',
+    description: 'Practical supplier breakfasts, manufacturer open days, technical demonstrations and regional forums — now formalised within the structured EntireFM Partner Network.',
     url: 'https://www.entirefm.com/suppliers/events',
   },
 };
@@ -37,23 +37,23 @@ export default function SupplierEventsPublicPage() {
         {/* Brand Trust Bar */}
         <TrustBar />
 
-        {/* ── SECTION 02: 8 PROGRAMME FORMATS ── */}
+        {/* ── SECTION 02: HISTORICAL PARTNER ACTIVITY & COLLABORATION ARCHIVE ── */}
+        <PastEventsArchiveSection />
+
+        {/* ── SECTION 03: 8 PROGRAMME FORMATS ── */}
         <EventFormatGrid />
 
-        {/* ── SECTION 03: 4-QUARTER INDICATIVE PROGRAMME ── */}
+        {/* ── SECTION 04: 4-QUARTER INDICATIVE PROGRAMME ── */}
         <AnnualProgrammeTimeline />
 
-        {/* ── SECTION 04: UPCOMING EVENTS CALENDAR & LIST UX ── */}
+        {/* ── SECTION 05: UPCOMING SESSIONS & CALENDAR ── */}
         <UpcomingEventsCalendar />
 
-        {/* ── SECTION 05: REGIONAL HUBS DELIVERY ── */}
+        {/* ── SECTION 06: REGIONAL HUBS DELIVERY ── */}
         <RegionalProgrammeSection />
 
-        {/* ── SECTION 06: SUMMIT FOUNDATION (DARK BREAK) ── */}
+        {/* ── SECTION 07: SUMMIT FOUNDATION (DARK BREAK) ── */}
         <SummitPositioningSection />
-
-        {/* ── SECTION 07: PAST EVENTS ARCHIVE (TRUTHFUL EMPTY STATE) ── */}
-        <PastEventsArchiveSection />
 
         {/* ── SECTION 08: SPONSORSHIP & OEM PARTNERSHIP ── */}
         <EventSponsorshipSection />

@@ -69,7 +69,7 @@ export function SupplierRfiActionCentreClient({ initialRfis, supplierId }: Props
           <span className="text-xs font-bold uppercase tracking-wider text-slate-900 font-sans">
             Action Required ({pendingRfis.length})
           </span>
-          <span className="text-[11px] font-mono text-slate-500">
+          <span className="text-[11px] font-light text-slate-500">
             No fee for submitting requested information
           </span>
         </div>
@@ -90,10 +90,10 @@ export function SupplierRfiActionCentreClient({ initialRfis, supplierId }: Props
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="bg-amber-100 text-amber-900 text-[10px] font-mono font-bold px-2 py-0.5 rounded">
+                      <span className="bg-amber-100 text-amber-900 text-[10px] font-medium px-2 py-0.5 rounded">
                         {rfi.section_key.toUpperCase()} RFI
                       </span>
-                      <span className="text-slate-400 text-[10.5px] font-mono">Ref: {rfi.id}</span>
+                      <span className="text-slate-400 text-[11px] font-light">Ref: {rfi.id}</span>
                     </div>
                     <h3 className="text-sm font-bold text-slate-900">{rfi.title}</h3>
                     <p className="text-xs text-slate-700 leading-relaxed font-sans">
@@ -101,7 +101,7 @@ export function SupplierRfiActionCentreClient({ initialRfis, supplierId }: Props
                     </p>
                   </div>
                   {rfi.due_date && (
-                    <span className="text-[10.5px] font-mono text-amber-800 bg-amber-50 px-2 py-1 rounded border border-amber-200 self-start">
+                    <span className="text-[11px] font-light text-amber-800 bg-amber-50 px-2 py-1 rounded border border-amber-200 self-start">
                       Due: {rfi.due_date}
                     </span>
                   )}
@@ -186,7 +186,7 @@ export function SupplierRfiActionCentreClient({ initialRfis, supplierId }: Props
               <div key={rfi.id} className="p-4 space-y-1.5 text-xs">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-slate-900">{rfi.title}</span>
-                  <span className="text-emerald-700 font-mono font-bold text-[10.5px]">
+                  <span className="text-emerald-700 font-medium text-[10.5px]">
                     {rfi.status.replace('_', ' ')}
                   </span>
                 </div>

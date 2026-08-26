@@ -18,10 +18,10 @@ export default async function SupplierPortalActionCentrePage() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
-          <span className="text-[10.5px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+          <span className="text-[10.5px] font-light uppercase tracking-wider text-slate-400 font-bold">
             SUPPLIER ASSURANCE &bull; CLARIFICATION CENTRE
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
             Requests For Information (RFI)
           </h1>
           <p className="text-xs text-slate-500 font-light mt-1">

@@ -71,7 +71,7 @@ export default function ApplyPage() {
             {/* Primary Action Card */}
             <div className="bg-[#FAF9FB] border-2 border-slate-900 p-8 sm:p-10 rounded-sm shadow-sm space-y-6">
               <div className="space-y-2">
-                <span className="text-[11px] font-mono uppercase text-emerald-700 font-bold tracking-wider bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 inline-block">
+                <span className="text-[11px] font-light uppercase tracking-wider text-emerald-700 font-bold tracking-wider bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 inline-block">
                   CANONICAL APPLICATION ENTRY
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-slate-900 tracking-tight">
@@ -110,7 +110,7 @@ export default function ApplyPage() {
             {/* What Happens Next — 8-Stage Overview */}
             <div className="space-y-6">
               <div className="space-y-1">
-                <span className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
+                <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold tracking-wider">
                   APPLICATION ROADMAP
                 </span>
                 <h3 className="text-xl font-bold text-slate-900">What Happens Next</h3>
@@ -123,7 +123,7 @@ export default function ApplyPage() {
                 {whatHappensNext.map((item) => (
                   <div key={item.step} className="p-4 bg-white border border-slate-200 rounded-sm space-y-1.5 hover:border-slate-300 transition-colors">
                     <div className="flex items-center gap-2">
-                      <span className="h-5 w-5 rounded-full bg-slate-900 text-white font-mono text-[10px] flex items-center justify-center font-bold">
+                      <span className="h-5 w-5 rounded-full bg-slate-900 text-white text-[10px] flex items-center justify-center font-bold">
                         {item.step}
                       </span>
                       <span className="font-bold text-slate-900 leading-snug">{item.title}</span>
@@ -137,7 +137,7 @@ export default function ApplyPage() {
             {/* Before You Start Checklist */}
             <div className="bg-slate-50 border border-slate-200 p-6 sm:p-8 rounded-sm space-y-4">
               <div className="space-y-1">
-                <span className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
+                <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold tracking-wider">
                   PREPARATION GUIDE
                 </span>
                 <h3 className="text-lg font-bold text-slate-900">Before You Start</h3>

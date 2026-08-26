@@ -85,7 +85,7 @@ export default function SupplierRegisterPage() {
             <span className="text-[17px] font-light tracking-tight text-white">
               Entire<span className="font-light text-brand-pink">FM</span>
             </span>
-            <span className="rounded border border-slate-700 bg-slate-900/60 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-slate-400">
+            <span className="rounded border border-slate-700 bg-slate-900/60 px-2 py-0.5 font-light text-[10.5px] uppercase tracking-wider text-slate-400">
               Supplier Portal
             </span>
           </Link>
@@ -108,7 +108,7 @@ export default function SupplierRegisterPage() {
                 <ShieldCheck className="h-3.5 w-3.5" />
                 Secure Account Creation
               </div>
-              <h1 className="text-2xl font-light tracking-tight text-white">
+              <h1 className="text-2xl font-extralight tracking-tight text-white">
                 Create your supplier account
               </h1>
               <p className="mt-2 text-[13px] leading-relaxed text-slate-400">
@@ -128,7 +128,7 @@ export default function SupplierRegisterPage() {
               {/* Name row */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label className="block font-light text-[11.5px] uppercase tracking-wider text-slate-400 mb-1.5">
                     First Name *
                   </label>
                   <input
@@ -141,7 +141,7 @@ export default function SupplierRegisterPage() {
                   />
                 </div>
                 <div>
-                  <label className="block font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label className="block font-light text-[11.5px] uppercase tracking-wider text-slate-400 mb-1.5">
                     Last Name *
                   </label>
                   <input
@@ -157,7 +157,7 @@ export default function SupplierRegisterPage() {
 
               {/* Email */}
               <div>
-                <label className="block font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block font-light text-[11.5px] uppercase tracking-wider text-slate-400 mb-1.5">
                   Work Email Address *
                 </label>
                 <input
@@ -173,7 +173,7 @@ export default function SupplierRegisterPage() {
 
               {/* Password */}
               <div>
-                <label className="block font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block font-light text-[11.5px] uppercase tracking-wider text-slate-400 mb-1.5">
                   Password *
                 </label>
                 <div className="relative">
@@ -213,7 +213,7 @@ export default function SupplierRegisterPage() {
 
               {/* Confirm Password */}
               <div>
-                <label className="block font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block font-light text-[11.5px] uppercase tracking-wider text-slate-400 mb-1.5">
                   Confirm Password *
                 </label>
                 <div className="relative">
@@ -267,7 +267,7 @@ export default function SupplierRegisterPage() {
           </div>
 
           {/* Trust note */}
-          <p className="mt-5 text-center text-[11px] text-slate-500 font-mono">
+          <p className="mt-5 text-center text-[11.5px] text-slate-500 font-light">
             Your application data is encrypted and organisation-scoped · EntireFM Supplier Portal
           </p>
         </div>

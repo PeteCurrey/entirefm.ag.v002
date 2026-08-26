@@ -22,7 +22,7 @@ export function SupplierPortalComingSoon() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left: Explanatory Copy & CAFM Feature Preview */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 rounded-sm border border-brand-electric/30 bg-brand-electric/10 px-3 py-1 font-mono text-[11px] text-brand-electric-bright">
+              <div className="inline-flex items-center gap-2 rounded-sm border border-brand-electric/30 bg-brand-electric/10 px-3 py-1 text-[11px] text-brand-electric-bright">
                 <span className="h-2 w-2 rounded-full bg-brand-electric-bright animate-pulse" />
                 ENTIRECAFM // SUPPLIER &amp; CONTRACTOR PORTAL
               </div>
@@ -39,7 +39,7 @@ export function SupplierPortalComingSoon() {
               </p>
 
               <div className="space-y-3 pt-4 border-t border-white/10">
-                <p className="text-xs font-mono uppercase tracking-wider text-brand-mist/50">
+                <p className="text-xs font-light uppercase tracking-wider text-brand-mist/50">
                   FORTHCOMING PORTAL CAPABILITIES:
                 </p>
                 {[
@@ -75,7 +75,7 @@ export function SupplierPortalComingSoon() {
             <div className="lg:col-span-5 bg-brand-graphite border border-brand-edge-dark p-8 sm:p-10 rounded-sm shadow-xl relative">
               <div className="flex items-center justify-between pb-6 border-b border-brand-edge-dark mb-6">
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/50">AUTHORISED ACCESS</span>
+                  <span className="text-[10px] font-light uppercase tracking-wider text-brand-mist/50">AUTHORISED ACCESS</span>
                   <h3 className="text-lg font-light text-white">Supplier Portal Login</h3>
                 </div>
                 <Lock className="h-5 w-5 text-brand-electric-bright" />
@@ -100,7 +100,7 @@ export function SupplierPortalComingSoon() {
               ) : (
                 <form onSubmit={handleLoginAttempt} className="space-y-4">
                   <div>
-                    <label className="block text-[11px] font-mono uppercase text-brand-mist/60 mb-1">
+                    <label className="block text-[11px] font-light uppercase tracking-wider text-brand-mist/60 mb-1">
                       Supplier ID or Business Email
                     </label>
                     <input
@@ -114,7 +114,7 @@ export function SupplierPortalComingSoon() {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-mono uppercase text-brand-mist/60 mb-1">
+                    <label className="block text-[11px] font-light uppercase tracking-wider text-brand-mist/60 mb-1">
                       Password
                     </label>
                     <input
@@ -136,7 +136,7 @@ export function SupplierPortalComingSoon() {
                     </button>
                   </div>
 
-                  <p className="text-[11px] text-brand-mist/40 text-center pt-2 font-mono">
+                  <p className="text-[11px] text-brand-mist/40 text-center pt-2">
                     Protected by EntireFM Enterprise Security Policy
                   </p>
                 </form>

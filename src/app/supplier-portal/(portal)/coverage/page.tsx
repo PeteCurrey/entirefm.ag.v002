@@ -22,10 +22,10 @@ export default async function SupplierCoveragePage() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+          <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
             GEOGRAPHICAL FOOTPRINT &amp; DISPATCH BOUNDS
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
             Geographical Coverage &amp; Operating Bases
           </h1>
           <p className="text-xs text-slate-500 font-light mt-1">
@@ -42,7 +42,7 @@ export default async function SupplierCoveragePage() {
         <div className="md:col-span-2 bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden">
           {coverage.length > 0 ? (
             <table className="w-full text-left text-xs font-sans">
-              <thead className="bg-slate-900 text-white font-mono uppercase text-[10px]">
+              <thead className="bg-slate-900 text-white font-light uppercase tracking-wider text-[10px]">
                 <tr>
                   <th className="p-3.5">Region / Area</th>
                   <th className="p-3.5">Declared</th>
@@ -54,27 +54,27 @@ export default async function SupplierCoveragePage() {
                 {coverage.map((c, i) => (
                   <tr key={i} className="hover:bg-slate-50/50">
                     <td className="p-3.5 font-bold text-slate-900">{c.region}</td>
-                    <td className="p-3.5 font-mono text-[11px]">
+                    <td className="p-3.5 text-[11px]">
                       {c.is_declared ? <span className="text-emerald-700 font-bold">YES</span> : <span className="text-slate-400">NO</span>}
                     </td>
                     <td className="p-3.5">
                       {c.approval_status === 'APPROVED' && (
-                        <span className="bg-emerald-100 text-emerald-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                        <span className="bg-emerald-100 text-emerald-800 text-[10.5px] font-light px-2 py-0.5 rounded font-bold">
                           APPROVED
                         </span>
                       )}
                       {c.approval_status === 'UNDER_REVIEW' && (
-                        <span className="bg-amber-100 text-amber-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                        <span className="bg-amber-100 text-amber-800 text-[10.5px] font-light px-2 py-0.5 rounded font-bold">
                           UNDER REVIEW
                         </span>
                       )}
                       {c.approval_status === 'NOT_REQUESTED' && (
-                        <span className="bg-slate-100 text-slate-500 text-[10px] font-mono px-2 py-0.5 rounded">
+                        <span className="bg-slate-100 text-slate-500 text-[10.5px] font-light px-2 py-0.5 rounded">
                           NOT REQUESTED
                         </span>
                       )}
                     </td>
-                    <td className="p-3.5 font-mono text-[11px] text-slate-600">
+                    <td className="p-3.5 text-[11px] text-slate-600">
                       {c.operating_bases?.join(', ') || '—'}
                     </td>
                   </tr>
@@ -86,7 +86,7 @@ export default async function SupplierCoveragePage() {
               <span className="text-xs font-bold text-slate-800 block">Declared in Application:</span>
               <div className="flex flex-wrap gap-2">
                 {declaredRegions.map((r, i) => (
-                  <span key={i} className="bg-slate-100 border border-slate-200 px-3 py-1 text-xs font-mono rounded text-slate-700">
+                  <span key={i} className="bg-slate-100 border border-slate-200 px-3 py-1 text-xs font-light rounded text-slate-700">
                     {r} (Pending Review)
                   </span>
                 ))}
@@ -105,7 +105,7 @@ export default async function SupplierCoveragePage() {
 
         {/* Operating Bases Panel */}
         <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm space-y-4">
-          <h2 className="font-bold text-slate-900 font-sans text-sm pb-3 border-b border-slate-100 flex items-center gap-2">
+          <h2 className="font-light text-slate-900 font-sans text-sm pb-3 border-b border-slate-100 flex items-center gap-2">
             <MapPin className="h-4 w-4 text-slate-400" /> Declared Operating Address
           </h2>
 
@@ -113,7 +113,7 @@ export default async function SupplierCoveragePage() {
             <div className="p-3.5 bg-slate-50 border border-slate-200 rounded space-y-1 text-xs">
               <span className="font-bold text-slate-900 block">Operating Depot / Office</span>
               <p className="text-slate-600 text-[11.5px]">{draft.tradingAddress}</p>
-              <span className="text-[10.5px] font-mono text-slate-500 block pt-1">
+              <span className="text-[10.5px] font-light text-slate-500 block pt-1">
                 Emergency SLA: {draft.emergencySlaHours || '4'} Hours
               </span>
             </div>

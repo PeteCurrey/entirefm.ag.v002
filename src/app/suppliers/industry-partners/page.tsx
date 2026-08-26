@@ -17,10 +17,10 @@ export default function IndustryPartnersPublicPage() {
       <main className="flex-1">
         <section className="bg-slate-900 text-white py-20 lg:py-28">
           <div className="container-custom max-w-5xl space-y-6">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+            <span className="text-[11px] font-light uppercase tracking-wider text-brand-pink font-bold">
               MANUFACTURERS, OEMS &amp; TECHNOLOGY
             </span>
-            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white max-w-3xl leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight tracking-tight text-white max-w-3xl leading-tight">
               Bring better ideas into real buildings.
             </h1>
             <p className="text-base sm:text-lg text-slate-300 font-light max-w-2xl leading-relaxed">
@@ -37,7 +37,7 @@ export default function IndustryPartnersPublicPage() {
               <p className="text-slate-600 font-light leading-relaxed">
                 Connect your factory-trained specialist network directly into EntireFM’s CAFM maintenance schedules for chillers, boilers, fire systems, and critical power infrastructure.
               </p>
-              <ul className="space-y-1.5 text-slate-700 font-mono text-[11px]">
+              <ul className="space-y-1.5 text-slate-700 text-[11px]">
                 <li>&bull; Warranty-backed maintenance delivery</li>
                 <li>&bull; Technical education &amp; engineer workshops</li>
                 <li>&bull; Asset lifecycle &amp; parts intelligence</li>
@@ -50,7 +50,7 @@ export default function IndustryPartnersPublicPage() {
               <p className="text-slate-600 font-light leading-relaxed">
                 Integrate IoT telemetry, predictive analytics, drone surveying, and building intelligence feeds into live facilities management workflows.
               </p>
-              <ul className="space-y-1.5 text-slate-700 font-mono text-[11px]">
+              <ul className="space-y-1.5 text-slate-700 text-[11px]">
                 <li>&bull; Potential technology evaluation &amp; agreed pilot opportunities (subject to client approval and suitability)</li>
                 <li>&bull; Energy &amp; carbon reduction validation</li>
                 <li>&bull; Joint technical briefings &amp; case studies</li>

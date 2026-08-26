@@ -14,20 +14,20 @@ export default async function SupplierPortalAvailabilityPage() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
-          <span className="text-[10.5px] font-mono uppercase tracking-widest text-slate-400">
+          <span className="text-[10.5px] font-light uppercase tracking-wider text-slate-400">
             ENTIRECAFM // DISPATCH CAPACITY
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
             Operational Availability &amp; Slots
           </h1>
         </div>
 
-        <span className="text-xs font-mono font-bold px-3 py-1 bg-emerald-100 text-emerald-900 rounded-sm self-start sm:self-auto">
+        <span className="text-xs font-medium px-3 py-1 bg-emerald-100 text-emerald-900 rounded-sm self-start sm:self-auto">
           STATUS: {avail?.status || 'STANDBY (IN ONBOARDING)'}
         </span>
       </div>
 
-      <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-4 font-mono text-xs">
+      <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-4 text-xs font-light">
         <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 pb-3 border-b border-slate-100 font-sans">
           Configured Dispatch Capacity
         </h3>

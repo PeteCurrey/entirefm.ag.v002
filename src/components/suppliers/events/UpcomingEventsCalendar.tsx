@@ -176,7 +176,7 @@ export function UpcomingEventsCalendar() {
   }, [selectedCategory]);
 
   return (
-    <section id="event-programme" className="py-20 sm:py-28 bg-white border-b border-slate-200">
+    <section id="upcoming-events" className="py-20 sm:py-28 bg-white border-b border-slate-200 scroll-mt-20">
       <div className="container-custom">
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
@@ -251,13 +251,13 @@ export function UpcomingEventsCalendar() {
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     <div className="space-y-1.5">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[10px] font-mono uppercase bg-slate-900 text-white px-2 py-0.5 rounded-xs">
+                        <span className="text-[10px] font-light uppercase tracking-wider bg-slate-900 text-white px-2 py-0.5 rounded-xs">
                           {evt.format}
                         </span>
-                        <span className="text-[10px] font-mono uppercase bg-brand-pink/10 text-brand-pink border border-brand-pink/20 px-2 py-0.5 rounded-xs">
+                        <span className="text-[10px] font-light uppercase tracking-wider bg-brand-pink/10 text-brand-pink border border-brand-pink/20 px-2 py-0.5 rounded-xs">
                           {evt.status}
                         </span>
-                        <span className="text-[11px] font-mono text-slate-400">
+                        <span className="text-[11px] font-light text-slate-400">
                           {evt.targetQuarter}
                         </span>
                       </div>
@@ -307,13 +307,13 @@ export function UpcomingEventsCalendar() {
                   {isExpanded && (
                     <div className="mt-4 pt-4 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-5 rounded-xs border border-slate-200/70 animate-in fade-in duration-300">
                       <div>
-                        <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400 block font-light mb-3">
+                        <span className="text-[10.5px] font-light uppercase tracking-wider text-slate-400 block font-light mb-3">
                           Example Format &amp; Indicative Agenda:
                         </span>
                         <div className="space-y-2 border-l-2 border-slate-100 pl-3">
                           {evt.sampleAgenda.map((item, idx) => (
                             <div key={idx} className="flex items-start gap-3 text-xs">
-                              <span className="font-mono text-brand-pink shrink-0 font-medium">
+                              <span className="text-brand-pink shrink-0 font-medium">
                                 {item.time}
                               </span>
                               <span className="text-slate-700 font-light">{item.activity}</span>
@@ -323,7 +323,7 @@ export function UpcomingEventsCalendar() {
                       </div>
 
                       <div className="space-y-3">
-                        <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400 block font-light">
+                        <span className="text-[10.5px] font-light uppercase tracking-wider text-slate-400 block font-light">
                           Key Technical Topics:
                         </span>
                         <div className="space-y-1.5">
@@ -351,14 +351,14 @@ export function UpcomingEventsCalendar() {
               return (
                 <div key={quarter} className="bg-[#FAF9FB] border border-slate-200 rounded-sm p-5 space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-                    <span className="font-mono text-sm font-semibold text-slate-900">{quarter}</span>
-                    <span className="text-[10px] font-mono text-brand-pink uppercase">{eventsInQuarter.length} Sessions</span>
+                    <span className="text-sm font-semibold text-slate-900">{quarter}</span>
+                    <span className="text-[10.5px] font-light text-brand-pink uppercase">{eventsInQuarter.length} Sessions</span>
                   </div>
 
                   <div className="space-y-3">
                     {eventsInQuarter.map((evt) => (
                       <div key={evt.id} className="p-3.5 bg-white border border-slate-200/80 rounded-xs shadow-2xs space-y-2">
-                        <span className="text-[9.5px] font-mono uppercase text-slate-400 block">
+                        <span className="text-[9.5px] font-light uppercase tracking-wider text-slate-400 block">
                           {evt.format}
                         </span>
                         <div className="text-xs font-medium text-slate-900 leading-snug">

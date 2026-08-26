@@ -103,7 +103,7 @@ export default function ResetPasswordPage() {
             <span className="text-[17px] font-light tracking-tight text-white">
               Entire<span className="font-light text-brand-pink">FM</span>
             </span>
-            <span className="rounded border border-slate-700 bg-slate-900/60 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-slate-400">
+            <span className="rounded border border-slate-700 bg-slate-900/60 px-2 py-0.5 font-light text-[10.5px] uppercase tracking-wider text-slate-400">
               Supplier Portal
             </span>
           </Link>
@@ -142,9 +142,9 @@ export default function ResetPasswordPage() {
                 <div className="mb-6">
                   <div className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800 px-2.5 py-1 text-[11px] text-slate-300 mb-4">
                     <Lock className="h-3.5 w-3.5 text-brand-pink" />
-                    Supabase Security Recovery
+                    Secure Password Recovery
                   </div>
-                  <h1 className="text-2xl font-light tracking-tight text-white">
+                  <h1 className="text-2xl font-extralight tracking-tight text-white">
                     Set a new password
                   </h1>
                   <p className="mt-2 text-[13px] leading-relaxed text-slate-400">
@@ -160,7 +160,7 @@ export default function ResetPasswordPage() {
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <label className="block font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-1.5">
+                    <label className="block font-light text-[11.5px] uppercase tracking-wider text-slate-400 mb-1.5">
                       New Password *
                     </label>
                     <div className="relative">
@@ -197,7 +197,7 @@ export default function ResetPasswordPage() {
                   </div>
 
                   <div>
-                    <label className="block font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-1.5">
+                    <label className="block font-light text-[11.5px] uppercase tracking-wider text-slate-400 mb-1.5">
                       Confirm New Password *
                     </label>
                     <div className="relative">
@@ -235,7 +235,7 @@ export default function ResetPasswordPage() {
       </main>
 
       <footer className="border-t border-slate-800/60 py-4 text-center text-[11px] text-slate-500">
-        EntireFM Partner Network · Secure Supabase Authentication
+        EntireFM Partner Network · Secure Supplier Access
       </footer>
     </div>
   );

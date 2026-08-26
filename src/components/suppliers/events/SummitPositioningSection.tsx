@@ -60,7 +60,7 @@ export function SummitPositioningSection() {
 
           {/* Right Column / Summit Core Pillars Card */}
           <div className="lg:col-span-5 bg-white/[0.04] border border-white/15 rounded-sm p-6 sm:p-8 backdrop-blur-xl space-y-5">
-            <span className="text-[11px] font-mono uppercase text-slate-400 tracking-wider block">
+            <span className="text-[11px] font-light uppercase tracking-wider text-slate-400 tracking-wider block">
               Summit Strategic Pillars
             </span>
 

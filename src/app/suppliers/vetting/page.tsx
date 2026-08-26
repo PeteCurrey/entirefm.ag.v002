@@ -95,7 +95,7 @@ export default function VettingPage() {
                 },
               ].map((item, idx) => (
                 <div key={idx} className="p-6 bg-white border border-slate-200 rounded-sm shadow-sm space-y-3">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">DISCIPLINE 0{idx + 1}</span>
+                  <span className="text-[10px] font-light uppercase tracking-wider text-slate-400">DISCIPLINE 0{idx + 1}</span>
                   <h3 className="text-base font-light text-slate-900">{item.trade}</h3>
                   <div className="space-y-1.5 pt-2">
                     {item.schemes.map((s, sIdx) => (

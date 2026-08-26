@@ -15,15 +15,15 @@ export default async function SupplierPortalJobsPage() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
-          <span className="text-[10.5px] font-mono uppercase tracking-widest text-slate-400">
+          <span className="text-[10.5px] font-light uppercase tracking-wider text-slate-400">
             ENTIRECAFM // OPERATIONAL WORK QUEUE
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
             Dispatched Work Orders
           </h1>
         </div>
 
-        <span className="text-xs font-mono font-bold px-3 py-1 bg-emerald-100 text-emerald-900 rounded-sm self-start sm:self-auto">
+        <span className="text-xs font-medium px-3 py-1 bg-emerald-100 text-emerald-900 rounded-sm self-start sm:self-auto">
           {jobs.length} ACTIVE JOBS
         </span>
       </div>
@@ -31,7 +31,7 @@ export default async function SupplierPortalJobsPage() {
       {jobs.length > 0 ? (
         <div className="space-y-4">
           {jobs.map((j) => (
-            <div key={j.id} className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-4 font-mono text-xs">
+            <div key={j.id} className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-4 text-xs font-light">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
                 <div>
                   <h3 className="font-bold text-slate-900 font-sans text-base">{j.work_order_id} &middot; {j.site_name}</h3>

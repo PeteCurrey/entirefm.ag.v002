@@ -61,7 +61,7 @@ export default async function OrgSetupPage() {
             <span className="text-[17px] font-light tracking-tight text-white">
               Entire<span className="font-light text-brand-pink">FM</span>
             </span>
-            <span className="rounded border border-slate-700 bg-slate-900/60 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-slate-400">
+            <span className="rounded border border-slate-700 bg-slate-900/60 px-2 py-0.5 font-light text-[10.5px] uppercase tracking-wider text-slate-400">
               Supplier Portal
             </span>
           </Link>
@@ -70,10 +70,10 @@ export default async function OrgSetupPage() {
 
       {/* Progress indicator */}
       <div className="border-b border-slate-800 bg-slate-900/60">
-        <div className="mx-auto max-w-7xl px-6 py-2 flex items-center gap-4 text-[11px] font-mono text-slate-500">
+        <div className="mx-auto max-w-7xl px-6 py-2 flex items-center gap-4 text-[11px] font-light text-slate-500">
           <span className="text-emerald-400">✓ Account Created</span>
           <span className="text-slate-600">→</span>
-          <span className="text-white font-bold">Company Setup</span>
+          <span className="text-white font-normal">Company Setup</span>
           <span className="text-slate-600">→</span>
           <span>Supplier Application</span>
         </div>

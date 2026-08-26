@@ -138,14 +138,14 @@ export function SupplierApplicationForm() {
           <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-10 h-10" />
           </div>
-          <span className="inline-block text-[11px] font-mono font-light px-3 py-1 bg-emerald-100 text-emerald-900 rounded-sm">
+          <span className="inline-block text-[11px] font-light px-3 py-1 bg-emerald-100 text-emerald-900 rounded-sm">
             APPLICATION LOGGED · {appId}
           </span>
           <h3 className="text-2xl font-extralight text-slate-900">
             Supplier Application Submitted for Assurance Review
           </h3>
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-lg mx-auto font-light">
-            Thank you for applying to join the EntireFM Supplier &amp; Partner Network. Your application has been logged with initial status <strong className="text-slate-900 font-mono font-light">APPLICATION</strong>. Our procurement and compliance desk will review your trade scope and contact you to request certificate documentation.
+            Thank you for applying to join the EntireFM Supplier &amp; Partner Network. Your application has been logged with initial status <strong className="text-slate-900 font-light">APPLICATION</strong>. Our procurement and compliance desk will review your trade scope and contact you to request certificate documentation.
           </p>
           <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-center gap-4 text-xs font-normal">
             <Link href="/suppliers/how-we-work" className="text-slate-900 hover:text-brand-pink underline">
@@ -175,7 +175,7 @@ export function SupplierApplicationForm() {
               <h3 className="text-sm font-normal uppercase tracking-wider text-slate-900">
                 1. Business Identity &amp; Profile
               </h3>
-              <span className="text-[11px] font-mono text-slate-400">PHASE 1 QUALIFICATION</span>
+              <span className="text-[11px] font-light text-slate-400">PHASE 1 QUALIFICATION</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -511,7 +511,7 @@ export function SupplierApplicationForm() {
                           className="mt-2.5 pt-2.5 border-t border-slate-700/60 w-full"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <label className="block text-[10px] font-mono text-slate-300 mb-1">
+                          <label className="block text-[10.5px] font-light text-slate-300 mb-1">
                             {accred.identifierLabel} *
                           </label>
                           <input
@@ -527,7 +527,7 @@ export function SupplierApplicationForm() {
                               }))
                             }
                             placeholder={accred.placeholder}
-                            className="w-full px-2.5 py-1.5 bg-slate-800 border border-slate-700 rounded text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-brand-pink"
+                            className="w-full px-2.5 py-1.5 bg-slate-800 border border-slate-700 rounded text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-pink"
                           />
                         </div>
                       )}

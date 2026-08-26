@@ -10,10 +10,10 @@ export default function SupplierSupportPage() {
   return (
     <div className="space-y-8">
       <div>
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+        <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
           SUPPLY CHAIN ASSISTANCE
         </span>
-        <h1 className="text-2xl font-bold text-slate-900 mt-1">
+        <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
           Supplier Support &amp; Help Desk
         </h1>
         <p className="text-xs text-slate-500 font-light mt-1">
@@ -28,7 +28,7 @@ export default function SupplierSupportPage() {
           <p className="text-slate-600 font-light leading-relaxed">
             For questions regarding required trade accreditations, insurance minimums, or document rejection explanations.
           </p>
-          <span className="font-mono text-slate-900 font-bold block pt-2">supplier-support@entirefm.com</span>
+          <span className="text-slate-900 font-bold block pt-2">supplier-support@entirefm.com</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-3">
@@ -37,7 +37,7 @@ export default function SupplierSupportPage() {
           <p className="text-slate-600 font-light leading-relaxed">
             For live work order queries, emergency dispatch acknowledgements, and site access coordination.
           </p>
-          <span className="font-mono text-slate-900 font-bold block pt-2">operations@entirefm.com</span>
+          <span className="text-slate-900 font-bold block pt-2">operations@entirefm.com</span>
         </div>
       </div>
     </div>

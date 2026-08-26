@@ -113,7 +113,7 @@ export function SupplierHero({
       >
         <div className="max-w-3xl">
           {eyebrow && (
-            <div className="inline-flex items-center gap-2 rounded-sm border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-mono tracking-[0.14em] text-brand-mist/80 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 rounded-sm border border-white/10 bg-white/[0.04] px-3 py-1 text-[11.5px] font-light tracking-[0.14em] text-brand-mist/80 backdrop-blur-sm">
               <span className="h-1.5 w-1.5 rounded-full bg-brand-electric-bright animate-pulse" />
               {eyebrow}
             </div>

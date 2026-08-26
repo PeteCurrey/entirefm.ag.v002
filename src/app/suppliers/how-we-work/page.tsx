@@ -34,10 +34,10 @@ export default function HowWeWorkPage() {
       <main className="flex-1">
         <section className="bg-slate-900 text-white py-20 lg:py-28">
           <div className="container-custom max-w-5xl space-y-6">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+            <span className="text-[11px] font-light uppercase tracking-wider text-brand-pink font-bold">
               OPERATIONAL LIFECYCLE
             </span>
-            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white max-w-3xl leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight tracking-tight text-white max-w-3xl leading-tight">
               How EntireFM Works with Suppliers
             </h1>
             <p className="text-base sm:text-lg text-slate-300 font-light max-w-2xl leading-relaxed">
@@ -50,11 +50,11 @@ export default function HowWeWorkPage() {
           {/* 12 Steps */}
           <div className="space-y-6">
             <div className="space-y-1">
-              <span className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">END-TO-END JOURNEY</span>
-              <h2 className="text-2xl font-bold text-slate-900">The 12-Stage Supplier Lifecycle</h2>
+              <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold tracking-wider">END-TO-END JOURNEY</span>
+              <h2 className="text-2xl font-light text-slate-900">The 12-Stage Supplier Lifecycle</h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs font-mono">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs font-light">
               {steps.map((s) => (
                 <div key={s.num} className="bg-white border border-slate-200 p-5 rounded-sm shadow-sm space-y-2">
                   <span className="text-brand-pink font-bold text-sm block">{s.num}</span>

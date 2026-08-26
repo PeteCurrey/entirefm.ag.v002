@@ -75,7 +75,7 @@ export default function SupplierHubPage() {
         {/* 9. CLOSING CONVERSION STRIP */}
         <section className="py-20 bg-brand-graphite text-white border-t border-brand-edge-dark">
           <div className="container-custom max-w-4xl text-center space-y-6">
-            <span className="text-xs font-mono uppercase tracking-widest text-brand-electric-bright">
+            <span className="text-xs font-light uppercase tracking-wider text-brand-electric-bright">
               JOIN THE NETWORK
             </span>
             <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-white">

@@ -56,10 +56,10 @@ export default async function SupplierPortalDashboardPage() {
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+              <span className="text-[10px] font-light uppercase tracking-wider text-brand-pink font-bold">
                 {isApproved ? 'PARTNER RELATIONSHIP CENTRE' : 'SUPPLIER ASSURANCE HUB'}
               </span>
-              <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold border ${
+              <span className={`text-[10.5px] font-light px-2 py-0.5 rounded font-bold border ${
                 isApproved
                   ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
                   : 'bg-slate-800 text-slate-300 border-slate-700'
@@ -67,11 +67,11 @@ export default async function SupplierPortalDashboardPage() {
                 {statusDisplay.statusLabel}
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold">
+            <h1 className="text-2xl sm:text-3xl font-extralight tracking-tight">
               {companyName}
             </h1>
             <p className="text-xs text-slate-300 font-light">
-              Application Reference: <strong className="text-white font-mono font-medium">{appRef}</strong> &middot; EntireFM Partner Network
+              Application Reference: <strong className="text-white font-normal">{appRef}</strong> &middot; EntireFM Partner Network
             </p>
           </div>
 
@@ -99,7 +99,7 @@ export default async function SupplierPortalDashboardPage() {
         </div>
 
         {/* Status Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-white/10 text-xs font-mono">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-white/10 text-xs font-light">
           <div>
             <span className="text-slate-400 text-[10px] uppercase block">Assurance State</span>
             <span className={isApproved ? 'text-emerald-400 font-bold' : 'text-amber-400 font-bold'}>
@@ -140,7 +140,7 @@ export default async function SupplierPortalDashboardPage() {
               <span className="font-bold text-slate-900">
                 Action Required: {expiringItems.length} Compliance Document Expiring Soon
               </span>
-              <span className="text-[11px] font-mono text-amber-800 font-bold">
+              <span className="text-[11.5px] font-light text-amber-800 font-bold">
                 {expiringItems[0].days_remaining} Days Remaining
               </span>
             </div>
@@ -163,7 +163,7 @@ export default async function SupplierPortalDashboardPage() {
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <h2 className="font-bold text-slate-900 font-sans text-sm flex items-center gap-2">
+              <h2 className="font-light text-slate-900 font-sans text-sm flex items-center gap-2">
                 <Wrench className="h-4 w-4 text-slate-400" />
                 {isApproved ? 'Authorized EntireFM Scope' : 'Application Trade Declarations'}
               </h2>
@@ -182,7 +182,7 @@ export default async function SupplierPortalDashboardPage() {
                         {s.capability_notes || 'Declared trade capability'}
                       </span>
                     </div>
-                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold ${
+                    <span className={`text-[10.5px] font-light px-2 py-0.5 rounded font-bold ${
                       s.approval_status === 'APPROVED'
                         ? 'bg-emerald-100 text-emerald-800'
                         : 'bg-amber-100 text-amber-800'
@@ -249,7 +249,7 @@ export default async function SupplierPortalDashboardPage() {
         {/* Right Col: EntireFM Team / Support */}
         <div className="space-y-6">
           <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm space-y-4">
-            <h2 className="font-bold text-slate-900 font-sans text-sm pb-3 border-b border-slate-100 flex items-center gap-2">
+            <h2 className="font-light text-slate-900 font-sans text-sm pb-3 border-b border-slate-100 flex items-center gap-2">
               <Users className="h-4 w-4 text-slate-400" /> {relationship.assigned_entirefm_team.length > 0 ? 'Assigned Relationship Manager' : 'Supplier Support Desk'}
             </h2>
 
@@ -257,13 +257,13 @@ export default async function SupplierPortalDashboardPage() {
               <div className="space-y-4 text-xs">
                 {relationship.assigned_entirefm_team.map((contact, idx) => (
                   <div key={idx} className="space-y-1 pb-3 border-b border-slate-100 last:border-0 last:pb-0">
-                    <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block">
+                    <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold block">
                       {contact.role}
                     </span>
                     <span className="font-bold text-slate-900 block font-sans">
                       {contact.name}
                     </span>
-                    <div className="text-[11px] text-slate-600 space-y-0.5 font-mono">
+                    <div className="text-[11px] text-slate-600 space-y-0.5">
                       {contact.email && (
                         <div className="flex items-center gap-1.5">
                           <Mail className="h-3 w-3 text-slate-400" />
@@ -288,8 +288,8 @@ export default async function SupplierPortalDashboardPage() {
                   A dedicated Relationship Manager is assigned upon successful completion of your technical assurance review.
                 </p>
                 <div className="pt-1 border-t border-slate-100 space-y-1">
-                  <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block">General Assurance Enquiries</span>
-                  <a href="mailto:supplier-support@entirefm.com" className="font-mono text-xs text-brand-pink font-medium hover:underline block">
+                  <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold block">General Assurance Enquiries</span>
+                  <a href="mailto:supplier-support@entirefm.com" className="text-xs font-light text-brand-pink font-medium hover:underline block">
                     supplier-support@entirefm.com
                   </a>
                 </div>

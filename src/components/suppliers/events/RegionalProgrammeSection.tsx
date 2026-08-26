@@ -71,19 +71,19 @@ export function RegionalProgrammeSection() {
                     <h3 className="text-lg font-normal text-slate-900 group-hover:text-brand-pink transition-colors">
                       {hub.city}
                     </h3>
-                    <span className="text-xs font-mono text-slate-400 font-light">
+                    <span className="text-xs font-light text-slate-400 font-light">
                       {hub.region}
                     </span>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-xs border border-emerald-200 uppercase">
+                <span className="text-[10.5px] font-light text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-xs border border-emerald-200 uppercase">
                   Programme Hub
                 </span>
               </div>
 
               <div className="space-y-2 pt-2 border-t border-slate-100 text-xs">
                 <div>
-                  <span className="font-mono uppercase text-[10px] text-slate-400 block font-light">
+                  <span className="font-light uppercase tracking-wider text-[10px] text-slate-400 block font-light">
                     Regional Engineering Focus:
                   </span>
                   <p className="text-slate-700 font-normal mt-0.5">
@@ -91,7 +91,7 @@ export function RegionalProgrammeSection() {
                   </p>
                 </div>
                 <div>
-                  <span className="font-mono uppercase text-[10px] text-slate-400 block font-light">
+                  <span className="font-light uppercase tracking-wider text-[10px] text-slate-400 block font-light">
                     Indicative Hub Locations:
                   </span>
                   <p className="text-slate-500 font-light mt-0.5">

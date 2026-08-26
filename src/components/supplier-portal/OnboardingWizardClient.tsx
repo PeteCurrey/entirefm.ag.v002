@@ -176,19 +176,19 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
           <CheckCircle2 className="h-8 w-8" />
         </div>
         <div className="space-y-2">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+          <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
             APPLICATION SUBMISSION CONFIRMED
           </span>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
+          <h1 className="text-2xl sm:text-3xl font-extralight tracking-tight text-slate-900">
             Application Submitted Successfully
           </h1>
           <p className="text-xs text-slate-600 font-light max-w-md mx-auto">
             Your supplier application reference is{' '}
-            <strong className="text-slate-900 font-mono font-bold">{appRef}</strong>. Our supply chain assurance desk has received your documentation.
+            <strong className="text-slate-900 font-medium">{appRef}</strong>. Our supply chain assurance desk has received your documentation.
           </p>
         </div>
 
-        <div className="p-4 bg-slate-50 border border-slate-200 rounded text-left text-xs font-mono space-y-2">
+        <div className="p-4 bg-slate-50 border border-slate-200 rounded text-left text-xs font-light space-y-2">
           <div className="flex items-center justify-between border-b border-slate-200 pb-2">
             <span className="font-bold text-slate-900 font-sans">Assurance Review Fee:</span>
             <span className="text-emerald-700 font-bold">
@@ -222,10 +222,10 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
       <div className="lg:col-span-1 space-y-4">
         <div className="bg-white border border-slate-200 p-4 rounded-sm shadow-sm space-y-3">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-            <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">
+            <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
               ONBOARDING WIZARD
             </span>
-            <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-bold">
+            <span className="text-[10.5px] font-light text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-bold">
               {Math.round((currentStep / 15) * 100)}%
             </span>
           </div>
@@ -261,7 +261,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
             })}
           </div>
 
-          <div className="pt-3 border-t border-slate-100 text-[10.5px] font-mono text-slate-400 flex items-center justify-between">
+          <div className="pt-3 border-t border-slate-100 text-[10.5px] font-light text-slate-400 flex items-center justify-between">
             <span>Autosaved: {lastSaved}</span>
             <button onClick={handleSave} className="text-slate-900 font-bold hover:underline">
               Save
@@ -276,14 +276,14 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
           {/* Step Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-200">
             <div>
-              <span className="text-[10px] font-mono uppercase text-brand-pink font-bold">
+              <span className="text-[10px] font-light uppercase tracking-wider text-brand-pink font-bold">
                 STAGE {currentStep} OF 15
               </span>
-              <h2 className="text-xl font-bold text-slate-900 mt-0.5">
+              <h2 className="text-xl font-light text-slate-900 mt-0.5">
                 {STEPS[currentStep - 1].title}
               </h2>
             </div>
-            <span className="text-xs font-mono text-slate-400">Ref: {appRef}</span>
+            <span className="text-xs font-light text-slate-400">Ref: {appRef}</span>
           </div>
 
           {/* Form Content by Step */}
@@ -314,7 +314,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                     type="text"
                     value={formData.companyNumber}
                     onChange={(e) => setFormData({ ...formData, companyNumber: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-mono"
+                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-light"
                   />
                 </div>
                 <div className="space-y-1">
@@ -323,7 +323,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                     type="text"
                     value={formData.vatNumber}
                     onChange={(e) => setFormData({ ...formData, vatNumber: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-mono"
+                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-light"
                   />
                 </div>
               </div>
@@ -345,7 +345,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                     type="text"
                     value={formData.yearEstablished}
                     onChange={(e) => setFormData({ ...formData, yearEstablished: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-mono"
+                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-light"
                   />
                 </div>
                 <div className="space-y-1">
@@ -354,7 +354,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                     type="text"
                     value={formData.employeeCount}
                     onChange={(e) => setFormData({ ...formData, employeeCount: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-mono"
+                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-light"
                   />
                 </div>
                 <div className="space-y-1">
@@ -544,7 +544,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                     type="text"
                     value={formData.plPolicyNumber}
                     onChange={(e) => setFormData({ ...formData, plPolicyNumber: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-mono"
+                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-light"
                   />
                 </div>
                 <div className="space-y-1">
@@ -553,7 +553,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                     type="text"
                     value={formData.plCoverLimit}
                     onChange={(e) => setFormData({ ...formData, plCoverLimit: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-mono"
+                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-light"
                   />
                 </div>
                 <div className="space-y-1">
@@ -562,7 +562,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                     type="date"
                     value={formData.plExpiryDate}
                     onChange={(e) => setFormData({ ...formData, plExpiryDate: e.target.value })}
-                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-mono"
+                    className="w-full p-2.5 border border-slate-200 rounded text-xs font-light"
                   />
                 </div>
               </div>
@@ -584,7 +584,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                     Select each active accreditation held by your organisation and provide the scheme registration or certificate number.
                   </p>
                 </div>
-                <span className="text-[11px] font-mono text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
+                <span className="text-[11.5px] font-light text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
                   {formData.selectedAccreditations.length} Selected
                 </span>
               </div>
@@ -619,7 +619,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                           <span className={`text-[12px] block ${isChecked ? 'font-bold text-slate-900' : 'text-slate-700'}`}>
                             {accred.name}
                           </span>
-                          <span className="text-[10px] font-mono text-slate-400 uppercase">
+                          <span className="text-[10px] font-light text-slate-400 uppercase">
                             {accred.category}
                           </span>
                         </div>
@@ -630,7 +630,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                           className="mt-3 pt-3 border-t border-emerald-200/80 w-full space-y-1.5"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <label className="block text-[10.5px] font-mono font-bold text-slate-800">
+                          <label className="block text-[10.5px] font-medium text-slate-800">
                             {accred.identifierLabel} *
                           </label>
                           <input
@@ -647,7 +647,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                             }}
                             onBlur={handleSave}
                             placeholder={accred.placeholder}
-                            className="w-full p-2 bg-white border border-emerald-300 rounded text-xs text-slate-900 font-mono focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                            className="w-full p-2 bg-white border border-emerald-300 rounded text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                           />
                         </div>
                       )}
@@ -706,21 +706,21 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                     <span className="font-bold text-slate-900 block">Company Profile</span>
                     <span className="text-slate-500 text-[11px]">{formData.legalCompanyName} ({formData.companyNumber})</span>
                   </div>
-                  <span className="text-emerald-700 font-bold font-mono text-[10.5px]">COMPLETE</span>
+                  <span className="text-emerald-700 font-bold text-[10.5px]">COMPLETE</span>
                 </div>
                 <div className="p-3.5 flex items-center justify-between">
                   <div>
                     <span className="font-bold text-slate-900 block">Declared Services</span>
                     <span className="text-slate-500 text-[11px]">{formData.selectedServices.join(', ')}</span>
                   </div>
-                  <span className="text-emerald-700 font-bold font-mono text-[10.5px]">COMPLETE</span>
+                  <span className="text-emerald-700 font-bold text-[10.5px]">COMPLETE</span>
                 </div>
                 <div className="p-3.5 flex items-center justify-between">
                   <div>
                     <span className="font-bold text-slate-900 block">Public Liability Insurance</span>
                     <span className="text-slate-500 text-[11px]">{formData.plCoverLimit} (Exp: {formData.plExpiryDate})</span>
                   </div>
-                  <span className="text-emerald-700 font-bold font-mono text-[10.5px]">COMPLETE</span>
+                  <span className="text-emerald-700 font-bold text-[10.5px]">COMPLETE</span>
                 </div>
                 <div className="p-3.5 flex items-start justify-between">
                   <div>
@@ -730,7 +730,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                         <div key={acc} className="flex items-center gap-1.5">
                           <span className="font-medium text-slate-900">{acc}</span>
                           {formData.accreditationNumbers[acc] && (
-                            <span className="font-mono text-slate-500 text-[10.5px]">
+                            <span className="font-light text-slate-500 text-[10.5px]">
                               (Ref: {formData.accreditationNumbers[acc]})
                             </span>
                           )}
@@ -738,14 +738,14 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                       ))}
                     </div>
                   </div>
-                  <span className="text-emerald-700 font-bold font-mono text-[10.5px]">COMPLETE</span>
+                  <span className="text-emerald-700 font-bold text-[10.5px]">COMPLETE</span>
                 </div>
                 <div className="p-3.5 flex items-center justify-between">
                   <div>
                     <span className="font-bold text-slate-900 block">Declarations &amp; Code of Conduct</span>
                     <span className="text-slate-500 text-[11px]">Accepted by {formData.primaryContactName}</span>
                   </div>
-                  <span className="text-emerald-700 font-bold font-mono text-[10.5px]">COMPLETE</span>
+                  <span className="text-emerald-700 font-bold text-[10.5px]">COMPLETE</span>
                 </div>
               </div>
 
@@ -753,7 +753,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
               <div className="bg-[#FAF9FB] border-2 border-slate-900 rounded-sm p-5 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
                   <div>
-                    <span className="text-[10px] font-mono uppercase text-emerald-700 font-bold tracking-wider bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    <span className="text-[10px] font-light uppercase tracking-wider text-emerald-700 font-bold tracking-wider bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                       PRE-SUBMISSION ASSURANCE GATEWAY
                     </span>
                     <h3 className="text-base font-bold text-slate-900 mt-1">
@@ -761,10 +761,10 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
                     </h3>
                   </div>
                   <div className="text-right">
-                    <span className="text-lg font-mono font-bold text-slate-900">
+                    <span className="text-lg font-light text-slate-900">
                       {CANONICAL_PUBLIC_PRICING.INITIAL_ASSURANCE_REVIEW.displayPrice}
                     </span>
-                    <span className="text-[10px] text-slate-500 block font-mono">£420.00 inc. 20% VAT</span>
+                    <span className="text-[10px] text-slate-500 block">£420.00 inc. 20% VAT</span>
                   </div>
                 </div>
 

@@ -18,7 +18,7 @@ export default async function ForgotPasswordPage({ searchParams }: Props) {
             <span className="text-[17px] font-light tracking-tight text-white">
               Entire<span className="font-light text-brand-pink">FM</span>
             </span>
-            <span className="rounded border border-slate-700 bg-slate-900/60 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-slate-400">
+            <span className="rounded border border-slate-700 bg-slate-900/60 px-2 py-0.5 font-light text-[10.5px] uppercase tracking-wider text-slate-400">
               Supplier Portal
             </span>
           </Link>
@@ -70,7 +70,7 @@ export default async function ForgotPasswordPage({ searchParams }: Props) {
                     <Mail className="h-3.5 w-3.5" />
                     Password Reset
                   </div>
-                  <h1 className="text-2xl font-light tracking-tight text-white">
+                  <h1 className="text-2xl font-extralight tracking-tight text-white">
                     Forgot your password?
                   </h1>
                   <p className="mt-2 text-[13px] leading-relaxed text-slate-400">
@@ -88,7 +88,7 @@ export default async function ForgotPasswordPage({ searchParams }: Props) {
                   <div>
                     <label
                       htmlFor="email"
-                      className="block font-mono text-[11px] uppercase tracking-wider text-slate-400 mb-1.5"
+                      className="block font-light text-[11.5px] uppercase tracking-wider text-slate-400 mb-1.5"
                     >
                       Email Address
                     </label>

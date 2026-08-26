@@ -30,10 +30,10 @@ export default function PartnerNetworkPublicPage() {
         {/* Hero Section */}
         <section className="bg-slate-900 text-white py-20 lg:py-28 relative overflow-hidden">
           <div className="container-custom max-w-5xl space-y-6">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+            <span className="text-[11px] font-light uppercase tracking-wider text-brand-pink font-bold">
               ENTIREFM PARTNER NETWORK
             </span>
-            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white max-w-3xl leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight tracking-tight text-white max-w-3xl leading-tight">
               More than an approved supplier list.
             </h1>
             <p className="text-base sm:text-lg text-slate-300 font-light max-w-2xl leading-relaxed">
@@ -58,10 +58,10 @@ export default function PartnerNetworkPublicPage() {
         <section className="py-16 bg-white border-b border-slate-200">
           <div className="container-custom max-w-5xl space-y-12">
             <div className="space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+              <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
                 COLLABORATIVE ECOSYSTEM
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+              <h2 className="text-2xl sm:text-3xl font-light text-slate-900">
                 Who the Partner Network is For
               </h2>
               <p className="text-xs text-slate-600 font-light max-w-2xl">
@@ -106,10 +106,10 @@ export default function PartnerNetworkPublicPage() {
         <section className="py-16 bg-slate-50 border-t border-slate-200">
           <div className="container-custom max-w-5xl space-y-8">
             <div className="space-y-2 text-center max-w-2xl mx-auto">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+              <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
                 COMMERCIAL CLARITY
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+              <h2 className="text-2xl sm:text-3xl font-light text-slate-900">
                 Partner Network Memberships
               </h2>
               <p className="text-xs text-slate-600 font-light">

@@ -10,7 +10,7 @@ export function SupplierPortalConnectionBanner() {
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-3">
-            <span className="text-[10.5px] font-mono uppercase text-brand-pink-light block">
+            <span className="text-[10.5px] font-light uppercase tracking-wider text-brand-pink-light block">
               EXISTING PARTNER NETWORK MEMBERS
             </span>
             <h3 className="text-2xl sm:text-3xl font-light text-white">

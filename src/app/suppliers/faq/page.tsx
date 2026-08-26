@@ -28,10 +28,10 @@ export default function SupplierFaqPage() {
       <main className="flex-1">
         <section className="bg-slate-900 text-white py-16 lg:py-24">
           <div className="container-custom max-w-5xl space-y-4">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+            <span className="text-[11px] font-light uppercase tracking-wider text-brand-pink font-bold">
               TRANSPARENT ANSWERS
             </span>
-            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white max-w-3xl">
+            <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight tracking-tight text-white max-w-3xl">
               Supplier &amp; Partner Network FAQ
             </h1>
             <p className="text-sm sm:text-base text-slate-300 font-light max-w-2xl">
@@ -47,7 +47,7 @@ export default function SupplierFaqPage() {
 
             return (
               <div key={cat.key} className="space-y-4">
-                <h2 className="text-lg font-bold text-slate-900 pb-2 border-b border-slate-200">
+                <h2 className="text-lg font-light text-slate-900 pb-2 border-b border-slate-200">
                   {cat.label}
                 </h2>
 

@@ -13,10 +13,10 @@ export default async function SupplierResourcesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+        <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
           OPERATIONAL GUIDELINES &amp; POLICIES
         </span>
-        <h1 className="text-2xl font-bold text-slate-900 mt-1">
+        <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
           Supplier Standards &amp; Resource Vault
         </h1>
         <p className="text-xs text-slate-500 font-light mt-1">
@@ -29,15 +29,15 @@ export default async function SupplierResourcesPage() {
           <div key={res.id} className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-3 flex flex-col justify-between">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">{res.category}</span>
-                <span className="text-[10.5px] font-mono text-slate-500">{res.version}</span>
+                <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">{res.category}</span>
+                <span className="text-[10.5px] font-light text-slate-500">{res.version}</span>
               </div>
               <h3 className="font-bold text-slate-900 font-sans text-sm">{res.title}</h3>
               <p className="text-slate-600 font-light leading-relaxed text-[11.5px]">{res.summary}</p>
             </div>
 
             <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-[11px] font-mono text-slate-400">{res.file_format}</span>
+              <span className="text-[11px] font-light text-slate-400">{res.file_format}</span>
               <a
                 href={res.download_url}
                 className="text-brand-pink font-bold hover:underline flex items-center gap-1 text-[11.5px]"

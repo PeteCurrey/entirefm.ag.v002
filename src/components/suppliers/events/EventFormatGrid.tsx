@@ -130,7 +130,7 @@ export function EventFormatGrid() {
                   <div className="p-2.5 rounded-xs bg-white text-slate-900 border border-slate-200/80 group-hover:bg-brand-pink/10 group-hover:text-brand-pink transition-colors">
                     <format.icon className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono uppercase text-slate-400 font-light">
+                  <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-light">
                     {format.discipline}
                   </span>
                 </div>
@@ -147,11 +147,11 @@ export function EventFormatGrid() {
 
               <div className="mt-6 pt-4 border-t border-slate-200/80 space-y-2 text-[11.5px]">
                 <div>
-                  <span className="font-mono uppercase text-[10px] text-slate-400 block">Typical Audience:</span>
+                  <span className="font-light uppercase tracking-wider text-[10px] text-slate-400 block">Typical Audience:</span>
                   <span className="text-slate-700 font-light">{format.typicalAudience}</span>
                 </div>
                 <div>
-                  <span className="font-mono uppercase text-[10px] text-brand-pink block">Example Topic:</span>
+                  <span className="font-light uppercase tracking-wider text-[10px] text-brand-pink block">Example Topic:</span>
                   <span className="text-slate-800 font-normal italic">&quot;{format.exampleTopic}&quot;</span>
                 </div>
               </div>

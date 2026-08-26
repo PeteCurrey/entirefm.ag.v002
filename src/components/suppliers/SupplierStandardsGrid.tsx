@@ -73,7 +73,7 @@ export function SupplierStandardsGrid() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[11px] font-mono uppercase tracking-widest text-brand-pink font-light">
+                    <span className="text-[11px] font-light uppercase tracking-wider text-brand-pink font-light">
                       PRINCIPLE {item.number}
                     </span>
                     <div className="w-8 h-8 rounded-sm bg-slate-900 text-white flex items-center justify-center">
@@ -101,7 +101,7 @@ export function SupplierStandardsGrid() {
         {/* Code of Conduct Highlight */}
         <div className="mt-14 p-8 bg-brand-graphite text-white rounded-sm border border-brand-edge-dark flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <span className="text-[10.5px] font-mono uppercase tracking-widest text-brand-electric-bright">
+            <span className="text-[10.5px] font-light uppercase tracking-wider text-brand-electric-bright">
               ETHICAL &amp; CORPORATE GOVERNANCE
             </span>
             <h3 className="text-lg sm:text-xl font-light text-white mt-1">

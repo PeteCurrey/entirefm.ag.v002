@@ -23,10 +23,10 @@ export default function SupplierMembershipPublicPage() {
         {/* Hero */}
         <section className="bg-slate-900 text-white py-20 lg:py-28">
           <div className="container-custom max-w-5xl space-y-6">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-brand-pink font-bold">
+            <span className="text-[11px] font-light uppercase tracking-wider text-brand-pink font-bold">
               COMMERCIAL TRANSPARENCY
             </span>
-            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white max-w-3xl leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight tracking-tight text-white max-w-3xl leading-tight">
               Transparent membership. Independent procurement.
             </h1>
             <p className="text-base sm:text-lg text-slate-300 font-light max-w-2xl leading-relaxed">
@@ -44,10 +44,10 @@ export default function SupplierMembershipPublicPage() {
         <section className="py-12 bg-white border-y border-slate-200">
           <div className="container-custom max-w-5xl space-y-6">
             <div className="space-y-1">
-              <span className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
+              <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold tracking-wider">
                 RELATIONSHIP &amp; COMMERCIAL COMPARISON
               </span>
-              <h2 className="text-2xl font-bold text-slate-900">
+              <h2 className="text-2xl font-light text-slate-900">
                 Supplier Relationships vs Commercial Products
               </h2>
               <p className="text-xs text-slate-600 font-light">
@@ -57,7 +57,7 @@ export default function SupplierMembershipPublicPage() {
 
             <div className="overflow-x-auto border border-slate-200 rounded-sm">
               <table className="w-full text-left text-xs font-sans">
-                <thead className="bg-slate-900 text-white font-mono uppercase text-[10.5px]">
+                <thead className="bg-slate-900 text-white font-light uppercase tracking-wider text-[10.5px]">
                   <tr>
                     <th className="p-3.5">Relationship / Product</th>
                     <th className="p-3.5">Category</th>
@@ -68,38 +68,38 @@ export default function SupplierMembershipPublicPage() {
                 <tbody className="divide-y divide-slate-200 bg-white">
                   <tr className="hover:bg-slate-50/50">
                     <td className="p-3.5 font-bold text-slate-900">Registered Supplier</td>
-                    <td className="p-3.5 font-mono text-[11px] text-slate-500">Commercial Tier</td>
-                    <td className="p-3.5 font-mono font-bold text-slate-900">£0</td>
+                    <td className="p-3.5 text-[11px] text-slate-500">Commercial Tier</td>
+                    <td className="p-3.5 font-light text-slate-900">£0</td>
                     <td className="p-3.5 text-slate-600">Initial profile registration and intake access. Does not constitute approval.</td>
                   </tr>
                   <tr className="hover:bg-slate-50/50">
                     <td className="p-3.5 font-bold text-slate-900">Supplier Network Membership</td>
-                    <td className="p-3.5 font-mono text-[11px] text-slate-500">Commercial Product</td>
-                    <td className="p-3.5 font-mono font-bold text-slate-900">£495 + VAT/yr</td>
+                    <td className="p-3.5 text-[11px] text-slate-500">Commercial Product</td>
+                    <td className="p-3.5 font-light text-slate-900">£495 + VAT/yr</td>
                     <td className="p-3.5 text-slate-600">Commercial network membership, digital portal tools, and compliance administration.</td>
                   </tr>
                   <tr className="hover:bg-slate-50/50">
                     <td className="p-3.5 font-bold text-slate-900">Network Partner Membership</td>
-                    <td className="p-3.5 font-mono text-[11px] text-slate-500">Commercial Product</td>
-                    <td className="p-3.5 font-mono font-bold text-slate-900">£1,250 + VAT/yr</td>
+                    <td className="p-3.5 text-[11px] text-slate-500">Commercial Product</td>
+                    <td className="p-3.5 font-light text-slate-900">£1,250 + VAT/yr</td>
                     <td className="p-3.5 text-slate-600">Expanded commercial network participation with multi-user access and forum benefits.</td>
                   </tr>
                   <tr className="hover:bg-slate-50/50 bg-emerald-50/20">
                     <td className="p-3.5 font-bold text-emerald-950">Approved / Verified Supplier</td>
-                    <td className="p-3.5 font-mono text-[11px] text-emerald-800">Assurance Outcome</td>
-                    <td className="p-3.5 font-mono font-bold text-slate-400">Not purchasable</td>
+                    <td className="p-3.5 text-[11px] text-emerald-800">Assurance Outcome</td>
+                    <td className="p-3.5 font-medium text-slate-400">Not purchasable</td>
                     <td className="p-3.5 text-slate-600">Organisation that has completed the technical assurance process for defined services and regions.</td>
                   </tr>
                   <tr className="hover:bg-slate-50/50">
                     <td className="p-3.5 font-bold text-slate-900">Preferred Supplier</td>
-                    <td className="p-3.5 font-mono text-[11px] text-slate-500">Earned Relationship</td>
-                    <td className="p-3.5 font-mono font-bold text-slate-400">Not purchasable</td>
+                    <td className="p-3.5 text-[11px] text-slate-500">Earned Relationship</td>
+                    <td className="p-3.5 font-medium text-slate-400">Not purchasable</td>
                     <td className="p-3.5 text-slate-600">Earned through sustained operational performance, SLA adherence, and first-time fix excellence.</td>
                   </tr>
                   <tr className="hover:bg-slate-50/50">
                     <td className="p-3.5 font-bold text-slate-900">Strategic Partner</td>
-                    <td className="p-3.5 font-mono text-[11px] text-slate-500">Executive Relationship</td>
-                    <td className="p-3.5 font-mono font-bold text-slate-400">Invitation only</td>
+                    <td className="p-3.5 text-[11px] text-slate-500">Executive Relationship</td>
+                    <td className="p-3.5 font-medium text-slate-400">Invitation only</td>
                     <td className="p-3.5 text-slate-600">Strategic relationship based on critical national scale or key OEM collaboration.</td>
                   </tr>
                 </tbody>
@@ -110,9 +110,9 @@ export default function SupplierMembershipPublicPage() {
 
         {/* Assurance Review Fee Explanation */}
         <section className="py-12 bg-white border-b border-slate-200">
-          <div className="container-custom max-w-5xl space-y-6 font-mono text-xs">
+          <div className="container-custom max-w-5xl space-y-6 text-xs font-light">
             <div className="space-y-1 font-sans">
-              <span className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
+              <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold tracking-wider">
                 TECHNICAL VETTING
               </span>
               <h3 className="text-xl font-bold text-slate-900">

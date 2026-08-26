@@ -152,14 +152,14 @@ export default function PartnerWithEntireFMPage() {
                 },
               ].map((group, idx) => (
                 <div key={idx} className="p-6 bg-[#FAF9FB] border border-slate-200 rounded-sm space-y-4">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-brand-pink font-light">
+                  <span className="text-[10px] font-light uppercase tracking-wider text-brand-pink font-light">
                     PARTNER CATEGORY 0{idx + 1}
                   </span>
                   <h3 className="text-base font-light text-slate-900">{group.category}</h3>
                   <p className="text-xs text-slate-600 leading-relaxed font-light">{group.role}</p>
                   <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-200">
                     {group.tags.map((tag, tIdx) => (
-                      <span key={tIdx} className="text-[10.5px] font-mono bg-white text-slate-700 px-2 py-0.5 rounded border border-slate-200">
+                      <span key={tIdx} className="text-[11px] font-light bg-white text-slate-700 px-2 py-0.5 rounded border border-slate-200">
                         {tag}
                       </span>
                     ))}
@@ -173,7 +173,7 @@ export default function PartnerWithEntireFMPage() {
         {/* 3. CALL TO ACTION */}
         <section className="py-20 bg-brand-carbon text-white border-t border-brand-edge-dark">
           <div className="container-custom max-w-4xl text-center space-y-6">
-            <span className="text-xs font-mono uppercase tracking-widest text-brand-electric-bright">
+            <span className="text-xs font-light uppercase tracking-wider text-brand-electric-bright">
               APPLICATION INTAKE
             </span>
             <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-white">

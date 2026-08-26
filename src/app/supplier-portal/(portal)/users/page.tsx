@@ -44,10 +44,10 @@ export default async function SupplierUsersPage() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+          <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
             TEAM &amp; ACCESS CONTROL
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
             Authorised Supplier Users
           </h1>
           <p className="text-xs text-slate-500 font-light mt-1">
@@ -62,7 +62,7 @@ export default async function SupplierUsersPage() {
 
       <div className="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden">
         <table className="w-full text-left text-xs font-sans">
-          <thead className="bg-slate-900 text-white font-mono uppercase text-[10px]">
+          <thead className="bg-slate-900 text-white font-light uppercase tracking-wider text-[10px]">
             <tr>
               <th className="p-3.5">Full Name</th>
               <th className="p-3.5">Email</th>
@@ -75,14 +75,14 @@ export default async function SupplierUsersPage() {
             {users.map((u) => (
               <tr key={u.id} className="hover:bg-slate-50/50">
                 <td className="p-3.5 font-bold text-slate-900">{u.name}</td>
-                <td className="p-3.5 font-mono text-[11px] text-slate-600">{u.email}</td>
-                <td className="p-3.5 font-mono text-[11px] font-bold text-slate-800">{u.role}</td>
+                <td className="p-3.5 text-[11px] text-slate-600">{u.email}</td>
+                <td className="p-3.5 text-[11px] font-bold text-slate-800">{u.role}</td>
                 <td className="p-3.5">
-                  <span className="bg-emerald-100 text-emerald-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                  <span className="bg-emerald-100 text-emerald-800 text-[10.5px] font-light px-2 py-0.5 rounded font-bold">
                     {u.status}
                   </span>
                 </td>
-                <td className="p-3.5 font-mono text-[11px] text-slate-500">{u.lastLogin}</td>
+                <td className="p-3.5 text-[11px] text-slate-500">{u.lastLogin}</td>
               </tr>
             ))}
           </tbody>

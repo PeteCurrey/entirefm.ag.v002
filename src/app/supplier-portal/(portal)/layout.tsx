@@ -148,7 +148,7 @@ export default async function AuthenticatedSupplierPortalLayout({
           <div className="p-6 border-b border-slate-800 flex items-center justify-between">
             <Link href="/supplier-portal" className="font-bold text-lg tracking-tight">
               Entire<span className="text-brand-pink">FM</span>{' '}
-              <span className="text-xs font-mono font-light text-slate-400 block">
+              <span className="text-xs font-light text-slate-400 block">
                 {isApproved ? 'Partner Portal' : 'Supplier Application'}
               </span>
             </Link>
@@ -157,7 +157,7 @@ export default async function AuthenticatedSupplierPortalLayout({
           <nav className="p-4 space-y-4 text-xs">
             {navSections.map((sec, idx) => (
               <div key={idx} className="space-y-1">
-                <span className="text-[9.5px] font-mono uppercase tracking-wider text-slate-400 px-3 font-bold block">
+                <span className="text-[9.5px] font-light uppercase tracking-wider text-slate-400 px-3 font-bold block">
                   {sec.heading}
                 </span>
                 {sec.items.map((item) => {
@@ -180,7 +180,7 @@ export default async function AuthenticatedSupplierPortalLayout({
 
         {/* Organisation Status Footer & Logout */}
         <div className="p-4 border-t border-slate-800 space-y-3">
-          <div className="text-[11px] font-mono text-slate-400">
+          <div className="text-[11px] font-light text-slate-400">
             <span className="text-slate-300 font-bold block truncate">{orgDisplay.orgName}</span>
             <span className={`text-[10px] block mt-0.5 ${statusColor}`}>{orgDisplay.statusLabel}</span>
           </div>

@@ -32,7 +32,7 @@ export default async function OnboardingWizardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 mt-1">
+        <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
           Supplier Application
         </h1>
         <p className="text-xs text-slate-500 font-light mt-1">

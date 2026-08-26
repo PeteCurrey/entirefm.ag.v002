@@ -18,10 +18,10 @@ export default async function DocumentVaultPage() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+          <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
             DOCUMENT VAULT &amp; COMPLIANCE REPOSITORY
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">
+          <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
             Supplier Compliance Documents
           </h1>
           <p className="text-xs text-slate-500 font-light mt-1">
@@ -38,7 +38,7 @@ export default async function DocumentVaultPage() {
         {docs.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs font-sans">
-              <thead className="bg-slate-900 text-white font-mono uppercase text-[10px]">
+              <thead className="bg-slate-900 text-white font-light uppercase tracking-wider text-[10px]">
                 <tr>
                   <th className="p-3.5">Document Name</th>
                   <th className="p-3.5">Category</th>
@@ -54,37 +54,37 @@ export default async function DocumentVaultPage() {
                     <td className="p-3.5">
                       <span className="font-bold text-slate-900 block">{d.document_type || d.file_name}</span>
                       {d.action_required && (
-                        <span className="text-[10.5px] text-amber-700 font-mono block mt-0.5">
+                        <span className="text-[10.5px] text-amber-700 block mt-0.5">
                           &bull; {d.action_required}
                         </span>
                       )}
                     </td>
-                    <td className="p-3.5 font-mono text-[11px] text-slate-500">{d.category}</td>
-                    <td className="p-3.5 font-mono text-[11px] text-slate-600">{d.file_name} ({d.file_size_kb || 0} KB)</td>
-                    <td className="p-3.5 font-mono text-[11px] text-slate-900">{d.expiry_date || '—'}</td>
+                    <td className="p-3.5 text-[11px] text-slate-500">{d.category}</td>
+                    <td className="p-3.5 text-[11px] text-slate-600">{d.file_name} ({d.file_size_kb || 0} KB)</td>
+                    <td className="p-3.5 text-[11px] text-slate-900">{d.expiry_date || '—'}</td>
                     <td className="p-3.5">
                       {d.status === 'ACCEPTED' && (
-                        <span className="bg-emerald-100 text-emerald-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                        <span className="bg-emerald-100 text-emerald-800 text-[10.5px] font-light px-2 py-0.5 rounded font-bold">
                           ACCEPTED
                         </span>
                       )}
                       {d.status === 'SUBMITTED' || d.status === 'UNDER_REVIEW' ? (
-                        <span className="bg-amber-100 text-amber-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                        <span className="bg-amber-100 text-amber-800 text-[10.5px] font-light px-2 py-0.5 rounded font-bold">
                           UNDER REVIEW
                         </span>
                       ) : null}
                       {d.status === 'REJECTED' && (
-                        <span className="bg-rose-100 text-rose-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                        <span className="bg-rose-100 text-rose-800 text-[10.5px] font-light px-2 py-0.5 rounded font-bold">
                           ACTION REQUIRED
                         </span>
                       )}
                       {d.status === 'EXPIRING' && (
-                        <span className="bg-amber-100 text-amber-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                        <span className="bg-amber-100 text-amber-800 text-[10.5px] font-light px-2 py-0.5 rounded font-bold">
                           EXPIRING SOON
                         </span>
                       )}
                       {d.status === 'EXPIRED' && (
-                        <span className="bg-rose-100 text-rose-800 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                        <span className="bg-rose-100 text-rose-800 text-[10.5px] font-light px-2 py-0.5 rounded font-bold">
                           EXPIRED
                         </span>
                       )}

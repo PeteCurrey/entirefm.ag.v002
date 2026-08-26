@@ -34,6 +34,8 @@ export interface NavSection {
     body: string;
     href: string;
     cta: string;
+    secondaryHref?: string;
+    secondaryCta?: string;
     /** Key into the editorial image manifest. */
     imageKey: string;
   };
@@ -217,18 +219,20 @@ export const PRIMARY_NAV: NavSection[] = [
       {
         heading: 'Existing Suppliers',
         links: [
-          { label: 'Supplier Portal', href: '/supplier-portal', detail: 'Secure portal for job tickets, compliance & invoicing' },
+          { label: 'Supplier Portal', href: '/supplier-portal/sign-in', detail: 'Secure portal for job tickets, compliance & invoicing' },
           { label: 'Supplier FAQ', href: '/suppliers/faq', detail: 'Frequently asked questions on vetting, payment & operations' },
         ],
       },
     ],
     feature: {
-      eyebrow: 'Partner Network',
-      title: 'A professionally managed network',
-      body: 'Connecting capable contractors, technical specialists, manufacturers and technology innovators with nationwide commercial estates.',
-      href: '/suppliers/partner-network',
-      cta: 'Explore Partner Network',
-      imageKey: 'headquarters-exterior',
+      eyebrow: 'Supplier Events & Partner Network',
+      title: 'Supplier Events & Partner Network',
+      body: 'Technical breakfasts, supplier forums, manufacturer sessions, training days and industry engagement.',
+      href: '/suppliers/events',
+      cta: 'Explore Events & Forums',
+      secondaryHref: '/suppliers/partner-network',
+      secondaryCta: 'Explore the Partner Network',
+      imageKey: 'client-review',
     },
   },
 ];
