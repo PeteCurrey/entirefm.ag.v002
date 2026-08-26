@@ -209,7 +209,11 @@ class MemorySupplierStore {
   }
 }
 
-export const supplierMemoryStore = new MemorySupplierStore();
+const gStore = globalThis as unknown as { __efm_supplierMemoryStore?: MemorySupplierStore };
+if (!gStore.__efm_supplierMemoryStore) {
+  gStore.__efm_supplierMemoryStore = new MemorySupplierStore();
+}
+export const supplierMemoryStore = gStore.__efm_supplierMemoryStore;
 
 /**
  * Lists all supplier organisations with optional filters

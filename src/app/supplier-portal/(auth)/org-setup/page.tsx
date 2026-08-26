@@ -44,12 +44,10 @@ export default async function OrgSetupPage() {
     redirect('/supplier-portal/verify-email');
   }
 
-  // 4. Existing Organisation Guard
+  // 4. Existing Organisation Guard (Never remain on Org Setup once organisation exists)
   if (authState.supplierUser?.organisation_id) {
     const dest = await resolveResumeDestination(authState.authUser.id);
-    if (dest !== '/supplier-portal/org-setup') {
-      redirect(dest);
-    }
+    redirect(dest !== '/supplier-portal/org-setup' ? dest : '/supplier-portal/onboarding');
   }
 
   return (

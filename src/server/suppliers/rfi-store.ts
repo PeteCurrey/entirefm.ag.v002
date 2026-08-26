@@ -76,7 +76,11 @@ class MemorySupplierRfiStore {
   }
 }
 
-export const supplierRfiStore = new MemorySupplierRfiStore();
+const gRfi = globalThis as unknown as { __efm_supplierRfiStore?: MemorySupplierRfiStore };
+if (!gRfi.__efm_supplierRfiStore) {
+  gRfi.__efm_supplierRfiStore = new MemorySupplierRfiStore();
+}
+export const supplierRfiStore = gRfi.__efm_supplierRfiStore;
 
 /**
  * List RFIs for a supplier (isolated by organisation ID)

@@ -43,11 +43,18 @@ const STEPS = [
   { num: 15, key: 'review', title: 'Review & Submit', icon: Save },
 ];
 
-export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', initialLegalName = '', initialTradingName = '' }: {
+export function OnboardingWizardClient({
+  initialOrgId = '',
+  initialAppRef = '',
+  initialLegalName = '',
+  initialTradingName = '',
+  initialCompanyNumber = '',
+}: {
   initialOrgId?: string;
   initialAppRef?: string;
   initialLegalName?: string;
   initialTradingName?: string;
+  initialCompanyNumber?: string;
 }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [lastSaved, setLastSaved] = useState<string>('Not yet saved');
@@ -60,7 +67,7 @@ export function OnboardingWizardClient({ initialOrgId = '', initialAppRef = '', 
   const [formData, setFormData] = useState({
     legalCompanyName: initialLegalName,
     tradingName: initialTradingName,
-    companyNumber: '',
+    companyNumber: initialCompanyNumber,
     vatNumber: '',
     websiteUrl: '',
     yearEstablished: '',

@@ -174,7 +174,11 @@ class SupplierAssuranceMemoryStore {
   }
 }
 
-const store = new SupplierAssuranceMemoryStore();
+const gAssurance = globalThis as unknown as { __efm_supplierAssuranceStore?: SupplierAssuranceMemoryStore };
+if (!gAssurance.__efm_supplierAssuranceStore) {
+  gAssurance.__efm_supplierAssuranceStore = new SupplierAssuranceMemoryStore();
+}
+const store = gAssurance.__efm_supplierAssuranceStore;
 
 /**
  * 1. GET OR INITIALISE ONBOARDING PLAN

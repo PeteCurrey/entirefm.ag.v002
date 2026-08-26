@@ -17,6 +17,8 @@ export function OrgSetupForm() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (isSubmitting) return;
+
     setError(null);
     setIsDuplicate(false);
 
@@ -41,7 +43,8 @@ export function OrgSetupForm() {
       const data = await res.json();
 
       if (data.success) {
-        router.push('/supplier-portal/onboarding');
+        // Direct navigation ensures fresh cookie transmission and full server component render
+        window.location.href = '/supplier-portal/onboarding';
         return;
       }
 
@@ -51,9 +54,9 @@ export function OrgSetupForm() {
       } else {
         setError(data.error || 'Organisation setup failed. Please try again.');
       }
+      setIsSubmitting(false);
     } catch {
       setError('Network error. Please check your connection and try again.');
-    } finally {
       setIsSubmitting(false);
     }
   }

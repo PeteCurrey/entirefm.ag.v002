@@ -1,7 +1,11 @@
 import React from 'react';
 import { OnboardingWizardClient } from '@/components/supplier-portal/OnboardingWizardClient';
 import { getCurrentSession } from '@/server/identity';
-import { getSupplierOrganisationById, getOrCreateApplicationDraft } from '@/server/suppliers/supplier-auth-store';
+import {
+  getSupplierOrganisationById,
+  getOrCreateApplicationDraft,
+  validateSupplierAuthUser,
+} from '@/server/suppliers/supplier-auth-store';
 
 export const metadata = {
   title: 'Supplier Application | EntireFM Partner Network',
@@ -10,22 +14,33 @@ export const metadata = {
 
 export default async function OnboardingWizardPage() {
   const session = await getCurrentSession();
-  const orgId = session?.orgId ?? '';
+  const authState = session
+    ? await validateSupplierAuthUser(session.personId || session.authUserId || '')
+    : null;
+
+  const orgId =
+    authState?.supplierUser?.organisation_id ||
+    (session?.orgId && session.orgId !== session?.personId ? session.orgId : '');
 
   let initialLegalName = '';
   let initialTradingName = '';
+  let initialCompanyNumber = '';
   let initialAppRef = '';
 
-  if (orgId && orgId !== session?.personId) {
+  if (orgId) {
     const org = await getSupplierOrganisationById(orgId);
     if (org) {
       initialLegalName = org.legalName || '';
       initialTradingName = org.tradingName || '';
+      initialCompanyNumber = org.companyNumber || '';
       initialAppRef = org.applicationReference || '';
     }
     const draft = await getOrCreateApplicationDraft(orgId);
-    if (draft && !initialAppRef) {
-      initialAppRef = draft.applicationReference || '';
+    if (draft) {
+      if (!initialLegalName) initialLegalName = draft.legalCompanyName || '';
+      if (!initialTradingName) initialTradingName = draft.tradingName || '';
+      if (!initialCompanyNumber) initialCompanyNumber = draft.companyNumber || '';
+      if (!initialAppRef) initialAppRef = draft.applicationReference || '';
     }
   }
 
@@ -45,6 +60,7 @@ export default async function OnboardingWizardPage() {
         initialAppRef={initialAppRef}
         initialLegalName={initialLegalName}
         initialTradingName={initialTradingName}
+        initialCompanyNumber={initialCompanyNumber}
       />
     </div>
   );

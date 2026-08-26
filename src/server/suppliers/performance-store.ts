@@ -201,7 +201,11 @@ class SupplierPerformanceMemoryStore {
   }
 }
 
-const store = new SupplierPerformanceMemoryStore();
+const gPerformance = globalThis as unknown as { __efm_supplierPerformanceStore?: SupplierPerformanceMemoryStore };
+if (!gPerformance.__efm_supplierPerformanceStore) {
+  gPerformance.__efm_supplierPerformanceStore = new SupplierPerformanceMemoryStore();
+}
+const store = gPerformance.__efm_supplierPerformanceStore;
 
 /**
  * 1. GET OR GENERATE SUPPLIER SCORECARD

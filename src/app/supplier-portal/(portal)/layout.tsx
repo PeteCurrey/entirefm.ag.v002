@@ -49,13 +49,16 @@ export default async function AuthenticatedSupplierPortalLayout({
     redirect('/supplier-portal/sign-in');
   }
 
-  // 2. Organisation Context Resolution (Fail-Closed)
-  const hasOrg = session.orgId && session.orgId !== session.personId;
-  if (!hasOrg) {
+  // 2. Organisation Context Resolution (Fail-Closed, Canonical Authority First)
+  const effectiveOrgId =
+    authState.supplierUser?.organisation_id ||
+    (session.orgId && session.orgId !== session.personId ? session.orgId : null);
+
+  if (!effectiveOrgId) {
     redirect('/supplier-portal/org-setup');
   }
 
-  const org = await getSupplierOrganisationById(session.orgId);
+  const org = await getSupplierOrganisationById(effectiveOrgId);
   if (!org) {
     redirect('/supplier-portal/org-setup');
   }

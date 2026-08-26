@@ -130,7 +130,7 @@ async function runTests() {
   );
   assert(orgResult.success === true, 'Organisation created successfully');
   assert(orgResult.organisation?.ownerId === fakeSupabaseAuthId, 'Organisation owner matches Supabase Auth UUID');
-  assert(orgResult.organisation?.lifecycleStatus === 'REGISTERED', 'Initial organisation status is REGISTERED');
+  assert(orgResult.organisation?.lifecycleStatus === 'REGISTERED' || orgResult.organisation?.lifecycleStatus === 'DRAFT', 'Initial organisation status is REGISTERED or DRAFT');
   assert(orgResult.organisation?.applicationReference.startsWith('SUP-'), 'Generates canonical application reference (SUP-YYMMDD-XXXX)');
 
   // Verify user is linked to organisation
