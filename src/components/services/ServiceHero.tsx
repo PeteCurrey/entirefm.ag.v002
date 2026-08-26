@@ -33,7 +33,7 @@ export function ServiceHero({
   serviceFacts = [],
 }: ServiceHeroProps) {
   return (
-    <section className="on-dark relative isolate flex min-h-screen min-h-[100svh] w-full flex-col justify-between overflow-hidden bg-brand-graphite">
+    <section className="on-dark relative isolate flex min-h-[100svh] min-h-[36rem] sm:min-h-[42rem] lg:min-h-screen w-full flex-col justify-between overflow-hidden bg-brand-graphite lg:[height:100svh]">
       {/* Photographic Background */}
       <div className="absolute inset-0 -z-20">
         <Image
@@ -71,12 +71,12 @@ export function ServiceHero({
       </div>
 
       {/* Hero Content */}
-      <div className="container-wide relative flex flex-1 flex-col justify-center py-6">
+      <div className="container-wide relative flex flex-1 flex-col justify-center py-6 sm:py-8 pb-10 sm:pb-14">
         <div className="max-w-3xl">
           {/* Eyebrow badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/[0.07] border border-white/15 backdrop-blur-sm mb-4">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-[11px] font-normal uppercase tracking-wider text-brand-pink-light">
+            <span className="text-[10px] sm:text-[11px] font-normal uppercase tracking-wider text-brand-pink-light">
               {eyebrow}
             </span>
           </div>
@@ -90,7 +90,7 @@ export function ServiceHero({
           </h1>
 
           {/* Commercial Intro */}
-          <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80">
+          <p className="mt-4 max-w-2xl text-sm sm:text-base lg:text-[1.0625rem] leading-relaxed text-brand-mist/85">
             {intro}
           </p>
 
@@ -104,13 +104,13 @@ export function ServiceHero({
                   document.querySelector(primaryCta.href)?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="btn-hero-pink"
+              className="btn-hero-pink w-full sm:w-auto text-center justify-center"
             >
               <span>{primaryCta.label}</span>
               <ArrowRight className="btn-arrow h-4 w-4" />
             </a>
 
-            <a href={CONTACT_CONFIG.mainPhone.href} className="btn-ghost-light">
+            <a href={CONTACT_CONFIG.mainPhone.href} className="btn-ghost-light w-full sm:w-auto text-center justify-center">
               <Phone className="h-4 w-4 text-brand-pink-light" />
               <span>{CONTACT_CONFIG.mainPhone.display}</span>
             </a>
@@ -123,12 +123,12 @@ export function ServiceHero({
             {serviceFacts.map((fact, idx) => (
               <div
                 key={idx}
-                className="group rounded-sm border border-white/[0.09] bg-white/[0.06] px-5 py-4 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]"
+                className="group rounded-sm border border-white/[0.09] bg-white/[0.06] p-3.5 sm:p-4 lg:p-5 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]"
               >
-                <dt className="whitespace-nowrap text-base sm:text-lg font-light tracking-tight text-white transition-colors duration-500 group-hover:text-brand-pink-light">
+                <dt className="text-base sm:text-lg font-light tracking-tight text-white transition-colors duration-500 group-hover:text-brand-pink-light">
                   {fact.value}
                 </dt>
-                <dd className="mt-1 text-[10.5px] font-normal uppercase tracking-[0.14em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
+                <dd className="mt-1 text-[10px] sm:text-[10.5px] font-normal uppercase tracking-[0.14em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
                   {fact.label}
                 </dd>
               </div>

@@ -13,6 +13,7 @@ export function OrgSetupForm() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [correlationId, setCorrelationId] = useState<string | null>(null);
   const [isDuplicate, setIsDuplicate] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -20,6 +21,7 @@ export function OrgSetupForm() {
     if (isSubmitting) return;
 
     setError(null);
+    setCorrelationId(null);
     setIsDuplicate(false);
 
     if (!form.legalName.trim()) {
@@ -46,6 +48,10 @@ export function OrgSetupForm() {
         // Direct navigation ensures fresh cookie transmission and full server component render
         window.location.href = '/supplier-portal/onboarding';
         return;
+      }
+
+      if (data.correlationId) {
+        setCorrelationId(data.correlationId);
       }
 
       if (data.duplicate) {
@@ -86,7 +92,14 @@ export function OrgSetupForm() {
           }`}>
             <div className="flex items-start gap-2">
               <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
-              <span>{error}</span>
+              <div className="space-y-1">
+                <div>{error}</div>
+                {correlationId && (
+                  <div className="text-[11px] text-slate-400 font-mono">
+                    Ref: {correlationId}
+                  </div>
+                )}
+              </div>
             </div>
             {isDuplicate && (
               <div className="pl-6">

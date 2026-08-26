@@ -43,9 +43,9 @@ export function HomeFAQ({ faqs }: HomeFAQProps) {
       />
 
       <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
           {/* Left Column: Sticky Editorial Introduction */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
+          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-5 sm:space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-brand-surface border border-brand-edge">
               <HelpCircle className="h-3.5 w-3.5 text-brand-pink" />
               <span className="text-[11px] font-normal uppercase tracking-wider text-brand-graphite">
@@ -57,12 +57,12 @@ export function HomeFAQ({ faqs }: HomeFAQProps) {
               The questions that matter before you appoint an FM provider
             </h2>
 
-            <p className="text-[15px] leading-relaxed text-slate-600">
+            <p className="text-sm sm:text-[15px] leading-relaxed text-slate-600">
               Clear answers on contract models, statutory compliance auditing, multi-site mobilization, and how planned preventative maintenance (PPM) works alongside 24/7 reactive emergency attendance.
             </p>
 
             {/* CTA to National Glossary */}
-            <div className="p-6 rounded-sm bg-brand-surface border border-brand-edge space-y-3">
+            <div className="p-4 sm:p-6 rounded-sm bg-brand-surface border border-brand-edge space-y-2.5 sm:space-y-3">
               <div className="flex items-center gap-2 text-xs font-normal uppercase tracking-wider text-brand-graphite">
                 <BookOpen className="h-4 w-4 text-brand-pink" />
                 Need plain-English term definitions?
@@ -72,7 +72,7 @@ export function HomeFAQ({ faqs }: HomeFAQProps) {
               </p>
               <Link
                 href="/facilities-management-glossary"
-                className="inline-flex items-center gap-2 text-xs font-normal text-brand-pink hover:text-brand-magenta transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-normal text-brand-pink hover:text-brand-magenta transition-colors pt-1"
               >
                 <span>Explore the FM Glossary</span>
                 <ArrowRight className="h-3.5 w-3.5" />

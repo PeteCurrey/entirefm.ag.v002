@@ -64,13 +64,14 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
 
   /**
    * The poster carries the first paint and the video fades in over it once it
-   * can actually play. Loading is deferred to idle and skipped entirely under
-   * reduced motion or Save-Data, so a 3.4MB background never competes with the
-   * content for bandwidth.
+   * can actually play. Loading is deferred to idle and skipped entirely on
+   * mobile/tablet (< 1024px), under reduced motion or Save-Data.
    */
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    if (typeof window === 'undefined') return;
+    if (window.innerWidth < 1024) return; // Skip video on tablet / mobile
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
@@ -116,7 +117,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
   }, []);
 
   return (
-    <section className="on-dark relative isolate flex min-h-[40rem] w-full flex-col overflow-hidden bg-brand-graphite [height:100svh]">
+    <section className="on-dark relative isolate flex min-h-[100svh] min-h-[38rem] sm:min-h-[44rem] lg:min-h-screen w-full flex-col justify-between overflow-hidden bg-brand-graphite lg:[height:100svh]">
       {/* Media layer */}
       <div ref={mediaRef} className="absolute inset-0 -z-20 will-change-transform">
         <div className="hero-drift absolute inset-0">
@@ -129,18 +130,17 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
             sizes="100vw"
             className="object-cover object-center"
           />
-          {/* New FM brand video — fades in once ready; poster above ensures no blank flash */}
+          {/* New FM brand video — loaded on desktop (>=1024px) only; fades in once ready */}
           <video
             ref={videoRef}
-            src={videoSrc}
             poster={HERO_POSTER}
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="none"
             aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-brand"
+            className="hidden lg:block absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-brand"
             style={{ opacity: videoReady ? 1 : 0 }}
             onCanPlay={() => setVideoReady(true)}
             onPlaying={() => setVideoReady(true)}
@@ -155,25 +155,18 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'linear-gradient(96deg, rgba(11,18,32,.78) 0%, rgba(11,18,32,.58) 34%, rgba(11,18,32,.26) 64%, rgba(11,18,32,.10) 100%)',
+            'linear-gradient(96deg, rgba(11,18,32,.88) 0%, rgba(11,18,32,.72) 34%, rgba(11,18,32,.36) 64%, rgba(11,18,32,.15) 100%)',
         }}
       />
       <div
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 -z-10 h-44"
-        style={{ background: 'linear-gradient(to top, rgba(11,18,32,.70), transparent)' }}
+        style={{ background: 'linear-gradient(to top, rgba(11,18,32,.85), transparent)' }}
       />
       <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-30" />
 
-
       {/* Copy */}
-      {/*
-        The header is fixed and transparent over this hero, so the top padding
-        has to clear it. Padding rather than a margin: the copy is centred
-        within what is left, which puts the headline optically in the middle
-        of the visible area rather than in the middle of the section.
-      */}
-      <div className="container-wide relative flex flex-1 flex-col justify-center pb-16 pt-[calc(var(--header-h)+3rem)]">
+      <div className="container-wide relative flex flex-1 flex-col justify-center pb-12 sm:pb-16 pt-[calc(var(--header-h)+1.5rem)] sm:pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+3rem)]">
         <div className="max-w-3xl">
           <p className="eyebrow eyebrow-dark" data-reveal>
             {/* Dropped on the narrowest screens: the eyebrow already wraps to
@@ -190,7 +183,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
           </p>
 
           <h1
-            className="mt-6 text-display-xl text-white"
+            className="mt-4 sm:mt-6 text-display-xl text-white"
             data-reveal
             style={{ '--reveal-delay': '80ms' } as React.CSSProperties}
           >
@@ -200,7 +193,7 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
           </h1>
 
           <p
-            className="mt-7 max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80"
+            className="mt-4 sm:mt-7 max-w-2xl text-sm sm:text-base lg:text-[1.0625rem] leading-relaxed text-brand-mist/85"
             data-reveal
             style={{ '--reveal-delay': '160ms' } as React.CSSProperties}
           >
@@ -211,46 +204,36 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
           </p>
 
           <div
-            className="mt-10 flex flex-wrap items-center gap-3"
+            className="mt-6 sm:mt-10 flex flex-wrap items-center gap-3"
             data-reveal
             style={{ '--reveal-delay': '240ms' } as React.CSSProperties}
           >
-            <Link href="/contact-us" className="btn-hero-pink">
+            <Link href="/contact-us" className="btn-hero-pink w-full sm:w-auto text-center">
               Request a proposal
               <ArrowRight className="btn-arrow h-4 w-4" />
             </Link>
-            <a href={CONTACT_CONFIG.mainPhone.href} className="btn-ghost-light">
+            <a href={CONTACT_CONFIG.mainPhone.href} className="btn-ghost-light w-full sm:w-auto text-center">
               <Phone className="h-4 w-4 text-brand-pink-light" />
               {CONTACT_CONFIG.mainPhone.display}
             </a>
           </div>
-
         </div>
 
-        {/*
-            Four separated glass cards, matching entirefm.com: the panels float
-            over the photograph rather than sitting in a bordered grid, and the
-            frosting is what makes the copy readable over moving video without
-            another scrim flattening the image behind it.
-
-            The figure is set large and light in the accent colour with the
-            label small, uppercase and widely tracked beneath — the contrast in
-            size and weight is what carries the hierarchy, not a rule or a box.
-          */}
+        {/* Four separated glass cards */}
         <dl
-          className="mt-12 grid max-w-5xl grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4"
+          className="mt-8 sm:mt-12 grid max-w-5xl grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4 lg:gap-4"
           data-reveal
           style={{ '--reveal-delay': '320ms' } as React.CSSProperties}
         >
           {PROOF.map((item) => (
             <div
               key={item.figure}
-              className="group rounded-sm border border-white/[0.09] bg-white/[0.06] px-6 py-7 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]"
+              className="group rounded-sm border border-white/[0.09] bg-white/[0.06] p-4 sm:p-6 lg:p-7 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]"
             >
-              <dt className="whitespace-nowrap text-[1.75rem] font-extralight leading-none tracking-[-0.035em] text-brand-pink-light transition-colors duration-500 group-hover:text-white">
+              <dt className="text-xl sm:text-2xl lg:text-[1.75rem] font-extralight leading-none tracking-[-0.035em] text-brand-pink-light transition-colors duration-500 group-hover:text-white">
                 {item.figure}
               </dt>
-              <dd className="mt-3.5 text-[10.5px] font-normal uppercase leading-snug tracking-[0.16em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
+              <dd className="mt-2 sm:mt-3.5 text-[10px] sm:text-[10.5px] font-normal uppercase leading-snug tracking-[0.14em] sm:tracking-[0.16em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
                 {item.label}
               </dd>
             </div>
@@ -258,8 +241,8 @@ export function HomeHero({ videoSrc = HERO_VIDEO }: HomeHeroProps) {
         </dl>
       </div>
 
-      {/* Scroll cue — absolutely placed so it does not push the copy off centre. */}
-      <div className="container-wide pointer-events-none absolute inset-x-0 bottom-8">
+      {/* Scroll cue — hidden on short mobile viewports */}
+      <div className="container-wide pointer-events-none hidden sm:block absolute inset-x-0 bottom-6 lg:bottom-8">
         <div className="flex items-center gap-3 text-[10.5px] uppercase tracking-[0.2em] text-brand-mist/40">
           <ArrowDown className="h-3.5 w-3.5 animate-bounce" style={{ animationDuration: '2.4s' }} />
           Scroll

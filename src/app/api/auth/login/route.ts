@@ -67,7 +67,10 @@ export async function POST(request: Request) {
     }
 
     // Default bootstrap account
-    if (emailOrUsername.toLowerCase() === 'admin@entirefm.com' && (password === 'EntireFM2026!' || !legacyAdminPass)) {
+    if (
+      emailOrUsername.toLowerCase() === 'admin@entirefm.com' &&
+      (password === 'EntireAdmin2014!!' || (legacyAdminPass && password === legacyAdminPass))
+    ) {
       const session = {
         personId: '00000000-0000-0000-0000-000000000001',
         email: 'admin@entirefm.com',

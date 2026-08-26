@@ -82,13 +82,15 @@ interface ExploreNavigationProps {
 
 export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
   const [activeId, setActiveId] = useState<string>(getCategoryId(CATEGORIES[0]));
+  const [mobileExpandedId, setMobileExpandedId] = useState<string | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Reset to first category when opening
+  // Reset to first category / collapsed mobile state when opening
   useEffect(() => {
     if (open) {
       setActiveId(getCategoryId(CATEGORIES[0]));
+      setMobileExpandedId(null);
       // Slight delay so the opening animation completes before focusing
       setTimeout(() => closeButtonRef.current?.focus(), 150);
     }
@@ -96,8 +98,13 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
 
   // Scroll lock
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    if (open) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
   }, [open]);
 
   // ESC to close
@@ -110,8 +117,11 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  const activeCategory = CATEGORIES.find((c, i) => getCategoryId(c) === activeId) ?? CATEGORIES[0];
-  const activeImage = activeCategory.feature ? IMAGES[activeCategory.feature.imageKey] : null;
+  const activeCategory = CATEGORIES.find((c) => getCategoryId(c) === activeId) ?? CATEGORIES[0];
+
+  const toggleMobileCategory = (id: string) => {
+    setMobileExpandedId((curr) => (curr === id ? null : id));
+  };
 
   return (
     <div
@@ -125,14 +135,15 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
           ? 'opacity-100 visible pointer-events-auto'
           : 'opacity-0 invisible pointer-events-none'
       }`}
+      style={{ height: '100dvh' }}
     >
-      {/* Close button */}
-      <div className="absolute top-0 inset-x-0 z-10 flex items-center justify-between px-6 sm:px-10 h-[72px] border-b border-white/[0.06]">
+      {/* Top Header Bar */}
+      <div className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-5 sm:px-8 lg:px-10 h-[72px] border-b border-white/[0.08] bg-brand-void/90 backdrop-blur-md">
         {/* Logo wordmark */}
         <Link
           href="/"
           onClick={onClose}
-          className="text-[19px] font-extralight tracking-[0.08em] text-white"
+          className="text-[19px] font-extralight tracking-[0.08em] text-white focus-visible:ring-1 focus-visible:ring-brand-pink"
           tabIndex={open ? 0 : -1}
         >
           Entire<span className="font-bold text-hero-pink">FM</span>
@@ -144,28 +155,176 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
           onClick={onClose}
           tabIndex={open ? 0 : -1}
           aria-label="Close navigation"
-          className="group flex items-center gap-2 text-brand-mist/60 hover:text-white transition-colors duration-200"
+          className="group flex items-center gap-2 text-brand-mist/70 hover:text-white transition-colors duration-200 py-2 px-1 focus-visible:ring-1 focus-visible:ring-brand-pink rounded-sm"
         >
-          <span className="text-xs font-light tracking-wider hidden sm:block">CLOSE</span>
-          <span className="flex h-8 w-8 items-center justify-center rounded-sm border border-white/15 group-hover:border-white/30 transition-colors">
+          <span className="text-xs font-light tracking-widest uppercase hidden sm:block">Close</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-sm border border-white/15 bg-white/[0.03] group-hover:border-white/30 group-hover:bg-white/[0.08] transition-all">
             <X className="h-4 w-4" />
           </span>
         </button>
       </div>
 
-      {/* Main content grid */}
+      {/* ========================================================================= */}
+      {/* 1. MOBILE ACCORDION DRAWER (< lg)                                         */}
+      {/* ========================================================================= */}
       <div
-        className={`absolute inset-0 pt-[72px] flex flex-col lg:flex-row transition-all duration-300 ease-brand ${
+        className={`lg:hidden absolute inset-0 pt-[72px] overflow-y-auto overscroll-contain transition-all duration-300 ease-brand ${
+          open ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
+        }`}
+      >
+        <div className="px-5 py-6 space-y-2 pb-28">
+          {/* Main Accordion Items */}
+          <div className="divide-y divide-white/[0.06] border-y border-white/[0.06]">
+            {CATEGORIES.map((cat) => {
+              const id = getCategoryId(cat);
+              const isExpanded = mobileExpandedId === id;
+
+              return (
+                <div key={id} className="py-1">
+                  <div className="flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => toggleMobileCategory(id)}
+                      aria-expanded={isExpanded}
+                      aria-controls={`mobile-nav-${id}`}
+                      tabIndex={open ? 0 : -1}
+                      className="flex-1 flex items-center justify-between py-3.5 pr-2 text-left group focus-visible:outline-none"
+                    >
+                      <span className="text-lg font-light tracking-tight text-white group-hover:text-brand-pink-light transition-colors">
+                        {cat.label}
+                      </span>
+                      <span
+                        className={`flex h-7 w-7 items-center justify-center rounded-sm border border-white/10 text-brand-mist/60 group-hover:text-white transition-transform duration-300 ${
+                          isExpanded ? 'rotate-90 bg-white/[0.08] text-white border-brand-pink/40' : ''
+                        }`}
+                      >
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </span>
+                    </button>
+                  </div>
+
+                  {/* Expanded Sub-category content */}
+                  {isExpanded && (
+                    <div id={`mobile-nav-${id}`} className="pt-2 pb-5 pl-2 pr-1 space-y-5 animate-rise">
+                      {/* Direct All Category Link */}
+                      <div>
+                        <Link
+                          href={cat.href}
+                          onClick={onClose}
+                          tabIndex={open ? 0 : -1}
+                          className="inline-flex items-center gap-2 text-sm font-normal text-brand-pink-light hover:text-white py-1.5 transition-colors"
+                        >
+                          <span>{cat.label === 'Locations' ? 'View National Map & Locations' : cat.label === 'Company' ? 'About EntireFM Overview' : `All ${cat.label} Overview`}</span>
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </Link>
+                      </div>
+
+                      {/* Columns / Sub-links */}
+                      {cat.columns?.map((col) => (
+                        <div key={col.heading} className="space-y-2">
+                          <p className="text-[10px] font-normal uppercase tracking-wider text-brand-mist/45">
+                            {col.heading}
+                          </p>
+                          <div className="space-y-1">
+                            {col.links.map((link) => (
+                              <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={onClose}
+                                tabIndex={open ? 0 : -1}
+                                className="block py-2 px-3 rounded-sm bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.06] hover:border-white/15 transition-all"
+                              >
+                                <div className="flex items-center justify-between text-sm font-light text-brand-mist/90">
+                                  <span>{link.label}</span>
+                                  <ArrowUpRight className="h-3.5 w-3.5 text-brand-electric-bright shrink-0 opacity-70" />
+                                </div>
+                                {link.detail && (
+                                  <p className="text-[11.5px] font-light text-brand-mist/50 mt-0.5 leading-snug line-clamp-1">
+                                    {link.detail}
+                                  </p>
+                                )}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Quick Access Portal & Contact Buttons */}
+          <div className="pt-6 space-y-3">
+            <p className="text-[10.5px] font-normal uppercase tracking-widest text-brand-mist/40 px-1">
+              Direct Access &amp; Portals
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <Link
+                href="/client-portal"
+                onClick={onClose}
+                tabIndex={open ? 0 : -1}
+                className="flex items-center justify-between p-3.5 rounded-sm bg-brand-carbon border border-brand-edge-dark hover:border-brand-electric/60 transition-all group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wider text-brand-pink-light font-normal">Client Portal</span>
+                  <span className="text-sm font-light text-white">EntireCAFM Console</span>
+                </div>
+                <ArrowUpRight className="h-4 w-4 text-brand-electric-bright group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </Link>
+
+              <Link
+                href="/supplier-portal"
+                onClick={onClose}
+                tabIndex={open ? 0 : -1}
+                className="flex items-center justify-between p-3.5 rounded-sm bg-brand-carbon border border-brand-edge-dark hover:border-brand-electric/60 transition-all group"
+              >
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wider text-brand-mist/60 font-normal">Supply Chain</span>
+                  <span className="text-sm font-light text-white">Supplier Portal</span>
+                </div>
+                <ArrowUpRight className="h-4 w-4 text-brand-electric-bright group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5 pt-1">
+              <Link
+                href="/login"
+                onClick={onClose}
+                tabIndex={open ? 0 : -1}
+                className="flex items-center justify-center p-3 rounded-sm bg-white/[0.04] border border-white/10 text-xs font-light text-white hover:bg-white/[0.08] transition-all"
+              >
+                Portal Login
+              </Link>
+              <Link
+                href="/contact-us"
+                onClick={onClose}
+                tabIndex={open ? 0 : -1}
+                className="btn-hero-pink py-3 text-xs justify-center"
+              >
+                Request Proposal
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 2. DESKTOP TWO-PANE NAVIGATION (≥ lg)                                     */}
+      {/* ========================================================================= */}
+      <div
+        className={`hidden lg:flex absolute inset-0 pt-[72px] transition-all duration-300 ease-brand ${
           open ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
         }`}
       >
         {/* LEFT — Primary category list */}
         <nav
           aria-label="Main categories"
-          className="shrink-0 w-full lg:w-[260px] xl:w-[300px] border-r border-white/[0.06] overflow-y-auto py-8 lg:py-10"
+          className="shrink-0 w-[260px] xl:w-[300px] border-r border-white/[0.06] overflow-y-auto py-8 xl:py-10"
         >
-          <ul className="space-y-1 px-6 sm:px-8 lg:px-10">
-            {CATEGORIES.map((cat, index) => {
+          <ul className="space-y-1 px-6 xl:px-10">
+            {CATEGORIES.map((cat) => {
               const id = getCategoryId(cat);
               const isActive = id === activeId;
               return (
@@ -187,7 +346,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                       {cat.label}
                     </span>
                     <span
-                      className={`h-1 w-1 rounded-full transition-all duration-200 ${
+                      className={`h-1.5 w-1.5 rounded-full transition-all duration-200 ${
                         isActive ? 'bg-brand-pink scale-125' : 'bg-transparent group-hover:bg-white/30'
                       }`}
                     />
@@ -197,7 +356,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
             })}
 
             {/* Direct Main Navigation Items: Client Portal & Contact */}
-            <li className="pt-4 mt-2 border-t border-white/[0.06]">
+            <li className="pt-4 mt-3 border-t border-white/[0.06]">
               <ul className="space-y-1">
                 {SECONDARY_NAV.filter(l => !CATEGORIES.some(c => c.href === l.href)).map((link) => (
                   <li key={link.href}>
@@ -205,9 +364,9 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                       href={link.href}
                       onClick={onClose}
                       tabIndex={open ? 0 : -1}
-                      className="group w-full flex items-center justify-between py-3 px-4 rounded-sm text-left transition-all duration-200 text-brand-mist/70 hover:text-white hover:bg-white/[0.03]"
+                      className="group w-full flex items-center justify-between py-2.5 px-4 rounded-sm text-left transition-all duration-200 text-brand-mist/70 hover:text-white hover:bg-white/[0.03]"
                     >
-                      <span className="text-[15px] font-light tracking-tight text-brand-mist/70 group-hover:text-white transition-colors">
+                      <span className="text-sm font-light tracking-tight text-brand-mist/70 group-hover:text-white transition-colors">
                         {link.label}
                       </span>
                       {link.href === '/client-portal' ? (
@@ -224,8 +383,8 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
         </nav>
 
         {/* RIGHT — Sub-navigation panel */}
-        <div className="flex-1 overflow-y-auto min-w-0">
-          {CATEGORIES.map((cat, index) => {
+        <div className="flex-1 relative overflow-hidden min-w-0">
+          {CATEGORIES.map((cat) => {
             const id = getCategoryId(cat);
             const isActive = id === activeId;
             const image = cat.feature ? IMAGES[cat.feature.imageKey] : null;
@@ -236,7 +395,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                 id={`explore-panel-${id}`}
                 role="region"
                 aria-label={cat.label}
-                className={`absolute inset-0 pt-[72px] lg:left-[260px] xl:left-[300px] transition-all duration-300 ease-brand overflow-y-auto ${
+                className={`absolute inset-0 transition-all duration-300 ease-brand overflow-y-auto ${
                   isActive
                     ? 'opacity-100 translate-x-0 pointer-events-auto'
                     : 'opacity-0 translate-x-2 pointer-events-none'
@@ -244,7 +403,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
               >
                 <div className="h-full flex flex-col xl:flex-row">
                   {/* Sub-nav link columns */}
-                  <div className="flex-1 py-10 px-8 sm:px-12 xl:px-14">
+                  <div className="flex-1 py-10 px-8 xl:px-14">
                     {/* Category header */}
                     <div className="mb-8">
                       <span className="text-[10.5px] font-normal uppercase tracking-[0.18em] text-brand-pink block mb-2">
@@ -254,7 +413,7 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                         href={cat.href}
                         onClick={onClose}
                         tabIndex={isActive && open ? 0 : -1}
-                        className="group inline-flex items-center gap-2 text-2xl sm:text-3xl font-light tracking-tight text-white hover:text-brand-mist transition-colors"
+                        className="group inline-flex items-center gap-2 text-2xl xl:text-3xl font-light tracking-tight text-white hover:text-brand-mist transition-colors"
                       >
                         {cat.label === 'Locations' ? 'Our Locations' :
                          cat.label === 'Company' ? 'About EntireFM' :
@@ -268,10 +427,10 @@ export function ExploreNavigation({ open, onClose }: ExploreNavigationProps) {
                       <div
                         className={`grid gap-8 xl:gap-10 ${
                           cat.columns.length >= 3
-                            ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'
+                            ? 'grid-cols-2 xl:grid-cols-3'
                             : cat.columns.length === 2
-                            ? 'grid-cols-1 sm:grid-cols-2'
-                            : 'grid-cols-1 sm:grid-cols-2'
+                            ? 'grid-cols-2'
+                            : 'grid-cols-2'
                         }`}
                       >
                         {cat.columns.map((column) => (

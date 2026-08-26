@@ -42,14 +42,14 @@ export function Footer() {
         />
         <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 opacity-50" />
 
-        <div className="container-custom relative py-20 sm:py-24">
-          <div className="grid items-end gap-10 lg:grid-cols-[1.4fr_1fr]">
+        <div className="container-custom relative py-14 sm:py-20 lg:py-24">
+          <div className="grid items-end gap-8 sm:gap-10 lg:grid-cols-[1.4fr_1fr]">
             <div data-reveal>
               <p className="eyebrow eyebrow-dark">Start a conversation</p>
-              <h2 className="mt-5 max-w-2xl text-display-md text-white">
+              <h2 className="mt-4 sm:mt-5 max-w-2xl text-display-md text-white">
                 Tell us what the estate is, and we will tell you what it needs
               </h2>
-              <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-brand-mist/60">
+              <p className="mt-3 sm:mt-4 max-w-xl text-sm sm:text-[15px] leading-relaxed text-brand-mist/60">
                 Every proposal starts with an asset survey rather than a price. Until the
                 assets, their condition and their statutory obligations are known, any
                 maintenance schedule is guesswork.
@@ -61,11 +61,11 @@ export function Footer() {
               data-reveal
               style={{ '--reveal-delay': '100ms' } as React.CSSProperties}
             >
-              <Link href="/contact-us" className="btn-primary w-full sm:w-auto">
+              <Link href="/contact-us" className="btn-primary w-full sm:w-auto text-center justify-center">
                 Request a proposal
                 <ArrowRight className="btn-arrow h-4 w-4" />
               </Link>
-              <a href={CONTACT_CONFIG.mainPhone.href} className="btn-ghost-light w-full sm:w-auto">
+              <a href={CONTACT_CONFIG.mainPhone.href} className="btn-ghost-light w-full sm:w-auto text-center justify-center">
                 <Phone className="h-4 w-4 text-brand-electric-bright" />
                 {CONTACT_CONFIG.mainPhone.display}
               </a>
@@ -77,8 +77,8 @@ export function Footer() {
 
       {/* Sitemap */}
       <div className="bg-brand-void">
-        <div className="container-custom py-16">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_2.4fr]">
+        <div className="container-custom py-12 sm:py-16">
+          <div className="grid gap-10 sm:gap-12 lg:grid-cols-[minmax(0,1fr)_2.4fr]">
             {/* Identity */}
             <div>
               <Link href="/" className="group inline-flex items-center gap-3" aria-label="EntireFM — home">
@@ -96,13 +96,13 @@ export function Footer() {
                 </span>
               </Link>
 
-              <p className="mt-6 max-w-xs text-[13px] leading-relaxed text-brand-mist/50">
+              <p className="mt-5 sm:mt-6 max-w-xs text-[13px] leading-relaxed text-brand-mist/50">
                 {ORGANIZATION_CONFIG.legalName} provides total facilities management,
                 mechanical and electrical engineering, planned maintenance and statutory
                 compliance for UK commercial property.
               </p>
 
-              <ul className="mt-7 space-y-3 text-[13px]">
+              <ul className="mt-6 sm:mt-7 space-y-3 text-[13px]">
                 <li className="flex items-start gap-2.5 text-brand-mist/50">
                   <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-silver" />
                   <span>
@@ -134,16 +134,16 @@ export function Footer() {
             </div>
 
             {/* Navigation */}
-            <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+            <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 sm:gap-x-8 gap-y-8 sm:gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
               {FOOTER_NAV.map((column) => (
                 <div key={column.heading}>
                   <p className="eyebrow eyebrow-dark">{column.heading}</p>
-                  <ul className="mt-5 space-y-2.5">
+                  <ul className="mt-4 sm:mt-5 space-y-2 sm:space-y-2.5">
                     {column.links.map((link) => (
                       <li key={link.href}>
                         <Link
                           href={link.href}
-                          className="group inline-flex items-center gap-1 text-[13px] text-brand-mist/55 transition-colors duration-200 hover:text-white"
+                          className="group inline-flex items-center gap-1 text-xs sm:text-[13px] text-brand-mist/55 transition-colors duration-200 hover:text-white"
                         >
                           {link.label}
                           <ArrowUpRight className="h-3 w-3 -translate-x-1 opacity-0 transition-all duration-300 ease-brand group-hover:translate-x-0 group-hover:opacity-100" />
@@ -157,8 +157,8 @@ export function Footer() {
           </div>
 
           {/* Legal */}
-          <div className="mt-14 border-t border-brand-edge-dark pt-7">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="mt-12 sm:mt-14 border-t border-brand-edge-dark pt-6 sm:pt-7">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-[12px] text-brand-mist/35">
                 © {year} {ORGANIZATION_CONFIG.legalName}. All rights reserved.
               </p>

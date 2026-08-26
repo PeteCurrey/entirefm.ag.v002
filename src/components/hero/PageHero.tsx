@@ -112,10 +112,10 @@ export function PageHero({
 
   return (
     <section
-      className={`on-dark relative isolate flex w-full flex-col overflow-hidden bg-brand-graphite ${
+      className={`on-dark relative isolate flex w-full flex-col justify-between overflow-hidden bg-brand-graphite ${
         fullScreen
-          ? 'min-h-[40rem] min-h-screen [height:100svh]'
-          : 'min-h-[34rem] [height:88svh]'
+          ? 'min-h-[100svh] min-h-[36rem] sm:min-h-[42rem] lg:min-h-screen lg:[height:100svh]'
+          : 'min-h-[100svh] min-h-[32rem] sm:min-h-[36rem] lg:min-h-[40rem] lg:[height:88svh]'
       }`}
     >
       <div ref={mediaRef} className="absolute inset-0 -z-20 will-change-transform">
@@ -157,8 +157,8 @@ export function PageHero({
       )}
 
       <div
-        className={`container-wide relative flex flex-1 items-center pb-14 ${
-          breadcrumbs && breadcrumbs.length > 0 ? 'pt-6' : 'pt-[calc(var(--header-h)+2.5rem)]'
+        className={`container-wide relative flex flex-1 items-center pb-12 sm:pb-14 ${
+          breadcrumbs && breadcrumbs.length > 0 ? 'pt-4 sm:pt-6' : 'pt-[calc(var(--header-h)+1.5rem)] sm:pt-[calc(var(--header-h)+2.5rem)]'
         }`}
       >
         <div className="max-w-2xl">
@@ -169,7 +169,7 @@ export function PageHero({
           )}
 
           <h1
-            className="mt-6 text-display-xl text-white"
+            className="mt-4 sm:mt-6 text-display-xl text-white"
             data-reveal
             style={{ '--reveal-delay': '80ms' } as React.CSSProperties}
           >
@@ -178,7 +178,7 @@ export function PageHero({
 
           {intro && (
             <p
-              className="mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80"
+              className="mt-4 sm:mt-6 max-w-2xl text-sm sm:text-base lg:text-[1.0625rem] leading-relaxed text-brand-mist/80"
               data-reveal
               style={{ '--reveal-delay': '160ms' } as React.CSSProperties}
             >
@@ -187,15 +187,15 @@ export function PageHero({
           )}
 
           <div
-            className="mt-9 flex flex-wrap items-center gap-3"
+            className="mt-7 sm:mt-9 flex flex-wrap items-center gap-3"
             data-reveal
             style={{ '--reveal-delay': '240ms' } as React.CSSProperties}
           >
-            <Link href={primaryCta.href} className="btn-primary">
+            <Link href={primaryCta.href} className="btn-primary w-full sm:w-auto text-center justify-center">
               {primaryCta.label}
               <ArrowRight className="btn-arrow h-4 w-4" />
             </Link>
-            <a href={CONTACT_CONFIG.mainPhone.href} className="btn-ghost-light">
+            <a href={CONTACT_CONFIG.mainPhone.href} className="btn-ghost-light w-full sm:w-auto text-center justify-center">
               <Phone className="h-4 w-4 text-brand-electric-bright" />
               {CONTACT_CONFIG.mainPhone.display}
             </a>
@@ -203,17 +203,17 @@ export function PageHero({
 
           {facts.length > 0 && (
             <dl
-              className="mt-11 grid max-w-2xl grid-cols-1 gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10 sm:grid-cols-3"
+              className="mt-8 sm:mt-11 grid max-w-2xl grid-cols-1 gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10 sm:grid-cols-3"
               data-reveal
               style={{ '--reveal-delay': '320ms' } as React.CSSProperties}
             >
               {facts.slice(0, 3).map((fact) => (
                 <div
                   key={fact.figure}
-                  className="group bg-brand-graphite/72 px-5 py-4 backdrop-blur-md transition-colors duration-500 ease-brand hover:bg-brand-graphite/90"
+                  className="group bg-brand-graphite/72 px-4 py-3.5 sm:px-5 sm:py-4 backdrop-blur-md transition-colors duration-500 ease-brand hover:bg-brand-graphite/90"
                 >
-                  <dt className="text-[13.5px] font-normal tracking-tight text-white">{fact.figure}</dt>
-                  <dd className="mt-1 text-[11.5px] leading-snug text-brand-mist/60 transition-colors duration-500 group-hover:text-brand-mist/90">
+                  <dt className="text-[13px] sm:text-[13.5px] font-normal tracking-tight text-white">{fact.figure}</dt>
+                  <dd className="mt-1 text-[10.5px] sm:text-[11.5px] leading-snug text-brand-mist/60 transition-colors duration-500 group-hover:text-brand-mist/90">
                     {fact.label}
                   </dd>
                 </div>
@@ -223,8 +223,8 @@ export function PageHero({
         </div>
       </div>
 
-      {/* Scroll cue — absolutely placed so it does not push the copy off centre. */}
-      <div className="container-wide pointer-events-none absolute inset-x-0 bottom-7">
+      {/* Scroll cue */}
+      <div className="container-wide pointer-events-none hidden sm:block absolute inset-x-0 bottom-6 lg:bottom-7">
         <div className="flex items-center gap-3 text-[10.5px] uppercase tracking-[0.2em] text-brand-mist/35">
           <ArrowDown className="h-3.5 w-3.5 animate-bounce" style={{ animationDuration: '2.4s' }} />
           Scroll

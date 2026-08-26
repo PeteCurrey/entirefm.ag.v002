@@ -133,7 +133,7 @@ export function DiagonalStatement({
       ref={sectionRef}
       className="on-dark relative isolate w-full overflow-hidden bg-brand-void"
     >
-      <div className="relative min-h-[46rem] w-full lg:min-h-[54rem]">
+      <div className="relative min-h-[36rem] sm:min-h-[42rem] lg:min-h-[54rem] w-full">
         {/* Left plate — the client's building. */}
         <div className="absolute inset-0 -z-20">
           <Image src={left.src} alt={left.alt} fill sizes="100vw" className="object-cover object-center" />
@@ -176,14 +176,14 @@ export function DiagonalStatement({
 
         {/* Plate labels — each sits over its own photograph, on its own side of
             the seam, so the diagonal is doing the dividing. */}
-        <p className="pointer-events-none absolute left-[4%] top-[8%] text-[10.5px] uppercase tracking-[0.28em] text-brand-mist/70">
+        <p className="pointer-events-none hidden sm:block absolute left-[4%] top-[8%] text-[10.5px] uppercase tracking-[0.28em] text-brand-mist/70">
           {leftLabel}
         </p>
-        <p className="pointer-events-none absolute right-[4%] bottom-[8%] text-right text-[10.5px] uppercase tracking-[0.28em] text-brand-mist/70">
+        <p className="pointer-events-none hidden sm:block absolute right-[4%] bottom-[8%] text-right text-[10.5px] uppercase tracking-[0.28em] text-brand-mist/70">
           {rightLabel}
         </p>
 
-        <div className="container-wide relative flex min-h-[46rem] items-center py-24 lg:min-h-[54rem]">
+        <div className="container-wide relative flex min-h-[36rem] sm:min-h-[42rem] lg:min-h-[54rem] items-center py-16 sm:py-20 lg:py-24">
           <div className="max-w-xl">
             {eyebrow && (
               <p className="eyebrow eyebrow-dark" data-reveal>
@@ -192,7 +192,7 @@ export function DiagonalStatement({
             )}
 
             <h2
-              className="mt-6 text-display-lg text-white"
+              className="mt-4 sm:mt-6 text-display-lg text-white"
               data-reveal
               style={{ '--reveal-delay': '80ms' } as React.CSSProperties}
             >
@@ -206,7 +206,7 @@ export function DiagonalStatement({
             </h2>
 
             <p
-              className="mt-7 text-[1.0625rem] leading-relaxed text-brand-mist/80"
+              className="mt-4 sm:mt-7 text-sm sm:text-base lg:text-[1.0625rem] leading-relaxed text-brand-mist/80"
               data-reveal
               style={{ '--reveal-delay': '160ms' } as React.CSSProperties}
             >
@@ -215,12 +215,12 @@ export function DiagonalStatement({
 
             {points.length > 0 && (
               <ul
-                className="mt-9 space-y-3 border-l border-white/12 pl-6"
+                className="mt-7 sm:mt-9 space-y-2.5 sm:space-y-3 border-l border-white/12 pl-4 sm:pl-6"
                 data-reveal
                 style={{ '--reveal-delay': '240ms' } as React.CSSProperties}
               >
                 {points.map((point) => (
-                  <li key={point} className="text-[14px] leading-relaxed text-brand-mist/70">
+                  <li key={point} className="text-xs sm:text-[14px] leading-relaxed text-brand-mist/70">
                     {point}
                   </li>
                 ))}
@@ -228,11 +228,11 @@ export function DiagonalStatement({
             )}
 
             <div
-              className="mt-10"
+              className="mt-8 sm:mt-10"
               data-reveal
               style={{ '--reveal-delay': '320ms' } as React.CSSProperties}
             >
-              <Link href={href} className="btn-primary">
+              <Link href={href} className="btn-primary w-full sm:w-auto text-center justify-center">
                 {cta}
                 <ArrowRight className="btn-arrow h-4 w-4" />
               </Link>

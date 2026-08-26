@@ -130,8 +130,8 @@ export function Header({ solid = false }: HeaderProps) {
               </span>
             </Link>
 
-            {/* ── Desktop actions: Explore · Search · Login ─────────── */}
-            <div className="flex items-center gap-1 sm:gap-2">
+            {/* ── Actions: Explore · Search · Login ─────────── */}
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {/* Explore */}
               <button
                 type="button"
@@ -142,18 +142,18 @@ export function Header({ solid = false }: HeaderProps) {
                   setSearchOpen(false);
                   setExploreOpen((v) => !v);
                 }}
-                className={`group flex items-center gap-2 rounded-sm px-4 py-2 text-sm font-light tracking-wide transition-all duration-300 ease-brand ${
+                className={`group flex items-center gap-2 rounded-sm px-3 sm:px-4 py-2 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 ease-brand ${
                   exploreOpen
                     ? 'bg-white/[0.08] text-white border border-white/20'
                     : 'text-brand-mist/80 hover:text-white border border-transparent hover:border-white/15 hover:bg-white/[0.04]'
                 }`}
               >
-                <span className="hidden sm:inline">Explore</span>
+                <span>Explore</span>
                 {/* Animated lines / X icon */}
-                <span className="flex flex-col justify-center gap-[4px] w-4 h-4 shrink-0" aria-hidden="true">
+                <span className="flex flex-col justify-center gap-[4px] w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" aria-hidden="true">
                   <span
                     className={`block h-px rounded-full bg-current transition-all duration-300 ease-brand ${
-                      exploreOpen ? 'translate-y-[5px] rotate-45' : ''
+                      exploreOpen ? 'translate-y-[4.5px] sm:translate-y-[5px] rotate-45' : ''
                     }`}
                   />
                   <span
@@ -163,7 +163,7 @@ export function Header({ solid = false }: HeaderProps) {
                   />
                   <span
                     className={`block h-px rounded-full bg-current transition-all duration-300 ease-brand ${
-                      exploreOpen ? '-translate-y-[5px] -rotate-45' : ''
+                      exploreOpen ? '-translate-y-[4.5px] sm:-translate-y-[5px] -rotate-45' : ''
                     }`}
                   />
                 </span>
@@ -177,15 +177,15 @@ export function Header({ solid = false }: HeaderProps) {
                   setExploreOpen(false);
                   setSearchOpen(true);
                 }}
-                className="flex h-9 w-9 items-center justify-center rounded-sm border border-white/12 text-brand-mist/70 transition-all duration-200 hover:border-white/30 hover:text-white hover:bg-white/[0.04]"
+                className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-sm border border-white/12 text-brand-mist/70 transition-all duration-200 hover:border-white/30 hover:text-white hover:bg-white/[0.04]"
               >
-                <Search className="h-4 w-4" />
+                <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </button>
 
-              {/* Login — intentional, premium, NOT a giant SaaS pill */}
+              {/* Login */}
               <Link
                 href="/login"
-                className="ml-1 inline-flex items-center gap-2 rounded-sm border border-brand-electric/40 bg-brand-electric/10 px-4 py-2 text-sm font-light text-brand-electric-bright transition-all duration-300 ease-brand hover:border-brand-electric/70 hover:bg-brand-electric/20 hover:text-white"
+                className="inline-flex items-center gap-1.5 rounded-sm border border-brand-electric/40 bg-brand-electric/10 px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-light text-brand-electric-bright transition-all duration-300 ease-brand hover:border-brand-electric/70 hover:bg-brand-electric/20 hover:text-white"
               >
                 Login
               </Link>

@@ -104,7 +104,7 @@ export function FullBleedFeature({
   return (
     <section
       ref={sectionRef}
-      className="on-dark relative isolate flex min-h-[38rem] w-full items-center overflow-hidden bg-brand-graphite [height:88svh]"
+      className="on-dark relative isolate flex min-h-[32rem] sm:min-h-[36rem] lg:min-h-[38rem] w-full items-center overflow-hidden bg-brand-graphite py-16 sm:py-20 lg:py-0 lg:[height:88svh]"
     >
       {/* Media layer — oversized so the parallax never exposes an edge. */}
       <div ref={layerRef} className="absolute inset-0 -z-10 will-change-transform" style={{ transform: 'scale(1.16)' }}>
@@ -153,14 +153,14 @@ export function FullBleedFeature({
             {eyebrow}
           </p>
           <h2
-            className="mt-6 text-display-lg text-white"
+            className="mt-4 sm:mt-6 text-display-lg text-white"
             data-reveal
             style={{ '--reveal-delay': '80ms' } as React.CSSProperties}
           >
             {title}
           </h2>
           <p
-            className={`mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-brand-mist/75 ${align === 'centre' ? 'mx-auto' : ''}`}
+            className={`mt-4 sm:mt-6 max-w-xl text-sm sm:text-base lg:text-[1.0625rem] leading-relaxed text-brand-mist/75 ${align === 'centre' ? 'mx-auto' : ''}`}
             data-reveal
             style={{ '--reveal-delay': '150ms' } as React.CSSProperties}
           >
@@ -169,13 +169,13 @@ export function FullBleedFeature({
 
           {points.length > 0 && (
             <ul
-              className={`mt-9 grid gap-x-8 gap-y-3 sm:grid-cols-2 ${align === 'centre' ? 'mx-auto max-w-lg text-left' : 'max-w-xl'}`}
+              className={`mt-7 sm:mt-9 grid gap-x-8 gap-y-2.5 sm:gap-y-3 sm:grid-cols-2 ${align === 'centre' ? 'mx-auto max-w-lg text-left' : 'max-w-xl'}`}
               data-reveal
               style={{ '--reveal-delay': '220ms' } as React.CSSProperties}
             >
               {points.map((point) => (
-                <li key={point} className="flex items-start gap-2.5 text-[13.5px] text-brand-mist/70">
-                  <span aria-hidden="true" className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-brand-electric-bright" />
+                <li key={point} className="flex items-start gap-2.5 text-xs sm:text-[13.5px] text-brand-mist/70">
+                  <span aria-hidden="true" className="mt-[6px] sm:mt-[7px] h-1 w-1 shrink-0 rounded-full bg-brand-electric-bright" />
                   {point}
                 </li>
               ))}
@@ -183,11 +183,11 @@ export function FullBleedFeature({
           )}
 
           <div
-            className={`mt-10 flex ${align === 'centre' ? 'justify-center' : ''}`}
+            className={`mt-8 sm:mt-10 flex ${align === 'centre' ? 'justify-center' : ''}`}
             data-reveal
             style={{ '--reveal-delay': '290ms' } as React.CSSProperties}
           >
-            <Link href={href} className="btn-primary">
+            <Link href={href} className="btn-primary w-full sm:w-auto text-center justify-center">
               {cta}
               <ArrowRight className="btn-arrow h-4 w-4" />
             </Link>

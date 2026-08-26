@@ -102,17 +102,17 @@ export function InteractivePortalTour() {
   const Icon = activeHotspot.icon;
 
   return (
-    <section id="interactive-tour" className="py-24 bg-white border-b border-slate-200 scroll-mt-24">
+    <section id="live-operating-picture" className="py-14 sm:py-20 lg:py-24 bg-white border-b border-slate-200">
       <div className="container-wide">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 pb-10 border-b border-slate-200 mb-10">
-          <div className="max-w-3xl">
-            <span className="eyebrow eyebrow-light">LIVE PLATFORM ARCHITECTURE</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-slate-900 leading-tight">
-              One portal. The complete operational picture.
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 sm:mb-12">
+          <div className="max-w-2xl">
+            <span className="eyebrow eyebrow-light">INTERACTIVE PLATFORM INSPECTION</span>
+            <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-extralight tracking-tight text-slate-900 leading-tight">
+              A real-time operating picture of your estate.
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
-              Explore the five core functional zones of the live EntireCAFM console. Click on any module to inspect its real-world role in facilities management delivery.
+            <p className="mt-2 text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
+              Click any active node on the live console below to inspect real-world facilities telemetry, SLA triggers, compliance tracking, and asset registers.
             </p>
           </div>
 
@@ -125,7 +125,7 @@ export function InteractivePortalTour() {
                 <button
                   key={h.id}
                   onClick={() => setActiveHotspotId(h.id)}
-                  className={`inline-flex items-center gap-2 rounded-sm px-3.5 py-2 text-xs font-light tracking-wide transition-all ${
+                  className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-sm px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-light tracking-wide transition-all ${
                     isSelected
                       ? 'bg-slate-900 text-white font-normal shadow-sm border border-slate-900'
                       : 'bg-[#FAF9FB] text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900'
@@ -151,7 +151,7 @@ export function InteractivePortalTour() {
               className="object-cover object-top"
             />
 
-            {/* Pulsing Hotspots */}
+            {/* Pulsing Hotspots — with 44px touch targets */}
             {HOTSPOTS.map((h) => {
               const isSelected = h.id === activeHotspotId;
               return (
@@ -159,7 +159,7 @@ export function InteractivePortalTour() {
                   key={h.id}
                   onClick={() => setActiveHotspotId(h.id)}
                   style={{ top: `${h.top}%`, left: `${h.left}%` }}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none z-20"
+                  className="absolute h-11 w-11 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center group focus:outline-none z-20"
                   aria-label={`Inspect ${h.title}`}
                 >
                   <span className="relative flex h-7 w-7 items-center justify-center">
@@ -172,7 +172,7 @@ export function InteractivePortalTour() {
                       className={`relative inline-flex h-6 w-6 items-center justify-center rounded-full text-white text-[11px] font-normal shadow-lg transition-transform ${
                         isSelected
                           ? 'bg-brand-pink scale-110 ring-2 ring-white'
-                          : 'bg-slate-900/90 border border-white/40 hover:scale-105'
+                          : 'bg-slate-900/90 border border-white/40 group-hover:scale-105'
                       }`}
                     >
                       +

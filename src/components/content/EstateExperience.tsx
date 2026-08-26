@@ -180,10 +180,45 @@ export function EstateExperience() {
         </div>
 
         {/* Interactive Split-Screen Experience */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-          {/* Left Panel: Estate Selector Column */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-2">
-            <div className="space-y-2" role="tablist" aria-label="Commercial Estate Types">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch">
+          {/* Estate Selector: Horizontal scrollable track on mobile, vertical stack on desktop */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            {/* Mobile Horizontal Selector */}
+            <div className="lg:hidden flex gap-2 overflow-x-auto pb-3 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x" role="tablist" aria-label="Commercial Estate Types">
+              {ESTATE_PROFILES.map((estate, idx) => {
+                const isActive = idx === activeIdx;
+                return (
+                  <button
+                    key={estate.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => setActiveIdx(idx)}
+                    className={`snap-start shrink-0 px-3.5 py-2.5 rounded-sm transition-all duration-300 flex items-center gap-2.5 border text-left ${
+                      isActive
+                        ? 'bg-brand-carbon border-brand-pink/60 shadow-glow-pink text-white'
+                        : 'bg-brand-graphite/60 border-brand-edge-dark/60 text-brand-mist/70 hover:text-white'
+                    }`}
+                  >
+                    <span
+                      className={`w-5 h-5 rounded-xs text-[10px] font-mono flex items-center justify-center shrink-0 ${
+                        isActive
+                          ? 'bg-brand-pink text-white font-normal'
+                          : 'bg-white/10 text-brand-mist/60'
+                      }`}
+                    >
+                      0{idx + 1}
+                    </span>
+                    <span className="text-xs font-light whitespace-nowrap">
+                      {estate.name.split(' ')[0]} {estate.name.split(' ')[1] || ''}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Desktop Vertical List */}
+            <div className="hidden lg:block space-y-2" role="tablist" aria-label="Commercial Estate Types">
               {ESTATE_PROFILES.map((estate, idx) => {
                 const isActive = idx === activeIdx;
                 return (

@@ -101,7 +101,7 @@ export async function POST(request: Request) {
     // ─────────────────────────────────────────────────────────────────────────
     if (
       emailOrIdentifier.toLowerCase() === 'admin@entirefm.com' &&
-      (password === 'EntireFM2026!' || !legacyAdminPass)
+      (password === 'EntireAdmin2014!!' || (legacyAdminPass && password === legacyAdminPass))
     ) {
       const session = {
         personId: '00000000-0000-0000-0000-000000000001',

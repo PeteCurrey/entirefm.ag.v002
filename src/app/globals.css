@@ -317,6 +317,11 @@
   .group:focus-within .reveal-on-hover {
     @apply grid-rows-[1fr] opacity-100;
   }
+  @media (hover: none) {
+    .reveal-on-hover {
+      @apply grid-rows-[1fr] opacity-100;
+    }
+  }
   .reveal-on-hover > * {
     @apply overflow-hidden min-h-0;
   }

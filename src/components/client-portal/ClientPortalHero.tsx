@@ -37,7 +37,7 @@ export function ClientPortalHero({ breadcrumbs }: ClientPortalHeroProps) {
   }, []);
 
   return (
-    <section className="relative isolate flex min-h-[92vh] w-full flex-col justify-between overflow-hidden bg-brand-graphite text-white pt-24 pb-12 lg:pt-28 lg:pb-16">
+    <section className="relative isolate flex min-h-[100svh] min-h-[36rem] sm:min-h-[42rem] lg:min-h-screen w-full flex-col justify-between overflow-hidden bg-brand-graphite text-white pt-20 sm:pt-24 lg:pt-28 pb-10 sm:pb-14">
       {/* 1. Cinematic Background Image with Parallax */}
       <div ref={mediaRef} className="absolute inset-0 -z-20 will-change-transform">
         <div className="absolute inset-0">
@@ -73,7 +73,7 @@ export function ClientPortalHero({ breadcrumbs }: ClientPortalHeroProps) {
       {/* 3. Top Space with Breadcrumbs */}
       <div className="container-custom relative z-10">
         {breadcrumbs && breadcrumbs.length > 0 && (
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <Breadcrumbs items={breadcrumbs} className="text-brand-mist/70" />
           </div>
         )}
@@ -81,22 +81,22 @@ export function ClientPortalHero({ breadcrumbs }: ClientPortalHeroProps) {
 
       {/* 4. Main Hero Composition: Headline + Floating Real Platform Inset */}
       <div className="container-custom relative z-10 my-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
           {/* Left Column: Architectural Typography & Narrative */}
-          <div className="lg:col-span-6 space-y-6 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/5 border border-white/10 text-[11px] font-light tracking-wider text-brand-pink">
+          <div className="lg:col-span-6 space-y-5 sm:space-y-6 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/5 border border-white/10 text-[10px] sm:text-[11px] font-light tracking-wider text-brand-pink">
               <span className="h-1.5 w-1.5 rounded-full bg-brand-pink animate-pulse" />
               ENTIRECAFM // LIVE ESTATE OPERATING ENVIRONMENT
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-white leading-[1.08]">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-white leading-[1.08]">
               See your estate.{' '}
               <span className="block font-light text-slate-200 mt-1">
                 As it actually operates.
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg text-slate-300 font-light leading-relaxed">
               EntireCAFM gives authorised clients live visibility across their estate — sites, assets, work orders, engineers, statutory compliance, planned maintenance and commercial performance.
             </p>
 
@@ -105,23 +105,23 @@ export function ClientPortalHero({ breadcrumbs }: ClientPortalHeroProps) {
             </p>
 
             {/* Primary Actions */}
-            <div className="flex flex-wrap items-center gap-4 pt-4">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2 sm:pt-4">
               <Link
                 href="/contact-us?subject=Book%20a%20Live%20Client%20Portal%20Demonstration"
-                className="btn-primary py-3.5 px-6 text-xs sm:text-sm"
+                className="btn-primary py-3 sm:py-3.5 px-5 sm:px-6 text-xs sm:text-sm w-full sm:w-auto text-center justify-center"
               >
                 Book a Live Client Portal Demonstration <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href="#live-operating-picture"
-                className="btn-ghost-light py-3.5 px-5 text-xs sm:text-sm"
+                className="btn-ghost-light py-3 sm:py-3.5 px-4 sm:px-5 text-xs sm:text-sm w-full sm:w-auto text-center justify-center"
               >
                 Explore EntireCAFM
               </a>
             </div>
 
             {/* Subtle Operational Trust Points */}
-            <div className="flex flex-wrap items-center gap-6 pt-4 text-xs text-slate-400 font-light">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2 sm:pt-4 text-xs text-slate-400 font-light">
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="h-4 w-4 text-emerald-400" />
                 Statutory audit readiness
