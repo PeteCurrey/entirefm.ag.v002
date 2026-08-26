@@ -20,9 +20,8 @@ export default async function PlatformUsersPage({
   searchParams: Promise<{ type?: string; search?: string }>;
 }) {
   const session = await getCurrentSession();
-  if (!session || session.orgType !== 'ENTIREFM') {
-    redirect('/login?error=forbidden_admin');
-  }
+  if (!session) redirect('/admin/login?next=/admin/platform/users');
+  if (session.orgType !== 'ENTIREFM') redirect('/admin/access-denied');
 
   const { type, search } = await searchParams;
 

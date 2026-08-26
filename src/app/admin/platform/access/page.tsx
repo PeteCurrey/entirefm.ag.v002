@@ -45,9 +45,8 @@ const ALL_ROLE_GROUPS = [
 
 export default async function PlatformAccessPage() {
   const session = await getCurrentSession();
-  if (!session || session.orgType !== 'ENTIREFM') {
-    redirect('/login?error=forbidden_admin');
-  }
+  if (!session) redirect('/admin/login?next=/admin/platform/access');
+  if (session.orgType !== 'ENTIREFM') redirect('/admin/access-denied');
 
   return (
     <div className="space-y-8">

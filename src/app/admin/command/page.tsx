@@ -18,8 +18,8 @@ export const dynamic = 'force-dynamic';
 
 export default async function CeoCommandPage() {
   const session = await getCurrentSession();
-  if (!session) redirect('/login?redirect=/admin/command');
-  try { requireAdminSession(session); } catch { redirect('/login?error=forbidden_admin'); }
+  if (!session) redirect('/admin/login?next=/admin/command');
+  try { requireAdminSession(session); } catch { redirect('/admin/access-denied'); }
 
   if (!hasPermission(session, 'enterprise_intelligence:view' as any)) {
     return (

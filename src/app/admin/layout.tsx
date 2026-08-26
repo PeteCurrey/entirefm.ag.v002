@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { getCurrentSession, requireAdminSession } from '@/server/identity';
+import { headers } from 'next/headers';
+import { getCurrentSession } from '@/server/identity';
 import { redirect } from 'next/navigation';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
 import { AdminHeader } from '@/components/admin/AdminHeader';
@@ -16,16 +17,24 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const headerList = await headers();
+  const pathname = headerList.get('x-pathname') || '';
+
+  // Standalone public admin subroutes bypass the Operations sidebar/header
+  const isPublicAdminRoute = pathname === '/admin/login' || pathname === '/admin/access-denied';
+  if (isPublicAdminRoute) {
+    return <>{children}</>;
+  }
+
   const session = await getCurrentSession();
 
   if (!session) {
-    redirect('/login?redirect=/admin');
+    const returnUrl = pathname && pathname !== '/admin' ? `/admin/login?next=${encodeURIComponent(pathname)}` : '/admin/login';
+    redirect(returnUrl);
   }
 
-  try {
-    requireAdminSession(session);
-  } catch {
-    redirect('/login?error=forbidden_admin');
+  if (session.orgType !== 'ENTIREFM' || session.activeApplication !== 'ADMIN') {
+    redirect('/admin/access-denied');
   }
 
   return (

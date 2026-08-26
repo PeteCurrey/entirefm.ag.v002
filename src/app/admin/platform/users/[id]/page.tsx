@@ -26,11 +26,9 @@ export default async function UserDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const session = await getCurrentSession();
-  if (!session || session.orgType !== 'ENTIREFM') {
-    redirect('/login?error=forbidden_admin');
-  }
-
   const { id } = await params;
+  if (!session) redirect(`/admin/login?next=/admin/platform/users/${id}`);
+  if (session.orgType !== 'ENTIREFM') redirect('/admin/access-denied');
 
   const { data: personData } = await dbQuery<any[]>(
     `persons?id=eq.${encodeURIComponent(id)}&select=id,first_name,last_name,email,mobile,status,is_field_engineer,provider_organisation_id,memberships:organisation_memberships(id,status,role:roles(code,name),organisation:organisations(id,name,org_type),scopes:membership_scopes(id,scope_type,scope_id))&limit=1`

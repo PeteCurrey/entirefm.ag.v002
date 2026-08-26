@@ -14,13 +14,13 @@ export default async function PlatformSettingsPage() {
   const session = await getCurrentSession();
 
   if (!session) {
-    redirect('/login?redirect=/admin/platform/settings');
+    redirect('/admin/login?next=/admin/platform/settings');
   }
 
   try {
     requireAdminSession(session);
   } catch {
-    redirect('/login?error=forbidden_admin');
+    redirect('/admin/access-denied');
   }
 
   return <PlatformSettingsClient session={session} />;

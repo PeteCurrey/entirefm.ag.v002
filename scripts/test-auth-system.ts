@@ -6,13 +6,20 @@
  * 2. Role-based post-login redirects for all 5 portal types (Client, Contractor, Engineer, Supplier, Admin)
  * 3. Lifecycle-aware resume routing for Supplier accounts (org-setup vs onboarding vs portal)
  * 4. Recovery token signing & HMAC verification (TTL, tamper resistance)
- * 5. Onboarding status separation from authentication status
+ * 5. Admin control plane boundary enforcement:
+ *    - Unauthenticated -> /admin/login
+ *    - Non-admin (Client, Supplier, Engineer, Contractor) -> /admin/access-denied
+ *    - Internal Admin -> /admin (full authorization)
  */
 
 import {
   createSessionToken,
   verifySessionToken,
   getPostLoginRedirect,
+  requireAdminSession,
+  requireClientSession,
+  requireContractorSession,
+  requireEngineerSession,
   RoleCode,
   OrgType,
 } from '../src/server/identity';
@@ -67,7 +74,98 @@ async function runAuthTests() {
     'Admin role correctly routes to /admin'
   );
 
-  // ── Test 2: Supplier Session Creation & Invariant Verification ────────────
+  // ── Test 2: Admin Control Plane Boundary Guards ───────────────────────────
+  const clientSession = {
+    personId: 'client-1',
+    email: 'client@propertycorp.co.uk',
+    name: 'Client User',
+    role: 'CLIENT_ADMIN' as RoleCode,
+    orgId: 'org-client-1',
+    orgName: 'Property Corp',
+    orgType: 'CLIENT' as OrgType,
+    activeApplication: 'CLIENT' as const,
+    permissions: [],
+    scopes: [],
+    expiresAt: Date.now() + 1000 * 60 * 60,
+  };
+
+  const supplierSession = {
+    personId: 'supplier-1',
+    email: 'supplier@hvacservices.co.uk',
+    name: 'Supplier User',
+    role: 'SUPPLIER_ADMIN' as RoleCode,
+    orgId: 'org-supp-1',
+    orgName: 'HVAC Services Ltd',
+    orgType: 'SUPPLIER' as OrgType,
+    activeApplication: 'CONTRACTOR' as const,
+    permissions: [],
+    scopes: [],
+    expiresAt: Date.now() + 1000 * 60 * 60,
+  };
+
+  const engineerSession = {
+    personId: 'eng-1',
+    email: 'eng@entirefm.com',
+    name: 'Field Engineer',
+    role: 'ENGINEER' as RoleCode,
+    orgId: 'org-ent-1',
+    orgName: 'EntireFM Field Services',
+    orgType: 'CONTRACTOR' as OrgType,
+    activeApplication: 'ENGINEER' as const,
+    permissions: [],
+    scopes: [],
+    expiresAt: Date.now() + 1000 * 60 * 60,
+  };
+
+  const adminSession = {
+    personId: 'admin-1',
+    email: 'admin@entirefm.com',
+    name: 'Super Administrator',
+    role: 'SUPER_ADMIN' as RoleCode,
+    orgId: '00000000-0000-0000-0000-000000000000',
+    orgName: 'EntireFM Headquarters',
+    orgType: 'ENTIREFM' as OrgType,
+    activeApplication: 'ADMIN' as const,
+    permissions: [],
+    scopes: [],
+    expiresAt: Date.now() + 1000 * 60 * 60,
+  };
+
+  // requireAdminSession checks
+  let clientAdminBlocked = false;
+  try {
+    requireAdminSession(clientSession as any);
+  } catch {
+    clientAdminBlocked = true;
+  }
+  assert(clientAdminBlocked, 'Client session blocked from /admin access');
+
+  let supplierAdminBlocked = false;
+  try {
+    requireAdminSession(supplierSession as any);
+  } catch {
+    supplierAdminBlocked = true;
+  }
+  assert(supplierAdminBlocked, 'Supplier session blocked from /admin access');
+
+  let engineerAdminBlocked = false;
+  try {
+    requireAdminSession(engineerSession as any);
+  } catch {
+    engineerAdminBlocked = true;
+  }
+  assert(engineerAdminBlocked, 'Engineer session blocked from /admin access');
+
+  let adminAllowed = false;
+  try {
+    requireAdminSession(adminSession as any);
+    adminAllowed = true;
+  } catch {
+    adminAllowed = false;
+  }
+  assert(adminAllowed, 'Internal Admin session granted full /admin clearance');
+
+  // ── Test 3: Supplier Session Creation & Invariant Verification ────────────
   const supplierAuthUserId = `auth-user-${Date.now()}`;
   const provResult = await createOrLinkSupplierUser(
     supplierAuthUserId,
@@ -82,21 +180,6 @@ async function runAuthTests() {
     'Supplier domain user created and linked to Supabase auth user UUID'
   );
 
-  const supplierSession = {
-    personId: supplierAuthUserId,
-    authUserId: supplierAuthUserId,
-    email: 'test.supplier@example.co.uk',
-    name: 'Alex Turner',
-    role: 'SUPPLIER_ADMIN' as RoleCode,
-    orgId: supplierAuthUserId,
-    orgName: 'Turner Maintenance Ltd',
-    orgType: 'SUPPLIER' as OrgType,
-    activeApplication: 'CONTRACTOR' as const,
-    permissions: [],
-    scopes: [],
-    expiresAt: Date.now() + 1000 * 60 * 60 * 24 * 7,
-  };
-
   const token = createSessionToken(supplierSession as any);
   const verifiedSession = verifySessionToken(token);
   assert(
@@ -104,15 +187,13 @@ async function runAuthTests() {
     'Supplier session token verified with strict orgType === "SUPPLIER"'
   );
 
-  // ── Test 3: Lifecycle-Aware Resume Routing ────────────────────────────────
-  // Step 3a: User with no organization -> /supplier-portal/org-setup
+  // ── Test 4: Lifecycle-Aware Resume Routing ────────────────────────────────
   const destNoOrg = await resolveResumeDestination(supplierAuthUserId);
   assert(
     destNoOrg === '/supplier-portal/org-setup',
     'Supplier without organization routes to /supplier-portal/org-setup (not /login)'
   );
 
-  // Step 3b: User with draft application -> /supplier-portal/onboarding
   const orgResult = await createSupplierOrganisation(
     supplierAuthUserId,
     'Turner Maintenance Ltd',
@@ -127,7 +208,6 @@ async function runAuthTests() {
     'Supplier with DRAFT application routes to /supplier-portal/onboarding'
   );
 
-  // Step 3c: User with approved application -> /supplier-portal
   if (orgResult.organisation) {
     await updateOrganisationLifecycle(orgResult.organisation.id, 'APPROVED');
     const destApproved = await resolveResumeDestination(supplierAuthUserId);
@@ -137,7 +217,7 @@ async function runAuthTests() {
     );
   }
 
-  // ── Test 4: Password Recovery Cookie Signing & Verification ──────────────
+  // ── Test 5: Password Recovery Cookie Signing & Verification ──────────────
   const sampleAccessToken = 'sb-access-token-test-1234567890abcdef';
   const cookieValue = createRecoveryCookieValue(sampleAccessToken);
   assert(typeof cookieValue === 'string' && cookieValue.split('.').length === 3, 'Recovery cookie created with base64.timestamp.signature format');
@@ -148,7 +228,6 @@ async function runAuthTests() {
     'Recovery cookie successfully verified and decrypted'
   );
 
-  // Test 4b: Tampered cookie rejection
   const tamperedCookie = cookieValue.slice(0, -5) + 'xxxxx';
   const tamperedResult = verifyRecoveryCookieValue(tamperedCookie);
   assert(

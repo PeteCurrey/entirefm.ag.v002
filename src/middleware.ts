@@ -9,8 +9,13 @@ const PRODUCTION_HOSTNAME = 'www.entirefm.com';
  * 1. Non-WWW Canonical 301 Redirect:
  *    Permanently redirects all traffic on 'entirefm.com' to 'www.entirefm.com'.
  * 2. Legacy /client to /clients 308 Redirect.
- * 3. Portal Security & Role-Based Session Gating:
- *    Restricts /admin, /clients, /contractor, and /engineer.
+ * 3. Strict Context Separation:
+ *    - Internal Admin Control Plane (/admin/*): Gated to internal EntireFM staff only.
+ *      Unauthenticated -> /admin/login. Authenticated non-admin -> /admin/access-denied.
+ *    - Supplier Portal (/supplier-portal/*): Gated to SUPPLIER orgType.
+ *    - Client Portal (/clients/*): Gated to CLIENT orgType.
+ *    - Contractor Portal (/contractor/*): Gated to CONTRACTOR orgType.
+ *    - Engineer Portal (/engineer/*): Gated to FIELD_ENGINEER role.
  * 4. Search Indexing Protection:
  *    Enforces 'X-Robots-Tag: noindex, nofollow, noarchive' across private routes.
  */
@@ -65,13 +70,78 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // 4. Inspect session cookie for private portal paths
-  const isPrivateAdmin = pathname === '/admin' || pathname.startsWith('/admin/');
-  const isPrivateClients = pathname === '/clients' || pathname.startsWith('/clients/');
-  const isPrivateContractor = pathname === '/contractor' || pathname.startsWith('/contractor/');
-  const isPrivateEngineer = pathname === '/engineer' || pathname.startsWith('/engineer/');
+  // Helper to extract session payload safely
+  const token = request.cookies.get('efm_session')?.value || request.cookies.get('efm_admin')?.value;
+  let session: any = null;
+  if (token) {
+    try {
+      const parts = token.split('.');
+      if (parts.length === 2) {
+        const payloadStr = Buffer.from(parts[0], 'base64url').toString('utf8');
+        const parsed = JSON.parse(payloadStr);
+        if (!parsed.expiresAt || parsed.expiresAt >= Date.now()) {
+          session = parsed;
+        }
+      }
+    } catch {
+      session = null;
+    }
+  }
 
-  // Supplier portal route classification
+  // Inject x-pathname header so Server Components & Layouts know the requested path
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', pathname);
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 4A. INTERNAL ADMIN CONTROL PLANE GATING (/admin/*)
+  // ─────────────────────────────────────────────────────────────────────────────
+  const isAdminRoute = pathname === '/admin' || pathname.startsWith('/admin/');
+  const isPublicAdminRoute = pathname === '/admin/login' || pathname === '/admin/access-denied';
+
+  if (isAdminRoute) {
+    // Public admin routes (Login & Access Denied)
+    if (isPublicAdminRoute) {
+      // If already authenticated as internal Admin and visiting /admin/login, bounce to /admin
+      if (pathname === '/admin/login' && session?.orgType === 'ENTIREFM') {
+        const adminUrl = new URL('/admin', request.url);
+        return NextResponse.redirect(adminUrl);
+      }
+      const res = NextResponse.next({ request: { headers: requestHeaders } });
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res;
+    }
+
+    // Protected Admin Cockpit Subroutes (/admin, /admin/careers, /admin/finance, etc.)
+    if (!session) {
+      // Unauthenticated visitor -> dedicated admin login with return destination
+      const adminLoginUrl = new URL('/admin/login', request.url);
+      if (pathname !== '/admin') {
+        adminLoginUrl.searchParams.set('next', pathname);
+      }
+      const res = NextResponse.redirect(adminLoginUrl);
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res;
+    }
+
+    // Authenticated user exists: verify internal EntireFM authorization
+    if (session.orgType !== 'ENTIREFM') {
+      // Authenticated as Client, Supplier, Engineer, Contractor -> show explicit access denied screen
+      // Do NOT destroy their session and do NOT redirect to public /login role cards
+      const deniedUrl = new URL('/admin/access-denied', request.url);
+      const res = NextResponse.redirect(deniedUrl);
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res;
+    }
+
+    // Valid internal EntireFM admin session -> allow access
+    const res = NextResponse.next({ request: { headers: requestHeaders } });
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    return res;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 4B. SUPPLIER PORTAL GATING (/supplier-portal/*)
+  // ─────────────────────────────────────────────────────────────────────────────
   const PUBLIC_SUPPLIER_ROUTES = [
     '/supplier-portal/register',
     '/supplier-portal/sign-in',
@@ -90,129 +160,98 @@ export function middleware(request: NextRequest) {
   );
   const isPrivateSupplierPortal = isSupplierPortal && !isPublicSupplierRoute;
 
-  // Explicit gate for /supplier-portal/org-setup
+  // Gate for /supplier-portal/org-setup
   if (isSetupRoute) {
-    const setupToken = request.cookies.get('efm_session')?.value;
-    if (!setupToken) {
+    if (!session) {
       const registerUrl = new URL('/supplier-portal/register', request.url);
-      const response = NextResponse.redirect(registerUrl);
-      response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-      return response;
+      const res = NextResponse.redirect(registerUrl);
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res;
     }
   }
 
   // Dedicated Supplier Portal Security Gate (Strict SUPPLIER orgType only)
   if (isPrivateSupplierPortal) {
-    const supplierToken = request.cookies.get('efm_session')?.value;
-    if (!supplierToken) {
+    if (!session) {
       const signInUrl = new URL('/supplier-portal/sign-in', request.url);
       if (pathname !== '/supplier-portal') {
         signInUrl.searchParams.set('redirect', pathname);
       }
-      const response = NextResponse.redirect(signInUrl);
-      response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-      return response;
+      const res = NextResponse.redirect(signInUrl);
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res;
     }
 
-    try {
-      const parts = supplierToken.split('.');
-      if (parts.length === 2) {
-        const payloadStr = Buffer.from(parts[0], 'base64url').toString('utf8');
-        const session = JSON.parse(payloadStr);
-
-        if (session.expiresAt && session.expiresAt < Date.now()) {
-          return NextResponse.redirect(new URL('/supplier-portal/sign-in?error=session_expired', request.url));
-        }
-
-        if (session.orgType !== 'SUPPLIER') {
-          return NextResponse.redirect(new URL('/supplier-portal/sign-in?error=forbidden_supplier', request.url));
-        }
-      } else {
-        return NextResponse.redirect(new URL('/supplier-portal/sign-in', request.url));
-      }
-    } catch {
-      return NextResponse.redirect(new URL('/supplier-portal/sign-in', request.url));
+    if (session.orgType !== 'SUPPLIER') {
+      const res = NextResponse.redirect(new URL('/supplier-portal/sign-in?error=forbidden_supplier', request.url));
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res;
     }
+
+    const res = NextResponse.next({ request: { headers: requestHeaders } });
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    return res;
   }
 
-  if (isPrivateAdmin || isPrivateClients || isPrivateContractor || isPrivateEngineer) {
-    const token = request.cookies.get('efm_session')?.value || request.cookies.get('efm_admin')?.value;
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 4C. CLIENT, CONTRACTOR, & FIELD ENGINEER PORTAL GATING
+  // ─────────────────────────────────────────────────────────────────────────────
+  const isPrivateClients = pathname === '/clients' || pathname.startsWith('/clients/');
+  const isPrivateContractor = pathname === '/contractor' || pathname.startsWith('/contractor/');
+  const isPrivateEngineer = pathname === '/engineer' || pathname.startsWith('/engineer/');
 
-    if (!token) {
+  if (isPrivateClients || isPrivateContractor || isPrivateEngineer) {
+    if (!session) {
       const loginUrl = new URL('/login', request.url);
       loginUrl.searchParams.set('redirect', pathname);
-      const response = NextResponse.redirect(loginUrl);
-      response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-      return response;
+      const res = NextResponse.redirect(loginUrl);
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res;
     }
 
-    // Decode token payload (format: base64urlPayload.signature)
-    try {
-      const parts = token.split('.');
-      if (parts.length === 2) {
-        const payloadStr = Buffer.from(parts[0], 'base64url').toString('utf8');
-        const session = JSON.parse(payloadStr);
+    const isViewAs = !!session.viewAsContext?.isViewAs;
 
-        // Check token expiry
-        if (session.expiresAt && session.expiresAt < Date.now()) {
-          return NextResponse.redirect(new URL('/login?error=expired', request.url));
-        }
-
-        const isViewAs = !!session.viewAsContext?.isViewAs;
-
-        // /admin is STRICTLY INTERNAL EntireFM
-        if (isPrivateAdmin) {
-          if (session.orgType !== 'ENTIREFM') {
-            return NextResponse.redirect(new URL('/login?error=forbidden_admin', request.url));
-          }
-        }
-
-        // /clients is STRICTLY CLIENT (or internal View-As)
-        if (isPrivateClients) {
-          if (session.orgType !== 'CLIENT' && !isViewAs) {
-            return NextResponse.redirect(new URL('/login?error=forbidden_client', request.url));
-          }
-        }
-
-        // /contractor is STRICTLY CONTRACTOR (or internal View-As)
-        if (isPrivateContractor) {
-          if (session.orgType !== 'CONTRACTOR' && !isViewAs) {
-            return NextResponse.redirect(new URL('/login?error=forbidden_contractor', request.url));
-          }
-        }
-
-        // /engineer is STRICTLY FIELD ENGINEER
-        if (isPrivateEngineer) {
-          const isEngineerRole = session.role === 'ENGINEER' || session.role === 'CONTRACTOR_ENGINEER';
-          if (!isEngineerRole && !isViewAs && session.orgType !== 'ENTIREFM') {
-            return NextResponse.redirect(new URL('/login?error=forbidden_engineer', request.url));
-          }
-        }
+    // /clients is STRICTLY CLIENT (or internal View-As)
+    if (isPrivateClients) {
+      if (session.orgType !== 'CLIENT' && !isViewAs) {
+        return NextResponse.redirect(new URL('/login?error=forbidden_client', request.url));
       }
-    } catch {
-      if (isPrivateSupplierPortal) {
-        return NextResponse.redirect(new URL('/supplier-portal/sign-in?error=session_expired', request.url));
-      }
-      return NextResponse.redirect(new URL('/login?error=invalid_session', request.url));
     }
 
-    const response = NextResponse.next();
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-    return response;
+    // /contractor is STRICTLY CONTRACTOR (or internal View-As)
+    if (isPrivateContractor) {
+      if (session.orgType !== 'CONTRACTOR' && !isViewAs) {
+        return NextResponse.redirect(new URL('/login?error=forbidden_contractor', request.url));
+      }
+    }
+
+    // /engineer is STRICTLY FIELD ENGINEER
+    if (isPrivateEngineer) {
+      const isEngineerRole = session.role === 'ENGINEER' || session.role === 'CONTRACTOR_ENGINEER';
+      if (!isEngineerRole && !isViewAs && session.orgType !== 'ENTIREFM') {
+        return NextResponse.redirect(new URL('/login?error=forbidden_engineer', request.url));
+      }
+    }
+
+    const res = NextResponse.next({ request: { headers: requestHeaders } });
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    return res;
   }
 
-  // 5. Hostname-Aware Search Indexing Protection for Public Routes
-  const response = NextResponse.next();
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 5. HOSTNAME-AWARE SEARCH INDEXING PROTECTION FOR PUBLIC ROUTES
+  // ─────────────────────────────────────────────────────────────────────────────
+  const res = NextResponse.next({ request: { headers: requestHeaders } });
   const isProductionHost = hostname === PRODUCTION_HOSTNAME;
   const isIndexingAllowed = process.env.ALLOW_SEARCH_INDEXING === 'true';
   const isSitemapOrRobots =
     pathname === '/robots.txt' || pathname === '/sitemap.xml' || pathname.startsWith('/sitemaps/');
 
   if (!isProductionHost || (!isIndexingAllowed && !isSitemapOrRobots)) {
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow');
   }
 
-  return response;
+  return res;
 }
 
 export const config = {

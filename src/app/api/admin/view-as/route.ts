@@ -30,8 +30,11 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
   const session = await getCurrentSession();
-  if (!session || session.orgType !== 'ENTIREFM') {
-    return NextResponse.redirect(new URL('/login?error=forbidden_admin', request.url), { status: 303 });
+  if (!session) {
+    return NextResponse.redirect(new URL('/admin/login', request.url), { status: 303 });
+  }
+  if (session.orgType !== 'ENTIREFM') {
+    return NextResponse.redirect(new URL('/admin/access-denied', request.url), { status: 303 });
   }
 
   // Only operators with VIEW_AS permission can launch support sessions
