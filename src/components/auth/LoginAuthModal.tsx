@@ -105,8 +105,12 @@ export function LoginAuthModal({ role, onClose, errorCode, redirectParam }: Logi
           </button>
         </div>
 
-        {/* Form */}
-        <form action="/api/auth/login" method="post" className="px-7 py-6 space-y-5">
+        {/* Form — SUPPLIER routes to its own dedicated auth endpoint */}
+        <form
+          action={role === 'SUPPLIER' ? '/api/supplier/auth/signin' : '/api/auth/login'}
+          method="post"
+          className="px-7 py-6 space-y-5"
+        >
           <input type="hidden" name="role_hint" value={role} />
           {redirectParam && <input type="hidden" name="redirect" value={redirectParam} />}
 

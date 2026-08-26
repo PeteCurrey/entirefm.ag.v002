@@ -105,6 +105,9 @@ export async function POST(request: Request) {
       const allMemberships = (user.person?.memberships || []).filter((m: any) => m.status === 'ACTIVE');
 
       if (allMemberships.length === 0) {
+        console.warn('[AUTH_LOGIN] Role resolution failure: authenticated user has no active membership', {
+          email: emailOrUsername,
+        });
         return NextResponse.redirect(new URL('/login?error=no_active_membership', request.url), { status: 303 });
       }
 
@@ -173,6 +176,14 @@ export async function POST(request: Request) {
       }
 
       const destination = getPostLoginRedirect(roleCode, orgType);
+
+      console.info('[AUTH_LOGIN] Login success: role resolved', {
+        email: user.email,
+        role: roleCode,
+        orgType,
+        destination,
+      });
+
       const response = NextResponse.redirect(new URL(destination, request.url), { status: 303 });
       
       response.cookies.set(AUTH_COOKIE_NAME, token, {
@@ -185,10 +196,17 @@ export async function POST(request: Request) {
       return response;
     }
 
+    // No profile found in enterprise DB — credentials may be valid in Supabase
+    // but no EntireFM application profile exists.
+    // NOTE: Supplier accounts are NOT in this DB — they use /api/supplier/auth/signin.
+    // This path covers Client, Contractor, Engineer accounts only.
+    console.warn('[AUTH_LOGIN] Login failure: credentials not found in enterprise identity store', {
+      email: emailOrUsername,
+    });
     await new Promise((r) => setTimeout(r, 400));
     return NextResponse.redirect(new URL('/login?error=invalid_credentials', request.url), { status: 303 });
   } catch (err) {
-    console.error('Login error:', err);
+    console.error('[AUTH_LOGIN] Unexpected server error during login:', err instanceof Error ? err.message : err);
     return NextResponse.redirect(new URL('/login?error=server', request.url), { status: 303 });
   }
 }

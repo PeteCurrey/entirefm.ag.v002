@@ -43,6 +43,7 @@ export async function POST(request: Request) {
     const { data: authSession, error: authError } = await supabaseSignIn(email, password);
 
     if (authError || !authSession?.user) {
+      console.warn('[SUPPLIER_AUTH] Login failure: invalid credentials', { email });
       return NextResponse.redirect(
         new URL('/supplier-portal/sign-in?error=invalid_credentials', request.url),
         { status: 303 }
@@ -65,9 +66,13 @@ export async function POST(request: Request) {
         isEmailConfirmed
       );
       supplierUser = provResult.user || null;
+      if (provResult.isNew) {
+        console.info('[SUPPLIER_AUTH] Domain record provisioned for Supabase user', { authUserId: authUser.id });
+      }
     }
 
     if (!supplierUser) {
+      console.error('[SUPPLIER_AUTH] Domain provisioning failed', { authUserId: authUser.id });
       return NextResponse.redirect(
         new URL('/supplier-portal/sign-in?error=provisioning_failed', request.url),
         { status: 303 }
@@ -75,6 +80,7 @@ export async function POST(request: Request) {
     }
 
     if (supplierUser.status === 'SUSPENDED') {
+      console.warn('[SUPPLIER_AUTH] Login blocked: account suspended', { email });
       return NextResponse.redirect(
         new URL('/supplier-portal/sign-in?error=account_suspended', request.url),
         { status: 303 }
@@ -82,6 +88,7 @@ export async function POST(request: Request) {
     }
 
     // 3. Build Unified Session
+    // orgType MUST be 'SUPPLIER' — middleware gates /supplier-portal/* on this value
     const session = {
       personId: authUser.id,
       authUserId: authUser.id,
@@ -91,7 +98,7 @@ export async function POST(request: Request) {
       orgId: supplierUser.organisation_id || authUser.id,
       orgName: 'Supplier Organisation',
       orgType: 'SUPPLIER' as const,
-      activeApplication: 'ADMIN' as const,
+      activeApplication: 'CONTRACTOR' as const, // Closest available ApplicationPortal enum value for portal routing
       permissions: getRolePermissions(supplierUser.role as any),
       scopes: [],
       expiresAt: Date.now() + SUPPLIER_SESSION_MAX_AGE * 1000,
@@ -101,6 +108,13 @@ export async function POST(request: Request) {
 
     // 4. Resolve lifecycle-aware destination
     const destination = redirectParam || (await resolveResumeDestination(authUser.id));
+
+    console.info('[SUPPLIER_AUTH] Login success: role resolved, routing to lifecycle destination', {
+      email,
+      orgType: 'SUPPLIER',
+      destination,
+      hasOrg: !!supplierUser.organisation_id,
+    });
 
     const response = NextResponse.redirect(new URL(destination, request.url), { status: 303 });
 
@@ -114,7 +128,7 @@ export async function POST(request: Request) {
 
     return response;
   } catch (err: any) {
-    console.error('[SUPPLIER_SIGNIN] Unexpected error:', err);
+    console.error('[SUPPLIER_AUTH] Unexpected error during sign in:', err?.message || err);
     return NextResponse.redirect(
       new URL('/supplier-portal/sign-in?error=server', request.url),
       { status: 303 }
