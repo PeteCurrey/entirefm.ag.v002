@@ -1,37 +1,36 @@
 /**
  * CONTENT RECORD: /industrial-cleaning-london
  * =====================
- * Provenance: LEGACY_VERIFIED
- * Historic: Yes
- * Protected: Yes
  */
 
 import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/industrial-cleaning-london",
-  "title": "Industrial Cleaning London | Industrial Unit & Plant Cleaning | Entire FM",
-  "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
-  "h1": "Industrial Cleaning & Plant Decontamination in London",
-  "eyebrow": "Industrial Sector Scope",
-  "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
-  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-  "heroImage": "/branding/EntireFM Branding 001.png",
-  "historicIntent": "Historic commercial search intent for industrial cleaning london",
-  "primaryIntent": "industrial cleaning london services",
+  "title": "Industrial Cleaning London | Warehouses & Plant Decontamination | EntireFM",
+  "metaDescription": "Specialist industrial cleaning across London and Park Royal corridors — warehouse scrubbing, high-level structural cleaning, plant degreasing, and shutdown decontamination.",
+  "h1": "Industrial Cleaning & Plant Maintenance in London",
+  "eyebrow": "Heavy-Duty Industrial Cleaning",
+  "heroIntro": "EntireFM provides specialist industrial cleaning for logistics hubs, distribution centres, manufacturing units, and commercial trade parks across London and the M25 corridor.",
+  "heroDescription": "From high-level beam vacuuming and structural steelwork degreasing to industrial ride-on floor scrubbing, builder cleans, and factory shutdown deep cleans, our certified operatives work to strict RAMS and safety standards.",
+  "heroImage": "/images/editorial/entirefm-totem-headquarters-2000w.webp",
+  "historicIntent": "Commercial search intent for industrial cleaning in London",
+  "primaryIntent": "industrial cleaning london",
   "secondaryIntents": [
-    "commercial industrial cleaning london",
-    "industrial cleaning london contractor UK"
+    "industrial cleaning services london",
+    "warehouse cleaning london",
+    "factory cleaning london",
+    "high level cleaning london"
   ],
   "pageType": "geographic-service",
-  "service": null,
+  "service": "Industrial Cleaning",
   "sector": null,
   "location": "London",
   "historicTopics": [
-    "Industrial Cleaning London overview",
-    "Statutory compliance",
-    "Preventative maintenance",
-    "Contract management"
+    "Industrial Cleaning London",
+    "Warehouse Scrubbing",
+    "High-Level Cleaning",
+    "Plant Degreasing"
   ],
   "requiredSections": [
     "hero",
@@ -42,37 +41,49 @@ const record: ContentRecord = {
   ],
   "sections": [
     {
-      "heading": "Engineered for Heavy Manufacturing and Continuous Production",
-      "body": "Industrial environments present unique health, safety, and operational challenges. Unplanned plant stoppages result in massive financial losses. EntireFM provides rigorous PPM schedules, machinery interface maintenance, and strict adherence to industrial safety standards."
+      "heading": "Specialist Equipment for Demanding Industrial Environments",
+      "body": "Industrial spaces require heavy-duty machinery. EntireFM deploys industrial scrubber-dryers, pressure washers, and IPAF-certified high-level access teams to deep-clean warehouses, workshops, and distribution hubs."
+    },
+    {
+      "heading": "Rigorous Health, Safety & RAMS Governance",
+      "body": "Every industrial cleaning operation is backed by site-specific Risk Assessments and Method Statements (RAMS), COSHH assessments, and IPAF/PASMA certified operatives to ensure complete site safety."
     }
   ],
   "capabilities": [
     {
-      "name": "Factory Shutdown Maintenance Windows",
-      "description": "Concentrated engineering overhauls during scheduled plant closures, bank holidays, and retooling shutdowns.",
-      "tag": "Shutdown Services"
+      "name": "Ride-On Floor Scrubbing & Sweeping",
+      "description": "Removing forklift tyre marks, oil spillages, and industrial grime from concrete slabs.",
+      "tag": "Floor Care"
     },
     {
-      "name": "Industrial Power Distribution & Switchgear",
-      "description": "PPM maintenance for high-load electrical switchrooms, transformers, busbars, and machinery supply circuits.",
-      "tag": "Heavy Power"
+      "name": "High-Level Structural Cleaning",
+      "description": "IPAF-certified vacuuming of roof trusses, ductwork, purlins, and high-level lighting.",
+      "tag": "High-Level Access"
     },
     {
-      "name": "Industrial Extraction & Ventilation Plant",
-      "description": "Ductwork degreasing, extraction fan motor servicing, filter overhauls, and local exhaust ventilation (LEV) testing.",
-      "tag": "LEV & Extraction"
+      "name": "Factory Shutdown Deep Cleans",
+      "description": "Intensive scheduled decontamination of production lines, workshops, and plant rooms.",
+      "tag": "Shutdowns"
     },
     {
-      "name": "Factory Floor Degreasing & High-Level Cleaning",
-      "description": "High-pressure floor scrubbers, chemical degreasing, overhead crane track vacuuming, and girder cleaning.",
-      "tag": "Plant Hygiene"
+      "name": "Warehouse Handover & Builders Cleans",
+      "description": "Post-construction and end-of-lease handover cleaning to institutional standards.",
+      "tag": "End of Lease"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "Do your engineers have experience working in active manufacturing environments?",
-      "answer": "Yes. Our industrial engineering teams are fully trained in lock-out/tag-out (LOTO) procedures, permit-to-work systems, and working around active automated production lines."
+      "question": "What industrial facilities do you clean in London?",
+      "answer": "We service logistics warehouses in Park Royal, Greenford, Croydon, Dartford, and Enfield, as well as manufacturing plants, food distribution centres, and transport depots."
+    },
+    {
+      "question": "Do your operatives hold IPAF and PASMA access qualifications?",
+      "answer": "Yes. Operatives working at height are fully IPAF certified for scissor lifts and boom access platforms, and PASMA certified for mobile scaffold towers."
+    },
+    {
+      "question": "Can industrial cleaning take place during weekend or night shutdowns?",
+      "answer": "Yes. We frequently execute industrial deep cleaning during night shifts, weekends, or scheduled factory shutdowns to prevent production downtime."
     }
   ],
   "breadcrumbs": [
@@ -81,7 +92,7 @@ const record: ContentRecord = {
       "url": "/"
     },
     {
-      "name": "Local Services",
+      "name": "Locations",
       "url": "/locations"
     },
     {
@@ -91,15 +102,15 @@ const record: ContentRecord = {
   ],
   "relatedRoutes": [
     "/facilities-management-london",
+    "/soft-facilities-management-london",
     "/commercial-cleaning-london",
-    "/industrial-cleaning",
+    "/office-cleaning-london",
+    "/pressure-washing-london",
     "/contact-us"
   ],
-  "conversionGoal": "Generate commercial enquiries and survey requests for industrial cleaning london.",
+  "conversionGoal": "Request an industrial cleaning site survey and bespoke quotation in London.",
   "verificationRequirements": [
-    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-    "No placeholder contact strings in rendered content",
-    "No unverified statistics"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
   ],
   "contentStatus": "CONTENT_COMPLETE"
 };

@@ -6,12 +6,11 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 412,
+    "total": 422,
     "LEGACY_VERIFIED": 201,
     "LEGACY_PROTECTED_BY_DIRECTIVE": 31,
-    "CURRENT_LIVE_RETAINED": 5,
-    "NEW_GROWTH": 175,
-    "protected": 412,
+    "NEW_GROWTH": 185,
+    "protected": 422,
     "historic": 230
   },
   "routes": [
@@ -301,6 +300,25 @@
       "g2_url": "https://petercurrey.wixstudio.com/efmsut17724/blog"
     },
     {
+      "path": "/bms-maintenance-london",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "location": "London",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
       "path": "/bocker-crane-hire",
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -333,7 +351,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Bolton"
     },
     {
@@ -429,7 +449,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Bury"
     },
     {
@@ -661,6 +683,25 @@
       ]
     },
     {
+      "path": "/commercial-building-maintenance-london",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "location": "London",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
       "path": "/commercial-cleaning-birmingham",
       "routeType": "geographic-service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -863,6 +904,44 @@
       "location": "Sheffield"
     },
     {
+      "path": "/commercial-eicr-testing-london",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "location": "London",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/commercial-electrical-maintenance-london",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "location": "London",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
       "path": "/commercial-facilities-management",
       "routeType": "sector",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -904,6 +983,44 @@
       "location": "Lincoln"
     },
     {
+      "path": "/commercial-plumbing-london",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "location": "London",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/commercial-water-hygiene-london",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "location": "London",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
       "path": "/compliance",
       "routeType": "company",
       "routeProvenance": "NEW_GROWTH",
@@ -917,7 +1034,9 @@
       "priority": "P1",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "Compliance Centre — additive authority content, not a legacy path."
     },
     {
@@ -934,7 +1053,9 @@
       "priority": "P1",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "Compliance Centre — additive authority content, not a legacy path."
     },
     {
@@ -951,7 +1072,9 @@
       "priority": "P1",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "Compliance Centre — additive authority content, not a legacy path."
     },
     {
@@ -968,7 +1091,9 @@
       "priority": "P1",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "Compliance Centre — additive authority content, not a legacy path."
     },
     {
@@ -985,7 +1110,9 @@
       "priority": "P1",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "Compliance Centre — additive authority content, not a legacy path."
     },
     {
@@ -1002,7 +1129,9 @@
       "priority": "P1",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "Compliance Centre — additive authority content, not a legacy path."
     },
     {
@@ -1019,7 +1148,9 @@
       "priority": "P1",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "Compliance Centre — additive authority content, not a legacy path."
     },
     {
@@ -1036,7 +1167,9 @@
       "priority": "P1",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "Compliance Centre — additive authority content, not a legacy path."
     },
     {
@@ -1053,7 +1186,9 @@
       "priority": "P1",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "Compliance Centre — additive authority content, not a legacy path."
     },
     {
@@ -1070,7 +1205,9 @@
       "priority": "P1",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "Compliance Centre — additive authority content, not a legacy path."
     },
     {
@@ -1087,7 +1224,9 @@
       "priority": "P1",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "Compliance Centre — additive authority content, not a legacy path."
     },
     {
@@ -1379,7 +1518,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Doncaster"
     },
     {
@@ -1595,7 +1736,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Bolton"
     },
     {
@@ -1634,7 +1777,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Bury"
     },
     {
@@ -1695,7 +1840,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Doncaster"
     },
     {
@@ -2414,7 +2561,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Grimsby"
     },
     {
@@ -2669,7 +2818,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Oxford"
     },
     {
@@ -2686,7 +2837,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Preston"
     },
     {
@@ -2703,7 +2856,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Rotherham"
     },
     {
@@ -2824,7 +2979,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Wigan"
     },
     {
@@ -2845,6 +3002,25 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/fire-emergency-systems"
+    },
+    {
+      "path": "/fire-emergency-systems-london",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "location": "London",
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/fm-birmingham",
@@ -2882,7 +3058,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Bolton"
     },
     {
@@ -2921,7 +3099,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/fm-briefing/unsubscribe",
@@ -2937,7 +3117,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/fm-bury",
@@ -2953,7 +3135,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Bury"
     },
     {
@@ -3033,7 +3217,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Doncaster"
     },
     {
@@ -3050,7 +3236,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Grimsby"
     },
     {
@@ -3238,7 +3426,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Oxford"
     },
     {
@@ -3255,7 +3445,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Preston"
     },
     {
@@ -3272,7 +3464,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Rotherham"
     },
     {
@@ -3450,7 +3644,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Wigan"
     },
     {
@@ -3486,7 +3682,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Grimsby"
     },
     {
@@ -3507,6 +3705,25 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/grounds-maintenance"
+    },
+    {
+      "path": "/hard-facilities-management-london",
+      "routeType": "service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "location": "London",
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/hard-services",
@@ -3724,7 +3941,9 @@
       "priority": "P3",
       "contentStatus": "CONTENT_COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "note": "HTML sitemap — crawl path to every route, including those held at noindex."
     },
     {
@@ -5250,7 +5469,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/media-digital-displays",
@@ -5463,7 +5684,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Oxford"
     },
     {
@@ -5541,7 +5764,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/ai-agents-in-facilities-management",
@@ -5557,7 +5782,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/ai-and-the-future-of-cafm",
@@ -5573,7 +5800,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/ai-in-facilities-management-2026",
@@ -5589,7 +5818,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/asset-data-quality-for-fm-ai",
@@ -5605,7 +5836,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/can-ai-run-an-fm-helpdesk",
@@ -5621,7 +5854,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/digital-twins-in-facilities-management",
@@ -5637,7 +5872,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/facilities-management-in-different-sectors-similarities-differences-and-the-need-for-agility",
@@ -5712,7 +5949,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/hard-fm-vs-soft-fm-scope-boundaries",
@@ -5728,7 +5967,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/how-to-change-facilities-management-provider",
@@ -5744,7 +5985,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/predictive-maintenance-vs-ppm",
@@ -5760,7 +6003,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/reactive-maintenance-vs-over-servicing-ppm",
@@ -5776,7 +6021,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/the-importance-of-regular-maintenance-and-inspections",
@@ -5893,7 +6140,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/what-is-facilities-management",
@@ -5970,7 +6219,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/post/what-to-include-in-a-monthly-fm-report",
@@ -5986,7 +6237,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/ppm",
@@ -6247,7 +6500,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Preston"
     },
     {
@@ -6327,6 +6582,25 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/reactive-cleaning-services"
+    },
+    {
+      "path": "/reactive-maintenance-london",
+      "routeType": "geographic-service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "location": "London",
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/residential-cleaning",
@@ -6420,7 +6694,9 @@
       "priority": "P1",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/ai-in-facilities-management/ai-agents",
@@ -6436,7 +6712,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/ai-in-facilities-management/ai-cafm",
@@ -6452,7 +6730,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/ai-in-facilities-management/ai-compliance",
@@ -6468,7 +6748,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/ai-in-facilities-management/ai-governance",
@@ -6484,7 +6766,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/ai-in-facilities-management/ai-helpdesk-work-orders",
@@ -6500,7 +6784,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/ai-in-facilities-management/computer-vision",
@@ -6516,7 +6802,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/ai-in-facilities-management/digital-twins",
@@ -6532,7 +6820,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/ai-in-facilities-management/energy-optimisation",
@@ -6548,7 +6838,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/ai-in-facilities-management/fm-data-readiness",
@@ -6564,7 +6856,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/ai-in-facilities-management/predictive-maintenance",
@@ -6580,7 +6874,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/document-vault",
@@ -6615,7 +6911,9 @@
       "priority": "P1",
       "contentStatus": "COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/guides/asset-register-guide",
@@ -6631,7 +6929,9 @@
       "priority": "P1",
       "contentStatus": "COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/guides/facilities-management-guide",
@@ -6647,7 +6947,9 @@
       "priority": "P1",
       "contentStatus": "COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/guides/fm-tender-guide",
@@ -6663,7 +6965,9 @@
       "priority": "P1",
       "contentStatus": "COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources/guides/ppm-guide",
@@ -6679,7 +6983,9 @@
       "priority": "P1",
       "contentStatus": "COMPLETE",
       "designStatus": "COMPLETE",
-      "historicSources": []
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/restaurant-facilities-management",
@@ -6774,7 +7080,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Rotherham"
     },
     {
@@ -6895,6 +7203,222 @@
       "g1_url": "https://petercurrey.wixsite.com/efm-new/services"
     },
     {
+      "path": "/services/drone-services",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/aerial-photography-video",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/building-envelope-inspections",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/construction-monitoring",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/digital-twin-3d-capture",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/drone-inspections",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/emergency-insurance-surveys",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/roof-inspections",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/solar-pv-inspections",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/surveying-mapping",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/thermal-imaging",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/services/drone-services/volumetric-surveys",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
       "path": "/sheffield",
       "routeType": "geographic-service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -6938,6 +7462,25 @@
       "location": "Sheffield"
     },
     {
+      "path": "/soft-facilities-management-london",
+      "routeType": "service",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "local-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "location": "London",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
       "path": "/soft-services",
       "routeType": "service",
       "routeProvenance": "LEGACY_VERIFIED",
@@ -6974,6 +7517,276 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/sport-centre-facilities-management"
+    },
+    {
+      "path": "/suppliers",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/apply",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/compliance",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/events",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/faq",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/how-we-work",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/industry-partners",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/innovation",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/membership",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/onboarding",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/partner-network",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/partner-with-entirefm",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/standards",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/sustainability",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
+    },
+    {
+      "path": "/suppliers/vetting",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/telford-facilities-management",
@@ -7107,6 +7920,24 @@
       "designStatus": "COMPLETE",
       "historicSources": [
         "current-live-antigravity"
+      ]
+    },
+    {
+      "path": "/tools/drone-inspection-planner",
+      "routeProvenance": "NEW_GROWTH",
+      "routeType": "service",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "specialist-services",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
       ]
     },
     {
@@ -7334,7 +8165,9 @@
       "priority": "P2",
       "contentStatus": "COMPLETE",
       "designStatus": "NOT_STARTED",
-      "historicSources": [],
+      "historicSources": [
+        "new-growth-directive"
+      ],
       "location": "Wigan"
     },
     {
@@ -7392,510 +8225,6 @@
         "wix-generation-1"
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/working-at-heights"
-    },
-    {
-      "path": "/services/drone-services",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P0",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/services/drone-services/drone-inspections",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/services/drone-services/roof-inspections",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/services/drone-services/building-envelope-inspections",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/services/drone-services/thermal-imaging",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/services/drone-services/solar-pv-inspections",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/services/drone-services/surveying-mapping",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/services/drone-services/construction-monitoring",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/services/drone-services/emergency-insurance-surveys",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/services/drone-services/digital-twin-3d-capture",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/services/drone-services/volumetric-surveys",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/services/drone-services/aerial-photography-video",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/tools/drone-inspection-planner",
-      "routeProvenance": "NEW_GROWTH",
-      "routeType": "service",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "specialist-services",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P0",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/partner-with-entirefm",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/how-we-work",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/standards",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/vetting",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P0",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/onboarding",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/compliance",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/sustainability",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/innovation",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/faq",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P1",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/apply",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P0",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/partner-network",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P0",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/membership",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P0",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/events",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P0",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
-    },
-    {
-      "path": "/suppliers/industry-partners",
-      "routeType": "company",
-      "routeProvenance": "NEW_GROWTH",
-      "historic": false,
-      "protected": true,
-      "indexable": true,
-      "statusRequired": 200,
-      "canonical": "self",
-      "uniquePageRequired": true,
-      "sitemapGroup": "company",
-      "priority": "P0",
-      "contentStatus": "COMPLETE",
-      "designStatus": "COMPLETE",
-      "historicSources": [
-        "new-growth-directive"
-      ]
     }
   ],
   "orphanRecovery": {

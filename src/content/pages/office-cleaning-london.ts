@@ -1,37 +1,36 @@
 /**
  * CONTENT RECORD: /office-cleaning-london
  * =====================
- * Provenance: LEGACY_VERIFIED
- * Historic: Yes
- * Protected: Yes
  */
 
 import type { ContentRecord } from '@/lib/routes/route-schema';
 
 const record: ContentRecord = {
   "path": "/office-cleaning-london",
-  "title": "Office Cleaning London | Commercial Specialist Services | Entire FM",
-  "metaDescription": "Professional office cleaning across London and surrounding districts. High-standard commercial premises care, scheduled contracts, and trained local teams.",
-  "h1": "Office Cleaning in London & Surrounding Districts",
-  "eyebrow": "London Regional Service Area",
-  "heroIntro": "Professional, reliable office cleaning tailored to corporate offices, commercial facilities, and industrial premises throughout London and surrounding business corridors.",
-  "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-  "heroImage": "/branding/EntireFM Branding 001.png",
-  "historicIntent": "Historic commercial search intent for office cleaning london",
-  "primaryIntent": "office cleaning london services",
+  "title": "Commercial Office Cleaning London | Corporate Workspace Care | EntireFM",
+  "metaDescription": "High-standard corporate office cleaning across London — scheduled daily contracts, supervisor KPI scoring, eco-friendly COSHH products, and daytime janitorial support.",
+  "h1": "Commercial Office Cleaning in London",
+  "eyebrow": "Corporate Workspace Care",
+  "heroIntro": "EntireFM delivers reliable, high-standard commercial office cleaning tailored to headquarters, financial institutions, tech workspaces, and multi-tenant business centres throughout London.",
+  "heroDescription": "From daily evening cleans and daytime janitorial presence to carpet extraction, machine floor scrubbing, and touchless washroom care, our vetted and supervised cleaning operatives maintain spotless commercial environments.",
+  "heroImage": "/images/editorial/entirefm-reception-2000w.webp",
+  "historicIntent": "Commercial search intent for office cleaning in London",
+  "primaryIntent": "commercial office cleaning london",
   "secondaryIntents": [
-    "commercial office cleaning london",
-    "office cleaning london contractor UK"
+    "office cleaning london",
+    "corporate cleaning london",
+    "contract office cleaning london",
+    "commercial cleaning services london"
   ],
   "pageType": "geographic-service",
-  "service": null,
+  "service": "Commercial Office Cleaning",
   "sector": null,
   "location": "London",
   "historicTopics": [
-    "Office Cleaning London overview",
-    "Statutory compliance",
-    "Preventative maintenance",
-    "Contract management"
+    "Office Cleaning London",
+    "Corporate Hygiene",
+    "Janitorial Services",
+    "Washroom Care"
   ],
   "requiredSections": [
     "hero",
@@ -42,37 +41,49 @@ const record: ContentRecord = {
   ],
   "sections": [
     {
-      "heading": "Reliable Office Cleaning Solutions Across London",
-      "body": "Maintaining high workplace presentation and hygiene standards in London requires dependable, well-managed cleaning teams. EntireFM provides tailored contracts backed by local supervision, modern machinery, and proactive account managers."
+      "heading": "Creating Immaculate Working Environments for London Businesses",
+      "body": "First impressions matter. EntireFM provides dependable, high-specification cleaning contracts structured around your working hours, with dedicated area managers and digital KPI scorecards."
+    },
+    {
+      "heading": "Sustainable Cleaning & Full COSHH Compliance",
+      "body": "We utilize non-toxic, eco-friendly cleaning formulations, modern microfibre technology, and energy-efficient HEPA-filter vacuums to enhance indoor air quality and support client sustainability targets."
     }
   ],
   "capabilities": [
     {
-      "name": "Dedicated London Mobile Cleaning Team",
-      "description": "Locally deployed cleaning operatives delivering scheduled daily, weekly, or periodic deep cleaning contracts across London.",
-      "tag": "London Local Team"
+      "name": "Daily Morning / Evening Cleaning",
+      "description": "Desk sanitisation, kitchen cleaning, bin disposal, and high-touchpoint disinfection.",
+      "tag": "Daily Contracts"
     },
     {
-      "name": "Eco-Friendly Chemicals & COSHH Compliance",
-      "description": "Sustainable, non-toxic cleaning products with full safety data sheets (SDS) and strict COSHH management.",
-      "tag": "Eco Compliance"
+      "name": "Daytime Janitorial & Housekeeping",
+      "description": "On-site operatives maintaining reception presentation, washrooms, and meeting rooms.",
+      "tag": "Day Janitorial"
     },
     {
-      "name": "Specialist Machine Floor Care & Scrubbing",
-      "description": "Industrial rotary scrubbers, scrubber-dryers, and high-pressure jetting for hard floors, workshops, and car parks.",
-      "tag": "Floor Care"
+      "name": "Deep Carpet & Upholstery Cleaning",
+      "description": "Hot water extraction and bonnet buffing for high-traffic corporate carpets.",
+      "tag": "Deep Cleaning"
     },
     {
-      "name": "Supervisor Audits & Quality Scoring",
-      "description": "Regular unannounced quality inspections and digital KPI scoring logged directly to your client portal.",
-      "tag": "Quality Audits"
+      "name": "Supervisor Audits & Client Portal",
+      "description": "Weekly quality inspections scored digitally and available in EntireCAFM.",
+      "tag": "Quality Scoring"
     }
   ],
   "assetTypes": [],
   "faqs": [
     {
-      "question": "What types of properties do you service in London?",
-      "answer": "In London, we clean corporate headquarters, multi-tenanted business centres, manufacturing warehouses, medical clinics, and retail parks."
+      "question": "What areas of London do your office cleaning teams cover?",
+      "answer": "We cover all Central and Greater London business districts including the City of London, Canary Wharf, Mayfair, West End, King's Cross, Southwark, and Shoreditch."
+    },
+    {
+      "question": "How are cleaning staff vetted and trained?",
+      "answer": "All operatives undergo right-to-work background checks, COSHH training, colour-coded hygiene procedures, and site-specific security onboarding."
+    },
+    {
+      "question": "Can office cleaning be bundled with washroom management and consumables?",
+      "answer": "Yes. We provide complete washroom service packages including touchless dispensers, sanitary bins, hand drying units, and automatic consumable replenishment."
     }
   ],
   "breadcrumbs": [
@@ -81,7 +92,7 @@ const record: ContentRecord = {
       "url": "/"
     },
     {
-      "name": "Local Services",
+      "name": "Locations",
       "url": "/locations"
     },
     {
@@ -91,15 +102,15 @@ const record: ContentRecord = {
   ],
   "relatedRoutes": [
     "/facilities-management-london",
+    "/soft-facilities-management-london",
     "/commercial-cleaning-london",
     "/contract-cleaning-london",
+    "/industrial-cleaning-london",
     "/contact-us"
   ],
-  "conversionGoal": "Generate commercial enquiries and survey requests for office cleaning london.",
+  "conversionGoal": "Request an office cleaning quotation and site survey for your London premises.",
   "verificationRequirements": [
-    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-    "No placeholder contact strings in rendered content",
-    "No unverified statistics"
+    "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
   ],
   "contentStatus": "CONTENT_COMPLETE"
 };

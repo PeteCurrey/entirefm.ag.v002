@@ -8,97 +8,6 @@
 import type { ContentRecord } from '@/lib/routes/route-schema';
 
 export const CONTENT_DATABASE: Record<string, ContentRecord> = {
-  "/": {
-    "path": "/",
-    "title": "Home | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial home across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Home — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source home for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for home",
-    "primaryIntent": "home services",
-    "secondaryIntents": [
-      "commercial home",
-      "home contractor UK"
-    ],
-    "pageType": "home",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Home overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Home",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to home preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver home contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "",
-        "url": "/"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for home.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
   "/24-7-fm-support": {
     "path": "/24-7-fm-support",
     "title": "24 7 Fm Support | Facilities Management & Engineering | Entire FM",
@@ -382,7 +291,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "eyebrow": "Specialist High-Reach Surveys",
     "heroIntro": "Safe, rapid, and high-resolution aerial drone inspections for commercial roofs, cladding, chimneys, and high-reach structures without expensive scaffolding or cherry pickers.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
+    "heroImage": "/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp",
     "historicIntent": "Historic commercial search intent for aerial drone building inspection",
     "primaryIntent": "aerial drone building inspection services",
     "secondaryIntents": [
@@ -390,7 +299,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "aerial drone building inspection contractor UK"
     ],
     "pageType": "service",
-    "service": null,
+    "service": "Drone Services",
     "sector": null,
     "location": null,
     "historicTopics": [
@@ -409,7 +318,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "sections": [
       {
         "heading": "Safe, Cost-Effective High-Level Building Assessments",
-        "body": "Inspecting commercial roofs traditionally requires expensive access equipment, road permits, and working at height risks. EntireFM uses drone surveys to capture comprehensive structural imagery in hours rather than days."
+        "body": "Inspecting commercial roofs traditionally requires expensive access equipment, road permits, and working at height risks. EntireFM uses drone surveys to capture comprehensive structural imagery in hours rather than days, directly integrated with our full Drone Services division and remedial maintenance engineering."
       }
     ],
     "capabilities": [
@@ -456,7 +365,11 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       }
     ],
     "relatedRoutes": [
-      "/mechanical-electrical",
+      "/services/drone-services",
+      "/services/drone-services/roof-inspections",
+      "/services/drone-services/building-envelope-inspections",
+      "/services/drone-services/thermal-imaging",
+      "/working-at-height-rope-access-bmu",
       "/ppm",
       "/hard-services",
       "/contact-us"
@@ -941,6 +854,115 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
       "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/bms-maintenance-london": {
+    "path": "/bms-maintenance-london",
+    "title": "BMS Maintenance London | Building Controls & Energy Optimisation | EntireFM",
+    "metaDescription": "Building Management System (BMS) maintenance, sensor calibration, HVAC optimisation, and telemetry monitoring for London commercial buildings.",
+    "h1": "BMS Maintenance & Building Controls in London",
+    "eyebrow": "Smart Building Technology & Controls",
+    "heroIntro": "EntireFM delivers specialist Building Management System (BMS) maintenance, controls optimisation, and remote monitoring for commercial properties across London.",
+    "heroDescription": "From Trend, Tridium, and Siemens control architectures to sensor calibration, plant sequencing, and energy reduction audits, our controls engineers ensure your BMS keeps commercial buildings comfortable, efficient, and cost-effective.",
+    "heroImage": "/images/editorial/entirefm-hvac-thermal-survey-2000w.webp",
+    "historicIntent": "Commercial search intent for BMS maintenance in London",
+    "primaryIntent": "bms maintenance london",
+    "secondaryIntents": [
+      "building management system london",
+      "bms controls maintenance london",
+      "building automation servicing london",
+      "energy optimisation bms london"
+    ],
+    "pageType": "service",
+    "service": "BMS Maintenance",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "BMS Maintenance London",
+      "Building Controls",
+      "HVAC Optimisation",
+      "Energy Reduction"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Optimising BMS Performance & Eliminating Energy Waste",
+        "body": "A poorly configured BMS causes fighting between heating and cooling systems, erratic zone temperatures, and inflated energy bills. EntireFM conducts seasonal fine-tuning, sensor calibration, and setpoint optimisation to restore peak operational efficiency."
+      },
+      {
+        "heading": "Integration with EntireCAFM & Predictive Diagnostics",
+        "body": "We connect BMS telemetry with our EntireCAFM portal to monitor critical plant run-hours, generate automated alarm alerts, and shift from reactive callouts to predictive condition-based maintenance."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Periodic BMS Routine Servicing",
+        "description": "Controller backups, I/O verification, sensor calibration, and actuator testing.",
+        "tag": "Controls Care"
+      },
+      {
+        "name": "Heating & Cooling Deadband Tuning",
+        "description": "Preventing simultaneous heating and cooling to achieve measurable energy savings.",
+        "tag": "Energy Optimisation"
+      },
+      {
+        "name": "Remote Monitoring & Alarm Triage",
+        "description": "24/7 connectivity to diagnose faults remotely before dispatching physical engineering.",
+        "tag": "Remote Telemetry"
+      },
+      {
+        "name": "BMS Retrofits & Sensor Upgrades",
+        "description": "Upgrading legacy outstations, migrating to open protocols, and adding smart metering.",
+        "tag": "Upgrades"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "Which BMS platforms do you support in London?",
+        "answer": "Our controls engineers support leading commercial BMS platforms including Trend, Tridium Niagara, Siemens Desigo, Schneider Electric, and Priva."
+      },
+      {
+        "question": "How does regular BMS maintenance reduce commercial building energy costs?",
+        "answer": "Optimising setpoints, fixing stuck damper actuators, adjusting occupancy schedules, and calibrating temperature sensors typically reduces HVAC energy consumption by 15% to 25%."
+      },
+      {
+        "question": "Can BMS alarms automatically trigger service tickets in EntireCAFM?",
+        "answer": "Yes. Integrated building telemetry can generate automated work orders when plant trips or out-of-tolerance temperatures occur, speeding up resolution."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "BMS Maintenance London",
+        "url": "/bms-maintenance-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/hvac-london",
+      "/hard-facilities-management-london",
+      "/mechanical-electrical-london",
+      "/ppm-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Book a BMS system audit or building controls maintenance review in London.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
@@ -1704,6 +1726,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/case-studies": {
+    "path": "/case-studies",
+    "title": "Case Studies | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial case studies across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Case Studies — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source case studies for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for case studies",
+    "primaryIntent": "case studies services",
+    "secondaryIntents": [
+      "commercial case studies",
+      "case studies contractor UK"
+    ],
+    "pageType": "company",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Case Studies overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Case Studies",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to case studies preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver case studies contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Company",
+        "url": "/about-entire-facilities-management"
+      },
+      {
+        "name": "Case Studies",
+        "url": "/case-studies"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for case studies.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/chesterfield-facilities-management": {
     "path": "/chesterfield-facilities-management",
     "title": "Chesterfield Facilities Management | Facilities Management & Engineering | Entire FM",
@@ -1894,6 +2011,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/client-login/account-registration": {
+    "path": "/client-login/account-registration",
+    "title": "Client Login/Account Registration | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial client login/account registration across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Client Login/Account Registration — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source client login/account registration for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for client login/account registration",
+    "primaryIntent": "client login/account registration services",
+    "secondaryIntents": [
+      "commercial client login/account registration",
+      "client login/account registration contractor UK"
+    ],
+    "pageType": "company",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Client Login/Account Registration overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Client Login/Account Registration",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to client login/account registration preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver client login/account registration contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Company",
+        "url": "/about-entire-facilities-management"
+      },
+      {
+        "name": "Client Login/Account Registration",
+        "url": "/client-login/account-registration"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for client login/account registration.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/client-login": {
     "path": "/client-login",
     "title": "Client Login | Facilities Management & Engineering | Entire FM",
@@ -1989,30 +2201,32 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
-  "/client-login/account-registration": {
-    "path": "/client-login/account-registration",
-    "title": "Client Login/Account Registration | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial client login/account registration across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Client Login/Account Registration — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source client login/account registration for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for client login/account registration",
-    "primaryIntent": "client login/account registration services",
+  "/commercial-building-maintenance-london": {
+    "path": "/commercial-building-maintenance-london",
+    "title": "Commercial Building Maintenance London | Fabric & Planned Repairs | EntireFM",
+    "metaDescription": "Planned and reactive building fabric maintenance across London commercial estates — roofing, doors, glazing, drainage, and property preservation.",
+    "h1": "Commercial Building Maintenance in London",
+    "eyebrow": "Fabric Maintenance & Property Preservation",
+    "heroIntro": "EntireFM provides complete building fabric maintenance and proactive property upkeep for commercial landlords, corporate occupiers, and managing agents across London.",
+    "heroDescription": "From roof inspections and gutter clearance to automatic door servicing, fire door compliance checks, glazing repairs, and internal fabric upkeep, our multi-skilled maintenance teams keep commercial premises safe, weatherproof, and attractive.",
+    "heroImage": "/images/editorial/entirefm-corporate-corridor-2000w.webp",
+    "historicIntent": "Commercial search intent for building maintenance in London",
+    "primaryIntent": "commercial building maintenance london",
     "secondaryIntents": [
-      "commercial client login/account registration",
-      "client login/account registration contractor UK"
+      "building maintenance london",
+      "commercial property maintenance london",
+      "building fabric maintenance london",
+      "estate maintenance london"
     ],
-    "pageType": "company",
-    "service": null,
+    "pageType": "service",
+    "service": "Commercial Building Maintenance",
     "sector": null,
-    "location": null,
+    "location": "London",
     "historicTopics": [
-      "Client Login/Account Registration overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
+      "Building Maintenance London",
+      "Fabric Maintenance",
+      "Roofing & Glazing",
+      "Fire Door Compliance"
     ],
     "requiredSections": [
       "hero",
@@ -2023,37 +2237,49 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "sections": [
       {
-        "heading": "Delivering Excellence in Client Login/Account Registration",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+        "heading": "Preserving Commercial Asset Value & Structural Integrity",
+        "body": "Building fabric degradation leads to costly water ingress, tenant disputes, and dilapidation liabilities. EntireFM implements structured fabric inspection programmes to identify and resolve maintenance issues early."
+      },
+      {
+        "heading": "Statutory Fabric Audits & Fire Door Inspection",
+        "body": "We conduct regular fire door surveys, automatic barrier testing, and emergency exit hardware audits, logging photographic evidence and certification in EntireCAFM."
       }
     ],
     "capabilities": [
       {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to client login/account registration preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
+        "name": "Roofing & Gutter Maintenance",
+        "description": "Commercial flat roof surveys, drainage clearance, flashing repairs, and drone surveys.",
+        "tag": "Envelope"
       },
       {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
+        "name": "Fire Door & Barrier Compliance",
+        "description": "Inspection and maintenance of fire door assemblies, closers, seals, and automated doors.",
+        "tag": "Compliance"
       },
       {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
+        "name": "Glazing, Locks & Access Fabric",
+        "description": "Commercial window repairs, architectural ironmongery, and emergency boarding/glazing.",
+        "tag": "Joinery"
       },
       {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
+        "name": "Internal Redecoration & Plastering",
+        "description": "Minor fabric repairs, ceiling tile replacement, partition repairs, and commercial painting.",
+        "tag": "Internal Fabric"
       }
     ],
     "assetTypes": [],
     "faqs": [
       {
-        "question": "How does EntireFM deliver client login/account registration contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+        "question": "What does commercial building fabric maintenance cover?",
+        "answer": "It includes roof waterproofing, gutter maintenance, fire door servicing, automatic entry systems, glazing, internal carpentry, ceiling/floor repairs, and external facade preservation."
+      },
+      {
+        "question": "Do you manage multi-site retail or office portfolios across London?",
+        "answer": "Yes. Mobile maintenance technicians service multi-location estates on regular cyclic routes, ensuring consistent quality and rapid reactive turnaround."
+      },
+      {
+        "question": "How are dilapidations and tenant handover works supported?",
+        "answer": "We conduct pre-lease condition surveys, schedule remedial works, and provide digital photographic packs to document asset condition upon lease events."
       }
     ],
     "breadcrumbs": [
@@ -2062,25 +2288,25 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
         "url": "/"
       },
       {
-        "name": "Company",
-        "url": "/about-entire-facilities-management"
+        "name": "Locations",
+        "url": "/locations"
       },
       {
-        "name": "Client Login/Account Registration",
-        "url": "/client-login/account-registration"
+        "name": "Commercial Building Maintenance London",
+        "url": "/commercial-building-maintenance-london"
       }
     ],
     "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
+      "/facilities-management-london",
+      "/hard-facilities-management-london",
+      "/reactive-maintenance-london",
+      "/ppm-london",
+      "/london-facilities-management",
       "/contact-us"
     ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for client login/account registration.",
+    "conversionGoal": "Generate building maintenance survey requests and fabric upkeep proposals across London.",
     "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
@@ -2546,9 +2772,10 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       }
     ],
     "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
+      "/facilities-management-london",
+      "/contract-cleaning-london",
+      "/office-cleaning-london",
+      "/industrial-cleaning-london",
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for commercial cleaning london.",
@@ -2844,6 +3071,225 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/commercial-eicr-testing-london": {
+    "path": "/commercial-eicr-testing-london",
+    "title": "Commercial EICR Testing London | Fixed Wire Inspection | EntireFM",
+    "metaDescription": "Accredited commercial EICR testing and fixed wire electrical inspections across London. BS 7671 compliance, defect coding, remedials, and digital certificate vault.",
+    "h1": "Commercial EICR & Fixed Wire Testing in London",
+    "eyebrow": "Statutory Electrical Inspection",
+    "heroIntro": "EntireFM provides accredited commercial Electrical Installation Condition Reports (EICR) and fixed wire testing for commercial properties throughout London.",
+    "heroDescription": "Our certified electrical testing engineers inspect distribution panels, sub-mains, and final circuits to BS 7671 (18th Edition) standards, delivering transparent defect reporting, remedial rectification, and digital certificate archiving in EntireCAFM.",
+    "heroImage": "/images/editorial/entirefm-switchroom-survey-2000w.webp",
+    "historicIntent": "Commercial search intent for EICR and electrical testing in London",
+    "primaryIntent": "commercial eicr testing london",
+    "secondaryIntents": [
+      "fixed wire testing london",
+      "commercial electrical inspection london",
+      "eicr certificate london",
+      "periodic electrical inspection london"
+    ],
+    "pageType": "service",
+    "service": "Commercial EICR Testing",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "Commercial EICR London",
+      "Fixed Wire Testing",
+      "BS 7671 Compliance",
+      "Electrical Remedials"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Meeting Statutory Obligations Under the Electricity at Work Regulations",
+        "body": "Commercial landlords and business operators have a legal duty to maintain electrical installations in a safe condition. Periodic inspection identifies degraded cables, loose terminations, and ungrounded circuits before they present fire or shock risks."
+      },
+      {
+        "heading": "Clear Defect Coding & Prioritised Remedial Support",
+        "body": "Our reports clearly distinguish between Danger Present (C1), Potentially Dangerous (C2), and Further Investigation Required (FI), accompanied by transparent quotations to rectify non-compliances quickly."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "100% / Sample Circuit Testing",
+        "description": "Full or phased percentage inspection programmes scheduled around your business operations.",
+        "tag": "Inspection"
+      },
+      {
+        "name": "C1 & C2 Defect Remediation",
+        "description": "Fast-track quoting and repair for urgent compliance defects identified during the audit.",
+        "tag": "Remedials"
+      },
+      {
+        "name": "Out-of-Hours & Weekend Testing",
+        "description": "Minimising disruption by executing circuit isolation during evening or weekend windows.",
+        "tag": "Flexible Scheduling"
+      },
+      {
+        "name": "Digital Certification Archive",
+        "description": "Instant access to full EICR schedules and test data via EntireCAFM.",
+        "tag": "Compliance Vault"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How often is an EICR required for commercial buildings in London?",
+        "answer": "Most commercial premises require a full EICR every 5 years (or at change of occupancy). Some higher-risk facilities, such as industrial plants or public entertainment venues, require testing every 3 years or annually."
+      },
+      {
+        "question": "Can testing be completed without shutting down all power during the day?",
+        "answer": "We conduct phased testing and out-of-hours testing (evenings/weekends) so that essential server rooms, workstations, and operational plant remain powered during normal business hours."
+      },
+      {
+        "question": "What happens if our London building receives an Unsatisfactory EICR?",
+        "answer": "We detail all C1, C2, and FI items with photographic evidence and provide an immediate remedial proposal to bring your installation up to Satisfactory standard."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Commercial EICR Testing London",
+        "url": "/commercial-eicr-testing-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/commercial-electrical-maintenance-london",
+      "/hard-facilities-management-london",
+      "/fire-emergency-systems-london",
+      "/ppm-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Book a commercial EICR inspection or fixed wire testing programme across London.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/commercial-electrical-maintenance-london": {
+    "path": "/commercial-electrical-maintenance-london",
+    "title": "Commercial Electrical Maintenance London | Switchgear & Lighting | EntireFM",
+    "metaDescription": "Certified commercial electrical maintenance across London — switchgear servicing, distribution board testing, emergency lighting, and electrical compliance.",
+    "h1": "Commercial Electrical Maintenance in London",
+    "eyebrow": "Electrical Engineering & Compliance",
+    "heroIntro": "EntireFM delivers certified commercial electrical maintenance for offices, multi-tenant developments, data centres, and industrial estates across London.",
+    "heroDescription": "From periodic switchgear maintenance and thermal imaging surveys to emergency lighting discharge testing and rapid fault-finding, our qualified electricians ensure safe, energy-efficient, and compliant electrical infrastructure.",
+    "heroImage": "/images/editorial/entirefm-distribution-board-testing-2000w.webp",
+    "historicIntent": "Commercial search intent for electrical maintenance in London",
+    "primaryIntent": "commercial electrical maintenance london",
+    "secondaryIntents": [
+      "electrical maintenance london",
+      "commercial electricians london",
+      "switchgear maintenance london",
+      "emergency lighting testing london"
+    ],
+    "pageType": "service",
+    "service": "Commercial Electrical Maintenance",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "Electrical Maintenance London",
+      "Commercial Switchgear",
+      "EICR Inspections",
+      "Emergency Lighting"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Comprehensive Commercial Electrical Infrastructure Care",
+        "body": "Electrical failures cause severe business disruption. EntireFM schedules proactive electrical PPM, thermographic scanning, and load monitoring to detect loose connections, overloaded circuits, and component fatigue before power loss occurs."
+      },
+      {
+        "heading": "BS 7671 Compliance & Statutory Certification",
+        "body": "All electrical testing is executed by certified engineers working to BS 7671 standards. EICRs, remedial action logs, and minor works certificates are digitally archived in EntireCAFM for immediate compliance evidence."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Switchgear & Substation Care",
+        "description": "Planned servicing of main distribution panels, busbars, and sub-distribution boards.",
+        "tag": "Distribution"
+      },
+      {
+        "name": "Thermal Imaging Surveys",
+        "description": "Non-invasive infrared inspections to detect hot spots and prevent electrical fires.",
+        "tag": "Thermography"
+      },
+      {
+        "name": "Emergency Lighting (BS 5266)",
+        "description": "Monthly flick tests and annual 3-hour battery discharge duration testing.",
+        "tag": "Life Safety"
+      },
+      {
+        "name": "Electrical Remedials & Upgrades",
+        "description": "Prompt rectification of C1, C2, and FI defects identified during EICR testing.",
+        "tag": "Remedials"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "What electrical maintenance services do you provide in London?",
+        "answer": "We maintain low-voltage distribution boards, switchgear, LED lighting retrofits, emergency lighting systems, commercial power feeds, and provide 24/7 reactive fault rectification."
+      },
+      {
+        "question": "How frequently does commercial electrical testing need to take place?",
+        "answer": "Fixed wire testing (EICR) is typically required every 3 to 5 years depending on premises type. Emergency lighting requires monthly functional testing and an annual full duration discharge test."
+      },
+      {
+        "question": "Do you provide out-of-hours electrical maintenance in London?",
+        "answer": "Yes. We routinely schedule major distribution board servicing and shutdowns during evenings or weekends to prevent tenant operational disruption."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Commercial Electrical Maintenance London",
+        "url": "/commercial-electrical-maintenance-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/hard-facilities-management-london",
+      "/mechanical-electrical-london",
+      "/commercial-eicr-testing-london",
+      "/fire-emergency-systems-london",
+      "/ppm-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial electrical maintenance proposals and site survey requests across London.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/commercial-facilities-management": {
     "path": "/commercial-facilities-management",
     "title": "Commercial Facilities Management | Facilities Management & Engineering | Entire FM",
@@ -2926,6 +3372,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       }
     ],
     "relatedRoutes": [
+      "/facilities-management-london",
       "/mechanical-electrical",
       "/ppm",
       "/hard-services",
@@ -3031,6 +3478,225 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
       "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/commercial-plumbing-london": {
+    "path": "/commercial-plumbing-london",
+    "title": "Commercial Plumbing Maintenance London | Plant & Pipework | EntireFM",
+    "metaDescription": "B2B commercial plumbing maintenance across London — booster sets, plant room pipework, commercial water heaters, drainage, and emergency leak repairs.",
+    "h1": "Commercial Plumbing Maintenance in London",
+    "eyebrow": "Commercial Public Health Engineering",
+    "heroIntro": "EntireFM delivers commercial plumbing, plant-room pipework servicing, and reactive drainage solutions for business premises throughout London.",
+    "heroDescription": "From cold water booster pumps, commercial calorifiers, and RPZ valves to sanitary drainage, leak detection, and scheduled washroom maintenance, our commercial plumbers support offices, hotels, hospitals, and industrial facilities.",
+    "heroImage": "/images/editorial/entirefm-plumbing-pressure-test-2000w.webp",
+    "historicIntent": "Commercial search intent for commercial plumbing in London",
+    "primaryIntent": "commercial plumbing maintenance london",
+    "secondaryIntents": [
+      "commercial plumbers london",
+      "commercial pipework maintenance london",
+      "booster pump maintenance london",
+      "commercial drainage repairs london"
+    ],
+    "pageType": "service",
+    "service": "Commercial Plumbing Maintenance",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "Commercial Plumbing London",
+      "Booster Pumps",
+      "Plant Room Pipework",
+      "Drainage Maintenance"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Commercial Public Health & Plant-Room Plumbing",
+        "body": "Commercial plumbing differs fundamentally from domestic systems. High-occupancy commercial buildings require robust booster sets, pressurisation units, commercial water heaters, and certified backflow prevention to maintain continuous service."
+      },
+      {
+        "heading": "Proactive Maintenance & Rapid Emergency Leak Response",
+        "body": "Our mobile engineers service pump sets, inspect thermostatic mixing valves (TMVs), test RPZ valves, and provide 24/7 attendance for burst mains, sewage backups, and plant-room leaks across London."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Booster Pump & Pressurisation Servicing",
+        "description": "Maintaining variable-speed water booster sets, expansion vessels, and pressure controls.",
+        "tag": "Pump Sets"
+      },
+      {
+        "name": "Commercial Water Heaters & Calorifiers",
+        "description": "Inspection, descaling, and burner/element maintenance for commercial hot water plant.",
+        "tag": "Hot Water"
+      },
+      {
+        "name": "RPZ Valve & Backflow Testing",
+        "description": "Certified commissioning, testing, and compliance documentation for WRAS-approved RPZ valves.",
+        "tag": "WRAS Compliance"
+      },
+      {
+        "name": "Commercial Drainage & Unblocking",
+        "description": "CCTV drain surveys, high-pressure water jetting, and stack pipe unblocking.",
+        "tag": "Drainage"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "What commercial plumbing services does EntireFM provide in London?",
+        "answer": "We service commercial booster sets, plant room pipework, water storage tanks, commercial calorifiers, RPZ valves, TMVs, commercial sanitaryware, and provide 24/7 emergency leak response."
+      },
+      {
+        "question": "Do you test and certify RPZ valves in London?",
+        "answer": "Yes. Our WRAS-accredited plumbers perform annual testing and certification for Reduced Pressure Zone (RPZ) backflow prevention valves as required by water authorities."
+      },
+      {
+        "question": "How quickly can you attend commercial plumbing emergencies?",
+        "answer": "For contracted clients across London, priority emergency attendance is dispatched 24/7 for major pipe bursts, uncontained water leaks, or failed pump sets."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Commercial Plumbing London",
+        "url": "/commercial-plumbing-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/hard-facilities-management-london",
+      "/commercial-water-hygiene-london",
+      "/mechanical-electrical-london",
+      "/reactive-maintenance-london",
+      "/ppm-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Request a commercial plumbing maintenance survey or proposal for London premises.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/commercial-water-hygiene-london": {
+    "path": "/commercial-water-hygiene-london",
+    "title": "Commercial Water Hygiene London | Legionella L8 Compliance | EntireFM",
+    "metaDescription": "ACOP L8 water hygiene management, Legionella risk assessments, temperature monitoring, and tank disinfections for commercial estates and tall buildings across London.",
+    "h1": "Commercial Water Hygiene & Legionella Control in London",
+    "eyebrow": "Water Hygiene & ACOP L8 Compliance",
+    "heroIntro": "EntireFM provides certified commercial water hygiene management, Legionella risk assessments, and monitoring services across London commercial property.",
+    "heroDescription": "From high-rise office towers with complex booster systems to multi-site industrial estates, our water hygiene specialists implement rigorous ACOP L8 compliance schemes, temperature testing, water sampling, and calorifier descaling.",
+    "heroImage": "/images/editorial/entirefm-plumbing-booster-set-2000w.webp",
+    "historicIntent": "Commercial search intent for water hygiene and Legionella in London",
+    "primaryIntent": "commercial water hygiene london",
+    "secondaryIntents": [
+      "legionella risk assessment london",
+      "water hygiene testing london",
+      "acop l8 compliance london",
+      "commercial water treatment london"
+    ],
+    "pageType": "service",
+    "service": "Commercial Water Hygiene",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "Water Hygiene London",
+      "Legionella L8 Compliance",
+      "Risk Assessments",
+      "Water Tank Disinfection"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Controlling Legionella in Complex London Water Systems",
+        "body": "London commercial property often features extensive pipe runs, cold water storage tanks, and intermittently tenanted floors that create dead-legs and temperature stratification. EntireFM implements proactive monitoring to prevent bacterial proliferation."
+      },
+      {
+        "heading": "Complete ACOP L8 & HSG274 Compliance Management",
+        "body": "We conduct comprehensive Legionella Risk Assessments (LRA), establish written control schemes, and record all monthly sentinel temperature tests digitally in EntireCAFM for complete audit protection."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Legionella Risk Assessments (LRA)",
+        "description": "Full architectural asset surveys, schematic drawings, and risk scoring to ACOP L8 standards.",
+        "tag": "Risk Assessment"
+      },
+      {
+        "name": "Monthly Temperature Monitoring",
+        "description": "Sentinel outlet testing, calorifier inspection, and digital logbook recording.",
+        "tag": "Monitoring"
+      },
+      {
+        "name": "Tank Clean & Disinfection",
+        "description": "BS 8558 chlorination, tank cleaning, and microbiological UKAS lab sampling.",
+        "tag": "Disinfection"
+      },
+      {
+        "name": "Dead-Leg Removal & Remedials",
+        "description": "Pipework modifications, backflow prevention, and TMV servicing to eliminate risk areas.",
+        "tag": "Remedials"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "Why is Legionella management challenging in London commercial property?",
+        "answer": "London high-rises and converted older commercial buildings frequently have extended pipe runs, rooftop storage tanks subject to summer solar gain, and unoccupied tenant spaces where stagnation occurs."
+      },
+      {
+        "question": "What does a standard water hygiene contract include?",
+        "answer": "It includes monthly sentinel temperature testing, quarterly showerhead descaling, six-monthly calorifier inspections, annual tank condition audits, and maintaining your digital compliance logbook."
+      },
+      {
+        "question": "How are water test results and lab certificates stored?",
+        "answer": "All water hygiene inspection sheets and UKAS laboratory sampling certificates are uploaded to your EntireCAFM dashboard, accessible 24/7 during HSE or local authority audits."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Commercial Water Hygiene London",
+        "url": "/commercial-water-hygiene-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/hard-facilities-management-london",
+      "/commercial-plumbing-london",
+      "/ppm-london",
+      "/mechanical-electrical-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Book a Legionella risk assessment or water hygiene maintenance contract in London.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
@@ -3312,101 +3978,6 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for contact us.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/contract-cleaning": {
-    "path": "/contract-cleaning",
-    "title": "Contract Cleaning | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial contract cleaning across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Contract Cleaning — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source contract cleaning for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for contract cleaning",
-    "primaryIntent": "contract cleaning services",
-    "secondaryIntents": [
-      "commercial contract cleaning",
-      "contract cleaning contractor UK"
-    ],
-    "pageType": "service",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Contract Cleaning overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Contract Cleaning",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to contract cleaning preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver contract cleaning contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Services",
-        "url": "/services"
-      },
-      {
-        "name": "Contract Cleaning",
-        "url": "/contract-cleaning"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for contract cleaning.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -3781,9 +4352,9 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       }
     ],
     "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
+      "/facilities-management-london",
+      "/commercial-cleaning-london",
+      "/office-cleaning-london",
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for contract cleaning london.",
@@ -3977,6 +4548,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for contract cleaning sheffield.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/contract-cleaning": {
+    "path": "/contract-cleaning",
+    "title": "Contract Cleaning | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial contract cleaning across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Contract Cleaning — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source contract cleaning for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for contract cleaning",
+    "primaryIntent": "contract cleaning services",
+    "secondaryIntents": [
+      "commercial contract cleaning",
+      "contract cleaning contractor UK"
+    ],
+    "pageType": "service",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Contract Cleaning overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Contract Cleaning",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to contract cleaning preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver contract cleaning contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Services",
+        "url": "/services"
+      },
+      {
+        "name": "Contract Cleaning",
+        "url": "/contract-cleaning"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for contract cleaning.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -5016,9 +5682,9 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       }
     ],
     "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
+      "/facilities-management-london",
+      "/pressure-washing-london",
+      "/commercial-cleaning-london",
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for external cleaning london.",
@@ -7881,18 +8547,22 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   },
   "/facilities-management-london": {
     "path": "/facilities-management-london",
-    "title": "Facilities Management London | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial facilities management london across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Facilities Management London — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source facilities management london for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "title": "Facilities Management London | Commercial FM Services | Entire FM",
+    "metaDescription": "Commercial facilities management in London — planned preventative maintenance, M&E engineering, statutory compliance and reactive cover across Greater London.",
+    "h1": "Facilities Management in London",
+    "eyebrow": "London Regional Operations",
+    "heroIntro": "London commercial property carries the tightest access rules, the heaviest compliance load and the least tolerance for disruption of any UK market.",
+    "heroDescription": "EntireFM maintains commercial property across London — planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover, scheduled around the constraints that apply here rather than a national template.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for facilities management london",
-    "primaryIntent": "facilities management london services",
+    "primaryIntent": "facilities management london",
     "secondaryIntents": [
+      "facilities management company london",
+      "facilities management services london",
+      "facilities management companies london",
+      "london facilities management company",
       "commercial facilities management london",
-      "facilities management london contractor UK"
+      "building maintenance london"
     ],
     "pageType": "location",
     "service": null,
@@ -7902,7 +8572,8 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "Facilities Management London overview",
       "Statutory compliance",
       "Preventative maintenance",
-      "Contract management"
+      "M&E engineering",
+      "London commercial property"
     ],
     "requiredSections": [
       "hero",
@@ -7913,37 +8584,49 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "sections": [
       {
-        "heading": "Delivering Excellence in Facilities Management London",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+        "heading": "What Makes Facilities Management in London Different",
+        "body": "Managing commercial facilities in London demands direct coordination with stringent access restrictions, congestion zones, and rigorous statutory standards. EntireFM provides engineered FM solutions structured around how London premises actually operate."
+      },
+      {
+        "heading": "Comprehensive Hard & Soft FM Delivery Across London",
+        "body": "From high-density corporate towers in the City and Canary Wharf to multi-tenant business hubs in Midtown and commercial estates along the M25 corridor, we deliver unified maintenance, statutory compliance, and emergency reactive response."
       }
     ],
     "capabilities": [
       {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to facilities management london preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
+        "name": "Planned Preventative Maintenance (PPM)",
+        "description": "SFG20-aligned maintenance schedules tailored to London commercial assets, protecting plant uptime and preventing breakdowns.",
+        "tag": "Asset Care"
+      },
+      {
+        "name": "Mechanical & Electrical Engineering",
+        "description": "Direct delivery of commercial HVAC, chiller servicing, electrical testing, and plant room maintenance.",
+        "tag": "Direct Engineering"
       },
       {
         "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across all building services.",
         "tag": "Statutory Compliance"
       },
       {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
+        "name": "Contracted 24/7 Reactive Response",
+        "description": "Dedicated mobile engineering units and central operations desk coordinating rapid emergency callouts across Greater London.",
+        "tag": "24/7 Response"
       }
     ],
     "assetTypes": [],
     "faqs": [
       {
-        "question": "How does EntireFM deliver facilities management london contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+        "question": "Which areas of London does EntireFM cover?",
+        "answer": "EntireFM covers all commercial districts across Greater London and within the M25 corridor, including the City of London, Canary Wharf, West End, Southwark, King's Cross, and outer commercial corridors."
+      },
+      {
+        "question": "How are emergency callouts and out-of-hours response managed in London?",
+        "answer": "Emergency response times are agreed per site during contract mobilisation based on asset criticality. Dedicated mobile engineering teams handle urgent HVAC, electrical, plumbing, and safety repairs 24/7."
+      },
+      {
+        "question": "How does EntireFM ensure statutory compliance across London commercial property?",
+        "answer": "Every site plant asset is surveyed, barcoded, and registered in EntireCAFM. All EICR, CP12 gas safety, fire alarm, and L8 water hygiene certifications are digitally maintained and accessible around the clock."
       }
     ],
     "breadcrumbs": [
@@ -7961,16 +8644,27 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       }
     ],
     "relatedRoutes": [
+      "/fm-london",
+      "/london-facilities-management",
+      "/commercial-cleaning-london",
+      "/contract-cleaning-london",
+      "/office-cleaning-london",
+      "/industrial-cleaning-london",
+      "/mechanical-electrical-london",
+      "/ppm-london",
+      "/hvac-london",
+      "/london-facilities-management-areas",
       "/mechanical-electrical",
       "/ppm",
       "/hard-services",
       "/contact-us"
     ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for facilities management london.",
+    "conversionGoal": "Generate commercial enquiries and site survey requests for facilities management in London.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
-      "No unverified statistics"
+      "No unverified statistics",
+      "Distinct from the outsourced and multi-site variants"
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
@@ -8639,6 +9333,173 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/facilities-management-services-london": {
+    "path": "/facilities-management-services-london",
+    "title": "Facilities Management Services London | EntireFM",
+    "metaDescription": "Integrated hard and soft facilities management services across London, including M&E engineering, SFG20 planned maintenance, compliance, and 24/7 reactive cover.",
+    "h1": "Facilities Management Services in London",
+    "eyebrow": "Commercial Service Scope",
+    "heroIntro": "EntireFM delivers single-source Hard and Soft facilities management services across Greater London, providing proactive engineering, statutory compliance, and tailored estate support.",
+    "heroDescription": "From SFG20 planned preventative maintenance and mechanical & electrical engineering to commercial cleaning, specialist fabric care, and 24/7 emergency response, our mobile engineering fleet and central helpdesk support commercial property across all London boroughs.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Commercial search intent for facilities management services in London",
+    "primaryIntent": "facilities management services london",
+    "secondaryIntents": [
+      "london facilities management services",
+      "commercial fm services london",
+      "hard and soft fm services london",
+      "facilities maintenance services london",
+      "m&e services london",
+      "building maintenance services london"
+    ],
+    "pageType": "service",
+    "service": "Facilities Management Services",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "Facilities management services in London",
+      "Hard FM and M&E engineering",
+      "Soft FM and commercial cleaning",
+      "Planned preventative maintenance (SFG20)",
+      "Statutory compliance and testing",
+      "24/7 reactive callout response"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Complete Hard FM & Building Engineering in London",
+        "body": "Our certified in-house mobile engineering fleet delivers technical Hard FM services across commercial properties in London. We maintain critical plant, electrical infrastructure, HVAC, chillers, commercial gas, plumbing, and fire safety systems to keep buildings compliant, energy-efficient, and operational.",
+        "bullets": [
+          "Mechanical & electrical (M&E) planned maintenance and periodic testing",
+          "Commercial HVAC, VRF/VRV air conditioning, and chiller maintenance",
+          "Fixed wire testing (EICR), emergency light discharge testing, and thermal imaging",
+          "Commercial gas heating, boiler plant maintenance, and CP12 certification",
+          "L8 water hygiene, Legionella risk assessments, and temperature monitoring",
+          "Fire alarm testing, smoke dampers, automatic opening vents (AOVs), and dry risers"
+        ]
+      },
+      {
+        "heading": "Soft FM, Cleaning & Workplace Hygiene Services",
+        "body": "We provide dependable Soft FM services tailored to corporate offices, business centres, retail destinations, and industrial facilities throughout London. Delivered by trained, locally managed teams equipped with modern machinery and eco-friendly COSHH-compliant products.",
+        "bullets": [
+          "Daily, weekly, and periodic commercial office cleaning contracts",
+          "Industrial floor scrubbing, warehouse decontamination, and high-level cleaning",
+          "External facade jetting, cladding washing, and pressure washing",
+          "Grounds maintenance, landscaping, car park care, and winter gritting",
+          "Washroom hygiene services, clinical waste, and consumable management",
+          "Concierge, security guarding, keyholding, and alarm response"
+        ]
+      },
+      {
+        "heading": "SFG20 Planned Maintenance & Digital Compliance Vault",
+        "body": "Every service contract begins with an on-site asset condition audit. We barcode physical plant, register serial numbers in EntireCAFM, and build an SFG20-aligned 52-week compliance calendar. All statutory certificates and photographic service records are stored in your client portal with 24/7 audit readiness."
+      },
+      {
+        "heading": "24/7 London Mobile Emergency Response Desk",
+        "body": "When urgent breakdowns occur, our central operations desk dispatches dedicated mobile engineering vans across Greater London and the M25 corridor. Response SLAs are contractually defined per site based on asset criticality, ensuring rapid attendance for power outages, HVAC failures, water leaks, and safety hazards."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Hard FM & Technical Engineering",
+        "description": "Comprehensive servicing for HVAC, electrical switchgear, commercial boilers, chillers, and fire systems.",
+        "tag": "Engineering"
+      },
+      {
+        "name": "Soft FM & Daily Commercial Cleaning",
+        "description": "Contract cleaning, industrial scrubbing, external washing, and washroom hygiene managed to strict KPIs.",
+        "tag": "Hygiene & Fabric"
+      },
+      {
+        "name": "SFG20 Planned Maintenance",
+        "description": "Tailored PPM schedules aligned with SFG20 task definitions to extend plant life and guarantee compliance.",
+        "tag": "Asset Care"
+      },
+      {
+        "name": "EntireCAFM Digital Management",
+        "description": "Live client dashboard for job tracking, statutory certificate archives, and transparent service charge data.",
+        "tag": "Technology"
+      },
+      {
+        "name": "Contracted 24/7 Emergency Dispatch",
+        "description": "Rapid-response mobile technicians operating around the clock across all London commercial corridors.",
+        "tag": "24/7 Response"
+      },
+      {
+        "name": "Multi-Site Portfolio Support",
+        "description": "Standardised service delivery and consolidated reporting for managing agents and multi-tenanted estates.",
+        "tag": "Estate Delivery"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "What facilities management services does EntireFM offer in London?",
+        "answer": "EntireFM provides full Hard and Soft FM across London, including planned preventative maintenance (SFG20), M&E engineering, commercial HVAC, fixed wire electrical testing, commercial cleaning, washroom care, fire safety testing, and 24/7 reactive repairs under one contract."
+      },
+      {
+        "question": "How do you manage statutory compliance for London commercial buildings?",
+        "answer": "All building plant is logged in our EntireCAFM portal. We schedule and execute statutory audits for electrical (EICR), gas (CP12), fire detection, and water hygiene (L8), filing digital certificates directly against each asset for audit readiness."
+      },
+      {
+        "question": "Can EntireFM handle multi-site commercial portfolios across Greater London?",
+        "answer": "Yes. We manage multi-building estates and dispersed property portfolios across London, providing unified service level agreements, consistent engineering standards, and centralised monthly reporting for managing agents and landlords."
+      },
+      {
+        "question": "How quickly can engineers attend an emergency on London sites?",
+        "answer": "Emergency callout response times are agreed per site during contract mobilisation based on building criticality. Dedicated mobile engineering vans cover Central and Greater London 24/7 for urgent attendance."
+      },
+      {
+        "question": "Can we combine Hard and Soft FM under a single contract?",
+        "answer": "Yes. Single-source delivery is our core model, eliminating gaps between trade contractors, streamlining procurement, and providing one accountable contact for all building operations."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Facilities Management Services London",
+        "url": "/facilities-management-services-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/fm-london",
+      "/london-facilities-management",
+      "/commercial-cleaning-london",
+      "/contract-cleaning-london",
+      "/office-cleaning-london",
+      "/industrial-cleaning-london",
+      "/mechanical-electrical-london",
+      "/ppm-london",
+      "/hvac-london",
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/soft-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial service enquiries and maintenance survey requests for London premises.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics",
+      "Differentiated from broad /facilities-management-london page by deep service scope focus"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/facilities-management-services": {
     "path": "/facilities-management-services",
     "title": "Facilities Management Services | Facilities Management & Engineering | Entire FM",
@@ -8727,224 +9588,6 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for facilities management services.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/facilities-management-services-london": {
-    "path": "/facilities-management-services-london",
-    "title": "Facilities Management Services London | EntireFM",
-    "metaDescription": "Integrated hard and soft facilities management services across London, including M&E engineering, SFG20 planned maintenance, compliance, and 24/7 reactive cover.",
-    "h1": "Facilities Management Services in London",
-    "eyebrow": "Commercial Service Scope",
-    "heroIntro": "EntireFM delivers single-source Hard and Soft facilities management services across Greater London, providing proactive engineering, statutory compliance, and tailored estate support.",
-    "heroDescription": "From SFG20 planned preventative maintenance and mechanical & electrical engineering to commercial cleaning, specialist fabric care, and 24/7 emergency response, our mobile engineering fleet and central helpdesk support commercial property across all London boroughs.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Commercial search intent for facilities management services in London",
-    "primaryIntent": "facilities management services london",
-    "secondaryIntents": [
-        "london facilities management services",
-        "commercial fm services london",
-        "hard and soft fm services london",
-        "facilities maintenance services london",
-        "m&e services london",
-        "building maintenance services london"
-    ],
-    "pageType": "service",
-    "service": "Facilities Management Services",
-    "sector": null,
-    "location": "London",
-    "historicTopics": [
-        "Facilities management services in London",
-        "Hard FM and M&E engineering",
-        "Soft FM and commercial cleaning",
-        "Planned preventative maintenance (SFG20)",
-        "Statutory compliance and testing",
-        "24/7 reactive callout response"
-    ],
-    "requiredSections": [
-        "hero",
-        "capabilities",
-        "body",
-        "faq",
-        "cta"
-    ],
-    "sections": [
-        {
-            "heading": "Complete Hard FM & Building Engineering in London",
-            "body": "Our certified in-house mobile engineering fleet delivers technical Hard FM services across commercial properties in London. We maintain critical plant, electrical infrastructure, HVAC, chillers, commercial gas, plumbing, and fire safety systems to keep buildings compliant, energy-efficient, and operational.",
-            "bullets": [
-                "Mechanical & electrical (M&E) planned maintenance and periodic testing",
-                "Commercial HVAC, VRF/VRV air conditioning, and chiller maintenance",
-                "Fixed wire testing (EICR), emergency light discharge testing, and thermal imaging",
-                "Commercial gas heating, boiler plant maintenance, and CP12 certification",
-                "L8 water hygiene, Legionella risk assessments, and temperature monitoring",
-                "Fire alarm testing, smoke dampers, automatic opening vents (AOVs), and dry risers"
-            ]
-        },
-        {
-            "heading": "Soft FM, Cleaning & Workplace Hygiene Services",
-            "body": "We provide dependable Soft FM services tailored to corporate offices, business centres, retail destinations, and industrial facilities throughout London. Delivered by trained, locally managed teams equipped with modern machinery and eco-friendly COSHH-compliant products.",
-            "bullets": [
-                "Daily, weekly, and periodic commercial office cleaning contracts",
-                "Industrial floor scrubbing, warehouse decontamination, and high-level cleaning",
-                "External facade jetting, cladding washing, and pressure washing",
-                "Grounds maintenance, landscaping, car park care, and winter gritting",
-                "Washroom hygiene services, clinical waste, and consumable management",
-                "Concierge, security guarding, keyholding, and alarm response"
-            ]
-        },
-        {
-            "heading": "SFG20 Planned Maintenance & Digital Compliance Vault",
-            "body": "Every service contract begins with an on-site asset condition audit. We barcode physical plant, register serial numbers in EntireCAFM, and build an SFG20-aligned 52-week compliance calendar. All statutory certificates and photographic service records are stored in your client portal with 24/7 audit readiness."
-        },
-        {
-            "heading": "24/7 London Mobile Emergency Response Desk",
-            "body": "When urgent breakdowns occur, our central operations desk dispatches dedicated mobile engineering vans across Greater London and the M25 corridor. Response SLAs are contractually defined per site based on asset criticality, ensuring rapid attendance for power outages, HVAC failures, water leaks, and safety hazards."
-        }
-    ],
-    "capabilities": [
-        {
-            "name": "Hard FM & Technical Engineering",
-            "description": "Comprehensive servicing for HVAC, electrical switchgear, commercial boilers, chillers, and fire systems.",
-            "tag": "Engineering"
-        },
-        {
-            "name": "Soft FM & Daily Commercial Cleaning",
-            "description": "Contract cleaning, industrial scrubbing, external washing, and washroom hygiene managed to strict KPIs.",
-            "tag": "Hygiene & Fabric"
-        },
-        {
-            "name": "SFG20 Planned Maintenance",
-            "description": "Tailored PPM schedules aligned with SFG20 task definitions to extend plant life and guarantee compliance.",
-            "tag": "Asset Care"
-        },
-        {
-            "name": "EntireCAFM Digital Management",
-            "description": "Live client dashboard for job tracking, statutory certificate archives, and transparent service charge data.",
-            "tag": "Technology"
-        },
-        {
-            "name": "Contracted 24/7 Emergency Dispatch",
-            "description": "Rapid-response mobile technicians operating around the clock across all London commercial corridors.",
-            "tag": "24/7 Response"
-        },
-        {
-            "name": "Multi-Site Portfolio Support",
-            "description": "Standardised service delivery and consolidated reporting for managing agents and multi-tenanted estates.",
-            "tag": "Estate Delivery"
-        }
-    ],
-    "assetTypes": [],
-    "faqs": [
-        {
-            "question": "What facilities management services does EntireFM offer in London?",
-            "answer": "EntireFM provides full Hard and Soft FM across London, including planned preventative maintenance (SFG20), M&E engineering, commercial HVAC, fixed wire electrical testing, commercial cleaning, washroom care, fire safety testing, and 24/7 reactive repairs under one contract."
-        },
-        {
-            "question": "How do you manage statutory compliance for London commercial buildings?",
-            "answer": "All building plant is logged in our EntireCAFM portal. We schedule and execute statutory audits for electrical (EICR), gas (CP12), fire detection, and water hygiene (L8), filing digital certificates directly against each asset for audit readiness."
-        },
-        {
-            "question": "Can EntireFM handle multi-site commercial portfolios across Greater London?",
-            "answer": "Yes. We manage multi-building estates and dispersed property portfolios across London, providing unified service level agreements, consistent engineering standards, and centralised monthly reporting for managing agents and landlords."
-        },
-        {
-            "question": "How quickly can engineers attend an emergency on London sites?",
-            "answer": "Emergency callout response times are agreed per site during contract mobilisation based on building criticality. Dedicated mobile engineering vans cover Central and Greater London 24/7 for urgent attendance."
-        },
-        {
-            "question": "Can we combine Hard and Soft FM under a single contract?",
-            "answer": "Yes. Single-source delivery is our core model, eliminating gaps between trade contractors, streamlining procurement, and providing one accountable contact for all building operations."
-        }
-    ],
-    "breadcrumbs": [
-        {
-            "name": "Home",
-            "url": "/"
-        },
-        {
-            "name": "Locations",
-            "url": "/locations"
-        },
-        {
-            "name": "Facilities Management Services London",
-            "url": "/facilities-management-services-london"
-        }
-    ],
-    "relatedRoutes": [
-        "/facilities-management-london",
-        "/fm-london",
-        "/london-facilities-management",
-        "/commercial-cleaning-london",
-        "/contract-cleaning-london",
-        "/office-cleaning-london",
-        "/industrial-cleaning-london",
-        "/mechanical-electrical-london",
-        "/ppm-london",
-        "/hvac-london",
-        "/mechanical-electrical",
-        "/ppm",
-        "/hard-services",
-        "/soft-services",
-        "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial service enquiries and maintenance survey requests for London premises.",
-    "verificationRequirements": [
-        "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-        "No placeholder contact strings in rendered content",
-        "No unverified statistics",
-        "Differentiated from broad /facilities-management-london page by deep service scope focus"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-},
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver facilities management services lond contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Services",
-        "url": "/services"
-      },
-      {
-        "name": "Facilities Management Services Lond",
-        "url": "/facilities-management-services-lond"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for facilities management services lond.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -9329,6 +9972,115 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
       "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/fire-emergency-systems-london": {
+    "path": "/fire-emergency-systems-london",
+    "title": "Commercial Fire Alarm & Emergency Lighting London | EntireFM",
+    "metaDescription": "Statutory fire alarm maintenance, emergency lighting discharge testing, and life safety systems servicing across London commercial property to BS 5839 and BS 5266.",
+    "h1": "Fire & Emergency Systems Maintenance in London",
+    "eyebrow": "Life Safety & Statutory Compliance",
+    "heroIntro": "EntireFM delivers certified maintenance for commercial fire alarms, emergency lighting, smoke ventilation, and life safety systems across Greater London.",
+    "heroDescription": "Ensuring full compliance with BS 5839 and BS 5266, our qualified fire safety technicians perform scheduled testing, detector calibration, battery discharge audits, and 24/7 reactive repairs to safeguard occupants and property.",
+    "heroImage": "/images/editorial/entirefm-switchgear-inspection-2000w.webp",
+    "historicIntent": "Commercial search intent for fire and emergency systems in London",
+    "primaryIntent": "fire emergency systems maintenance london",
+    "secondaryIntents": [
+      "fire alarm maintenance london",
+      "commercial emergency lighting london",
+      "fire safety compliance london",
+      "aov and dry riser testing london"
+    ],
+    "pageType": "service",
+    "service": "Fire & Emergency Systems Maintenance",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "Fire Alarm Maintenance London",
+      "Emergency Lighting Testing",
+      "BS 5839 Compliance",
+      "Smoke Ventilation"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Comprehensive Life Safety Compliance & Risk Reduction",
+        "body": "Under the Regulatory Reform (Fire Safety) Order, commercial dutyholders must ensure fire detection and emergency escape systems are routinely tested and maintained. EntireFM manages all scheduled testing and keeps digital logbooks audit-ready."
+      },
+      {
+        "heading": "Multi-Discipline Fire & Life Safety Systems Servicing",
+        "body": "We service addressable and conventional fire alarm panels, call points, optical smoke detectors, aspirating systems, automatic opening vents (AOVs), dry risers, and emergency lighting units."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Fire Alarm Servicing (BS 5839)",
+        "description": "Periodic quarterly and bi-annual inspections, loop testing, and sounder verification.",
+        "tag": "Fire Detection"
+      },
+      {
+        "name": "Emergency Lighting (BS 5266)",
+        "description": "Monthly functional flick tests and annual 3-hour battery discharge testing with photo logs.",
+        "tag": "Emergency Lighting"
+      },
+      {
+        "name": "Smoke Dampers & AOVs",
+        "description": "Drop testing, actuator inspection, and reset verification for smoke extraction systems.",
+        "tag": "Ventilation"
+      },
+      {
+        "name": "Digital Logbook in EntireCAFM",
+        "description": "All test dates, detector locations, and defect remedial certificates held in one digital portal.",
+        "tag": "Logbooks"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "What are the legal testing frequencies for commercial fire alarms in London?",
+        "answer": "British Standard BS 5839 recommends weekly user bell tests, quarterly or six-monthly inspections by a qualified engineer, and a comprehensive annual inspection of all devices."
+      },
+      {
+        "question": "How is emergency lighting tested under BS 5266?",
+        "answer": "Emergency lighting requires a monthly functional test (simulating mains power failure) and an annual full-duration test (typically 3 hours) to verify battery performance."
+      },
+      {
+        "question": "Do you provide 24/7 response for fire alarm panel faults?",
+        "answer": "Yes. Our central helpdesk coordinates urgent attendance for panel faults, continuous buzzing, or false alarm triggers across London contracted sites."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Fire & Emergency Systems London",
+        "url": "/fire-emergency-systems-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/hard-facilities-management-london",
+      "/commercial-electrical-maintenance-london",
+      "/commercial-eicr-testing-london",
+      "/ppm-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Request a fire safety and emergency lighting maintenance proposal for London premises.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
@@ -10569,28 +11321,32 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   },
   "/fm-london": {
     "path": "/fm-london",
-    "title": "Fm London | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial fm london across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Fm London — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source fm london for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "title": "FM London | Outsourced Facilities Management | Entire FM",
+    "metaDescription": "Outsourced facilities management in London under one contract — planned maintenance, reactive repairs, compliance and reporting from a single provider.",
+    "h1": "FM London: Outsourced Facilities Management Under One Contract",
+    "eyebrow": "Contract Consolidation",
+    "heroIntro": "Entire Facilities Management provides contracted facilities management to commercial property across London, consolidating planned maintenance, reactive repairs, statutory compliance and reporting into a single accountable contract.",
+    "heroDescription": "If you are currently running London sites through a spread of individual trade suppliers, this service moves your operations to a single provider with defined SLAs, transparent CAFM reporting, and seamless contract mobilisation.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for fm london",
-    "primaryIntent": "fm london services",
+    "primaryIntent": "outsourced fm london",
     "secondaryIntents": [
-      "commercial fm london",
-      "fm london contractor UK"
+      "integrated fm london",
+      "total fm london",
+      "outsourced facilities management london",
+      "single-source fm london",
+      "managed fm services london",
+      "fm contractor london"
     ],
     "pageType": "location",
     "service": null,
     "sector": null,
     "location": "London",
     "historicTopics": [
-      "Fm London overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
+      "Outsourced FM London",
+      "Supplier consolidation",
+      "Contract mobilisation",
+      "Service level agreements and KPI governance"
     ],
     "requiredSections": [
       "hero",
@@ -10601,37 +11357,49 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "sections": [
       {
-        "heading": "Delivering Excellence in Fm London",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+        "heading": "What a Single FM Contract Covers Across London",
+        "body": "One contract replaces the fragmented supplier arrangements most London estates accumulate — separate maintenance firms, electrical contractors, cleaning agencies, and out-of-hours callout providers. EntireFM holds full operational accountability so responsibility never shifts between sub-contractors."
+      },
+      {
+        "heading": "Why London Estates Consolidate FM Suppliers",
+        "body": "Fragmented supply creates compliance blindspots and inflates administrative overhead. Consolidating under EntireFM streamlines procurement, unifies asset registers in EntireCAFM, and delivers clear cost transparency across all London premises."
       }
     ],
     "capabilities": [
       {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to fm london preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
+        "name": "Single-Source Accountability",
+        "description": "One master contract and dedicated account management for all Hard FM, Soft FM, and compliance disciplines.",
+        "tag": "Governance"
       },
       {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
+        "name": "Seamless Contract Mobilisation",
+        "description": "Structured asset condition surveys, barcoding, and statutory obligation mapping prior to go-live.",
+        "tag": "Mobilisation"
       },
       {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
+        "name": "Digital CAFM & SLA Tracking",
+        "description": "Live client portal visibility for work orders, KPI compliance scores, and statutory certificate vaults.",
+        "tag": "Technology"
       },
       {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
+        "name": "Procurement Simplification",
+        "description": "Consolidated monthly billing, transparent job costing, and dedicated escalation management.",
+        "tag": "Commercial"
       }
     ],
     "assetTypes": [],
     "faqs": [
       {
-        "question": "How does EntireFM deliver fm london contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+        "question": "Can EntireFM take over an existing FM contract in London?",
+        "answer": "Yes. Most mobilisations involve transitions from incumbent providers. We survey physical plant, establish baseline asset registers, and audit compliance records before the outgoing provider stands down to eliminate coverage gaps."
+      },
+      {
+        "question": "How do SLAs and KPI reporting work under an outsourced model?",
+        "answer": "Service levels, response windows, and completion targets are agreed contractually and tracked in real time via our EntireCAFM portal with digital proof-of-work documentation."
+      },
+      {
+        "question": "What happens to existing specialized supplier relationships?",
+        "answer": "Where incumbent specialist contractors perform well, they can be integrated into our managed supply chain structure under unified compliance governance."
       }
     ],
     "breadcrumbs": [
@@ -10644,21 +11412,29 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
         "url": "/locations"
       },
       {
-        "name": "Fm London",
+        "name": "FM London",
         "url": "/fm-london"
       }
     ],
     "relatedRoutes": [
+      "/facilities-management-london",
+      "/london-facilities-management",
+      "/commercial-cleaning-london",
+      "/contract-cleaning-london",
+      "/office-cleaning-london",
+      "/industrial-cleaning-london",
+      "/london-facilities-management-areas",
       "/mechanical-electrical",
       "/ppm",
       "/hard-services",
       "/contact-us"
     ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for fm london.",
+    "conversionGoal": "Generate outsourced FM contract proposals and supplier consolidation enquiries for London estates.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
-      "No unverified statistics"
+      "No unverified statistics",
+      "Differentiated from head-term /facilities-management-london"
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
@@ -10670,7 +11446,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "eyebrow": "Commercial Estate Operations",
     "heroIntro": "Entire Facilities Management provides single-source fm manchester for commercial property owners, managing agents, and industrial estates nationwide.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
+    "heroImage": "/images/locations/manchester/facilities-management-manchester-hero-2000w.webp",
     "historicIntent": "Historic commercial search intent for fm manchester",
     "primaryIntent": "fm manchester services",
     "secondaryIntents": [
@@ -11612,101 +12388,6 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
-  "/fm-support-n-contact": {
-    "path": "/fm-support-n-contact",
-    "title": "Fm Support N Contact | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial fm support n contact across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Fm Support N Contact — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source fm support n contact for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for fm support n contact",
-    "primaryIntent": "fm support n contact services",
-    "secondaryIntents": [
-      "commercial fm support n contact",
-      "fm support n contact contractor UK"
-    ],
-    "pageType": "company",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Fm Support N Contact overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Fm Support N Contact",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to fm support n contact preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver fm support n contact contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Company",
-        "url": "/about-entire-facilities-management"
-      },
-      {
-        "name": "Fm Support N Contact",
-        "url": "/fm-support-n-contact"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for fm support n contact.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
   "/fm-support-n-contact/facilities-management-glossary": {
     "path": "/fm-support-n-contact/facilities-management-glossary",
     "title": "Fm Support N Contact/Facilities Management Glossary | Facilities Management & Engineering | Entire FM",
@@ -11795,6 +12476,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for fm support n contact/facilities management glossary.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/fm-support-n-contact": {
+    "path": "/fm-support-n-contact",
+    "title": "Fm Support N Contact | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial fm support n contact across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Fm Support N Contact — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source fm support n contact for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for fm support n contact",
+    "primaryIntent": "fm support n contact services",
+    "secondaryIntents": [
+      "commercial fm support n contact",
+      "fm support n contact contractor UK"
+    ],
+    "pageType": "company",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Fm Support N Contact overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Fm Support N Contact",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to fm support n contact preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver fm support n contact contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Company",
+        "url": "/about-entire-facilities-management"
+      },
+      {
+        "name": "Fm Support N Contact",
+        "url": "/fm-support-n-contact"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for fm support n contact.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -12372,6 +13148,117 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/hard-facilities-management-london": {
+    "path": "/hard-facilities-management-london",
+    "title": "Hard Facilities Management London | Engineering & Plant Maintenance | EntireFM",
+    "metaDescription": "Specialist Hard FM and technical building engineering across London. Mechanical, electrical, HVAC, statutory compliance, and planned plant maintenance.",
+    "h1": "Hard Facilities Management in London",
+    "eyebrow": "Technical Building Engineering",
+    "heroIntro": "EntireFM delivers technical Hard Facilities Management across London commercial property, maintaining critical mechanical, electrical, and public health infrastructure to defined SFG20 specifications.",
+    "heroDescription": "From high-density office towers in the City and Canary Wharf to industrial logistics hubs across the M25 corridor, our directly employed engineering teams take full accountability for plant reliability, statutory compliance, and reactive emergency cover.",
+    "heroImage": "/images/editorial/entirefm-switchgear-inspection-2000w.webp",
+    "historicIntent": "Commercial search intent for hard facilities management in London",
+    "primaryIntent": "hard facilities management london",
+    "secondaryIntents": [
+      "hard fm london",
+      "hard services london",
+      "technical facilities management london",
+      "building engineering services london"
+    ],
+    "pageType": "service",
+    "service": "Hard Facilities Management",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "Hard FM London",
+      "Building Engineering",
+      "M&E Maintenance",
+      "Statutory Compliance"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Technical Hard FM Delivery Across London Commercial Estates",
+        "body": "Hard facilities management is only as dependable as the engineering beneath it. EntireFM provides single-source engineering management covering mechanical systems, electrical distribution, commercial HVAC, gas, water hygiene, and life-safety plant under one accountable contract."
+      },
+      {
+        "heading": "SFG20-Aligned Maintenance & Statutory Governance",
+        "body": "We baseline every asset during mobilisation, mapping statutory requirements (EICR, CP12, L8, BS 5839) into EntireCAFM to generate an auditable 52-week maintenance calendar with photographic proof of attendance."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Mechanical & Electrical (M&E)",
+        "description": "Direct servicing for distribution switchgear, commercial boilers, chillers, and pumps.",
+        "tag": "Engineering"
+      },
+      {
+        "name": "Commercial HVAC & Ventilation",
+        "description": "VRF/VRV systems, air handling units, chillers, F-Gas logs, and TM44 inspections.",
+        "tag": "Climate"
+      },
+      {
+        "name": "Statutory Compliance Testing",
+        "description": "Fixed wire testing, emergency lighting discharge tests, gas safety, and fire alarms.",
+        "tag": "Compliance"
+      },
+      {
+        "name": "24/7 Priority Emergency Attendance",
+        "description": "Contracted out-of-hours mobile engineer dispatch for critical power and plant failures.",
+        "tag": "24/7 Cover"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "What does Hard Facilities Management include in London?",
+        "answer": "Our Hard FM scope covers mechanical and electrical engineering, commercial HVAC, statutory compliance testing (EICR, gas safety, fire systems, water hygiene), planned preventative maintenance (SFG20), and 24/7 emergency reactive repairs."
+      },
+      {
+        "question": "How do you handle access and parking restrictions across Central London?",
+        "answer": "Our London mobile fleet operates with pre-arranged loading permits, out-of-hours access schedules, and fully ULEZ-compliant vehicles to service City, West End, and Canary Wharf sites without delay."
+      },
+      {
+        "question": "How is statutory testing evidenced for audits?",
+        "answer": "Every inspection certificate and test sheet is barcoded and filed against the physical asset in our EntireCAFM client portal, providing instant digital proof of compliance."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Hard Facilities Management London",
+        "url": "/hard-facilities-management-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/facilities-management-services-london",
+      "/mechanical-electrical-london",
+      "/ppm-london",
+      "/hvac-london",
+      "/commercial-electrical-maintenance-london",
+      "/reactive-maintenance-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate technical Hard FM survey and proposal requests for London commercial property.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/hard-services": {
     "path": "/hard-services",
     "title": "Hard Services | Facilities Management & Engineering | Entire FM",
@@ -12454,9 +13341,10 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       }
     ],
     "relatedRoutes": [
+      "/facilities-management-london",
       "/mechanical-electrical",
       "/ppm",
-      "/hard-services",
+      "/soft-services",
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for hard services.",
@@ -12562,6 +13450,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/helpdesk-registration": {
+    "path": "/helpdesk-registration",
+    "title": "Helpdesk Registration | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial helpdesk registration across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Helpdesk Registration — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source helpdesk registration for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for helpdesk registration",
+    "primaryIntent": "helpdesk registration services",
+    "secondaryIntents": [
+      "commercial helpdesk registration",
+      "helpdesk registration contractor UK"
+    ],
+    "pageType": "company",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Helpdesk Registration overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Helpdesk Registration",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to helpdesk registration preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver helpdesk registration contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Company",
+        "url": "/about-entire-facilities-management"
+      },
+      {
+        "name": "Helpdesk Registration",
+        "url": "/helpdesk-registration"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for helpdesk registration.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/helpdesk": {
     "path": "/helpdesk",
     "title": "Helpdesk | Facilities Management & Engineering | Entire FM",
@@ -12657,27 +13640,27 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
-  "/helpdesk-registration": {
-    "path": "/helpdesk-registration",
-    "title": "Helpdesk Registration | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial helpdesk registration across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Helpdesk Registration — Facilities Management & Engineering",
+  "/": {
+    "path": "/",
+    "title": "Home | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial home across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Home — Facilities Management & Engineering",
     "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source helpdesk registration for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroIntro": "Entire Facilities Management provides single-source home for commercial property owners, managing agents, and industrial estates nationwide.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for helpdesk registration",
-    "primaryIntent": "helpdesk registration services",
+    "historicIntent": "Historic commercial search intent for home",
+    "primaryIntent": "home services",
     "secondaryIntents": [
-      "commercial helpdesk registration",
-      "helpdesk registration contractor UK"
+      "commercial home",
+      "home contractor UK"
     ],
-    "pageType": "company",
+    "pageType": "home",
     "service": null,
     "sector": null,
     "location": null,
     "historicTopics": [
-      "Helpdesk Registration overview",
+      "Home overview",
       "Statutory compliance",
       "Preventative maintenance",
       "Contract management"
@@ -12691,14 +13674,14 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "sections": [
       {
-        "heading": "Delivering Excellence in Helpdesk Registration",
+        "heading": "Delivering Excellence in Home",
         "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
       }
     ],
     "capabilities": [
       {
         "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to helpdesk registration preserving building assets and preventing breakdowns.",
+        "description": "Structured maintenance schedules tailored to home preserving building assets and preventing breakdowns.",
         "tag": "Preventative Care"
       },
       {
@@ -12720,7 +13703,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "assetTypes": [],
     "faqs": [
       {
-        "question": "How does EntireFM deliver helpdesk registration contracts?",
+        "question": "How does EntireFM deliver home contracts?",
         "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
@@ -12730,21 +13713,18 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
         "url": "/"
       },
       {
-        "name": "Company",
-        "url": "/about-entire-facilities-management"
-      },
-      {
-        "name": "Helpdesk Registration",
-        "url": "/helpdesk-registration"
+        "name": "",
+        "url": "/"
       }
     ],
     "relatedRoutes": [
+      "/facilities-management-london",
       "/mechanical-electrical",
       "/ppm",
       "/hard-services",
       "/contact-us"
     ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for helpdesk registration.",
+    "conversionGoal": "Generate commercial enquiries and survey requests for home.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -13057,30 +14037,33 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
-  "/industrial-cleaning": {
-    "path": "/industrial-cleaning",
-    "title": "Industrial Cleaning Contractors | Plant & Warehouse Decontamination | Entire FM",
-    "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
-    "h1": "Industrial Cleaning & Factory Decontamination Services",
-    "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for industrial cleaning",
-    "primaryIntent": "industrial cleaning services",
+  "/hvac-london": {
+    "path": "/hvac-london",
+    "title": "Commercial HVAC Maintenance London | Chillers & Air Conditioning | EntireFM",
+    "metaDescription": "Commercial HVAC servicing across London — chillers, VRF/VRV air conditioning, AHUs, heat pumps, F-Gas inspections, TM44 compliance, and emergency breakdown attendance.",
+    "h1": "Commercial HVAC & Air Conditioning in London",
+    "eyebrow": "Commercial Climate Engineering",
+    "heroIntro": "EntireFM provides comprehensive commercial HVAC, air conditioning, and ventilation maintenance for corporate offices, retail spaces, and commercial buildings across London.",
+    "heroDescription": "From rooftop chillers and VRF systems in Central London towers to air handling units (AHUs), commercial heat pumps, and F-Gas compliance logging, our certified HVAC engineers ensure optimal indoor air quality, thermal comfort, and energy efficiency.",
+    "heroImage": "/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp",
+    "historicIntent": "Commercial search intent for HVAC in London",
+    "primaryIntent": "commercial hvac maintenance london",
     "secondaryIntents": [
-      "commercial industrial cleaning",
-      "industrial cleaning contractor UK"
+      "hvac london",
+      "commercial air conditioning london",
+      "chiller maintenance london",
+      "ahu servicing london",
+      "f-gas compliance london"
     ],
-    "pageType": "service",
-    "service": null,
+    "pageType": "geographic-service",
+    "service": "Commercial HVAC Maintenance",
     "sector": null,
-    "location": null,
+    "location": "London",
     "historicTopics": [
-      "Industrial Cleaning overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
+      "Commercial HVAC London",
+      "Air Conditioning Servicing",
+      "Chillers & VRF",
+      "F-Gas Compliance"
     ],
     "requiredSections": [
       "hero",
@@ -13091,37 +14074,49 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "sections": [
       {
-        "heading": "Engineered for Heavy Manufacturing and Continuous Production",
-        "body": "Industrial environments present unique health, safety, and operational challenges. Unplanned plant stoppages result in massive financial losses. EntireFM provides rigorous PPM schedules, machinery interface maintenance, and strict adherence to industrial safety standards."
+        "heading": "Commercial HVAC & Chiller Maintenance for London Commercial Estates",
+        "body": "London summer heat islands and high-density office occupancy place intense demands on cooling plant. EntireFM conducts seasonal servicing, coil cleaning, refrigerant leak checks, and airflow balancing to maintain peak performance."
+      },
+      {
+        "heading": "F-Gas Regulations & TM44 Energy Inspections",
+        "body": "We maintain digital F-Gas electronic logbooks for all refrigerant systems above 5 tonnes CO2 equivalent and manage statutory TM44 energy inspections for air conditioning systems over 12kW."
       }
     ],
     "capabilities": [
       {
-        "name": "Factory Shutdown Maintenance Windows",
-        "description": "Concentrated engineering overhauls during scheduled plant closures, bank holidays, and retooling shutdowns.",
-        "tag": "Shutdown Services"
+        "name": "VRF / VRV Multi-Split Maintenance",
+        "description": "Planned servicing, leak testing, filter cleaning, and condensate pump checks.",
+        "tag": "Air Conditioning"
       },
       {
-        "name": "Industrial Power Distribution & Switchgear",
-        "description": "PPM maintenance for high-load electrical switchrooms, transformers, busbars, and machinery supply circuits.",
-        "tag": "Heavy Power"
+        "name": "Rooftop Chillers & Heat Pumps",
+        "description": "Compressor health audits, glycol testing, condenser coil washing, and oil testing.",
+        "tag": "Chillers"
       },
       {
-        "name": "Industrial Extraction & Ventilation Plant",
-        "description": "Ductwork degreasing, extraction fan motor servicing, filter overhauls, and local exhaust ventilation (LEV) testing.",
-        "tag": "LEV & Extraction"
+        "name": "Air Handling Units (AHUs) & Ventilation",
+        "description": "Belt tensioning, motor servicing, HEPA/carbon filter replacements, and duct hygiene.",
+        "tag": "Ventilation"
       },
       {
-        "name": "Factory Floor Degreasing & High-Level Cleaning",
-        "description": "High-pressure floor scrubbers, chemical degreasing, overhead crane track vacuuming, and girder cleaning.",
-        "tag": "Plant Hygiene"
+        "name": "24/7 HVAC Emergency Breakdown Cover",
+        "description": "Rapid dispatch for cooling loss in trading floors, server rooms, and occupied offices.",
+        "tag": "24/7 Emergency"
       }
     ],
     "assetTypes": [],
     "faqs": [
       {
-        "question": "Do your engineers have experience working in active manufacturing environments?",
-        "answer": "Yes. Our industrial engineering teams are fully trained in lock-out/tag-out (LOTO) procedures, permit-to-work systems, and working around active automated production lines."
+        "question": "What commercial HVAC systems do you maintain in London?",
+        "answer": "We maintain commercial rooftop chillers, VRF/VRV multi-split air conditioning systems, air handling units (AHUs), commercial heat pumps, fan coil units (FCUs), and supply/extract ventilation."
+      },
+      {
+        "question": "How do you handle F-Gas compliance for London commercial buildings?",
+        "answer": "Our REFCOM-certified engineers conduct mandatory periodic leak testing, maintain digital F-Gas registers in EntireCAFM, and log all refrigerant additions and recoveries."
+      },
+      {
+        "question": "Do you offer emergency callouts for critical cooling failures?",
+        "answer": "Yes. We provide priority emergency attendance for server room cooling failures and occupied office HVAC breakdowns across London."
       }
     ],
     "breadcrumbs": [
@@ -13130,25 +14125,26 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
         "url": "/"
       },
       {
-        "name": "Services",
-        "url": "/services"
+        "name": "Locations",
+        "url": "/locations"
       },
       {
-        "name": "Industrial Cleaning",
-        "url": "/industrial-cleaning"
+        "name": "Commercial HVAC London",
+        "url": "/hvac-london"
       }
     ],
     "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
+      "/facilities-management-london",
+      "/hard-facilities-management-london",
+      "/mechanical-electrical-london",
+      "/bms-maintenance-london",
+      "/ppm-london",
+      "/reactive-maintenance-london",
       "/contact-us"
     ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for industrial cleaning.",
+    "conversionGoal": "Request a commercial HVAC maintenance survey or air conditioning proposal across London.",
     "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
@@ -13629,28 +14625,30 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   },
   "/industrial-cleaning-london": {
     "path": "/industrial-cleaning-london",
-    "title": "Industrial Cleaning London | Industrial Unit & Plant Cleaning | Entire FM",
-    "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
-    "h1": "Industrial Cleaning & Plant Decontamination in London",
-    "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for industrial cleaning london",
-    "primaryIntent": "industrial cleaning london services",
+    "title": "Industrial Cleaning London | Warehouses & Plant Decontamination | EntireFM",
+    "metaDescription": "Specialist industrial cleaning across London and Park Royal corridors — warehouse scrubbing, high-level structural cleaning, plant degreasing, and shutdown decontamination.",
+    "h1": "Industrial Cleaning & Plant Maintenance in London",
+    "eyebrow": "Heavy-Duty Industrial Cleaning",
+    "heroIntro": "EntireFM provides specialist industrial cleaning for logistics hubs, distribution centres, manufacturing units, and commercial trade parks across London and the M25 corridor.",
+    "heroDescription": "From high-level beam vacuuming and structural steelwork degreasing to industrial ride-on floor scrubbing, builder cleans, and factory shutdown deep cleans, our certified operatives work to strict RAMS and safety standards.",
+    "heroImage": "/images/editorial/entirefm-totem-headquarters-2000w.webp",
+    "historicIntent": "Commercial search intent for industrial cleaning in London",
+    "primaryIntent": "industrial cleaning london",
     "secondaryIntents": [
-      "commercial industrial cleaning london",
-      "industrial cleaning london contractor UK"
+      "industrial cleaning services london",
+      "warehouse cleaning london",
+      "factory cleaning london",
+      "high level cleaning london"
     ],
     "pageType": "geographic-service",
-    "service": null,
+    "service": "Industrial Cleaning",
     "sector": null,
     "location": "London",
     "historicTopics": [
-      "Industrial Cleaning London overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
+      "Industrial Cleaning London",
+      "Warehouse Scrubbing",
+      "High-Level Cleaning",
+      "Plant Degreasing"
     ],
     "requiredSections": [
       "hero",
@@ -13661,37 +14659,49 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "sections": [
       {
-        "heading": "Engineered for Heavy Manufacturing and Continuous Production",
-        "body": "Industrial environments present unique health, safety, and operational challenges. Unplanned plant stoppages result in massive financial losses. EntireFM provides rigorous PPM schedules, machinery interface maintenance, and strict adherence to industrial safety standards."
+        "heading": "Specialist Equipment for Demanding Industrial Environments",
+        "body": "Industrial spaces require heavy-duty machinery. EntireFM deploys industrial scrubber-dryers, pressure washers, and IPAF-certified high-level access teams to deep-clean warehouses, workshops, and distribution hubs."
+      },
+      {
+        "heading": "Rigorous Health, Safety & RAMS Governance",
+        "body": "Every industrial cleaning operation is backed by site-specific Risk Assessments and Method Statements (RAMS), COSHH assessments, and IPAF/PASMA certified operatives to ensure complete site safety."
       }
     ],
     "capabilities": [
       {
-        "name": "Factory Shutdown Maintenance Windows",
-        "description": "Concentrated engineering overhauls during scheduled plant closures, bank holidays, and retooling shutdowns.",
-        "tag": "Shutdown Services"
+        "name": "Ride-On Floor Scrubbing & Sweeping",
+        "description": "Removing forklift tyre marks, oil spillages, and industrial grime from concrete slabs.",
+        "tag": "Floor Care"
       },
       {
-        "name": "Industrial Power Distribution & Switchgear",
-        "description": "PPM maintenance for high-load electrical switchrooms, transformers, busbars, and machinery supply circuits.",
-        "tag": "Heavy Power"
+        "name": "High-Level Structural Cleaning",
+        "description": "IPAF-certified vacuuming of roof trusses, ductwork, purlins, and high-level lighting.",
+        "tag": "High-Level Access"
       },
       {
-        "name": "Industrial Extraction & Ventilation Plant",
-        "description": "Ductwork degreasing, extraction fan motor servicing, filter overhauls, and local exhaust ventilation (LEV) testing.",
-        "tag": "LEV & Extraction"
+        "name": "Factory Shutdown Deep Cleans",
+        "description": "Intensive scheduled decontamination of production lines, workshops, and plant rooms.",
+        "tag": "Shutdowns"
       },
       {
-        "name": "Factory Floor Degreasing & High-Level Cleaning",
-        "description": "High-pressure floor scrubbers, chemical degreasing, overhead crane track vacuuming, and girder cleaning.",
-        "tag": "Plant Hygiene"
+        "name": "Warehouse Handover & Builders Cleans",
+        "description": "Post-construction and end-of-lease handover cleaning to institutional standards.",
+        "tag": "End of Lease"
       }
     ],
     "assetTypes": [],
     "faqs": [
       {
-        "question": "Do your engineers have experience working in active manufacturing environments?",
-        "answer": "Yes. Our industrial engineering teams are fully trained in lock-out/tag-out (LOTO) procedures, permit-to-work systems, and working around active automated production lines."
+        "question": "What industrial facilities do you clean in London?",
+        "answer": "We service logistics warehouses in Park Royal, Greenford, Croydon, Dartford, and Enfield, as well as manufacturing plants, food distribution centres, and transport depots."
+      },
+      {
+        "question": "Do your operatives hold IPAF and PASMA access qualifications?",
+        "answer": "Yes. Operatives working at height are fully IPAF certified for scissor lifts and boom access platforms, and PASMA certified for mobile scaffold towers."
+      },
+      {
+        "question": "Can industrial cleaning take place during weekend or night shutdowns?",
+        "answer": "Yes. We frequently execute industrial deep cleaning during night shifts, weekends, or scheduled factory shutdowns to prevent production downtime."
       }
     ],
     "breadcrumbs": [
@@ -13700,7 +14710,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
         "url": "/"
       },
       {
-        "name": "Local Services",
+        "name": "Locations",
         "url": "/locations"
       },
       {
@@ -13709,16 +14719,16 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       }
     ],
     "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
+      "/facilities-management-london",
+      "/soft-facilities-management-london",
+      "/commercial-cleaning-london",
+      "/office-cleaning-london",
+      "/pressure-washing-london",
       "/contact-us"
     ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for industrial cleaning london.",
+    "conversionGoal": "Request an industrial cleaning site survey and bespoke quotation in London.",
     "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
@@ -14000,6 +15010,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for industrial cleaning sheffield.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/industrial-cleaning": {
+    "path": "/industrial-cleaning",
+    "title": "Industrial Cleaning Contractors | Plant & Warehouse Decontamination | Entire FM",
+    "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
+    "h1": "Industrial Cleaning & Factory Decontamination Services",
+    "eyebrow": "Industrial Sector Scope",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for industrial cleaning",
+    "primaryIntent": "industrial cleaning services",
+    "secondaryIntents": [
+      "commercial industrial cleaning",
+      "industrial cleaning contractor UK"
+    ],
+    "pageType": "service",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Industrial Cleaning overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Engineered for Heavy Manufacturing and Continuous Production",
+        "body": "Industrial environments present unique health, safety, and operational challenges. Unplanned plant stoppages result in massive financial losses. EntireFM provides rigorous PPM schedules, machinery interface maintenance, and strict adherence to industrial safety standards."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Factory Shutdown Maintenance Windows",
+        "description": "Concentrated engineering overhauls during scheduled plant closures, bank holidays, and retooling shutdowns.",
+        "tag": "Shutdown Services"
+      },
+      {
+        "name": "Industrial Power Distribution & Switchgear",
+        "description": "PPM maintenance for high-load electrical switchrooms, transformers, busbars, and machinery supply circuits.",
+        "tag": "Heavy Power"
+      },
+      {
+        "name": "Industrial Extraction & Ventilation Plant",
+        "description": "Ductwork degreasing, extraction fan motor servicing, filter overhauls, and local exhaust ventilation (LEV) testing.",
+        "tag": "LEV & Extraction"
+      },
+      {
+        "name": "Factory Floor Degreasing & High-Level Cleaning",
+        "description": "High-pressure floor scrubbers, chemical degreasing, overhead crane track vacuuming, and girder cleaning.",
+        "tag": "Plant Hygiene"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "Do your engineers have experience working in active manufacturing environments?",
+        "answer": "Yes. Our industrial engineering teams are fully trained in lock-out/tag-out (LOTO) procedures, permit-to-work systems, and working around active automated production lines."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Services",
+        "url": "/services"
+      },
+      {
+        "name": "Industrial Cleaning",
+        "url": "/industrial-cleaning"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for industrial cleaning.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -14767,101 +15872,6 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
-  "/lincoln-facilities-management": {
-    "path": "/lincoln-facilities-management",
-    "title": "Lincoln Facilities Management | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial lincoln facilities management across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Lincoln Facilities Management — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source lincoln facilities management for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for lincoln facilities management",
-    "primaryIntent": "lincoln facilities management services",
-    "secondaryIntents": [
-      "commercial lincoln facilities management",
-      "lincoln facilities management contractor UK"
-    ],
-    "pageType": "location",
-    "service": null,
-    "sector": null,
-    "location": "Lincoln",
-    "historicTopics": [
-      "Lincoln Facilities Management overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Lincoln Facilities Management",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to lincoln facilities management preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver lincoln facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Locations",
-        "url": "/locations"
-      },
-      {
-        "name": "Lincoln Facilities Management",
-        "url": "/lincoln-facilities-management"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for lincoln facilities management.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
   "/lincoln-facilities-management-areas": {
     "path": "/lincoln-facilities-management-areas",
     "title": "Lincoln Facilities Management Areas | Facilities Management & Engineering | Entire FM",
@@ -14950,6 +15960,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for lincoln facilities management areas.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/lincoln-facilities-management": {
+    "path": "/lincoln-facilities-management",
+    "title": "Lincoln Facilities Management | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial lincoln facilities management across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Lincoln Facilities Management — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source lincoln facilities management for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for lincoln facilities management",
+    "primaryIntent": "lincoln facilities management services",
+    "secondaryIntents": [
+      "commercial lincoln facilities management",
+      "lincoln facilities management contractor UK"
+    ],
+    "pageType": "location",
+    "service": null,
+    "sector": null,
+    "location": "Lincoln",
+    "historicTopics": [
+      "Lincoln Facilities Management overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Lincoln Facilities Management",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to lincoln facilities management preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver lincoln facilities management contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Lincoln Facilities Management",
+        "url": "/lincoln-facilities-management"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for lincoln facilities management.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -15052,6 +16157,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/locations": {
+    "path": "/locations",
+    "title": "Locations | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial locations across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Locations — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source locations for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for locations",
+    "primaryIntent": "locations services",
+    "secondaryIntents": [
+      "commercial locations",
+      "locations contractor UK"
+    ],
+    "pageType": "location",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Locations overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Locations",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to locations preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver locations contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for locations.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/logistics-facilities-management": {
     "path": "/logistics-facilities-management",
     "title": "Logistics Facilities Management | Distribution Centre FM | Entire FM",
@@ -15140,101 +16340,6 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for logistics facilities management.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/london-facilities-management": {
-    "path": "/london-facilities-management",
-    "title": "London Facilities Management | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial london facilities management across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "London Facilities Management — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source london facilities management for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for london facilities management",
-    "primaryIntent": "london facilities management services",
-    "secondaryIntents": [
-      "commercial london facilities management",
-      "london facilities management contractor UK"
-    ],
-    "pageType": "location",
-    "service": null,
-    "sector": null,
-    "location": "London",
-    "historicTopics": [
-      "London Facilities Management overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in London Facilities Management",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to london facilities management preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver london facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Locations",
-        "url": "/locations"
-      },
-      {
-        "name": "London Facilities Management",
-        "url": "/london-facilities-management"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for london facilities management.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -15337,6 +16442,124 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/london-facilities-management": {
+    "path": "/london-facilities-management",
+    "title": "London Facilities Management | Multi-Site Estates | Entire FM",
+    "metaDescription": "Multi-site facilities management across London and Greater London. Consistent standards, one reporting line and coordinated maintenance across every site.",
+    "h1": "London Facilities Management for Multi-Site Estates",
+    "eyebrow": "Estate Portfolio Management",
+    "heroIntro": "Managing multiple commercial properties across London creates distinct operational challenges — maintaining consistent standards, unified compliance, and transparent service-charge accounting across disparate sites.",
+    "heroDescription": "EntireFM partners with commercial landlords, managing agents, and multi-location operators across Greater London and the M25 corridor, delivering coordinated Hard & Soft FM under a unified service model.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for london facilities management",
+    "primaryIntent": "multi-site facilities management london",
+    "secondaryIntents": [
+      "facilities management for london estates",
+      "multi-site fm london",
+      "property portfolio facilities management london",
+      "estate facilities management london",
+      "managing agent fm london",
+      "commercial estate maintenance london"
+    ],
+    "pageType": "location",
+    "service": null,
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "London Facilities Management for multi-site estates",
+      "Managing agent FM services",
+      "Portfolio compliance and reporting",
+      "Multi-tenanted commercial property maintenance"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Unified Facilities Management for London Commercial Portfolios",
+        "body": "Operating multiple London buildings with separate local contractors introduces quality variance and compliance risk. EntireFM standardises asset registers, planned maintenance cycles, and tenant helpdesk response across your entire London portfolio."
+      },
+      {
+        "heading": "Service Charge Transparency & Managing Agent Support",
+        "body": "We understand managing agent requirements: all works, statutory certificates, and subcontractor attendances are logged against individual property codes in EntireCAFM, giving asset managers audit-ready service charge reporting."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Portfolio-Wide Asset Registers",
+        "description": "Centralised digital equipment registers covering every property across your London estate.",
+        "tag": "Portfolio Care"
+      },
+      {
+        "name": "Managing Agent & Landlord Support",
+        "description": "Transparent per-building cost allocations and digital evidence packs for service charge reconciliation.",
+        "tag": "Commercial"
+      },
+      {
+        "name": "Multi-Site Compliance Calendars",
+        "description": "Real-time visibility across all sites for EICR, water hygiene, fire detection, and gas safety renewals.",
+        "tag": "Statutory Auditing"
+      },
+      {
+        "name": "Dedicated Portfolio Helpdesk",
+        "description": "24/7 central job logging and mobile engineer dispatch with SLA tracking across all properties.",
+        "tag": "Operations"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM support managing agents and commercial landlords in London?",
+        "answer": "We provide single-source Hard & Soft FM across multi-tenanted and multi-building portfolios, delivering clear service charge breakdowns, proactive compliance tracking, and direct tenant communication."
+      },
+      {
+        "question": "Can sites be dynamically added or removed from our London portfolio contract?",
+        "answer": "Yes. When new properties are acquired or leases expire, our mobilisation team conducts condition audits and integrates or offboards assets in EntireCAFM seamlessly."
+      },
+      {
+        "question": "How is compliance reported across multiple London properties?",
+        "answer": "Property managers receive access to our digital CAFM dashboard with a portfolio-wide traffic-light compliance matrix and downloadable statutory certificate archives."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "London Facilities Management",
+        "url": "/london-facilities-management"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/fm-london",
+      "/office-cleaning-london",
+      "/commercial-cleaning-london",
+      "/mechanical-electrical-london",
+      "/ppm-london",
+      "/london-facilities-management-areas",
+      "/hard-services",
+      "/ppm",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate portfolio FM enquiries and multi-site estate survey requests across Greater London.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics",
+      "Differentiated from head-term and outsourced variants"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/manchester-facilities-management": {
     "path": "/manchester-facilities-management",
     "title": "Manchester Facilities Management | Facilities Management & Engineering | Entire FM",
@@ -15345,7 +16568,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "eyebrow": "Commercial Estate Operations",
     "heroIntro": "Entire Facilities Management provides single-source manchester facilities management for commercial property owners, managing agents, and industrial estates nationwide.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
+    "heroImage": "/images/locations/manchester/facilities-management-manchester-hero-2000w.webp",
     "historicIntent": "Historic commercial search intent for manchester facilities management",
     "primaryIntent": "manchester facilities management services",
     "secondaryIntents": [
@@ -15440,7 +16663,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "eyebrow": "Commercial Estate Operations",
     "heroIntro": "Entire Facilities Management provides single-source manchester facilities managment for commercial property owners, managing agents, and industrial estates nationwide.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
+    "heroImage": "/images/locations/manchester/facilities-management-manchester-hero-2000w.webp",
     "historicIntent": "Historic commercial search intent for manchester facilities managment",
     "primaryIntent": "manchester facilities managment services",
     "secondaryIntents": [
@@ -15615,129 +16838,6 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for manchester office cleaning.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/mechanical-electrical": {
-    "path": "/mechanical-electrical",
-    "title": "Mechanical & Electrical Engineering Contractors | M&E Services | Entire FM",
-    "metaDescription": "Specialist commercial Mechanical & Electrical (M&E) engineering contractors. Power distribution, switchgear, HVAC, lighting compliance, and reactive support.",
-    "h1": "Mechanical & Electrical (M&E) Engineering Contractors",
-    "eyebrow": "Hard FM & Building Engineering",
-    "heroIntro": "Complete commercial building engineering services. We manage, maintain, and certify complex mechanical and electrical infrastructure across corporate estates and industrial facilities.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for mechanical electrical",
-    "primaryIntent": "mechanical electrical services",
-    "secondaryIntents": [
-      "commercial mechanical electrical",
-      "mechanical electrical contractor UK"
-    ],
-    "pageType": "service",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Mechanical Electrical overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Total Mechanical & Electrical Asset Lifecycle Care",
-        "body": "EntireFM acts as the primary M&E contractor for commercial property owners, managing agents, and facility directors. Our multi-skilled engineering teams take complete responsibility for building services, ensuring continuous operational availability, statutory safety certification, and optimized energy efficiency.",
-        "bullets": [
-          "Full statutory compliance management with digital certification via our CAFM portal",
-          "Direct engineering delivery model reducing sub-contractor markups and response delays",
-          "Dedicated contract managers and assigned mobile engineering fleet",
-          "Comprehensive dilapidation surveys and asset condition registers for capital planning"
-        ]
-      },
-      {
-        "heading": "Reactive Engineering & Breakdown Support",
-        "body": "When critical plant fails, building operations stop. EntireFM operates a central technical operations desk coordinating engineer dispatch for power outages, HVAC failures, boiler breakdowns, and water leaks across all UK operational regions."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Electrical Distribution & Switchboards",
-        "description": "Periodic inspection, thermal imaging, load testing, and maintenance of HV/LV switchboards and sub-distribution panels.",
-        "tag": "Electrical Distribution"
-      },
-      {
-        "name": "Emergency Lighting Testing & Audits",
-        "description": "Monthly flick tests, 3-hour annual discharge audits, battery replacements, and digital compliance logbook maintenance.",
-        "tag": "Emergency Lighting"
-      },
-      {
-        "name": "Commercial Heating, Boilers & Gas Plant",
-        "description": "Servicing of commercial boiler rooms, safety interlocks, burner overhauls, expansion vessels, and circulation pumps.",
-        "tag": "Gas & Heating"
-      },
-      {
-        "name": "HVAC & Ventilation Preventative Maintenance",
-        "description": "AHU filter changes, ductwork inspections, belt/motor replacements, and chiller lifecycle care.",
-        "tag": "Ventilation"
-      },
-      {
-        "name": "Access Control & Automation Systems",
-        "description": "Servicing of electronic keycards, automated barriers, turnstiles, and building management system (BMS) controls.",
-        "tag": "Building Automation"
-      },
-      {
-        "name": "Structured PPM Maintenance Scheduling",
-        "description": "Standardised preventative maintenance tasks aligned to engineering guidelines to prevent asset downtime.",
-        "tag": "PPM Schedules"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "What is included in an EntireFM Mechanical & Electrical contract?",
-        "answer": "Our M&E contracts cover electrical distribution, emergency lighting, commercial gas, heating plant, air conditioning, ventilation, water hygiene, access control, and reactive callout support."
-      },
-      {
-        "question": "How do you ensure our building complies with UK statutory regulations?",
-        "answer": "Our engineers conduct required periodic inspections (EICR, gas safety certificates, emergency lighting discharge audits) and log digital compliance records directly into your portal."
-      },
-      {
-        "question": "Do you offer emergency response for critical M&E asset failures?",
-        "answer": "Yes. Our central helpdesk coordinates engineer dispatch for contracted sites nationwide."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Services",
-        "url": "/services"
-      },
-      {
-        "name": "Mechanical Electrical",
-        "url": "/mechanical-electrical"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for mechanical electrical.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -15935,6 +17035,240 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/mechanical-electrical-london": {
+    "path": "/mechanical-electrical-london",
+    "title": "Mechanical & Electrical Maintenance London | Commercial M&E | EntireFM",
+    "metaDescription": "Direct commercial M&E engineering services across London. Plant room servicing, electrical distribution, HVAC, boilers, pumps, and 24/7 reactive cover.",
+    "h1": "Mechanical & Electrical Maintenance in London",
+    "eyebrow": "Direct Engineering Fleet",
+    "heroIntro": "EntireFM provides comprehensive Mechanical & Electrical (M&E) building maintenance for commercial facilities across Greater London and the M25 corridor.",
+    "heroDescription": "Our certified mobile engineering fleet maintains heating plant, electrical switchgear, ventilation, air conditioning, and emergency systems to defined SFG20 specifications, backed by live EntireCAFM portal reporting.",
+    "heroImage": "/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp",
+    "historicIntent": "Commercial search intent for mechanical and electrical maintenance in London",
+    "primaryIntent": "mechanical electrical maintenance london",
+    "secondaryIntents": [
+      "m&e contractors london",
+      "m&e maintenance london",
+      "mechanical electrical services london",
+      "commercial m&e london"
+    ],
+    "pageType": "geographic-service",
+    "service": "Mechanical & Electrical Maintenance",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "M&E Maintenance London",
+      "Commercial HVAC",
+      "Switchgear Servicing",
+      "Plant Room Maintenance"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Integrated Building Engineering for London Commercial Property",
+        "body": "Modern London commercial buildings rely on interconnected mechanical and electrical services. EntireFM delivers unified technical maintenance, eliminating communication gaps between trade contractors."
+      },
+      {
+        "heading": "Direct Engineers & SFG20 Compliance Schedules",
+        "body": "Work is delivered by directly employed, qualified technicians working to SFG20 maintenance standards. Digital job sheets and statutory certificates are archived in EntireCAFM."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Electrical Distribution & Switchgear",
+        "description": "Planned maintenance for LV panels, sub-distribution boards, and lighting circuits.",
+        "tag": "Electrical"
+      },
+      {
+        "name": "Commercial HVAC & AHU Servicing",
+        "description": "Filter replacement, coil cleaning, belt tensioning, and chiller diagnostics.",
+        "tag": "Mechanical"
+      },
+      {
+        "name": "Boiler Plant & Heating Systems",
+        "description": "Commercial gas servicing, burner maintenance, and CP12 certification.",
+        "tag": "Heating"
+      },
+      {
+        "name": "24/7 London Emergency Dispatch",
+        "description": "Rapid attendance for critical power failures, HVAC breakdowns, and water leaks.",
+        "tag": "24/7 Cover"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "What M&E services does EntireFM deliver across London?",
+        "answer": "We deliver planned preventative maintenance, statutory testing, minor installations, and 24/7 reactive repairs for commercial electrical distribution, HVAC, heating, plumbing, and life safety plant."
+      },
+      {
+        "question": "How are M&E contracts mobilised in London?",
+        "answer": "Mobilisation begins with a physical asset survey. Every item of plant is barcoded, registered in EntireCAFM, and assigned a defined SFG20 maintenance schedule."
+      },
+      {
+        "question": "Do you manage listed and conservation-area buildings in London?",
+        "answer": "Yes. We frequently maintain M&E systems in Westminster, City of London, and Midtown heritage buildings where sympathetic plant maintenance is required."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Mechanical & Electrical London",
+        "url": "/mechanical-electrical-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/hard-facilities-management-london",
+      "/hvac-london",
+      "/commercial-electrical-maintenance-london",
+      "/ppm-london",
+      "/bms-maintenance-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Request a commercial M&E engineering proposal and site survey across London.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/mechanical-electrical": {
+    "path": "/mechanical-electrical",
+    "title": "Mechanical & Electrical Engineering Contractors | M&E Services | Entire FM",
+    "metaDescription": "Specialist commercial Mechanical & Electrical (M&E) engineering contractors. Power distribution, switchgear, HVAC, lighting compliance, and reactive support.",
+    "h1": "Mechanical & Electrical (M&E) Engineering Contractors",
+    "eyebrow": "Hard FM & Building Engineering",
+    "heroIntro": "Complete commercial building engineering services. We manage, maintain, and certify complex mechanical and electrical infrastructure across corporate estates and industrial facilities.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for mechanical electrical",
+    "primaryIntent": "mechanical electrical services",
+    "secondaryIntents": [
+      "commercial mechanical electrical",
+      "mechanical electrical contractor UK"
+    ],
+    "pageType": "service",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Mechanical Electrical overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Total Mechanical & Electrical Asset Lifecycle Care",
+        "body": "EntireFM acts as the primary M&E contractor for commercial property owners, managing agents, and facility directors. Our multi-skilled engineering teams take complete responsibility for building services, ensuring continuous operational availability, statutory safety certification, and optimized energy efficiency.",
+        "bullets": [
+          "Full statutory compliance management with digital certification via our CAFM portal",
+          "Direct engineering delivery model reducing sub-contractor markups and response delays",
+          "Dedicated contract managers and assigned mobile engineering fleet",
+          "Comprehensive dilapidation surveys and asset condition registers for capital planning"
+        ]
+      },
+      {
+        "heading": "Reactive Engineering & Breakdown Support",
+        "body": "When critical plant fails, building operations stop. EntireFM operates a central technical operations desk coordinating engineer dispatch for power outages, HVAC failures, boiler breakdowns, and water leaks across all UK operational regions."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Electrical Distribution & Switchboards",
+        "description": "Periodic inspection, thermal imaging, load testing, and maintenance of HV/LV switchboards and sub-distribution panels.",
+        "tag": "Electrical Distribution"
+      },
+      {
+        "name": "Emergency Lighting Testing & Audits",
+        "description": "Monthly flick tests, 3-hour annual discharge audits, battery replacements, and digital compliance logbook maintenance.",
+        "tag": "Emergency Lighting"
+      },
+      {
+        "name": "Commercial Heating, Boilers & Gas Plant",
+        "description": "Servicing of commercial boiler rooms, safety interlocks, burner overhauls, expansion vessels, and circulation pumps.",
+        "tag": "Gas & Heating"
+      },
+      {
+        "name": "HVAC & Ventilation Preventative Maintenance",
+        "description": "AHU filter changes, ductwork inspections, belt/motor replacements, and chiller lifecycle care.",
+        "tag": "Ventilation"
+      },
+      {
+        "name": "Access Control & Automation Systems",
+        "description": "Servicing of electronic keycards, automated barriers, turnstiles, and building management system (BMS) controls.",
+        "tag": "Building Automation"
+      },
+      {
+        "name": "Structured PPM Maintenance Scheduling",
+        "description": "Standardised preventative maintenance tasks aligned to engineering guidelines to prevent asset downtime.",
+        "tag": "PPM Schedules"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "What is included in an EntireFM Mechanical & Electrical contract?",
+        "answer": "Our M&E contracts cover electrical distribution, emergency lighting, commercial gas, heating plant, air conditioning, ventilation, water hygiene, access control, and reactive callout support."
+      },
+      {
+        "question": "How do you ensure our building complies with UK statutory regulations?",
+        "answer": "Our engineers conduct required periodic inspections (EICR, gas safety certificates, emergency lighting discharge audits) and log digital compliance records directly into your portal."
+      },
+      {
+        "question": "Do you offer emergency response for critical M&E asset failures?",
+        "answer": "Yes. Our central helpdesk coordinates engineer dispatch for contracted sites nationwide."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Services",
+        "url": "/services"
+      },
+      {
+        "name": "Mechanical Electrical",
+        "url": "/mechanical-electrical"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/mechanical-electrical-london",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for mechanical electrical.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/media-digital-displays": {
     "path": "/media-digital-displays",
     "title": "Media Digital Displays | Facilities Management & Engineering | Entire FM",
@@ -16118,101 +17452,6 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for medical cleaning.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/mobile-crane-hire": {
-    "path": "/mobile-crane-hire",
-    "title": "Mobile Crane Hire | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial mobile crane hire across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Mobile Crane Hire — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source mobile crane hire for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for mobile crane hire",
-    "primaryIntent": "mobile crane hire services",
-    "secondaryIntents": [
-      "commercial mobile crane hire",
-      "mobile crane hire contractor UK"
-    ],
-    "pageType": "service",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Mobile Crane Hire overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Mobile Crane Hire",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to mobile crane hire preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver mobile crane hire contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Services",
-        "url": "/services"
-      },
-      {
-        "name": "Mobile Crane Hire",
-        "url": "/mobile-crane-hire"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for mobile crane hire.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -16505,6 +17744,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/mobile-crane-hire": {
+    "path": "/mobile-crane-hire",
+    "title": "Mobile Crane Hire | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial mobile crane hire across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Mobile Crane Hire — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source mobile crane hire for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for mobile crane hire",
+    "primaryIntent": "mobile crane hire services",
+    "secondaryIntents": [
+      "commercial mobile crane hire",
+      "mobile crane hire contractor UK"
+    ],
+    "pageType": "service",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Mobile Crane Hire overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Mobile Crane Hire",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to mobile crane hire preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver mobile crane hire contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Services",
+        "url": "/services"
+      },
+      {
+        "name": "Mobile Crane Hire",
+        "url": "/mobile-crane-hire"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for mobile crane hire.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/nottingham-facilities-management": {
     "path": "/nottingham-facilities-management",
     "title": "Nottingham Facilities Management | Facilities Management & Engineering | Entire FM",
@@ -16593,101 +17927,6 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for nottingham facilities management.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/office-cleaning": {
-    "path": "/office-cleaning",
-    "title": "Office Cleaning | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial office cleaning across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Office Cleaning — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source office cleaning for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for office cleaning",
-    "primaryIntent": "office cleaning services",
-    "secondaryIntents": [
-      "commercial office cleaning",
-      "office cleaning contractor UK"
-    ],
-    "pageType": "service",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Office Cleaning overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Office Cleaning",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to office cleaning preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver office cleaning contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Services",
-        "url": "/services"
-      },
-      {
-        "name": "Office Cleaning",
-        "url": "/office-cleaning"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for office cleaning.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -16792,25 +18031,134 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   },
   "/office-cleaning-london": {
     "path": "/office-cleaning-london",
-    "title": "Office Cleaning London | Commercial Specialist Services | Entire FM",
-    "metaDescription": "Professional office cleaning across London and surrounding districts. High-standard commercial premises care, scheduled contracts, and trained local teams.",
-    "h1": "Office Cleaning in London & Surrounding Districts",
-    "eyebrow": "London Regional Service Area",
-    "heroIntro": "Professional, reliable office cleaning tailored to corporate offices, commercial facilities, and industrial premises throughout London and surrounding business corridors.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for office cleaning london",
-    "primaryIntent": "office cleaning london services",
+    "title": "Commercial Office Cleaning London | Corporate Workspace Care | EntireFM",
+    "metaDescription": "High-standard corporate office cleaning across London — scheduled daily contracts, supervisor KPI scoring, eco-friendly COSHH products, and daytime janitorial support.",
+    "h1": "Commercial Office Cleaning in London",
+    "eyebrow": "Corporate Workspace Care",
+    "heroIntro": "EntireFM delivers reliable, high-standard commercial office cleaning tailored to headquarters, financial institutions, tech workspaces, and multi-tenant business centres throughout London.",
+    "heroDescription": "From daily evening cleans and daytime janitorial presence to carpet extraction, machine floor scrubbing, and touchless washroom care, our vetted and supervised cleaning operatives maintain spotless commercial environments.",
+    "heroImage": "/images/editorial/entirefm-reception-2000w.webp",
+    "historicIntent": "Commercial search intent for office cleaning in London",
+    "primaryIntent": "commercial office cleaning london",
     "secondaryIntents": [
-      "commercial office cleaning london",
-      "office cleaning london contractor UK"
+      "office cleaning london",
+      "corporate cleaning london",
+      "contract office cleaning london",
+      "commercial cleaning services london"
     ],
     "pageType": "geographic-service",
-    "service": null,
+    "service": "Commercial Office Cleaning",
     "sector": null,
     "location": "London",
     "historicTopics": [
-      "Office Cleaning London overview",
+      "Office Cleaning London",
+      "Corporate Hygiene",
+      "Janitorial Services",
+      "Washroom Care"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Creating Immaculate Working Environments for London Businesses",
+        "body": "First impressions matter. EntireFM provides dependable, high-specification cleaning contracts structured around your working hours, with dedicated area managers and digital KPI scorecards."
+      },
+      {
+        "heading": "Sustainable Cleaning & Full COSHH Compliance",
+        "body": "We utilize non-toxic, eco-friendly cleaning formulations, modern microfibre technology, and energy-efficient HEPA-filter vacuums to enhance indoor air quality and support client sustainability targets."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Daily Morning / Evening Cleaning",
+        "description": "Desk sanitisation, kitchen cleaning, bin disposal, and high-touchpoint disinfection.",
+        "tag": "Daily Contracts"
+      },
+      {
+        "name": "Daytime Janitorial & Housekeeping",
+        "description": "On-site operatives maintaining reception presentation, washrooms, and meeting rooms.",
+        "tag": "Day Janitorial"
+      },
+      {
+        "name": "Deep Carpet & Upholstery Cleaning",
+        "description": "Hot water extraction and bonnet buffing for high-traffic corporate carpets.",
+        "tag": "Deep Cleaning"
+      },
+      {
+        "name": "Supervisor Audits & Client Portal",
+        "description": "Weekly quality inspections scored digitally and available in EntireCAFM.",
+        "tag": "Quality Scoring"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "What areas of London do your office cleaning teams cover?",
+        "answer": "We cover all Central and Greater London business districts including the City of London, Canary Wharf, Mayfair, West End, King's Cross, Southwark, and Shoreditch."
+      },
+      {
+        "question": "How are cleaning staff vetted and trained?",
+        "answer": "All operatives undergo right-to-work background checks, COSHH training, colour-coded hygiene procedures, and site-specific security onboarding."
+      },
+      {
+        "question": "Can office cleaning be bundled with washroom management and consumables?",
+        "answer": "Yes. We provide complete washroom service packages including touchless dispensers, sanitary bins, hand drying units, and automatic consumable replenishment."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Office Cleaning London",
+        "url": "/office-cleaning-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/soft-facilities-management-london",
+      "/commercial-cleaning-london",
+      "/contract-cleaning-london",
+      "/industrial-cleaning-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Request an office cleaning quotation and site survey for your London premises.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/office-cleaning": {
+    "path": "/office-cleaning",
+    "title": "Office Cleaning | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial office cleaning across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Office Cleaning — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source office cleaning for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for office cleaning",
+    "primaryIntent": "office cleaning services",
+    "secondaryIntents": [
+      "commercial office cleaning",
+      "office cleaning contractor UK"
+    ],
+    "pageType": "service",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Office Cleaning overview",
       "Statutory compliance",
       "Preventative maintenance",
       "Contract management"
@@ -16824,37 +18172,37 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "sections": [
       {
-        "heading": "Reliable Office Cleaning Solutions Across London",
-        "body": "Maintaining high workplace presentation and hygiene standards in London requires dependable, well-managed cleaning teams. EntireFM provides tailored contracts backed by local supervision, modern machinery, and proactive account managers."
+        "heading": "Delivering Excellence in Office Cleaning",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
       }
     ],
     "capabilities": [
       {
-        "name": "Dedicated London Mobile Cleaning Team",
-        "description": "Locally deployed cleaning operatives delivering scheduled daily, weekly, or periodic deep cleaning contracts across London.",
-        "tag": "London Local Team"
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to office cleaning preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
       },
       {
-        "name": "Eco-Friendly Chemicals & COSHH Compliance",
-        "description": "Sustainable, non-toxic cleaning products with full safety data sheets (SDS) and strict COSHH management.",
-        "tag": "Eco Compliance"
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
       },
       {
-        "name": "Specialist Machine Floor Care & Scrubbing",
-        "description": "Industrial rotary scrubbers, scrubber-dryers, and high-pressure jetting for hard floors, workshops, and car parks.",
-        "tag": "Floor Care"
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
       },
       {
-        "name": "Supervisor Audits & Quality Scoring",
-        "description": "Regular unannounced quality inspections and digital KPI scoring logged directly to your client portal.",
-        "tag": "Quality Audits"
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
       }
     ],
     "assetTypes": [],
     "faqs": [
       {
-        "question": "What types of properties do you service in London?",
-        "answer": "In London, we clean corporate headquarters, multi-tenanted business centres, manufacturing warehouses, medical clinics, and retail parks."
+        "question": "How does EntireFM deliver office cleaning contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
     "breadcrumbs": [
@@ -16863,12 +18211,12 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
         "url": "/"
       },
       {
-        "name": "Local Services",
-        "url": "/locations"
+        "name": "Services",
+        "url": "/services"
       },
       {
-        "name": "Office Cleaning London",
-        "url": "/office-cleaning-london"
+        "name": "Office Cleaning",
+        "url": "/office-cleaning"
       }
     ],
     "relatedRoutes": [
@@ -16877,7 +18225,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/hard-services",
       "/contact-us"
     ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for office cleaning london.",
+    "conversionGoal": "Generate commercial enquiries and survey requests for office cleaning.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -17460,101 +18808,6 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
-  "/post/the-importance-of-regular-maintenance-and-inspections": {
-    "path": "/post/the-importance-of-regular-maintenance-and-inspections",
-    "title": "Post/The Importance Of Regular Maintenance And Inspections | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial post/the importance of regular maintenance and inspections across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Post/The Importance Of Regular Maintenance And Inspections — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source post/the importance of regular maintenance and inspections for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for post/the importance of regular maintenance and inspections",
-    "primaryIntent": "post/the importance of regular maintenance and inspections services",
-    "secondaryIntents": [
-      "commercial post/the importance of regular maintenance and inspections",
-      "post/the importance of regular maintenance and inspections contractor UK"
-    ],
-    "pageType": "post",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Post/The Importance Of Regular Maintenance And Inspections overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Post/The Importance Of Regular Maintenance And Inspections",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to post/the importance of regular maintenance and inspections preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver post/the importance of regular maintenance and inspections contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Insights",
-        "url": "/blog"
-      },
-      {
-        "name": "Post/The Importance Of Regular Maintenance And Inspections",
-        "url": "/post/the-importance-of-regular-maintenance-and-inspections"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for post/the importance of regular maintenance and inspections.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
   "/post/the-importance-of-regular-maintenance-and-inspections-1": {
     "path": "/post/the-importance-of-regular-maintenance-and-inspections-1",
     "title": "Post/The Importance Of Regular Maintenance And Inspections 1 | Facilities Management & Engineering | Entire FM",
@@ -17650,27 +18903,27 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
-  "/post/what-are-hard-services": {
-    "path": "/post/what-are-hard-services",
-    "title": "Post/What Are Hard Services | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial post/what are hard services across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Post/What Are Hard Services — Facilities Management & Engineering",
+  "/post/the-importance-of-regular-maintenance-and-inspections": {
+    "path": "/post/the-importance-of-regular-maintenance-and-inspections",
+    "title": "Post/The Importance Of Regular Maintenance And Inspections | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial post/the importance of regular maintenance and inspections across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Post/The Importance Of Regular Maintenance And Inspections — Facilities Management & Engineering",
     "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source post/what are hard services for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroIntro": "Entire Facilities Management provides single-source post/the importance of regular maintenance and inspections for commercial property owners, managing agents, and industrial estates nationwide.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for post/what are hard services",
-    "primaryIntent": "post/what are hard services services",
+    "historicIntent": "Historic commercial search intent for post/the importance of regular maintenance and inspections",
+    "primaryIntent": "post/the importance of regular maintenance and inspections services",
     "secondaryIntents": [
-      "commercial post/what are hard services",
-      "post/what are hard services contractor UK"
+      "commercial post/the importance of regular maintenance and inspections",
+      "post/the importance of regular maintenance and inspections contractor UK"
     ],
     "pageType": "post",
     "service": null,
     "sector": null,
     "location": null,
     "historicTopics": [
-      "Post/What Are Hard Services overview",
+      "Post/The Importance Of Regular Maintenance And Inspections overview",
       "Statutory compliance",
       "Preventative maintenance",
       "Contract management"
@@ -17684,14 +18937,14 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "sections": [
       {
-        "heading": "Delivering Excellence in Post/What Are Hard Services",
+        "heading": "Delivering Excellence in Post/The Importance Of Regular Maintenance And Inspections",
         "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
       }
     ],
     "capabilities": [
       {
         "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to post/what are hard services preserving building assets and preventing breakdowns.",
+        "description": "Structured maintenance schedules tailored to post/the importance of regular maintenance and inspections preserving building assets and preventing breakdowns.",
         "tag": "Preventative Care"
       },
       {
@@ -17713,7 +18966,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "assetTypes": [],
     "faqs": [
       {
-        "question": "How does EntireFM deliver post/what are hard services contracts?",
+        "question": "How does EntireFM deliver post/the importance of regular maintenance and inspections contracts?",
         "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
@@ -17727,8 +18980,8 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
         "url": "/blog"
       },
       {
-        "name": "Post/What Are Hard Services",
-        "url": "/post/what-are-hard-services"
+        "name": "Post/The Importance Of Regular Maintenance And Inspections",
+        "url": "/post/the-importance-of-regular-maintenance-and-inspections"
       }
     ],
     "relatedRoutes": [
@@ -17737,102 +18990,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/hard-services",
       "/contact-us"
     ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for post/what are hard services.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/post/what-are-hard-services-in-facilities-management": {
-    "path": "/post/what-are-hard-services-in-facilities-management",
-    "title": "Post/What Are Hard Services In Facilities Management | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial post/what are hard services in facilities management across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Post/What Are Hard Services In Facilities Management — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source post/what are hard services in facilities management for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for post/what are hard services in facilities management",
-    "primaryIntent": "post/what are hard services in facilities management services",
-    "secondaryIntents": [
-      "commercial post/what are hard services in facilities management",
-      "post/what are hard services in facilities management contractor UK"
-    ],
-    "pageType": "post",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Post/What Are Hard Services In Facilities Management overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Post/What Are Hard Services In Facilities Management",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to post/what are hard services in facilities management preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver post/what are hard services in facilities management contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Insights",
-        "url": "/blog"
-      },
-      {
-        "name": "Post/What Are Hard Services In Facilities Management",
-        "url": "/post/what-are-hard-services-in-facilities-management"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for post/what are hard services in facilities management.",
+    "conversionGoal": "Generate commercial enquiries and survey requests for post/the importance of regular maintenance and inspections.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -17935,27 +19093,27 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
-  "/post/what-is-facilities-management": {
-    "path": "/post/what-is-facilities-management",
-    "title": "Post/What Is Facilities Management | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial post/what is facilities management across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Post/What Is Facilities Management — Facilities Management & Engineering",
+  "/post/what-are-hard-services-in-facilities-management": {
+    "path": "/post/what-are-hard-services-in-facilities-management",
+    "title": "Post/What Are Hard Services In Facilities Management | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial post/what are hard services in facilities management across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Post/What Are Hard Services In Facilities Management — Facilities Management & Engineering",
     "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source post/what is facilities management for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroIntro": "Entire Facilities Management provides single-source post/what are hard services in facilities management for commercial property owners, managing agents, and industrial estates nationwide.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for post/what is facilities management",
-    "primaryIntent": "post/what is facilities management services",
+    "historicIntent": "Historic commercial search intent for post/what are hard services in facilities management",
+    "primaryIntent": "post/what are hard services in facilities management services",
     "secondaryIntents": [
-      "commercial post/what is facilities management",
-      "post/what is facilities management contractor UK"
+      "commercial post/what are hard services in facilities management",
+      "post/what are hard services in facilities management contractor UK"
     ],
     "pageType": "post",
     "service": null,
     "sector": null,
     "location": null,
     "historicTopics": [
-      "Post/What Is Facilities Management overview",
+      "Post/What Are Hard Services In Facilities Management overview",
       "Statutory compliance",
       "Preventative maintenance",
       "Contract management"
@@ -17969,14 +19127,14 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "sections": [
       {
-        "heading": "Delivering Excellence in Post/What Is Facilities Management",
+        "heading": "Delivering Excellence in Post/What Are Hard Services In Facilities Management",
         "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
       }
     ],
     "capabilities": [
       {
         "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to post/what is facilities management preserving building assets and preventing breakdowns.",
+        "description": "Structured maintenance schedules tailored to post/what are hard services in facilities management preserving building assets and preventing breakdowns.",
         "tag": "Preventative Care"
       },
       {
@@ -17998,7 +19156,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "assetTypes": [],
     "faqs": [
       {
-        "question": "How does EntireFM deliver post/what is facilities management contracts?",
+        "question": "How does EntireFM deliver post/what are hard services in facilities management contracts?",
         "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
@@ -18012,8 +19170,8 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
         "url": "/blog"
       },
       {
-        "name": "Post/What Is Facilities Management",
-        "url": "/post/what-is-facilities-management"
+        "name": "Post/What Are Hard Services In Facilities Management",
+        "url": "/post/what-are-hard-services-in-facilities-management"
       }
     ],
     "relatedRoutes": [
@@ -18022,7 +19180,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/hard-services",
       "/contact-us"
     ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for post/what is facilities management.",
+    "conversionGoal": "Generate commercial enquiries and survey requests for post/what are hard services in facilities management.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -18030,27 +19188,27 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
-  "/post/what-is-facilities-management-1": {
-    "path": "/post/what-is-facilities-management-1",
-    "title": "Post/What Is Facilities Management 1 | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial post/what is facilities management 1 across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Post/What Is Facilities Management 1 — Facilities Management & Engineering",
+  "/post/what-are-hard-services": {
+    "path": "/post/what-are-hard-services",
+    "title": "Post/What Are Hard Services | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial post/what are hard services across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Post/What Are Hard Services — Facilities Management & Engineering",
     "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source post/what is facilities management 1 for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroIntro": "Entire Facilities Management provides single-source post/what are hard services for commercial property owners, managing agents, and industrial estates nationwide.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for post/what is facilities management 1",
-    "primaryIntent": "post/what is facilities management 1 services",
+    "historicIntent": "Historic commercial search intent for post/what are hard services",
+    "primaryIntent": "post/what are hard services services",
     "secondaryIntents": [
-      "commercial post/what is facilities management 1",
-      "post/what is facilities management 1 contractor UK"
+      "commercial post/what are hard services",
+      "post/what are hard services contractor UK"
     ],
     "pageType": "post",
     "service": null,
     "sector": null,
     "location": null,
     "historicTopics": [
-      "Post/What Is Facilities Management 1 overview",
+      "Post/What Are Hard Services overview",
       "Statutory compliance",
       "Preventative maintenance",
       "Contract management"
@@ -18064,14 +19222,14 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "sections": [
       {
-        "heading": "Delivering Excellence in Post/What Is Facilities Management 1",
+        "heading": "Delivering Excellence in Post/What Are Hard Services",
         "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
       }
     ],
     "capabilities": [
       {
         "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to post/what is facilities management 1 preserving building assets and preventing breakdowns.",
+        "description": "Structured maintenance schedules tailored to post/what are hard services preserving building assets and preventing breakdowns.",
         "tag": "Preventative Care"
       },
       {
@@ -18093,7 +19251,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "assetTypes": [],
     "faqs": [
       {
-        "question": "How does EntireFM deliver post/what is facilities management 1 contracts?",
+        "question": "How does EntireFM deliver post/what are hard services contracts?",
         "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
       }
     ],
@@ -18107,8 +19265,8 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
         "url": "/blog"
       },
       {
-        "name": "Post/What Is Facilities Management 1",
-        "url": "/post/what-is-facilities-management-1"
+        "name": "Post/What Are Hard Services",
+        "url": "/post/what-are-hard-services"
       }
     ],
     "relatedRoutes": [
@@ -18117,7 +19275,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/hard-services",
       "/contact-us"
     ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for post/what is facilities management 1.",
+    "conversionGoal": "Generate commercial enquiries and survey requests for post/what are hard services.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -18220,6 +19378,307 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/post/what-is-facilities-management-1": {
+    "path": "/post/what-is-facilities-management-1",
+    "title": "Post/What Is Facilities Management 1 | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial post/what is facilities management 1 across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Post/What Is Facilities Management 1 — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source post/what is facilities management 1 for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for post/what is facilities management 1",
+    "primaryIntent": "post/what is facilities management 1 services",
+    "secondaryIntents": [
+      "commercial post/what is facilities management 1",
+      "post/what is facilities management 1 contractor UK"
+    ],
+    "pageType": "post",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Post/What Is Facilities Management 1 overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Post/What Is Facilities Management 1",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to post/what is facilities management 1 preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver post/what is facilities management 1 contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Insights",
+        "url": "/blog"
+      },
+      {
+        "name": "Post/What Is Facilities Management 1",
+        "url": "/post/what-is-facilities-management-1"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for post/what is facilities management 1.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/post/what-is-facilities-management": {
+    "path": "/post/what-is-facilities-management",
+    "title": "Post/What Is Facilities Management | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial post/what is facilities management across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Post/What Is Facilities Management — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source post/what is facilities management for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for post/what is facilities management",
+    "primaryIntent": "post/what is facilities management services",
+    "secondaryIntents": [
+      "commercial post/what is facilities management",
+      "post/what is facilities management contractor UK"
+    ],
+    "pageType": "post",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Post/What Is Facilities Management overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Post/What Is Facilities Management",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to post/what is facilities management preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver post/what is facilities management contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Insights",
+        "url": "/blog"
+      },
+      {
+        "name": "Post/What Is Facilities Management",
+        "url": "/post/what-is-facilities-management"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for post/what is facilities management.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/ppm-london": {
+    "path": "/ppm-london",
+    "title": "Planned Preventative Maintenance London | SFG20 PPM | EntireFM",
+    "metaDescription": "Asset-led planned preventative maintenance across London. SFG20 task specifications, digital asset tagging, 52-week compliance calendars, and EntireCAFM visibility.",
+    "h1": "Planned Preventative Maintenance (PPM) in London",
+    "eyebrow": "Asset-Led Maintenance Methodology",
+    "heroIntro": "EntireFM delivers structured Planned Preventative Maintenance (PPM) tailored to commercial property portfolios across Greater London.",
+    "heroDescription": "Moving away from generic checklist maintenance, our asset-led approach barcodes every plant asset, applies SFG20 task specifications, and creates an indisputable 52-week compliance schedule backed by live EntireCAFM portal proof.",
+    "heroImage": "/images/editorial/entirefm-rooftop-plant-night-2000w.webp",
+    "historicIntent": "Commercial search intent for PPM in London",
+    "primaryIntent": "planned preventative maintenance london",
+    "secondaryIntents": [
+      "ppm london",
+      "planned maintenance london",
+      "preventative maintenance london",
+      "commercial ppm london",
+      "building maintenance schedules london"
+    ],
+    "pageType": "geographic-service",
+    "service": "Planned Preventative Maintenance",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "PPM London",
+      "SFG20 Maintenance",
+      "Asset Registers",
+      "52-Week Compliance Calendars"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Why Asset-Led Planned Maintenance Protects London Commercial Property",
+        "body": "In dense London commercial buildings, unexpected plant breakdowns cause immediate tenant disruption and expensive out-of-hours callouts. Proactive maintenance extends asset lifecycles, cuts energy consumption, and prevents statutory non-compliance."
+      },
+      {
+        "heading": "The 5-Step EntireFM PPM Delivery Model",
+        "body": "Asset Condition Survey → Digital Barcode Tagging → SFG20 Task Assignment → 52-Week Maintenance Calendar → Live EntireCAFM Evidence Logging."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Asset Verification & Barcode Tagging",
+        "description": "Every pump, AHU, switchboard, and boiler logged with serial number and condition.",
+        "tag": "Asset Survey"
+      },
+      {
+        "name": "SFG20 Industry Standard Tasks",
+        "description": "Maintenance tasks mapped to recognised industry frequencies and specifications.",
+        "tag": "SFG20 Aligned"
+      },
+      {
+        "name": "Single 52-Week Compliance Calendar",
+        "description": "All statutory testing and service visits unified into one visible schedule.",
+        "tag": "Planning"
+      },
+      {
+        "name": "Live Photographic Work Proof",
+        "description": "Engineers record before/after photos and test data directly against the asset.",
+        "tag": "Digital Proof"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How is a PPM maintenance schedule structured for London buildings?",
+        "answer": "We begin with an on-site asset condition survey, barcoding all mechanical and electrical plant into EntireCAFM, and assigning SFG20 task specifications across a 52-week calendar."
+      },
+      {
+        "question": "What tools and digital visibility do clients receive?",
+        "answer": "Clients access the EntireCAFM client portal with real-time job status, planned visit schedules, statutory certificate vaults, and transparent cost tracking."
+      },
+      {
+        "question": "How does planned maintenance reduce commercial service charge costs?",
+        "answer": "Planned maintenance reduces catastrophic plant failures, lowers reactive callout spend, extends capital asset lifecycles, and provides audit-ready invoice reconciliation."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Planned Preventative Maintenance London",
+        "url": "/ppm-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/hard-facilities-management-london",
+      "/mechanical-electrical-london",
+      "/hvac-london",
+      "/commercial-electrical-maintenance-london",
+      "/commercial-eicr-testing-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Build your London PPM maintenance schedule and request an asset survey.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/ppm": {
     "path": "/ppm",
     "title": "Planned Preventative Maintenance (PPM) | Structured Building Care | Entire FM",
@@ -18302,107 +19761,13 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       }
     ],
     "relatedRoutes": [
+      "/facilities-management-london",
       "/mechanical-electrical",
-      "/ppm",
+      "/ppm-london",
       "/hard-services",
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for ppm.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/pressure-washing": {
-    "path": "/pressure-washing",
-    "title": "Pressure Washing | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial pressure washing across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Pressure Washing — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source pressure washing for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for pressure washing",
-    "primaryIntent": "pressure washing services",
-    "secondaryIntents": [
-      "commercial pressure washing",
-      "pressure washing contractor UK"
-    ],
-    "pageType": "service",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Pressure Washing overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Pressure Washing",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to pressure washing preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver pressure washing contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Services",
-        "url": "/services"
-      },
-      {
-        "name": "Pressure Washing",
-        "url": "/pressure-washing"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for pressure washing.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -18682,9 +20047,9 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       }
     ],
     "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
+      "/facilities-management-london",
+      "/external-cleaning-london",
+      "/commercial-cleaning-london",
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for pressure washing london.",
@@ -18878,6 +20243,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for pressure washing sheffield.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/pressure-washing": {
+    "path": "/pressure-washing",
+    "title": "Pressure Washing | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial pressure washing across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Pressure Washing — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source pressure washing for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for pressure washing",
+    "primaryIntent": "pressure washing services",
+    "secondaryIntents": [
+      "commercial pressure washing",
+      "pressure washing contractor UK"
+    ],
+    "pageType": "service",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Pressure Washing overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Pressure Washing",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to pressure washing preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver pressure washing contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Services",
+        "url": "/services"
+      },
+      {
+        "name": "Pressure Washing",
+        "url": "/pressure-washing"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for pressure washing.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -19350,6 +20810,116 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/reactive-maintenance-london": {
+    "path": "/reactive-maintenance-london",
+    "title": "Reactive Maintenance London | 24/7 Emergency Commercial Repairs | EntireFM",
+    "metaDescription": "Contracted 24/7 reactive maintenance and emergency repairs across Greater London. Rapid dispatch mobile engineers for electrical, HVAC, and plumbing failures.",
+    "h1": "24/7 Reactive Maintenance in London",
+    "eyebrow": "24/7 Emergency Operations",
+    "heroIntro": "EntireFM provides contracted 24/7 reactive maintenance and emergency engineering response for commercial property owners and managing agents across London.",
+    "heroDescription": "When critical building services fail, our central operations desk coordinates immediate engineer dispatch across Greater London and the M25 corridor, managing emergencies with defined SLAs, live tracking, and digital job completion proof.",
+    "heroImage": "/images/editorial/entirefm-site-arrival-2000w.webp",
+    "historicIntent": "Commercial search intent for reactive maintenance in London",
+    "primaryIntent": "reactive maintenance london",
+    "secondaryIntents": [
+      "emergency building maintenance london",
+      "reactive fm london",
+      "commercial emergency repairs london",
+      "24/7 callout maintenance london"
+    ],
+    "pageType": "service",
+    "service": "Reactive Maintenance",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "Reactive Maintenance London",
+      "24/7 Emergency Repairs",
+      "SLA Response",
+      "Mobile Engineering Dispatch"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Structured Emergency Response & Incident Prioritisation",
+        "body": "Not all breakdowns are equal. EntireFM categorises reactive jobs by severity (Emergency, Urgent, Routine), ensuring immediate dispatch for power failures, major water leaks, or safety hazards while keeping operational costs controlled."
+      },
+      {
+        "heading": "End-to-End Visibility via EntireCAFM Helpdesk",
+        "body": "Tenants and property managers can log issues online or via our 24/7 emergency telephone hotline. Every job tracks arrival timestamp, parts used, photographic evidence, and engineer sign-off in real time."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "24/7 Central Service Helpdesk",
+        "description": "Dedicated round-the-clock call handling and rapid triage for contracted commercial sites.",
+        "tag": "24/7 Helpdesk"
+      },
+      {
+        "name": "Priority Emergency Dispatch",
+        "description": "Direct dispatch of equipped mobile vans across Central London and regional travel corridors.",
+        "tag": "Mobile Fleet"
+      },
+      {
+        "name": "Transparent First-Time Fix Focus",
+        "description": "Stocked vehicle inventory and technical diagnostic tools to resolve faults on first visit.",
+        "tag": "First-Time Fix"
+      },
+      {
+        "name": "Real-Time CAFM Job Tracking",
+        "description": "Instant status updates, digital job sheets, and photographic proof sent directly to portal.",
+        "tag": "Technology"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How do contracted response times work in London?",
+        "answer": "Response SLAs are contractually agreed per site based on asset criticality and building occupancy, ensuring high-priority safety or power issues receive rapid emergency attendance."
+      },
+      {
+        "question": "What trades are covered under 24/7 reactive maintenance?",
+        "answer": "Our emergency service covers commercial electrical systems, HVAC/chillers, plumbing, boiler breakdowns, drainage unblocking, access control, and emergency glazing/boarding."
+      },
+      {
+        "question": "Can reactive maintenance be combined with a PPM contract?",
+        "answer": "Yes. Integrating reactive maintenance with a planned preventative maintenance (PPM) contract reduces overall breakdown rates and provides discounted labour rates."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Reactive Maintenance London",
+        "url": "/reactive-maintenance-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/hard-facilities-management-london",
+      "/commercial-electrical-maintenance-london",
+      "/hvac-london",
+      "/commercial-plumbing-london",
+      "/ppm-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Establish contracted 24/7 reactive maintenance coverage for London commercial estates.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/residential-cleaning": {
     "path": "/residential-cleaning",
     "title": "Residential Block Cleaning | Communal Area Contract Cleaning | Entire FM",
@@ -19628,6 +21198,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for residential fm lincoln.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
+  "/resources": {
+    "path": "/resources",
+    "title": "Resources | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial resources across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Resources — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source resources for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for resources",
+    "primaryIntent": "resources services",
+    "secondaryIntents": [
+      "commercial resources",
+      "resources contractor UK"
+    ],
+    "pageType": "company",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Resources overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Resources",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to resources preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver resources contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Company",
+        "url": "/about-entire-facilities-management"
+      },
+      {
+        "name": "Resources",
+        "url": "/resources"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for resources.",
     "verificationRequirements": [
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
@@ -20205,6 +21870,101 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/sectors": {
+    "path": "/sectors",
+    "title": "Sectors | Facilities Management & Engineering | Entire FM",
+    "metaDescription": "Specialist commercial sectors across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
+    "h1": "Sectors — Facilities Management & Engineering",
+    "eyebrow": "Commercial Estate Operations",
+    "heroIntro": "Entire Facilities Management provides single-source sectors for commercial property owners, managing agents, and industrial estates nationwide.",
+    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
+    "heroImage": "/branding/EntireFM Branding 001.png",
+    "historicIntent": "Historic commercial search intent for sectors",
+    "primaryIntent": "sectors services",
+    "secondaryIntents": [
+      "commercial sectors",
+      "sectors contractor UK"
+    ],
+    "pageType": "sector",
+    "service": null,
+    "sector": null,
+    "location": null,
+    "historicTopics": [
+      "Sectors overview",
+      "Statutory compliance",
+      "Preventative maintenance",
+      "Contract management"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Delivering Excellence in Sectors",
+        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Planned Preventative Asset Care",
+        "description": "Structured maintenance schedules tailored to sectors preserving building assets and preventing breakdowns.",
+        "tag": "Preventative Care"
+      },
+      {
+        "name": "Statutory Compliance Record Keeping",
+        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
+        "tag": "Statutory Compliance"
+      },
+      {
+        "name": "Direct Engineering & Helpdesk Delivery",
+        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
+        "tag": "Direct Delivery"
+      },
+      {
+        "name": "Dedicated Client Account Management",
+        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
+        "tag": "Account Support"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "How does EntireFM deliver sectors contracts?",
+        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Sectors",
+        "url": "/sectors"
+      },
+      {
+        "name": "Sectors",
+        "url": "/sectors"
+      }
+    ],
+    "relatedRoutes": [
+      "/mechanical-electrical",
+      "/ppm",
+      "/hard-services",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate commercial enquiries and survey requests for sectors.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
+      "No placeholder contact strings in rendered content",
+      "No unverified statistics"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/security-services": {
     "path": "/security-services",
     "title": "Security Services | Facilities Management & Engineering | Entire FM",
@@ -20585,6 +22345,117 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },
+  "/soft-facilities-management-london": {
+    "path": "/soft-facilities-management-london",
+    "title": "Soft Facilities Management London | Workplace & Cleaning Services | EntireFM",
+    "metaDescription": "Professional Soft FM services across London commercial property — commercial cleaning, grounds care, security, washroom management, and workplace support.",
+    "h1": "Soft Facilities Management in London",
+    "eyebrow": "Workplace & Environmental Care",
+    "heroIntro": "EntireFM delivers high-standard Soft Facilities Management tailored to commercial offices, business centres, retail destinations, and multi-tenant estates across London.",
+    "heroDescription": "From daily office cleaning and specialist floor scrubbing to external grounds maintenance, washroom hygiene, and front-of-house support, we maintain pristine working environments backed by digital KPI auditing.",
+    "heroImage": "/images/editorial/entirefm-reception-2000w.webp",
+    "historicIntent": "Commercial search intent for soft facilities management in London",
+    "primaryIntent": "soft facilities management london",
+    "secondaryIntents": [
+      "soft fm london",
+      "soft services london",
+      "commercial cleaning and soft fm london",
+      "workplace support services london"
+    ],
+    "pageType": "service",
+    "service": "Soft Facilities Management",
+    "sector": null,
+    "location": "London",
+    "historicTopics": [
+      "Soft FM London",
+      "Commercial Cleaning",
+      "Workplace Support",
+      "Environmental Services"
+    ],
+    "requiredSections": [
+      "hero",
+      "capabilities",
+      "body",
+      "faq",
+      "cta"
+    ],
+    "sections": [
+      {
+        "heading": "Tailored Workplace Presentation & Hygiene Standards",
+        "body": "Workplace quality directly impacts tenant satisfaction and brand reputation. EntireFM delivers dependable Soft FM services managed by local supervisors using modern equipment and sustainable COSHH-compliant materials."
+      },
+      {
+        "heading": "Integrated Soft Services Under One Management Model",
+        "body": "By combining cleaning, window washing, washroom services, and waste management under a single contract, London property managers eliminate supplier fragmentation and gain transparent monthly billing."
+      }
+    ],
+    "capabilities": [
+      {
+        "name": "Daily & Periodic Contract Cleaning",
+        "description": "Trained cleaning teams maintaining corporate workspaces, washrooms, and common areas.",
+        "tag": "Cleaning"
+      },
+      {
+        "name": "Specialist Machine Floor Care",
+        "description": "Rotary scrubbers, deep carpet extraction, and hard floor restoration.",
+        "tag": "Floor Care"
+      },
+      {
+        "name": "Washroom & Hygiene Management",
+        "description": "Scheduled replenishment, sanitary disposal, air care, and touchless dispensing systems.",
+        "tag": "Hygiene"
+      },
+      {
+        "name": "Quality KPI Scoring & CAFM Logs",
+        "description": "Digital supervisor audits with real-time scoring visible in EntireCAFM.",
+        "tag": "Quality Control"
+      }
+    ],
+    "assetTypes": [],
+    "faqs": [
+      {
+        "question": "What soft FM services does EntireFM provide in London?",
+        "answer": "We deliver commercial office cleaning, contract cleaning, specialist floor scrubbing, window cleaning, washroom hygiene services, grounds maintenance, and waste management."
+      },
+      {
+        "question": "How do you ensure cleaning quality across multiple London locations?",
+        "answer": "Area supervisors conduct regular digital quality audits, scoring hygiene standards against agreed KPIs with reports uploaded directly to your EntireCAFM dashboard."
+      },
+      {
+        "question": "Can Soft FM be bundled with Hard FM engineering?",
+        "answer": "Yes. Single-source delivery of Hard and Soft FM under one master contract is our primary delivery model, simplifying management and reducing operational costs."
+      }
+    ],
+    "breadcrumbs": [
+      {
+        "name": "Home",
+        "url": "/"
+      },
+      {
+        "name": "Locations",
+        "url": "/locations"
+      },
+      {
+        "name": "Soft Facilities Management London",
+        "url": "/soft-facilities-management-london"
+      }
+    ],
+    "relatedRoutes": [
+      "/facilities-management-london",
+      "/facilities-management-services-london",
+      "/commercial-cleaning-london",
+      "/contract-cleaning-london",
+      "/office-cleaning-london",
+      "/industrial-cleaning-london",
+      "/hard-facilities-management-london",
+      "/contact-us"
+    ],
+    "conversionGoal": "Generate Soft FM and commercial cleaning contract enquiries for London premises.",
+    "verificationRequirements": [
+      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md"
+    ],
+    "contentStatus": "CONTENT_COMPLETE"
+  },
   "/soft-services": {
     "path": "/soft-services",
     "title": "Soft Services | Facilities Management & Engineering | Entire FM",
@@ -20667,9 +22538,10 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       }
     ],
     "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
+      "/facilities-management-london",
+      "/cleaning-services",
       "/hard-services",
+      "/commercial-cleaning-london",
       "/contact-us"
     ],
     "conversionGoal": "Generate commercial enquiries and survey requests for soft services.",
@@ -21904,393 +23776,9 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "No unverified statistics"
     ],
     "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/sectors": {
-    "path": "/sectors",
-    "title": "Sectors | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial sectors across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Sectors — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source sectors for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for sectors",
-    "primaryIntent": "sectors services",
-    "secondaryIntents": [
-      "commercial sectors",
-      "sectors contractor UK"
-    ],
-    "pageType": "sector",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Sectors overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Sectors",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to sectors preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver sectors contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Sectors",
-        "url": "/sectors"
-      },
-      {
-        "name": "Sectors",
-        "url": "/sectors"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for sectors.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/locations": {
-    "path": "/locations",
-    "title": "Locations | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial locations across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Locations — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source locations for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for locations",
-    "primaryIntent": "locations services",
-    "secondaryIntents": [
-      "commercial locations",
-      "locations contractor UK"
-    ],
-    "pageType": "location",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Locations overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Locations",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to locations preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver locations contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Locations",
-        "url": "/locations"
-      },
-      {
-        "name": "Locations",
-        "url": "/locations"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for locations.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/case-studies": {
-    "path": "/case-studies",
-    "title": "Case Studies | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial case studies across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Case Studies — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source case studies for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for case studies",
-    "primaryIntent": "case studies services",
-    "secondaryIntents": [
-      "commercial case studies",
-      "case studies contractor UK"
-    ],
-    "pageType": "company",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Case Studies overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Case Studies",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to case studies preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver case studies contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Company",
-        "url": "/about-entire-facilities-management"
-      },
-      {
-        "name": "Case Studies",
-        "url": "/case-studies"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for case studies.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
-  },
-  "/resources": {
-    "path": "/resources",
-    "title": "Resources | Facilities Management & Engineering | Entire FM",
-    "metaDescription": "Specialist commercial resources across the UK. Proactive maintenance, building engineering, statutory compliance, and dedicated client management.",
-    "h1": "Resources — Facilities Management & Engineering",
-    "eyebrow": "Commercial Estate Operations",
-    "heroIntro": "Entire Facilities Management provides single-source resources for commercial property owners, managing agents, and industrial estates nationwide.",
-    "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
-    "heroImage": "/branding/EntireFM Branding 001.png",
-    "historicIntent": "Historic commercial search intent for resources",
-    "primaryIntent": "resources services",
-    "secondaryIntents": [
-      "commercial resources",
-      "resources contractor UK"
-    ],
-    "pageType": "company",
-    "service": null,
-    "sector": null,
-    "location": null,
-    "historicTopics": [
-      "Resources overview",
-      "Statutory compliance",
-      "Preventative maintenance",
-      "Contract management"
-    ],
-    "requiredSections": [
-      "hero",
-      "capabilities",
-      "body",
-      "faq",
-      "cta"
-    ],
-    "sections": [
-      {
-        "heading": "Delivering Excellence in Resources",
-        "body": "EntireFM acts as the single-source facilities partner for clients requiring high standards, transparent delivery, and absolute compliance reliability."
-      }
-    ],
-    "capabilities": [
-      {
-        "name": "Planned Preventative Asset Care",
-        "description": "Structured maintenance schedules tailored to resources preserving building assets and preventing breakdowns.",
-        "tag": "Preventative Care"
-      },
-      {
-        "name": "Statutory Compliance Record Keeping",
-        "description": "Comprehensive digital logbooks, certificate management, and regular safety auditing across building services.",
-        "tag": "Statutory Compliance"
-      },
-      {
-        "name": "Direct Engineering & Helpdesk Delivery",
-        "description": "Certified mobile technicians and central operations helpdesk coordinating reactive repairs.",
-        "tag": "Direct Delivery"
-      },
-      {
-        "name": "Dedicated Client Account Management",
-        "description": "Transparent monthly reporting, SLA tracking, and proactive capital planning recommendations.",
-        "tag": "Account Support"
-      }
-    ],
-    "assetTypes": [],
-    "faqs": [
-      {
-        "question": "How does EntireFM deliver resources contracts?",
-        "answer": "We assign dedicated contract managers, schedule proactive maintenance visits, and provide out-of-hours helpdesk cover for contracted sites, with response times agreed per site."
-      }
-    ],
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "url": "/"
-      },
-      {
-        "name": "Company",
-        "url": "/about-entire-facilities-management"
-      },
-      {
-        "name": "Resources",
-        "url": "/resources"
-      }
-    ],
-    "relatedRoutes": [
-      "/mechanical-electrical",
-      "/ppm",
-      "/hard-services",
-      "/contact-us"
-    ],
-    "conversionGoal": "Generate commercial enquiries and survey requests for resources.",
-    "verificationRequirements": [
-      "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
-      "No placeholder contact strings in rendered content",
-      "No unverified statistics"
-    ],
-    "contentStatus": "CONTENT_COMPLETE"
   }
 };
 
 export function getContentRecord(path: string): ContentRecord | null {
   return CONTENT_DATABASE[path] ?? null;
-}
-
-export function getAllContentRecords(): ContentRecord[] {
-  return Object.values(CONTENT_DATABASE);
 }
