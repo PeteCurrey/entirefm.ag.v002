@@ -38,6 +38,17 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl, { status: 308 });
   }
 
+  // 2b. Typo migration: /facilities-management-services-lond -> /facilities-management-services-london (301)
+  if (pathname === '/facilities-management-services-lond' || pathname === '/facilities-management-services-lond/') {
+    const destination = `https://${PRODUCTION_HOSTNAME}/facilities-management-services-london${search}`;
+    return NextResponse.redirect(destination, {
+      status: 301,
+      headers: {
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      },
+    });
+  }
+
   // 3. Skip public static assets and API auth endpoints
   if (
     pathname.startsWith('/_next') ||

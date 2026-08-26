@@ -71,12 +71,12 @@
     "/facilities-management-services": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
-      "reason": "89.5% similar to /facilities-management-services-lond. Page remains live and returns 200 — noindex only until it carries distinct content.",
+      "reason": "89.5% similar to /facilities-management-services-london. Page remains live and returns 200 — noindex only until it carries distinct content.",
       "peakSimilarity": 0.895,
       "clusterSize": 28,
       "representative": "/hard-services"
     },
-    "/facilities-management-services-lond": {
+    "/facilities-management-services-london": {
       "indexable": false,
       "tier": "AWAITING_DIFFERENTIATION",
       "reason": "89.5% similar to /facilities-management-services. Page remains live and returns 200 — noindex only until it carries distinct content.",

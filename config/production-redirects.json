@@ -2451,6 +2451,12 @@
       "destination": "/client-portal/compliance-reporting",
       "statusCode": 301,
       "reason": "SEO Term Alias"
+    },
+    {
+      "source": "/facilities-management-services-lond",
+      "destination": "/facilities-management-services-london",
+      "statusCode": 301,
+      "reason": "Permanent typo migration: shortened lond slug to canonical london"
     }
   ],
   "changeLog": [

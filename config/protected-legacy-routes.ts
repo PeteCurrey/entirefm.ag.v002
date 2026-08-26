@@ -1038,7 +1038,7 @@ export const PROTECTED_LEGACY_ROUTES: ProtectedRoute[] = [
     "g2_url": null
   },
   {
-    "path": "/facilities-management-services-lond",
+    "path": "/facilities-management-services-london",
     "source": "wix-generation-1",
     "historic": true,
     "protected": true,

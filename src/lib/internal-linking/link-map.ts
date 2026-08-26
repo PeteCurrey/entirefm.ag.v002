@@ -103,6 +103,7 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
   // ── London ─────────────────────────────────────────────────────────────────
 
   '/facilities-management-london': [
+    { path: '/facilities-management-services-london', label: 'Facilities Management Services London', context: 'related-service' },
     { path: '/fm-london', label: 'Outsourced FM London (24/7 Response)', context: 'related-location' },
     { path: '/london-facilities-management', label: 'Multi-Site Estate Facilities Management London', context: 'related-location' },
     { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
@@ -116,6 +117,19 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
     { path: '/mechanical-electrical', label: 'Mechanical & Electrical Engineering', context: 'related-service' },
     { path: '/ppm', label: 'Planned Preventative Maintenance (SFG20)', context: 'related-service' },
     { path: '/hard-services', label: 'Hard Facilities Management', context: 'related-service' },
+  ],
+
+  '/facilities-management-services-london': [
+    { path: '/facilities-management-london', label: 'Facilities Management London (Flagship)', context: 'related-location' },
+    { path: '/mechanical-electrical-london', label: 'M&E Engineering Maintenance London', context: 'related-service' },
+    { path: '/ppm-london', label: 'Planned Preventative Maintenance London', context: 'related-service' },
+    { path: '/hvac-london', label: 'Commercial HVAC & Air Conditioning London', context: 'related-service' },
+    { path: '/commercial-cleaning-london', label: 'Commercial Cleaning Services London', context: 'related-service' },
+    { path: '/contract-cleaning-london', label: 'Contract Cleaning London', context: 'related-service' },
+    { path: '/office-cleaning-london', label: 'Office Cleaning London', context: 'related-service' },
+    { path: '/industrial-cleaning-london', label: 'Industrial Cleaning London', context: 'related-service' },
+    { path: '/fm-london', label: 'Outsourced FM London', context: 'related-location' },
+    { path: '/london-facilities-management', label: 'Multi-Site FM London', context: 'related-location' },
   ],
 
   '/fm-london': [
