@@ -30,31 +30,31 @@ export function ProductFrame({
   const [isZoomed, setIsZoomed] = useState(false);
 
   const badgeStyles = {
-    live: 'bg-[#ECFDF5] text-[#059669] border-[#A7F3D0]',
-    audit: 'bg-[#EFF6FF] text-[#2563EB] border-[#BFDBFE]',
-    telemetry: 'bg-[#FFF7ED] text-[#EA580C] border-[#FED7AA]',
-    status: 'bg-[#F5F5F3] text-[#101010] border-[#E4E4E1]',
+    live: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    audit: 'bg-blue-50 text-blue-700 border-blue-200',
+    telemetry: 'bg-rose-50 text-brand-pink border-rose-200',
+    status: 'bg-slate-100 text-slate-800 border-slate-200',
   };
 
   return (
     <>
-      <figure className={`group relative rounded-[12px] border border-[#E4E4E1] bg-white p-2 sm:p-3 shadow-[0_4px_24px_rgba(0,0,0,0.06)] transition-all duration-300 hover:border-[#D1D1CD] hover:shadow-[0_8px_32px_rgba(0,0,0,0.09)] ${className}`}>
+      <figure className={`group relative rounded-sm border border-slate-200 bg-white p-2.5 sm:p-3 shadow-md transition-all duration-300 hover:border-slate-300 hover:shadow-lg ${className}`}>
         {/* Browser Top Bar Header */}
-        <div className="mb-2 sm:mb-3 flex items-center justify-between border-b border-[#F0F0EE] pb-2 px-1">
+        <div className="mb-2 sm:mb-2.5 flex items-center justify-between border-b border-slate-100 pb-2 px-1">
           <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#EF4444]/60 inline-block" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#F59E0B]/60 inline-block" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#10B981]/60 inline-block" />
-            <span className="ml-2 font-mono text-[10px] sm:text-[11px] text-[#9B9B97] select-none tracking-tight">
-              app.entirecafm.com
+            <span className="h-2 w-2 rounded-full bg-slate-300 inline-block" />
+            <span className="h-2 w-2 rounded-full bg-slate-300 inline-block" />
+            <span className="h-2 w-2 rounded-full bg-slate-300 inline-block" />
+            <span className="ml-2 text-[11px] font-light text-slate-500 select-none tracking-tight">
+              EntireCAFM Console &bull; app.entirecafm.com
             </span>
           </div>
 
           <div className="flex items-center gap-2">
             {badge && (
-              <span className={`inline-flex items-center gap-1 rounded-[4px] border px-2 py-0.5 font-mono text-[9px] sm:text-[10px] font-normal ${badgeStyles[badgeType]}`}>
+              <span className={`inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-0.5 text-[10.5px] font-light ${badgeStyles[badgeType]}`}>
                 {badgeType === 'live' && (
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#059669]" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
                 )}
                 {badge}
               </span>
@@ -64,12 +64,12 @@ export function ProductFrame({
               <button
                 type="button"
                 onClick={() => setIsZoomed(true)}
-                className="hidden sm:inline-flex items-center gap-1 rounded-[4px] border border-[#E4E4E1] bg-[#FBFBFA] px-2 py-0.5 font-mono text-[10px] font-normal text-[#686866] hover:bg-[#F0F0EE] hover:text-[#101010] transition-colors"
+                className="hidden sm:inline-flex items-center gap-1 rounded-sm border border-slate-200 bg-[#FAF9FB] px-2.5 py-0.5 text-[11px] font-light text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
                 title="Enlarge screenshot to inspect high-resolution UI details"
                 aria-label="Enlarge screenshot"
               >
                 <Maximize2 className="h-3 w-3" />
-                <span>Inspect UI</span>
+                <span>Inspect Screen</span>
               </button>
             )}
           </div>
@@ -77,7 +77,7 @@ export function ProductFrame({
 
         {/* Screenshot Container */}
         <div
-          className={`relative w-full overflow-hidden rounded-[8px] bg-[#F5F5F3] ${
+          className={`relative w-full overflow-hidden rounded-xs bg-slate-900 ${
             aspectRatio === '16/10' ? 'aspect-[16/10]' : aspectRatio === '16/9' ? 'aspect-[16/9]' : aspectRatio === '4/3' ? 'aspect-[4/3]' : ''
           }`}
           onClick={() => allowZoom && setIsZoomed(true)}
@@ -94,58 +94,46 @@ export function ProductFrame({
 
         {/* Optional Caption / Telemetry Note */}
         {caption && (
-          <figcaption className="mt-2.5 px-1 font-mono text-[11px] text-[#686866] flex items-center justify-between">
+          <figcaption className="mt-2.5 px-1 text-[11.5px] text-slate-500 font-light flex items-center justify-between">
             <span>{caption}</span>
-            <span className="text-[#9B9B97] text-[10px]">EntireCAFM Live Production Platform</span>
+            <span className="text-slate-400 text-[10.5px] hidden sm:inline">EntireCAFM Live Console</span>
           </figcaption>
         )}
       </figure>
 
-      {/* Lightbox / Zoom Modal for UI Inspection */}
+      {/* High-Res Modal Overlay */}
       {isZoomed && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-8 backdrop-blur-sm animate-in fade-in duration-200"
+          aria-label={alt}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4 sm:p-6 backdrop-blur-md animate-in fade-in duration-200"
           onClick={() => setIsZoomed(false)}
         >
           <div
-            className="relative max-h-[95vh] max-w-[95vw] overflow-auto rounded-[12px] border border-white/20 bg-[#101010] p-2 shadow-2xl"
+            className="relative max-h-[92vh] max-w-[94vw] overflow-auto rounded-sm border border-white/20 bg-slate-900 p-2 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-white/10 pb-2.5 px-3 mb-2">
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs font-normal text-white tracking-wider">
-                  ENTIRECAFM HIGH-RESOLUTION UI INSPECTOR
-                </span>
-                <span className="rounded bg-white/10 px-2 py-0.5 font-mono text-[10px] text-white/70">
-                  {alt}
-                </span>
-              </div>
+            <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-2 px-2 text-white text-xs font-light">
+              <span className="text-slate-300">{alt}</span>
               <button
                 type="button"
                 onClick={() => setIsZoomed(false)}
-                className="rounded-full bg-white/10 p-1.5 text-white/80 hover:bg-white/20 hover:text-white transition-colors"
-                aria-label="Close UI Inspector"
+                className="rounded-sm bg-white/10 p-1 text-slate-300 hover:bg-white/20 hover:text-white"
+                aria-label="Close zoomed view"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <div className="relative overflow-hidden rounded-[8px]">
+            <div className="relative h-[80vh] w-[90vw] max-w-[1400px]">
               <Image
                 src={src}
                 alt={alt}
-                width={1920}
-                height={1200}
-                className="h-auto w-full object-contain"
-                sizes="95vw"
+                fill
+                sizes="90vw"
+                className="object-contain object-top"
               />
             </div>
-            {caption && (
-              <p className="mt-2 px-3 font-mono text-xs text-white/60">
-                {caption}
-              </p>
-            )}
           </div>
         </div>
       )}

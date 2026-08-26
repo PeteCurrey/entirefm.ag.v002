@@ -46,44 +46,44 @@ const PROCUREMENT_QUESTIONS = [
 
 export function TenderProcurementChallenge() {
   return (
-    <div className="rounded-[16px] border border-[#101010] bg-[#101010] text-white p-6 sm:p-8 lg:p-12 shadow-2xl relative overflow-hidden">
+    <section className="py-24 bg-brand-graphite text-white border-t border-b border-brand-edge-dark relative overflow-hidden">
       {/* Background Accent */}
-      <div className="absolute -right-24 -bottom-24 w-96 h-96 bg-[#EA580C]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -right-24 -bottom-24 w-96 h-96 bg-brand-pink/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative z-10">
+      <div className="container-wide relative z-10">
         {/* Header */}
-        <div className="max-w-3xl mb-10">
-          <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#EA580C]/40 bg-[#EA580C]/20 px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#FF8A4C] mb-3">
-            TENDER &amp; PROCUREMENT GUIDE
+        <div className="max-w-3xl mb-14">
+          <span className="text-[11px] font-normal uppercase tracking-wider text-brand-pink block font-medium">
+            TENDER &amp; PROCUREMENT DUE DILIGENCE
           </span>
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extralight tracking-tight text-white">
+          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-white leading-tight">
             Evaluating FM providers? Ask them to show you the platform.
-          </h3>
-          <p className="text-[14px] sm:text-[15px] text-white/70 mt-3 leading-relaxed">
-            Most FM tenders feature impressive claims about “proprietary portals” and “real-time analytics”. During your next tender evaluation, challenge every bidder with these six operational questions:
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-slate-300 font-light leading-relaxed">
+            Most FM tenders feature impressive claims about &ldquo;proprietary portals&rdquo; and &ldquo;real-time analytics&rdquo;. During your next tender evaluation, challenge every bidder with these six operational questions:
           </p>
         </div>
 
         {/* 6 Questions Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {PROCUREMENT_QUESTIONS.map((q) => (
             <div
               key={q.number}
-              className="rounded-[10px] border border-white/10 bg-white/5 p-5 flex flex-col justify-between hover:border-[#EA580C]/40 transition-colors"
+              className="rounded-sm border border-slate-800 bg-slate-950/80 p-6 flex flex-col justify-between space-y-4 hover:border-slate-700 transition-colors"
             >
-              <div>
-                <span className="font-mono text-[11px] font-normal text-[#EA580C] block mb-2">
+              <div className="space-y-2">
+                <span className="text-xs font-extralight text-brand-pink block">
                   CHALLENGE {q.number}
                 </span>
-                <p className="text-[13px] font-normal text-white leading-snug mb-3">
-                  “{q.question}”
-                </p>
+                <h3 className="text-sm font-normal text-white leading-snug">
+                  &ldquo;{q.question}&rdquo;
+                </h3>
               </div>
-              <div className="pt-3 border-t border-white/10">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[#059669] block mb-1">
-                  EntireCAFM Delivery:
+              <div className="pt-4 border-t border-slate-800">
+                <span className="text-[10px] font-normal uppercase tracking-wider text-emerald-400 block mb-1">
+                  EntireCAFM Operational Delivery:
                 </span>
-                <p className="text-[11.5px] text-white/80 leading-normal">
+                <p className="text-xs text-slate-300 font-light leading-relaxed">
                   {q.entireAnswer}
                 </p>
               </div>
@@ -92,24 +92,23 @@ export function TenderProcurementChallenge() {
         </div>
 
         {/* Bottom CTA Block */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/10 pt-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-slate-800 pt-8">
           <div>
             <h4 className="text-lg font-light text-white">
               We would be delighted to demonstrate our live platform.
             </h4>
-            <p className="text-xs text-white/60 mt-0.5">
-              30 minutes. No marketing slides. Just a live operational walkthrough of EntireCAFM.
+            <p className="text-xs text-slate-400 font-light mt-0.5">
+              30-minute interactive walkthrough using representative multi-site commercial estate data.
             </p>
           </div>
           <Link
-            href="/contact-us?subject=EntireCAFM%20Live%20Portal%20Demonstration"
-            className="inline-flex items-center gap-2 rounded-[8px] bg-[#EA580C] px-5 py-3 text-[13px] font-normal text-white shadow-lg hover:bg-[#D44708] transition-all shrink-0"
+            href="/contact-us?subject=Book%20a%20Live%20Client%20Portal%20Demonstration"
+            className="btn-primary text-xs py-3 px-6 shrink-0"
           >
-            Book an EntireCAFM Demonstration
-            <ArrowRight className="h-4 w-4" />
+            Book a Live Client Portal Demonstration <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
