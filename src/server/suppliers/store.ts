@@ -910,22 +910,7 @@ export async function getSupplierRelationshipOverview(supplierId: string): Promi
     relationship_since: (org?.createdAt?.slice(0, 10) || new Date().toISOString().slice(0, 10)),
     active_restrictions: [],
     compliance_holds: [],
-    assigned_entirefm_team: [
-      {
-        role: 'Supplier Relationship Manager',
-        name: 'EntireFM Supply Chain Team',
-        email: 'supplier-support@entirefm.com',
-        phone: '0800 555 0199',
-        department: 'Supply Chain & Partner Network',
-      },
-      {
-        role: '24/7 Operations Desk',
-        name: 'EntireFM Helpdesk Team',
-        email: 'operations@entirefm.com',
-        phone: '0800 000 0000',
-        department: 'Facilities Operations & Dispatch',
-      },
-    ],
+    assigned_entirefm_team: [],
   };
 }
 

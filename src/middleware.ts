@@ -105,19 +105,44 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  if (isPrivateAdmin || isPrivateClients || isPrivateContractor || isPrivateEngineer || isPrivateSupplierPortal) {
+  // Dedicated Supplier Portal Security Gate (Strict SUPPLIER orgType only)
+  if (isPrivateSupplierPortal) {
+    const supplierToken = request.cookies.get('efm_session')?.value;
+    if (!supplierToken) {
+      const signInUrl = new URL('/supplier-portal/sign-in', request.url);
+      if (pathname !== '/supplier-portal') {
+        signInUrl.searchParams.set('redirect', pathname);
+      }
+      const response = NextResponse.redirect(signInUrl);
+      response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return response;
+    }
+
+    try {
+      const parts = supplierToken.split('.');
+      if (parts.length === 2) {
+        const payloadStr = Buffer.from(parts[0], 'base64url').toString('utf8');
+        const session = JSON.parse(payloadStr);
+
+        if (session.expiresAt && session.expiresAt < Date.now()) {
+          return NextResponse.redirect(new URL('/supplier-portal/sign-in?error=session_expired', request.url));
+        }
+
+        if (session.orgType !== 'SUPPLIER') {
+          return NextResponse.redirect(new URL('/supplier-portal/sign-in?error=forbidden_supplier', request.url));
+        }
+      } else {
+        return NextResponse.redirect(new URL('/supplier-portal/sign-in', request.url));
+      }
+    } catch {
+      return NextResponse.redirect(new URL('/supplier-portal/sign-in', request.url));
+    }
+  }
+
+  if (isPrivateAdmin || isPrivateClients || isPrivateContractor || isPrivateEngineer) {
     const token = request.cookies.get('efm_session')?.value || request.cookies.get('efm_admin')?.value;
 
     if (!token) {
-      if (isPrivateSupplierPortal) {
-        const signInUrl = new URL('/supplier-portal/sign-in', request.url);
-        if (pathname !== '/supplier-portal') {
-          signInUrl.searchParams.set('redirect', pathname);
-        }
-        const response = NextResponse.redirect(signInUrl);
-        response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-        return response;
-      }
       const loginUrl = new URL('/login', request.url);
       loginUrl.searchParams.set('redirect', pathname);
       const response = NextResponse.redirect(loginUrl);
@@ -134,20 +159,10 @@ export function middleware(request: NextRequest) {
 
         // Check token expiry
         if (session.expiresAt && session.expiresAt < Date.now()) {
-          if (isPrivateSupplierPortal) {
-            return NextResponse.redirect(new URL('/supplier-portal/sign-in?error=session_expired', request.url));
-          }
           return NextResponse.redirect(new URL('/login?error=expired', request.url));
         }
 
         const isViewAs = !!session.viewAsContext?.isViewAs;
-
-        // /supplier-portal/* requires SUPPLIER orgType (or internal EntireFM)
-        if (isPrivateSupplierPortal) {
-          if (session.orgType !== 'SUPPLIER' && session.orgType !== 'ENTIREFM') {
-            return NextResponse.redirect(new URL('/supplier-portal/sign-in?error=forbidden_supplier', request.url));
-          }
-        }
 
         // /admin is STRICTLY INTERNAL EntireFM
         if (isPrivateAdmin) {

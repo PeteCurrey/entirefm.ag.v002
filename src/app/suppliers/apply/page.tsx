@@ -91,7 +91,7 @@ export default function ApplyPage() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/supplier-portal"
+                  href="/supplier-portal/sign-in"
                   className="btn-secondary text-sm py-3.5 px-6 text-center flex-1 flex items-center justify-center gap-2"
                 >
                   <span>Continue Existing Application</span>

@@ -147,8 +147,8 @@ async function runTests() {
   assert(statusDisplay.statusLabel === 'Application in Progress', 'Lifecycle status label correctly reports Application in Progress');
   assert(!statusDisplay.isApproved, 'isApproved is false for new applicant');
 
-  // --- TEST GROUP 6: Codebase Mock String Audit ---
-  console.log('\nTEST GROUP 6: Codebase Mock String Audit');
+  // --- TEST GROUP 6: Codebase Mock String & Contact Audit ---
+  console.log('\nTEST GROUP 6: Codebase Mock String & Contact Audit');
   const filesToAudit = [
     'src/server/suppliers/store.ts',
     'src/app/supplier-portal/(portal)/page.tsx',
@@ -158,6 +158,8 @@ async function runTests() {
     'src/app/supplier-portal/(portal)/billing/page.tsx',
     'src/app/supplier-portal/(portal)/membership/page.tsx',
     'src/app/supplier-portal/(portal)/approvals/page.tsx',
+    'src/app/supplier-portal/(portal)/support/page.tsx',
+    'src/app/supplier-portal/(portal)/relationship/page.tsx',
   ];
 
   for (const relFile of filesToAudit) {
@@ -167,7 +169,21 @@ async function runTests() {
     assert(!content.includes('Midlands HVAC Pro'), `${relFile} does NOT contain 'Midlands HVAC Pro'`);
     assert(!content.includes('14 Industrial Way'), `${relFile} does NOT contain hardcoded '14 Industrial Way'`);
     assert(!content.includes('Aviva_PL_10M_2026.pdf'), `${relFile} does NOT contain hardcoded mock documents`);
+    assert(!content.includes('0800 555 0199'), `${relFile} does NOT contain fake number '0800 555 0199'`);
+    assert(!content.includes('0800 000 0000'), `${relFile} does NOT contain fake number '0800 000 0000'`);
   }
+
+  // --- TEST GROUP 7: Supplier Application Entry CTAs ---
+  console.log('\nTEST GROUP 7: Supplier Application Entry CTAs (/suppliers/apply)');
+  const applyPagePath = path.resolve('src/app/suppliers/apply/page.tsx');
+  const applyPageContent = fs.readFileSync(applyPagePath, 'utf8');
+  assert(applyPageContent.includes('href="/supplier-portal/register"'), "Start Supplier Application links to /supplier-portal/register");
+  assert(applyPageContent.includes('href="/supplier-portal/sign-in"'), "Continue Existing Application links to /supplier-portal/sign-in");
+  assert(!applyPageContent.includes('href="/supplier-portal"'), "Continue Existing Application does NOT link directly to /supplier-portal");
+
+  // --- TEST GROUP 8: Assigned Team & Contact Truth ---
+  console.log('\nTEST GROUP 8: Assigned Team & Contact Truth');
+  assert(Array.isArray(relOverview.assigned_entirefm_team) && relOverview.assigned_entirefm_team.length === 0, 'New unassigned relationship overview returns 0 fake assigned team members');
 
   // --- SUMMARY ---
   console.log('\n------------------------------------------------------');

@@ -32,12 +32,12 @@ export default function SupplierSupportPage() {
         </div>
 
         <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-3">
-          <Phone className="h-5 w-5 text-brand-pink" />
+          <MessageSquare className="h-5 w-5 text-brand-pink" />
           <h3 className="font-bold text-slate-900 font-sans text-sm">Operational Helpdesk</h3>
           <p className="text-slate-600 font-light leading-relaxed">
             For live work order queries, emergency dispatch acknowledgements, and site access coordination.
           </p>
-          <span className="font-mono text-slate-900 font-bold block pt-2">0800 000 0000 (24/7 Operations)</span>
+          <span className="font-mono text-slate-900 font-bold block pt-2">operations@entirefm.com</span>
         </div>
       </div>
     </div>

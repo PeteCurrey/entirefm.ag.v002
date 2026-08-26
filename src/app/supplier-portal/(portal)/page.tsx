@@ -46,7 +46,7 @@ export default async function SupplierPortalDashboardPage() {
   const expiringItems = radar.filter((r) => r.status.startsWith('EXPIRING'));
   const services = await getSupplierServicesScope(orgId);
 
-  const companyName = org?.tradingName || org?.legalName || draft?.legalCompanyName || session?.orgName || 'Your Company';
+  const companyName = org?.tradingName || org?.legalName || draft?.legalCompanyName || 'Your Supplier Organisation';
   const appRef = org?.applicationReference || draft?.applicationReference || '—';
 
   return (
@@ -121,7 +121,11 @@ export default async function SupplierPortalDashboardPage() {
           <div>
             <span className="text-slate-400 text-[10px] uppercase block">Payment State</span>
             <span className="text-white font-bold">
-              {draft?.paymentMethod ? 'DECLARED' : 'PENDING'}
+              {org?.lifecycleStatus === 'APPROVED' || org?.lifecycleStatus === 'UNDER_REVIEW' || org?.lifecycleStatus === 'SUBMITTED'
+                ? 'PAID'
+                : org?.lifecycleStatus === 'PAYMENT_PENDING'
+                ? 'PAYMENT REQUIRED'
+                : 'NOT YET REQUIRED'}
             </span>
           </div>
         </div>
@@ -246,33 +250,51 @@ export default async function SupplierPortalDashboardPage() {
         <div className="space-y-6">
           <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm space-y-4">
             <h2 className="font-bold text-slate-900 font-sans text-sm pb-3 border-b border-slate-100 flex items-center gap-2">
-              <Users className="h-4 w-4 text-slate-400" /> EntireFM Supply Chain Desk
+              <Users className="h-4 w-4 text-slate-400" /> {relationship.assigned_entirefm_team.length > 0 ? 'Assigned Relationship Manager' : 'Supplier Support Desk'}
             </h2>
 
-            <div className="space-y-4 text-xs">
-              {relationship.assigned_entirefm_team.map((contact, idx) => (
-                <div key={idx} className="space-y-1 pb-3 border-b border-slate-100 last:border-0 last:pb-0">
-                  <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block">
-                    {contact.role}
-                  </span>
-                  <span className="font-bold text-slate-900 block font-sans">
-                    {contact.name}
-                  </span>
-                  <div className="text-[11px] text-slate-600 space-y-0.5 font-mono">
-                    <div className="flex items-center gap-1.5">
-                      <Mail className="h-3 w-3 text-slate-400" />
-                      <a href={`mailto:${contact.email}`} className="hover:underline text-slate-800">
-                        {contact.email}
-                      </a>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Phone className="h-3 w-3 text-slate-400" />
-                      <span>{contact.phone}</span>
+            {relationship.assigned_entirefm_team.length > 0 ? (
+              <div className="space-y-4 text-xs">
+                {relationship.assigned_entirefm_team.map((contact, idx) => (
+                  <div key={idx} className="space-y-1 pb-3 border-b border-slate-100 last:border-0 last:pb-0">
+                    <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block">
+                      {contact.role}
+                    </span>
+                    <span className="font-bold text-slate-900 block font-sans">
+                      {contact.name}
+                    </span>
+                    <div className="text-[11px] text-slate-600 space-y-0.5 font-mono">
+                      {contact.email && (
+                        <div className="flex items-center gap-1.5">
+                          <Mail className="h-3 w-3 text-slate-400" />
+                          <a href={`mailto:${contact.email}`} className="hover:underline text-slate-800">
+                            {contact.email}
+                          </a>
+                        </div>
+                      )}
+                      {contact.phone && (
+                        <div className="flex items-center gap-1.5">
+                          <Phone className="h-3 w-3 text-slate-400" />
+                          <span>{contact.phone}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-3 text-xs text-slate-600 font-light">
+                <p>
+                  A dedicated Relationship Manager is assigned upon successful completion of your technical assurance review.
+                </p>
+                <div className="pt-1 border-t border-slate-100 space-y-1">
+                  <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block">General Assurance Enquiries</span>
+                  <a href="mailto:supplier-support@entirefm.com" className="font-mono text-xs text-brand-pink font-medium hover:underline block">
+                    supplier-support@entirefm.com
+                  </a>
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
           </div>
 
           <div className="bg-slate-50 border border-slate-200 rounded-sm p-5 space-y-2 text-xs">

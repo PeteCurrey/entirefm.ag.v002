@@ -38,20 +38,21 @@ export default async function AuthenticatedSupplierPortalLayout({
 }) {
   // 1. Mandatory Server-Side Session Resolution (Fail-Closed)
   const session = await getCurrentSession();
-  const isSupplier = (session?.orgType as string) === 'SUPPLIER';
-  const isInternal = (session?.orgType as string) === 'ENTIREFM';
-
-  if (!session || (!isSupplier && !isInternal)) {
+  if (!session || session.orgType !== 'SUPPLIER') {
     redirect('/supplier-portal/sign-in');
   }
 
-  // 2. Organisation Context Resolution
+  // 2. Organisation Context Resolution (Fail-Closed)
   const hasOrg = session.orgId && session.orgId !== session.personId;
-  if (!hasOrg && isSupplier) {
+  if (!hasOrg) {
     redirect('/supplier-portal/org-setup');
   }
 
-  const org = hasOrg ? await getSupplierOrganisationById(session.orgId) : null;
+  const org = await getSupplierOrganisationById(session.orgId);
+  if (!org) {
+    redirect('/supplier-portal/org-setup');
+  }
+
   const orgDisplay = getPortalStatusDisplay(org);
   const isApproved = orgDisplay.isApproved;
 
@@ -177,7 +178,7 @@ export default async function AuthenticatedSupplierPortalLayout({
             <span className={`text-[10px] block mt-0.5 ${statusColor}`}>{orgDisplay.statusLabel}</span>
           </div>
 
-          <form action="/api/auth/logout" method="post">
+          <form action="/api/auth/logout?redirect=/supplier-portal/sign-in" method="post">
             <button
               type="submit"
               className="flex items-center gap-2 text-[11px] text-slate-400 hover:text-rose-300 transition-colors pt-2 border-t border-slate-800/80 w-full"

@@ -81,24 +81,36 @@ export default async function SupplierRelationshipPage() {
         <div className="space-y-6">
           <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm space-y-4">
             <h2 className="font-bold text-slate-900 font-sans text-sm pb-3 border-b border-slate-100 flex items-center gap-2">
-              <Users className="h-4 w-4 text-slate-400" /> Assigned EntireFM Team
+              <Users className="h-4 w-4 text-slate-400" /> {rel.assigned_entirefm_team.length > 0 ? 'Assigned EntireFM Team' : 'Supplier Support Desk'}
             </h2>
 
-            <div className="space-y-4 text-xs">
-              {rel.assigned_entirefm_team.map((c, i) => (
-                <div key={i} className="space-y-1 pb-3 border-b border-slate-100 last:border-0 last:pb-0">
-                  <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block">
-                    {c.role}
-                  </span>
-                  <span className="font-bold text-slate-900 block font-sans">{c.name}</span>
-                  <span className="text-[11px] text-slate-500 font-mono block">{c.department}</span>
-                  <div className="text-[11px] text-slate-600 space-y-0.5 font-mono pt-1">
-                    <div>{c.email}</div>
-                    <div>{c.phone}</div>
+            {rel.assigned_entirefm_team.length > 0 ? (
+              <div className="space-y-4 text-xs">
+                {rel.assigned_entirefm_team.map((c, i) => (
+                  <div key={i} className="space-y-1 pb-3 border-b border-slate-100 last:border-0 last:pb-0">
+                    <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block">
+                      {c.role}
+                    </span>
+                    <span className="font-bold text-slate-900 block font-sans">{c.name}</span>
+                    {c.department && <span className="text-[11px] text-slate-500 font-mono block">{c.department}</span>}
+                    <div className="text-[11px] text-slate-600 space-y-0.5 font-mono pt-1">
+                      {c.email && <div>{c.email}</div>}
+                      {c.phone && <div>{c.phone}</div>}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-xs text-slate-600 space-y-2 font-light">
+                <p>No dedicated Relationship Manager assigned yet.</p>
+                <p className="text-[11.5px] text-slate-500">
+                  Dedicated relationship management is assigned upon formal application approval and trade activation.
+                </p>
+                <Link href="/supplier-portal/support" className="text-brand-pink font-bold hover:underline inline-block pt-1">
+                  Contact Support Desk &rarr;
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
