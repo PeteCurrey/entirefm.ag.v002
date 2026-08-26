@@ -426,7 +426,7 @@ async function main() {
     const temporalProof=await validateTemporalIsolation(pilotDataset!.id);
     assert('Temporal isolation: training cutoff in past', temporalProof.isolated===true);
 
-    const pilotModel=await registerModel({name:`Phase 0L CHILLER Failure Risk Pilot ${runTag}`,asset_class:'CHILLER',target:'FAILURE_WITHIN_14D',algorithm:'GRADIENT_BOOSTED_TREES',description:'Phase 0L pilot shadow model.'});
+    const pilotModel=await registerModel({name:`Phase 0L CHILLER Failure Risk Pilot ${runTag}`,asset_class:'CHILLER',target:'FAILURE_WITHIN_14D',algorithm:'SHADOW_STUB',description:'Phase 0L governance pilot — NOT_TRAINED. No fitted artifact exists. Governs SHADOW prediction collection and outcome tracking.'});
     const pilotVersion=await createModelVersion({model_id:pilotModel!.id,version:1,training_dataset_id:pilotDataset!.id,feature_set_version:1,validation_window_days:14,notes:'Pilot v1 — SHADOW deployment for outcome collection.'});
     assert('Model version created in DRAFT', pilotVersion?.status==='DRAFT');
     await promoteModelVersion(pilotVersion!.id,'VALIDATING',{name:'AutoValidator'},'Validation initiated');
@@ -437,7 +437,7 @@ async function main() {
     console.log('\n  ── SECTION 1: PILOT IDENTIFICATION ──');
     console.log(`  Model ID:                ${pilotModel!.id}`);
     console.log(`  Model Version ID:        ${pilotVersion!.id}`);
-    console.log(`  Algorithm:               GRADIENT_BOOSTED_TREES`);
+    console.log(`  Algorithm:               SHADOW_STUB (NOT_TRAINED)`);
     console.log(`  Asset Class / Population: CHILLER (${trainAst} assets in DB)`);
     console.log(`  Prediction Target:       FAILURE_WITHIN_14D`);
     console.log(`  Prediction Horizon:      14 days`);
