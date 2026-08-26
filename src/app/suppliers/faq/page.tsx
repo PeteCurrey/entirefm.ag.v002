@@ -1,80 +1,59 @@
-import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { SUPPLIER_FAQS } from '@/config/supplier-data';
+import { SupplierHero } from '@/components/suppliers/SupplierHero';
+import { InteractiveFaqHub } from '@/components/suppliers/interactive/InteractiveFaqHub';
 import { CommercialTransparencyBanner } from '@/components/suppliers/CommercialTransparencyBanner';
 import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
-import { HelpCircle, ChevronDown } from 'lucide-react';
+import { TrustBar } from '@/components/trust/TrustBar';
+import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
 
-export const metadata = {
-  title: 'Supplier Network FAQ | EntireFM',
-  description: 'Frequently asked questions for contractors, specialists, OEMs, and technology partners joining the EntireFM Partner Network.',
-};
+export const metadata: Metadata = generateRouteMetadata('/suppliers/faq', {
+  title: 'Supplier Network FAQ | Questions & Commercial Answers | EntireFM',
+  description:
+    'Frequently asked questions for contractors, specialists, OEMs, and technology partners joining the EntireFM Partner Network.',
+});
 
 export default function SupplierFaqPage() {
-  const categories = [
-    { key: 'GENERAL', label: 'General & Eligibility' },
-    { key: 'ASSURANCE', label: 'Vetting & Scoped Approvals' },
-    { key: 'MEMBERSHIP', label: 'Membership & Fees' },
-    { key: 'PAYMENTS', label: 'Operational Payments & Billing' },
-    { key: 'OPERATIONS', label: 'Work Allocation & Performance' },
-    { key: 'EVENTS_PARTNERS', label: 'Events & Industry Partners' },
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Suppliers', url: '/suppliers' },
+    { name: 'Frequently Asked Questions', url: '/suppliers/faq' },
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF9FB] text-slate-900 flex flex-col">
-      <Header solid />
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans">
+      <Header />
 
-      <main className="flex-1">
-        <section className="bg-slate-900 text-white py-16 lg:py-24">
-          <div className="container-custom max-w-5xl space-y-4">
-            <span className="text-[11px] font-light uppercase tracking-wider text-brand-pink font-bold">
-              TRANSPARENT ANSWERS
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight tracking-tight text-white max-w-3xl">
-              Supplier &amp; Partner Network FAQ
-            </h1>
-            <p className="text-sm sm:text-base text-slate-300 font-light max-w-2xl">
-              Direct, transparent answers regarding vetting, scoped approvals, commercial fees, operational payments, and work allocation.
-            </p>
-          </div>
-        </section>
+      <main id="main" className="flex-grow">
+        {/* 1. HERO */}
+        <SupplierHero
+          eyebrow="TRANSPARENT ADVISORY // SUPPLIER HELP DESK"
+          title="Supplier &amp; Partner"
+          subtitle="Network FAQ."
+          intro="Direct, transparent answers regarding vetting, scoped approvals, commercial fees, operational payments, and digital work order allocation."
+          imageSrc="/images/editorial/entirefm-client-review-2000w.webp"
+          imageAlt="EntireFM supplier helpdesk and commercial advisory team"
+          breadcrumbs={breadcrumbs}
+          primaryCta={{ label: 'Start Supplier Application', href: '/suppliers/apply' }}
+          secondaryCta={{ label: 'How We Work', href: '/suppliers/how-we-work' }}
+          facts={[
+            { figure: 'Instant Search', label: 'Knowledge Base', detail: 'Real-time question filter' },
+            { figure: 'Zero Hidden Fees', label: 'Commercial Terms', detail: 'Prompt BACS remittances' },
+            { figure: 'Direct Helpdesk', label: 'Support Desk', detail: 'Mon-Fri 08:00–17:30' },
+          ]}
+        />
 
-        <section className="py-16 container-custom max-w-5xl space-y-12">
-          {categories.map((cat) => {
-            const items = SUPPLIER_FAQS.filter((f) => f.category === cat.key);
-            if (items.length === 0) return null;
+        <TrustBar />
 
-            return (
-              <div key={cat.key} className="space-y-4">
-                <h2 className="text-lg font-light text-slate-900 pb-2 border-b border-slate-200">
-                  {cat.label}
-                </h2>
+        {/* 2. INTERACTIVE CATEGORIZED FAQ HUB */}
+        <InteractiveFaqHub />
 
-                <div className="divide-y divide-slate-200 bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden">
-                  {items.map((item) => (
-                    <details key={item.id} className="group p-5 hover:bg-slate-50/50 transition-colors">
-                      <summary className="font-bold text-slate-900 text-sm cursor-pointer list-none flex items-center justify-between gap-4">
-                        <span>{item.question}</span>
-                        <ChevronDown className="h-4 w-4 text-slate-400 group-open:rotate-180 transition-transform shrink-0" />
-                      </summary>
-                      <p className="text-xs text-slate-600 font-light mt-3 leading-relaxed font-sans">
-                        {item.answer}
-                      </p>
-                    </details>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+        {/* 3. COMMERCIAL TRANSPARENCY BANNER */}
+        <CommercialTransparencyBanner />
 
-          <div className="pt-8">
-            <CommercialTransparencyBanner />
-          </div>
-        </section>
-
-        {/* Related Supplier Information */}
+        {/* 4. Related Supplier Information */}
         <SupplierRelatedLinks
           eyebrow="SUPPLIER INFORMATION &amp; RESOURCES"
           heading="Related supplier information"

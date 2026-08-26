@@ -1,82 +1,137 @@
-import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { SupplierHero } from '@/components/suppliers/SupplierHero';
+import { OemDisciplineGrid } from '@/components/suppliers/interactive/OemDisciplineGrid';
 import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
-import { Cpu, Zap, Building2, ShieldCheck, ArrowRight, Wrench } from 'lucide-react';
+import { TrustBar } from '@/components/trust/TrustBar';
+import { 
+  Cpu, 
+  Zap, 
+  Building2, 
+  ShieldCheck, 
+  ArrowRight, 
+  Wrench, 
+  Award, 
+  CheckCircle2, 
+  Flame,
+  FileCheck
+} from 'lucide-react';
+import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
 
-export const metadata = {
-  title: 'Industry & Technology Partnerships | EntireFM',
-  description: 'Partner with EntireFM as an equipment manufacturer, OEM, or technology provider. Bring innovative building engineering solutions into live commercial property.',
-};
+export const metadata: Metadata = generateRouteMetadata('/suppliers/industry-partners', {
+  title: 'Industry & OEM Technology Alliances | Equipment Manufacturers | EntireFM',
+  description:
+    'Partner with EntireFM as an equipment manufacturer, OEM, or building technology provider. Direct factory warranty preservation, genuine spare parts, and pilot trials across live UK estates.',
+});
 
 export default function IndustryPartnersPublicPage() {
-  return (
-    <div className="min-h-screen bg-[#FAF9FB] text-slate-900 flex flex-col">
-      <Header solid />
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Suppliers', url: '/suppliers' },
+    { name: 'Industry & OEM Partners', url: '/suppliers/industry-partners' },
+  ];
 
-      <main className="flex-1">
-        <section className="bg-slate-900 text-white py-20 lg:py-28">
-          <div className="container-custom max-w-5xl space-y-6">
-            <span className="text-[11px] font-light uppercase tracking-wider text-brand-pink font-bold">
-              MANUFACTURERS, OEMS &amp; TECHNOLOGY
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight tracking-tight text-white max-w-3xl leading-tight">
-              Bring better ideas into real buildings.
-            </h1>
-            <p className="text-base sm:text-lg text-slate-300 font-light max-w-2xl leading-relaxed">
-              We collaborate with equipment manufacturers, controls companies, IoT sensor developers, and smart FM technology providers to optimize asset lifecycles and energy efficiency.
-            </p>
+  return (
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans">
+      <Header />
+
+      <main id="main" className="flex-grow">
+        {/* 1. HERO */}
+        <SupplierHero
+          eyebrow="MANUFACTURERS, OEMS &amp; TECHNOLOGY ALLIANCES"
+          title="Bring better ideas"
+          subtitle="into real buildings."
+          intro="We collaborate directly with equipment manufacturers, controls vendors, IoT sensor developers, and smart FM innovators to optimize asset lifecycles, preserve warranties, and maximize energy efficiency across live UK estates."
+          imageSrc="/images/editorial/entirefm-engineer-chiller-2000w.webp"
+          imageAlt="EntireFM engineering directors collaborating with OEM chiller manufacturer technicians"
+          breadcrumbs={breadcrumbs}
+          primaryCta={{ label: 'Explore OEM Collaboration', href: '/suppliers/apply' }}
+          secondaryCta={{ label: 'View Supplier Events', href: '/suppliers/events' }}
+          facts={[
+            { figure: 'Direct OEM', label: 'Warranty Preservation', detail: 'Factory-certified servicing' },
+            { figure: 'Genuine Parts', label: 'Direct Supply Chain', detail: 'Zero counterfeit risk' },
+            { figure: 'Live Testbed', label: 'Pilot Sandbox', detail: 'Validating smart technologies' },
+          ]}
+        />
+
+        <TrustBar />
+
+        {/* 2. OEM DISCIPLINE & ALLIANCE GRID */}
+        <OemDisciplineGrid />
+
+        {/* 3. THE MANUFACTURER COLLABORATION CHARTER (DARK BREAK) */}
+        <section className="py-24 bg-brand-graphite text-white border-t border-b border-brand-edge-dark relative overflow-hidden">
+          <div className="container-wide relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="text-[11px] font-normal uppercase tracking-wider text-brand-pink block font-medium">
+                  FACTORY INTEGRITY &amp; ASSET LIFECYCLE
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-white leading-tight">
+                  Protecting Manufacturer Warranties on Critical Commercial Assets
+                </h2>
+                <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
+                  Too often, non-certified third-party contractors void manufacturer warranties by using unapproved pattern parts or skipping factory commissioning steps. EntireFM builds direct reciprocal partnerships with OEMs to safeguard plant longevity.
+                </p>
+
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-start gap-3 p-4 bg-slate-900/80 border border-slate-800 rounded-sm">
+                    <ShieldCheck className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-xs font-medium text-white">100% Genuine OEM Spares</h4>
+                      <p className="text-[11.5px] text-slate-400 font-light mt-0.5">Sourced directly through manufacturer distribution with verifiable provenance certificates.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-4 bg-slate-900/80 border border-slate-800 rounded-sm">
+                    <Award className="h-5 w-5 text-brand-pink shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-xs font-medium text-white">Factory Training for EntireFM Technicians</h4>
+                      <p className="text-[11.5px] text-slate-400 font-light mt-0.5">Annual hands-on training courses at manufacturer technical centres across Daikin, Trane, Ideal, and Trend.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-6 bg-slate-950/90 border border-slate-800 rounded-sm p-8 sm:p-10 shadow-2xl space-y-5">
+                <span className="text-[10px] font-normal uppercase tracking-wider text-slate-400 block">
+                  MANUFACTURER ENGAGEMENT FORUMS
+                </span>
+                <h3 className="text-xl font-light text-white">
+                  Technical Roundtables &amp; Product Demo Days
+                </h3>
+                <p className="text-xs text-slate-300 font-light leading-relaxed">
+                  Join EntireFM’s Partner Network Technical Forums. Deliver direct engineering briefings to regional contractors, property managers, and building asset directors.
+                </p>
+                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+                  <span className="text-xs text-slate-400 font-light">Explore upcoming sessions</span>
+                  <Link href="/suppliers/events" className="btn-primary text-xs py-2.5 px-4">
+                    View Event Programme <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section className="py-16 container-custom max-w-5xl space-y-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs">
-            <div className="bg-white border border-slate-200 p-8 rounded-sm shadow-sm space-y-4">
-              <Wrench className="h-6 w-6 text-slate-900" />
-              <h3 className="text-lg font-bold text-slate-900 font-sans">Manufacturers &amp; OEMs</h3>
-              <p className="text-slate-600 font-light leading-relaxed">
-                Connect your factory-trained specialist network directly into EntireFM’s CAFM maintenance schedules for chillers, boilers, fire systems, and critical power infrastructure.
-              </p>
-              <ul className="space-y-1.5 text-slate-700 text-[11px]">
-                <li>&bull; Warranty-backed maintenance delivery</li>
-                <li>&bull; Technical education &amp; engineer workshops</li>
-                <li>&bull; Asset lifecycle &amp; parts intelligence</li>
-              </ul>
-            </div>
-
-            <div className="bg-white border border-slate-200 p-8 rounded-sm shadow-sm space-y-4">
-              <Cpu className="h-6 w-6 text-slate-900" />
-              <h3 className="text-lg font-bold text-slate-900 font-sans">Technology &amp; Innovation</h3>
-              <p className="text-slate-600 font-light leading-relaxed">
-                Integrate IoT telemetry, predictive analytics, drone surveying, and building intelligence feeds into live facilities management workflows.
-              </p>
-              <ul className="space-y-1.5 text-slate-700 text-[11px]">
-                <li>&bull; Potential technology evaluation &amp; agreed pilot opportunities (subject to client approval and suitability)</li>
-                <li>&bull; Energy &amp; carbon reduction validation</li>
-                <li>&bull; Joint technical briefings &amp; case studies</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
-            <div className="p-8 bg-slate-50 border border-slate-200 rounded-sm text-center space-y-4">
-              <h3 className="text-lg font-bold text-slate-900">Partner Network Events &amp; Forums</h3>
-              <p className="text-xs text-slate-600 font-light max-w-md mx-auto">
-                Explore our upcoming technical breakfasts, manufacturer sessions, and regional FM forums.
-              </p>
-              <Link href="/suppliers/events" className="btn-secondary text-xs py-2.5 px-6 inline-block">
-                View Event Programme &rarr;
+        {/* 4. CALL TO ACTION */}
+        <section className="py-20 bg-white border-b border-slate-200 text-center">
+          <div className="container-custom max-w-3xl space-y-6">
+            <span className="eyebrow eyebrow-light">STRATEGIC ALLIANCES</span>
+            <h2 className="text-3xl sm:text-4xl font-extralight text-slate-900">
+              Discuss an OEM or Technology Partnership
+            </h2>
+            <p className="text-sm text-slate-600 max-w-xl mx-auto font-light leading-relaxed">
+              Connect with our Head of Supply Chain &amp; Technical Governance to explore structured manufacturer agreements and joint technical training.
+            </p>
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
+              <Link href="/suppliers/apply" className="btn-primary">
+                Apply for Industry Partnership <ArrowRight className="h-4 w-4" />
               </Link>
-            </div>
-
-            <div className="p-8 bg-slate-50 border border-slate-200 rounded-sm text-center space-y-4">
-              <h3 className="text-lg font-bold text-slate-900">Discuss an Industry Partnership</h3>
-              <p className="text-xs text-slate-600 font-light max-w-md mx-auto">
-                Speak with our Head of Supply Chain &amp; Innovation to explore tailored technology or OEM collaboration.
-              </p>
-              <Link href="/contact-us" className="btn-primary text-xs py-2.5 px-6 inline-block">
-                Contact Innovation Team &rarr;
+              <Link href="/suppliers/events" className="btn-ghost-dark">
+                Explore Partner Events Hub
               </Link>
             </div>
           </div>
@@ -110,12 +165,6 @@ export default function IndustryPartnersPublicPage() {
               href: '/suppliers/sustainability',
               description: 'Responsible sourcing, carbon targets, and supply chain ESG commitments.',
               tag: 'ESG',
-            },
-            {
-              title: 'Become a Supplier',
-              href: '/suppliers/apply',
-              description: 'Start your OEM or technology provider application today.',
-              tag: 'APPLY',
             },
           ]}
         />

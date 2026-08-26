@@ -3,14 +3,15 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
-import { AssuranceFrameworkGraphic } from '@/components/suppliers/AssuranceFrameworkGraphic';
+import { VettingPillarMatrix } from '@/components/suppliers/interactive/VettingPillarMatrix';
+import { ComplianceRadarGraphic } from '@/components/suppliers/interactive/ComplianceRadarGraphic';
 import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ArrowRight, CheckCircle2, ShieldCheck, FileText, AlertTriangle, Building, Award } from 'lucide-react';
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
 
 export const metadata: Metadata = generateRouteMetadata('/suppliers/vetting', {
-  title: 'Supplier Vetting & Assurance Framework | EntireFM',
+  title: 'Supplier Vetting & Assurance Framework | Risk-Based Governance | EntireFM',
   description:
     'Learn how EntireFM vets subcontractors and specialist suppliers using a proportionate, risk-based assurance framework covering corporate standing, insurance, health & safety, and trade certifications.',
 });
@@ -23,10 +24,11 @@ export default function VettingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col">
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans">
       <Header />
 
       <main id="main" className="flex-grow">
+        {/* 1. HERO */}
         <SupplierHero
           eyebrow="SUPPLY CHAIN GOVERNANCE // RISK-BASED VETTING"
           title="Proportionate vetting."
@@ -38,95 +40,127 @@ export default function VettingPage() {
           primaryCta={{ label: 'Start Supplier Application', href: '/suppliers/apply' }}
           secondaryCta={{ label: 'Review Insurance Thresholds', href: '/suppliers/compliance' }}
           facts={[
-            { figure: 'Risk-Based', label: 'Assurance Model', detail: 'Tailored to trade & scope' },
-            { figure: '£5M–£20M', label: 'Public Liability', detail: 'Direct broker verification' },
+            { figure: '6 Pillars', label: 'Assurance Framework', detail: 'Tailored to trade risk & scope' },
+            { figure: '£5M–£10M', label: 'Public Liability', detail: 'Direct broker verification' },
             { figure: 'SSIP Aligned', label: 'Health & Safety', detail: 'CHAS, SafeContractor, SMAS' },
           ]}
         />
 
         <TrustBar />
 
-        {/* CORE ASSURANCE GRAPHIC & 4 PILLARS */}
-        <AssuranceFrameworkGraphic />
+        {/* 2. 6-PILLAR INTERACTIVE VETTING MATRIX */}
+        <VettingPillarMatrix />
 
-        {/* TRADE-SPECIFIC COMPETENCIES */}
+        {/* 3. PROPORTIONAL RISK-BASED TIERING SECTION */}
         <section className="py-24 bg-[#FAF9FB] border-b border-slate-200">
           <div className="container-wide">
             <div className="max-w-3xl mb-16">
-              <span className="eyebrow eyebrow-light">TECHNICAL ACCREDITATION SCHEMES</span>
-              <h2 className="mt-3 text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
-                Trade-Specific Competence Benchmarks
+              <span className="eyebrow eyebrow-light">RISK-PROPORTIONAL MODEL</span>
+              <h2 className="mt-3 text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900 leading-tight">
+                Why Our Vetting Is Strictly Proportional
               </h2>
               <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
-                Requirements are determined strictly by the services being supplied. No certification is universally mandatory unless legally required for that discipline.
+                We believe heavy, one-size-fits-all questionnaires penalise regional craft SMEs without improving site safety. Our framework scales dynamically based on trade hazard.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  trade: 'Electrical Systems',
-                  schemes: ['NICEIC Approved Contractor', 'NAPIT Registered', 'ECA Member', '18th Edition BS 7671 Qualified'],
-                  notes: 'Mandatory for all fixed-wire inspection, testing, EV charger installation, and distribution maintenance.',
-                },
-                {
-                  trade: 'Commercial Gas & Heating',
-                  schemes: ['Gas Safe Register (Commercial)', 'OFTEC (Oil Fired)', 'CIBSE Associated', 'Combustion Analysis Certified'],
-                  notes: 'Mandatory for non-domestic gas pipework, commercial boilers, warm air heaters, and catering gas.',
-                },
-                {
-                  trade: 'HVAC & Refrigeration',
-                  schemes: ['F-Gas Company Certified', 'REFCOM Elite', 'ACRIB Registered', 'BESA Member'],
-                  notes: 'Mandatory for split AC, VRF/VRV systems, chillers, and refrigerant leak containment.',
-                },
-                {
-                  trade: 'Specialist Access & Façade',
-                  schemes: ['IRATA Member Company', 'IPAF Powered Access', 'PASMA Mobile Towers', 'LEEA Certified Riggers'],
-                  notes: 'Mandatory for all working at height, rope access maintenance, BMU cradle testing, and abseil operations.',
-                },
-                {
-                  trade: 'Fire & Life Safety',
-                  schemes: ['BAFE SP203 / SP101', 'FIA Member', 'FIRAS Certified Fire Doors', 'BM TRADA Q-Mark'],
-                  notes: 'Mandatory for addressable fire alarms, automated suppression, smoke venting, and certified fire door remedials.',
-                },
-                {
-                  trade: 'Water Hygiene & Legionella',
-                  schemes: ['Legionella Control Association (LCA)', 'Water Management Society', 'City & Guilds Water Treatment'],
-                  notes: 'Mandatory for ACOP L8 risk assessments, calorifier inspections, CWST cleaning, and UKAS sampling.',
-                },
-              ].map((item, idx) => (
-                <div key={idx} className="p-6 bg-white border border-slate-200 rounded-sm shadow-sm space-y-3">
-                  <span className="text-[10px] font-light uppercase tracking-wider text-slate-400">DISCIPLINE 0{idx + 1}</span>
-                  <h3 className="text-base font-light text-slate-900">{item.trade}</h3>
-                  <div className="space-y-1.5 pt-2">
-                    {item.schemes.map((s, sIdx) => (
-                      <div key={sIdx} className="flex items-center gap-2 text-xs text-slate-700 font-normal">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-brand-pink shrink-0" />
-                        <span>{s}</span>
-                      </div>
-                    ))}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-4">
+                <span className="text-[10.5px] font-normal uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-sm border border-emerald-200/80 inline-block font-medium">
+                  LOW RISK TIER // FAST-TRACK
+                </span>
+                <h3 className="text-xl font-light text-slate-900">Ground-Level &amp; Low-Hazard Trades</h3>
+                <p className="text-xs text-slate-600 font-light leading-relaxed">
+                  Cleaners, grounds maintenance, interior decorators, and pest control. 
+                </p>
+                <div className="space-y-2 pt-3 border-t border-slate-100 text-xs text-slate-700 font-light">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                    <span>£5M Public Liability</span>
                   </div>
-                  <p className="text-[11.5px] text-slate-500 pt-3 border-t border-slate-100 font-light leading-relaxed">
-                    {item.notes}
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                    <span>Basic COSHH &amp; Risk Assessments</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                    <span>Turnaround: 1–2 business days</span>
+                  </div>
                 </div>
-              ))}
+              </div>
+
+              <div className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-4">
+                <span className="text-[10.5px] font-normal uppercase tracking-wider text-blue-700 bg-blue-50 px-2.5 py-1 rounded-sm border border-blue-200/80 inline-block font-medium">
+                  MEDIUM RISK TIER // CORE FM
+                </span>
+                <h3 className="text-xl font-light text-slate-900">Building Services &amp; Light M&amp;E</h3>
+                <p className="text-xs text-slate-600 font-light leading-relaxed">
+                  Plumbers, joiners, low-voltage electrical installers, and automatic door technicians.
+                </p>
+                <div className="space-y-2 pt-3 border-t border-slate-100 text-xs text-slate-700 font-light">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-blue-600 shrink-0" />
+                    <span>£5M–£10M Public Liability</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-blue-600 shrink-0" />
+                    <span>Trade Competence (NICEIC, CSCS)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-blue-600 shrink-0" />
+                    <span>Turnaround: 2–3 business days</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-4">
+                <span className="text-[10.5px] font-normal uppercase tracking-wider text-brand-pink bg-rose-50 px-2.5 py-1 rounded-sm border border-rose-200/80 inline-block font-semibold">
+                  HIGH HAZARD TIER // STATUTORY
+                </span>
+                <h3 className="text-xl font-light text-slate-900">Commercial Gas, HVAC, High-Rise Access</h3>
+                <p className="text-xs text-slate-600 font-light leading-relaxed">
+                  Chillers, steam boilers, rope access façade maintenance, and high voltage distribution.
+                </p>
+                <div className="space-y-2 pt-3 border-t border-slate-100 text-xs text-slate-700 font-light">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-brand-pink shrink-0" />
+                    <span>£10M PL + £2M–£5M PI</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-brand-pink shrink-0" />
+                    <span>Gas Safe, REFCOM, IRATA, SSIP</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-brand-pink shrink-0" />
+                    <span>Turnaround: 3–5 business days</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* CTA */}
+        {/* 4. DYNAMIC COMPLIANCE RADAR (DARK BREAK) */}
+        <ComplianceRadarGraphic />
+
+        {/* 5. CALL TO ACTION */}
         <section className="py-20 bg-brand-carbon text-white border-t border-brand-edge-dark text-center">
           <div className="container-custom max-w-3xl space-y-6">
-            <h2 className="text-3xl font-extralight text-white">
+            <span className="text-xs font-light uppercase tracking-wider text-brand-pink">
+              SUPPLIER ONBOARDING
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extralight text-white">
               Ready to verify your business credentials?
             </h2>
             <p className="text-sm text-brand-mist/80 max-w-xl mx-auto font-light leading-relaxed">
               Submit your company details, trade disciplines, and insurance levels for prompt Stage 1 qualification.
             </p>
-            <div className="pt-2">
-              <Link href="/suppliers/apply" className="btn-primary inline-flex">
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
+              <Link href="/suppliers/apply" className="btn-primary">
                 Begin Supplier Application <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/suppliers/onboarding" className="btn-ghost-light">
+                Explore Onboarding Stages
               </Link>
             </div>
           </div>
@@ -150,22 +184,16 @@ export default function VettingPage() {
               tag: 'ONBOARDING',
             },
             {
-              title: 'Compliance & Insurance',
+              title: 'Compliance & Safety',
               href: '/suppliers/compliance',
-              description: 'Public liability thresholds, dynamic RAMS, CSCS verification, and annual audits.',
+              description: 'Statutory insurance matrices, dynamic RAMS, and competence card rules.',
               tag: 'COMPLIANCE',
             },
             {
               title: 'How We Work',
               href: '/suppliers/how-we-work',
-              description: '12-stage operational journey from registration to work allocation and invoicing.',
+              description: '12-stage operational journey from registration to work delivery.',
               tag: 'PROCESS',
-            },
-            {
-              title: 'Start Application',
-              href: '/suppliers/apply',
-              description: 'Submit your trade qualifications to join the approved supply chain.',
-              tag: 'APPLY',
             },
           ]}
         />

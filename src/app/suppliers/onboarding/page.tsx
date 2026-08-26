@@ -3,16 +3,19 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SupplierHero } from '@/components/suppliers/SupplierHero';
+import { OnboardingPhaseTimeline } from '@/components/suppliers/interactive/OnboardingPhaseTimeline';
+import { ScopedApprovalGraphic } from '@/components/suppliers/ScopedApprovalGraphic';
+import { PaymentPerformanceBanner } from '@/components/suppliers/interactive/PaymentPerformanceBanner';
 import { SupplierLifecycleModel } from '@/components/suppliers/SupplierLifecycleModel';
 import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
 import { TrustBar } from '@/components/trust/TrustBar';
-import { ArrowRight, CheckCircle2, FileText, Upload, Clock, UserCheck, ShieldCheck, Laptop } from 'lucide-react';
+import { ArrowRight, CheckCircle2, FileText, Upload, Clock, UserCheck, ShieldCheck, Laptop, Lock } from 'lucide-react';
 import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
 
 export const metadata: Metadata = generateRouteMetadata('/suppliers/onboarding', {
-  title: 'Supplier Onboarding Journey & Lifecycle Model | EntireFM',
+  title: 'Supplier Onboarding Journey & Mobilisation Protocol | EntireFM',
   description:
-    'Learn about EntireFM’s structured 10-stage supplier onboarding process and digital lifecycle model, from initial application to preferred partner activation.',
+    'Learn about EntireFM’s structured 4-phase supplier onboarding protocol, document vault due diligence, dual-control banking security, and digital CAFM dispatch activation.',
 });
 
 export default function OnboardingPage() {
@@ -23,10 +26,11 @@ export default function OnboardingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col">
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans">
       <Header />
 
       <main id="main" className="flex-grow">
+        {/* 1. HERO */}
         <SupplierHero
           eyebrow="SUPPLIER MOBILISATION // ONBOARDING ROADMAP"
           title="Structured onboarding."
@@ -38,105 +42,95 @@ export default function OnboardingPage() {
           primaryCta={{ label: 'Start Supplier Application', href: '/suppliers/apply' }}
           secondaryCta={{ label: 'Review Required Documents', href: '/suppliers/compliance' }}
           facts={[
-            { figure: '10 Stages', label: 'Structured Journey', detail: 'From registration to portal dispatch' },
-            { figure: '3-5 Days', label: 'Average Review SLA', detail: 'Rapid Stage 1 due diligence' },
-            { figure: 'Direct Support', label: 'Procurement Desk', detail: 'Dedicated onboarding team' },
+            { figure: '4 Phases', label: 'Structured Protocol', detail: 'From profile to live CAFM dispatch' },
+            { figure: '1-2 Days', label: 'Average Review SLA', detail: 'Rapid desk due diligence' },
+            { figure: 'Dual-Control', label: 'Banking Security', detail: 'Independent voice verification' },
           ]}
         />
 
         <TrustBar />
 
-        {/* 10-STAGE ONBOARDING SEQUENCE */}
-        <section className="py-24 bg-white border-b border-slate-200">
-          <div className="container-wide">
-            <div className="max-w-3xl mb-16">
-              <span className="eyebrow eyebrow-light">ONBOARDING TIMELINE</span>
-              <h2 className="mt-3 text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
-                The 10-Stage Supplier Onboarding Workflow
-              </h2>
-              <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
-                We maintain clear distinction between our <strong>current online qualification process</strong> and the forthcoming <strong>automated CAFM portal onboarding workflow</strong>.
-              </p>
-            </div>
+        {/* 2. 4-PHASE ONBOARDING TIMELINE ENGINE */}
+        <OnboardingPhaseTimeline />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-              {[
-                { step: '01', title: 'Business Profile', desc: 'Submit registered legal details, company numbers, and operational structure.' },
-                { step: '02', title: 'Scope & Coverage', desc: 'Select specific trade disciplines and primary geographic operating regions.' },
-                { step: '03', title: 'Insurance Upload', desc: 'Provide current Public, Employers, and Professional Indemnity schedules.' },
-                { step: '04', title: 'Competency Audit', desc: 'Verify trade scheme registrations (Gas Safe, NICEIC, F-Gas, IRATA, SSIP).' },
-                { step: '05', title: 'Commercial Info', desc: 'Provide VAT registration, standard rate cards, and verified bank details.' },
-                { step: '06', title: 'EntireFM Review', desc: 'Due diligence assessment by our supply chain governance desk.' },
-                { step: '07', title: 'Approval Decision', desc: 'Formal approval notification and supplier status classification.' },
-                { step: '08', title: 'Supplier Agreement', desc: 'Execute standard subcontract terms and Code of Conduct acceptance.' },
-                { step: '09', title: 'Portal Activation', desc: 'Issuance of EntireCAFM mobile credentials and dispatch training.' },
-                { step: '10', title: 'Work Allocation', desc: 'Eligible for automated work order dispatch across client estates.' },
-              ].map((stage) => (
-                <div key={stage.step} className="p-5 bg-[#FAF9FB] border border-slate-200 rounded-sm flex flex-col justify-between">
-                  <div>
-                    <span className="text-[11px] font-light text-brand-pink mb-2 block">
-                      STAGE {stage.step}
-                    </span>
-                    <h3 className="text-sm font-normal text-slate-900 mb-1">{stage.title}</h3>
-                    <p className="text-xs text-slate-600 font-light leading-relaxed">{stage.desc}</p>
+        {/* 3. DUAL-CONTROL BANKING VERIFICATION & ANTI-FRAUD SECTION */}
+        <section className="py-24 bg-[#FAF9FB] border-b border-slate-200">
+          <div className="container-wide">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="eyebrow eyebrow-light">GOVERNANCE &amp; FRAUD PREVENTION</span>
+                <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900 leading-tight">
+                  Dual-Control Bank Mandate Verification
+                </h2>
+                <p className="text-sm sm:text-base text-slate-600 font-light leading-relaxed">
+                  Supplier payment security is of paramount importance. To protect our supply chain from invoice fraud, CEO impersonation, and fraudulent mandate change requests, EntireFM enforces a strict dual-control protocol.
+                </p>
+
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-start gap-3 p-4 bg-white rounded-sm border border-slate-200 shadow-sm">
+                    <Lock className="h-5 w-5 text-brand-pink shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-xs font-medium text-slate-900">Masked Remittance Database</h4>
+                      <p className="text-[12px] text-slate-600 font-light mt-0.5">Bank sort codes and account numbers are encrypted at rest with zero plain-text display across portal logs.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-4 bg-white rounded-sm border border-slate-200 shadow-sm">
+                    <UserCheck className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-xs font-medium text-slate-900">Independent Out-of-Band Phone Call</h4>
+                      <p className="text-[12px] text-slate-600 font-light mt-0.5">Prior to releasing the first BACS remittance, our finance director conducts a verbal telephone confirmation with your designated financial officer.</p>
+                    </div>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              <div className="lg:col-span-6 bg-slate-900 text-white p-8 sm:p-10 rounded-sm border border-slate-800 shadow-xl space-y-5">
+                <span className="text-[10px] font-normal uppercase tracking-wider text-brand-pink block">
+                  ZERO PAYMENT HIJACKING PLEDGE
+                </span>
+                <h3 className="text-xl font-light text-white">
+                  How We Protect Your Invoiced Earnings
+                </h3>
+                <p className="text-xs text-slate-300 font-light leading-relaxed">
+                  No bank change request sent via email will ever be processed without physical voice verification to your registered company landline. This eliminates 100% of phishing and unauthorized account change attempts.
+                </p>
+                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+                  <span className="text-xs text-slate-400 font-light">100% Protected Remittances</span>
+                  <Link href="/suppliers/apply" className="btn-primary text-xs py-2 px-4">
+                    Begin Qualification <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* SUPPLIER LIFECYCLE MODEL */}
-        <SupplierLifecycleModel />
+        {/* 4. SCOPED APPROVAL ARCHITECTURE */}
+        <ScopedApprovalGraphic />
 
-        {/* PERFORMANCE & PROGRESSION */}
-        <section className="py-24 bg-white border-b border-slate-200">
-          <div className="container-wide">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <span className="eyebrow eyebrow-light">PERFORMANCE GOVERNANCE</span>
-                <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
-                  Active Supplier Performance Management
-                </h2>
-                <p className="text-sm sm:text-base text-slate-600 font-light leading-relaxed">
-                  Approved supplier status is never passive. EntireFM evaluates supply chain performance continuously across 12 quantitative metrics:
-                </p>
+        {/* 5. PAYMENT & PERFORMANCE COMMERCIAL COMMITMENT (DARK BREAK) */}
+        <PaymentPerformanceBanner />
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                  {[
-                    'SLA Response & Attendance Times',
-                    'First-Time Fix Ratios',
-                    'Evidence & Photographic Quality',
-                    'Statutory Certificate Turnaround',
-                    'Operative H&S & RAMS Compliance',
-                    'Invoice Accuracy vs Rate Card',
-                    'Client & Tenant Feedback Scores',
-                    'Environmental & Waste Compliance',
-                  ].map((metric, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-slate-700 p-2.5 bg-[#FAF9FB] rounded-sm border border-slate-200">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                      <span>{metric}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-brand-graphite text-white p-8 sm:p-10 rounded-sm border border-brand-edge-dark space-y-5">
-                <span className="text-[10.5px] font-light uppercase tracking-wider text-brand-electric-bright">
-                  COMMERCIAL REWARDS
-                </span>
-                <h3 className="text-xl font-light text-white">
-                  Progression to Preferred Partner Status
-                </h3>
-                <p className="text-xs sm:text-sm text-brand-mist/80 font-light leading-relaxed">
-                  Consistently high-performing suppliers unlock significant commercial advantages, including priority work order dispatch, long-term estate frameworks, and regional exclusivity.
-                </p>
-                <div className="pt-4 border-t border-white/10">
-                  <Link href="/suppliers/apply" className="btn-primary text-xs w-full justify-center">
-                    Start Your Application <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
+        {/* 6. CALL TO ACTION */}
+        <section className="py-20 bg-brand-carbon text-white border-t border-brand-edge-dark text-center">
+          <div className="container-custom max-w-4xl space-y-6">
+            <span className="text-xs font-light uppercase tracking-wider text-brand-pink">
+              SUPPLIER ONBOARDING
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extralight text-white">
+              Start Your Onboarding Journey Today
+            </h2>
+            <p className="text-sm text-brand-mist/80 max-w-2xl mx-auto font-light leading-relaxed">
+              Submit your Stage 1 company profile. Our supply chain onboarding desk will review your trade scope and guide you through evidence vault verification.
+            </p>
+            <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+              <Link href="/suppliers/apply" className="btn-primary">
+                Start Stage 1 Application <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/suppliers/vetting" className="btn-ghost-light">
+                Review 6-Pillar Vetting
+              </Link>
             </div>
           </div>
         </section>
@@ -149,32 +143,26 @@ export default function OnboardingPage() {
             {
               title: 'Supplier Vetting',
               href: '/suppliers/vetting',
-              description: '6-pillar risk-proportional assessment before scoped approval.',
+              description: 'The 6-pillar assessment framework applied before site allocation.',
               tag: 'VETTING',
             },
             {
               title: 'Supplier Standards',
               href: '/suppliers/standards',
-              description: 'Operational principles and ethical Code of Conduct requirements.',
+              description: 'Operational principles, ethical benchmarks, and the Supplier Code of Conduct.',
               tag: 'STANDARDS',
             },
             {
-              title: 'Compliance & Insurance',
+              title: 'Compliance & Safety',
               href: '/suppliers/compliance',
-              description: 'Insurance schedules, RAMS templates, and certificate tracking.',
+              description: 'Statutory insurance schedules, dynamic RAMS, and competence matrices.',
               tag: 'COMPLIANCE',
             },
             {
               title: 'How We Work',
               href: '/suppliers/how-we-work',
-              description: 'Complete 12-stage journey from registration to work allocation.',
-              tag: 'LIFECYCLE',
-            },
-            {
-              title: 'Start Application',
-              href: '/suppliers/apply',
-              description: 'Begin your supplier pre-qualification submission today.',
-              tag: 'APPLY',
+              description: '12-stage operational journey from onboarding to continuous delivery.',
+              tag: 'PROCESS',
             },
           ]}
         />

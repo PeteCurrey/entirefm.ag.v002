@@ -1,163 +1,133 @@
-import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { CommercialTransparencyBanner } from '@/components/suppliers/CommercialTransparencyBanner';
+import { SupplierHero } from '@/components/suppliers/SupplierHero';
 import { MembershipTierCards } from '@/components/suppliers/MembershipTierCards';
+import { CommercialTransparencyBanner } from '@/components/suppliers/CommercialTransparencyBanner';
 import { SupplierRelatedLinks } from '@/components/suppliers/SupplierRelatedLinks';
+import { TrustBar } from '@/components/trust/TrustBar';
 import { CANONICAL_PUBLIC_PRICING } from '@/config/supplier-data';
-import { CreditCard, FileText, Lock, ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
+import { CreditCard, FileText, Lock, ShieldCheck, CheckCircle2, ArrowRight, Scale, Award } from 'lucide-react';
+import { generateRouteMetadata } from '@/lib/metadata/generate-metadata';
 
-export const metadata = {
-  title: 'Supplier Membership & Fees | EntireFM Partner Network',
-  description: 'Transparent supplier membership fees and commercial framework for the EntireFM Partner Network. Understand what fees support and our strict procurement firewall.',
-};
+export const metadata: Metadata = generateRouteMetadata('/suppliers/membership', {
+  title: 'Supplier Membership & Commercial Framework | EntireFM Partner Network',
+  description:
+    'Transparent supplier membership fees and commercial framework for the EntireFM Partner Network. Understand what fees support and our strict procurement firewall.',
+});
 
 export default function SupplierMembershipPublicPage() {
-  const fee = CANONICAL_PUBLIC_PRICING.INITIAL_ASSURANCE_REVIEW;
-
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Suppliers', url: '/suppliers' },
     { name: 'Membership & Fees', url: '/suppliers/membership' },
   ];
 
-  const relatedLinks = [
-    {
-      title: 'Partner Network',
-      href: '/suppliers/partner-network',
-      description: 'Collaborative ecosystem for regional contractors, specialists, OEMs, and innovators.',
-      tag: 'NETWORK',
-    },
-    {
-      title: 'Events & Forums',
-      href: '/suppliers/events',
-      description: 'Technical breakfasts, manufacturer seminars, training days, and industry roundtables.',
-      tag: 'EVENTS',
-    },
-    {
-      title: 'How We Work',
-      href: '/suppliers/how-we-work',
-      description: 'Understand the 12-stage operational journey from registration to work allocation.',
-      tag: 'LIFECYCLE',
-    },
-    {
-      title: 'Supplier FAQ',
-      href: '/suppliers/faq',
-      description: 'Clear answers on assurance fees, commercial separation, and payment terms.',
-      tag: 'FAQ',
-    },
-    {
-      title: 'Become a Supplier',
-      href: '/suppliers/apply',
-      description: 'Start your pre-qualification submission to join the EntireFM supplier network.',
-      tag: 'APPLY',
-    },
-  ];
-
   return (
-    <div className="min-h-screen bg-[#FAF9FB] text-slate-900 flex flex-col">
-      <Header solid />
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans">
+      <Header />
 
-      <main className="flex-1">
-        {/* Hero */}
-        <section className="bg-slate-900 text-white py-20 lg:py-28">
-          <div className="container-custom max-w-5xl space-y-6">
-            <Breadcrumbs items={breadcrumbs} />
+      <main id="main" className="flex-grow">
+        {/* 1. HERO */}
+        <SupplierHero
+          eyebrow="COMMERCIAL TRANSPARENCY // GOVERNANCE FIREWALL"
+          title="Transparent membership."
+          subtitle="Independent procurement."
+          intro="EntireFM operates a commercial Partner Network supporting supplier administration, digital services, ongoing engagement, and network activity. Commercial membership remains strictly separate from technical assurance, statutory approval, and work order allocation decisions."
+          imageSrc="/images/editorial/entirefm-hero-headquarters-2560w.webp"
+          imageAlt="EntireFM commercial headquarters and supplier governance centre"
+          breadcrumbs={breadcrumbs}
+          primaryCta={{ label: 'Start Supplier Application', href: '/suppliers/apply' }}
+          secondaryCta={{ label: 'How We Work', href: '/suppliers/how-we-work' }}
+          facts={[
+            { figure: '100% Ringfenced', label: 'Assurance Quality', detail: 'Funded vetting & admin' },
+            { figure: 'Strict Firewall', label: 'Procurement Integrity', detail: 'No pay-to-win work' },
+            { figure: 'Zero Hidden Fees', label: 'Complete Transparency', detail: 'Zero invoice discounting' },
+          ]}
+        />
 
-            <div className="space-y-4">
-              <span className="text-[11px] font-normal uppercase tracking-wider text-brand-pink block font-medium">
-                COMMERCIAL TRANSPARENCY &amp; GOVERNANCE
-              </span>
-              <h1 className="text-3xl sm:text-5xl font-extralight tracking-tight text-white max-w-3xl leading-tight">
-                Transparent membership. Independent procurement.
-              </h1>
-              <p className="text-base sm:text-lg text-slate-300 font-light max-w-2xl leading-relaxed">
-                EntireFM operates a commercial Partner Network supporting supplier administration, digital services, ongoing engagement and network activity. Membership remains separate from supplier assurance, operational approval and procurement decisions.
+        <TrustBar />
+
+        {/* 2. COMMERCIAL TRANSPARENCY BANNER */}
+        <CommercialTransparencyBanner />
+
+        {/* 3. MEMBERSHIP TIERS */}
+        <section className="py-24 bg-white border-b border-slate-200">
+          <div className="container-wide">
+            <div className="max-w-3xl mb-16">
+              <span className="eyebrow eyebrow-light">PARTNER NETWORK TIERS</span>
+              <h2 className="mt-3 text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900 leading-tight">
+                Commercial Membership Structures
+              </h2>
+              <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
+                Choose the commercial participation level that fits your business scale and growth objectives.
               </p>
             </div>
+
+            <MembershipTierCards />
           </div>
         </section>
 
-        {/* Strategic Framing Note */}
-        <section className="py-8 bg-white border-b border-slate-200">
-          <div className="container-custom max-w-5xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-slate-600">
-            <p className="font-light">
-              Looking to understand how commercial tiers relate to operational work orders? Read <Link href="/suppliers/how-we-work" className="text-slate-900 font-medium underline hover:text-brand-pink">How We Work</Link> or view our <Link href="/suppliers/events" className="text-slate-900 font-medium underline hover:text-brand-pink">Events &amp; Forums Programme</Link>.
-            </p>
-            <Link href="/suppliers/apply" className="btn-primary text-xs py-2 px-4 shrink-0">
-              Start Application →
-            </Link>
-          </div>
-        </section>
-
-        {/* Tiers */}
-        <section className="py-16 container-custom max-w-5xl space-y-12">
-          <MembershipTierCards />
-        </section>
-
-        {/* Membership Comparison Matrix */}
-        <section className="py-12 bg-white border-y border-slate-200">
-          <div className="container-custom max-w-5xl space-y-6">
-            <div className="space-y-1">
-              <span className="text-[10px] font-normal uppercase tracking-wider text-slate-400 font-medium">
-                RELATIONSHIP &amp; COMMERCIAL COMPARISON
-              </span>
-              <h2 className="text-2xl font-light text-slate-900">
+        {/* 4. RELATIONSHIP VS PRODUCT MATRIX */}
+        <section className="py-24 bg-[#FAF9FB] border-b border-slate-200">
+          <div className="container-wide space-y-10">
+            <div className="max-w-3xl">
+              <span className="eyebrow eyebrow-light">RELATIONSHIP &amp; COMMERCIAL COMPARISON</span>
+              <h2 className="mt-3 text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900 leading-tight">
                 Supplier Relationships vs Commercial Products
               </h2>
-              <p className="text-xs text-slate-600 font-light">
-                Understanding the clear separation between technical assurance status, commercial memberships, and earned relationships.
+              <p className="mt-3 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
+                We maintain an explicit separation between technical assurance status, commercial memberships, and earned relationships.
               </p>
             </div>
 
-            <div className="overflow-x-auto border border-slate-200 rounded-sm">
+            <div className="overflow-x-auto border border-slate-200 rounded-sm bg-white shadow-sm">
               <table className="w-full text-left text-xs font-sans">
                 <thead className="bg-slate-900 text-white font-light uppercase tracking-wider text-[10.5px]">
                   <tr>
-                    <th className="p-3.5">Relationship / Product</th>
-                    <th className="p-3.5">Category</th>
-                    <th className="p-3.5">Commercial Fee</th>
-                    <th className="p-3.5">What It Means</th>
+                    <th className="p-4">Relationship / Product</th>
+                    <th className="p-4">Category</th>
+                    <th className="p-4">Commercial Fee</th>
+                    <th className="p-4">What It Means</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-200 bg-white">
+                <tbody className="divide-y divide-slate-200">
                   <tr className="hover:bg-slate-50/50">
-                    <td className="p-3.5 font-bold text-slate-900">Registered Supplier</td>
-                    <td className="p-3.5 text-[11px] text-slate-500">Commercial Tier</td>
-                    <td className="p-3.5 font-light text-slate-900">£0</td>
-                    <td className="p-3.5 text-slate-600">Initial profile registration and intake access. Does not constitute approval.</td>
+                    <td className="p-4 font-normal text-slate-900">Registered Supplier</td>
+                    <td className="p-4 text-[11px] text-slate-500">Commercial Tier</td>
+                    <td className="p-4 font-light text-slate-900">£0</td>
+                    <td className="p-4 text-slate-600 font-light">Initial profile registration and intake access. Does not constitute technical approval.</td>
                   </tr>
                   <tr className="hover:bg-slate-50/50">
-                    <td className="p-3.5 font-bold text-slate-900">Supplier Network Membership</td>
-                    <td className="p-3.5 text-[11px] text-slate-500">Commercial Product</td>
-                    <td className="p-3.5 font-light text-slate-900">£495 + VAT/yr</td>
-                    <td className="p-3.5 text-slate-600">Commercial network membership, digital portal tools, and compliance administration.</td>
+                    <td className="p-4 font-normal text-slate-900">Supplier Network Membership</td>
+                    <td className="p-4 text-[11px] text-slate-500">Commercial Product</td>
+                    <td className="p-4 font-light text-slate-900">£495 + VAT/yr</td>
+                    <td className="p-4 text-slate-600 font-light">Commercial network membership, digital portal tools, and continuous compliance administration.</td>
                   </tr>
                   <tr className="hover:bg-slate-50/50">
-                    <td className="p-3.5 font-bold text-slate-900">Network Partner Membership</td>
-                    <td className="p-3.5 text-[11px] text-slate-500">Commercial Product</td>
-                    <td className="p-3.5 font-light text-slate-900">£1,250 + VAT/yr</td>
-                    <td className="p-3.5 text-slate-600">Expanded commercial network participation with multi-user access and forum benefits.</td>
+                    <td className="p-4 font-normal text-slate-900">Network Partner Membership</td>
+                    <td className="p-4 text-[11px] text-slate-500">Commercial Product</td>
+                    <td className="p-4 font-light text-slate-900">£1,250 + VAT/yr</td>
+                    <td className="p-4 text-slate-600 font-light">Expanded commercial network participation with multi-user access and forum benefits.</td>
                   </tr>
                   <tr className="hover:bg-slate-50/50 bg-emerald-50/20">
-                    <td className="p-3.5 font-bold text-emerald-950">Approved / Verified Supplier</td>
-                    <td className="p-3.5 text-[11px] text-emerald-800">Assurance Outcome</td>
-                    <td className="p-3.5 font-medium text-slate-400">Not purchasable</td>
-                    <td className="p-3.5 text-slate-600">Organisation that has completed the technical assurance process for defined services and regions.</td>
+                    <td className="p-4 font-normal text-emerald-950 flex items-center gap-1.5">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                      Approved / Verified Supplier
+                    </td>
+                    <td className="p-4 text-[11px] text-emerald-800">Assurance Outcome</td>
+                    <td className="p-4 font-medium text-slate-400">Not purchasable</td>
+                    <td className="p-4 text-slate-600 font-light">Organisation that has completed the technical 6-pillar assurance process for defined services and regions.</td>
                   </tr>
-                  <tr className="hover:bg-slate-50/50">
-                    <td className="p-3.5 font-bold text-slate-900">Preferred Supplier</td>
-                    <td className="p-3.5 text-[11px] text-slate-500">Earned Relationship</td>
-                    <td className="p-3.5 font-medium text-slate-400">Not purchasable</td>
-                    <td className="p-3.5 text-slate-600">Earned through sustained operational performance, SLA adherence, and first-time fix excellence.</td>
-                  </tr>
-                  <tr className="hover:bg-slate-50/50">
-                    <td className="p-3.5 font-bold text-slate-900">Strategic Partner</td>
-                    <td className="p-3.5 text-[11px] text-slate-500">Executive Relationship</td>
-                    <td className="p-3.5 font-medium text-slate-400">Invitation only</td>
-                    <td className="p-3.5 text-slate-600">Strategic relationship based on critical national scale or key OEM collaboration.</td>
+                  <tr className="hover:bg-slate-50/50 bg-amber-50/20">
+                    <td className="p-4 font-normal text-amber-950 flex items-center gap-1.5">
+                      <Award className="h-4 w-4 text-amber-600 shrink-0" />
+                      Preferred Partner
+                    </td>
+                    <td className="p-4 text-[11px] text-amber-800">Earned Operational Tier</td>
+                    <td className="p-4 font-medium text-slate-400">Earned only</td>
+                    <td className="p-4 text-slate-600 font-light">High-performing supplier with proven SLA delivery, flawless RAMS, and high volume capacity.</td>
                   </tr>
                 </tbody>
               </table>
@@ -165,49 +135,59 @@ export default function SupplierMembershipPublicPage() {
           </div>
         </section>
 
-        {/* Assurance Review Fee Explanation */}
-        <section className="py-12 bg-white border-b border-slate-200">
-          <div className="container-custom max-w-5xl space-y-6 text-xs font-light">
-            <div className="space-y-1 font-sans">
-              <span className="text-[10px] font-normal uppercase tracking-wider text-slate-400 font-medium">
-                TECHNICAL VETTING
-              </span>
-              <h3 className="text-xl font-bold text-slate-900">
-                Initial Supplier Assurance Review ({fee.displayPrice})
-              </h3>
-              <p className="text-xs text-slate-600 font-light">
-                The Initial Supplier Assurance Review supports the administration and review of applicable company, insurance, health &amp; safety, competency, compliance and commercial information according to the supplier&apos;s services and risk profile.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-6 rounded-sm border border-slate-200">
-              <div className="space-y-2 font-sans">
-                <span className="font-bold text-slate-900 block">Proportionate Assurance Review:</span>
-                <p className="text-slate-600 text-[11.5px] leading-relaxed">
-                  The precise assurance requirements vary according to supplier type, service discipline, operational risk level, and client estate requirements. Requirements are strictly proportionate to the risk of the work being delivered.
-                </p>
-              </div>
-
-              <div className="space-y-2 font-sans text-[11.5px] text-slate-600 border-t md:border-t-0 md:border-l border-slate-200 pt-4 md:pt-0 md:pl-6">
-                <span className="font-bold text-slate-900 block">Important Governance Rule:</span>
-                <p>
-                  Payment of the assurance review fee contributes towards the independent administration and desk review of submitted credentials. Payment does not guarantee successful approval.
-                </p>
-              </div>
+        {/* 5. CALL TO ACTION */}
+        <section className="py-20 bg-brand-carbon text-white border-t border-brand-edge-dark text-center">
+          <div className="container-custom max-w-3xl space-y-6">
+            <span className="text-xs font-light uppercase tracking-wider text-brand-pink">
+              SUPPLIER ONBOARDING
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extralight text-white">
+              Ready to Join the Partner Network?
+            </h2>
+            <p className="text-sm text-brand-mist/80 max-w-xl mx-auto font-light leading-relaxed">
+              Begin your Stage 1 registration today. Experience transparent terms, predictable volume, and clear commercial relationships.
+            </p>
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
+              <Link href="/suppliers/apply" className="btn-primary">
+                Start Supplier Application <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/suppliers/events" className="btn-ghost-light">
+                Explore Partner Events
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* Transparency Banner */}
-        <section className="py-16 container-custom max-w-5xl">
-          <CommercialTransparencyBanner />
-        </section>
-
         {/* Related Supplier Information */}
         <SupplierRelatedLinks
-          eyebrow="COMMERCIAL TRANSPARENCY &amp; SUPPORT"
+          eyebrow="MEMBERSHIP &amp; GOVERNANCE"
           heading="Related supplier information"
-          links={relatedLinks}
+          links={[
+            {
+              title: 'Partner Network',
+              href: '/suppliers/partner-network',
+              description: 'Collaborative ecosystem for regional contractors, specialists, OEMs, and innovators.',
+              tag: 'NETWORK',
+            },
+            {
+              title: 'Events & Forums',
+              href: '/suppliers/events',
+              description: 'Technical breakfasts, manufacturer seminars, training days, and industry roundtables.',
+              tag: 'EVENTS',
+            },
+            {
+              title: 'How We Work',
+              href: '/suppliers/how-we-work',
+              description: 'Understand the 12-stage operational journey from registration to work allocation.',
+              tag: 'LIFECYCLE',
+            },
+            {
+              title: 'Supplier FAQ',
+              href: '/suppliers/faq',
+              description: 'Clear answers on assurance fees, commercial separation, and payment terms.',
+              tag: 'FAQ',
+            },
+          ]}
         />
       </main>
 
