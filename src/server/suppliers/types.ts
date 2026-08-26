@@ -608,11 +608,11 @@ export interface SupplierRelationshipOverview {
   supplier_id: string;
   legal_name: string;
   trading_name: string;
-  relationship_tier: 'APPROVED_SUPPLIER' | 'PREFERRED_SUPPLIER' | 'STRATEGIC_PARTNER';
+  relationship_tier: 'REGISTERED' | 'APPROVED_SUPPLIER' | 'PREFERRED_SUPPLIER' | 'STRATEGIC_PARTNER';
   tier_explanation: string;
-  assurance_status: 'APPROVED' | 'CONDITIONALLY_APPROVED' | 'UNDER_REVIEW' | 'COMPLIANCE_HOLD';
-  assurance_effective_date: string;
-  next_formal_review_date: string;
+  assurance_status: 'PENDING' | 'UNDER_REVIEW' | 'CONDITIONALLY_APPROVED' | 'APPROVED' | 'COMPLIANCE_HOLD';
+  assurance_effective_date?: string;
+  next_formal_review_date?: string;
   relationship_since: string;
   active_restrictions: string[];
   compliance_holds: { type: string; reason: string; required_action: string }[];

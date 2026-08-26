@@ -23,8 +23,8 @@ export function WhatChanged({ items }: Props) {
   if (items.length === 0) {
     return (
       <div className="rounded-[8px] border border-dashed border-[#E8E8E5] bg-[#FFFFFF] p-6 text-center">
-        <div className="text-[11px] font-mono text-[#9A9A95] uppercase">No recent operational changes</div>
-        <div className="text-[12px] text-[#6D6D68] mt-1">Changes across work orders, SLAs, and compliance will record here.</div>
+        <div className="text-[11px] font-mono text-[#9A9A95] uppercase">No operational changes reported</div>
+        <div className="text-[12px] text-[#6D6D68] mt-1">No operational records are currently loaded. Changes across work orders, SLAs, and compliance will record here.</div>
       </div>
     );
   }

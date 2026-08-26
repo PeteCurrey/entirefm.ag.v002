@@ -742,102 +742,13 @@ import {
   SupplierComplianceRadarItem,
   SupplierResourceItem,
 } from './types';
+import { getSupplierOrganisationById } from './supplier-auth-store';
 
-// In-Memory Scope Stores
+// In-Memory Scope Stores — start empty, populated when suppliers declare or request scopes
 const supplierServicesScope = new Map<string, ServiceScopeItem[]>();
 const supplierCoverageScope = new Map<string, CoverageScopeItem[]>();
 
-// Seed default supplier scope for 'sup-test-01'
-supplierServicesScope.set('sup-test-01', [
-  {
-    slug: 'hvac',
-    name: 'HVAC, Chillers & Air Handling',
-    category: 'HARD_FM',
-    is_declared: true,
-    approval_status: 'APPROVED',
-    approved_date: '2026-02-15',
-    next_review_date: '2027-02-15',
-    approved_geographies: ['West Midlands', 'East Midlands'],
-    restrictions: [],
-    required_accreditations: ['REFCOM Elite F-Gas Company Certificate'],
-    capability_notes: 'Daikin, Mitsubishi & Carrier VRV/Chiller specialist',
-  },
-  {
-    slug: 'gas-heating',
-    name: 'Commercial Gas & Boilers',
-    category: 'HARD_FM',
-    is_declared: true,
-    approval_status: 'APPROVED',
-    approved_date: '2026-02-15',
-    next_review_date: '2027-02-15',
-    approved_geographies: ['West Midlands'],
-    restrictions: ['Commercial plant rooms up to 500kW only'],
-    required_accreditations: ['Gas Safe Register (Commercial)'],
-    capability_notes: 'Commercial heating plant, pipework & boiler servicing',
-  },
-  {
-    slug: 'electrical',
-    name: 'Electrical & Critical Power',
-    category: 'HARD_FM',
-    is_declared: false,
-    approval_status: 'NOT_REQUESTED',
-  },
-  {
-    slug: 'water-hygiene',
-    name: 'Water Hygiene & Legionella',
-    category: 'COMPLIANCE',
-    is_declared: false,
-    approval_status: 'NOT_REQUESTED',
-  },
-  {
-    slug: 'fire-safety',
-    name: 'Fire Alarms & Life Safety',
-    category: 'LIFE_SAFETY',
-    is_declared: false,
-    approval_status: 'NOT_REQUESTED',
-  },
-  {
-    slug: 'rope-access',
-    name: 'Rope Access & BMU Façade',
-    category: 'SPECIALIST',
-    is_declared: false,
-    approval_status: 'NOT_REQUESTED',
-  },
-]);
-
-supplierCoverageScope.set('sup-test-01', [
-  {
-    region: 'West Midlands (Birmingham, Coventry, Wolverhampton)',
-    is_declared: true,
-    approval_status: 'APPROVED',
-    approved_date: '2026-02-15',
-    operating_bases: ['Birmingham Head Depot (B6 7RH)'],
-  },
-  {
-    region: 'East Midlands (Leicester, Nottingham, Derby)',
-    is_declared: true,
-    approval_status: 'APPROVED',
-    approved_date: '2026-02-15',
-    operating_bases: ['Birmingham Head Depot (B6 7RH)'],
-  },
-  {
-    region: 'North West (Manchester, Liverpool)',
-    is_declared: true,
-    approval_status: 'UNDER_REVIEW',
-  },
-  {
-    region: 'Yorkshire & Humber (Leeds, Sheffield)',
-    is_declared: false,
-    approval_status: 'NOT_REQUESTED',
-  },
-  {
-    region: 'Greater London',
-    is_declared: false,
-    approval_status: 'NOT_REQUESTED',
-  },
-]);
-
-// Seed Canonical Supplier Resources
+// Canonical Supplier Resources (Official public/partner documents)
 const canonicalSupplierResources: SupplierResourceItem[] = [
   {
     id: 'res-01',
@@ -885,11 +796,28 @@ const canonicalSupplierResources: SupplierResourceItem[] = [
  * Get Supplier Services Scope Matrix
  */
 export async function getSupplierServicesScope(supplierId: string): Promise<ServiceScopeItem[]> {
-  return supplierServicesScope.get(supplierId) || [];
+  const existing = supplierServicesScope.get(supplierId);
+  if (existing) return existing;
+
+  // Build from application draft if available
+  const draft = onboardingDrafts.get(supplierId);
+  if (draft && draft.selected_service_slugs?.length > 0) {
+    const list: ServiceScopeItem[] = draft.selected_service_slugs.map((slug) => ({
+      slug,
+      name: slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+      category: 'HARD_FM',
+      is_declared: true,
+      approval_status: draft.status === 'APPROVED' ? 'APPROVED' : 'UNDER_REVIEW',
+    }));
+    supplierServicesScope.set(supplierId, list);
+    return list;
+  }
+
+  return [];
 }
 
 /**
- * Request Additional Service Capability (places service into UNDER_REVIEW without mutating approved scope)
+ * Request Additional Service Capability
  */
 export async function requestAdditionalService(supplierId: string, slug: string, capabilityNotes?: string): Promise<{ success: boolean; service: ServiceScopeItem }> {
   let list = supplierServicesScope.get(supplierId) || [];
@@ -897,7 +825,7 @@ export async function requestAdditionalService(supplierId: string, slug: string,
   if (!item) {
     item = {
       slug,
-      name: slug.toUpperCase(),
+      name: slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
       category: 'HARD_FM',
       is_declared: true,
       approval_status: 'UNDER_REVIEW',
@@ -917,7 +845,23 @@ export async function requestAdditionalService(supplierId: string, slug: string,
  * Get Supplier Coverage Scope Matrix
  */
 export async function getSupplierCoverageScope(supplierId: string): Promise<CoverageScopeItem[]> {
-  return supplierCoverageScope.get(supplierId) || [];
+  const existing = supplierCoverageScope.get(supplierId);
+  if (existing) return existing;
+
+  // Build from application draft if available
+  const draft = onboardingDrafts.get(supplierId);
+  if (draft && draft.selected_regions?.length > 0) {
+    const list: CoverageScopeItem[] = draft.selected_regions.map((region) => ({
+      region,
+      is_declared: true,
+      approval_status: draft.status === 'APPROVED' ? 'APPROVED' : 'UNDER_REVIEW',
+      operating_bases: (draft.operating_bases || []).map((b) => b.name),
+    }));
+    supplierCoverageScope.set(supplierId, list);
+    return list;
+  }
+
+  return [];
 }
 
 /**
@@ -942,40 +886,42 @@ export async function requestAdditionalCoverage(supplierId: string, region: stri
 }
 
 /**
- * Get Relationship Overview
+ * Get Relationship Overview (Dynamic from authenticated Organisation or Draft)
  */
 export async function getSupplierRelationshipOverview(supplierId: string): Promise<SupplierRelationshipOverview> {
+  const org = await getSupplierOrganisationById(supplierId);
+  const draft = onboardingDrafts.get(supplierId);
+
+  const legalName = org?.legalName || draft?.legal_company_name || 'Your Company';
+  const tradingName = org?.tradingName || draft?.trading_name || legalName;
+  const isApproved = org?.lifecycleStatus === 'APPROVED' || draft?.status === 'APPROVED';
+
   return {
     supplier_id: supplierId,
-    legal_name: 'Midlands Mechanical & HVAC Services Ltd',
-    trading_name: 'Midlands HVAC Pro',
-    relationship_tier: 'APPROVED_SUPPLIER',
-    tier_explanation: 'Approved Supplier status is an assurance outcome earned through successful technical vetting, valid statutory certifications, and adherence to EntireFM H&S standards.',
-    assurance_status: 'APPROVED',
-    assurance_effective_date: '2026-02-15',
-    next_formal_review_date: '2027-02-15',
-    relationship_since: '2024-03-10',
-    active_restrictions: ['Gas works restricted to commercial plant rooms up to 500kW'],
+    legal_name: legalName,
+    trading_name: tradingName,
+    relationship_tier: isApproved ? 'APPROVED_SUPPLIER' : 'REGISTERED',
+    tier_explanation: isApproved
+      ? 'Approved Supplier status is an assurance outcome earned through successful technical vetting, valid statutory certifications, and adherence to EntireFM H&S standards.'
+      : 'Application in progress. Partner tier will be assigned upon successful EntireFM technical assurance vetting.',
+    assurance_status: isApproved ? 'APPROVED' : 'PENDING',
+    assurance_effective_date: isApproved ? (org?.updatedAt?.slice(0, 10) || new Date().toISOString().slice(0, 10)) : undefined,
+    next_formal_review_date: isApproved ? 'Annual Review' : undefined,
+    relationship_since: (org?.createdAt?.slice(0, 10) || new Date().toISOString().slice(0, 10)),
+    active_restrictions: [],
     compliance_holds: [],
     assigned_entirefm_team: [
       {
         role: 'Supplier Relationship Manager',
-        name: 'James Thornton',
-        email: 'j.thornton@entirefm.example.co.uk',
-        phone: '0114 555 0122',
+        name: 'EntireFM Supply Chain Team',
+        email: 'supplier-support@entirefm.com',
+        phone: '0800 555 0199',
         department: 'Supply Chain & Partner Network',
       },
       {
-        role: 'Assurance & Vetting Officer',
-        name: 'Rachel Davies',
-        email: 'r.davies@entirefm.example.co.uk',
-        phone: '0114 555 0128',
-        department: 'Governance & Quality Assurance',
-      },
-      {
-        role: '24/7 Operations Desk Lead',
+        role: '24/7 Operations Desk',
         name: 'EntireFM Helpdesk Team',
-        email: 'operations@entirefm.example.co.uk',
+        email: 'operations@entirefm.com',
         phone: '0800 000 0000',
         department: 'Facilities Operations & Dispatch',
       },
@@ -984,42 +930,37 @@ export async function getSupplierRelationshipOverview(supplierId: string): Promi
 }
 
 /**
- * Get Supplier Compliance Radar (30/60/90 Days Expiries)
+ * Get Supplier Compliance Radar (Dynamic from Vault Documents)
  */
 export async function getSupplierComplianceRadar(supplierId: string): Promise<SupplierComplianceRadarItem[]> {
   const docs = await listSupplierVaultDocuments(supplierId);
-  const now = new Date('2026-08-25T00:00:00Z');
+  if (!docs || docs.length === 0) return [];
 
-  const radar: SupplierComplianceRadarItem[] = [
-    {
-      id: 'rad-01',
-      item_name: 'Gas Safe Register (Commercial Certificate)',
-      category: 'ACCREDITATION',
-      expiry_date: '2026-06-01',
-      days_remaining: 45,
-      status: 'EXPIRING_60',
-      document_id: 'doc-02',
-      action_required: 'Upload renewed certificate before 01 June 2026 to maintain reactive gas dispatch eligibility.',
-    },
-    {
-      id: 'rad-02',
-      item_name: 'Public Liability Insurance (£10m)',
-      category: 'INSURANCE',
-      expiry_date: '2027-04-30',
-      days_remaining: 248,
-      status: 'VALID',
-      document_id: 'doc-01',
-    },
-    {
-      id: 'rad-03',
-      item_name: 'REFCOM Elite F-Gas Company Certificate',
-      category: 'ACCREDITATION',
-      expiry_date: '2028-01-01',
-      days_remaining: 494,
-      status: 'VALID',
-      document_id: 'doc-03',
-    },
-  ];
+  const now = Date.now();
+  const radar: SupplierComplianceRadarItem[] = [];
+
+  for (const doc of docs) {
+    if (doc.expiry_date) {
+      const expTime = new Date(doc.expiry_date).getTime();
+      const diffDays = Math.ceil((expTime - now) / (1000 * 60 * 60 * 24));
+      let status: SupplierComplianceRadarItem['status'] = 'VALID';
+      if (diffDays <= 0) status = 'EXPIRED';
+      else if (diffDays <= 30) status = 'EXPIRING_30';
+      else if (diffDays <= 60) status = 'EXPIRING_60';
+      else if (diffDays <= 90) status = 'EXPIRING_90';
+
+      radar.push({
+        id: `rad-${doc.id}`,
+        item_name: doc.document_type || doc.file_name,
+        category: (doc.category as any) || 'ACCREDITATION',
+        expiry_date: doc.expiry_date,
+        days_remaining: diffDays,
+        status,
+        document_id: doc.id,
+        action_required: diffDays <= 60 ? `Upload renewed ${doc.document_type} before ${doc.expiry_date} to maintain active status.` : undefined,
+      });
+    }
+  }
 
   return radar;
 }
@@ -1030,3 +971,4 @@ export async function getSupplierComplianceRadar(supplierId: string): Promise<Su
 export async function listSupplierResources(): Promise<SupplierResourceItem[]> {
   return canonicalSupplierResources;
 }
+

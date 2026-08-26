@@ -59,28 +59,51 @@ export function middleware(request: NextRequest) {
   const isPrivateContractor = pathname === '/contractor' || pathname.startsWith('/contractor/');
   const isPrivateEngineer = pathname === '/engineer' || pathname.startsWith('/engineer/');
 
-  // Supplier portal auth-free routes (registration, sign-in, forgot-password, reset-password, verify-email)
-  const SUPPLIER_PUBLIC_PATHS = [
+  // Supplier portal route classification
+  const PUBLIC_SUPPLIER_ROUTES = [
     '/supplier-portal/register',
     '/supplier-portal/sign-in',
     '/supplier-portal/forgot-password',
     '/supplier-portal/reset-password',
     '/supplier-portal/verify-email',
-    '/supplier-portal/org-setup',
   ];
+  const AUTHENTICATED_SETUP_ROUTES = ['/supplier-portal/org-setup'];
+
   const isSupplierPortal = pathname === '/supplier-portal' || pathname.startsWith('/supplier-portal/');
-  const isSupplierPublicPath = SUPPLIER_PUBLIC_PATHS.some(
+  const isPublicSupplierRoute = PUBLIC_SUPPLIER_ROUTES.some(
     (p) => pathname === p || pathname.startsWith(p + '/')
   );
-  const isPrivateSupplierPortal = isSupplierPortal && !isSupplierPublicPath;
+  const isSetupRoute = AUTHENTICATED_SETUP_ROUTES.some(
+    (p) => pathname === p || pathname.startsWith(p + '/')
+  );
+  const isPrivateSupplierPortal = isSupplierPortal && !isPublicSupplierRoute;
+
+  // If already authenticated as a supplier, redirect away from public auth pages to resume destination
+  if (isPublicSupplierRoute && (pathname === '/supplier-portal/register' || pathname === '/supplier-portal/sign-in')) {
+    const token = request.cookies.get('efm_session')?.value;
+    if (token) {
+      try {
+        const parts = token.split('.');
+        if (parts.length === 2) {
+          const session = JSON.parse(Buffer.from(parts[0], 'base64url').toString('utf8'));
+          if (session.orgType === 'SUPPLIER' && (!session.expiresAt || session.expiresAt > Date.now())) {
+            return NextResponse.redirect(new URL('/supplier-portal/resume', request.url));
+          }
+        }
+      } catch {}
+    }
+  }
 
   if (isPrivateAdmin || isPrivateClients || isPrivateContractor || isPrivateEngineer || isPrivateSupplierPortal) {
     const token = request.cookies.get('efm_session')?.value || request.cookies.get('efm_admin')?.value;
 
     if (!token) {
       if (isPrivateSupplierPortal) {
-        const registerUrl = new URL('/supplier-portal/register', request.url);
-        const response = NextResponse.redirect(registerUrl);
+        const signInUrl = new URL('/supplier-portal/sign-in', request.url);
+        if (pathname !== '/supplier-portal') {
+          signInUrl.searchParams.set('redirect', pathname);
+        }
+        const response = NextResponse.redirect(signInUrl);
         response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
         return response;
       }
@@ -108,10 +131,10 @@ export function middleware(request: NextRequest) {
 
         const isViewAs = !!session.viewAsContext?.isViewAs;
 
-        // /supplier-portal/* requires SUPPLIER orgType
+        // /supplier-portal/* requires SUPPLIER orgType (or internal EntireFM)
         if (isPrivateSupplierPortal) {
           if (session.orgType !== 'SUPPLIER' && session.orgType !== 'ENTIREFM') {
-            return NextResponse.redirect(new URL('/supplier-portal/register', request.url));
+            return NextResponse.redirect(new URL('/supplier-portal/sign-in?error=forbidden_supplier', request.url));
           }
         }
 

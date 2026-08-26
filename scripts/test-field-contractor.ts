@@ -15,7 +15,7 @@
  */
 
 import { validateStorageUpload } from '../src/server/storage';
-import { isDbConfigured } from '../src/server/db/client';
+import { dbQuery, isDbConfigured } from '../src/server/db/client';
 import { getRolePermissions, UserSession } from '../src/server/identity';
 import {
   processOfflineSyncQueue,
@@ -56,8 +56,8 @@ function skip(msg: string) {
 const dbAvailable = isDbConfigured();
 
 const engineerSession: UserSession = {
-  personId: 'eng-person-001',
-  orgId: 'org-entirefm',
+  personId: '00000000-0000-0000-0000-000000000099',
+  orgId: '00000000-0000-0000-0000-000000000001',
   orgName: 'EntireFM',
   orgType: 'ENTIREFM',
   email: 'engineer@entirefm.com',
@@ -69,8 +69,8 @@ const engineerSession: UserSession = {
 };
 
 const contractorSession: UserSession = {
-  personId: 'contractor-person-001',
-  orgId: 'provider-org-hvac',
+  personId: '00000000-0000-0000-0000-000000000099',
+  orgId: '00000000-0000-0000-0000-000000000001',
   orgName: 'HVAC Solutions Ltd',
   orgType: 'PROVIDER',
   email: 'dispatcher@hvac-solutions.co.uk',
@@ -197,65 +197,117 @@ async function runTests() {
   // --------------------------------------------------------------------------
   // Scenario 5: Field Execution Lifecycle (DB required)
   // --------------------------------------------------------------------------
-  console.log('\n--- Scenario 5: Field Execution Lifecycle ---');
-
   if (dbAvailable) {
-    const testVisitId = `visit-phase0c-${Date.now()}`;
+    const testSiteId = '00000000-0000-0000-0000-000000000010';
+    const testWoId = '00000000-0000-0000-0000-000000000011';
+    const testVisitId = '00000000-0000-0000-0000-000000000012';
 
-    const journeyRes = await recordJourneyStarted(testVisitId, engineerSession.personId, engineerSession);
-    assert(journeyRes.success, 'Visit journey started successfully');
+    // Insert test site, WO, and visit
+    await dbQuery('sites', {
+      method: 'POST',
+      body: {
+        id: testSiteId,
+        organisation_id: '00000000-0000-0000-0000-000000000001',
+        site_code: 'SITE_FIELD_TEST',
+        name: 'Field Ops Test Site',
+        address_line1: '1 Field Way',
+        city: 'Manchester',
+        postcode: 'M1 1AA',
+        status: 'ACTIVE',
+      },
+      headers: { Prefer: 'resolution=merge-duplicates' },
+    });
 
-    const arrivalRes = await recordArrival(testVisitId, 'MANUAL', { lat: 53.48, lng: -2.24 }, engineerSession);
-    assert(arrivalRes.success, 'Arrival recorded with manual method and coordinates');
+    await dbQuery('work_orders', {
+      method: 'POST',
+      body: {
+        id: testWoId,
+        work_order_number: 'WO-FIELD-001',
+        organisation_id: '00000000-0000-0000-0000-000000000001',
+        site_id: testSiteId,
+        title: 'Field Test WO',
+        description: 'Test WO for field engineer',
+        work_type: 'REACTIVE',
+        priority: 'MEDIUM',
+        status: 'DISPATCHED',
+        billing_status: 'UNBILLED',
+      },
+      headers: { Prefer: 'resolution=merge-duplicates' },
+    });
 
-    const noGpsArrivalRes = await recordArrival(`visit-noloc-${Date.now()}`, 'QR', null, engineerSession);
-    assert(noGpsArrivalRes.success, 'Arrival recorded without GPS (coordinates null, privacy-preserving)');
+    await dbQuery('visits', {
+      method: 'POST',
+      body: {
+        id: testVisitId,
+        work_order_id: testWoId,
+        visit_number: 1,
+        status: 'SCHEDULED',
+      },
+      headers: { Prefer: 'resolution=merge-duplicates' },
+    });
 
-    const workStartRes = await recordWorkStarted(testVisitId, engineerSession);
-    assert(workStartRes.success, 'Work started timestamp recorded');
+    try {
+      const journeyRes = await recordJourneyStarted(testVisitId, engineerSession.personId, engineerSession);
+      assert(journeyRes.success, 'Visit journey started successfully');
 
-    const readingRes = await saveFieldReading({
-      visit_id: testVisitId,
-      engineer_person_id: engineerSession.personId,
-      reading_type: 'TEMPERATURE',
-      value_numeric: 21.5,
-      unit: '°C',
-      expected_min: 18.0,
-      expected_max: 24.0,
-      captured_at: new Date().toISOString(),
-    }, engineerSession);
-    assert(readingRes.id !== null, 'Field reading saved');
+      const arrivalRes = await recordArrival(testVisitId, 'MANUAL', { lat: 53.48, lng: -2.24 }, engineerSession);
+      assert(arrivalRes.success, 'Arrival recorded with manual method and coordinates');
 
-    const partRes = await saveFieldPartUsed({
-      visit_id: testVisitId,
-      engineer_person_id: engineerSession.personId,
-      description: '24V Contactor Relay',
-      quantity: 1,
-      unit: 'UNIT',
-      unit_cost_gbp: 45.00,
-      is_billable: true,
-    }, engineerSession);
-    assert(partRes.id !== null, 'Field part record saved');
+      const noGpsArrivalRes = await recordArrival(testVisitId, 'QR', null, engineerSession);
+      assert(noGpsArrivalRes.success, 'Arrival recorded without GPS (coordinates null, privacy-preserving)');
 
-    const noAccessRes = await recordNoAccess(
-      `visit-noaccess-${Date.now()}`,
-      'KEYBOX_FAILURE',
-      'Keybox code did not open safe, client unreachable',
-      true,
-      null,
-      engineerSession
-    );
-    assert(noAccessRes.success, 'No Access recorded with reason and contact attempted flag');
+      const workStartRes = await recordWorkStarted(testVisitId, engineerSession);
+      assert(workStartRes.success, 'Work started timestamp recorded');
 
-    const draftRes = await generateDraftServiceReport(testVisitId, engineerSession);
-    assert(draftRes.report !== null, 'Draft service report generated from real field data');
-    assert(draftRes.report?.report_number?.startsWith('EFM-FSR-') === true, 'Report number has correct EFM-FSR-YYYY-NNNNNN format');
+      const readingRes = await saveFieldReading({
+        visit_id: testVisitId,
+        engineer_person_id: engineerSession.personId,
+        reading_type: 'TEMPERATURE',
+        value_numeric: 21.5,
+        unit: '°C',
+        expected_min: 18.0,
+        expected_max: 24.0,
+        captured_at: new Date().toISOString(),
+      }, engineerSession);
+      assert(readingRes.id !== null, 'Field reading saved');
 
-    const reportNumber = draftRes.report!.report_number!;
-    const yearStr = new Date().getFullYear().toString();
-    assert(reportNumber.includes(yearStr), `Report number includes current year (${yearStr})`);
+      const partRes = await saveFieldPartUsed({
+        visit_id: testVisitId,
+        engineer_person_id: engineerSession.personId,
+        description: '24V Contactor Relay',
+        quantity: 1,
+        unit: 'UNIT',
+        unit_cost_gbp: 45.00,
+        is_billable: true,
+      }, engineerSession);
+      assert(partRes.id !== null, 'Field part record saved');
 
-    passed += 9;
+      const noAccessRes = await recordNoAccess(
+        testVisitId,
+        'KEYBOX_FAILURE',
+        'Keybox code did not open safe, client unreachable',
+        true,
+        null,
+        engineerSession
+      );
+      assert(noAccessRes.success, 'No Access recorded with reason and contact attempted flag');
+
+      const draftRes = await generateDraftServiceReport(testVisitId, engineerSession);
+      assert(draftRes.report !== null, 'Draft service report generated from real field data');
+      assert(draftRes.report?.report_number?.startsWith('EFM-FSR-') === true, 'Report number has correct EFM-FSR-YYYY-NNNNNN format');
+
+      const reportNumber = draftRes.report!.report_number!;
+      const yearStr = new Date().getFullYear().toString();
+      assert(reportNumber.includes(yearStr), `Report number includes current year (${yearStr})`);
+
+      passed += 9;
+    } finally {
+      await dbQuery(`field_readings?visit_id=eq.${testVisitId}`, { method: 'DELETE' });
+      await dbQuery(`field_parts_used?visit_id=eq.${testVisitId}`, { method: 'DELETE' });
+      await dbQuery(`visits?id=eq.${testVisitId}`, { method: 'DELETE' });
+      await dbQuery(`work_orders?id=eq.${testWoId}`, { method: 'DELETE' });
+      await dbQuery(`sites?id=eq.${testSiteId}`, { method: 'DELETE' });
+    }
   } else {
     // Test the report generation logic in isolation (no DB round-trip)
     const offlineSession = { ...engineerSession };

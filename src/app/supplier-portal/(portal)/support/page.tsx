@@ -28,7 +28,7 @@ export default function SupplierSupportPage() {
           <p className="text-slate-600 font-light leading-relaxed">
             For questions regarding required trade accreditations, insurance minimums, or document rejection explanations.
           </p>
-          <span className="font-mono text-slate-900 font-bold block pt-2">supplychain@entirefm.example.co.uk</span>
+          <span className="font-mono text-slate-900 font-bold block pt-2">supplier-support@entirefm.com</span>
         </div>
 
         <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm space-y-3">

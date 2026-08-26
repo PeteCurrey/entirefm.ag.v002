@@ -327,29 +327,26 @@ async function main() {
       asset_id: testAssetId,
       risk_score: 0.68,
       risk_level: 'ELEVATED',
-      prediction_horizon_days: 14,
+      prediction_window_days: 14,
       feature_snapshot: { mean_temperature_24h: 32.5, runtime_hours_7d: 140 },
-      feature_set_version: '1.0',
-      data_freshness_seconds: 120,
     });
 
-    assert('Shadow prediction created with is_shadow=true', prediction.is_shadow === true);
-    assert('Risk level is ELEVATED', prediction.risk_level === 'ELEVATED');
+    assert('Shadow prediction created with model_status_at_time=SHADOW', prediction !== null && prediction.model_status_at_time === 'SHADOW');
+    assert('Risk level is ELEVATED', prediction !== null && prediction.risk_level === 'ELEVATED');
 
     const outcome = await recordPredictionOutcome({
-      prediction_id: prediction.id,
+      prediction_id: prediction!.id,
       asset_id: testAssetId,
       actual_outcome: 'FAILURE_OCCURRED',
       evaluation_result: 'TRUE_POSITIVE',
-      outcome_observed_at: new Date().toISOString(),
-      lead_time_actual_days: 9.0,
+      outcome_at: new Date().toISOString(),
       notes: 'Actual failure occurred within prediction horizon',
     });
 
-    assert('Prediction outcome recorded as TRUE_POSITIVE', outcome.evaluation_result === 'TRUE_POSITIVE');
+    assert('Prediction outcome recorded as TRUE_POSITIVE', outcome !== null && outcome.evaluation_result === 'TRUE_POSITIVE');
 
     const perf = await evaluatePredictionPerformance(version!.id);
-    assert('Shadow performance evaluated from outcomes', perf.total_predictions >= 1 && perf.true_positives === 1);
+    assert('Shadow performance evaluated from outcomes', perf !== null && perf.failure_count === 1);
 
     // ─── 12. SHADOW → ASSIST APPROVAL GATE ──────────────────────────────
     section('12. Mandatory Human Approval for SHADOW → ASSIST');
@@ -373,13 +370,13 @@ async function main() {
     const { createPredictiveReview } = await import('../src/server/predictive/reviews');
 
     const review = await createPredictiveReview({
-      prediction_id: prediction.id,
+      prediction_id: prediction!.id,
       asset_id: testAssetId,
-      recommended_action: 'PLANNED_REPAIR_REVIEW',
+      recommended_action: 'PLANNED_REPAIR',
     });
 
-    assert('Predictive review created in OPEN state', review.status === 'OPEN');
-    assert('Resulting work order ID is null (No automatic Work Order)', review.resulting_work_order_id === null);
+    assert('Predictive review created in OPEN state', review !== null && review.status === 'OPEN');
+    assert('Resulting work order ID is null (No automatic Work Order)', review !== null && review.resulting_work_order_id === null);
 
     // ─── 14. CEO COMMAND TRUTHFULNESS & REFUSAL ─────────────────────────
     section('14. CEO Command Truthfulness & Prediction Refusal');
