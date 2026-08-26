@@ -8,7 +8,7 @@
     "protectedSourceForbidden": true,
     "selfCanonicalDestinationRequired": true
   },
-  "totalRedirects": 408,
+  "totalRedirects": 407,
   "redirects": [
     {
       "source": "/about",
@@ -81,12 +81,6 @@
       "destination": "/building-walk",
       "statusCode": 301,
       "reason": "Intent-matched: Consolidation of legacy programmatic experiment to homepage"
-    },
-    {
-      "source": "/careers",
-      "destination": "/job-board",
-      "statusCode": 301,
-      "reason": "Semantic intent consolidation into protected historic page"
     },
     {
       "source": "/case-studies/aviation",

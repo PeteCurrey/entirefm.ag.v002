@@ -25,8 +25,8 @@ const LOCATION_LINKS = [
 
 const COMPANY_LINKS = [
   { label: 'About EntireFM', href: '/about-entire-facilities-management', detail: 'Our story, values and leadership' },
+  { label: 'Careers', href: '/careers', detail: 'Join our operational, engineering and technical team' },
   { label: 'Contact', href: '/contact-us', detail: 'Get in touch with our team' },
-  { label: 'Careers', href: '/contact-us', detail: 'Join the EntireFM team' },
   { label: 'Legal Centre', href: '/legal', detail: 'Privacy, terms and governance' },
 ];
 

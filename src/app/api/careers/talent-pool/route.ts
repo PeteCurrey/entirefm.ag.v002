@@ -1,12 +1,13 @@
 /**
- * PUBLIC CAREERS APPLICATION API — /api/careers/apply
- * ===================================================
- * Receives direct job applications with CV attachment, validates inputs and file safety,
- * persists application against the vacancy, and returns confirmation.
+ * TALENT NETWORK REGISTRATION API — /api/careers/talent-pool
+ * ==========================================================
+ * Receives speculative expressions of interest, saves candidate profile
+ * to the EntireFM Talent Pool, and records GDPR consent with 2-year retention.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createApplication, getVacancyById } from '@/server/careers/store';
+import { createTalentPoolCandidate } from '@/server/careers/store';
+import { TalentInterestArea } from '@/server/careers/types';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { randomBytes } from 'node:crypto';
@@ -22,38 +23,42 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
 
-    const vacancyId = formData.get('vacancyId')?.toString();
     const firstName = formData.get('firstName')?.toString().trim();
     const lastName = formData.get('lastName')?.toString().trim();
     const email = formData.get('email')?.toString().trim();
     const phone = formData.get('phone')?.toString().trim();
-    const location = formData.get('location')?.toString().trim();
+    const preferredLocation = formData.get('preferredLocation')?.toString().trim();
     const linkedInUrl = formData.get('linkedInUrl')?.toString().trim() || undefined;
-    const currentEmployer = formData.get('currentEmployer')?.toString().trim() || undefined;
     const currentRole = formData.get('currentRole')?.toString().trim() || undefined;
-    const supportingStatement = formData.get('supportingStatement')?.toString().trim() || undefined;
+    const currentEmployer = formData.get('currentEmployer')?.toString().trim() || undefined;
+    const salaryExpectation = formData.get('salaryExpectation')?.toString().trim() || undefined;
+    const availability = formData.get('availability')?.toString().trim() || undefined;
+    const introduction = formData.get('introduction')?.toString().trim() || undefined;
     const gdprConsent = formData.get('gdprConsent') === 'true' || formData.get('gdprConsent') === 'on';
 
+    // Parse interest areas
+    const interestAreasRaw = formData.getAll('interestAreas');
+    const interestAreas: TalentInterestArea[] = interestAreasRaw.map((v) => v.toString() as TalentInterestArea);
+
     // Validation
-    if (!vacancyId || !firstName || !lastName || !email || !phone || !location) {
+    if (!firstName || !lastName || !email || !phone || !preferredLocation) {
       return NextResponse.json(
-        { error: 'Please complete all required fields (Name, Email, Phone, Location).' },
+        { error: 'Please provide all required details (Name, Email, Phone, Preferred Location).' },
+        { status: 400 }
+      );
+    }
+
+    if (interestAreas.length === 0) {
+      return NextResponse.json(
+        { error: 'Please select at least one area of interest.' },
         { status: 400 }
       );
     }
 
     if (!gdprConsent) {
       return NextResponse.json(
-        { error: 'Recruitment data consent is required to process your application.' },
+        { error: 'Consent to retain your details in our Talent Network is required.' },
         { status: 400 }
-      );
-    }
-
-    const vacancy = await getVacancyById(vacancyId);
-    if (!vacancy) {
-      return NextResponse.json(
-        { error: 'The selected vacancy is no longer available.' },
-        { status: 404 }
       );
     }
 
@@ -84,54 +89,65 @@ export async function POST(req: NextRequest) {
       cvFileSize = cvFile.size;
       cvMimeType = mime;
 
-      // Save to private local storage directory
       const uploadDir = join(process.cwd(), 'private_storage', 'recruitment');
       await mkdir(uploadDir, { recursive: true });
 
       const uniqueToken = randomBytes(8).toString('hex');
-      const safeStorageName = `cv-${uniqueToken}-${cvFileName}`;
+      const safeStorageName = `talent-${uniqueToken}-${cvFileName}`;
       cvStoragePath = `recruitment/${safeStorageName}`;
 
       const bytes = await cvFile.arrayBuffer();
       await writeFile(join(uploadDir, safeStorageName), Buffer.from(bytes));
     }
 
-    // Create application record
-    const application = await createApplication({
-      vacancyId: vacancy.id,
-      vacancyTitle: vacancy.title,
-      vacancySlug: vacancy.slug,
-      vacancyDepartment: vacancy.department,
+    // Derive auto skills tags from role / intro / interest areas
+    const skillsTags = Array.from(
+      new Set([
+        ...interestAreas,
+        ...(currentRole ? [currentRole] : []),
+        preferredLocation,
+      ])
+    );
+
+    const now = new Date();
+    const retentionExpiresAt = new Date(now.getTime() + 2 * 365 * 24 * 60 * 60 * 1000).toISOString();
+
+    const candidate = await createTalentPoolCandidate({
       firstName,
       lastName,
       email,
       phone,
-      location,
+      preferredLocation,
       linkedInUrl,
-      currentEmployer,
       currentRole,
-      supportingStatement,
+      currentEmployer,
+      interestAreas,
+      preferredJobTypes: ['Full-time / Permanent'],
+      salaryExpectation,
+      availability,
+      introduction,
       cvFileName,
       cvStoragePath,
       cvFileSize,
       cvMimeType,
+      skillsTags,
       gdprConsent: true,
-      consentTimestamp: new Date().toISOString(),
-      retentionBasis: 'Job Application — Active Candidacy',
+      consentTimestamp: now.toISOString(),
+      retentionExpiresAt,
     });
 
     return NextResponse.json(
       {
         success: true,
-        message: 'Your application has been received successfully.',
-        applicationId: application.id,
+        message: 'Thank you for registering with the EntireFM Talent Network.',
+        candidateId: candidate.id,
       },
       { status: 201 }
     );
   } catch (err: any) {
-    console.error('Error processing job application:', err);
+    console.error('Error in talent pool registration:', err);
     return NextResponse.json(
-      { error: err.message || 'Internal server error processing application.' },
+      { error: err.message || 'Internal server error processing registration.' },
       { status: 500 }
     );
   }

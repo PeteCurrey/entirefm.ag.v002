@@ -16,7 +16,8 @@ export type StorageBucket =
   | 'site-documents'
   | 'accreditations'
   | 'voice-captures'
-  | 'signatures';
+  | 'signatures'
+  | 'recruitment-cvs';
 
 export interface StorageUploadResult {
   path: string;

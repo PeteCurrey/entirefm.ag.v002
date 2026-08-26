@@ -281,6 +281,7 @@ export const FOOTER_NAV: NavColumn[] = [
       { label: 'FM Intelligence', href: '/fm-intelligence' },
       { label: 'The FM Briefing', href: '/fm-briefing' },
       { label: 'EntireFM Academy', href: '/academy' },
+      { label: 'Careers', href: '/careers' },
       { label: 'Legal & Governance', href: '/legal' },
       { label: 'About EntireFM', href: '/about-entire-facilities-management' },
       { label: 'Contact', href: '/contact-us' },

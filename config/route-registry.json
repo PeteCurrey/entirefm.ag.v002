@@ -6,11 +6,11 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 422,
+    "total": 423,
     "LEGACY_VERIFIED": 201,
     "LEGACY_PROTECTED_BY_DIRECTIVE": 31,
-    "NEW_GROWTH": 185,
-    "protected": 422,
+    "NEW_GROWTH": 186,
+    "protected": 423,
     "historic": 230
   },
   "routes": [
@@ -453,6 +453,24 @@
         "new-growth-directive"
       ],
       "location": "Bury"
+    },
+    {
+      "path": "/careers",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/caretaker",

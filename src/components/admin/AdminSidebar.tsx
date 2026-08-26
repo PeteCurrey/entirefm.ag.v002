@@ -31,6 +31,7 @@ import {
   MapPin,
   ClipboardList,
   Flame,
+  Briefcase,
 } from 'lucide-react';
 
 interface NavItem {
@@ -283,6 +284,17 @@ const NAV_GROUPS: NavGroup[] = [
       { name: 'External Sources', href: '/admin/blog/sources' },
       { name: 'Automation Settings', href: '/admin/blog/automation' },
       { name: 'Automation Jobs', href: '/admin/blog/automation/jobs' },
+    ],
+  },
+  {
+    title: 'CAREERS & TALENT',
+    icon: Briefcase,
+    items: [
+      { name: 'Careers Dashboard', href: '/admin/careers' },
+      { name: 'Vacancies', href: '/admin/careers/vacancies' },
+      { name: 'New Vacancy', href: '/admin/careers/vacancies/new' },
+      { name: 'Applications & ATS', href: '/admin/careers/applications' },
+      { name: 'Talent Pool', href: '/admin/careers/talent-pool' },
     ],
   },
   {
