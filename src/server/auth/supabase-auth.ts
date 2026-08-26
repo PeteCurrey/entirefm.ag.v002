@@ -394,3 +394,55 @@ export async function supabaseAdminGetUser(
     };
   }
 }
+
+/**
+ * 8. Verify Token Hash / OTP (Email Confirmation, Signup, Recovery, MagicLink)
+ */
+export type EmailOtpType = 'signup' | 'invite' | 'magiclink' | 'recovery' | 'email_change' | 'email';
+
+export async function supabaseVerifyOtp(
+  token_hash: string,
+  type: EmailOtpType | string = 'email'
+): Promise<SupabaseAuthResponse<{ user: SupabaseAuthUser | null; session: SupabaseAuthSession | null }>> {
+  try {
+    const url = `${getAuthUrl()}/auth/v1/verify`;
+    const cfg = getDbConfig();
+    const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || cfg?.key || '';
+
+    const body: Record<string, any> = {
+      token_hash,
+      type: type || 'email',
+    };
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: getAuthHeaders(anonKey),
+      body: JSON.stringify(body),
+      cache: 'no-store',
+    });
+
+    const json = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      const msg = json.msg || json.error_description || json.message || 'Invalid or expired verification link';
+      return {
+        data: null,
+        error: { message: msg, status: res.status, code: json.error_code || json.code },
+      };
+    }
+
+    const user: SupabaseAuthUser | null = json.user || (json.id ? json : null);
+    const session: SupabaseAuthSession | null = json.session || (json.access_token ? json : null);
+
+    return {
+      data: { user, session },
+      error: null,
+    };
+  } catch (err: any) {
+    console.error('[SUPABASE_AUTH] Verify OTP exception:', err);
+    return {
+      data: null,
+      error: { message: err?.message || 'Authentication service unreachable', status: 500 },
+    };
+  }
+}

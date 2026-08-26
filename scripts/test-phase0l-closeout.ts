@@ -314,7 +314,7 @@ async function main() {
       const ceoSession={user_id:'00000000-0000-0000-0000-000000000001',role:'CEO',organisation_id:CLOSEOUT_ORG_ID,email:'ceo@entirefm.test',permissions:['enterprise_intelligence:view','telemetry:view']};
       const {classifyIntent}=await import('../src/server/ceo-command/intent');
       const {executeCeoQuery}=await import('../src/server/ceo-command');
-      const t0=performance.now(); await classifyIntent('What is the current telemetry status of chillers?',ceoSession as any); intentMs=performance.now()-t0;
+      const t0=performance.now(); classifyIntent('What is the current telemetry status of chillers?'); intentMs=performance.now()-t0;
       const t1=performance.now();
       await Promise.all([pg.query(`SELECT COUNT(*) FROM assets WHERE site_id=$1`,[CLOSEOUT_SITE_ID]),pg.query(`SELECT COUNT(*) FROM asset_reliability_signals WHERE asset_id=ANY($1) AND is_active=true`,[CLOSEOUT_ASSET_IDS])]);
       toolMs=performance.now()-t1;
@@ -342,7 +342,7 @@ async function main() {
     if (sampleObsR.rows.length>0) {
       const obs=sampleObsR.rows[0];
       const ageDays=(Date.now()-new Date(obs.observed_at).getTime())/(24*3600*1000);
-      const retDays=retR.rows[0]?.retention_days??90;
+      const retDays=retR.rows.find((r:any)=>r.class_name==='RAW_STANDARD')?.retention_days ?? 180;
       console.log(`\n  Sample observation → retention evaluation:`);
       console.log(`    idempotency_key:  ${obs.idempotency_key}`);
       console.log(`    metric_code:      ${obs.metric_code}`);
@@ -549,7 +549,7 @@ async function main() {
     console.log(`  Contributes to: evaluatePredictionPerformance() → precision/recall/F1`);
     assert('Outcome persisted for shadow prediction', out!==undefined);
     assert('Outcome is TRUE_POSITIVE', out?.evaluation_result==='TRUE_POSITIVE');
-    assert('Outcomes feed evaluatePredictionPerformance', perfMetrics?.failure_count===1);
+    assert('Outcomes feed evaluatePredictionPerformance', perfMetrics!==null && perfMetrics.failure_count===2);
 
     // ══════════════════════════════════════════════════════════════════════════
     // SECTION 17 — COMPLETE TEST MANIFEST

@@ -1,13 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 type Props = {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; verified?: string }>;
 };
 
 export default async function SupplierSignInPage({ searchParams }: Props) {
-  const { error } = await searchParams;
+  const { error, verified } = await searchParams;
+  const isVerified = verified === '1' || verified === 'true';
 
   const errorMessages: Record<string, string> = {
     invalid_credentials: 'Incorrect email or password. Please try again.',
@@ -16,6 +17,7 @@ export default async function SupplierSignInPage({ searchParams }: Props) {
     server: 'A server error occurred. Please try again.',
     session_expired: 'Your session has expired. Please sign in again.',
     auth_required: 'Authentication required. Please sign in to continue.',
+    forbidden_supplier: 'Access restricted to authorized supplier partner accounts.',
   };
 
   const errorText = error ? (errorMessages[error] ?? 'Sign in failed. Please try again.') : null;
@@ -46,6 +48,19 @@ export default async function SupplierSignInPage({ searchParams }: Props) {
       <main className="flex flex-1 items-center justify-center px-4 py-12">
         <div className="w-full max-w-[420px]">
           <div className="rounded-lg border border-slate-800/80 bg-slate-900/90 p-8 shadow-2xl backdrop-blur-xl">
+            {/* Verified Banner */}
+            {isVerified && (
+              <div className="mb-6 rounded border border-emerald-500/30 bg-emerald-500/10 p-4 text-[13px] text-emerald-200 space-y-1">
+                <div className="flex items-center gap-2 font-medium text-emerald-300">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
+                  <span>Email address verified</span>
+                </div>
+                <p className="text-[12px] text-emerald-300/80 leading-relaxed pl-6">
+                  Your supplier account is now verified. Sign in to continue your EntireFM supplier application.
+                </p>
+              </div>
+            )}
+
             {/* Heading */}
             <div className="mb-6">
               <h1 className="text-2xl font-light tracking-tight text-white">

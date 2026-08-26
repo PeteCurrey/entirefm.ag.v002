@@ -52,6 +52,7 @@ export function middleware(request: NextRequest) {
   // 3. Skip public static assets and API auth endpoints
   if (
     pathname.startsWith('/_next') ||
+    pathname.startsWith('/auth') ||
     pathname.startsWith('/api/auth') ||
     pathname.startsWith('/api/enquiry') ||
     pathname.startsWith('/api/newsletter') ||

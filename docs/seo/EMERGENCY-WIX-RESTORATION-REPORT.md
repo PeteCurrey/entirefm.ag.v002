@@ -2,7 +2,7 @@
 ## Live Production SEO Parity Verification
 
 **Audited Domain:** `https://www.entirefm.com`  
-**Timestamp:** 2026-08-25T20:41:01.558Z  
+**Timestamp:** 2026-08-26T11:26:46.537Z  
 **Verification Method:** Live Automated HTTPS Request Crawl of Entire URL Estate  
 **Final Status:** **ALL_HISTORIC_WIX_URLS_LIVE_200**
 
@@ -22,8 +22,8 @@ Every historic Wix URL across Generation 1 and Generation 2 has been reconciled,
 | **Total Protected Historic URLs** | **230** | **RESTORED & ACTIVE** |
 | • `LEGACY_VERIFIED` (Proven G1/G2 Wix Assets) | 201 | Verified |
 | • `LEGACY_PROTECTED_BY_DIRECTIVE` (Mandatory Architecture) | 29 | Verified |
-| **New Growth & Regional Expansion URLs** | **171** | **ACTIVE (ADDITIVE)** |
-| **Total Live Production Route Estate** | **408** | **100% INVENTORY COVERAGE** |
+| **New Growth & Regional Expansion URLs** | **185** | **ACTIVE (ADDITIVE)** |
+| **Total Live Production Route Estate** | **422** | **100% INVENTORY COVERAGE** |
 
 ---
 
@@ -74,10 +74,10 @@ Every historic URL was requested directly via HTTPS from `https://www.entirefm.c
 
 ## REPORT 6 — UNIQUE SEO METADATA AUDIT
 
-- **Unique Titles:** 100% unique across all 408 routes (0 duplicates).
-- **Unique H1s:** 100% unique across all 408 routes (0 duplicates).
+- **Unique Titles:** 100% unique across all 422 routes (0 duplicates).
+- **Unique H1s:** 100% unique across all 422 routes (0 duplicates).
 - **Meta Descriptions:** 100% unique and context-rich across all routes.
-- **Main Body Content:** Substantive bespoke server-rendered HTML across all 408 routes.
+- **Main Body Content:** Substantive bespoke server-rendered HTML across all 422 routes.
 
 ---
 
@@ -85,13 +85,22 @@ Every historic URL was requested directly via HTTPS from `https://www.entirefm.c
 
 The multi-URL geographic landing strategy is preserved and active:
 
-### LONDON (16 Active URLs)
+### LONDON (27 Active URLs)
+- `/bms-maintenance-london` (HTTP 200 OK)
+- `/commercial-building-maintenance-london` (HTTP 200 OK)
 - `/commercial-cleaning-london` (HTTP 200 OK)
+- `/commercial-eicr-testing-london` (HTTP 200 OK)
+- `/commercial-electrical-maintenance-london` (HTTP 200 OK)
+- `/commercial-plumbing-london` (HTTP 200 OK)
+- `/commercial-water-hygiene-london` (HTTP 200 OK)
 - `/contract-cleaning-london` (HTTP 200 OK)
 - `/external-cleaning-london` (HTTP 200 OK)
 - `/facilities-management-glossary-london` (HTTP 200 OK)
 - `/facilities-management-london` (HTTP 200 OK)
+- `/facilities-management-services-london` (HTTP 200 OK)
+- `/fire-emergency-systems-london` (HTTP 200 OK)
 - `/fm-london` (HTTP 200 OK)
+- `/hard-facilities-management-london` (HTTP 200 OK)
 - `/hvac-london` (HTTP 200 OK)
 - `/industrial-cleaning-london` (HTTP 200 OK)
 - `/locations/london` (HTTP 200 OK)
@@ -102,6 +111,8 @@ The multi-URL geographic landing strategy is preserved and active:
 - `/office-cleaning-london` (HTTP 200 OK)
 - `/ppm-london` (HTTP 200 OK)
 - `/pressure-washing-london` (HTTP 200 OK)
+- `/reactive-maintenance-london` (HTTP 200 OK)
+- `/soft-facilities-management-london` (HTTP 200 OK)
 
 ### MANCHESTER (15 Active URLs)
 - `/commercial-cleaning-manchester` (HTTP 200 OK)
@@ -284,4 +295,4 @@ The multi-URL geographic landing strategy is preserved and active:
 ALL_HISTORIC_WIX_URLS_LIVE_200
 ```
 
-All 230 protected historic Wix URLs and 171 growth routes are live, returning HTTP 200, self-canonicalised, fully indexable, server-rendered, and correctly mapped into the XML sitemap index.
+All 230 protected historic Wix URLs and 185 growth routes are live, returning HTTP 200, self-canonicalised, fully indexable, server-rendered, and correctly mapped into the XML sitemap index.
