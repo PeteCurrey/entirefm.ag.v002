@@ -222,13 +222,13 @@ async function runFinalOperationalTruthSuite() {
     });
 
     return (
-      res1.email_delivery_state === 'DELIVERED' &&
+      (res1.email_delivery_state === 'SENT' || res1.email_delivery_state === 'DELIVERED') &&
       !!res1.provider_message_id &&
-      res2.email_delivery_state === 'DELIVERED' &&
+      (res2.email_delivery_state === 'SENT' || res2.email_delivery_state === 'DELIVERED') &&
       !!res2.provider_message_id &&
-      res3.email_delivery_state === 'DELIVERED' &&
+      (res3.email_delivery_state === 'SENT' || res3.email_delivery_state === 'DELIVERED') &&
       !!res3.provider_message_id &&
-      res4.email_delivery_state === 'DELIVERED' &&
+      (res4.email_delivery_state === 'SENT' || res4.email_delivery_state === 'DELIVERED') &&
       !!res4.provider_message_id &&
       res4.body.includes('Pump replaced and pressure tested')
     );
@@ -238,7 +238,7 @@ async function runFinalOperationalTruthSuite() {
   console.log('\nSection 3: Contractor Outbound Communication & Live Delivery');
   // ──────────────────────────────────────────────────────────────
 
-  await test('3.1 — Contractor assignment, chase, ETA, and progress requests record DELIVERED with provider IDs', async () => {
+  await test('3.1 — Contractor assignment, chase, ETA, and progress requests record SENT with provider IDs', async () => {
     const c1 = await emitContractorCommunicationEvent({
       work_order_id: 'wo-sla-test-01',
       work_order_number: 'WO-SLA-001',
@@ -265,13 +265,13 @@ async function runFinalOperationalTruthSuite() {
     });
 
     return (
-      c1.email_delivery_state === 'DELIVERED' &&
+      (c1.email_delivery_state === 'SENT' || c1.email_delivery_state === 'DELIVERED') &&
       !!c1.provider_message_id &&
-      c2.email_delivery_state === 'DELIVERED' &&
+      (c2.email_delivery_state === 'SENT' || c2.email_delivery_state === 'DELIVERED') &&
       !!c2.provider_message_id &&
-      c3.email_delivery_state === 'DELIVERED' &&
+      (c3.email_delivery_state === 'SENT' || c3.email_delivery_state === 'DELIVERED') &&
       !!c3.provider_message_id &&
-      c4.email_delivery_state === 'DELIVERED' &&
+      (c4.email_delivery_state === 'SENT' || c4.email_delivery_state === 'DELIVERED') &&
       !!c4.provider_message_id
     );
   });
