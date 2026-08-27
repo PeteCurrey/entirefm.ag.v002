@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   const discipline = searchParams.get('discipline') || undefined;
 
   const all = await getAllMembers();
-  let members = all.filter((m) => m.profile_visibility === 'public');
+  let members = all.filter((m) => m.member_status === 'active' && m.profile_visibility === 'public');
 
   if (q) {
     members = members.filter(

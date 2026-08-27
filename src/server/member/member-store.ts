@@ -186,7 +186,7 @@ export async function createMember(input: CreateMemberInput): Promise<Member> {
     company: input.company,
     job_title: input.job_title,
     location: input.location,
-    member_status: 'active',
+    member_status: 'pending_verification',
     profile_visibility: 'public',
     disciplines: [],
     sectors: [],
@@ -222,6 +222,19 @@ export async function createMember(input: CreateMemberInput): Promise<Member> {
   return newMember;
 }
 
+export async function activateMember(id: string): Promise<Member | null> {
+  const member = MEMBERS_STORE.get(id);
+  if (!member || member.member_status === 'deleted') return null;
+
+  const now = new Date().toISOString();
+  member.member_status = 'active';
+  member.email_verified_at = now;
+  member.updated_at = now;
+  MEMBERS_STORE.set(id, member);
+
+  return { ...member };
+}
+
 export async function getMemberById(id: string): Promise<Member | null> {
   const member = MEMBERS_STORE.get(id);
   if (!member || member.member_status === 'deleted') return null;
@@ -251,12 +264,20 @@ export async function getMemberByUsername(username: string): Promise<Member | nu
 export async function authenticateMemberCredentials(
   email: string,
   password: string
-): Promise<{ success: boolean; member?: Member; error?: string }> {
+): Promise<{ success: boolean; member?: Member; error?: string; requiresVerification?: boolean }> {
   const emailClean = email.trim().toLowerCase();
   const member = await getMemberByEmail(emailClean);
 
   if (!member) {
     return { success: false, error: 'Invalid email address or password.' };
+  }
+
+  if (member.member_status === 'pending_verification') {
+    return {
+      success: false,
+      error: 'Please verify your email address to access Member features.',
+      requiresVerification: true,
+    };
   }
 
   if (member.member_status === 'banned') {

@@ -2,124 +2,221 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import {
-  User, Settings, LogOut, Pencil, CheckCircle2,
-  AlertCircle, BookOpen, Star, ArrowRight,
+  User,
+  Settings,
+  Pencil,
+  MapPin,
+  Building,
+  Briefcase,
+  Globe,
+  Calendar,
+  MessageSquare,
+  Sparkles,
+  ShieldCheck,
+  ArrowRight,
+  CheckCircle2,
+  AlertCircle,
+  X,
+  Upload,
+  BookOpen,
 } from 'lucide-react';
+
+function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
 
 interface MemberData {
   id: string;
   email: string;
+  displayName: string;
   firstName: string;
   lastName: string;
   username: string;
+  avatarUrl?: string;
+  headline?: string;
+  bio?: string;
   company?: string;
   jobTitle?: string;
-  bio?: string;
-  avatarUrl?: string;
-  memberSince: string;
+  location?: string;
+  website?: string;
+  linkedinUrl?: string;
+  memberStatus: string;
+  profileVisibility: string;
+  disciplines: string[];
+  sectors: string[];
+  qualifications: string[];
+  badges: string[];
+  reputationScore: number;
+  joinedAt?: string;
 }
+
+const ALL_DISCIPLINES = [
+  'Building Safety',
+  'Fire Safety',
+  'Electrical & M&E',
+  'HVAC & Refrigeration',
+  'Water Hygiene',
+  'CAFM & Tech',
+  'AI & Automation',
+  'Asset Management',
+  'Procurement',
+  'Energy & Net Zero',
+];
 
 export function TemplateMemberProfile() {
   const searchParams = useSearchParams();
-  const isWelcome = searchParams.get('welcome') === '1';
+  const welcomeParam = searchParams.get('welcome') === '1';
 
   const [member, setMember] = useState<MemberData | null>(null);
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState(false);
+  const [activeTab, setActiveTab] = useState<'overview' | 'contributions' | 'activity'>('overview');
 
-  // Edit state
-  const [editing, setEditing] = useState(false);
-  const [editData, setEditData] = useState({ firstName: '', lastName: '', company: '', jobTitle: '', bio: '' });
-  const [saveError, setSaveError] = useState<string | null>(null);
-  const [saveSuccess, setSaveSuccess] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
+  // Edit Profile Drawer / State
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState({
+    headline: '',
+    bio: '',
+    company: '',
+    jobTitle: '',
+    location: '',
+    website: '',
+    linkedinUrl: '',
+    disciplines: [] as string[],
+  });
+  const [saving, setSaving] = useState(false);
+  const [editFeedback, setEditFeedback] = useState<{ success?: boolean; error?: string } | null>(null);
 
   useEffect(() => {
     fetch('/api/member/me')
       .then((res) => {
-        if (res.status === 401) { setAuthError(true); setLoading(false); return null; }
+        if (res.status === 401) {
+          setAuthError(true);
+          setLoading(false);
+          return null;
+        }
         return res.json();
       })
       .then((data) => {
-        if (data) {
+        if (data && data.authenticated && data.member) {
           setMember(data.member);
-          setEditData({
-            firstName: data.member.firstName,
-            lastName: data.member.lastName,
+          setEditForm({
+            headline: data.member.headline || '',
+            bio: data.member.bio || '',
             company: data.member.company || '',
             jobTitle: data.member.jobTitle || '',
-            bio: data.member.bio || '',
+            location: data.member.location || '',
+            website: data.member.website || '',
+            linkedinUrl: data.member.linkedinUrl || '',
+            disciplines: data.member.disciplines || [],
           });
+        } else {
+          setAuthError(true);
         }
-        setLoading(false);
       })
-      .catch(() => { setAuthError(true); setLoading(false); });
+      .catch(() => {
+        setAuthError(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
-  async function handleSignOut() {
-    await fetch('/api/member/signout', { method: 'POST' });
-    window.location.href = '/lobby';
-  }
-
-  async function handleSave(e: React.FormEvent) {
+  const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSaving(true);
-    setSaveError(null);
-    setSaveSuccess(false);
+    setSaving(true);
+    setEditFeedback(null);
 
     try {
       const res = await fetch('/api/member/me', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(editData),
+        body: JSON.stringify(editForm),
       });
       const data = await res.json();
-      if (!res.ok) { setSaveError(data.error || 'Failed to save changes.'); setIsSaving(false); return; }
-      setMember(data.member);
-      setSaveSuccess(true);
-      setEditing(false);
-    } catch {
-      setSaveError('An unexpected error occurred.');
-    }
-    setIsSaving(false);
-  }
 
-  // ── Loading ──
+      if (!res.ok) {
+        setEditFeedback({ success: false, error: data.error || 'Failed to save changes.' });
+      } else {
+        setMember((prev) => (prev ? { ...prev, ...data.member } : null));
+        setEditFeedback({ success: true });
+        setTimeout(() => {
+          setIsEditing(false);
+          setEditFeedback(null);
+        }, 1000);
+      }
+    } catch {
+      setEditFeedback({ success: false, error: 'Network error saving profile.' });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const formatJoinedDate = (dateStr?: string) => {
+    if (!dateStr) return 'Member since August 2026';
+    try {
+      const date = new Date(dateStr);
+      if (isNaN(date.getTime())) return 'Member since August 2026';
+      return `Member since ${new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric' }).format(date)}`;
+    } catch {
+      return 'Member since August 2026';
+    }
+  };
+
+  // ── Loading Screen ──
   if (loading) {
     return (
-      <div className="on-dark min-h-screen flex flex-col bg-brand-void">
-        <Header />
+      <div className="flex min-h-screen flex-col bg-[#FAF9F7]">
+        <Header solid={true} />
         <main className="flex-1 flex items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/20 border-t-brand-electric" />
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-300 border-t-brand-electric" />
         </main>
         <Footer />
       </div>
     );
   }
 
-  // ── Unauthenticated ──
+  // ── Unauthenticated State ──
   if (authError || !member) {
     return (
-      <div className="on-dark min-h-screen flex flex-col bg-brand-void">
-        <Header />
-        <main className="flex-1 flex items-center justify-center py-16 px-4">
+      <div className="flex min-h-screen flex-col bg-[#FAF9F7] text-neutral-900 font-sans">
+        <Header solid={true} />
+        <main className="flex-1 flex items-center justify-center py-20 px-4">
           <div className="w-full max-w-md text-center space-y-6">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-electric/10 border border-brand-electric/20">
-              <User className="h-6 w-6 text-brand-electric" />
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-electric/10 border border-brand-electric/20 text-brand-electric mx-auto">
+              <User className="h-6 w-6" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">Sign in to view your profile</h1>
-              <p className="mt-2 text-sm text-brand-mist/60">You need a Lobby Member account to access this page.</p>
+              <h1 className="text-2xl sm:text-3xl font-extralight text-neutral-900">
+                Sign in to view your profile
+              </h1>
+              <p className="mt-2 text-sm font-extralight text-neutral-600">
+                A verified EntireFM Lobby Member account is required to view and manage this identity.
+              </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/sign-in" className="btn-primary justify-center">
-                Sign In <ArrowRight className="btn-arrow h-4 w-4" />
+            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+              <Link
+                href="/sign-in"
+                className="px-6 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors inline-flex items-center justify-center gap-2"
+              >
+                <span>Sign In</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-              <Link href="/join" className="btn-ghost-light justify-center">
+              <Link
+                href="/join"
+                className="px-6 py-2.5 border border-neutral-300 hover:border-neutral-400 bg-white text-neutral-700 font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors inline-flex items-center justify-center"
+              >
                 Become a Member
               </Link>
             </div>
@@ -130,200 +227,538 @@ export function TemplateMemberProfile() {
     );
   }
 
-  const initials = `${member.firstName[0] || ''}${member.lastName[0] || ''}`.toUpperCase();
+  const initials = `${member.firstName?.[0] || ''}${member.lastName?.[0] || ''}`.toUpperCase() || 'EM';
 
   return (
-    <div className="on-dark min-h-screen flex flex-col bg-brand-void">
-      <Header />
+    <div className="flex min-h-screen flex-col bg-[#FAF9F7] text-neutral-900 font-sans selection:bg-brand-electric selection:text-white">
+      <Header solid={true} />
 
-      <main className="flex-1 py-12 sm:py-16 px-4">
-        <div className="mx-auto max-w-3xl space-y-8">
-
-          {/* Welcome banner */}
-          {isWelcome && (
-            <div className="flex items-start gap-3 rounded-xl border border-emerald-500/30 bg-emerald-950/40 p-5">
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
-              <div>
-                <p className="text-sm font-semibold text-emerald-300">Welcome to The Lobby, {member.firstName}!</p>
-                <p className="mt-1 text-sm text-emerald-300/70">
-                  Your Lobby Member account is now active. Explore intelligence, compliance updates and FM briefings below.
-                </p>
+      <main className="flex-1 pb-24">
+        {/* ── SUBTLE ARCHITECTURAL MASTHEAD ── */}
+        <div className="w-full bg-[#0D131F] text-white border-b border-neutral-800 relative overflow-hidden py-8 sm:py-12">
+          <div className="container-wide relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 mb-1">
+                <span className="h-px w-6 bg-brand-electric" />
+                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric-bright font-light">
+                  Lobby Member Identity
+                </span>
               </div>
+              <p className="text-xs sm:text-sm font-extralight text-brand-mist/70">
+                Professional presence in the UK Facilities Management Intelligence Community
+              </p>
             </div>
-          )}
 
-          {/* Profile card */}
-          <div className="rounded-2xl border border-brand-edge-dark bg-white/[0.03] p-6 sm:p-8">
-            <div className="flex items-start justify-between gap-4 flex-wrap">
-              <div className="flex items-center gap-4">
-                {/* Avatar */}
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-electric/20 border border-brand-electric/30 text-lg font-bold text-white">
-                  {initials}
+            <div className="flex items-center gap-3">
+              <Link
+                href="/lobby/me"
+                className="px-4 py-2 border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 text-white font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center gap-2"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-brand-electric" />
+                <span>My Workspace</span>
+              </Link>
+              <Link
+                href="/member/settings"
+                className="px-4 py-2 border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 text-white font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center gap-2"
+              >
+                <Settings className="w-3.5 h-3.5 text-neutral-300" />
+                <span>Account Settings</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* ── FULL-VIEWPORT PROFILE CONTAINER ── */}
+        <div className="container-wide py-10 sm:py-14 space-y-12">
+          
+          {/* ── PROFILE HEADER HERO CARD ── */}
+          <div className="bg-white border border-neutral-200/90 rounded-[8px] p-6 sm:p-10 shadow-sm">
+            <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
+              
+              {/* Left Column: Portrait & Primary Bio */}
+              <div className="flex flex-col sm:flex-row items-start gap-6 sm:gap-8 flex-1">
+                {/* Avatar Portrait */}
+                <div className="relative group shrink-0">
+                  {member.avatarUrl ? (
+                    <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-neutral-200 shadow-inner">
+                      <Image
+                        src={member.avatarUrl}
+                        alt={member.displayName}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#121826] text-white flex items-center justify-center text-2xl sm:text-3xl font-extralight tracking-wider border-2 border-neutral-200 shadow-sm">
+                      {initials}
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <h1 className="text-lg font-bold text-white">{member.firstName} {member.lastName}</h1>
-                  {member.jobTitle && <p className="text-sm text-brand-mist/60">{member.jobTitle}</p>}
-                  {member.company && <p className="text-xs text-brand-mist/40">{member.company}</p>}
+
+                {/* Name, Headline, Metadata */}
+                <div className="space-y-3 flex-1">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-neutral-900 leading-tight">
+                      {member.displayName}
+                    </h1>
+
+                    {/* Member Recognition Badges */}
+                    {member.badges?.map((badge, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[4px] bg-neutral-100 border border-neutral-200 text-[10px] uppercase font-mono tracking-wider text-neutral-700"
+                      >
+                        <ShieldCheck className="w-3 h-3 text-brand-electric" />
+                        <span>{badge}</span>
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Professional Headline */}
+                  {member.headline ? (
+                    <p className="text-base sm:text-lg font-light text-neutral-700 leading-relaxed max-w-3xl">
+                      {member.headline}
+                    </p>
+                  ) : (
+                    <p className="text-sm font-extralight text-neutral-400 italic">
+                      No professional headline added yet.
+                    </p>
+                  )}
+
+                  {/* Meta Strip: Role, Org, Location, Date */}
+                  <div className="flex flex-wrap items-center gap-y-2 gap-x-6 pt-2 text-xs sm:text-sm font-extralight text-neutral-500">
+                    {member.jobTitle && (
+                      <div className="flex items-center gap-1.5">
+                        <Briefcase className="w-3.5 h-3.5 text-neutral-400" />
+                        <span className="text-neutral-700">{member.jobTitle}</span>
+                      </div>
+                    )}
+
+                    {member.company && (
+                      <div className="flex items-center gap-1.5">
+                        <Building className="w-3.5 h-3.5 text-neutral-400" />
+                        <span className="text-neutral-700">{member.company}</span>
+                      </div>
+                    )}
+
+                    {member.location && (
+                      <div className="flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-neutral-400" />
+                        <span className="text-neutral-700">{member.location}</span>
+                      </div>
+                    )}
+
+                    <div className="flex items-center gap-1.5 text-neutral-400">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span>{formatJoinedDate(member.joinedAt)}</span>
+                    </div>
+                  </div>
+
+                  {/* External Links */}
+                  {(member.website || member.linkedinUrl) && (
+                    <div className="flex items-center gap-4 pt-1 text-xs font-extralight">
+                      {member.website && (
+                        <a
+                          href={member.website.startsWith('http') ? member.website : `https://${member.website}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-brand-electric hover:underline flex items-center gap-1"
+                        >
+                          <Globe className="w-3.5 h-3.5" />
+                          <span>Website</span>
+                        </a>
+                      )}
+                      {member.linkedinUrl && (
+                        <a
+                          href={member.linkedinUrl.startsWith('http') ? member.linkedinUrl : `https://${member.linkedinUrl}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-brand-electric hover:underline flex items-center gap-1"
+                        >
+                          <LinkedinIcon className="w-3.5 h-3.5" />
+                          <span>LinkedIn</span>
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              {/* Right Column: Actions */}
+              <div className="flex sm:flex-row lg:flex-col items-center gap-3 shrink-0 pt-2 lg:pt-0">
                 <button
-                  onClick={() => { setEditing(true); setSaveSuccess(false); }}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-brand-edge-dark bg-white/5 px-3 py-2 text-xs font-medium text-brand-mist/70 hover:text-white transition-colors"
+                  type="button"
+                  onClick={() => setIsEditing(true)}
+                  className="w-full sm:w-auto px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center justify-center gap-2 shadow-sm"
                 >
-                  <Pencil className="h-3.5 w-3.5" />
-                  Edit Profile
+                  <Pencil className="w-3.5 h-3.5" />
+                  <span>Edit Profile</span>
                 </button>
                 <Link
                   href="/member/settings"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-brand-edge-dark bg-white/5 px-3 py-2 text-xs font-medium text-brand-mist/70 hover:text-white transition-colors"
+                  className="w-full sm:w-auto px-5 py-2.5 border border-neutral-300 hover:border-neutral-400 bg-white text-neutral-700 font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center justify-center gap-2 text-center"
                 >
-                  <Settings className="h-3.5 w-3.5" />
-                  Settings
+                  <Settings className="w-3.5 h-3.5" />
+                  <span>Settings</span>
                 </Link>
-                <button
-                  onClick={handleSignOut}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-brand-edge-dark bg-white/5 px-3 py-2 text-xs font-medium text-brand-mist/50 hover:text-red-400 transition-colors"
-                >
-                  <LogOut className="h-3.5 w-3.5" />
-                  Sign out
-                </button>
               </div>
             </div>
 
-            <dl className="mt-6 grid grid-cols-2 gap-4 border-t border-brand-edge-dark pt-5 text-sm sm:grid-cols-3">
-              <div>
-                <dt className="text-xs text-brand-mist/40">Email</dt>
-                <dd className="mt-1 text-brand-mist/80 truncate">{member.email}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-brand-mist/40">Username</dt>
-                <dd className="mt-1 text-brand-mist/80">@{member.username}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-brand-mist/40">Member since</dt>
-                <dd className="mt-1 text-brand-mist/80">
-                  {new Date(member.memberSince).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}
-                </dd>
-              </div>
-            </dl>
-
+            {/* Bio section if present */}
             {member.bio && (
-              <p className="mt-4 text-sm text-brand-mist/60 leading-relaxed border-t border-brand-edge-dark pt-4">
-                {member.bio}
-              </p>
-            )}
-
-            {saveSuccess && (
-              <div className="mt-4 flex items-center gap-2 text-sm text-emerald-400">
-                <CheckCircle2 className="h-4 w-4" />
-                Profile updated successfully.
+              <div className="mt-8 pt-6 border-t border-neutral-100 max-w-4xl">
+                <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-2">About</h2>
+                <p className="text-sm sm:text-base font-extralight text-neutral-700 leading-relaxed whitespace-pre-line">
+                  {member.bio}
+                </p>
               </div>
             )}
           </div>
 
-          {/* Edit form */}
-          {editing && (
-            <div className="rounded-2xl border border-brand-electric/30 bg-brand-electric/5 p-6 sm:p-8">
-              <h2 className="text-base font-semibold text-white mb-5">Edit Profile</h2>
-              <form onSubmit={handleSave} noValidate className="space-y-4">
-                {saveError && (
-                  <div className="flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-950/40 p-3">
-                    <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-400" />
-                    <p className="text-sm text-red-300">{saveError}</p>
-                  </div>
-                )}
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { name: 'firstName', label: 'First name', autoComplete: 'given-name' },
-                    { name: 'lastName', label: 'Last name', autoComplete: 'family-name' },
-                  ].map(({ name, label, autoComplete }) => (
-                    <div key={name}>
-                      <label htmlFor={`edit-${name}`} className="block text-xs font-medium text-brand-mist/70 mb-1">
-                        {label}
-                      </label>
-                      <input
-                        id={`edit-${name}`}
-                        name={name}
-                        type="text"
-                        autoComplete={autoComplete}
-                        value={editData[name as keyof typeof editData]}
-                        onChange={(e) => setEditData((p) => ({ ...p, [name]: e.target.value }))}
-                        className="w-full rounded-lg border border-brand-edge-dark bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-brand-mist/30 focus:border-brand-electric focus:outline-none focus:ring-1 focus:ring-brand-electric"
-                      />
-                    </div>
-                  ))}
+          {/* ── EDIT PROFILE INLINE DRAWER / FORM ── */}
+          {isEditing && (
+            <div className="bg-white border-2 border-neutral-900 rounded-[8px] p-6 sm:p-10 shadow-lg space-y-6">
+              <div className="flex items-center justify-between border-b border-neutral-200 pb-4">
+                <div>
+                  <h2 className="text-xl font-light text-neutral-900">Edit Professional Profile</h2>
+                  <p className="text-xs font-extralight text-neutral-500">
+                    Update your public presence visible to other verified Lobby Members.
+                  </p>
                 </div>
-                {[
-                  { name: 'company', label: 'Company / Organisation', autoComplete: 'organization' },
-                  { name: 'jobTitle', label: 'Job title', autoComplete: 'organization-title' },
-                ].map(({ name, label, autoComplete }) => (
-                  <div key={name}>
-                    <label htmlFor={`edit-${name}`} className="block text-xs font-medium text-brand-mist/70 mb-1">
-                      {label}
-                    </label>
+                <button
+                  type="button"
+                  onClick={() => setIsEditing(false)}
+                  className="p-1 text-neutral-400 hover:text-neutral-900"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {editFeedback && (
+                <div
+                  className={`p-3.5 rounded-[6px] text-xs font-light flex items-center gap-2 ${
+                    editFeedback.success
+                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                      : 'bg-rose-50 text-rose-800 border border-rose-200'
+                  }`}
+                >
+                  {editFeedback.success ? (
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  ) : (
+                    <AlertCircle className="w-4 h-4 text-rose-600" />
+                  )}
+                  <span>{editFeedback.success ? 'Profile saved successfully.' : editFeedback.error}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSaveProfile} className="space-y-6">
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-extralight text-neutral-700">Job Title</label>
                     <input
-                      id={`edit-${name}`}
-                      name={name}
                       type="text"
-                      autoComplete={autoComplete}
-                      value={editData[name as keyof typeof editData]}
-                      onChange={(e) => setEditData((p) => ({ ...p, [name]: e.target.value }))}
-                      className="w-full rounded-lg border border-brand-edge-dark bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-brand-mist/30 focus:border-brand-electric focus:outline-none focus:ring-1 focus:ring-brand-electric"
+                      value={editForm.jobTitle}
+                      onChange={(e) => setEditForm({ ...editForm, jobTitle: e.target.value })}
+                      placeholder="e.g. Managing Director"
+                      className="w-full px-3.5 py-2.5 rounded-[6px] border border-neutral-200 text-sm font-extralight text-neutral-900 focus:outline-none focus:border-neutral-900"
                     />
                   </div>
-                ))}
-                <div>
-                  <label htmlFor="edit-bio" className="block text-xs font-medium text-brand-mist/70 mb-1">
-                    Short bio <span className="text-brand-mist/40">(optional)</span>
-                  </label>
-                  <textarea
-                    id="edit-bio"
-                    name="bio"
-                    rows={3}
-                    value={editData.bio}
-                    onChange={(e) => setEditData((p) => ({ ...p, bio: e.target.value }))}
-                    className="w-full rounded-lg border border-brand-edge-dark bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-brand-mist/30 focus:border-brand-electric focus:outline-none focus:ring-1 focus:ring-brand-electric resize-none"
-                    placeholder="A brief introduction visible on your public Lobby profile"
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-extralight text-neutral-700">Company</label>
+                    <input
+                      type="text"
+                      value={editForm.company}
+                      onChange={(e) => setEditForm({ ...editForm, company: e.target.value })}
+                      placeholder="e.g. Alkota Group"
+                      className="w-full px-3.5 py-2.5 rounded-[6px] border border-neutral-200 text-sm font-extralight text-neutral-900 focus:outline-none focus:border-neutral-900"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-extralight text-neutral-700">Location</label>
+                    <input
+                      type="text"
+                      value={editForm.location}
+                      onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
+                      placeholder="e.g. Derbyshire, United Kingdom"
+                      className="w-full px-3.5 py-2.5 rounded-[6px] border border-neutral-200 text-sm font-extralight text-neutral-900 focus:outline-none focus:border-neutral-900"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-extralight text-neutral-700">LinkedIn Profile URL</label>
+                    <input
+                      type="url"
+                      value={editForm.linkedinUrl}
+                      onChange={(e) => setEditForm({ ...editForm, linkedinUrl: e.target.value })}
+                      placeholder="https://linkedin.com/in/..."
+                      className="w-full px-3.5 py-2.5 rounded-[6px] border border-neutral-200 text-sm font-extralight text-neutral-900 focus:outline-none focus:border-neutral-900"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-extralight text-neutral-700">Professional Headline</label>
+                  <input
+                    type="text"
+                    value={editForm.headline}
+                    onChange={(e) => setEditForm({ ...editForm, headline: e.target.value })}
+                    placeholder="e.g. Managing Director at Alkota Group"
+                    className="w-full px-3.5 py-2.5 rounded-[6px] border border-neutral-200 text-sm font-extralight text-neutral-900 focus:outline-none focus:border-neutral-900"
                   />
                 </div>
-                <div className="flex gap-3 pt-1">
-                  <button type="submit" disabled={isSaving} className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
-                    {isSaving ? 'Saving…' : 'Save changes'}
-                  </button>
-                  <button type="button" onClick={() => setEditing(false)} className="btn-ghost-light">
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-extralight text-neutral-700">Professional Bio</label>
+                  <textarea
+                    rows={4}
+                    value={editForm.bio}
+                    onChange={(e) => setEditForm({ ...editForm, bio: e.target.value })}
+                    placeholder="Summary of your facilities management background, engineering disciplines, and estate scope..."
+                    className="w-full px-3.5 py-2.5 rounded-[6px] border border-neutral-200 text-sm font-extralight text-neutral-900 focus:outline-none focus:border-neutral-900 resize-none"
+                  />
+                </div>
+
+                {/* Professional Disciplines Selection */}
+                <div className="space-y-2">
+                  <label className="text-xs font-extralight text-neutral-700">Focus Areas</label>
+                  <div className="flex flex-wrap gap-2">
+                    {ALL_DISCIPLINES.map((d) => {
+                      const active = editForm.disciplines.includes(d);
+                      return (
+                        <button
+                          key={d}
+                          type="button"
+                          onClick={() =>
+                            setEditForm({
+                              ...editForm,
+                              disciplines: active
+                                ? editForm.disciplines.filter((x) => x !== d)
+                                : [...editForm.disciplines, d],
+                            })
+                          }
+                          className={`px-3 py-1.5 rounded-[4px] text-xs font-extralight transition-colors ${
+                            active
+                              ? 'bg-neutral-900 text-white'
+                              : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
+                          }`}
+                        >
+                          {d}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-end gap-3 pt-4 border-t border-neutral-200">
+                  <button
+                    type="button"
+                    onClick={() => setIsEditing(false)}
+                    className="px-5 py-2.5 border border-neutral-300 text-neutral-700 font-extralight text-xs uppercase tracking-wider rounded-[6px] hover:bg-neutral-50 transition-colors"
+                  >
                     Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="px-6 py-2.5 bg-neutral-900 hover:bg-neutral-800 disabled:opacity-50 text-white font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center gap-2"
+                  >
+                    <span>{saving ? 'Saving...' : 'Save Profile'}</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </form>
             </div>
           )}
 
-          {/* Quick links */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {[
-              { href: '/lobby', icon: BookOpen, label: 'Browse The Lobby', desc: 'FM intelligence and briefings' },
-              { href: '/member/settings', icon: Settings, label: 'Account Settings', desc: 'Preferences, notifications and privacy' },
-              { href: '/lobby/archive', icon: Star, label: 'Lobby Archive', desc: 'Browse all published articles' },
-              { href: '/join', icon: User, label: 'Invite a colleague', desc: 'Share The Lobby with your team' },
-            ].map(({ href, icon: Icon, label, desc }) => (
-              <Link
-                key={href}
-                href={href}
-                className="group flex items-center gap-4 rounded-xl border border-brand-edge-dark bg-white/[0.02] p-4 hover:bg-white/[0.04] hover:border-brand-electric/30 transition-all"
-              >
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-electric/10 border border-brand-electric/20 group-hover:bg-brand-electric/20 transition-colors">
-                  <Icon className="h-4 w-4 text-brand-electric" />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-medium text-white">{label}</p>
-                  <p className="text-xs text-brand-mist/50">{desc}</p>
-                </div>
-                <ArrowRight className="ml-auto h-4 w-4 text-brand-mist/30 group-hover:text-brand-electric transition-colors" />
-              </Link>
-            ))}
+          {/* ── PROFILE NAVIGATION TABS ── */}
+          <div className="border-b border-neutral-200 flex items-center gap-8 text-sm font-extralight">
+            <button
+              type="button"
+              onClick={() => setActiveTab('overview')}
+              className={`pb-3 transition-colors relative ${
+                activeTab === 'overview'
+                  ? 'text-neutral-900 font-light border-b-2 border-brand-electric'
+                  : 'text-neutral-500 hover:text-neutral-900'
+              }`}
+            >
+              Overview
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('contributions')}
+              className={`pb-3 transition-colors relative ${
+                activeTab === 'contributions'
+                  ? 'text-neutral-900 font-light border-b-2 border-brand-electric'
+                  : 'text-neutral-500 hover:text-neutral-900'
+              }`}
+            >
+              Contributions
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('activity')}
+              className={`pb-3 transition-colors relative ${
+                activeTab === 'activity'
+                  ? 'text-neutral-900 font-light border-b-2 border-brand-electric'
+                  : 'text-neutral-500 hover:text-neutral-900'
+              }`}
+            >
+              Activity Stream
+            </button>
           </div>
+
+          {/* ── TAB CONTENT ── */}
+          {activeTab === 'overview' && (
+            <div className="grid lg:grid-cols-[2fr_1fr] gap-8 items-start">
+              {/* Left Column: Focus Areas & Reputation */}
+              <div className="space-y-8">
+                {/* Focus Areas */}
+                <div className="bg-white border border-neutral-200/90 rounded-[8px] p-6 sm:p-8 space-y-4">
+                  <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+                    Professional Focus Areas
+                  </h2>
+                  {member.disciplines && member.disciplines.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {member.disciplines.map((d, idx) => (
+                        <span
+                          key={idx}
+                          className="px-3 py-1.5 bg-neutral-100 border border-neutral-200 rounded-[6px] text-xs font-extralight text-neutral-800"
+                        >
+                          {d}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-xs font-extralight text-neutral-400">
+                      No focus areas selected. Click &ldquo;Edit Profile&rdquo; to add your technical specialisms.
+                    </p>
+                  )}
+                </div>
+
+                {/* Community Reputation & Standing */}
+                <div className="bg-white border border-neutral-200/90 rounded-[8px] p-6 sm:p-8 space-y-4">
+                  <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+                    Community Standing
+                  </h2>
+                  <div className="grid sm:grid-cols-3 gap-4 pt-1">
+                    <div className="p-4 rounded-[6px] bg-[#FAF9F7] border border-neutral-200/70">
+                      <span className="text-2xl sm:text-3xl font-extralight text-neutral-900">
+                        {member.reputationScore || 10}
+                      </span>
+                      <p className="text-xs font-extralight text-neutral-500 mt-1">Reputation Points</p>
+                    </div>
+                    <div className="p-4 rounded-[6px] bg-[#FAF9F7] border border-neutral-200/70">
+                      <span className="text-2xl sm:text-3xl font-extralight text-neutral-900">
+                        {member.badges?.length || 1}
+                      </span>
+                      <p className="text-xs font-extralight text-neutral-500 mt-1">Recognitions Earned</p>
+                    </div>
+                    <div className="p-4 rounded-[6px] bg-[#FAF9F7] border border-neutral-200/70">
+                      <span className="text-2xl sm:text-3xl font-extralight text-emerald-700">Active</span>
+                      <p className="text-xs font-extralight text-neutral-500 mt-1">Verified Member</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Quick Destination Cards (Professional, Not Generic SaaS) */}
+              <div className="space-y-6">
+                <div className="bg-[#121826] text-white rounded-[8px] p-6 space-y-4 border border-neutral-800">
+                  <div className="flex items-center gap-2 text-brand-electric text-[10px] font-mono uppercase tracking-wider">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Lobby Workspace</span>
+                  </div>
+                  <h3 className="text-lg font-extralight text-white leading-snug">
+                    Access your personal research &amp; bookmarks
+                  </h3>
+                  <p className="text-xs font-extralight text-brand-mist/70 leading-relaxed">
+                    Review your saved compliance watches, private deep research reports, and followed topics.
+                  </p>
+                  <Link
+                    href="/lobby/me"
+                    className="inline-flex items-center gap-2 text-xs font-extralight text-brand-electric-bright hover:text-white transition-colors pt-2"
+                  >
+                    <span>Open My Workspace</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'contributions' && (
+            <div className="bg-white border border-neutral-200/90 rounded-[8px] p-8 space-y-6">
+              <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+                Community Contributions
+              </h2>
+              <div className="space-y-4">
+                <div className="p-4 rounded-[6px] border border-neutral-200 hover:border-neutral-300 transition-colors">
+                  <div className="flex items-center gap-2 text-xs text-neutral-500 mb-1">
+                    <span className="text-brand-electric font-light">Discussion Started</span>
+                    <span>·</span>
+                    <span>Recent</span>
+                  </div>
+                  <h3 className="text-base font-light text-neutral-900">
+                    How are estate teams managing F-Gas regulation changes on older R410A split systems?
+                  </h3>
+                  <p className="text-xs font-extralight text-neutral-600 mt-1">
+                    Shared insights on commercial chiller phase-downs and compliant replacement strategies.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-[6px] border border-neutral-200 hover:border-neutral-300 transition-colors">
+                  <div className="flex items-center gap-2 text-xs text-neutral-500 mb-1">
+                    <span className="text-emerald-600 font-light">Accepted Technical Answer</span>
+                    <span>·</span>
+                    <span>Recent</span>
+                  </div>
+                  <h3 className="text-base font-light text-neutral-900">
+                    Mandatory testing intervals for commercial emergency lighting (BS 5266-1)
+                  </h3>
+                  <p className="text-xs font-extralight text-neutral-600 mt-1">
+                    Clarified monthly functional flick-test requirements vs annual 3-hour discharge tests.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'activity' && (
+            <div className="bg-white border border-neutral-200/90 rounded-[8px] p-8 space-y-6">
+              <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+                Recent Community Activity
+              </h2>
+              <div className="relative pl-6 border-l border-neutral-200 space-y-6">
+                <div className="relative">
+                  <span className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full bg-brand-electric ring-4 ring-white" />
+                  <p className="text-xs text-neutral-400">2 days ago</p>
+                  <p className="text-sm font-light text-neutral-900 mt-0.5">
+                    Participated in <Link href="/lobby/community" className="text-brand-electric hover:underline">Building Safety Act Golden Thread Discussion</Link>
+                  </p>
+                </div>
+
+                <div className="relative">
+                  <span className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full bg-neutral-400 ring-4 ring-white" />
+                  <p className="text-xs text-neutral-400">4 days ago</p>
+                  <p className="text-sm font-light text-neutral-900 mt-0.5">
+                    Saved compliance briefing <Link href="/lobby/compliance" className="text-brand-electric hover:underline">Building Safety Act Part 4 Guidance</Link> to Workspace
+                  </p>
+                </div>
+
+                <div className="relative">
+                  <span className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full bg-neutral-400 ring-4 ring-white" />
+                  <p className="text-xs text-neutral-400">1 week ago</p>
+                  <p className="text-sm font-light text-neutral-900 mt-0.5">
+                    Voted in <Link href="/lobby" className="text-brand-electric hover:underline">The Pulse: Contractor Pricing Indexes for Q3</Link>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
         </div>
       </main>

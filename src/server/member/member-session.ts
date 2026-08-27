@@ -79,3 +79,37 @@ export function getMemberSessionFromRequest(request: Request): MemberSession | n
   const token = decodeURIComponent(match[1]);
   return verifyMemberSessionToken(token);
 }
+
+/**
+ * Extracts session and enforces that the member has a verified active status.
+ */
+export function requireActiveMemberSession(request: Request): {
+  session: MemberSession | null;
+  error?: string;
+  status: number;
+  requiresVerification?: boolean;
+} {
+  const session = getMemberSessionFromRequest(request);
+  if (!session) {
+    return { session: null, error: 'Unauthorized. Please sign in.', status: 401 };
+  }
+
+  if (session.status === 'pending_verification') {
+    return {
+      session: null,
+      error: 'Please verify your email address to access Member features.',
+      status: 403,
+      requiresVerification: true,
+    };
+  }
+
+  if (session.status !== 'active') {
+    return {
+      session: null,
+      error: 'Access is restricted for this Member account.',
+      status: 403,
+    };
+  }
+
+  return { session, status: 200 };
+}

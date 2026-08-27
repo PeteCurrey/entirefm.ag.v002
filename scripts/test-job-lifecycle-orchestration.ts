@@ -459,7 +459,7 @@ async function runLifecycleOrchestratorSuite() {
   console.log('\nSection 9: Client Communication Events & Delivery Tracking');
   // ──────────────────────────────────────────────────────────────
 
-  await test('9.1 — Client communication event creates canonical message with INTERFACE_ONLY delivery state', async () => {
+  await test('9.1 — Client communication event creates canonical message with delivery state (SENT / INTERFACE_ONLY)', async () => {
     const res = await emitClientCommunicationEvent({
       work_order_id: 'wo-orch-test-01',
       work_order_number: 'WO-ORCH-001',
@@ -472,7 +472,7 @@ async function runLifecycleOrchestratorSuite() {
     });
     return (
       res.is_duplicate === false &&
-      (res.email_delivery_state === 'DELIVERED' || res.email_delivery_state === 'INTERFACE_ONLY') &&
+      (res.email_delivery_state === 'SENT' || res.email_delivery_state === 'DELIVERED' || res.email_delivery_state === 'INTERFACE_ONLY') &&
       res.body.includes('Acme Mechanical')
     );
   });

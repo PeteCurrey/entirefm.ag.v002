@@ -1,6 +1,15 @@
 import { NextResponse } from 'next/server';
 import { createMember } from '@/server/member/member-store';
-import { createMemberSessionToken, MEMBER_COOKIE_NAME } from '@/server/member/member-session';
+import { createMemberVerificationToken, sendMemberVerificationEmail } from '@/server/member/verification';
+
+function maskEmail(email: string): string {
+  const [local, domain] = email.split('@');
+  if (!domain) return email;
+  const maskedLocal = local.length > 2
+    ? `${local[0]}••••${local[local.length - 1]}`
+    : `${local[0] || '•'}••••`;
+  return `${maskedLocal}@${domain}`;
+}
 
 export async function POST(request: Request) {
   try {
@@ -68,29 +77,25 @@ export async function POST(request: Request) {
       userAgent,
     });
 
-    const token = createMemberSessionToken(newMember);
+    // Generate signed verification token
+    const token = createMemberVerificationToken(newMember.id, newMember.email);
 
-    const response = NextResponse.json({
+    // Build verification URL
+    const host = request.headers.get('host') || 'localhost:3000';
+    const proto = request.headers.get('x-forwarded-proto') || 'http';
+    const verificationUrl = `${proto}://${host}/api/member/verify?token=${encodeURIComponent(token)}`;
+
+    // Dispatch branded verification email
+    await sendMemberVerificationEmail(newMember.email, newMember.first_name, verificationUrl);
+
+    const masked = maskEmail(newMember.email);
+
+    return NextResponse.json({
       success: true,
-      member: {
-        id: newMember.id,
-        displayName: newMember.display_name,
-        email: newMember.email,
-        username: newMember.username,
-      },
-      redirectUrl: '/member/profile?welcome=1',
+      pendingVerification: true,
+      email: masked,
+      redirectUrl: `/verify-email?email=${encodeURIComponent(masked)}&raw=${encodeURIComponent(newMember.email)}`,
     });
-
-    // Set secure HTTP-only member session cookie
-    response.cookies.set(MEMBER_COOKIE_NAME, token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 30, // 30 days
-    });
-
-    return response;
   } catch (err: any) {
     return NextResponse.json(
       { error: err.message || 'An unexpected error occurred during registration.' },

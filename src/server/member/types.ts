@@ -9,7 +9,13 @@
  * - CAFM operational accounts NEVER leak to public community profiles without explicit action.
  */
 
-export type MemberStatus = 'active' | 'suspended' | 'banned' | 'deleted';
+export type MemberStatus =
+  | 'pending_verification'
+  | 'active'
+  | 'restricted'
+  | 'suspended'
+  | 'banned'
+  | 'deleted';
 
 export type ProfileVisibility = 'public' | 'members_only' | 'private';
 
@@ -42,6 +48,7 @@ export interface Member {
   first_name: string;
   last_name: string;
   email: string;
+  email_verified_at?: string;
   username: string; // URL-safe slug e.g. 'peter-currey'
   avatar_url?: string;
   headline?: string; // e.g. 'Head of Facilities & Asset Management | CEng'

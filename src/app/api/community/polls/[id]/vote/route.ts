@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
 import { votePoll } from '@/server/community/community-store';
-import { getMemberSessionFromRequest } from '@/server/member/member-session';
+import { requireActiveMemberSession } from '@/server/member/member-session';
 
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = getMemberSessionFromRequest(request);
+  const { session, error, status } = requireActiveMemberSession(request);
   if (!session) {
-    return NextResponse.json({ error: 'Authentication required to vote in The Pulse' }, { status: 401 });
+    return NextResponse.json({ error }, { status });
   }
 
   const { id: pollId } = await params;
