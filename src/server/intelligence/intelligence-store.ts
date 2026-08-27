@@ -72,7 +72,8 @@ export class IntelligenceStore {
       list = list.filter(
         (item) =>
           item.jurisdictions.includes(options.jurisdiction!) ||
-          item.jurisdictions.includes('United Kingdom')
+          item.jurisdictions.includes('United Kingdom') ||
+          options.jurisdiction === 'United Kingdom'
       );
     }
     if (options?.eventType) {
@@ -83,12 +84,19 @@ export class IntelligenceStore {
     }
     if (options?.search) {
       const q = options.search.toLowerCase();
-      list = list.filter(
-        (item) =>
-          item.title.toLowerCase().includes(q) ||
-          item.standfirst.toLowerCase().includes(q) ||
-          item.topics.some((t) => t.toLowerCase().includes(q))
-      );
+      const tokens = q
+        .replace(/[^a-z0-9\s]/g, '')
+        .split(/\s+/)
+        .filter((w) => w.length > 3 && !['what', 'changed', 'show', 'need', 'know', 'about', 'from', 'this', 'that'].includes(w));
+
+      list = list.filter((item) => {
+        const full = `${item.title} ${item.standfirst} ${item.topics.join(' ')}`.toLowerCase();
+        if (full.includes(q)) return true;
+        if (tokens.length > 0) {
+          return tokens.some((token) => full.includes(token));
+        }
+        return false;
+      });
     }
 
     list.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
