@@ -58,7 +58,7 @@ export function CareersHero() {
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.12]">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-white leading-[1.12]">
             Build what keeps business moving.
           </h1>
 

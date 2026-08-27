@@ -51,7 +51,7 @@ export function TemplateComplianceReporting() {
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-slate-900 leading-[1.1]">
               Compliance shouldn&apos;t disappear{' '}
-              <span className="block font-light text-slate-700 mt-1">
+              <span className="block font-extralight text-slate-900 mt-1">
                 into a filing cabinet.
               </span>
             </h1>

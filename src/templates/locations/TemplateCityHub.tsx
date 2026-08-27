@@ -109,9 +109,9 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                   </span>
                 </div>
 
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-[#101010] leading-[1.12]">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-[#101010] leading-[1.12]">
                   Facilities Management &amp;{' '}
-                  <span className="font-light block mt-1">
+                  <span className="font-extralight block mt-1">
                     Engineering in {geo.name}
                   </span>
                 </h1>

@@ -119,10 +119,10 @@ export function SupplierHero({
             </div>
           )}
 
-          <h1 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-white leading-[1.12]">
+          <h1 className="mt-5 text-display-xl font-extralight tracking-tight text-white leading-[1.12]">
             {title}
             {subtitle && (
-              <span className="block mt-2 font-normal text-brand-mist/95 text-2xl sm:text-3xl lg:text-4xl">
+              <span className="block mt-1 sm:mt-2 font-extralight text-white">
                 {subtitle}
               </span>
             )}

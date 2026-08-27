@@ -29,7 +29,7 @@ export function SupplierPortalComingSoon() {
 
               <h1 className="text-3xl sm:text-4xl font-extralight tracking-tight text-white leading-tight">
                 Contractor Operating Environment.{' '}
-                <span className="font-light block mt-1 text-brand-mist">
+                <span className="font-extralight block mt-1 text-white">
                   Coming in CAFM Phase 2.
                 </span>
               </h1>

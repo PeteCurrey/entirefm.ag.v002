@@ -215,9 +215,9 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
               </div>
 
               {/* Headline */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.1]">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-white leading-[1.1]">
                 Drone Inspection, <br />
-                <span className="font-light text-hero-pink">
+                <span className="text-hero-pink">
                   Surveying &amp; Asset Intelligence
                 </span>
               </h1>

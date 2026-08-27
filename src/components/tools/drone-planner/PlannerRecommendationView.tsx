@@ -83,12 +83,12 @@ export function PlannerRecommendationView({
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-pink/15 border border-brand-pink/30">
             <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-            <span className="font-mono text-[11px] uppercase tracking-widest text-brand-pink font-light">
+            <span className="text-[11.5px] uppercase tracking-wider text-brand-pink font-light">
               STRUCTURED INSPECTION BRIEF
             </span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
-            Your Recommended <span className="font-light text-hero-pink">Drone Inspection Plan</span>
+          <h1 className="text-2xl sm:text-4xl font-extralight text-white tracking-tight">
+            Your Recommended <span className="text-hero-pink">Drone Inspection Plan</span>
           </h1>
         </div>
 

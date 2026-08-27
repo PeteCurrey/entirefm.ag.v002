@@ -91,7 +91,7 @@ export function ClientPortalHero({ breadcrumbs }: ClientPortalHeroProps) {
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-white leading-[1.08]">
               See your estate.{' '}
-              <span className="block font-light text-slate-200 mt-1">
+              <span className="block font-extralight text-white mt-1">
                 As it actually operates.
               </span>
             </h1>

@@ -29,14 +29,14 @@ export function StepIntro({ onStart, hasSavedState, onResume, onClearState }: St
       <div className="space-y-4">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15">
           <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-          <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-light">
+          <span className="text-[11.5px] uppercase tracking-wider text-white/90 font-light">
             DECISION-SUPPORT &amp; SURVEY SCOPE BUILDER
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-white leading-tight">
           Plan a Commercial <br />
-          <span className="font-light text-hero-pink">
+          <span className="text-hero-pink">
             Drone Inspection
           </span>
         </h1>
