@@ -1,5 +1,4 @@
 import React from 'react';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { LobbyMasthead } from '@/components/lobby/LobbyMasthead';
 import { LobbySectionHeader } from '@/components/lobby/LobbySectionHeader';
@@ -160,8 +159,6 @@ export function TemplateLobby() {
 
   return (
     <div className="min-h-screen bg-brand-void text-brand-graphite">
-      <Header solid={false} />
-
       <main id="main" className="relative">
         {/* 01. Editorial Masthead & Date Introduction (Pinned Full-Screen Hero) */}
         <div className="sticky top-0 z-0 h-screen min-h-[640px] lg:min-h-[720px] w-full overflow-hidden">
@@ -199,6 +196,107 @@ export function TemplateLobby() {
                     <ComplianceWatch data={complianceWatchProps} />
                   </div>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 02.5. Live Community Roundtable & Active Rooms Strip */}
+          <section id="community-roundtable" className="py-12 sm:py-16 bg-brand-surface border-b border-brand-edge scroll-mt-20">
+            <div className="container-wide">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-4 border-b border-brand-edge">
+                <div>
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-electric/10 text-brand-electric">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-electric animate-ping" />
+                      Live Community Roundtable
+                    </span>
+                    <span className="text-xs text-brand-silver font-light">Where FM professionals compare notes</span>
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-light text-brand-graphite">
+                    Active Discussions &amp; Live Rooms
+                  </h2>
+                </div>
+
+                <div className="flex items-center gap-4 text-xs font-semibold">
+                  <Link href="/lobby/community" className="text-brand-electric hover:underline">
+                    All Discussions (13 Categories) →
+                  </Link>
+                  <Link href="/lobby/rooms" className="text-rose-600 hover:underline flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+                    Enter Live Rooms
+                  </Link>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Link
+                  href="/lobby/community/discussion/how-much-asset-data-do-you-insist-on-before-mobilisation-sign-off"
+                  className="bg-white border border-brand-edge hover:border-brand-electric/50 rounded-sm p-5 flex flex-col justify-between space-y-4 shadow-subtle transition-all group"
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="font-semibold text-brand-electric">Mobilisation</span>
+                      <span className="text-emerald-600 font-medium">✓ Solved</span>
+                    </div>
+                    <h3 className="text-sm font-semibold text-brand-graphite group-hover:text-brand-electric transition-colors leading-snug">
+                      How much asset data do you insist on before mobilisation sign-off?
+                    </h3>
+                    <p className="text-xs text-brand-silver line-clamp-2">
+                      Managing outgoing contractor handover discrepancies with commercial data grading frameworks.
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-brand-edge flex items-center justify-between text-[11px] text-brand-silver">
+                    <span>3 replies · 8 helpful</span>
+                    <span className="text-brand-electric font-medium">Read thread →</span>
+                  </div>
+                </Link>
+
+                <Link
+                  href="/lobby/community/discussion/ahu-belts-failing-early-alignment-tension-or-sheave-wear"
+                  className="bg-white border border-brand-edge hover:border-brand-electric/50 rounded-sm p-5 flex flex-col justify-between space-y-4 shadow-subtle transition-all group"
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="font-semibold text-brand-electric">Engineering &amp; M&amp;E</span>
+                      <span className="text-emerald-600 font-medium">✓ Solved</span>
+                    </div>
+                    <h3 className="text-sm font-semibold text-brand-graphite group-hover:text-brand-electric transition-colors leading-snug">
+                      AHU drive belts failing within 90 days — alignment, tension or sheave wear?
+                    </h3>
+                    <p className="text-xs text-brand-silver line-clamp-2">
+                      Acoustic frequency tensioning (Hz) vs thumb deflection rule on high-power 75kW fan drives.
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-brand-edge flex items-center justify-between text-[11px] text-brand-silver">
+                    <span>4 replies · 12 helpful</span>
+                    <span className="text-brand-electric font-medium">Read thread →</span>
+                  </div>
+                </Link>
+
+                <Link
+                  href="/lobby/rooms/building-safety"
+                  className="bg-gradient-to-br from-rose-50 via-white to-brand-surface border border-rose-200 hover:border-rose-400 rounded-sm p-5 flex flex-col justify-between space-y-4 shadow-subtle transition-all group"
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="font-bold text-rose-600 flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping" />
+                        Live Room Active
+                      </span>
+                      <span className="text-brand-silver">22 practitioners in room</span>
+                    </div>
+                    <h3 className="text-sm font-semibold text-brand-graphite group-hover:text-rose-600 transition-colors leading-snug">
+                      Building Safety &amp; Golden Thread Room
+                    </h3>
+                    <p className="text-xs text-brand-silver line-clamp-2">
+                      Live discussion on Accountable Person incident logging and 48-hour statutory BSR notifications.
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-rose-100 flex items-center justify-between text-[11px]">
+                    <span className="text-brand-silver">88 messages today</span>
+                    <span className="text-rose-600 font-bold">Join Live Room →</span>
+                  </div>
+                </Link>
               </div>
             </div>
           </section>

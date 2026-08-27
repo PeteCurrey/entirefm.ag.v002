@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ChevronDown } from 'lucide-react';
+import Link from 'next/link';
+import { ChevronDown, ArrowLeft } from 'lucide-react';
 import { MemberNavControl } from '@/components/member/MemberNavControl';
 
 export function LobbyMasthead() {
@@ -37,41 +38,45 @@ export function LobbyMasthead() {
           className="object-cover object-center transform scale-100"
         />
 
-        {/* Multi-layer gradient scrims for maximum legibility and depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-void via-brand-void/60 to-brand-void/75" />
-        <div className="absolute inset-0 bg-brand-void/40 mix-blend-multiply" />
+        {/* Reduced subtle dark overlays allowing architectural photography to stand out clearly */}
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-void/85 via-brand-void/35 to-black/40" />
+        <div className="absolute inset-0 bg-black/10" />
 
         {/* Ambient brand glow accents */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -left-[10%] -top-[20%] h-[36rem] w-[36rem] rounded-full opacity-30 blur-[140px]"
+          className="pointer-events-none absolute -left-[10%] -top-[20%] h-[36rem] w-[36rem] rounded-full opacity-20 blur-[140px]"
           style={{ background: 'radial-gradient(circle, #2563EB 0%, transparent 70%)' }}
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute right-[5%] -bottom-[15%] h-[32rem] w-[32rem] rounded-full opacity-25 blur-[130px]"
+          className="pointer-events-none absolute right-[5%] -bottom-[15%] h-[32rem] w-[32rem] rounded-full opacity-15 blur-[130px]"
           style={{ background: 'radial-gradient(circle, #7C3AED 0%, transparent 70%)' }}
         />
-        <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 opacity-20" />
+        <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 opacity-15" />
       </div>
 
       {/* ── Content Container (Full Height Layout) ────────────────────── */}
-      <div className="container-wide relative z-10 flex flex-col justify-between h-full pt-24 sm:pt-28 lg:pt-32 pb-6 sm:pb-8">
-        {/* Top Intelligence Ribbon */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.12] pb-4 mb-6 sm:mb-8">
-          {/* Signal Indicator & Date */}
-          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-[13px] font-light text-brand-mist/80">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 px-2.5 py-1 text-[11px] font-normal text-emerald-300 border border-emerald-500/30 backdrop-blur-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Intelligence Desk Active
-            </span>
-            <span className="text-white/25">|</span>
+      <div className="container-wide relative z-10 flex flex-col justify-between h-full pt-6 sm:pt-8 lg:pt-10 pb-6 sm:pb-8">
+        {/* ── Top Lobby Header Bar (Standalone Lobby Navigation) ──────────── */}
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.12] pb-4 sm:pb-5 mb-4 sm:mb-6">
+          {/* Left: Link to Main Site & Dynamic Date */}
+          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-light text-brand-mist/85">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-normal text-brand-mist/85 hover:text-white transition-colors group py-1"
+              aria-label="Return to EntireFM main site"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
+              <span>EntireFM.com</span>
+            </Link>
+            <span className="text-white/20">|</span>
             <time className="tracking-wide text-brand-mist font-light">{currentDateStr}</time>
           </div>
 
-          {/* Quick Navigation & Member Control */}
-          <div className="flex items-center gap-4">
-            <nav aria-label="Lobby Quick Navigation" className="hidden lg:flex items-center gap-5 text-xs text-brand-mist/70 font-light mr-2">
+          {/* Right: Section Links & Member Access */}
+          <div className="flex items-center gap-4 sm:gap-6">
+            <nav aria-label="Lobby Section Navigation" className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs sm:text-sm text-brand-mist/85 font-light">
               <a href="#week-that-matters" className="hover:text-white transition-colors">
                 The Week That Matters
               </a>
@@ -96,7 +101,7 @@ export function LobbyMasthead() {
             <div className="inline-flex items-center gap-2 mb-3 sm:mb-4">
               <span className="h-px w-6 bg-brand-electric" />
               <span className="text-[11px] font-normal uppercase tracking-[0.22em] text-brand-electric-bright">
-                The Briefing Room for Facilities Professionals
+                The Daily Briefing for UK Facilities & Estates Professionals
               </span>
             </div>
 
@@ -149,12 +154,12 @@ export function LobbyMasthead() {
           </div>
         </div>
 
-        {/* Bottom Bar: Live Desk Ticker & Scroll Prompt */}
+        {/* Bottom Bar: Edition Indicator & Scroll Prompt */}
         <div className="border-t border-white/[0.1] pt-4 flex items-center justify-between text-xs text-brand-mist/70">
-          <div className="flex items-center gap-2.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-electric animate-ping" />
+          <div className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-electric" />
             <span className="font-mono text-[11px] tracking-wider uppercase text-brand-mist/80">
-              Daily Intelligence Stream
+              Daily Briefing Edition
             </span>
           </div>
 
@@ -162,7 +167,7 @@ export function LobbyMasthead() {
             href="#week-that-matters"
             className="group inline-flex items-center gap-2 text-brand-mist/80 hover:text-white transition-colors"
           >
-            <span className="text-[12px] font-light">Scroll to explore briefings</span>
+            <span className="text-xs sm:text-sm font-light">Scroll to explore briefings</span>
             <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/20 bg-white/5 group-hover:border-white/50 group-hover:bg-white/15 transition-all animate-bounce">
               <ChevronDown className="w-3.5 h-3.5 text-white" />
             </span>
