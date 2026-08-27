@@ -130,25 +130,8 @@ export function Header({ solid = false }: HeaderProps) {
               </span>
             </Link>
 
-            {/* ── Actions: The Lobby · Explore · Search · Login ─────────── */}
+            {/* ── Actions: Explore · Search · The Lobby · Login ─────────── */}
             <div className="flex items-center gap-1.5 sm:gap-2.5">
-              {/* The Lobby Primary Editorial Destination */}
-              <Link
-                href="/lobby"
-                className={`group relative inline-flex items-center gap-2 rounded-sm px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 ease-brand ${
-                  pathname?.startsWith('/lobby')
-                    ? 'border border-brand-electric/80 bg-brand-electric/25 text-white shadow-glow'
-                    : 'border border-white/15 bg-white/[0.05] text-brand-mist/90 hover:text-white hover:border-brand-electric/60 hover:bg-brand-electric/15'
-                }`}
-                aria-label="The Lobby — Facilities Management Intelligence & Briefing Room"
-              >
-                <span className="relative flex h-2 w-2 items-center justify-center shrink-0" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                </span>
-                <span className="font-normal text-white tracking-tight">The Lobby</span>
-              </Link>
-
               {/* Explore */}
               <button
                 type="button"
@@ -199,10 +182,23 @@ export function Header({ solid = false }: HeaderProps) {
                 <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </button>
 
+              {/* The Lobby Primary Editorial Destination */}
+              <Link
+                href="/lobby"
+                className={`inline-flex items-center justify-center rounded-sm px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 ease-brand ${
+                  pathname?.startsWith('/lobby')
+                    ? 'border border-brand-electric/80 bg-brand-electric/25 text-white shadow-glow'
+                    : 'border border-white/15 bg-white/[0.05] text-brand-mist/90 hover:text-white hover:border-brand-electric/60 hover:bg-brand-electric/15'
+                }`}
+                aria-label="The Lobby — Facilities Management Intelligence & Briefing Room"
+              >
+                The Lobby
+              </Link>
+
               {/* Login */}
               <Link
                 href="/login"
-                className="inline-flex items-center gap-1.5 rounded-sm border border-brand-electric/40 bg-brand-electric/10 px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-light text-brand-electric-bright transition-all duration-300 ease-brand hover:border-brand-electric/70 hover:bg-brand-electric/20 hover:text-white"
+                className="inline-flex items-center justify-center rounded-sm border border-brand-electric/40 bg-brand-electric/10 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-light text-brand-electric-bright transition-all duration-300 ease-brand hover:border-brand-electric/70 hover:bg-brand-electric/20 hover:text-white"
               >
                 Login
               </Link>

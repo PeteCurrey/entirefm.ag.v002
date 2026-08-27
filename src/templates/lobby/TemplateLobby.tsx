@@ -159,201 +159,207 @@ export function TemplateLobby() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-white text-brand-graphite">
-      <Header solid={true} />
+    <div className="min-h-screen bg-brand-void text-brand-graphite">
+      <Header solid={false} />
 
-      <main id="main" className="flex-1">
-        {/* 01. Editorial Masthead & Date Introduction */}
-        <LobbyMasthead />
+      <main id="main" className="relative">
+        {/* 01. Editorial Masthead & Date Introduction (Pinned Full-Screen Hero) */}
+        <div className="sticky top-0 z-0 h-screen min-h-[640px] lg:min-h-[720px] w-full overflow-hidden">
+          <LobbyMasthead />
+        </div>
 
-        {/* 02. Dominant Lead Story + Secondary Compliance Watch */}
-        <section id="week-that-matters" className="py-12 sm:py-16 lg:py-20 bg-white">
-          <div className="container-wide">
-            <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-12 items-stretch">
-              {/* Dominant Week That Matters Lead Briefing */}
-              <div className="flex flex-col">
-                <LobbySectionHeader
-                  number="01"
-                  eyebrow="The Week That Matters"
-                  title="Priority FM Analysis"
-                  subtitle="Critical regulatory, legal, and operational developments prioritized for UK estate leaders."
-                />
-                <div className="flex-1">
-                  <LeadBriefing data={leadBriefingProps} />
+        {/* 02+ Scrolling Editorial Sections (Scrolls over the Pinned Hero) */}
+        <div className="relative z-10 bg-white shadow-[0_-24px_50px_rgba(0,0,0,0.35)] border-t border-brand-edge-dark/20">
+          {/* 02. Dominant Lead Story + Secondary Compliance Watch */}
+          <section id="week-that-matters" className="py-12 sm:py-16 lg:py-20 bg-white scroll-mt-20">
+            <div className="container-wide">
+              <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-12 items-stretch">
+                {/* Dominant Week That Matters Lead Briefing */}
+                <div className="flex flex-col">
+                  <LobbySectionHeader
+                    number="01"
+                    eyebrow="The Week That Matters"
+                    title="Priority FM Analysis"
+                    subtitle="Critical regulatory, legal, and operational developments prioritized for UK estate leaders."
+                  />
+                  <div className="flex-1">
+                    <LeadBriefing data={leadBriefingProps} />
+                  </div>
                 </div>
-              </div>
 
-              {/* Secondary Compliance Watch Module */}
-              <div className="flex flex-col">
-                <LobbySectionHeader
-                  number="02"
-                  eyebrow="Compliance Watch"
-                  title="Regulatory Translation"
-                  subtitle="Statutory mandates translated into immediate operational actions."
-                />
-                <div className="flex-1">
-                  <ComplianceWatch data={complianceWatchProps} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 03. Briefing Wire / Key Developments Strip */}
-        <BriefingStrip items={data.briefingStrip} />
-
-        {/* 04. The Engineer's Note (Technical Diagnostic) */}
-        <section id="engineers-note" className="py-16 sm:py-20 lg:py-24 bg-brand-void text-white">
-          <div className="container-wide">
-            <LobbySectionHeader
-              number="03"
-              eyebrow="The Engineer’s Note"
-              title="Field Diagnostics & Plant Intelligence"
-              subtitle="Practical, concise engineering observations written by senior building services specialists."
-              dark={true}
-            />
-            <EngineersNote data={engineersNoteProps} />
-          </div>
-        </section>
-
-        {/* 05. One Useful Thing (Actionable Asset) */}
-        <section id="useful-thing" className="py-16 sm:py-20 bg-white border-b border-brand-edge">
-          <div className="container-wide">
-            <LobbySectionHeader
-              number="04"
-              eyebrow="One Useful Thing"
-              title="Practical Estate Asset"
-              subtitle="A tested tool, checklist, or template you can use across your buildings today."
-            />
-            <UsefulThing data={usefulThingProps} />
-          </div>
-        </section>
-
-        {/* 06. From The Field (Photography-Led Feature) */}
-        <section id="from-the-field" className="py-16 sm:py-20 lg:py-24 bg-brand-graphite text-white">
-          <div className="container-wide">
-            <LobbySectionHeader
-              number="05"
-              eyebrow="From The Field"
-              title="Real-World Site Inspections"
-              subtitle="Plantroom observations and defect identification from live UK commercial facilities."
-              dark={true}
-            />
-            <FromTheField data={fromTheFieldProps} />
-          </div>
-        </section>
-
-        {/* 07. Ask EntireFM (Typographic Q&A) */}
-        <section id="ask-entirefm" className="py-16 sm:py-20 bg-white border-b border-brand-edge">
-          <div className="container-wide">
-            <LobbySectionHeader
-              number="06"
-              eyebrow="Ask EntireFM"
-              title="Professional Estate Q&A"
-              subtitle="Answers to complex operational, mobilization, and compliance questions."
-            />
-            <AskEntireFM data={askEntireFMProps} />
-          </div>
-        </section>
-
-        {/* 08. FM Toolkit (Curated Existing Tools Gateway) */}
-        <section id="toolkit" className="py-16 sm:py-20 bg-brand-surface border-b border-brand-edge">
-          <div className="container-wide">
-            <LobbySectionHeader
-              number="07"
-              eyebrow="FM Toolkit"
-              title="Calculators, Schedules & Spec Builders"
-              subtitle="Curated interactive tools from the EntireFM engineering suite to streamline estate planning."
-            />
-            <LobbyToolkit items={data.toolkit} />
-          </div>
-        </section>
-
-        {/* 09 & 10. The Lobby Question & The Pulse (Interactive Grid) */}
-        <section className="py-16 sm:py-20 lg:py-24 bg-white border-b border-brand-edge">
-          <div className="container-wide">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
-              {/* The Lobby Question */}
-              <div className="flex flex-col">
-                <LobbySectionHeader
-                  number="08"
-                  eyebrow="The Lobby Question"
-                  title="Weekly Technical Challenge"
-                  subtitle="Test your knowledge of British Standards, ACOP guidance, and statutory testing intervals."
-                />
-                <div className="flex-1">
-                  <LobbyQuestion data={data.lobbyQuestion} />
-                </div>
-              </div>
-
-              {/* The Pulse */}
-              <div className="flex flex-col">
-                <LobbySectionHeader
-                  number="09"
-                  eyebrow="The Pulse"
-                  title="Industry Sentiment Benchmark"
-                  subtitle="What UK facilities managers and property directors are prioritising this month."
-                />
-                <div className="flex-1">
-                  <LobbyPulse data={data.lobbyPulse} />
+                {/* Secondary Compliance Watch Module */}
+                <div id="compliance-watch" className="flex flex-col scroll-mt-20">
+                  <LobbySectionHeader
+                    number="02"
+                    eyebrow="Compliance Watch"
+                    title="Regulatory Translation"
+                    subtitle="Statutory mandates translated into immediate operational actions."
+                  />
+                  <div className="flex-1">
+                    <ComplianceWatch data={complianceWatchProps} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* 11. Worth Attending */}
-        <section id="worth-attending" className="py-16 sm:py-20 bg-brand-surface border-b border-brand-edge">
-          <div className="container-wide">
-            <LobbySectionHeader
-              number="10"
-              eyebrow="Worth Attending"
-              title="Curated Professional Events"
-              subtitle="Conferences, technical webinars, and CPD opportunities genuinely worth your time."
-            />
-            <WorthAttending data={worthAttendingProps} />
-          </div>
-        </section>
+          {/* 03. Briefing Wire / Key Developments Strip */}
+          <BriefingStrip items={data.briefingStrip} />
 
-        {/* 12. EntireFM Academy Teaser */}
-        <section className="py-16 sm:py-20 bg-brand-void text-white">
-          <div className="container-wide">
-            <LobbySectionHeader
-              number="11"
-              eyebrow="EntireFM Academy"
-              title="Operational Learning & Training"
-              subtitle="The upcoming practical training environment for commercial estate teams."
-              dark={true}
-            />
-            <LobbyAcademyTeaser />
-          </div>
-        </section>
+          {/* 04. The Engineer's Note (Technical Diagnostic) */}
+          <section id="engineers-note" className="py-16 sm:py-20 lg:py-24 bg-brand-void text-white scroll-mt-20">
+            <div className="container-wide">
+              <LobbySectionHeader
+                number="03"
+                eyebrow="The Engineer’s Note"
+                title="Field Diagnostics & Plant Intelligence"
+                subtitle="Practical, concise engineering observations written by senior building services specialists."
+                dark={true}
+              />
+              <EngineersNote data={engineersNoteProps} />
+            </div>
+          </section>
 
-        {/* 13. Lobby Archive Gateway Bar */}
-        <section className="py-10 bg-white border-y border-brand-edge">
-          <div className="container-wide flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-brand-electric/10 text-brand-electric text-xs font-mono">
-                <Layers className="w-4 h-4" />
-              </span>
-              <div>
-                <p className="text-sm font-normal text-brand-graphite">Looking for past briefings or specific topics?</p>
-                <p className="text-xs font-light text-brand-silver">Browse the complete Lobby editorial archive and topic indexes.</p>
+          {/* 05. One Useful Thing (Actionable Asset) */}
+          <section id="useful-thing" className="py-16 sm:py-20 bg-white border-b border-brand-edge scroll-mt-20">
+            <div className="container-wide">
+              <LobbySectionHeader
+                number="04"
+                eyebrow="One Useful Thing"
+                title="Practical Estate Asset"
+                subtitle="A tested tool, checklist, or template you can use across your buildings today."
+              />
+              <UsefulThing data={usefulThingProps} />
+            </div>
+          </section>
+
+          {/* 06. From The Field (Photography-Led Feature) */}
+          <section id="from-the-field" className="py-16 sm:py-20 lg:py-24 bg-brand-graphite text-white scroll-mt-20">
+            <div className="container-wide">
+              <LobbySectionHeader
+                number="05"
+                eyebrow="From The Field"
+                title="Real-World Site Inspections"
+                subtitle="Plantroom observations and defect identification from live UK commercial facilities."
+                dark={true}
+              />
+              <FromTheField data={fromTheFieldProps} />
+            </div>
+          </section>
+
+          {/* 07. Ask EntireFM (Typographic Q&A) */}
+          <section id="ask-entirefm" className="py-16 sm:py-20 bg-white border-b border-brand-edge scroll-mt-20">
+            <div className="container-wide">
+              <LobbySectionHeader
+                number="06"
+                eyebrow="Ask EntireFM"
+                title="Professional Estate Q&A"
+                subtitle="Answers to complex operational, mobilization, and compliance questions."
+              />
+              <AskEntireFM data={askEntireFMProps} />
+            </div>
+          </section>
+
+          {/* 08. FM Toolkit (Curated Existing Tools Gateway) */}
+          <section id="toolkit" className="py-16 sm:py-20 bg-brand-surface border-b border-brand-edge scroll-mt-20">
+            <div className="container-wide">
+              <LobbySectionHeader
+                number="07"
+                eyebrow="FM Toolkit"
+                title="Calculators, Schedules & Spec Builders"
+                subtitle="Curated interactive tools from the EntireFM engineering suite to streamline estate planning."
+              />
+              <LobbyToolkit items={data.toolkit} />
+            </div>
+          </section>
+
+          {/* 09 & 10. The Lobby Question & The Pulse (Interactive Grid) */}
+          <section className="py-16 sm:py-20 lg:py-24 bg-white border-b border-brand-edge">
+            <div className="container-wide">
+              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+                {/* The Lobby Question */}
+                <div className="flex flex-col">
+                  <LobbySectionHeader
+                    number="08"
+                    eyebrow="The Lobby Question"
+                    title="Weekly Technical Challenge"
+                    subtitle="Test your knowledge of British Standards, ACOP guidance, and statutory testing intervals."
+                  />
+                  <div className="flex-1">
+                    <LobbyQuestion data={data.lobbyQuestion} />
+                  </div>
+                </div>
+
+                {/* The Pulse */}
+                <div className="flex flex-col">
+                  <LobbySectionHeader
+                    number="09"
+                    eyebrow="The Pulse"
+                    title="Industry Sentiment Benchmark"
+                    subtitle="What UK facilities managers and property directors are prioritising this month."
+                  />
+                  <div className="flex-1">
+                    <LobbyPulse data={data.lobbyPulse} />
+                  </div>
+                </div>
               </div>
             </div>
+          </section>
 
-            <Link href="/lobby/archive" className="btn-outline text-xs py-2.5 px-5">
-              <span>Open Lobby Archive</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </section>
+          {/* 11. Worth Attending */}
+          <section id="worth-attending" className="py-16 sm:py-20 bg-brand-surface border-b border-brand-edge scroll-mt-20">
+            <div className="container-wide">
+              <LobbySectionHeader
+                number="10"
+                eyebrow="Worth Attending"
+                title="Curated Professional Events"
+                subtitle="Conferences, technical webinars, and CPD opportunities genuinely worth your time."
+              />
+              <WorthAttending data={worthAttendingProps} />
+            </div>
+          </section>
 
-        {/* 14. Editorial Newsletter Dispatch */}
-        <LobbyNewsletter />
+          {/* 12. EntireFM Academy Teaser */}
+          <section className="py-16 sm:py-20 bg-brand-void text-white">
+            <div className="container-wide">
+              <LobbySectionHeader
+                number="11"
+                eyebrow="EntireFM Academy"
+                title="Operational Learning & Training"
+                subtitle="The upcoming practical training environment for commercial estate teams."
+                dark={true}
+              />
+              <LobbyAcademyTeaser />
+            </div>
+          </section>
+
+          {/* 13. Lobby Archive Gateway Bar */}
+          <section className="py-10 bg-white border-y border-brand-edge">
+            <div className="container-wide flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-brand-electric/10 text-brand-electric text-xs font-mono">
+                  <Layers className="w-4 h-4" />
+                </span>
+                <div>
+                  <p className="text-sm font-normal text-brand-graphite">Looking for past briefings or specific topics?</p>
+                  <p className="text-xs font-light text-brand-silver">Browse the complete Lobby editorial archive and topic indexes.</p>
+                </div>
+              </div>
+
+              <Link href="/lobby/archive" className="btn-outline text-xs py-2.5 px-5">
+                <span>Open Lobby Archive</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </section>
+
+          {/* 14. Editorial Newsletter Dispatch */}
+          <LobbyNewsletter />
+
+          {/* 15. Global Footer */}
+          <Footer />
+        </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
