@@ -126,21 +126,33 @@ export function TemplateMyLobby() {
         <div className="flex items-center gap-2 border-b border-white/10 pb-2 mb-8 overflow-x-auto">
           {[
             { id: 'overview', label: 'Overview & Return Habit' },
-            { id: 'saved', label: `Saved Library (${profile?.saved_content_ids?.length || 0})` },
+            { id: 'saved', label: `Saved Articles (${profile?.saved_content_ids?.length || 0})` },
+            { id: 'research', label: 'Research Library', href: '/lobby/me/research' },
             { id: 'discussions', label: `My Discussions (${myDiscussions.length})` },
             { id: 'messages', label: 'Direct Messages' },
           ].map((t) => (
-            <button
-              key={t.id}
-              onClick={() => setActiveTab(t.id as any)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
-                activeTab === t.id
-                  ? 'bg-brand-electric text-white shadow-md'
-                  : 'text-brand-silver hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {t.label}
-            </button>
+            t.href ? (
+              <Link
+                key={t.id}
+                href={t.href}
+                className="px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors text-brand-electric hover:text-white hover:bg-brand-electric/20 border border-brand-electric/30 flex items-center gap-1.5"
+              >
+                <span>{t.label}</span>
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            ) : (
+              <button
+                key={t.id}
+                onClick={() => setActiveTab(t.id as any)}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
+                  activeTab === t.id
+                    ? 'bg-brand-electric text-white shadow-md'
+                    : 'text-brand-silver hover:text-white hover:bg-white/5'
+                }`}
+              >
+                {t.label}
+              </button>
+            )
           ))}
         </div>
 

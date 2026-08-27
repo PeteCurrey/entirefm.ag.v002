@@ -678,13 +678,21 @@ export function TemplateMemberProfile() {
                   <p className="text-xs font-extralight text-brand-mist/70 leading-relaxed">
                     Review your saved compliance watches, private deep research reports, and followed topics.
                   </p>
-                  <Link
-                    href="/lobby/me"
-                    className="inline-flex items-center gap-2 text-xs font-extralight text-brand-electric-bright hover:text-white transition-colors pt-2"
-                  >
-                    <span>Open My Workspace</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+                  <div className="flex flex-col gap-2 pt-2">
+                    <Link
+                      href="/lobby/me/research"
+                      className="inline-flex items-center gap-2 text-xs font-extralight text-brand-electric-bright hover:text-white transition-colors"
+                    >
+                      <BookOpen className="w-3.5 h-3.5" />
+                      <span>My Research Library →</span>
+                    </Link>
+                    <Link
+                      href="/lobby/me"
+                      className="inline-flex items-center gap-2 text-xs font-extralight text-neutral-400 hover:text-white transition-colors"
+                    >
+                      <span>Open Full Workspace →</span>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

@@ -248,10 +248,13 @@ export function buildHtmlReport(doc: PdfDocumentDefinition): string {
 /**
  * Triggers a client-side high-resolution browser print / PDF download flow.
  */
-export function downloadPdfReport(doc: PdfDocumentDefinition): void {
+export function downloadPdfReport(doc: PdfDocumentDefinition, filename?: string): void {
   const html = buildHtmlReport(doc);
   const printWindow = window.open('', '_blank');
   if (printWindow) {
+    if (filename) {
+      printWindow.document.title = filename.replace(/\.pdf$/i, '');
+    }
     printWindow.document.open();
     printWindow.document.write(html);
     printWindow.document.close();

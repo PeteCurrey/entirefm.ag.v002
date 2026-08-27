@@ -23,8 +23,13 @@ import {
   Bell,
   Layers,
   FileCheck,
+  Download,
+  AlertCircle,
+  RotateCw,
 } from 'lucide-react';
 import type { StructuredAskAnswer, AskCitation, AskMode } from '@/server/ask/types';
+import { downloadPdfReport } from '@/lib/pdf/generator';
+import { buildAskLobbyPdfDefinition } from '@/lib/pdf/ask-lobby-pdf';
 
 const EXAMPLE_PROMPTS = [
   'What changed in UK building safety this week?',
@@ -45,7 +50,9 @@ export function TemplateAskLobby() {
   const [loading, setLoading] = useState(false);
   const [answer, setAnswer] = useState<StructuredAskAnswer | null>(null);
   const [activeCitation, setActiveCitation] = useState<AskCitation | null>(null);
+  const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [alertWatched, setAlertWatched] = useState(false);
 
@@ -56,7 +63,9 @@ export function TemplateAskLobby() {
     const currentMode = modeOverride || mode;
     setLoading(true);
     setSaved(false);
+    setSaveMessage(null);
     setAlertWatched(false);
+
     try {
       const res = await fetch('/api/lobby/ask', {
         method: 'POST',
@@ -80,8 +89,39 @@ export function TemplateAskLobby() {
     }
   }, [initialQuery, initialMode]);
 
-  const handleSave = () => {
-    setSaved(true);
+  const handleSave = async () => {
+    if (!answer || saving) return;
+    setSaving(true);
+    setSaveMessage(null);
+
+    try {
+      const res = await fetch('/api/lobby/ask/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ answer }),
+      });
+
+      const data = await res.json();
+
+      if (res.status === 401 || res.status === 403) {
+        setSaveMessage('Sign in with a verified Member account to save research.');
+      } else if (data.success) {
+        setSaved(true);
+        setSaveMessage('Saved to your private Research Library.');
+      } else {
+        setSaveMessage(data.error || 'Unable to save research.');
+      }
+    } catch {
+      setSaveMessage('Network error saving research.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDownloadPdf = () => {
+    if (!answer) return;
+    const { doc, filename } = buildAskLobbyPdfDefinition(answer);
+    downloadPdfReport(doc, filename);
   };
 
   const handleShare = () => {
@@ -98,7 +138,7 @@ export function TemplateAskLobby() {
   };
 
   return (
-    <main className="min-h-screen bg-[#FAF9F7] text-[#121826] pt-24 pb-20 selection:bg-brand-electric selection:text-white">
+    <main className="min-h-screen bg-[#FAF9F7] text-[#121826] pt-24 pb-20 selection:bg-brand-electric selection:text-white font-sans">
       {/* ─── MASTHEAD COMPOSER ─── */}
       <section className="container-wide border-b border-neutral-200 pb-10 mb-10">
         <div className="max-w-4xl">
@@ -149,7 +189,7 @@ export function TemplateAskLobby() {
                   <button
                     type="button"
                     onClick={() => setMode('ask')}
-                    className={`px-3 py-1 text-xs font-mono uppercase tracking-wider rounded-sm transition-colors ${
+                    className={`px-3 py-1.5 text-xs font-mono uppercase tracking-wider rounded-[4px] transition-colors ${
                       mode === 'ask'
                         ? 'bg-neutral-900 text-white font-medium'
                         : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
@@ -160,9 +200,9 @@ export function TemplateAskLobby() {
                   <button
                     type="button"
                     onClick={() => setMode('deep_research')}
-                    className={`px-3 py-1 text-xs font-mono uppercase tracking-wider rounded-sm transition-colors flex items-center gap-1.5 ${
+                    className={`px-3 py-1.5 text-xs font-mono uppercase tracking-wider rounded-[4px] transition-colors flex items-center gap-1.5 ${
                       mode === 'deep_research'
-                        ? 'bg-purple-700 text-white font-medium'
+                        ? 'bg-purple-900 text-white font-medium'
                         : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
                     }`}
                   >
@@ -174,7 +214,7 @@ export function TemplateAskLobby() {
                 <button
                   type="submit"
                   disabled={loading || !question.trim()}
-                  className="px-5 py-2 bg-neutral-900 hover:bg-neutral-800 disabled:opacity-40 text-white text-xs font-mono uppercase tracking-wider rounded-sm transition-colors flex items-center gap-2 font-medium"
+                  className="px-6 py-2.5 bg-neutral-900 hover:bg-neutral-800 disabled:opacity-40 text-white text-xs font-mono uppercase tracking-wider rounded-[4px] transition-colors flex items-center gap-2 font-medium shadow-sm"
                 >
                   <span>{loading ? 'Researching...' : mode === 'deep_research' ? 'Run Deep Research' : 'Search'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -193,7 +233,7 @@ export function TemplateAskLobby() {
                     setQuestion(prompt);
                     handleSubmit(prompt);
                   }}
-                  className="bg-neutral-100 hover:bg-neutral-200/80 text-neutral-700 px-3 py-1 rounded-sm text-xs font-light transition-colors text-left"
+                  className="bg-white border border-neutral-200 hover:border-neutral-400 text-neutral-700 px-3 py-1.5 rounded-[4px] text-xs font-extralight transition-colors text-left shadow-2xs"
                 >
                   {prompt}
                 </button>
@@ -207,7 +247,7 @@ export function TemplateAskLobby() {
       <section className="container-wide">
         {loading ? (
           <div className="py-20 text-center space-y-4">
-            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-brand-electric bg-brand-electric/10 px-3 py-1.5 rounded-sm">
+            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-brand-electric bg-brand-electric/10 px-3.5 py-2 rounded-[4px]">
               <Sparkles className="w-4 h-4 animate-spin text-brand-electric" />
               <span>
                 {mode === 'deep_research'
@@ -216,16 +256,16 @@ export function TemplateAskLobby() {
               </span>
             </div>
             <p className="text-xs text-neutral-500 font-mono">
-              Reviewing GOV.UK, legislation.gov.uk, HSE, BSR, and procurement notices...
+              Reviewing GOV.UK, legislation.gov.uk, HSE, BSR, IET, and procurement notices...
             </p>
           </div>
         ) : answer ? (
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-10 items-start">
             {/* LEFT / MAIN COLUMN: STRUCTURED REPORT */}
-            <div className="space-y-8 bg-white border border-neutral-200/80 rounded-sm p-6 sm:p-10 shadow-sm">
+            <div className="space-y-8 bg-white border border-neutral-200/90 rounded-[8px] p-6 sm:p-10 shadow-sm">
               {/* Question Header & Meta */}
               <div className="border-b border-neutral-100 pb-6">
-                <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-neutral-500 mb-2">
+                <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-neutral-500 mb-3">
                   <div className="flex items-center gap-2">
                     <span className="text-brand-electric uppercase tracking-wider font-semibold">
                       {answer.mode === 'deep_research' ? 'Deep Research Report' : answer.intent.replace('_', ' ')}
@@ -233,50 +273,101 @@ export function TemplateAskLobby() {
                     <span>·</span>
                     <span>{answer.jurisdiction.join(' & ')}</span>
                   </div>
+
+                  {/* Top Actions */}
                   <div className="flex items-center gap-3">
                     <button
+                      type="button"
                       onClick={() => setAlertWatched(!alertWatched)}
-                      className={`inline-flex items-center gap-1 transition-colors ${
-                        alertWatched ? 'text-brand-electric font-semibold' : 'text-neutral-600 hover:text-neutral-900'
+                      className={`inline-flex items-center gap-1.5 transition-colors text-xs ${
+                        alertWatched ? 'text-brand-electric font-medium' : 'text-neutral-600 hover:text-neutral-900'
                       }`}
                     >
                       <Bell className={`w-3.5 h-3.5 ${alertWatched ? 'fill-brand-electric text-brand-electric' : ''}`} />
                       <span>{alertWatched ? 'Watching for Updates' : 'Alert on Change'}</span>
                     </button>
+
                     <button
+                      type="button"
                       onClick={handleSave}
-                      className="inline-flex items-center gap-1 text-neutral-600 hover:text-neutral-900 transition-colors"
+                      disabled={saving}
+                      className={`inline-flex items-center gap-1.5 transition-colors text-xs ${
+                        saved ? 'text-emerald-700 font-medium' : 'text-neutral-600 hover:text-neutral-900'
+                      }`}
                     >
-                      <Bookmark className={`w-3.5 h-3.5 ${saved ? 'fill-neutral-900 text-neutral-900' : ''}`} />
-                      <span>{saved ? 'Saved to Research' : 'Save'}</span>
+                      <Bookmark className={`w-3.5 h-3.5 ${saved ? 'fill-emerald-600 text-emerald-600' : ''}`} />
+                      <span>{saved ? 'Saved ✓' : 'Save Research'}</span>
                     </button>
+
                     <button
+                      type="button"
+                      onClick={handleDownloadPdf}
+                      className="inline-flex items-center gap-1.5 text-xs text-neutral-600 hover:text-neutral-900 transition-colors"
+                      title="Download EntireFM Branded PDF Report"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Download PDF</span>
+                    </button>
+
+                    <button
+                      type="button"
                       onClick={handleShare}
-                      className="inline-flex items-center gap-1 text-neutral-600 hover:text-neutral-900 transition-colors"
+                      className="inline-flex items-center gap-1 text-xs text-neutral-600 hover:text-neutral-900 transition-colors"
                     >
                       {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Share2 className="w-3.5 h-3.5" />}
-                      <span>{copied ? 'Link Copied' : 'Share'}</span>
+                      <span>{copied ? 'Copied' : 'Share'}</span>
                     </button>
                   </div>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl font-light text-neutral-900 leading-snug">
+                {saveMessage && (
+                  <div className="mb-4 text-xs font-light p-2.5 rounded-[4px] bg-neutral-100 border border-neutral-200 text-neutral-800 flex items-center justify-between">
+                    <span>{saveMessage}</span>
+                    {saveMessage.includes('Sign in') && (
+                      <Link href="/sign-in" className="text-brand-electric hover:underline font-normal ml-2">
+                        Sign In →
+                      </Link>
+                    )}
+                  </div>
+                )}
+
+                <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 leading-snug">
                   {answer.question}
                 </h2>
               </div>
 
               {/* Research Plan Stages (If Deep Research) */}
               {answer.researchStages && (
-                <div className="bg-neutral-50 border border-neutral-200/80 p-4 rounded-sm space-y-2">
+                <div className="bg-neutral-50 border border-neutral-200/80 p-4 rounded-[6px] space-y-2.5">
                   <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-1.5">
-                    <Layers className="w-3 h-3" />
+                    <Layers className="w-3 h-3 text-purple-700" />
                     <span>Research Execution Pipeline</span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-neutral-700">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
                     {answer.researchStages.map((stage) => (
                       <div key={stage.id} className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                        <span>{stage.label}</span>
+                        {stage.status === 'completed' ? (
+                          <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        ) : stage.status === 'running' ? (
+                          <RotateCw className="w-3.5 h-3.5 text-purple-600 animate-spin shrink-0" />
+                        ) : stage.status === 'failed' ? (
+                          <AlertCircle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
+                        ) : (
+                          <span className="w-3.5 h-3.5 rounded-full border border-neutral-300 text-[9px] flex items-center justify-center text-neutral-400">
+                            -
+                          </span>
+                        )}
+                        <span
+                          className={`${
+                            stage.status === 'completed'
+                              ? 'text-neutral-800'
+                              : stage.status === 'skipped'
+                              ? 'text-neutral-400'
+                              : 'text-neutral-600'
+                          }`}
+                        >
+                          {stage.label}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -293,11 +384,52 @@ export function TemplateAskLobby() {
                 </p>
               </div>
 
+              {/* Official Position & Technical Guidance Breakdown */}
+              {(answer.officialPosition || answer.technicalGuidance) && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-neutral-100">
+                  {answer.officialPosition && (
+                    <div className="space-y-2 p-4 rounded-[6px] bg-[#FAF9F7] border border-neutral-200/70">
+                      <div className="text-[10px] font-mono uppercase tracking-widest text-rose-800 font-semibold flex items-center gap-1.5">
+                        <Scale className="w-3.5 h-3.5 text-rose-700" />
+                        <span>Official Statutory Position</span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-extralight text-neutral-700 leading-relaxed">
+                        {answer.officialPosition}
+                      </p>
+                    </div>
+                  )}
+
+                  {answer.technicalGuidance && (
+                    <div className="space-y-2 p-4 rounded-[6px] bg-[#FAF9F7] border border-neutral-200/70">
+                      <div className="text-[10px] font-mono uppercase tracking-widest text-brand-electric font-semibold flex items-center gap-1.5">
+                        <Wrench className="w-3.5 h-3.5 text-brand-electric" />
+                        <span>Technical &amp; Industry Standards</span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-extralight text-neutral-700 leading-relaxed">
+                        {answer.technicalGuidance}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Practical Guidance */}
+              {answer.whatThisMeansInPractice && (
+                <div className="space-y-2 pt-2">
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
+                    What This Means In Practice
+                  </div>
+                  <p className="text-sm font-light text-neutral-700 leading-relaxed">
+                    {answer.whatThisMeansInPractice}
+                  </p>
+                </div>
+              )}
+
               {/* 02. What Changed / Primary Facts */}
-              {answer.whatChanged.length > 0 && (
+              {answer.whatChanged && answer.whatChanged.length > 0 && (
                 <div className="space-y-3 pt-4 border-t border-neutral-100">
                   <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
-                    What Changed / Indexed Evidence
+                    Key Findings &amp; Evidence
                   </div>
                   <div className="space-y-2.5">
                     {answer.whatChanged.map((point, idx) => (
@@ -316,29 +448,33 @@ export function TemplateAskLobby() {
               {answer.deepResearchReport && (
                 <div className="space-y-6 pt-6 border-t border-neutral-100">
                   {/* Statutory Requirements */}
-                  <div className="space-y-2">
-                    <div className="text-[10px] font-mono uppercase tracking-widest text-rose-700 font-semibold flex items-center gap-1.5">
-                      <Scale className="w-3.5 h-3.5" />
-                      <span>Statutory Primary Requirements</span>
+                  {answer.deepResearchReport.statutoryRequirements.length > 0 && (
+                    <div className="space-y-2">
+                      <div className="text-[10px] font-mono uppercase tracking-widest text-rose-700 font-semibold flex items-center gap-1.5">
+                        <Scale className="w-3.5 h-3.5" />
+                        <span>Statutory Primary Requirements</span>
+                      </div>
+                      <ul className="space-y-2 text-xs sm:text-sm font-light text-neutral-700 pl-4 list-disc">
+                        {answer.deepResearchReport.statutoryRequirements.map((req, idx) => (
+                          <li key={idx}>{req}</li>
+                        ))}
+                      </ul>
                     </div>
-                    <ul className="space-y-2 text-xs sm:text-sm font-light text-neutral-700 pl-4 list-disc">
-                      {answer.deepResearchReport.statutoryRequirements.map((req, idx) => (
-                        <li key={idx}>{req}</li>
-                      ))}
-                    </ul>
-                  </div>
+                  )}
 
                   {/* Commercial Impact */}
-                  <div className="space-y-2">
-                    <div className="text-[10px] font-mono uppercase tracking-widest text-brand-electric font-semibold">
-                      Commercial &amp; Procurement Benchmark
+                  {answer.deepResearchReport.commercialMarketImpact.length > 0 && (
+                    <div className="space-y-2">
+                      <div className="text-[10px] font-mono uppercase tracking-widest text-brand-electric font-semibold">
+                        Commercial &amp; Procurement Benchmark
+                      </div>
+                      <ul className="space-y-2 text-xs sm:text-sm font-light text-neutral-700 pl-4 list-disc">
+                        {answer.deepResearchReport.commercialMarketImpact.map((item, idx) => (
+                          <li key={idx}>{item}</li>
+                        ))}
+                      </ul>
                     </div>
-                    <ul className="space-y-2 text-xs sm:text-sm font-light text-neutral-700 pl-4 list-disc">
-                      {answer.deepResearchReport.commercialMarketImpact.map((item, idx) => (
-                        <li key={idx}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
+                  )}
                 </div>
               )}
 
@@ -353,7 +489,7 @@ export function TemplateAskLobby() {
                   </p>
                 </div>
 
-                {answer.whatYouNeedToDo.length > 0 && (
+                {answer.whatYouNeedToDo && answer.whatYouNeedToDo.length > 0 && (
                   <div className="space-y-2">
                     <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
                       What You May Need To Do
@@ -372,7 +508,7 @@ export function TemplateAskLobby() {
 
               {/* Upgrade to Deep Research Banner (If in Quick Ask Mode) */}
               {answer.mode === 'ask' && answer.isGrounded && (
-                <div className="bg-purple-500/5 border border-purple-500/20 p-5 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="bg-purple-500/5 border border-purple-500/20 p-5 rounded-[6px] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <h4 className="text-xs font-semibold text-purple-950 flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5 text-purple-600" />
@@ -383,8 +519,9 @@ export function TemplateAskLobby() {
                     </p>
                   </div>
                   <button
+                    type="button"
                     onClick={handleDeepResearchUpgrade}
-                    className="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white text-xs font-mono uppercase tracking-wider rounded-sm transition-colors shrink-0 font-medium"
+                    className="px-5 py-2.5 bg-purple-900 hover:bg-purple-800 text-white text-xs font-mono uppercase tracking-wider rounded-[4px] transition-colors shrink-0 font-medium shadow-sm"
                   >
                     Deep Research This &rarr;
                   </button>
@@ -413,24 +550,24 @@ export function TemplateAskLobby() {
               )}
             </div>
 
-            {/* RIGHT RAIL: CITATIONS & FLYWHEEL */}
+            {/* RIGHT RAIL: CITATIONS & ACTIONS */}
             <div className="space-y-6">
               {/* Citations Panel */}
-              <div className="bg-white border border-neutral-200/80 rounded-sm p-6 space-y-4 shadow-sm">
+              <div className="bg-white border border-neutral-200/90 rounded-[8px] p-6 space-y-4 shadow-sm">
                 <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
                   <div className="text-xs font-mono uppercase tracking-wider text-neutral-900 font-semibold flex items-center gap-2">
                     <Scale className="w-3.5 h-3.5 text-brand-electric" />
-                    <span>Sourced Citations ({answer.citations.length})</span>
+                    <span>Sourced Citations ({answer.citations?.length || 0})</span>
                   </div>
                 </div>
 
-                {answer.citations.length > 0 ? (
+                {answer.citations && answer.citations.length > 0 ? (
                   <div className="space-y-3">
                     {answer.citations.map((cit) => (
                       <div
                         key={cit.id}
                         onClick={() => setActiveCitation(cit)}
-                        className="group p-3 border border-neutral-100 hover:border-neutral-300 rounded-sm cursor-pointer transition-colors bg-neutral-50/50 hover:bg-white"
+                        className="group p-3 border border-neutral-100 hover:border-neutral-300 rounded-[6px] cursor-pointer transition-colors bg-neutral-50/50 hover:bg-white"
                       >
                         <div className="flex items-center justify-between text-[10px] font-mono text-neutral-400 mb-1">
                           <span className="text-brand-electric font-semibold">[{cit.citationNumber}] {cit.sourceName}</span>
@@ -444,9 +581,9 @@ export function TemplateAskLobby() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="mt-2 inline-flex items-center gap-1 text-[10px] font-mono text-neutral-500 hover:text-neutral-900 transition-colors"
+                          className="mt-2 inline-flex items-center gap-1 text-[10px] font-mono text-brand-electric hover:underline transition-colors"
                         >
-                          <span>Official source link</span>
+                          <span>Open source</span>
                           <ExternalLink className="w-2.5 h-2.5" />
                         </a>
                       </div>
@@ -459,9 +596,9 @@ export function TemplateAskLobby() {
                 )}
               </div>
 
-              {/* Put This Into Practice / Connected Actions */}
-              {answer.relatedActions.length > 0 && (
-                <div className="bg-white border border-neutral-200/80 rounded-sm p-6 space-y-4 shadow-sm">
+              {/* Connected Actions */}
+              {answer.relatedActions && answer.relatedActions.length > 0 && (
+                <div className="bg-white border border-neutral-200/90 rounded-[8px] p-6 space-y-4 shadow-sm">
                   <div className="text-xs font-mono uppercase tracking-wider text-neutral-900 font-semibold">
                     Put This Into Practice
                   </div>
@@ -471,7 +608,7 @@ export function TemplateAskLobby() {
                       <Link
                         key={idx}
                         href={action.url}
-                        className="group block p-3 border border-neutral-100 hover:border-neutral-300 rounded-sm transition-colors bg-neutral-50/50 hover:bg-white"
+                        className="group block p-3 border border-neutral-100 hover:border-neutral-300 rounded-[6px] transition-colors bg-neutral-50/50 hover:bg-white"
                       >
                         <div className="flex items-center justify-between text-[10px] font-mono text-brand-electric mb-1">
                           <span>{action.badge || 'Action'}</span>
@@ -493,32 +630,32 @@ export function TemplateAskLobby() {
         ) : (
           /* Empty State Suggestions */
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-12">
-            <div className="p-6 bg-white border border-neutral-200/80 rounded-sm space-y-2">
+            <div className="p-6 bg-white border border-neutral-200/90 rounded-[8px] space-y-2 shadow-2xs">
               <div className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-semibold">
                 Statutory &amp; Compliance
               </div>
               <h3 className="text-sm font-semibold text-neutral-900">Building Safety &amp; Guidance</h3>
-              <p className="text-xs font-light text-neutral-600">
+              <p className="text-xs font-light text-neutral-600 leading-relaxed">
                 Ask about mandatory occurrence reporting, Golden Thread asset records, ACOP L8 water safety, or F-gas quota timelines.
               </p>
             </div>
 
-            <div className="p-6 bg-white border border-neutral-200/80 rounded-sm space-y-2">
+            <div className="p-6 bg-white border border-neutral-200/90 rounded-[8px] space-y-2 shadow-2xs">
               <div className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-semibold">
                 Procurement Intelligence
               </div>
               <h3 className="text-sm font-semibold text-neutral-900">Tenders &amp; Contract Awards</h3>
-              <p className="text-xs font-light text-neutral-600">
+              <p className="text-xs font-light text-neutral-600 leading-relaxed">
                 Query active public sector tenders on Contracts Finder and verified contract awards with supplier values.
               </p>
             </div>
 
-            <div className="p-6 bg-white border border-neutral-200/80 rounded-sm space-y-2">
+            <div className="p-6 bg-white border border-neutral-200/90 rounded-[8px] space-y-2 shadow-2xs">
               <div className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-semibold">
                 Technical Standards
               </div>
               <h3 className="text-sm font-semibold text-neutral-900">M&amp;E and Operational Guidance</h3>
-              <p className="text-xs font-light text-neutral-600">
+              <p className="text-xs font-light text-neutral-600 leading-relaxed">
                 Search published standards from CIBSE, BESA, FIA, ECA, and IWFM without wading through unverified forum posts.
               </p>
             </div>

@@ -53,8 +53,9 @@ export interface AskRelatedAction {
 export interface DeepResearchStage {
   id: string;
   label: string;
-  status: 'pending' | 'active' | 'completed';
+  status: 'pending' | 'running' | 'completed' | 'skipped' | 'failed';
   findingsCount?: number;
+  executedAt?: string;
 }
 
 export interface StructuredAskAnswer {
@@ -66,6 +67,9 @@ export interface StructuredAskAnswer {
   timeframeDescription?: string;
   
   shortAnswer: string;
+  officialPosition?: string;
+  technicalGuidance?: string;
+  whatThisMeansInPractice?: string;
   whatChanged: string[];
   whyItMatters: string;
   whatYouNeedToDo: string[];
@@ -89,9 +93,28 @@ export interface StructuredAskAnswer {
   confidenceScore: number;
   isGrounded: boolean;
   knowledgeGapIdentified?: boolean;
+  isUnavailable?: boolean;
+  error?: string;
   
   disclaimer?: string;
   generatedAt: string;
+  modelUsed?: string;
+}
+
+export interface SavedLobbyResearch {
+  id: string;
+  memberId: string;
+  askSessionId: string;
+  question: string;
+  mode: AskMode;
+  title: string;
+  answerSnapshot: StructuredAskAnswer;
+  jurisdiction: string;
+  createdAt: string;
+  savedAt: string;
+  modelUsed: string;
+  sourceCount: number;
+  version: number;
 }
 
 export interface AskMessage {
