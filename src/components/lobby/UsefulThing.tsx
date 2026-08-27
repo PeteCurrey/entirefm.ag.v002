@@ -15,8 +15,8 @@ export function UsefulThing({ data }: UsefulThingProps) {
         {/* Physical Handover Context Visual */}
         <div className="relative w-full min-h-[260px] lg:min-h-full overflow-hidden bg-neutral-900">
           <Image
-            src="/images/editorial/entirefm-site-arrival-1200w.webp"
-            alt={data.title}
+            src={data.imageUrl || "/images/editorial/entirefm-corporate-corridor-1200w.webp"}
+            alt={data.imageAlt || data.title}
             fill
             sizes="(max-width: 1024px) 100vw, 55vw"
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] brightness-90"

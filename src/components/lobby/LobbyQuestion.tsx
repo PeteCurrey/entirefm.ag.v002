@@ -36,8 +36,8 @@ export function LobbyQuestion({ data }: LobbyQuestionProps) {
       {/* Photography header — fixed height, never shrinks */}
       <div className="relative w-full h-52 shrink-0 overflow-hidden">
         <Image
-          src="/images/editorial/entirefm-switchroom-survey-1200w.webp"
-          alt="Switchroom survey challenge"
+          src={data.imageUrl || "/images/editorial/entirefm-distribution-board-testing-1200w.webp"}
+          alt={data.imageAlt || "Switchroom survey challenge"}
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 50vw"

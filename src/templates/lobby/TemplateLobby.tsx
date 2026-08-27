@@ -41,6 +41,8 @@ export function TemplateLobby() {
     ],
     fullBriefingUrl: `/lobby/${data.leadStory.slug}`,
     tags: data.leadStory.topics,
+    imageUrl: '/images/services/working-at-height/commercial-envelope-access.png',
+    imageAlt: 'Building Safety Golden Thread and commercial envelope compliance inspection',
   };
 
   const complianceWatchProps = {
@@ -61,6 +63,8 @@ export function TemplateLobby() {
       'Immediate action required for active PPM cycles and planned Q4 works.',
     governingBody: data.complianceWatch.complianceData?.governingBody || 'Building Safety Regulator (HSE)',
     sourceDocUrl: `/lobby/${data.complianceWatch.slug}`,
+    imageUrl: '/images/editorial/entirefm-switchroom-survey-1200w.webp',
+    imageAlt: 'Mandatory digital occurrence reporting and electrical infrastructure verification',
   };
 
   const engineersNoteProps = {
@@ -82,6 +86,8 @@ export function TemplateLobby() {
       credentials: data.engineersNote.author.credentials || 'CEng MCIBSE, Senior Building Services Engineer',
     },
     diagramNote: data.engineersNote.engineersNoteData?.diagramNote,
+    imageUrl: '/images/editorial/entirefm-hvac-plant-deck-1200w.webp',
+    imageAlt: 'Commercial rooftop condenser bank and airflow clearance survey',
   };
 
   const usefulThingProps = {
@@ -96,6 +102,8 @@ export function TemplateLobby() {
     actionUrl: `/lobby/${data.usefulThing.slug}`,
     actionLabel: 'View & Download Handover Matrix',
     isExistingResource: true,
+    imageUrl: '/images/editorial/entirefm-corporate-corridor-1200w.webp',
+    imageAlt: 'Commercial estate mobilisation and incoming handover checklist',
   };
 
   const fromTheFieldProps = {
@@ -135,6 +143,8 @@ export function TemplateLobby() {
       name: data.askEntireFM.author.name,
       role: data.askEntireFM.author.role,
     },
+    imageUrl: '/images/editorial/entirefm-client-review-1200w.webp',
+    imageAlt: 'Commercial office property handover review and statutory documentation audit',
   };
 
   const worthAttendingProps = {
@@ -148,6 +158,8 @@ export function TemplateLobby() {
       data.worthAttending.worthAttendingData?.whyItMatters ||
       'Essential for estates managers planning the replacement of legacy gas calorifiers with high-temperature commercial heat pumps.',
     registrationUrl: `/lobby/${data.worthAttending.slug}`,
+    imageUrl: '/images/editorial/entirefm-manchester-castlefield-night-1280w.webp',
+    imageAlt: 'CIBSE Commercial Heat Pump & Decarbonisation Symposium venue',
   };
 
   return (

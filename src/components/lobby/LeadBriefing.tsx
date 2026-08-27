@@ -14,8 +14,8 @@ export function LeadBriefing({ data }: LeadBriefingProps) {
       {/* Large Architectural Photography Spread */}
       <div className="relative w-full h-[320px] sm:h-[380px] lg:h-[420px] overflow-hidden rounded-sm bg-neutral-900 mb-6">
         <Image
-          src="/images/editorial/entirefm-rooftop-plant-night-1200w.webp"
-          alt={data.title}
+          src={data.imageUrl || "/images/services/working-at-height/commercial-envelope-access.png"}
+          alt={data.imageAlt || data.title}
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 60vw"

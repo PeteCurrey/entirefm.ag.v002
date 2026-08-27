@@ -19,6 +19,8 @@ export interface LeadBriefing {
   keyTakeaways: string[];
   fullBriefingUrl?: string;
   tags: string[];
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 export interface ComplianceWatchItem {
@@ -33,6 +35,8 @@ export interface ComplianceWatchItem {
   whenItMatters: string;
   governingBody: string;
   sourceDocUrl?: string;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 export interface BriefingStripItem {
@@ -69,6 +73,8 @@ export interface EngineersNoteItem {
     credentials: string;
   };
   diagramNote?: string;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 export interface UsefulThingItem {
@@ -81,6 +87,8 @@ export interface UsefulThingItem {
   actionUrl: string;
   actionLabel: string;
   isExistingResource: boolean;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 export interface FromTheFieldItem {
@@ -107,6 +115,8 @@ export interface AskEntireFMItem {
     name: string;
     role: string;
   };
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 export interface WorthAttendingItem {
@@ -118,6 +128,8 @@ export interface WorthAttendingItem {
   location: string;
   editorialReason: string;
   registrationUrl: string;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 export interface LobbyQuestionItem {
@@ -133,11 +145,15 @@ export interface LobbyQuestionItem {
   }[];
   explanation: string;
   governingStandard: string;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 export interface LobbyPulseItem {
   id: string;
   question: string;
+  imageUrl?: string;
+  imageAlt?: string;
   context: string;
   totalVotesBaseline: number;
   options: {

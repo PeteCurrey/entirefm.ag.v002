@@ -42,16 +42,16 @@ export interface ImageProvenance {
  */
 export const TOPIC_IMAGE_FALLBACKS: Record<string, ImageProvenance> = {
   'building-safety': {
-    imageUrl: '/images/editorial/entirefm-switchroom-survey-1200w.webp',
+    imageUrl: '/images/services/working-at-height/commercial-envelope-access.png',
     imageType: 'topic-fallback',
-    altText: 'Commercial switchroom and building infrastructure survey',
+    altText: 'Commercial building envelope access and facade safety survey',
     credit: 'EntireFM Technical Asset Library',
     copyrightOwner: 'EntireFM Ltd',
   },
   'compliance': {
-    imageUrl: '/images/editorial/entirefm-distribution-board-testing-1200w.webp',
+    imageUrl: '/images/editorial/entirefm-switchroom-survey-1200w.webp',
     imageType: 'topic-fallback',
-    altText: 'Distribution board electrical verification and compliance testing',
+    altText: 'Commercial switchroom infrastructure and statutory compliance verification',
     credit: 'EntireFM Technical Asset Library',
     copyrightOwner: 'EntireFM Ltd',
   },
@@ -63,9 +63,9 @@ export const TOPIC_IMAGE_FALLBACKS: Record<string, ImageProvenance> = {
     copyrightOwner: 'EntireFM Ltd',
   },
   'engineering': {
-    imageUrl: '/images/editorial/entirefm-hvac-plantroom-pumps-1200w.webp',
+    imageUrl: '/images/editorial/entirefm-hvac-plant-deck-1200w.webp',
     imageType: 'topic-fallback',
-    altText: 'Commercial chilled water circulation pumps and pipe manifold',
+    altText: 'Commercial rooftop HVAC plant deck and chilled water infrastructure',
     credit: 'EntireFM Technical Asset Library',
     copyrightOwner: 'EntireFM Ltd',
   },
@@ -84,7 +84,7 @@ export const TOPIC_IMAGE_FALLBACKS: Record<string, ImageProvenance> = {
     copyrightOwner: 'EntireFM Ltd',
   },
   'mobilisation': {
-    imageUrl: '/images/editorial/entirefm-site-arrival-1200w.webp',
+    imageUrl: '/images/editorial/entirefm-corporate-corridor-1200w.webp',
     imageType: 'topic-fallback',
     altText: 'Estate mobilization and commercial site handover context',
     credit: 'EntireFM Technical Asset Library',

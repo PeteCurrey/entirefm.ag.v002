@@ -27,8 +27,8 @@ export function AskEntireFM({ data }: AskEntireFMProps) {
         {/* Image Section */}
         <div className="relative w-full h-[280px] lg:h-full overflow-hidden">
           <Image
-            src="/images/editorial/entirefm-engineers-office-testing-1200w.webp"
-            alt="EntireFM Engineers"
+            src={data.imageUrl || "/images/editorial/entirefm-client-review-1200w.webp"}
+            alt={data.imageAlt || "EntireFM Technical Advisory"}
             fill
             className="object-cover transition-all duration-500 ease-in-out brightness-[0.80] group-hover:brightness-95 scale-100 group-hover:scale-[1.02] motion-reduce:transition-none"
           />

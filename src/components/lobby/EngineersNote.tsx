@@ -14,8 +14,8 @@ export function EngineersNote({ data }: EngineersNoteProps) {
       {/* 65% Cinematic Technical Plant Subject */}
       <div className="relative w-full lg:w-[65%] min-h-[320px] lg:min-h-[540px] overflow-hidden">
         <Image
-          src="/images/editorial/entirefm-hvac-plantroom-pumps-1200w.webp"
-          alt={data.title}
+          src={data.imageUrl || "/images/editorial/entirefm-hvac-plant-deck-1200w.webp"}
+          alt={data.imageAlt || data.title}
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 65vw"
