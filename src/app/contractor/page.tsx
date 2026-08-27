@@ -25,6 +25,12 @@ import {
   Briefcase,
 } from 'lucide-react';
 import { evaluateContractorCompliance } from '@/server/contractor/compliance-engine';
+import {
+  getPersonalisedContractorIntelligence,
+  evaluateCompanyWatch,
+  evaluateCredentialWatch,
+} from '@/server/intelligence/intelligence-engine';
+import { Compass } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Contractor Operations Control Centre | EntireFM',
@@ -44,8 +50,8 @@ export default async function ContractorDashboardPage() {
 
   const providerOrgId = session.orgId;
 
-  // Query real scoped data and compliance intelligence in parallel
-  const [offersRes, acceptedRes, posRes, operativesRes, complianceSummary] = await Promise.all([
+  // Query real scoped data, compliance intelligence, and regulatory intelligence in parallel
+  const [offersRes, acceptedRes, posRes, operativesRes, complianceSummary, intelligenceFeed, companyWatch, credentialWatch] = await Promise.all([
     dbQuery<any[]>(
       `work_assignments?provider_org_id=eq.${encodeURIComponent(providerOrgId)}&status=eq.OFFERED&select=*,work_order:work_orders(id,work_order_number,title,priority,status,site_id)&order=created_at.desc&limit=10`
     ),
@@ -59,6 +65,9 @@ export default async function ContractorDashboardPage() {
       `persons?organisation_id=eq.${encodeURIComponent(providerOrgId)}&status=eq.ACTIVE&select=id,first_name,last_name,job_title&limit=20`
     ),
     evaluateContractorCompliance(providerOrgId, session),
+    getPersonalisedContractorIntelligence(providerOrgId, session),
+    evaluateCompanyWatch(providerOrgId, session),
+    evaluateCredentialWatch(providerOrgId, session),
   ]);
 
   const newOffers = offersRes.data || [];
@@ -221,6 +230,58 @@ export default async function ContractorDashboardPage() {
           </div>
         </div>
       )}
+
+      {/* CP-09 Intelligence & Compliance Watch Widget */}
+      <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
+        <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-3">
+          <div className="flex items-center gap-2.5">
+            <Compass className="w-5 h-5 text-brand-electric-bright" />
+            <div>
+              <h2 className="text-sm font-semibold text-white">
+                Intelligence & Live Compliance Watch
+              </h2>
+              <span className="text-[11px] text-brand-mist/50">Personalised statutory and trade intelligence</span>
+            </div>
+          </div>
+          <Link href="/contractor/intelligence" className="text-xs text-brand-electric-bright hover:underline font-mono">
+            Open Intelligence Centre →
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="bg-brand-void/60 border border-brand-edge-dark/40 rounded-lg p-3.5">
+            <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Pending Updates</span>
+            <p className="text-2xl font-light text-white mt-1">{intelligenceFeed.pendingActionCount}</p>
+            <span className="text-[11px] text-brand-mist/60 mt-0.5 block">
+              {intelligenceFeed.unacknowledgedCriticalCount > 0
+                ? `${intelligenceFeed.unacknowledgedCriticalCount} high priority`
+                : 'No critical items'}
+            </span>
+          </div>
+
+          <div className="bg-brand-void/60 border border-brand-edge-dark/40 rounded-lg p-3.5">
+            <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Company Status</span>
+            <p className={`text-2xl font-light mt-1 ${companyWatch.companyStatus === 'ACTIVE' ? 'text-emerald-400' : 'text-amber-400'}`}>
+              {companyWatch.companyStatus}
+            </p>
+            <span className="text-[11px] text-brand-mist/60 mt-0.5 block">
+              {companyWatch.accounts.overdue || companyWatch.confirmationStatement.overdue
+                ? '⚠️ Filing overdue'
+                : 'Companies House Good Standing'}
+            </span>
+          </div>
+
+          <div className="bg-brand-void/60 border border-brand-edge-dark/40 rounded-lg p-3.5">
+            <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Credential Surveillance</span>
+            <p className={`text-2xl font-light mt-1 ${credentialWatch.expiringWithin90DaysCount > 0 ? 'text-amber-400' : 'text-cyan-400'}`}>
+              {credentialWatch.expiringWithin90DaysCount > 0 ? `${credentialWatch.expiringWithin90DaysCount} Expiring` : 'All Current'}
+            </p>
+            <span className="text-[11px] text-brand-mist/60 mt-0.5 block">
+              {credentialWatch.organisationCredentials.length} credentials tracked
+            </span>
+          </div>
+        </div>
+      </div>
 
       {/* New Work Offers (Action Required) */}
       {newOffers.length > 0 && (

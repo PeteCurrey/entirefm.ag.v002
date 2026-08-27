@@ -183,19 +183,39 @@ export function TemplateLobby() {
                 <span>STATUTORY COMPLIANCE &amp; HARD FM INTELLIGENCE</span>
               </div>
               <div className="flex items-center gap-4 text-neutral-500">
-                <Link href="/lobby/news" className="hover:text-neutral-900 transition-colors flex items-center gap-1 font-semibold text-brand-electric">
-                  FM News Desk &rarr;
+                <Link href="/lobby/ask" className="hover:text-neutral-900 transition-colors flex items-center gap-1 font-semibold text-brand-electric">
+                  Ask The Lobby &rarr;
                 </Link>
                 <span>·</span>
-                <Link href="/lobby/search" className="hover:text-neutral-900 transition-colors flex items-center gap-1">
-                  <Search className="w-3 h-3" />
-                  Search
+                <Link href="/lobby/today" className="hover:text-neutral-900 transition-colors">
+                  What Changed Today
                 </Link>
                 <span>·</span>
-                <Link href="/lobby/compliance" className="hover:text-neutral-900 transition-colors">
-                  Compliance Watch
+                <Link href="/lobby/opportunities" className="hover:text-neutral-900 transition-colors">
+                  Procurement &amp; Awards
                 </Link>
               </div>
+            </div>
+          </div>
+
+          {/* Ask The Lobby Quick Search Bar */}
+          <div className="border-b border-neutral-200/80 bg-[#FAF9F7] py-5 px-4 sm:px-8">
+            <div className="container-wide flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric font-semibold bg-brand-electric/10 px-2.5 py-1 rounded-sm">
+                  ASK THE LOBBY
+                </span>
+                <span className="text-xs text-neutral-600 font-light hidden sm:inline">
+                  Grounded FM research desk: query building safety, statutory compliance, tenders, and standards.
+                </span>
+              </div>
+              <Link
+                href="/lobby/ask"
+                className="w-full md:w-auto inline-flex items-center justify-between gap-6 bg-white border border-neutral-300 hover:border-neutral-900 px-4 py-2.5 rounded-sm text-xs font-light text-neutral-500 hover:text-neutral-900 transition-colors shadow-sm"
+              >
+                <span>Ask a real FM question with sourced citations...</span>
+                <ArrowRight className="w-3.5 h-3.5 text-neutral-400" />
+              </Link>
             </div>
           </div>
 

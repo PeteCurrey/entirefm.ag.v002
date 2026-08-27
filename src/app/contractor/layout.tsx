@@ -35,6 +35,7 @@ export default async function ContractorLayout({ children }: { children: React.R
     { name: 'Work Queue', href: '/contractor/work' },
     { name: 'Workforce & Matrix', href: '/contractor/workforce' },
     { name: 'Compliance', href: '/contractor/compliance' },
+    { name: 'Intelligence', href: '/contractor/intelligence' },
     { name: 'Document Vault', href: '/contractor/documents' },
     { name: 'RAMS & Safety', href: '/contractor/rams' },
     { name: 'Forms', href: '/contractor/forms' },
