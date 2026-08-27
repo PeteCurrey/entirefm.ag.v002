@@ -143,8 +143,8 @@ export function TemplateLobby() {
       name: data.askEntireFM.author.name,
       role: data.askEntireFM.author.role,
     },
-    imageUrl: '/images/editorial/entirefm-client-review-1200w.webp',
-    imageAlt: 'Commercial office property handover review and statutory documentation audit',
+    imageUrl: '/images/lobby/ask-entirefm-boardroom-advisory.jpg',
+    imageAlt: 'EntireFM commercial estates and compliance advisory consultation overlooking city skyline',
   };
 
   const worthAttendingProps = {

@@ -27,10 +27,10 @@ export function AskEntireFM({ data }: AskEntireFMProps) {
         {/* Image Section */}
         <div className="relative w-full h-[280px] lg:h-full overflow-hidden">
           <Image
-            src={data.imageUrl || "/images/editorial/entirefm-client-review-1200w.webp"}
+            src={data.imageUrl || "/images/lobby/ask-entirefm-boardroom-advisory.jpg"}
             alt={data.imageAlt || "EntireFM Technical Advisory"}
             fill
-            className="object-cover transition-all duration-500 ease-in-out brightness-[0.80] group-hover:brightness-95 scale-100 group-hover:scale-[1.02] motion-reduce:transition-none"
+            className="object-cover object-center transition-all duration-500 ease-in-out brightness-[0.95] group-hover:brightness-100 scale-100 group-hover:scale-[1.02] motion-reduce:transition-none"
           />
           {/* Editorial Bleed Gradient (lg+) */}
           <div className="hidden lg:block absolute inset-y-0 right-0 w-32 bg-gradient-to-r from-transparent to-white pointer-events-none z-10"></div>
