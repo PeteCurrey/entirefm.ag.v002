@@ -57,6 +57,10 @@ const DEDICATED_APP_PREFIXES = [
   '/login',
   '/legal',
   '/lobby',
+  '/join',
+  '/sign-in',
+  '/forgot-password',
+  '/member',
 ];
 
 export async function generateStaticParams() {

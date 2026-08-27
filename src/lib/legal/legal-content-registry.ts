@@ -1320,6 +1320,86 @@ export const LEGAL_POLICIES: Record<string, LegalPolicy> = {
     ],
 
   },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 25. COMMUNITY GUIDELINES (LOBBY MEMBER COMMUNITY)
+  // ─────────────────────────────────────────────────────────────────────────────
+  'community-guidelines': {
+    slug: 'community-guidelines',
+    title: 'Community Guidelines',
+    eyebrow: 'The Lobby Community',
+    categorySlug: 'community',
+    categoryTitle: 'Community',
+    summary: 'The behavioural standards, moderation principles and participation expectations for all members of The Lobby — EntireFM\'s professional FM intelligence community.',
+    metaDescription: 'EntireFM Lobby Community Guidelines: participation standards, moderation approach and member expectations for the UK FM professional community.',
+    effectiveDate: '2026-01-01',
+    version: '2026.1',
+    keyTakeaways: [
+      'The Lobby community is for UK FM professionals. All contributions should be relevant, constructive and professional.',
+      'Harassment, hate speech, spam and self-promotion without disclosure are prohibited.',
+      'EntireFM reserves the right to remove content or suspend accounts that violate these guidelines.',
+      'Content you post remains your intellectual property, but you grant EntireFM a licence to display it within The Lobby.',
+    ],
+    relatedSlugs: ['acceptable-use', 'privacy', 'terms-of-use'],
+    sections: [
+      {
+        id: 'purpose',
+        heading: '1. Purpose of The Lobby Community',
+        body: 'The Lobby is a professional intelligence space for UK facilities management practitioners, compliance officers, building services engineers and property managers. It is designed to facilitate the sharing of industry knowledge, compliance insight, technical expertise and professional opinion in a constructive and respectful environment.',
+      },
+      {
+        id: 'who-can-participate',
+        heading: '2. Who Can Participate',
+        body: 'The Lobby community is open to individuals who have registered a Lobby Member account. Membership is free. We particularly welcome contributions from practising FM professionals, though membership is not restricted to those working in the sector. Organisations may not post through a shared account — one account per individual applies.',
+      },
+      {
+        id: 'expected-conduct',
+        heading: '3. Expected Conduct',
+        body: 'Members are expected to engage in a professional, constructive and respectful manner at all times. Specifically, you must:',
+        bullets: [
+          'Be honest and accurate: Only share information you believe to be true. If you are uncertain, say so. Correct your mistakes when you identify them.',
+          'Be respectful: Disagree with ideas, not with people. Personal attacks, insults, harassment and targeted abuse of any kind are prohibited.',
+          'Be relevant: Keep contributions relevant to facilities management, compliance, building services, property management or related professional topics.',
+          'Disclose affiliations: If you mention a product, service or employer in which you have a financial interest, disclose this clearly.',
+          'Respect confidentiality: Do not post confidential client information, unreleased contract details or personal data belonging to third parties.',
+        ],
+      },
+      {
+        id: 'prohibited-content',
+        heading: '4. Prohibited Content',
+        body: 'The following content will be removed and may result in account suspension:',
+        bullets: [
+          'Hate speech, discriminatory language or content targeting individuals on the basis of protected characteristics.',
+          'Harassment, threats, stalking or sustained personal attacks against any individual.',
+          'Spam, unsolicited commercial promotion or repetitive off-topic posts.',
+          'Misinformation: content that is factually false and likely to cause harm or mislead other members on compliance or safety matters.',
+          'Content that infringes copyright, trademarks or other intellectual property rights.',
+          'Personally identifiable information about third parties posted without their consent.',
+          'Content that is unlawful under English and Welsh law.',
+        ],
+      },
+      {
+        id: 'moderation',
+        heading: '5. Moderation',
+        body: 'EntireFM moderates The Lobby community. We operate a report-and-review model: members can flag content they believe violates these guidelines. Flagged content is reviewed by the editorial team. We aim to review flagged content within 2 business days. Our moderation decisions are final, though members may appeal by contacting us at lobby@entirefm.com.',
+        callout: {
+          type: 'practical',
+          title: 'Moderation approach',
+          content: 'We aim to be proportionate. A first minor violation will typically result in a private message and content edit request. Severe violations — including harassment, hate speech and intentional misinformation — may result in immediate account suspension without prior warning.',
+        },
+      },
+      {
+        id: 'intellectual-property',
+        heading: '6. Intellectual Property',
+        body: 'Content you post in The Lobby remains your intellectual property. By posting, you grant EntireFM a non-exclusive, royalty-free licence to display, distribute and archive that content within The Lobby and its communications (such as the FM Briefing digest). You may request removal of your content at any time by contacting lobby@entirefm.com.',
+      },
+      {
+        id: 'changes',
+        heading: '7. Changes to These Guidelines',
+        body: 'EntireFM may update these Community Guidelines as The Lobby develops. Significant changes will be communicated to registered Members by email. Continued participation in The Lobby community after notification of changes constitutes acceptance of the updated guidelines.',
+      },
+    ],
+  },
 };
 
 /**

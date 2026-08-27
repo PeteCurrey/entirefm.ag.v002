@@ -362,6 +362,14 @@ export const LEGAL_CATEGORIES: LegalCategory[] = [
     iconName: 'Leaf',
     policySlugs: ['health-safety', 'environment'],
   },
+  {
+    id: 'community',
+    slug: 'community',
+    title: 'The Lobby Community',
+    description: 'Participation standards, moderation principles and acceptable use rules governing EntireFM\'s professional FM intelligence community.',
+    iconName: 'Users',
+    policySlugs: ['community-guidelines', 'acceptable-use'],
+  },
 ];
 
 /**

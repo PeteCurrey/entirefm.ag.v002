@@ -289,6 +289,17 @@ export const FOOTER_NAV: NavColumn[] = [
       { label: 'Contact', href: '/contact-us' },
     ],
   },
+  {
+    heading: 'Lobby Membership',
+    links: [
+      { label: 'Become a Member', href: '/join' },
+      { label: 'Sign In', href: '/sign-in' },
+      { label: 'Member Profile', href: '/member/profile' },
+      { label: 'Account Settings', href: '/member/settings' },
+      { label: 'Community Guidelines', href: '/legal/community-guidelines' },
+      { label: 'Acceptable Use', href: '/legal/acceptable-use' },
+    ],
+  },
 ];
 
 export const LEGAL_NAV: NavLink[] = [
@@ -297,6 +308,7 @@ export const LEGAL_NAV: NavLink[] = [
   { label: 'Terms of Business', href: '/legal/terms-of-business' },
   { label: 'Responsible AI', href: '/legal/ai' },
   { label: 'Contractor Terms', href: '/legal/contractor-terms' },
+  { label: 'Community Guidelines', href: '/legal/community-guidelines' },
   { label: 'Cookies Policy', href: '/legal/cookies' },
   { label: 'Accessibility', href: '/legal/accessibility' },
   { label: 'Sitemap', href: '/html-sitemap' },

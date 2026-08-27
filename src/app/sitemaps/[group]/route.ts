@@ -12,6 +12,7 @@ import { NextResponse } from 'next/server';
 import { getRoutesByGroup } from '@/lib/routes/route-registry';
 import type { SitemapGroup } from '@/lib/routes/route-schema';
 import { PRODUCTION_CANONICAL_HOST } from '@/config/site';
+import { getAllPublishedLobbyArticles, getAllLobbyTopics } from '@/lib/lobby/repository';
 
 const VALID_GROUPS: SitemapGroup[] = [
   'core',
@@ -56,9 +57,41 @@ export async function GET(
     )
     .join('');
 
+  let additionalUrls = '';
+  if (group === 'insights') {
+    const lobbyArticles = getAllPublishedLobbyArticles();
+    const lobbyTopics = getAllLobbyTopics();
+
+    additionalUrls = [
+      `
+  <url>
+    <loc>${PRODUCTION_CANONICAL_HOST}/lobby/archive</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>`,
+      ...lobbyArticles.map(
+        (a) => `
+  <url>
+    <loc>${PRODUCTION_CANONICAL_HOST}/lobby/${a.slug}</loc>
+    <lastmod>${a.updatedAt || a.publishedAt}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>${a.featured ? '0.9' : '0.7'}</priority>
+  </url>`
+      ),
+      ...lobbyTopics.map(
+        (t) => `
+  <url>
+    <loc>${PRODUCTION_CANONICAL_HOST}/lobby/topic/${t.slug}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>`
+      ),
+    ].join('');
+  }
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls}
+${urls}${additionalUrls}
 </urlset>`;
 
   return new NextResponse(xml, {

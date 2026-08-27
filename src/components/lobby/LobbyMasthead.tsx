@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Radio, Sparkles, BookOpen, Clock } from 'lucide-react';
 
+import { MemberNavControl } from '@/components/member/MemberNavControl';
+
 export function LobbyMasthead() {
   const [currentDateStr, setCurrentDateStr] = useState<string>('Thursday, 27 August 2026');
 
@@ -50,24 +52,25 @@ export function LobbyMasthead() {
             <time className="tracking-wide text-brand-mist/90 font-light">{currentDateStr}</time>
           </div>
 
-          {/* Quick jump anchor links */}
-          <nav aria-label="Lobby Quick Navigation" className="hidden md:flex items-center gap-5 text-xs text-brand-mist/60 font-light">
-            <a href="#week-that-matters" className="hover:text-white transition-colors">
-              The Week That Matters
-            </a>
-            <a href="#compliance-watch" className="hover:text-white transition-colors">
-              Compliance Watch
-            </a>
-            <a href="#engineers-note" className="hover:text-white transition-colors">
-              Engineer’s Note
-            </a>
-            <a href="#toolkit" className="hover:text-white transition-colors">
-              Toolkit
-            </a>
-            <a href="#lobby-question" className="hover:text-white transition-colors">
-              Weekly Question
-            </a>
-          </nav>
+          {/* Member Authentication Control */}
+          <div className="flex items-center gap-4">
+            <nav aria-label="Lobby Quick Navigation" className="hidden lg:flex items-center gap-5 text-xs text-brand-mist/60 font-light mr-2">
+              <a href="#week-that-matters" className="hover:text-white transition-colors">
+                The Week That Matters
+              </a>
+              <a href="#compliance-watch" className="hover:text-white transition-colors">
+                Compliance Watch
+              </a>
+              <a href="#engineers-note" className="hover:text-white transition-colors">
+                Engineer’s Note
+              </a>
+              <a href="#toolkit" className="hover:text-white transition-colors">
+                Toolkit
+              </a>
+            </nav>
+
+            <MemberNavControl />
+          </div>
         </div>
 
         {/* Masthead Identity & Lead Grid */}
