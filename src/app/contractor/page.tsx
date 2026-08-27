@@ -1,8 +1,9 @@
 /**
- * CONTRACTOR OPERATIONS DASHBOARD — /contractor (Phase 0M Addendum)
- * =================================================================
- * Action-oriented workspace for approved supplier organisations.
- * Displays real scoped metrics, new jobs to accept, operative schedule, and compliance.
+ * CONTRACTOR OPERATIONS CONTROL CENTRE — /contractor (CP-01/02/03)
+ * ================================================================
+ * Operational command environment for EntireFM supply chain partners.
+ * Integrates real work assignments, compliance scoring, expiry alerts,
+ * engineer roster, and purchase orders.
  */
 
 import React from 'react';
@@ -11,11 +12,23 @@ import { getCurrentSession } from '@/server/identity';
 import { dbQuery } from '@/server/db/client';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { Clock, CheckCircle2, AlertTriangle, Users, Calendar, ArrowRight, DollarSign } from 'lucide-react';
+import {
+  Clock,
+  CheckCircle2,
+  AlertTriangle,
+  Users,
+  Calendar,
+  ArrowRight,
+  ShieldCheck,
+  ShieldAlert,
+  FileText,
+  Briefcase,
+} from 'lucide-react';
+import { evaluateContractorCompliance } from '@/server/contractor/compliance-engine';
 
 export const metadata: Metadata = {
-  title: 'Contractor Operations | EntireFM CAFM',
-  description: 'Supplier operations workspace for work order dispatch, operative assignment, and field tracking.',
+  title: 'Contractor Operations Control Centre | EntireFM',
+  description: 'Supply chain operations command for work order dispatch, operative assignment, compliance tracking, and document vault.',
 };
 
 export const dynamic = 'force-dynamic';
@@ -31,13 +44,13 @@ export default async function ContractorDashboardPage() {
 
   const providerOrgId = session.orgId;
 
-  // Query real scoped data for this contractor organization
-  const [offersRes, acceptedRes, posRes, operativesRes] = await Promise.all([
+  // Query real scoped data and compliance intelligence in parallel
+  const [offersRes, acceptedRes, posRes, operativesRes, complianceSummary] = await Promise.all([
     dbQuery<any[]>(
-      `work_order_assignments?provider_organisation_id=eq.${encodeURIComponent(providerOrgId)}&status=eq.OFFERED&select=*,work_order:work_orders(id,work_order_number,title,priority,status,site_id)&order=created_at.desc&limit=10`
+      `work_assignments?provider_org_id=eq.${encodeURIComponent(providerOrgId)}&status=eq.OFFERED&select=*,work_order:work_orders(id,work_order_number,title,priority,status,site_id)&order=created_at.desc&limit=10`
     ),
     dbQuery<any[]>(
-      `work_order_assignments?provider_organisation_id=eq.${encodeURIComponent(providerOrgId)}&status=in.(ACCEPTED,SCHEDULED,IN_PROGRESS)&select=*,work_order:work_orders(id,work_order_number,title,priority,status)&order=created_at.desc&limit=10`
+      `work_assignments?provider_org_id=eq.${encodeURIComponent(providerOrgId)}&status=in.(ACCEPTED,SCHEDULED,IN_PROGRESS)&select=*,work_order:work_orders(id,work_order_number,title,priority,status)&order=created_at.desc&limit=10`
     ),
     dbQuery<any[]>(
       `purchase_orders?supplier_org_id=eq.${encodeURIComponent(providerOrgId)}&status=in.(ISSUED,PARTIALLY_INVOICED)&select=id,po_number,total_amount_gbp,status&limit=10`
@@ -45,6 +58,7 @@ export default async function ContractorDashboardPage() {
     dbQuery<any[]>(
       `persons?organisation_id=eq.${encodeURIComponent(providerOrgId)}&status=eq.ACTIVE&select=id,first_name,last_name,job_title&limit=20`
     ),
+    evaluateContractorCompliance(providerOrgId, session),
   ]);
 
   const newOffers = offersRes.data || [];
@@ -52,34 +66,80 @@ export default async function ContractorDashboardPage() {
   const openPOs = posRes.data || [];
   const operatives = operativesRes.data || [];
 
+  const isRestricted = complianceSummary.operationalStatus === 'RESTRICTED';
+
   return (
     <div className="space-y-8">
-      {/* Welcome Banner */}
-      <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
-        <div className="space-y-1.5">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
-            CONTRACTOR OPERATIONS COMMAND &bull; {session.orgName}
-          </span>
+      {/* 1. Executive Header */}
+      <div className="rounded-2xl border border-brand-edge-dark bg-gradient-to-r from-brand-carbon via-brand-carbon/90 to-brand-void p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
+        <div className="space-y-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+              ENTIREFM NETWORK &bull; {session.orgName}
+            </span>
+            <span
+              className={`text-[11px] font-mono px-2.5 py-0.5 rounded border ${
+                complianceSummary.operationalStatus === 'COMPLIANT'
+                  ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
+                  : complianceSummary.operationalStatus === 'RESTRICTED'
+                  ? 'bg-rose-500/20 text-rose-300 border-rose-500/40 font-bold'
+                  : 'bg-amber-500/10 text-amber-300 border-amber-500/30'
+              }`}
+            >
+              {complianceSummary.operationalStatus.replace(/_/g, ' ')}
+            </span>
+          </div>
+
           <h1 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
-            Field Operations &amp; Team Dispatch
+            Contractor Control Centre
           </h1>
-          <p className="text-sm text-brand-mist/70 max-w-xl">
-            Review incoming work order offers, allocate qualified engineers, and manage purchase orders.
+          <p className="text-sm text-brand-mist/70 max-w-xl font-light">
+            Live dispatch pipeline, operative allocations, proactive compliance monitoring, and commercial purchase orders.
           </p>
         </div>
 
-        <Link
-          href="/contractor/work"
-          className="shrink-0 px-6 py-3.5 rounded-xl bg-brand-electric text-white text-sm font-semibold hover:bg-brand-electric/85 transition-all flex items-center gap-2.5 shadow-lg shadow-brand-electric/30 hover:scale-[1.02]"
-        >
-          View Work Queue ({newOffers.length + activeJobs.length})
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/contractor/compliance"
+            className="px-4 py-3 rounded-xl border border-brand-edge-dark bg-brand-void/80 hover:bg-brand-edge-dark text-white text-xs font-normal transition-all flex items-center gap-2"
+          >
+            <ShieldCheck className="w-4 h-4 text-brand-electric" />
+            Compliance ({complianceSummary.complianceScorePct}%)
+          </Link>
+
+          <Link
+            href="/contractor/work"
+            className="px-5 py-3 rounded-xl bg-brand-electric text-white text-xs font-semibold hover:bg-brand-electric/85 transition-all flex items-center gap-2 shadow-lg shadow-brand-electric/30"
+          >
+            <Briefcase className="w-4 h-4" />
+            Work Queue ({newOffers.length + activeJobs.length})
+          </Link>
+        </div>
       </div>
+
+      {/* Critical Restriction Warning */}
+      {isRestricted && (
+        <div className="rounded-xl border border-rose-500/40 bg-rose-950/30 p-5 flex items-start gap-4 shadow-lg">
+          <ShieldAlert className="w-6 h-6 text-rose-400 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <h3 className="text-sm font-semibold text-rose-200">Work Dispatch Restricted</h3>
+            <p className="text-xs text-rose-200/80 font-light leading-relaxed">
+              Mandatory compliance controls (e.g. Public Liability insurance) have expired or require verification. Please upload valid replacement documentation in the Compliance Centre to restore work eligibility.
+            </p>
+            <Link
+              href="/contractor/compliance"
+              className="inline-block mt-2 text-xs text-rose-300 hover:text-white underline font-medium"
+            >
+              Resolve Compliance Actions &rarr;
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* Action-Oriented Metric Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-5">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">New Offers</span>
+          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">New Job Offers</span>
           <p className={`text-3xl font-light mt-1 ${newOffers.length > 0 ? 'text-amber-400 font-normal' : 'text-white'}`}>
             {newOffers.length}
           </p>
@@ -87,15 +147,27 @@ export default async function ContractorDashboardPage() {
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-5">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Active / Attending</span>
+          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Active / In Field</span>
           <p className="text-3xl font-light text-brand-electric-bright mt-1">{activeJobs.length}</p>
-          <span className="text-[11px] text-brand-mist/40 mt-0.5 block">In progress in field</span>
+          <span className="text-[11px] text-brand-mist/40 mt-0.5 block">Attending operations</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-5">
-          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Active Purchase Orders</span>
-          <p className="text-3xl font-light text-emerald-400 mt-1">{openPOs.length}</p>
-          <span className="text-[11px] text-brand-mist/40 mt-0.5 block">Issued for billing</span>
+          <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Compliance Score</span>
+          <p
+            className={`text-3xl font-light mt-1 ${
+              complianceSummary.complianceScorePct >= 90
+                ? 'text-emerald-400'
+                : complianceSummary.complianceScorePct >= 70
+                ? 'text-amber-400'
+                : 'text-rose-400'
+            }`}
+          >
+            {complianceSummary.complianceScorePct}%
+          </p>
+          <span className="text-[11px] text-brand-mist/40 mt-0.5 block">
+            {complianceSummary.criticalActionsCount > 0 ? `${complianceSummary.criticalActionsCount} critical actions` : 'Controls validated'}
+          </span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-5">
@@ -104,6 +176,51 @@ export default async function ContractorDashboardPage() {
           <span className="text-[11px] text-brand-mist/40 mt-0.5 block">Registered operatives</span>
         </div>
       </div>
+
+      {/* Compliance Actions Required Strip */}
+      {complianceSummary.actions.length > 0 && (
+        <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon p-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-3">
+            <div className="flex items-center gap-2.5">
+              <AlertTriangle className="w-5 h-5 text-amber-400" />
+              <h2 className="text-sm font-semibold text-white">
+                Compliance Actions Required ({complianceSummary.actions.length})
+              </h2>
+            </div>
+            <Link href="/contractor/compliance" className="text-xs text-brand-electric-bright hover:underline">
+              View Compliance Centre →
+            </Link>
+          </div>
+
+          <div className="divide-y divide-brand-edge-dark/30">
+            {complianceSummary.actions.slice(0, 3).map((act) => (
+              <div key={act.id} className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${
+                        act.priority === 'CRITICAL'
+                          ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+                          : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                      }`}
+                    >
+                      {act.priority}
+                    </span>
+                    <span className="text-sm font-normal text-white">{act.title}</span>
+                  </div>
+                  <p className="text-xs text-brand-mist/60 font-light mt-0.5">{act.reason}</p>
+                </div>
+                <Link
+                  href="/contractor/compliance"
+                  className="px-3 py-1.5 rounded-lg bg-brand-void border border-brand-edge-dark text-xs text-brand-mist hover:text-white hover:border-brand-electric transition-colors shrink-0 self-start sm:self-auto"
+                >
+                  {act.resolutionCta} &rarr;
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* New Work Offers (Action Required) */}
       {newOffers.length > 0 && (
@@ -141,7 +258,7 @@ export default async function ContractorDashboardPage() {
         </div>
       )}
 
-      {/* Active Jobs Grid */}
+      {/* Active Jobs & Registered Engineers Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/40 p-6">
           <div className="flex items-center justify-between border-b border-brand-edge-dark/60 pb-4">

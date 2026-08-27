@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { BarChart3, CheckCircle2, Users, PieChart } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import type { LobbyPulseItem } from '@/data/lobby/types';
 
 interface LobbyPulseProps {
@@ -11,96 +11,116 @@ interface LobbyPulseProps {
 export function LobbyPulse({ data }: LobbyPulseProps) {
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [hasVoted, setHasVoted] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
-  const handleVote = (id: string) => {
-    setSelectedOptionId(id);
-    setHasVoted(true);
-  };
+  // Animate bars after voting
+  useEffect(() => {
+    if (hasVoted) {
+      // Small delay to allow the DOM to render the 0% bars before transitioning
+      const timer = setTimeout(() => setShowResults(true), 50);
+      return () => clearTimeout(timer);
+    }
+  }, [hasVoted]);
 
   const totalVotes = data.totalVotesBaseline + (hasVoted ? 1 : 0);
 
   return (
-    <div className="border border-brand-edge bg-white rounded-sm p-6 sm:p-8 lg:p-10 shadow-subtle hover:border-brand-electric/40 transition-all duration-300">
-      <div className="space-y-6">
-        {/* Header Ribbon */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-edge pb-4">
-          <div className="flex items-center gap-2.5">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-brand-electric/10 text-brand-electric text-[11px] font-medium tracking-wide uppercase">
-              <BarChart3 className="w-3.5 h-3.5" />
-              THE PULSE · Industry Sentiment
-            </span>
+    <section className="relative w-full bg-[#080C14] overflow-hidden py-16 sm:py-20">
+      {/* Ambient Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <Image
+          src="/images/editorial/entirefm-manchester-castlefield-night-1280w.webp"
+          alt="Manchester Castlefield Night"
+          fill
+          className="object-cover object-center opacity-15"
+          priority
+        />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <div className="space-y-10">
+          
+          {/* Header */}
+          <div className="space-y-4">
+            <h2 className="text-[9px] uppercase tracking-[0.25em] text-brand-electric">
+              The Pulse
+            </h2>
+            <h3 className="text-2xl sm:text-3xl font-extralight text-white leading-snug tracking-tight">
+              {data.question}
+            </h3>
+            <p className="text-[11px] text-white/40">
+              {totalVotes.toLocaleString()} FM practitioners have responded
+            </p>
           </div>
 
-          <div className="flex items-center gap-1.5 text-xs text-brand-silver font-light">
-            <Users className="w-3.5 h-3.5" />
-            <span>{totalVotes} FM practitioners responding</span>
-          </div>
-        </div>
-
-        {/* Question */}
-        <div>
-          <h3 className="text-xl sm:text-2xl font-extralight text-brand-graphite leading-snug tracking-tight">
-            {data.question}
-          </h3>
-          <p className="text-xs text-brand-silver font-light mt-1">
-            {data.context}
-          </p>
-        </div>
-
-        {/* Options / Result Bars */}
-        <div className="space-y-3 pt-2">
-          {data.options.map((option) => {
-            const isSelected = selectedOptionId === option.id;
-            const percentage = option.percentage;
-
-            return (
-              <div key={option.id} className="relative">
-                {!hasVoted ? (
+          {/* Interaction Area */}
+          <div className="space-y-4">
+            {!hasVoted ? (
+              // Voting State
+              <div className="space-y-4">
+                {data.options.map((option) => (
                   <button
-                    type="button"
-                    onClick={() => handleVote(option.id)}
-                    className="w-full p-4 rounded-sm border border-brand-edge bg-white hover:border-brand-electric/60 hover:bg-brand-surface text-left transition-all duration-200 flex items-center justify-between text-xs sm:text-sm font-light text-brand-slate group"
+                    key={option.id}
+                    onClick={() => setSelectedOptionId(option.id)}
+                    className={`block w-full text-left pl-4 py-2 border-l transition-colors duration-300 text-sm font-light ${
+                      selectedOptionId === option.id
+                        ? 'border-brand-electric text-white'
+                        : 'border-white/10 text-white/70 hover:border-brand-electric hover:text-white'
+                    }`}
                   >
-                    <span className="group-hover:text-brand-graphite">{option.label}</span>
-                    <span className="text-[11px] font-normal text-brand-silver group-hover:text-brand-electric">
-                      Vote →
-                    </span>
+                    {option.label}
                   </button>
-                ) : (
-                  <div className="p-4 rounded-sm border border-brand-edge bg-brand-surface relative overflow-hidden">
-                    {/* Animated Progress Fill */}
-                    <div
-                      className={`absolute inset-y-0 left-0 transition-all duration-700 ease-brand ${
-                        isSelected ? 'bg-brand-electric/15 border-r-2 border-brand-electric' : 'bg-brand-edge/50'
-                      }`}
-                      style={{ width: `${percentage}%` }}
-                    />
-
-                    <div className="relative z-10 flex items-center justify-between text-xs sm:text-sm">
-                      <span className={`font-light ${isSelected ? 'font-normal text-brand-electric' : 'text-brand-graphite'}`}>
-                        {option.label} {isSelected && '(Your vote)'}
-                      </span>
-                      <span className="font-mono text-xs text-brand-slate font-medium">
-                        {percentage}%
-                      </span>
+                ))}
+                
+                <div className="pt-6">
+                  <button
+                    onClick={() => selectedOptionId && setHasVoted(true)}
+                    disabled={!selectedOptionId}
+                    className="text-xs uppercase tracking-wider bg-transparent border border-brand-electric text-brand-electric px-5 py-2 hover:bg-brand-electric hover:text-white transition-colors duration-300 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-brand-electric disabled:cursor-not-allowed"
+                  >
+                    Submit Vote
+                  </button>
+                </div>
+              </div>
+            ) : (
+              // Results State
+              <div className="space-y-5 animate-in fade-in duration-500">
+                {data.options.map((option) => {
+                  const percentage = option.percentage;
+                  return (
+                    <div key={option.id} className="space-y-2">
+                      <div className="flex justify-between items-end">
+                        <span className="text-sm text-white/60 font-light">
+                          {option.label}
+                        </span>
+                        <span className="text-white/70 font-mono text-xs">
+                          {percentage}%
+                        </span>
+                      </div>
+                      <div className="h-1.5 w-full bg-white/15 rounded-sm overflow-hidden">
+                        <div
+                          className="h-full bg-white transition-all duration-1000 ease-out"
+                          style={{ width: showResults ? `${percentage}%` : '0%' }}
+                        />
+                      </div>
                     </div>
+                  );
+                })}
+
+                {/* Editorial Analysis */}
+                {(data as any).editorialAnalysis && (
+                  <div className="pt-8">
+                    <p className="text-xs font-light text-white/50 italic max-w-2xl leading-relaxed">
+                      {(data as any).editorialAnalysis}
+                    </p>
                   </div>
                 )}
               </div>
-            );
-          })}
-        </div>
-
-        {/* Footer info */}
-        <div className="pt-2 border-t border-brand-edge flex flex-wrap items-center justify-between text-[11px] font-light text-brand-silver">
-          <span>Data compiled monthly across UK facilities managers &amp; estates directors.</span>
-          {hasVoted && (
-            <span className="text-emerald-700 font-normal">
-              ✓ Your response has been recorded.
-            </span>
-          )}
+            )}
+          </div>
+          
         </div>
       </div>
-    </div>
+    </section>
   );
 }

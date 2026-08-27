@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { HelpCircle, CheckCircle2, XCircle, Award, ArrowRight, RotateCcw } from 'lucide-react';
+import Image from 'next/image';
+import { Check } from 'lucide-react';
 import type { LobbyQuestionItem } from '@/data/lobby/types';
 
 interface LobbyQuestionProps {
@@ -31,57 +32,65 @@ export function LobbyQuestion({ data }: LobbyQuestionProps) {
   };
 
   return (
-    <div
-      id="lobby-question"
-      className="border border-brand-edge-dark bg-brand-carbon text-white rounded-sm p-6 sm:p-8 lg:p-10 shadow-elevated relative overflow-hidden"
-    >
-      <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 opacity-20" />
+    <section className="w-full bg-brand-void relative flex flex-col overflow-hidden">
+      {/* Image Side (Top on mobile, Left on lg+) */}
+      <div className="relative w-full h-[240px] lg:h-auto lg:w-1/2 lg:absolute lg:left-0 lg:top-0 lg:bottom-0">
+        <Image 
+          src="/images/editorial/entirefm-switchroom-survey-1200w.webp"
+          alt="Switchroom survey challenge"
+          fill
+          priority
+          className="object-cover"
+        />
+        {/* Subtle overlays */}
+        <div className="absolute inset-0 bg-brand-void/20" />
+        <div 
+          className={`absolute inset-0 bg-emerald-500/20 mix-blend-overlay transition-opacity duration-700 ${
+            submitted && isCorrect ? 'opacity-100' : 'opacity-0'
+          }`} 
+        />
+      </div>
 
-      <div className="relative z-10 space-y-6">
+      {/* Content Panel (Bottom on mobile, Right on lg+) */}
+      <div className="relative z-10 w-full lg:w-1/2 lg:ml-auto bg-brand-void p-6 sm:p-10 lg:p-16 flex flex-col justify-center">
+        
         {/* Header */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-brand-electric/20 text-brand-electric-bright border border-brand-electric/40 text-xs font-mono">
-              Q
-            </span>
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-brand-electric-bright">
-              THE LOBBY QUESTION · Week {data.weekNumber}
-            </span>
+        <div className="mb-8">
+          <div className="text-[9px] uppercase tracking-[0.25em] text-brand-electric mb-1">
+            THE LOBBY QUESTION
           </div>
-
-          <div className="flex items-center gap-3 text-xs text-brand-mist/60">
-            <span className="px-2 py-0.5 rounded-full bg-white/[0.06] border border-white/10 text-[10.5px]">
-              Level: {data.difficulty}
-            </span>
-            <span>Topic: {data.topic}</span>
+          <div className="text-[10px] text-white/40">
+            Week {data.weekNumber}
           </div>
         </div>
 
-        {/* Question Text */}
-        <div>
-          <h3 className="text-lg sm:text-xl lg:text-2xl font-light text-white leading-snug">
-            {data.question}
-          </h3>
-        </div>
+        {/* Question */}
+        <h3 className="text-xl sm:text-2xl font-extralight text-white leading-snug mb-10">
+          {data.question}
+        </h3>
 
-        {/* 4 Interactive Options */}
-        <div className="grid sm:grid-cols-2 gap-3 pt-2">
+        {/* Options */}
+        <div className="flex flex-col gap-4 mb-10">
           {data.options.map((option) => {
             const isSelected = selectedId === option.id;
-            let buttonClasses =
-              'p-4 rounded-sm border text-left transition-all duration-200 flex items-start gap-3 ';
-
-            if (!submitted) {
-              buttonClasses += isSelected
-                ? 'bg-brand-electric/20 border-brand-electric text-white shadow-glow'
-                : 'bg-brand-void/80 border-white/10 text-brand-mist/80 hover:border-white/30 hover:bg-brand-void';
-            } else {
-              if (option.isCorrect) {
-                buttonClasses += 'bg-emerald-950/40 border-emerald-500 text-emerald-200 ';
+            const showAsCorrect = submitted && option.isCorrect;
+            
+            let borderClass = 'border-white/10';
+            let textClass = 'text-white/70';
+            
+            if (submitted) {
+              if (showAsCorrect) {
+                borderClass = 'border-emerald-500';
+                textClass = 'text-white font-bold';
               } else if (isSelected && !option.isCorrect) {
-                buttonClasses += 'bg-rose-950/40 border-rose-500 text-rose-200 ';
+                textClass = 'text-white/40';
               } else {
-                buttonClasses += 'bg-brand-void/50 border-white/5 text-brand-mist/40 opacity-60 ';
+                textClass = 'text-white/30';
+              }
+            } else {
+              if (isSelected) {
+                borderClass = 'border-brand-electric';
+                textClass = 'text-white';
               }
             }
 
@@ -91,90 +100,61 @@ export function LobbyQuestion({ data }: LobbyQuestionProps) {
                 type="button"
                 onClick={() => handleSelect(option.id)}
                 disabled={submitted}
-                className={buttonClasses}
+                className={`group text-left border-l-2 pl-3 py-2 cursor-pointer transition-all duration-200 ${borderClass}`}
               >
-                <span
-                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-mono border ${
-                    isSelected
-                      ? 'border-brand-electric bg-brand-electric text-white'
-                      : 'border-white/20 text-brand-mist/60'
-                  }`}
-                >
-                  {option.id.replace('opt-', '').toUpperCase()}
-                </span>
-                <span className="text-xs sm:text-sm font-light leading-snug">
-                  {option.text}
-                </span>
+                <div className="flex items-center justify-between gap-3">
+                  <span className={`text-sm font-light transition-colors ${textClass}`}>
+                    {option.text}
+                  </span>
+                  {showAsCorrect && (
+                    <Check className="w-4 h-4 text-emerald-500 shrink-0" />
+                  )}
+                </div>
               </button>
             );
           })}
         </div>
 
-        {/* Action / Result Feedback */}
-        <div className="pt-2">
+        {/* Action / Result */}
+        <div className="min-h-[80px]">
           {!submitted ? (
-            <div className="flex items-center justify-between">
-              <p className="text-xs font-light text-brand-mist/50">
-                Select your answer to test your statutory technical knowledge.
-              </p>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={!selectedId}
+              className="border border-brand-electric text-brand-electric text-[10px] tracking-wider py-2 px-6 uppercase hover:bg-brand-electric/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Submit
+            </button>
+          ) : (
+            <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+              <div className="flex items-center gap-4 mb-4">
+                {isCorrect && (
+                  <span className="inline-flex items-center justify-center px-2 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] uppercase tracking-wider font-medium rounded-sm border border-emerald-500/20">
+                    +50 pts
+                  </span>
+                )}
+                <span className="text-[11px] text-white/40">
+                  64% of practitioners answered this correctly
+                </span>
+              </div>
+              
+              <div className="text-sm font-light text-white/70 mt-4 border-l-2 border-emerald-500 pl-3">
+                {data.explanation}
+              </div>
+              
               <button
                 type="button"
-                onClick={handleSubmit}
-                disabled={!selectedId}
-                className="btn-primary text-xs py-2 px-5 disabled:opacity-40 disabled:cursor-not-allowed"
+                onClick={handleReset}
+                className="mt-6 text-[11px] text-white/40 hover:text-white transition-colors underline underline-offset-4"
               >
-                Submit Answer
+                Try again
               </button>
-            </div>
-          ) : (
-            <div className="space-y-4 pt-2 border-t border-white/[0.08] animate-rise">
-              <div
-                className={`p-4 rounded-sm border ${
-                  isCorrect
-                    ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200'
-                    : 'bg-rose-950/30 border-rose-500/30 text-rose-200'
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-2 font-normal text-sm">
-                  {isCorrect ? (
-                    <>
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                      <span className="text-emerald-300">Correct Answer!</span>
-                    </>
-                  ) : (
-                    <>
-                      <XCircle className="w-4 h-4 text-rose-400" />
-                      <span className="text-rose-300">Incorrect.</span>
-                    </>
-                  )}
-                </div>
-
-                <p className="text-xs sm:text-[13px] font-light text-brand-mist/90 leading-relaxed">
-                  {data.explanation}
-                </p>
-
-                <p className="text-[11px] font-mono text-brand-mist/50 mt-3 pt-2 border-t border-white/10">
-                  Governing standard: {data.governingStandard}
-                </p>
-              </div>
-
-              <div className="flex items-center justify-between text-xs text-brand-mist/60">
-                <span className="text-[11px]">
-                  Scoring &amp; Leaderboards will activate in the next Lobby update.
-                </span>
-                <button
-                  type="button"
-                  onClick={handleReset}
-                  className="inline-flex items-center gap-1 text-brand-mist/70 hover:text-white transition-colors"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Try Again</span>
-                </button>
-              </div>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
+

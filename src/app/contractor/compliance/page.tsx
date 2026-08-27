@@ -1,27 +1,34 @@
+import React from 'react';
+import type { Metadata } from 'next';
 import { getCurrentSession } from '@/server/identity';
-import { listContractorComplianceDocuments } from '@/server/supply-chain';
 import { redirect } from 'next/navigation';
-import ContractorComplianceClient from '@/components/contractor/ContractorComplianceClient';
+import { evaluateContractorCompliance } from '@/server/contractor/compliance-engine';
+import { ComplianceCentreClient } from '@/components/contractor/ComplianceCentreClient';
+
+export const metadata: Metadata = {
+  title: 'Compliance Control Centre | EntireFM Contractor Platform',
+  description: 'Proactive statutory compliance monitoring, document verification, and operational eligibility controls.',
+};
 
 export const dynamic = 'force-dynamic';
 
 export default async function ContractorCompliancePage() {
   const session = await getCurrentSession();
-  if (!session) redirect('/login');
+  if (!session) {
+    redirect('/login?redirect=/contractor/compliance');
+  }
 
-  const orgId = session.orgId || session.personId;
-  const docs = await listContractorComplianceDocuments(orgId, session);
+  const isViewAs = !!session.viewAsContext?.isViewAs;
+  if (session.orgType !== 'CONTRACTOR' && !isViewAs && session.orgType !== 'ENTIREFM') {
+    redirect('/login?error=forbidden_contractor');
+  }
+
+  const orgId = session.orgId;
+  const complianceSummary = await evaluateContractorCompliance(orgId, session);
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-extralight text-white tracking-tight">Compliance & Accreditations</h1>
-        <p className="text-brand-mist text-sm mt-1">
-          Maintain insurance, health & safety policies, and trade body accreditations for automated dispatch validation.
-        </p>
-      </div>
-
-      <ContractorComplianceClient initialDocs={docs} orgId={orgId} />
+      <ComplianceCentreClient initialSummary={complianceSummary} orgId={orgId} />
     </div>
   );
 }

@@ -1,8 +1,7 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, ShieldCheck, Clock, Bookmark, ChevronRight, CheckCircle2 } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
 import type { LeadBriefing as LeadBriefingType } from '@/data/lobby/types';
 
 interface LeadBriefingProps {
@@ -10,82 +9,60 @@ interface LeadBriefingProps {
 }
 
 export function LeadBriefing({ data }: LeadBriefingProps) {
-  const [saved, setSaved] = useState(false);
-
   return (
-    <div className="border border-brand-edge bg-white rounded-sm p-6 sm:p-8 lg:p-10 shadow-subtle hover:border-brand-electric/40 transition-all duration-300">
-      {/* Editorial Meta Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-edge pb-4 mb-6">
-        <div className="flex items-center gap-2.5">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-brand-electric/10 text-brand-electric text-[11px] font-medium tracking-wide uppercase">
-            {data.franchise}
-          </span>
-          <span className="text-xs text-brand-silver font-light">· {data.publishedAt}</span>
+    <article className="group relative w-full min-h-[480px] overflow-hidden rounded-sm flex flex-col justify-between p-6 sm:p-8 lg:p-10">
+      <Image
+        src="/images/editorial/entirefm-rooftop-plant-night-1200w.webp"
+        alt={data.title}
+        fill
+        className="object-cover transition-all duration-300 ease-out brightness-75 group-hover:brightness-90 group-hover:scale-[1.025]"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        priority
+      />
+      
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20 transition-opacity duration-300 group-hover:opacity-90" />
+      
+      {/* Top section: Franchise Label & Meta */}
+      <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
+        <span className="text-[11px] font-medium tracking-[0.2em] text-white/70 uppercase">
+          {data.franchise}
+        </span>
+        <div className="text-[11px] text-white/50 font-light flex items-center gap-2">
+          <span>{data.publishedAt}</span>
+          <span>·</span>
+          <span>{data.readingTime}</span>
+        </div>
+      </div>
+
+      {/* Bottom section: Content */}
+      <div className="relative z-10 mt-auto space-y-6">
+        <div>
+          {data.keyTakeaways && data.keyTakeaways.length > 0 && (
+            <span className="inline-block mb-4 text-[11px] text-white px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-sm">
+              {data.keyTakeaways[0]}
+            </span>
+          )}
+          
+          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extralight text-white leading-tight">
+            {data.title}
+          </h3>
+          
+          <p className="text-base font-light text-white/80 mt-3 line-clamp-1">
+            {data.standfirst}
+          </p>
         </div>
 
-        <div className="flex items-center gap-4 text-xs text-brand-silver font-light">
-          <span className="inline-flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5" />
-            {data.readingTime}
-          </span>
-          <button
-            type="button"
-            onClick={() => setSaved(!saved)}
-            className="inline-flex items-center gap-1 text-brand-slate hover:text-brand-electric transition-colors"
-            aria-label={saved ? 'Remove bookmark' : 'Save briefing'}
+        <div className="pt-2">
+          <Link
+            href={data.fullBriefingUrl || '/compliance'}
+            className="inline-flex items-center gap-2 text-sm font-light text-white transition-colors hover:text-white/70"
           >
-            <Bookmark className={`w-3.5 h-3.5 ${saved ? 'fill-brand-electric text-brand-electric' : ''}`} />
-            <span>{saved ? 'Saved' : 'Save'}</span>
-          </button>
+            Read the full briefing
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
-
-      {/* Main Headline & Standfirst */}
-      <div className="space-y-4">
-        <h3 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-extralight text-brand-graphite leading-[1.12] tracking-tight">
-          {data.title}
-        </h3>
-
-        <p className="text-base sm:text-lg font-light text-brand-slate leading-relaxed text-pretty">
-          {data.standfirst}
-        </p>
-      </div>
-
-      {/* Key Analysis / Takeaways Box */}
-      <div className="my-8 rounded-sm bg-brand-surface border-l-2 border-brand-electric p-5 sm:p-6 space-y-3">
-        <p className="text-[11px] font-medium uppercase tracking-wider text-brand-slate">
-          Key Operational Directives:
-        </p>
-        <ul className="space-y-2.5">
-          {data.keyTakeaways.map((takeaway, idx) => (
-            <li key={idx} className="flex items-start gap-2.5 text-sm font-light text-brand-graphite leading-snug">
-              <CheckCircle2 className="w-4 h-4 text-brand-electric shrink-0 mt-0.5" />
-              <span>{takeaway}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Footer & Action Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-brand-edge">
-        <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-full bg-brand-graphite text-white flex items-center justify-center text-xs font-light">
-            EFM
-          </div>
-          <div>
-            <p className="text-xs font-normal text-brand-graphite">{data.author.name}</p>
-            <p className="text-[11px] font-light text-brand-silver">{data.author.role}</p>
-          </div>
-        </div>
-
-        <Link
-          href={data.fullBriefingUrl || '/compliance'}
-          className="btn-primary text-xs sm:text-sm py-2.5 px-5"
-        >
-          Read the full briefing
-          <ArrowRight className="w-4 h-4 btn-arrow" />
-        </Link>
-      </div>
-    </div>
+    </article>
   );
 }

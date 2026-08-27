@@ -342,3 +342,66 @@ export async function getPublicMemberProfile(username: string): Promise<PublicMe
 
   return publicProfile;
 }
+
+// ─── Missing Exports for API Routes ──────────────────────────────────────────
+
+export async function getAllMembers(query?: string): Promise<PublicMemberProfile[]> {
+  seedInitialMembers();
+  const members = Array.from(MEMBERS_STORE.values());
+  const q = (query || '').toLowerCase();
+  const filtered = q
+    ? members.filter(
+        (m) =>
+          m.display_name.toLowerCase().includes(q) ||
+          (m.headline || '').toLowerCase().includes(q) ||
+          (m.company || '').toLowerCase().includes(q) ||
+          (m.disciplines || []).some((d: string) => d.toLowerCase().includes(q))
+      )
+    : members;
+
+  return filtered.map((m) => ({
+    id: m.id,
+    display_name: m.display_name,
+    first_name: m.first_name,
+    last_name: m.last_name,
+    username: m.username,
+    avatar_url: m.avatar_url,
+    headline: m.headline,
+    bio: m.bio,
+    company: m.company,
+    job_title: m.job_title,
+    location: m.location,
+    website: m.website,
+    linkedin_url: m.linkedin_url,
+    member_status: m.member_status,
+    profile_visibility: m.profile_visibility,
+    disciplines: m.disciplines,
+    sectors: m.sectors,
+    qualifications: m.qualifications,
+    badges: m.badges,
+    reputation_score: m.reputation_score,
+    joined_at: m.joined_at,
+  }));
+}
+
+export async function toggleSavedContent(
+  memberId: string,
+  contentId: string
+): Promise<{ saved: boolean; savedIds: string[] }> {
+  seedInitialMembers();
+  const member = MEMBERS_STORE.get(memberId);
+  if (!member) {
+    return { saved: false, savedIds: [] };
+  }
+  const ids = member.saved_content_ids || [];
+  const idx = ids.indexOf(contentId);
+  if (idx >= 0) {
+    ids.splice(idx, 1);
+    member.saved_content_ids = ids;
+    return { saved: false, savedIds: ids };
+  } else {
+    ids.push(contentId);
+    member.saved_content_ids = ids;
+    return { saved: true, savedIds: ids };
+  }
+}

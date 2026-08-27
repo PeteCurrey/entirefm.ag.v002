@@ -43,6 +43,16 @@ export interface BriefingStripItem {
   sector: string;
   impactLevel: 'Direct Duty' | 'Operational' | 'Market Shift';
   timestamp: string;
+  /** EntireFM editorial image relevant to this story topic (from /public/images/editorial/) */
+  topicImage?: string;
+  topicImageAlt?: string;
+  /** External source-authorised image URL (only if publisher feed explicitly provides it) */
+  sourceImage?: string;
+  sourceImageAlt?: string;
+  /** Publisher attribution for provenance display */
+  sourcePublisher?: string;
+  /** Link to source article or internal Lobby article */
+  url?: string;
 }
 
 export interface EngineersNoteItem {

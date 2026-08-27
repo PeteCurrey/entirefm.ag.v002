@@ -1,101 +1,94 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { MessageSquare, ArrowRight, CheckCircle2, ChevronDown, Send } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
 import type { AskEntireFMItem } from '@/data/lobby/types';
 
 interface AskEntireFMProps {
-  data: AskEntireFMItem;
+  data: AskEntireFMItem & { fullBriefingUrl?: string };
+}
+
+function truncateToWords(str: string, maxWords: number) {
+  if (!str) return '';
+  const words = str.split(' ');
+  if (words.length <= maxWords) return str;
+  return words.slice(0, maxWords).join(' ') + '...';
 }
 
 export function AskEntireFM({ data }: AskEntireFMProps) {
-  const [expanded, setExpanded] = useState(true);
-  const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const shortAnswer = truncateToWords(data.fullAnswerSummary || '', 25);
 
   return (
-    <div className="border border-brand-edge bg-white rounded-sm p-6 sm:p-8 lg:p-10 shadow-subtle hover:border-brand-electric/40 transition-all duration-300">
-      <div className="space-y-6">
-        {/* Header Ribbon */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-edge pb-4">
-          <div className="flex items-center gap-2.5">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-purple-50 text-purple-700 text-[11px] font-medium tracking-wide uppercase border border-purple-200">
-              <MessageSquare className="w-3.5 h-3.5" />
-              ASK ENTIREFM · Professional Q&amp;A
+    <section className="w-full bg-white group overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] min-h-[400px] lg:min-h-[480px]">
+        
+        {/* Image Section */}
+        <div className="relative w-full h-[280px] lg:h-full overflow-hidden">
+          <Image
+            src="/images/editorial/entirefm-engineers-office-testing-1200w.webp"
+            alt="EntireFM Engineers"
+            fill
+            className="object-cover transition-all duration-500 ease-in-out brightness-[0.80] group-hover:brightness-95 scale-100 group-hover:scale-[1.02] motion-reduce:transition-none"
+          />
+          {/* Editorial Bleed Gradient (lg+) */}
+          <div className="hidden lg:block absolute inset-y-0 right-0 w-32 bg-gradient-to-r from-transparent to-white pointer-events-none z-10"></div>
+        </div>
+
+        {/* Text Section */}
+        <div className="p-6 sm:p-10 lg:p-16 xl:p-20 relative bg-white flex flex-col justify-center">
+          <span className="block text-[9px] uppercase tracking-[0.25em] text-brand-electric mb-2 font-medium">
+            ASK ENTIREFM
+          </span>
+
+          <div className="relative mt-4 mb-6">
+            <span className="absolute -top-10 -left-6 text-8xl font-extralight text-brand-electric/10 leading-none select-none pointer-events-none">
+              “
             </span>
+            <h3 className="relative z-10 text-2xl sm:text-3xl font-extralight text-brand-graphite leading-snug italic pt-2">
+              {data.question}
+            </h3>
+            <div className="mt-4 text-[11px] text-brand-silver font-light uppercase tracking-wider">
+              {data.askerContext} <span className="mx-1.5 opacity-50">|</span> {data.estateProfile}
+            </div>
           </div>
 
-          <span className="text-xs text-brand-silver font-light">
-            Context: {data.estateProfile}
-          </span>
-        </div>
+          <div className="mt-6 border-l-2 border-brand-electric/20 pl-5 py-1">
+            <p className="text-sm font-light text-brand-slate leading-relaxed mb-4">
+              {shortAnswer}
+            </p>
 
-        {/* The Question (Strong Typographic Treatment) */}
-        <div className="space-y-3">
-          <p className="text-xs font-mono uppercase tracking-wider text-brand-silver">
-            Submitted by: {data.askerContext}
-          </p>
+            <Link
+              href={data.fullBriefingUrl || '#'}
+              className="inline-flex items-center gap-1.5 text-sm text-brand-electric hover:text-brand-electric/80 transition-colors group/link font-medium"
+            >
+              <span>Read the full response</span>
+              <ArrowRight className="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform" />
+            </Link>
+          </div>
 
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-extralight text-brand-graphite leading-snug tracking-tight">
-            “{data.question}”
-          </h3>
-        </div>
-
-        {/* Answer Breakdown */}
-        <div className="rounded-sm bg-brand-surface border border-brand-edge p-6 space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="h-6 w-6 rounded-full bg-brand-graphite text-white flex items-center justify-center text-[10px] font-mono">
+          <div className="mt-10 pt-6 border-t border-brand-edge/50 flex flex-wrap items-center justify-between gap-4">
+            {/* Responder */}
+            <div className="flex items-center gap-3">
+              <div className="h-6 w-6 rounded-sm bg-brand-graphite text-white flex items-center justify-center text-[9px] font-mono tracking-tighter">
                 EFM
               </div>
-              <span className="text-xs font-medium uppercase tracking-wider text-brand-graphite">
-                EntireFM Technical Response
-              </span>
+              <div className="flex flex-col">
+                <span className="text-[11px] text-brand-graphite font-medium">EntireFM Technical Response</span>
+              </div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setExpanded(!expanded)}
-              className="text-xs font-light text-brand-electric hover:underline inline-flex items-center gap-1"
+            <Link
+              href="/lobby/community/ask"
+              className="text-[11px] text-brand-silver hover:text-brand-electric transition-colors"
             >
-              <span>{expanded ? 'Collapse Summary' : 'Expand Full Response'}</span>
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`} />
-            </button>
+              Submit your own question →
+            </Link>
           </div>
 
-          {expanded && (
-            <div className="space-y-4 pt-2 animate-rise">
-              <ul className="grid sm:grid-cols-2 gap-3 pt-2">
-                {data.keyAnswerPoints.map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-[13px] font-light text-brand-slate leading-relaxed bg-white p-3 rounded-sm border border-brand-edge">
-                    <CheckCircle2 className="w-4 h-4 text-brand-electric shrink-0 mt-0.5" />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <p className="text-xs sm:text-[13px] font-light text-brand-silver leading-relaxed border-t border-brand-edge pt-3">
-                {data.fullAnswerSummary}
-              </p>
-            </div>
-          )}
-        </div>
-
-        {/* Submission CTA bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
-          <p className="text-xs text-brand-silver font-light">
-            Have a technical or contract mobilisation question for our engineering directorate?
-          </p>
-
-          <Link
-            href="/contact-us"
-            className="btn-outline text-xs py-2 px-4 inline-flex items-center gap-1.5"
-          >
-            <Send className="w-3.5 h-3.5" />
-            <span>Submit a Question to The Lobby</span>
-          </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,7 +1,8 @@
 import React from 'react';
+import Link from 'next/link';
+import { ArrowRight, Layers, Radio, MessageSquare, ShieldCheck, Search, Sparkles } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { LobbyMasthead } from '@/components/lobby/LobbyMasthead';
-import { LobbySectionHeader } from '@/components/lobby/LobbySectionHeader';
 import { LeadBriefing } from '@/components/lobby/LeadBriefing';
 import { ComplianceWatch } from '@/components/lobby/ComplianceWatch';
 import { BriefingStrip } from '@/components/lobby/BriefingStrip';
@@ -13,16 +14,12 @@ import { LobbyToolkit } from '@/components/lobby/LobbyToolkit';
 import { LobbyQuestion } from '@/components/lobby/LobbyQuestion';
 import { LobbyPulse } from '@/components/lobby/LobbyPulse';
 import { WorthAttending } from '@/components/lobby/WorthAttending';
-import { LobbyAcademyTeaser } from '@/components/lobby/LobbyAcademyTeaser';
 import { LobbyNewsletter } from '@/components/lobby/LobbyNewsletter';
 import { getLobbyHomepageData } from '@/lib/lobby/repository';
-import Link from 'next/link';
-import { ArrowRight, BookOpen, Layers } from 'lucide-react';
 
 export function TemplateLobby() {
   const data = getLobbyHomepageData();
 
-  // Map lead story to LeadBriefing props
   const leadBriefingProps = {
     franchise: data.leadStory.franchise === 'week-that-matters' ? 'THE WEEK THAT MATTERS' : 'LEAD BRIEFING',
     title: data.leadStory.title,
@@ -44,7 +41,6 @@ export function TemplateLobby() {
     tags: data.leadStory.topics,
   };
 
-  // Map compliance watch item props
   const complianceWatchProps = {
     id: data.complianceWatch.id,
     statute: data.complianceWatch.complianceData?.statute || 'Building Safety Act 2022',
@@ -65,7 +61,6 @@ export function TemplateLobby() {
     sourceDocUrl: `/lobby/${data.complianceWatch.slug}`,
   };
 
-  // Map engineers note props
   const engineersNoteProps = {
     id: data.engineersNote.id,
     title: data.engineersNote.title,
@@ -87,7 +82,6 @@ export function TemplateLobby() {
     diagramNote: data.engineersNote.engineersNoteData?.diagramNote,
   };
 
-  // Map useful thing props
   const usefulThingProps = {
     id: data.usefulThing.id,
     title: data.usefulThing.title,
@@ -102,7 +96,6 @@ export function TemplateLobby() {
     isExistingResource: true,
   };
 
-  // Map from the field props
   const fromTheFieldProps = {
     id: data.fromTheField.id,
     imageKey: 'hvac-rooftop-condensers',
@@ -122,7 +115,6 @@ export function TemplateLobby() {
       data.fromTheField.fromTheFieldData?.technicalExplanation || 'Recalculated static deflection and installed tuned pads.',
   };
 
-  // Map ask EntireFM props
   const askEntireFMProps = {
     id: data.askEntireFM.id,
     question:
@@ -143,7 +135,6 @@ export function TemplateLobby() {
     },
   };
 
-  // Map worth attending props
   const worthAttendingProps = {
     id: data.worthAttending.id,
     title: data.worthAttending.title,
@@ -158,72 +149,78 @@ export function TemplateLobby() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-void text-brand-graphite">
+    <div className="min-h-screen bg-brand-void text-brand-mist">
       <main id="main" className="relative">
-        {/* 01. Editorial Masthead & Date Introduction (Pinned Full-Screen Hero) */}
+        {/* 01. Hero (Pinned Hero Untouched) */}
         <div className="sticky top-0 z-0 h-screen min-h-[640px] lg:min-h-[720px] w-full overflow-hidden">
           <LobbyMasthead />
         </div>
 
-        {/* 02+ Scrolling Editorial Sections (Scrolls over the Pinned Hero) */}
-        <div className="relative z-10 bg-white shadow-[0_-24px_50px_rgba(0,0,0,0.35)] border-t border-brand-edge-dark/20">
-          {/* 02. Dominant Lead Story + Secondary Compliance Watch */}
-          <section id="week-that-matters" className="py-12 sm:py-16 lg:py-20 bg-white scroll-mt-20">
-            <div className="container-wide">
-              <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-12 items-stretch">
-                {/* Dominant Week That Matters Lead Briefing */}
-                <div className="flex flex-col">
-                  <LobbySectionHeader
-                    number="01"
-                    eyebrow="The Week That Matters"
-                    title="Priority FM Analysis"
-                    subtitle="Critical regulatory, legal, and operational developments prioritized for UK estate leaders."
-                  />
-                  <div className="flex-1">
-                    <LeadBriefing data={leadBriefingProps} />
-                  </div>
-                </div>
+        {/* 02+ Scrolling Editorial Body (Scrolls over Pinned Hero) */}
+        <div className="relative z-10 bg-[#06090e] shadow-[0_-24px_50px_rgba(0,0,0,0.6)]">
+          {/* Transition Strip: Dark Hero to Editorial Body */}
+          <div className="border-y border-white/10 bg-black/60 backdrop-blur-md py-3 px-4 sm:px-8">
+            <div className="container-wide flex flex-wrap items-center justify-between gap-4 text-[11px] font-mono text-white/60">
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-white font-medium">EDITION 2026.35</span>
+                <span>·</span>
+                <span>STATUTORY COMPLIANCE &amp; HARD FM INTELLIGENCE</span>
+              </div>
+              <div className="flex items-center gap-4 text-white/50">
+                <Link href="/lobby/search" className="hover:text-white transition-colors flex items-center gap-1">
+                  <Search className="w-3 h-3 text-brand-electric" />
+                  Search Intelligence
+                </Link>
+                <span>·</span>
+                <Link href="/lobby/compliance" className="hover:text-white transition-colors">
+                  Compliance Watch &rarr;
+                </Link>
+              </div>
+            </div>
+          </div>
 
-                {/* Secondary Compliance Watch Module */}
+          {/* 02. The Week That Matters & Compliance Watch (Asymmetric Editorial Split) */}
+          <section id="week-that-matters" className="py-12 sm:py-16 lg:py-20 scroll-mt-20">
+            <div className="container-wide">
+              <div className="grid lg:grid-cols-[1.5fr_1fr] gap-6 lg:gap-8 items-stretch">
+                <div className="flex flex-col">
+                  <LeadBriefing data={leadBriefingProps} />
+                </div>
                 <div id="compliance-watch" className="flex flex-col scroll-mt-20">
-                  <LobbySectionHeader
-                    number="02"
-                    eyebrow="Compliance Watch"
-                    title="Regulatory Translation"
-                    subtitle="Statutory mandates translated into immediate operational actions."
-                  />
-                  <div className="flex-1">
-                    <ComplianceWatch data={complianceWatchProps} />
-                  </div>
+                  <ComplianceWatch data={complianceWatchProps} />
                 </div>
               </div>
             </div>
           </section>
 
-          {/* 02.5. Live Community Roundtable & Active Rooms Strip */}
-          <section id="community-roundtable" className="py-12 sm:py-16 bg-brand-surface border-b border-brand-edge scroll-mt-20">
+          {/* 03. Briefing Wire / Editorial News Stream */}
+          <BriefingStrip items={data.briefingStrip} />
+
+          {/* 04. In The Lobby: Live Community Roundtable & Active Rooms */}
+          <section id="community-roundtable" className="py-16 sm:py-20 bg-[#080c14] border-y border-white/5 scroll-mt-20">
             <div className="container-wide">
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-4 border-b border-brand-edge">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 pb-4 border-b border-white/10">
                 <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-electric/10 text-brand-electric">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[10px] font-mono font-bold uppercase tracking-widest bg-brand-electric/15 text-brand-electric border border-brand-electric/30">
                       <span className="w-1.5 h-1.5 rounded-full bg-brand-electric animate-ping" />
-                      Live Community Roundtable
+                      LIVE COMMUNITY ROUNDTABLE
                     </span>
-                    <span className="text-xs text-brand-silver font-light">Where FM professionals compare notes</span>
+                    <span className="text-xs text-white/40 font-light">Where UK practitioners compare notes</span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-light text-brand-graphite">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extralight text-white">
                     Active Discussions &amp; Live Rooms
                   </h2>
                 </div>
 
                 <div className="flex items-center gap-4 text-xs font-semibold">
                   <Link href="/lobby/community" className="text-brand-electric hover:underline">
-                    All Discussions (13 Categories) →
+                    All Discussions (13 Categories) &rarr;
                   </Link>
-                  <Link href="/lobby/rooms" className="text-rose-600 hover:underline flex items-center gap-1.5">
+                  <Link href="/lobby/rooms" className="text-rose-400 hover:underline flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-                    Enter Live Rooms
+                    Enter Live Rooms (6 Open)
                   </Link>
                 </div>
               </div>
@@ -231,230 +228,169 @@ export function TemplateLobby() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Link
                   href="/lobby/community/discussion/how-much-asset-data-do-you-insist-on-before-mobilisation-sign-off"
-                  className="bg-white border border-brand-edge hover:border-brand-electric/50 rounded-sm p-5 flex flex-col justify-between space-y-4 shadow-subtle transition-all group"
+                  className="bg-white/[0.02] border border-white/10 hover:border-brand-electric/50 rounded-sm p-6 flex flex-col justify-between space-y-4 transition-all duration-300 group"
                 >
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-[11px]">
-                      <span className="font-semibold text-brand-electric">Mobilisation</span>
-                      <span className="text-emerald-600 font-medium">✓ Solved</span>
+                    <div className="flex items-center justify-between text-[10px] font-mono">
+                      <span className="font-semibold text-brand-electric uppercase">Mobilisation</span>
+                      <span className="text-emerald-400 font-medium">✓ Solved</span>
                     </div>
-                    <h3 className="text-sm font-semibold text-brand-graphite group-hover:text-brand-electric transition-colors leading-snug">
+                    <h3 className="text-base font-light text-white group-hover:text-brand-electric transition-colors leading-snug">
                       How much asset data do you insist on before mobilisation sign-off?
                     </h3>
-                    <p className="text-xs text-brand-silver line-clamp-2">
+                    <p className="text-xs text-white/50 line-clamp-2 leading-relaxed">
                       Managing outgoing contractor handover discrepancies with commercial data grading frameworks.
                     </p>
                   </div>
-                  <div className="pt-3 border-t border-brand-edge flex items-center justify-between text-[11px] text-brand-silver">
+                  <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-white/40">
                     <span>3 replies · 8 helpful</span>
-                    <span className="text-brand-electric font-medium">Read thread →</span>
+                    <span className="text-brand-electric font-medium">Read thread &rarr;</span>
                   </div>
                 </Link>
 
                 <Link
                   href="/lobby/community/discussion/ahu-belts-failing-early-alignment-tension-or-sheave-wear"
-                  className="bg-white border border-brand-edge hover:border-brand-electric/50 rounded-sm p-5 flex flex-col justify-between space-y-4 shadow-subtle transition-all group"
+                  className="bg-white/[0.02] border border-white/10 hover:border-brand-electric/50 rounded-sm p-6 flex flex-col justify-between space-y-4 transition-all duration-300 group"
                 >
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-[11px]">
-                      <span className="font-semibold text-brand-electric">Engineering &amp; M&amp;E</span>
-                      <span className="text-emerald-600 font-medium">✓ Solved</span>
+                    <div className="flex items-center justify-between text-[10px] font-mono">
+                      <span className="font-semibold text-brand-electric uppercase">Engineering &amp; M&amp;E</span>
+                      <span className="text-emerald-400 font-medium">✓ Solved</span>
                     </div>
-                    <h3 className="text-sm font-semibold text-brand-graphite group-hover:text-brand-electric transition-colors leading-snug">
+                    <h3 className="text-base font-light text-white group-hover:text-brand-electric transition-colors leading-snug">
                       AHU drive belts failing within 90 days — alignment, tension or sheave wear?
                     </h3>
-                    <p className="text-xs text-brand-silver line-clamp-2">
+                    <p className="text-xs text-white/50 line-clamp-2 leading-relaxed">
                       Acoustic frequency tensioning (Hz) vs thumb deflection rule on high-power 75kW fan drives.
                     </p>
                   </div>
-                  <div className="pt-3 border-t border-brand-edge flex items-center justify-between text-[11px] text-brand-silver">
+                  <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-white/40">
                     <span>4 replies · 12 helpful</span>
-                    <span className="text-brand-electric font-medium">Read thread →</span>
+                    <span className="text-brand-electric font-medium">Read thread &rarr;</span>
                   </div>
                 </Link>
 
                 <Link
                   href="/lobby/rooms/building-safety"
-                  className="bg-gradient-to-br from-rose-50 via-white to-brand-surface border border-rose-200 hover:border-rose-400 rounded-sm p-5 flex flex-col justify-between space-y-4 shadow-subtle transition-all group"
+                  className="bg-rose-950/20 border border-rose-500/20 hover:border-rose-500/50 rounded-sm p-6 flex flex-col justify-between space-y-4 transition-all duration-300 group"
                 >
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-[11px]">
-                      <span className="font-bold text-rose-600 flex items-center gap-1">
+                    <div className="flex items-center justify-between text-[10px] font-mono">
+                      <span className="font-bold text-rose-400 flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping" />
-                        Live Room Active
+                        LIVE ROOM ACTIVE
                       </span>
-                      <span className="text-brand-silver">22 practitioners in room</span>
+                      <span className="text-white/40">22 in room</span>
                     </div>
-                    <h3 className="text-sm font-semibold text-brand-graphite group-hover:text-rose-600 transition-colors leading-snug">
+                    <h3 className="text-base font-light text-white group-hover:text-rose-400 transition-colors leading-snug">
                       Building Safety &amp; Golden Thread Room
                     </h3>
-                    <p className="text-xs text-brand-silver line-clamp-2">
+                    <p className="text-xs text-white/50 line-clamp-2 leading-relaxed">
                       Live discussion on Accountable Person incident logging and 48-hour statutory BSR notifications.
                     </p>
                   </div>
-                  <div className="pt-3 border-t border-rose-100 flex items-center justify-between text-[11px]">
-                    <span className="text-brand-silver">88 messages today</span>
-                    <span className="text-rose-600 font-bold">Join Live Room →</span>
+                  <div className="pt-3 border-t border-rose-500/20 flex items-center justify-between text-[11px]">
+                    <span className="text-white/40">88 messages today</span>
+                    <span className="text-rose-400 font-bold">Join Live Room &rarr;</span>
                   </div>
                 </Link>
               </div>
             </div>
           </section>
 
-          {/* 03. Briefing Wire / Key Developments Strip */}
-          <BriefingStrip items={data.briefingStrip} />
-
-          {/* 04. The Engineer's Note (Technical Diagnostic) */}
-          <section id="engineers-note" className="py-16 sm:py-20 lg:py-24 bg-brand-void text-white scroll-mt-20">
+          {/* 05. The Engineer's Note (Cinematic Full-Width Split) */}
+          <section id="engineers-note" className="py-16 sm:py-24 scroll-mt-20">
             <div className="container-wide">
-              <LobbySectionHeader
-                number="03"
-                eyebrow="The Engineer’s Note"
-                title="Field Diagnostics & Plant Intelligence"
-                subtitle="Practical, concise engineering observations written by senior building services specialists."
-                dark={true}
-              />
               <EngineersNote data={engineersNoteProps} />
             </div>
           </section>
 
-          {/* 05. One Useful Thing (Actionable Asset) */}
-          <section id="useful-thing" className="py-16 sm:py-20 bg-white border-b border-brand-edge scroll-mt-20">
+          {/* 06. One Useful Thing (White Editorial Feature) */}
+          <section id="useful-thing" className="py-16 sm:py-24 bg-white text-black scroll-mt-20">
             <div className="container-wide">
-              <LobbySectionHeader
-                number="04"
-                eyebrow="One Useful Thing"
-                title="Practical Estate Asset"
-                subtitle="A tested tool, checklist, or template you can use across your buildings today."
-              />
               <UsefulThing data={usefulThingProps} />
             </div>
           </section>
 
-          {/* 06. From The Field (Photography-Led Feature) */}
-          <section id="from-the-field" className="py-16 sm:py-20 lg:py-24 bg-brand-graphite text-white scroll-mt-20">
+          {/* 07. From The Field (Edge-to-Edge Photographic Inspection) */}
+          <section id="from-the-field" className="py-16 sm:py-24 bg-[#080C14] text-white scroll-mt-20 border-y border-white/5">
             <div className="container-wide">
-              <LobbySectionHeader
-                number="05"
-                eyebrow="From The Field"
-                title="Real-World Site Inspections"
-                subtitle="Plantroom observations and defect identification from live UK commercial facilities."
-                dark={true}
-              />
               <FromTheField data={fromTheFieldProps} />
             </div>
           </section>
 
-          {/* 07. Ask EntireFM (Typographic Q&A) */}
-          <section id="ask-entirefm" className="py-16 sm:py-20 bg-white border-b border-brand-edge scroll-mt-20">
+          {/* 08. Ask EntireFM (Editorial Typographic Q&A) */}
+          <section id="ask-entirefm" className="py-16 sm:py-24 bg-white text-black scroll-mt-20">
             <div className="container-wide">
-              <LobbySectionHeader
-                number="06"
-                eyebrow="Ask EntireFM"
-                title="Professional Estate Q&A"
-                subtitle="Answers to complex operational, mobilization, and compliance questions."
-              />
               <AskEntireFM data={askEntireFMProps} />
             </div>
           </section>
 
-          {/* 08. FM Toolkit (Curated Existing Tools Gateway) */}
-          <section id="toolkit" className="py-16 sm:py-20 bg-brand-surface border-b border-brand-edge scroll-mt-20">
+          {/* 09. FM Toolkit (Dark Asymmetric Visual Card Grid) */}
+          <section id="toolkit" className="py-16 sm:py-24 bg-black text-white scroll-mt-20 border-t border-white/10">
             <div className="container-wide">
-              <LobbySectionHeader
-                number="07"
-                eyebrow="FM Toolkit"
-                title="Calculators, Schedules & Spec Builders"
-                subtitle="Curated interactive tools from the EntireFM engineering suite to streamline estate planning."
-              />
               <LobbyToolkit items={data.toolkit} />
             </div>
           </section>
 
-          {/* 09 & 10. The Lobby Question & The Pulse (Interactive Grid) */}
-          <section className="py-16 sm:py-20 lg:py-24 bg-white border-b border-brand-edge">
+          {/* 10. The Lobby Question & The Pulse (Side-by-Side Intelligence Grid) */}
+          <section className="py-16 sm:py-24 bg-[#080C14] text-white border-y border-white/5">
             <div className="container-wide">
               <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
-                {/* The Lobby Question */}
                 <div className="flex flex-col">
-                  <LobbySectionHeader
-                    number="08"
-                    eyebrow="The Lobby Question"
-                    title="Weekly Technical Challenge"
-                    subtitle="Test your knowledge of British Standards, ACOP guidance, and statutory testing intervals."
-                  />
-                  <div className="flex-1">
-                    <LobbyQuestion data={data.lobbyQuestion} />
-                  </div>
+                  <LobbyQuestion data={data.lobbyQuestion} />
                 </div>
-
-                {/* The Pulse */}
                 <div className="flex flex-col">
-                  <LobbySectionHeader
-                    number="09"
-                    eyebrow="The Pulse"
-                    title="Industry Sentiment Benchmark"
-                    subtitle="What UK facilities managers and property directors are prioritising this month."
-                  />
-                  <div className="flex-1">
-                    <LobbyPulse data={data.lobbyPulse} />
-                  </div>
+                  <LobbyPulse data={data.lobbyPulse} />
                 </div>
               </div>
             </div>
           </section>
 
-          {/* 11. Worth Attending */}
-          <section id="worth-attending" className="py-16 sm:py-20 bg-brand-surface border-b border-brand-edge scroll-mt-20">
+          {/* 11. Worth Attending (Curated Event Calendar) */}
+          <section id="worth-attending" className="py-16 sm:py-20 bg-[#06090e] text-white scroll-mt-20">
             <div className="container-wide">
-              <LobbySectionHeader
-                number="10"
-                eyebrow="Worth Attending"
-                title="Curated Professional Events"
-                subtitle="Conferences, technical webinars, and CPD opportunities genuinely worth your time."
-              />
+              <div className="flex items-center justify-between pb-6 mb-8 border-b border-white/10">
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric">
+                    INDUSTRY EVENTS · CPD CERTIFIED
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-extralight text-white mt-1">
+                    Worth Attending
+                  </h2>
+                </div>
+                <Link href="/lobby/events" className="text-xs font-semibold text-brand-electric hover:underline">
+                  Full Event Directory &rarr;
+                </Link>
+              </div>
               <WorthAttending data={worthAttendingProps} />
             </div>
           </section>
 
-          {/* 12. EntireFM Academy Teaser */}
-          <section className="py-16 sm:py-20 bg-brand-void text-white">
-            <div className="container-wide">
-              <LobbySectionHeader
-                number="11"
-                eyebrow="EntireFM Academy"
-                title="Operational Learning & Training"
-                subtitle="The upcoming practical training environment for commercial estate teams."
-                dark={true}
-              />
-              <LobbyAcademyTeaser />
-            </div>
-          </section>
-
-          {/* 13. Lobby Archive Gateway Bar */}
-          <section className="py-10 bg-white border-y border-brand-edge">
+          {/* 12. Archive Gateway Strip */}
+          <section className="py-10 bg-black border-y border-white/10 text-white">
             <div className="container-wide flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-brand-electric/10 text-brand-electric text-xs font-mono">
+                <span className="flex h-9 w-9 items-center justify-center rounded-sm bg-white/10 text-white text-xs font-mono">
                   <Layers className="w-4 h-4" />
                 </span>
                 <div>
-                  <p className="text-sm font-normal text-brand-graphite">Looking for past briefings or specific topics?</p>
-                  <p className="text-xs font-light text-brand-silver">Browse the complete Lobby editorial archive and topic indexes.</p>
+                  <p className="text-sm font-medium text-white">Looking for past briefings or specific regulations?</p>
+                  <p className="text-xs text-white/50">Browse the complete Lobby editorial archive, statutory guides, and tool matrix.</p>
                 </div>
               </div>
 
-              <Link href="/lobby/archive" className="btn-outline text-xs py-2.5 px-5">
-                <span>Open Lobby Archive</span>
+              <Link href="/lobby/search" className="px-5 py-2.5 rounded-sm bg-white/10 hover:bg-white/20 text-white text-xs font-mono tracking-wider uppercase border border-white/15 transition-all flex items-center gap-2">
+                <span>Search Lobby Archive</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </section>
 
-          {/* 14. Editorial Newsletter Dispatch */}
+          {/* 13. Join The Lobby / The Tuesday Dispatch */}
           <LobbyNewsletter />
 
-          {/* 15. Global Footer */}
+          {/* 14. Global Footer */}
           <Footer />
         </div>
       </main>
