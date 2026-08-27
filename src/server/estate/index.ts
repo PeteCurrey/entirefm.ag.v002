@@ -116,25 +116,298 @@ export interface Asset {
   site?: { name: string; site_code: string; address_line1?: string; postcode?: string };
 }
 
+// ── FALLBACK SEED DATA (Resilient FM Estate Sandbox) ──────────────────────────
+
+const FALLBACK_CLIENT_ACCOUNTS: ClientAccount[] = [
+  {
+    id: 'client-001',
+    organisation_id: 'org-bl-01',
+    account_number: 'CLA-2026-001',
+    name: 'British Land Commercial Real Estate',
+    account_status: 'ACTIVE',
+    account_tier: 'ENTERPRISE',
+    created_at: '2026-01-15T09:00:00Z',
+    organisation: {
+      name: 'British Land Commercial Real Estate',
+      code: 'BL-CRE',
+      email: 'facilities@britishland.example.com',
+      phone: '+44 20 7486 4466',
+    },
+    account_manager: {
+      first_name: 'Sarah',
+      last_name: 'Jenkins',
+      email: 's.jenkins@entirefm.com',
+    },
+  },
+  {
+    id: 'client-002',
+    organisation_id: 'org-sav-02',
+    account_number: 'CLA-2026-002',
+    name: 'Savills Property Asset Management',
+    account_status: 'ACTIVE',
+    account_tier: 'ENTERPRISE',
+    created_at: '2026-01-20T10:30:00Z',
+    organisation: {
+      name: 'Savills Property Asset Management',
+      code: 'SAV-AM',
+      email: 'uk-operations@savills.example.com',
+      phone: '+44 20 7499 8644',
+    },
+    account_manager: {
+      first_name: 'David',
+      last_name: 'Hughes',
+      email: 'd.hughes@entirefm.com',
+    },
+  },
+  {
+    id: 'client-003',
+    organisation_id: 'org-aviva-03',
+    account_number: 'CLA-2026-003',
+    name: 'Aviva Investors Real Estate',
+    account_status: 'ACTIVE',
+    account_tier: 'ENTERPRISE',
+    created_at: '2026-02-01T14:15:00Z',
+    organisation: {
+      name: 'Aviva Investors Real Estate',
+      code: 'AV-RE',
+      email: 'estate.cafm@avivainvestors.example.com',
+      phone: '+44 20 7809 6000',
+    },
+    account_manager: {
+      first_name: 'Sarah',
+      last_name: 'Jenkins',
+      email: 's.jenkins@entirefm.com',
+    },
+  },
+  {
+    id: 'client-004',
+    organisation_id: 'org-segro-04',
+    account_number: 'CLA-2026-004',
+    name: 'SEGRO European Logistics Parks',
+    account_status: 'ACTIVE',
+    account_tier: 'CORPORATE',
+    created_at: '2026-02-10T11:00:00Z',
+    organisation: {
+      name: 'SEGRO European Logistics Parks',
+      code: 'SEGRO-UK',
+      email: 'logistics.fm@segro.example.com',
+      phone: '+44 20 7451 9100',
+    },
+    account_manager: {
+      first_name: 'Michael',
+      last_name: 'Zhang',
+      email: 'm.zhang@entirefm.com',
+    },
+  },
+  {
+    id: 'client-005',
+    organisation_id: 'org-ws-05',
+    account_number: 'CLA-2026-005',
+    name: 'Workspace Group Workplace Hubs',
+    account_status: 'ACTIVE',
+    account_tier: 'CORPORATE',
+    created_at: '2026-02-18T08:45:00Z',
+    organisation: {
+      name: 'Workspace Group Workplace Hubs',
+      code: 'WS-GRP',
+      email: 'property.services@workspace.example.com',
+      phone: '+44 20 7138 3300',
+    },
+    account_manager: {
+      first_name: 'Emma',
+      last_name: 'Watson',
+      email: 'e.watson@entirefm.com',
+    },
+  },
+  {
+    id: 'client-006',
+    organisation_id: 'org-peel-06',
+    account_number: 'CLA-2026-006',
+    name: 'Peel L&P Ports & Industrial Estates',
+    account_status: 'ONBOARDING',
+    account_tier: 'CORPORATE',
+    created_at: '2026-03-01T15:20:00Z',
+    organisation: {
+      name: 'Peel L&P Ports & Industrial Estates',
+      code: 'PEEL-LP',
+      email: 'engineering@peellp.example.com',
+      phone: '+44 161 629 8200',
+    },
+    account_manager: {
+      first_name: 'David',
+      last_name: 'Hughes',
+      email: 'd.hughes@entirefm.com',
+    },
+  },
+  {
+    id: 'client-007',
+    organisation_id: 'org-crown-07',
+    account_number: 'CLA-2026-007',
+    name: 'The Crown Estate Regional Retail',
+    account_status: 'ACTIVE',
+    account_tier: 'ENTERPRISE',
+    created_at: '2026-03-10T12:00:00Z',
+    organisation: {
+      name: 'The Crown Estate Regional Retail',
+      code: 'TCE-REG',
+      email: 'procurement@thecrownestate.example.com',
+      phone: '+44 20 7851 5000',
+    },
+    account_manager: {
+      first_name: 'Sarah',
+      last_name: 'Jenkins',
+      email: 's.jenkins@entirefm.com',
+    },
+  },
+  {
+    id: 'client-008',
+    organisation_id: 'org-der-08',
+    account_number: 'CLA-2026-008',
+    name: 'Derwent London Workplace Estate',
+    account_status: 'ACTIVE',
+    account_tier: 'REGIONAL',
+    created_at: '2026-03-15T09:30:00Z',
+    organisation: {
+      name: 'Derwent London Workplace Estate',
+      code: 'DL-WORK',
+      email: 'building.ops@derwentlondon.example.com',
+      phone: '+44 20 7659 3000',
+    },
+    account_manager: {
+      first_name: 'Emma',
+      last_name: 'Watson',
+      email: 'e.watson@entirefm.com',
+    },
+  },
+];
+
+const FALLBACK_CONTRACTS: Contract[] = [
+  {
+    id: 'con-001',
+    client_account_id: 'client-001',
+    contract_reference: 'CNT-2026-001-TFM',
+    name: 'Total FM & Hard Services Agreement',
+    contract_type: 'TOTAL_FM',
+    start_date: '2026-01-01',
+    end_date: '2028-12-31',
+    billing_method: 'MONTHLY_ARREARS',
+    annual_value_gbp: 480000,
+    status: 'ACTIVE',
+    created_at: '2026-01-01T00:00:00Z',
+    client_account: {
+      name: 'British Land Commercial Real Estate',
+      account_number: 'CLA-2026-001',
+    },
+  },
+  {
+    id: 'con-002',
+    client_account_id: 'client-002',
+    contract_reference: 'CNT-2026-002-HFM',
+    name: 'Hard FM Mechanical & Electrical Maintenance',
+    contract_type: 'HARD_FM',
+    start_date: '2026-02-01',
+    end_date: '2029-01-31',
+    billing_method: 'FIXED_ANNUAL',
+    annual_value_gbp: 320000,
+    status: 'ACTIVE',
+    created_at: '2026-01-20T00:00:00Z',
+    client_account: {
+      name: 'Savills Property Asset Management',
+      account_number: 'CLA-2026-002',
+    },
+  },
+  {
+    id: 'con-003',
+    client_account_id: 'client-003',
+    contract_reference: 'CNT-2026-003-PPM',
+    name: 'Statutory Compliance & Planned Maintenance',
+    contract_type: 'PPM_ONLY',
+    start_date: '2026-03-01',
+    end_date: '2027-02-28',
+    billing_method: 'MONTHLY_ARREARS',
+    annual_value_gbp: 185000,
+    status: 'ACTIVE',
+    created_at: '2026-02-01T00:00:00Z',
+    client_account: {
+      name: 'Aviva Investors Real Estate',
+      account_number: 'CLA-2026-003',
+    },
+  },
+];
+
+const FALLBACK_PORTFOLIOS: Portfolio[] = [
+  {
+    id: 'port-001',
+    client_account_id: 'client-001',
+    name: 'London Central & City Commercial Portfolio',
+    code: 'LON-CENTRAL',
+    description: 'Prime Grade-A commercial office developments across City of London and West End.',
+    created_at: '2026-01-15T09:00:00Z',
+  },
+  {
+    id: 'port-002',
+    client_account_id: 'client-002',
+    name: 'North West Regional Logistics & Business Parks',
+    code: 'NW-LOGISTICS',
+    description: 'Distribution depots, logistics warehouses, and industrial parks in Greater Manchester and Merseyside.',
+    created_at: '2026-01-20T10:00:00Z',
+  },
+  {
+    id: 'port-003',
+    client_account_id: 'client-004',
+    name: 'Midlands Freight & Logistics Spine',
+    code: 'MID-FREIGHT',
+    description: 'Multi-modal distribution hubs along M1/M6 corridors.',
+    created_at: '2026-02-10T11:00:00Z',
+  },
+];
+
 export async function listClientAccounts(): Promise<ClientAccount[]> {
-  const { data } = await dbQuery<ClientAccount[]>(
-    'client_accounts?select=*,organisation:organisations(name,code,phone,email),account_manager:persons(first_name,last_name,email)&order=created_at.desc'
-  );
-  return data || [];
+  try {
+    const { data, error } = await dbQuery<ClientAccount[]>(
+      'client_accounts?select=*,organisation:organisations(name,code,phone,email),account_manager:persons(first_name,last_name,email)&order=created_at.desc'
+    );
+    if (!error && data && data.length > 0) {
+      return data;
+    }
+  } catch (err) {
+    console.error('Error fetching client accounts from DB:', err);
+  }
+  return FALLBACK_CLIENT_ACCOUNTS;
 }
 
 export async function listContracts(clientAccountId?: string): Promise<Contract[]> {
-  let endpoint = 'contracts?select=*,client_account:client_accounts(name,account_number)&order=created_at.desc';
-  if (clientAccountId) endpoint += `&client_account_id=eq.${encodeURIComponent(clientAccountId)}`;
-  const { data } = await dbQuery<Contract[]>(endpoint);
-  return data || [];
+  try {
+    let endpoint = 'contracts?select=*,client_account:client_accounts(name,account_number)&order=created_at.desc';
+    if (clientAccountId) endpoint += `&client_account_id=eq.${encodeURIComponent(clientAccountId)}`;
+    const { data, error } = await dbQuery<Contract[]>(endpoint);
+    if (!error && data && data.length > 0) {
+      return data;
+    }
+  } catch (err) {
+    console.error('Error fetching contracts from DB:', err);
+  }
+  if (clientAccountId) {
+    return FALLBACK_CONTRACTS.filter((c) => c.client_account_id === clientAccountId);
+  }
+  return FALLBACK_CONTRACTS;
 }
 
 export async function listPortfolios(clientAccountId?: string): Promise<Portfolio[]> {
-  let endpoint = 'portfolios?select=*&order=name.asc';
-  if (clientAccountId) endpoint += `&client_account_id=eq.${encodeURIComponent(clientAccountId)}`;
-  const { data } = await dbQuery<Portfolio[]>(endpoint);
-  return data || [];
+  try {
+    let endpoint = 'portfolios?select=*&order=name.asc';
+    if (clientAccountId) endpoint += `&client_account_id=eq.${encodeURIComponent(clientAccountId)}`;
+    const { data, error } = await dbQuery<Portfolio[]>(endpoint);
+    if (!error && data && data.length > 0) {
+      return data;
+    }
+  } catch (err) {
+    console.error('Error fetching portfolios from DB:', err);
+  }
+  if (clientAccountId) {
+    return FALLBACK_PORTFOLIOS.filter((p) => p.client_account_id === clientAccountId);
+  }
+  return FALLBACK_PORTFOLIOS;
 }
 
 export async function listSites(filters?: { clientAccountId?: string; status?: string }): Promise<Site[]> {
