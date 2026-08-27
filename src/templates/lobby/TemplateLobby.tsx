@@ -184,9 +184,11 @@ export function TemplateLobby() {
           <section id="week-that-matters" className="py-12 sm:py-16 lg:py-20 scroll-mt-20">
             <div className="container-wide">
               <div className="grid lg:grid-cols-[1.5fr_1fr] gap-6 lg:gap-8 items-stretch">
+                {/* Lead story — fills full height naturally */}
                 <div className="flex flex-col">
                   <LeadBriefing data={leadBriefingProps} />
                 </div>
+                {/* Compliance Watch + governing body strip below — flex-col stretches to match lead */}
                 <div id="compliance-watch" className="flex flex-col scroll-mt-20">
                   <ComplianceWatch data={complianceWatchProps} />
                 </div>
