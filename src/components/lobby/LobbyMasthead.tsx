@@ -12,7 +12,6 @@ const HERO_PROMPTS = [
   'Show me London FM tenders closing soon',
   'F-gas rules for commercial chillers',
   'Who won major cleaning contracts this month?',
-  'Standard testing frequency for commercial EICRs',
 ];
 
 export function LobbyMasthead() {
@@ -136,7 +135,7 @@ export function LobbyMasthead() {
         </div>
 
         {/* ── LOWER AREA: CENTRED WHITE COMPOSER (LOWER THIRD) ────────── */}
-        <div className="w-full max-w-3xl mx-auto mb-6 sm:mb-8 space-y-3.5 text-left">
+        <div className="w-full max-w-3xl mx-auto mt-2 sm:mt-4 mb-2 sm:mb-3 space-y-3 text-left">
           <form
             onSubmit={handleSearchSubmit}
             className="bg-white text-neutral-900 border border-neutral-200/90 rounded-[8px] p-4 sm:p-5 shadow-2xl transition-shadow focus-within:shadow-[0_20px_50px_rgba(0,0,0,0.35)]"
@@ -155,7 +154,7 @@ export function LobbyMasthead() {
                 }}
                 rows={2}
                 placeholder="Ask about FM, regulation, contracts, events, technical issues or what's changing..."
-                className="w-full bg-transparent text-neutral-900 placeholder:text-neutral-400 text-base sm:text-lg font-extralight focus:outline-none resize-none leading-relaxed"
+                className="w-full bg-transparent text-neutral-900 placeholder:text-black text-base sm:text-lg font-extralight focus:outline-none resize-none leading-relaxed"
               />
             </div>
 
@@ -196,10 +195,10 @@ export function LobbyMasthead() {
                 <button
                   type="submit"
                   disabled={!query.trim()}
-                  className="px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 disabled:opacity-40 text-white font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center gap-2"
+                  className="px-5 py-2.5 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 disabled:opacity-40 text-black font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center gap-2"
                 >
-                  <span>{mode === 'deep_research' ? 'Start Research' : 'Ask The Lobby'}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span className="text-black">{mode === 'deep_research' ? 'Start Research' : 'Ask The Lobby'}</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-black" />
                 </button>
               </div>
             </div>
