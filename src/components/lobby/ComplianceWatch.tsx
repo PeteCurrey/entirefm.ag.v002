@@ -94,21 +94,21 @@ export function ComplianceWatch({ data }: ComplianceWatchProps) {
         </div>
       </aside>
 
-      {/* ── BELOW CARD: Governing Body / Effective Date summary strip ── */}
-      <div className="rounded-sm bg-white/[0.04] border border-white/10 px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <div>
-          <span className="block text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1">
+      {/* ── BELOW CARD: Governing Body / Enforcement summary strip ── */}
+      <div className="rounded-sm bg-white/[0.04] border border-white/10 px-5 py-4 grid grid-cols-2 gap-4">
+        <div className="min-w-0">
+          <span className="block text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1.5">
             Governing Body
           </span>
-          <p className="text-sm font-light text-white leading-snug">
+          <p className="text-sm font-light text-white leading-snug break-words">
             {data.governingBody}
           </p>
         </div>
-        <div className="text-right sm:shrink-0">
-          <span className="block text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1">
+        <div className="min-w-0 border-l border-white/10 pl-4">
+          <span className="block text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1.5">
             Enforcement
           </span>
-          <p className="text-sm font-light text-white leading-snug">
+          <p className="text-sm font-light text-white leading-snug break-words">
             {data.whenItMatters}
           </p>
         </div>
@@ -116,3 +116,4 @@ export function ComplianceWatch({ data }: ComplianceWatchProps) {
     </div>
   );
 }
+
