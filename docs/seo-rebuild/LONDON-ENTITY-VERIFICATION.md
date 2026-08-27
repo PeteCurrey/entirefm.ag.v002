@@ -23,6 +23,6 @@ Earlier EntireFM Wix generations (G1 & G2) displayed prominent London operationa
 
 ## 2. London Schema Architecture Rules
 
-1. **Organization Schema:** Entire Facilities Management Ltd is marked as a UK National Organization with regional service area coverage covering Greater London (`London`, `City of London`, `Westminster`, `Tower Hamlets`, etc.).
+1. **Organization Schema:** EntireFM is marked as a UK National Organization with regional service area coverage covering Greater London (`London`, `City of London`, `Westminster`, `Tower Hamlets`, etc.).
 2. **LocalBusiness Schema Guard:** `LocalBusiness` schema with postal street address must NOT be applied to London pages until a physical operational depot/office address is confirmed. Service area schema is applied instead to prevent Google Merchant / Local penalty.
 3. **Emergency Phone Links:** All telephone click events are routed to standard `tel:` links using verified numbers once confirmed.

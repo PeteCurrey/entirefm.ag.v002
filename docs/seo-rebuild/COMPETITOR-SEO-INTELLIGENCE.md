@@ -2,7 +2,7 @@
 
 > **Document:** `/docs/seo-rebuild/COMPETITOR-SEO-INTELLIGENCE.md`  
 > **Phase:** 02A — Market Intelligence & Strategic Positioning  
-> **Target Entity:** Entire Facilities Management Ltd (EntireFM)
+> **Target Entity:** EntireFM
 
 ---
 

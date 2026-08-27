@@ -634,10 +634,10 @@ function generateRouteContent(route) {
   // ═══════════════════════════════════════════════════════════════════════════
   else if (rt === 'legal') {
     title = `${name} | Entire FM`;
-    metaDescription = `Official ${name.toLowerCase()} documentation and legal governance for Entire Facilities Management Ltd.`;
+    metaDescription = `Official ${name.toLowerCase()} documentation and legal governance for EntireFM.`;
     h1 = name;
     eyebrow = 'Legal & Corporate Governance';
-    heroIntro = `Official statutory and corporate policies governing Entire Facilities Management Ltd operations, data privacy, and service delivery standards.`;
+    heroIntro = `Official statutory and corporate policies governing EntireFM operations, data privacy, and service delivery standards.`;
     capabilities = [
       { name: 'Statutory Data Protection & GDPR', description: 'Strict compliance with UK GDPR and Data Protection Act 2018 standards.', tag: 'GDPR' },
       { name: 'Digital Service Accessibility', description: 'Ensuring digital portals and web documents meet WCAG 2.1 AA accessibility guidelines.', tag: 'Accessibility' },
@@ -645,7 +645,7 @@ function generateRouteContent(route) {
     sections = [
       {
         heading: 'Corporate Transparency & Governance',
-        body: 'Entire Facilities Management Ltd operates under rigorous legal compliance frameworks ensuring transparent customer service and high ethical standards.'
+        body: 'EntireFM operates under rigorous legal compliance frameworks ensuring transparent customer service and high ethical standards.'
       }
     ];
     faqs = [

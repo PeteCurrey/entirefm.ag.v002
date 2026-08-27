@@ -11,10 +11,10 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 const record: ContentRecord = {
   "path": "/accessibility-statement",
   "title": "Accessibility Statement | Entire FM",
-  "metaDescription": "Official accessibility statement documentation and legal governance for Entire Facilities Management Ltd.",
+  "metaDescription": "Official accessibility statement documentation and legal governance for EntireFM.",
   "h1": "Accessibility Statement",
   "eyebrow": "Legal & Corporate Governance",
-  "heroIntro": "Official statutory and corporate policies governing Entire Facilities Management Ltd operations, data privacy, and service delivery standards.",
+  "heroIntro": "Official statutory and corporate policies governing EntireFM operations, data privacy, and service delivery standards.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
   "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for accessibility statement",
@@ -43,7 +43,7 @@ const record: ContentRecord = {
   "sections": [
     {
       "heading": "Corporate Transparency & Governance",
-      "body": "Entire Facilities Management Ltd operates under rigorous legal compliance frameworks ensuring transparent customer service and high ethical standards."
+      "body": "EntireFM operates under rigorous legal compliance frameworks ensuring transparent customer service and high ethical standards."
     }
   ],
   "capabilities": [

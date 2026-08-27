@@ -209,8 +209,8 @@ export function deriveLifecycleStage(
     };
   }
 
-  // 9. Assignment Acknowledged / Accepted
-  if (assignment?.status === 'ACCEPTED' || wo.status === 'IN_PROGRESS') {
+  // 9. Assignment Acknowledged / Accepted (Awaiting Operative Allocation or Travel)
+  if (assignment?.status === 'ACCEPTED' || wo.status === 'ACCEPTED' || wo.status === 'SCHEDULED') {
     return {
       stage: 'ACKNOWLEDGED',
       clientStatus: wo.assigned_engineer_name ? 'ENGINEER_ASSIGNED' : 'CONTRACTOR_ASSIGNED',

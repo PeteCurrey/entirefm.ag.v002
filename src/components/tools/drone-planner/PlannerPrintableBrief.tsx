@@ -126,7 +126,7 @@ export function PlannerPrintableBrief({
 
       {/* Footer Contact */}
       <div className="flex items-center justify-between border-t border-slate-300 pt-3 text-[10.5px] font-mono text-slate-600">
-        <div>Entire Facilities Management Ltd &bull; Nationwide UK Delivery</div>
+        <div>EntireFM &bull; Nationwide UK Delivery</div>
         <div>Tel: {CONTACT_CONFIG.mainPhone.display} &bull; Web: entirefm.com</div>
       </div>
     </div>

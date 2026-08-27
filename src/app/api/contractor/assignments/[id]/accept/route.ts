@@ -52,12 +52,13 @@ export async function POST(
       });
     } catch {}
 
-    // 3. Update work order status
+    // 3. Update work order status to ACCEPTED (AWAITING_ENGINEER) — NOT IN_PROGRESS until fieldwork begins
     if (workOrderId) {
       await dbQuery(`work_orders?id=eq.${encodeURIComponent(workOrderId)}`, {
         method: 'PATCH',
         body: {
-          status: 'IN_PROGRESS',
+          status: 'ACCEPTED',
+          disposition_state: 'AWAITING_ENGINEER',
           updated_at: new Date().toISOString(),
         },
       });

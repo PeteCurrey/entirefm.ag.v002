@@ -53,7 +53,7 @@ for (const r of registry.routes) {
     `"${(c.secondaryIntents || []).join('; ').replace(/"/g, '""')}"`,
     `"contractor, maintenance, PPM, quote, cost, SLA, emergency, compliance"`,
     `"${loc}"`,
-    `"Entire Facilities Management Ltd, SFG20, NICEIC, Gas Safe Register, CIBSE, HSE"`,
+    `"EntireFM, SFG20, NICEIC, Gas Safe Register, CIBSE, HSE"`,
     `"${r.service || 'Hard FM, Soft FM, PPM, Mechanical & Electrical'}"`,
     `"${r.sector || 'Commercial, Industrial, Logistics, Corporate'}"`,
     `"What is included in ${p.replace(/^\//, '').replace(/-/g, ' ')}? How often is PPM required?"`,
