@@ -117,8 +117,8 @@ export function LobbyMasthead() {
           </div>
         </div>
 
-        {/* ── UPPER AREA: THE LOBBY TITLE & INTRO (LEFT ALIGNED) ─────────── */}
-        <div className="w-full pt-6 sm:pt-10 lg:pt-12 mb-auto text-left space-y-3">
+        {/* ── UPPER/MID AREA: THE LOBBY TITLE & INTRO (JUST ABOVE VERTICAL CENTRE) ── */}
+        <div className="w-full pt-12 sm:pt-16 lg:pt-24 pb-4 sm:pb-6 my-auto text-left space-y-3">
           <div className="inline-flex items-center gap-2 mb-1">
             <span className="h-px w-6 bg-brand-electric" />
             <span className="text-[10px] sm:text-[11px] font-extralight uppercase tracking-[0.25em] text-brand-electric-bright">
