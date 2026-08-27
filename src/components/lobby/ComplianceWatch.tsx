@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, ShieldAlert } from 'lucide-react';
+import { ArrowRight, ShieldAlert, Building2 } from 'lucide-react';
 import type { ComplianceWatchItem } from '@/data/lobby/types';
 
 interface ComplianceWatchProps {
@@ -12,108 +12,93 @@ export function ComplianceWatch({ data }: ComplianceWatchProps) {
   const isHighUrgency = data.urgency.toUpperCase() === 'HIGH';
 
   return (
-    <div className="flex flex-col gap-4 h-full">
-      {/* ── MAIN COMPLIANCE CARD ── */}
-      <aside className="group relative w-full flex-1 min-h-[400px] overflow-hidden rounded-sm flex flex-col justify-between p-6 sm:p-8">
-        <Image
-          src="/images/editorial/entirefm-distribution-board-testing-1200w.webp"
-          alt={data.regulationTitle}
-          fill
-          className="object-cover brightness-[0.55] transition-all duration-500 group-hover:scale-[1.02] group-hover:brightness-[0.65]"
-          sizes="(max-width: 768px) 100vw, 45vw"
-          priority
-        />
+    <aside className="group relative w-full h-full min-h-[500px] overflow-hidden rounded-sm flex flex-col justify-between p-6 sm:p-8 lg:p-10 bg-brand-void border border-white/10">
+      <Image
+        src="/images/editorial/entirefm-distribution-board-testing-1200w.webp"
+        alt={data.regulationTitle}
+        fill
+        className="object-cover brightness-[0.45] transition-all duration-700 group-hover:scale-[1.02] group-hover:brightness-[0.55]"
+        sizes="(max-width: 768px) 100vw, 45vw"
+        priority
+      />
 
-        {/* Strong left-to-dark gradient so text is fully legible */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/85" />
+      {/* Deep gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/70 to-black/90" />
 
-        {/* Content — full width, no inner width constraint */}
-        <div className="relative z-10 flex flex-col h-full gap-6">
-
-          {/* Top: statute label + urgency badge */}
+      {/* Content */}
+      <div className="relative z-10 flex flex-col h-full justify-between gap-6">
+        <div className="space-y-5">
+          {/* Statute + Urgency Badge */}
           <div className="flex items-start justify-between gap-3">
-            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-emerald-400 leading-snug max-w-[70%]">
-              {data.statute}
-            </p>
+            <div className="space-y-1">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-emerald-400 font-semibold block">
+                {data.statute}
+              </span>
+              <div className="flex items-center gap-2 text-[11px] text-white/50 font-mono">
+                <Building2 className="w-3 h-3 text-white/40" />
+                <span>{data.governingBody}</span>
+              </div>
+            </div>
+
             {isHighUrgency && (
-              <span className="shrink-0 inline-flex items-center gap-1 bg-rose-500/25 text-rose-300 text-[10px] px-2 py-1 rounded-sm uppercase tracking-wider border border-rose-500/30">
-                <ShieldAlert className="w-3 h-3" />
+              <span className="shrink-0 inline-flex items-center gap-1.5 bg-rose-500/20 text-rose-300 text-[10px] font-mono px-2.5 py-1 rounded-sm uppercase tracking-wider border border-rose-500/30">
+                <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />
                 High Priority
               </span>
             )}
           </div>
 
-          {/* Regulation title */}
-          <h3 className="text-xl sm:text-2xl font-light text-white leading-snug">
+          {/* Regulation Title */}
+          <h3 className="text-xl sm:text-2xl lg:text-3xl font-extralight text-white leading-tight">
             {data.regulationTitle}
           </h3>
 
-          {/* Three intelligence columns — stacked on narrow, 3-col on wider */}
-          <div className="grid grid-cols-1 gap-4 pt-2">
-            <div className="space-y-1.5 border-l-2 border-white/20 pl-3">
-              <span className="block text-[10px] font-mono uppercase tracking-[0.18em] text-white/50">
+          {/* 3 Intelligence Data Points */}
+          <div className="space-y-4 pt-2">
+            <div className="border-l-2 border-white/20 pl-3.5 space-y-1">
+              <span className="block text-[10px] font-mono uppercase tracking-[0.18em] text-white/45">
                 What Changed
               </span>
-              <p className="text-sm font-light text-white/85 leading-relaxed line-clamp-3">
+              <p className="text-sm font-light text-white/85 leading-relaxed">
                 {data.whatChanged}
               </p>
             </div>
 
-            <div className="space-y-1.5 border-l-2 border-white/20 pl-3">
-              <span className="block text-[10px] font-mono uppercase tracking-[0.18em] text-white/50">
+            <div className="border-l-2 border-white/20 pl-3.5 space-y-1">
+              <span className="block text-[10px] font-mono uppercase tracking-[0.18em] text-white/45">
                 Who It Affects
               </span>
-              <p className="text-sm font-light text-white/85 leading-relaxed line-clamp-2">
+              <p className="text-sm font-light text-white/85 leading-relaxed">
                 {data.whoItAffects}
               </p>
             </div>
 
-            <div className="space-y-1.5 border-l-2 border-emerald-500/50 pl-3">
-              <span className="block text-[10px] font-mono uppercase tracking-[0.18em] text-emerald-400/80">
-                Required Action
+            <div className="border-l-2 border-emerald-400 pl-3.5 space-y-1">
+              <span className="block text-[10px] font-mono uppercase tracking-[0.18em] text-emerald-400">
+                Required Duty-Holder Action
               </span>
-              <p className="text-sm font-light text-white/85 leading-relaxed line-clamp-2">
+              <p className="text-sm font-light text-white/90 leading-relaxed">
                 {data.whatYouNeedToDo}
               </p>
             </div>
           </div>
-
-          {/* Footer CTA */}
-          <div className="mt-auto pt-5 border-t border-white/10 flex items-center justify-between">
-            <Link
-              href={data.sourceDocUrl || '/lobby/compliance'}
-              className="inline-flex items-center gap-2 text-sm font-light text-white hover:text-emerald-400 transition-colors group/link"
-            >
-              View compliance intelligence
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
-            </Link>
-            <span className="text-[11px] text-white/40 font-mono">
-              {data.effectiveDate || data.whenItMatters}
-            </span>
-          </div>
         </div>
-      </aside>
 
-      {/* ── BELOW CARD: Governing Body / Enforcement summary strip ── */}
-      <div className="rounded-sm bg-white/[0.04] border border-white/10 px-5 py-4 grid grid-cols-2 gap-4">
-        <div className="min-w-0">
-          <span className="block text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1.5">
-            Governing Body
+        {/* Footer CTA & Timing */}
+        <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 mt-auto">
+          <Link
+            href={data.sourceDocUrl || '/lobby/compliance'}
+            className="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-emerald-400 transition-colors group/link"
+          >
+            <span>View compliance intelligence</span>
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
+          </Link>
+
+          <span className="text-[11px] font-mono text-emerald-400/80 bg-emerald-950/40 px-2.5 py-1 rounded-sm border border-emerald-500/20">
+            {data.effectiveDate || data.whenItMatters}
           </span>
-          <p className="text-sm font-light text-white leading-snug break-words">
-            {data.governingBody}
-          </p>
-        </div>
-        <div className="min-w-0 border-l border-white/10 pl-4">
-          <span className="block text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1.5">
-            Enforcement
-          </span>
-          <p className="text-sm font-light text-white leading-snug break-words">
-            {data.whenItMatters}
-          </p>
         </div>
       </div>
-    </div>
+    </aside>
   );
 }
-

@@ -184,11 +184,54 @@ export function TemplateLobby() {
           <section id="week-that-matters" className="py-12 sm:py-16 lg:py-20 scroll-mt-20">
             <div className="container-wide">
               <div className="grid lg:grid-cols-[1.5fr_1fr] gap-6 lg:gap-8 items-stretch">
-                {/* Lead story — fills full height naturally */}
-                <div className="flex flex-col">
+                {/* Left Column: Lead Story + Duty-Holder Verification Checkpoints Card Below */}
+                <div className="flex flex-col gap-5 justify-between">
                   <LeadBriefing data={leadBriefingProps} />
+
+                  {/* Secondary Card below The Week That Matters */}
+                  <div className="rounded-sm bg-white/[0.03] border border-white/10 p-6 sm:p-7 flex flex-col justify-between gap-5">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-electric animate-pulse" />
+                        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-electric font-semibold">
+                          STATUTORY VERIFICATION CHECKPOINTS · BSA 2022
+                        </span>
+                      </div>
+                      <span className="text-[11px] font-mono text-white/40">3 Duty-Holder Actions</span>
+                    </div>
+
+                    <div className="grid sm:grid-cols-3 gap-5">
+                      {leadBriefingProps.keyTakeaways.map((takeaway, idx) => (
+                        <div key={idx} className="space-y-1.5 border-l-2 border-white/10 pl-3">
+                          <span className="text-[10px] font-mono text-white/40 block">
+                            CHECKPOINT 0{idx + 1}
+                          </span>
+                          <p className="text-xs sm:text-[13px] font-light text-white/80 leading-relaxed">
+                            {takeaway}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/5 text-[11px] font-mono">
+                      <div className="flex flex-wrap gap-2">
+                        {leadBriefingProps.tags.map((tag, idx) => (
+                          <span key={idx} className="px-2 py-0.5 rounded-sm bg-white/5 text-white/60 border border-white/5">
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                      <Link
+                        href={leadBriefingProps.fullBriefingUrl}
+                        className="text-brand-electric hover:text-white transition-colors flex items-center gap-1 font-semibold"
+                      >
+                        <span>Download Evidence Framework &rarr;</span>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-                {/* Compliance Watch + governing body strip below — flex-col stretches to match lead */}
+
+                {/* Right Column: Compliance Watch */}
                 <div id="compliance-watch" className="flex flex-col scroll-mt-20">
                   <ComplianceWatch data={complianceWatchProps} />
                 </div>
