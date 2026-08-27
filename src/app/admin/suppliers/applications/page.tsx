@@ -74,7 +74,7 @@ export default async function InboundApplicationsPage() {
       <div className="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden space-y-4 p-6">
         <div className="flex items-center justify-between pb-3 border-b border-slate-200">
           <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 font-sans">
-            Active Submissions (Gated by Assurance Review Fee)
+            Active Inbound Submissions (Technical Due Diligence Queue)
           </h3>
           <span className="text-xs font-mono text-slate-500">{structuredApplications.length} Total Records</span>
         </div>
@@ -86,12 +86,8 @@ export default async function InboundApplicationsPage() {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-mono text-brand-pink font-bold">{app.ref}</span>
-                    <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
-                      app.paymentStatus === 'PAID'
-                        ? 'bg-emerald-100 text-emerald-800'
-                        : 'bg-amber-100 text-amber-900'
-                    }`}>
-                      {app.paymentStatus === 'PAID' ? 'FEE PAID (£350+VAT)' : 'AWAITING PAYMENT'}
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                      SUBMITTED FOR REVIEW
                     </span>
                   </div>
                   <h3 className="text-base font-bold text-slate-900 mt-0.5">{app.name}</h3>

@@ -282,7 +282,7 @@ export function ClientHubClient({
                 <div key={p.id} className="p-3 rounded-[6px] border border-[#E4E4E1] flex items-center justify-between">
                   <div>
                     <div className="font-medium text-[13px] text-[#101010]">{p.name}</div>
-                    <div className="text-[11px] text-[#686866]">Plan #{p.plan_number} · Year: {p.plan_year}</div>
+                    <div className="text-[11px] text-[#686866]">Plan #{p.plan_number} · Effective: {p.effective_from}</div>
                   </div>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
                     {p.status}
@@ -304,8 +304,8 @@ export function ClientHubClient({
               {quotes.map((q) => (
                 <div key={q.id} className="p-3 rounded-[6px] border border-[#E4E4E1] flex items-center justify-between">
                   <div>
-                    <div className="font-medium text-[13px] text-[#101010]">{q.title}</div>
-                    <div className="text-[11px] text-[#686866]">{q.quote_number} · Value: £{q.total_sell_gbp.toFixed(2)}</div>
+                    <div className="font-medium text-[13px] text-[#101010]">{q.scope_description || q.quote_number}</div>
+                    <div className="text-[11px] text-[#686866]">{q.quote_number} · Value: £{Number(q.total_amount_gbp || 0).toFixed(2)}</div>
                   </div>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FAFAF8] border border-[#E4E4E1] text-[#686866]">
                     {q.status}

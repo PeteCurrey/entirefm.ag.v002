@@ -84,7 +84,7 @@ export function PaymentSuccessClient() {
 
       <div className="space-y-2">
         <span className="text-[10.5px] font-light uppercase tracking-wider text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 inline-block">
-          PAYMENT CONFIRMED &bull; APPLICATION SUBMITTED
+          APPLICATION SUBMITTED &bull; UNDER REVIEW
         </span>
         <h1 className="text-2xl sm:text-3xl font-extralight text-slate-900 tracking-tight">
           Application Submitted for Review
@@ -98,21 +98,21 @@ export function PaymentSuccessClient() {
         </p>
       </div>
 
-      {/* Transaction & Status Summary */}
+      {/* Status Summary */}
       <div className="p-5 bg-slate-50 border border-slate-200 rounded-sm text-left text-xs font-light space-y-3">
         <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-          <span className="font-bold text-slate-900 font-sans">Initial Assurance Review:</span>
-          <span className="text-emerald-700 font-bold">PAID (£420.00 inc. VAT)</span>
+          <span className="font-bold text-slate-900 font-sans">Application Status:</span>
+          <span className="text-emerald-700 font-bold">UNDER REVIEW</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-600 text-[11px]">
           <div>
-            <span className="text-slate-400 block font-sans text-[10px]">Payment Reference</span>
-            <span className="text-slate-900 font-bold">{appData?.transactionRef || sessionId || 'txn_stripe_confirmed'}</span>
+            <span className="text-slate-400 block font-sans text-[10px]">Reference</span>
+            <span className="text-slate-900 font-bold">{appData?.applicationRef || 'SUP-260826-CONFIRMED'}</span>
           </div>
           <div>
-            <span className="text-slate-400 block font-sans text-[10px]">Application Status</span>
-            <span className="text-emerald-700 font-bold">UNDER REVIEW</span>
+            <span className="text-slate-400 block font-sans text-[10px]">Review Desk</span>
+            <span className="text-emerald-700 font-bold">Technical Due Diligence</span>
           </div>
         </div>
 
@@ -132,15 +132,15 @@ export function PaymentSuccessClient() {
           href="/supplier-portal"
           className="btn-primary text-xs py-3 px-6 text-center font-bold flex items-center justify-center gap-2"
         >
-          <span>Go to Supplier Portal</span>
+          <span>Go to Supplier Dashboard</span>
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
         <Link
-          href="/supplier-portal/billing"
+          href="/supplier-portal/documents"
           className="btn-secondary text-xs py-3 px-6 text-center flex items-center justify-center gap-2"
         >
           <FileText className="h-3.5 w-3.5" />
-          <span>View VAT Invoice / Receipt</span>
+          <span>View Document Vault</span>
         </Link>
       </div>
     </div>

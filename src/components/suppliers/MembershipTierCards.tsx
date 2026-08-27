@@ -1,29 +1,24 @@
 import React from 'react';
 import Link from 'next/link';
-import { Check, ArrowRight, ShieldCheck, Lock } from 'lucide-react';
-import { CANONICAL_PUBLIC_PRICING } from '@/config/supplier-data';
+import { Check, ArrowRight, ShieldCheck } from 'lucide-react';
 
 export function MembershipTierCards() {
-  const reg = CANONICAL_PUBLIC_PRICING.REGISTERED;
-  const member = CANONICAL_PUBLIC_PRICING.SUPPLIER_NETWORK_MEMBER;
-  const partner = CANONICAL_PUBLIC_PRICING.NETWORK_PARTNER;
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {/* Tier 1: Registered Supplier */}
+      {/* Tier 1: Applicant Supplier */}
       <div className="bg-white border border-slate-200 p-8 rounded-sm shadow-sm flex flex-col justify-between space-y-6">
         <div className="space-y-4">
           <div className="space-y-1">
-            <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">ENTRY STAGE</span>
-            <h3 className="text-xl font-bold text-slate-900">{reg.name}</h3>
+            <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">STAGE 1</span>
+            <h3 className="text-xl font-bold text-slate-900">Applicant Supplier</h3>
             <p className="text-xs text-slate-500 font-light">
-              Create your initial profile, register your trade disciplines, and begin the assurance process.
+              Create your company profile, declare your trade disciplines and operating regions, and submit compliance evidence.
             </p>
           </div>
 
           <div className="pt-2 border-t border-slate-100">
-            <div className="text-3xl font-bold text-slate-900">{reg.displayPrice}</div>
-            <span className="text-[11px] text-slate-400">Free to register · Does not constitute approval</span>
+            <div className="text-sm font-bold text-slate-900 uppercase tracking-wider">Technical Intake</div>
+            <span className="text-[11px] text-slate-400">Due diligence verification</span>
           </div>
 
           <ul className="space-y-2.5 text-xs text-slate-600 pt-4 border-t border-slate-100">
@@ -42,29 +37,29 @@ export function MembershipTierCards() {
           </ul>
         </div>
 
-        <Link href="/suppliers/apply" className="btn-secondary text-xs py-2.5 text-center w-full block">
-          Register Interest &rarr;
+        <Link href="/suppliers/apply" className="btn-secondary text-xs py-2.5 text-center w-full block font-medium">
+          Start Application &rarr;
         </Link>
       </div>
 
-      {/* Tier 2: Supplier Network Membership */}
+      {/* Tier 2: Approved Supplier Partner */}
       <div className="bg-white border-2 border-slate-900 p-8 rounded-sm shadow-md flex flex-col justify-between space-y-6 relative">
         <div className="absolute -top-3 left-6 bg-slate-900 text-white text-[9.5px] font-light uppercase tracking-wider font-bold px-2.5 py-0.5 rounded">
-          STANDARD COMMERCIAL TIER
+          ACTIVE NETWORK STATUS
         </div>
 
         <div className="space-y-4">
           <div className="space-y-1 pt-1">
-            <span className="text-[10px] font-light uppercase tracking-wider text-brand-pink font-bold">NETWORK MEMBERSHIP</span>
-            <h3 className="text-xl font-bold text-slate-900">{member.name}</h3>
+            <span className="text-[10px] font-light uppercase tracking-wider text-brand-pink font-bold">APPROVED STATUS</span>
+            <h3 className="text-xl font-bold text-slate-900">Approved Partner</h3>
             <p className="text-xs text-slate-500 font-light">
-              For suppliers requiring active compliance document administration, digital portal tools, and network engagement.
+              For qualified suppliers with verified credentials, active document vault storage, and authorized service scopes.
             </p>
           </div>
 
           <div className="pt-2 border-t border-slate-100">
-            <div className="text-3xl font-bold text-slate-900">£{member.priceGbp}</div>
-            <span className="text-[11px] text-slate-400">+ VAT per year · Separate from assurance approval</span>
+            <div className="text-sm font-bold text-emerald-700 uppercase tracking-wider">Fully Vetted &amp; Authorized</div>
+            <span className="text-[11px] text-slate-400">Eligible for operational work allocation</span>
           </div>
 
           <ul className="space-y-2.5 text-xs text-slate-700 pt-4 border-t border-slate-100 font-medium">
@@ -86,36 +81,36 @@ export function MembershipTierCards() {
             </li>
             <li className="flex items-start gap-2">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span>Eligible for work consideration once technically approved</span>
+              <span>Active consideration for client work orders</span>
             </li>
           </ul>
         </div>
 
-        <Link href="/suppliers/apply" className="btn-primary text-xs py-2.5 text-center w-full block">
-          Apply for Membership &rarr;
+        <Link href="/suppliers/apply" className="btn-primary text-xs py-2.5 text-center w-full block font-bold">
+          Apply to Join &rarr;
         </Link>
       </div>
 
-      {/* Tier 3: Network Partner Membership */}
+      {/* Tier 3: Multi-Discipline Regional Partner */}
       <div className="bg-white border border-slate-200 p-8 rounded-sm shadow-sm flex flex-col justify-between space-y-6">
         <div className="space-y-4">
           <div className="space-y-1">
             <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">EXPANDED FOOTPRINT</span>
-            <h3 className="text-xl font-bold text-slate-900">{partner.name}</h3>
+            <h3 className="text-xl font-bold text-slate-900">Multi-Discipline Partner</h3>
             <p className="text-xs text-slate-500 font-light">
-              For larger regional or multi-discipline providers with multiple portal users, wider scope, and active forum engagement.
+              For regional and national contractors providing multi-trade coverage across multiple client estates.
             </p>
           </div>
 
           <div className="pt-2 border-t border-slate-100">
-            <div className="text-3xl font-bold text-slate-900">£{partner.priceGbp.toLocaleString()}</div>
-            <span className="text-[11px] text-slate-400">+ VAT per year · Does not buy Preferred status</span>
+            <div className="text-sm font-bold text-slate-900 uppercase tracking-wider">Multi-Region Scope</div>
+            <span className="text-[11px] text-slate-400">High-capacity operations &amp; SLA delivery</span>
           </div>
 
           <ul className="space-y-2.5 text-xs text-slate-600 pt-4 border-t border-slate-100">
             <li className="flex items-start gap-2">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span>Everything in Supplier Network Membership</span>
+              <span>Everything in Approved Partner tier</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
@@ -132,8 +127,8 @@ export function MembershipTierCards() {
           </ul>
         </div>
 
-        <Link href="/suppliers/membership" className="btn-secondary text-xs py-2.5 text-center w-full block">
-          View Partner Details &rarr;
+        <Link href="/suppliers/partner-network" className="btn-secondary text-xs py-2.5 text-center w-full block font-medium">
+          View Partner Framework &rarr;
         </Link>
       </div>
     </div>

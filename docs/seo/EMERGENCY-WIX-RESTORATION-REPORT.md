@@ -2,7 +2,7 @@
 ## Live Production SEO Parity Verification
 
 **Audited Domain:** `https://www.entirefm.com`  
-**Timestamp:** 2026-08-26T13:48:08.451Z  
+**Timestamp:** 2026-08-27T12:08:28.536Z  
 **Verification Method:** Live Automated HTTPS Request Crawl of Entire URL Estate  
 **Final Status:** **ALL_HISTORIC_WIX_URLS_LIVE_200**
 
@@ -22,8 +22,8 @@ Every historic Wix URL across Generation 1 and Generation 2 has been reconciled,
 | **Total Protected Historic URLs** | **230** | **RESTORED & ACTIVE** |
 | • `LEGACY_VERIFIED` (Proven G1/G2 Wix Assets) | 201 | Verified |
 | • `LEGACY_PROTECTED_BY_DIRECTIVE` (Mandatory Architecture) | 29 | Verified |
-| **New Growth & Regional Expansion URLs** | **185** | **ACTIVE (ADDITIVE)** |
-| **Total Live Production Route Estate** | **422** | **100% INVENTORY COVERAGE** |
+| **New Growth & Regional Expansion URLs** | **186** | **ACTIVE (ADDITIVE)** |
+| **Total Live Production Route Estate** | **423** | **100% INVENTORY COVERAGE** |
 
 ---
 
@@ -74,10 +74,10 @@ Every historic URL was requested directly via HTTPS from `https://www.entirefm.c
 
 ## REPORT 6 — UNIQUE SEO METADATA AUDIT
 
-- **Unique Titles:** 100% unique across all 422 routes (0 duplicates).
-- **Unique H1s:** 100% unique across all 422 routes (0 duplicates).
+- **Unique Titles:** 100% unique across all 423 routes (0 duplicates).
+- **Unique H1s:** 100% unique across all 423 routes (0 duplicates).
 - **Meta Descriptions:** 100% unique and context-rich across all routes.
-- **Main Body Content:** Substantive bespoke server-rendered HTML across all 422 routes.
+- **Main Body Content:** Substantive bespoke server-rendered HTML across all 423 routes.
 
 ---
 
@@ -295,4 +295,4 @@ The multi-URL geographic landing strategy is preserved and active:
 ALL_HISTORIC_WIX_URLS_LIVE_200
 ```
 
-All 230 protected historic Wix URLs and 185 growth routes are live, returning HTTP 200, self-canonicalised, fully indexable, server-rendered, and correctly mapped into the XML sitemap index.
+All 230 protected historic Wix URLs and 186 growth routes are live, returning HTTP 200, self-canonicalised, fully indexable, server-rendered, and correctly mapped into the XML sitemap index.

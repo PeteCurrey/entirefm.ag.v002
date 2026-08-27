@@ -119,13 +119,9 @@ export default async function SupplierPortalDashboardPage() {
             </span>
           </div>
           <div>
-            <span className="text-slate-400 text-[10px] uppercase block">Payment State</span>
+            <span className="text-slate-400 text-[10px] uppercase block">Application Stage</span>
             <span className="text-white font-bold">
-              {org?.lifecycleStatus === 'APPROVED' || org?.lifecycleStatus === 'UNDER_REVIEW' || org?.lifecycleStatus === 'SUBMITTED'
-                ? 'PAID'
-                : org?.lifecycleStatus === 'PAYMENT_PENDING'
-                ? 'PAYMENT REQUIRED'
-                : 'NOT YET REQUIRED'}
+              {statusDisplay.statusLabel.replace('● ', '')}
             </span>
           </div>
         </div>

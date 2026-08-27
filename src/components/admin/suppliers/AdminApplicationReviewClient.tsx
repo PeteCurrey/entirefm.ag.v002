@@ -115,15 +115,6 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
       });
     }
 
-    // Payment gate
-    const paymentStatus = draft.assurance_payment?.status || draft.assurancePaymentStatus || 'AWAITING_PAYMENT';
-    if (paymentStatus === 'AWAITING_PAYMENT') {
-      flags.push({
-        type: 'INFO',
-        message: 'Commercial Gate: Application awaiting assurance fee settlement before formal approval dispatch.',
-      });
-    }
-
     return flags;
   }, [draft]);
 
@@ -269,23 +260,15 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
         </div>
       )}
 
-      {/* Commercial Gateway Status Bar */}
+      {/* Submission Status Bar */}
       <div className="bg-white border border-slate-200 p-4 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
         <div className="flex items-center gap-2">
-          <CreditCard className="h-4 w-4 text-slate-700" />
-          <span className="text-slate-900 font-bold font-sans">Initial Assurance Review Fee:</span>
-          <span className="text-emerald-700 font-bold">
-            {draft.assurance_payment?.status === 'PAID' || draft.paymentMethod === 'CARD'
-              ? `PAID — £350 + VAT (Ref: ${draft.assurance_payment?.transaction_reference || 'Stripe'})`
-              : draft.paymentMethod === 'INVOICE'
-              ? 'AWAITING BACS SETTLEMENT (Invoice Issued — Due Immediately)'
-              : draft.assurance_payment?.status === 'WAIVED'
-              ? `WAIVED (${draft.assurance_payment?.waiver_reason || 'Authorised'})`
-              : 'AWAITING PAYMENT'}
-          </span>
+          <ShieldCheck className="h-4 w-4 text-emerald-700" />
+          <span className="text-slate-900 font-bold font-sans">Technical Assurance Queue:</span>
+          <span className="text-emerald-700 font-bold">READY FOR AUDIT</span>
         </div>
         <span className="text-slate-500 text-[11px]">
-          Submitted: {draft.submitted_at ? new Date(draft.submitted_at).toLocaleDateString() : 'Active Application'}
+          Submitted: {draft.submitted_at ? new Date(draft.submitted_at).toLocaleDateString() : 'Active Submission'}
         </span>
       </div>
 

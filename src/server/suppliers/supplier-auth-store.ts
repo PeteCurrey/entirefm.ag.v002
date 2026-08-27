@@ -283,10 +283,11 @@ export interface SupplierApplicationDraft {
   codeOfConductVersion?: string;
   legalAcceptances?: Record<string, { accepted: boolean; version: string; timestamp: string; userId?: string }>;
   
-  // 15: Payment
-  paymentMethod: 'CARD' | 'INVOICE' | 'WAIVER';
-  waiverReason: string;
-  
+  status?: string;
+  submittedAt?: string;
+  paymentMethod?: 'CARD' | 'INVOICE' | 'WAIVER';
+  waiverReason?: string;
+
   createdAt: string;
   updatedAt: string;
 }
@@ -1367,6 +1368,11 @@ export async function updateApplicationDraft(
   }
 
   supplierApplicationDrafts.set(orgId, updated);
+
+  if (updates.status === 'SUBMITTED' || updates.status === 'UNDER_REVIEW') {
+    await updateOrganisationLifecycle(orgId, 'UNDER_REVIEW');
+  }
+
   return updated;
 }
 

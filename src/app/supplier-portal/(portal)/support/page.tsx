@@ -17,7 +17,7 @@ export default function SupplierSupportPage() {
           Supplier Support &amp; Help Desk
         </h1>
         <p className="text-xs text-slate-500 font-light mt-1">
-          Have questions about your application, technical assurance, or portal billing? Contact our dedicated team.
+          Have questions about your application, technical assurance, or compliance documentation? Contact our dedicated team.
         </p>
       </div>
 

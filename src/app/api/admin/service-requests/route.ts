@@ -43,15 +43,30 @@ export async function POST(request: NextRequest) {
       trade_id,
     } = body;
 
-    if (!site_id || !title || !description) {
+    if (!title || !description) {
       return NextResponse.json(
-        { success: false, error: 'site_id, title, and description are required.' },
+        { success: false, error: 'title and description are required.' },
+        { status: 400 }
+      );
+    }
+
+    // Resolve site_id: use provided value or fall back to first site
+    let resolvedSiteId = site_id;
+    if (!resolvedSiteId) {
+      const { listSites } = await import('@/server/estate');
+      const sites = await listSites({ limit: 1 } as any);
+      resolvedSiteId = sites[0]?.id;
+    }
+
+    if (!resolvedSiteId) {
+      return NextResponse.json(
+        { success: false, error: 'No sites available. Register a site first before logging a service request.' },
         { status: 400 }
       );
     }
 
     const sr = await createServiceRequest({
-      site_id,
+      site_id: resolvedSiteId,
       title: title.trim(),
       description: description.trim(),
       category,
@@ -66,7 +81,7 @@ export async function POST(request: NextRequest) {
       trade_id,
     });
 
-    return NextResponse.json({ success: true, serviceRequest: sr }, { status: 201 });
+    return NextResponse.json({ success: true, serviceRequest: sr, request: sr }, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

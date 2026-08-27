@@ -632,8 +632,10 @@ export async function waiveAssuranceFee(
   });
 }
 
+export const SUPPLIER_APPLICATION_PAYMENT_ENABLED = false;
+
 /**
- * Submit full onboarding application (Gated by Initial Assurance Review Payment / Waiver)
+ * Submit full onboarding application (Technical Due Diligence Gate)
  */
 export async function submitSupplierOnboardingApplication(supplierId: string): Promise<{ success: boolean; application_reference: string; error?: string }> {
   const draft = await getSupplierOnboardingDraft(supplierId);
@@ -649,17 +651,19 @@ export async function submitSupplierOnboardingApplication(supplierId: string): P
     return { success: false, application_reference: draft.application_reference, error: 'Mandatory declarations and Code of Conduct must be accepted.' };
   }
 
-  // Pre-submission Assurance Review Payment Gate
-  const isPaidOrWaived =
-    draft.assurance_payment?.status === 'PAID' ||
-    draft.assurance_payment?.status === 'WAIVED';
+  // Pre-submission Assurance Review Payment Gate (Isolated via Feature Flag — Dormant)
+  if (SUPPLIER_APPLICATION_PAYMENT_ENABLED) {
+    const isPaidOrWaived =
+      draft.assurance_payment?.status === 'PAID' ||
+      draft.assurance_payment?.status === 'WAIVED';
 
-  if (!isPaidOrWaived) {
-    return {
-      success: false,
-      application_reference: draft.application_reference,
-      error: 'Initial Supplier Assurance Review payment or authorised waiver is required prior to formal submission.',
-    };
+    if (!isPaidOrWaived) {
+      return {
+        success: false,
+        application_reference: draft.application_reference,
+        error: 'Initial Supplier Assurance Review payment or authorised waiver is required prior to formal submission.',
+      };
+    }
   }
 
   draft.status = 'SUBMITTED';

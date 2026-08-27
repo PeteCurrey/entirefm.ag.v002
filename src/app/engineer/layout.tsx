@@ -36,7 +36,7 @@ export default async function EngineerLayout({ children }: { children: React.Rea
   const navLinks = [
     { name: 'Today', href: '/engineer' },
     { name: 'Jobs', href: '/engineer/jobs' },
-    { name: 'Visits', href: '/engineer/visits' },
+    { name: 'Talk-to-Job', href: '/engineer/talk', badge: 'AI' },
     { name: 'Profile', href: '/engineer/profile' },
   ];
 
@@ -69,9 +69,14 @@ export default async function EngineerLayout({ children }: { children: React.Rea
             <Link
               key={item.href}
               href={item.href}
-              className="flex-1 py-2.5 text-center text-[12px] font-normal text-brand-mist/60 hover:bg-brand-void hover:text-white transition-colors"
+              className="flex-1 py-2.5 text-center text-[12px] font-normal text-brand-mist/60 hover:bg-brand-void hover:text-white transition-colors flex items-center justify-center gap-1"
             >
               {item.name}
+              {item.badge && (
+                <span className="rounded bg-brand-electric/20 border border-brand-electric/40 px-1 py-0.2 font-mono text-[9px] text-brand-electric-bright">
+                  {item.badge}
+                </span>
+              )}
             </Link>
           ))}
         </div>

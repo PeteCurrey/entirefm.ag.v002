@@ -194,7 +194,7 @@ export const PRIMARY_NAV: NavSection[] = [
         links: [
           { label: 'Partner Network', href: '/suppliers/partner-network', detail: 'Collaborative ecosystem of contractors, specialists, and OEMs' },
           { label: 'How We Work', href: '/suppliers/how-we-work', detail: 'Operational lifecycle, work allocation, and fair payment' },
-          { label: 'Membership & Fees', href: '/suppliers/membership', detail: 'Transparent commercial tiers and assurance fee structure' },
+          { label: 'Partner Network Framework', href: '/suppliers/membership', detail: 'Participation tiers, technical standards, and governance firewall' },
           { label: 'Events & Forums', href: '/suppliers/events', detail: 'Technical breakfasts, open days, and industry roundtables' },
           { label: 'Become a Supplier', href: '/suppliers/apply', detail: 'Start your pre-qualification submission' },
         ],
@@ -265,7 +265,7 @@ export const FOOTER_NAV: NavColumn[] = [
     links: [
       { label: 'Partner Network', href: '/suppliers/partner-network' },
       { label: 'How We Work', href: '/suppliers/how-we-work' },
-      { label: 'Membership & Fees', href: '/suppliers/membership' },
+      { label: 'Partner Network Framework', href: '/suppliers/membership' },
       { label: 'Events & Forums', href: '/suppliers/events' },
       { label: 'Become a Supplier', href: '/suppliers/apply' },
       { label: 'Supplier Portal', href: '/supplier-portal/sign-in' },

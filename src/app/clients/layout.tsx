@@ -40,15 +40,16 @@ export default async function ClientsLayout({ children }: { children: React.Reac
       : 'Scope: Full Portfolio';
 
   const navLinks = [
-    { name: 'Dashboard', href: '/clients' },
+    { name: 'Overview', href: '/clients' },
+    { name: 'Report an Issue', href: '/clients/report', highlight: true },
+    { name: 'Jobs', href: '/clients/work-orders' },
     { name: 'Sites', href: '/clients/sites' },
     { name: 'Assets', href: '/clients/assets' },
-    { name: 'Work Orders', href: '/clients/work-orders' },
-    { name: 'PPM', href: '/clients/ppm' },
+    { name: 'Planned Maintenance', href: '/clients/ppm' },
     { name: 'Compliance', href: '/clients/compliance' },
-    { name: 'Documents', href: '/clients/documents' },
-    { name: 'Quotes', href: '/clients/quotes' },
+    { name: 'Quotes & Approvals', href: '/clients/quotes' },
     { name: 'Invoices', href: '/clients/invoices' },
+    { name: 'Documents', href: '/clients/documents' },
   ];
 
   return (
@@ -93,12 +94,16 @@ export default async function ClientsLayout({ children }: { children: React.Reac
         </div>
 
         {/* Secondary Navigation Strip */}
-        <div className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-6 py-2 border-t border-brand-edge-dark/40">
+        <div className="mx-auto flex max-w-7xl items-center gap-1.5 overflow-x-auto px-6 py-2.5 border-t border-brand-edge-dark/40">
           {navLinks.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="rounded px-3 py-1.5 text-[12.5px] font-normal text-brand-mist/70 hover:bg-brand-void hover:text-white transition-colors whitespace-nowrap"
+              className={`rounded-md px-3 py-1.5 text-[12.5px] font-normal transition-all whitespace-nowrap ${
+                (item as any).highlight
+                  ? 'bg-brand-electric text-white font-medium hover:bg-brand-electric/80 shadow-sm shadow-brand-electric/30'
+                  : 'text-brand-mist/70 hover:bg-brand-void hover:text-white'
+              }`}
             >
               {item.name}
             </Link>

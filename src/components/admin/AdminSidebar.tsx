@@ -54,7 +54,9 @@ const CAFM_GROUPS: NavGroup[] = [
     icon: Wrench,
     items: [
       { name: 'Control Centre', href: '/admin' },
+      { name: 'Operational Queues', href: '/admin/operations/queues', badge: 'Live' },
       { name: 'Service Requests', href: '/admin/operations/service-requests' },
+      { name: 'AI Helpdesk Desk', href: '/admin/operations/helpdesk', badge: 'AI' },
       { name: 'Work Orders', href: '/admin/operations/work-orders' },
       { name: 'Dispatch Grid', href: '/admin/operations/dispatch' },
       { name: "Today's Exceptions", href: '/admin/operations/today' },

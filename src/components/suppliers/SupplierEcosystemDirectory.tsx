@@ -55,9 +55,9 @@ export function SupplierEcosystemDirectory() {
           description: 'Decarbonisation standards, environmental ethics, and sustainable practices.',
         },
         {
-          title: 'Membership & Fees',
+          title: 'Partner Network Framework',
           href: '/suppliers/membership',
-          description: 'Commercial Partner Network membership tiers and independent procurement firewall.',
+          description: 'Partner Network capability tiers, technical standards, and independent procurement firewall.',
         },
       ],
     },

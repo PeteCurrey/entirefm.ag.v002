@@ -232,10 +232,10 @@ export default function PartnerNetworkPublicPage() {
               tag: 'EVENTS',
             },
             {
-              title: 'Membership & Fees',
+              title: 'Partner Network Framework',
               href: '/suppliers/membership',
-              description: 'Partner Network commercial tiers, assurance fees, and governance firewalls.',
-              tag: 'COMMERCIAL',
+              description: 'Partner Network capability tiers, technical standards, and governance firewalls.',
+              tag: 'FRAMEWORK',
             },
             {
               title: 'Industry & OEM Partners',

@@ -5,14 +5,59 @@ import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { DataTable, Column } from '@/components/admin/DataTable';
 import { EmptyState } from '@/components/admin/EmptyState';
 import { Button } from '@/components/admin/ui/Button';
-import { Plus } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 
 interface Props {
   initialRequests: any[];
 }
 
 export function ServiceRequestsPageClient({ initialRequests }: Props) {
-  const [requests] = useState(initialRequests);
+  const [requests, setRequests] = useState(initialRequests);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [form, setForm] = useState({
+    title: '',
+    description: '',
+    priority: 'P3_MEDIUM',
+    source: 'ADMIN_DESK',
+  });
+
+  const set = (field: string, value: string) =>
+    setForm((prev) => ({ ...prev, [field]: value }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const res = await fetch('/api/admin/service-requests', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: form.title.trim(),
+          description: form.description.trim(),
+          priority: form.priority,
+          source: form.source,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to log service request.');
+      }
+
+      setRequests([data.serviceRequest, ...requests]);
+      setIsModalOpen(false);
+      setForm({ title: '', description: '', priority: 'P3_MEDIUM', source: 'ADMIN_DESK' });
+    } catch (err: any) {
+      setError(err.message || 'Unknown error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const columns: Column<any>[] = [
     {
@@ -90,7 +135,12 @@ export function ServiceRequestsPageClient({ initialRequests }: Props) {
         title="Service Requests & Triage"
         description="Incoming helpdesk requests, fault logging, initial triage, and work order conversion."
         action={
-          <Button variant="primary" size="sm" icon={<Plus className="h-3.5 w-3.5" />}>
+          <Button
+            variant="primary"
+            size="sm"
+            icon={<Plus className="h-3.5 w-3.5" />}
+            onClick={() => setIsModalOpen(true)}
+          >
             Log Service Request
           </Button>
         }
@@ -112,10 +162,102 @@ export function ServiceRequestsPageClient({ initialRequests }: Props) {
             title="Triage Queue Clear"
             description="All reactive helpdesk calls and customer portal tickets have been triaged and scheduled."
             actionText="Log Service Request"
-            actionHref="/admin/operations/service-requests"
+            onActionClick={() => setIsModalOpen(true)}
           />
         }
       />
+
+      {/* Create Service Request Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FFFFFF] rounded-[12px] border border-[#E4E4E1] max-w-lg w-full p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E4E4E1]">
+              <div>
+                <h3 className="text-base font-light text-[#101010]">Log Service Request</h3>
+                <p className="text-xs text-[#686866]">
+                  Record an inbound helpdesk fault or client request for triage and assignment.
+                </p>
+              </div>
+              <button onClick={() => setIsModalOpen(false)} className="text-[#9B9B97] hover:text-[#101010]">
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            {error && (
+              <div className="rounded-[6px] border border-rose-200 bg-rose-50 p-3 text-xs text-rose-700">
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
+              <div>
+                <label className="block text-[#101010] font-medium mb-1">Request Title *</label>
+                <input
+                  type="text"
+                  required
+                  value={form.title}
+                  onChange={(e) => set('title', e.target.value)}
+                  placeholder="e.g. Heating failure — 2nd floor east wing"
+                  className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[#101010] font-medium mb-1">Description *</label>
+                <textarea
+                  required
+                  rows={3}
+                  value={form.description}
+                  onChange={(e) => set('description', e.target.value)}
+                  placeholder="Describe the reported fault or request in detail..."
+                  className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none resize-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[#101010] font-medium mb-1">Priority</label>
+                  <select
+                    value={form.priority}
+                    onChange={(e) => set('priority', e.target.value)}
+                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                  >
+                    <option value="P1_CRITICAL">P1 Critical</option>
+                    <option value="P2_HIGH">P2 High</option>
+                    <option value="P3_MEDIUM">P3 Medium</option>
+                    <option value="P4_LOW">P4 Low</option>
+                    <option value="P5_ROUTINE">P5 Routine</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[#101010] font-medium mb-1">Source</label>
+                  <select
+                    value={form.source}
+                    onChange={(e) => set('source', e.target.value)}
+                    className="w-full p-2 rounded-[6px] border border-[#E4E4E1] bg-[#FFFFFF] text-[12.5px] focus:border-[#EA580C] focus:outline-none"
+                  >
+                    <option value="ADMIN_DESK">Admin Desk</option>
+                    <option value="CLIENT_PORTAL">Client Portal</option>
+                    <option value="EMAIL">Email</option>
+                    <option value="PHONE">Phone</option>
+                    <option value="MOBILE_APP">Mobile App</option>
+                    <option value="AUTOMATED">Automated (IoT/Sensor)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-3 border-t border-[#E4E4E1]">
+                <Button variant="secondary" size="sm" onClick={() => setIsModalOpen(false)}>
+                  Cancel
+                </Button>
+                <Button variant="primary" size="sm" type="submit">
+                  {isSubmitting ? 'Logging…' : 'Log Service Request'}
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

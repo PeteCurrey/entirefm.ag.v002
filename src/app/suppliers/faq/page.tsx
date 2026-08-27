@@ -32,7 +32,7 @@ export default function SupplierFaqPage() {
           eyebrow="TRANSPARENT ADVISORY // SUPPLIER HELP DESK"
           title="Supplier &amp; Partner"
           subtitle="Network FAQ."
-          intro="Direct, transparent answers regarding vetting, scoped approvals, commercial fees, operational payments, and digital work order allocation."
+          intro="Direct, transparent answers regarding vetting, scoped approvals, compliance requirements, operational payments, and digital work order allocation."
           imageSrc="/images/editorial/entirefm-client-review-2000w.webp"
           imageAlt="EntireFM supplier helpdesk and commercial advisory team"
           breadcrumbs={breadcrumbs}
@@ -40,7 +40,7 @@ export default function SupplierFaqPage() {
           secondaryCta={{ label: 'How We Work', href: '/suppliers/how-we-work' }}
           facts={[
             { figure: 'Instant Search', label: 'Knowledge Base', detail: 'Real-time question filter' },
-            { figure: 'Zero Hidden Fees', label: 'Commercial Terms', detail: 'Prompt BACS remittances' },
+            { figure: 'Direct Payments', label: 'Commercial Terms', detail: 'Prompt BACS remittances' },
             { figure: 'Direct Helpdesk', label: 'Support Desk', detail: 'Mon-Fri 08:00–17:30' },
           ]}
         />
@@ -65,10 +65,10 @@ export default function SupplierFaqPage() {
               tag: 'PROCESS',
             },
             {
-              title: 'Membership & Fees',
+              title: 'Partner Network Framework',
               href: '/suppliers/membership',
-              description: 'Commercial transparency on membership tiers, fees, and procurement separation.',
-              tag: 'COMMERCIAL',
+              description: 'Network participation tiers, technical standards, and procurement governance.',
+              tag: 'FRAMEWORK',
             },
             {
               title: 'Supplier Vetting',

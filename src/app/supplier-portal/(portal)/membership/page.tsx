@@ -9,8 +9,8 @@ import {
 } from '@/server/suppliers/supplier-auth-store';
 
 export const metadata = {
-  title: 'Partner Network Membership | EntireFM Supplier Portal',
-  description: 'Manage your Partner Network subscription, payment status, and commercial assurance records.',
+  title: 'Partner Network Status | EntireFM Supplier Portal',
+  description: 'Manage your Partner Network status, authorized technical scopes, and assurance records.',
 };
 
 export default async function SupplierPortalMembershipPage() {
@@ -26,13 +26,13 @@ export default async function SupplierPortalMembershipPage() {
       {/* Header */}
       <div>
         <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
-          COMMERCIAL &amp; PARTNER TIER
+          SUPPLIER ECOSYSTEM &amp; NETWORK TIER
         </span>
         <h1 className="text-2xl font-extralight tracking-tight text-slate-900 mt-1">
-          Partner Network Membership
+          Partner Network Status
         </h1>
         <p className="text-xs text-slate-500 font-light mt-1">
-          Manage your Partner Network subscription, payment status, and annual assurance records.
+          View your organisation's Partner Network status, verified technical scopes, and compliance standing.
         </p>
       </div>
 
@@ -40,10 +40,10 @@ export default async function SupplierPortalMembershipPage() {
       <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
           <div className="space-y-1">
-            <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">MEMBERSHIP RECORD</span>
+            <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">PARTNER RECORD</span>
             <div className="flex items-center gap-3">
               <h2 className="text-xl font-light text-slate-900">
-                {isApproved ? 'Supplier Partner Network Membership' : 'Supplier Assurance Review (In Progress)'}
+                {isApproved ? 'Approved Supplier Partner Network' : 'Supplier Assurance Review (In Progress)'}
               </h2>
               <span className={`text-[10.5px] font-light px-2 py-0.5 rounded font-bold ${
                 isApproved ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
@@ -53,16 +53,17 @@ export default async function SupplierPortalMembershipPage() {
             </div>
             <p className="text-xs text-slate-500 font-light">
               {isApproved
-                ? 'Annual subscription supporting digital portal services, document vault storage, and compliance administration.'
-                : 'Initial assurance review fee covers technical qualification, document vetting, and technical review by EntireFM.'}
+                ? 'Authorized supplier partner status with active digital portal access, document vault storage, and compliance administration.'
+                : 'Technical qualification, document vetting, and compliance review in progress with EntireFM Supplier Management.'}
             </p>
           </div>
 
           <div className="text-right">
-            <div className="text-2xl font-bold text-slate-900">
-              {isApproved ? '£495.00' : '£350.00'}
+            <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold block">PARTICIPATION TIER</span>
+            <div className="text-lg font-bold text-slate-900 font-sans">
+              {isApproved ? 'Approved Partner' : 'Applicant Provider'}
             </div>
-            <span className="text-[10.5px] text-slate-400">+ VAT {isApproved ? '/ year' : '(One-off Review)'}</span>
+            <span className="text-[10.5px] text-emerald-700 font-medium">Technical Qualification</span>
           </div>
         </div>
 
@@ -83,9 +84,9 @@ export default async function SupplierPortalMembershipPage() {
           </div>
 
           <div className="p-3 bg-slate-50 rounded border border-slate-100 space-y-1">
-            <span className="text-slate-400 text-[10px] uppercase block">Payment Method</span>
+            <span className="text-slate-400 text-[10px] uppercase block">Declared Trade Disciplines</span>
             <span className="font-bold text-slate-900 block">
-              {draft?.paymentMethod === 'CARD' ? 'Card (Stripe)' : draft?.paymentMethod === 'INVOICE' ? 'BACS Invoice' : 'Declared'}
+              {draft?.selectedServices?.length ? `${draft.selectedServices.length} Discipline(s)` : '0 Declared'}
             </span>
           </div>
         </div>

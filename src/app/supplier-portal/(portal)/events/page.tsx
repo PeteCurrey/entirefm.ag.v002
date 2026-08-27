@@ -50,9 +50,9 @@ export default async function SupplierEventsPage() {
 
               <div className="shrink-0 flex flex-col items-start md:items-end gap-2">
                 <div className="text-right">
-                  <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 block">Member Price</span>
-                  <span className="text-base font-bold text-slate-900">
-                    {priceGbp === 0 ? 'Complimentary' : `£${priceGbp} + VAT`}
+                  <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 block">Access Level</span>
+                  <span className="text-xs font-bold text-emerald-700">
+                    Partner Network Pass
                   </span>
                 </div>
                 <button className="btn-primary text-xs py-2 px-5 font-bold">

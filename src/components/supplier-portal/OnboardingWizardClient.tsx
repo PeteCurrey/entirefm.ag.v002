@@ -84,8 +84,6 @@ export function OnboardingWizardClient({
   const [saveError, setSaveError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [appRef, setAppRef] = useState(initialDraft?.applicationReference || initialAppRef);
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   // Modal states
   const [showCodeOfConductModal, setShowCodeOfConductModal] = useState(false);
@@ -476,135 +474,91 @@ export function OnboardingWizardClient({
     }
   };
 
-  // Submit and Payment Gateway Handler
+  // Submit Handler (Direct Technical Submission — Zero Payment Gate)
   const handleSubmit = async () => {
-    setPaymentError(null);
-    await handleSave();
+    setIsSaving(true);
+    setSaveError(null);
+    try {
+      const res = await fetch('/api/supplier/application/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orgId: initialOrgId || 'supplier-draft',
+          draftData: {
+            ...formData,
+            documentVault: documents,
+            status: 'SUBMITTED',
+            submittedAt: new Date().toISOString(),
+            currentStep: 15,
+          },
+        }),
+      });
 
-    if (formData.paymentMethod === 'CARD') {
-      setIsProcessingPayment(true);
-      try {
-        const res = await fetch('/api/supplier/application/payment/create-checkout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ supplierId: initialOrgId || 'supplier-draft' }),
-        });
-
-        const data = await res.json();
-        if (data.checkoutUrl) {
-          window.location.href = data.checkoutUrl;
-          return;
-        } else if (data.alreadyPaid) {
-          setSubmitted(true);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          return;
-        } else {
-          setPaymentError(data.error || 'Failed to initialize Stripe Checkout session');
-          setIsProcessingPayment(false);
-        }
-      } catch (err: any) {
-        setPaymentError(err.message || 'Payment network error. Please try again.');
-        setIsProcessingPayment(false);
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        setSaveError(data.error || 'Failed to submit application. Please check your inputs and try again.');
       }
-      return;
+    } catch (err: any) {
+      setSaveError(err.message || 'Submission network error. Please try again.');
+    } finally {
+      setIsSaving(false);
     }
-
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // ── Post-Submission Success Screen (Preserving exact corrected copy) ────────
+  // ── Post-Submission Success Screen ────────
   if (submitted) {
-    const isInvoicePending = formData.paymentMethod === 'INVOICE';
-
     return (
       <div className="bg-white border border-slate-200 rounded-sm p-8 sm:p-12 shadow-sm text-center max-w-2xl mx-auto space-y-6">
-        <div
-          className={`h-16 w-16 ${
-            isInvoicePending ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'
-          } rounded-full flex items-center justify-center mx-auto`}
-        >
-          {isInvoicePending ? <AlertCircle className="h-8 w-8" /> : <CheckCircle2 className="h-8 w-8" />}
+        <div className="h-16 w-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto">
+          <CheckCircle2 className="h-8 w-8" />
         </div>
         <div className="space-y-2">
-          <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">
-            {isInvoicePending ? 'VAT INVOICE ISSUED — AWAITING PAYMENT' : 'APPLICATION SUBMISSION CONFIRMED'}
+          <span className="text-[10px] font-light uppercase tracking-wider text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 inline-block">
+            APPLICATION SUBMISSION CONFIRMED
           </span>
           <h1 className="text-2xl sm:text-3xl font-extralight tracking-tight text-slate-900">
-            {isInvoicePending ? 'Payment Required to Complete Submission' : 'Application Submitted Successfully'}
+            Application Submitted Successfully
           </h1>
-          <p className="text-xs text-slate-600 font-light max-w-md mx-auto">
-            {isInvoicePending ? (
-              <>
-                Your application reference is{' '}
-                <strong className="text-slate-900 font-medium">{appRef}</strong>. A VAT invoice has been issued. Your
-                application will be formally submitted for EntireFM assurance review once payment has been received and
-                confirmed.
-              </>
-            ) : (
-              <>
-                Your application reference is{' '}
-                <strong className="text-slate-900 font-medium">{appRef}</strong>. Our supply chain assurance desk has
-                received your documentation.
-              </>
-            )}
+          <p className="text-xs text-slate-600 font-light max-w-md mx-auto leading-relaxed">
+            Your application reference is{' '}
+            <strong className="text-slate-900 font-medium">{appRef}</strong>. Your supplier application has been received by EntireFM and will now be reviewed by our supplier management team.
           </p>
         </div>
 
-        <div className="p-4 bg-slate-50 border border-slate-200 rounded text-left text-xs font-light space-y-2">
+        <div className="p-5 bg-slate-50 border border-slate-200 rounded-sm text-left text-xs font-light space-y-3">
           <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-            <span className="font-bold text-slate-900 font-sans">Assurance Review Fee:</span>
-            <span className={`font-bold ${isInvoicePending ? 'text-amber-700' : 'text-emerald-700'}`}>
-              {formData.paymentMethod === 'CARD'
-                ? 'PAID — £350 + VAT (Card)'
-                : formData.paymentMethod === 'INVOICE'
-                ? 'AWAITING PAYMENT — VAT Invoice Issued'
-                : 'WAIVED (Authorised)'}
-            </span>
+            <span className="font-bold text-slate-900 font-sans">Application Status:</span>
+            <span className="text-emerald-700 font-bold">UNDER REVIEW</span>
           </div>
 
-          {isInvoicePending ? (
-            <>
-              <div className="p-3 bg-amber-50 border border-amber-200 rounded text-amber-900 text-[11px] leading-relaxed">
-                <strong>Payment is due immediately.</strong> Please pay by BACS using the reference on your invoice.
-                Your application remains pending until payment is confirmed by EntireFM finance.
-              </div>
-              <span className="font-bold text-slate-900 font-sans block pt-1">What Happens Next:</span>
-              <ul className="space-y-1 text-slate-600 font-sans text-[11.5px]">
-                <li>1. Download your VAT invoice from the Billing tab in your Supplier Portal.</li>
-                <li>
-                  2. Pay the invoice amount by BACS to the bank details shown on the invoice. Use your invoice reference
-                  as the payment reference.
-                </li>
-                <li>
-                  3. Once EntireFM finance confirms receipt of payment, your application will be formally submitted for
-                  technical assurance review (3–5 business days).
-                </li>
-                <li>4. Your portal status will update automatically when payment is matched.</li>
-              </ul>
-            </>
-          ) : (
-            <>
-              <span className="font-bold text-slate-900 font-sans block pt-1">What Happens Next:</span>
-              <ul className="space-y-1 text-slate-600 font-sans text-[11.5px]">
-                <li>1. Technical review of insurance schedules and trade accreditations (3–5 business days).</li>
-                <li>
-                  2. If clarifications or replacement documents are required, you will see an action banner in your
-                  portal.
-                </li>
-                <li>3. Scoped service &amp; regional authorisation decisions will appear in your portal.</li>
-                <li>4. Your VAT receipt is available under your Supplier Portal Billing tab.</li>
-              </ul>
-            </>
-          )}
+          <div className="space-y-2 pt-1">
+            <span className="font-bold text-slate-900 font-sans block">What Happens Next:</span>
+            <ul className="space-y-1.5 text-slate-600 font-sans text-[11.5px]">
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-600 font-bold">&bull;</span>
+                <span>1. <strong>Technical Due Diligence:</strong> EntireFM Supplier Management reviews your submitted compliance, insurance, and trade credentials.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-600 font-bold">&bull;</span>
+                <span>2. <strong>Action Notifications:</strong> If any clarifications or additional documentation are required, you will receive an action notification in your portal.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-600 font-bold">&bull;</span>
+                <span>3. <strong>Approval &amp; Scope Authorisation:</strong> Upon successful verification, your approved service disciplines and regional coverage will be activated in your portal.</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="pt-4 flex flex-wrap justify-center gap-4">
           <Link href="/supplier-portal" className="btn-primary text-xs py-2.5 px-6 font-bold">
-            Go to Supplier Portal &rarr;
+            Go to Supplier Dashboard &rarr;
           </Link>
-          <Link href="/supplier-portal/billing" className="btn-secondary text-xs py-2.5 px-6">
-            {isInvoicePending ? 'Download Invoice' : 'View Billing & Invoices'}
+          <Link href="/supplier-portal/documents" className="btn-secondary text-xs py-2.5 px-6">
+            View Document Vault
           </Link>
         </div>
       </div>
@@ -2861,13 +2815,13 @@ export function OnboardingWizardClient({
             </div>
           )}
 
-          {/* ── STAGE 15: REVIEW & SUBMIT + PAYMENT GATEWAY ───────────────────── */}
+          {/* ── STAGE 15: REVIEW & SUBMIT ─────────────────────────────────────── */}
           {currentStep === 15 && (
             <div className="space-y-6 text-xs font-sans">
               <div>
-                <span className="font-bold text-slate-900 block text-sm">Pre-Submission Application Audit &amp; Review</span>
+                <span className="font-bold text-slate-900 block text-sm">Application Summary &amp; Submission</span>
                 <p className="text-slate-500 font-light text-[11.5px] mt-0.5">
-                  Verify all submitted information below before completing payment of the Initial Supplier Assurance Review fee.
+                  Review your application summary across all 14 substantive sections before submitting for technical assurance review.
                 </p>
               </div>
 
@@ -2925,7 +2879,7 @@ export function OnboardingWizardClient({
                   <div>
                     <span className="font-bold text-slate-900 block">4. Coverage &amp; Operating Bases</span>
                     <span className="text-slate-500 text-[11px]">
-                      {formData.coverageType} &bull; {formData.selectedRegions.length} Regions Covered
+                      {formData.coverageType} &bull; {formData.selectedRegions.length} Regions
                     </span>
                   </div>
                   {sectionCompleteness.coverage ? (
@@ -2939,9 +2893,9 @@ export function OnboardingWizardClient({
 
                 <div className="p-3.5 flex items-center justify-between">
                   <div>
-                    <span className="font-bold text-slate-900 block">5. Operational Capability</span>
+                    <span className="font-bold text-slate-900 block">5. Operational Capability &amp; SLA</span>
                     <span className="text-slate-500 text-[11px]">
-                      Hours: {formData.standardOperatingHours} &bull; 24/7 Service: {formData.has247 ? 'Yes' : 'No'} &bull; {formData.vehicleCount} Vehicles
+                      {formData.has247 ? `24/7 Emergency (${formData.emergencySlaHours}h SLA)` : 'Standard Hours Only'}
                     </span>
                   </div>
                   {sectionCompleteness.operations ? (
@@ -2957,7 +2911,7 @@ export function OnboardingWizardClient({
                   <div>
                     <span className="font-bold text-slate-900 block">6. Workforce &amp; Subcontractors</span>
                     <span className="text-slate-500 text-[11px]">
-                      Model: {formData.employmentModel} &bull; Field Operatives: {formData.fieldOperativesCount}
+                      Direct: {formData.directEngineers || '0'} engineers &bull; Subcontracting: {formData.hasSubcontractors ? 'Yes' : 'No'}
                     </span>
                   </div>
                   {sectionCompleteness.workforce ? (
@@ -2973,7 +2927,7 @@ export function OnboardingWizardClient({
                   <div>
                     <span className="font-bold text-slate-900 block">7. Insurance Schedules</span>
                     <span className="text-slate-500 text-[11px]">
-                      PL: {formData.plCoverLimit} ({formData.plInsurer || 'No Insurer'}) &bull; EL: {formData.elCoverLimit}
+                      PL: {formData.plCoverLimit || '—'} ({formData.plInsurer || 'No Insurer'})
                     </span>
                   </div>
                   {sectionCompleteness.insurance ? (
@@ -2987,11 +2941,9 @@ export function OnboardingWizardClient({
 
                 <div className="p-3.5 flex items-center justify-between">
                   <div>
-                    <span className="font-bold text-slate-900 block">8. Accreditations</span>
+                    <span className="font-bold text-slate-900 block">8. Accreditations &amp; SSIP</span>
                     <span className="text-slate-500 text-[11px]">
-                      {formData.selectedAccreditations.length > 0
-                        ? formData.selectedAccreditations.slice(0, 3).join(', ') + (formData.selectedAccreditations.length > 3 ? '...' : '')
-                        : 'No accreditations selected'}
+                      {formData.selectedAccreditations.length} Accreditations Declared
                     </span>
                   </div>
                   {sectionCompleteness.accreditations ? (
@@ -3007,7 +2959,7 @@ export function OnboardingWizardClient({
                   <div>
                     <span className="font-bold text-slate-900 block">9. Health &amp; Safety</span>
                     <span className="text-slate-500 text-[11px]">
-                      Policy: {formData.hasHsPolicy ? 'Valid' : 'None'} &bull; Competent: {formData.competentPersonName || '—'} &bull; Incidents: {formData.hasIncidentHistory ? 'Disclosed' : 'Clean'}
+                      Policy: {formData.hasHsPolicy ? 'Yes' : 'No'} &bull; RAMS: {formData.hasRams ? 'Yes' : 'No'}
                     </span>
                   </div>
                   {sectionCompleteness.health_safety ? (
@@ -3023,7 +2975,7 @@ export function OnboardingWizardClient({
                   <div>
                     <span className="font-bold text-slate-900 block">10. Governance &amp; Ethics</span>
                     <span className="text-slate-500 text-[11px]">
-                      Anti-Bribery: Accepted &bull; Modern Slavery: Accepted &bull; Sanctions: Confirmed
+                      Anti-Bribery: {formData.antiBribery ? 'Accepted' : 'Pending'} &bull; Modern Slavery: {formData.modernSlavery ? 'Accepted' : 'Pending'}
                     </span>
                   </div>
                   {sectionCompleteness.governance ? (
@@ -3037,9 +2989,9 @@ export function OnboardingWizardClient({
 
                 <div className="p-3.5 flex items-center justify-between">
                   <div>
-                    <span className="font-bold text-slate-900 block">11. Information Security</span>
+                    <span className="font-bold text-slate-900 block">11. Information Security &amp; Data</span>
                     <span className="text-slate-500 text-[11px]">
-                      Policy: Valid &bull; Cyber Certs: {formData.cyberCertifications[0] || 'None'}
+                      GDPR &amp; Security Controls Registered
                     </span>
                   </div>
                   {sectionCompleteness.security ? (
@@ -3055,7 +3007,7 @@ export function OnboardingWizardClient({
                   <div>
                     <span className="font-bold text-slate-900 block">12. Document Vault</span>
                     <span className="text-slate-500 text-[11px]">
-                      {documents.length} File(s) Attached in Encrypted Vault
+                      {documents.length} Evidence Documents Uploaded
                     </span>
                   </div>
                   {sectionCompleteness.documents ? (
@@ -3071,7 +3023,7 @@ export function OnboardingWizardClient({
                   <div>
                     <span className="font-bold text-slate-900 block">13. Commercial Information</span>
                     <span className="text-slate-500 text-[11px]">
-                      Turnover: {formData.turnoverBand} &bull; Largest Contract: {formData.largestContractBand}
+                      Bank Details &amp; CIS Status Registered
                     </span>
                   </div>
                   {sectionCompleteness.commercial ? (
@@ -3082,115 +3034,28 @@ export function OnboardingWizardClient({
                     </button>
                   )}
                 </div>
+              </div>
 
-                <div className="p-3.5 flex items-center justify-between">
-                  <div>
-                    <span className="font-bold text-slate-900 block">14. Declarations</span>
-                    <span className="text-slate-500 text-[11px]">
-                      Code of Conduct Accepted by {formData.declarantName || 'Declarant'} ({formData.declarantRole || 'Role'})
-                    </span>
-                  </div>
-                  {sectionCompleteness.declarations ? (
-                    <span className="text-emerald-700 font-bold text-[10.5px]">COMPLETE</span>
-                  ) : (
-                    <button onClick={() => setCurrentStep(14)} className="text-amber-700 font-bold text-[10.5px] hover:underline">
-                      INCOMPLETE (Fix)
-                    </button>
-                  )}
+              {/* Submission Notice & Declaration Confirmation */}
+              <div className="bg-[#FAF9FB] border border-slate-300 rounded-sm p-5 space-y-3">
+                <div className="flex items-center gap-2 text-slate-900 font-bold text-xs">
+                  <ShieldCheck className="h-4 w-4 text-emerald-700" />
+                  <span>Technical Assurance Submission Notice</span>
+                </div>
+                <p className="text-[11.5px] text-slate-600 leading-relaxed">
+                  By clicking <strong>Submit Application for Review</strong>, your application will be formally submitted to the EntireFM Supplier Management team for technical due diligence, insurance validation, and trade qualification review.
+                </p>
+                <div className="p-3 bg-emerald-50 border border-emerald-200 rounded text-emerald-950 text-[11px] leading-relaxed">
+                  <strong>Independent Due Diligence:</strong> All submissions undergo thorough review against statutory regulations and client requirements. You will be notified in your portal once your technical review is complete.
                 </div>
               </div>
 
-              {/* ── PRE-SUBMISSION ASSURANCE PAYMENT GATEWAY (Exact corrected copy preserved) ── */}
-              <div className="bg-[#FAF9FB] border-2 border-slate-900 rounded-sm p-5 space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
-                  <div>
-                    <span className="text-[10px] font-light uppercase tracking-wider text-emerald-700 font-bold tracking-wider bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                      PRE-SUBMISSION ASSURANCE GATEWAY
-                    </span>
-                    <h3 className="text-base font-bold text-slate-900 mt-1">
-                      {CANONICAL_PUBLIC_PRICING.INITIAL_ASSURANCE_REVIEW.name}
-                    </h3>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-lg font-light text-slate-900">
-                      {CANONICAL_PUBLIC_PRICING.INITIAL_ASSURANCE_REVIEW.displayPrice}
-                    </span>
-                    <span className="text-[10px] text-slate-500 block">£420.00 inc. 20% VAT</span>
-                  </div>
+              {saveError && (
+                <div className="p-3 bg-rose-50 border border-rose-200 rounded text-rose-800 text-xs flex items-center gap-2">
+                  <AlertCircle className="h-4 w-4 shrink-0 text-rose-600" />
+                  <span>{saveError}</span>
                 </div>
-
-                <div className="text-[11.5px] text-slate-600 space-y-2">
-                  <p>
-                    The Initial Supplier Assurance Review fee covers the administration and independent review of
-                    applicable supplier-assurance information submitted by your organisation, including company identity,
-                    insurance schedules, H&amp;S competence, and trade qualifications.
-                  </p>
-
-                  <div className="p-3 bg-amber-50 border border-amber-200 rounded text-amber-950 text-[11px] leading-relaxed">
-                    <strong>Critical Disclosure:</strong> Payment enables your completed application to be submitted for
-                    EntireFM assurance review. It does not guarantee approval, Preferred Supplier status, work allocation, or
-                    any minimum volume of work.
-                  </div>
-                </div>
-
-                {/* Payment Method Selector */}
-                <div className="space-y-2 pt-1">
-                  <span className="font-bold text-slate-900 text-xs block">Select Payment Method:</span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <label
-                      className={`flex items-center gap-2.5 p-3 rounded border cursor-pointer text-xs ${
-                        formData.paymentMethod === 'CARD'
-                          ? 'bg-slate-900 text-white border-slate-900 font-bold'
-                          : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        checked={formData.paymentMethod === 'CARD'}
-                        onChange={() => setFormData({ ...formData, paymentMethod: 'CARD' })}
-                        className="text-brand-pink"
-                      />
-                      <CreditCard className="h-4 w-4 shrink-0" />
-                      <span>Pay by Card (Stripe Instant)</span>
-                    </label>
-
-                    <label
-                      className={`flex items-center gap-2.5 p-3 rounded border cursor-pointer text-xs ${
-                        formData.paymentMethod === 'INVOICE'
-                          ? 'bg-slate-900 text-white border-slate-900 font-bold'
-                          : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        checked={formData.paymentMethod === 'INVOICE'}
-                        onChange={() => setFormData({ ...formData, paymentMethod: 'INVOICE' })}
-                        className="text-brand-pink"
-                      />
-                      <FileText className="h-4 w-4 shrink-0" />
-                      <span>Invoice / BACS</span>
-                    </label>
-                  </div>
-
-                  {/* Invoice / BACS Notice */}
-                  {formData.paymentMethod === 'INVOICE' && (
-                    <div className="p-3 bg-amber-50 border border-amber-200 rounded text-amber-900 text-[11px] leading-relaxed">
-                      <strong>Invoice / BACS — Payment Terms: Due Immediately.</strong> We will issue a VAT invoice for
-                      the assurance review fee. Payment is due immediately by BACS. Your application will be formally submitted
-                      for EntireFM assurance review once payment has been received and confirmed. This is not a credit facility.
-                    </div>
-                  )}
-                </div>
-
-                {paymentError && (
-                  <div className="p-3 bg-rose-50 border border-rose-200 rounded text-rose-800 text-xs flex items-center gap-2">
-                    <AlertCircle className="h-4 w-4 shrink-0 text-rose-600" />
-                    <span>{paymentError}</span>
-                  </div>
-                )}
-              </div>
+              )}
             </div>
           )}
 
@@ -3198,7 +3063,7 @@ export function OnboardingWizardClient({
           <div className="flex items-center justify-between pt-6 border-t border-slate-200">
             <button
               onClick={handlePrev}
-              disabled={currentStep === 1 || isProcessingPayment}
+              disabled={currentStep === 1 || isSaving}
               className="btn-secondary text-xs py-2 px-4 flex items-center gap-1.5 disabled:opacity-30 disabled:pointer-events-none"
             >
               <ArrowLeft className="h-3.5 w-3.5" /> Back
@@ -3216,27 +3081,17 @@ export function OnboardingWizardClient({
             ) : (
               <button
                 onClick={handleSubmit}
-                disabled={isProcessingPayment}
+                disabled={isSaving}
                 className="btn-primary text-xs py-2.5 px-6 bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center gap-1.5 disabled:opacity-50"
               >
-                {isProcessingPayment ? (
+                {isSaving ? (
                   <>
                     <div className="h-3.5 w-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    <span>Redirecting to Stripe...</span>
-                  </>
-                ) : formData.paymentMethod === 'CARD' ? (
-                  <>
-                    <span>Pay Assurance Review Fee &amp; Submit (£420.00)</span>
-                    <CheckCircle2 className="h-3.5 w-3.5" />
-                  </>
-                ) : formData.paymentMethod === 'INVOICE' ? (
-                  <>
-                    <span>Issue VAT Invoice (Pay by BACS to Submit)</span>
-                    <FileText className="h-3.5 w-3.5" />
+                    <span>Submitting Application...</span>
                   </>
                 ) : (
                   <>
-                    <span>Submit with Authorised Waiver</span>
+                    <span>Submit Application for Review</span>
                     <CheckCircle2 className="h-3.5 w-3.5" />
                   </>
                 )}

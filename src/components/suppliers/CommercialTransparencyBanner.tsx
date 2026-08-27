@@ -10,20 +10,20 @@ export function CommercialTransparencyBanner() {
             GOVERNANCE PRINCIPLE // INDEPENDENT PROCUREMENT
           </span>
           <h2 className="text-xl sm:text-2xl font-light">
-            Commercial Participation is Separate from Procurement
+            Supply Chain Integrity &amp; Independent Procurement
           </h2>
           <p className="text-xs text-slate-300 font-light max-w-2xl">
-            EntireFM maintains complete separation between commercial Partner Network services and operational supplier assurance. Paying EntireFM never purchases work allocation priority or favourable performance ratings.
+            EntireFM maintains complete separation between partner network collaboration and operational supplier assurance. Supplier approval and work allocation are awarded purely on technical merit, verified compliance, and operational performance.
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 p-6 sm:p-8 gap-6 text-xs font-light">
-        {/* What Fees Support */}
+        {/* What Partner Network Supports */}
         <div className="space-y-3">
           <div className="flex items-center gap-2 text-emerald-800 font-bold font-sans text-sm">
             <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-            <span>What Your Fees Support</span>
+            <span>What Our Partner Network Supports</span>
           </div>
           <ul className="space-y-2 text-slate-600 font-sans">
             <li className="flex items-start gap-2">
@@ -49,11 +49,11 @@ export function CommercialTransparencyBanner() {
           </ul>
         </div>
 
-        {/* What Payment Does NOT Buy */}
+        {/* What Cannot Be Bypassed */}
         <div className="space-y-3 pt-6 md:pt-0">
           <div className="flex items-center gap-2 text-rose-800 font-bold font-sans text-sm">
             <XCircle className="h-4 w-4 text-rose-600 shrink-0" />
-            <span>What Payment Does NOT Buy</span>
+            <span>What Cannot Be Bypassed or Purchased</span>
           </div>
           <ul className="space-y-2 text-slate-600 font-sans">
             <li className="flex items-start gap-2">

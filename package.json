@@ -68,7 +68,11 @@
     "test:phase0l-seal": "tsx --env-file=.env.local scripts/test-phase0l-seal.ts",
     "test:phase0l-final-seal": "tsx --env-file=.env.local scripts/test-phase0l-final-seal.ts",
     "test:phase0l-evidence-closeout": "tsx --env-file=.env.local scripts/test-phase0l-closeout.ts",
-    "test:model-provenance": "tsx --env-file=.env.local scripts/test-model-provenance.ts"
+    "test:model-provenance": "tsx --env-file=.env.local scripts/test-model-provenance.ts",
+    "test:cafm-commissioning": "tsx --env-file=.env.local scripts/test-cafm-commissioning.ts",
+    "test:phase0m-ai-helpdesk": "tsx --env-file=.env.local scripts/test-phase0m-ai-helpdesk.ts",
+    "test:role-portals": "tsx --env-file=.env.local scripts/test-role-portals-commissioning.ts",
+    "test:job-lifecycle": "tsx --env-file=.env.local scripts/test-job-lifecycle-orchestration.ts"
   },
   "dependencies": {
     "lucide-react": "^1.33.0",

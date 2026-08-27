@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "version": "1.0.0",
   "description": "EntireFM Protected Historic Routes Registry - Non-negotiable floor of the rebuild",
-  "generated": "2026-08-26",
+  "generated": "2026-08-27",
   "totalProtectedRoutes": 230,
   "routes": [
     {
