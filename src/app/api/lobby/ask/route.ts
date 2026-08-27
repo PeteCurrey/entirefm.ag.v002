@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import { askTheLobbyEngine } from '@/server/ask/ask-engine';
 import type { UKJurisdiction } from '@/server/intelligence/types';
+import type { AskMode } from '@/server/ask/types';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { question, jurisdiction } = body;
+    const { question, mode, jurisdiction } = body;
 
     if (!question || typeof question !== 'string' || question.trim().length === 0) {
       return NextResponse.json(
@@ -15,6 +16,7 @@ export async function POST(request: Request) {
     }
 
     const answer = await askTheLobbyEngine.answerQuestion(question, {
+      mode: (mode as AskMode) || 'ask',
       jurisdictionOverride: jurisdiction as UKJurisdiction | undefined,
     });
 

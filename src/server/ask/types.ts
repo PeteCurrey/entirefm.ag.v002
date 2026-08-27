@@ -2,10 +2,13 @@
  * ENTIREFM ASK THE LOBBY — TYPE DEFINITIONS
  * ==========================================
  * Data structures for grounded query understanding, intent classification,
- * multi-tier authority retrieval, structured answer synthesis, and citations.
+ * multi-tier authority retrieval, structured answer synthesis, citations,
+ * and multi-stage Deep Research execution.
  */
 
 import type { AuthorityTier, UKJurisdiction, FMTradeCategory } from '../intelligence/types';
+
+export type AskMode = 'ask' | 'deep_research';
 
 export type AskIntent =
   | 'CURRENT_UPDATE'
@@ -47,9 +50,17 @@ export interface AskRelatedAction {
   badge?: string;
 }
 
+export interface DeepResearchStage {
+  id: string;
+  label: string;
+  status: 'pending' | 'active' | 'completed';
+  findingsCount?: number;
+}
+
 export interface StructuredAskAnswer {
   id: string;
   question: string;
+  mode: AskMode;
   intent: AskIntent;
   jurisdiction: UKJurisdiction[];
   timeframeDescription?: string;
@@ -59,6 +70,18 @@ export interface StructuredAskAnswer {
   whyItMatters: string;
   whatYouNeedToDo: string[];
   onTheHorizon?: string;
+  
+  // Extended Deep Research Sections
+  deepResearchReport?: {
+    executiveSummary: string;
+    statutoryRequirements: string[];
+    technicalGuidance: string[];
+    commercialMarketImpact: string[];
+    timelineEvents: { date: string; title: string; significance: string }[];
+    unresolvedQuestions?: string[];
+  };
+  
+  researchStages?: DeepResearchStage[];
   
   citations: AskCitation[];
   relatedActions: AskRelatedAction[];

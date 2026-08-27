@@ -19,12 +19,12 @@ export async function GET(request: NextRequest) {
 
   try {
     if (view === 'pending') {
-      const pending = getItemsPendingReview();
+      const pending = await getItemsPendingReview();
       return NextResponse.json({ pendingItems: pending, count: pending.length });
     }
 
     if (view === 'all') {
-      const items = getAllIntelligenceItems();
+      const items = await getAllIntelligenceItems();
       return NextResponse.json({ items, count: items.length });
     }
 
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Default: summary dashboard
-    const summary = getAdminIntelligenceSummary();
+    const summary = await getAdminIntelligenceSummary();
     return NextResponse.json({ summary });
   } catch (err: any) {
     if (err.message?.includes('Access denied') || err.message?.includes('Authentication') || err.message?.includes('admin')) {

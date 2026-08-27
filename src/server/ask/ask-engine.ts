@@ -12,8 +12,10 @@ import { intelligenceStore } from '../intelligence/intelligence-store';
 import { opportunityStore } from '../intelligence/opportunity-store';
 import { FMTaxonomyClassifier } from '../intelligence/fm-classifier';
 import { AUTHORITY_TIER_LABELS } from '../intelligence/types';
+import { openAIResearchEngine } from './openai-research-engine';
 import type {
   AskIntent,
+  AskMode,
   StructuredAskAnswer,
   AskCitation,
   AskRelatedAction,
@@ -25,23 +27,30 @@ export class AskTheLobbyEngine {
   private knowledgeGaps: KnowledgeGapRecord[] = [];
 
   /**
-   * Main query execution pipeline
+   * Main query execution pipeline supporting both Ask and Deep Research modes
    */
   public async answerQuestion(
     question: string,
     options?: {
+      mode?: AskMode;
       jurisdictionOverride?: UKJurisdiction;
       history?: { role: string; content: string }[];
     }
   ): Promise<StructuredAskAnswer> {
     const cleanQuestion = question.trim();
+    const mode = options?.mode || 'ask';
     const intent = this.classifyIntent(cleanQuestion);
     const jurisdiction = options?.jurisdictionOverride
       ? [options.jurisdictionOverride]
       : FMTaxonomyClassifier.inferJurisdictions(cleanQuestion);
     const timeframe = this.parseTimeframe(cleanQuestion);
 
-    // 1. Retrieve evidence across approved EntireFM repositories
+    // If Deep Research mode is selected, run the multi-stage research engine
+    if (mode === 'deep_research') {
+      return await openAIResearchEngine.executeDeepResearch(cleanQuestion, jurisdiction);
+    }
+
+    // Standard Quick Grounded Answer Pipeline
     const intelResults = intelligenceStore.query({
       search: cleanQuestion,
       jurisdiction: jurisdiction[0],
@@ -55,7 +64,7 @@ export class AskTheLobbyEngine {
     const citations: AskCitation[] = [];
     let citationCounter = 1;
 
-    // 2. Map Canonical Intelligence to Citations
+    // Map Canonical Intelligence to Citations
     for (const item of intelResults) {
       citations.push({
         id: `cit-${item.id}`,
@@ -72,7 +81,7 @@ export class AskTheLobbyEngine {
       });
     }
 
-    // 3. Map Procurement Notices to Citations
+    // Map Procurement Notices to Citations
     for (const opp of procurementResults.slice(0, 3)) {
       citations.push({
         id: `cit-${opp.id}`,
@@ -88,16 +97,16 @@ export class AskTheLobbyEngine {
       });
     }
 
-    // 4. Determine relevant tools & actions
     const relatedActions: AskRelatedAction[] = this.resolveRelatedActions(cleanQuestion, intent, intelResults);
 
-    // 5. Check if evidence is sufficient (Zero-Hallucination Gate)
+    // Zero-Hallucination Gate
     if (citations.length === 0 && procurementResults.length === 0) {
       this.logKnowledgeGap(cleanQuestion, intent, 'NO_RECORDS_FOUND');
 
       return {
         id: `ask-${Date.now()}`,
         question: cleanQuestion,
+        mode: 'ask',
         intent,
         jurisdiction,
         timeframeDescription: timeframe,
@@ -136,12 +145,9 @@ export class AskTheLobbyEngine {
       };
     }
 
-    // 6. Synthesize grounded structured answer
-    const structured = this.synthesizeAnswer(cleanQuestion, intent, jurisdiction, intelResults, procurementResults, citations, relatedActions, timeframe);
-    return structured;
+    return this.synthesizeAnswer(cleanQuestion, intent, jurisdiction, intelResults, procurementResults, citations, relatedActions, timeframe);
   }
 
-  /** Classify User Intent */
   public classifyIntent(query: string): AskIntent {
     const q = query.toLowerCase();
     if (q.includes('tender') || q.includes('procurement') || q.includes('closing soon')) return 'PROCUREMENT';
@@ -157,7 +163,6 @@ export class AskTheLobbyEngine {
     return 'GENERAL_FM';
   }
 
-  /** Parse Timeframe references */
   private parseTimeframe(query: string): string | undefined {
     const q = query.toLowerCase();
     if (q.includes('today')) return 'Today';
@@ -168,7 +173,6 @@ export class AskTheLobbyEngine {
     return undefined;
   }
 
-  /** Synthesize structured answer from retrieved evidence */
   private synthesizeAnswer(
     question: string,
     intent: AskIntent,
@@ -230,6 +234,7 @@ export class AskTheLobbyEngine {
     return {
       id: `ask-${Date.now()}`,
       question,
+      mode: 'ask',
       intent,
       jurisdiction,
       timeframeDescription: timeframe,
@@ -247,7 +252,6 @@ export class AskTheLobbyEngine {
     };
   }
 
-  /** Match relevant FM tools, calculators, and community rooms */
   private resolveRelatedActions(query: string, intent: AskIntent, intel: CanonicalIntelligenceItem[]): AskRelatedAction[] {
     const actions: AskRelatedAction[] = [];
     const q = query.toLowerCase();
@@ -289,7 +293,6 @@ export class AskTheLobbyEngine {
       });
     }
 
-    // Always offer Ask Community if peer insight is useful
     actions.push({
       type: 'ask_community',
       title: 'Discuss with Peer Practitioners',

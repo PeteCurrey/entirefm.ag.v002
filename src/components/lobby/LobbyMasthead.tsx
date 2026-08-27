@@ -3,11 +3,23 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, ArrowLeft } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { ChevronDown, ArrowLeft, ArrowRight, Sparkles, Search, Compass, ShieldCheck, Zap } from 'lucide-react';
 import { MemberNavControl } from '@/components/member/MemberNavControl';
 
+const HERO_PROMPTS = [
+  'What changed in building safety today?',
+  'Show me London FM tenders closing soon',
+  'F-gas quota rules for commercial chillers',
+  'Who won major cleaning contracts this month?',
+  'Standard testing frequency for commercial EICRs',
+];
+
 export function LobbyMasthead() {
+  const router = useRouter();
   const [currentDateStr, setCurrentDateStr] = useState<string>('Thursday, 27 August 2026');
+  const [query, setQuery] = useState('');
+  const [mode, setMode] = useState<'ask' | 'deep_research'>('ask');
 
   useEffect(() => {
     try {
@@ -24,6 +36,14 @@ export function LobbyMasthead() {
     }
   }, []);
 
+  const handleSearchSubmit = (e?: React.FormEvent, customQ?: string) => {
+    if (e) e.preventDefault();
+    const q = (customQ || query).trim();
+    if (!q) return;
+
+    router.push(`/lobby/ask?q=${encodeURIComponent(q)}&mode=${mode}`);
+  };
+
   return (
     <header className="relative h-full w-full bg-brand-void text-white overflow-hidden flex flex-col justify-between">
       {/* ── Background Photography & Atmospheric Overlays ────────────────── */}
@@ -38,8 +58,8 @@ export function LobbyMasthead() {
           className="object-cover object-center transform scale-100"
         />
 
-        {/* Reduced subtle dark overlays allowing architectural photography to stand out clearly */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-void/85 via-brand-void/35 to-black/40" />
+        {/* Cinematic dark gradients allowing background to breathe */}
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-void/90 via-brand-void/40 to-black/45" />
         <div className="absolute inset-0 bg-black/10" />
 
         {/* Ambient brand glow accents */}
@@ -59,7 +79,7 @@ export function LobbyMasthead() {
       {/* ── Content Container (Full Height Layout) ────────────────────── */}
       <div className="container-wide relative z-10 flex flex-col justify-between h-full pt-6 sm:pt-8 lg:pt-10 pb-6 sm:pb-8">
         {/* ── Top Lobby Header Bar (Standalone Lobby Navigation) ──────────── */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.12] pb-4 sm:pb-5 mb-4 sm:mb-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.12] pb-4 sm:pb-5 mb-2 sm:mb-4">
           {/* Left: Link to Main Site & Dynamic Date */}
           <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-light text-brand-mist/85">
             <Link
@@ -77,81 +97,128 @@ export function LobbyMasthead() {
           {/* Right: Section Links & Member Access */}
           <div className="flex items-center gap-4 sm:gap-6">
             <nav aria-label="Lobby Section Navigation" className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs sm:text-sm text-brand-mist/85 font-light">
-              <a href="#week-that-matters" className="hover:text-white transition-colors">
-                The Week That Matters
-              </a>
-              <a href="#compliance-watch" className="hover:text-white transition-colors">
+              <Link href="/lobby/ask" className="text-brand-electric hover:text-white transition-colors font-medium flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                Ask The Lobby
+              </Link>
+              <Link href="/lobby/today" className="hover:text-white transition-colors">
+                What Changed Today
+              </Link>
+              <Link href="/lobby/opportunities" className="hover:text-white transition-colors">
+                Procurement
+              </Link>
+              <Link href="/lobby/compliance" className="hover:text-white transition-colors">
                 Compliance Watch
-              </a>
-              <a href="#engineers-note" className="hover:text-white transition-colors">
-                Engineer’s Note
-              </a>
-              <a href="#toolkit" className="hover:text-white transition-colors">
-                Toolkit
-              </a>
+              </Link>
             </nav>
 
             <MemberNavControl />
           </div>
         </div>
 
-        {/* Masthead Identity & Editorial Premise Grid */}
-        <div className="grid lg:grid-cols-[1.35fr_1fr] items-center gap-8 lg:gap-14 my-auto py-4">
+        {/* ── PRIMARY INTERACTION: THE LOBBY HERO & CONVERSATIONAL COMPOSER ── */}
+        <div className="max-w-4xl my-auto py-2 sm:py-4 space-y-6">
           <div>
-            <div className="inline-flex items-center gap-2 mb-3 sm:mb-4">
+            <div className="inline-flex items-center gap-2 mb-2 sm:mb-3">
               <span className="h-px w-6 bg-brand-electric" />
               <span className="text-[11px] font-normal uppercase tracking-[0.22em] text-brand-electric-bright">
-                The Daily Briefing for UK Facilities & Estates Professionals
+                Grounded FM Intelligence Network
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extralight tracking-tight text-white leading-[1.02]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-white leading-[1.05]">
               THE <span className="font-light text-white">LOBBY</span>
             </h1>
 
-            <p className="mt-4 sm:mt-5 max-w-2xl text-base sm:text-lg lg:text-xl font-light text-brand-mist/90 leading-relaxed text-pretty">
-              Good morning. Here is what has changed in UK building safety, engineering compliance, and operational facilities management today.
+            <p className="mt-2 text-base sm:text-lg font-light text-brand-mist/90 max-w-2xl">
+              Ask any question about UK building safety, statutory compliance, procurement tenders, or technical standards with sourced citations.
             </p>
           </div>
 
-          {/* Proposition Card: Know / Understand / Get */}
-          <div className="border border-white/15 bg-brand-void/60 backdrop-blur-xl rounded-sm p-6 sm:p-7 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-white/[0.1] pb-3">
-              <span className="text-[10.5px] font-normal uppercase tracking-[0.18em] text-brand-mist/60">
-                Editorial Premise
-              </span>
-              <span className="text-[11px] font-light text-brand-mist/50">Edition 2026.35</span>
+          {/* ── Conversational Composer ────────────────────────────────────── */}
+          <form onSubmit={handleSearchSubmit} className="space-y-3">
+            <div className="border border-white/20 bg-brand-void/75 backdrop-blur-2xl rounded-sm p-2 sm:p-3 shadow-2xl focus-within:border-brand-electric/80 transition-colors">
+              <div className="flex items-start gap-3">
+                <Search className="w-5 h-5 text-white/40 mt-3 ml-2 shrink-0" />
+                <textarea
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSearchSubmit();
+                    }
+                  }}
+                  rows={2}
+                  placeholder="Ask about FM regulations, building safety, contracts, tenders, technical issues, or what is changing..."
+                  className="w-full bg-transparent text-white placeholder:text-white/40 text-sm sm:text-base font-light focus:outline-none resize-none py-2 pr-2"
+                />
+              </div>
+
+              {/* Bottom Composer Controls */}
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/[0.08] px-2">
+                {/* Mode Selector */}
+                <div className="flex items-center gap-1.5 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setMode('ask')}
+                    className={`px-3 py-1 rounded-sm text-xs font-mono uppercase tracking-wider transition-colors ${
+                      mode === 'ask'
+                        ? 'bg-brand-electric text-white font-medium'
+                        : 'text-white/50 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    Quick Ask
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMode('deep_research')}
+                    className={`px-3 py-1 rounded-sm text-xs font-mono uppercase tracking-wider transition-colors flex items-center gap-1.5 ${
+                      mode === 'deep_research'
+                        ? 'bg-purple-600 text-white font-medium'
+                        : 'text-white/50 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    <Sparkles className="w-3 h-3 text-purple-300" />
+                    <span>Deep Research</span>
+                  </button>
+                </div>
+
+                {/* Submit Action */}
+                <div className="flex items-center gap-3">
+                  <span className="hidden sm:inline text-[10px] font-mono text-white/40">
+                    Enter ↵ to submit
+                  </span>
+                  <button
+                    type="submit"
+                    disabled={!query.trim()}
+                    className="px-5 py-2 bg-white hover:bg-white/90 disabled:opacity-30 text-neutral-950 font-mono text-xs uppercase tracking-wider rounded-sm transition-colors flex items-center gap-2 font-medium"
+                  >
+                    <span>{mode === 'deep_research' ? 'Start Research' : 'Ask The Lobby'}</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div className="space-y-3.5">
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-electric/20 text-[11px] font-normal text-brand-electric-bright border border-brand-electric/40">
-                  01
-                </span>
-                <p className="text-sm font-light text-brand-mist/95 leading-snug">
-                  <strong className="font-normal text-white">Know what’s changed:</strong> Prioritised regulatory shifts, not news aggregation.
-                </p>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-purple-500/20 text-[11px] font-normal text-purple-300 border border-purple-500/40">
-                  02
-                </span>
-                <p className="text-sm font-light text-brand-mist/95 leading-snug">
-                  <strong className="font-normal text-white">Understand what matters:</strong> Real engineering analysis and duty holder impact.
-                </p>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-[11px] font-normal text-emerald-300 border border-emerald-500/40">
-                  03
-                </span>
-                <p className="text-sm font-light text-brand-mist/95 leading-snug">
-                  <strong className="font-normal text-white">Get something useful:</strong> Calculators, checklists, and verified tools every visit.
-                </p>
-              </div>
+            {/* Suggested Prompt Pills */}
+            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+              <span className="text-[10px] font-mono uppercase text-white/40 mr-1">Suggested:</span>
+              {HERO_PROMPTS.map((prompt, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => {
+                    setQuery(prompt);
+                    handleSearchSubmit(undefined, prompt);
+                  }}
+                  className="bg-white/10 hover:bg-white/20 text-white/80 hover:text-white px-3 py-1 rounded-sm text-xs font-light transition-colors text-left"
+                >
+                  {prompt}
+                </button>
+              ))}
             </div>
-          </div>
+          </form>
         </div>
 
         {/* Bottom Bar: Edition Indicator & Scroll Prompt */}
@@ -159,7 +226,7 @@ export function LobbyMasthead() {
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-electric" />
             <span className="font-mono text-[11px] tracking-wider uppercase text-brand-mist/80">
-              Daily Briefing Edition
+              Daily Intelligence Edition 2026.35
             </span>
           </div>
 
@@ -167,7 +234,7 @@ export function LobbyMasthead() {
             href="#week-that-matters"
             className="group inline-flex items-center gap-2 text-brand-mist/80 hover:text-white transition-colors"
           >
-            <span className="text-xs sm:text-sm font-light">Scroll to explore briefings</span>
+            <span className="text-xs sm:text-sm font-light">Explore editorial briefings</span>
             <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/20 bg-white/5 group-hover:border-white/50 group-hover:bg-white/15 transition-all animate-bounce">
               <ChevronDown className="w-3.5 h-3.5 text-white" />
             </span>

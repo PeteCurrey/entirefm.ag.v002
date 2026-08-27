@@ -31,7 +31,9 @@ export async function GET(_request: NextRequest) {
   }
 }
 
-// POST — manual sync trigger (no-op in MVP — logs intent)
+import { runLiveIngestion } from '@/server/intelligence/intelligence-engine';
+
+// POST — manual sync trigger running genuine live connector fetch
 export async function POST(request: NextRequest) {
   const session = await getCurrentSession();
 
@@ -46,12 +48,12 @@ export async function POST(request: NextRequest) {
     const { sourceId, action } = body;
 
     if (action === 'SYNC') {
-      // Manual sync is a no-op in MVP — would trigger scheduled ingestion job
+      const report = await runLiveIngestion(sourceId || undefined);
       return NextResponse.json({
-        message: `Manual sync requested for source: ${sourceId || 'all'}. Sync will be processed by the next ingestion run.`,
-        queued: true,
+        message: `Live sync completed for ${sourceId || 'all sources'}. ${report.totalItemsCreated} items and ${report.totalTendersCreated} tenders updated.`,
+        report,
         requestedBy: session!.personId,
-        requestedAt: new Date().toISOString(),
+        completedAt: new Date().toISOString(),
       });
     }
 

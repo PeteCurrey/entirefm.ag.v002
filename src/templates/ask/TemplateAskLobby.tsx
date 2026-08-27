@@ -20,8 +20,11 @@ import {
   ArrowRight,
   Info,
   Scale,
+  Bell,
+  Layers,
+  FileCheck,
 } from 'lucide-react';
-import type { StructuredAskAnswer, AskCitation } from '@/server/ask/types';
+import type { StructuredAskAnswer, AskCitation, AskMode } from '@/server/ask/types';
 
 const EXAMPLE_PROMPTS = [
   'What changed in UK building safety this week?',
@@ -35,25 +38,30 @@ const EXAMPLE_PROMPTS = [
 export function TemplateAskLobby() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get('q') || '';
+  const initialMode = (searchParams.get('mode') as AskMode) || 'ask';
 
   const [question, setQuestion] = useState(initialQuery);
+  const [mode, setMode] = useState<AskMode>(initialMode);
   const [loading, setLoading] = useState(false);
   const [answer, setAnswer] = useState<StructuredAskAnswer | null>(null);
   const [activeCitation, setActiveCitation] = useState<AskCitation | null>(null);
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [alertWatched, setAlertWatched] = useState(false);
 
-  const handleSubmit = async (qText?: string) => {
+  const handleSubmit = async (qText?: string, modeOverride?: AskMode) => {
     const q = (qText || question).trim();
     if (!q) return;
 
+    const currentMode = modeOverride || mode;
     setLoading(true);
     setSaved(false);
+    setAlertWatched(false);
     try {
       const res = await fetch('/api/lobby/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: q }),
+        body: JSON.stringify({ question: q, mode: currentMode }),
       });
       const data = await res.json();
       if (data.success && data.answer) {
@@ -68,9 +76,9 @@ export function TemplateAskLobby() {
 
   useEffect(() => {
     if (initialQuery) {
-      handleSubmit(initialQuery);
+      handleSubmit(initialQuery, initialMode);
     }
-  }, [initialQuery]);
+  }, [initialQuery, initialMode]);
 
   const handleSave = () => {
     setSaved(true);
@@ -84,9 +92,14 @@ export function TemplateAskLobby() {
     }
   };
 
+  const handleDeepResearchUpgrade = () => {
+    setMode('deep_research');
+    handleSubmit(answer?.question || question, 'deep_research');
+  };
+
   return (
     <main className="min-h-screen bg-[#FAF9F7] text-[#121826] pt-24 pb-20 selection:bg-brand-electric selection:text-white">
-      {/* ─── MASTHEAD HEADER ─── */}
+      {/* ─── MASTHEAD COMPOSER ─── */}
       <section className="container-wide border-b border-neutral-200 pb-10 mb-10">
         <div className="max-w-4xl">
           <div className="flex items-center gap-3 mb-3">
@@ -94,7 +107,7 @@ export function TemplateAskLobby() {
               GROUNDED FM RESEARCH DESK
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            <span className="text-xs text-neutral-500 font-mono">Verified Statutory & Technical Indexes</span>
+            <span className="text-xs text-neutral-500 font-mono">Tier 1–4 Verified Statutory &amp; Technical Indexes</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-neutral-900 leading-tight">
@@ -110,31 +123,69 @@ export function TemplateAskLobby() {
               e.preventDefault();
               handleSubmit();
             }}
-            className="mt-8 relative"
+            className="mt-8 relative space-y-3"
           >
-            <div className="relative flex items-center bg-white border-2 border-neutral-300 focus-within:border-neutral-900 rounded-sm shadow-sm transition-colors">
-              <Search className="w-5 h-5 text-neutral-400 ml-4 shrink-0" />
-              <input
-                type="text"
-                value={question}
-                onChange={(e) => setQuestion(e.target.value)}
-                placeholder="Ask about building safety, F-gas, tenders, EICR, standards..."
-                className="w-full px-4 py-4 text-base sm:text-lg font-light text-neutral-900 placeholder:text-neutral-400 bg-transparent focus:outline-none"
-              />
-              <button
-                type="submit"
-                disabled={loading || !question.trim()}
-                className="mr-3 px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 disabled:opacity-40 text-white text-xs font-mono uppercase tracking-wider rounded-sm transition-colors flex items-center gap-2"
-              >
-                <span>{loading ? 'Researching...' : 'Search'}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+            <div className="relative flex flex-col bg-white border-2 border-neutral-300 focus-within:border-neutral-900 rounded-sm shadow-sm transition-colors p-3">
+              <div className="flex items-start gap-3">
+                <Search className="w-5 h-5 text-neutral-400 mt-2 shrink-0" />
+                <textarea
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSubmit();
+                    }
+                  }}
+                  rows={2}
+                  placeholder="Ask about building safety, F-gas, tenders, EICR intervals, or what is changing..."
+                  className="w-full text-base sm:text-lg font-light text-neutral-900 placeholder:text-neutral-400 bg-transparent focus:outline-none resize-none"
+                />
+              </div>
+
+              {/* Controls bar */}
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-neutral-100 mt-2">
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setMode('ask')}
+                    className={`px-3 py-1 text-xs font-mono uppercase tracking-wider rounded-sm transition-colors ${
+                      mode === 'ask'
+                        ? 'bg-neutral-900 text-white font-medium'
+                        : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
+                    }`}
+                  >
+                    Quick Ask
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMode('deep_research')}
+                    className={`px-3 py-1 text-xs font-mono uppercase tracking-wider rounded-sm transition-colors flex items-center gap-1.5 ${
+                      mode === 'deep_research'
+                        ? 'bg-purple-700 text-white font-medium'
+                        : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
+                    }`}
+                  >
+                    <Sparkles className="w-3 h-3 text-purple-300" />
+                    <span>Deep Research</span>
+                  </button>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading || !question.trim()}
+                  className="px-5 py-2 bg-neutral-900 hover:bg-neutral-800 disabled:opacity-40 text-white text-xs font-mono uppercase tracking-wider rounded-sm transition-colors flex items-center gap-2 font-medium"
+                >
+                  <span>{loading ? 'Researching...' : mode === 'deep_research' ? 'Run Deep Research' : 'Search'}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
 
             {/* Example Queries */}
-            <div className="flex flex-wrap items-center gap-2 mt-4 text-xs">
+            <div className="flex flex-wrap items-center gap-2 text-xs">
               <span className="text-neutral-400 font-mono text-[11px] uppercase mr-1">Try:</span>
-              {EXAMPLE_PROMPTS.slice(0, 3).map((prompt) => (
+              {EXAMPLE_PROMPTS.slice(0, 4).map((prompt) => (
                 <button
                   key={prompt}
                   type="button"
@@ -155,24 +206,43 @@ export function TemplateAskLobby() {
       {/* ─── RESEARCH DESK RESULTS ─── */}
       <section className="container-wide">
         {loading ? (
-          <div className="py-20 text-center text-neutral-500 font-mono text-sm">
-            Searching indexed Tier 1–4 statutory records, procurement tenders, and technical standards...
+          <div className="py-20 text-center space-y-4">
+            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-brand-electric bg-brand-electric/10 px-3 py-1.5 rounded-sm">
+              <Sparkles className="w-4 h-4 animate-spin text-brand-electric" />
+              <span>
+                {mode === 'deep_research'
+                  ? 'Conducting Multi-Stage Deep Research across Tier 1–4 Repositories...'
+                  : 'Searching verified UK statutory indexes & technical registries...'}
+              </span>
+            </div>
+            <p className="text-xs text-neutral-500 font-mono">
+              Reviewing GOV.UK, legislation.gov.uk, HSE, BSR, and procurement notices...
+            </p>
           </div>
         ) : answer ? (
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-10 items-start">
-            {/* LEFT / MAIN COLUMN: STRUCTURED ANSWER */}
+            {/* LEFT / MAIN COLUMN: STRUCTURED REPORT */}
             <div className="space-y-8 bg-white border border-neutral-200/80 rounded-sm p-6 sm:p-10 shadow-sm">
               {/* Question Header & Meta */}
               <div className="border-b border-neutral-100 pb-6">
                 <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-neutral-500 mb-2">
                   <div className="flex items-center gap-2">
                     <span className="text-brand-electric uppercase tracking-wider font-semibold">
-                      {answer.intent.replace('_', ' ')}
+                      {answer.mode === 'deep_research' ? 'Deep Research Report' : answer.intent.replace('_', ' ')}
                     </span>
                     <span>·</span>
                     <span>{answer.jurisdiction.join(' & ')}</span>
                   </div>
                   <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => setAlertWatched(!alertWatched)}
+                      className={`inline-flex items-center gap-1 transition-colors ${
+                        alertWatched ? 'text-brand-electric font-semibold' : 'text-neutral-600 hover:text-neutral-900'
+                      }`}
+                    >
+                      <Bell className={`w-3.5 h-3.5 ${alertWatched ? 'fill-brand-electric text-brand-electric' : ''}`} />
+                      <span>{alertWatched ? 'Watching for Updates' : 'Alert on Change'}</span>
+                    </button>
                     <button
                       onClick={handleSave}
                       className="inline-flex items-center gap-1 text-neutral-600 hover:text-neutral-900 transition-colors"
@@ -195,10 +265,28 @@ export function TemplateAskLobby() {
                 </h2>
               </div>
 
-              {/* 01. Short Answer */}
+              {/* Research Plan Stages (If Deep Research) */}
+              {answer.researchStages && (
+                <div className="bg-neutral-50 border border-neutral-200/80 p-4 rounded-sm space-y-2">
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-1.5">
+                    <Layers className="w-3 h-3" />
+                    <span>Research Execution Pipeline</span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-neutral-700">
+                    {answer.researchStages.map((stage) => (
+                      <div key={stage.id} className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <span>{stage.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 01. Short Answer / Executive Summary */}
               <div className="space-y-2">
                 <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
-                  Short Answer
+                  {answer.mode === 'deep_research' ? 'Executive Intelligence Summary' : 'Short Answer'}
                 </div>
                 <p className="text-base sm:text-lg font-light text-neutral-800 leading-relaxed">
                   {answer.shortAnswer}
@@ -220,6 +308,36 @@ export function TemplateAskLobby() {
                         <p className="leading-relaxed">{point}</p>
                       </div>
                     ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Extended Deep Research Sections */}
+              {answer.deepResearchReport && (
+                <div className="space-y-6 pt-6 border-t border-neutral-100">
+                  {/* Statutory Requirements */}
+                  <div className="space-y-2">
+                    <div className="text-[10px] font-mono uppercase tracking-widest text-rose-700 font-semibold flex items-center gap-1.5">
+                      <Scale className="w-3.5 h-3.5" />
+                      <span>Statutory Primary Requirements</span>
+                    </div>
+                    <ul className="space-y-2 text-xs sm:text-sm font-light text-neutral-700 pl-4 list-disc">
+                      {answer.deepResearchReport.statutoryRequirements.map((req, idx) => (
+                        <li key={idx}>{req}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Commercial Impact */}
+                  <div className="space-y-2">
+                    <div className="text-[10px] font-mono uppercase tracking-widest text-brand-electric font-semibold">
+                      Commercial &amp; Procurement Benchmark
+                    </div>
+                    <ul className="space-y-2 text-xs sm:text-sm font-light text-neutral-700 pl-4 list-disc">
+                      {answer.deepResearchReport.commercialMarketImpact.map((item, idx) => (
+                        <li key={idx}>{item}</li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               )}
@@ -252,6 +370,27 @@ export function TemplateAskLobby() {
                 )}
               </div>
 
+              {/* Upgrade to Deep Research Banner (If in Quick Ask Mode) */}
+              {answer.mode === 'ask' && answer.isGrounded && (
+                <div className="bg-purple-500/5 border border-purple-500/20 p-5 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="space-y-1">
+                    <h4 className="text-xs font-semibold text-purple-950 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+                      <span>Need a comprehensive multi-source investigation?</span>
+                    </h4>
+                    <p className="text-[11px] font-light text-purple-900/80">
+                      Upgrade this question into a full Deep Research Report covering statutory primary law, technical standards, and procurement benchmarks.
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleDeepResearchUpgrade}
+                    className="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white text-xs font-mono uppercase tracking-wider rounded-sm transition-colors shrink-0 font-medium"
+                  >
+                    Deep Research This &rarr;
+                  </button>
+                </div>
+              )}
+
               {/* 04. On The Horizon */}
               {answer.onTheHorizon && (
                 <div className="bg-amber-500/5 border-l-2 border-amber-500 p-4 rounded-r-sm space-y-1">
@@ -274,7 +413,7 @@ export function TemplateAskLobby() {
               )}
             </div>
 
-            {/* RIGHT RAIL: CITATIONS, TOOLS & FLYWHEEL */}
+            {/* RIGHT RAIL: CITATIONS & FLYWHEEL */}
             <div className="space-y-6">
               {/* Citations Panel */}
               <div className="bg-white border border-neutral-200/80 rounded-sm p-6 space-y-4 shadow-sm">
@@ -352,13 +491,13 @@ export function TemplateAskLobby() {
             </div>
           </div>
         ) : (
-          /* Empty State / Discovery Suggestions */
+          /* Empty State Suggestions */
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-12">
             <div className="p-6 bg-white border border-neutral-200/80 rounded-sm space-y-2">
               <div className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-semibold">
-                Statutory & Compliance
+                Statutory &amp; Compliance
               </div>
-              <h3 className="text-sm font-semibold text-neutral-900">Building Safety & Guidance</h3>
+              <h3 className="text-sm font-semibold text-neutral-900">Building Safety &amp; Guidance</h3>
               <p className="text-xs font-light text-neutral-600">
                 Ask about mandatory occurrence reporting, Golden Thread asset records, ACOP L8 water safety, or F-gas quota timelines.
               </p>
@@ -368,7 +507,7 @@ export function TemplateAskLobby() {
               <div className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-semibold">
                 Procurement Intelligence
               </div>
-              <h3 className="text-sm font-semibold text-neutral-900">Tenders & Contract Awards</h3>
+              <h3 className="text-sm font-semibold text-neutral-900">Tenders &amp; Contract Awards</h3>
               <p className="text-xs font-light text-neutral-600">
                 Query active public sector tenders on Contracts Finder and verified contract awards with supplier values.
               </p>
@@ -378,7 +517,7 @@ export function TemplateAskLobby() {
               <div className="text-[10px] font-mono uppercase tracking-wider text-brand-electric font-semibold">
                 Technical Standards
               </div>
-              <h3 className="text-sm font-semibold text-neutral-900">M&E and Operational Guidance</h3>
+              <h3 className="text-sm font-semibold text-neutral-900">M&amp;E and Operational Guidance</h3>
               <p className="text-xs font-light text-neutral-600">
                 Search published standards from CIBSE, BESA, FIA, ECA, and IWFM without wading through unverified forum posts.
               </p>

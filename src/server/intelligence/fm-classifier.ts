@@ -336,3 +336,9 @@ export class FMTaxonomyClassifier {
     return jurisdictions;
   }
 }
+
+export function classifyFMTrades(text: string): FMTradeCategory[] {
+  const res = FMTaxonomyClassifier.classifyText(text);
+  return Array.from(new Set([res.primaryCategory, ...res.secondaryCategories]));
+}
+

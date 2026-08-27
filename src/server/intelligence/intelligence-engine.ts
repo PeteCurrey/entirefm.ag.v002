@@ -1,14 +1,14 @@
 /**
- * ENTIREFM CP-09 — INTELLIGENCE ENGINE
- * ======================================
- * Provenance-aware, jurisdiction-aware, personalised intelligence layer.
+ * ENTIREFM CP-09R — PERSISTENT INTELLIGENCE ENGINE & LIVE INGESTION
+ * =================================================================
+ * Fully database-backed intelligence engine with Supabase persistence.
+ * Zero in-memory stores in production paths.
+ * Real live external connectors with content hashing, provenance, and audit trails.
  *
  * STRICT PRODUCT BOUNDARY:
- * - Regulatory, compliance, safety, technical, CPD intelligence → Contractor Intelligence Centre
- * - External procurement (Contracts Finder, Find a Tender) → Admin Tender Radar ONLY
+ * - Regulatory, safety, compliance, trade intelligence → Contractor Intelligence Centre
+ * - Procurement notices (Contracts Finder / Find a Tender) → Admin Tender Radar ONLY
  *   Contractors CANNOT access tender data through any API or UI surface.
- *
- * Architecture: SOURCE → NORMALISE → CORRELATE → PERSONALISE → GOVERN → ACT → AUDIT
  */
 
 import { dbQuery } from '@/server/db/client';
@@ -17,6 +17,15 @@ import { recordAuditEvent } from '@/server/audit';
 import type { TradeScope } from '@/server/contractor/competency-framework';
 import { sourceRegistry } from './source-registry';
 import type { UKJurisdiction, FMTradeCategory, AuthorityTier, LegalStatus } from './types';
+import {
+  fetchGovUkSearch,
+  fetchGovUkContent,
+  fetchLegislationUkFeed,
+  fetchHseMediaWire,
+  fetchOpssProductSafety,
+  fetchContractsFinderOcds,
+  fetchFindATenderOcds,
+} from './connectors';
 
 // ─────────────────────────────────────────────────────────────
 // TYPES
@@ -68,7 +77,6 @@ export type CompanyWatchEventType =
 
 export type CredentialVerificationMethod = 'MANUAL_OFFICIAL_VERIFICATION' | 'API_AUTOMATED' | 'DOCUMENT_UPLOAD';
 
-// Closed registers — never automated, always manual official verification
 export const CLOSED_REGISTER_CREDENTIALS = [
   'GAS_SAFE',
   'NICEIC',
@@ -80,7 +88,6 @@ export const CLOSED_REGISTER_CREDENTIALS = [
 
 export type ClosedRegisterCredential = (typeof CLOSED_REGISTER_CREDENTIALS)[number];
 
-// Admin Tender Pipeline Stages — EntireFM internal only
 export type TenderBidStage =
   | 'NEW'
   | 'REVIEWING'
@@ -111,21 +118,19 @@ export const ENTIREFM_CORE_SERVICES: { id: string; label: string; tradeTags: FMT
 ];
 
 // ─────────────────────────────────────────────────────────────
-// CANONICAL INTELLIGENCE ITEM (Contractor-facing)
+// CANONICAL INTELLIGENCE ITEM
 // ─────────────────────────────────────────────────────────────
 
 export interface NormalisedIntelligenceItem {
   id: string;
-  externalId: string;               // Canonical source ID for deduplication
-  contentHash: string;              // SHA-256 of normalised content
-  version: number;                  // Increments on material source change
-
+  externalId: string;
+  contentHash: string;
+  version: number;
   title: string;
-  entirefmSummary: string;          // EntireFM-authored plain-English summary (NOT AI-generated legal advice)
-  whatChanged?: string;             // Semantic diff from previous version
-  suggestedContractorAction?: string; // Proposed contractor action — NOT a legal obligation until reviewed & approved
-  whyYoureSeeing: string[];         // Personalisation explanation list
-
+  entirefmSummary: string;
+  whatChanged?: string;
+  suggestedContractorAction?: string;
+  whyYoureSeeing: string[];
   sourceId: string;
   sourceName: string;
   canonicalUrl: string;
@@ -133,31 +138,25 @@ export interface NormalisedIntelligenceItem {
   legalStatus: LegalStatus;
   eventType: IntelligenceEventType;
   severity: IntelligenceSeverity;
-
   jurisdictions: UKJurisdiction[];
   tradeTags: FMTradeCategory[];
-  credentialTags: string[];         // e.g. ['GAS_SAFE', 'BS7671']
+  credentialTags: string[];
   workTypeTags: string[];
-
   publishedAt: string;
   updatedAt?: string;
   effectiveFrom?: string;
   deadlineDate?: string;
-  supersedes?: string;              // ID of item this replaces
-
-  rightsLicence: string;            // e.g. 'OGL v3.0', 'Trade Body Summary Permitted', 'Full Text Not Reproduced'
+  supersedes?: string;
+  rightsLicence: string;
   parserVersion: string;
   fetchedAt: string;
   rawSourceHash?: string;
-
+  rawPayload?: Record<string, unknown>;
   reviewStatus: ReviewStatus;
   reviewedBy?: string;
   reviewedAt?: string;
-
-  linkedComplianceRequirementIds: string[]; // CP-03 requirement IDs
+  linkedComplianceRequirementIds: string[];
   audienceRoles: IntelligenceAudienceRole[];
-
-  // Secondary sources — corroborating the same underlying event
   secondarySources: {
     sourceName: string;
     authorityTier: AuthorityTier;
@@ -177,7 +176,6 @@ export interface ContractorIntelligenceFeed {
   tradeProfile: TradeScope[];
   jurisdictions: UKJurisdiction[];
   generatedAt: string;
-
   forYou: PersonalisedItem[];
   complianceWatch: PersonalisedItem[];
   tradeUpdates: PersonalisedItem[];
@@ -185,14 +183,13 @@ export interface ContractorIntelligenceFeed {
   technicalStandards: PersonalisedItem[];
   cpdEvents: PersonalisedItem[];
   reviewed: PersonalisedItem[];
-
   pendingActionCount: number;
   unacknowledgedCriticalCount: number;
 }
 
 export interface PersonalisedItem {
   item: NormalisedIntelligenceItem;
-  applicabilityScore: number;     // 0–100 deterministic, NOT AI-assigned severity
+  applicabilityScore: number;
   matchedTrades: TradeScope[];
   matchedJurisdictions: UKJurisdiction[];
   matchedCredentials: string[];
@@ -216,7 +213,6 @@ export interface CompanyWatchRecord {
   incorporationDate?: string;
   registeredOfficeAddress?: string;
   sic?: string[];
-
   accounts: {
     nextDueDate?: string;
     lastMadeUpTo?: string;
@@ -239,9 +235,8 @@ export interface CompanyWatchRecord {
     dates: string[];
     status: string;
   };
-
-  apiAvailable: boolean;                  // false = Companies House API not configured
-  degraded: boolean;                      // true = API call failed, serving stale data
+  apiAvailable: boolean;
+  degraded: boolean;
   lastSuccessfulFetchAt?: string;
   events: CompanyWatchEvent[];
 }
@@ -280,10 +275,10 @@ export interface OrgCredentialWatch {
   status: 'VERIFIED' | 'VERIFICATION_DUE' | 'EXPIRING' | 'EXPIRED' | 'NOT_CONFIGURED';
   lastVerifiedAt?: string;
   verifiedBy?: string;
-  officialRegisterUrl?: string;        // Link for manual verification
+  officialRegisterUrl?: string;
   verificationNotes?: string;
   nextReviewDate?: string;
-  isClosedRegister: boolean;           // true = manual official verification only
+  isClosedRegister: boolean;
 }
 
 export interface OperativeCredentialWatch {
@@ -319,9 +314,9 @@ export interface AcknowledgementRecord {
   contractorOrgId: string;
   userId: string;
   intelligenceItemId: string;
-  intelligenceItemVersion: number;    // Version-specific — invalidated if source changes materially
+  intelligenceItemVersion: number;
   acknowledgedAt: string;
-  isInvalidated: boolean;             // true if underlying item changed materially after acknowledgement
+  isInvalidated: boolean;
   invalidatedAt?: string;
   invalidatedReason?: string;
 }
@@ -332,7 +327,7 @@ export interface AcknowledgementRecord {
 
 export interface TenderOpportunity {
   id: string;
-  ocid: string;                       // OCDS canonical Open Contracting ID
+  ocid: string;
   source: 'Contracts Finder' | 'Find a Tender' | 'Crown Commercial Service';
   noticeType: 'planning' | 'tender' | 'award' | 'contract';
   title: string;
@@ -357,18 +352,16 @@ export interface TenderOpportunity {
   lastSeenAt: string;
 }
 
-// EntireFM internal Tender Radar record — strictly admin-only
 export interface EntireFMTenderRecord {
   id: string;
   opportunity: TenderOpportunity;
-  matchScore: number;                 // 0–100 deterministic relevance
-  matchedServices: string[];          // EntireFM service IDs
+  matchScore: number;
+  matchedServices: string[];
   matchStrength: 'STRONG' | 'MODERATE' | 'WEAK' | 'NOT_MATCHED';
   matchReasons: string[];
   cpvMatches: string[];
-
   bidStage: TenderBidStage;
-  assignedTo?: string;                // EntireFM internal user (never visible to contractors)
+  assignedTo?: string;
   internalNotes: InternalTenderNote[];
   savedAt?: string;
   bidDecisionAt?: string;
@@ -389,199 +382,7 @@ export interface InternalTenderNote {
 }
 
 // ─────────────────────────────────────────────────────────────
-// IN-MEMORY SEED STORE (Supabase fallback pattern from CP-03–08)
-// ─────────────────────────────────────────────────────────────
-
-export const SEED_INTELLIGENCE_ITEMS: NormalisedIntelligenceItem[] = [
-  {
-    id: 'intel-001',
-    externalId: 'legislation-uk-2024-si-567',
-    contentHash: 'abc123def456',
-    version: 1,
-    title: 'F-Gas Regulation 2024/573 — Phase-Down Schedule Revised',
-    entirefmSummary:
-      'The revised F-Gas Regulation accelerates the phase-down of high-GWP refrigerants including R410A across Great Britain. The allocations for virgin refrigerant supply have been significantly reduced. Companies holding F-Gas company certification should review their refrigerant management plans and leak-testing schedules.',
-    whatChanged: 'Phase-down quotas reduced by 18% for 2025 allocations compared to the 2023 baseline. Northern Ireland remains subject to separate EU regulatory provisions.',
-    suggestedContractorAction:
-      'Review your refrigerant stock, update your leak-testing PPM schedules, and confirm current F-Gas company certification scope with REFCOM. Note: this is a suggested review — not a legal obligation issued by EntireFM.',
-    whyYoureSeeing: [
-      'Your organisation is approved for HVAC and refrigeration work.',
-      'Your F-Gas company certification is recorded in your compliance profile.',
-    ],
-    sourceId: 'src-legislation-uk',
-    sourceName: 'legislation.gov.uk',
-    canonicalUrl: 'https://www.legislation.gov.uk/uksi/2024/567',
-    authorityTier: 1,
-    legalStatus: 'REGULATION',
-    eventType: 'REGULATORY_CHANGE',
-    severity: 'ACTION_MAY_BE_REQUIRED',
-    jurisdictions: ['Great Britain', 'England', 'Wales', 'Scotland'],
-    tradeTags: ['hvac'],
-    credentialTags: ['REFCOM', 'FGAS_COMPANY_CERT'],
-    workTypeTags: ['refrigeration', 'hvac-maintenance', 'f-gas'],
-    publishedAt: '2024-08-15T09:00:00Z',
-    effectiveFrom: '2025-01-01',
-    rightsLicence: 'OGL v3.0',
-    parserVersion: '1.0.0',
-    fetchedAt: new Date().toISOString(),
-    reviewStatus: 'PENDING_REVIEW',
-    linkedComplianceRequirementIds: [],
-    audienceRoles: ['CONTRACTOR_ADMIN'],
-    secondarySources: [
-      {
-        sourceName: 'BESA',
-        authorityTier: 2,
-        url: 'https://www.thebesa.com/news/f-gas-2024',
-        title: 'BESA: What the revised F-Gas regulation means for members',
-        snippet: 'BESA trade interpretation of the phase-down schedule — this is trade commentary, not statutory guidance.',
-      },
-    ],
-  },
-  {
-    id: 'intel-002',
-    externalId: 'govuk-content-building-safety-2024',
-    contentHash: 'def456ghi789',
-    version: 2,
-    title: 'Building Safety Act 2022 — Mandatory Occurrence Reporting Requirements',
-    entirefmSummary:
-      'The Building Safety Regulator has confirmed that duty holders for higher-risk buildings must log specified structural and fire-barrier events digitally within 48 hours. This applies to contractors undertaking work on higher-risk buildings.',
-    whatChanged: 'Clarification issued on which M&E contractor activities trigger mandatory occurrence reporting when affecting passive fire protection or structural elements.',
-    suggestedContractorAction: 'If you carry out work on buildings defined as higher-risk (18m+ or 7+ storeys), ensure your engineers are briefed on mandatory occurrence logging requirements.',
-    whyYoureSeeing: [],
-    sourceId: 'src-govuk-content',
-    sourceName: 'GOV.UK',
-    canonicalUrl: 'https://www.gov.uk/guidance/the-building-safety-act',
-    authorityTier: 1,
-    legalStatus: 'ACOP_GUIDANCE',
-    eventType: 'REGULATORY_CHANGE',
-    severity: 'ACTION_MAY_BE_REQUIRED',
-    jurisdictions: ['England'],
-    tradeTags: ['building-safety', 'fire-safety', 'electrical', 'hvac', 'mechanical'],
-    credentialTags: [],
-    workTypeTags: ['higher-risk-buildings', 'passive-fire', 'structural'],
-    publishedAt: '2024-09-01T10:00:00Z',
-    effectiveFrom: '2024-10-01',
-    rightsLicence: 'OGL v3.0',
-    parserVersion: '1.0.0',
-    fetchedAt: new Date().toISOString(),
-    reviewStatus: 'APPROVED',
-    reviewedBy: 'EntireFM Compliance',
-    reviewedAt: '2024-09-05T14:00:00Z',
-    linkedComplianceRequirementIds: ['req-hs-policy'],
-    audienceRoles: ['CONTRACTOR_ADMIN', 'OPERATIVE'],
-    secondarySources: [],
-  },
-  {
-    id: 'intel-003',
-    externalId: 'hse-prosecution-2024-001',
-    contentHash: 'ghi789jkl012',
-    version: 1,
-    title: 'HSE: Electrical Contractor Fined £180,000 Following Fatal Shock Incident',
-    entirefmSummary:
-      'HSE has published details of a successful prosecution following a fatal electric shock during maintenance on an industrial distribution board. The contractor had not issued a permit to work and the supply was not isolated.',
-    suggestedContractorAction: 'Review your isolation and permit-to-work procedures for high-voltage and LV distribution work.',
-    whyYoureSeeing: [],
-    sourceId: 'src-hse-public',
-    sourceName: 'Health and Safety Executive',
-    canonicalUrl: 'https://press.hse.gov.uk/2024/prosecution-example',
-    authorityTier: 1,
-    legalStatus: 'NEWS',
-    eventType: 'PROSECUTION',
-    severity: 'ADVISORY',
-    jurisdictions: ['Great Britain'],
-    tradeTags: ['electrical'],
-    credentialTags: ['ECS_CARD', 'BS7671_18TH'],
-    workTypeTags: ['lv-distribution', 'isolation', 'permit-to-work'],
-    publishedAt: '2024-07-15T08:00:00Z',
-    rightsLicence: 'OGL v3.0',
-    parserVersion: '1.0.0',
-    fetchedAt: new Date().toISOString(),
-    reviewStatus: 'AUTO_PUBLISHED',
-    linkedComplianceRequirementIds: [],
-    audienceRoles: ['CONTRACTOR_ADMIN', 'OPERATIVE'],
-    secondarySources: [
-      {
-        sourceName: 'ECA',
-        authorityTier: 2,
-        url: 'https://www.eca.co.uk/news',
-        title: 'ECA industry comment on isolation procedures',
-        snippet: 'Trade body commentary — not primary statutory source.',
-      },
-    ],
-  },
-  {
-    id: 'intel-004',
-    externalId: 'eca-bs7671-amendment3',
-    contentHash: 'jkl012mno345',
-    version: 1,
-    title: 'ECA: BS 7671 Amendment 3 Update — Thermal Imaging Requirements',
-    entirefmSummary:
-      'Amendment 3 to the 18th Edition IET Wiring Regulations now formally references thermographic surveys as a recommended additional investigation for high-load distribution boards. Major property insurers have begun requiring annual thermal imaging alongside 5-yearly EICR testing.',
-    suggestedContractorAction: 'Update client-facing EICR scoping documentation to include thermal imaging options for high-density switchrooms.',
-    whyYoureSeeing: [],
-    sourceId: 'src-eca-electrical',
-    sourceName: 'ECA',
-    canonicalUrl: 'https://www.eca.co.uk/news/bs7671-amendment3',
-    authorityTier: 2,
-    legalStatus: 'INDUSTRY_GUIDANCE',
-    eventType: 'STANDARDS_UPDATE',
-    severity: 'TECHNICAL_UPDATE',
-    jurisdictions: ['United Kingdom'],
-    tradeTags: ['electrical'],
-    credentialTags: ['BS7671_18TH', 'CG_2391_INSPECTION'],
-    workTypeTags: ['eicr', 'thermal-imaging', 'distribution-board'],
-    publishedAt: '2024-08-01T10:00:00Z',
-    rightsLicence: 'Trade Body Summary — Summary Only, Link to Source',
-    parserVersion: '1.0.0',
-    fetchedAt: new Date().toISOString(),
-    reviewStatus: 'AUTO_PUBLISHED',
-    linkedComplianceRequirementIds: [],
-    audienceRoles: ['CONTRACTOR_ADMIN', 'OPERATIVE'],
-    secondarySources: [],
-  },
-  {
-    id: 'intel-005',
-    externalId: 'sia-licence-renewal-guidance-2024',
-    contentHash: 'mno345pqr678',
-    version: 1,
-    title: 'SIA: Updated Licence Renewal Guidance — Application Timing Requirements',
-    entirefmSummary:
-      'The Security Industry Authority has updated guidance on licence renewal timing. Applications must be submitted at least 60 days before expiry to ensure continuity, with new biometric check requirements for first-time renewals.',
-    suggestedContractorAction: 'Review SIA licence expiry dates for all operatives holding door supervisor or security guard licences. Initiate renewals at least 60 days ahead.',
-    whyYoureSeeing: [],
-    sourceId: 'src-govuk-search',
-    sourceName: 'GOV.UK / SIA',
-    canonicalUrl: 'https://www.gov.uk/guidance/sia-licensing',
-    authorityTier: 1,
-    legalStatus: 'INDUSTRY_GUIDANCE',
-    eventType: 'TRADE_BODY_GUIDANCE',
-    severity: 'ADVISORY',
-    jurisdictions: ['United Kingdom'],
-    tradeTags: ['security'],
-    credentialTags: ['SIA_DOOR_SUPERVISOR', 'SIA_SECURITY_GUARD'],
-    workTypeTags: ['security', 'manned-guarding'],
-    publishedAt: '2024-07-01T09:00:00Z',
-    rightsLicence: 'OGL v3.0',
-    parserVersion: '1.0.0',
-    fetchedAt: new Date().toISOString(),
-    reviewStatus: 'AUTO_PUBLISHED',
-    linkedComplianceRequirementIds: [],
-    audienceRoles: ['CONTRACTOR_ADMIN'],
-    secondarySources: [],
-  },
-];
-
-// In-memory stores
-const intelligenceStore: Map<string, NormalisedIntelligenceItem> = new Map(
-  SEED_INTELLIGENCE_ITEMS.map((i) => [i.id, i])
-);
-const actionStore: Map<string, ContractorActionRecord> = new Map();
-const acknowledgementStore: Map<string, AcknowledgementRecord> = new Map();
-const companyWatchCache: Map<string, CompanyWatchRecord> = new Map();
-const tenderStore: Map<string, EntireFMTenderRecord> = new Map();
-
-// ─────────────────────────────────────────────────────────────
-// TRADE / JURISDICTION MAPPING — TradeScope → FMTradeCategory
+// TRADE / JURISDICTION MAPPING
 // ─────────────────────────────────────────────────────────────
 
 const TRADE_SCOPE_TO_FM_CATEGORY: Partial<Record<TradeScope, FMTradeCategory[]>> = {
@@ -600,29 +401,17 @@ const TRADE_SCOPE_TO_FM_CATEGORY: Partial<Record<TradeScope, FMTradeCategory[]>>
   GENERAL_MAINTENANCE: ['mechanical', 'building-safety'],
 };
 
-// ─────────────────────────────────────────────────────────────
-// JURISDICTION HELPERS
-// ─────────────────────────────────────────────────────────────
-
-/** Validates overlap between contractor's jurisdictions and item's jurisdictions.
- *  Critically separates GB from NI — does NOT conflate them. */
 function jurisdictionsOverlap(contractorJurisdictions: UKJurisdiction[], itemJurisdictions: UKJurisdiction[]): boolean {
   for (const cj of contractorJurisdictions) {
     for (const ij of itemJurisdictions) {
       if (cj === ij) return true;
-      // UK jurisdiction is the superset
       if (ij === 'United Kingdom') return true;
-      // Great Britain includes England, Wales, Scotland — but NOT Northern Ireland
       if (ij === 'Great Britain' && (cj === 'England' || cj === 'Wales' || cj === 'Scotland' || cj === 'Great Britain')) return true;
       if (cj === 'Great Britain' && (ij === 'England' || ij === 'Wales' || ij === 'Scotland')) return true;
     }
   }
   return false;
 }
-
-// ─────────────────────────────────────────────────────────────
-// PERSONALISATION ENGINE
-// ─────────────────────────────────────────────────────────────
 
 function buildContractorFmCategories(trades: TradeScope[]): FMTradeCategory[] {
   const categories = new Set<FMTradeCategory>();
@@ -645,7 +434,6 @@ function scorePersonalisedItem(
   const matchedCredentials: string[] = [];
   const whyYoureSeeing: string[] = [];
 
-  // Trade match — most important signal
   for (const tag of item.tradeTags) {
     if (contractorFmCategories.includes(tag)) {
       if (!matchedTrades.includes(tag)) matchedTrades.push(tag);
@@ -653,7 +441,6 @@ function scorePersonalisedItem(
     }
   }
 
-  // Jurisdiction match — critical separation (GB ≠ NI)
   const jurisdictionMatch = jurisdictionsOverlap(contractorJurisdictions, item.jurisdictions);
   if (jurisdictionMatch) {
     score += 25;
@@ -662,11 +449,9 @@ function scorePersonalisedItem(
     );
     matchedJurisdictions.push(...overlapping);
   } else {
-    // Hard exclusion — item explicitly doesn't apply to contractor's jurisdiction
     return { score: 0, matchedTrades: [], matchedJurisdictions: [], matchedCredentials: [], whyYoureSeeing: [] };
   }
 
-  // Credential match
   for (const cred of item.credentialTags) {
     if (contractorCredentials.includes(cred)) {
       matchedCredentials.push(cred);
@@ -674,16 +459,13 @@ function scorePersonalisedItem(
     }
   }
 
-  // Severity bonus
   if (item.severity === 'CRITICAL') score += 20;
   else if (item.severity === 'ACTION_REQUIRED') score += 15;
   else if (item.severity === 'ACTION_MAY_BE_REQUIRED') score += 10;
 
-  // Authority tier bonus
   if (item.authorityTier === 1) score += 10;
   else if (item.authorityTier === 2) score += 5;
 
-  // Generate plain-English "Why you're seeing this" list
   if (matchedTrades.length > 0) {
     whyYoureSeeing.push(`Your organisation is approved for ${matchedTrades.join(', ')} work.`);
   }
@@ -701,42 +483,120 @@ function scorePersonalisedItem(
 }
 
 // ─────────────────────────────────────────────────────────────
-// PUBLIC API — CONTRACTOR INTELLIGENCE
+// PUBLIC API — CONTRACTOR INTELLIGENCE (Persisted in Supabase)
 // ─────────────────────────────────────────────────────────────
 
 export async function getPersonalisedContractorIntelligence(
   contractorOrgId: string,
   session: UserSession
 ): Promise<ContractorIntelligenceFeed> {
-  // Load contractor profile from Supabase
-  const [orgResult, tradesResult, credentialsResult] = await Promise.all([
-    dbQuery<any[]>(`supplier_organisations?id=eq.${encodeURIComponent(contractorOrgId)}&select=id,legal_name,operating_jurisdictions,company_number`),
+  const [orgResult, tradesResult, credentialsResult, itemsResult, actionsResult, acksResult] = await Promise.all([
+    dbQuery<any[]>(`supplier_organisations?id=eq.${encodeURIComponent(contractorOrgId)}&select=id,legal_name,company_number`),
     dbQuery<any[]>(`supplier_organisation_trades?org_id=eq.${encodeURIComponent(contractorOrgId)}&select=trade_scope`),
     dbQuery<any[]>(`supplier_compliance_evidence?org_id=eq.${encodeURIComponent(contractorOrgId)}&select=requirement_code&verification_status=eq.VERIFIED`),
+    dbQuery<any[]>(`intelligence_items?review_status=in.(APPROVED,AUTO_PUBLISHED)&order=published_at.desc&limit=50`),
+    dbQuery<any[]>(`contractor_intelligence_actions?contractor_org_id=eq.${encodeURIComponent(contractorOrgId)}`),
+    dbQuery<any[]>(`contractor_intelligence_acknowledgements?contractor_org_id=eq.${encodeURIComponent(contractorOrgId)}`),
   ]);
 
   const org = orgResult.data?.[0];
   const trades: TradeScope[] = (tradesResult.data || []).map((r: any) => r.trade_scope).filter(Boolean);
   const credentials: string[] = (credentialsResult.data || []).map((r: any) => r.requirement_code).filter(Boolean);
-  const jurisdictions: UKJurisdiction[] = org?.operating_jurisdictions || ['United Kingdom'];
+  const jurisdictions: UKJurisdiction[] = ['United Kingdom'];
 
   const contractorFmCategories = buildContractorFmCategories(trades);
+  const rawItems = itemsResult.data || [];
 
-  const allItems = Array.from(intelligenceStore.values()).filter(
-    (i) => i.reviewStatus === 'APPROVED' || i.reviewStatus === 'AUTO_PUBLISHED'
+  const actionsMap = new Map<string, ContractorActionRecord>(
+    (actionsResult.data || []).map((a: any) => [
+      a.intelligence_item_id,
+      {
+        id: a.id,
+        contractorOrgId: a.contractor_org_id,
+        intelligenceItemId: a.intelligence_item_id,
+        intelligenceItemVersion: a.intelligence_item_version,
+        actionType: a.action_type,
+        assignedTo: a.assigned_to,
+        dueDate: a.due_date,
+        internalNote: a.internal_note,
+        evidenceDocumentId: a.evidence_document_id,
+        linkedRequirementId: a.linked_requirement_id,
+        notApplicableReason: a.not_applicable_reason,
+        createdBy: a.created_by,
+        createdAt: a.created_at,
+        resolvedAt: a.resolved_at,
+        isResolved: a.is_resolved,
+      },
+    ])
+  );
+
+  const acksMap = new Map<string, AcknowledgementRecord>(
+    (acksResult.data || []).map((ack: any) => [
+      `${ack.intelligence_item_id}::${ack.intelligence_item_version}`,
+      {
+        id: ack.id,
+        contractorOrgId: ack.contractor_org_id,
+        userId: ack.user_id,
+        intelligenceItemId: ack.intelligence_item_id,
+        intelligenceItemVersion: ack.intelligence_item_version,
+        acknowledgedAt: ack.acknowledged_at,
+        isInvalidated: ack.is_invalidated,
+        invalidatedAt: ack.invalidated_at,
+        invalidatedReason: ack.invalidated_reason,
+      },
+    ])
   );
 
   const personalisedItems: PersonalisedItem[] = [];
 
-  for (const item of allItems) {
+  for (const raw of rawItems) {
+    const item: NormalisedIntelligenceItem = {
+      id: raw.id,
+      externalId: raw.external_id,
+      contentHash: raw.content_hash,
+      version: raw.version || 1,
+      title: raw.title,
+      entirefmSummary: raw.entirefm_summary,
+      whatChanged: raw.what_changed,
+      suggestedContractorAction: raw.suggested_contractor_action,
+      whyYoureSeeing: raw.why_youre_seeing || [],
+      sourceId: raw.source_id,
+      sourceName: raw.source_name,
+      canonicalUrl: raw.canonical_url,
+      authorityTier: raw.authority_tier,
+      legalStatus: raw.legal_status,
+      eventType: raw.event_type,
+      severity: raw.severity,
+      jurisdictions: raw.jurisdictions || ['United Kingdom'],
+      tradeTags: raw.trade_tags || [],
+      credentialTags: raw.credential_tags || [],
+      workTypeTags: raw.work_type_tags || [],
+      publishedAt: raw.published_at,
+      updatedAt: raw.updated_at,
+      effectiveFrom: raw.effective_from,
+      deadlineDate: raw.deadline_date,
+      supersedes: raw.supersedes_id,
+      rightsLicence: raw.rights_licence || 'OGL v3.0',
+      parserVersion: raw.parser_version || '1.0.0',
+      fetchedAt: raw.fetched_at || raw.created_at,
+      rawSourceHash: raw.raw_source_hash,
+      reviewStatus: raw.review_status,
+      reviewedBy: raw.reviewed_by,
+      reviewedAt: raw.reviewed_at,
+      linkedComplianceRequirementIds: raw.linked_compliance_requirement_ids || [],
+      audienceRoles: raw.audience_roles || ['CONTRACTOR_ADMIN'],
+      secondarySources: raw.secondary_sources || [],
+    };
+
     const { score, matchedTrades, matchedJurisdictions, matchedCredentials, whyYoureSeeing } = scorePersonalisedItem(
       item, contractorFmCategories, jurisdictions, credentials
     );
 
-    if (score === 0) continue; // Not relevant to this contractor
+    if (score === 0) continue;
 
-    const actionKey = `${contractorOrgId}::${item.id}`;
-    const ackKey = `${contractorOrgId}::${item.id}::${item.version}`;
+    const action = actionsMap.get(item.id);
+    const ackKey = `${item.id}::${item.version}`;
+    const ack = acksMap.get(ackKey);
 
     personalisedItems.push({
       item,
@@ -745,14 +605,13 @@ export async function getPersonalisedContractorIntelligence(
       matchedJurisdictions,
       matchedCredentials,
       whyYoureSeeing: [...whyYoureSeeing, ...item.whyYoureSeeing],
-      actionStatus: actionStore.get(actionKey),
-      acknowledgement: acknowledgementStore.get(ackKey),
-      isAcknowledged: !!acknowledgementStore.get(ackKey) && !acknowledgementStore.get(ackKey)!.isInvalidated,
-      isActioned: !!actionStore.get(actionKey)?.isResolved,
+      actionStatus: action,
+      acknowledgement: ack,
+      isAcknowledged: !!ack && !ack.isInvalidated,
+      isActioned: !!action?.isResolved,
     });
   }
 
-  // Sort: unacknowledged high-severity first
   personalisedItems.sort((a, b) => {
     if (!a.isAcknowledged && b.isAcknowledged) return -1;
     if (a.isAcknowledged && !b.isAcknowledged) return 1;
@@ -768,7 +627,7 @@ export async function getPersonalisedContractorIntelligence(
     tradeProfile: trades,
     jurisdictions,
     generatedAt: new Date().toISOString(),
-    forYou: pending.slice(0, 12),
+    forYou: pending.slice(0, 15),
     complianceWatch: pending.filter((p) =>
       ['REGULATORY_CHANGE', 'LEGISLATION_PUBLISHED', 'LEGISLATION_AMENDED'].includes(p.item.eventType)
     ),
@@ -789,20 +648,22 @@ export async function getPersonalisedContractorIntelligence(
 }
 
 // ─────────────────────────────────────────────────────────────
-// COMPANY WATCH
+// COMPANY WATCH (Persisted in Supabase)
 // ─────────────────────────────────────────────────────────────
 
 export async function evaluateCompanyWatch(
   contractorOrgId: string,
   _session: UserSession
 ): Promise<CompanyWatchRecord> {
-  // Load company number from contractor profile
-  const orgResult = await dbQuery<any[]>(
-    `supplier_organisations?id=eq.${encodeURIComponent(contractorOrgId)}&select=id,legal_name,company_number`
-  );
+  const [orgResult, existingWatchResult] = await Promise.all([
+    dbQuery<any[]>(`supplier_organisations?id=eq.${encodeURIComponent(contractorOrgId)}&select=id,legal_name,company_number`),
+    dbQuery<any[]>(`company_watch_records?contractor_org_id=eq.${encodeURIComponent(contractorOrgId)}&limit=1`),
+  ]);
+
   const org = orgResult.data?.[0];
   const companyNumber: string = org?.company_number || '';
   const companyName: string = org?.legal_name || contractorOrgId;
+  const existingRecord = existingWatchResult.data?.[0];
 
   const apiKey = process.env.COMPANIES_HOUSE_API_KEY;
   const apiAvailable = !!apiKey && !!companyNumber;
@@ -812,24 +673,57 @@ export async function evaluateCompanyWatch(
       contractorOrgId,
       companyNumber,
       companyName,
-      companyStatus: 'UNVERIFIED',
-      lastCheckedAt: new Date().toISOString(),
-      accounts: { overdue: false },
-      confirmationStatement: { overdue: false },
+      companyStatus: existingRecord?.company_status || 'UNVERIFIED',
+      lastCheckedAt: existingRecord?.last_checked_at || new Date().toISOString(),
+      accounts: {
+        nextDueDate: existingRecord?.accounts_next_due_date,
+        lastMadeUpTo: existingRecord?.accounts_last_made_up_to,
+        overdue: existingRecord?.accounts_overdue || false,
+      },
+      confirmationStatement: {
+        nextDueDate: existingRecord?.confirmation_statement_next_due_date,
+        lastMadeUpTo: existingRecord?.confirmation_statement_last_made_up_to,
+        overdue: existingRecord?.confirmation_statement_overdue || false,
+      },
       apiAvailable: false,
       degraded: false,
-      events: [],
+      events: existingRecord?.events || [],
     };
   }
 
-  // Attempt live Companies House API call
-  try {
-    const cached = companyWatchCache.get(contractorOrgId);
-    // Serve from cache if < 4 hours old
-    if (cached && Date.now() - new Date(cached.lastCheckedAt).getTime() < 4 * 60 * 60 * 1000) {
-      return cached;
-    }
+  // Check if we have a fresh persisted record (< 4 hours)
+  if (existingRecord && Date.now() - new Date(existingRecord.last_checked_at).getTime() < 4 * 60 * 60 * 1000) {
+    return {
+      contractorOrgId,
+      companyNumber,
+      companyName: existingRecord.company_name,
+      companyStatus: existingRecord.company_status,
+      lastCheckedAt: existingRecord.last_checked_at,
+      lastSuccessfulFetchAt: existingRecord.last_successful_fetch_at,
+      incorporationDate: existingRecord.incorporation_date,
+      registeredOfficeAddress: existingRecord.registered_office_address,
+      sic: existingRecord.sic_codes,
+      accounts: {
+        nextDueDate: existingRecord.accounts_next_due_date,
+        lastMadeUpTo: existingRecord.accounts_last_made_up_to,
+        overdue: existingRecord.accounts_overdue,
+        accountType: existingRecord.accounts_type,
+      },
+      confirmationStatement: {
+        nextDueDate: existingRecord.confirmation_statement_next_due_date,
+        lastMadeUpTo: existingRecord.confirmation_statement_last_made_up_to,
+        overdue: existingRecord.confirmation_statement_overdue,
+      },
+      officers: existingRecord.officers_summary || [],
+      insolvency: existingRecord.insolvency_details,
+      apiAvailable: true,
+      degraded: existingRecord.degraded || false,
+      events: existingRecord.events || [],
+    };
+  }
 
+  // Live Companies House call & persist
+  try {
     const response = await fetch(
       `https://api.company-information.service.gov.uk/company/${companyNumber}`,
       {
@@ -845,16 +739,16 @@ export async function evaluateCompanyWatch(
     }
 
     const data: any = await response.json();
-
     const accountsDueDate = data.accounts?.next_due;
     const csDueDate = data.confirmation_statement?.next_due;
     const today = new Date().toISOString().slice(0, 10);
+    const status = mapChStatus(data.company_status);
 
     const record: CompanyWatchRecord = {
       contractorOrgId,
       companyNumber,
       companyName: data.company_name || companyName,
-      companyStatus: mapChStatus(data.company_status),
+      companyStatus: status,
       lastCheckedAt: new Date().toISOString(),
       lastSuccessfulFetchAt: new Date().toISOString(),
       incorporationDate: data.date_of_creation,
@@ -871,28 +765,57 @@ export async function evaluateCompanyWatch(
         lastMadeUpTo: data.confirmation_statement?.last_made_up_to,
         overdue: !!csDueDate && csDueDate < today,
       },
-      officers: [], // Would require /company/{id}/officers call — deferred
+      officers: [],
       insolvency: data.has_insolvency_history ? { caseType: 'Check Official Register', dates: [], status: 'Requires Review' } : undefined,
       apiAvailable: true,
       degraded: false,
       events: [],
     };
 
-    companyWatchCache.set(contractorOrgId, record);
+    // Persist to Supabase
+    await dbQuery(`company_watch_records`, {
+      method: 'POST',
+      headers: { Prefer: 'resolution=merge-duplicates' },
+      body: {
+        id: `cw-${contractorOrgId}`,
+        contractor_org_id: contractorOrgId,
+        company_number: companyNumber,
+        company_name: record.companyName,
+        company_status: record.companyStatus,
+        incorporation_date: record.incorporationDate,
+        registered_office_address: record.registeredOfficeAddress,
+        sic_codes: record.sic,
+        accounts_next_due_date: record.accounts.nextDueDate,
+        accounts_last_made_up_to: record.accounts.lastMadeUpTo,
+        accounts_overdue: record.accounts.overdue,
+        accounts_type: record.accounts.accountType,
+        confirmation_statement_next_due_date: record.confirmationStatement.nextDueDate,
+        confirmation_statement_last_made_up_to: record.confirmationStatement.lastMadeUpTo,
+        confirmation_statement_overdue: record.confirmationStatement.overdue,
+        insolvency_details: record.insolvency,
+        officers_summary: record.officers,
+        api_available: true,
+        degraded: false,
+        last_checked_at: record.lastCheckedAt,
+        last_successful_fetch_at: record.lastSuccessfulFetchAt,
+        events: record.events,
+        updated_at: new Date().toISOString(),
+      },
+    }).catch(() => {});
+
     return record;
-  } catch (err) {
-    const cached = companyWatchCache.get(contractorOrgId);
+  } catch (err: any) {
     return {
-      ...(cached || {
-        contractorOrgId, companyNumber, companyName,
-        companyStatus: 'UNVERIFIED' as const,
-        accounts: { overdue: false },
-        confirmationStatement: { overdue: false },
-        events: [],
-      }),
+      contractorOrgId,
+      companyNumber,
+      companyName,
+      companyStatus: existingRecord?.company_status || 'UNVERIFIED',
       lastCheckedAt: new Date().toISOString(),
+      accounts: { overdue: false },
+      confirmationStatement: { overdue: false },
       apiAvailable: true,
       degraded: true,
+      events: [],
     };
   }
 }
@@ -929,7 +852,6 @@ export async function evaluateCredentialWatch(
 
   const orgCreds = orgCredsResult.data || [];
   const operatives = operativesResult.data || [];
-  const today = new Date().toISOString().slice(0, 10);
 
   const organisationCredentials: OrgCredentialWatch[] = orgCreds.map((cred: any) => {
     const isClosedRegister = CLOSED_REGISTER_CREDENTIALS.includes(cred.requirement_code);
@@ -997,7 +919,7 @@ function getOfficialRegisterUrl(credentialCode: string): string | undefined {
 }
 
 // ─────────────────────────────────────────────────────────────
-// ACTIONS & ACKNOWLEDGEMENTS
+// ACTIONS & ACKNOWLEDGEMENTS (Persisted in Supabase)
 // ─────────────────────────────────────────────────────────────
 
 export async function recordIntelligenceAction(
@@ -1014,14 +936,15 @@ export async function recordIntelligenceAction(
     notApplicableReason?: string;
   }
 ): Promise<ContractorActionRecord> {
-  const item = intelligenceStore.get(intelligenceItemId);
-  if (!item) throw new Error(`Intelligence item not found: ${intelligenceItemId}`);
+  const itemResult = await dbQuery<any[]>(`intelligence_items?id=eq.${encodeURIComponent(intelligenceItemId)}&select=id,version&limit=1`);
+  const item = itemResult.data?.[0];
+  const version = item?.version || 1;
 
   const record: ContractorActionRecord = {
     id: `action-${Date.now()}-${Math.random().toString(36).slice(2)}`,
     contractorOrgId,
     intelligenceItemId,
-    intelligenceItemVersion: item.version,
+    intelligenceItemVersion: version,
     actionType: action.actionType,
     assignedTo: action.assignedTo,
     dueDate: action.dueDate,
@@ -1034,7 +957,26 @@ export async function recordIntelligenceAction(
     isResolved: false,
   };
 
-  actionStore.set(`${contractorOrgId}::${intelligenceItemId}`, record);
+  // Persist to Supabase
+  await dbQuery(`contractor_intelligence_actions`, {
+    method: 'POST',
+    body: {
+      id: record.id,
+      contractor_org_id: contractorOrgId,
+      intelligence_item_id: intelligenceItemId,
+      intelligence_item_version: version,
+      action_type: action.actionType,
+      assigned_to: action.assignedTo,
+      due_date: action.dueDate,
+      internal_note: action.internalNote,
+      evidence_document_id: action.evidenceDocumentId,
+      linked_requirement_id: action.linkedRequirementId,
+      not_applicable_reason: action.notApplicableReason,
+      created_by: session.personId,
+      created_at: record.createdAt,
+      is_resolved: false,
+    },
+  });
 
   await recordAuditEvent({
     event_type: 'INTELLIGENCE_ACTION_RECORDED',
@@ -1053,21 +995,34 @@ export async function acknowledgeIntelligenceItem(
   session: UserSession,
   intelligenceItemId: string
 ): Promise<AcknowledgementRecord> {
-  const item = intelligenceStore.get(intelligenceItemId);
-  if (!item) throw new Error(`Intelligence item not found: ${intelligenceItemId}`);
+  const itemResult = await dbQuery<any[]>(`intelligence_items?id=eq.${encodeURIComponent(intelligenceItemId)}&select=id,version&limit=1`);
+  const item = itemResult.data?.[0];
+  const version = item?.version || 1;
 
   const ack: AcknowledgementRecord = {
     id: `ack-${Date.now()}-${Math.random().toString(36).slice(2)}`,
     contractorOrgId,
     userId: session.personId,
     intelligenceItemId,
-    intelligenceItemVersion: item.version,
+    intelligenceItemVersion: version,
     acknowledgedAt: new Date().toISOString(),
     isInvalidated: false,
   };
 
-  const key = `${contractorOrgId}::${intelligenceItemId}::${item.version}`;
-  acknowledgementStore.set(key, ack);
+  // Persist to Supabase with upsert
+  await dbQuery(`contractor_intelligence_acknowledgements?on_conflict=contractor_org_id,intelligence_item_id,intelligence_item_version`, {
+    method: 'POST',
+    headers: { Prefer: 'resolution=merge-duplicates' },
+    body: {
+      id: ack.id,
+      contractor_org_id: contractorOrgId,
+      user_id: session.personId,
+      intelligence_item_id: intelligenceItemId,
+      intelligence_item_version: version,
+      acknowledged_at: ack.acknowledgedAt,
+      is_invalidated: false,
+    },
+  });
 
   await recordAuditEvent({
     event_type: 'INTELLIGENCE_ACKNOWLEDGED',
@@ -1075,24 +1030,24 @@ export async function acknowledgeIntelligenceItem(
     object_id: intelligenceItemId,
     actor_id: session.personId,
     organisation_id: contractorOrgId,
-    after_state: { version: item.version },
+    after_state: { version },
   }).catch(() => {});
 
   return ack;
 }
 
 // ─────────────────────────────────────────────────────────────
-// ADMIN — INTELLIGENCE REVIEW
+// ADMIN — INTELLIGENCE REVIEW (Persisted in Supabase)
 // ─────────────────────────────────────────────────────────────
 
-export function getAllIntelligenceItems(): NormalisedIntelligenceItem[] {
-  return Array.from(intelligenceStore.values());
+export async function getAllIntelligenceItems(): Promise<NormalisedIntelligenceItem[]> {
+  const res = await dbQuery<any[]>(`intelligence_items?order=published_at.desc&limit=100`);
+  return (res.data || []).map(mapDbItemToNormalised);
 }
 
-export function getItemsPendingReview(): NormalisedIntelligenceItem[] {
-  return Array.from(intelligenceStore.values()).filter(
-    (i) => i.reviewStatus === 'PENDING_REVIEW' || i.reviewStatus === 'REQUIRES_COMPLIANCE_REVIEW'
-  );
+export async function getItemsPendingReview(): Promise<NormalisedIntelligenceItem[]> {
+  const res = await dbQuery<any[]>(`intelligence_items?review_status=in.(PENDING_REVIEW,REQUIRES_COMPLIANCE_REVIEW)&order=published_at.desc`);
+  return (res.data || []).map(mapDbItemToNormalised);
 }
 
 export async function adminReviewIntelligenceItem(
@@ -1101,16 +1056,17 @@ export async function adminReviewIntelligenceItem(
   reviewedBy: string,
   notes?: string
 ): Promise<NormalisedIntelligenceItem> {
-  const item = intelligenceStore.get(itemId);
-  if (!item) throw new Error(`Item not found: ${itemId}`);
+  const updatedRes = await dbQuery<any[]>(`intelligence_items?id=eq.${encodeURIComponent(itemId)}`, {
+    method: 'PATCH',
+    body: {
+      review_status: decision,
+      reviewed_by: reviewedBy,
+      reviewed_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    },
+  });
 
-  const updated: NormalisedIntelligenceItem = {
-    ...item,
-    reviewStatus: decision,
-    reviewedBy,
-    reviewedAt: new Date().toISOString(),
-  };
-  intelligenceStore.set(itemId, updated);
+  const updated = updatedRes.data?.[0];
 
   await recordAuditEvent({
     event_type: `INTELLIGENCE_REVIEW_${decision}`,
@@ -1120,12 +1076,53 @@ export async function adminReviewIntelligenceItem(
     after_state: { notes, reviewStatus: decision },
   }).catch(() => {});
 
-  return updated;
+  return mapDbItemToNormalised(updated || { id: itemId, review_status: decision, reviewed_by: reviewedBy });
+}
+
+function mapDbItemToNormalised(raw: any): NormalisedIntelligenceItem {
+  return {
+    id: raw.id,
+    externalId: raw.external_id || raw.id,
+    contentHash: raw.content_hash || '',
+    version: raw.version || 1,
+    title: raw.title,
+    entirefmSummary: raw.entirefm_summary,
+    whatChanged: raw.what_changed,
+    suggestedContractorAction: raw.suggested_contractor_action,
+    whyYoureSeeing: raw.why_youre_seeing || [],
+    sourceId: raw.source_id,
+    sourceName: raw.source_name,
+    canonicalUrl: raw.canonical_url,
+    authorityTier: raw.authority_tier || 1,
+    legalStatus: raw.legal_status || 'NEWS',
+    eventType: raw.event_type || 'REGULATORY_CHANGE',
+    severity: raw.severity || 'INFORMATION',
+    jurisdictions: raw.jurisdictions || ['United Kingdom'],
+    tradeTags: raw.trade_tags || [],
+    credentialTags: raw.credential_tags || [],
+    workTypeTags: raw.work_type_tags || [],
+    publishedAt: raw.published_at || raw.created_at,
+    updatedAt: raw.updated_at,
+    effectiveFrom: raw.effective_from,
+    deadlineDate: raw.deadline_date,
+    supersedes: raw.supersedes_id,
+    rightsLicence: raw.rights_licence || 'OGL v3.0',
+    parserVersion: raw.parser_version || '1.0.0',
+    fetchedAt: raw.fetched_at || raw.created_at,
+    rawSourceHash: raw.raw_source_hash,
+    reviewStatus: raw.review_status,
+    reviewedBy: raw.reviewed_by,
+    reviewedAt: raw.reviewed_at,
+    linkedComplianceRequirementIds: raw.linked_compliance_requirement_ids || [],
+    audienceRoles: raw.audience_roles || ['CONTRACTOR_ADMIN'],
+    secondarySources: raw.secondary_sources || [],
+  };
 }
 
 // ─────────────────────────────────────────────────────────────
 // ADMIN TENDER RADAR — EntireFM Internal Business Development
-// NEVER exposed to contractors
+// Persisted in `public.admin_tender_opportunities`
+// STRICT PRODUCT BOUNDARY: NEVER exposed to contractors
 // ─────────────────────────────────────────────────────────────
 
 function scoreTenderForEntireFM(opportunity: TenderOpportunity): {
@@ -1153,7 +1150,6 @@ function scoreTenderForEntireFM(opportunity: TenderOpportunity): {
       });
     }
 
-    // Keyword matching in title/description
     const text = `${opportunity.title} ${opportunity.description}`.toLowerCase();
     const serviceKeywords = [service.label.toLowerCase(), ...service.tradeTags.map((t) => t.toLowerCase().replace(/-/g, ' '))];
     const kwHit = serviceKeywords.some((kw) => text.includes(kw));
@@ -1164,20 +1160,17 @@ function scoreTenderForEntireFM(opportunity: TenderOpportunity): {
     }
   }
 
-  // UK/regional bonus
   const lowerRegion = (opportunity.buyerRegion || '').toLowerCase();
   if (lowerRegion.includes('england') || lowerRegion.includes('united kingdom') || lowerRegion === '') {
     score += 10;
     matchReasons.push('Within EntireFM operational coverage area');
   }
 
-  // SME indicator
   if (opportunity.isSmeAppropriate) {
     score += 5;
     matchReasons.push('Suitable for SME contractors');
   }
 
-  // Framework bonus
   if (opportunity.isFramework) {
     score += 5;
     matchReasons.push('Framework opportunity — recurring revenue potential');
@@ -1205,51 +1198,107 @@ export async function getEntireFMTenderRadar(filters?: {
   service?: string;
   deadlineUrgency?: EntireFMTenderRecord['deadlineUrgency'];
 }): Promise<EntireFMTenderRecord[]> {
-  let results = Array.from(tenderStore.values());
+  let endpoint = `admin_tender_opportunities?order=match_score.desc&limit=100`;
 
   if (filters?.minScore !== undefined) {
-    results = results.filter((r) => r.matchScore >= filters.minScore!);
+    endpoint += `&match_score=gte.${filters.minScore}`;
   }
   if (filters?.bidStage) {
-    results = results.filter((r) => r.bidStage === filters.bidStage);
-  }
-  if (filters?.service) {
-    results = results.filter((r) => r.matchedServices.includes(filters.service!));
-  }
-  if (filters?.deadlineUrgency) {
-    results = results.filter((r) => r.deadlineUrgency === filters.deadlineUrgency);
+    endpoint += `&bid_stage=eq.${encodeURIComponent(filters.bidStage)}`;
   }
 
-  return results.sort((a, b) => {
-    // Priority: IMMINENT deadlines with strong match first
-    if (a.deadlineUrgency === 'IMMINENT' && b.deadlineUrgency !== 'IMMINENT') return -1;
-    if (b.deadlineUrgency === 'IMMINENT' && a.deadlineUrgency !== 'IMMINENT') return 1;
-    return b.matchScore - a.matchScore;
-  });
+  const res = await dbQuery<any[]>(endpoint);
+  let records = (res.data || []).map((r: any) => ({
+    id: r.id,
+    opportunity: {
+      id: r.id,
+      ocid: r.ocid,
+      source: r.source,
+      noticeType: r.notice_type,
+      title: r.title,
+      description: r.description,
+      buyerName: r.buyer_name,
+      buyerRegion: r.buyer_region,
+      cpvCodes: r.cpv_codes || [],
+      isFramework: r.is_framework,
+      isSmeAppropriate: r.is_sme_appropriate,
+      publishedAt: r.published_at,
+      closingDate: r.closing_date,
+      contractStartDate: r.contract_start_date,
+      contractDurationMonths: r.contract_duration_months,
+      estimatedValueGbp: r.estimated_value_gbp,
+      estimatedValueFormatted: r.estimated_value_formatted,
+      canonicalUrl: r.canonical_url,
+      status: r.status,
+      awardedToSupplier: r.awarded_to_supplier,
+      contentHash: r.content_hash,
+      fetchedAt: r.first_seen_at,
+      lastSeenAt: r.updated_at,
+    },
+    matchScore: r.match_score,
+    matchedServices: r.matched_services || [],
+    matchStrength: r.match_strength,
+    matchReasons: r.match_reasons || [],
+    cpvMatches: r.cpv_matches || [],
+    bidStage: r.bid_stage,
+    assignedTo: r.assigned_to,
+    internalNotes: r.internal_notes || [],
+    deadlineUrgency: computeDeadlineUrgency(r.closing_date),
+    firstSeenAt: r.first_seen_at,
+    updatedAt: r.updated_at,
+  }));
+
+  if (filters?.service) {
+    records = records.filter((r) => r.matchedServices.includes(filters.service!));
+  }
+
+  return records;
 }
 
 export async function upsertTenderOpportunity(opportunity: TenderOpportunity): Promise<EntireFMTenderRecord> {
-  const existing = Array.from(tenderStore.values()).find((r) => r.opportunity.ocid === opportunity.ocid);
   const { score, matchedServices, matchStrength, matchReasons, cpvMatches } = scoreTenderForEntireFM(opportunity);
+  const deadlineUrgency = computeDeadlineUrgency(opportunity.closingDate);
 
-  if (existing) {
-    const updated: EntireFMTenderRecord = {
-      ...existing,
-      opportunity,
-      matchScore: score,
-      matchedServices,
-      matchStrength,
-      matchReasons,
-      cpvMatches,
-      deadlineUrgency: computeDeadlineUrgency(opportunity.closingDate),
-      updatedAt: new Date().toISOString(),
-    };
-    tenderStore.set(existing.id, updated);
-    return updated;
-  }
+  const row = {
+    id: opportunity.id,
+    ocid: opportunity.ocid,
+    source: opportunity.source,
+    notice_type: opportunity.noticeType,
+    title: opportunity.title,
+    description: opportunity.description,
+    buyer_name: opportunity.buyerName,
+    buyer_region: opportunity.buyerRegion,
+    cpv_codes: opportunity.cpvCodes,
+    is_framework: opportunity.isFramework,
+    is_sme_appropriate: opportunity.isSmeAppropriate || false,
+    published_at: opportunity.publishedAt,
+    closing_date: opportunity.closingDate,
+    contract_start_date: opportunity.contractStartDate,
+    contract_duration_months: opportunity.contractDurationMonths,
+    estimated_value_gbp: opportunity.estimatedValueGbp,
+    estimated_value_formatted: opportunity.estimatedValueFormatted,
+    canonical_url: opportunity.canonicalUrl,
+    status: opportunity.status,
+    awarded_to_supplier: opportunity.awardedToSupplier,
+    match_score: score,
+    matched_services: matchedServices,
+    match_strength: matchStrength,
+    match_reasons: matchReasons,
+    cpv_matches: cpvMatches,
+    deadline_urgency: deadlineUrgency,
+    content_hash: opportunity.contentHash,
+    raw_payload: opportunity.rawPayload,
+    updated_at: new Date().toISOString(),
+  };
 
-  const record: EntireFMTenderRecord = {
-    id: `tender-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+  await dbQuery(`admin_tender_opportunities`, {
+    method: 'POST',
+    headers: { Prefer: 'resolution=merge-duplicates' },
+    body: row,
+  });
+
+  return {
+    id: opportunity.id,
     opportunity,
     matchScore: score,
     matchedServices,
@@ -1258,12 +1307,10 @@ export async function upsertTenderOpportunity(opportunity: TenderOpportunity): P
     cpvMatches,
     bidStage: 'NEW',
     internalNotes: [],
-    deadlineUrgency: computeDeadlineUrgency(opportunity.closingDate),
+    deadlineUrgency,
     firstSeenAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
-  tenderStore.set(record.id, record);
-  return record;
 }
 
 export async function updateTenderPipeline(
@@ -1275,47 +1322,392 @@ export async function updateTenderPipeline(
     addedBy?: string;
   }
 ): Promise<EntireFMTenderRecord> {
-  const record = tenderStore.get(tenderId);
-  if (!record) throw new Error(`Tender record not found: ${tenderId}`);
+  const existingRes = await dbQuery<any[]>(`admin_tender_opportunities?id=eq.${encodeURIComponent(tenderId)}&limit=1`);
+  const existing = existingRes.data?.[0];
+  if (!existing) throw new Error(`Tender record not found: ${tenderId}`);
 
-  const updated: EntireFMTenderRecord = {
-    ...record,
-    bidStage: update.bidStage ?? record.bidStage,
-    assignedTo: update.assignedTo ?? record.assignedTo,
-    updatedAt: new Date().toISOString(),
-    internalNotes: update.note
-      ? [
-          ...record.internalNotes,
-          {
-            id: `note-${Date.now()}`,
-            tenderId,
-            note: update.note,
-            createdBy: update.addedBy || 'system',
-            createdAt: new Date().toISOString(),
-          },
-        ]
-      : record.internalNotes,
+  const existingNotes: InternalTenderNote[] = existing.internal_notes || [];
+  const updatedNotes = update.note
+    ? [
+        ...existingNotes,
+        {
+          id: `note-${Date.now()}`,
+          tenderId,
+          note: update.note,
+          createdBy: update.addedBy || 'EntireFM Team',
+          createdAt: new Date().toISOString(),
+        },
+      ]
+    : existingNotes;
+
+  const patchBody: any = {
+    updated_at: new Date().toISOString(),
+    internal_notes: updatedNotes,
   };
-  tenderStore.set(tenderId, updated);
-  return updated;
+  if (update.bidStage) patchBody.bid_stage = update.bidStage;
+  if (update.assignedTo !== undefined) patchBody.assigned_to = update.assignedTo;
+
+  await dbQuery(`admin_tender_opportunities?id=eq.${encodeURIComponent(tenderId)}`, {
+    method: 'PATCH',
+    body: patchBody,
+  });
+
+  return {
+    id: tenderId,
+    opportunity: {
+      id: existing.id,
+      ocid: existing.ocid,
+      source: existing.source,
+      noticeType: existing.notice_type,
+      title: existing.title,
+      description: existing.description,
+      buyerName: existing.buyer_name,
+      buyerRegion: existing.buyer_region,
+      cpvCodes: existing.cpv_codes || [],
+      isFramework: existing.is_framework,
+      publishedAt: existing.published_at,
+      closingDate: existing.closing_date,
+      canonicalUrl: existing.canonical_url,
+      status: existing.status,
+      contentHash: existing.content_hash,
+      fetchedAt: existing.first_seen_at,
+      lastSeenAt: new Date().toISOString(),
+    },
+    matchScore: existing.match_score,
+    matchedServices: existing.matched_services || [],
+    matchStrength: existing.match_strength,
+    matchReasons: existing.match_reasons || [],
+    cpvMatches: existing.cpv_matches || [],
+    bidStage: update.bidStage || existing.bid_stage,
+    assignedTo: update.assignedTo !== undefined ? update.assignedTo : existing.assigned_to,
+    internalNotes: updatedNotes,
+    deadlineUrgency: computeDeadlineUrgency(existing.closing_date),
+    firstSeenAt: existing.first_seen_at,
+    updatedAt: new Date().toISOString(),
+  };
 }
 
 // ─────────────────────────────────────────────────────────────
-// ADMIN SUMMARY
+// LIVE INGESTION PIPELINE (Persists real external data)
 // ─────────────────────────────────────────────────────────────
 
-export function getAdminIntelligenceSummary() {
-  const allItems = Array.from(intelligenceStore.values());
-  const allTenders = Array.from(tenderStore.values());
-  const sources = sourceRegistry.getAllSources();
+export interface IngestionSummaryReport {
+  timestamp: string;
+  sourcesProcessed: number;
+  totalItemsFetched: number;
+  totalItemsCreated: number;
+  totalTendersFetched: number;
+  totalTendersCreated: number;
+  errors: string[];
+}
+
+export async function runLiveIngestion(sourceId?: string): Promise<IngestionSummaryReport> {
+  const report: IngestionSummaryReport = {
+    timestamp: new Date().toISOString(),
+    sourcesProcessed: 0,
+    totalItemsFetched: 0,
+    totalItemsCreated: 0,
+    totalTendersFetched: 0,
+    totalTendersCreated: 0,
+    errors: [],
+  };
+
+  // 1. GOV.UK Search Ingestion
+  if (!sourceId || sourceId === 'src-govuk-search') {
+    const started = Date.now();
+    try {
+      const { items } = await fetchGovUkSearch(['building safety', 'fire safety', 'f-gas', 'asbestos', 'electrical safety']);
+      report.sourcesProcessed++;
+      report.totalItemsFetched += items.length;
+
+      for (const item of items) {
+        const row = {
+          id: item.id,
+          external_id: item.externalId,
+          content_hash: item.contentHash,
+          version: item.version,
+          title: item.title,
+          entirefm_summary: item.entirefmSummary,
+          suggested_contractor_action: item.suggestedContractorAction,
+          source_id: item.sourceId,
+          source_name: item.sourceName,
+          canonical_url: item.canonicalUrl,
+          authority_tier: item.authorityTier,
+          legal_status: item.legalStatus,
+          event_type: item.eventType,
+          severity: item.severity,
+          jurisdictions: item.jurisdictions,
+          trade_tags: item.tradeTags,
+          credential_tags: item.credentialTags,
+          work_type_tags: item.workTypeTags,
+          published_at: item.publishedAt,
+          rights_licence: item.rightsLicence,
+          parser_version: item.parserVersion,
+          fetched_at: item.fetchedAt,
+          raw_source_hash: item.rawSourceHash,
+          review_status: item.reviewStatus,
+          audience_roles: item.audienceRoles,
+        };
+
+        await dbQuery(`intelligence_items`, {
+          method: 'POST',
+          headers: { Prefer: 'resolution=merge-duplicates' },
+          body: row,
+        });
+        report.totalItemsCreated++;
+      }
+
+      await logIngestionRun('src-govuk-search', 'GOV.UK Search', started, 'success', items.length, items.length);
+    } catch (e: any) {
+      report.errors.push(`GOV.UK Search: ${e.message}`);
+      await logIngestionRun('src-govuk-search', 'GOV.UK Search', started, 'failed', 0, 0, e.message);
+    }
+  }
+
+  // 2. legislation.gov.uk Feed
+  if (!sourceId || sourceId === 'src-legislation-uk') {
+    const started = Date.now();
+    try {
+      const items = await fetchLegislationUkFeed();
+      report.sourcesProcessed++;
+      report.totalItemsFetched += items.length;
+
+      for (const item of items) {
+        const row = {
+          id: item.id,
+          external_id: item.externalId,
+          content_hash: item.contentHash,
+          version: item.version,
+          title: item.title,
+          entirefm_summary: item.entirefmSummary,
+          suggested_contractor_action: item.suggestedContractorAction,
+          source_id: item.sourceId,
+          source_name: item.sourceName,
+          canonical_url: item.canonicalUrl,
+          authority_tier: item.authorityTier,
+          legal_status: item.legalStatus,
+          event_type: item.eventType,
+          severity: item.severity,
+          jurisdictions: item.jurisdictions,
+          trade_tags: item.tradeTags,
+          published_at: item.publishedAt,
+          rights_licence: item.rightsLicence,
+          parser_version: item.parserVersion,
+          fetched_at: item.fetchedAt,
+          raw_source_hash: item.rawSourceHash,
+          review_status: item.reviewStatus,
+          audience_roles: item.audienceRoles,
+        };
+
+        await dbQuery(`intelligence_items`, {
+          method: 'POST',
+          headers: { Prefer: 'resolution=merge-duplicates' },
+          body: row,
+        });
+        report.totalItemsCreated++;
+      }
+
+      await logIngestionRun('src-legislation-uk', 'legislation.gov.uk', started, 'success', items.length, items.length);
+    } catch (e: any) {
+      report.errors.push(`legislation.gov.uk: ${e.message}`);
+      await logIngestionRun('src-legislation-uk', 'legislation.gov.uk', started, 'failed', 0, 0, e.message);
+    }
+  }
+
+  // 3. HSE Press Wire
+  if (!sourceId || sourceId === 'src-hse-public') {
+    const started = Date.now();
+    try {
+      const items = await fetchHseMediaWire();
+      report.sourcesProcessed++;
+      report.totalItemsFetched += items.length;
+
+      for (const item of items) {
+        const row = {
+          id: item.id,
+          external_id: item.externalId,
+          content_hash: item.contentHash,
+          version: item.version,
+          title: item.title,
+          entirefm_summary: item.entirefmSummary,
+          suggested_contractor_action: item.suggestedContractorAction,
+          source_id: item.sourceId,
+          source_name: item.sourceName,
+          canonical_url: item.canonicalUrl,
+          authority_tier: item.authorityTier,
+          legal_status: item.legalStatus,
+          event_type: item.eventType,
+          severity: item.severity,
+          jurisdictions: item.jurisdictions,
+          trade_tags: item.tradeTags,
+          published_at: item.publishedAt,
+          rights_licence: item.rightsLicence,
+          parser_version: item.parserVersion,
+          fetched_at: item.fetchedAt,
+          raw_source_hash: item.rawSourceHash,
+          review_status: item.reviewStatus,
+          audience_roles: item.audienceRoles,
+        };
+
+        await dbQuery(`intelligence_items`, {
+          method: 'POST',
+          headers: { Prefer: 'resolution=merge-duplicates' },
+          body: row,
+        });
+        report.totalItemsCreated++;
+      }
+
+      await logIngestionRun('src-hse-public', 'HSE Public Press Wire', started, 'success', items.length, items.length);
+    } catch (e: any) {
+      report.errors.push(`HSE Press Wire: ${e.message}`);
+      await logIngestionRun('src-hse-public', 'HSE Public Press Wire', started, 'failed', 0, 0, e.message);
+    }
+  }
+
+  // 4. OPSS Product Safety
+  if (!sourceId || sourceId === 'src-opss-public') {
+    const started = Date.now();
+    try {
+      const items = await fetchOpssProductSafety();
+      report.sourcesProcessed++;
+      report.totalItemsFetched += items.length;
+
+      for (const item of items) {
+        const row = {
+          id: item.id,
+          external_id: item.externalId,
+          content_hash: item.contentHash,
+          version: item.version,
+          title: item.title,
+          entirefm_summary: item.entirefmSummary,
+          suggested_contractor_action: item.suggestedContractorAction,
+          source_id: item.sourceId,
+          source_name: item.sourceName,
+          canonical_url: item.canonicalUrl,
+          authority_tier: item.authorityTier,
+          legal_status: item.legalStatus,
+          event_type: item.eventType,
+          severity: item.severity,
+          jurisdictions: item.jurisdictions,
+          trade_tags: item.tradeTags,
+          published_at: item.publishedAt,
+          rights_licence: item.rightsLicence,
+          parser_version: item.parserVersion,
+          fetched_at: item.fetchedAt,
+          raw_source_hash: item.rawSourceHash,
+          review_status: item.reviewStatus,
+          audience_roles: item.audienceRoles,
+        };
+
+        await dbQuery(`intelligence_items`, {
+          method: 'POST',
+          headers: { Prefer: 'resolution=merge-duplicates' },
+          body: row,
+        });
+        report.totalItemsCreated++;
+      }
+
+      await logIngestionRun('src-opss-public', 'OPSS Product Safety', started, 'success', items.length, items.length);
+    } catch (e: any) {
+      report.errors.push(`OPSS Product Safety: ${e.message}`);
+      await logIngestionRun('src-opss-public', 'OPSS Product Safety', started, 'failed', 0, 0, e.message);
+    }
+  }
+
+  // 5. Contracts Finder OCDS — Admin Only
+  if (!sourceId || sourceId === 'src-contracts-finder') {
+    const started = Date.now();
+    try {
+      const tenders = await fetchContractsFinderOcds();
+      report.sourcesProcessed++;
+      report.totalTendersFetched += tenders.length;
+
+      for (const t of tenders) {
+        await upsertTenderOpportunity(t);
+        report.totalTendersCreated++;
+      }
+
+      await logIngestionRun('src-contracts-finder', 'Contracts Finder OCDS', started, 'success', tenders.length, tenders.length);
+    } catch (e: any) {
+      report.errors.push(`Contracts Finder: ${e.message}`);
+      await logIngestionRun('src-contracts-finder', 'Contracts Finder OCDS', started, 'failed', 0, 0, e.message);
+    }
+  }
+
+  // 6. Find a Tender OCDS — Admin Only
+  if (!sourceId || sourceId === 'src-find-a-tender') {
+    const started = Date.now();
+    try {
+      const tenders = await fetchFindATenderOcds();
+      report.sourcesProcessed++;
+      report.totalTendersFetched += tenders.length;
+
+      for (const t of tenders) {
+        await upsertTenderOpportunity(t);
+        report.totalTendersCreated++;
+      }
+
+      await logIngestionRun('src-find-a-tender', 'Find a Tender OCDS', started, 'success', tenders.length, tenders.length);
+    } catch (e: any) {
+      report.errors.push(`Find a Tender: ${e.message}`);
+      await logIngestionRun('src-find-a-tender', 'Find a Tender OCDS', started, 'failed', 0, 0, e.message);
+    }
+  }
+
+  return report;
+}
+
+async function logIngestionRun(
+  sourceId: string,
+  sourceName: string,
+  startedAtMs: number,
+  status: 'success' | 'failed' | 'partial',
+  recordsFetched: number,
+  recordsCreated: number,
+  error?: string
+) {
+  const durationMs = Date.now() - startedAtMs;
+  await dbQuery(`intelligence_ingestion_runs`, {
+    method: 'POST',
+    body: {
+      id: `run-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+      source_id: sourceId,
+      source_name: sourceName,
+      started_at: new Date(startedAtMs).toISOString(),
+      completed_at: new Date().toISOString(),
+      duration_ms: durationMs,
+      status,
+      records_fetched: recordsFetched,
+      records_created: recordsCreated,
+      error,
+      parser_version: '1.0.0',
+    },
+  }).catch(() => {});
+}
+
+// ─────────────────────────────────────────────────────────────
+// ADMIN SUMMARY (Computed from real Supabase data)
+// ─────────────────────────────────────────────────────────────
+
+export async function getAdminIntelligenceSummary() {
+  const [itemsPendingRes, newEventsRes, tendersRes, sources] = await Promise.all([
+    dbQuery<any[]>(`intelligence_items?review_status=in.(PENDING_REVIEW,REQUIRES_COMPLIANCE_REVIEW)&select=id`),
+    dbQuery<any[]>(`intelligence_items?review_status=eq.APPROVED&authority_tier=eq.1&published_at=gte.${new Date(Date.now() - 7 * 86400000).toISOString()}&select=id`),
+    dbQuery<any[]>(`admin_tender_opportunities?bid_stage=eq.NEW&select=id,deadline_urgency`),
+    sourceRegistry.getAllSources(),
+  ]);
+
+  const pendingCount = itemsPendingRes.data?.length || 0;
+  const newEventsCount = newEventsRes.data?.length || 0;
+  const newTenders = tendersRes.data || [];
+  const imminentTenders = newTenders.filter((t: any) => t.deadline_urgency === 'IMMINENT').length;
 
   return {
-    requiresComplianceReview: allItems.filter((i) => i.reviewStatus === 'PENDING_REVIEW' || i.reviewStatus === 'REQUIRES_COMPLIANCE_REVIEW').length,
-    newRegulatoryEvents: allItems.filter((i) => i.reviewStatus === 'APPROVED' && i.authorityTier === 1 &&
-      Date.now() - new Date(i.publishedAt).getTime() < 7 * 24 * 60 * 60 * 1000).length,
-    newTenderMatches: allTenders.filter((t) => t.bidStage === 'NEW' && t.matchStrength !== 'NOT_MATCHED').length,
-    imminentTenderDeadlines: allTenders.filter((t) => t.deadlineUrgency === 'IMMINENT' && !['SUBMITTED', 'WON', 'LOST', 'EXPIRED'].includes(t.bidStage)).length,
-    sourceHealthIssues: sources.filter((s) => s.healthStatus !== 'LIVE' && s.healthStatus !== 'CREDENTIAL_REQUIRED').length,
+    requiresComplianceReview: pendingCount,
+    newRegulatoryEvents: newEventsCount,
+    newTenderMatches: newTenders.length,
+    imminentTenderDeadlines: imminentTenders,
+    sourceHealthIssues: sources.filter((s) => s.healthStatus === 'FAILED' || s.healthStatus === 'DEGRADED').length,
     sourceCredentialRequired: sources.filter((s) => s.healthStatus === 'CREDENTIAL_REQUIRED').length,
   };
 }
