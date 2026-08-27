@@ -117,22 +117,21 @@ export function LobbyMasthead() {
           </div>
         </div>
 
-        {/* ── UPPER AREA: THE LOBBY TITLE & INTRO ─────────────────────── */}
-        <div className="w-full max-w-4xl mx-auto pt-6 sm:pt-10 lg:pt-12 mb-auto flex flex-col items-center text-center space-y-3">
+        {/* ── UPPER AREA: THE LOBBY TITLE & INTRO (LEFT ALIGNED) ─────────── */}
+        <div className="w-full pt-6 sm:pt-10 lg:pt-12 mb-auto text-left space-y-3">
           <div className="inline-flex items-center gap-2 mb-1">
             <span className="h-px w-6 bg-brand-electric" />
             <span className="text-[10px] sm:text-[11px] font-extralight uppercase tracking-[0.25em] text-brand-electric-bright">
-              The Professional Intelligence Network for UK Facilities Management
+              Grounded FM Intelligence Network
             </span>
-            <span className="h-px w-6 bg-brand-electric" />
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.02]">
             THE <span className="font-light text-white">LOBBY</span>
           </h1>
 
-          <p className="max-w-xl mx-auto text-sm sm:text-base lg:text-lg font-extralight text-brand-mist/85 leading-relaxed">
-            Ask about FM regulation, building safety, contracts, tenders, technical issues, or what is changing.
+          <p className="max-w-xl text-sm sm:text-base lg:text-lg font-extralight text-brand-mist/85 leading-relaxed">
+            Ask any question about UK building safety, statutory compliance, procurement tenders, or technical standards with sourced citations.
           </p>
         </div>
 
