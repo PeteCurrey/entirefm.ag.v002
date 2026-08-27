@@ -791,3 +791,302 @@ export function generateWorkOrderNumber(): string {
   const rand = String(Math.floor(Math.random() * 900000) + 100000);
   return `EFM-WO-${year}-${rand}`;
 }
+
+export async function createServiceRequest(params: {
+  site_id: string;
+  title: string;
+  description: string;
+  category?: string;
+  priority?: WorkPriority;
+  source?: 'MANUAL' | 'PHONE' | 'EMAIL' | 'PORTAL' | 'AI_HELPDESK';
+  organisation_id?: string;
+  client_account_id?: string;
+  building_id?: string;
+  space_id?: string;
+  asset_id?: string;
+  requester_name?: string;
+  requester_email?: string;
+  trade_id?: string;
+}): Promise<ServiceRequest> {
+  let orgId = params.organisation_id;
+  if (!orgId) {
+    const { data: siteData } = await dbQuery<any[]>(`sites?id=eq.${encodeURIComponent(params.site_id)}&select=organisation_id`);
+    orgId = siteData?.[0]?.organisation_id;
+  }
+  if (!orgId) {
+    const { data: orgs } = await dbQuery<any[]>('organisations?limit=1');
+    orgId = orgs?.[0]?.id;
+  }
+
+  const ref = generateServiceRequestReference();
+
+  const { data, error } = await dbQuery<ServiceRequest[]>('service_requests', {
+    method: 'POST',
+    body: {
+      organisation_id: orgId,
+      reference: ref,
+      site_id: params.site_id,
+      client_account_id: params.client_account_id || null,
+      building_id: params.building_id || null,
+      space_id: params.space_id || null,
+      asset_id: params.asset_id || null,
+      title: params.title,
+      description: params.description,
+      category: params.category || 'GENERAL_MAINTENANCE',
+      priority: params.priority || 'P3_MEDIUM',
+      status: 'NEW',
+      source: params.source || 'MANUAL',
+      requester_name: params.requester_name || null,
+      requester_email: params.requester_email || null,
+      trade_id: params.trade_id || null,
+    },
+  });
+
+  if (error || !data?.[0]) {
+    throw new Error(`Failed to create service request: ${error || 'Unknown error'}`);
+  }
+
+  return data[0];
+}
+
+export async function createWorkOrder(params: {
+  site_id: string;
+  title: string;
+  description: string;
+  work_type?: 'REACTIVE' | 'PPM' | 'STATUTORY' | 'QUOTED' | 'PROJECT';
+  priority?: WorkPriority;
+  service_request_id?: string;
+  organisation_id?: string;
+  building_id?: string;
+  space_id?: string;
+  asset_id?: string;
+  contract_id?: string;
+  trade_id?: string;
+  provider_organisation_id?: string;
+  target_start_at?: string;
+  target_completion_at?: string;
+  total_revenue_gbp?: number;
+  total_cost_gbp?: number;
+}): Promise<WorkOrder> {
+  let orgId = params.organisation_id;
+  if (!orgId) {
+    const { data: siteData } = await dbQuery<any[]>(`sites?id=eq.${encodeURIComponent(params.site_id)}&select=organisation_id`);
+    orgId = siteData?.[0]?.organisation_id;
+  }
+  if (!orgId) {
+    const { data: orgs } = await dbQuery<any[]>('organisations?limit=1');
+    orgId = orgs?.[0]?.id;
+  }
+
+  const priority = params.priority || 'P3_MEDIUM';
+  const priorityDef = CANONICAL_PRIORITIES[priority];
+  const now = new Date();
+  const slaResponseDue = new Date(now.getTime() + priorityDef.target_response_mins * 60000).toISOString();
+  const slaAttendanceDue = new Date(now.getTime() + priorityDef.target_attendance_mins * 60000).toISOString();
+  const slaResolutionDue = new Date(now.getTime() + priorityDef.target_resolution_hours * 3600000).toISOString();
+
+  const woNumber = generateWorkOrderNumber();
+
+  const { data, error } = await dbQuery<WorkOrder[]>('work_orders', {
+    method: 'POST',
+    body: {
+      organisation_id: orgId,
+      work_order_number: woNumber,
+      service_request_id: params.service_request_id || null,
+      site_id: params.site_id,
+      building_id: params.building_id || null,
+      space_id: params.space_id || null,
+      asset_id: params.asset_id || null,
+      contract_id: params.contract_id || null,
+      trade_id: params.trade_id || null,
+      provider_organisation_id: params.provider_organisation_id || null,
+      title: params.title,
+      description: params.description,
+      work_type: params.work_type || 'REACTIVE',
+      priority,
+      status: 'OPEN',
+      disposition_state: params.provider_organisation_id ? 'AWAITING_CONTRACTOR' : 'NONE',
+      target_start_at: params.target_start_at || now.toISOString(),
+      target_completion_at: params.target_completion_at || slaResolutionDue,
+      sla_response_due_at: slaResponseDue,
+      sla_attendance_due_at: slaAttendanceDue,
+      sla_resolution_due_at: slaResolutionDue,
+      billing_status: 'UNBILLED',
+      total_revenue_gbp: params.total_revenue_gbp || null,
+      total_cost_gbp: params.total_cost_gbp || null,
+    },
+  });
+
+  if (error || !data?.[0]) {
+    throw new Error(`Failed to create work order: ${error || 'Unknown error'}`);
+  }
+
+  // If created from a service request, mark request as CONVERTED
+  if (params.service_request_id) {
+    await dbQuery(`service_requests?id=eq.${encodeURIComponent(params.service_request_id)}`, {
+      method: 'PATCH',
+      body: {
+        status: 'CONVERTED',
+        converted_work_order_id: data[0].id,
+      },
+    });
+  }
+
+  return data[0];
+}
+
+export async function getWorkOrder(id: string): Promise<WorkOrder | null> {
+  const { data } = await dbQuery<WorkOrder[]>(
+    `work_orders?id=eq.${encodeURIComponent(id)}&select=*,organisation:organisations(name),site:sites(name,site_code,postcode,address_line1),asset:assets(name,asset_reference),provider_organisation:organisations(name,code)&limit=1`
+  );
+  return data?.[0] || null;
+}
+
+export async function createWorkAssignment(params: {
+  work_order_id: string;
+  provider_org_id: string;
+  provider_resource_id?: string;
+  source?: 'MANUAL' | 'AI_DISPATCH' | 'AUTO_ESCALATION';
+}): Promise<WorkAssignment> {
+  const { data, error } = await dbQuery<WorkAssignment[]>('work_assignments', {
+    method: 'POST',
+    body: {
+      work_order_id: params.work_order_id,
+      provider_org_id: params.provider_org_id,
+      provider_resource_id: params.provider_resource_id || null,
+      status: 'ACCEPTED',
+      source: params.source || 'MANUAL',
+      assigned_at: new Date().toISOString(),
+      accepted_at: new Date().toISOString(),
+    },
+  });
+
+  if (error || !data?.[0]) {
+    throw new Error(`Failed to create work assignment: ${error || 'Unknown error'}`);
+  }
+
+  // Update work order status and provider
+  await dbQuery(`work_orders?id=eq.${encodeURIComponent(params.work_order_id)}`, {
+    method: 'PATCH',
+    body: {
+      status: 'ISSUED',
+      provider_organisation_id: params.provider_org_id,
+      disposition_state: 'NONE',
+    },
+  });
+
+  return data[0];
+}
+
+export async function createVisit(params: {
+  work_order_id: string;
+  assigned_resource_id?: string;
+  scheduled_start_at?: string;
+  scheduled_end_at?: string;
+}): Promise<Visit> {
+  const now = new Date();
+  const scheduledStart = params.scheduled_start_at || now.toISOString();
+  const scheduledEnd = params.scheduled_end_at || new Date(now.getTime() + 7200000).toISOString();
+
+  const { data, error } = await dbQuery<Visit[]>('visits', {
+    method: 'POST',
+    body: {
+      work_order_id: params.work_order_id,
+      assigned_resource_id: params.assigned_resource_id || null,
+      status: 'CONFIRMED',
+      scheduled_start_at: scheduledStart,
+      scheduled_end_at: scheduledEnd,
+    },
+  });
+
+  if (error || !data?.[0]) {
+    throw new Error(`Failed to create visit: ${error || 'Unknown error'}`);
+  }
+
+  return data[0];
+}
+
+export async function updateVisitStatus(params: {
+  visit_id: string;
+  status: VisitStatus;
+  notes?: string;
+}): Promise<Visit> {
+  const body: Record<string, any> = { status: params.status };
+  const now = new Date().toISOString();
+
+  if (params.status === 'EN_ROUTE') body.journey_started_at = now;
+  if (params.status === 'ON_SITE' || params.status === 'IN_PROGRESS') {
+    body.arrived_at = now;
+    body.work_started_at = now;
+  }
+  if (params.status === 'COMPLETED') body.completed_at = now;
+
+  const { data, error } = await dbQuery<Visit[]>(`visits?id=eq.${encodeURIComponent(params.visit_id)}`, {
+    method: 'PATCH',
+    body,
+  });
+
+  if (error || !data?.[0]) {
+    throw new Error(`Failed to update visit status: ${error || 'Unknown error'}`);
+  }
+
+  return data[0];
+}
+
+export async function createDefect(params: {
+  asset_id?: string;
+  work_order_id?: string;
+  title: string;
+  description: string;
+  severity?: 'CRITICAL' | 'MAJOR' | 'MINOR' | 'ADVISORY';
+  remedial_action_required?: string;
+  estimated_cost_gbp?: number;
+}): Promise<any> {
+  const { data, error } = await dbQuery<any[]>('defects', {
+    method: 'POST',
+    body: {
+      asset_id: params.asset_id || null,
+      work_order_id: params.work_order_id || null,
+      title: params.title,
+      description: params.description,
+      severity: params.severity || 'MAJOR',
+      status: 'OPEN',
+      remedial_action_required: params.remedial_action_required || null,
+      estimated_cost_gbp: params.estimated_cost_gbp || null,
+    },
+  });
+
+  if (error || !data?.[0]) {
+    throw new Error(`Failed to create defect: ${error || 'Unknown error'}`);
+  }
+
+  return data[0];
+}
+
+export async function completeWorkOrder(params: {
+  work_order_id: string;
+  completion_notes?: string;
+  actual_cost_gbp?: number;
+  actual_revenue_gbp?: number;
+}): Promise<WorkOrder> {
+  const now = new Date().toISOString();
+  const { data, error } = await dbQuery<WorkOrder[]>(`work_orders?id=eq.${encodeURIComponent(params.work_order_id)}`, {
+    method: 'PATCH',
+    body: {
+      status: 'COMPLETED',
+      disposition_state: 'NONE',
+      actual_completion_at: now,
+      closure_notes: params.completion_notes || 'Work completed in accordance with service specification.',
+      total_cost_gbp: params.actual_cost_gbp || null,
+      total_revenue_gbp: params.actual_revenue_gbp || null,
+      billing_status: 'READY_TO_INVOICE',
+    },
+  });
+
+  if (error || !data?.[0]) {
+    throw new Error(`Failed to complete work order: ${error || 'Unknown error'}`);
+  }
+
+  return data[0];
+}
+

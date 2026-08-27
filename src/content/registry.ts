@@ -11321,31 +11321,35 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   },
   "/fm-london": {
     "path": "/fm-london",
-    "title": "FM London | Outsourced Facilities Management | Entire FM",
-    "metaDescription": "Outsourced facilities management in London under one contract — planned maintenance, reactive repairs, compliance and reporting from a single provider.",
-    "h1": "FM London: Outsourced Facilities Management Under One Contract",
-    "eyebrow": "Contract Consolidation",
-    "heroIntro": "Entire Facilities Management provides contracted facilities management to commercial property across London, consolidating planned maintenance, reactive repairs, statutory compliance and reporting into a single accountable contract.",
-    "heroDescription": "If you are currently running London sites through a spread of individual trade suppliers, this service moves your operations to a single provider with defined SLAs, transparent CAFM reporting, and seamless contract mobilisation.",
+    "title": "Outsourced Facilities Management London | EntireFM",
+    "metaDescription": "Outsource hard FM, soft FM, compliance, PPM and reactive maintenance across your London estate under one accountable EntireFM service model.",
+    "h1": "Outsourced Facilities Management in London",
+    "eyebrow": "Single-Source FM Contracts",
+    "heroIntro": "Consolidate multiple trade contractors and fragmented supplier relationships across London commercial estates into a single accountable facilities management contract.",
+    "heroDescription": "EntireFM delivers integrated hard FM, soft FM, planned maintenance, and statutory compliance under a unified operating model with defined SLAs, transparent EntireCAFM reporting, and structured contract mobilisation.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for fm london",
-    "primaryIntent": "outsourced fm london",
+    "primaryIntent": "outsourced facilities management london",
     "secondaryIntents": [
+      "integrated facilities management london",
+      "total facilities management london",
+      "outsourced fm london",
       "integrated fm london",
       "total fm london",
-      "outsourced facilities management london",
-      "single-source fm london",
+      "single-source facilities management london",
       "managed fm services london",
-      "fm contractor london"
+      "facilities management outsourcing london"
     ],
     "pageType": "location",
     "service": null,
     "sector": null,
     "location": "London",
     "historicTopics": [
-      "Outsourced FM London",
-      "Supplier consolidation",
-      "Contract mobilisation",
+      "Outsourced Facilities Management London",
+      "Supplier consolidation and single accountability",
+      "Integrated hard and soft FM delivery",
+      "Contract mobilisation and site onboarding",
+      "EntireCAFM technology and compliance visibility",
       "Service level agreements and KPI governance"
     ],
     "requiredSections": [
@@ -11357,49 +11361,77 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     ],
     "sections": [
       {
-        "heading": "What a Single FM Contract Covers Across London",
-        "body": "One contract replaces the fragmented supplier arrangements most London estates accumulate — separate maintenance firms, electrical contractors, cleaning agencies, and out-of-hours callout providers. EntireFM holds full operational accountability so responsibility never shifts between sub-contractors."
+        "heading": "Consolidating Fragmented Trade Suppliers Under Single Accountability",
+        "body": "Managing a spread of separate contractors — mechanical engineers, electrical contractors, cleaning agencies, fire technicians, and water hygiene providers — inflates administrative overhead and creates dangerous compliance blindspots. EntireFM replaces fragmented supply with a single accountable contract, ensuring full operational ownership across all London premises with zero responsibility shifting between subcontractors."
       },
       {
-        "heading": "Why London Estates Consolidate FM Suppliers",
-        "body": "Fragmented supply creates compliance blindspots and inflates administrative overhead. Consolidating under EntireFM streamlines procurement, unifies asset registers in EntireCAFM, and delivers clear cost transparency across all London premises."
+        "heading": "Integrated Hard and Soft FM Delivery Across London Estates",
+        "body": "Our outsourced model synchronises engineering-led maintenance with daily soft services. Rather than managing competing access windows and disconnected reporting, M&E planned preventative maintenance (PPM), HVAC servicing, statutory compliance, commercial cleaning, security, and waste management operate under one coordinated framework. While our flagship facilities management across London operation covers standalone engineering delivery, our integrated outsourced model unites all building disciplines under one agreement."
+      },
+      {
+        "heading": "Structured Contract Mobilisation and Site Onboarding Process",
+        "body": "A successful outsourced FM partnership begins with meticulous contract mobilisation. Our proven 8-step transition framework eliminates service disruption when taking over from incumbent providers: comprehensive plant verification surveys, statutory compliance audits, digital asset barcoding in EntireCAFM, SFG20 PPM schedule setup, contractual SLA agreements, TUPE/subcontractor transition management, 24/7 reactive escalation configuration, and client portal governance kickoff."
+      },
+      {
+        "heading": "EntireCAFM Technology, Real-Time SLA Tracking and Compliance Visibility",
+        "body": "Every outsourced contract is powered by EntireCAFM. Property managers, building operators, and financial controllers receive real-time visibility over work order status, engineer attendance tracking with time-stamped proof of work, statutory certification archives, quotations, and asset maintenance history."
+      },
+      {
+        "heading": "Contract Governance, KPI Management and Executive Reporting",
+        "body": "We enforce rigorous commercial and operational governance. Contracts feature clear KPI performance scorecards, contractual response windows, quarterly executive reviews, and transparent cost reconciliation for managing agents and landlords."
+      },
+      {
+        "heading": "Single-Source FM Delivery Across Multi-Site London Estates",
+        "body": "For organisations operating multiple buildings across Greater London and the M25 corridor, an integrated outsourced model standardises service delivery, unifies asset registers, and eliminates local supplier variance across corporate offices, retail campuses, logistics hubs, and business parks."
+      },
+      {
+        "heading": "Procurement Simplification and Commercial Transparency",
+        "body": "Consolidating FM suppliers under EntireFM drastically reduces vendor management overhead, simplifies accounts payable into consolidated monthly billing, and delivers transparent, audit-ready expenditure reporting."
       }
     ],
     "capabilities": [
       {
         "name": "Single-Source Accountability",
-        "description": "One master contract and dedicated account management for all Hard FM, Soft FM, and compliance disciplines.",
+        "description": "One master contract, dedicated account direction, and clear escalation for all hard FM, soft FM, and compliance disciplines.",
         "tag": "Governance"
       },
       {
-        "name": "Seamless Contract Mobilisation",
-        "description": "Structured asset condition surveys, barcoding, and statutory obligation mapping prior to go-live.",
+        "name": "Integrated Hard & Soft FM",
+        "description": "Synchronized delivery of M&E engineering, HVAC, planned maintenance, commercial cleaning, and statutory compliance.",
+        "tag": "Service Integration"
+      },
+      {
+        "name": "Structured Mobilisation Framework",
+        "description": "Asset verification, statutory obligation mapping, barcoding, and seamless incumbent supplier transition.",
         "tag": "Mobilisation"
       },
       {
-        "name": "Digital CAFM & SLA Tracking",
-        "description": "Live client portal visibility for work orders, KPI compliance scores, and statutory certificate vaults.",
+        "name": "EntireCAFM Portal & Digital Vault",
+        "description": "Live work-order tracking, 100% digital compliance certificate archiving, and real-time KPI dashboards.",
         "tag": "Technology"
-      },
-      {
-        "name": "Procurement Simplification",
-        "description": "Consolidated monthly billing, transparent job costing, and dedicated escalation management.",
-        "tag": "Commercial"
       }
     ],
     "assetTypes": [],
     "faqs": [
       {
-        "question": "Can EntireFM take over an existing FM contract in London?",
-        "answer": "Yes. Most mobilisations involve transitions from incumbent providers. We survey physical plant, establish baseline asset registers, and audit compliance records before the outgoing provider stands down to eliminate coverage gaps."
+        "question": "How does outsourcing multiple FM disciplines to EntireFM benefit London organisations?",
+        "answer": "Consolidating multiple trade contractors under a single EntireFM contract reduces procurement overhead, eliminates responsibility shifting, and unifies all maintenance, compliance, and cleaning under one SLA-governed operating model with transparent CAFM reporting."
       },
       {
-        "question": "How do SLAs and KPI reporting work under an outsourced model?",
-        "answer": "Service levels, response windows, and completion targets are agreed contractually and tracked in real time via our EntireCAFM portal with digital proof-of-work documentation."
+        "question": "How is contract mobilisation and incumbent supplier handover handled in London?",
+        "answer": "Mobilisation begins with comprehensive plant surveys, digital asset tagging, and a statutory compliance audit across all sites before the incumbent provider stands down, ensuring zero disruption or compliance lapses during the transition."
       },
       {
-        "question": "What happens to existing specialized supplier relationships?",
-        "answer": "Where incumbent specialist contractors perform well, they can be integrated into our managed supply chain structure under unified compliance governance."
+        "question": "How do SLA governance and KPI reporting work under an integrated contract?",
+        "answer": "Service levels, response windows (e.g. P1 emergency 2-4h), and completion targets are contractually defined and tracked in real time through our EntireCAFM portal with time-stamped proof-of-work documentation."
+      },
+      {
+        "question": "Can existing specialist subcontractors be retained within an outsourced model?",
+        "answer": "Yes. Where incumbent specialist contractors perform well, they can be retained within our managed supply chain structure under unified compliance, health & safety, and invoicing governance."
+      },
+      {
+        "question": "How does EntireFM's outsourced model support multi-site London estates?",
+        "answer": "We provide portfolio-wide asset registers, consistent PPM standards, centralized helpdesk dispatch, and property-by-property cost reconciliation across all London and M25 locations."
       }
     ],
     "breadcrumbs": [
@@ -11412,7 +11444,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
         "url": "/locations"
       },
       {
-        "name": "FM London",
+        "name": "Outsourced FM London",
         "url": "/fm-london"
       }
     ],
@@ -11434,7 +11466,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       "Claims must match BUSINESS-CLAIMS-VERIFICATION.md",
       "No placeholder contact strings in rendered content",
       "No unverified statistics",
-      "Differentiated from head-term /facilities-management-london"
+      "Distinct from the flagship /facilities-management-london and estate /london-facilities-management pages"
     ],
     "contentStatus": "CONTENT_COMPLETE"
   },

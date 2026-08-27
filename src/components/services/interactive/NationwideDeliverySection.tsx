@@ -12,7 +12,7 @@ interface RegionalHub {
 }
 
 const HUBS: RegionalHub[] = [
-  { city: 'London', region: 'Greater London & South East', href: '/fm-london', focus: 'Grade A corporate offices, retail campuses & multi-tenant estates' },
+  { city: 'London', region: 'Greater London & South East', href: '/facilities-management-london', focus: 'Grade A corporate offices, retail campuses & multi-tenant estates' },
   { city: 'Manchester', region: 'North West & M62 Corridor', href: '/fm-manchester', focus: 'Logistics, media city portfolios & manufacturing plants' },
   { city: 'Birmingham', region: 'Midlands & Central', href: '/fm-birmingham', focus: 'Colmore business district, industrial units & public estates' },
   { city: 'Leeds', region: 'Yorkshire & North East', href: '/fm-leeds', focus: 'Financial offices, Aire Valley distribution & mixed-use assets' },

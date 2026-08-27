@@ -113,7 +113,7 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
     { path: '/commercial-building-maintenance-london', label: 'Commercial Building Maintenance London', context: 'related-service' },
     { path: '/commercial-electrical-maintenance-london', label: 'Commercial Electrical Maintenance London', context: 'related-service' },
     { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
-    { path: '/fm-london', label: 'Outsourced FM London (24/7 Response)', context: 'related-location' },
+    { path: '/fm-london', label: 'Outsourced FM London (Single-Source Contracts)', context: 'related-location' },
     { path: '/london-facilities-management', label: 'Multi-Site Estate Facilities Management London', context: 'related-location' },
     { path: '/london-facilities-management-areas', label: 'London FM Coverage Areas', context: 'related-location' },
   ],
@@ -258,7 +258,7 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
   '/london-facilities-management': [
     { path: '/facilities-management-london', label: 'Facilities Management London Operations', context: 'related-location' },
     { path: '/facilities-management-services-london', label: 'London FM Services Directory', context: 'related-service' },
-    { path: '/fm-london', label: 'Outsourced FM London (24/7 Response)', context: 'related-location' },
+    { path: '/fm-london', label: 'Outsourced FM London (Single-Source Contracts)', context: 'related-location' },
     { path: '/office-cleaning-london', label: 'Office Cleaning London', context: 'related-service' },
     { path: '/commercial-cleaning-london', label: 'Commercial Cleaning London', context: 'related-service' },
     { path: '/commercial-building-maintenance-london', label: 'Commercial Building Maintenance London', context: 'related-service' },
@@ -268,7 +268,7 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
   '/london-facilities-management-areas': [
     { path: '/facilities-management-london', label: 'Facilities Management London Hub', context: 'related-location' },
     { path: '/facilities-management-services-london', label: 'London FM Services', context: 'related-service' },
-    { path: '/fm-london', label: 'FM London (24/7 Response)', context: 'related-location' },
+    { path: '/fm-london', label: 'Outsourced FM London', context: 'related-location' },
     { path: '/london-facilities-management', label: 'London Estate Facilities Management', context: 'related-location' },
   ],
 
@@ -319,7 +319,7 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
   '/locations/london': [
     { path: '/facilities-management-london', label: 'Facilities Management London (Flagship)', context: 'related-location' },
     { path: '/facilities-management-services-london', label: 'London FM Services Directory', context: 'related-service' },
-    { path: '/fm-london', label: 'FM London (Outsourced)', context: 'related-location' },
+    { path: '/fm-london', label: 'Outsourced FM London', context: 'related-location' },
     { path: '/london-facilities-management', label: 'London FM (Multi-Site Estates)', context: 'related-location' },
     { path: '/locations/london/services', label: 'London Regional Services', context: 'related-service' },
   ],

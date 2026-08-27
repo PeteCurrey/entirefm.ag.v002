@@ -39,9 +39,9 @@ const REGIONS = [
         slug: 'london',
         desc: 'Multi-tenant commercial offices, retail campuses, prime residential and corporate estates across Greater London and the M25.',
         routes: [
-          { label: 'Outsourced FM', path: '/fm-london' },
-          { label: 'Planned Maintenance (PPM)', path: '/facilities-management-london' },
-          { label: 'Commercial Estates', path: '/london-facilities-management' },
+          { label: 'Facilities Management London', path: '/facilities-management-london' },
+          { label: 'Outsourced FM London', path: '/fm-london' },
+          { label: 'Multi-Site Estate FM', path: '/london-facilities-management' },
           { label: 'Commercial Cleaning', path: '/commercial-cleaning-london' },
           { label: 'Industrial Cleaning', path: '/industrial-cleaning-london' },
         ],

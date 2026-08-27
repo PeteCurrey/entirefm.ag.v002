@@ -77,41 +77,46 @@ export function ClientsPageClient({ initialClients }: Props) {
     return { total, active, enterprise, onboarding };
   }, [clients]);
 
-  const handleCreateClient = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
+
+  const handleCreateClient = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newName.trim()) return;
 
-    const newAccNum = `CLA-2026-${String(clients.length + 1).padStart(3, '0')}`;
-    const [firstName, ...rest] = newAccountManager.split(' ');
-    const lastName = rest.join(' ') || 'Lead';
+    setIsSubmitting(true);
+    setCreateError(null);
 
-    const newClient: ClientAccount = {
-      id: `client-${Date.now()}`,
-      organisation_id: `org-${Date.now()}`,
-      account_number: newAccNum,
-      name: newName.trim(),
-      account_status: 'ONBOARDING',
-      account_tier: newTier,
-      created_at: new Date().toISOString(),
-      organisation: {
-        name: newName.trim(),
-        code: newOrgCode.trim().toUpperCase() || newName.slice(0, 4).toUpperCase(),
-        email: newEmail.trim() || undefined,
-        phone: newPhone.trim() || undefined,
-      },
-      account_manager: {
-        first_name: firstName,
-        last_name: lastName,
-        email: `${firstName.toLowerCase()}@entirefm.com`,
-      },
-    };
+    try {
+      const res = await fetch('/api/admin/clients', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: newName.trim(),
+          account_tier: newTier,
+          account_status: 'ACTIVE',
+          organisation_code: newOrgCode.trim() || undefined,
+          email: newEmail.trim() || undefined,
+          phone: newPhone.trim() || undefined,
+        }),
+      });
 
-    setClients([newClient, ...clients]);
-    setIsCreateModalOpen(false);
-    setNewName('');
-    setNewOrgCode('');
-    setNewEmail('');
-    setNewPhone('');
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to create client account.');
+      }
+
+      setClients([data.client, ...clients]);
+      setIsCreateModalOpen(false);
+      setNewName('');
+      setNewOrgCode('');
+      setNewEmail('');
+      setNewPhone('');
+    } catch (err: any) {
+      setCreateError(err.message || 'Error creating client');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -411,12 +416,19 @@ export function ClientsPageClient({ initialClients }: Props) {
                     Status: <strong>{selectedClient.account_status}</strong>
                   </span>
                 </div>
+                <div className="mt-3">
+                  <Link href={`/admin/estate/clients/${selectedClient.id}`}>
+                    <Button variant="primary" size="sm" icon={<ExternalLink className="h-3.5 w-3.5" />}>
+                      Open Operational Hub
+                    </Button>
+                  </Link>
+                </div>
               </div>
               <button
                 onClick={() => setSelectedClient(null)}
-                className="p-1.5 rounded-full text-[#9B9B97] hover:text-[#101010] hover:bg-[#FAFAF8] transition-colors"
+                className="text-[#9B9B97] hover:text-[#101010] p-1"
               >
-                <X className="h-5 w-5" />
+                <X className="h-4 w-4" />
               </button>
             </div>
 

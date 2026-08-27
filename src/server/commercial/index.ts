@@ -1349,3 +1349,96 @@ export async function detectMarginLeakage(): Promise<{
     exceptions,
   };
 }
+
+export async function createQuoteDirect(params: {
+  client_account_id?: string;
+  contract_id?: string;
+  work_order_id?: string;
+  defect_id?: string;
+  title: string;
+  description: string;
+  lines: Array<{
+    line_type: 'LABOUR' | 'MATERIALS' | 'SUBCONTRACT' | 'PLANT_EQUIPMENT' | 'PRELIMINARIES' | 'DISPOSAL' | 'ACCESS' | 'EXPENSES';
+    description: string;
+    quantity: number;
+    unit_cost_gbp: number;
+    markup_pct?: number;
+    unit_price_gbp?: number;
+  }>;
+  source_type?: QuoteSourceType;
+  session?: UserSession;
+}): Promise<{ quote: Quote | null; error?: string }> {
+  const quoteNumber = generateQuoteNumber();
+
+  let totalCost = 0;
+  let totalSell = 0;
+
+  const processedLines: any[] = params.lines.map((line, idx) => {
+    const markup = line.markup_pct ?? 25.0;
+    const unitPrice = line.unit_price_gbp ?? roundMoney(line.unit_cost_gbp * (1 + markup / 100));
+    const lineCost = roundMoney(line.quantity * line.unit_cost_gbp);
+    const lineSell = roundMoney(line.quantity * unitPrice);
+
+    totalCost += lineCost;
+    totalSell += lineSell;
+
+    return {
+      line_number: idx + 1,
+      line_type: line.line_type,
+      description: line.description,
+      quantity: line.quantity,
+      unit_cost_gbp: line.unit_cost_gbp,
+      total_cost_gbp: lineCost,
+      markup_pct: markup,
+      unit_price_gbp: unitPrice,
+      total_sell_gbp: lineSell,
+      margin_gbp: roundMoney(lineSell - lineCost),
+      margin_pct: lineSell > 0 ? roundMoney(((lineSell - lineCost) / lineSell) * 100) : 0,
+    };
+  });
+
+  const marginGbp = roundMoney(totalSell - totalCost);
+  const marginPct = totalSell > 0 ? roundMoney((marginGbp / totalSell) * 100) : 0;
+
+  const { data, error } = await dbQuery<Quote[]>('quotes', {
+    method: 'POST',
+    body: {
+      quote_number: quoteNumber,
+      client_account_id: params.client_account_id || null,
+      contract_id: params.contract_id || null,
+      work_order_id: params.work_order_id || null,
+      title: params.title,
+      description: params.description,
+      source_type: params.source_type || 'MANUAL',
+      status: 'DRAFT',
+      current_version: 1,
+      total_cost_gbp: totalCost,
+      total_sell_gbp: totalSell,
+      margin_gbp: marginGbp,
+      margin_pct: marginPct,
+      vat_amount_gbp: roundMoney(totalSell * 0.2),
+      total_inc_vat_gbp: roundMoney(totalSell * 1.2),
+    },
+  });
+
+  if (error || !data?.[0]) {
+    return { quote: null, error: `Failed to create quote: ${error || 'Unknown error'}` };
+  }
+
+  const quote = data[0];
+
+  // Insert lines
+  for (const line of processedLines) {
+    await dbQuery('quote_lines', {
+      method: 'POST',
+      body: {
+        ...line,
+        quote_id: quote.id,
+        version_number: 1,
+      },
+    });
+  }
+
+  return { quote, error: undefined };
+}
+
