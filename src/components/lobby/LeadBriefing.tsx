@@ -14,7 +14,7 @@ export function LeadBriefing({ data }: LeadBriefingProps) {
       {/* Large Architectural Photography Spread */}
       <div className="relative w-full h-[320px] sm:h-[380px] lg:h-[420px] overflow-hidden rounded-sm bg-neutral-900 mb-6">
         <Image
-          src={data.imageUrl || "/images/services/working-at-height/commercial-envelope-access.png"}
+          src={data.imageUrl || "/images/editorial/building-safety-facade-inspection.jpg"}
           alt={data.imageAlt || data.title}
           fill
           priority

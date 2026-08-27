@@ -14,7 +14,7 @@ export function EngineersNote({ data }: EngineersNoteProps) {
       {/* 65% Cinematic Technical Plant Subject */}
       <div className="relative w-full lg:w-[65%] min-h-[320px] lg:min-h-[540px] overflow-hidden">
         <Image
-          src={data.imageUrl || "/images/editorial/entirefm-hvac-plant-deck-1200w.webp"}
+          src={data.imageUrl || "/images/editorial/rooftop-condenser-plant-deck.jpg"}
           alt={data.imageAlt || data.title}
           fill
           priority

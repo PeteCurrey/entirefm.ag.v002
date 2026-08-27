@@ -18,8 +18,8 @@ export function FromTheField({ data }: FromTheFieldProps) {
         {/* Large Visual Photography Plate */}
         <div className="relative min-h-[380px] sm:min-h-[460px] lg:min-h-full overflow-hidden">
           <Image
-            src={data.imageSrc || '/images/editorial/entirefm-hvac-rooftop-condensers-1280w.webp'}
-            alt={data.imageAlt || 'Commercial plant defect site inspection'}
+            src={data.imageSrc || '/images/editorial/rooftop-condenser-plant-deck.jpg'}
+            alt={data.imageAlt || 'Commercial rooftop HVAC condenser bank inspection'}
             fill
             sizes="(max-width: 1024px) 100vw, 60vw"
             className="object-cover transition-all duration-700 ease-out brightness-85 group-hover:brightness-95 group-hover:scale-[1.02]"

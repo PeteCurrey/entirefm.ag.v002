@@ -14,7 +14,7 @@ export function ComplianceWatch({ data }: ComplianceWatchProps) {
       {/* Background Architectural Switchgear Plate with High Restraint */}
       <div className="absolute inset-0 z-0">
         <Image
-          src={data.imageUrl || "/images/editorial/entirefm-switchroom-survey-1200w.webp"}
+          src={data.imageUrl || "/images/editorial/commercial-switchgear-compliance.jpg"}
           alt={data.imageAlt || data.regulationTitle}
           fill
           className="object-cover opacity-20 brightness-50 transition-opacity duration-700 group-hover:opacity-25"

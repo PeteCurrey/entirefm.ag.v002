@@ -44,7 +44,7 @@ export function LobbyToolkit({ items }: LobbyToolkitProps) {
             <article className="group bg-white border border-neutral-200/80 rounded-sm overflow-hidden flex flex-col justify-between">
               <div className="relative w-full h-[260px] sm:h-[300px] overflow-hidden bg-neutral-900">
                 <Image 
-                  src="/images/editorial/entirefm-access-control-install-1200w.webp"
+                  src="/images/editorial/rooftop-condenser-plant-deck.jpg"
                   alt={mainTool.title}
                   fill
                   priority
@@ -93,8 +93,8 @@ export function LobbyToolkit({ items }: LobbyToolkitProps) {
           <div className="flex flex-col justify-between gap-4">
             {secondaryTools.map((tool, idx) => {
               const toolImg = idx === 0
-                ? '/images/editorial/entirefm-hvac-thermal-survey-1200w.webp'
-                : '/images/editorial/entirefm-plumbing-pressure-test-1200w.webp';
+                ? '/images/editorial/commercial-switchgear-compliance.jpg'
+                : '/images/editorial/potable-water-booster-pump-set.jpg';
 
               return (
                 <article

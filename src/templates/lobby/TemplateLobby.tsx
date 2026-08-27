@@ -41,8 +41,8 @@ export function TemplateLobby() {
     ],
     fullBriefingUrl: `/lobby/${data.leadStory.slug}`,
     tags: data.leadStory.topics,
-    imageUrl: '/images/services/working-at-height/commercial-envelope-access.png',
-    imageAlt: 'Building Safety Golden Thread and commercial envelope compliance inspection',
+    imageUrl: '/images/editorial/building-safety-facade-inspection.jpg',
+    imageAlt: 'Building Safety Golden Thread and commercial building envelope compliance inspection',
   };
 
   const complianceWatchProps = {
@@ -63,8 +63,8 @@ export function TemplateLobby() {
       'Immediate action required for active PPM cycles and planned Q4 works.',
     governingBody: data.complianceWatch.complianceData?.governingBody || 'Building Safety Regulator (HSE)',
     sourceDocUrl: `/lobby/${data.complianceWatch.slug}`,
-    imageUrl: '/images/editorial/entirefm-switchroom-survey-1200w.webp',
-    imageAlt: 'Mandatory digital occurrence reporting and electrical infrastructure verification',
+    imageUrl: '/images/editorial/commercial-switchgear-compliance.jpg',
+    imageAlt: 'Mandatory digital occurrence reporting and electrical switchroom verification',
   };
 
   const engineersNoteProps = {
@@ -86,8 +86,8 @@ export function TemplateLobby() {
       credentials: data.engineersNote.author.credentials || 'CEng MCIBSE, Senior Building Services Engineer',
     },
     diagramNote: data.engineersNote.engineersNoteData?.diagramNote,
-    imageUrl: '/images/editorial/entirefm-hvac-plant-deck-1200w.webp',
-    imageAlt: 'Commercial rooftop condenser bank and airflow clearance survey',
+    imageUrl: '/images/editorial/rooftop-condenser-plant-deck.jpg',
+    imageAlt: 'Commercial rooftop condenser plant deck with acoustic louvres and chillers',
   };
 
   const usefulThingProps = {
@@ -109,8 +109,8 @@ export function TemplateLobby() {
   const fromTheFieldProps = {
     id: data.fromTheField.id,
     imageKey: 'hvac-rooftop-condensers',
-    imageSrc: data.fromTheField.heroImage || '/images/editorial/entirefm-hvac-rooftop-condensers-1280w.webp',
-    imageAlt: data.fromTheField.heroImageAlt || 'Commercial rooftop HVAC condenser bank inspection',
+    imageSrc: '/images/editorial/rooftop-condenser-plant-deck.jpg',
+    imageAlt: 'Commercial rooftop HVAC condenser bank inspection and anti-vibration mount defect',
     locationContext:
       data.fromTheField.fromTheFieldData?.locationDescription || '210,000 sq ft Commercial Headquarters, West Midlands',
     environmentType:
