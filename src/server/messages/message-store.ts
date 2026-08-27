@@ -20,8 +20,8 @@ function seedInitialDMs() {
     participants: [
       {
         memberId: 'mem-00000000-0000-4000-8000-000000000001',
-        memberName: 'Pete Currey',
-        memberHeadline: 'Managing Director & Hard FM Specialist',
+        memberName: 'Peter Currey',
+        memberHeadline: 'CEO | EntireFM',
         memberCompany: 'EntireFM',
         status: 'accepted',
         joinedAt: now,
@@ -42,7 +42,7 @@ function seedInitialDMs() {
       },
     ],
     lastMessageAt: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
-    lastMessagePreview: 'Thanks Pete, we used the acoustic tension meter on AHU-2 today and Hz readings were spot on.',
+    lastMessagePreview: 'Thanks Peter, we used the acoustic tension meter on AHU-2 today and Hz readings were spot on.',
     lastMessageAuthorName: 'Marcus Vance',
     createdAt: now,
     updatedAt: now,
@@ -55,7 +55,7 @@ function seedInitialDMs() {
       id: 'dm-01',
       conversationId: convId,
       authorMemberId: 'mem-00000000-0000-4000-8000-000000000001',
-      authorName: 'Pete Currey',
+      authorName: 'Peter Currey',
       body: 'Hi Marcus, saw your question in the Engineering room regarding SPB belt failure. Did you check the pulley groove wear as well?',
       createdAt: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
       moderationState: 'published',

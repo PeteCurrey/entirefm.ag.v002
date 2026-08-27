@@ -257,15 +257,19 @@ export function TemplateLobby() {
                 <div className="bg-white border border-neutral-200/80 rounded-sm p-7 sm:p-9 flex flex-col justify-between space-y-6">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center text-xs font-medium">
+                      <Link
+                        href="/lobby/members"
+                        className="flex items-center gap-3 group/author"
+                        aria-label="View Peter Currey profile in Lobby Member Directory"
+                      >
+                        <div className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center text-xs font-medium group-hover/author:bg-brand-electric transition-colors">
                           PC
                         </div>
                         <div>
-                          <p className="text-xs font-medium text-neutral-900">Peter Currey</p>
-                          <p className="text-[11px] text-neutral-500 font-light">Head of Estates &amp; Asset Management</p>
+                          <p className="text-xs font-medium text-neutral-900 group-hover/author:text-brand-electric transition-colors">Peter Currey</p>
+                          <p className="text-[11px] text-neutral-500 font-light">CEO · EntireFM</p>
                         </div>
-                      </div>
+                      </Link>
                       <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-sm">
                         <CheckCircle2 className="w-3 h-3" />
                         Accepted Solution
