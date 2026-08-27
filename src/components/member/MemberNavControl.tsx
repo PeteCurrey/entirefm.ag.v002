@@ -143,13 +143,13 @@ export function MemberNavControl() {
     <div className="flex items-center gap-3 sm:gap-4">
       <Link
         href="/sign-in"
-        className="inline-flex items-center text-xs sm:text-sm font-normal text-brand-mist/90 hover:text-white transition-colors px-2 py-1"
+        className="inline-flex items-center text-xs sm:text-sm font-extralight text-brand-mist/90 hover:text-white transition-colors px-2 py-1"
       >
         Sign In
       </Link>
       <Link
         href="/join"
-        className="inline-flex items-center gap-1.5 rounded-sm bg-brand-electric hover:bg-brand-indigo px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white shadow-sm transition-all duration-200"
+        className="inline-flex items-center gap-1.5 rounded-[6px] bg-brand-electric hover:bg-brand-indigo px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-light text-white shadow-sm transition-all duration-200"
       >
         <span>Become a Member</span>
       </Link>

@@ -103,17 +103,17 @@ export function TemplateAskLobby() {
       <section className="container-wide border-b border-neutral-200 pb-10 mb-10">
         <div className="max-w-4xl">
           <div className="flex items-center gap-3 mb-3">
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-semibold bg-brand-electric/10 px-2.5 py-1 rounded-sm">
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light bg-brand-electric/10 px-2.5 py-1 rounded-[4px]">
               GROUNDED FM RESEARCH DESK
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            <span className="text-xs text-neutral-500 font-mono">Tier 1–4 Verified Statutory &amp; Technical Indexes</span>
+            <span className="text-xs text-neutral-500 font-extralight">Tier 1–4 Verified Statutory &amp; Technical Indexes</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-neutral-900 leading-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-neutral-900 leading-tight">
             Ask The Lobby
           </h1>
-          <p className="text-base sm:text-lg font-light text-neutral-600 mt-2">
+          <p className="text-base sm:text-lg font-extralight text-neutral-600 mt-2">
             Directly query live UK building safety legislation, statutory guidance, procurement notices, and technical standards with transparent citations.
           </p>
 
@@ -125,9 +125,9 @@ export function TemplateAskLobby() {
             }}
             className="mt-8 relative space-y-3"
           >
-            <div className="relative flex flex-col bg-white border-2 border-neutral-300 focus-within:border-neutral-900 rounded-sm shadow-sm transition-colors p-3">
+            <div className="relative flex flex-col bg-white border border-neutral-200/90 focus-within:border-neutral-900 rounded-[8px] shadow-sm transition-colors p-4 sm:p-5">
               <div className="flex items-start gap-3">
-                <Search className="w-5 h-5 text-neutral-400 mt-2 shrink-0" />
+                <Search className="w-5 h-5 text-neutral-400 mt-1 shrink-0" />
                 <textarea
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
@@ -138,8 +138,8 @@ export function TemplateAskLobby() {
                     }
                   }}
                   rows={2}
-                  placeholder="Ask about building safety, F-gas, tenders, EICR intervals, or what is changing..."
-                  className="w-full text-base sm:text-lg font-light text-neutral-900 placeholder:text-neutral-400 bg-transparent focus:outline-none resize-none"
+                  placeholder="Ask about FM, regulation, contracts, events, technical issues or what's changing..."
+                  className="w-full text-base sm:text-lg font-extralight text-neutral-900 placeholder:text-neutral-400 bg-transparent focus:outline-none resize-none leading-relaxed"
                 />
               </div>
 
