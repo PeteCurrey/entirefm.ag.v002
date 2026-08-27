@@ -140,6 +140,39 @@ export async function searchLobby(query: string, options?: { filterGroup?: strin
     }
   }
 
+  // 1b. Search News Articles
+  const { getNewsArticles } = await import('../news/news-store');
+  const { articles: newsItems } = getNewsArticles({ search: q, limit: 10 });
+  for (const news of newsItems) {
+    results.push({
+      id: news.id,
+      group: 'GUIDES',
+      title: news.title,
+      snippet: news.standfirst,
+      href: `/lobby/news/article/${news.slug}`,
+      badge: `News · ${news.sourceName}`,
+      badgeType: 'official',
+      publishedAt: news.publishedAt,
+      score: 40,
+    });
+  }
+
+  // 1c. Search Industry Awards
+  const { getIndustryAwards } = await import('../awards/awards-store');
+  const { awards: awardItems } = getIndustryAwards({ search: q, limit: 5 });
+  for (const award of awardItems) {
+    results.push({
+      id: award.id,
+      group: 'EVENTS',
+      title: award.name,
+      snippet: award.description,
+      href: `/lobby/awards/${award.slug}`,
+      badge: `Award · ${award.organiser}`,
+      badgeType: 'official',
+      score: 35,
+    });
+  }
+
   // 2. Search Community Discussions
   const { discussions } = getDiscussions({ query: q, limit: 10 });
   for (const disc of discussions) {

@@ -6,10 +6,12 @@ import { LobbyMasthead } from '@/components/lobby/LobbyMasthead';
 import { LeadBriefing } from '@/components/lobby/LeadBriefing';
 import { ComplianceWatch } from '@/components/lobby/ComplianceWatch';
 import { BriefingStrip } from '@/components/lobby/BriefingStrip';
+import { IndustryMoves } from '@/components/lobby/IndustryMoves';
 import { EngineersNote } from '@/components/lobby/EngineersNote';
 import { UsefulThing } from '@/components/lobby/UsefulThing';
 import { FromTheField } from '@/components/lobby/FromTheField';
 import { AskEntireFM } from '@/components/lobby/AskEntireFM';
+import { OnTheHorizon } from '@/components/lobby/OnTheHorizon';
 import { LobbyToolkit } from '@/components/lobby/LobbyToolkit';
 import { LobbyQuestion } from '@/components/lobby/LobbyQuestion';
 import { LobbyPulse } from '@/components/lobby/LobbyPulse';
@@ -169,13 +171,17 @@ export function TemplateLobby() {
                 <span>STATUTORY COMPLIANCE &amp; HARD FM INTELLIGENCE</span>
               </div>
               <div className="flex items-center gap-4 text-neutral-500">
+                <Link href="/lobby/news" className="hover:text-neutral-900 transition-colors flex items-center gap-1 font-semibold text-brand-electric">
+                  FM News Desk &rarr;
+                </Link>
+                <span>·</span>
                 <Link href="/lobby/search" className="hover:text-neutral-900 transition-colors flex items-center gap-1">
-                  <Search className="w-3 h-3 text-brand-electric" />
-                  Search Intelligence
+                  <Search className="w-3 h-3" />
+                  Search
                 </Link>
                 <span>·</span>
                 <Link href="/lobby/compliance" className="hover:text-neutral-900 transition-colors">
-                  Compliance Watch &rarr;
+                  Compliance Watch
                 </Link>
               </div>
             </div>
@@ -200,7 +206,7 @@ export function TemplateLobby() {
             </div>
           </section>
 
-          {/* 03. Briefing Wire / Editorial News Index (White Neutral Canvas) */}
+          {/* 03. Briefing Wire & Latest News Stream Wire (White Neutral Canvas) */}
           <BriefingStrip items={data.briefingStrip} />
 
           {/* 04. In The Lobby: Active Discussions & Live Rooms (Soft Light Canvas) */}
@@ -333,42 +339,48 @@ export function TemplateLobby() {
             </div>
           </section>
 
-          {/* 05. The Engineer's Note (Deep Cinematic Dark Moment) */}
+          {/* 05. Industry Moves & Contracts (Refined Market Activity Strip) */}
+          <IndustryMoves />
+
+          {/* 06. The Engineer's Note (Deep Cinematic Dark Moment) */}
           <section id="engineers-note" className="py-16 sm:py-24 bg-[#090C12] text-white scroll-mt-20">
             <div className="container-wide">
               <EngineersNote data={engineersNoteProps} />
             </div>
           </section>
 
-          {/* 06. One Useful Thing (Crisp Light Neutral Canvas) */}
+          {/* 07. One Useful Thing (Crisp Light Neutral Canvas) */}
           <section id="useful-thing" className="py-16 sm:py-24 bg-[#FAF9F7] text-neutral-900 scroll-mt-20">
             <div className="container-wide">
               <UsefulThing data={usefulThingProps} />
             </div>
           </section>
 
-          {/* 07. From The Field (Deep Dark Photographic Plate) */}
+          {/* 08. From The Field (Deep Dark Photographic Plate) */}
           <section id="from-the-field" className="py-16 sm:py-24 bg-[#080C14] text-white scroll-mt-20 border-y border-white/5">
             <div className="container-wide">
               <FromTheField data={fromTheFieldProps} />
             </div>
           </section>
 
-          {/* 08. Ask EntireFM (Approved Design Benchmark — Clean Light Spread) */}
+          {/* 09. Ask EntireFM (Approved Design Benchmark — Clean Light Spread) */}
           <section id="ask-entirefm" className="py-16 sm:py-24 bg-white text-neutral-900 scroll-mt-20 border-b border-neutral-200/80">
             <div className="container-wide">
               <AskEntireFM data={askEntireFMProps} />
             </div>
           </section>
 
-          {/* 09. FM Toolkit (Light Neutral Architectural Canvas) */}
+          {/* 10. On The Horizon (Events, Award Deadlines & Compliance Milestones) */}
+          <OnTheHorizon />
+
+          {/* 11. FM Toolkit (Light Neutral Architectural Canvas) */}
           <section id="toolkit" className="py-16 sm:py-24 bg-[#F8F8F6] text-neutral-900 scroll-mt-20">
             <div className="container-wide">
               <LobbyToolkit items={data.toolkit} />
             </div>
           </section>
 
-          {/* 10. The Lobby Question & The Pulse (Asymmetric Composition: 40% Scenario Dark / 60% Light Data) */}
+          {/* 12. The Lobby Question & The Pulse (Asymmetric Composition: 40% Scenario Dark / 60% Light Data) */}
           <section className="py-16 sm:py-24 bg-[#F4F4F2] text-neutral-900 border-y border-neutral-200/80">
             <div className="container-wide">
               
@@ -400,7 +412,7 @@ export function TemplateLobby() {
             </div>
           </section>
 
-          {/* 11. Worth Attending (Light Curated Events Spread) */}
+          {/* 13. Worth Attending (Light Curated Events Spread) */}
           <section id="worth-attending" className="py-16 sm:py-24 bg-white text-neutral-900 scroll-mt-20 border-b border-neutral-200/80">
             <div className="container-wide">
               <div className="flex items-center justify-between pb-6 mb-8 border-b border-neutral-200">
@@ -420,7 +432,7 @@ export function TemplateLobby() {
             </div>
           </section>
 
-          {/* 12. Archive Gateway Strip */}
+          {/* 14. Archive Gateway Strip */}
           <section className="py-12 bg-[#F6F5F2] border-b border-neutral-200 text-neutral-900">
             <div className="container-wide flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-4">
@@ -428,8 +440,8 @@ export function TemplateLobby() {
                   <Layers className="w-5 h-5" />
                 </span>
                 <div>
-                  <p className="text-sm font-medium text-neutral-900">Looking for past briefings or specific regulations?</p>
-                  <p className="text-xs text-neutral-500 font-light">Search the complete Lobby editorial archive, statutory guides, and tool repository.</p>
+                  <p className="text-sm font-medium text-neutral-900">Looking for past briefings, news, or specific regulations?</p>
+                  <p className="text-xs text-neutral-500 font-light">Search the complete Lobby editorial archive, news desk, and statutory guides.</p>
                 </div>
               </div>
 
@@ -443,10 +455,10 @@ export function TemplateLobby() {
             </div>
           </section>
 
-          {/* 13. Join The Lobby (Architectural Membership Presentation) */}
+          {/* 15. Join The Lobby (Architectural Membership Presentation) */}
           <LobbyNewsletter />
 
-          {/* 14. Global Footer */}
+          {/* 16. Global Footer */}
           <Footer />
         </div>
       </main>

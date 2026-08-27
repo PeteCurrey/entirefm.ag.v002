@@ -8457,6 +8457,38 @@
       "historicSources": []
     },
     {
+      "path": "/lobby/news",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
+    },
+    {
+      "path": "/lobby/awards",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "core",
+      "priority": "P1",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": []
+    },
+    {
       "path": "/lobby/members",
       "routeType": "company",
       "routeProvenance": "NEW_GROWTH",
