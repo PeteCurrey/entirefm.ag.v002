@@ -194,11 +194,11 @@ export function LobbyMasthead() {
                 </span>
                 <button
                   type="submit"
-                  disabled={!query.trim()}
-                  className="px-5 py-2.5 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 disabled:opacity-40 text-black font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center gap-2"
+                  className="px-5 py-2.5 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center gap-2"
+                  style={{ color: '#000000' }}
                 >
-                  <span className="text-black">{mode === 'deep_research' ? 'Start Research' : 'Ask The Lobby'}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-black" />
+                  <span style={{ color: '#000000' }}>{mode === 'deep_research' ? 'Start Research' : 'Ask The Lobby'}</span>
+                  <ArrowRight className="w-3.5 h-3.5" style={{ color: '#000000', stroke: '#000000' }} />
                 </button>
               </div>
             </div>
