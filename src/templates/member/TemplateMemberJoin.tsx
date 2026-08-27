@@ -75,9 +75,9 @@ export function TemplateMemberJoin() {
     <div className="flex min-h-screen flex-col bg-white text-brand-graphite">
       <Header solid={true} />
 
-      <main id="main" className="flex-1 py-12 sm:py-16 lg:py-20 bg-slate-50">
-        <div className="container-custom">
-          <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-14 items-center">
+      <main id="main" className="flex-1 min-h-[calc(100vh-80px)] flex items-center py-12 sm:py-16 lg:py-24 bg-[#FAF9F7]">
+        <div className="container-wide w-full max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16 items-center">
             {/* Left Column: Value Proposition */}
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2">
