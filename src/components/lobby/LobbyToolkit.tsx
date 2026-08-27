@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Wrench, Shield, Calculator } from 'lucide-react';
 import type { CuratedResourceItem } from '@/data/lobby/types';
 
 interface LobbyToolkitProps {
@@ -9,135 +9,141 @@ interface LobbyToolkitProps {
 }
 
 export function LobbyToolkit({ items }: LobbyToolkitProps) {
-  // Ensure we have at least 3 items to match the design logic safely, otherwise fallback to whatever is available
   const mainTool = items[0];
-  const subTool1 = items[1];
-  const subTool2 = items[2];
+  const secondaryTools = items.slice(1);
 
   return (
-    <section className="bg-brand-void py-16 sm:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-[#F8F8F6] py-16 sm:py-20 border-y border-neutral-200/80">
+      <div className="container-wide">
         
         {/* Section Header */}
-        <div className="mb-12 space-y-4">
-          <h2 className="text-[11px] font-mono uppercase tracking-[0.2em] text-brand-electric">
-            FM Toolkit
-          </h2>
-          <p className="text-3xl sm:text-4xl font-extralight text-white leading-tight">
-            Tools built for commercial estate teams
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 mb-10 border-b border-neutral-200">
+          <div>
+            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-400 block mb-1">
+              FM CALCULATORS &amp; MATRICES
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900">
+              Operational Toolkit
+            </h2>
+          </div>
+
+          <Link
+            href="/contractor/tools"
+            className="text-xs font-medium text-neutral-600 hover:text-neutral-900 transition-colors uppercase tracking-wider flex items-center gap-1.5"
+          >
+            <span>All FM Calculators</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
-        {/* Layout Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* Asymmetric Editorial Toolkit Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8 lg:gap-12 items-stretch">
           
-          {/* LARGE CARD (2/3 width on lg) */}
+          {/* FEATURED MAIN TOOL */}
           {mainTool && (
-            <Link 
-              href={mainTool.url}
-              className="lg:col-span-2 relative overflow-hidden group cursor-pointer block min-h-[360px] rounded-sm"
-            >
-              <Image 
-                src="/images/editorial/entirefm-access-control-install-1200w.webp"
-                alt="Tool Background"
-                fill
-                className="object-cover transition-all duration-500 ease-out group-hover:scale-[1.025] group-hover:brightness-90 brightness-75 motion-reduce:transition-none"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent pointer-events-none" />
-              
-              <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-white/80 bg-black/30 px-2.5 py-1 rounded-sm self-start backdrop-blur-sm">
-                  {mainTool.category}
-                </span>
-
-                <div className="space-y-3 pr-8">
-                  <h3 className="text-2xl sm:text-3xl font-light text-white leading-snug">
-                    {mainTool.title}
-                  </h3>
-                  <p className="text-sm font-light text-white/70 line-clamp-1 max-w-xl">
-                    {mainTool.description}
-                  </p>
-                  
-                  <div className="pt-4 flex items-center text-[13px] text-white font-medium group-hover:text-brand-electric transition-colors">
-                    <span className="mr-2">Open Tool</span>
-                    <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform motion-reduce:transition-none" />
-                  </div>
+            <article className="group bg-white border border-neutral-200/80 rounded-sm overflow-hidden flex flex-col justify-between">
+              <div className="relative w-full h-[260px] sm:h-[300px] overflow-hidden bg-neutral-900">
+                <Image 
+                  src="/images/editorial/entirefm-access-control-install-1200w.webp"
+                  alt={mainTool.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] brightness-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                
+                <div className="absolute top-4 left-4 z-10">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-white bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-sm">
+                    {mainTool.category}
+                  </span>
                 </div>
               </div>
-            </Link>
+
+              <div className="p-6 sm:p-8 space-y-4 flex-1 flex flex-col justify-between">
+                <div className="space-y-2">
+                  <h3 className="text-xl sm:text-2xl font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
+                    <Link href={mainTool.url}>
+                      {mainTool.title}
+                    </Link>
+                  </h3>
+                  <p className="text-sm font-light text-neutral-600 leading-relaxed">
+                    {mainTool.description}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
+                  <Link
+                    href={mainTool.url}
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-brand-electric hover:text-neutral-900 transition-colors uppercase tracking-wider"
+                  >
+                    <span>Launch Interactive Tool</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+
+                  <span className="text-xs text-neutral-400 font-mono">
+                    Free for FM Teams
+                  </span>
+                </div>
+              </div>
+            </article>
           )}
 
-          {/* SMALL CARDS STACK (1/3 width on lg) */}
-          <div className="lg:col-span-1 flex flex-col gap-4">
-            
-            {/* Small Card 1 */}
-            {subTool1 && (
-              <Link 
-                href={subTool1.url}
-                className="relative overflow-hidden group cursor-pointer block min-h-[170px] flex-1 rounded-sm"
-              >
-                <Image 
-                  src="/images/editorial/entirefm-hvac-thermal-survey-1200w.webp"
-                  alt="Tool Background"
-                  fill
-                  className="object-cover transition-all duration-500 ease-out group-hover:scale-[1.025] group-hover:brightness-90 brightness-75 motion-reduce:transition-none"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent pointer-events-none" />
-                
-                <div className="absolute inset-0 p-5 flex flex-col justify-between">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white/80 bg-black/30 px-2 py-0.5 rounded-sm self-start backdrop-blur-sm">
-                    {subTool1.category}
-                  </span>
+          {/* COMPANION TOOLS LIST */}
+          <div className="flex flex-col justify-between gap-4">
+            {secondaryTools.map((tool, idx) => {
+              const toolImg = idx === 0
+                ? '/images/editorial/entirefm-hvac-thermal-survey-1200w.webp'
+                : '/images/editorial/entirefm-plumbing-pressure-test-1200w.webp';
 
-                  <div className="space-y-2 mt-4">
-                    <h3 className="text-lg font-light text-white leading-snug">
-                      {subTool1.title}
-                    </h3>
-                    
-                    <div className="flex items-center text-xs text-white/90 group-hover:text-brand-electric transition-colors">
-                      <span className="mr-1.5">Open</span>
-                      <ArrowRight className="w-3 h-3 transform group-hover:translate-x-1 transition-transform motion-reduce:transition-none" />
+              return (
+                <article
+                  key={tool.id || idx}
+                  className="group bg-white border border-neutral-200/80 rounded-sm p-5 sm:p-6 flex flex-col justify-between flex-1 space-y-3 hover:border-neutral-400 transition-colors"
+                >
+                  <div className="flex gap-4 items-start">
+                    <div className="relative w-20 h-20 shrink-0 rounded-sm overflow-hidden bg-neutral-100">
+                      <Image
+                        src={toolImg}
+                        alt={tool.title}
+                        fill
+                        sizes="80px"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+
+                    <div className="space-y-1 flex-1">
+                      <span className="text-[10px] font-mono text-brand-electric uppercase tracking-wider block">
+                        {tool.category}
+                      </span>
+                      <h4 className="text-base font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
+                        <Link href={tool.url}>
+                          {tool.title}
+                        </Link>
+                      </h4>
+                      <p className="text-xs font-light text-neutral-500 line-clamp-2 leading-relaxed">
+                        {tool.description}
+                      </p>
                     </div>
                   </div>
-                </div>
-              </Link>
-            )}
 
-            {/* Small Card 2 */}
-            {subTool2 && (
-              <Link 
-                href={subTool2.url}
-                className="relative overflow-hidden group cursor-pointer block min-h-[170px] flex-1 rounded-sm"
-              >
-                <Image 
-                  src="/images/editorial/entirefm-plumbing-pressure-test-1200w.webp"
-                  alt="Tool Background"
-                  fill
-                  className="object-cover transition-all duration-500 ease-out group-hover:scale-[1.025] group-hover:brightness-90 brightness-75 motion-reduce:transition-none"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent pointer-events-none" />
-                
-                <div className="absolute inset-0 p-5 flex flex-col justify-between">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white/80 bg-black/30 px-2 py-0.5 rounded-sm self-start backdrop-blur-sm">
-                    {subTool2.category}
-                  </span>
-
-                  <div className="space-y-2 mt-4">
-                    <h3 className="text-lg font-light text-white leading-snug">
-                      {subTool2.title}
-                    </h3>
-                    
-                    <div className="flex items-center text-xs text-white/90 group-hover:text-brand-electric transition-colors">
-                      <span className="mr-1.5">Open</span>
-                      <ArrowRight className="w-3 h-3 transform group-hover:translate-x-1 transition-transform motion-reduce:transition-none" />
-                    </div>
+                  <div className="pt-3 border-t border-neutral-100 flex items-center justify-between">
+                    <span className="text-[11px] text-neutral-400 font-mono">
+                      Online Calculator
+                    </span>
+                    <Link
+                      href={tool.url}
+                      className="text-xs font-medium text-neutral-900 group-hover:text-brand-electric transition-colors flex items-center gap-1"
+                    >
+                      <span>Open Tool</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </Link>
                   </div>
-                </div>
-              </Link>
-            )}
-            
+                </article>
+              );
+            })}
           </div>
+
         </div>
 
       </div>

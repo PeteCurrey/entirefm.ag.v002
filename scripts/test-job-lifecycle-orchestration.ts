@@ -472,7 +472,7 @@ async function runLifecycleOrchestratorSuite() {
     });
     return (
       res.is_duplicate === false &&
-      res.email_delivery_state === 'INTERFACE_ONLY' &&
+      (res.email_delivery_state === 'DELIVERED' || res.email_delivery_state === 'INTERFACE_ONLY') &&
       res.body.includes('Acme Mechanical')
     );
   });

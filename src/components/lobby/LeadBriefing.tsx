@@ -10,57 +10,63 @@ interface LeadBriefingProps {
 
 export function LeadBriefing({ data }: LeadBriefingProps) {
   return (
-    <article className="group relative w-full min-h-[480px] overflow-hidden rounded-sm flex flex-col justify-between p-6 sm:p-8 lg:p-10">
-      <Image
-        src="/images/editorial/entirefm-rooftop-plant-night-1200w.webp"
-        alt={data.title}
-        fill
-        className="object-cover transition-all duration-300 ease-out brightness-75 group-hover:brightness-90 group-hover:scale-[1.025]"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        priority
-      />
-      
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20 transition-opacity duration-300 group-hover:opacity-90" />
-      
-      {/* Top section: Franchise Label & Meta */}
-      <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
-        <span className="text-[11px] font-medium tracking-[0.2em] text-white/70 uppercase">
-          {data.franchise}
-        </span>
-        <div className="text-[11px] text-white/50 font-light flex items-center gap-2">
+    <article className="flex flex-col justify-between h-full group">
+      {/* Large Architectural Photography Spread */}
+      <div className="relative w-full h-[320px] sm:h-[380px] lg:h-[420px] overflow-hidden rounded-sm bg-neutral-900 mb-6">
+        <Image
+          src="/images/editorial/entirefm-rooftop-plant-night-1200w.webp"
+          alt={data.title}
+          fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 60vw"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.015]"
+        />
+        {/* Subtle tonal gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+
+        {/* Floating Category Label */}
+        <div className="absolute top-6 left-6 z-10">
+          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/90 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/10">
+            {data.franchise}
+          </span>
+        </div>
+
+        {/* Date & Reading Time in Image Footer */}
+        <div className="absolute bottom-6 left-6 right-6 z-10 flex items-center justify-between text-xs text-white/80 font-light">
           <span>{data.publishedAt}</span>
-          <span>·</span>
           <span>{data.readingTime}</span>
         </div>
       </div>
 
-      {/* Bottom section: Content */}
-      <div className="relative z-10 mt-auto space-y-6">
-        <div>
-          {data.keyTakeaways && data.keyTakeaways.length > 0 && (
-            <span className="inline-block mb-4 text-[11px] text-white px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-sm">
-              {data.keyTakeaways[0]}
-            </span>
-          )}
-          
-          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extralight text-white leading-tight">
-            {data.title}
-          </h3>
-          
-          <p className="text-base font-light text-white/80 mt-3 line-clamp-1">
+      {/* Editorial Headline & Standfirst */}
+      <div className="space-y-4 flex-1 flex flex-col justify-between">
+        <div className="space-y-3">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extralight text-neutral-900 leading-tight tracking-tight">
+            <Link href={data.fullBriefingUrl || '/lobby'} className="hover:text-brand-electric transition-colors">
+              {data.title}
+            </Link>
+          </h2>
+
+          <p className="text-sm sm:text-base font-light text-neutral-600 leading-relaxed max-w-3xl">
             {data.standfirst}
           </p>
         </div>
 
-        <div className="pt-2">
+        {/* Action Link & Editorial Developments */}
+        <div className="pt-4 border-t border-neutral-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <Link
-            href={data.fullBriefingUrl || '/compliance'}
-            className="inline-flex items-center gap-2 text-sm font-light text-white transition-colors hover:text-white/70"
+            href={data.fullBriefingUrl || '/lobby'}
+            className="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 hover:text-brand-electric transition-colors group/link"
           >
-            Read the full briefing
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <span>Read the full intelligence briefing</span>
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
           </Link>
+
+          {data.author && (
+            <span className="text-xs text-neutral-500 font-light">
+              By {data.author.name} · {data.author.role}
+            </span>
+          )}
         </div>
       </div>
     </article>

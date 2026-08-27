@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import {
   Users,
   UserPlus,
+  Upload,
   Wrench,
   CheckCircle2,
   AlertTriangle,
@@ -11,10 +13,13 @@ import {
   List,
   ShieldCheck,
   Search,
+  ExternalLink,
 } from 'lucide-react';
 import { OperativeProfile, TrainingMatrixItem, CANONICAL_COMPETENCIES } from '@/server/contractor/workforce-service';
 import { TrainingMatrixTable } from './TrainingMatrixTable';
 import { OperativeProfileModal } from './OperativeProfileModal';
+import { AddOperativeModal } from './AddOperativeModal';
+import { BulkImportWorkforceModal } from './BulkImportWorkforceModal';
 
 interface Props {
   initialOperatives: OperativeProfile[];
@@ -33,6 +38,20 @@ export function ContractorWorkforceClient({
   const [activeTab, setActiveTab] = useState<'ROSTER' | 'MATRIX'>('ROSTER');
   const [selectedOperative, setSelectedOperative] = useState<OperativeProfile | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+
+  const refreshOperatives = async () => {
+    try {
+      const res = await fetch(`/api/contractor/workforce?orgId=${encodeURIComponent(orgId)}`);
+      const data = await res.json();
+      if (data.operatives) {
+        setOperatives(data.operatives);
+      }
+    } catch (err) {
+      console.error('Failed to refresh operatives:', err);
+    }
+  };
 
   const filteredOperatives = operatives.filter((op) => {
     if (!searchQuery.trim()) return true;
@@ -55,7 +74,7 @@ export function ContractorWorkforceClient({
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
           <span className="text-[10px] font-mono text-brand-mist/50 uppercase">Active Operatives</span>
           <p className="text-2xl font-light text-white mt-1">{operatives.length}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Registered engineers</span>
+          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Registered team</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
@@ -79,8 +98,8 @@ export function ContractorWorkforceClient({
         </div>
       </div>
 
-      {/* View Switcher Tabs */}
-      <div className="flex items-center justify-between border-b border-brand-edge-dark pb-3">
+      {/* Action Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-brand-edge-dark pb-3">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveTab('ROSTER')}
@@ -94,16 +113,30 @@ export function ContractorWorkforceClient({
             Operative Roster ({operatives.length})
           </button>
 
-          <button
-            onClick={() => setActiveTab('MATRIX')}
-            className={`px-4 py-2 rounded-lg text-xs font-normal transition-colors flex items-center gap-2 ${
-              activeTab === 'MATRIX'
-                ? 'bg-brand-electric text-white font-medium'
-                : 'text-brand-mist hover:text-white hover:bg-brand-carbon'
-            }`}
+          <Link
+            href="/contractor/workforce/training-matrix"
+            className="px-4 py-2 rounded-lg text-xs font-normal text-brand-mist hover:text-white hover:bg-brand-carbon transition-colors flex items-center gap-2"
           >
             <Grid className="w-4 h-4" />
-            Training &amp; Competency Matrix
+            Training Matrix <ExternalLink className="w-3 h-3 text-brand-mist/50" />
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setIsImportModalOpen(true)}
+            className="px-3.5 py-2 rounded-lg border border-brand-edge-dark bg-brand-carbon hover:bg-brand-edge-dark text-brand-mist hover:text-white text-xs font-normal transition-colors flex items-center gap-2"
+          >
+            <Upload className="w-3.5 h-3.5" />
+            Import CSV
+          </button>
+
+          <button
+            onClick={() => setIsAddModalOpen(true)}
+            className="px-4 py-2 rounded-lg bg-brand-electric text-white text-xs font-medium hover:bg-brand-electric/85 transition-colors flex items-center gap-2 shadow-md shadow-brand-electric/20"
+          >
+            <UserPlus className="w-4 h-4" />
+            Add Operative
           </button>
         </div>
       </div>
@@ -111,13 +144,31 @@ export function ContractorWorkforceClient({
       {/* Content Rendering */}
       {activeTab === 'ROSTER' ? (
         <div className="space-y-4">
+          {/* Search bar */}
+          <div className="relative max-w-sm">
+            <Search className="w-4 h-4 text-brand-mist/40 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search operatives by name or job title..."
+              className="w-full pl-9 pr-3 py-2 rounded-lg bg-brand-carbon border border-brand-edge-dark text-white text-xs placeholder:text-brand-mist/40 focus:border-brand-electric focus:outline-none"
+            />
+          </div>
+
           {filteredOperatives.length === 0 ? (
             <div className="p-12 text-center rounded-xl border border-brand-edge-dark bg-brand-carbon/40 space-y-3">
               <Users className="w-8 h-8 text-brand-mist/30 mx-auto" />
-              <h3 className="text-base font-light text-white">No operatives registered</h3>
+              <h3 className="text-base font-light text-white">No operatives found</h3>
               <p className="text-xs text-brand-mist/50 max-w-sm mx-auto">
-                Add your field operatives and engineers to track competencies, assign work orders, and manage trade eligibility.
+                Add field engineers to track competencies, ensure compliance, and unlock work order dispatch eligibility.
               </p>
+              <button
+                onClick={() => setIsAddModalOpen(true)}
+                className="mt-2 px-4 py-2 rounded-lg bg-brand-electric text-white text-xs font-medium"
+              >
+                Add First Operative
+              </button>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -169,7 +220,7 @@ export function ContractorWorkforceClient({
 
                   <div className="flex items-center justify-between text-[11px] font-mono text-brand-mist/40 pt-2 border-t border-brand-edge-dark/30">
                     <span>{op.employmentStatus}</span>
-                    <span>{op.qualifications.length} Certs Held</span>
+                    <span className="text-brand-electric-bright hover:underline">View Profile &rarr;</span>
                   </div>
                 </div>
               ))}
@@ -188,6 +239,22 @@ export function ContractorWorkforceClient({
       <OperativeProfileModal
         operative={selectedOperative}
         onClose={() => setSelectedOperative(null)}
+      />
+
+      {/* Add Operative Modal */}
+      <AddOperativeModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSuccess={refreshOperatives}
+        contractorOrgId={orgId}
+      />
+
+      {/* Bulk Import CSV Modal */}
+      <BulkImportWorkforceModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onSuccess={refreshOperatives}
+        contractorOrgId={orgId}
       />
     </div>
   );

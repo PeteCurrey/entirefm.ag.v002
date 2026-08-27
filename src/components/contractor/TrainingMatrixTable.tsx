@@ -2,11 +2,16 @@
 
 import React, { useState } from 'react';
 import { CheckCircle2, AlertTriangle, XCircle, Clock, Search, Filter, ShieldCheck, User } from 'lucide-react';
-import { TrainingMatrixItem, CANONICAL_COMPETENCIES, CompetencyStatus } from '@/server/contractor/workforce-service';
+import {
+  TrainingMatrixItem,
+  CANONICAL_COMPETENCIES,
+  CompetencyStatus,
+} from '@/server/contractor/workforce-service';
+import { CanonicalCompetencyDef } from '@/server/contractor/competency-framework';
 
 interface Props {
   initialMatrix: TrainingMatrixItem[];
-  competencies: typeof CANONICAL_COMPETENCIES;
+  competencies: CanonicalCompetencyDef[];
   onSelectOperative?: (operativeId: string) => void;
 }
 
@@ -111,7 +116,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
                 <th className="py-3 px-4 sticky left-0 bg-brand-void z-10">Operative</th>
                 {competencies.map((comp) => (
                   <th key={comp.code} className="py-3 px-3 min-w-[130px] text-center">
-                    <span className="block truncate max-w-[130px]">{comp.name}</span>
+                    <span className="block truncate max-w-[130px]">{comp.title || (comp as any).name}</span>
                   </th>
                 ))}
               </tr>
@@ -176,7 +181,7 @@ export function TrainingMatrixTable({ initialMatrix, competencies, onSelectOpera
                 if (compData.status === 'NOT_REQUIRED') return null;
                 return (
                   <div key={comp.code} className="p-2 rounded bg-brand-void border border-brand-edge-dark/40">
-                    <span className="text-[9.5px] font-mono text-brand-mist/50 block truncate">{comp.name}</span>
+                    <span className="text-[9.5px] font-mono text-brand-mist/50 block truncate">{comp.title || (comp as any).name}</span>
                     <div className="mt-1">{getStatusBadge(compData.status, compData.daysRemaining)}</div>
                   </div>
                 );

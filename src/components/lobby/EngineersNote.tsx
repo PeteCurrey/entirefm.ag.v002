@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Wrench } from 'lucide-react';
 import type { EngineersNoteItem } from '@/data/lobby/types';
 
 interface EngineersNoteProps {
@@ -9,70 +9,70 @@ interface EngineersNoteProps {
 }
 
 export function EngineersNote({ data }: EngineersNoteProps) {
-  // Extract initials safely
-  const initials = data.author.name
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .substring(0, 2)
-    .toUpperCase();
-
   return (
-    <section className="relative overflow-hidden min-h-[520px] bg-[#0a0a0a] rounded-sm group flex flex-col lg:flex-row">
-      {/* LEFT HALF - Image */}
-      <div className="relative w-full lg:w-[60%] min-h-[300px] lg:min-h-[520px]">
+    <article className="relative overflow-hidden min-h-[500px] lg:min-h-[540px] bg-[#090C12] rounded-sm group flex flex-col lg:flex-row border border-white/5">
+      {/* 65% Cinematic Technical Plant Subject */}
+      <div className="relative w-full lg:w-[65%] min-h-[320px] lg:min-h-[540px] overflow-hidden">
         <Image
           src="/images/editorial/entirefm-hvac-plantroom-pumps-1200w.webp"
-          alt="Engineer Note Background"
+          alt={data.title}
           fill
-          className="object-cover opacity-75 group-hover:opacity-90 transition-opacity duration-700 ease-out"
+          priority
+          sizes="(max-width: 1024px) 100vw, 65vw"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
         />
-        {/* Gradient fade to dark for text legibility and blending */}
-        <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/50 lg:via-transparent to-transparent lg:to-transparent lg:from-transparent lg:via-transparent lg:to-[#0a0a0a]" />
+        {/* Soft edge blend to dark right panel */}
+        <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-transparent via-transparent to-[#090C12]" />
+
+        <div className="absolute top-6 left-6 z-10">
+          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/90 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/10">
+            THE ENGINEER’S NOTE · {data.discipline}
+          </span>
+        </div>
       </div>
 
-      {/* RIGHT HALF - Content */}
-      <div className="relative w-full lg:w-[40%] bg-[#0a0a0a] p-8 lg:p-12 flex flex-col justify-center z-10">
-        <div className="mb-6 space-y-2">
-          <span className="text-[9px] uppercase tracking-widest text-brand-electric block">
-            {data.discipline}
+      {/* 35% Editorial Reading Column */}
+      <div className="relative w-full lg:w-[35%] bg-[#090C12] p-8 sm:p-10 lg:p-12 flex flex-col justify-between z-10 space-y-6">
+        <div className="space-y-4">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-brand-electric block">
+            MECHANICAL DIAGNOSTIC
           </span>
-          <h2 className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">
-            The Engineer's Note
-          </h2>
+
           <h3 className="text-2xl sm:text-3xl font-extralight text-white leading-snug">
             {data.title}
           </h3>
+
+          <p className="text-sm font-light text-white/75 leading-relaxed">
+            {data.leadParagraph}
+          </p>
         </div>
 
-        <p className="text-sm font-light text-white/70 line-clamp-3 mb-8">
-          {data.leadParagraph}
-        </p>
-
-        {/* Practical Field Rule Box */}
-        <div className="font-mono text-[11px] text-brand-electric border-l-2 border-brand-electric pl-4 my-6 leading-relaxed">
-          {data.fieldRule}
+        {/* Practical Field Rule Callout */}
+        <div className="border-l-2 border-brand-electric pl-4 py-1 space-y-1 bg-white/[0.02]">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric block">
+            Field Rule of Thumb
+          </span>
+          <p className="text-xs sm:text-sm font-light text-white/90 leading-relaxed italic">
+            {data.fieldRule}
+          </p>
         </div>
 
-        <div className="mt-auto pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-6 sm:items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-sm bg-brand-electric/10 text-brand-electric flex items-center justify-center text-xs font-mono">
-              {initials}
-            </div>
-            <div>
-              <p className="text-xs font-medium text-white">{data.author.name}</p>
-              <p className="text-[10px] font-light text-white/50">{data.author.credentials}</p>
-            </div>
+        {/* Author attribution & CTA */}
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <p className="text-xs font-normal text-white">{data.author.name}</p>
+            <p className="text-[11px] font-light text-white/50">{data.author.credentials}</p>
           </div>
 
           <Link
             href="/mechanical-electrical"
-            className="inline-flex items-center gap-1.5 text-xs text-white/70 hover:text-white transition-colors group/link"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-electric hover:text-white transition-colors uppercase tracking-wider group/link"
           >
-            <span>Read the full Note &rarr;</span>
+            <span>Full Note</span>
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
           </Link>
         </div>
       </div>
-    </section>
+    </article>
   );
 }
