@@ -56,6 +56,7 @@ const DEDICATED_APP_PREFIXES = [
   '/engineer',
   '/login',
   '/legal',
+  '/lobby',
 ];
 
 export async function generateStaticParams() {

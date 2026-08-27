@@ -130,8 +130,25 @@ export function Header({ solid = false }: HeaderProps) {
               </span>
             </Link>
 
-            {/* ── Actions: Explore · Search · Login ─────────── */}
-            <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* ── Actions: The Lobby · Explore · Search · Login ─────────── */}
+            <div className="flex items-center gap-1.5 sm:gap-2.5">
+              {/* The Lobby Primary Editorial Destination */}
+              <Link
+                href="/lobby"
+                className={`group relative inline-flex items-center gap-2 rounded-sm px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 ease-brand ${
+                  pathname?.startsWith('/lobby')
+                    ? 'border border-brand-electric/80 bg-brand-electric/25 text-white shadow-glow'
+                    : 'border border-white/15 bg-white/[0.05] text-brand-mist/90 hover:text-white hover:border-brand-electric/60 hover:bg-brand-electric/15'
+                }`}
+                aria-label="The Lobby — Facilities Management Intelligence & Briefing Room"
+              >
+                <span className="relative flex h-2 w-2 items-center justify-center shrink-0" aria-hidden="true">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                </span>
+                <span className="font-normal text-white tracking-tight">The Lobby</span>
+              </Link>
+
               {/* Explore */}
               <button
                 type="button"

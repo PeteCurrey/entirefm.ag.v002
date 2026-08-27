@@ -6,11 +6,11 @@
   "authority": "This file is the single authoritative source for all routing, sitemap, metadata, content validation, and redirect decisions.",
   "warning": "DO NOT hand-edit individual routes. Use the validation script to verify integrity.",
   "counts": {
-    "total": 423,
+    "total": 424,
     "LEGACY_VERIFIED": 201,
     "LEGACY_PROTECTED_BY_DIRECTIVE": 31,
-    "NEW_GROWTH": 186,
-    "protected": 423,
+    "NEW_GROWTH": 187,
+    "protected": 424,
     "historic": 230
   },
   "routes": [
@@ -6679,6 +6679,24 @@
       ],
       "g1_url": "https://petercurrey.wixsite.com/efm-new/residential-fm-lincoln",
       "location": "Lincoln"
+    },
+    {
+      "path": "/lobby",
+      "routeType": "company",
+      "routeProvenance": "NEW_GROWTH",
+      "historic": false,
+      "protected": true,
+      "indexable": true,
+      "statusRequired": 200,
+      "canonical": "self",
+      "uniquePageRequired": true,
+      "sitemapGroup": "company",
+      "priority": "P0",
+      "contentStatus": "COMPLETE",
+      "designStatus": "COMPLETE",
+      "historicSources": [
+        "new-growth-directive"
+      ]
     },
     {
       "path": "/resources",

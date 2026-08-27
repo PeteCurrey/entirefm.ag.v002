@@ -63,6 +63,7 @@ import { TemplateDroneInspectionPlanner } from './tools/TemplateDroneInspectionP
 import { TemplateCityHub } from './locations/TemplateCityHub';
 import { TemplateCityServices } from './locations/TemplateCityServices';
 import { TemplateServicesOverview } from './services/TemplateServicesOverview';
+import { TemplateLobby } from './lobby/TemplateLobby';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const content = loadContentRecord(route.path);
@@ -92,6 +93,11 @@ function selectTemplate(
   // 1. Homepage
   if (path === '/') {
     return <TemplateHome />;
+  }
+
+  // 1b. The Lobby — Editorial, Professional Intelligence & Industry Authority
+  if (path === '/lobby') {
+    return <TemplateLobby />;
   }
 
   // 2. HTML Sitemap

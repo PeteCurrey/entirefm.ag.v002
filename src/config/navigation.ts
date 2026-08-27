@@ -217,6 +217,7 @@ export const PRIMARY_NAV: NavSection[] = [
  * Flat links alongside the mega-menu sections.
  */
 export const SECONDARY_NAV: NavLink[] = [
+  { label: 'The Lobby', href: '/lobby', detail: 'FM intelligence and daily briefing room' },
   { label: 'Client Portal', href: '/client-portal' },
   { label: 'About', href: '/about-entire-facilities-management' },
   { label: 'Contact', href: '/contact-us' },
@@ -273,16 +274,17 @@ export const FOOTER_NAV: NavColumn[] = [
     ],
   },
   {
-    heading: 'Resources & Tools',
+    heading: 'The Lobby & Resources',
     links: [
+      { label: 'The Lobby', href: '/lobby' },
       { label: 'Resource Hub', href: '/resources' },
       { label: 'FM Tools & Calculators', href: '/tools' },
       { label: 'Compliance Centre', href: '/compliance' },
       { label: 'FM Intelligence', href: '/fm-intelligence' },
       { label: 'The FM Briefing', href: '/fm-briefing' },
       { label: 'EntireFM Academy', href: '/academy' },
+      { label: 'Lobby Archive', href: '/lobby/archive' },
       { label: 'Careers', href: '/careers' },
-      { label: 'Legal & Governance', href: '/legal' },
       { label: 'About EntireFM', href: '/about-entire-facilities-management' },
       { label: 'Contact', href: '/contact-us' },
     ],

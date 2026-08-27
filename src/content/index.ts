@@ -33,6 +33,7 @@ import { DRONE_SERVICES_CONTENT } from './drone-services';
 import { droneInspectionPlannerRecord } from './tools/drone-inspection-planner';
 import { GEO_EXPANSION_CONTENT } from './locations/geo-expansion';
 import { BATCH1_GEO_CONTENT } from './locations/batch1-services';
+import { LOBBY_CONTENT } from './lobby/records';
 
 export type { ContentRecord };
 
@@ -80,6 +81,8 @@ export const COMPANY_CONTENT: Record<string, ContentRecord> = {
   ...GEO_EXPANSION_CONTENT,
   // Geo SEO Expansion Phase 2B: 10 High-Intent Batch 1 Service x City Pages
   ...BATCH1_GEO_CONTENT,
+  // The Lobby — Editorial, Professional Intelligence & Industry Authority Proposition
+  ...LOBBY_CONTENT,
 };
 
 

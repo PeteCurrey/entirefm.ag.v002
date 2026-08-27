@@ -30,6 +30,15 @@ const COMPANY_LINKS = [
   { label: 'Legal Centre', href: '/legal', detail: 'Privacy, terms and governance' },
 ];
 
+const LOBBY_CATEGORY_LINKS = [
+  { label: 'The Lobby Homepage', href: '/lobby', detail: 'The daily briefing room for facilities professionals' },
+  { label: 'The Week That Matters', href: '/lobby#week-that-matters', detail: 'Priority FM analysis and regulatory developments' },
+  { label: 'Compliance Watch', href: '/lobby#compliance-watch', detail: 'Statutory mandates translated into operational directives' },
+  { label: 'The Engineer’s Note', href: '/lobby#engineers-note', detail: 'Field diagnostics and technical observations' },
+  { label: 'FM Toolkit', href: '/lobby#toolkit', detail: 'Calculators, schedules, and RFP specification builders' },
+  { label: 'The Lobby Archive', href: '/lobby/archive', detail: 'Browse all historical briefings and intelligence articles' },
+];
+
 type PrimaryCategory = {
   id?: string;
   label: string;
@@ -39,6 +48,20 @@ type PrimaryCategory = {
 };
 
 const CATEGORIES: PrimaryCategory[] = [
+  {
+    id: 'lobby',
+    label: 'The Lobby',
+    href: '/lobby',
+    columns: [{ heading: 'Editorial & Intelligence', links: LOBBY_CATEGORY_LINKS }],
+    feature: {
+      eyebrow: 'Daily Intelligence',
+      title: 'Know what’s changed. Understand what matters.',
+      body: 'The briefing room for UK facilities management professionals: regulatory updates, engineering diagnostics, and compliance analysis.',
+      href: '/lobby',
+      cta: 'Enter The Lobby',
+      imageKey: 'client-review',
+    },
+  },
   ...(PRIMARY_NAV as PrimaryCategory[]),
   {
     id: 'locations',
