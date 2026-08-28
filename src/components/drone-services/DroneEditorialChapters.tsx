@@ -84,7 +84,7 @@ const CHAPTERS: Chapter[] = [
     number: '06',
     category: 'REALITY CAPTURE & DIGITAL TWINS',
     title: 'Navigable 3D Models & High-Level Media',
-    narrative: 'Immersive Gaussian Splats, dense point clouds, and broadcast-quality 6K architectural media for remote asset walkthroughs, stakeholder presentations, and long-term BIM archives.',
+    narrative: 'Immersive EntireFM 3D digital twins, dense point clouds, and broadcast-quality 6K architectural media for remote asset walkthroughs, stakeholder presentations, and long-term BIM archives.',
     mediaType: 'video',
     videoSrc: '/video/drone/photography.mp4',
     imageSrc: '/images/drone/photography_poster.png',

@@ -272,7 +272,7 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
 
   '/services/drone-services/digital-twin-3d-capture': {
     heroPoster: '/images/drone/gaussian-splat/casa-hotel.jpg',
-    heroBadge: '3D GAUSSIAN SPLATTING & BIM',
+    heroBadge: 'ENTIREFM 3D DIGITAL TWIN & BIM',
     ctaTitle: 'Build a Navigable 3D Digital Twin of Your Building',
     ctaButtonText: 'Discuss 3D Capture Project',
     proofComponent: ProofDigitalTwin3D,

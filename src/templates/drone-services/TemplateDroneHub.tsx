@@ -110,7 +110,7 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
         <DroneThermalReveal />
 
         {/* ========================================================================= */}
-        {/* 07 — IMMERSIVE 3D / GAUSSIAN SPLAT EXPERIENCE */}
+        {/* 07 — ENTIREFM 3D IMMERSIVE SPATIAL EXPERIENCE */}
         {/* ========================================================================= */}
         <DroneGaussianSplatExperience />
 

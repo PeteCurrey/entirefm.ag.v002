@@ -81,7 +81,7 @@ const SERVICES: ServiceItem[] = [
     name: 'DIGITAL TWIN & 3D REALITY CAPTURE',
     category: 'Spatial BIM',
     href: '/services/drone-services/digital-twin-3d-capture',
-    summary: 'Photorealistic 3D Gaussian Splats and dense point clouds for remote stakeholder inspection and BIM verification.',
+    summary: 'Photorealistic EntireFM 3D digital twins and dense point clouds for remote stakeholder inspection and BIM verification.',
     previewImage: '/images/drone/gaussian-splat/casa-hotel.jpg',
   },
   {

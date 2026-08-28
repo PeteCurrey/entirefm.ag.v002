@@ -513,7 +513,7 @@ export function ProofConstructionTimeline() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   08. DIGITAL TWIN & 3D CAPTURE PROOF: GAUSSIAN SPLAT & POINT CLOUD MODELS
+   08. DIGITAL TWIN & 3D CAPTURE PROOF: ENTIREFM 3D & POINT CLOUD MODELS
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofDigitalTwin3D() {
   return (
@@ -521,10 +521,10 @@ export function ProofDigitalTwin3D() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
           <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
-          <h3 className="text-xl font-light text-white">3D Gaussian Splatting &amp; Navigable Spatial Twin</h3>
+          <h3 className="text-xl font-light text-white">EntireFM 3D &amp; Navigable Spatial Digital Twin</h3>
         </div>
         <span className="text-xs font-mono text-brand-pink bg-brand-pink/10 px-3 py-1 rounded-sm border border-brand-pink/20">
-          540,274 SPATIAL SPLATS
+          ENTIREFM 3D SPATIAL CAPTURE
         </span>
       </div>
 
@@ -532,8 +532,8 @@ export function ProofDigitalTwin3D() {
         <GaussianSplatViewer
           splatUrl="/assets/gaussian-splats/04_05_2026.ksplat"
           splatCount={540274}
-          title="LIVE 3D DIGITAL TWIN · GAUSSIAN SPLAT"
-          subtitle="Directly Navigable Radiance Field · Polycam Capture"
+          title="LIVE 3D DIGITAL TWIN · ENTIREFM 3D"
+          subtitle="Directly Navigable Interactive 3D Model · EntireFM 3D Capture"
           initialCameraPosition={[0, 3.5, 6.5]}
           initialCameraLookAt={[0, 0.8, 0]}
         />

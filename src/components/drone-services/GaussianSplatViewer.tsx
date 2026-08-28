@@ -28,8 +28,8 @@ interface GaussianSplatViewerProps {
 export function GaussianSplatViewer({
   splatUrl = '/assets/gaussian-splats/04_05_2026.ksplat',
   splatCount = 540274,
-  title = 'LIVE 3D SURVEY · GAUSSIAN SPLAT',
-  subtitle = 'Captured by EntireFM Drone Services · 540,274 Spatial Splats',
+  title = 'LIVE 3D SURVEY · ENTIREFM 3D',
+  subtitle = 'Captured by EntireFM Drone Services · EntireFM 3D Spatial Model',
   initialCameraPosition = [0, 3.5, 6.5],
   initialCameraLookAt = [0, 0.8, 0],
   className = '',
@@ -125,7 +125,7 @@ export function GaussianSplatViewer({
     } catch (err: any) {
       console.error('GaussianSplatViewer load error:', err);
       setLoadingState('error');
-      setErrorMessage(err?.message || 'Failed to load 3D Gaussian Splat asset.');
+      setErrorMessage(err?.message || 'Failed to load EntireFM 3D asset.');
     }
   }, [splatUrl, initialCameraPosition, initialCameraLookAt, isWebGlSupported]);
 
@@ -314,15 +314,15 @@ export function GaussianSplatViewer({
 
           <div className="space-y-2 max-w-md">
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-pink block font-semibold">
-              3D SITE CAPTURE · REALITY TWIN
+              ENTIREFM 3D · DIGITAL TWIN CAPTURE
             </span>
             <h4 className="text-xl sm:text-2xl font-light text-white tracking-tight">
-              {loadingState === 'connecting' && 'Connecting to Spatial Stream…'}
-              {loadingState === 'downloading' && `Downloading 3D Capture (${downloadProgress}%)`}
-              {loadingState === 'processing' && 'Synthesizing 540,274 Gaussian Splats…'}
+              {loadingState === 'connecting' && 'Connecting to 3D Stream…'}
+              {loadingState === 'downloading' && `Downloading EntireFM 3D Model (${downloadProgress}%)`}
+              {loadingState === 'processing' && 'Synthesizing EntireFM 3D Spatial Capture…'}
             </h4>
             <p className="text-xs text-slate-400 font-light leading-relaxed">
-              Streaming georeferenced photorealistic radiance fields captured via commercial multi-angle drone flight.
+              Streaming photorealistic interactive 3D spatial capture generated from high-overlap commercial drone flight.
             </p>
           </div>
 
@@ -335,7 +335,7 @@ export function GaussianSplatViewer({
           </div>
 
           <div className="text-[11px] font-mono text-slate-500">
-            {splatCount.toLocaleString()} splats · Format: .KSPLAT (WebGPU/WebGL)
+            EntireFM 3D Spatial Engine · WebGL / WebGPU
           </div>
         </div>
       )}
@@ -347,9 +347,9 @@ export function GaussianSplatViewer({
             <AlertCircle className="h-6 w-6" />
           </div>
           <div className="space-y-1 max-w-md">
-            <h4 className="text-lg font-light text-white">Interactive 3D View Unavailable</h4>
+            <h4 className="text-lg font-light text-white">Interactive EntireFM 3D View Unavailable</h4>
             <p className="text-xs text-slate-400 font-light leading-relaxed">
-              {errorMessage || 'Your browser or device does not meet the WebGL hardware requirements to render real-time Gaussian radiance fields.'}
+              {errorMessage || 'Your browser or device does not meet the WebGL hardware requirements to render real-time EntireFM 3D spatial models.'}
             </p>
           </div>
           <button
