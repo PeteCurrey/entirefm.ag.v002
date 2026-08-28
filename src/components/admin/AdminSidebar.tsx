@@ -32,6 +32,7 @@ import {
   ClipboardList,
   Flame,
   Briefcase,
+  Newspaper,
 } from 'lucide-react';
 
 interface NavItem {
@@ -193,6 +194,15 @@ const WEBSITE_GROUPS: NavGroup[] = [
     ],
   },
   {
+    title: 'THE LOBBY DAILY',
+    icon: Newspaper,
+    items: [
+      { name: 'Daily Briefings', href: '/admin/lobby/newsletters' },
+      { name: 'Analytics & Audience', href: '/admin/lobby/newsletters/analytics' },
+      { name: 'Publishing Settings', href: '/admin/lobby/newsletters/settings' },
+    ],
+  },
+  {
     title: 'MARKETING & NEWSLETTER',
     icon: Send,
     items: [
@@ -218,6 +228,7 @@ export function AdminSidebar({
     pathname.startsWith('/admin/careers') ||
     pathname.startsWith('/admin/seo') ||
     pathname.startsWith('/admin/newsletter') ||
+    pathname.startsWith('/admin/lobby') ||
     pathname.startsWith('/admin/content');
 
   const [activeSection, setActiveSection] = useState<'CAFM' | 'WEBSITE'>(

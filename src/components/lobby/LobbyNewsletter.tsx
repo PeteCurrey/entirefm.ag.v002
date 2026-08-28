@@ -3,16 +3,49 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { CheckCircle2, ArrowRight, ShieldCheck, MessageSquare, Wrench } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ShieldCheck, MessageSquare, Wrench, Clock } from 'lucide-react';
 
 export function LobbyNewsletter() {
   const [email, setEmail] = useState('');
+  const [frequency, setFrequency] = useState<'DAILY' | 'WEEKLY' | 'BOTH'>('BOTH');
   const [subscribed, setSubscribed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    setSubscribed(true);
+
+    setLoading(true);
+    setErrorMsg('');
+
+    const preferences: string[] = [];
+    if (frequency === 'DAILY' || frequency === 'BOTH') preferences.push('DAILY_LOBBY');
+    if (frequency === 'WEEKLY' || frequency === 'BOTH') preferences.push('WEEKLY_BRIEFING');
+
+    try {
+      const res = await fetch('/api/lobby/daily/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          preferences,
+          signupPage: '/lobby',
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        setErrorMsg(data.error || 'Failed to subscribe.');
+        return;
+      }
+
+      setSubscribed(true);
+    } catch {
+      setErrorMsg('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -100,34 +133,84 @@ export function LobbyNewsletter() {
           </div>
         </div>
 
-        {/* Quiet Tuesday Dispatch Newsletter Signup */}
-        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto">
-          <div className="text-left space-y-1">
-            <p className="text-sm font-medium text-white">Prefer weekly email updates only?</p>
-            <p className="text-xs text-white/50 font-light">Receive the Tuesday morning FM intelligence dispatch directly to your inbox.</p>
+        {/* The Lobby Daily & Weekly Signup */}
+        <div className="pt-10 border-t border-white/10 flex flex-col lg:flex-row items-center justify-between gap-8 max-w-4xl mx-auto">
+          <div className="text-left space-y-1.5 max-w-md">
+            <div className="flex items-center gap-2 text-[#00E599] text-xs font-mono">
+              <Clock className="w-3.5 h-3.5" />
+              <span>THE LOBBY DAILY · 06:45 DISPATCH</span>
+            </div>
+            <p className="text-base font-medium text-white">
+              Start your working day informed. Receive The Lobby Daily each weekday morning.
+            </p>
+            <p className="text-xs text-white/50 font-light leading-relaxed">
+              What changed. Why it matters. What to do next. Distinct from sales enquiries.
+            </p>
           </div>
 
           {!subscribed ? (
-            <form onSubmit={handleSubmit} className="flex gap-2 w-full md:w-auto">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Work email address..."
-                required
-                className="px-4 py-2.5 text-xs rounded-sm border border-white/20 focus:border-brand-electric bg-white/5 text-white placeholder:text-white/40 w-full sm:w-64"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2.5 rounded-sm bg-white/15 text-white text-xs font-medium uppercase tracking-wider hover:bg-white hover:text-black transition-all shrink-0"
-              >
-                Subscribe
-              </button>
+            <form onSubmit={handleSubmit} className="w-full lg:w-auto space-y-3">
+              <div className="flex flex-col sm:flex-row gap-2">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Work email address..."
+                  required
+                  className="px-4 py-2.5 text-xs rounded-sm border border-white/20 focus:border-[#00E599] bg-white/5 text-white placeholder:text-white/40 w-full sm:w-64 focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="px-5 py-2.5 rounded-sm bg-[#00E599] hover:bg-[#00c784] text-[#0A0D14] text-xs font-semibold uppercase tracking-wider transition-all shrink-0 disabled:opacity-50"
+                >
+                  {loading ? 'Subscribing...' : 'Get Briefing'}
+                </button>
+              </div>
+
+              {/* Frequency Selector */}
+              <div className="flex items-center gap-4 text-[11px] font-mono text-white/60">
+                <label className="flex items-center gap-1.5 cursor-pointer hover:text-white">
+                  <input
+                    type="radio"
+                    name="frequency"
+                    checked={frequency === 'DAILY'}
+                    onChange={() => setFrequency('DAILY')}
+                    className="accent-[#00E599]"
+                  />
+                  <span>Daily Morning</span>
+                </label>
+                <label className="flex items-center gap-1.5 cursor-pointer hover:text-white">
+                  <input
+                    type="radio"
+                    name="frequency"
+                    checked={frequency === 'WEEKLY'}
+                    onChange={() => setFrequency('WEEKLY')}
+                    className="accent-[#00E599]"
+                  />
+                  <span>Weekly (Tue)</span>
+                </label>
+                <label className="flex items-center gap-1.5 cursor-pointer hover:text-white">
+                  <input
+                    type="radio"
+                    name="frequency"
+                    checked={frequency === 'BOTH'}
+                    onChange={() => setFrequency('BOTH')}
+                    className="accent-[#00E599]"
+                  />
+                  <span>Both</span>
+                </label>
+              </div>
+
+              {errorMsg && <p className="text-xs text-rose-400">{errorMsg}</p>}
             </form>
           ) : (
-            <div className="text-emerald-400 text-xs flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4" />
-              <span>Confirmed for the Tuesday Dispatch.</span>
+            <div className="bg-emerald-950/60 border border-emerald-500/40 p-4 rounded-sm text-emerald-400 text-xs flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 shrink-0" />
+              <div>
+                <span className="font-semibold block text-white">Subscription Confirmed</span>
+                <span className="text-white/70">You will receive The Lobby Daily executive intelligence briefing.</span>
+              </div>
             </div>
           )}
         </div>

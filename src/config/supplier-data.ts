@@ -24,6 +24,67 @@ export interface CanonicalPublicProduct {
   description: string;
 }
 
+export type MembershipTierCode = 'TIER_1' | 'TIER_2';
+
+export interface ContractorMembershipTier {
+  id: string;
+  code: MembershipTierCode;
+  internalId: string;
+  name: string;
+  shortName: string;
+  priceGbp: number;
+  vatRate: number;
+  billingFrequency: 'ANNUAL';
+  displayPrice: string;
+  description: string;
+  features: string[];
+}
+
+export const MEMBERSHIP_PRICING_EFFECTIVE_FROM = '2026-08-28T00:00:00.000Z';
+
+export const CONTRACTOR_MEMBERSHIP_TIERS: Record<MembershipTierCode, ContractorMembershipTier> = {
+  TIER_1: {
+    id: 'prod-mem-t1',
+    code: 'TIER_1',
+    internalId: 'MEM-CONTRACTOR-T1',
+    name: 'Contractor Network Membership',
+    shortName: 'Network Member',
+    priceGbp: 295,
+    vatRate: 0.20,
+    billingFrequency: 'ANNUAL',
+    displayPrice: '£295 + VAT/year',
+    description: 'Core commercial network membership, digital CAFM credentials, and compliance management.',
+    features: [
+      'Digital Supplier Portal & CAFM Document Vault',
+      'Accreditation & Insurance Expiry Tracking Radar',
+      'Direct BACS Work Order Remittances & Statements',
+      'Verified EntireFM Supply Chain Partner Status',
+      'Trade Updates & Statutory Regulatory Intelligence',
+      'Full Suite of Contractor Operational & Field Tooling'
+    ],
+  },
+  TIER_2: {
+    id: 'prod-mem-t2',
+    code: 'TIER_2',
+    internalId: 'MEM-CONTRACTOR-T2',
+    name: 'Contractor Network Partner Membership',
+    shortName: 'Network Partner',
+    priceGbp: 695,
+    vatRate: 0.20,
+    billingFrequency: 'ANNUAL',
+    displayPrice: '£695 + VAT/year',
+    description: 'Expanded commercial network participation, multi-user accounts, and regional coverage management.',
+    features: [
+      'Everything in Network Membership (£295)',
+      'Multi-User Organisational Portal Seats',
+      'Expanded Multi-Region Operational Coverage Profile',
+      'Priority Supply Chain Communications & Network Directives',
+      'Regional Networking & Technical Industry Forum Access',
+      'Complete CP-01 through CP-09 Platform Capability'
+    ],
+  },
+};
+
 export const CANONICAL_PUBLIC_PRICING: Record<string, CanonicalPublicProduct> = {
   REGISTERED: {
     id: 'prod-mem-reg',
@@ -35,22 +96,22 @@ export const CANONICAL_PUBLIC_PRICING: Record<string, CanonicalPublicProduct> = 
     description: 'Initial supplier registration and application profile.',
   },
   SUPPLIER_NETWORK_MEMBER: {
-    id: 'prod-mem-verified',
-    name: 'Supplier Network Membership',
-    priceGbp: 495,
-    vatRate: 0.20,
+    id: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.id,
+    name: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.name,
+    priceGbp: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.priceGbp,
+    vatRate: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.vatRate,
     billingFrequency: 'ANNUAL',
-    displayPrice: '£495 + VAT/year',
-    description: 'Commercial network membership and digital portal services.',
+    displayPrice: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.displayPrice,
+    description: CONTRACTOR_MEMBERSHIP_TIERS.TIER_1.description,
   },
   NETWORK_PARTNER: {
-    id: 'prod-mem-partner',
-    name: 'Network Partner Membership',
-    priceGbp: 1250,
-    vatRate: 0.20,
+    id: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.id,
+    name: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.name,
+    priceGbp: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.priceGbp,
+    vatRate: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.vatRate,
     billingFrequency: 'ANNUAL',
-    displayPrice: '£1,250 + VAT/year',
-    description: 'Expanded commercial network participation and technical forum benefits.',
+    displayPrice: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.displayPrice,
+    description: CONTRACTOR_MEMBERSHIP_TIERS.TIER_2.description,
   },
   INITIAL_ASSURANCE_REVIEW: {
     id: 'prod-fee-assurance',

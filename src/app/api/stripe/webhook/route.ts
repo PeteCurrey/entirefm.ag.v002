@@ -47,6 +47,23 @@ export async function POST(req: NextRequest) {
         const applicationRef = session.metadata?.application_ref;
 
         if (supplierId) {
+          const isMembership = session.metadata?.payment_type === 'MEMBERSHIP';
+          const tier = session.metadata?.membership_tier;
+
+          if (isMembership) {
+            const { getApplicationDraft, saveApplicationDraft } = await import('@/server/suppliers/supplier-auth-store');
+            const authDraft = await getApplicationDraft(supplierId);
+            if (authDraft) {
+              authDraft.membershipPaymentStatus = 'PAID';
+              authDraft.membershipPaymentIntentId = session.payment_intent || session.id;
+              authDraft.membershipPaidAt = new Date().toISOString();
+              authDraft.lifecycleStatus = 'UNDER_REVIEW';
+              authDraft.submittedAt = new Date().toISOString();
+              authDraft.updatedAt = new Date().toISOString();
+              await saveApplicationDraft(supplierId, authDraft);
+            }
+          }
+
           // Record commercial payment transaction
           await recordAssurancePayment(supplierId, 'CARD', {
             transactionRef: session.payment_intent || session.id,

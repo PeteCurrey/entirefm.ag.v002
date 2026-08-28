@@ -1,42 +1,57 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupplierOnboardingDraft, saveSupplierOnboardingDraft } from '@/server/suppliers/store';
-import { createSupplierAssuranceCheckoutSession } from '@/lib/stripe/client';
-import { CANONICAL_PUBLIC_PRICING } from '@/config/supplier-data';
+import {
+  getApplicationDraft,
+  saveApplicationDraft,
+} from '@/server/suppliers/supplier-auth-store';
+import {
+  createContractorMembershipCheckoutSession,
+  createSupplierAssuranceCheckoutSession,
+} from '@/lib/stripe/client';
+import {
+  CONTRACTOR_MEMBERSHIP_TIERS,
+  MembershipTierCode,
+} from '@/config/supplier-data';
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { supplierId } = body;
+    const { supplierId, orgId, tier, paymentType = 'MEMBERSHIP' } = body;
+    const targetId = orgId || supplierId;
 
-    if (!supplierId) {
-      return NextResponse.json({ error: 'supplierId is required' }, { status: 400 });
+    if (!targetId) {
+      return NextResponse.json({ error: 'supplierId or orgId is required' }, { status: 400 });
     }
 
-    const draft = await getSupplierOnboardingDraft(supplierId);
+    // Try finding draft in supplier-auth-store first, then fallback to supplier store
+    const authDraft = await getApplicationDraft(targetId);
+    const storeDraft = await getSupplierOnboardingDraft(targetId);
 
-    // Validate completeness of profile
-    if (!draft.legal_company_name || !draft.company_number) {
-      return NextResponse.json(
-        { error: 'Company Profile information is incomplete. Please complete all application sections before proceeding to payment.' },
-        { status: 400 }
-      );
-    }
-    if (draft.selected_service_slugs.length === 0) {
-      return NextResponse.json(
-        { error: 'At least one service discipline must be declared.' },
-        { status: 400 }
-      );
-    }
+    const legalCompanyName =
+      authDraft?.legalCompanyName || storeDraft?.legal_company_name || 'Contractor Partner';
+    const companyNumber = authDraft?.companyNumber || storeDraft?.company_number || '';
+    const applicationRef =
+      authDraft?.applicationReference || storeDraft?.application_reference || `SUP-${Date.now()}`;
+    const contactEmail =
+      authDraft?.primaryContactEmail ||
+      authDraft?.generalEmail ||
+      storeDraft?.general_email ||
+      'finance@supplier.example.co.uk';
 
-    // If already paid or waived, return success
+    // 1. Zero-Value Checkout Bypass Check:
+    // If the membership fee was already waived by a valid EntireFM Invitation Code, bypass Stripe completely!
     if (
-      draft.assurance_payment?.status === 'PAID' ||
-      draft.assurance_payment?.status === 'WAIVED'
+      authDraft?.membershipPaymentStatus === 'WAIVED' ||
+      authDraft?.membershipPaymentStatus === 'PAID' ||
+      storeDraft?.assurance_payment?.status === 'WAIVED' ||
+      storeDraft?.assurance_payment?.status === 'PAID'
     ) {
       return NextResponse.json({
-        alreadyPaid: true,
-        status: draft.assurance_payment.status,
-        applicationRef: draft.application_reference,
+        zeroValueBypass: true,
+        alreadyPaidOrWaived: true,
+        status: authDraft?.membershipPaymentStatus || storeDraft?.assurance_payment?.status || 'WAIVED',
+        applicationRef,
+        message: 'Membership fee is fully waived or settled. Zero payment required.',
       });
     }
 
@@ -44,29 +59,51 @@ export async function POST(req: NextRequest) {
     const protocol = req.headers.get('x-forwarded-proto') || 'http';
     const baseUrl = `${protocol}://${host}`;
 
-    const successUrl = `${baseUrl}/supplier-portal/application/payment/success?session_id={CHECKOUT_SESSION_ID}&supplierId=${encodeURIComponent(supplierId)}`;
+    const successUrl = `${baseUrl}/supplier-portal/application/payment/success?session_id={CHECKOUT_SESSION_ID}&supplierId=${encodeURIComponent(targetId)}`;
     const cancelUrl = `${baseUrl}/supplier-portal/onboarding?cancelled=1`;
 
-    const checkout = await createSupplierAssuranceCheckoutSession({
-      supplierId,
-      applicationRef: draft.application_reference,
-      companyName: draft.legal_company_name,
-      contactEmail: draft.general_email || 'finance@supplier.example.co.uk',
+    const selectedTier: MembershipTierCode =
+      (tier as MembershipTierCode) ||
+      authDraft?.selectedMembershipTier ||
+      'TIER_1';
+
+    const tierConfig =
+      CONTRACTOR_MEMBERSHIP_TIERS[selectedTier] || CONTRACTOR_MEMBERSHIP_TIERS.TIER_1;
+
+    // Create Stripe Session for Membership Payment
+    const checkout = await createContractorMembershipCheckoutSession({
+      supplierId: targetId,
+      applicationRef,
+      companyName: legalCompanyName,
+      contactEmail,
+      tier: selectedTier,
       successUrl,
       cancelUrl,
-      idempotencyKey: `checkout_${supplierId}_${Date.now()}`,
+      idempotencyKey: `checkout_${targetId}_${selectedTier}_${Date.now()}`,
     });
 
-    // Update draft status to AWAITING_PAYMENT / PAYMENT_PROCESSING
-    draft.status = 'AWAITING_PAYMENT';
-    draft.updated_at = new Date().toISOString();
-    await saveSupplierOnboardingDraft(supplierId, draft);
+    if (authDraft) {
+      authDraft.selectedMembershipTier = selectedTier;
+      authDraft.membershipStandardAmountGbp = tierConfig.priceGbp;
+      authDraft.membershipFinalAmountGbp = tierConfig.priceGbp;
+      authDraft.membershipPaymentStatus = 'UNPAID';
+      authDraft.updatedAt = new Date().toISOString();
+      await saveApplicationDraft(targetId, authDraft);
+    }
+
+    if (storeDraft) {
+      storeDraft.status = 'AWAITING_PAYMENT';
+      storeDraft.updated_at = new Date().toISOString();
+      await saveSupplierOnboardingDraft(targetId, storeDraft);
+    }
 
     return NextResponse.json({
       checkoutUrl: checkout.url,
       sessionId: checkout.sessionId,
-      applicationRef: draft.application_reference,
-      canonicalPriceGbp: CANONICAL_PUBLIC_PRICING.INITIAL_ASSURANCE_REVIEW.priceGbp,
+      applicationRef,
+      tier: selectedTier,
+      canonicalPriceGbp: tierConfig.priceGbp,
+      totalAmountIncVatGbp: tierConfig.priceGbp * (1 + tierConfig.vatRate),
     });
   } catch (error: any) {
     console.error('Error creating Stripe Checkout Session:', error);

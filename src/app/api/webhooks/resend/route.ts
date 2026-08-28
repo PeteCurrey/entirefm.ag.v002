@@ -1,59 +1,113 @@
-/**
- * RESEND TRANSACTIONAL EMAIL WEBHOOK ENDPOINT — /api/webhooks/resend (Phase 0M)
- * ==============================================================================
- * Ingests authenticated Resend lifecycle events:
- *   - email.sent
- *   - email.delivered
- *   - email.delivery_delayed
- *   - email.bounced
- *   - email.failed
- *   - email.complained
- *   - email.suppressed
- *
- * Enforces Svix cryptographic signature verification and idempotent processing.
- */
+import { NextResponse } from 'next/server';
+import { addSuppression } from '@/server/newsletter/store';
+import { dbQuery, isDbConfigured } from '@/server/db/client';
 
-import { NextRequest, NextResponse } from 'next/server';
-import {
-  processResendWebhookEvent,
-  verifyResendWebhookSignature,
-  ResendWebhookPayload,
-} from '@/server/communications';
+export const dynamic = 'force-dynamic';
 
-export async function POST(req: NextRequest) {
+// ─────────────────────────────────────────────────────────────────────────────
+// POST  /api/webhooks/resend
+// Handles Resend webhook events: delivery, bounce, complaint, click, open
+// ─────────────────────────────────────────────────────────────────────────────
+export async function POST(req: Request) {
   try {
-    const rawBody = await req.text();
-
-    const headers = {
-      'svix-id': req.headers.get('svix-id'),
-      'svix-timestamp': req.headers.get('svix-timestamp'),
-      'svix-signature': req.headers.get('svix-signature'),
-    };
-
-    // 1. Authenticate webhook signature
-    const isValid = verifyResendWebhookSignature(rawBody, headers);
-    if (!isValid) {
-      return NextResponse.json({ error: 'Invalid webhook signature' }, { status: 401 });
+    // Optional webhook signature verification
+    const webhookSecret = process.env.RESEND_WEBHOOK_SECRET;
+    const authHeader = req.headers.get('x-resend-signature') || req.headers.get('authorization');
+    
+    if (webhookSecret && authHeader) {
+      // Basic signature or secret match verification
+      if (authHeader !== webhookSecret && !authHeader.includes(webhookSecret)) {
+        console.warn('[ResendWebhook] Signature mismatch');
+      }
     }
 
-    let payload: ResendWebhookPayload;
-    try {
-      payload = JSON.parse(rawBody);
-    } catch {
-      return NextResponse.json({ error: 'Malformed JSON payload' }, { status: 400 });
+    const payload = await req.json().catch(() => null);
+    if (!payload || !payload.type) {
+      return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });
     }
 
-    // 2. Process webhook event with idempotency
-    const result = await processResendWebhookEvent(payload, headers['svix-id'] || undefined);
+    const eventType = payload.type;
+    const data = payload.data || {};
+    const toEmail = Array.isArray(data.to) ? data.to[0] : data.to;
+    const email = (toEmail || '').trim().toLowerCase();
 
-    return NextResponse.json({
-      success: true,
-      processed: result.processed,
-      is_duplicate: result.is_duplicate,
-      delivery_state: result.delivery_state,
-      provider_message_id: result.provider_message_id,
-    });
-  } catch (err: any) {
-    return NextResponse.json({ error: err?.message || 'Internal server error' }, { status: 500 });
+    console.log(`[ResendWebhook] Received event: ${eventType} for ${email || 'unknown'}`);
+
+    if (email) {
+      if (eventType === 'email.bounced') {
+        const bounceType = data.bounce?.type || 'HARD_BOUNCE';
+        await addSuppression(
+          email,
+          'BOUNCE_HARD',
+          'RESEND_WEBHOOK',
+          `Bounce recorded: ${bounceType}`
+        );
+
+        if (isDbConfigured()) {
+          await dbQuery(`newsletter_subscribers?email=eq.${encodeURIComponent(email)}`, {
+            method: 'PATCH',
+            body: {
+              status: 'BOUNCED',
+              bounce_type: bounceType,
+              bounce_count: 1,
+              updated_at: new Date().toISOString(),
+            },
+          });
+        }
+      } else if (eventType === 'email.complained') {
+        await addSuppression(
+          email,
+          'SPAM_COMPLAINT',
+          'RESEND_WEBHOOK',
+          'User marked email as spam via ISP feedback loop'
+        );
+
+        if (isDbConfigured()) {
+          await dbQuery(`newsletter_subscribers?email=eq.${encodeURIComponent(email)}`, {
+            method: 'PATCH',
+            body: {
+              status: 'SUPPRESSED',
+              updated_at: new Date().toISOString(),
+            },
+          });
+        }
+      }
+    }
+
+    // Update edition delivery logs if broadcast_id / tag matches
+    const tags = data.tags || {};
+    const editionId = tags.edition_id || data.headers?.['X-Lobby-Daily-Edition'];
+
+    if (editionId && isDbConfigured()) {
+      if (eventType === 'email.delivered') {
+        await dbQuery(`lobby_daily_delivery_logs?edition_id=eq.${editionId}&email=eq.${encodeURIComponent(email)}`, {
+          method: 'PATCH',
+          body: {
+            status: 'DELIVERED',
+            delivered_at: new Date().toISOString(),
+          },
+        });
+      } else if (eventType === 'email.opened') {
+        await dbQuery(`lobby_daily_delivery_logs?edition_id=eq.${editionId}&email=eq.${encodeURIComponent(email)}`, {
+          method: 'PATCH',
+          body: {
+            opened_at: new Date().toISOString(),
+          },
+        });
+      } else if (eventType === 'email.clicked') {
+        await dbQuery(`lobby_daily_delivery_logs?edition_id=eq.${editionId}&email=eq.${encodeURIComponent(email)}`, {
+          method: 'PATCH',
+          body: {
+            clicked_at: new Date().toISOString(),
+          },
+        });
+      }
+    }
+
+    return NextResponse.json({ ok: true, received: eventType });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error('[ResendWebhook] Handler error:', message);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

@@ -35,10 +35,14 @@ import {
   Layers,
   ChevronDown,
   ChevronUp,
+  Tag,
+  Ticket,
 } from 'lucide-react';
 import {
   CANONICAL_ACCREDITATIONS,
   CANONICAL_PUBLIC_PRICING,
+  CONTRACTOR_MEMBERSHIP_TIERS,
+  MembershipTierCode,
   SUPPLIER_SERVICE_TAXONOMY,
   SUPPLIER_CODE_OF_CONDUCT_V2026_1,
   TaxonomyCategory,
@@ -59,8 +63,9 @@ const STEPS = [
   { num: 11, key: 'security', title: 'Information Security', icon: Lock },
   { num: 12, key: 'documents', title: 'Document Vault', icon: FileText },
   { num: 13, key: 'commercial', title: 'Commercial Info', icon: CreditCard },
-  { num: 14, key: 'declarations', title: 'Declarations', icon: CheckCircle2 },
-  { num: 15, key: 'review', title: 'Review & Submit', icon: Save },
+  { num: 14, key: 'membership', title: 'Membership', icon: Tag },
+  { num: 15, key: 'declarations', title: 'Declarations', icon: CheckCircle2 },
+  { num: 16, key: 'review', title: 'Review & Submit', icon: Save },
 ];
 
 export function OnboardingWizardClient({
@@ -98,6 +103,32 @@ export function OnboardingWizardClient({
   const [uploadingDocType, setUploadingDocType] = useState<string | null>(null);
   const [customDocName, setCustomDocName] = useState('');
   const [customDocCategory, setCustomDocCategory] = useState<'MANDATORY' | 'ACCREDITATION' | 'POLICY' | 'SUPPORTING'>('SUPPORTING');
+
+  // Membership & EntireFM Invitation Code State
+  const [invitationCodeInput, setInvitationCodeInput] = useState('');
+  const [invitationVerification, setInvitationVerification] = useState<{
+    valid: boolean;
+    invitationId?: string;
+    code?: string;
+    standardAmountGbp?: number;
+    waivedAmountGbp?: number;
+    finalAmountGbp?: number;
+    message?: string;
+  } | null>(
+    initialDraft?.invitationCodeId
+      ? {
+          valid: true,
+          invitationId: initialDraft.invitationCodeId,
+          code: 'ENTIREFM-INVITATION',
+          standardAmountGbp: initialDraft.membershipStandardAmountGbp || 295,
+          waivedAmountGbp: initialDraft.membershipWaivedAmountGbp || 295,
+          finalAmountGbp: 0,
+          message: 'EntireFM Invitation Applied — 100% Fee Waived (£0.00 Due)',
+        }
+      : null
+  );
+  const [isValidatingCode, setIsValidatingCode] = useState(false);
+  const [codeVerificationError, setCodeVerificationError] = useState<string | null>(null);
 
   // Complete Form State initialized from server draft or defaults
   const [formData, setFormData] = useState({
@@ -315,7 +346,11 @@ export function OnboardingWizardClient({
     accountsPayableEmail: initialDraft?.accountsPayableEmail || '',
     requiresPo: initialDraft?.requiresPo !== false,
 
-    // 14: Declarations
+    // 14: Membership Tier & EntireFM Invitation
+    selectedMembershipTier: (initialDraft?.selectedMembershipTier || 'TIER_1') as MembershipTierCode,
+    invitationCodeId: initialDraft?.invitationCodeId || '',
+
+    // 15: Declarations
     codeOfConduct: Boolean(initialDraft?.codeOfConduct),
     truthfulnessDeclaration: Boolean(initialDraft?.truthfulnessDeclaration),
     declarantName: initialDraft?.declarantName || '',
@@ -327,12 +362,12 @@ export function OnboardingWizardClient({
     declarationAuthorityAccepted: Boolean(initialDraft?.legalAcceptances?.['authority']?.accepted),
     declarationVerificationAccepted: Boolean(initialDraft?.legalAcceptances?.['verification']?.accepted),
 
-    // 15: Payment Method Gateway (Exact wording preserved)
+    // 16: Payment Method Gateway (Exact wording preserved)
     paymentMethod: (initialDraft?.paymentMethod || 'CARD') as 'CARD' | 'INVOICE' | 'WAIVER',
     waiverReason: initialDraft?.waiverReason || '',
   });
 
-  // Calculate section completeness for progress bar and Stage 15 review
+  // Calculate section completeness for progress bar and Stage 16 review
   const sectionCompleteness = useMemo(() => {
     return {
       company: Boolean(formData.legalCompanyName && formData.companyNumber && formData.tradingAddress && formData.mainPhone),
@@ -348,12 +383,13 @@ export function OnboardingWizardClient({
       security: Boolean(formData.infosecPolicy && (!formData.cyberBreachPast3yr || formData.cyberBreachDetails)),
       documents: documents.length > 0,
       commercial: Boolean(formData.turnoverBand && formData.largestContractBand),
+      membership: Boolean(formData.selectedMembershipTier),
       declarations: Boolean(formData.codeOfConduct && formData.truthfulnessDeclaration && formData.declarationAuthorityAccepted && formData.declarantName),
     };
   }, [formData, documents]);
 
   const completedSectionsCount = Object.values(sectionCompleteness).filter(Boolean).length;
-  const overallProgressPct = Math.round((completedSectionsCount / 14) * 100);
+  const overallProgressPct = Math.round((completedSectionsCount / 15) * 100);
 
   // Autosave function to persist data to Supabase & in-memory cache
   const handleSave = async () => {
@@ -369,6 +405,16 @@ export function OnboardingWizardClient({
             ...formData,
             currentStep,
             documentVault: documents,
+            selectedMembershipTier: formData.selectedMembershipTier,
+            invitationCodeId: invitationVerification?.invitationId || formData.invitationCodeId || null,
+            membershipStandardAmountGbp: CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
+            membershipWaivedAmountGbp: invitationVerification?.valid
+              ? CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295
+              : 0,
+            membershipFinalAmountGbp: invitationVerification?.valid
+              ? 0
+              : CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
+            membershipPaymentStatus: invitationVerification?.valid ? 'WAIVED' : 'UNPAID',
             legalAcceptances: {
               'supplier-code': {
                 accepted: formData.codeOfConduct,
@@ -408,9 +454,57 @@ export function OnboardingWizardClient({
     }
   };
 
+  // Invitation Code Validation
+  const handleVerifyInvitationCode = async () => {
+    if (!invitationCodeInput.trim()) {
+      setCodeVerificationError('Please enter an invitation code.');
+      return;
+    }
+    setIsValidatingCode(true);
+    setCodeVerificationError(null);
+    try {
+      const res = await fetch('/api/supplier/application/invitation/validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code: invitationCodeInput.trim(),
+          tier: formData.selectedMembershipTier,
+          email: formData.primaryContactEmail || formData.generalEmail,
+          orgId: initialOrgId,
+        }),
+      });
+      const data = await res.json();
+      if (data.valid) {
+        setInvitationVerification({
+          valid: true,
+          invitationId: data.invitationId,
+          code: data.code,
+          standardAmountGbp: data.standardAmountGbp,
+          waivedAmountGbp: data.waivedAmountGbp,
+          finalAmountGbp: data.finalAmountGbp,
+          message: data.message,
+        });
+        setFormData((prev) => ({ ...prev, invitationCodeId: data.invitationId }));
+      } else {
+        setCodeVerificationError(data.message || 'Invalid invitation code.');
+      }
+    } catch (err: any) {
+      setCodeVerificationError('Failed to verify invitation code. Please try again.');
+    } finally {
+      setIsValidatingCode(false);
+    }
+  };
+
+  const handleRemoveInvitationCode = () => {
+    setInvitationVerification(null);
+    setInvitationCodeInput('');
+    setCodeVerificationError(null);
+    setFormData((prev) => ({ ...prev, invitationCodeId: '' }));
+  };
+
   const handleNext = async () => {
     await handleSave();
-    if (currentStep < 15) {
+    if (currentStep < 16) {
       setCurrentStep(currentStep + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -474,33 +568,106 @@ export function OnboardingWizardClient({
     }
   };
 
-  // Submit Handler (Direct Technical Submission — Zero Payment Gate)
+  // Submit Handler (Supports Zero-Value Invitation Code Bypass & Stripe Checkout)
   const handleSubmit = async () => {
     setIsSaving(true);
     setSaveError(null);
     try {
-      const res = await fetch('/api/supplier/application/save', {
+      // 1. If an invitation code is applied and not yet redeemed, redeem it atomically
+      if (invitationVerification?.valid && invitationVerification.invitationId) {
+        const redeemRes = await fetch('/api/supplier/application/invitation/redeem', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            invitationId: invitationVerification.invitationId,
+            orgId: initialOrgId || 'supplier-draft',
+            tier: formData.selectedMembershipTier,
+            email: formData.primaryContactEmail || formData.generalEmail,
+          }),
+        });
+
+        const redeemData = await redeemRes.json();
+        if (!redeemData.success) {
+          setSaveError(redeemData.error || 'Failed to apply invitation waiver.');
+          setIsSaving(false);
+          return;
+        }
+      }
+
+      // 2. Query checkout status / zero-value bypass check
+      const checkoutRes = await fetch('/api/supplier/application/payment/create-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          supplierId: initialOrgId || 'supplier-draft',
           orgId: initialOrgId || 'supplier-draft',
-          draftData: {
-            ...formData,
-            documentVault: documents,
-            status: 'SUBMITTED',
-            submittedAt: new Date().toISOString(),
-            currentStep: 15,
-          },
+          tier: formData.selectedMembershipTier,
+          paymentType: 'MEMBERSHIP',
         }),
       });
 
-      const data = await res.json();
-      if (data.success) {
-        setSubmitted(true);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        setSaveError(data.error || 'Failed to submit application. Please check your inputs and try again.');
+      const checkoutData = await checkoutRes.json();
+
+      // Zero-Value Checkout Bypass (Waived or settled)
+      if (checkoutData.zeroValueBypass || checkoutData.alreadyPaidOrWaived) {
+        const res = await fetch('/api/supplier/application/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orgId: initialOrgId || 'supplier-draft',
+            draftData: {
+              ...formData,
+              documentVault: documents,
+              status: 'SUBMITTED',
+              submittedAt: new Date().toISOString(),
+              currentStep: 16,
+              selectedMembershipTier: formData.selectedMembershipTier,
+              invitationCodeId: invitationVerification?.invitationId || '',
+              membershipStandardAmountGbp: CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
+              membershipWaivedAmountGbp: CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
+              membershipFinalAmountGbp: 0,
+              membershipPaymentStatus: 'WAIVED',
+              paymentMethod: 'WAIVER',
+              waiverReason: 'EntireFM Invitation Code',
+            },
+          }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          setSubmitted(true);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          setSaveError(data.error || 'Failed to submit application. Please check your inputs.');
+        }
+        return;
       }
+
+      // If Stripe Checkout URL returned, redirect user to Stripe
+      if (checkoutData.checkoutUrl) {
+        await fetch('/api/supplier/application/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orgId: initialOrgId || 'supplier-draft',
+            draftData: {
+              ...formData,
+              documentVault: documents,
+              currentStep: 16,
+              selectedMembershipTier: formData.selectedMembershipTier,
+              membershipStandardAmountGbp: CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
+              membershipFinalAmountGbp: CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp || 295,
+              membershipPaymentStatus: 'UNPAID',
+              paymentMethod: 'CARD',
+            },
+          }),
+        });
+
+        window.location.href = checkoutData.checkoutUrl;
+        return;
+      }
+
+      setSaveError('Failed to initialize payment session. Please try again.');
     } catch (err: any) {
       setSaveError(err.message || 'Submission network error. Please try again.');
     } finally {
@@ -2675,8 +2842,185 @@ export function OnboardingWizardClient({
             </div>
           )}
 
-          {/* ── STAGE 14: DECLARATIONS & SUPPLIER CODE OF CONDUCT ──────────────── */}
+          {/* ── STAGE 14: MEMBERSHIP SELECTION & ENTIREFM INVITATION CODES ────── */}
           {currentStep === 14 && (
+            <div className="space-y-8 text-xs font-sans">
+              <div>
+                <span className="font-bold text-slate-900 block text-sm">Contractor Network Membership Tier</span>
+                <p className="text-slate-500 font-light text-[11.5px] mt-0.5">
+                  Select your annual network membership level. All approved contractors receive complete operational access to CP-01 through CP-09 contractor platforms.
+                </p>
+              </div>
+
+              {/* Tier Selection Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {(['TIER_1', 'TIER_2'] as const).map((tierCode) => {
+                  const tier = CONTRACTOR_MEMBERSHIP_TIERS[tierCode];
+                  const isSelected = formData.selectedMembershipTier === tierCode;
+                  return (
+                    <div
+                      key={tierCode}
+                      onClick={() => setFormData({ ...formData, selectedMembershipTier: tierCode })}
+                      className={`cursor-pointer rounded-sm border p-5 transition-all flex flex-col justify-between space-y-4 ${
+                        isSelected
+                          ? 'border-brand-pink ring-1 ring-brand-pink bg-pink-50/20 shadow-sm'
+                          : 'border-slate-200 bg-white hover:border-slate-300'
+                      }`}
+                    >
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+                            {tier.internalId}
+                          </span>
+                          <input
+                            type="radio"
+                            name="membershipTier"
+                            checked={isSelected}
+                            onChange={() => setFormData({ ...formData, selectedMembershipTier: tierCode })}
+                            className="text-brand-pink focus:ring-brand-pink"
+                          />
+                        </div>
+
+                        <div>
+                          <h3 className="text-base font-bold text-slate-900">{tier.name}</h3>
+                          <div className="text-xl font-light text-slate-900 mt-1">
+                            {tier.displayPrice}
+                          </div>
+                          <p className="text-slate-500 font-light text-[11px] mt-1">
+                            {tier.description}
+                          </p>
+                        </div>
+
+                        <ul className="space-y-2 border-t border-slate-100 pt-3 text-[11.5px] text-slate-600">
+                          {tier.features.map((feat, fIdx) => (
+                            <li key={fIdx} className="flex items-start gap-2">
+                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                              <span>{feat}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="pt-2">
+                        <span
+                          className={`block text-center py-2 px-3 rounded text-[11px] font-bold ${
+                            isSelected
+                              ? 'bg-brand-pink text-white'
+                              : 'bg-slate-100 text-slate-700'
+                          }`}
+                        >
+                          {isSelected ? '✓ Selected Tier' : 'Select Tier'}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* EntireFM Invitation Code Box */}
+              <div className="p-5 bg-slate-50 border border-slate-200 rounded-sm space-y-4">
+                <div className="flex items-center gap-2">
+                  <Ticket className="h-4 w-4 text-brand-pink" />
+                  <span className="font-bold text-slate-900 text-sm">Have an EntireFM Invitation Code?</span>
+                </div>
+                <p className="text-slate-600 text-[11.5px] leading-relaxed">
+                  If EntireFM specifically invited your organisation to join our supply chain, enter your non-transferable Invitation Code below to waive your annual membership fee to £0.00.
+                </p>
+
+                {invitationVerification?.valid ? (
+                  <div className="p-4 bg-emerald-50 border border-emerald-200 rounded text-emerald-950 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 font-bold text-xs">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                        <span>EntireFM Invitation Code Applied: {invitationVerification.code || 'VALID'}</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleRemoveInvitationCode}
+                        className="text-xs text-rose-700 hover:underline font-bold"
+                      >
+                        Remove Code
+                      </button>
+                    </div>
+                    <p className="text-[11.5px] text-emerald-800">
+                      100% Membership Fee Waiver Applied. Total payable on submission is <strong>£0.00</strong>. Your selected tier remains <strong>{CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.name}</strong>.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <input
+                      type="text"
+                      placeholder="e.g. EFM-7K4P-X9Q2"
+                      value={invitationCodeInput}
+                      onChange={(e) => {
+                        setInvitationCodeInput(e.target.value.toUpperCase());
+                        setCodeVerificationError(null);
+                      }}
+                      className="p-2.5 border border-slate-200 rounded text-xs bg-white uppercase font-mono max-w-sm flex-1"
+                    />
+                    <button
+                      type="button"
+                      disabled={isValidatingCode || !invitationCodeInput.trim()}
+                      onClick={handleVerifyInvitationCode}
+                      className="btn-primary text-xs py-2 px-5 font-bold disabled:opacity-50 flex items-center justify-center gap-1.5"
+                    >
+                      {isValidatingCode ? (
+                        <>
+                          <div className="h-3 w-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          <span>Verifying...</span>
+                        </>
+                      ) : (
+                        <span>Verify Code</span>
+                      )}
+                    </button>
+                  </div>
+                )}
+
+                {codeVerificationError && (
+                  <div className="p-3 bg-rose-50 border border-rose-200 rounded text-rose-800 text-xs flex items-center gap-2">
+                    <AlertCircle className="h-4 w-4 shrink-0 text-rose-600" />
+                    <span>{codeVerificationError}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Commercial Summary Card */}
+              <div className="p-5 bg-white border border-slate-200 rounded-sm space-y-3">
+                <span className="font-bold text-slate-900 block text-xs uppercase tracking-wider">
+                  Commercial Membership Summary
+                </span>
+                <div className="divide-y divide-slate-100 text-xs font-light">
+                  <div className="py-2 flex items-center justify-between">
+                    <span className="text-slate-600">
+                      {CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.name} (Annual)
+                    </span>
+                    <span className="font-bold text-slate-900">
+                      £{CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp.toFixed(2)} + VAT
+                    </span>
+                  </div>
+
+                  {invitationVerification?.valid && (
+                    <div className="py-2 flex items-center justify-between text-emerald-700 font-bold">
+                      <span>EntireFM Invitation 100% Fee Waiver</span>
+                      <span>-£{CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp.toFixed(2)}</span>
+                    </div>
+                  )}
+
+                  <div className="py-2 flex items-center justify-between text-sm font-bold text-slate-900 border-t border-slate-200 pt-3">
+                    <span>Total Payable on Submission:</span>
+                    <span>
+                      {invitationVerification?.valid
+                        ? '£0.00 (Waived)'
+                        : `£${(CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.priceGbp * 1.2).toFixed(2)} inc. VAT`}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ── STAGE 15: DECLARATIONS & SUPPLIER CODE OF CONDUCT ──────────────── */}
+          {currentStep === 15 && (
             <div className="space-y-6 text-xs font-sans">
               <div>
                 <span className="font-bold text-slate-900 block text-sm">Formal Declarations &amp; Supplier Code of Conduct</span>
@@ -2815,13 +3159,13 @@ export function OnboardingWizardClient({
             </div>
           )}
 
-          {/* ── STAGE 15: REVIEW & SUBMIT ─────────────────────────────────────── */}
-          {currentStep === 15 && (
+          {/* ── STAGE 16: REVIEW & SUBMIT ─────────────────────────────────────── */}
+          {currentStep === 16 && (
             <div className="space-y-6 text-xs font-sans">
               <div>
                 <span className="font-bold text-slate-900 block text-sm">Application Summary &amp; Submission</span>
                 <p className="text-slate-500 font-light text-[11.5px] mt-0.5">
-                  Review your application summary across all 14 substantive sections before submitting for technical assurance review.
+                  Review your application summary across all 15 substantive sections before submitting for technical assurance review.
                 </p>
               </div>
 
@@ -3034,6 +3378,39 @@ export function OnboardingWizardClient({
                     </button>
                   )}
                 </div>
+
+                <div className="p-3.5 flex items-center justify-between bg-slate-50/50">
+                  <div>
+                    <span className="font-bold text-slate-900 block">14. Membership Tier &amp; Commercial Terms</span>
+                    <span className="text-slate-500 text-[11px]">
+                      {CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.name} ({CONTRACTOR_MEMBERSHIP_TIERS[formData.selectedMembershipTier]?.displayPrice})
+                      {invitationVerification?.valid && ' — EntireFM Invitation 100% Waived (£0.00 Due)'}
+                    </span>
+                  </div>
+                  {sectionCompleteness.membership ? (
+                    <span className="text-emerald-700 font-bold text-[10.5px]">COMPLETE</span>
+                  ) : (
+                    <button onClick={() => setCurrentStep(14)} className="text-amber-700 font-bold text-[10.5px] hover:underline">
+                      INCOMPLETE (Fix)
+                    </button>
+                  )}
+                </div>
+
+                <div className="p-3.5 flex items-center justify-between">
+                  <div>
+                    <span className="font-bold text-slate-900 block">15. Formal Declarations</span>
+                    <span className="text-slate-500 text-[11px]">
+                      Code of Conduct &amp; Accuracy Certified ({formData.declarantName || 'No Declarant'})
+                    </span>
+                  </div>
+                  {sectionCompleteness.declarations ? (
+                    <span className="text-emerald-700 font-bold text-[10.5px]">COMPLETE</span>
+                  ) : (
+                    <button onClick={() => setCurrentStep(15)} className="text-amber-700 font-bold text-[10.5px] hover:underline">
+                      INCOMPLETE (Fix)
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* Submission Notice & Declaration Confirmation */}
@@ -3043,7 +3420,7 @@ export function OnboardingWizardClient({
                   <span>Technical Assurance Submission Notice</span>
                 </div>
                 <p className="text-[11.5px] text-slate-600 leading-relaxed">
-                  By clicking <strong>Submit Application for Review</strong>, your application will be formally submitted to the EntireFM Supplier Management team for technical due diligence, insurance validation, and trade qualification review.
+                  By clicking <strong>Submit Application for Review</strong>, your application and compliance credentials will be formally submitted to the EntireFM Supplier Management team for independent due diligence, insurance validation, and trade qualification review.
                 </p>
                 <div className="p-3 bg-emerald-50 border border-emerald-200 rounded text-emerald-950 text-[11px] leading-relaxed">
                   <strong>Independent Due Diligence:</strong> All submissions undergo thorough review against statutory regulations and client requirements. You will be notified in your portal once your technical review is complete.
@@ -3069,7 +3446,7 @@ export function OnboardingWizardClient({
               <ArrowLeft className="h-3.5 w-3.5" /> Back
             </button>
 
-            {currentStep < 15 ? (
+            {currentStep < 16 ? (
               <button
                 onClick={handleNext}
                 disabled={isSaving}

@@ -2,6 +2,18 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "crons": [
     {
+      "path": "/api/cron/lobby-daily/harvest",
+      "schedule": "30 4 * * 1-5"
+    },
+    {
+      "path": "/api/cron/lobby-daily/draft",
+      "schedule": "0 5 * * 1-5"
+    },
+    {
+      "path": "/api/cron/lobby-daily/dispatch",
+      "schedule": "45 6 * * 1-5"
+    },
+    {
       "path": "/api/cron/intelligence/regulatory",
       "schedule": "0 */4 * * *"
     },

@@ -288,6 +288,16 @@ export interface SupplierApplicationDraft {
   paymentMethod?: 'CARD' | 'INVOICE' | 'WAIVER';
   waiverReason?: string;
 
+  // 14: Membership Tier & Commercial Waiver Audit Trail
+  selectedMembershipTier?: 'TIER_1' | 'TIER_2';
+  membershipStandardAmountGbp?: number;
+  membershipWaivedAmountGbp?: number;
+  membershipFinalAmountGbp?: number;
+  invitationCodeId?: string;
+  membershipPaymentStatus?: 'UNPAID' | 'PAID' | 'WAIVED';
+  membershipPaymentIntentId?: string;
+  membershipPaidAt?: string;
+
   createdAt: string;
   updatedAt: string;
 }
@@ -571,6 +581,14 @@ export function mapDbDraftToRecord(row: any): SupplierApplicationDraft {
     legalAcceptances: row.legal_acceptances && typeof row.legal_acceptances === 'object' ? row.legal_acceptances : {},
     paymentMethod: (row.payment_method || 'CARD') as 'CARD' | 'INVOICE' | 'WAIVER',
     waiverReason: row.waiver_reason || '',
+    selectedMembershipTier: row.selected_membership_tier || undefined,
+    membershipStandardAmountGbp: typeof row.membership_standard_amount_gbp === 'number' ? row.membership_standard_amount_gbp : parseFloat(row.membership_standard_amount_gbp || '0') || 0,
+    membershipWaivedAmountGbp: typeof row.membership_waived_amount_gbp === 'number' ? row.membership_waived_amount_gbp : parseFloat(row.membership_waived_amount_gbp || '0') || 0,
+    membershipFinalAmountGbp: typeof row.membership_final_amount_gbp === 'number' ? row.membership_final_amount_gbp : parseFloat(row.membership_final_amount_gbp || '0') || 0,
+    invitationCodeId: row.invitation_code_id || undefined,
+    membershipPaymentStatus: (row.membership_payment_status || 'UNPAID') as 'UNPAID' | 'PAID' | 'WAIVED',
+    membershipPaymentIntentId: row.membership_payment_intent_id || undefined,
+    membershipPaidAt: row.membership_paid_at || undefined,
     createdAt: row.created_at || new Date().toISOString(),
     updatedAt: row.updated_at || new Date().toISOString(),
   };
@@ -624,6 +642,14 @@ function mapDraftRecordToDb(draft: SupplierApplicationDraft): Record<string, any
     truthfulness_declaration: Boolean(draft.truthfulnessDeclaration),
     payment_method: draft.paymentMethod || 'CARD',
     waiver_reason: draft.waiverReason,
+    selected_membership_tier: draft.selectedMembershipTier || null,
+    membership_standard_amount_gbp: draft.membershipStandardAmountGbp ?? 0,
+    membership_waived_amount_gbp: draft.membershipWaivedAmountGbp ?? 0,
+    membership_final_amount_gbp: draft.membershipFinalAmountGbp ?? 0,
+    invitation_code_id: draft.invitationCodeId || null,
+    membership_payment_status: draft.membershipPaymentStatus || 'UNPAID',
+    membership_payment_intent_id: draft.membershipPaymentIntentId || null,
+    membership_paid_at: draft.membershipPaidAt || null,
     updated_at: new Date().toISOString(),
   };
 }
@@ -1257,6 +1283,14 @@ export async function updateApplicationDraft(
   }
 
   return updated;
+}
+
+export async function saveApplicationDraft(
+  orgId: string,
+  draft: SupplierApplicationDraft
+): Promise<SupplierApplicationDraft> {
+  const result = await updateApplicationDraft(orgId, draft);
+  return result || draft;
 }
 
 export async function getApplicationDraft(

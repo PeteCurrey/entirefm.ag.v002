@@ -18,6 +18,7 @@ export function MembershipTierCards() {
 
           <div className="pt-2 border-t border-slate-100">
             <div className="text-sm font-bold text-slate-900 uppercase tracking-wider">Technical Intake</div>
+            <div className="text-lg font-light text-slate-900 mt-0.5">£0 Intake</div>
             <span className="text-[11px] text-slate-400">Due diligence verification</span>
           </div>
 
@@ -42,24 +43,24 @@ export function MembershipTierCards() {
         </Link>
       </div>
 
-      {/* Tier 2: Approved Supplier Partner */}
+      {/* Tier 2: Contractor Network Membership */}
       <div className="bg-white border-2 border-slate-900 p-8 rounded-sm shadow-md flex flex-col justify-between space-y-6 relative">
         <div className="absolute -top-3 left-6 bg-slate-900 text-white text-[9.5px] font-light uppercase tracking-wider font-bold px-2.5 py-0.5 rounded">
-          ACTIVE NETWORK STATUS
+          NETWORK MEMBERSHIP
         </div>
 
         <div className="space-y-4">
           <div className="space-y-1 pt-1">
-            <span className="text-[10px] font-light uppercase tracking-wider text-brand-pink font-bold">APPROVED STATUS</span>
-            <h3 className="text-xl font-bold text-slate-900">Approved Partner</h3>
+            <span className="text-[10px] font-light uppercase tracking-wider text-brand-pink font-bold">ANNUAL MEMBERSHIP</span>
+            <h3 className="text-xl font-bold text-slate-900">Contractor Network Member</h3>
             <p className="text-xs text-slate-500 font-light">
-              For qualified suppliers with verified credentials, active document vault storage, and authorized service scopes.
+              For qualified trade contractors with verified credentials, active document vault storage, and authorized service scopes.
             </p>
           </div>
 
           <div className="pt-2 border-t border-slate-100">
-            <div className="text-sm font-bold text-emerald-700 uppercase tracking-wider">Fully Vetted &amp; Authorized</div>
-            <span className="text-[11px] text-slate-400">Eligible for operational work allocation</span>
+            <div className="text-xl font-light text-slate-900">£295 + VAT<span className="text-xs text-slate-500 font-normal"> / year</span></div>
+            <span className="text-[11px] text-slate-500 font-light">EntireFM Invitation Codes accepted (£0 waiver)</span>
           </div>
 
           <ul className="space-y-2.5 text-xs text-slate-700 pt-4 border-t border-slate-100 font-medium">
@@ -77,11 +78,11 @@ export function MembershipTierCards() {
             </li>
             <li className="flex items-start gap-2">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span>Partner network event invitations</span>
+              <span>Verified Supply Chain Partner Status</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span>Active consideration for client work orders</span>
+              <span>Full suite of operational &amp; field execution tooling</span>
             </li>
           </ul>
         </div>
@@ -91,44 +92,44 @@ export function MembershipTierCards() {
         </Link>
       </div>
 
-      {/* Tier 3: Multi-Discipline Regional Partner */}
+      {/* Tier 3: Contractor Network Partner Membership */}
       <div className="bg-white border border-slate-200 p-8 rounded-sm shadow-sm flex flex-col justify-between space-y-6">
         <div className="space-y-4">
           <div className="space-y-1">
-            <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">EXPANDED FOOTPRINT</span>
-            <h3 className="text-xl font-bold text-slate-900">Multi-Discipline Partner</h3>
+            <span className="text-[10px] font-light uppercase tracking-wider text-slate-400 font-bold">PARTNER TIER</span>
+            <h3 className="text-xl font-bold text-slate-900">Network Partner</h3>
             <p className="text-xs text-slate-500 font-light">
               For regional and national contractors providing multi-trade coverage across multiple client estates.
             </p>
           </div>
 
           <div className="pt-2 border-t border-slate-100">
-            <div className="text-sm font-bold text-slate-900 uppercase tracking-wider">Multi-Region Scope</div>
-            <span className="text-[11px] text-slate-400">High-capacity operations &amp; SLA delivery</span>
+            <div className="text-xl font-light text-slate-900">£695 + VAT<span className="text-xs text-slate-500 font-normal"> / year</span></div>
+            <span className="text-[11px] text-slate-500 font-light">EntireFM Invitation Codes accepted (£0 waiver)</span>
           </div>
 
           <ul className="space-y-2.5 text-xs text-slate-600 pt-4 border-t border-slate-100">
             <li className="flex items-start gap-2">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span>Everything in Approved Partner tier</span>
+              <span>Everything in Network Membership (£295)</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span>Multi-user organisational portal access</span>
+              <span>Multi-user organisational portal seats</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span>Extended technical forum participation</span>
+              <span>Expanded multi-region operational profile</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span>Dedicated supply chain account coordinator</span>
+              <span>Technical industry forum &amp; event priority access</span>
             </li>
           </ul>
         </div>
 
-        <Link href="/suppliers/partner-network" className="btn-secondary text-xs py-2.5 text-center w-full block font-medium">
-          View Partner Framework &rarr;
+        <Link href="/suppliers/apply" className="btn-secondary text-xs py-2.5 text-center w-full block font-medium">
+          Apply for Partner Tier &rarr;
         </Link>
       </div>
     </div>

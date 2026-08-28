@@ -14,6 +14,7 @@ import {
   listSupplierAuditLogs,
 } from '@/server/suppliers/assurance-store';
 import { getSupplierScorecard } from '@/server/suppliers/performance-store';
+import { getApplicationDraft } from '@/server/suppliers/supplier-auth-store';
 import {
   ShieldCheck,
   ShieldAlert,
@@ -62,6 +63,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
     remediationActions,
     auditLogs,
     scorecard,
+    authDraft,
   ] = await Promise.all([
     getSupplierMembership(supplier.id),
     listPartnerInvoices({ supplierId: supplier.id }),
@@ -74,6 +76,7 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
     listRemediationActions(supplier.id),
     listSupplierAuditLogs(supplier.id),
     getSupplierScorecard(supplier.id),
+    getApplicationDraft(supplier.id),
   ]);
 
   const activeHolds = complianceHolds.filter((h) => h.is_active);
@@ -334,7 +337,58 @@ export default async function SupplierProfile360Page({ params }: { params: Promi
               </span>
             </div>
 
-            {membership ? (
+            {authDraft?.selectedMembershipTier ? (
+              <div className="space-y-2 text-xs font-mono">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Tier:</span>
+                  <span className="font-light text-slate-900">
+                    {authDraft.selectedMembershipTier === 'TIER_1'
+                      ? 'Contractor Network Member'
+                      : 'Contractor Network Partner'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Commercial Route:</span>
+                  <span className={`font-light ${authDraft.membershipPaymentStatus === 'WAIVED' ? 'text-emerald-700 font-bold' : 'text-slate-900'}`}>
+                    {authDraft.membershipPaymentStatus === 'WAIVED'
+                      ? 'EntireFM Invitation (Fee Waived)'
+                      : authDraft.membershipPaymentStatus === 'PAID'
+                      ? 'Organic Direct Payment'
+                      : 'Pending Settlement'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Standard Value:</span>
+                  <span className="font-light text-slate-900">
+                    £{(authDraft.membershipStandardAmountGbp || (authDraft.selectedMembershipTier === 'TIER_1' ? 295 : 695)).toLocaleString()} + VAT
+                  </span>
+                </div>
+                {authDraft.membershipPaymentStatus === 'WAIVED' && (
+                  <div className="flex justify-between text-emerald-700">
+                    <span>Amount Waived:</span>
+                    <span className="font-bold">
+                      -£{(authDraft.membershipWaivedAmountGbp || (authDraft.selectedMembershipTier === 'TIER_1' ? 295 : 695)).toLocaleString()}
+                    </span>
+                  </div>
+                )}
+                <div className="flex justify-between border-t border-slate-100 pt-1.5 font-bold">
+                  <span className="text-slate-700">Amount Paid / Due:</span>
+                  <span className="text-slate-900">
+                    £{(authDraft.membershipFinalAmountGbp ?? (authDraft.membershipPaymentStatus === 'WAIVED' ? 0 : 295)).toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Payment Status:</span>
+                  <span className={`font-bold ${
+                    authDraft.membershipPaymentStatus === 'PAID' || authDraft.membershipPaymentStatus === 'WAIVED'
+                      ? 'text-emerald-700'
+                      : 'text-amber-800'
+                  }`}>
+                    {authDraft.membershipPaymentStatus || 'UNPAID'}
+                  </span>
+                </div>
+              </div>
+            ) : membership ? (
               <div className="space-y-2 text-xs font-mono">
                 <div className="flex justify-between">
                   <span className="text-slate-500">Tier:</span>
