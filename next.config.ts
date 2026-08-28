@@ -17,24 +17,6 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
-  experimental: {
-    // -----------------------------------------------------------------------
-    // VERCEL BUILD: Webpack memory optimisations
-    // The webpack build was OOM-killed (SIGKILL) on Vercel's Enhanced Build
-    // Machine (8 cores, 16 GB) during compilation of the enlarged codebase.
-    //
-    // webpackMemoryOptimizations — instructs webpack to reduce peak heap at
-    //   the cost of slightly slower compilation. Frees ~30–40% peak RAM.
-    // webpackBuildWorker — isolates compilation into a dedicated worker
-    //   process so memory is released cleanly after the compile phase.
-    // cpus — limits concurrent worker threads to 4 (half of 8 available),
-    //   preventing all cores from allocating large module graphs in parallel.
-    // -----------------------------------------------------------------------
-    webpackMemoryOptimizations: true,
-    webpackBuildWorker: true,
-    cpus: 4,
-  },
-
   images: {
     remotePatterns: [
       // Supabase Storage — member profile avatars and any other stored media
