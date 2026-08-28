@@ -23,20 +23,38 @@ const FIRST_TOUCH_KEY = 'efm_first_touch';
 const FIRST_REFERRER_KEY = 'efm_first_referrer';
 
 /**
+ * Synchronize consent status with Google Consent Mode v2
+ */
+export function updateGoogleConsent(prefs: { analytics?: boolean; marketing?: boolean }) {
+  if (typeof window === 'undefined') return;
+  if (typeof (window as any).gtag === 'function') {
+    (window as any).gtag('consent', 'update', {
+      analytics_storage: prefs.analytics ? 'granted' : 'denied',
+      ad_storage: prefs.marketing ? 'granted' : 'denied',
+      ad_user_data: prefs.marketing ? 'granted' : 'denied',
+      ad_personalization: prefs.marketing ? 'granted' : 'denied',
+    });
+  }
+}
+
+/**
  * Check if the user has consented to a specific storage category
  */
-export function hasConsent(category: 'essential' | 'functional' | 'analytics' | 'marketing'): boolean {
+export function hasConsent(category: 'essential' | 'necessary' | 'functional' | 'analytics' | 'marketing'): boolean {
   if (typeof window === 'undefined') return false;
-  if (category === 'essential') return true;
+  if (category === 'essential' || category === 'necessary') return true;
 
   try {
     const stored = localStorage.getItem('efm_consent_prefs');
     if (!stored) {
-      // Default privacy-first stance: functional allowed for session continuity, analytics blocked
-      return category === 'functional';
+      // Default privacy-first stance: functional/analytics/marketing blocked before consent
+      return false;
     }
     const parsed = JSON.parse(stored);
-    return parsed[category] === true;
+    if (category === 'analytics') return parsed.analytics === true;
+    if (category === 'marketing') return parsed.marketing === true;
+    if (category === 'functional') return parsed.functional === true;
+    return false;
   } catch {
     return false;
   }

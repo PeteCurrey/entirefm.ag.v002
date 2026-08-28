@@ -40,9 +40,7 @@ export default async function ContractorLayout({ children }: { children: React.R
       const supplierOrg = supplierUser?.organisation_id
         ? await getSupplierOrganisationById(supplierUser.organisation_id)
         : null;
-      const isApprovedSupplier =
-        supplierOrg?.lifecycleStatus === 'APPROVED' ||
-        supplierOrg?.lifecycleStatus === 'ACTIVE';
+      const isApprovedSupplier = supplierOrg?.lifecycleStatus === 'APPROVED';
 
       if (!isApprovedSupplier) {
         // Still in application stage — send to application portal

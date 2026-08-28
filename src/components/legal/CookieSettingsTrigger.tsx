@@ -9,7 +9,7 @@ interface CookieSettingsTriggerProps {
 
 export function CookieSettingsTrigger({
   className = 'text-[12px] text-brand-mist/40 transition-colors hover:text-brand-mist/80',
-  label = 'Cookie Settings',
+  label = 'Cookie preferences',
 }: CookieSettingsTriggerProps) {
   const handleClick = () => {
     if (typeof window !== 'undefined') {

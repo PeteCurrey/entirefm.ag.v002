@@ -37,18 +37,42 @@ export default function RootLayout({
   return (
     <html lang="en-GB" className={workSans.variable}>
       <head>
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRM7HJMM4Q" />
+        {/* Google tag (gtag.js) with Google Consent Mode v2 */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
+              
+              // 1. Set privacy-first default consent state (denied until explicit opt-in)
+              gtag('consent', 'default', {
+                'analytics_storage': 'denied',
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'wait_for_update': 500
+              });
+
+              // 2. Check for existing consent preference in cookie for returning visitors
+              try {
+                var match = document.cookie.match(/(?:^|; )efm_consent_prefs=([^;]*)/);
+                if (match) {
+                  var prefs = JSON.parse(decodeURIComponent(match[1]));
+                  gtag('consent', 'update', {
+                    'analytics_storage': prefs.analytics ? 'granted' : 'denied',
+                    'ad_storage': prefs.marketing ? 'granted' : 'denied',
+                    'ad_user_data': prefs.marketing ? 'granted' : 'denied',
+                    'ad_personalization': prefs.marketing ? 'granted' : 'denied'
+                  });
+                }
+              } catch (e) {}
+
               gtag('js', new Date());
               gtag('config', 'G-NRM7HJMM4Q');
             `,
           }}
         />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRM7HJMM4Q" />
       </head>
       <body>
         <Suspense fallback={null}>
