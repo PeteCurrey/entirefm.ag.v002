@@ -79,18 +79,29 @@ export class RssTradeConnector {
         const text = await res.text();
         const items = this.parseRssOrAtom(text);
 
-        for (const item of items.slice(0, 5)) {
+        for (const item of items.slice(0, 8)) {
+          const isRecall = feed.sourceId === 'src-opss-recalls';
+          const relevance = FMTaxonomyClassifier.evaluateFMRelevance({
+            title: item.title,
+            description: item.description,
+            sourceName: feed.sourceName,
+            isRecall,
+            sourceId: feed.sourceId,
+          });
+
+          // Discard items excluded by the FM Relevance Gate
+          if (!relevance.isEligible || relevance.publicationEligibility === 'excluded') {
+            continue;
+          }
+
           const fullText = `${item.title} ${item.description}`;
-          const classification = FMTaxonomyClassifier.classifyText(fullText);
           const jurisdictions = FMTaxonomyClassifier.inferJurisdictions(fullText);
 
           const contentId = `trade-${Buffer.from(item.link).toString('base64').substring(0, 16)}`;
           const publishedAt = item.pubDate || new Date().toISOString();
 
-          const isRecall = feed.sourceId === 'src-opss-recalls';
-
           const provenance = resolveEditorialImage({
-            topic: classification.primaryCategory,
+            topic: relevance.primaryCategory,
             sourcePublisher: feed.sourceName,
             sourceUrl: item.link,
             customProvenance: {
@@ -113,10 +124,10 @@ export class RssTradeConnector {
             id: `intel-${contentId}`,
             canonicalUrl: item.link,
             sourceContentId: contentId,
-            title: isRecall ? `Product Safety Alert: ${item.title}` : item.title,
+            title: isRecall ? `Building Safety Alert: ${item.title}` : item.title,
             standfirst: item.description || `Official technical notice published by ${feed.sourceName}.`,
             whyItMatters: isRecall
-              ? `Estates managers must inspect asset logs for this product to prevent fire or electrical hazards.`
+              ? `Estates managers must inspect asset registers and plant logs for this equipment to prevent life-safety hazards.`
               : `Technical guidance issued by ${feed.sourceName} setting best practice standards for FM teams.`,
             eventType: isRecall ? 'safety_alert' : 'trade_news',
             legalStatus: isRecall ? 'APPROVED_DOCUMENT' : 'INDUSTRY_GUIDANCE',
@@ -130,8 +141,8 @@ export class RssTradeConnector {
             secondarySources: [],
             publishedAt,
             jurisdictions,
-            tradeTags: [classification.primaryCategory, ...classification.secondaryCategories],
-            topics: [feed.sourceName, classification.primaryCategory],
+            tradeTags: [relevance.primaryCategory, ...relevance.secondaryCategories],
+            topics: [feed.sourceName, relevance.primaryCategory],
             provenance,
             isStatutory: isRecall,
             requiresReview: false,
@@ -139,6 +150,11 @@ export class RssTradeConnector {
             contentHash: Buffer.from(`${item.title}-${publishedAt}`).toString('hex'),
             firstSeenAt: new Date().toISOString(),
             lastSeenAt: new Date().toISOString(),
+            fmRelevanceScore: relevance.score,
+            fmRelevanceReason: relevance.reason,
+            publicationEligibility: relevance.publicationEligibility,
+            relevantRoles: relevance.relevantRoles,
+            relevantSectors: relevance.relevantSectors,
           });
         }
       } catch {

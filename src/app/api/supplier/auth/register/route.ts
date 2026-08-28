@@ -4,11 +4,20 @@
  * Register a new supplier user via Supabase Auth (Canonical Authority).
  * Passes credentials to Supabase Auth. EntireFM NEVER stores or hashes passwords.
  * Provisions supplier-domain user record linked to Supabase Auth UUID.
+ *
+ * REGISTRATION LIFECYCLE:
+ * 1. Validate input
+ * 2. Create Supabase Auth user
+ * 3. Write supplier_registration_intents (orphan detection outbox) — PENDING_ORG_SETUP
+ * 4. Provision supplier domain user (createOrLinkSupplierUser)
+ * 5. Mark intent COMPLETED or FAILED
+ * 6. Issue session + redirect
  */
 
 import { NextResponse } from 'next/server';
 import { supabaseSignUp } from '@/server/auth/supabase-auth';
 import { createOrLinkSupplierUser } from '@/server/suppliers/supplier-auth-store';
+import { dbQuery } from '@/server/db/client';
 import {
   AUTH_COOKIE_NAME,
   createSessionToken,
@@ -16,6 +25,53 @@ import {
 } from '@/server/identity';
 
 const SUPPLIER_SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
+const REGISTRATION_SOURCE = 'CONTRACTOR_ONBOARDING';
+const APPLICATION_TYPE = 'CONTRACTOR';
+
+/** Write registration intent (outbox). Failures are non-fatal — logged only. */
+async function writeRegistrationIntent(
+  authUserId: string,
+  email: string,
+  firstName: string,
+  lastName: string
+): Promise<void> {
+  try {
+    await dbQuery('supplier_registration_intents', {
+      method: 'POST',
+      body: {
+        auth_user_id: authUserId,
+        email,
+        first_name: firstName,
+        last_name: lastName,
+        status: 'PENDING_ORG_SETUP',
+        application_type: APPLICATION_TYPE,
+        registration_source: REGISTRATION_SOURCE,
+      },
+      headers: { Prefer: 'resolution=ignore-duplicates,return=minimal' },
+    });
+  } catch {
+    // Non-fatal — table may not yet exist if migration pending
+  }
+}
+
+/** Update registration intent status. Non-fatal. */
+async function updateRegistrationIntent(
+  authUserId: string,
+  status: 'COMPLETED' | 'FAILED',
+  failureReason?: string
+): Promise<void> {
+  try {
+    const body: Record<string, unknown> = { status };
+    if (status === 'COMPLETED') body.completed_at = new Date().toISOString();
+    if (status === 'FAILED' && failureReason) body.failure_reason = failureReason;
+    await dbQuery(
+      `supplier_registration_intents?auth_user_id=eq.${encodeURIComponent(authUserId)}`,
+      { method: 'PATCH', body }
+    );
+  } catch {
+    // Non-fatal
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -51,12 +107,13 @@ export async function POST(request: Request) {
         first_name: firstName.trim(),
         last_name: lastName.trim(),
         user_type: 'SUPPLIER',
+        registration_source: REGISTRATION_SOURCE,
+        application_type: APPLICATION_TYPE,
       }
     );
 
     if (authError || !authData?.user) {
       const errMsg = authError?.message || 'Registration failed with authentication provider.';
-      // User already registered check
       if (errMsg.toLowerCase().includes('already registered') || errMsg.toLowerCase().includes('user already exists')) {
         return NextResponse.json(
           { success: false, errors: ['An account with this email address already exists. Please sign in.'] },
@@ -72,7 +129,16 @@ export async function POST(request: Request) {
     const supabaseUser = authData.user;
     const isEmailConfirmed = !!supabaseUser.email_confirmed_at;
 
-    // 3. Provision Supplier Domain User linked to Supabase UUID
+    // 3. Write registration intent outbox (orphan detection)
+    //    This row persists if domain provisioning fails — detectable as PENDING_ORG_SETUP
+    await writeRegistrationIntent(
+      supabaseUser.id,
+      normEmail,
+      firstName.trim(),
+      lastName.trim()
+    );
+
+    // 4. Provision Supplier Domain User linked to Supabase UUID
     const domainResult = await createOrLinkSupplierUser(
       supabaseUser.id,
       normEmail,
@@ -83,13 +149,22 @@ export async function POST(request: Request) {
     );
 
     if (!domainResult.success || !domainResult.user) {
+      // Mark intent as FAILED so Admin can detect the orphan
+      await updateRegistrationIntent(
+        supabaseUser.id,
+        'FAILED',
+        'Domain user provisioning failed after auth user creation'
+      );
       return NextResponse.json(
         { success: false, errors: ['Failed to provision supplier account metadata. Please try again.'] },
         { status: 500 }
       );
     }
 
-    // 4. Issue authenticated session
+    // 5. Mark intent COMPLETED — org setup will happen next (org-setup wizard)
+    await updateRegistrationIntent(supabaseUser.id, 'COMPLETED');
+
+    // 6. Issue authenticated session
     const session = {
       personId: supabaseUser.id,
       authUserId: supabaseUser.id,

@@ -208,6 +208,15 @@ export interface CanonicalIntelligenceItem {
     enforcingAuthority: string;
     lessonLearned: string;
   };
+
+  // FM Relevance Gate & Editorial Curation
+  fmRelevanceScore?: number; // 0 to 100
+  fmRelevanceReason?: string;
+  publicationEligibility?: 'homepage_lead' | 'daily_briefing' | 'discipline_feed' | 'excluded';
+  relevantRoles?: string[];
+  relevantSectors?: string[];
+  isEditoriallyFeatured?: boolean;
+  editorialSlot?: 'lead' | 'secondary_1' | 'secondary_2' | 'compliance' | 'contract_award' | 'industry_news' | 'people' | 'event' | 'community' | 'useful_tool' | 'excluded';
 }
 
 /** Procurement / Tender Opportunity (OCDS Aligned) */
@@ -247,6 +256,12 @@ export interface ProcurementOpportunity {
     contractPeriodYears?: number;
     subcontractingPermitted?: boolean;
   };
+
+  // FM Relevance & Prominence
+  fmRelevanceScore?: number; // 0 to 100
+  fmRelevanceReason?: string;
+  isHighValueAward?: boolean;
+  isEditoriallyFeatured?: boolean;
 }
 
 /** Canonical Company / Supplier Entity */

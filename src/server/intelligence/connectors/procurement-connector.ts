@@ -48,22 +48,21 @@ export class ProcurementConnector {
           const title = tender.title || rel.title || 'Facilities Management Procurement Notice';
           const description = tender.description || rel.description || 'Public sector facilities management procurement opportunity.';
           const fullText = `${title} ${description}`;
-
           const cpv = (tender.items?.[0]?.classification?.id || '').replace(/[^0-9]/g, '');
-          const serviceCategory: FMTradeCategory = cpv ? FMTaxonomyClassifier.classifyCPV(cpv) : FMTaxonomyClassifier.classifyText(fullText).primaryCategory;
+          
+          const relevance = FMTaxonomyClassifier.evaluateFMRelevance({
+            title,
+            description,
+            cpvCode: cpv,
+            sourceName: 'Contracts Finder',
+          });
 
-          // Check relevance to FM
-          const isFmRelated =
-            Boolean(cpv && FMTaxonomyClassifier.classifyCPV(cpv) !== 'procurement-contracts') ||
-            fullText.toLowerCase().includes('facilities') ||
-            fullText.toLowerCase().includes('maintenance') ||
-            fullText.toLowerCase().includes('estates') ||
-            fullText.toLowerCase().includes('cleaning') ||
-            fullText.toLowerCase().includes('security') ||
-            fullText.toLowerCase().includes('hvac') ||
-            fullText.toLowerCase().includes('electrical');
+          // Discard items excluded by the FM Relevance Gate
+          if (!relevance.isEligible || relevance.publicationEligibility === 'excluded') {
+            continue;
+          }
 
-          if (!isFmRelated) continue;
+          const serviceCategory: FMTradeCategory = cpv ? FMTaxonomyClassifier.classifyCPV(cpv) : relevance.primaryCategory;
 
           const publishedAt = rel.date || new Date().toISOString();
           const closingDate = tender.tenderPeriod?.endDate;
@@ -75,6 +74,8 @@ export class ProcurementConnector {
             : 'Value on Application';
 
           const officialUrl = rel.url || (rel.links?.[0]?.href) || `https://www.contractsfinder.service.gov.uk/notice/${rel.id || ''}`;
+
+          const isHighValueAward = valueAmount >= 500000;
 
           const opp: ProcurementOpportunity = {
             id: `opp-${ocid}`,
@@ -97,6 +98,9 @@ export class ProcurementConnector {
             closingDate,
             status: noticeType === 'award' ? 'awarded' : closingDate && new Date(closingDate).getTime() - Date.now() < 7 * 24 * 3600 * 1000 ? 'closing_soon' : 'active',
             officialNoticeUrl: officialUrl,
+            fmRelevanceScore: relevance.score,
+            fmRelevanceReason: relevance.reason,
+            isHighValueAward,
           };
 
           if (noticeType === 'award' && awards[0]) {

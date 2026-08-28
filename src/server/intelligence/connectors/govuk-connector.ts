@@ -73,7 +73,17 @@ export class GovUkConnector {
           seenLinks.add(canonicalUrl);
 
           const fullText = `${resItem.title} ${resItem.description || ''}`;
-          const classification = FMTaxonomyClassifier.classifyText(fullText);
+          const relevance = FMTaxonomyClassifier.evaluateFMRelevance({
+            title: resItem.title,
+            description: resItem.description,
+            sourceName: 'GOV.UK',
+          });
+
+          // Discard items excluded by FM Relevance Gate
+          if (!relevance.isEligible || relevance.publicationEligibility === 'excluded') {
+            continue;
+          }
+
           const legalStatus = FMTaxonomyClassifier.determineLegalStatus(resItem.title, 'govuk');
           const jurisdictions = FMTaxonomyClassifier.inferJurisdictions(fullText);
 
@@ -82,7 +92,7 @@ export class GovUkConnector {
           const orgName = resItem.organisations?.[0]?.title || 'UK Government';
 
           const provenance = resolveEditorialImage({
-            topic: classification.primaryCategory,
+            topic: relevance.primaryCategory,
             sourcePublisher: orgName,
             customProvenance: {
               credit: `Official Government Release · ${orgName}`,
@@ -123,15 +133,20 @@ export class GovUkConnector {
             secondarySources: [],
             publishedAt,
             jurisdictions,
-            tradeTags: [classification.primaryCategory, ...classification.secondaryCategories],
-            topics: [orgName, classification.primaryCategory, legalStatus],
+            tradeTags: [relevance.primaryCategory, ...relevance.secondaryCategories],
+            topics: [orgName, relevance.primaryCategory, legalStatus],
             provenance,
             isStatutory: legalStatus === 'LAW' || legalStatus === 'STATUTORY_INSTRUMENT' || legalStatus === 'APPROVED_DOCUMENT',
             requiresReview: legalStatus === 'LAW' || legalStatus === 'STATUTORY_INSTRUMENT',
-            reviewStatus: legalStatus === 'LAW' ? 'pending' : 'auto_published',
+            reviewStatus: 'auto_published',
             contentHash: Buffer.from(`${resItem.title}-${publishedAt}`).toString('hex'),
             firstSeenAt: new Date().toISOString(),
             lastSeenAt: new Date().toISOString(),
+            fmRelevanceScore: relevance.score,
+            fmRelevanceReason: relevance.reason,
+            publicationEligibility: relevance.publicationEligibility,
+            relevantRoles: relevance.relevantRoles,
+            relevantSectors: relevance.relevantSectors,
             consultationData: isConsultation
               ? {
                   closingDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
