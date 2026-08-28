@@ -1,41 +1,35 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { TrustBar } from '@/components/trust/TrustBar';
-import { DroneProcessFlow } from '@/components/drone-services/DroneProcessFlow';
-import { DronePackagesSection } from '@/components/drone-services/DronePackagesSection';
-import { DronePpmSection } from '@/components/drone-services/DronePpmSection';
-import { DroneCafmWorkflow } from '@/components/drone-services/DroneCafmWorkflow';
-import { DroneSampleOutputs } from '@/components/drone-services/DroneSampleOutputs';
-import { DroneComplianceSection } from '@/components/drone-services/DroneComplianceSection';
-import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
 import { FAQAccordion } from '@/components/content/CapabilityList';
+import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
+
+// Flagship Drone Experience Components (13 Sections)
+import { DroneHeroCinematic } from '@/components/drone-services/DroneHeroCinematic';
+import { DroneStorySequence } from '@/components/drone-services/DroneStorySequence';
+import { DroneInteractiveInspection } from '@/components/drone-services/DroneInteractiveInspection';
+import { DroneMultiSpectrumView } from '@/components/drone-services/DroneMultiSpectrumView';
+import { Drone3DDigitalTwin } from '@/components/drone-services/Drone3DDigitalTwin';
+import { DroneCapabilityChapters } from '@/components/drone-services/DroneCapabilityChapters';
+import { DroneRemediationComparison } from '@/components/drone-services/DroneRemediationComparison';
+import { DronePackagesSelector } from '@/components/drone-services/DronePackagesSelector';
+import { DronePpmTimeline } from '@/components/drone-services/DronePpmTimeline';
+import { DroneCafmPlatform } from '@/components/drone-services/DroneCafmPlatform';
+import { DroneDeliverableLab } from '@/components/drone-services/DroneDeliverableLab';
+import { DroneFlightGovernance } from '@/components/drone-services/DroneFlightGovernance';
+import { DroneFinalHeroCta } from '@/components/drone-services/DroneFinalHeroCta';
+
 import { 
-  Camera, 
-  Layers, 
-  Building2, 
-  Flame, 
-  Sun, 
-  Map, 
-  Construction, 
-  CloudLightning, 
-  Box, 
-  Boxes, 
-  Video, 
-  CheckCircle2, 
-  ArrowRight, 
-  PhoneCall, 
-  ArrowUpRight,
-  ShieldCheck,
-  Building,
-  Factory,
-  Truck,
-  GraduationCap,
-  Store
+  Building, 
+  Factory, 
+  Truck, 
+  GraduationCap, 
+  Store, 
+  Construction,
+  ShieldCheck
 } from 'lucide-react';
 import type { RouteRecord, ContentRecord } from '@/lib/routes/route-schema';
 
@@ -44,123 +38,21 @@ interface TemplateDroneHubProps {
   content: ContentRecord;
 }
 
-const DRONE_SERVICES_LIST = [
-  {
-    title: 'Drone Inspections',
-    href: '/services/drone-services/drone-inspections',
-    icon: Camera,
-    badge: 'OPTICAL AUDIT',
-    tagline: 'High-Level Visual & Structural Surveys',
-    desc: 'High-resolution optical inspections of high-level building fabric, rooftop plant, towers, and inaccessible structures without scaffolding.',
-    deliverable: '48MP/8K Imagery & Defect Report',
-  },
-  {
-    title: 'Roof & Gutter Inspections',
-    href: '/services/drone-services/roof-inspections',
-    icon: Layers,
-    badge: 'WATERPROOFING',
-    tagline: 'Flat, Pitched, Valleys & Drainage Goods',
-    desc: 'Comprehensive condition audits of waterproofing membranes, box gutters, parapets, lead flashings, and plant plinths.',
-    deliverable: 'Orthomosaic & Drainage Logbook',
-  },
-  {
-    title: 'Façade & Building Envelope',
-    href: '/services/drone-services/building-envelope-inspections',
-    icon: Building2,
-    badge: 'EXTERNAL ENVELOPE',
-    tagline: 'Cladding, Glazing & Rain-Screens',
-    desc: 'Vertical envelope surveys checking cladding panels, curtain walling caps, perished mastic seals, and masonry spalling.',
-    deliverable: 'Elevation Defect Grid Map',
-  },
-  {
-    title: 'Thermal Drone Surveys',
-    href: '/services/drone-services/thermal-imaging',
-    icon: Flame,
-    badge: 'RADIOMETRIC',
-    tagline: 'Heat Loss & Moisture Entrapment',
-    desc: 'Calibrated FLIR thermal surveys detecting trapped water in flat roof insulation, thermal bridging, and HVAC heat loss.',
-    deliverable: 'Delta-T Radiometric Heatmap',
-  },
-  {
-    title: 'Solar PV Inspections',
-    href: '/services/drone-services/solar-pv-inspections',
-    icon: Sun,
-    badge: 'RENEWABLES',
-    tagline: 'Hotspots, Bypass Diodes & Yield Audits',
-    desc: 'Thermographic panel scanning detecting defective cells, string failures, soiling, and micro-cracks under IEC 62446-3 standards.',
-    deliverable: 'Hotspot Anomaly Register',
-  },
-  {
-    title: 'Surveying & Mapping',
-    href: '/services/drone-services/surveying-mapping',
-    icon: Map,
-    badge: 'GEOSPATIAL',
-    tagline: '2D Orthomosaics, DEMs & GIS Vectors',
-    desc: 'Millimetre-accurate 2D aerial mapping and topographic models calibrated with RTK positioning for CAD and GIS.',
-    deliverable: 'GeoTIFF & DXF Contours',
-  },
-  {
-    title: 'Construction Monitoring',
-    href: '/services/drone-services/construction-monitoring',
-    icon: Construction,
-    badge: 'PROGRESS TRACKING',
-    tagline: 'Scheduled Repeat Milestone Capture',
-    desc: 'GPS-locked repeat flights recording progress from groundworks to handover, generating dispute and investor archives.',
-    deliverable: 'Monthly Progress Comparison',
-  },
-  {
-    title: 'Emergency & Insurance Surveys',
-    href: '/services/drone-services/emergency-insurance-surveys',
-    icon: CloudLightning,
-    badge: 'INCIDENT RESPONSE',
-    tagline: 'Storm Damage & Make-Safe Triage',
-    desc: 'Rapid visual inspection of unstable structures and storm damage to formulate make-safe scopes and insurance loss reports.',
-    deliverable: 'Loss Adjuster Evidence Pack',
-  },
-  {
-    title: 'Digital Twin & 3D Reality Capture',
-    href: '/services/drone-services/digital-twin-3d-capture',
-    icon: Box,
-    badge: 'REALITY CAPTURE',
-    tagline: 'Point Clouds & Photogrammetric 3D Meshes',
-    desc: 'Persistent spatial 3D building models for remote stakeholder inspection, virtual measurements, and BIM integration.',
-    deliverable: '3D Mesh & LAS Point Cloud',
-  },
-  {
-    title: 'Volumetric Surveys',
-    href: '/services/drone-services/volumetric-surveys',
-    icon: Boxes,
-    badge: 'QUANTIFICATION',
-    tagline: 'Stockpiles & Cut/Fill Earthworks',
-    desc: 'Rapid 3D volumetric measurement of material stockpiles, aggregates, bulk minerals, and excavation cut/fill balances.',
-    deliverable: 'Cubic Metre Volume Report',
-  },
-  {
-    title: 'Aerial Photography & Video',
-    href: '/services/drone-services/aerial-photography-video',
-    icon: Video,
-    badge: 'ESTATE MEDIA',
-    tagline: '4K/6K Property & Portfolio Media',
-    desc: 'Cinematic commercial drone photography and videography for property marketing, investor reporting, and completed projects.',
-    deliverable: '4K/6K RAW Media Suite',
-  },
-];
-
 const SECTORS = [
   {
-    title: 'Commercial Offices & Towers',
+    title: 'Commercial Offices & Corporate Towers',
     icon: Building,
-    desc: 'Multi-storey curtain walling, high-rise facade condition, and rooftop chiller plant audits with zero ground disruption.',
+    desc: 'Multi-storey curtain walling, high-rise façade condition, and rooftop chiller plant audits with zero disruption to tenants or ground transport.',
   },
   {
-    title: 'Logistics & Warehousing',
+    title: 'Logistics, Warehousing & Distribution',
     icon: Truck,
-    desc: 'Vast low-pitch metal roofs, high-capacity valley gutters, and perimeter yard security and boundary inspections.',
+    desc: 'Vast low-pitch metal roofscapes, high-capacity valley gutters, and perimeter yard security and boundary inspections.',
   },
   {
-    title: 'Industrial & Manufacturing',
+    title: 'Industrial & Heavy Manufacturing',
     icon: Factory,
-    desc: 'Process chimneys, pipe bridges, boiler flues, and structural gantries surveyed without hazardous shutdowns.',
+    desc: 'Process chimneys, pipe bridges, boiler flues, and structural gantries surveyed without hazardous facility shutdowns.',
   },
   {
     title: 'Retail Parks & Shopping Centres',
@@ -168,229 +60,103 @@ const SECTORS = [
     desc: 'Glazed canopies, parapet gutters, tenant roof penetrations, and external customer car parks inspected out-of-hours.',
   },
   {
-    title: 'Healthcare & Education Campuses',
+    title: 'Healthcare & University Campuses',
     icon: GraduationCap,
     desc: 'Multi-building estate condition mapping, flat roof surveys, and heating distribution duct thermography.',
   },
   {
-    title: 'Construction & Development',
+    title: 'Construction & Real Estate Development',
     icon: Construction,
-    desc: 'Groundworks cut/fill analysis, monthly milestone photography, and envelope weather-tightness verification.',
+    desc: 'Groundworks cut/fill volume analysis, monthly milestone photography, and envelope weather-tightness verification.',
   },
 ];
 
 export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-brand-void text-white selection:bg-brand-pink selection:text-white">
       <Header />
 
       <main id="main" className="flex-grow">
         {/* ========================================================================= */}
-        {/* 1. CINEMATIC HERO SECTION */}
+        {/* 01 — CINEMATIC FULL-VIEWPORT HERO */}
         {/* ========================================================================= */}
-        <section className="relative min-h-[640px] lg:min-h-[740px] flex items-center bg-[#0B1220] overflow-hidden pt-28 pb-16">
-          {/* Blue-Hour Commercial Rooftop Drone Photography */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp"
-              alt="EntireFM commercial drone aerial inspection operating over commercial building roofscape at blue hour"
-              fill
-              priority
-              className="object-cover object-center opacity-60 scale-105 transition-transform duration-1000 ease-out"
-              sizes="100vw"
-            />
-            {/* Gradient Overlays for Readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220] via-[#0B1220]/70 to-black/50" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0B1220] via-[#0B1220]/85 to-transparent" />
-          </div>
+        <DroneHeroCinematic />
 
-          <div className="container-custom relative z-10">
-            <div className="max-w-3xl space-y-6">
-              {/* Eyebrow */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
-                <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-                <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-light">
-                  AERIAL ASSET INTELLIGENCE &amp; SURVEYING
-                </span>
-              </div>
-
-              {/* Headline */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-white leading-[1.1]">
-                Drone Inspection, <br />
-                <span className="text-hero-pink">
-                  Surveying &amp; Asset Intelligence
-                </span>
-              </h1>
-
-              {/* Supporting Copy */}
-              <p className="text-base sm:text-lg text-slate-200 leading-relaxed font-normal max-w-2xl">
-                Commercial drone services for buildings, estates, infrastructure and construction — integrated directly with EntireFM maintenance, compliance and physical repair delivery.
-              </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <Link
-                  href="/tools/drone-inspection-planner"
-                  className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-7 py-3.5 text-sm font-normal text-white shadow-elevated hover:shadow-pink-500/25 transition-all hover:scale-[1.02]"
-                >
-                  <span>Plan a Drone Inspection</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <a
-                  href="#services-family"
-                  className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 bg-white/10 backdrop-blur-md px-6 py-3.5 text-sm font-normal text-white hover:bg-white/20 transition-all"
-                >
-                  <span>Explore Drone Services</span>
-                </a>
-              </div>
-
-              {/* Subtle Trust Strip (No invented client logos) */}
-              <div className="pt-6 border-t border-white/15 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-white/70">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                  Commercial Properties
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                  Logistics &amp; Warehouses
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                  Industrial Sites
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                  Construction
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                  Infrastructure
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        {/* Global Trust Bar */}
         <TrustBar />
 
         {/* ========================================================================= */}
-        {/* 2. THE CORE DIFFERENTIATOR (INSPECT → REMEDIATE → RECORD) */}
+        {/* 02 — THE ENTIREFM AERIAL-TO-REPAIR STORY */}
         {/* ========================================================================= */}
-        <DroneProcessFlow />
+        <DroneStorySequence />
 
         {/* ========================================================================= */}
-        {/* 3. DRONE SERVICES FAMILY (11 SUB-SERVICE CARDS) */}
+        {/* 03 — INTERACTIVE BUILDING INSPECTION */}
         {/* ========================================================================= */}
-        <section className="py-24 bg-[#FAF9FB] border-b border-slate-200" id="services-family">
-          <div className="container-custom space-y-16">
-            <div className="max-w-3xl space-y-3.5">
-              <div className="inline-flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
-                  SERVICE FAMILY
-                </span>
-              </div>
-
-              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900 leading-tight">
-                Complete Aerial Asset Intelligence Capabilities
-              </h2>
-
-              <p className="text-base text-slate-600 leading-relaxed font-light">
-                Eleven specialized commercial drone services engineered for facilities directors, asset managers, and construction teams.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {DRONE_SERVICES_LIST.map((srv, idx) => {
-                const Icon = srv.icon;
-                return (
-                  <Link
-                    key={idx}
-                    href={srv.href}
-                    className="p-7 bg-white border border-slate-200 rounded-[14px] shadow-sm hover:border-brand-pink hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
-                  >
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <div className="h-10 w-10 rounded-[10px] bg-slate-50 border border-slate-200 flex items-center justify-center text-brand-pink group-hover:bg-brand-pink group-hover:text-white transition-colors shadow-subtle">
-                          <Icon className="h-5 w-5" />
-                        </div>
-                        <span className="font-mono text-[9px] uppercase font-light text-slate-600 bg-slate-100 px-2 py-0.5 rounded-[4px]">
-                          {srv.badge}
-                        </span>
-                      </div>
-
-                      <div>
-                        <h3 className="text-lg font-light text-slate-900 group-hover:text-brand-pink transition-colors">
-                          {srv.title}
-                        </h3>
-                        <p className="text-xs font-normal text-brand-pink mt-0.5">
-                          {srv.tagline}
-                        </p>
-                        <p className="mt-2 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
-                          {srv.desc}
-                        </p>
-                      </div>
-
-                      <div className="pt-3 border-t border-slate-100">
-                        <span className="text-[10.5px] font-mono text-slate-500 block">
-                          <strong className="text-slate-800">Deliverable:</strong> {srv.deliverable}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-normal text-brand-pink group-hover:text-brand-pink-dark">
-                      <span>Explore Service Details</span>
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        <DroneInteractiveInspection />
 
         {/* ========================================================================= */}
-        {/* 4. DRONE INSPECTION PACKAGES */}
+        {/* 04 — MULTI-SPECTRUM VIEW */}
         {/* ========================================================================= */}
-        <DronePackagesSection />
+        <DroneMultiSpectrumView />
 
         {/* ========================================================================= */}
-        {/* 5. DRONE PPM INTEGRATION */}
+        {/* 05 — IMMERSIVE 3D / GAUSSIAN SPLAT EXPERIENCE */}
         {/* ========================================================================= */}
-        <DronePpmSection />
+        <Drone3DDigitalTwin />
 
         {/* ========================================================================= */}
-        {/* 6. ENTIRECAFM INTEGRATION */}
+        {/* 06 — CINEMATIC CAPABILITY CHAPTERS */}
         {/* ========================================================================= */}
-        <DroneCafmWorkflow />
+        <DroneCapabilityChapters />
 
         {/* ========================================================================= */}
-        {/* 7. SAMPLE TECHNICAL OUTPUTS */}
+        {/* 07 — BEFORE → REMEDIATE → AFTER */}
         {/* ========================================================================= */}
-        <DroneSampleOutputs />
+        <DroneRemediationComparison />
 
         {/* ========================================================================= */}
-        {/* 8. COMPLIANCE & SAFETY GOVERNANCE */}
+        {/* 08 — COMMERCIAL DRONE PACKAGES */}
         {/* ========================================================================= */}
-        <DroneComplianceSection />
+        <DronePackagesSelector />
 
         {/* ========================================================================= */}
-        {/* 9. RELEVANT SECTORS */}
+        {/* 09 — DRONE PPM / CONDITION HISTORY */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-white border-b border-slate-200">
+        <DronePpmTimeline />
+
+        {/* ========================================================================= */}
+        {/* 10 — ENTIRECAFM INTEGRATION */}
+        {/* ========================================================================= */}
+        <DroneCafmPlatform />
+
+        {/* ========================================================================= */}
+        {/* 11 — TECHNICAL DELIVERABLE LAB */}
+        {/* ========================================================================= */}
+        <DroneDeliverableLab />
+
+        {/* ========================================================================= */}
+        {/* 12 — FLIGHT OPERATIONS / GOVERNANCE */}
+        {/* ========================================================================= */}
+        <DroneFlightGovernance />
+
+        {/* ========================================================================= */}
+        {/* SECTOR APPLICATIONS */}
+        {/* ========================================================================= */}
+        <section className="py-20 bg-brand-carbon border-b border-brand-edge-dark">
           <div className="container-custom space-y-12">
             <div className="max-w-3xl space-y-3">
-              <div className="inline-flex items-center gap-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.08] border border-white/15">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
+                <span className="font-mono text-xs uppercase tracking-wider text-brand-pink font-medium">
                   SECTOR APPLICATIONS
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-light tracking-tight text-slate-900">
+              <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-white">
                 Commercial Environments We Support
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base font-light">
-                Tailored flight profiles and reporting methodologies suited to complex commercial, industrial, and institutional real estate portfolios.
+              <p className="text-slate-300 text-sm sm:text-base font-light leading-relaxed">
+                Tailored flight profiles, risk assessments, and reporting methodologies engineered for complex commercial, industrial, logistics, and institutional real estate portfolios across the UK.
               </p>
             </div>
 
@@ -400,15 +166,15 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
                 return (
                   <div
                     key={idx}
-                    className="p-6 rounded-[12px] bg-[#FAF9FB] border border-slate-200 space-y-3 hover:border-brand-pink transition-colors"
+                    className="p-6 rounded-sm bg-brand-void/80 border border-brand-edge-dark space-y-3 hover:border-brand-pink transition-colors"
                   >
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-sm bg-white border border-slate-200 flex items-center justify-center text-brand-pink shadow-subtle">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-sm bg-brand-pink/15 border border-brand-pink/30 flex items-center justify-center text-brand-pink">
                         <Icon className="w-4 h-4" />
                       </div>
-                      <h3 className="text-base font-light text-slate-900">{sec.title}</h3>
+                      <h3 className="text-base font-light text-white">{sec.title}</h3>
                     </div>
-                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">
+                    <p className="text-xs sm:text-[13px] text-slate-300 leading-relaxed font-light">
                       {sec.desc}
                     </p>
                   </div>
@@ -419,19 +185,19 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
         </section>
 
         {/* ========================================================================= */}
-        {/* 10. TECHNICAL FAQS */}
+        {/* TECHNICAL FAQS (Server-rendered & Indexable) */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-[#FAF9FB] border-b border-slate-200">
+        <section className="py-20 bg-brand-void border-b border-brand-edge-dark">
           <div className="container-custom max-w-4xl space-y-10">
             <div className="text-center space-y-3">
-              <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
+              <span className="font-mono text-xs uppercase tracking-wider text-brand-pink font-medium">
                 FREQUENTLY ASKED QUESTIONS
               </span>
-              <h2 className="text-3xl font-light text-slate-900">
+              <h2 className="text-3xl sm:text-4xl font-extralight text-white">
                 Commercial Drone Services FAQ
               </h2>
-              <p className="text-sm text-slate-600">
-                Authoritative technical details on regulations, weather thresholds, deliverables, and EntireFM remedial execution.
+              <p className="text-sm text-slate-300 font-light max-w-2xl mx-auto">
+                Authoritative technical details on UK CAA regulations, weather limits, engineering deliverables, and EntireFM physical remedial execution.
               </p>
             </div>
 
@@ -440,7 +206,12 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
         </section>
 
         {/* ========================================================================= */}
-        {/* 11. CONVERSION SECTION */}
+        {/* 13 — FINAL HERO CTA */}
+        {/* ========================================================================= */}
+        <DroneFinalHeroCta />
+
+        {/* ========================================================================= */}
+        {/* CONVERSION SECTION */}
         {/* ========================================================================= */}
         <ServiceConversionSection
           serviceName="Drone Services"
