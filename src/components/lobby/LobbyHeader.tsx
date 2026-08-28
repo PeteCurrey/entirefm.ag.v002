@@ -74,17 +74,20 @@ export function LobbyHeader() {
     },
   ];
 
+  const isLobbyHome = pathname === '/lobby';
+  const isSolid = !isLobbyHome || scrolled || mobileMenuOpen;
+
   return (
     <>
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 font-sans ${
-          scrolled || mobileMenuOpen
+          isSolid
             ? 'bg-[#080C14]/95 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
             : 'bg-transparent border-b border-white/[0.08]'
         }`}
       >
-        {/* Top gradient scrim: Guarantees 100% WCAG AAA contrast over light page backgrounds before scroll */}
-        {!scrolled && !mobileMenuOpen && (
+        {/* Top gradient scrim: Only on Lobby Home hero when at top of page */}
+        {isLobbyHome && !scrolled && !mobileMenuOpen && (
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#060911]/90 via-[#060911]/60 to-transparent"
@@ -93,10 +96,10 @@ export function LobbyHeader() {
 
         <div className="container-wide flex items-center justify-between h-16 sm:h-20">
           {/* Left: Return to EntireFM & The Lobby brand mark */}
-          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-extralight text-brand-mist/85">
+          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-light text-brand-mist/90">
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extralight text-brand-mist/85 hover:text-white transition-colors group py-1"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-light text-brand-mist/90 hover:text-white transition-colors group py-1"
               aria-label="Return to EntireFM main site"
             >
               <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
@@ -107,20 +110,20 @@ export function LobbyHeader() {
 
             <Link
               href="/lobby"
-              className="flex items-center gap-2 tracking-wider text-sm sm:text-base font-extralight text-white uppercase hover:text-brand-electric-bright transition-colors"
+              className="flex items-center gap-2 tracking-wider text-sm sm:text-base font-light text-white uppercase hover:text-brand-electric-bright transition-colors"
             >
-              <span>THE <span className="font-light text-white">LOBBY</span></span>
+              <span>THE <span className="font-normal text-white">LOBBY</span></span>
             </Link>
 
             <span className="hidden xl:inline-block text-white/20">|</span>
-            <time className="hidden xl:inline-block tracking-wide text-brand-mist/70 font-extralight text-xs">
+            <time className="hidden xl:inline-block tracking-wide text-brand-mist/75 font-light text-xs">
               {currentDateStr}
             </time>
           </div>
 
           {/* Right: Primary Lobby Navigation & Member Access */}
           <div className="flex items-center gap-4 sm:gap-6">
-            <nav aria-label="Lobby Section Navigation" className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs sm:text-sm font-extralight">
+            <nav aria-label="Lobby Section Navigation" className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs sm:text-sm font-light">
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 return (
@@ -130,14 +133,14 @@ export function LobbyHeader() {
                     className={`transition-colors flex items-center gap-1.5 py-1 ${
                       link.active
                         ? link.highlight
-                          ? 'text-brand-electric font-medium border-b border-brand-electric'
-                          : 'text-white font-medium border-b border-white'
+                          ? 'text-brand-electric-bright font-normal border-b-2 border-brand-electric-bright'
+                          : 'text-white font-normal border-b-2 border-white'
                         : link.highlight
-                        ? 'text-brand-electric hover:text-white font-light'
-                        : 'text-brand-mist/80 hover:text-white font-extralight'
+                        ? 'text-brand-electric-bright hover:text-white font-light'
+                        : 'text-brand-mist/90 hover:text-white font-light'
                     }`}
                   >
-                    {link.highlight && <Icon className="w-3.5 h-3.5 text-brand-electric" />}
+                    {link.highlight && <Icon className="w-3.5 h-3.5 text-brand-electric-bright" />}
                     <span>{link.label}</span>
                   </Link>
                 );
