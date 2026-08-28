@@ -467,8 +467,8 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     heroBadge: 'RETAIL & SHOPPING CENTRE FM',
     heroHeadline: 'Keep every store trading and every customer comfortable.',
     heroSubline: 'Facilities management built around trading hours, high public footfall, brand presentation standards, and statutory compliance across UK retail estates.',
-    heroImage: '/images/editorial/entirefm-access-control-install-2000w.webp',
-    heroImageAlt: 'EntireFM engineer maintaining commercial retail access control and entrance infrastructure',
+    heroImage: '/images/locations/birmingham/facilities-management-birmingham-gas-street-canal-1600w.webp',
+    heroImageAlt: 'High-footfall commercial retail and mixed-use public shopping destination',
     heroHighlightedTitle: 'Store Presentation & Trading Hours',
     heroFacts: [
       { label: 'Trading Hours Priority', value: 'Zero Trading Disruption' },
@@ -480,6 +480,7 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     realityImage: '/images/editorial/entirefm-totem-headquarters-2000w.webp',
     realityImageAlt: 'EntireFM commercial building facade and retail access infrastructure',
     realityImageCaption: 'Storefront and entrance engineering completed prior to opening hours',
+
     operationalRealities: [
       {
         number: '01',
@@ -647,8 +648,8 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     heroBadge: 'COMMERCIAL OFFICES & CORPORATE HQ',
     heroHeadline: 'Workplace environments engineered for performance and comfort.',
     heroSubline: 'Integrated facilities management engineered for prime corporate headquarters, multi-tenant commercial office towers, and high-spec co-working campuses.',
-    heroImage: '/images/editorial/entirefm-corporate-corridor-2000w.webp',
-    heroImageAlt: 'EntireFM commercial facilities management across modern multi-storey corporate office building',
+    heroImage: '/images/editorial/entirefm-reception-2000w.webp',
+    heroImageAlt: 'Grade-A corporate office reception and building entrance with seamless tenant access control',
     heroHighlightedTitle: 'Workplace Experience & Asset Performance',
     heroFacts: [
       { label: 'Occupier Focus', value: 'Zoned Indoor Comfort' },
@@ -827,9 +828,10 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     heroBadge: 'HEALTHCARE & CLINICAL FM',
     heroHeadline: 'Clinical continuity and air quality assurance.',
     heroSubline: 'Specialist facilities management engineered for private hospitals, outpatient clinics, diagnostic centres, and medical facilities.',
-    heroImage: '/images/editorial/entirefm-hvac-cassette-service-2000w.webp',
-    heroImageAlt: 'EntireFM specialist technician servicing medical-grade air handling filtration in clinical healthcare facility',
+    heroImage: '/images/editorial/entirefm-engineers-office-testing-2000w.webp',
+    heroImageAlt: 'EntireFM specialist engineers conducting precision testing and calibration in clinical healthcare facility',
     heroHighlightedTitle: 'Clinical Infection Control & Compliance',
+
     heroFacts: [
       { label: 'Compliance Standard', value: 'HTM & HBN Aligned' },
       { label: 'Water Hygiene', value: 'Strict L8 Legionella Care' },
@@ -1007,8 +1009,8 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     heroBadge: 'EDUCATION & UNIVERSITY ESTATES',
     heroHeadline: 'Campus estates maintained around academic terms.',
     heroSubline: 'Full-spectrum facilities management engineered for universities, multi-academy trusts, independent colleges, and school campuses.',
-    heroImage: '/images/editorial/entirefm-sheffield-rooftop-survey-1920w.webp',
-    heroImageAlt: 'EntireFM facilities management across modern university campus and educational buildings',
+    heroImage: '/images/locations/birmingham/facilities-management-birmingham-library-of-birmingham-1600w.webp',
+    heroImageAlt: 'Modern university and higher education campus architecture maintained by EntireFM',
     heroHighlightedTitle: 'Safeguarding & Term-Time Continuity',
     heroFacts: [
       { label: 'Security Vetting', value: 'Enhanced DBS Clearance' },
@@ -1187,8 +1189,8 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     heroBadge: 'HOTELS & HOSPITALITY FM',
     heroHeadline: '24/7 guest comfort and invisible engineering.',
     heroSubline: 'Facilities management engineered for luxury hotels, boutique hospitality destinations, commercial kitchens, and resort estates.',
-    heroImage: '/images/editorial/entirefm-reception-2000w.webp',
-    heroImageAlt: 'EntireFM commercial reception and hotel front-of-house facilities management',
+    heroImage: '/images/locations/manchester/facilities-management-manchester-reception-front-of-house-1600w.webp',
+    heroImageAlt: 'Luxury hotel and commercial hospitality guest reception environment',
     heroHighlightedTitle: 'Guest Experience & 24/7 Plant Uptime',
     heroFacts: [
       { label: 'Guest Comfort', value: 'Instant Hot Water & Quiet AC' },
@@ -1367,8 +1369,8 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     heroBadge: 'STADIUMS, ARENAS & VENUES FM',
     heroHeadline: 'Event readiness and crowd safety on a national scale.',
     heroSubline: 'High-capacity facilities management engineered for major entertainment arenas, sports stadiums, convention centres, and public leisure complexes.',
-    heroImage: '/images/editorial/entirefm-manchester-castlefield-night-1920w.webp',
-    heroImageAlt: 'Major entertainment arena and venue district illuminated at dusk',
+    heroImage: '/images/locations/sheffield/facilities-management-sheffield-winter-garden-1600w.webp',
+    heroImageAlt: 'Public arena and major leisure destination maintained by EntireFM',
     heroHighlightedTitle: 'Event Readiness & Crowd Safety',
     heroFacts: [
       { label: 'Event Protocol', value: 'Pre-Event Handover Audits' },
@@ -1547,9 +1549,10 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
     heroBadge: 'RESIDENTIAL & BUILD TO RENT (PRS) FM',
     heroHeadline: 'Resident comfort and statutory building safety.',
     heroSubline: 'Comprehensive facilities management engineered for Build to Rent (BTR/PRS) developments, residential block portfolios, and mixed-use luxury estates.',
-    heroImage: '/images/editorial/entirefm-plumbing-booster-set-2000w.webp',
-    heroImageAlt: 'EntireFM commercial plumbing and communal heating plant in modern residential development',
+    heroImage: '/images/locations/manchester/facilities-management-manchester-castlefield-viaduct-1600w.webp',
+    heroImageAlt: 'Modern Build to Rent residential apartment estate maintained by EntireFM',
     heroHighlightedTitle: 'Building Safety Act & Resident Care',
+
     heroFacts: [
       { label: 'Safety Governance', value: 'Building Safety Act 2022' },
       { label: 'Plant Scope', value: 'Energy Centres & HIUs' },
@@ -2085,17 +2088,18 @@ export const SECTOR_ARCHETYPES: Record<string, SectorArchetype> = {
  * Helper to resolve archetype configuration for any given sector route.
  */
 export function resolveSectorArchetype(path: string): SectorArchetype {
-  const p = path.toLowerCase();
-  if (p.includes('industrial') || p.includes('manufactur')) return SECTOR_ARCHETYPES.industrial;
-  if (p.includes('healthcare') || p.includes('hospital') || p.includes('clinical')) return SECTOR_ARCHETYPES.healthcare;
-  if (p.includes('education') || p.includes('school') || p.includes('universit')) return SECTOR_ARCHETYPES.education;
+  const p = decodeURIComponent(path.toLowerCase());
   if (p.includes('hotel') || p.includes('resort') || p.includes('restaurant') || p.includes('hospitality')) return SECTOR_ARCHETYPES.hospitality;
+  if (p.includes('healthcare') || p.includes('clinical') || (p.includes('hospital') && !p.includes('hospitality'))) return SECTOR_ARCHETYPES.healthcare;
+  if (p.includes('education') || p.includes('school') || p.includes('universit') || p.includes('college') || p.includes('academy')) return SECTOR_ARCHETYPES.education;
+  if (p.includes('industrial') || p.includes('manufactur') || p.includes('factory')) return SECTOR_ARCHETYPES.industrial;
   if (p.includes('arena') || p.includes('stadium') || p.includes('sports') || p.includes('sport-centre') || p.includes('leisure') || p.includes('landmark')) return SECTOR_ARCHETYPES['venues-leisure'];
-  if (p.includes('residential')) return SECTOR_ARCHETYPES['residential-prs'];
-  if (p.includes('retail') || p.includes('shopping-centre')) return SECTOR_ARCHETYPES.retail;
+  if (p.includes('residential') || p.includes('btr') || p.includes('prs') || p.includes('housing') || p.includes('apartments')) return SECTOR_ARCHETYPES['residential-prs'];
+  if (p.includes('retail') || p.includes('shopping-centre') || p.includes('store') || p.includes('supermarket')) return SECTOR_ARCHETYPES.retail;
   if (p.includes('logistics') || p.includes('distribution') || p.includes('warehouse') || p.includes('transport') || p.includes('service-station') || p.includes('airport')) return SECTOR_ARCHETYPES['logistics-warehousing'];
-  if (p.includes('construction')) return SECTOR_ARCHETYPES['construction-handover'];
+  if (p.includes('construction') || p.includes('handover') || p.includes('fit-out')) return SECTOR_ARCHETYPES['construction-handover'];
   if (p.includes('managing-agent') || p.includes('property-manager') || p.includes('tier-one') || p.includes('tierone') || p.includes('public-sector') || p.includes('industries')) return SECTOR_ARCHETYPES['corporate-managing-agents'];
   if (p.includes('commercial') || p.includes('office') || p.includes('corporate') || p.includes('co-working')) return SECTOR_ARCHETYPES['commercial-offices'];
   return SECTOR_ARCHETYPES['commercial-offices'];
 }
+

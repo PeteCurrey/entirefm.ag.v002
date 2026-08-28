@@ -82,8 +82,8 @@ export async function PATCH(request: Request) {
     if (Array.isArray(disciplines)) updates.disciplines = disciplines.slice(0, 10);
     if (Array.isArray(sectors)) updates.sectors = sectors.slice(0, 10);
     if (Array.isArray(qualifications)) updates.qualifications = qualifications.slice(0, 10);
-    if (profileVisibility && ['public', 'members_only', 'private'].includes(profileVisibility)) {
-      updates.profile_visibility = profileVisibility;
+    if (profileVisibility && ['public', 'members_only', 'members-only', 'private'].includes(profileVisibility)) {
+      updates.profile_visibility = profileVisibility === 'members-only' ? 'members_only' : profileVisibility;
     }
     if (emailPreferences && typeof emailPreferences === 'object') {
       updates.email_preferences = emailPreferences;

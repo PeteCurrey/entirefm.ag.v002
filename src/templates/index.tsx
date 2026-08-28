@@ -64,6 +64,14 @@ import { TemplateCityHub } from './locations/TemplateCityHub';
 import { TemplateCityServices } from './locations/TemplateCityServices';
 import { TemplateServicesOverview } from './services/TemplateServicesOverview';
 import { TemplateLobby } from './lobby/TemplateLobby';
+import { ServicePlumbingGas } from './services/ServicePlumbingGas';
+import { ServiceFireLifeSafety } from './services/ServiceFireLifeSafety';
+import { ServiceCleaningSuite } from './services/ServiceCleaningSuite';
+import { ServiceSecurityAccess } from './services/ServiceSecurityAccess';
+import { ServiceGroundsMaintenance } from './services/ServiceGroundsMaintenance';
+import { ServiceBuildingMaintenance } from './services/ServiceBuildingMaintenance';
+import { ServiceTotalFm } from './services/ServiceTotalFm';
+import { ServiceCraneHire } from './services/ServiceCraneHire';
 
 export function resolvePageTemplate(route: RouteRecord): React.ReactElement {
   const content = loadContentRecord(route.path);
@@ -380,31 +388,114 @@ function selectTemplate(
     return <TemplatePrimaryLocation route={route} content={content} />;
   }
 
-  // 16. Services (Specialist vs Core M&E vs Dedicated Prototypes)
+  // 16. Services (Dedicated Bespoke Architecture per Discipline)
   if (route.routeType === 'service') {
+    // 16a. Mechanical, Electrical & Power
     if (path === '/mechanical-electrical') {
       return <ServiceMechanicalElectrical route={route} content={content} />;
     }
+
+    // 16b. Commercial HVAC & Air Conditioning
     if (path === '/hvac-contractor') {
       return <ServiceHvac route={route} content={content} />;
     }
+
+    // 16c. Planned Preventative Maintenance (PPM)
     if (path === '/ppm') {
       return <ServicePpm route={route} content={content} />;
     }
+
+    // 16d. Commercial Plumbing & Gas
+    if (path === '/plumbing-gas') {
+      return <ServicePlumbingGas route={route} content={content} />;
+    }
+
+    // 16e. Fire & Life Safety Systems
+    if (
+      path === '/fire-emergency-systems' ||
+      path === '/safety-critical-emergency-systems' ||
+      path === '/emergency-light-testing' ||
+      path === '/mechanical-electrical/emergency-light-testing'
+    ) {
+      return <ServiceFireLifeSafety route={route} content={content} />;
+    }
+
+    // 16f. Security, Access Control & Barrier Operations
+    if (
+      path === '/security-services' ||
+      path === '/access-control' ||
+      path === '/gates-barriers' ||
+      path === '/carpark-management' ||
+      path === '/caretaker' ||
+      path === '/concierge-services' ||
+      path === '/mechanical-electrical/access-control'
+    ) {
+      return <ServiceSecurityAccess route={route} content={content} />;
+    }
+
+    // 16g. Grounds Maintenance & Landscaping
+    if (
+      path === '/grounds-maintenance' ||
+      path === '/landscaping'
+    ) {
+      return <ServiceGroundsMaintenance route={route} content={content} />;
+    }
+
+    // 16h. Building Maintenance & Structural Fabric
+    if (
+      path === '/building-maintenance' ||
+      path === '/building-inspecting-testing'
+    ) {
+      return <ServiceBuildingMaintenance route={route} content={content} />;
+    }
+
+    // 16i. CPA Mobile Crane Hire & Contract Lifting
+    if (
+      path === '/mobile-crane-hire' ||
+      path === '/bocker-crane-hire' ||
+      path === '/truck-mount-crane-hire' ||
+      path.startsWith('/mobile-crane-hire/') ||
+      path.includes('crane')
+    ) {
+      return <ServiceCraneHire route={route} content={content} />;
+    }
+
+    // 16j. Heavy Industrial Cleaning
     if (path === '/industrial-cleaning') {
       return <ServiceIndustrialCleaning route={route} content={content} />;
     }
+
+    // 16k. Commercial Cleaning Suite (Contract, Office, Window, Pressure Washing, Medical, Retail)
     if (
       path.includes('cleaning') ||
       path.includes('washing') ||
-      path.includes('crane') ||
-      path.includes('mobile-crane')
+      path === '/washroom-management' ||
+      path === '/vending-supplier'
     ) {
-      return <TemplateSpecialistService route={route} content={content} />;
+      return <ServiceCleaningSuite route={route} content={content} />;
     }
+
+    // 16l. Total Facilities Management & 24/7 National Operations
+    if (
+      path === '/facilities-management-services' ||
+      path === '/facilities-management-services-london' ||
+      path === '/24-7-fm-support' ||
+      path === '/fm-technical-services' ||
+      path === '/hard-facilities-management-london' ||
+      path === '/soft-facilities-management-london' ||
+      path === '/hard-services' ||
+      path === '/soft-services' ||
+      path === '/what-is-facilities-management' ||
+      path === '/copy-of-what-is-facilities-manageme' ||
+      path === '/manchester-facilities-managment'
+    ) {
+      return <ServiceTotalFm route={route} content={content} />;
+    }
+
     return <TemplateCoreService route={route} content={content} />;
   }
 
   // Default fallback for any remaining registered route
   return <TemplateCoreService route={route} content={content} />;
 }
+
