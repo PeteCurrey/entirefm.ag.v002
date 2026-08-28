@@ -37,4 +37,11 @@ Thumbs.db
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
-.ply
+
+# Large 3D / Splat Assets (>100MB)
+*.ply
+*.splat
+*.las
+*.laz
+Guassian Splat/
+Gaussian Splat/
