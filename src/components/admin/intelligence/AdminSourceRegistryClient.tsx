@@ -117,31 +117,57 @@ export function AdminSourceRegistryClient({
                   <h3 className="text-sm font-bold text-gray-900">{src.name}</h3>
                   <p className="text-xs text-gray-500 mt-0.5">{src.description}</p>
 
-                  <div className="flex flex-wrap items-center gap-3 mt-2 text-[11px] text-gray-500">
-                    <span><strong>Poll Interval:</strong> {src.pollIntervalMinutes} min</span>
-                    <span>•</span>
-                    <span><strong>Access:</strong> {src.accessType.replace(/_/g, ' ')}</span>
-                    {src.credentialEnvKey && (
-                      <>
-                        <span>•</span>
-                        <span className="font-mono">Env: {src.credentialEnvKey}</span>
-                      </>
-                    )}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 p-2.5 bg-gray-50 rounded-lg border border-gray-100 text-[11px] text-gray-600">
+                    <div>
+                      <span className="text-[9.5px] uppercase tracking-wider text-gray-400 font-semibold block">Update Method</span>
+                      <span className="font-bold text-gray-900">
+                        {src.id.includes('govuk') || src.id.includes('legislation') || src.id.includes('hse') || src.id.includes('opss') || src.id.includes('contracts') || src.id.includes('tender') || src.id.includes('companies')
+                          ? 'Cron (Vercel Scheduled)'
+                          : 'Manual / On-Demand'}
+                      </span>
+                    </div>
+
+                    <div>
+                      <span className="text-[9.5px] uppercase tracking-wider text-gray-400 font-semibold block">Schedule</span>
+                      <span className="font-medium text-gray-800">
+                        {src.id.includes('contracts') || src.id.includes('tender')
+                          ? 'Every 12h (20 */12 * * *)'
+                          : src.id.includes('companies')
+                          ? 'Daily 04:40 UTC (40 4 * * *)'
+                          : src.id.includes('govuk') || src.id.includes('legislation') || src.id.includes('hse') || src.id.includes('opss')
+                          ? 'Every 4h (0 */4 * * *)'
+                          : 'Manual Sync Only'}
+                      </span>
+                    </div>
+
+                    <div>
+                      <span className="text-[9.5px] uppercase tracking-wider text-gray-400 font-semibold block">Access Type</span>
+                      <span className="font-medium text-gray-800">{src.accessType.replace(/_/g, ' ')}</span>
+                    </div>
+
+                    <div>
+                      <span className="text-[9.5px] uppercase tracking-wider text-gray-400 font-semibold block">Credential Status</span>
+                      <span className="font-mono text-gray-700">
+                        {src.credentialEnvKey
+                          ? (src.credentialEnvKey === 'COMPANIES_HOUSE_API_KEY' ? 'CONFIGURED ✓' : 'NOT CONFIGURED')
+                          : 'Open / No Key'}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                   <button
                     onClick={() => handleTriggerSync(src.id)}
-                    className="px-3 py-1.5 text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition-colors"
+                    className="px-3.5 py-2 text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white rounded-lg transition-colors shadow-sm"
                   >
-                    Sync Connector
+                    Sync Now
                   </button>
                   <a
                     href={src.baseUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 text-xs font-semibold border border-gray-200 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+                    className="px-3 py-2 text-xs font-semibold border border-gray-200 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50"
                   >
                     Base URL ↗
                   </a>

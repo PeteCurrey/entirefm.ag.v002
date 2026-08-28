@@ -103,13 +103,13 @@ export function LobbyHeader() {
           />
         )}
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 sm:h-20">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 sm:h-20 gap-4">
           
           {/* Left: Return to EntireFM & The Lobby brand mark */}
-          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-light">
+          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-light shrink-0 whitespace-nowrap">
             <Link
               href="/"
-              className={`inline-flex items-center gap-1.5 text-xs sm:text-sm font-light transition-colors group py-1 ${
+              className={`inline-flex items-center gap-1.5 text-xs sm:text-sm font-light transition-colors group py-1 whitespace-nowrap shrink-0 ${
                 isLight
                   ? 'text-neutral-600 hover:text-neutral-900'
                   : 'text-neutral-300 hover:text-white'
@@ -124,7 +124,7 @@ export function LobbyHeader() {
 
             <Link
               href="/lobby"
-              className={`flex items-center gap-2 tracking-wider text-sm sm:text-base font-light uppercase transition-colors ${
+              className={`inline-flex items-center gap-1.5 tracking-wider text-sm sm:text-base font-light uppercase transition-colors whitespace-nowrap shrink-0 ${
                 isLight
                   ? 'text-neutral-900 hover:text-brand-electric'
                   : 'text-white hover:text-brand-electric-bright'
@@ -133,22 +133,22 @@ export function LobbyHeader() {
               <span>THE <span className={`font-normal ${isLight ? 'text-neutral-900' : 'text-white'}`}>LOBBY</span></span>
             </Link>
 
-            <span className={`hidden xl:inline-block ${isLight ? 'text-neutral-300' : 'text-white/20'}`}>|</span>
-            <time className={`hidden xl:inline-block tracking-wide font-extralight text-xs ${isLight ? 'text-neutral-500' : 'text-neutral-400'}`}>
+            <span className={`hidden 2xl:inline-block ${isLight ? 'text-neutral-300' : 'text-white/20'}`}>|</span>
+            <time className={`hidden 2xl:inline-block tracking-wide font-extralight text-xs whitespace-nowrap ${isLight ? 'text-neutral-500' : 'text-neutral-400'}`}>
               {currentDateStr}
             </time>
           </div>
 
           {/* Right: Primary Lobby Navigation & Member Access */}
-          <div className="flex items-center gap-4 sm:gap-6">
-            <nav aria-label="Lobby Section Navigation" className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs sm:text-sm font-light">
+          <div className="flex items-center gap-4 sm:gap-6 shrink-0 whitespace-nowrap">
+            <nav aria-label="Lobby Section Navigation" className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs sm:text-sm font-light shrink-0 whitespace-nowrap">
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`transition-colors flex items-center gap-1.5 py-1 ${
+                    className={`transition-colors inline-flex items-center gap-1.5 py-1 whitespace-nowrap shrink-0 ${
                       link.active
                         ? link.highlight
                           ? 'text-brand-electric font-medium border-b-2 border-brand-electric'
@@ -162,21 +162,21 @@ export function LobbyHeader() {
                         : 'text-neutral-300 hover:text-white font-light'
                     }`}
                   >
-                    {link.highlight && <Icon className="w-3.5 h-3.5 text-brand-electric" />}
-                    <span>{link.label}</span>
+                    {link.highlight && <Icon className="w-3.5 h-3.5 text-brand-electric shrink-0" />}
+                    <span className="whitespace-nowrap">{link.label}</span>
                   </Link>
                 );
               })}
             </nav>
 
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0 whitespace-nowrap">
               <MemberNavControl theme={theme} />
 
               {/* Mobile Menu Button */}
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`lg:hidden p-2 rounded-md transition-colors ${
+                className={`lg:hidden p-2 rounded-md transition-colors shrink-0 ${
                   isLight
                     ? 'text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100'
                     : 'text-neutral-300 hover:text-white hover:bg-white/10'
@@ -221,8 +221,8 @@ export function LobbyHeader() {
                         : 'text-neutral-300 hover:bg-white/5 hover:text-white'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 ${link.highlight ? 'text-brand-electric' : 'text-neutral-400'}`} />
-                    <span>{link.label}</span>
+                    <Icon className={`w-4 h-4 shrink-0 ${link.highlight ? 'text-brand-electric' : 'text-neutral-400'}`} />
+                    <span className="whitespace-nowrap">{link.label}</span>
                   </Link>
                 );
               })}
@@ -237,8 +237,8 @@ export function LobbyHeader() {
                       : 'text-neutral-300 hover:bg-white/5 hover:text-white'
                   }`}
                 >
-                  <BookOpen className="w-4 h-4 text-purple-500" />
-                  <span>My Research Library</span>
+                  <BookOpen className="w-4 h-4 text-purple-500 shrink-0" />
+                  <span className="whitespace-nowrap">My Research Library</span>
                 </Link>
                 <Link
                   href="/lobby/me"
@@ -249,8 +249,8 @@ export function LobbyHeader() {
                       : 'text-neutral-300 hover:bg-white/5 hover:text-white'
                   }`}
                 >
-                  <Layers className="w-4 h-4 text-emerald-500" />
-                  <span>My Workspace</span>
+                  <Layers className="w-4 h-4 text-emerald-500 shrink-0" />
+                  <span className="whitespace-nowrap">My Workspace</span>
                 </Link>
               </div>
             </nav>

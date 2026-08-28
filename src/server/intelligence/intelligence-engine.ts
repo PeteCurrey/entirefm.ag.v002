@@ -25,6 +25,7 @@ import {
   fetchOpssProductSafety,
   fetchContractsFinderOcds,
   fetchFindATenderOcds,
+  fetchCompaniesHouseProfile,
 } from './connectors';
 
 // ─────────────────────────────────────────────────────────────
@@ -155,6 +156,10 @@ export interface NormalisedIntelligenceItem {
   reviewStatus: ReviewStatus;
   reviewedBy?: string;
   reviewedAt?: string;
+  sourceAuthenticity?: 'OFFICIAL_SOURCE' | 'INDUSTRY_BODY' | 'COMMERCIAL_SOURCE' | 'UNVERIFIED';
+  operationalInterpretation?: 'PENDING_REVIEW' | 'APPROVED_FOR_ACTION' | 'ADVISORY_ONLY' | 'NOT_APPLICABLE';
+  requiresHumanApproval?: boolean;
+  isMandatoryAction?: boolean;
   linkedComplianceRequirementIds: string[];
   audienceRoles: IntelligenceAudienceRole[];
   secondarySources: {
@@ -208,7 +213,9 @@ export interface CompanyWatchRecord {
   contractorOrgId: string;
   companyNumber: string;
   companyName: string;
-  companyStatus: 'ACTIVE' | 'DISSOLVED' | 'LIQUIDATION' | 'CONVERTED_CLOSED' | 'INSOLVENCY' | 'UNVERIFIED';
+  companyStatus: 'ACTIVE' | 'DISSOLVED' | 'LIQUIDATION' | 'CONVERTED_CLOSED' | 'INSOLVENCY' | 'UNVERIFIED' | string;
+  jurisdiction?: string;
+  companyType?: string;
   lastCheckedAt: string;
   incorporationDate?: string;
   registeredOfficeAddress?: string;
@@ -224,6 +231,15 @@ export interface CompanyWatchRecord {
     lastMadeUpTo?: string;
     overdue: boolean;
   };
+  accountsNextDue?: string;
+  accountsOverdue?: boolean;
+  confirmationStatementNextDue?: string;
+  confirmationStatementOverdue?: boolean;
+  hasInsolvencyHistory?: boolean;
+  hasCharges?: boolean;
+  verificationStatus?: string;
+  nextScheduledCheck?: string;
+  rawPayloadHash?: string;
   officers?: {
     name: string;
     role: string;
@@ -235,10 +251,10 @@ export interface CompanyWatchRecord {
     dates: string[];
     status: string;
   };
-  apiAvailable: boolean;
-  degraded: boolean;
+  apiAvailable?: boolean;
+  degraded?: boolean;
   lastSuccessfulFetchAt?: string;
-  events: CompanyWatchEvent[];
+  events?: CompanyWatchEvent[];
 }
 
 export interface CompanyWatchEvent {
@@ -247,8 +263,12 @@ export interface CompanyWatchEvent {
   eventType: CompanyWatchEventType;
   description: string;
   detectedAt: string;
-  significance: 'HIGH' | 'MEDIUM' | 'LOW';
-  requiresAdminReview: boolean;
+  previousValue?: string;
+  newValue?: string;
+  requiresAction: boolean;
+  isAcknowledged: boolean;
+  significance?: 'HIGH' | 'MEDIUM' | 'LOW';
+  requiresAdminReview?: boolean;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -265,7 +285,7 @@ export interface CredentialWatchSummary {
 }
 
 export interface OrgCredentialWatch {
-  credentialType: ClosedRegisterCredential | string;
+  credentialType: string;
   registrationNumber?: string;
   issuingBody: string;
   verificationMethod: CredentialVerificationMethod;
@@ -328,8 +348,8 @@ export interface AcknowledgementRecord {
 export interface TenderOpportunity {
   id: string;
   ocid: string;
-  source: 'Contracts Finder' | 'Find a Tender' | 'Crown Commercial Service';
-  noticeType: 'planning' | 'tender' | 'award' | 'contract';
+  source: 'Contracts Finder' | 'Find a Tender' | 'Crown Commercial Service' | string;
+  noticeType: 'planning' | 'tender' | 'award' | 'contract' | string;
   title: string;
   description: string;
   buyerName: string;
@@ -350,6 +370,7 @@ export interface TenderOpportunity {
   contentHash: string;
   fetchedAt: string;
   lastSeenAt: string;
+  isBidEligible?: boolean;
 }
 
 export interface EntireFMTenderRecord {
@@ -1285,13 +1306,13 @@ export async function upsertTenderOpportunity(opportunity: TenderOpportunity): P
     match_strength: matchStrength,
     match_reasons: matchReasons,
     cpv_matches: cpvMatches,
-    deadline_urgency: deadlineUrgency,
+    is_bid_eligible: opportunity.isBidEligible ?? (opportunity.noticeType !== 'award'),
     content_hash: opportunity.contentHash,
     raw_payload: opportunity.rawPayload,
     updated_at: new Date().toISOString(),
   };
 
-  await dbQuery(`admin_tender_opportunities`, {
+  await dbQuery(`admin_tender_opportunities?on_conflict=ocid`, {
     method: 'POST',
     headers: { Prefer: 'resolution=merge-duplicates' },
     body: row,
@@ -1401,7 +1422,21 @@ export interface IngestionSummaryReport {
   errors: string[];
 }
 
-export async function runLiveIngestion(sourceId?: string): Promise<IngestionSummaryReport> {
+export async function runRegulatoryIngestion(triggerType: 'CRON' | 'MANUAL' = 'CRON'): Promise<IngestionSummaryReport> {
+  const { acquireIngestionLock, releaseIngestionLock } = await import('./lock-service');
+  const lockId = await acquireIngestionLock('regulatory', triggerType === 'CRON' ? 'vercel-cron' : 'admin-manual', 15);
+  if (!lockId) {
+    return {
+      timestamp: new Date().toISOString(),
+      sourcesProcessed: 0,
+      totalItemsFetched: 0,
+      totalItemsCreated: 0,
+      totalTendersFetched: 0,
+      totalTendersCreated: 0,
+      errors: ['Execution skipped: concurrent regulatory ingestion lock active.'],
+    };
+  }
+
   const report: IngestionSummaryReport = {
     timestamp: new Date().toISOString(),
     sourcesProcessed: 0,
@@ -1412,27 +1447,47 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
     errors: [],
   };
 
-  // 1. GOV.UK Search Ingestion
-  if (!sourceId || sourceId === 'src-govuk-search') {
-    const started = Date.now();
+  try {
+    // 1. GOV.UK Search Ingestion
+    const startedSearch = Date.now();
     try {
       const { items } = await fetchGovUkSearch(['building safety', 'fire safety', 'f-gas', 'asbestos', 'electrical safety']);
       report.sourcesProcessed++;
       report.totalItemsFetched += items.length;
 
       for (const item of items) {
+        // Enriched canonical content metadata if available
+        let enrichedSummary = item.entirefmSummary;
+        let enrichedPublishedAt = item.publishedAt;
+        let enrichedUpdatedAt = item.updatedAt;
+
+        try {
+          const canonical = await fetchGovUkContent(item.externalId);
+          if (canonical) {
+            enrichedSummary = canonical.entirefmSummary;
+            enrichedPublishedAt = canonical.publishedAt;
+            enrichedUpdatedAt = canonical.updatedAt;
+          }
+        } catch {
+          // Non-blocking content resolution
+        }
+
         const row = {
           id: item.id,
           external_id: item.externalId,
           content_hash: item.contentHash,
           version: item.version,
           title: item.title,
-          entirefm_summary: item.entirefmSummary,
+          entirefm_summary: enrichedSummary,
           suggested_contractor_action: item.suggestedContractorAction,
           source_id: item.sourceId,
           source_name: item.sourceName,
           canonical_url: item.canonicalUrl,
           authority_tier: item.authorityTier,
+          source_authenticity: item.sourceAuthenticity || 'OFFICIAL_SOURCE',
+          operational_interpretation: item.operationalInterpretation || 'PENDING_REVIEW',
+          requires_human_approval: item.requiresHumanApproval ?? true,
+          is_mandatory_action: item.isMandatoryAction ?? false,
           legal_status: item.legalStatus,
           event_type: item.eventType,
           severity: item.severity,
@@ -1440,12 +1495,13 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
           trade_tags: item.tradeTags,
           credential_tags: item.credentialTags,
           work_type_tags: item.workTypeTags,
-          published_at: item.publishedAt,
+          published_at: enrichedPublishedAt,
+          updated_at: enrichedUpdatedAt,
           rights_licence: item.rightsLicence,
           parser_version: item.parserVersion,
           fetched_at: item.fetchedAt,
           raw_source_hash: item.rawSourceHash,
-          review_status: item.reviewStatus,
+          review_status: item.reviewStatus || 'PENDING_REVIEW',
           audience_roles: item.audienceRoles,
         };
 
@@ -1457,16 +1513,14 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
         report.totalItemsCreated++;
       }
 
-      await logIngestionRun('src-govuk-search', 'GOV.UK Search', started, 'success', items.length, items.length);
+      await logIngestionRun('src-govuk-search', 'GOV.UK Search', startedSearch, 'success', items.length, items.length, undefined, triggerType, 'regulatory');
     } catch (e: any) {
       report.errors.push(`GOV.UK Search: ${e.message}`);
-      await logIngestionRun('src-govuk-search', 'GOV.UK Search', started, 'failed', 0, 0, e.message);
+      await logIngestionRun('src-govuk-search', 'GOV.UK Search', startedSearch, 'failed', 0, 0, e.message, triggerType, 'regulatory');
     }
-  }
 
-  // 2. legislation.gov.uk Feed
-  if (!sourceId || sourceId === 'src-legislation-uk') {
-    const started = Date.now();
+    // 2. legislation.gov.uk Feed
+    const startedLeg = Date.now();
     try {
       const items = await fetchLegislationUkFeed();
       report.sourcesProcessed++;
@@ -1485,6 +1539,10 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
           source_name: item.sourceName,
           canonical_url: item.canonicalUrl,
           authority_tier: item.authorityTier,
+          source_authenticity: item.sourceAuthenticity || 'OFFICIAL_SOURCE',
+          operational_interpretation: item.operationalInterpretation || 'PENDING_REVIEW',
+          requires_human_approval: item.requiresHumanApproval ?? true,
+          is_mandatory_action: item.isMandatoryAction ?? false,
           legal_status: item.legalStatus,
           event_type: item.eventType,
           severity: item.severity,
@@ -1495,7 +1553,7 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
           parser_version: item.parserVersion,
           fetched_at: item.fetchedAt,
           raw_source_hash: item.rawSourceHash,
-          review_status: item.reviewStatus,
+          review_status: item.reviewStatus || 'PENDING_REVIEW',
           audience_roles: item.audienceRoles,
         };
 
@@ -1507,16 +1565,14 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
         report.totalItemsCreated++;
       }
 
-      await logIngestionRun('src-legislation-uk', 'legislation.gov.uk', started, 'success', items.length, items.length);
+      await logIngestionRun('src-legislation-uk', 'legislation.gov.uk', startedLeg, 'success', items.length, items.length, undefined, triggerType, 'regulatory');
     } catch (e: any) {
       report.errors.push(`legislation.gov.uk: ${e.message}`);
-      await logIngestionRun('src-legislation-uk', 'legislation.gov.uk', started, 'failed', 0, 0, e.message);
+      await logIngestionRun('src-legislation-uk', 'legislation.gov.uk', startedLeg, 'failed', 0, 0, e.message, triggerType, 'regulatory');
     }
-  }
 
-  // 3. HSE Press Wire
-  if (!sourceId || sourceId === 'src-hse-public') {
-    const started = Date.now();
+    // 3. HSE Press Wire
+    const startedHse = Date.now();
     try {
       const items = await fetchHseMediaWire();
       report.sourcesProcessed++;
@@ -1535,6 +1591,10 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
           source_name: item.sourceName,
           canonical_url: item.canonicalUrl,
           authority_tier: item.authorityTier,
+          source_authenticity: item.sourceAuthenticity || 'OFFICIAL_SOURCE',
+          operational_interpretation: item.operationalInterpretation || 'PENDING_REVIEW',
+          requires_human_approval: item.requiresHumanApproval ?? true,
+          is_mandatory_action: item.isMandatoryAction ?? false,
           legal_status: item.legalStatus,
           event_type: item.eventType,
           severity: item.severity,
@@ -1545,7 +1605,7 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
           parser_version: item.parserVersion,
           fetched_at: item.fetchedAt,
           raw_source_hash: item.rawSourceHash,
-          review_status: item.reviewStatus,
+          review_status: item.reviewStatus || 'PENDING_REVIEW',
           audience_roles: item.audienceRoles,
         };
 
@@ -1557,16 +1617,14 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
         report.totalItemsCreated++;
       }
 
-      await logIngestionRun('src-hse-public', 'HSE Public Press Wire', started, 'success', items.length, items.length);
+      await logIngestionRun('src-hse-public', 'HSE Public Press Wire', startedHse, 'success', items.length, items.length, undefined, triggerType, 'regulatory');
     } catch (e: any) {
       report.errors.push(`HSE Press Wire: ${e.message}`);
-      await logIngestionRun('src-hse-public', 'HSE Public Press Wire', started, 'failed', 0, 0, e.message);
+      await logIngestionRun('src-hse-public', 'HSE Public Press Wire', startedHse, 'failed', 0, 0, e.message, triggerType, 'regulatory');
     }
-  }
 
-  // 4. OPSS Product Safety
-  if (!sourceId || sourceId === 'src-opss-public') {
-    const started = Date.now();
+    // 4. OPSS Product Safety
+    const startedOpss = Date.now();
     try {
       const items = await fetchOpssProductSafety();
       report.sourcesProcessed++;
@@ -1585,6 +1643,10 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
           source_name: item.sourceName,
           canonical_url: item.canonicalUrl,
           authority_tier: item.authorityTier,
+          source_authenticity: item.sourceAuthenticity || 'OFFICIAL_SOURCE',
+          operational_interpretation: item.operationalInterpretation || 'PENDING_REVIEW',
+          requires_human_approval: item.requiresHumanApproval ?? true,
+          is_mandatory_action: item.isMandatoryAction ?? false,
           legal_status: item.legalStatus,
           event_type: item.eventType,
           severity: item.severity,
@@ -1595,7 +1657,7 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
           parser_version: item.parserVersion,
           fetched_at: item.fetchedAt,
           raw_source_hash: item.rawSourceHash,
-          review_status: item.reviewStatus,
+          review_status: item.reviewStatus || 'PENDING_REVIEW',
           audience_roles: item.audienceRoles,
         };
 
@@ -1607,54 +1669,162 @@ export async function runLiveIngestion(sourceId?: string): Promise<IngestionSumm
         report.totalItemsCreated++;
       }
 
-      await logIngestionRun('src-opss-public', 'OPSS Product Safety', started, 'success', items.length, items.length);
+      await logIngestionRun('src-opss-public', 'OPSS Product Safety', startedOpss, 'success', items.length, items.length, undefined, triggerType, 'regulatory');
     } catch (e: any) {
       report.errors.push(`OPSS Product Safety: ${e.message}`);
-      await logIngestionRun('src-opss-public', 'OPSS Product Safety', started, 'failed', 0, 0, e.message);
+      await logIngestionRun('src-opss-public', 'OPSS Product Safety', startedOpss, 'failed', 0, 0, e.message, triggerType, 'regulatory');
     }
-  }
-
-  // 5. Contracts Finder OCDS — Admin Only
-  if (!sourceId || sourceId === 'src-contracts-finder') {
-    const started = Date.now();
-    try {
-      const tenders = await fetchContractsFinderOcds();
-      report.sourcesProcessed++;
-      report.totalTendersFetched += tenders.length;
-
-      for (const t of tenders) {
-        await upsertTenderOpportunity(t);
-        report.totalTendersCreated++;
-      }
-
-      await logIngestionRun('src-contracts-finder', 'Contracts Finder OCDS', started, 'success', tenders.length, tenders.length);
-    } catch (e: any) {
-      report.errors.push(`Contracts Finder: ${e.message}`);
-      await logIngestionRun('src-contracts-finder', 'Contracts Finder OCDS', started, 'failed', 0, 0, e.message);
-    }
-  }
-
-  // 6. Find a Tender OCDS — Admin Only
-  if (!sourceId || sourceId === 'src-find-a-tender') {
-    const started = Date.now();
-    try {
-      const tenders = await fetchFindATenderOcds();
-      report.sourcesProcessed++;
-      report.totalTendersFetched += tenders.length;
-
-      for (const t of tenders) {
-        await upsertTenderOpportunity(t);
-        report.totalTendersCreated++;
-      }
-
-      await logIngestionRun('src-find-a-tender', 'Find a Tender OCDS', started, 'success', tenders.length, tenders.length);
-    } catch (e: any) {
-      report.errors.push(`Find a Tender: ${e.message}`);
-      await logIngestionRun('src-find-a-tender', 'Find a Tender OCDS', started, 'failed', 0, 0, e.message);
-    }
+  } finally {
+    await releaseIngestionLock('regulatory', lockId);
   }
 
   return report;
+}
+
+export async function runTenderIngestion(triggerType: 'CRON' | 'MANUAL' = 'CRON'): Promise<IngestionSummaryReport> {
+  const { acquireIngestionLock, releaseIngestionLock } = await import('./lock-service');
+  const lockId = await acquireIngestionLock('tenders', triggerType === 'CRON' ? 'vercel-cron' : 'admin-manual', 15);
+  if (!lockId) {
+    return {
+      timestamp: new Date().toISOString(),
+      sourcesProcessed: 0,
+      totalItemsFetched: 0,
+      totalItemsCreated: 0,
+      totalTendersFetched: 0,
+      totalTendersCreated: 0,
+      errors: ['Execution skipped: concurrent tender ingestion lock active.'],
+    };
+  }
+
+  const report: IngestionSummaryReport = {
+    timestamp: new Date().toISOString(),
+    sourcesProcessed: 0,
+    totalItemsFetched: 0,
+    totalItemsCreated: 0,
+    totalTendersFetched: 0,
+    totalTendersCreated: 0,
+    errors: [],
+  };
+
+  try {
+    const started = Date.now();
+    try {
+      const tenders = await fetchContractsFinderOcds();
+      report.sourcesProcessed += 2; // Contracts Finder & Find a Tender
+      report.totalTendersFetched += tenders.length;
+
+      for (const t of tenders) {
+        await upsertTenderOpportunity(t);
+        report.totalTendersCreated++;
+      }
+
+      await logIngestionRun('src-contracts-finder', 'Contracts Finder & Find a Tender OCDS', started, 'success', tenders.length, tenders.length, undefined, triggerType, 'tenders');
+    } catch (e: any) {
+      report.errors.push(`Tenders Ingestion: ${e.message}`);
+      await logIngestionRun('src-contracts-finder', 'Contracts Finder & Find a Tender OCDS', started, 'failed', 0, 0, e.message, triggerType, 'tenders');
+    }
+  } finally {
+    await releaseIngestionLock('tenders', lockId);
+  }
+
+  return report;
+}
+
+export async function runCompanyWatchIngestion(triggerType: 'CRON' | 'MANUAL' = 'CRON'): Promise<{
+  timestamp: string;
+  companiesChecked: number;
+  companiesUpdated: number;
+  errors: string[];
+}> {
+  const { acquireIngestionLock, releaseIngestionLock } = await import('./lock-service');
+  const lockId = await acquireIngestionLock('company-watch', triggerType === 'CRON' ? 'vercel-cron' : 'admin-manual', 15);
+  if (!lockId) {
+    return {
+      timestamp: new Date().toISOString(),
+      companiesChecked: 0,
+      companiesUpdated: 0,
+      errors: ['Execution skipped: concurrent company-watch ingestion lock active.'],
+    };
+  }
+
+  const result = {
+    timestamp: new Date().toISOString(),
+    companiesChecked: 0,
+    companiesUpdated: 0,
+    errors: [] as string[],
+  };
+
+  try {
+    const started = Date.now();
+    // Query active/eligible contractor organisations with company numbers
+    const { data: orgs } = await dbQuery<any[]>(
+      `supplier_organisations?company_number=not.is.null&lifecycle_status=in.(UNDER_REVIEW,APPROVED,CONDITIONAL_APPROVAL,INFORMATION_REQUIRED)&select=id,company_number,legal_name,trading_name`
+    );
+
+    const targetOrgs = orgs || [];
+    for (const org of targetOrgs) {
+      const rawNum = (org.company_number || '').trim();
+      // Skip non-standard numbers like 'N/A - SOLE TRADER'
+      if (!/^[0-9A-Za-z]{6,8}$/.test(rawNum)) continue;
+
+      try {
+        result.companiesChecked++;
+        const profile = await fetchCompaniesHouseProfile(rawNum);
+        if (profile) {
+          await dbQuery(`company_watch_records`, {
+            method: 'POST',
+            headers: { Prefer: 'resolution=merge-duplicates' },
+            body: {
+              id: `cw-${org.id}`,
+              contractor_org_id: org.id,
+              company_number: profile.companyNumber,
+              company_name: profile.companyName,
+              company_status: profile.companyStatus,
+              registered_office_address: profile.registeredOfficeAddress,
+              accounts_next_due_date: profile.accounts?.nextDueDate || profile.accountsNextDue,
+              accounts_overdue: profile.accounts?.overdue ?? profile.accountsOverdue ?? false,
+              confirmation_statement_next_due_date: profile.confirmationStatement?.nextDueDate || profile.confirmationStatementNextDue,
+              confirmation_statement_overdue: profile.confirmationStatement?.overdue ?? profile.confirmationStatementOverdue ?? false,
+              api_available: true,
+              degraded: false,
+              last_checked_at: profile.lastCheckedAt,
+              last_successful_fetch_at: profile.lastCheckedAt,
+              updated_at: new Date().toISOString(),
+            },
+          });
+          result.companiesUpdated++;
+        }
+      } catch (err: any) {
+        result.errors.push(`Company ${rawNum} (${org.legal_name}): ${err.message}`);
+      }
+    }
+
+    await logIngestionRun('src-companies-house', 'Companies House REST API', started, result.errors.length > 0 ? (result.companiesUpdated > 0 ? 'partial' : 'failed') : 'success', result.companiesChecked, result.companiesUpdated, result.errors.join('; '), triggerType, 'company-watch');
+  } finally {
+    await releaseIngestionLock('company-watch', lockId);
+  }
+
+  return result;
+}
+
+export async function runLiveIngestion(sourceId?: string): Promise<IngestionSummaryReport> {
+  // Dispatches to appropriate family runner based on sourceId or runs all
+  if (sourceId === 'src-contracts-finder' || sourceId === 'src-find-a-tender') {
+    return runTenderIngestion('MANUAL');
+  }
+  if (sourceId === 'src-companies-house') {
+    const cw = await runCompanyWatchIngestion('MANUAL');
+    return {
+      timestamp: cw.timestamp,
+      sourcesProcessed: 1,
+      totalItemsFetched: cw.companiesChecked,
+      totalItemsCreated: cw.companiesUpdated,
+      totalTendersFetched: 0,
+      totalTendersCreated: 0,
+      errors: cw.errors,
+    };
+  }
+  return runRegulatoryIngestion('MANUAL');
 }
 
 async function logIngestionRun(
@@ -1664,7 +1834,9 @@ async function logIngestionRun(
   status: 'success' | 'failed' | 'partial',
   recordsFetched: number,
   recordsCreated: number,
-  error?: string
+  error?: string,
+  triggerType: 'CRON' | 'MANUAL' = 'MANUAL',
+  cronFamily?: string
 ) {
   const durationMs = Date.now() - startedAtMs;
   await dbQuery(`intelligence_ingestion_runs`, {
@@ -1680,7 +1852,9 @@ async function logIngestionRun(
       records_fetched: recordsFetched,
       records_created: recordsCreated,
       error,
-      parser_version: '1.0.0',
+      trigger_type: triggerType,
+      cron_family: cronFamily,
+      parser_version: '1.2.0',
     },
   }).catch(() => {});
 }
@@ -1690,17 +1864,23 @@ async function logIngestionRun(
 // ─────────────────────────────────────────────────────────────
 
 export async function getAdminIntelligenceSummary() {
-  const [itemsPendingRes, newEventsRes, tendersRes, sources] = await Promise.all([
+  const [itemsPendingRes, newEventsRes, tendersRes, sources, latestRunsRes] = await Promise.all([
     dbQuery<any[]>(`intelligence_items?review_status=in.(PENDING_REVIEW,REQUIRES_COMPLIANCE_REVIEW)&select=id`),
-    dbQuery<any[]>(`intelligence_items?review_status=eq.APPROVED&authority_tier=eq.1&published_at=gte.${new Date(Date.now() - 7 * 86400000).toISOString()}&select=id`),
+    dbQuery<any[]>(`intelligence_items?published_at=gte.${new Date(Date.now() - 7 * 86400000).toISOString()}&select=id`),
     dbQuery<any[]>(`admin_tender_opportunities?bid_stage=eq.NEW&select=id,deadline_urgency`),
     sourceRegistry.getAllSources(),
+    dbQuery<any[]>(`intelligence_ingestion_runs?order=started_at.desc&limit=10`),
   ]);
 
   const pendingCount = itemsPendingRes.data?.length || 0;
   const newEventsCount = newEventsRes.data?.length || 0;
   const newTenders = tendersRes.data || [];
   const imminentTenders = newTenders.filter((t: any) => t.deadline_urgency === 'IMMINENT').length;
+  const latestRuns = latestRunsRes.data || [];
+
+  const regRun = latestRuns.find((r: any) => r.cron_family === 'regulatory');
+  const tenderRun = latestRuns.find((r: any) => r.cron_family === 'tenders');
+  const cwRun = latestRuns.find((r: any) => r.cron_family === 'company-watch');
 
   return {
     requiresComplianceReview: pendingCount,
@@ -1709,5 +1889,8 @@ export async function getAdminIntelligenceSummary() {
     imminentTenderDeadlines: imminentTenders,
     sourceHealthIssues: sources.filter((s) => s.healthStatus === 'FAILED' || s.healthStatus === 'DEGRADED').length,
     sourceCredentialRequired: sources.filter((s) => s.healthStatus === 'CREDENTIAL_REQUIRED').length,
+    lastRegulatorySync: regRun?.completed_at,
+    lastTenderSync: tenderRun?.completed_at,
+    lastCompanyWatchSync: cwRun?.completed_at,
   };
 }

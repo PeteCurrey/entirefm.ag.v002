@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    {
+      "path": "/api/cron/intelligence/regulatory",
+      "schedule": "0 */4 * * *"
+    },
+    {
+      "path": "/api/cron/intelligence/tenders",
+      "schedule": "20 */12 * * *"
+    },
+    {
+      "path": "/api/cron/intelligence/company-watch",
+      "schedule": "40 4 * * *"
+    }
+  ]
+}

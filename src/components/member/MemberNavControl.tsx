@@ -59,7 +59,7 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
 
   if (loading) {
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 shrink-0">
         <span className={`h-8 w-24 rounded-sm animate-pulse hidden sm:inline-block ${isLight ? 'bg-neutral-200' : 'bg-white/5'}`} />
       </div>
     );
@@ -74,11 +74,11 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
       .toUpperCase();
 
     return (
-      <div className="relative" ref={dropdownRef}>
+      <div className="relative shrink-0" ref={dropdownRef}>
         <button
           type="button"
           onClick={() => setDropdownOpen(!dropdownOpen)}
-          className={`flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-[4px] border transition-all text-xs sm:text-sm font-light ${
+          className={`flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-[4px] border transition-all text-xs sm:text-sm font-light whitespace-nowrap shrink-0 ${
             isLight
               ? 'border-neutral-300 bg-neutral-100 hover:bg-neutral-200 text-neutral-900'
               : 'border-brand-electric/40 bg-brand-electric/15 hover:bg-brand-electric/25 text-white'
@@ -166,10 +166,10 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
 
   // Logged-out Visitor CTAs
   return (
-    <div className="flex items-center gap-3 sm:gap-4">
+    <div className="flex items-center gap-3 sm:gap-4 shrink-0 whitespace-nowrap">
       <Link
         href="/sign-in"
-        className={`inline-flex items-center text-xs sm:text-sm font-extralight transition-colors px-2 py-1 ${
+        className={`inline-flex items-center text-xs sm:text-sm font-extralight transition-colors px-2 py-1 whitespace-nowrap shrink-0 ${
           isLight ? 'text-neutral-700 hover:text-neutral-900' : 'text-neutral-300 hover:text-white'
         }`}
       >
@@ -177,7 +177,7 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
       </Link>
       <Link
         href="/join"
-        className={`inline-flex items-center gap-1.5 rounded-[4px] px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-light transition-all duration-200 shadow-sm ${
+        className={`inline-flex items-center gap-1.5 rounded-[4px] px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-light transition-all duration-200 shadow-sm whitespace-nowrap shrink-0 ${
           isLight
             ? 'bg-neutral-900 hover:bg-neutral-800 text-white'
             : 'bg-brand-electric hover:bg-blue-600 text-white'
