@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import {
   Bookmark,
@@ -63,7 +62,6 @@ export function TemplateMyLobby() {
   if (loading) {
     return (
       <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-        <Header />
         <div className="flex-1 flex items-center justify-center py-20 text-sm text-brand-silver">
           Loading your personal Lobby workspace...
         </div>
@@ -74,9 +72,7 @@ export function TemplateMyLobby() {
 
   return (
     <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-      <Header />
-
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12 w-full">
         {/* Workspace Banner */}
         <section className="bg-brand-graphite/25 border border-white/10 rounded-2xl p-6 sm:p-8 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">

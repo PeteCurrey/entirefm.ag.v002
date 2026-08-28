@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import {
   ShieldAlert,
@@ -64,9 +63,7 @@ export function TemplateCommunityAdmin() {
 
   return (
     <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-      <Header />
-
-      <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+      <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12 w-full">
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-rose-400">

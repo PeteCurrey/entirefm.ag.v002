@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import {
   Users,
@@ -35,9 +34,7 @@ export function TemplateMembersDirectory() {
 
   return (
     <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-      <Header />
-
-      <main className="flex-1">
+      <main className="flex-1 pt-16 sm:pt-20">
         <section className="border-b border-brand-graphite/40 bg-gradient-to-b from-brand-graphite/30 to-brand-void py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-brand-electric/15 text-brand-electric border border-brand-electric/30 mb-3">

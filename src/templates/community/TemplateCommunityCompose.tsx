@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import {
   MessageSquare,
@@ -64,12 +63,13 @@ export function TemplateCommunityCompose() {
       if (res.ok) {
         router.push(`/lobby/community/discussion/${data.discussion.slug}`);
       } else if (res.status === 401) {
-        window.location.href = `/sign-in?redirect=/lobby/community/new`;
+        window.location.href = '/sign-in?redirect=/lobby/community/new';
       } else {
-        setError(data.error || 'Failed to publish discussion');
+        setError(data.error || 'Failed to publish discussion.');
       }
-    } catch (err: any) {
-      setError(err.message || 'Network error');
+    } catch (err) {
+      console.error('Error submitting discussion:', err);
+      setError('A network error occurred. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -77,9 +77,7 @@ export function TemplateCommunityCompose() {
 
   return (
     <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-      <Header />
-
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12 w-full">
         <Link
           href="/lobby/community"
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-silver hover:text-white mb-6 transition-colors"

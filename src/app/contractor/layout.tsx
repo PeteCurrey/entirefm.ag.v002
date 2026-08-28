@@ -27,6 +27,9 @@ export default async function ContractorLayout({ children }: { children: React.R
 
   const isViewAs = !!session.viewAsContext?.isViewAs;
   if (session.orgType !== 'CONTRACTOR' && !isViewAs) {
+    if ((session.orgType as string) === 'SUPPLIER') {
+      redirect('/supplier-portal');
+    }
     redirect('/login?error=forbidden_contractor');
   }
 

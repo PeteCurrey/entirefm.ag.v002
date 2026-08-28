@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import type { Topic } from '@/lib/lobby/types';
 import { getLobbyArticlesByTopic, getAllLobbyTopics } from '@/lib/lobby/repository';
@@ -16,9 +15,7 @@ export function TemplateLobbyTopic({ topic }: TemplateLobbyTopicProps) {
 
   return (
     <div className="flex min-h-screen flex-col bg-white text-brand-graphite">
-      <Header solid={true} />
-
-      <main id="main" className="flex-1">
+      <main id="main" className="flex-1 pt-16 sm:pt-20">
         {/* Header */}
         <header className="py-12 sm:py-16 bg-brand-void text-white border-b border-brand-edge-dark">
           <div className="container-custom space-y-4">

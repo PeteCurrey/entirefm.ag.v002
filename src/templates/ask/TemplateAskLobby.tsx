@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { Footer } from '@/components/layout/Footer';
 import {
   Search,
   BookOpen,
@@ -138,7 +139,8 @@ export function TemplateAskLobby() {
   };
 
   return (
-    <main className="min-h-screen bg-[#FAF9F7] text-[#121826] pt-24 pb-20 selection:bg-brand-electric selection:text-white font-sans">
+    <>
+      <main className="min-h-screen bg-[#FAF9F7] text-[#121826] pt-24 pb-20 selection:bg-brand-electric selection:text-white font-sans">
       {/* ─── MASTHEAD COMPOSER ─── */}
       <section className="container-wide border-b border-neutral-200 pb-10 mb-10">
         <div className="max-w-4xl">
@@ -663,5 +665,7 @@ export function TemplateAskLobby() {
         )}
       </section>
     </main>
+    <Footer />
+  </>
   );
 }

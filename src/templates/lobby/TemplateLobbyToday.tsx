@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Footer } from '@/components/layout/Footer';
 import {
   ShieldAlert,
   Gavel,
@@ -52,7 +53,8 @@ export function TemplateLobbyToday() {
   }).format(new Date());
 
   return (
-    <main className="min-h-screen bg-[#07090E] text-white pt-24 pb-20">
+    <>
+      <main className="min-h-screen bg-[#07090E] text-white pt-24 pb-20">
       {/* ─── MASTHEAD HEADER ─── */}
       <section className="container-wide border-b border-white/10 pb-8 mb-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -334,5 +336,7 @@ export function TemplateLobbyToday() {
         </div>
       )}
     </main>
+    <Footer />
+  </>
   );
 }

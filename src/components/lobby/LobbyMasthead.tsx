@@ -1,11 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ChevronDown, ArrowLeft, ArrowRight, Sparkles, Search } from 'lucide-react';
-import { MemberNavControl } from '@/components/member/MemberNavControl';
+import { ArrowRight, Sparkles, Search, ChevronDown } from 'lucide-react';
 
 const HERO_PROMPTS = [
   'What changed in building safety today?',
@@ -16,24 +14,8 @@ const HERO_PROMPTS = [
 
 export function LobbyMasthead() {
   const router = useRouter();
-  const [currentDateStr, setCurrentDateStr] = useState<string>('Thursday, 27 August 2026');
   const [query, setQuery] = useState('');
   const [mode, setMode] = useState<'ask' | 'deep_research'>('ask');
-
-  useEffect(() => {
-    try {
-      const now = new Date();
-      const formatted = new Intl.DateTimeFormat('en-GB', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }).format(now);
-      setCurrentDateStr(formatted);
-    } catch {
-      // Fallback
-    }
-  }, []);
 
   const handleSearchSubmit = (e?: React.FormEvent, customQ?: string) => {
     if (e) e.preventDefault();
@@ -75,46 +57,8 @@ export function LobbyMasthead() {
         <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 opacity-15" />
       </div>
 
-      {/* ── Content Container (Full Height Flex Layout) ────────────────────── */}
-      <div className="container-wide relative z-10 flex flex-col justify-between h-full pt-6 sm:pt-8 lg:pt-10 pb-6 sm:pb-8">
-        
-        {/* ── Top Navigation Bar ──────────────────────────────────────── */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.10] pb-4 sm:pb-5">
-          {/* Left: Link to Main Site & Dynamic Date */}
-          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-extralight text-brand-mist/80">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extralight text-brand-mist/85 hover:text-white transition-colors group py-1"
-              aria-label="Return to EntireFM main site"
-            >
-              <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
-              <span>EntireFM.com</span>
-            </Link>
-            <span className="text-white/20">|</span>
-            <time className="tracking-wide text-brand-mist font-extralight">{currentDateStr}</time>
-          </div>
-
-          {/* Right: Section Links & Member Access */}
-          <div className="flex items-center gap-4 sm:gap-6">
-            <nav aria-label="Lobby Section Navigation" className="hidden lg:flex items-center gap-6 text-xs sm:text-sm text-brand-mist/80 font-extralight">
-              <Link href="/lobby/ask" className="text-brand-electric hover:text-white transition-colors flex items-center gap-1 font-light">
-                <Sparkles className="w-3 h-3" />
-                <span>Ask The Lobby</span>
-              </Link>
-              <Link href="/lobby/today" className="hover:text-white transition-colors font-extralight">
-                What Changed Today
-              </Link>
-              <Link href="/lobby/opportunities" className="hover:text-white transition-colors font-extralight">
-                Procurement
-              </Link>
-              <Link href="/lobby/compliance" className="hover:text-white transition-colors font-extralight">
-                Compliance Watch
-              </Link>
-            </nav>
-
-            <MemberNavControl />
-          </div>
-        </div>
+      {/* ── Content Container (Full Height Flex Layout with top clearance for LobbyHeader) ── */}
+      <div className="container-wide relative z-10 flex flex-col justify-between h-full pt-20 sm:pt-24 lg:pt-28 pb-6 sm:pb-8">
 
         {/* ── UPPER/MID AREA: THE LOBBY TITLE & INTRO (JUST ABOVE VERTICAL CENTRE) ── */}
         <div className="w-full pt-12 sm:pt-16 lg:pt-24 pb-4 sm:pb-6 my-auto text-left space-y-3">

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Footer } from '@/components/layout/Footer';
 import {
   Briefcase,
   TrendingUp,
@@ -60,7 +61,8 @@ export function TemplateOpportunities() {
       : displayList.filter((item) => item.serviceCategory === selectedCategory);
 
   return (
-    <main className="min-h-screen bg-[#07090E] text-white pt-24 pb-20">
+    <>
+      <main className="min-h-screen bg-[#07090E] text-white pt-24 pb-20">
       {/* ─── MASTHEAD ─── */}
       <section className="container-wide border-b border-white/10 pb-8 mb-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -224,5 +226,7 @@ export function TemplateOpportunities() {
         )}
       </section>
     </main>
+    <Footer />
+  </>
   );
 }

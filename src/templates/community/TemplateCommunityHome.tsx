@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import {
   MessageSquare,
@@ -62,9 +61,7 @@ export function TemplateCommunityHome() {
 
   return (
     <div className="min-h-screen bg-[#FAF9F7] text-[#121826] flex flex-col selection:bg-brand-electric selection:text-white font-sans">
-      <Header />
-
-      <main className="flex-1 pt-24 pb-20">
+      <main className="flex-1 pt-20 sm:pt-24 pb-20">
         {/* ─── MASTHEAD HERO (LIGHT / WARM NEUTRAL EDITORIAL) ─── */}
         <section className="border-b border-neutral-200/80 bg-white py-12 sm:py-16">
           <div className="container-wide">

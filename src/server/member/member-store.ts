@@ -426,3 +426,14 @@ export async function toggleSavedContent(
     return { saved: true, savedIds: ids };
   }
 }
+
+export async function updateMemberPassword(
+  email: string,
+  newPassword: string
+): Promise<{ success: boolean; error?: string }> {
+  seedInitialMembers();
+  const emailClean = email.trim().toLowerCase();
+  MEMBER_PASSWORDS.set(emailClean, hashPassword(newPassword));
+  return { success: true };
+}
+

@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import {
   MessageSquare,
@@ -153,7 +152,6 @@ export function TemplateCommunityDiscussion({ slug }: { slug: string }) {
   if (loading) {
     return (
       <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-        <Header />
         <div className="flex-1 flex items-center justify-center py-20 text-sm text-brand-silver">
           Loading discussion thread...
         </div>
@@ -165,7 +163,6 @@ export function TemplateCommunityDiscussion({ slug }: { slug: string }) {
   if (!discussion) {
     return (
       <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-        <Header />
         <div className="flex-1 max-w-3xl mx-auto px-4 py-20 text-center">
           <h1 className="text-xl font-bold text-white">Discussion not found</h1>
           <Link href="/lobby/community" className="mt-4 inline-block text-xs font-semibold text-brand-electric">
@@ -181,9 +178,7 @@ export function TemplateCommunityDiscussion({ slug }: { slug: string }) {
 
   return (
     <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-      <Header />
-
-      <main className="flex-1">
+      <main className="flex-1 pt-16 sm:pt-20">
         {/* Discussion Header */}
         <section className="border-b border-brand-graphite/40 bg-gradient-to-b from-brand-graphite/30 to-brand-void py-8 sm:py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

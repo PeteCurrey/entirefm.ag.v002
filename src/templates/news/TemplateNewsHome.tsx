@@ -37,7 +37,7 @@ export function TemplateNewsHome({
   });
 
   return (
-    <div className="min-h-screen bg-[#FAF9F7] text-neutral-900 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#FAF9F7] text-neutral-900 flex flex-col justify-between pt-16 sm:pt-20">
       {/* Editorial Header */}
       <header className="border-b border-neutral-200 bg-white">
         <div className="container-wide py-10 sm:py-14">

@@ -2,10 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import {
   createSupplierRfi,
   resolveSupplierRfi,
-  approveSupplierWithScope,
   conditionallyApproveSupplier,
-  declineSupplierApplication,
 } from '@/server/suppliers/rfi-store';
+import {
+  approveSupplierApplicationAndActivateProvider,
+  declineSupplierApplicationAction,
+  requestApplicationInformation,
+} from '@/server/suppliers/applications-repo';
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,16 +21,15 @@ export async function POST(req: NextRequest) {
 
     switch (action) {
       case 'CREATE_RFI': {
-        const rfi = await createSupplierRfi({
-          supplier_id: supplierId,
-          application_ref: data.application_ref || 'SUP-APP',
-          section_key: data.section_key || 'general',
+        const result = await requestApplicationInformation({
+          applicationId: supplierId,
           title: data.title,
-          requirement_description: data.requirement_description,
-          due_date: data.due_date,
-          raised_by: data.raised_by || 'EntireFM Reviewer',
+          requirementDescription: data.requirement_description,
+          sectionKey: data.section_key || 'general',
+          dueDate: data.due_date,
+          raisedBy: data.raised_by || 'EntireFM Reviewer',
         });
-        return NextResponse.json({ success: true, rfi });
+        return NextResponse.json({ success: true, rfi: result.rfi });
       }
 
       case 'RESOLVE_RFI': {
@@ -36,11 +38,13 @@ export async function POST(req: NextRequest) {
       }
 
       case 'APPROVE': {
-        const result = await approveSupplierWithScope(supplierId, {
-          approved_services: data.approved_services || [],
-          decided_by: data.decided_by || 'Head of Supply Chain Assurance',
-          effective_date: data.effective_date,
-          next_review_date: data.next_review_date,
+        // Canonical activation: updates supplier org → creates organisations + provider_organisations + memberships
+        const result = await approveSupplierApplicationAndActivateProvider({
+          applicationId: supplierId,
+          approvedServices: data.approved_services || [],
+          decidedBy: data.decided_by || 'Head of Supply Chain Assurance',
+          effectiveDate: data.effective_date,
+          notes: data.notes,
         });
         return NextResponse.json(result);
       }
@@ -56,10 +60,11 @@ export async function POST(req: NextRequest) {
       }
 
       case 'DECLINE': {
-        const result = await declineSupplierApplication(supplierId, {
-          reason_category: data.reason_category,
-          explanation: data.explanation,
-          decided_by: data.decided_by || 'Head of Supply Chain Assurance',
+        const result = await declineSupplierApplicationAction({
+          applicationId: supplierId,
+          reasonCategory: data.reason_category || 'UNSPECIFIED',
+          explanation: data.explanation || '',
+          decidedBy: data.decided_by || 'Head of Supply Chain Assurance',
         });
         return NextResponse.json(result);
       }

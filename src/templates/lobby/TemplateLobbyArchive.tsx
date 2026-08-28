@@ -2,7 +2,6 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { getAllPublishedLobbyArticles, getAllLobbyTopics } from '@/lib/lobby/repository';
 import type { Franchise, LobbyArticle } from '@/lib/lobby/types';
@@ -50,9 +49,7 @@ export function TemplateLobbyArchive() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white text-brand-graphite">
-      <Header solid={true} />
-
-      <main id="main" className="flex-1">
+      <main id="main" className="flex-1 pt-16 sm:pt-20">
         {/* Masthead */}
         <header className="py-12 sm:py-16 bg-brand-void text-white border-b border-brand-edge-dark">
           <div className="container-custom space-y-4">

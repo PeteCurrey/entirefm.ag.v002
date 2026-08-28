@@ -106,6 +106,22 @@ export function MemberNavControl() {
                 <span>My Profile</span>
               </Link>
               <Link
+                href="/lobby/me/research"
+                onClick={() => setDropdownOpen(false)}
+                className="flex items-center gap-2 px-4 py-2 text-xs font-light text-brand-mist hover:text-white hover:bg-white/5 transition-colors"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                <span>My Research Library</span>
+              </Link>
+              <Link
+                href="/lobby/me"
+                onClick={() => setDropdownOpen(false)}
+                className="flex items-center gap-2 px-4 py-2 text-xs font-light text-brand-mist hover:text-white hover:bg-white/5 transition-colors"
+              >
+                <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>My Workspace</span>
+              </Link>
+              <Link
                 href="/member/settings"
                 onClick={() => setDropdownOpen(false)}
                 className="flex items-center gap-2 px-4 py-2 text-xs font-light text-brand-mist hover:text-white hover:bg-white/5 transition-colors"
@@ -118,8 +134,8 @@ export function MemberNavControl() {
                 onClick={() => setDropdownOpen(false)}
                 className="flex items-center gap-2 px-4 py-2 text-xs font-light text-brand-mist hover:text-white hover:bg-white/5 transition-colors"
               >
-                <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                <span>Lobby Intelligence Archive</span>
+                <span className="w-3.5 h-3.5 text-center text-xs text-neutral-400 font-mono">#</span>
+                <span>Lobby Archive</span>
               </Link>
             </div>
 

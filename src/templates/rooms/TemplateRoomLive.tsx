@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import {
   MessageSquare,
@@ -106,7 +105,6 @@ export function TemplateRoomLive({ slug }: { slug: string }) {
   if (loading) {
     return (
       <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-        <Header />
         <div className="flex-1 flex items-center justify-center py-20 text-sm text-brand-silver">
           Connecting to live room...
         </div>
@@ -118,7 +116,6 @@ export function TemplateRoomLive({ slug }: { slug: string }) {
   if (!room) {
     return (
       <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-        <Header />
         <div className="flex-1 max-w-3xl mx-auto px-4 py-20 text-center">
           <h1 className="text-xl font-bold text-white">Room not found</h1>
           <Link href="/lobby/rooms" className="mt-4 inline-block text-xs font-semibold text-brand-electric">
@@ -132,9 +129,7 @@ export function TemplateRoomLive({ slug }: { slug: string }) {
 
   return (
     <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-      <Header />
-
-      <main className="flex-1 flex flex-col max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+      <main className="flex-1 flex flex-col max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-12 w-full">
         {/* Room Header */}
         <div className="bg-brand-graphite/30 border border-white/10 rounded-2xl p-5 mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>

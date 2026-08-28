@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
 import { AdminHeader } from '@/components/admin/AdminHeader';
 import { CommandPalette } from '@/components/admin/CommandPalette';
+import { getSupplierApplicationQueueCounts } from '@/server/suppliers/applications-repo';
 import './cafm.css';
 
 export const metadata: Metadata = {
@@ -37,10 +38,17 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     redirect('/admin/access-denied');
   }
 
+  // Live badge count — pending supplier applications requiring admin action
+  const applicationCounts = await getSupplierApplicationQueueCounts().catch(() => null);
+  const pendingApplicationsCount =
+    (applicationCounts?.underReview ?? 0) +
+    (applicationCounts?.informationRequired ?? 0) +
+    (applicationCounts?.classificationRequired ?? 0);
+
   return (
     <div className="min-h-screen bg-[#FFFFFF] text-[#111111] selection:bg-[#EA580C]/20 selection:text-[#111111] cafm-app font-sans">
       {/* Precision Navigation Rail */}
-      <AdminSidebar session={session} />
+      <AdminSidebar session={session} pendingApplicationsCount={pendingApplicationsCount} />
 
       {/* Main Content Area */}
       <div className="pl-64 flex flex-col min-h-screen">

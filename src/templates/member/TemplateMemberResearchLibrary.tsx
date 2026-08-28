@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import {
   BookOpen,
@@ -68,9 +67,7 @@ export function TemplateMemberResearchLibrary() {
 
   return (
     <div className="flex min-h-screen flex-col bg-[#FAF9F7] text-neutral-900 font-sans selection:bg-brand-electric selection:text-white">
-      <Header solid={true} />
-
-      <main className="flex-1 pb-24">
+      <main className="flex-1 pt-16 sm:pt-20 pb-24">
         {/* Masthead */}
         <div className="w-full bg-[#0D131F] text-white border-b border-neutral-800 py-10 sm:py-14">
           <div className="container-wide flex flex-col md:flex-row md:items-center justify-between gap-6">

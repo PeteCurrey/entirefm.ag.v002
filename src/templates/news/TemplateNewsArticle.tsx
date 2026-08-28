@@ -14,7 +14,7 @@ interface TemplateNewsArticleProps {
 
 export function TemplateNewsArticle({ article, relatedArticles }: TemplateNewsArticleProps) {
   return (
-    <div className="min-h-screen bg-[#FAF9F7] text-neutral-900 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#FAF9F7] text-neutral-900 flex flex-col justify-between pt-16 sm:pt-20">
       
       {/* Header Bar */}
       <header className="border-b border-neutral-200 bg-white py-4">

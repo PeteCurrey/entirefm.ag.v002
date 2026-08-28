@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import {
   BarChart3,
@@ -49,16 +48,13 @@ export function TemplatePulseArchive() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ optionId: selectedOption }),
       });
-
-      if (res.ok) {
-        const data = await res.json();
+      const data = await res.json();
+      if (data.success) {
         setActivePoll(data.poll);
         setUserVoted(true);
-      } else if (res.status === 401) {
-        window.location.href = '/sign-in?redirect=/lobby/pulse';
       }
     } catch (err) {
-      console.error('Error voting in poll:', err);
+      console.error('Error recording vote:', err);
     } finally {
       setVoting(false);
     }
@@ -66,9 +62,7 @@ export function TemplatePulseArchive() {
 
   return (
     <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-      <Header />
-
-      <main className="flex-1">
+      <main className="flex-1 pt-16 sm:pt-20">
         {/* Pulse Masthead */}
         <section className="border-b border-brand-graphite/40 bg-gradient-to-b from-brand-graphite/30 to-brand-void py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

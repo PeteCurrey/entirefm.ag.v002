@@ -1,17 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
 import { Mail, ArrowRight, RotateCw, CheckCircle2, AlertCircle, ArrowLeft } from 'lucide-react';
+import { AuthSplitLayout } from '@/components/auth/AuthSplitLayout';
 
-export function TemplateVerifyEmail() {
+function VerifyEmailContent() {
   const searchParams = useSearchParams();
-  const maskedEmail = searchParams.get('email') || 'your work email';
-  const rawEmail = searchParams.get('raw') || '';
-  const errorParam = searchParams.get('error');
+  const maskedEmail = searchParams?.get('email') || 'your registered work email';
+  const rawEmail = searchParams?.get('raw') || '';
+  const errorParam = searchParams?.get('error');
 
   const [resending, setResending] = useState(false);
   const [resendStatus, setResendStatus] = useState<{ success?: boolean; message?: string } | null>(null);
@@ -48,7 +47,7 @@ export function TemplateVerifyEmail() {
         setCooldown(60);
         setResendStatus({
           success: true,
-          message: 'A new verification link has been dispatched to your inbox.',
+          message: 'A fresh verification link has been dispatched to your inbox.',
         });
       } else {
         setResendStatus({ success: false, message: data.error || 'Failed to resend email.' });
@@ -61,111 +60,128 @@ export function TemplateVerifyEmail() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAF9F7] text-neutral-900 font-sans selection:bg-brand-electric selection:text-white">
-      <Header solid={true} />
+    <div className="space-y-6 sm:space-y-8">
+      {/* ── Header ─────────────────────────────────────────────────── */}
+      <div className="space-y-2">
+        <div className="inline-flex items-center gap-2">
+          <span className="h-px w-5 bg-brand-electric" />
+          <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+            Verification Required
+          </span>
+        </div>
 
-      <main className="flex-1 flex items-center justify-center py-16 sm:py-24 px-4">
-        <div className="w-full max-w-xl mx-auto text-center space-y-8">
-          
-          {/* Status Icon */}
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-electric/10 border border-brand-electric/20 text-brand-electric mx-auto">
-            <Mail className="w-7 h-7 stroke-[1.5]" />
-          </div>
+        <h1 className="text-3xl sm:text-4xl font-extralight text-neutral-900 tracking-tight leading-tight">
+          Check your email
+        </h1>
+        <p className="text-sm font-light text-neutral-600 leading-relaxed">
+          We&apos;ve sent a cryptographic verification link to activate your professional Lobby Membership.
+        </p>
+      </div>
 
-          {/* Headline & Description */}
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-2">
-              <span className="h-px w-6 bg-brand-electric" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
-                Membership Verification
-              </span>
-              <span className="h-px w-6 bg-brand-electric" />
-            </div>
-
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-neutral-900 leading-tight">
-              Check your email
-            </h1>
-
-            <p className="text-base sm:text-lg font-extralight text-neutral-600 max-w-md mx-auto leading-relaxed">
-              We&apos;ve sent a verification link to{' '}
-              <span className="font-light text-neutral-900 bg-neutral-200/70 px-2 py-0.5 rounded-[4px] font-mono text-sm">
-                {maskedEmail}
-              </span>
+      {/* ── Invalid/Expired Error ──────────────────────────────────── */}
+      {errorParam && (
+        <div
+          role="alert"
+          className="p-4 rounded-[6px] border border-amber-200 bg-amber-50 text-amber-900 text-xs flex items-start gap-2.5"
+        >
+          <AlertCircle className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <span className="font-medium">Verification link expired or invalid</span>
+            <p className="font-light text-amber-800">
+              The verification token may have expired. Please click below to dispatch a new link to your inbox.
             </p>
-            <p className="text-xs sm:text-sm font-extralight text-neutral-500 max-w-md mx-auto">
-              Open the email and click the confirmation link to activate your EntireFM Lobby Membership.
-            </p>
-          </div>
-
-          {/* Expired / Invalid Notice */}
-          {errorParam === 'invalid_or_expired' && (
-            <div className="flex items-start gap-3 text-left p-4 rounded-[6px] border border-amber-500/30 bg-amber-500/10 text-amber-900 text-xs font-light">
-              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-normal text-amber-950">This verification link has expired or is invalid.</p>
-                <p className="mt-0.5 text-amber-800">Please request a new confirmation email below.</p>
-              </div>
-            </div>
-          )}
-
-          {/* Feedback banner */}
-          {resendStatus && (
-            <div
-              className={`flex items-center justify-center gap-2 p-3.5 rounded-[6px] text-xs font-light transition-all ${
-                resendStatus.success
-                  ? 'border border-emerald-500/30 bg-emerald-500/10 text-emerald-900'
-                  : 'border border-rose-500/30 bg-rose-500/10 text-rose-900'
-              }`}
-            >
-              {resendStatus.success ? (
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-              ) : (
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
-              )}
-              <span>{resendStatus.message}</span>
-            </div>
-          )}
-
-          {/* Actions Bar */}
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              type="button"
-              onClick={handleResend}
-              disabled={resending || cooldown > 0}
-              className="w-full sm:w-auto px-6 py-3 bg-neutral-900 hover:bg-neutral-800 disabled:opacity-50 text-white font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center justify-center gap-2 shadow-sm"
-            >
-              <RotateCw className={`w-3.5 h-3.5 ${resending ? 'animate-spin' : ''}`} />
-              <span>
-                {resending
-                  ? 'Sending...'
-                  : cooldown > 0
-                  ? `Resend in ${cooldown}s`
-                  : 'Resend verification email'}
-              </span>
-            </button>
-
-            <Link
-              href="/join"
-              className="w-full sm:w-auto px-6 py-3 border border-neutral-300 hover:border-neutral-400 bg-white text-neutral-700 hover:text-neutral-900 font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors flex items-center justify-center gap-2"
-            >
-              <span>Use a different email</span>
-            </Link>
-          </div>
-
-          {/* Return to Lobby */}
-          <div className="pt-6 border-t border-neutral-200">
-            <Link
-              href="/lobby"
-              className="inline-flex items-center gap-1.5 text-xs font-extralight text-neutral-500 hover:text-neutral-900 transition-colors"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Return to The Lobby</span>
-            </Link>
           </div>
         </div>
-      </main>
+      )}
 
-      <Footer />
+      {/* ── Resend Status Feedback ─────────────────────────────────── */}
+      {resendStatus && (
+        <div
+          role="status"
+          className={`p-4 rounded-[6px] border text-xs flex items-start gap-2.5 animate-fadeIn ${
+            resendStatus.success
+              ? 'border-emerald-200 bg-emerald-50 text-emerald-800'
+              : 'border-rose-200 bg-rose-50 text-rose-800'
+          }`}
+        >
+          {resendStatus.success ? (
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+          ) : (
+            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+          )}
+          <span className="font-light leading-relaxed">{resendStatus.message}</span>
+        </div>
+      )}
+
+      {/* ── Primary Inbox Information Card ────────────────────────── */}
+      <div className="p-6 rounded-[8px] border border-neutral-200/90 bg-white shadow-2xs space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-brand-electric/10 border border-brand-electric/20 text-brand-electric flex items-center justify-center">
+            <Mail className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="text-xs font-light text-neutral-500 uppercase tracking-wider">Dispatched To</div>
+            <div className="font-mono text-sm font-light text-neutral-900">{maskedEmail}</div>
+          </div>
+        </div>
+
+        <p className="text-xs sm:text-sm font-extralight text-neutral-600 leading-relaxed border-t border-neutral-100 pt-3">
+          Click the link inside the confirmation email to verify your email address and unlock full access to The Lobby research desk, statutory indexes, and member roundtables.
+        </p>
+
+        <div className="pt-2">
+          <button
+            type="button"
+            onClick={handleResend}
+            disabled={resending || cooldown > 0}
+            className="w-full bg-[#0B1220] hover:bg-[#1E293B] text-white py-3 px-4 rounded-[6px] text-xs font-light tracking-wide flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm group"
+          >
+            <RotateCw className={`w-3.5 h-3.5 ${resending ? 'animate-spin' : 'group-hover:rotate-45 transition-transform'}`} />
+            <span>
+              {resending
+                ? 'Dispatching verification link…'
+                : cooldown > 0
+                ? `Resend available in ${cooldown}s`
+                : 'Resend verification email'}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* ── Footer Navigation ───────────────────────────────────────── */}
+      <div className="pt-4 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-light text-neutral-600">
+        <Link
+          href="/sign-in"
+          className="inline-flex items-center gap-1.5 text-neutral-600 hover:text-neutral-900 transition-colors"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>Return to sign in</span>
+        </Link>
+
+        <Link
+          href="/join"
+          className="text-brand-electric hover:underline"
+        >
+          Use another email address &rarr;
+        </Link>
+      </div>
     </div>
+  );
+}
+
+export function TemplateVerifyEmail() {
+  return (
+    <AuthSplitLayout
+      activeRoute="verify-email"
+      imageSrc="/images/editorial/entirefm-hvac-refrigerant-check-1200w.webp"
+      imageAlt="Commercial HVAC diagnostics and precision refrigerant manifold inspection"
+      badgeText="THE LOBBY · EMAIL VERIFICATION"
+      headline="Mandatory cryptographic verification for all Lobby Member accounts."
+      subheadline="Every account must be verified before participating in peer roundtables or generating sourced research exports."
+    >
+      <Suspense fallback={<div className="h-80 bg-neutral-200/40 animate-pulse rounded-[8px]" />}>
+        <VerifyEmailContent />
+      </Suspense>
+    </AuthSplitLayout>
   );
 }

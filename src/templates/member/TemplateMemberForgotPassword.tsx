@@ -2,133 +2,178 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
-import { Mail, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, AlertCircle, Mail } from 'lucide-react';
+import { AuthSplitLayout } from '@/components/auth/AuthSplitLayout';
 
 export function TemplateMemberForgotPassword() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setError(null);
     setIsSubmitting(true);
 
-    // Always show success regardless of whether email exists (privacy-preserving)
     try {
-      await fetch('/api/member/forgot-password', {
+      const res = await fetch('/api/member/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
-    } catch {
-      // Intentionally swallow — we show success regardless
-    }
 
-    setSubmitted(true);
-    setIsSubmitting(false);
+      // Always show success regardless to prevent email enumeration attacks
+      setSubmitted(true);
+    } catch {
+      setError('A network error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
-    <div className="on-dark min-h-screen flex flex-col bg-brand-void">
-      <Header />
-
-      <main className="flex-1 flex items-center justify-center py-16 sm:py-24 px-4">
-        <div className="w-full max-w-md">
-
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-electric/10 border border-brand-electric/20 mb-4">
-              <Mail className="h-5 w-5 text-brand-electric" />
-            </div>
-            <h1 className="text-2xl font-bold text-white">
-              Reset your password
-            </h1>
-            <p className="mt-2 text-sm text-brand-mist/60">
-              Enter your Lobby Member email and we&apos;ll send reset instructions.
-            </p>
+    <AuthSplitLayout
+      activeRoute="forgot-password"
+      imageSrc="/images/editorial/entirefm-distribution-board-testing-1200w.webp"
+      imageAlt="Commercial electrical distribution board diagnostic testing"
+      badgeText="THE LOBBY · ACCOUNT RECOVERY"
+      headline="Secure password recovery for registered Lobby Members."
+      subheadline="All password recovery tokens are cryptographically signed with short expiration windows for maximum security."
+    >
+      <div className="space-y-6 sm:space-y-8">
+        {/* ── Header ─────────────────────────────────────────────────── */}
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-2">
+            <span className="h-px w-5 bg-brand-electric" />
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+              Security &amp; Credentials
+            </span>
           </div>
 
-          {/* Card */}
-          <div className="rounded-2xl border border-brand-edge-dark bg-white/[0.03] p-6 sm:p-8">
-
-            {submitted ? (
-              <div className="text-center py-4 space-y-4">
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-emerald-900/40 border border-emerald-500/30">
-                  <CheckCircle2 className="h-6 w-6 text-emerald-400" />
-                </div>
-                <div>
-                  <h2 className="text-white font-semibold text-lg">Check your inbox</h2>
-                  <p className="mt-2 text-sm text-brand-mist/60 leading-relaxed">
-                    If an account exists for{' '}
-                    <span className="text-brand-mist/80 font-medium">{email}</span>,
-                    you will receive a password reset link within a few minutes.
-                  </p>
-                  <p className="mt-3 text-xs text-brand-mist/40">
-                    Check your spam folder if you don&apos;t see it.
-                    The link will expire in 30&nbsp;minutes.
-                  </p>
-                </div>
-                <Link
-                  href="/sign-in"
-                  className="inline-flex items-center gap-2 text-sm text-brand-electric hover:text-brand-electric-bright transition-colors"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  Back to sign in
-                </Link>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-brand-mist/80 mb-1.5">
-                    Email address
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-lg border border-brand-edge-dark bg-white/5 px-4 py-3 text-sm text-white placeholder:text-brand-mist/30 focus:border-brand-electric focus:outline-none focus:ring-1 focus:ring-brand-electric"
-                    placeholder="you@example.com"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !email}
-                  className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                      Sending&hellip;
-                    </>
-                  ) : (
-                    'Send reset link'
-                  )}
-                </button>
-
-                <div className="text-center">
-                  <Link
-                    href="/sign-in"
-                    className="inline-flex items-center gap-1 text-sm text-brand-mist/50 hover:text-brand-mist/80 transition-colors"
-                  >
-                    <ArrowLeft className="h-3.5 w-3.5" />
-                    Back to sign in
-                  </Link>
-                </div>
-              </form>
-            )}
-
-          </div>
+          <h1 className="text-3xl sm:text-4xl font-extralight text-neutral-900 tracking-tight leading-tight">
+            Reset your password
+          </h1>
+          <p className="text-sm font-light text-neutral-600 leading-relaxed">
+            Enter the email address associated with your Lobby Member account and we will send you secure reset instructions.
+          </p>
         </div>
-      </main>
 
-      <Footer />
-    </div>
+        {/* ── Error Banner ────────────────────────────────────────────── */}
+        {error && (
+          <div
+            role="alert"
+            className="p-4 rounded-[6px] border border-rose-200 bg-rose-50 text-rose-800 text-xs flex items-start gap-2.5 animate-fadeIn"
+          >
+            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+            <span className="leading-relaxed font-light">{error}</span>
+          </div>
+        )}
+
+        {/* ── Form or Success State ───────────────────────────────────── */}
+        {submitted ? (
+          <div className="space-y-6 animate-fadeIn">
+            <div className="p-6 rounded-[8px] border border-neutral-200/90 bg-white shadow-2xs space-y-4">
+              <div className="w-12 h-12 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center">
+                <CheckCircle2 className="w-6 h-6" />
+              </div>
+
+              <div className="space-y-1.5">
+                <h3 className="text-base font-light text-neutral-900">
+                  Check your inbox
+                </h3>
+                <p className="text-xs sm:text-sm font-extralight text-neutral-600 leading-relaxed">
+                  If an active account exists for{' '}
+                  <span className="font-mono text-xs text-neutral-900 bg-neutral-100 px-2 py-0.5 rounded-[4px]">
+                    {email}
+                  </span>
+                  , you will receive password reset instructions within a few moments.
+                </p>
+              </div>
+
+              <p className="text-[11px] font-extralight text-neutral-500 leading-relaxed border-t border-neutral-100 pt-3">
+                For security reasons, recovery links expire after 30 minutes. Please check your junk or quarantine folders if the email does not arrive promptly.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between pt-2">
+              <Link
+                href="/sign-in"
+                className="inline-flex items-center gap-1.5 text-xs font-light text-brand-electric hover:underline"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Return to sign in</span>
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setSubmitted(false);
+                  setEmail('');
+                }}
+                className="text-xs font-light text-neutral-500 hover:text-neutral-900 transition-colors"
+              >
+                Try another email
+              </button>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} noValidate className="space-y-5">
+            <div className="space-y-1.5">
+              <label
+                htmlFor="email"
+                className="block text-xs font-light text-neutral-700 uppercase tracking-wider"
+              >
+                Registered Email Address
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@company.co.uk"
+                className="w-full px-4 py-3 rounded-[6px] border border-neutral-300 bg-white text-neutral-900 placeholder:text-neutral-400 text-sm font-light focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric transition-colors shadow-2xs"
+              />
+            </div>
+
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={isSubmitting || !email}
+                className="w-full bg-[#0B1220] hover:bg-[#1E293B] text-white py-3.5 px-6 rounded-[6px] text-sm font-light tracking-wide flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm group"
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Sending recovery email&hellip;</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Send recovery instructions</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        )}
+
+        {/* ── Footer ─────────────────────────────────────────────────── */}
+        {!submitted && (
+          <div className="pt-4 border-t border-neutral-200/80 text-center">
+            <Link
+              href="/sign-in"
+              className="inline-flex items-center gap-1.5 text-xs font-light text-neutral-600 hover:text-neutral-900 transition-colors"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to sign in</span>
+            </Link>
+          </div>
+        )}
+      </div>
+    </AuthSplitLayout>
   );
 }

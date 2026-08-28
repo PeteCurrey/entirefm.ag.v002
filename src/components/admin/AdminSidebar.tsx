@@ -204,7 +204,13 @@ const WEBSITE_GROUPS: NavGroup[] = [
   },
 ];
 
-export function AdminSidebar({ session }: { session: UserSession }) {
+export function AdminSidebar({
+  session,
+  pendingApplicationsCount = 0,
+}: {
+  session: UserSession;
+  pendingApplicationsCount?: number;
+}) {
   const pathname = usePathname();
   const isWebsiteRoute =
     pathname.startsWith('/admin/growth') ||
@@ -316,6 +322,9 @@ export function AdminSidebar({ session }: { session: UserSession }) {
                             : pathname === item.href ||
                               (item.href !== '/admin' && pathname.startsWith(item.href));
 
+                        const isApplicationsLink = item.href === '/admin/suppliers/applications';
+                        const liveCount = isApplicationsLink && pendingApplicationsCount > 0 ? pendingApplicationsCount : null;
+
                         return (
                           <Link
                             key={item.href}
@@ -327,17 +336,24 @@ export function AdminSidebar({ session }: { session: UserSession }) {
                             }`}
                           >
                             <span className="truncate">{item.name}</span>
-                            {item.badge && (
-                              <span
-                                className={`rounded-[4px] px-1.5 py-0.2 font-mono text-[9px] font-normal ${
-                                  isActive
-                                    ? 'bg-[#EA580C]/10 text-[#EA580C]'
-                                    : 'bg-[#F0F0EE] text-[#6D6D68]'
-                                }`}
-                              >
-                                {item.badge}
-                              </span>
-                            )}
+                            <span className="flex items-center gap-1">
+                              {liveCount !== null && (
+                                <span className="rounded-[4px] px-1.5 py-0.5 font-mono text-[9px] font-bold bg-rose-100 text-rose-700">
+                                  {liveCount}
+                                </span>
+                              )}
+                              {item.badge && !liveCount && (
+                                <span
+                                  className={`rounded-[4px] px-1.5 py-0.2 font-mono text-[9px] font-normal ${
+                                    isActive
+                                      ? 'bg-[#EA580C]/10 text-[#EA580C]'
+                                      : 'bg-[#F0F0EE] text-[#6D6D68]'
+                                  }`}
+                                >
+                                  {item.badge}
+                                </span>
+                              )}
+                            </span>
                           </Link>
                         );
                       })}

@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import type { LobbyArticle } from '@/lib/lobby/types';
 import { getRelatedArticles, getTopicBySlug } from '@/lib/lobby/repository';
@@ -56,9 +55,7 @@ export function TemplateLobbyArticle({ article }: TemplateLobbyArticleProps) {
 
   return (
     <div className="flex min-h-screen flex-col bg-white text-brand-graphite">
-      <Header solid={true} />
-
-      <main id="main" className="flex-1">
+      <main id="main" className="flex-1 pt-16 sm:pt-20">
         {/* Navigation & Context Bar */}
         <div className="border-b border-brand-edge bg-brand-surface py-3.5">
           <div className="container-wide flex flex-wrap items-center justify-between gap-3 text-xs">
