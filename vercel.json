@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "NODE_OPTIONS='--max-old-space-size=8192' npm run build",
   "crons": [
     {
       "path": "/api/cron/lobby-daily/harvest",
@@ -27,3 +28,4 @@
     }
   ]
 }
+
