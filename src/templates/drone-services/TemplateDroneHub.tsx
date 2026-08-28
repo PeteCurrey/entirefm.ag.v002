@@ -4,7 +4,7 @@ import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { TrustBar } from '@/components/trust/TrustBar';
-import { FAQAccordion } from '@/components/content/CapabilityList';
+import { DroneServiceFaq } from '@/components/drone-services/DroneServiceFaq';
 import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
 
 // Cinematic & Editorial Drone Components
@@ -184,23 +184,14 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
         {/* ========================================================================= */}
         {/* AUTHORITATIVE FAQS (Server-Rendered & Semantic) */}
         {/* ========================================================================= */}
-        <section className="py-24 bg-white border-b border-slate-200 text-slate-900">
-          <div className="container-custom max-w-4xl space-y-10">
-            <div className="text-center space-y-3">
-              <span className="text-xs uppercase tracking-[0.2em] text-brand-pink font-semibold">
-                FREQUENTLY ASKED QUESTIONS
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-extralight text-slate-900">
-                Commercial Drone Services FAQ
-              </h2>
-              <p className="text-sm text-slate-600 font-light max-w-2xl mx-auto">
-                Authoritative technical details on UK CAA regulations, weather limits, engineering deliverables, and EntireFM physical remedial execution.
-              </p>
-            </div>
-
-            <FAQAccordion faqs={content.faqs || []} />
-          </div>
-        </section>
+        {content.faqs && content.faqs.length > 0 && (
+          <DroneServiceFaq
+            eyebrow="COMMERCIAL DRONE FAQ"
+            title="Frequently Asked Questions"
+            intro="Authoritative technical details on UK CAA regulations, weather limits, engineering deliverables, and EntireFM physical remedial execution."
+            faqs={content.faqs}
+          />
+        )}
 
         {/* ========================================================================= */}
         {/* 13 — FINAL CINEMATIC CTA */}

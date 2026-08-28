@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { TrustBar } from '@/components/trust/TrustBar';
-import { FAQAccordion } from '@/components/content/CapabilityList';
+import { DroneServiceFaq } from '@/components/drone-services/DroneServiceFaq';
 import { 
   CheckCircle2, 
   ArrowRight, 
@@ -58,6 +58,7 @@ interface ServiceMediaConfig {
   };
   deliverables: Array<{ title: string; format: string; desc: string }>;
   applications: Array<{ title: string; desc: string }>;
+  heroPosition?: string;
 }
 
 const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
@@ -130,7 +131,7 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
     related: [
       { title: 'Roof & Gutter Inspections', href: '/services/drone-services/roof-inspections', category: 'Waterproofing & Drainage' },
       { title: 'Commercial Drone Inspections', href: '/services/drone-services/drone-inspections', category: 'Asset Inspection' },
-      { title: 'Digital Twin & 3D Spatial Capture', href: '/services/drone-services/digital-twin-3d-capture', category: '3D Reality Mesh' },
+      { title: 'EntireFM 3D & Digital Twin Capture', href: '/services/drone-services/digital-twin-3d-capture', category: '3D Reality Mesh' },
     ],
     remediation: {
       heading: 'Integrated Rope Access & BMU Façade Delivery',
@@ -406,9 +407,9 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
 
       <main id="main" className="flex-grow">
         {/* ========================================================================= */}
-        {/* 1. CINEMATIC FULL-BLEED SUB-SERVICE HERO (85–100svh)                      */}
+        {/* 1. CINEMATIC FULL-VIEWPORT HERO (min-h-[calc(100svh-80px)])               */}
         {/* ========================================================================= */}
-        <section className="relative min-h-[85svh] lg:min-h-[92svh] flex items-center bg-[#060A14] overflow-hidden pt-28 pb-16 border-b border-brand-edge-dark">
+        <section className="relative min-h-[calc(100svh-80px)] lg:min-h-[calc(100dvh-80px)] flex items-center justify-center bg-[#060A14] overflow-hidden pt-24 pb-16 sm:py-24 border-b border-brand-edge-dark">
           <div className="absolute inset-0 z-0">
             {config.videoSrc ? (
               <video
@@ -427,7 +428,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                 alt={content.title}
                 fill
                 priority
-                className="object-cover object-center filter brightness-[0.55] contrast-[1.05]"
+                className="w-full h-full object-cover object-center filter brightness-[0.55] contrast-[1.05]"
                 sizes="100vw"
               />
             )}
@@ -435,7 +436,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
             <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/85 to-transparent" />
           </div>
 
-          <div className="container-custom relative z-10">
+          <div className="container-custom relative z-10 w-full">
             <div className="max-w-3xl space-y-6">
               
               {/* Subtle Breadcrumb Strip */}
@@ -747,28 +748,15 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         </section>
 
         {/* ========================================================================= */}
-        {/* 8. AUTHORITATIVE FAQS (CLEAN FULL-WIDTH EDITORIAL ACCORDION)              */}
+        {/* 8. AUTHORITATIVE FAQS (CLEAN 2-COLUMN EDITORIAL ACCORDION)                */}
         {/* ========================================================================= */}
         {content.faqs && content.faqs.length > 0 && (
-          <section className="py-24 bg-white border-b border-slate-200">
-            <div className="container-custom space-y-12">
-              <div className="max-w-3xl space-y-3">
-                <div className="inline-flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
-                    Technical &amp; Operational FAQ
-                  </span>
-                </div>
-                <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-slate-900">
-                  Frequently Asked Questions
-                </h2>
-              </div>
-
-              <div className="max-w-3xl">
-                <FAQAccordion faqs={content.faqs} />
-              </div>
-            </div>
-          </section>
+          <DroneServiceFaq
+            eyebrow="SERVICE-SPECIFIC FAQ"
+            title="Frequently Asked Questions"
+            intro="Authoritative technical details on flight safety parameters, inspection deliverables, and EntireFM physical remedial execution."
+            faqs={content.faqs}
+          />
         )}
 
         {/* ========================================================================= */}

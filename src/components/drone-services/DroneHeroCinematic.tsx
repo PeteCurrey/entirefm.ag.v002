@@ -39,7 +39,7 @@ export function DroneHeroCinematic() {
   return (
     <section 
       aria-label="Drone Services Cinematic Hero"
-      className="relative min-h-[90vh] lg:min-h-screen flex items-center justify-center bg-brand-void text-white overflow-hidden"
+      className="relative min-h-[calc(100svh-80px)] lg:min-h-[calc(100dvh-80px)] flex items-center justify-center bg-brand-void text-white overflow-hidden"
     >
       {/* Full-Bleed Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden">
