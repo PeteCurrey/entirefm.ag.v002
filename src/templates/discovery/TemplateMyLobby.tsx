@@ -16,6 +16,7 @@ import {
   ArrowRight,
   ShieldCheck,
 } from 'lucide-react';
+import { MemberAvatar } from '@/components/member/MemberAvatar';
 
 export function TemplateMyLobby() {
   const [profile, setProfile] = useState<any>(null);
@@ -76,9 +77,12 @@ export function TemplateMyLobby() {
         {/* Workspace Banner */}
         <section className="bg-brand-graphite/25 border border-white/10 rounded-2xl p-6 sm:p-8 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-brand-electric/20 text-brand-electric border border-brand-electric/30 flex items-center justify-center text-2xl font-bold">
-              {profile?.display_name?.charAt(0) || 'M'}
-            </div>
+            <MemberAvatar
+              name={profile?.displayName || profile?.display_name || 'Member'}
+              avatarUrl={profile?.avatarUrl || profile?.avatar_url}
+              size="xl"
+              theme="dark"
+            />
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-2xl font-bold text-white">Good morning, {profile?.first_name || 'Member'}</h1>

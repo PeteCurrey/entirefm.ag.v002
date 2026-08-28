@@ -18,6 +18,7 @@ import {
   Layers,
   ArrowRight,
 } from 'lucide-react';
+import { MemberAvatar } from '@/components/member/MemberAvatar';
 
 export function TemplateCommunityDiscussion({ slug }: { slug: string }) {
   const [discussion, setDiscussion] = useState<any>(null);
@@ -218,9 +219,12 @@ export function TemplateCommunityDiscussion({ slug }: { slug: string }) {
 
                 {/* Author Metadata Bar */}
                 <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <div className="w-9 h-9 rounded-full bg-brand-electric/20 border border-brand-electric/40 flex items-center justify-center text-sm font-bold text-brand-electric">
-                    {discussion.authorName.charAt(0)}
-                  </div>
+                  <MemberAvatar
+                    name={discussion.authorName}
+                    avatarUrl={discussion.authorAvatarUrl}
+                    size="md"
+                    theme="dark"
+                  />
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-semibold text-white">{discussion.authorName}</span>
@@ -293,9 +297,12 @@ export function TemplateCommunityDiscussion({ slug }: { slug: string }) {
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold">
-                      {acceptedReply.authorName.charAt(0)}
-                    </div>
+                    <MemberAvatar
+                      name={acceptedReply.authorName}
+                      avatarUrl={acceptedReply.authorAvatarUrl}
+                      size="sm"
+                      theme="dark"
+                    />
                     <div>
                       <span className="text-sm font-semibold text-white">{acceptedReply.authorName}</span>
                       {acceptedReply.authorHeadline && (
@@ -341,9 +348,12 @@ export function TemplateCommunityDiscussion({ slug }: { slug: string }) {
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-brand-electric/20 text-brand-electric flex items-center justify-center text-xs font-bold">
-                              {reply.authorName.charAt(0)}
-                            </div>
+                            <MemberAvatar
+                              name={reply.authorName}
+                              avatarUrl={reply.authorAvatarUrl}
+                              size="sm"
+                              theme="dark"
+                            />
                             <div>
                               <div className="flex items-center gap-2">
                                 <span className="text-sm font-semibold text-white">{reply.authorName}</span>

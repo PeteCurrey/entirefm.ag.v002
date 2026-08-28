@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { User, LogOut, Settings, UserCheck, ChevronDown, Sparkles } from 'lucide-react';
+import { MemberAvatar } from './MemberAvatar';
 
 interface MemberState {
   authenticated: boolean;
@@ -66,13 +67,6 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
   }
 
   if (state.authenticated && state.member) {
-    const initials = state.member.displayName
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .slice(0, 2)
-      .toUpperCase();
-
     return (
       <div className="relative shrink-0" ref={dropdownRef}>
         <button
@@ -86,9 +80,13 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
           aria-expanded={dropdownOpen}
           aria-label="Member account menu"
         >
-          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-electric text-white text-[10.5px] font-mono font-medium">
-            {initials || <User className="w-3.5 h-3.5" />}
-          </span>
+          <MemberAvatar
+            name={state.member.displayName}
+            avatarUrl={state.member.avatarUrl}
+            size="xs"
+            border={false}
+            className="w-6 h-6"
+          />
           <span className={`hidden md:inline-block max-w-[120px] truncate font-normal ${isLight ? 'text-neutral-900' : 'text-white'}`}>
             {state.member.firstName || state.member.displayName}
           </span>
@@ -97,13 +95,21 @@ export function MemberNavControl({ theme = 'dark' }: MemberNavControlProps) {
 
         {dropdownOpen && (
           <div className="absolute right-0 mt-2 w-56 rounded-[6px] bg-[#0B1220] border border-white/10 text-white shadow-2xl py-2 z-50 animate-rise">
-            <div className="px-4 py-2.5 border-b border-white/10">
-              <p className="text-xs font-normal text-white truncate">{state.member.displayName}</p>
-              <p className="text-[10.5px] font-light text-neutral-400 truncate">{state.member.email}</p>
-              <span className="mt-1 inline-flex items-center gap-1 text-[9.5px] font-mono uppercase tracking-wider text-emerald-400">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                Lobby Member
-              </span>
+            <div className="px-4 py-2.5 border-b border-white/10 flex items-center gap-3">
+              <MemberAvatar
+                name={state.member.displayName}
+                avatarUrl={state.member.avatarUrl}
+                size="md"
+                className="shrink-0"
+              />
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-normal text-white truncate">{state.member.displayName}</p>
+                <p className="text-[10.5px] font-light text-neutral-400 truncate">{state.member.email}</p>
+                <span className="mt-1 inline-flex items-center gap-1 text-[9.5px] font-mono uppercase tracking-wider text-emerald-400">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  Lobby Member
+                </span>
+              </div>
             </div>
 
             <div className="py-1">

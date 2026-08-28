@@ -24,7 +24,11 @@ import {
   X,
   Upload,
   BookOpen,
+  Camera,
+  Trash2,
 } from 'lucide-react';
+import { MemberAvatar } from '@/components/member/MemberAvatar';
+import { AvatarCropModal } from '@/components/member/AvatarCropModal';
 
 function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -97,6 +101,79 @@ export function TemplateMemberProfile() {
   });
   const [saving, setSaving] = useState(false);
   const [editFeedback, setEditFeedback] = useState<{ success?: boolean; error?: string } | null>(null);
+
+  // Avatar Management State
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [cropModalOpen, setCropModalOpen] = useState(false);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [avatarFeedback, setAvatarFeedback] = useState<{ success?: boolean; message?: string; error?: string } | null>(null);
+
+  const handleSelectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    const file = files[0];
+    setSelectedFile(file);
+    setCropModalOpen(true);
+    // Reset file input value so re-selecting the same file triggers onChange
+    e.target.value = '';
+  };
+
+  const handleConfirmCrop = async (croppedBlob: Blob) => {
+    setUploadingAvatar(true);
+    setAvatarFeedback(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', croppedBlob, 'avatar.webp');
+
+      const res = await fetch('/api/member/avatar', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setAvatarFeedback({ error: data.error || 'Failed to upload profile photo.' });
+      } else {
+        setMember((prev) => (prev ? { ...prev, avatarUrl: data.avatarUrl } : null));
+        setAvatarFeedback({ success: true, message: 'Profile photo updated successfully.' });
+        setCropModalOpen(false);
+        setTimeout(() => setAvatarFeedback(null), 3000);
+      }
+    } catch {
+      setAvatarFeedback({ error: 'Network error uploading profile photo.' });
+    } finally {
+      setUploadingAvatar(false);
+    }
+  };
+
+  const handleRemovePhoto = async () => {
+    if (!confirm('Are you sure you want to remove your profile photo? Your profile will display your initials.')) {
+      return;
+    }
+
+    setUploadingAvatar(true);
+    setAvatarFeedback(null);
+
+    try {
+      const res = await fetch('/api/member/avatar', {
+        method: 'DELETE',
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setAvatarFeedback({ error: data.error || 'Failed to remove profile photo.' });
+      } else {
+        setMember((prev) => (prev ? { ...prev, avatarUrl: undefined } : null));
+        setAvatarFeedback({ success: true, message: 'Profile photo removed.' });
+        setTimeout(() => setAvatarFeedback(null), 3000);
+      }
+    } catch {
+      setAvatarFeedback({ error: 'Network error removing profile photo.' });
+    } finally {
+      setUploadingAvatar(false);
+    }
+  };
 
   useEffect(() => {
     fetch('/api/member/me')
@@ -279,20 +356,13 @@ export function TemplateMemberProfile() {
               <div className="flex flex-col sm:flex-row items-start gap-6 sm:gap-8 flex-1">
                 {/* Avatar Portrait */}
                 <div className="relative group shrink-0">
-                  {member.avatarUrl ? (
-                    <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-neutral-200 shadow-inner">
-                      <Image
-                        src={member.avatarUrl}
-                        alt={member.displayName}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#121826] text-white flex items-center justify-center text-2xl sm:text-3xl font-extralight tracking-wider border-2 border-neutral-200 shadow-sm">
-                      {initials}
-                    </div>
-                  )}
+                  <MemberAvatar
+                    name={member.displayName}
+                    avatarUrl={member.avatarUrl}
+                    size="3xl"
+                    priority={true}
+                    className="shadow-sm border-2 border-neutral-200"
+                  />
                 </div>
 
                 {/* Name, Headline, Metadata */}
@@ -452,6 +522,65 @@ export function TemplateMemberProfile() {
               )}
 
               <form onSubmit={handleSaveProfile} className="space-y-6">
+                {/* ── PROFILE PHOTO SECTION ── */}
+                <div className="border border-neutral-200/90 rounded-[6px] p-5 bg-[#FAF9F7] space-y-3">
+                  <div>
+                    <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-800 font-medium">
+                      Profile photo
+                    </h3>
+                    <p className="text-xs font-extralight text-neutral-500 mt-0.5">
+                      Upload a professional portrait. Recommended square crop, JPG, PNG or WebP up to 10MB.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-5 pt-1">
+                    <MemberAvatar
+                      name={member.displayName}
+                      avatarUrl={member.avatarUrl}
+                      size="2xl"
+                      className="shadow-sm border-2 border-neutral-200"
+                    />
+
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        <label className="cursor-pointer px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-white font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors inline-flex items-center gap-1.5 shadow-sm">
+                          <Camera className="w-3.5 h-3.5" />
+                          <span>{member.avatarUrl ? 'Change photo' : 'Upload photo'}</span>
+                          <input
+                            type="file"
+                            accept="image/jpeg,image/png,image/webp"
+                            className="hidden"
+                            onChange={handleSelectImage}
+                            disabled={uploadingAvatar}
+                          />
+                        </label>
+
+                        {member.avatarUrl && (
+                          <button
+                            type="button"
+                            onClick={handleRemovePhoto}
+                            disabled={uploadingAvatar}
+                            className="px-3.5 py-2 border border-neutral-300 hover:border-rose-300 hover:bg-rose-50 text-neutral-700 hover:text-rose-700 font-extralight text-xs uppercase tracking-wider rounded-[6px] transition-colors inline-flex items-center gap-1.5"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                            <span>Remove photo</span>
+                          </button>
+                        )}
+                      </div>
+
+                      {avatarFeedback && (
+                        <p
+                          className={`text-xs font-light ${
+                            avatarFeedback.success ? 'text-emerald-700' : 'text-rose-700'
+                          }`}
+                        >
+                          {avatarFeedback.message || avatarFeedback.error}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div className="space-y-1.5">
                     <label className="text-xs font-extralight text-neutral-700">Job Title</label>
@@ -770,6 +899,20 @@ export function TemplateMemberProfile() {
 
         </div>
       </main>
+
+      {/* ── INTERACTIVE AVATAR CROP & REPOSITION MODAL ── */}
+      {selectedFile && (
+        <AvatarCropModal
+          file={selectedFile}
+          isOpen={cropModalOpen}
+          onClose={() => {
+            setCropModalOpen(false);
+            setSelectedFile(null);
+          }}
+          onConfirm={handleConfirmCrop}
+          saving={uploadingAvatar}
+        />
+      )}
 
       <Footer />
     </div>

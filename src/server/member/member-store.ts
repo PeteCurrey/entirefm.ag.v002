@@ -324,6 +324,10 @@ export async function updateMemberProfile(
     updated_at: new Date().toISOString(),
   };
 
+  if ('avatar_url' in updates) {
+    updated.avatar_url = updates.avatar_url;
+  }
+
   MEMBERS_STORE.set(id, updated);
   return updated;
 }

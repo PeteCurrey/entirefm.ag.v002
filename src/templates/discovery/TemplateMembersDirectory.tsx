@@ -11,6 +11,7 @@ import {
   Building2,
   Award,
 } from 'lucide-react';
+import { MemberAvatar } from '@/components/member/MemberAvatar';
 
 export function TemplateMembersDirectory() {
   const [members, setMembers] = useState<any[]>([]);
@@ -76,9 +77,12 @@ export function TemplateMembersDirectory() {
                 >
                   <div className="space-y-3">
                     <div className="flex items-start justify-between">
-                      <div className="w-12 h-12 rounded-full bg-brand-electric/20 text-brand-electric flex items-center justify-center text-base font-bold">
-                        {mem.display_name.charAt(0)}
-                      </div>
+                      <MemberAvatar
+                        name={mem.display_name}
+                        avatarUrl={mem.avatar_url}
+                        size="lg"
+                        theme="dark"
+                      />
                       {mem.badges?.[0] && (
                         <span className="px-2 py-0.5 rounded bg-white/5 text-[10px] text-brand-mist border border-white/10">
                           {mem.badges[0]}
