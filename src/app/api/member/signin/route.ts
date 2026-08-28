@@ -16,14 +16,39 @@ export async function POST(request: Request) {
 
     const authResult = await authenticateMemberCredentials(email, password);
 
-    if (!authResult.success || !authResult.member) {
+    if (!authResult.success) {
+      if (authResult.notAMember) {
+        return NextResponse.json(
+          {
+            success: false,
+            notAMember: true,
+            authUserId: authResult.authUserId,
+            error: 'You have an EntireFM account, but have not joined The Lobby yet.',
+            redirectUrl: `/join?authUserId=${encodeURIComponent(authResult.authUserId || '')}&email=${encodeURIComponent(email)}`,
+          },
+          { status: 403 }
+        );
+      }
+
+      if (authResult.requiresVerification) {
+        return NextResponse.json(
+          {
+            success: false,
+            requiresVerification: true,
+            error: authResult.error || 'Please verify your email address to access Member features.',
+            redirectUrl: `/verify-email?email=${encodeURIComponent(email)}`,
+          },
+          { status: 403 }
+        );
+      }
+
       return NextResponse.json(
         { error: authResult.error || 'Invalid email address or password.' },
         { status: 401 }
       );
     }
 
-    const member = authResult.member;
+    const member = authResult.member!;
     const duration = rememberMe ? 1000 * 60 * 60 * 24 * 60 : 1000 * 60 * 60 * 24 * 7;
     const token = createMemberSessionToken(member, duration);
 

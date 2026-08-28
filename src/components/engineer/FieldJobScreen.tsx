@@ -931,10 +931,105 @@ export default function FieldJobScreen({
       {/* TAB 5: DIGITAL SERVICE REPORT & SUBMISSION */}
       {activeTab === 'REPORT' && (
         <div className="space-y-4">
+          {/* Rev 4.0 Controlled Field Reporting Engine Section */}
+          <div className="bg-slate-900 border border-slate-800 rounded-lg p-4 space-y-3 text-white">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div>
+                <span className="font-bold text-sm text-white flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 text-sky-400" />
+                  EntireFM Controlled Field Reports (Rev 4.0)
+                </span>
+                <span className="text-[11px] text-slate-400 font-mono">
+                  Standard Operating Procedures &bull; MAR 2026
+                </span>
+              </div>
+              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">
+                A4 PDF Ready
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+              <button
+                type="button"
+                onClick={async () => {
+                  const res = await fetch('/api/field/reports', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      templateCode: 'ENT-RJR-01',
+                      siteId: (visit as any).site_id || jobPack.site.id,
+                      workOrderId: visit.work_order_id,
+                      visitId: visit.id,
+                    }),
+                  });
+                  const data = await res.json();
+                  if (data.instance?.id) {
+                    window.location.href = `/engineer/reports/${data.instance.id}`;
+                  }
+                }}
+                className="p-3 bg-slate-950 border border-slate-700 hover:border-sky-500 rounded text-left transition-all group"
+              >
+                <div className="font-mono text-[10px] text-sky-400 font-bold">ENT-RJR-01</div>
+                <div className="font-bold text-xs text-white group-hover:text-sky-300">Reactive Job Report</div>
+                <div className="text-[10px] text-slate-400 mt-1">Diagnosis, Labour &amp; Materials</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={async () => {
+                  const res = await fetch('/api/field/reports', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      templateCode: 'ENT-PPM-01',
+                      siteId: (visit as any).site_id || jobPack.site.id,
+                      workOrderId: visit.work_order_id,
+                      visitId: visit.id,
+                    }),
+                  });
+                  const data = await res.json();
+                  if (data.instance?.id) {
+                    window.location.href = `/engineer/reports/${data.instance.id}`;
+                  }
+                }}
+                className="p-3 bg-slate-950 border border-slate-700 hover:border-sky-500 rounded text-left transition-all group"
+              >
+                <div className="font-mono text-[10px] text-sky-400 font-bold">ENT-PPM-01</div>
+                <div className="font-bold text-xs text-white group-hover:text-sky-300">Weekly Fire Alarm Test</div>
+                <div className="text-[10px] text-slate-400 mt-1">BS 5839-1 Call Point Test</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={async () => {
+                  const res = await fetch('/api/field/reports', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      templateCode: 'ENT-FLS-EL',
+                      siteId: (visit as any).site_id || jobPack.site.id,
+                      workOrderId: visit.work_order_id,
+                      visitId: visit.id,
+                    }),
+                  });
+                  const data = await res.json();
+                  if (data.instance?.id) {
+                    window.location.href = `/engineer/reports/${data.instance.id}`;
+                  }
+                }}
+                className="p-3 bg-slate-950 border border-slate-700 hover:border-sky-500 rounded text-left transition-all group"
+              >
+                <div className="font-mono text-[10px] text-sky-400 font-bold">ENT-FLS-EL</div>
+                <div className="font-bold text-xs text-white group-hover:text-sky-300">Emergency Lighting Survey</div>
+                <div className="text-[10px] text-slate-400 mt-1">BS 5266 Luminaire Schedule</div>
+              </button>
+            </div>
+          </div>
+
           <div className="bg-white border border-slate-200 rounded p-4 space-y-4 text-xs font-sans">
             <div className="flex items-center justify-between border-b border-slate-100 pb-2">
               <div>
-                <span className="font-bold text-slate-900 text-sm block">Digital Service Report</span>
+                <span className="font-bold text-slate-900 text-sm block">Legacy Service Summary</span>
                 {report && (
                   <span className="text-[10px] font-mono text-slate-500">
                     {report.report_number} &bull; Revision {report.revision_number}

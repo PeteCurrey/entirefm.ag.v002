@@ -5,17 +5,11 @@ import type {
   PolicyConsentRecord,
   MemberStatus,
 } from './types';
+import { dbQuery, getDbConfig } from '../db/client';
+import { supabaseSignIn, supabaseSignUp } from '../auth/supabase-auth';
 
-// In-memory persistent store for Lobby Members (isolated from CAFM)
-// In production, this syncs with the public member table while keeping CAFM RBAC strictly segregated.
-const MEMBERS_STORE: Map<string, Member> = new Map();
-const MEMBER_PASSWORDS: Map<string, string> = new Map(); // email -> hashed password
-
-// Helper to hash password with PBKDF2
-export function hashPassword(password: string): string {
-  const salt = 'efm-member-salt-2026';
-  return crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex');
-}
+// Test harness memory fallback
+const TEST_MOCK_MEMBERS: Map<string, Member> = new Map();
 
 // Helper to generate a URL-safe username
 function slugify(text: string): string {
@@ -26,78 +20,6 @@ function slugify(text: string): string {
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
 }
-
-// Seed demonstration founding members
-function seedInitialMembers() {
-  if (MEMBERS_STORE.size > 0) return;
-
-  const now = new Date().toISOString();
-
-  const seed1: Member = {
-    id: 'mem-00000000-0000-4000-8000-000000000001',
-    display_name: 'Peter Currey',
-    first_name: 'Peter',
-    last_name: 'Currey',
-    email: 'peter.currey@entirefm.com',
-    username: 'peter-currey',
-    avatar_url: undefined,
-    headline: 'CEO | EntireFM',
-    bio: 'Chief Executive Officer at EntireFM. Leading UK facilities management operations, statutory compliance governance, and mechanical engineering delivery across commercial estates.',
-    company: 'EntireFM',
-    job_title: 'CEO',
-    location: 'London & Nationwide',
-    linkedin_url: 'https://linkedin.com/company/entirefm',
-    member_status: 'active',
-    profile_visibility: 'public',
-    disciplines: ['Building Safety', 'HVAC', 'PPM', 'Mobilisation'],
-    sectors: ['Commercial Offices', 'Logistics', 'Retail'],
-    qualifications: ['Hard FM Specialist', 'Executive Leadership'],
-    badges: ['Founding Member', 'Editorial Contributor'],
-    reputation_score: 250,
-    saved_content_ids: [
-      'building-safety-act-what-fm-teams-need-to-know-now',
-      'condenser-airflow-starvation-on-enclosed-rooftops',
-    ],
-    joined_at: '2026-08-01T09:00:00.000Z',
-    last_active_at: now,
-    email_preferences: {
-      weeklyBriefing: true,
-      communityUpdates: true,
-      directMessages: true,
-      marketingConsent: true,
-      marketingConsentDate: '2026-08-01T09:00:00.000Z',
-    },
-    notification_preferences: {
-      inApp: true,
-      emailDigest: true,
-      mentionAlerts: true,
-    },
-    policy_consents: [
-      {
-        policyType: 'terms',
-        version: '2026.1',
-        consentedAt: '2026-08-01T09:00:00.000Z',
-      },
-      {
-        policyType: 'privacy',
-        version: '2026.1',
-        consentedAt: '2026-08-01T09:00:00.000Z',
-      },
-      {
-        policyType: 'community-guidelines',
-        version: '2026.1',
-        consentedAt: '2026-08-01T09:00:00.000Z',
-      },
-    ],
-    created_at: '2026-08-01T09:00:00.000Z',
-    updated_at: now,
-  };
-
-  MEMBERS_STORE.set(seed1.id, seed1);
-  MEMBER_PASSWORDS.set(seed1.email.toLowerCase(), hashPassword('Member2026!'));
-}
-
-seedInitialMembers();
 
 export interface CreateMemberInput {
   first_name: string;
@@ -116,29 +38,79 @@ export interface CreateMemberInput {
   userAgent?: string;
 }
 
+/**
+ * 1. Create a Lobby Member backed by a canonical Supabase Auth User
+ */
 export async function createMember(input: CreateMemberInput): Promise<Member> {
   const emailClean = input.email.trim().toLowerCase();
+  const cfg = getDbConfig();
 
-  // Check if email already registered
-  for (const m of MEMBERS_STORE.values()) {
-    if (m.email.toLowerCase() === emailClean && m.member_status !== 'deleted') {
-      throw new Error('An account with this email address already exists.');
+  let canonicalAuthUserId = input.auth_user_id;
+
+  // Step 1: Ensure Supabase Auth User exists or create one
+  if (!canonicalAuthUserId) {
+    if (!input.password) {
+      throw new Error('A password is required to create a new Member account.');
+    }
+
+    if (cfg) {
+      // Attempt sign up with Supabase Auth
+      const authRes = await supabaseSignUp(emailClean, input.password, {
+        first_name: input.first_name.trim(),
+        last_name: input.last_name.trim(),
+        user_type: 'LOBBY_MEMBER',
+      });
+
+      if (authRes.error) {
+        // If user already exists in Supabase Auth, verify credentials or handle
+        if (authRes.error.message.toLowerCase().includes('already registered') || authRes.error.message.toLowerCase().includes('already exists')) {
+          // Try sign in to verify password and obtain auth_user_id
+          const signInRes = await supabaseSignIn(emailClean, input.password);
+          if (signInRes.data?.user) {
+            canonicalAuthUserId = signInRes.data.user.id;
+          } else {
+            throw new Error('An account with this email address already exists. Please sign in instead.');
+          }
+        } else {
+          throw new Error(authRes.error.message || 'Failed to create authentication account.');
+        }
+      } else if (authRes.data?.user) {
+        canonicalAuthUserId = authRes.data.user.id;
+      }
+    } else {
+      // Test environment fallback
+      canonicalAuthUserId = `auth-test-${crypto.randomUUID()}`;
     }
   }
 
-  // Generate base username and ensure uniqueness
+  if (!canonicalAuthUserId) {
+    throw new Error('Could not establish canonical authentication user for this registration.');
+  }
+
+  // Step 2: Check if lobby_members record already exists for this auth_user_id
+  const { data: existingMembers } = await dbQuery<any[]>(
+    `lobby_members?auth_user_id=eq.${encodeURIComponent(canonicalAuthUserId)}&select=*`
+  );
+
+  if (existingMembers && existingMembers.length > 0) {
+    const existing = existingMembers[0];
+    if (existing.member_status !== 'deleted') {
+      throw new Error('You are already registered as a Lobby Member. Please sign in.');
+    }
+  }
+
+  // Step 3: Generate unique slug
   let baseSlug = slugify(`${input.first_name}-${input.last_name}`);
   if (!baseSlug) baseSlug = slugify(emailClean.split('@')[0]);
 
   let uniqueSlug = baseSlug;
-  let counter = 1;
-  while (Array.from(MEMBERS_STORE.values()).some((m) => m.username === uniqueSlug)) {
-    uniqueSlug = `${baseSlug}-${counter}`;
-    counter++;
+  const { data: slugCheck } = await dbQuery<any[]>(`lobby_members?username=eq.${encodeURIComponent(uniqueSlug)}&select=id`);
+  if (slugCheck && slugCheck.length > 0) {
+    uniqueSlug = `${baseSlug}-${Math.floor(1000 + Math.random() * 9000)}`;
   }
 
   const now = new Date().toISOString();
-  const id = `mem-${crypto.randomUUID()}`;
+  const displayName = `${input.first_name.trim()} ${input.last_name.trim()}`;
 
   const consents: PolicyConsentRecord[] = [
     {
@@ -174,18 +146,19 @@ export async function createMember(input: CreateMemberInput): Promise<Member> {
     });
   }
 
-  const newMember: Member = {
-    id,
-    auth_user_id: input.auth_user_id,
-    display_name: `${input.first_name.trim()} ${input.last_name.trim()}`,
+  const headline = input.headline || `${input.job_title || 'Facilities Professional'}${input.company ? ` at ${input.company}` : ''}`;
+
+  const memberPayload = {
+    auth_user_id: canonicalAuthUserId,
+    email: emailClean,
+    display_name: displayName,
     first_name: input.first_name.trim(),
     last_name: input.last_name.trim(),
-    email: emailClean,
     username: uniqueSlug,
-    headline: input.headline || `${input.job_title || 'Facilities Professional'}${input.company ? ` at ${input.company}` : ''}`,
-    company: input.company,
-    job_title: input.job_title,
-    location: input.location,
+    headline,
+    company: input.company || undefined,
+    job_title: input.job_title || undefined,
+    location: input.location || undefined,
     member_status: 'pending_verification',
     profile_visibility: 'public',
     disciplines: [],
@@ -213,71 +186,274 @@ export async function createMember(input: CreateMemberInput): Promise<Member> {
     updated_at: now,
   };
 
-  MEMBERS_STORE.set(id, newMember);
-
-  if (input.password) {
-    MEMBER_PASSWORDS.set(emailClean, hashPassword(input.password));
+  // Fallback for test harness without DB connection
+  if (!cfg) {
+    const testMember: Member = {
+      ...memberPayload,
+      id: `mem-test-${crypto.randomUUID()}`,
+      member_status: 'pending_verification',
+      profile_visibility: 'public',
+      email_preferences: memberPayload.email_preferences,
+      notification_preferences: memberPayload.notification_preferences,
+      policy_consents: consents,
+    };
+    TEST_MOCK_MEMBERS.set(testMember.id, testMember);
+    TEST_MOCK_MEMBERS.set(testMember.email, testMember);
+    return testMember;
   }
+
+  // Step 4: Insert into database tables
+  const { data: createdRows, error: insertErr } = await dbQuery<any[]>(
+    'lobby_members',
+    {
+      method: 'POST',
+      body: {
+        ...memberPayload,
+        company: input.company || null,
+        job_title: input.job_title || null,
+        location: input.location || null,
+      },
+    }
+  );
+
+  if (insertErr || !createdRows || createdRows.length === 0) {
+    console.error('[MEMBER_STORE] Failed to insert lobby_member:', insertErr);
+    throw new Error('Database error creating Lobby Member profile.');
+  }
+
+  // Ensure user_identities record exists
+  await dbQuery('user_identities', {
+    method: 'POST',
+    body: {
+      auth_user_id: canonicalAuthUserId,
+      primary_email_snapshot: emailClean,
+      display_name: displayName,
+      first_name: input.first_name.trim(),
+      last_name: input.last_name.trim(),
+      status: 'PENDING_VERIFICATION',
+      created_at: now,
+      updated_at: now,
+    },
+  }).catch((err) => console.warn('[MEMBER_STORE] user_identities sync notice:', err));
+
+  // Log audit
+  await dbQuery('user_identity_audit_log', {
+    method: 'POST',
+    body: {
+      auth_user_id: canonicalAuthUserId,
+      action: 'LOBBY_JOINED',
+      actor_id: canonicalAuthUserId,
+      details: { email: emailClean, username: uniqueSlug },
+      created_at: now,
+    },
+  }).catch(() => {});
+
+  const newMember: Member = {
+    ...memberPayload,
+    id: createdRows[0].id,
+    member_status: createdRows[0].member_status as MemberStatus,
+    profile_visibility: createdRows[0].profile_visibility,
+    email_preferences: createdRows[0].email_preferences,
+    notification_preferences: createdRows[0].notification_preferences,
+    policy_consents: createdRows[0].policy_consents,
+  };
 
   return newMember;
 }
 
-export async function activateMember(id: string): Promise<Member | null> {
-  const member = MEMBERS_STORE.get(id);
-  if (!member || member.member_status === 'deleted') return null;
-
+/**
+ * 2. Activate Member account upon email verification
+ */
+export async function activateMember(idOrAuthUserId: string): Promise<Member | null> {
   const now = new Date().toISOString();
-  member.member_status = 'active';
-  member.email_verified_at = now;
-  member.updated_at = now;
-  MEMBERS_STORE.set(id, member);
+  const cfg = getDbConfig();
 
-  return { ...member };
+  if (!cfg) {
+    const mem = TEST_MOCK_MEMBERS.get(idOrAuthUserId);
+    if (mem) {
+      mem.member_status = 'active';
+      mem.email_verified_at = now;
+      return { ...mem };
+    }
+    return null;
+  }
+
+  // Try finding by id or auth_user_id
+  const { data: rows } = await dbQuery<any[]>(
+    `lobby_members?or=(id.eq.${encodeURIComponent(idOrAuthUserId)},auth_user_id.eq.${encodeURIComponent(idOrAuthUserId)})&select=*`
+  );
+
+  if (!rows || rows.length === 0) return null;
+  const member = rows[0];
+
+  const { data: updatedRows, error } = await dbQuery<any[]>(
+    `lobby_members?id=eq.${encodeURIComponent(member.id)}`,
+    {
+      method: 'PATCH',
+      body: {
+        member_status: 'active',
+        email_verified_at: now,
+        updated_at: now,
+      },
+    }
+  );
+
+  if (error || !updatedRows || updatedRows.length === 0) {
+    return null;
+  }
+
+  // Update user_identities status
+  if (member.auth_user_id) {
+    await dbQuery(`user_identities?auth_user_id=eq.${encodeURIComponent(member.auth_user_id)}`, {
+      method: 'PATCH',
+      body: { status: 'ACTIVE', updated_at: now },
+    }).catch(() => {});
+  }
+
+  return updatedRows[0] as Member;
 }
 
-export async function getMemberById(id: string): Promise<Member | null> {
-  const member = MEMBERS_STORE.get(id);
-  if (!member || member.member_status === 'deleted') return null;
-  return { ...member };
+/**
+ * 3. Fetch Member by ID or Auth User ID
+ */
+export async function getMemberById(idOrAuthUserId: string): Promise<Member | null> {
+  if (!idOrAuthUserId) return null;
+
+  if (!getDbConfig()) {
+    const mem = TEST_MOCK_MEMBERS.get(idOrAuthUserId);
+    return mem ? { ...mem } : null;
+  }
+
+  const { data: rows } = await dbQuery<any[]>(
+    `lobby_members?or=(id.eq.${encodeURIComponent(idOrAuthUserId)},auth_user_id.eq.${encodeURIComponent(idOrAuthUserId)})&select=*`
+  );
+
+  if (!rows || rows.length === 0) return null;
+  const m = rows[0];
+  if (m.member_status === 'deleted') return null;
+
+  return m as Member;
 }
 
+/**
+ * 4. Fetch Member by email
+ */
 export async function getMemberByEmail(email: string): Promise<Member | null> {
   const emailClean = email.trim().toLowerCase();
-  for (const m of MEMBERS_STORE.values()) {
-    if (m.email.toLowerCase() === emailClean && m.member_status !== 'deleted') {
-      return { ...m };
-    }
+
+  if (!getDbConfig()) {
+    const mem = TEST_MOCK_MEMBERS.get(emailClean);
+    return mem ? { ...mem } : null;
   }
-  return null;
+
+  const { data: rows } = await dbQuery<any[]>(
+    `lobby_members?email=eq.${encodeURIComponent(emailClean)}&select=*`
+  );
+
+  if (!rows || rows.length === 0) return null;
+  const m = rows[0];
+  if (m.member_status === 'deleted') return null;
+
+  return m as Member;
 }
 
+/**
+ * 5. Fetch Member by public username
+ */
 export async function getMemberByUsername(username: string): Promise<Member | null> {
   const slugClean = username.trim().toLowerCase();
-  for (const m of MEMBERS_STORE.values()) {
-    if (m.username.toLowerCase() === slugClean && m.member_status !== 'deleted') {
-      return { ...m };
+
+  if (!getDbConfig()) {
+    for (const mem of TEST_MOCK_MEMBERS.values()) {
+      if (mem.username.toLowerCase() === slugClean) return { ...mem };
     }
+    return null;
   }
-  return null;
+
+  const { data: rows } = await dbQuery<any[]>(
+    `lobby_members?username=eq.${encodeURIComponent(slugClean)}&select=*`
+  );
+
+  if (!rows || rows.length === 0) return null;
+  const m = rows[0];
+  if (m.member_status === 'deleted') return null;
+
+  return m as Member;
 }
 
+/**
+ * 6. Authenticate Member Credentials against Supabase Auth & Verify Lobby Membership
+ */
 export async function authenticateMemberCredentials(
   email: string,
   password: string
-): Promise<{ success: boolean; member?: Member; error?: string; requiresVerification?: boolean }> {
+): Promise<{
+  success: boolean;
+  member?: Member;
+  authUserId?: string;
+  notAMember?: boolean;
+  error?: string;
+  requiresVerification?: boolean;
+}> {
   const emailClean = email.trim().toLowerCase();
-  const member = await getMemberByEmail(emailClean);
 
+  if (!getDbConfig()) {
+    const mem = TEST_MOCK_MEMBERS.get(emailClean);
+    if (!mem) return { success: false, error: 'Invalid credentials.' };
+    if (mem.member_status === 'pending_verification') {
+      return { success: false, error: 'Please verify your email address.', requiresVerification: true };
+    }
+    return { success: true, member: mem, authUserId: mem.auth_user_id };
+  }
+
+  // 1. Authenticate against canonical Supabase Auth
+  const authRes = await supabaseSignIn(emailClean, password);
+
+  if (authRes.error || !authRes.data?.user) {
+    return { success: false, error: authRes.error?.message || 'Invalid email address or password.' };
+  }
+
+  const authUser = authRes.data.user;
+  const authUserId = authUser.id;
+
+  // 2. Resolve Lobby Member row by auth_user_id
+  let member = await getMemberById(authUserId);
+
+  // If not found by auth_user_id, fallback check by email and link auth_user_id if orphan
   if (!member) {
-    return { success: false, error: 'Invalid email address or password.' };
+    member = await getMemberByEmail(emailClean);
+    if (member && !member.auth_user_id) {
+      // Reconcile orphan
+      await dbQuery(`lobby_members?id=eq.${encodeURIComponent(member.id)}`, {
+        method: 'PATCH',
+        body: { auth_user_id: authUserId, updated_at: new Date().toISOString() },
+      });
+      member.auth_user_id = authUserId;
+    }
+  }
+
+  // If user is valid in Supabase Auth but has not joined The Lobby
+  if (!member) {
+    return {
+      success: false,
+      notAMember: true,
+      authUserId,
+      error: 'You have an EntireFM account, but have not joined The Lobby yet.',
+    };
   }
 
   if (member.member_status === 'pending_verification') {
-    return {
-      success: false,
-      error: 'Please verify your email address to access Member features.',
-      requiresVerification: true,
-    };
+    // If Supabase Auth says email is confirmed, auto-activate
+    if (authUser.email_confirmed_at) {
+      const activated = await activateMember(member.id);
+      if (activated) member = activated;
+    } else {
+      return {
+        success: false,
+        error: 'Please verify your email address to access Member features.',
+        requiresVerification: true,
+      };
+    }
   }
 
   if (member.member_status === 'banned') {
@@ -294,44 +470,49 @@ export async function authenticateMemberCredentials(
     };
   }
 
-  const storedHash = MEMBER_PASSWORDS.get(emailClean);
-  if (!storedHash) {
-    return { success: false, error: 'Invalid authentication credentials.' };
-  }
-
-  const inputHash = hashPassword(password);
-  if (storedHash !== inputHash) {
-    return { success: false, error: 'Invalid email address or password.' };
-  }
-
   // Update last active timestamp
-  member.last_active_at = new Date().toISOString();
-  MEMBERS_STORE.set(member.id, member);
+  await dbQuery(`lobby_members?id=eq.${encodeURIComponent(member.id)}`, {
+    method: 'PATCH',
+    body: { last_active_at: new Date().toISOString() },
+  }).catch(() => {});
 
-  return { success: true, member };
+  return { success: true, member, authUserId };
 }
 
+/**
+ * 7. Update Member Profile
+ */
 export async function updateMemberProfile(
-  id: string,
+  idOrAuthUserId: string,
   updates: Partial<Omit<Member, 'id' | 'email' | 'created_at'>>
 ): Promise<Member> {
-  const member = await getMemberById(id);
+  const member = await getMemberById(idOrAuthUserId);
   if (!member) throw new Error('Member not found');
 
-  const updated: Member = {
-    ...member,
+  const now = new Date().toISOString();
+  const patchPayload: Record<string, any> = {
     ...updates,
-    updated_at: new Date().toISOString(),
+    updated_at: now,
   };
 
-  if ('avatar_url' in updates) {
-    updated.avatar_url = updates.avatar_url;
+  const { data: updatedRows, error } = await dbQuery<any[]>(
+    `lobby_members?id=eq.${encodeURIComponent(member.id)}`,
+    {
+      method: 'PATCH',
+      body: patchPayload,
+    }
+  );
+
+  if (error || !updatedRows || updatedRows.length === 0) {
+    throw new Error('Failed to update member profile in database.');
   }
 
-  MEMBERS_STORE.set(id, updated);
-  return updated;
+  return updatedRows[0] as Member;
 }
 
+/**
+ * 8. Get Public Member Profile (Strips private email & credentials)
+ */
 export async function getPublicMemberProfile(username: string): Promise<PublicMemberProfile | null> {
   const member = await getMemberByUsername(username);
   if (!member) return null;
@@ -340,7 +521,6 @@ export async function getPublicMemberProfile(username: string): Promise<PublicMe
     return null;
   }
 
-  // Strip sensitive fields
   const publicProfile: PublicMemberProfile = {
     id: member.id,
     display_name: member.display_name,
@@ -368,21 +548,26 @@ export async function getPublicMemberProfile(username: string): Promise<PublicMe
   return publicProfile;
 }
 
-// ─── Missing Exports for API Routes ──────────────────────────────────────────
-
+/**
+ * 9. Get all members for directory
+ */
 export async function getAllMembers(query?: string): Promise<PublicMemberProfile[]> {
-  seedInitialMembers();
-  const members = Array.from(MEMBERS_STORE.values());
-  const q = (query || '').toLowerCase();
+  const q = (query || '').toLowerCase().trim();
+  const { data: rows } = await dbQuery<any[]>(
+    'lobby_members?member_status=eq.active&select=*&order=reputation_score.desc'
+  );
+
+  if (!rows) return [];
+
   const filtered = q
-    ? members.filter(
+    ? rows.filter(
         (m) =>
           m.display_name.toLowerCase().includes(q) ||
           (m.headline || '').toLowerCase().includes(q) ||
           (m.company || '').toLowerCase().includes(q) ||
           (m.disciplines || []).some((d: string) => d.toLowerCase().includes(q))
       )
-    : members;
+    : rows;
 
   return filtered.map((m) => ({
     id: m.id,
@@ -409,35 +594,81 @@ export async function getAllMembers(query?: string): Promise<PublicMemberProfile
   }));
 }
 
+/**
+ * 10. Toggle saved content for member
+ */
 export async function toggleSavedContent(
   memberId: string,
   contentId: string
 ): Promise<{ saved: boolean; savedIds: string[] }> {
-  seedInitialMembers();
-  const member = MEMBERS_STORE.get(memberId);
+  const member = await getMemberById(memberId);
   if (!member) {
     return { saved: false, savedIds: [] };
   }
-  const ids = member.saved_content_ids || [];
+
+  const ids = [...(member.saved_content_ids || [])];
   const idx = ids.indexOf(contentId);
+  let isSaved = false;
+
   if (idx >= 0) {
     ids.splice(idx, 1);
-    member.saved_content_ids = ids;
-    return { saved: false, savedIds: ids };
+    isSaved = false;
   } else {
     ids.push(contentId);
-    member.saved_content_ids = ids;
-    return { saved: true, savedIds: ids };
+    isSaved = true;
   }
+
+  await dbQuery(`lobby_members?id=eq.${encodeURIComponent(member.id)}`, {
+    method: 'PATCH',
+    body: { saved_content_ids: ids, updated_at: new Date().toISOString() },
+  });
+
+  return { saved: isSaved, savedIds: ids };
 }
 
+/**
+ * 11. Update Member Password in canonical Supabase Auth
+ */
 export async function updateMemberPassword(
   email: string,
   newPassword: string
 ): Promise<{ success: boolean; error?: string }> {
-  seedInitialMembers();
+  const cfg = getDbConfig();
+  if (!cfg) {
+    return { success: false, error: 'Database configuration missing' };
+  }
+
   const emailClean = email.trim().toLowerCase();
-  MEMBER_PASSWORDS.set(emailClean, hashPassword(newPassword));
+
+  // Find user by email in Supabase Auth
+  const authRes = await fetch(`${cfg.url}/auth/v1/admin/users`, {
+    headers: {
+      apikey: cfg.key,
+      Authorization: `Bearer ${cfg.key}`,
+    },
+  });
+
+  const authJson = await authRes.json().catch(() => ({}));
+  const user = (authJson?.users || []).find((u: any) => u.email?.toLowerCase() === emailClean);
+
+  if (!user) {
+    return { success: false, error: 'User account not found' };
+  }
+
+  const updateRes = await fetch(`${cfg.url}/auth/v1/admin/users/${user.id}`, {
+    method: 'PUT',
+    headers: {
+      apikey: cfg.key,
+      Authorization: `Bearer ${cfg.key}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ password: newPassword }),
+  });
+
+  if (!updateRes.ok) {
+    const json = await updateRes.json().catch(() => ({}));
+    return { success: false, error: json.message || 'Failed to update password' };
+  }
+
   return { success: true };
 }
-

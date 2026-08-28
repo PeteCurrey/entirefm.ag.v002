@@ -1,13 +1,12 @@
 /**
- * ADMIN USER DETAIL API — /api/admin/users/[id]
- * ===============================================
- * POST: Handle account actions (suspend, activate, revoke).
- * GET: Return user detail for a single person.
+ * ADMIN USER IDENTITY DETAIL & ACTION API — /api/admin/users/[id]
+ * ===============================================================
+ * Supports inspecting, transitioning operational role, managing Lobby membership,
+ * and auditing account status.
  */
 import { NextResponse } from 'next/server';
-import { getCurrentSession, PERMISSION } from '@/server/identity';
+import { getCurrentSession } from '@/server/identity';
 import { dbQuery } from '@/server/db/client';
-import { recordAuditEvent as logAuditEvent } from '@/server/audit';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,19 +19,43 @@ export async function GET(
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  const { id } = await params;
-  const { data, error } = await dbQuery<any[]>(
-    `persons?id=eq.${encodeURIComponent(id)}&select=id,first_name,last_name,email,mobile,status,is_field_engineer,memberships:organisation_memberships(*,role:roles(*),organisation:organisations(*),scopes:membership_scopes(*))&limit=1`
+  const { id: authUserId } = await params;
+
+  // 1. Fetch directory record
+  const { data: dirRows } = await dbQuery<any[]>(
+    `admin_user_identity_directory?auth_user_id=eq.${encodeURIComponent(authUserId)}&select=*`
   );
 
-  if (error || !data?.length) {
-    return NextResponse.json({ error: 'User not found' }, { status: 404 });
+  if (!dirRows || dirRows.length === 0) {
+    return NextResponse.json({ error: 'User not found in directory' }, { status: 404 });
   }
 
-  return NextResponse.json({ user: data[0] });
+  const user = dirRows[0];
+
+  // 2. Fetch full Lobby Member record if present
+  const { data: lobbyRows } = await dbQuery<any[]>(
+    `lobby_members?auth_user_id=eq.${encodeURIComponent(authUserId)}&select=*`
+  );
+
+  // 3. Fetch Operational Identity record if present
+  const { data: opRows } = await dbQuery<any[]>(
+    `operational_identities?auth_user_id=eq.${encodeURIComponent(authUserId)}&select=*`
+  );
+
+  // 4. Fetch Audit Log
+  const { data: auditRows } = await dbQuery<any[]>(
+    `user_identity_audit_log?auth_user_id=eq.${encodeURIComponent(authUserId)}&order=created_at.desc&limit=50`
+  );
+
+  return NextResponse.json({
+    user,
+    lobbyMember: lobbyRows?.[0] || null,
+    operationalIdentity: opRows?.[0] || null,
+    auditTrail: auditRows || [],
+  });
 }
 
-export async function POST(
+export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
@@ -41,56 +64,101 @@ export async function POST(
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  if (!session.permissions.includes(PERMISSION.MANAGE_USERS as any)) {
-    return NextResponse.json({ error: 'Insufficient permissions to manage users' }, { status: 403 });
-  }
+  const { id: authUserId } = await params;
+  const body = await request.json().catch(() => ({}));
+  const { action, operationalType, organisationName, organisationId, lobbyStatus } = body;
 
-  const { id } = await params;
-  const body = await request.formData().catch(async () => {
-    const j = await request.json().catch(() => ({}));
-    return new Map(Object.entries(j));
-  });
-  const action = String(body.get('action') || '').trim();
+  const now = new Date().toISOString();
 
-  const statusMap: Record<string, string> = {
-    suspend: 'SUSPENDED',
-    activate: 'ACTIVE',
-    archive: 'ARCHIVED',
-  };
-
-  if (!statusMap[action]) {
-    return NextResponse.json({ error: 'Unknown action' }, { status: 400 });
-  }
-
-  const newStatus = statusMap[action];
-
-  // Update person status — this immediately invalidates all sessions as
-  // validateLiveSession checks person.status on every request
-  const { error } = await dbQuery<any[]>(
-    `persons?id=eq.${encodeURIComponent(id)}`,
-    {
-      method: 'PATCH',
-      body: JSON.stringify({ status: newStatus, updated_at: new Date().toISOString() }),
+  // Action 1: Set / Transition Operational Identity (exclusivity enforced: exactly 1 operational role)
+  if (action === 'SET_OPERATIONAL_IDENTITY') {
+    if (!['CLIENT', 'ENGINEER', 'CONTRACTOR', 'NONE'].includes(operationalType)) {
+      return NextResponse.json({ error: 'Invalid operational identity type.' }, { status: 400 });
     }
-  );
 
-  if (error) {
-    return NextResponse.json({ error: 'Failed to update user status', detail: error }, { status: 500 });
+    if (operationalType === 'NONE') {
+      // Remove operational identity
+      await dbQuery(`operational_identities?auth_user_id=eq.${encodeURIComponent(authUserId)}`, {
+        method: 'DELETE',
+      });
+      await dbQuery('user_identity_audit_log', {
+        method: 'POST',
+        body: {
+          auth_user_id: authUserId,
+          action: 'OPERATIONAL_IDENTITY_REMOVED',
+          actor_id: session.personId || session.email,
+          details: { previous: body.previousType },
+          created_at: now,
+        },
+      });
+    } else {
+      // Upsert operational identity (auth_user_id is UNIQUE, preventing multi-operational conflict)
+      const roleCode = operationalType === 'ENGINEER' ? 'ENGINEER' : `${operationalType}_ADMIN`;
+      await dbQuery('operational_identities', {
+        method: 'POST',
+        body: {
+          auth_user_id: authUserId,
+          identity_type: operationalType,
+          organisation_id: organisationId || null,
+          organisation_name: organisationName || `${operationalType} Organisation`,
+          role_code: roleCode,
+          status: 'ACTIVE',
+          created_at: now,
+          updated_at: now,
+        },
+      });
+
+      await dbQuery('user_identity_audit_log', {
+        method: 'POST',
+        body: {
+          auth_user_id: authUserId,
+          action: 'OPERATIONAL_ROLE_TRANSITION',
+          actor_id: session.personId || session.email,
+          details: { newType: operationalType, org: organisationName },
+          created_at: now,
+        },
+      });
+    }
+
+    return NextResponse.json({ success: true, message: 'Operational identity updated successfully.' });
   }
 
-  // Audit trail
-  try {
-    await logAuditEvent({
-      event_type: `user.${action}`,
-      actor_id: session.personId,
-      actor_type: 'HUMAN',
-      object_type: 'persons',
-      object_id: id,
-      after_state: { status: newStatus },
-      reason: `Admin action: ${action} by ${session.email}`,
-    });
-  } catch {}
+  // Action 2: Update Lobby Membership Status
+  if (action === 'SET_LOBBY_STATUS') {
+    if (!['active', 'pending_verification', 'suspended', 'banned', 'deleted'].includes(lobbyStatus)) {
+      return NextResponse.json({ error: 'Invalid lobby member status.' }, { status: 400 });
+    }
 
-  const baseUrl = new URL(request.url).origin;
-  return NextResponse.redirect(new URL(`/admin/platform/users/${id}`, baseUrl), { status: 303 });
+    const { data: member } = await dbQuery<any[]>(
+      `lobby_members?auth_user_id=eq.${encodeURIComponent(authUserId)}`
+    );
+
+    if (member && member.length > 0) {
+      await dbQuery(`lobby_members?auth_user_id=eq.${encodeURIComponent(authUserId)}`, {
+        method: 'PATCH',
+        body: {
+          member_status: lobbyStatus,
+          email_verified_at: lobbyStatus === 'active' ? now : undefined,
+          updated_at: now,
+        },
+      });
+
+      await dbQuery('user_identity_audit_log', {
+        method: 'POST',
+        body: {
+          auth_user_id: authUserId,
+          action: 'LOBBY_STATUS_CHANGED',
+          actor_id: session.personId || session.email,
+          details: { newStatus: lobbyStatus },
+          created_at: now,
+        },
+      });
+
+      return NextResponse.json({ success: true, message: 'Lobby status updated successfully.' });
+    } else {
+      return NextResponse.json({ error: 'User is not registered as a Lobby Member.' }, { status: 404 });
+    }
+  }
+
+  return NextResponse.json({ error: 'Unrecognized action.' }, { status: 400 });
 }

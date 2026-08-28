@@ -168,7 +168,132 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
 
       {/* Tab 1: Form Templates Grid */}
       {activeTab === 'TEMPLATES' ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="space-y-6">
+          {/* Rev 4.0 Controlled Field Reports Banner */}
+          <div className="rounded-xl border border-indigo-900/50 bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950/40 p-5 space-y-4 shadow-xl">
+            <div className="flex items-center justify-between border-b border-indigo-900/30 pb-3">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-indigo-400 font-bold block">
+                  ENTIREFM CAFM &bull; REVISION 4.0
+                </span>
+                <h3 className="text-base font-bold text-white tracking-tight mt-0.5">
+                  Controlled Operational Field Reports (A4 PDF System)
+                </h3>
+              </div>
+              <span className="text-[10px] font-mono uppercase px-2.5 py-1 rounded bg-indigo-950 text-indigo-300 border border-indigo-800">
+                MAR 2026 SPEC
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* ENT-RJR-01 */}
+              <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-4 space-y-2.5 flex flex-col justify-between hover:border-indigo-500 transition-colors">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-sky-400">ENT-RJR-01</span>
+                    <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">Rev 4.0</span>
+                  </div>
+                  <h4 className="font-bold text-sm text-white mt-1">Reactive Job Report</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Arrival/departure, fault diagnosis, labour hours, parts used, defects, and customer sign-off.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const res = await fetch('/api/field/reports', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        templateCode: 'ENT-RJR-01',
+                        siteId: 'site-preview-fixture',
+                        organisationId: contractorOrgId,
+                      }),
+                    });
+                    const data = await res.json();
+                    if (data.instance?.id) {
+                      window.location.href = `/engineer/reports/${data.instance.id}`;
+                    }
+                  }}
+                  className="w-full py-2 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition-colors text-center"
+                >
+                  Start Reactive Report &rarr;
+                </button>
+              </div>
+
+              {/* ENT-PPM-01 */}
+              <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-4 space-y-2.5 flex flex-col justify-between hover:border-indigo-500 transition-colors">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-sky-400">ENT-PPM-01</span>
+                    <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">Rev 4.0</span>
+                  </div>
+                  <h4 className="font-bold text-sm text-white mt-1">Weekly Fire Alarm Test</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    BS 5839-1 rotational call point inspection, control panel state, sounders, and defect logging.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const res = await fetch('/api/field/reports', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        templateCode: 'ENT-PPM-01',
+                        siteId: 'site-preview-fixture',
+                        organisationId: contractorOrgId,
+                      }),
+                    });
+                    const data = await res.json();
+                    if (data.instance?.id) {
+                      window.location.href = `/engineer/reports/${data.instance.id}`;
+                    }
+                  }}
+                  className="w-full py-2 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition-colors text-center"
+                >
+                  Start Fire Alarm Test &rarr;
+                </button>
+              </div>
+
+              {/* ENT-FLS-EL */}
+              <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-4 space-y-2.5 flex flex-col justify-between hover:border-indigo-500 transition-colors">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-sky-400">ENT-FLS-EL</span>
+                    <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">Rev 4.0</span>
+                  </div>
+                  <h4 className="font-bold text-sm text-white mt-1">Emergency Lighting Survey</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    BS 5266 asset-building schedule, rapid luminaire walk mode, syncs directly to CAFM asset register.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const res = await fetch('/api/field/reports', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        templateCode: 'ENT-FLS-EL',
+                        siteId: 'site-preview-fixture',
+                        organisationId: contractorOrgId,
+                      }),
+                    });
+                    const data = await res.json();
+                    if (data.instance?.id) {
+                      window.location.href = `/engineer/reports/${data.instance.id}`;
+                    }
+                  }}
+                  className="w-full py-2 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition-colors text-center"
+                >
+                  Start Luminaire Survey &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {CANONICAL_FORM_TEMPLATES.map((tmpl) => (
             <div
               key={tmpl.id}
@@ -201,8 +326,10 @@ export function DigitalFormsClient({ initialForms, contractorOrgId }: Props) {
               </div>
             </div>
           ))}
+          </div>
         </div>
       ) : (
+
         /* Tab 2: Submitted Forms Table */
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
