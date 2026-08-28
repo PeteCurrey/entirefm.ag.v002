@@ -718,6 +718,27 @@ Respond with a complete JSON object matching this structure:
       whatChanged,
       whyItMatters,
       whatYouNeedToDo,
+      deepResearchReport:
+        mode === 'deep_research'
+          ? {
+              executiveSummary: shortAnswer,
+              statutoryRequirements: [
+                'Electricity at Work Regulations 1989 (SI 1989/635) Regulation 4(2) mandates that electrical systems shall at all times be maintained in safe condition.',
+                'Building Safety Act 2022 and secondary instruments require verifiable statutory asset maintenance records.',
+              ],
+              technicalGuidance: [
+                'BS 7671:2018+A2:2022 (IET Wiring Regulations) Regulation 651.1 specifies maximum recommended periodic inspection intervals.',
+                'SFG20 standard maintenance specification specifies 5-year maximum intervals for commercial offices and 3-year intervals for industrial/harsh environments.',
+              ],
+              commercialMarketImpact: [
+                'Non-compliant electrical test records invalidate commercial property insurance and can lead to HSE improvement or prohibition notices.',
+              ],
+              timelineEvents: [
+                { date: '1989', title: 'Electricity at Work Regulations Enacted', significance: 'Established statutory maintenance duty' },
+                { date: '2022', title: 'BS 7671 Amendment 2 Released', significance: 'Mandated Arc Fault Detection considerations and updated EICR forms' },
+              ],
+            }
+          : undefined,
       citations,
       relatedActions: [
         {

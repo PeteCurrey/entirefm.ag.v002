@@ -40,7 +40,7 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
   const [rfis, setRfis] = useState<SupplierRfiRecord[]>(initialRfis);
   const [decision, setDecision] = useState<SupplierApprovalDecision | null>(initialDecision);
   const [status, setStatus] = useState<string>(draft.status || 'UNDER_REVIEW');
-  const [modalType, setModalType] = useState<'RFI' | 'APPROVE' | 'CONDITIONAL' | 'DECLINE' | null>(null);
+  const [modalType, setModalType] = useState<'RFI' | 'APPROVE' | 'CONDITIONAL' | 'DECLINE' | 'CLASSIFY' | null>(null);
   const [activeTab, setActiveTab] = useState<string>('all');
 
   // Form states for review modals
@@ -63,7 +63,15 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
   const [declineReason, setDeclineReason] = useState('INSUFFICIENT_INSURANCE');
   const [declineExplanation, setDeclineExplanation] = useState('Public liability policy limit is below the minimum required £5,000,000 threshold.');
 
+  // Classify form state (for REGISTRATION_CLASSIFICATION_REQUIRED records)
+  const [classifyCompanyName, setClassifyCompanyName] = useState('');
+  const [classifyError, setClassifyError] = useState('');
+  const [classifySuccess, setClassifySuccess] = useState('');
+
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const isUnclassified = status === 'REGISTRATION_CLASSIFICATION_REQUIRED';
+
 
   // Compute Review Flags for Assurance Assessors
   const reviewFlags = useMemo(() => {
@@ -199,35 +207,52 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
                 ? 'bg-rose-100 text-rose-800'
                 : status === 'INFORMATION_REQUIRED'
                 ? 'bg-purple-100 text-purple-800'
+                : status === 'REGISTRATION_CLASSIFICATION_REQUIRED'
+                ? 'bg-orange-100 text-orange-800'
                 : 'bg-slate-900 text-white'
             }`}
           >
             STATUS: {status}
           </span>
 
-          <button
-            onClick={() => setModalType('RFI')}
-            className="btn-secondary text-xs py-1.5 px-3 flex items-center gap-1.5"
-          >
-            <MessageSquare className="h-3.5 w-3.5" />
-            <span>Request Info (RFI)</span>
-          </button>
+          {isUnclassified ? (
+            /* Unclassified registration — only Classify action is available */
+            <button
+              onClick={() => setModalType('CLASSIFY')}
+              className="btn-primary text-xs py-1.5 px-3.5 bg-orange-600 hover:bg-orange-700 text-white font-bold flex items-center gap-1.5"
+            >
+              <ShieldCheck className="h-3.5 w-3.5" />
+              <span>Classify as Contractor Applicant</span>
+            </button>
+          ) : (
+            /* Standard review actions */
+            <>
+              <button
+                onClick={() => setModalType('RFI')}
+                className="btn-secondary text-xs py-1.5 px-3 flex items-center gap-1.5"
+              >
+                <MessageSquare className="h-3.5 w-3.5" />
+                <span>Request Info (RFI)</span>
+              </button>
 
-          <button
-            onClick={() => setModalType('APPROVE')}
-            className="btn-primary text-xs py-1.5 px-3.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center gap-1.5"
-          >
-            <CheckCircle2 className="h-3.5 w-3.5" />
-            <span>Approve with Scope</span>
-          </button>
+              <button
+                onClick={() => setModalType('APPROVE')}
+                className="btn-primary text-xs py-1.5 px-3.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center gap-1.5"
+              >
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                <span>Approve with Scope</span>
+              </button>
 
-          <button
-            onClick={() => setModalType('DECLINE')}
-            className="btn-secondary text-xs py-1.5 px-3 text-rose-700 hover:bg-rose-50 border-rose-200"
-          >
-            Decline
-          </button>
+              <button
+                onClick={() => setModalType('DECLINE')}
+                className="btn-secondary text-xs py-1.5 px-3 text-rose-700 hover:bg-rose-50 border-rose-200"
+              >
+                Decline
+              </button>
+            </>
+          )}
         </div>
+
       </div>
 
       {/* Review Flags Banner */}
@@ -574,6 +599,93 @@ export function AdminApplicationReviewClient({ draft, rfis: initialRfis, decisio
       </div>
 
       {/* ── MODALS ── */}
+
+      {/* CLASSIFY Modal — for REGISTRATION_CLASSIFICATION_REQUIRED */}
+      {modalType === 'CLASSIFY' && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-sm border border-slate-200 max-w-lg w-full p-6 space-y-4 shadow-xl">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <ShieldCheck className="h-4 w-4 text-orange-600" />
+              Classify as Contractor Applicant
+            </h3>
+            <p className="text-xs text-slate-600">
+              This registration lacks a confirmed organisation. Classifying it as a Contractor
+              Applicant will create an organisation record and application draft, then surface
+              it in the standard review queue.
+            </p>
+            <div className="bg-orange-50 border border-orange-200 rounded p-3 text-xs text-orange-800 space-y-1">
+              <p className="font-bold">Provenance recorded:</p>
+              <p>• registration_source = MANUALLY_CLASSIFIED_BY_ADMIN</p>
+              <p>• classified_by = {draft.primaryContactEmail || 'Admin'}</p>
+              <p>• audit event: SUPPLIER_CLASSIFIED_AS_CONTRACTOR</p>
+            </div>
+            <div className="space-y-3 text-xs">
+              <div>
+                <label className="block text-slate-700 font-bold mb-1">
+                  Company Name (if known)
+                </label>
+                <input
+                  type="text"
+                  value={classifyCompanyName}
+                  onChange={(e) => setClassifyCompanyName(e.target.value)}
+                  placeholder="e.g. PSTG Fire Protection Ltd — leave blank if unknown"
+                  className="w-full p-2 border border-slate-300 rounded font-sans"
+                />
+              </div>
+              {classifyError && (
+                <p className="text-rose-600 text-[11px] font-medium">{classifyError}</p>
+              )}
+              {classifySuccess && (
+                <p className="text-emerald-700 text-[11px] font-medium">{classifySuccess}</p>
+              )}
+            </div>
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                onClick={() => { setModalType(null); setClassifyError(''); setClassifySuccess(''); }}
+                className="btn-secondary text-xs py-1.5 px-4"
+              >
+                Cancel
+              </button>
+              <button
+                disabled={isSubmitting || !!classifySuccess}
+                onClick={async () => {
+                  setIsSubmitting(true);
+                  setClassifyError('');
+                  try {
+                    const res = await fetch('/api/admin/supplier/application/classify', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        applicationId: draft.supplier_id,
+                        classifyAs: 'CONTRACTOR',
+                        companyNameHint: classifyCompanyName || undefined,
+                        classifiedBy: 'Admin',
+                      }),
+                    });
+                    const json = await res.json();
+                    if (json.success) {
+                      setClassifySuccess(
+                        `✓ Classified. Application reference: ${json.applicationReference}. Refreshing…`
+                      );
+                      setStatus('IN_PROGRESS');
+                      setTimeout(() => window.location.reload(), 1500);
+                    } else {
+                      setClassifyError(json.error || 'Classification failed. Please try again.');
+                    }
+                  } catch {
+                    setClassifyError('Network error. Please try again.');
+                  } finally {
+                    setIsSubmitting(false);
+                  }
+                }}
+                className="btn-primary text-xs py-1.5 px-4 bg-orange-600 hover:bg-orange-700 text-white font-bold disabled:opacity-50"
+              >
+                {isSubmitting ? 'Classifying…' : 'Confirm: Classify as Contractor'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* RFI Modal */}
       {modalType === 'RFI' && (

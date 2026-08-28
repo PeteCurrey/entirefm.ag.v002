@@ -66,7 +66,16 @@ export default async function AuthenticatedSupplierPortalLayout({
   const orgDisplay = getPortalStatusDisplay(org);
   const isApproved = orgDisplay.isApproved;
 
-  // 3. Lifecycle-Aware Navigation Sections
+  // 3. LIFECYCLE ROUTING GATE
+  // APPROVED suppliers → operational contractor portal (/contractor)
+  // REJECTED suppliers → stay here to see their decision (handled by page content)
+  if (isApproved) {
+    // Approved suppliers have graduated from the application portal.
+    // The /contractor portal is their operational home.
+    redirect('/contractor');
+  }
+
+  // 4. Lifecycle-Aware Navigation Sections
   const applicationNav = [
     {
       heading: 'APPLICATION',

@@ -673,3 +673,202 @@ export async function recoverHistoricalContractorRegistrations(): Promise<{
 
   return { totalRecovered: results.length, results };
 }
+
+// ============================================================================
+// ORPHAN DETECTION
+// ============================================================================
+
+export interface OrphanRegistration {
+  authUserId: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  status: string;
+  registrationSource: string;
+  applicationType: string;
+  createdAt: string;
+  ageMinutes: number;
+}
+
+/**
+ * Returns registration intents that have been PENDING_ORG_SETUP for > 60 minutes.
+ * These are auth users whose domain provisioning failed — Admin can detect + classify.
+ */
+export async function listOrphanRegistrations(): Promise<OrphanRegistration[]> {
+  if (!isDbConfigured()) return [];
+
+  try {
+    const { data, error } = await dbQuery<any[]>(
+      `supplier_registration_intents?status=eq.PENDING_ORG_SETUP&select=*&order=created_at.asc`
+    );
+    if (error || !data) return [];
+
+    const now = Date.now();
+    return data
+      .map((r) => {
+        const createdMs = new Date(r.created_at).getTime();
+        const ageMinutes = Math.floor((now - createdMs) / 60000);
+        return {
+          authUserId: r.auth_user_id,
+          email: r.email,
+          firstName: r.first_name || '',
+          lastName: r.last_name || '',
+          status: r.status,
+          registrationSource: r.registration_source || 'CONTRACTOR_ONBOARDING',
+          applicationType: r.application_type || 'CONTRACTOR',
+          createdAt: r.created_at,
+          ageMinutes,
+        };
+      })
+      .filter((r) => r.ageMinutes > 60); // Only surface genuine orphans
+  } catch (err) {
+    console.error('[LIST_ORPHANS_ERROR]', err);
+    return [];
+  }
+}
+
+// ============================================================================
+// ADMIN CLASSIFY ACTION
+// ============================================================================
+
+export interface ClassifyResult {
+  success: boolean;
+  orgId?: string;
+  applicationReference?: string;
+  error?: string;
+}
+
+/**
+ * Admin classifies a REGISTRATION_CLASSIFICATION_REQUIRED record as a contractor applicant.
+ * - Creates or recovers supplier_organisations row
+ * - Creates application draft with provenance MANUALLY_CLASSIFIED_BY_ADMIN
+ * - Writes audit event
+ * - Updates registration intent status if present
+ */
+export async function classifyRegistrationAsContractor(params: {
+  supplierUserId: string; // auth_user_id from supplier_users
+  classifiedByAdminId: string;
+  companyNameHint?: string; // Optional — admin may know the company
+}): Promise<ClassifyResult> {
+  const { supplierUserId, classifiedByAdminId, companyNameHint } = params;
+
+  try {
+    // 1. Find the supplier_user
+    const { data: users } = await dbQuery<any[]>(
+      `supplier_users?auth_user_id=eq.${encodeURIComponent(supplierUserId)}&limit=1`
+    );
+    const user = users?.[0];
+    if (!user) {
+      return { success: false, error: 'Supplier user not found' };
+    }
+
+    let orgId = user.organisation_id;
+
+    // 2. If no org exists, create a minimal one
+    if (!orgId) {
+      const now = Date.now();
+      const rand = Math.random().toString(36).slice(2, 10);
+      orgId = `sorg-${now}-${rand}`;
+      const legalName = companyNameHint || `${user.first_name} ${user.last_name} Organisation`;
+      const appRef = `SUP-${new Date().toISOString().slice(2, 10).replace(/-/g, '')}-${Math.floor(Math.random() * 9000) + 1000}`;
+
+      await dbQuery('supplier_organisations', {
+        method: 'POST',
+        body: {
+          id: orgId,
+          owner_id: user.id,
+          legal_name: legalName,
+          lifecycle_status: 'DRAFT',
+          application_reference: appRef,
+          registration_source: 'MANUALLY_CLASSIFIED_BY_ADMIN',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+      });
+
+      // Link user to org
+      await dbQuery(
+        `supplier_users?id=eq.${encodeURIComponent(user.id)}`,
+        { method: 'PATCH', body: { organisation_id: orgId } }
+      );
+    }
+
+    // 3. Get or create application draft
+    const draft = await getOrCreateApplicationDraft(orgId);
+
+    // 4. Update org + draft with MANUALLY_CLASSIFIED provenance
+    const classifiedAt = new Date().toISOString();
+    await dbQuery(
+      `supplier_organisations?id=eq.${encodeURIComponent(orgId)}`,
+      {
+        method: 'PATCH',
+        body: {
+          registration_source: 'MANUALLY_CLASSIFIED_BY_ADMIN',
+          lifecycle_status: 'DRAFT',
+          updated_at: classifiedAt,
+        },
+      }
+    );
+
+    await dbQuery(
+      `supplier_application_drafts?org_id=eq.${encodeURIComponent(orgId)}`,
+      {
+        method: 'PATCH',
+        body: {
+          lifecycle_status: 'IN_PROGRESS',
+          updated_at: classifiedAt,
+        },
+      }
+    );
+
+    // 5. Update registration intent if it exists
+    try {
+      await dbQuery(
+        `supplier_registration_intents?auth_user_id=eq.${encodeURIComponent(supplierUserId)}`,
+        {
+          method: 'PATCH',
+          body: {
+            status: 'CLASSIFIED_BY_ADMIN',
+            classified_by: classifiedByAdminId,
+            classified_at: classifiedAt,
+            completed_at: classifiedAt,
+          },
+        }
+      );
+    } catch {
+      // Non-fatal — table may not exist yet
+    }
+
+    // 6. Write audit event
+    try {
+      await dbQuery('audit_events', {
+        method: 'POST',
+        body: {
+          event_type: 'SUPPLIER_CLASSIFIED_AS_CONTRACTOR',
+          object_type: 'supplier_organisation',
+          object_id: orgId,
+          actor_id: classifiedByAdminId,
+          metadata: JSON.stringify({
+            supplier_user_id: user.id,
+            auth_user_id: supplierUserId,
+            email: user.email,
+            classified_at: classifiedAt,
+            registration_source: 'MANUALLY_CLASSIFIED_BY_ADMIN',
+          }),
+          created_at: classifiedAt,
+        },
+      });
+    } catch {
+      // Non-fatal — audit_events table schema may differ
+    }
+
+    return {
+      success: true,
+      orgId,
+      applicationReference: draft.applicationReference,
+    };
+  } catch (err: any) {
+    console.error('[CLASSIFY_REGISTRATION_ERROR]', err);
+    return { success: false, error: err?.message || 'Classification failed' };
+  }
+}

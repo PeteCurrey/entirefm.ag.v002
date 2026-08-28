@@ -4,11 +4,10 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Footer } from '@/components/layout/Footer';
 import {
-  MessageSquare,
   PlusCircle,
   CheckCircle2,
-  HelpCircle,
   ArrowLeft,
+  ArrowRight,
   Search,
 } from 'lucide-react';
 
@@ -47,158 +46,144 @@ export function TemplateCommunityCategory({ categorySlug }: { categorySlug: stri
   });
 
   return (
-    <div className="min-h-screen bg-brand-void text-brand-mist flex flex-col font-sans">
-      <main className="flex-1 pt-16 sm:pt-20">
-        {/* Category Masthead */}
-        <section className="border-b border-brand-graphite/40 bg-gradient-to-b from-brand-graphite/30 to-brand-void/90 py-10 sm:py-14">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Link
-              href="/lobby/community"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-silver hover:text-brand-electric mb-4 transition-colors"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              All Community Categories
-            </Link>
+    <div className="min-h-screen bg-[#FAF9F7] text-neutral-900 font-sans selection:bg-brand-electric selection:text-white">
+      
+      {/* ─── MASTHEAD (LIGHT / ARCHITECTURAL) ─── */}
+      <header className="border-b border-neutral-200/80 bg-white pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto space-y-6">
+          <Link
+            href="/lobby/community"
+            className="inline-flex items-center gap-1.5 text-xs font-light text-neutral-500 hover:text-brand-electric transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>All Community Disciplines</span>
+          </Link>
 
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-electric">
-                  FM Category Roundtable
-                </span>
-                <h1 className="text-3xl sm:text-4xl font-bold text-white mt-1">
-                  {category?.name || categorySlug}
-                </h1>
-                <p className="mt-2 text-sm sm:text-base text-brand-silver max-w-2xl leading-relaxed">
-                  {category?.longDescription || category?.shortDescription}
-                </p>
-              </div>
-
-              <Link
-                href={`/lobby/community/new?category=${categorySlug}`}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold bg-brand-electric text-white hover:bg-brand-electric/90 shadow-lg shadow-brand-electric/20 shrink-0 transition-all"
-              >
-                <PlusCircle className="w-4 h-4" />
-                Ask in {category?.name || 'Category'}
-              </Link>
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+            <div className="space-y-3 max-w-3xl">
+              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                Discipline Roundtable
+              </span>
+              <h1 className="text-4xl sm:text-5xl font-extralight tracking-tight text-neutral-900 leading-tight">
+                {category?.name || categorySlug}
+              </h1>
+              <p className="text-base sm:text-lg font-extralight text-neutral-600 leading-relaxed max-w-2xl">
+                {category?.description || 'Practitioner knowledge, statutory interpretations, and site-level engineering discussions.'}
+              </p>
             </div>
 
-            {/* Filter Tabs */}
-            <div className="mt-8 flex items-center gap-2 border-b border-white/5 pb-1">
-              <button
-                onClick={() => setFilter('all')}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
-                  filter === 'all'
-                    ? 'bg-white/10 text-white'
-                    : 'text-brand-silver hover:text-white'
-                }`}
+            <div className="flex items-center gap-3 shrink-0">
+              <Link
+                href={`/lobby/community/new?category=${categorySlug}`}
+                className="px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-light tracking-wide rounded-[4px] inline-flex items-center gap-2 transition-colors shadow-sm"
               >
-                All ({discussions.length})
-              </button>
-              <button
-                onClick={() => setFilter('solved')}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5 ${
-                  filter === 'solved'
-                    ? 'bg-white/10 text-white'
-                    : 'text-brand-silver hover:text-white'
-                }`}
-              >
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                Solved
-              </button>
-              <button
-                onClick={() => setFilter('unanswered')}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5 ${
-                  filter === 'unanswered'
-                    ? 'bg-white/10 text-white'
-                    : 'text-brand-silver hover:text-white'
-                }`}
-              >
-                <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
-                Unanswered
-              </button>
+                <PlusCircle className="w-3.5 h-3.5" />
+                <span>Ask in {category?.name || 'Category'}</span>
+              </Link>
             </div>
           </div>
-        </section>
 
-        {/* Discussion List */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          {loading ? (
-            <div className="py-12 text-center text-brand-silver text-sm">Loading category discussions...</div>
-          ) : filteredDiscussions.length === 0 ? (
-            <div className="bg-brand-graphite/20 border border-white/5 rounded-xl p-10 text-center">
-              <MessageSquare className="w-8 h-8 mx-auto text-brand-silver mb-2 opacity-60" />
-              <p className="text-white font-medium">No discussions found in this filter</p>
-              <Link
-                href={`/lobby/community/new?category=${categorySlug}`}
-                className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-electric hover:underline"
-              >
-                Start the first discussion →
-              </Link>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {filteredDiscussions.map((disc) => (
-                <article
-                  key={disc.id}
-                  className="group bg-brand-graphite/20 hover:bg-brand-graphite/40 border border-white/5 hover:border-white/15 rounded-xl p-5 transition-all"
-                >
-                  <div className="space-y-2">
-                    <div className="flex flex-wrap items-center gap-2 text-xs">
-                      <span className="text-brand-silver">
-                        By {disc.authorName}
-                        {disc.authorHeadline && ` (${disc.authorHeadline.split('|')[0].trim()})`}
-                      </span>
-                      {disc.authorBadge && (
-                        <span className="px-1.5 py-0.5 rounded bg-white/5 text-[10px] text-brand-mist border border-white/10">
-                          {disc.authorBadge}
+          {/* Filter Navigation */}
+          <div className="pt-6 border-t border-neutral-100 flex items-center gap-6 text-xs font-light">
+            <button
+              onClick={() => setFilter('all')}
+              className={`pb-1 transition-colors border-b-2 ${
+                filter === 'all'
+                  ? 'border-neutral-900 text-neutral-900 font-normal'
+                  : 'border-transparent text-neutral-500 hover:text-neutral-900'
+              }`}
+            >
+              All ({discussions.length})
+            </button>
+            <button
+              onClick={() => setFilter('solved')}
+              className={`pb-1 transition-colors border-b-2 flex items-center gap-1.5 ${
+                filter === 'solved'
+                  ? 'border-neutral-900 text-neutral-900 font-normal'
+                  : 'border-transparent text-neutral-500 hover:text-neutral-900'
+              }`}
+            >
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Solved ({discussions.filter((d) => d.solved).length})</span>
+            </button>
+            <button
+              onClick={() => setFilter('unanswered')}
+              className={`pb-1 transition-colors border-b-2 ${
+                filter === 'unanswered'
+                  ? 'border-neutral-900 text-neutral-900 font-normal'
+                  : 'border-transparent text-neutral-500 hover:text-neutral-900'
+              }`}
+            >
+              Needs Answer ({discussions.filter((d) => !d.solved && d.replyCount === 0).length})
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* ─── DISCUSSIONS LIST ─── */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        {loading ? (
+          <div className="py-16 text-center text-neutral-400 font-light text-xs">
+            Loading conversations in this discipline...
+          </div>
+        ) : filteredDiscussions.length > 0 ? (
+          <div className="divide-y divide-neutral-200 bg-white border border-neutral-200/90 rounded-[6px] px-6 sm:px-8 shadow-2xs">
+            {filteredDiscussions.map((disc) => (
+              <article key={disc.id} className="py-6 first:pt-6 last:pb-6 group space-y-2.5">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                  <div className="space-y-2 flex-1">
+                    <div className="flex items-center gap-2 text-xs font-light">
+                      {disc.solved && (
+                        <span className="text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-[2px] flex items-center gap-1 text-[10px]">
+                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                          Solved
                         </span>
                       )}
+                      <span className="text-neutral-400 text-[11px]">
+                        {new Date(disc.lastActivityAt || disc.createdAt).toLocaleDateString('en-GB')}
+                      </span>
                     </div>
 
-                    <h2 className="text-base sm:text-lg font-semibold text-white group-hover:text-brand-electric transition-colors">
+                    <h3 className="text-base sm:text-lg font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
                       <Link href={`/lobby/community/discussion/${disc.slug}`}>
                         {disc.title}
                       </Link>
-                    </h2>
+                    </h3>
 
-                    <p className="text-xs sm:text-sm text-brand-silver line-clamp-2 leading-relaxed">
+                    <p className="text-xs sm:text-sm font-extralight text-neutral-600 line-clamp-2 leading-relaxed max-w-3xl">
                       {disc.body}
                     </p>
 
-                    <div className="flex flex-wrap items-center gap-2 pt-2 text-xs text-brand-silver">
-                      {disc.tags?.map((tag: string) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-0.5 rounded-full bg-white/5 text-[11px] text-brand-mist"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-
-                      <div className="ml-auto flex items-center gap-4">
-                        {disc.solved && (
-                          <span className="flex items-center gap-1 text-emerald-400 font-medium">
-                            <CheckCircle2 className="w-3.5 h-3.5" />
-                            Solved
-                          </span>
-                        )}
-                        <span className="flex items-center gap-1">
-                          <MessageSquare className="w-3.5 h-3.5" />
-                          {disc.replyCount} {disc.replyCount === 1 ? 'reply' : 'replies'}
-                        </span>
-                        {disc.helpfulCount > 0 && (
-                          <span className="flex items-center gap-1 text-brand-electric">
-                            ★ {disc.helpfulCount} helpful
-                          </span>
-                        )}
-                      </div>
+                    <div className="pt-1 flex items-center gap-2 text-xs text-neutral-500 font-extralight">
+                      <span className="text-neutral-800 font-light">{disc.authorName}</span>
+                      <span>—</span>
+                      <span>{disc.authorHeadline}</span>
                     </div>
                   </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </div>
+
+                  <div className="flex sm:flex-col items-end justify-between sm:justify-start gap-0.5 shrink-0 pt-1 sm:pt-0">
+                    <span className="text-sm font-light text-neutral-900">
+                      {disc.replyCount}
+                    </span>
+                    <span className="text-[10px] font-extralight text-neutral-400">
+                      replies
+                    </span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="py-16 text-center text-neutral-400 font-light text-xs bg-white border border-neutral-200/80 rounded-[6px] space-y-3">
+            <p>No conversations found in this discipline matching this filter.</p>
+            <Link
+              href={`/lobby/community/new?category=${categorySlug}`}
+              className="text-brand-electric hover:underline text-xs inline-block"
+            >
+              Start the first conversation in {category?.name || 'this category'} &rarr;
+            </Link>
+          </div>
+        )}
       </main>
 
       <Footer />

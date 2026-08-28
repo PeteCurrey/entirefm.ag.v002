@@ -11,26 +11,56 @@ import {
   HelpCircle,
   ArrowRight,
   Search,
-  Users,
+  HardHat,
+  Sparkles,
+  ChevronRight,
   ShieldCheck,
-  Building2,
   Wrench,
   Flame,
   Droplets,
+  Layers,
   Cpu,
   Truck,
   Leaf,
-  Layers,
-  HardHat,
-  Sparkles,
-  ExternalLink,
-  ChevronRight,
+  Users,
 } from 'lucide-react';
 
+interface CommunityDiscussion {
+  id: string;
+  slug: string;
+  title: string;
+  body: string;
+  authorMemberId: string;
+  authorName: string;
+  authorHeadline: string;
+  authorCompany?: string;
+  authorBadge?: string;
+  categoryId: string;
+  categorySlug: string;
+  categoryName: string;
+  tags: string[];
+  replyCount: number;
+  helpfulCount: number;
+  viewCount: number;
+  featured: boolean;
+  solved: boolean;
+  acceptedReplyId?: string;
+  createdAt: string;
+  lastActivityAt?: string;
+}
+
+interface CommunityCategory {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  discussionCount: number;
+}
+
 export function TemplateCommunityHome() {
-  const [categories, setCategories] = useState<any[]>([]);
-  const [discussions, setDiscussions] = useState<any[]>([]);
-  const [activeFilter, setActiveFilter] = useState<'all' | 'unanswered' | 'featured'>('all');
+  const [categories, setCategories] = useState<CommunityCategory[]>([]);
+  const [discussions, setDiscussions] = useState<CommunityDiscussion[]>([]);
+  const [activeFilter, setActiveFilter] = useState<'all' | 'unanswered' | 'featured' | 'solved'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -54,142 +84,214 @@ export function TemplateCommunityHome() {
     loadData();
   }, [activeFilter, searchQuery]);
 
+  // Featured discussion: prioritised high-value conversation
   const featuredDiscussion = discussions.find((d) => d.featured) || discussions[0];
   const listDiscussions = discussions.filter((d) => d.id !== featuredDiscussion?.id);
-  const unansweredDiscussions = discussions.filter((d) => d.replyCount === 0 || !d.solved).slice(0, 3);
-  const solvedDiscussions = discussions.filter((d) => d.solved).slice(0, 3);
+  const unansweredDiscussions = discussions.filter((d) => !d.solved && (d.replyCount === 0 || d.replyCount <= 2)).slice(0, 3);
+  const solvedDiscussions = discussions.filter((d) => d.solved).slice(0, 2);
+
+  // Top contributors
+  const contributors = [
+    {
+      name: 'Peter Currey',
+      initials: 'PC',
+      role: 'Managing Director · EntireFM',
+      specialism: 'Contract Mobilisation & Asset Registers',
+      signal: 'Founding Member · 14 Discussions',
+    },
+    {
+      name: 'Marcus Vance',
+      initials: 'MV',
+      role: 'Senior Mechanical Engineer · MCIBSE',
+      specialism: 'HVAC & Plantroom Engineering',
+      signal: 'Verified Practitioner · 12 Useful Responses',
+    },
+    {
+      name: 'Sarah Jenkins',
+      initials: 'SJ',
+      role: 'Head of Building Safety & Compliance',
+      specialism: 'Building Safety Act & Golden Thread',
+      signal: 'Compliance Lead · 8 Solved Answers',
+    },
+    {
+      name: 'David Sterling',
+      initials: 'DS',
+      role: 'Director of Estates · Healthcare & Education',
+      specialism: 'Water Hygiene & Statutory PPM',
+      signal: 'Active Contributor · 6 Discussions',
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-[#FAF9F7] text-[#121826] flex flex-col selection:bg-brand-electric selection:text-white font-sans">
-      <main className="flex-1 pt-20 sm:pt-24 pb-20">
-        {/* ─── MASTHEAD HERO (LIGHT / WARM NEUTRAL EDITORIAL) ─── */}
-        <section className="border-b border-neutral-200/80 bg-white py-12 sm:py-16">
-          <div className="container-wide">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-              <div className="max-w-3xl">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-semibold bg-brand-electric/10 px-2.5 py-1 rounded-sm">
-                    THE LOBBY ROUNDTABLE
-                  </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  <span className="text-xs text-neutral-500 font-mono">Peer Discussion &amp; Practitioner Intelligence</span>
-                </div>
-
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-neutral-900 leading-tight">
-                  Where UK facilities managers <br className="hidden sm:inline" />
-                  <span className="font-normal text-neutral-950">compare notes and solve problems.</span>
-                </h1>
-
-                <p className="mt-3 text-base sm:text-lg font-light text-neutral-600 leading-relaxed">
-                  A high-trust professional roundtable for verified facilities directors, estates managers, and building services engineers. Practical engineering, statutory compliance, contract mobilisation, and asset management.
-                </p>
-              </div>
-
-              {/* Primary Actions (Clear 3-Way Distinction) */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-                <Link
-                  href="/lobby/ask"
-                  className="px-5 py-3 bg-white border border-neutral-300 hover:border-neutral-900 text-neutral-800 text-xs font-mono uppercase tracking-wider rounded-sm transition-colors flex items-center justify-center gap-2 shadow-sm"
-                >
-                  <Search className="w-3.5 h-3.5 text-brand-electric" />
-                  <span>Ask The Lobby</span>
-                </Link>
-
-                <Link
-                  href="/lobby/community/new"
-                  className="px-5 py-3 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-mono uppercase tracking-wider rounded-sm transition-colors flex items-center justify-center gap-2 shadow-sm"
-                >
-                  <PlusCircle className="w-3.5 h-3.5" />
-                  <span>Start Discussion</span>
-                </Link>
-              </div>
+    <div className="min-h-screen bg-[#FAF9F7] text-neutral-900 font-sans selection:bg-brand-electric selection:text-white">
+      
+      {/* ─── 1. COMMUNITY MASTHEAD (LIGHT / WARM NEUTRAL EDITORIAL) ─── */}
+      <header className="border-b border-neutral-200/80 bg-white pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto space-y-6">
+          
+          {/* Header Top Meta */}
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="inline-flex items-center gap-2">
+              <span className="h-px w-6 bg-brand-electric" />
+              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                The Professional Common Room
+              </span>
             </div>
 
-            {/* Community Search & Filter Bar */}
-            <div className="mt-10 pt-6 border-t border-neutral-100 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-              <div className="relative flex-1 max-w-lg">
-                <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search community discussions by topic, equipment, or regulation..."
-                  className="w-full pl-10 pr-4 py-2 text-xs font-light text-neutral-900 placeholder:text-neutral-400 bg-neutral-50 border border-neutral-200 focus:border-neutral-900 rounded-sm focus:outline-none transition-colors"
-                />
-              </div>
-
-              <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-                <button
-                  onClick={() => setActiveFilter('all')}
-                  className={`text-xs px-3 py-1.5 rounded-sm font-mono transition-colors ${
-                    activeFilter === 'all'
-                      ? 'bg-neutral-900 text-white font-medium'
-                      : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
-                  }`}
-                >
-                  All Discussions
-                </button>
-                <button
-                  onClick={() => setActiveFilter('featured')}
-                  className={`text-xs px-3 py-1.5 rounded-sm font-mono transition-colors ${
-                    activeFilter === 'featured'
-                      ? 'bg-neutral-900 text-white font-medium'
-                      : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
-                  }`}
-                >
-                  Featured
-                </button>
-                <button
-                  onClick={() => setActiveFilter('unanswered')}
-                  className={`text-xs px-3 py-1.5 rounded-sm font-mono transition-colors ${
-                    activeFilter === 'unanswered'
-                      ? 'bg-neutral-900 text-white font-medium'
-                      : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
-                  }`}
-                >
-                  Needs Answer
-                </button>
-              </div>
+            <div className="flex items-center gap-2 text-xs font-extralight text-neutral-500">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Practitioner knowledge exchange · UK Facilities Management</span>
             </div>
           </div>
-        </section>
 
-        {/* ─── 02. DOMINANT FEATURED CONVERSATION ─── */}
-        {featuredDiscussion && (
-          <section className="container-wide py-12">
-            <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-neutral-400 mb-3">
-              ROUNDTABLE SPOTLIGHT · CONVERSATION WORTH JOINING
+          {/* Title & Standfirst */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+            <div className="space-y-3 max-w-3xl">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-neutral-900 leading-[1.08]">
+                Where FM professionals <br className="hidden sm:inline" />
+                compare experience.
+              </h1>
+
+              <p className="text-lg sm:text-xl font-extralight text-neutral-700 leading-relaxed">
+                Real questions. Practical answers. Professional conversation for facilities directors, estates managers, and building services engineers.
+              </p>
             </div>
 
-            <article className="group bg-white border border-neutral-200/90 rounded-sm overflow-hidden grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] shadow-sm hover:border-neutral-400 transition-colors">
-              {/* Left Photographic Plate */}
-              <div className="relative min-h-[280px] lg:min-h-[360px] overflow-hidden bg-neutral-900">
+            {/* Primary Action Suite */}
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <Link
+                href="/lobby/community/new"
+                className="px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-light tracking-wide rounded-[4px] inline-flex items-center gap-2 transition-colors shadow-sm"
+              >
+                <PlusCircle className="w-3.5 h-3.5" />
+                <span>Ask a question</span>
+              </Link>
+
+              <Link
+                href="/lobby/rooms/building-safety"
+                className="px-4 py-2.5 bg-white border border-neutral-300 hover:border-neutral-900 text-neutral-800 text-xs font-light tracking-wide rounded-[4px] inline-flex items-center gap-2 transition-colors shadow-2xs"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                <span>Enter Live Rooms</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Search & Navigation Bar */}
+          <div className="pt-8 border-t border-neutral-100 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+            
+            {/* Search Input */}
+            <div className="relative flex-1 max-w-md">
+              <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search conversations by topic, regulation, or plant..."
+                className="w-full pl-10 pr-4 py-2 text-xs font-light text-neutral-900 placeholder:text-neutral-400 bg-neutral-50/80 border border-neutral-200 focus:border-neutral-900 rounded-[4px] focus:outline-none transition-colors"
+              />
+            </div>
+
+            {/* Text-Led Filter Navigation (Zero Bubbly Pills) */}
+            <div className="flex items-center gap-6 text-xs font-light overflow-x-auto pb-1 scrollbar-none">
+              <button
+                onClick={() => setActiveFilter('all')}
+                className={`pb-1 transition-colors border-b-2 ${
+                  activeFilter === 'all'
+                    ? 'border-neutral-900 text-neutral-900 font-normal'
+                    : 'border-transparent text-neutral-500 hover:text-neutral-900'
+                }`}
+              >
+                All Conversations
+              </button>
+              <button
+                onClick={() => setActiveFilter('featured')}
+                className={`pb-1 transition-colors border-b-2 ${
+                  activeFilter === 'featured'
+                    ? 'border-neutral-900 text-neutral-900 font-normal'
+                    : 'border-transparent text-neutral-500 hover:text-neutral-900'
+                }`}
+              >
+                Featured
+              </button>
+              <button
+                onClick={() => setActiveFilter('unanswered')}
+                className={`pb-1 transition-colors border-b-2 ${
+                  activeFilter === 'unanswered'
+                    ? 'border-neutral-900 text-neutral-900 font-normal'
+                    : 'border-transparent text-neutral-500 hover:text-neutral-900'
+                }`}
+              >
+                Needs Answer
+              </button>
+              <button
+                onClick={() => setActiveFilter('solved')}
+                className={`pb-1 transition-colors border-b-2 ${
+                  activeFilter === 'solved'
+                    ? 'border-neutral-900 text-neutral-900 font-normal'
+                    : 'border-transparent text-neutral-500 hover:text-neutral-900'
+                }`}
+              >
+                Solved
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* ─── MAIN COMMUNITY BODY ─── */}
+      <main className="space-y-16 sm:space-y-24 py-12 sm:py-16">
+        
+        {/* ─── 2. FEATURED CONVERSATION (Dominant Subject Spotlight) ─── */}
+        {featuredDiscussion && (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                  Roundtable Spotlight
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
+                  Conversation Worth Joining
+                </h2>
+              </div>
+              <span className="text-xs font-light text-neutral-500 hidden sm:inline">
+                High-impact practitioner exchange
+              </span>
+            </div>
+
+            <article className="group bg-white border border-neutral-200/90 rounded-[6px] overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xs">
+              
+              {/* Left Photographic Plate (Col 5) */}
+              <div className="lg:col-span-5 relative min-h-[260px] lg:min-h-[360px] overflow-hidden bg-neutral-900">
                 <Image
                   src="/images/editorial/building-safety-facade-inspection.jpg"
-                  alt="Commercial estate handover and mobilisation survey"
+                  alt={featuredDiscussion.title}
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 55vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.015] brightness-90"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-102 brightness-85"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                
                 <div className="absolute top-4 left-4 z-10">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-sm">
-                    {featuredDiscussion.categoryName || 'Mobilisation'}
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-[3px] border border-white/10">
+                    {featuredDiscussion.categoryName}
                   </span>
                 </div>
+
                 {featuredDiscussion.solved && (
-                  <div className="absolute bottom-4 left-4 z-10 flex items-center gap-1.5 text-xs text-emerald-300 font-mono bg-emerald-950/80 px-2.5 py-1 rounded-sm border border-emerald-500/30">
+                  <div className="absolute bottom-4 left-4 z-10 flex items-center gap-1.5 text-xs text-emerald-300 font-light bg-emerald-950/80 px-2.5 py-1 rounded-[3px] border border-emerald-500/30">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Accepted Practitioner Answer</span>
+                    <span>Solved by Practitioner</span>
                   </div>
                 )}
               </div>
 
-              {/* Right Discussion Body */}
-              <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-6">
+              {/* Right Discussion Details (Col 7) */}
+              <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
-                  {/* Author Identity (Single Badge) */}
+                  
+                  {/* Author Identity */}
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-xs font-semibold shrink-0">
                       {featuredDiscussion.authorName
@@ -200,7 +302,7 @@ export function TemplateCommunityHome() {
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-neutral-900">{featuredDiscussion.authorName}</span>
                         {featuredDiscussion.authorBadge && (
-                          <span className="text-[9px] font-mono uppercase text-brand-electric bg-brand-electric/10 px-2 py-0.5 rounded-sm">
+                          <span className="text-[9px] font-mono uppercase text-brand-electric bg-brand-electric/10 px-2 py-0.5 rounded-[2px]">
                             {featuredDiscussion.authorBadge}
                           </span>
                         )}
@@ -210,30 +312,31 @@ export function TemplateCommunityHome() {
                   </div>
 
                   {/* Headline & Body Excerpt */}
-                  <h2 className="text-xl sm:text-2xl font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
                     <Link href={`/lobby/community/discussion/${featuredDiscussion.slug}`}>
                       {featuredDiscussion.title}
                     </Link>
-                  </h2>
+                  </h3>
 
-                  <p className="text-xs sm:text-sm font-light text-neutral-600 leading-relaxed line-clamp-3">
+                  <p className="text-xs sm:text-sm font-extralight text-neutral-600 leading-relaxed line-clamp-3">
                     {featuredDiscussion.body}
                   </p>
                 </div>
 
+                {/* Footer Metrics & CTA */}
                 <div className="pt-6 border-t border-neutral-100 flex items-center justify-between">
-                  <div className="text-xs font-mono text-neutral-500 flex items-center gap-3">
+                  <div className="text-xs font-light text-neutral-500 flex items-center gap-3">
                     <span>{featuredDiscussion.replyCount} replies</span>
                     <span>·</span>
-                    <span>{featuredDiscussion.helpfulCount} found helpful</span>
+                    <span>{featuredDiscussion.helpfulCount} marked helpful</span>
                   </div>
 
                   <Link
                     href={`/lobby/community/discussion/${featuredDiscussion.slug}`}
-                    className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-brand-electric hover:text-neutral-900 transition-colors font-semibold"
+                    className="inline-flex items-center gap-1.5 text-xs font-light text-brand-electric hover:underline"
                   >
-                    <span>Join Roundtable</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    <span>Join discussion</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
@@ -241,73 +344,80 @@ export function TemplateCommunityHome() {
           </section>
         )}
 
-        {/* ─── 03. ACTIVE DISCUSSIONS & SIDEBAR ─── */}
-        <section className="container-wide py-6">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-12 items-start">
-            {/* LEFT COLUMN: EDITORIAL DISCUSSION INDEX (NO RECTANGULAR BOXES) */}
-            <div className="space-y-8">
-              <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
-                <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-neutral-900 font-semibold">
-                  Active Practitioner Discussions
-                </h3>
-                <span className="text-xs font-mono text-neutral-400">
-                  {listDiscussions.length} conversations
+        {/* ─── 3. ACTIVE DISCUSSIONS & LIVE ROOM / CONTRACTOR DESK (2-Col Split) ─── */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            {/* LEFT COLUMN (Col 8): OPEN EDITORIAL CONVERSATION INDEX */}
+            <div className="lg:col-span-8 space-y-6">
+              <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                    Roundtable Index
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-extralight text-neutral-900 tracking-tight">
+                    Active Discussions
+                  </h3>
+                </div>
+                <span className="text-xs font-light text-neutral-500">
+                  {listDiscussions.length} active threads
                 </span>
               </div>
 
               {loading ? (
-                <div className="py-16 text-center text-neutral-400 font-mono text-xs">
+                <div className="py-16 text-center text-neutral-400 font-light text-xs">
                   Loading roundtable discussions...
                 </div>
               ) : listDiscussions.length > 0 ? (
-                <div className="divide-y divide-neutral-200/80">
+                <div className="divide-y divide-neutral-200 bg-white border border-neutral-200/90 rounded-[6px] px-6 sm:px-8 shadow-2xs">
                   {listDiscussions.map((disc) => (
-                    <article key={disc.id} className="py-6 first:pt-0 last:pb-0 group">
+                    <article key={disc.id} className="py-6 first:pt-6 last:pb-6 group space-y-2.5">
                       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                         <div className="space-y-2 flex-1">
+                          
                           {/* Discipline pill + Solved signal */}
-                          <div className="flex items-center gap-2.5 text-[11px] font-mono">
-                            <span className="text-brand-electric font-semibold uppercase tracking-wider">
+                          <div className="flex items-center gap-2 text-xs font-light">
+                            <span className="text-brand-electric font-mono text-[10px] uppercase tracking-wider">
                               {disc.categoryName}
                             </span>
                             {disc.solved && (
-                              <span className="text-emerald-700 bg-emerald-100/70 px-2 py-0.5 rounded-sm flex items-center gap-1 font-sans text-[10px]">
+                              <span className="text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-[2px] flex items-center gap-1 text-[10px]">
                                 <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                                 Solved
                               </span>
                             )}
-                            <span className="text-neutral-400">·</span>
-                            <span className="text-neutral-400">
+                            <span className="text-neutral-300">·</span>
+                            <span className="text-neutral-400 text-[11px]">
                               {new Date(disc.lastActivityAt || disc.createdAt).toLocaleDateString('en-GB')}
                             </span>
                           </div>
 
                           {/* Title */}
-                          <h4 className="text-lg font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
+                          <h4 className="text-base sm:text-lg font-light text-neutral-900 leading-snug group-hover:text-brand-electric transition-colors">
                             <Link href={`/lobby/community/discussion/${disc.slug}`}>
                               {disc.title}
                             </Link>
                           </h4>
 
                           {/* Excerpt */}
-                          <p className="text-xs font-light text-neutral-600 line-clamp-2 leading-relaxed max-w-3xl">
+                          <p className="text-xs sm:text-sm font-extralight text-neutral-600 line-clamp-2 leading-relaxed">
                             {disc.body}
                           </p>
 
                           {/* Author meta */}
-                          <div className="pt-2 flex items-center gap-2 text-xs text-neutral-500 font-light">
-                            <span className="font-medium text-neutral-800">{disc.authorName}</span>
+                          <div className="pt-1 flex items-center gap-2 text-xs text-neutral-500 font-extralight">
+                            <span className="text-neutral-800 font-light">{disc.authorName}</span>
                             <span>—</span>
                             <span>{disc.authorHeadline}</span>
                           </div>
                         </div>
 
                         {/* Reply count metric */}
-                        <div className="flex sm:flex-col items-end justify-between sm:justify-start gap-1 shrink-0 pt-2 sm:pt-0">
-                          <span className="font-mono text-sm font-medium text-neutral-900">
+                        <div className="flex sm:flex-col items-end justify-between sm:justify-start gap-0.5 shrink-0 pt-1 sm:pt-0">
+                          <span className="text-sm font-light text-neutral-900">
                             {disc.replyCount}
                           </span>
-                          <span className="text-[10px] font-mono text-neutral-400 uppercase">
+                          <span className="text-[10px] font-extralight text-neutral-400">
                             replies
                           </span>
                         </div>
@@ -316,17 +426,18 @@ export function TemplateCommunityHome() {
                   ))}
                 </div>
               ) : (
-                <div className="py-12 text-center text-neutral-400 font-mono text-xs bg-white border border-neutral-200/80 rounded-sm">
+                <div className="py-12 text-center text-neutral-400 font-light text-xs bg-white border border-neutral-200/80 rounded-[6px]">
                   No discussions found matching this filter.
                 </div>
               )}
             </div>
 
-            {/* RIGHT COLUMN: TAXONOMY, LIVE ROOMS & CONTRACTOR DESK */}
-            <div className="space-y-10">
+            {/* RIGHT COLUMN (Col 4): LIVE ROOM & THE CONTRACTOR DESK */}
+            <div className="lg:col-span-4 space-y-8">
+              
               {/* 04. CINEMATIC LIVE ROOM ACCENT */}
-              <div className="bg-neutral-950 text-white rounded-sm overflow-hidden p-6 relative group">
-                <div className="absolute inset-0 opacity-20">
+              <div className="bg-[#0B1220] text-white rounded-[6px] overflow-hidden p-6 sm:p-7 relative group shadow-sm space-y-4">
+                <div className="absolute inset-0 opacity-15">
                   <Image
                     src="/images/editorial/commercial-switchgear-compliance.jpg"
                     alt="Building Safety Live Room background"
@@ -334,11 +445,12 @@ export function TemplateCommunityHome() {
                     className="object-cover"
                   />
                 </div>
+                
                 <div className="relative z-10 space-y-3">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-rose-300 font-semibold">
-                      LIVE PROFESSIONAL ROOM
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-rose-300">
+                      Live Room
                     </span>
                   </div>
 
@@ -346,14 +458,14 @@ export function TemplateCommunityHome() {
                     Building Safety Act &amp; Golden Thread Room
                   </h4>
 
-                  <p className="text-xs font-light text-white/70 leading-relaxed">
-                    Live peer roundtable on digital occurrence logging, safety cases, and BSR audits.
+                  <p className="text-xs font-extralight text-neutral-300 leading-relaxed">
+                    Live practitioner discussion on digital occurrence reporting, safety cases, and BSR audits.
                   </p>
 
                   <div className="pt-2">
                     <Link
                       href="/lobby/rooms/building-safety"
-                      className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-brand-electric hover:text-white transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-light text-brand-electric-bright hover:underline"
                     >
                       <span>Enter Live Room</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -362,52 +474,54 @@ export function TemplateCommunityHome() {
                 </div>
               </div>
 
-              {/* 05. EXPLORE BY DISCIPLINE (TYPOGRAPHIC INDEX) */}
-              <div className="space-y-4">
-                <div className="text-xs font-mono uppercase tracking-[0.2em] text-neutral-900 font-semibold border-b border-neutral-200 pb-2">
-                  Explore by Discipline
-                </div>
-
-                <div className="space-y-1">
-                  {categories.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      href={`/lobby/community/${cat.slug}`}
-                      className="group flex items-center justify-between py-2 text-xs font-light text-neutral-700 hover:text-brand-electric border-b border-neutral-100 last:border-0 transition-colors"
-                    >
-                      <span className="font-medium text-neutral-900 group-hover:text-brand-electric">
-                        {cat.name}
-                      </span>
-                      <span className="text-neutral-400 font-mono text-[11px] group-hover:translate-x-0.5 transition-transform">
-                        &rarr;
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* 06. THE CONTRACTOR DESK */}
-              <div className="bg-white border border-neutral-200 p-6 rounded-sm space-y-3">
-                <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-brand-electric font-semibold">
+              {/* 05. THE CONTRACTOR DESK */}
+              <div className="bg-white border border-neutral-200/90 p-6 sm:p-7 rounded-[6px] space-y-3 shadow-2xs">
+                <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-brand-electric font-medium">
                   <HardHat className="w-3.5 h-3.5" />
                   <span>The Contractor Desk</span>
                 </div>
 
-                <h4 className="text-sm font-semibold text-neutral-900">
+                <h4 className="text-base font-light text-neutral-900 leading-snug">
                   Practical Site Execution &amp; Evidence
                 </h4>
 
-                <p className="text-xs font-light text-neutral-600 leading-relaxed">
-                  Discussions dedicated to RAMS, asset tagging during mobilisation, first-time-fix evidence, and client commercial expectations.
+                <p className="text-xs font-extralight text-neutral-600 leading-relaxed">
+                  Dedicated roundtable for specialist MEP contractors: RAMS, asset tagging during mobilisation, first-time-fix evidence, and client expectations.
                 </p>
 
                 <div className="pt-2">
                   <Link
                     href="/lobby/community/contractor-desk"
-                    className="text-xs font-mono uppercase tracking-wider text-neutral-900 hover:text-brand-electric inline-flex items-center gap-1.5 font-medium transition-colors"
+                    className="text-xs font-light text-neutral-900 hover:text-brand-electric inline-flex items-center gap-1 transition-colors"
                   >
                     <span>View Contractor Discussions</span>
                     <ChevronRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* 06. ASK THE LOBBY PROMPT */}
+              <div className="bg-neutral-100/80 border border-neutral-200 p-6 rounded-[6px] space-y-3">
+                <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-neutral-600">
+                  <Sparkles className="w-3.5 h-3.5 text-brand-electric" />
+                  <span>Statutory Grounding</span>
+                </div>
+
+                <h4 className="text-sm font-light text-neutral-900">
+                  Need statutory citations rather than peer opinions?
+                </h4>
+
+                <p className="text-xs font-extralight text-neutral-600 leading-relaxed">
+                  Ask The Lobby retrieves grounded UK regulations, Approved Documents, and British Standards with verified source provenance.
+                </p>
+
+                <div className="pt-1">
+                  <Link
+                    href="/lobby/ask"
+                    className="text-xs font-light text-brand-electric hover:underline inline-flex items-center gap-1"
+                  >
+                    <span>Ask The Lobby</span>
+                    <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
               </div>
@@ -415,20 +529,20 @@ export function TemplateCommunityHome() {
           </div>
         </section>
 
-        {/* ─── 07. UNANSWERED / NEEDS AN ANSWER ─── */}
+        {/* ─── 4. CAN YOU HELP? (NEEDS AN ANSWER) ─── */}
         {unansweredDiscussions.length > 0 && (
-          <section className="container-wide py-12 border-t border-neutral-200 mt-12">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-amber-700 font-semibold">
-                  PRACTITIONER KNOWLEDGE NETWORK
+                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-amber-700 font-light">
+                  Practitioner Knowledge Network
                 </span>
-                <h3 className="text-2xl font-light text-neutral-900 mt-1">
-                  Can you help? Unanswered Questions
-                </h3>
+                <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
+                  Can You Help? Needs an Answer
+                </h2>
               </div>
-              <span className="text-xs text-neutral-500 font-mono">
-                Share your site experience with fellow FM duty holders
+              <span className="text-xs font-light text-neutral-500">
+                Share your operational experience
               </span>
             </div>
 
@@ -436,29 +550,29 @@ export function TemplateCommunityHome() {
               {unansweredDiscussions.map((item) => (
                 <article
                   key={item.id}
-                  className="bg-white border border-neutral-200/80 hover:border-neutral-400 p-6 rounded-sm flex flex-col justify-between space-y-4 shadow-sm transition-colors"
+                  className="bg-white border border-neutral-200/90 p-6 rounded-[6px] flex flex-col justify-between space-y-4 shadow-2xs hover:border-neutral-400 transition-colors"
                 >
                   <div className="space-y-2">
-                    <span className="text-[10px] font-mono uppercase text-brand-electric font-semibold">
+                    <span className="text-[10px] font-mono uppercase text-brand-electric">
                       {item.categoryName}
                     </span>
-                    <h4 className="text-sm font-medium text-neutral-900 leading-snug hover:text-brand-electric">
+                    <h4 className="text-sm font-light text-neutral-900 leading-snug hover:text-brand-electric transition-colors">
                       <Link href={`/lobby/community/discussion/${item.slug}`}>
                         {item.title}
                       </Link>
                     </h4>
-                    <p className="text-xs font-light text-neutral-600 line-clamp-2">
+                    <p className="text-xs font-extralight text-neutral-600 line-clamp-2 leading-relaxed">
                       {item.body}
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
-                    <span className="text-[11px] text-neutral-400 font-mono">
+                  <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-xs">
+                    <span className="text-neutral-400 font-extralight">
                       Asked by {item.authorName.split(' ')[0]}
                     </span>
                     <Link
                       href={`/lobby/community/discussion/${item.slug}`}
-                      className="text-xs font-mono uppercase tracking-wider text-brand-electric hover:text-neutral-900 transition-colors font-medium flex items-center gap-1"
+                      className="text-brand-electric hover:underline inline-flex items-center gap-1 font-light"
                     >
                       <span>Answer &rarr;</span>
                     </Link>
@@ -468,6 +582,145 @@ export function TemplateCommunityHome() {
             </div>
           </section>
         )}
+
+        {/* ─── 5. SOLVED BY THE COMMUNITY (KNOWLEDGE ASSET) ─── */}
+        {solvedDiscussions.length > 0 && (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-emerald-700 font-light">
+                  Verified Solutions
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
+                  Solved by the Community
+                </h2>
+              </div>
+              <span className="text-xs font-light text-neutral-500">
+                Reusable practitioner knowledge
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {solvedDiscussions.map((solvedItem) => (
+                <div
+                  key={solvedItem.id}
+                  className="p-6 sm:p-7 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-4 flex flex-col justify-between"
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-mono text-[10px] uppercase text-brand-electric">{solvedItem.categoryName}</span>
+                      <span className="text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-[2px] flex items-center gap-1 text-[10px]">
+                        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                        Accepted Answer
+                      </span>
+                    </div>
+
+                    <h3 className="text-lg font-light text-neutral-900 leading-snug">
+                      <Link href={`/lobby/community/discussion/${solvedItem.slug}`} className="hover:text-brand-electric transition-colors">
+                        {solvedItem.title}
+                      </Link>
+                    </h3>
+
+                    <p className="text-xs sm:text-sm font-extralight text-neutral-600 line-clamp-3 leading-relaxed">
+                      {solvedItem.body}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-xs font-light">
+                    <span className="text-neutral-500">{solvedItem.helpfulCount} practitioners found this useful</span>
+                    <Link
+                      href={`/lobby/community/discussion/${solvedItem.slug}`}
+                      className="text-brand-electric hover:underline inline-flex items-center gap-1"
+                    >
+                      <span>Read solution</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ─── 6. EXPLORE BY DISCIPLINE (OPEN GRID) ─── */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                Professional Taxonomy
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
+                Explore by Discipline
+              </h2>
+            </div>
+            <span className="text-xs font-light text-neutral-500">
+              Browse discussions by technical area
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {categories.map((cat) => (
+              <Link
+                key={cat.id}
+                href={`/lobby/community/${cat.slug}`}
+                className="p-6 bg-white border border-neutral-200/90 hover:border-neutral-400 rounded-[6px] shadow-2xs space-y-2 group transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <h4 className="text-base font-light text-neutral-900 group-hover:text-brand-electric transition-colors">
+                    {cat.name}
+                  </h4>
+                  <span className="text-xs text-neutral-400 font-mono group-hover:translate-x-1 transition-transform">
+                    &rarr;
+                  </span>
+                </div>
+                <p className="text-xs font-extralight text-neutral-600 leading-relaxed line-clamp-2">
+                  {cat.description}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ─── 7. CONTRIBUTORS (HUMAN SOCIAL LAYER) ─── */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-electric font-light">
+                Practitioner Network
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extralight text-neutral-900 tracking-tight">
+                People Helping the Community
+              </h2>
+            </div>
+            <span className="text-xs font-light text-neutral-500">
+              Verified members contributing knowledge
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {contributors.map((member) => (
+              <div
+                key={member.name}
+                className="p-6 bg-white border border-neutral-200/90 rounded-[6px] shadow-2xs space-y-4"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-xs font-medium">
+                    {member.initials}
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-neutral-900">{member.name}</div>
+                    <div className="text-[11px] font-extralight text-neutral-500">{member.role}</div>
+                  </div>
+                </div>
+
+                <div className="space-y-1 text-xs">
+                  <div className="text-neutral-700 font-light">{member.specialism}</div>
+                  <div className="text-[11px] font-mono text-brand-electric pt-1">{member.signal}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
 
       <Footer />

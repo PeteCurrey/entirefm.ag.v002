@@ -26,12 +26,35 @@ export default async function ContractorLayout({ children }: { children: React.R
   }
 
   const isViewAs = !!session.viewAsContext?.isViewAs;
+
+  // APPROVED suppliers (graduated from application stage) may access /contractor.
+  // Unapproved suppliers are still in the application lifecycle → /supplier-portal.
   if (session.orgType !== 'CONTRACTOR' && !isViewAs) {
     if ((session.orgType as string) === 'SUPPLIER') {
-      redirect('/supplier-portal');
+      // Check if this supplier has been approved — if so, allow /contractor access
+      const { getSupplierUserByAuthId, getSupplierOrganisationById } = await import(
+        '@/server/suppliers/supplier-auth-store'
+      );
+      const authUserId = session.personId || session.authUserId || '';
+      const supplierUser = await getSupplierUserByAuthId(authUserId);
+      const supplierOrg = supplierUser?.organisation_id
+        ? await getSupplierOrganisationById(supplierUser.organisation_id)
+        : null;
+      const isApprovedSupplier =
+        supplierOrg?.lifecycleStatus === 'APPROVED' ||
+        supplierOrg?.lifecycleStatus === 'ACTIVE';
+
+      if (!isApprovedSupplier) {
+        // Still in application stage — send to application portal
+        redirect('/supplier-portal');
+      }
+      // Approved — fall through to render contractor portal
+    } else {
+      redirect('/login?error=forbidden_contractor');
     }
-    redirect('/login?error=forbidden_contractor');
   }
+
+
 
   const navLinks = [
     { name: 'Dashboard', href: '/contractor' },
