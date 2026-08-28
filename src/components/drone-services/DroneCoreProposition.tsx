@@ -77,7 +77,7 @@ export function DroneCoreProposition() {
           {LIFECYCLE_STEPS.map((item, idx) => (
             <div key={idx} className="space-y-4 group">
               <div className="flex items-baseline justify-between border-b border-slate-200 pb-3 group-hover:border-brand-pink transition-colors">
-                <span className="text-xs font-mono text-slate-400 font-light">
+                <span className="text-xs text-slate-400 font-light">
                   {item.step}
                 </span>
                 <span className="text-sm font-semibold tracking-wider text-slate-900">

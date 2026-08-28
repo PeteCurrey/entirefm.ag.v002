@@ -88,7 +88,7 @@ export function DroneAerialRepairStory() {
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-mono font-medium text-slate-400">
+                      <span className="text-xs font-medium text-slate-400">
                         STAGE {item.number}
                       </span>
                       <span className={`text-[11px] font-semibold uppercase tracking-wider ${
@@ -133,7 +133,7 @@ export function DroneAerialRepairStory() {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
 
             <div className="relative z-10 max-w-xl space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/20 text-white text-xs font-mono">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/20 backdrop-blur-md border border-white/20 text-white text-xs font-medium">
                 <span>STAGE {current.number}</span>
                 <span className="w-1 h-1 rounded-full bg-brand-pink" />
                 <span>{current.label}</span>

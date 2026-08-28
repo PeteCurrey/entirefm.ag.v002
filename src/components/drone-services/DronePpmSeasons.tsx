@@ -85,8 +85,8 @@ export function DronePpmSeasons() {
                     : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                 }`}
               >
-                <div className="flex items-center justify-between text-xs font-mono mb-2">
-                  <span className={isSelected ? 'text-brand-pink' : 'text-slate-400'}>{s.season}</span>
+                <div className="flex items-center justify-between text-xs mb-2 font-normal">
+                  <span className={isSelected ? 'text-brand-pink font-medium' : 'text-slate-400'}>{s.season}</span>
                   <span className="text-[10px] opacity-70">{s.month}</span>
                 </div>
                 <div className="text-sm font-medium leading-snug">
@@ -114,7 +114,7 @@ export function DronePpmSeasons() {
               {currentSeason.deliverable}
             </p>
 
-            <div className="pt-2 flex items-center gap-2 text-xs font-mono text-slate-500">
+            <div className="pt-2 flex items-center gap-2 text-xs text-slate-500 font-light">
               <CheckCircle2 className="h-4 w-4 text-emerald-600" />
               <span>Automatically synchronised with EntireCAFM asset history logbook</span>
             </div>

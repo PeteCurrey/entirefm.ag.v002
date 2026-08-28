@@ -77,7 +77,7 @@ export function DroneGaussianSplatExperience() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-4 border-t border-brand-edge-dark">
           {REALITY_FORMATS.map((item, idx) => (
             <div key={idx} className="p-6 rounded-sm bg-brand-carbon/60 border border-brand-edge-dark space-y-2">
-              <div className="flex items-center gap-2 text-xs font-mono text-brand-pink">
+              <div className="flex items-center gap-2 text-xs text-brand-pink font-medium">
                 <FileCode2 className="h-3.5 w-3.5" />
                 <span className="font-semibold">{item.format}</span>
               </div>

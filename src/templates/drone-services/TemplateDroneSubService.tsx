@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { TrustBar } from '@/components/trust/TrustBar';
-import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
 import { FAQAccordion } from '@/components/content/CapabilityList';
 import { 
   CheckCircle2, 
@@ -76,12 +75,12 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
     ],
     remediation: {
       heading: 'From Aerial Detection to Physical Engineering Repair',
-      description: 'When a drone inspection isolates a high-level defect, loose component, or waterproofing failure, EntireFM coordinates the physical repair. We deploy directly-employed IRATA rope access technicians, BMU cradles, or mechanical trade engineers to rectify the issue and verify completion in EntireCAFM.',
+      description: 'When an aerial survey identifies high-level fabric defects, loose cladding components, or waterproofing failures, EntireFM directly coordinates physical remediation. We deploy our own IRATA-certified rope access technicians, BMU cradle specialists, or mechanical fabric engineers to carry out repairs and certify completion within EntireCAFM.',
       tradeCapabilities: ['IRATA Rope Access Repairs', 'High-Level Mastic Resealing', 'Rooftop Plant Mechanical Maintenance', 'Structural Steel Remediation'],
     },
     deliverables: [
       { title: 'High-Resolution Visual Log', format: '48MP/8K RAW & JPEG', desc: 'Georeferenced optical stills with full zoom detail for structural review.' },
-      { title: 'Annotated Defect Schedule', format: 'Executive PDF Report', desc: 'Classified RAG defect inventory with coordinates, floor levels, and repair timelines.' },
+      { title: 'Annotated Defect Schedule', format: 'Surveyor Condition Report', desc: 'Classified defect inventory with coordinates, floor levels, and repair priorities.' },
       { title: 'CAFM Remedial Scope', format: 'EntireCAFM Direct Import', desc: 'Structured maintenance actions ready for physical contractor dispatch.' },
     ],
     applications: [
@@ -95,7 +94,7 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
   '/services/drone-services/roof-inspections': {
     videoSrc: '/video/drone/inspection.mp4',
     heroPoster: '/images/drone/inspection_poster.png',
-    heroBadge: 'ROOF & GUTTER INTELLIGENCE',
+    heroBadge: 'ROOF & GUTTER SURVEYS',
     ctaTitle: 'Plan a Commercial Roof Condition Survey',
     ctaButtonText: 'Request Roof Survey Quote',
     proofComponent: ProofRoofInspections,
@@ -139,7 +138,7 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
       tradeCapabilities: ['Abseil Mastic Sealant Renewal', 'Cladding Panel Refastening', 'Glazing Gasket Replacement', 'Spalling Concrete Repair'],
     },
     deliverables: [
-      { title: 'Zoned Elevation Defect Map', format: 'CAD Elevation Overlay (DXF/PDF)', desc: 'Every defect indexed by elevation (N/S/E/W), bay coordinate, and floor level.' },
+      { title: 'Zoned Elevation Defect Map', format: 'CAD Elevation Overlay', desc: 'Every defect indexed by elevation (N/S/E/W), bay coordinate, and floor level.' },
       { title: 'High-Definition Facade Stills', format: 'Zoom Inspection Suite', desc: 'Millimetre-scale optical crops documenting panel fixings and joint seals.' },
       { title: 'Access & Remediation Strategy', format: 'Methodology Brief', desc: 'Specifying exact rope access drops or cradle operations for remedial works.' },
     ],
@@ -169,8 +168,8 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
       tradeCapabilities: ['Targeted Wet Insulation Replacement', 'Thermal Cavity Insulation Remedials', 'M&E Thermal Balancing', 'Switchgear Resistance Repair'],
     },
     deliverables: [
-      { title: 'Radiometric Thermal Dataset', format: 'FLIR Radiometric Data (.rjpg)', desc: 'Temperature-calibrated pixel datasets enabling post-flight Delta-T analysis.' },
-      { title: 'Thermal Anomaly Defect Report', format: 'Thermographic Survey PDF', desc: 'Side-by-side visual and thermal comparisons with temperature profile curves.' },
+      { title: 'Radiometric Thermal Dataset', format: 'Radiometric Image Data', desc: 'Temperature-calibrated pixel datasets enabling post-flight thermal profile analysis.' },
+      { title: 'Thermal Anomaly Defect Report', format: 'Thermographic Survey PDF', desc: 'Side-by-side visual and thermal comparisons highlighting insulation voids and heat loss.' },
       { title: 'Core Verification & Repair Scope', format: 'Priced Engineering Plan', desc: 'Targeted core sample recommendations and localized insulation replacement scopes.' },
     ],
     applications: [
@@ -194,12 +193,12 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
     ],
     remediation: {
       heading: 'Commercial Electrical & PV System Rectification',
-      description: 'Defective solar panels degrade overall string generation and present dangerous thermal runaway fire risks. EntireFM’s commercial electrical engineering division safely isolates arrays, replaces defective bypass diodes and damaged modules, and cleans soiled panels to restore maximum output.',
+      description: 'Defective solar panels degrade overall string generation and present dangerous thermal runaway risks. EntireFM’s commercial electrical engineering division safely isolates arrays, replaces defective bypass diodes and damaged modules, and cleans soiled panels to restore maximum output.',
       tradeCapabilities: ['NICEIC Solar PV Electrical Repairs', 'Bypass Diode & Module Replacement', 'Array De-energisation & Isolation', 'Commercial Solar Panel Cleaning'],
     },
     deliverables: [
-      { title: 'IEC 62446-3 Thermographic Audit', format: 'Certified Solar PV Report', desc: 'Itemised panel defect catalogue with string IDs and radiometric delta metrics.' },
-      { title: 'Generation Yield Impact Estimate', format: 'kWh Loss Analysis', desc: 'Calculating financial yield recovery achieved by rectifying identified faults.' },
+      { title: 'IEC 62446-3 Thermographic Audit', format: 'Certified Solar PV Report', desc: 'Itemised panel defect catalogue with string IDs and thermographic metrics.' },
+      { title: 'Generation Yield Impact Estimate', format: 'Yield Loss Analysis', desc: 'Calculating financial yield recovery achieved by rectifying identified faults.' },
       { title: 'Electrical Remedial Action Plan', format: 'NICEIC Engineering Scope', desc: 'Direct scope for EntireFM commercial electricians to isolate and replace modules.' },
     ],
     applications: [
@@ -220,7 +219,7 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
     related: [
       { title: 'Volumetric & Earthworks Surveys', href: '/services/drone-services/volumetric-surveys', category: 'Civil Measurement' },
       { title: 'Construction Progress Monitoring', href: '/services/drone-services/construction-monitoring', category: 'Development Tracking' },
-      { title: 'Digital Twin & 3D Spatial Capture', href: '/services/drone-services/digital-twin-3d-capture', category: '3D Reality Mesh' },
+      { title: 'EntireFM 3D & Digital Twin Capture', href: '/services/drone-services/digital-twin-3d-capture', category: '3D Reality Mesh' },
     ],
     remediation: {
       heading: 'From Geospatial Data to Civil & Ground Maintenance',
@@ -228,9 +227,9 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
       tradeCapabilities: ['Civil Drainage Remediation', 'Commercial Pothole & Road Repair', 'Estate Boundary Maintenance', 'CAFM Spatial Asset Tagging'],
     },
     deliverables: [
-      { title: '2D Georeferenced Orthomosaic', format: 'GeoTIFF / ECW (Sub-cm GSD)', desc: 'High-resolution composite orthophoto aligned with British National Grid (OSGB36).' },
-      { title: 'Digital Elevation Model (DEM/DTM)', format: 'Elevation Raster & Contours', desc: 'Topographic ground height models with 0.25m / 0.5m contour layers in DXF/DWG.' },
-      { title: 'CAD / GIS Vector Integration', format: 'AutoCAD DXF / Shapefile (SHP)', desc: 'Geospatial layers ready for civil engineering, architectural, and CAFM ingestion.' },
+      { title: '2D Georeferenced Orthomosaic', format: 'GeoTIFF / ECW', desc: 'High-resolution composite orthophoto aligned with British National Grid (OSGB36).' },
+      { title: 'Digital Elevation Model (DEM/DTM)', format: 'Elevation Raster & Contours', desc: 'Topographic ground height models with contour layers in DXF/DWG formats.' },
+      { title: 'CAD / GIS Vector Integration', format: 'AutoCAD DXF / Shapefile', desc: 'Geospatial layers ready for civil engineering, architectural, and CAFM ingestion.' },
     ],
     applications: [
       { title: 'Estate Masterplanning & As-Builts', desc: 'Millimetre-accurate topographic baselines for estate extensions and boundary validation.' },
@@ -271,6 +270,7 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
   },
 
   '/services/drone-services/digital-twin-3d-capture': {
+    videoSrc: '/video/drone/photography.mp4',
     heroPoster: '/images/drone/gaussian-splat/casa-hotel.jpg',
     heroBadge: 'ENTIREFM 3D DIGITAL TWIN & BIM',
     ctaTitle: 'Build a Navigable 3D Digital Twin of Your Building',
@@ -287,8 +287,8 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
       tradeCapabilities: ['BIM-Ready As-Built Drafting', 'Virtual Tender Package Creation', 'Plant Replacement Spatial Planning', 'EntireCAFM 3D Asset Tagging'],
     },
     deliverables: [
-      { title: '3D Photogrammetric Reality Mesh', format: 'OBJ, FBX & Web Viewer', desc: 'High-detail textured 3D model navigable in standard web browsers with measurement tools.' },
-      { title: 'Dense Georeferenced Point Cloud', format: 'LAS, LAZ, RCP & E57', desc: 'Millions of spatial points ready for direct import into Autodesk Revit and Navisworks.' },
+      { title: 'EntireFM 3D Spatial Reality Model', format: 'Interactive Web 3D', desc: 'High-detail navigable 3D model accessible in standard web browsers with full orbital controls.' },
+      { title: 'Dense Georeferenced Point Cloud', format: 'LAS, LAZ & RCP', desc: 'Millions of spatial points ready for direct import into Autodesk Revit and Navisworks.' },
       { title: 'Virtual Measurement Report', format: 'Area & Volume CAD Sheet', desc: 'Verified deck square meterage, wall heights, and roof slope angles.' },
     ],
     applications: [
@@ -336,7 +336,7 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
     ctaButtonText: 'Book Aerial Production',
     proofComponent: ProofAerialPhotography,
     related: [
-      { title: 'Digital Twin & 3D Spatial Capture', href: '/services/drone-services/digital-twin-3d-capture', category: '3D Reality Mesh' },
+      { title: 'EntireFM 3D & Digital Twin Capture', href: '/services/drone-services/digital-twin-3d-capture', category: '3D Reality Mesh' },
       { title: 'Commercial Drone Inspections', href: '/services/drone-services/drone-inspections', category: 'General Envelope' },
       { title: 'Construction Progress Monitoring', href: '/services/drone-services/construction-monitoring', category: 'Milestone Tracking' },
     ],
@@ -347,8 +347,8 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
     },
     deliverables: [
       { title: 'High-Resolution RAW Stills Suite', format: '48MP/100MP RAW & JPEG', desc: 'Professionally retouched golden-hour and blue-hour photography for web and print.' },
-      { title: '4K/6K Stabilised Cinematic Video', format: 'ProRes & MP4 (Color-Graded)', desc: 'Smooth aerial tracking shots with optional motion graphic callouts and corporate titles.' },
-      { title: 'Web & Social Media Cutdowns', format: 'Formatted 16:9 & 9:16 Video', desc: 'Short promotional video clips optimized for LinkedIn, websites, and tender bids.' },
+      { title: '4K/6K Stabilised Cinematic Video', format: 'ProRes & MP4 Masters', desc: 'Smooth aerial tracking shots with optional motion graphic callouts and corporate titles.' },
+      { title: 'Web & Social Media Cutdowns', format: 'Formatted Video Suite', desc: 'Short promotional video clips optimized for LinkedIn, websites, and tender bids.' },
     ],
     applications: [
       { title: 'Commercial Property Marketing', desc: 'High-impact 4K/6K aerial visuals showcasing office towers, business parks, and logistics hubs.' },
@@ -375,8 +375,8 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
       tradeCapabilities: ['24/7 Emergency Make-Safe Works', 'Temporary Roof Tarpaulin Securing', 'Loose Cladding & Masonry Removal', 'Permanent Structural Reinstatement'],
     },
     deliverables: [
-      { title: 'Emergency Damage Appraisal', format: 'Rapid Turnaround PDF', desc: 'Same-day visual summary categorising life-safety risks and weatherproofing breaches.' },
-      { title: 'Loss Adjuster Evidence Bundle', format: 'Geotagged High-Res Stills', desc: 'Metadata-verified photographs formatted specifically for commercial insurers.' },
+      { title: 'Emergency Damage Appraisal', format: 'Same-Day Report', desc: 'Visual summary categorising life-safety risks and weatherproofing breaches.' },
+      { title: 'Loss Adjuster Evidence Bundle', format: 'Geotagged Stills Suite', desc: 'Metadata-verified photographs formatted specifically for commercial insurers.' },
       { title: 'Emergency Make-Safe Quotation', format: 'Immediate Fixed Scope', desc: 'Priced proposal for temporary boarding, tarpaulins, and permanent repair works.' },
     ],
     applications: [
@@ -401,14 +401,14 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-white font-sans selection:bg-brand-pink/20 selection:text-brand-pink">
       <Header />
 
       <main id="main" className="flex-grow">
         {/* ========================================================================= */}
-        {/* 1. CINEMATIC ART-DIRECTED SUB-SERVICE HERO */}
+        {/* 1. CINEMATIC FULL-BLEED SUB-SERVICE HERO (85–100svh)                      */}
         {/* ========================================================================= */}
-        <section className="relative min-h-[580px] lg:min-h-[660px] flex items-center bg-[#060A14] overflow-hidden pt-28 pb-16 border-b border-brand-edge-dark">
+        <section className="relative min-h-[85svh] lg:min-h-[92svh] flex items-center bg-[#060A14] overflow-hidden pt-28 pb-16 border-b border-brand-edge-dark">
           <div className="absolute inset-0 z-0">
             {config.videoSrc ? (
               <video
@@ -438,13 +438,13 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
           <div className="container-custom relative z-10">
             <div className="max-w-3xl space-y-6">
               
-              {/* Breadcrumb strip */}
-              <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-mono text-slate-400">
+              {/* Subtle Breadcrumb Strip */}
+              <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-300 font-light">
                 {breadcrumbs.map((b, bIdx) => (
                   <React.Fragment key={bIdx}>
                     {bIdx > 0 && <span className="text-white/20">/</span>}
                     {bIdx === breadcrumbs.length - 1 ? (
-                      <span className="text-brand-pink font-semibold truncate max-w-[240px]">{b.name}</span>
+                      <span className="text-brand-pink font-normal truncate max-w-[240px]">{b.name}</span>
                     ) : (
                       <Link href={b.url} className="hover:text-white transition-colors">
                         {b.name}
@@ -454,21 +454,21 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                 ))}
               </nav>
 
-              {/* Eyebrow badge */}
+              {/* Eyebrow Badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/10 backdrop-blur-md border border-white/15">
                 <Plane className="h-3.5 w-3.5 text-brand-pink" />
-                <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 font-light">
+                <span className="text-xs uppercase tracking-widest text-white/90 font-medium">
                   {config.heroBadge}
                 </span>
               </div>
 
-              {/* H1 Headline */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-white leading-[1.08]">
+              {/* H1 Headline — Work Sans Extra Light */}
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.05]">
                 {content.h1}
               </h1>
 
               {/* Hero Intro */}
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-light max-w-2xl">
+              <p className="text-base sm:text-xl text-slate-200 leading-relaxed font-light max-w-2xl">
                 {content.heroIntro}
               </p>
 
@@ -476,32 +476,32 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Link
                   href="/contact-us"
-                  className="inline-flex items-center justify-center gap-2 rounded-sm bg-brand-pink px-7 py-3.5 text-sm font-normal text-white shadow-elevated hover:bg-brand-pink/90 transition-all hover:scale-[1.02]"
+                  className="inline-flex items-center justify-center gap-2 rounded-sm bg-brand-pink px-8 py-4 text-sm font-medium text-white shadow-elevated hover:bg-brand-pink/90 transition-all hover:scale-[1.02]"
                 >
                   <span>{config.ctaButtonText}</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/services/drone-services"
-                  className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 bg-white/10 backdrop-blur-md px-6 py-3.5 text-sm font-normal text-white hover:bg-white/20 transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 bg-white/10 backdrop-blur-md px-7 py-4 text-sm font-medium text-white hover:bg-white/20 transition-all"
                 >
-                  <span>Drone Services Hub</span>
+                  <span>All Drone Services</span>
                 </Link>
               </div>
 
               {/* Governance Proof Strip */}
-              <div className="pt-6 border-t border-white/15 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-slate-300">
+              <div className="pt-6 border-t border-white/15 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-slate-300 font-light">
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  UK CAA Operational Framework
+                  UK CAA Operational Authorisation
                 </span>
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  Site-Specific RAMS
+                  Site-Specific RAMS &amp; Risk Mitigation
                 </span>
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  Direct Trade Remediation
+                  Direct Self-Delivered Trade Remediation
                 </span>
               </div>
             </div>
@@ -511,21 +511,21 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         <TrustBar />
 
         {/* ========================================================================= */}
-        {/* 2. TECHNICAL PROOF SECTION (DISCIPLINE-SPECIFIC INTERACTIVE MODULE) */}
+        {/* 2. SUBSTANTIAL INTERACTIVE / TECHNICAL DEMONSTRATION                      */}
         {/* ========================================================================= */}
         <section className="py-20 sm:py-28 bg-[#0B1220] text-white border-b border-brand-edge-dark">
-          <div className="container-custom space-y-12">
+          <div className="container-custom space-y-10">
             <div className="max-w-3xl space-y-3">
               <div className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
-                  TECHNICAL DEMONSTRATION
+                <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
+                  Field Capture &amp; Diagnostics
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-white leading-tight">
+              <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-white leading-tight">
                 What We See &amp; Measure in the Field
               </h2>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-light">
+              <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-light">
                 {content.heroDescription}
               </p>
             </div>
@@ -536,42 +536,41 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         </section>
 
         {/* ========================================================================= */}
-        {/* 3. WHAT WE INSPECT / CAPABILITIES GRID */}
+        {/* 3. CORE CAPABILITIES — EDITORIAL SPLIT LAYOUT (60%+ CARD REDUCTION)       */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-white border-b border-slate-200">
-          <div className="container-custom space-y-12">
-            <div className="max-w-3xl space-y-3">
+        <section className="py-24 bg-white border-b border-slate-200">
+          <div className="container-custom space-y-16">
+            <div className="max-w-3xl space-y-4">
               <div className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
-                  SERVICE SCOPE
+                <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
+                  Operational Scope
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900">
+              <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-slate-900 leading-tight">
                 Core Inspection Capabilities
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-light">
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-light">
                 Engineered specifically for commercial property managers, industrial estates, institutional landlords, and construction developers.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Editorial Staggered Layout instead of 4 generic cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 border-t border-slate-200 pt-10">
               {content.capabilities?.map((cap, idx) => (
                 <div
                   key={idx}
-                  className="p-6 rounded-sm bg-slate-50 border border-slate-200 space-y-3 hover:border-brand-pink transition-colors flex flex-col justify-between"
+                  className="space-y-3 pb-8 border-b border-slate-100 last:border-0"
                 >
-                  <div className="space-y-2">
-                    <span className="font-mono text-[10px] uppercase font-semibold text-brand-pink block">
-                      {cap.tag}
-                    </span>
-                    <h3 className="text-base font-semibold text-slate-900 leading-snug">
-                      {cap.name}
-                    </h3>
-                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">
-                      {cap.description}
-                    </p>
-                  </div>
+                  <span className="text-xs uppercase tracking-widest text-brand-pink font-medium block">
+                    {cap.tag}
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-light text-slate-900 tracking-tight">
+                    {cap.name}
+                  </h3>
+                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-light">
+                    {cap.description}
+                  </p>
                 </div>
               ))}
             </div>
@@ -579,35 +578,39 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         </section>
 
         {/* ========================================================================= */}
-        {/* 4. TYPICAL COMMERCIAL APPLICATIONS */}
+        {/* 4. COMMERCIAL SCENARIOS — ASYMMETRIC VISUAL APPLICATIONS LAYOUT          */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-slate-50 border-b border-slate-200">
-          <div className="container-custom space-y-12">
-            <div className="max-w-3xl space-y-3">
+        <section className="py-24 bg-slate-50 border-b border-slate-200">
+          <div className="container-custom space-y-16">
+            <div className="max-w-3xl space-y-4">
               <div className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
-                  COMMERCIAL USE CASES
+                <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
+                  Facilities Scenarios
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900">
-                Typical Facilities Management Applications
+              <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-slate-900 leading-tight">
+                Commercial Facilities Applications
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base font-light">
-                Real-world operational scenarios where aerial drone capture delivers maximum commercial efficiency and eliminates access costs.
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-light">
+                Real-world operational scenarios where aerial drone capture delivers maximum commercial efficiency and eliminates high-risk physical access.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Editorial 2x2 with clear whitespace instead of boxed SaaS cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {config.applications.map((app, idx) => (
                 <div
                   key={idx}
-                  className="p-6 rounded-sm bg-white border border-slate-200 shadow-sm space-y-2.5 hover:border-brand-pink transition-colors"
+                  className="p-8 rounded-sm bg-white border border-slate-200/90 shadow-sm space-y-3 hover:border-brand-pink/50 transition-colors"
                 >
-                  <h3 className="text-base font-semibold text-slate-900">
+                  <span className="text-xs text-brand-pink uppercase tracking-widest font-medium block">
+                    Scenario 0{idx + 1}
+                  </span>
+                  <h3 className="text-xl font-light text-slate-900 tracking-tight">
                     {app.title}
                   </h3>
-                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">
+                  <p className="text-sm text-slate-600 leading-relaxed font-light">
                     {app.desc}
                   </p>
                 </div>
@@ -617,45 +620,48 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         </section>
 
         {/* ========================================================================= */}
-        {/* 5. WHAT YOU RECEIVE (TECHNICAL DELIVERABLES) */}
+        {/* 5. STRUCTURED DELIVERABLES — NUMBERED EDITORIAL STRIP (NO BOX SPAM)       */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-white border-b border-slate-200">
-          <div className="container-custom space-y-12">
-            <div className="max-w-3xl space-y-3">
+        <section className="py-24 bg-white border-b border-slate-200">
+          <div className="container-custom space-y-16">
+            <div className="max-w-3xl space-y-4">
               <div className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
-                  TECHNICAL DELIVERABLES
+                <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
+                  Deliverable Formats
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900">
-                Structured Engineering Outputs
+              <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-slate-900 leading-tight">
+                Structured Survey Deliverables
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base font-light">
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-light">
                 Georeferenced data packages formatted directly for building surveyors, property managers, CAD suites, and CAFM databases.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Editorial Numbered Rows with divider lines */}
+            <div className="divide-y divide-slate-200 border-t border-b border-slate-200">
               {config.deliverables.map((del, idx) => (
                 <div
                   key={idx}
-                  className="p-6 rounded-sm bg-slate-50 border border-slate-200 space-y-3 hover:border-brand-pink transition-colors"
+                  className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start hover:bg-slate-50/60 transition-colors px-2 sm:px-4"
                 >
-                  <div className="flex items-center justify-between">
-                    <FileText className="w-5 h-5 text-brand-pink" />
-                    <span className="font-mono text-[10px] uppercase font-medium text-slate-700 bg-white border border-slate-200 px-2 py-0.5 rounded-sm">
+                  <div className="lg:col-span-1 text-2xl font-extralight text-brand-pink">
+                    0{idx + 1}
+                  </div>
+                  <div className="lg:col-span-4 space-y-1">
+                    <h3 className="text-xl font-light text-slate-900">
+                      {del.title}
+                    </h3>
+                    <span className="text-xs uppercase tracking-wider text-slate-500 font-medium block">
                       {del.format}
                     </span>
                   </div>
-
-                  <h3 className="text-base font-semibold text-slate-900">
-                    {del.title}
-                  </h3>
-
-                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">
-                    {del.desc}
-                  </p>
+                  <div className="lg:col-span-7">
+                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-light">
+                      {del.desc}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -663,35 +669,35 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         </section>
 
         {/* ========================================================================= */}
-        {/* 6. THE REMEDIATION BRIDGE (INSPECT → DIAGNOSE → REPAIR → VERIFY) */}
+        {/* 6. THE REMEDIATION BRIDGE (INSPECT → DIAGNOSE → REPAIR → VERIFY)          */}
         {/* ========================================================================= */}
-        <section className="py-24 bg-[#060A14] text-white relative overflow-hidden border-b border-brand-edge-dark">
-          <div className="container-custom relative z-10 space-y-12">
+        <section className="py-24 sm:py-32 bg-[#060A14] text-white relative overflow-hidden border-b border-brand-edge-dark">
+          <div className="container-custom relative z-10 space-y-14">
             <div className="max-w-3xl space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/10 border border-white/15">
                 <Wrench className="h-3.5 w-3.5 text-brand-pink" />
-                <span className="font-mono text-[11px] uppercase tracking-widest text-white font-light">
-                  THE ENTIREFM DIFFERENTIATOR
+                <span className="text-xs uppercase tracking-widest text-white/90 font-medium">
+                  End-to-End Remediation Bridge
                 </span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-white leading-tight">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extralight tracking-tight text-white leading-tight">
                 We don’t just find the defect. <br />
                 <span className="font-light text-hero-pink">
                   Our trade teams fix it.
                 </span>
               </h2>
 
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-light">
+              <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-light max-w-2xl">
                 {config.remediation.description}
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4 border-t border-brand-edge-dark">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-6 border-t border-brand-edge-dark">
               {config.remediation.tradeCapabilities.map((cap, cIdx) => (
-                <div key={cIdx} className="p-5 rounded-sm bg-brand-carbon/60 border border-brand-edge-dark space-y-2">
-                  <span className="text-xs font-mono text-brand-pink font-semibold">CAPABILITY 0{cIdx + 1}</span>
-                  <p className="text-xs sm:text-sm text-slate-200 font-light">{cap}</p>
+                <div key={cIdx} className="p-6 rounded-sm bg-brand-carbon/60 border border-brand-edge-dark space-y-2.5">
+                  <span className="text-xs text-brand-pink font-medium block uppercase tracking-wider">Discipline 0{cIdx + 1}</span>
+                  <p className="text-sm sm:text-base text-slate-200 font-light leading-snug">{cap}</p>
                 </div>
               ))}
             </div>
@@ -699,18 +705,18 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         </section>
 
         {/* ========================================================================= */}
-        {/* 7. CURATED RELATED SERVICES */}
+        {/* 7. ADJACENT AERIAL SERVICES NAVIGATION                                   */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-slate-50 border-b border-slate-200">
+        <section className="py-24 bg-slate-50 border-b border-slate-200">
           <div className="container-custom space-y-12">
             <div className="max-w-3xl space-y-3">
               <div className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
-                  RELATED CAPABILITIES
+                <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
+                  Specialist Capabilities
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-extralight tracking-tight text-slate-900">
+              <h2 className="text-2xl sm:text-4xl font-extralight tracking-tight text-slate-900">
                 Adjacent Aerial Services
               </h2>
             </div>
@@ -720,17 +726,17 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                 <Link
                   key={rIdx}
                   href={rel.href}
-                  className="p-6 rounded-sm bg-white border border-slate-200 hover:border-brand-pink transition-all group flex flex-col justify-between shadow-sm space-y-3"
+                  className="p-8 rounded-sm bg-white border border-slate-200 hover:border-brand-pink transition-all group flex flex-col justify-between shadow-sm space-y-4"
                 >
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-mono text-brand-pink uppercase tracking-widest font-semibold block">
+                  <div className="space-y-2">
+                    <span className="text-xs text-brand-pink uppercase tracking-widest font-medium block">
                       {rel.category}
                     </span>
-                    <h3 className="text-base font-semibold text-slate-900 group-hover:text-brand-pink transition-colors">
+                    <h3 className="text-xl font-light text-slate-900 group-hover:text-brand-pink transition-colors">
                       {rel.title}
                     </h3>
                   </div>
-                  <div className="inline-flex items-center gap-1.5 text-xs text-brand-pink font-medium">
+                  <div className="inline-flex items-center gap-2 text-xs text-brand-pink font-medium pt-2">
                     <span>View Service Specifications</span>
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                   </div>
@@ -741,20 +747,20 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         </section>
 
         {/* ========================================================================= */}
-        {/* 8. AUTHORITATIVE FAQS (INDEXABLE & ACCESSIBLE) */}
+        {/* 8. AUTHORITATIVE FAQS (CLEAN FULL-WIDTH EDITORIAL ACCORDION)              */}
         {/* ========================================================================= */}
         {content.faqs && content.faqs.length > 0 && (
-          <section className="py-20 bg-white border-b border-slate-200">
+          <section className="py-24 bg-white border-b border-slate-200">
             <div className="container-custom space-y-12">
               <div className="max-w-3xl space-y-3">
                 <div className="inline-flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                  <span className="font-mono text-xs font-normal uppercase tracking-wider text-brand-pink">
-                    FREQUENTLY ASKED QUESTIONS
+                  <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
+                    Technical &amp; Operational FAQ
                   </span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900">
-                  Technical &amp; Operational FAQ
+                <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-slate-900">
+                  Frequently Asked Questions
                 </h2>
               </div>
 
@@ -766,18 +772,18 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
         )}
 
         {/* ========================================================================= */}
-        {/* 9. BESPOKE SERVICE CONVERSION CTA */}
+        {/* 9. BESPOKE SERVICE CONVERSION CTA                                         */}
         {/* ========================================================================= */}
-        <section className="py-24 bg-[#060A14] text-white border-b border-brand-edge-dark">
+        <section className="py-24 sm:py-32 bg-[#060A14] text-white border-b border-brand-edge-dark">
           <div className="container-custom max-w-4xl text-center space-y-8">
-            <div className="space-y-3">
-              <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block font-medium">
-                COMMERCIAL ENGAGEMENT
+            <div className="space-y-4">
+              <span className="text-xs uppercase tracking-widest text-brand-pink block font-medium">
+                Flight Operations Consultation
               </span>
-              <h2 className="text-3xl sm:text-5xl font-extralight text-white leading-tight">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extralight text-white leading-tight">
                 {config.ctaTitle}
               </h2>
-              <p className="text-base text-slate-300 font-light max-w-xl mx-auto">
+              <p className="text-base sm:text-lg text-slate-300 font-light max-w-xl mx-auto leading-relaxed">
                 Consult with our flight operations and building surveying team to define flight parameters, site-specific RAMS, and rapid data delivery.
               </p>
             </div>
@@ -785,14 +791,14 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/contact-us"
-                className="inline-flex items-center justify-center gap-2 rounded-sm bg-brand-pink px-8 py-4 text-sm font-normal text-white shadow-elevated hover:bg-brand-pink/90 transition-all hover:scale-[1.02]"
+                className="inline-flex items-center justify-center gap-2 rounded-sm bg-brand-pink px-9 py-4 text-sm font-medium text-white shadow-elevated hover:bg-brand-pink/90 transition-all hover:scale-[1.02]"
               >
                 <span>{config.ctaButtonText}</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="tel:08450944062"
-                className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 bg-white/10 backdrop-blur-md px-8 py-4 text-sm font-normal text-white hover:bg-white/20 transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 bg-white/10 backdrop-blur-md px-8 py-4 text-sm font-medium text-white hover:bg-white/20 transition-all"
               >
                 <PhoneCall className="h-4 w-4 text-brand-electric-bright" />
                 <span>Call 0845 094 4062</span>

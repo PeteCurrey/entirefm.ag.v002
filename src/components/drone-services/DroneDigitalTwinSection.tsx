@@ -51,8 +51,8 @@ export function DroneDigitalTwinSection() {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
 
             <div className="relative z-10 space-y-2 text-white">
-              <span className="text-xs uppercase tracking-widest text-brand-pink font-mono">
-                HERITAGE &amp; COMMERCIAL ASSETS
+              <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
+                Heritage &amp; Commercial Assets
               </span>
               <h3 className="text-xl sm:text-2xl font-light">
                 Immutable Dimensional &amp; Visual Archives
@@ -75,8 +75,8 @@ export function DroneDigitalTwinSection() {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
 
             <div className="relative z-10 space-y-2 text-white">
-              <span className="text-xs uppercase tracking-widest text-cyan-400 font-mono">
-                ENTIRECAFM SITE 360 WORKSPACE
+              <span className="text-xs uppercase tracking-widest text-cyan-400 font-medium">
+                EntireCAFM Site 360 Workspace
               </span>
               <h3 className="text-xl sm:text-2xl font-light">
                 Connected Directly to Maintenance Work Orders

@@ -81,8 +81,8 @@ export function DroneCafmAction() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 pt-6">
           {WORKFLOW_STEPS.map((w, idx) => (
             <div key={idx} className="space-y-3 p-5 rounded-sm bg-slate-800/60 border border-slate-700">
-              <div className="flex items-center justify-between text-xs font-mono">
-                <span className="text-brand-pink font-semibold">STAGE {w.step}</span>
+              <div className="flex items-center justify-between text-xs font-medium">
+                <span className="text-brand-pink">STAGE {w.step}</span>
                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
               </div>
               <h3 className="text-sm font-medium text-white">

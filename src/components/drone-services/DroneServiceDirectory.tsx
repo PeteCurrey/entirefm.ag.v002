@@ -159,7 +159,7 @@ export function DroneServiceDirectory() {
                     className="flex items-center justify-between gap-4"
                   >
                     <div className="space-y-1">
-                      <span className="text-[11px] font-mono text-slate-600 uppercase tracking-widest block font-medium">
+                      <span className="text-[11px] text-slate-500 uppercase tracking-widest block font-medium">
                         {svc.category}
                       </span>
                       <h3 className={`text-base sm:text-lg font-light tracking-wide transition-colors ${
@@ -210,7 +210,7 @@ export function DroneServiceDirectory() {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
 
               <div className="absolute bottom-6 inset-x-6 z-10 text-white space-y-2">
-                <span className="text-[11px] uppercase tracking-widest text-brand-pink font-mono block">
+                <span className="text-[11px] uppercase tracking-widest text-brand-pink font-medium block">
                   {activeService.category}
                 </span>
                 <div className="text-lg font-light leading-tight">

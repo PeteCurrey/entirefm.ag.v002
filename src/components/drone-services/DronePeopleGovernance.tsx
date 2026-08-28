@@ -104,8 +104,8 @@ export function DronePeopleGovernance() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
               <div className="relative z-10 space-y-1">
-                <span className="text-xs font-mono uppercase tracking-widest text-brand-pink block">
-                  TECHNICAL DIAGNOSIS
+                <span className="text-xs uppercase tracking-widest text-brand-pink block font-medium">
+                  Technical Diagnosis
                 </span>
                 <h3 className="text-xl font-light">
                   Chartered Surveying &amp; Data Review
@@ -126,8 +126,8 @@ export function DronePeopleGovernance() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
               <div className="relative z-10 space-y-1">
-                <span className="text-xs font-mono uppercase tracking-widest text-brand-pink block">
-                  FIELD MOBILISATION
+                <span className="text-xs uppercase tracking-widest text-brand-pink block font-medium">
+                  Field Mobilisation
                 </span>
                 <h3 className="text-xl font-light">
                   Direct Trade Fleet &amp; Physical Remediation
@@ -149,7 +149,7 @@ export function DronePeopleGovernance() {
                     <Icon className="h-4 w-4" />
                   </div>
                   <div className="space-y-1">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 block font-medium">
+                    <span className="text-[10px] uppercase tracking-widest text-slate-500 block font-medium">
                       {item.discipline}
                     </span>
                     <h4 className="text-sm font-semibold text-slate-900">
@@ -185,7 +185,7 @@ export function DronePeopleGovernance() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {GOVERNANCE_PILLARS.map((gov, gIdx) => (
               <div key={gIdx} className="p-6 rounded-sm bg-slate-50 border border-slate-200 space-y-2.5">
-                <span className="text-xs font-mono text-slate-400 font-medium">{gov.number}</span>
+                <span className="text-xs text-brand-pink font-medium">{gov.number}</span>
                 <h4 className="text-sm font-semibold text-slate-900">
                   {gov.title}
                 </h4>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { 
   Building2, 
@@ -23,26 +23,26 @@ import {
 import { GaussianSplatViewer } from '../GaussianSplatViewer';
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   01. GENERAL DRONE INSPECTIONS PROOF: SELECTABLE STRUCTURAL BUILDING ZONES
+   01. GENERAL DRONE INSPECTIONS: MULTI-ZONE OPTICAL INSPECTION
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofDroneInspections() {
   const [activeZone, setActiveZone] = useState<number>(0);
   const zones = [
-    { name: 'Commercial Roof Deck', defect: 'Single-ply membrane tears, standing water ponding, perished flashing seals', resolution: '48MP Optical Zoom', rag: 'Advisory' },
-    { name: 'Vertical Façade & Cladding', defect: 'Loose rain-screen rivets, curtain wall mastic shrinkage, cracked glazing', resolution: 'Sub-millimetre Detail', rag: 'Critical' },
-    { name: 'High-Level Plant & Chillers', defect: 'AHU vibration mount failure, pipework insulation erosion, condenser blockage', resolution: 'Close-Quarter Flight', rag: 'Routine' },
-    { name: 'Parapet Copings & Gutters', defect: 'Mortar loss, silt build-up, downpipe sump blockages, masonry spalling', resolution: 'Nadir & Oblique Scan', rag: 'Urgent' },
+    { name: 'Commercial Roof Deck', defect: 'Single-ply membrane tears, standing water ponding, perished flashing seals', resolution: '48MP Optical Zoom', priority: 'Advisory' },
+    { name: 'Vertical Façade & Cladding', defect: 'Loose rain-screen rivets, curtain wall mastic shrinkage, cracked glazing', resolution: 'Sub-millimetre Detail', priority: 'High Priority' },
+    { name: 'High-Level Plant & Chillers', defect: 'AHU vibration mount failure, pipework insulation erosion, condenser blockage', resolution: 'Close-Quarter Flight', priority: 'Routine Maintenance' },
+    { name: 'Parapet Copings & Gutters', defect: 'Mortar loss, silt build-up, downpipe sump blockages, masonry spalling', resolution: 'Multi-Angle Scan', priority: 'Urgent' },
   ];
 
   return (
-    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
+    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
-          <h3 className="text-xl font-light text-white">Commercial Building Multi-Zone Optical Inspection</h3>
+          <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">COMMERCIAL STRUCTURAL AUDIT</span>
+          <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">Multi-Zone Commercial Building Optical Survey</h3>
         </div>
-        <span className="text-xs font-mono text-slate-400 bg-white/5 px-3 py-1 rounded-sm border border-white/10">
-          UAV PAYLOAD: 48MP ZOOM OPTICS
+        <span className="text-xs text-slate-300 bg-white/5 px-3 py-1 rounded-sm border border-white/10 font-normal">
+          High-Resolution Optical Zoom
         </span>
       </div>
 
@@ -56,33 +56,33 @@ export function ProofDroneInspections() {
             sizes="(max-width: 1024px) 100vw, 60vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs font-mono text-white bg-black/60 backdrop-blur-md p-3 rounded-sm border border-white/15">
-            <span>TARGET: {zones[activeZone].name}</span>
-            <span className="text-brand-pink">{zones[activeZone].resolution}</span>
+          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-white bg-black/60 backdrop-blur-md p-3 rounded-sm border border-white/15">
+            <span className="font-medium">{zones[activeZone].name}</span>
+            <span className="text-brand-pink font-light">{zones[activeZone].resolution}</span>
           </div>
         </div>
 
         <div className="lg:col-span-5 space-y-3">
-          <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block">SELECT BUILDING ZONE:</span>
+          <span className="text-xs text-slate-400 uppercase tracking-wider block font-medium">Select Building Zone</span>
           {zones.map((z, idx) => (
             <button
               key={idx}
               onClick={() => setActiveZone(idx)}
-              className={`w-full text-left p-4 rounded-sm border transition-all text-xs space-y-1 ${
+              className={`w-full text-left p-4 rounded-sm border transition-all text-xs space-y-1 cursor-pointer ${
                 activeZone === idx
                   ? 'bg-brand-void border-brand-pink text-white shadow-lg'
                   : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:text-white'
               }`}
             >
-              <div className="flex items-center justify-between font-semibold">
+              <div className="flex items-center justify-between font-medium">
                 <span>{z.name}</span>
-                <span className={`text-[10px] font-mono px-2 py-0.5 rounded-sm ${
-                  z.rag === 'Critical' ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
-                  z.rag === 'Urgent' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
-                  'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                }`}>{z.rag}</span>
+                <span className={`text-[11px] px-2 py-0.5 rounded-sm font-normal ${
+                  z.priority === 'High Priority' ? 'bg-red-500/20 text-red-300 border border-red-500/30' :
+                  z.priority === 'Urgent' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' :
+                  'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                }`}>{z.priority}</span>
               </div>
-              <p className="text-slate-400 font-light text-[11px] leading-relaxed">{z.defect}</p>
+              <p className="text-slate-400 font-light text-xs leading-relaxed">{z.defect}</p>
             </button>
           ))}
         </div>
@@ -92,26 +92,26 @@ export function ProofDroneInspections() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   02. ROOF & GUTTER INSPECTIONS PROOF: INTERACTIVE ROOF DEFECT PLAN
+   02. ROOF & GUTTER INSPECTIONS: COMMERCIAL FLAT ROOF CONDITION AUDIT
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofRoofInspections() {
   const [selectedPin, setSelectedPin] = useState<number>(0);
   const pins = [
-    { title: 'Single-Ply Lap Seam', issue: 'Split weld seam with moisture capillary draw', fix: 'EntireFM Roofing patch & heat-weld remediation', rag: 'Critical' },
-    { title: 'Internal Valley Gutter', issue: 'Standing water surcharge and 40mm organic silt build-up', fix: 'Gutter vacuum clearance & corrosion inhibitor', rag: 'Urgent' },
-    { title: 'HVAC Chiller Plinth', issue: 'Cracked lead penetration flashing around refrigeration risers', fix: 'Lead dressing renewal & polyurethane sealant', rag: 'Advisory' },
-    { title: 'Parapet Coping Stone', issue: 'Fractured mortar joint and loose fixing clip on high elevation', fix: 'Masonry repointing & mechanical re-fixing', rag: 'Urgent' },
+    { title: 'Single-Ply Lap Seam', issue: 'Split weld seam with moisture capillary draw', fix: 'EntireFM Roofing patch & heat-weld remediation', priority: 'High Priority' },
+    { title: 'Internal Valley Gutter', issue: 'Standing water surcharge and organic silt build-up', fix: 'Gutter vacuum clearance & corrosion inhibitor', priority: 'Urgent' },
+    { title: 'HVAC Chiller Plinth', issue: 'Cracked lead penetration flashing around refrigeration risers', fix: 'Lead dressing renewal & polyurethane sealant', priority: 'Advisory' },
+    { title: 'Parapet Coping Stone', issue: 'Fractured mortar joint and loose fixing clip on high elevation', fix: 'Masonry repointing & mechanical re-fixing', priority: 'Urgent' },
   ];
 
   return (
-    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
+    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
-          <h3 className="text-xl font-light text-white">Commercial Flat Roof &amp; Valley Gutter Condition Audit</h3>
+          <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">ROOF &amp; FABRIC CONDITION AUDIT</span>
+          <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">Commercial Flat Roof &amp; Valley Gutter Condition Audit</h3>
         </div>
-        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-sm border border-emerald-500/20">
-          ZERO SCAFFOLDING REQUIRED
+        <span className="text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-sm border border-emerald-500/20 font-medium">
+          Zero Scaffolding Required
         </span>
       </div>
 
@@ -125,32 +125,32 @@ export function ProofRoofInspections() {
             sizes="(max-width: 1024px) 100vw, 60vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute bottom-4 left-4 right-4 bg-brand-void/90 backdrop-blur-md p-4 rounded-sm border border-white/15 space-y-1 text-xs">
-            <div className="flex items-center justify-between text-white font-mono">
-              <span className="text-brand-pink font-semibold">{pins[selectedPin].title}</span>
-              <span className="text-amber-400">{pins[selectedPin].rag} Defect</span>
+          <div className="absolute bottom-4 left-4 right-4 bg-brand-void/90 backdrop-blur-md p-4 rounded-sm border border-white/15 space-y-1.5 text-xs">
+            <div className="flex items-center justify-between text-white">
+              <span className="text-brand-pink font-medium">{pins[selectedPin].title}</span>
+              <span className="text-amber-400 font-light">{pins[selectedPin].priority}</span>
             </div>
             <p className="text-slate-300 font-light">{pins[selectedPin].issue}</p>
-            <div className="pt-2 border-t border-white/10 text-[11px] text-emerald-400 font-mono">
-              REMEDIAL ACTION: {pins[selectedPin].fix}
+            <div className="pt-2 border-t border-white/10 text-xs text-emerald-400 font-medium">
+              Remedial Action: {pins[selectedPin].fix}
             </div>
           </div>
         </div>
 
         <div className="lg:col-span-5 space-y-3">
-          <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block">AUDIT LOCATIONS:</span>
+          <span className="text-xs text-slate-400 uppercase tracking-wider block font-medium">Audit Locations</span>
           {pins.map((p, idx) => (
             <button
               key={idx}
               onClick={() => setSelectedPin(idx)}
-              className={`w-full text-left p-4 rounded-sm border transition-all text-xs space-y-1 ${
+              className={`w-full text-left p-4 rounded-sm border transition-all text-xs space-y-1 cursor-pointer ${
                 selectedPin === idx
                   ? 'bg-brand-void border-brand-pink text-white shadow-lg'
                   : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:text-white'
               }`}
             >
-              <div className="font-semibold text-white">{p.title}</div>
-              <p className="text-slate-400 font-light text-[11px]">{p.issue}</p>
+              <div className="font-medium text-white">{p.title}</div>
+              <p className="text-slate-400 font-light text-xs">{p.issue}</p>
             </button>
           ))}
         </div>
@@ -160,24 +160,24 @@ export function ProofRoofInspections() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   03. FAÇADE & ENVELOPE PROOF: VERTICAL ELEVATION DEFECT MAPPING
+   03. FAÇADE & ENVELOPE: VERTICAL ELEVATION DEFECT MAPPING
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofFacadeEnvelope() {
   const [activeElevation, setActiveElevation] = useState<string>('North Elevation');
   return (
-    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
+    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
-          <h3 className="text-xl font-light text-white">Multi-Storey Vertical Elevation Defect Mapping</h3>
+          <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">VERTICAL FABRIC SURVEY</span>
+          <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">Multi-Storey Vertical Elevation Defect Mapping</h3>
         </div>
         <div className="flex items-center gap-2">
           {['North Elevation', 'South Elevation'].map((el) => (
             <button
               key={el}
               onClick={() => setActiveElevation(el)}
-              className={`px-3 py-1 rounded-sm text-xs font-mono transition-all border ${
-                activeElevation === el ? 'bg-brand-pink border-brand-pink text-white' : 'bg-white/5 border-white/10 text-slate-300'
+              className={`px-3 py-1 rounded-sm text-xs transition-all border cursor-pointer ${
+                activeElevation === el ? 'bg-brand-pink border-brand-pink text-white font-medium' : 'bg-white/5 border-white/10 text-slate-300 hover:text-white'
               }`}
             >
               {el}
@@ -196,28 +196,28 @@ export function ProofFacadeEnvelope() {
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute bottom-4 left-4 right-4 text-xs font-mono text-white bg-black/70 backdrop-blur-md p-3 rounded-sm border border-white/15">
-            <span>ELEVATION: {activeElevation.toUpperCase()}</span>
-            <div className="text-brand-pink text-[11px]">4K OPTICAL CAPTURE · IRATA REPAIR READY</div>
+          <div className="absolute bottom-4 left-4 right-4 text-xs text-white bg-black/70 backdrop-blur-md p-3 rounded-sm border border-white/15">
+            <span className="font-medium">{activeElevation}</span>
+            <div className="text-brand-pink text-xs font-light">Optical Capture · Rope Access Ready</div>
           </div>
         </div>
 
         <div className="lg:col-span-6 space-y-4 text-xs">
-          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1">
-            <span className="font-mono text-brand-pink uppercase tracking-widest text-[10px] font-semibold">FLOORS 08–12: CURTAIN WALLING</span>
-            <h4 className="font-semibold text-white text-sm">Glazing Gasket &amp; Pressure Plate Audit</h4>
-            <p className="text-slate-300 font-light">Perished EPDM rubber gasket shrinkage identified along vertical mullions, allowing wind-driven moisture into perimeter transoms.</p>
+          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1.5">
+            <span className="text-brand-pink uppercase tracking-widest text-[11px] font-medium block">Upper Levels: Curtain Walling</span>
+            <h4 className="font-medium text-white text-sm">Glazing Gasket &amp; Pressure Plate Audit</h4>
+            <p className="text-slate-300 font-light leading-relaxed">Perished EPDM rubber gasket shrinkage identified along vertical mullions, allowing wind-driven moisture into perimeter transoms.</p>
           </div>
 
-          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1">
-            <span className="font-mono text-amber-400 uppercase tracking-widest text-[10px] font-semibold">FLOORS 03–07: RAIN-SCREEN CLADDING</span>
-            <h4 className="font-semibold text-white text-sm">Mastic Expansion Joints &amp; Panel Fixings</h4>
-            <p className="text-slate-300 font-light">Adhesive failure and silicone split along horizontal expansion joints. Zero loose rivet fixings detected across windward corner panels.</p>
+          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1.5">
+            <span className="text-amber-400 uppercase tracking-widest text-[11px] font-medium block">Mid Levels: Rain-Screen Cladding</span>
+            <h4 className="font-medium text-white text-sm">Mastic Expansion Joints &amp; Panel Fixings</h4>
+            <p className="text-slate-300 font-light leading-relaxed">Adhesive failure and silicone split along horizontal expansion joints. Zero loose rivet fixings detected across windward corner panels.</p>
           </div>
 
-          <div className="p-4 rounded-sm bg-brand-void border border-brand-pink/40 space-y-1 text-slate-200">
-            <span className="font-mono text-emerald-400 uppercase tracking-widest text-[10px] font-semibold">REMEDIATION DELIVERY: ENTIREFM ROPE ACCESS</span>
-            <p className="text-[11px] font-light">Directly-employed IRATA technicians dispatched to exact elevation coordinates for resealing and panel replacement without scaffolding.</p>
+          <div className="p-4 rounded-sm bg-brand-void border border-brand-pink/40 space-y-1.5 text-slate-200">
+            <span className="text-emerald-400 uppercase tracking-widest text-[11px] font-medium block">EntireFM Self-Delivery: Rope Access</span>
+            <p className="text-xs font-light leading-relaxed">Directly-employed IRATA technicians dispatched to exact elevation coordinates for resealing and panel replacement without scaffolding.</p>
           </div>
         </div>
       </div>
@@ -226,20 +226,20 @@ export function ProofFacadeEnvelope() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   04. THERMAL IMAGING PROOF: RGB ↔ FLIR RADIOMETRIC REVEAL
+   04. THERMAL IMAGING: RGB ↔ FLIR RADIOMETRIC REVEAL
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofThermalImaging() {
   const [sliderPos, setSliderPos] = useState<number>(50);
 
   return (
-    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
+    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
-          <h3 className="text-xl font-light text-white">Radiometric FLIR Thermal Delta-T Reveal</h3>
+          <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">RADIOMETRIC INFRARED</span>
+          <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">Radiometric Thermal Surface Reveal</h3>
         </div>
-        <span className="text-xs font-mono text-slate-400 bg-white/5 px-3 py-1 rounded-sm border border-white/10">
-          DRAG SLIDER TO REVEAL THERMAL MOISTURE
+        <span className="text-xs text-slate-300 bg-white/5 px-3 py-1 rounded-sm border border-white/10 font-normal">
+          Drag Slider to Reveal Thermal Layer
         </span>
       </div>
 
@@ -253,8 +253,8 @@ export function ProofThermalImaging() {
             className="object-cover object-center filter brightness-[0.85] contrast-[1.05]"
             sizes="100vw"
           />
-          <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-sm bg-black/70 backdrop-blur-md border border-white/15 text-xs font-mono text-white">
-            VISIBLE SPECTRUM (RGB)
+          <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-sm bg-black/70 backdrop-blur-md border border-white/15 text-xs text-white font-medium">
+            Visible Spectrum (RGB)
           </div>
         </div>
 
@@ -271,8 +271,8 @@ export function ProofThermalImaging() {
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-tr from-[#020024] via-[#5c0e8a] to-[#ff7b00] mix-blend-color opacity-85 pointer-events-none" />
-          <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-sm bg-brand-void/90 backdrop-blur-md border border-brand-pink/40 text-xs font-mono text-brand-pink">
-            FLIR RADIOMETRIC THERMAL (DELTA-T)
+          <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-sm bg-brand-void/90 backdrop-blur-md border border-brand-pink/40 text-xs text-brand-pink font-medium">
+            Radiometric Infrared Thermal
           </div>
         </div>
 
@@ -296,18 +296,18 @@ export function ProofThermalImaging() {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs font-mono text-slate-300">
-        <div className="p-3 rounded-sm bg-white/5 border border-white/10">
-          <span className="text-brand-pink block font-bold">DELTA-T: +4.2°C</span>
-          <span className="text-slate-400 font-light">Sub-membrane water entrapment retaining daytime solar heat</span>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs text-slate-300">
+        <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1">
+          <span className="text-brand-pink block font-medium">Sub-Membrane Moisture</span>
+          <span className="text-slate-400 font-light leading-relaxed">Water entrapment retains daytime solar heat, creating clear contrast after sunset.</span>
         </div>
-        <div className="p-3 rounded-sm bg-white/5 border border-white/10">
-          <span className="text-amber-400 block font-bold">CALIBRATION: RADIOMETRIC</span>
-          <span className="text-slate-400 font-light">Pixel-by-pixel temperature metadata for engineering review</span>
+        <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1">
+          <span className="text-amber-400 block font-medium">Calibrated Radiometrics</span>
+          <span className="text-slate-400 font-light leading-relaxed">Pixel-by-pixel temperature data allows surveyors to cross-reference heat patterns with CAD.</span>
         </div>
-        <div className="p-3 rounded-sm bg-white/5 border border-white/10">
-          <span className="text-emerald-400 block font-bold">REMEDIATION: TARGETED</span>
-          <span className="text-slate-400 font-light">Isolates wet insulation sections without full roof replacement</span>
+        <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1">
+          <span className="text-emerald-400 block font-medium">Targeted Strip &amp; Repair</span>
+          <span className="text-slate-400 font-light leading-relaxed">Isolates wet insulation sections without requiring full roof replacement.</span>
         </div>
       </div>
     </div>
@@ -315,26 +315,26 @@ export function ProofThermalImaging() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   05. SOLAR PV INSPECTIONS PROOF: PANEL-ARRAY HEATMAP SCANNER
+   05. SOLAR PV: PANEL ARRAY THERMAL SCANNER
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofSolarPv() {
   const [activeAnomaly, setActiveAnomaly] = useState<number>(0);
   const anomalies = [
-    { title: 'Bypass Diode Failure', desc: 'Open-circuit diode causing one-third of the panel to overheat, reducing string output by 33%.', severity: 'Critical', yieldLoss: '-8.5% String Loss' },
-    { title: 'Localised Cell Hotspot', desc: 'Semiconductor short circuit exhibiting high thermal delta with localized fire risk.', severity: 'Critical', yieldLoss: '-4.2% Panel Loss' },
-    { title: 'String-Level Inverter Imbalance', desc: 'Disconnected or high-resistance series connector reducing generation across 24 modules.', severity: 'Urgent', yieldLoss: '-100% String Loss' },
-    { title: 'Surface Soiling & Silt', desc: 'Vegetation buildup and dust accumulation reducing irradiance absorption.', severity: 'Routine', yieldLoss: '-3.1% Array Loss' },
+    { title: 'Bypass Diode Failure', desc: 'Open-circuit diode causing one-third of the panel to overheat, reducing string generation output.', severity: 'Critical', yieldLoss: 'Reduced String Output' },
+    { title: 'Localised Cell Hotspot', desc: 'Semiconductor short circuit exhibiting high thermal difference with potential localized risk.', severity: 'Critical', yieldLoss: 'Cell Degradation' },
+    { title: 'String-Level Inverter Imbalance', desc: 'Disconnected or high-resistance series connector reducing generation across multiple modules.', severity: 'Urgent', yieldLoss: 'String Inactive' },
+    { title: 'Surface Soiling & Silt', desc: 'Vegetation buildup and dust accumulation reducing overall light absorption.', severity: 'Routine', yieldLoss: 'Efficiency Loss' },
   ];
 
   return (
-    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
+    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
-          <h3 className="text-xl font-light text-white">Commercial Solar PV Array Thermographic Scan</h3>
+          <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">RENEWABLE ASSET AUDIT</span>
+          <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">Commercial Solar PV Array Thermographic Scan</h3>
         </div>
-        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-sm border border-emerald-500/20">
-          IEC 62446-3 COMPLIANT SURVEY
+        <span className="text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-sm border border-emerald-500/20 font-medium">
+          IEC 62446-3 Compliant
         </span>
       </div>
 
@@ -349,31 +349,31 @@ export function ProofSolarPv() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
           <div className="absolute bottom-4 left-4 right-4 bg-brand-void/90 backdrop-blur-md p-3.5 rounded-sm border border-white/15 text-xs">
-            <div className="flex items-center justify-between font-mono">
-              <span className="text-brand-pink font-semibold">{anomalies[activeAnomaly].title}</span>
-              <span className="text-amber-400 font-bold">{anomalies[activeAnomaly].yieldLoss}</span>
+            <div className="flex items-center justify-between">
+              <span className="text-brand-pink font-medium">{anomalies[activeAnomaly].title}</span>
+              <span className="text-amber-400 font-light">{anomalies[activeAnomaly].yieldLoss}</span>
             </div>
-            <p className="text-slate-300 font-light text-[11px] pt-1">{anomalies[activeAnomaly].desc}</p>
+            <p className="text-slate-300 font-light text-xs pt-1">{anomalies[activeAnomaly].desc}</p>
           </div>
         </div>
 
         <div className="lg:col-span-5 space-y-3">
-          <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block">IDENTIFIED ANOMALIES:</span>
+          <span className="text-xs text-slate-400 uppercase tracking-wider block font-medium">Identified Anomaly Categories</span>
           {anomalies.map((a, idx) => (
             <button
               key={idx}
               onClick={() => setActiveAnomaly(idx)}
-              className={`w-full text-left p-3.5 rounded-sm border transition-all text-xs space-y-1 ${
+              className={`w-full text-left p-3.5 rounded-sm border transition-all text-xs space-y-1 cursor-pointer ${
                 activeAnomaly === idx
                   ? 'bg-brand-void border-brand-pink text-white shadow-lg'
                   : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:text-white'
               }`}
             >
-              <div className="flex items-center justify-between font-semibold">
+              <div className="flex items-center justify-between font-medium">
                 <span>{a.title}</span>
-                <span className="text-[10px] font-mono text-brand-pink">{a.yieldLoss}</span>
+                <span className="text-xs text-brand-pink font-light">{a.yieldLoss}</span>
               </div>
-              <p className="text-slate-400 font-light text-[11px]">{a.desc}</p>
+              <p className="text-slate-400 font-light text-xs">{a.desc}</p>
             </button>
           ))}
         </div>
@@ -383,26 +383,26 @@ export function ProofSolarPv() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   06. SURVEYING & MAPPING PROOF: 4-STAGE GEOSPATIAL PIPELINE
+   06. SURVEYING & MAPPING: 4-STAGE GEOSPATIAL PIPELINE
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofSurveyingMapping() {
   const [stage, setStage] = useState<number>(1);
   const stages = [
-    { num: '01', title: 'Raw Flight Photogrammetry', desc: 'Thousands of high-overlap nadir photos captured with RTK satellite positioning.' },
-    { num: '02', title: '2D Orthomosaic Map', desc: 'Georeferenced, distortion-free orthophoto aligned to British National Grid (OSGB36).' },
+    { num: '01', title: 'Raw Flight Photogrammetry', desc: 'High-overlap nadir photos captured with RTK satellite positioning.' },
+    { num: '02', title: '2D Orthomosaic Map', desc: 'Georeferenced, distortion-free orthophoto aligned to British National Grid.' },
     { num: '03', title: 'Digital Elevation Model', desc: 'Topographic contour layers and slope gradient elevation vectors.' },
-    { num: '04', title: 'CAD / GIS Vector Export', desc: 'Layered DXF/DWG files ready for civil engineers, architects, and CAFM.' },
+    { num: '04', title: 'CAD / GIS Vector Export', desc: 'Layered DXF and DWG files ready for civil engineers and estate teams.' },
   ];
 
   return (
-    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
+    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
-          <h3 className="text-xl font-light text-white">From Airspace Capture to Survey-Grade GIS Spatial Data</h3>
+          <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">GEOSPATIAL DATA PIPELINE</span>
+          <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">Airspace Capture to Survey-Grade GIS Spatial Data</h3>
         </div>
-        <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-sm border border-cyan-500/20">
-          RTK SUB-CENTIMETRE ACCURACY
+        <span className="text-xs text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-sm border border-cyan-500/20 font-medium">
+          RTK Sub-Centimetre Accuracy
         </span>
       </div>
 
@@ -416,29 +416,29 @@ export function ProofSurveyingMapping() {
             sizes="(max-width: 1024px) 100vw, 60vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute bottom-4 left-4 right-4 bg-brand-void/90 backdrop-blur-md p-3.5 rounded-sm border border-white/15 text-xs font-mono text-white">
-            <span className="text-brand-pink">STAGE {stages[stage].num}: {stages[stage].title.toUpperCase()}</span>
-            <p className="text-slate-300 font-light text-[11px] font-sans pt-1">{stages[stage].desc}</p>
+          <div className="absolute bottom-4 left-4 right-4 bg-brand-void/90 backdrop-blur-md p-3.5 rounded-sm border border-white/15 text-xs text-white">
+            <span className="text-brand-pink font-medium">Stage {stages[stage].num}: {stages[stage].title}</span>
+            <p className="text-slate-300 font-light text-xs pt-1">{stages[stage].desc}</p>
           </div>
         </div>
 
         <div className="lg:col-span-5 space-y-3">
-          <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block">DATA CONVERSION STAGES:</span>
+          <span className="text-xs text-slate-400 uppercase tracking-wider block font-medium">Conversion Stages</span>
           {stages.map((st, idx) => (
             <button
               key={idx}
               onClick={() => setStage(idx)}
-              className={`w-full text-left p-3.5 rounded-sm border transition-all text-xs space-y-1 ${
+              className={`w-full text-left p-3.5 rounded-sm border transition-all text-xs space-y-1 cursor-pointer ${
                 stage === idx
                   ? 'bg-brand-void border-brand-pink text-white shadow-lg'
                   : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:text-white'
               }`}
             >
-              <div className="flex items-center gap-2 font-semibold">
-                <span className="font-mono text-brand-pink">{st.num}</span>
+              <div className="flex items-center gap-2 font-medium">
+                <span className="text-brand-pink">{st.num}</span>
                 <span>{st.title}</span>
               </div>
-              <p className="text-slate-400 font-light text-[11px]">{st.desc}</p>
+              <p className="text-slate-400 font-light text-xs">{st.desc}</p>
             </button>
           ))}
         </div>
@@ -448,26 +448,26 @@ export function ProofSurveyingMapping() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   07. CONSTRUCTION MONITORING PROOF: CHRONOLOGICAL MILESTONE TIMELINE
+   07. CONSTRUCTION MONITORING: MILESTONE TIMELINE
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofConstructionTimeline() {
   const [activePhase, setActivePhase] = useState<number>(1);
   const phases = [
-    { phase: 'Month 01: Groundworks & Piling', desc: 'Earthworks cut/fill volumetrics, boundary verification, piling rig positioning.', metric: '100% Earthworks Baseline' },
+    { phase: 'Month 01: Groundworks & Piling', desc: 'Earthworks cut/fill volumetrics, boundary verification, piling rig positioning.', metric: 'Earthworks Baseline' },
     { phase: 'Month 03: Structural Frame', desc: 'Steel frame erection verification, concrete floor slab curing, crane clearway checks.', metric: 'Steelwork Erected' },
     { phase: 'Month 06: Envelope & Cladding', desc: 'Curtain wall installation, roof membrane sealing, weather-tightness milestone.', metric: 'Building Envelope Sealed' },
-    { phase: 'Month 09: Final Handover & Snagging', desc: 'External finishes, car park relining, landscaping handover to EntireFM Total FM.', metric: 'FM Mobilisation Ready' },
+    { phase: 'Month 09: Handover & Snagging', desc: 'External finishes, car park relining, landscaping handover to EntireFM Total FM.', metric: 'FM Mobilisation Ready' },
   ];
 
   return (
-    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
+    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
-          <h3 className="text-xl font-light text-white">Repeat GPS-Locked Construction Milestone Documentation</h3>
+          <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">MILESTONE TRACKING</span>
+          <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">GPS-Locked Construction Milestone Documentation</h3>
         </div>
-        <span className="text-xs font-mono text-amber-400 bg-amber-500/10 px-3 py-1 rounded-sm border border-amber-500/20">
-          AUTONOMOUS REPEAT WAYPOINTS
+        <span className="text-xs text-amber-400 bg-amber-500/10 px-3 py-1 rounded-sm border border-amber-500/20 font-medium">
+          Repeat Waypoint Flight
         </span>
       </div>
 
@@ -482,28 +482,28 @@ export function ProofConstructionTimeline() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
           <div className="absolute bottom-4 left-4 right-4 bg-brand-void/90 backdrop-blur-md p-3.5 rounded-sm border border-white/15 text-xs">
-            <span className="font-mono text-brand-pink font-semibold block">{phases[activePhase].phase}</span>
-            <p className="text-slate-300 font-light text-[11px] pt-1">{phases[activePhase].desc}</p>
+            <span className="text-brand-pink font-medium block">{phases[activePhase].phase}</span>
+            <p className="text-slate-300 font-light text-xs pt-1">{phases[activePhase].desc}</p>
           </div>
         </div>
 
         <div className="lg:col-span-5 space-y-3">
-          <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block">DEVELOPMENT TIMELINE:</span>
+          <span className="text-xs text-slate-400 uppercase tracking-wider block font-medium">Development Milestones</span>
           {phases.map((ph, idx) => (
             <button
               key={idx}
               onClick={() => setActivePhase(idx)}
-              className={`w-full text-left p-3.5 rounded-sm border transition-all text-xs space-y-1 ${
+              className={`w-full text-left p-3.5 rounded-sm border transition-all text-xs space-y-1 cursor-pointer ${
                 activePhase === idx
                   ? 'bg-brand-void border-brand-pink text-white shadow-lg'
                   : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:text-white'
               }`}
             >
-              <div className="flex items-center justify-between font-semibold">
+              <div className="flex items-center justify-between font-medium">
                 <span>{ph.phase.split(':')[0]}</span>
-                <span className="font-mono text-[10px] text-amber-400">{ph.metric}</span>
+                <span className="text-xs text-amber-400 font-light">{ph.metric}</span>
               </div>
-              <p className="text-slate-400 font-light text-[11px]">{ph.desc}</p>
+              <p className="text-slate-400 font-light text-xs">{ph.desc}</p>
             </button>
           ))}
         </div>
@@ -513,18 +513,18 @@ export function ProofConstructionTimeline() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   08. DIGITAL TWIN & 3D CAPTURE PROOF: ENTIREFM 3D & POINT CLOUD MODELS
+   08. DIGITAL TWIN & 3D CAPTURE: ENTIREFM 3D & SPATIAL REALITY CAPTURE
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofDigitalTwin3D() {
   return (
-    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
+    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
-          <h3 className="text-xl font-light text-white">EntireFM 3D &amp; Navigable Spatial Digital Twin</h3>
+          <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">INTERACTIVE SPATIAL ASSET</span>
+          <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">EntireFM 3D &amp; Navigable Spatial Digital Twin</h3>
         </div>
-        <span className="text-xs font-mono text-brand-pink bg-brand-pink/10 px-3 py-1 rounded-sm border border-brand-pink/20">
-          ENTIREFM 3D SPATIAL CAPTURE
+        <span className="text-xs text-brand-pink bg-brand-pink/10 px-3 py-1 rounded-sm border border-brand-pink/20 font-medium">
+          EntireFM 3D Spatial Capture
         </span>
       </div>
 
@@ -543,18 +543,18 @@ export function ProofDigitalTwin3D() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   09. VOLUMETRIC SURVEYS PROOF: STOCKPILE & CUT/FILL CALCULATION
+   09. VOLUMETRIC SURVEYS: 3D EARTHWORKS & STOCKPILE COMPUTATION
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofVolumetricSurveys() {
   return (
-    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
+    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
-          <h3 className="text-xl font-light text-white">3D Earthworks Cut/Fill &amp; Stockpile Volume Calculation</h3>
+          <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">CIVIL EARTHWORKS</span>
+          <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">3D Earthworks Cut/Fill &amp; Stockpile Volume Calculation</h3>
         </div>
-        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-sm border border-emerald-500/20">
-          ±1.2% VOLUMETRIC PRECISION
+        <span className="text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-sm border border-emerald-500/20 font-medium">
+          Volumetric Precision
         </span>
       </div>
 
@@ -568,22 +568,22 @@ export function ProofVolumetricSurveys() {
             sizes="(max-width: 1024px) 100vw, 60vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute bottom-4 left-4 right-4 bg-brand-void/90 backdrop-blur-md p-3.5 rounded-sm border border-white/15 text-xs font-mono text-white">
-            <span className="text-brand-pink block">VOLUME COMPUTATION: 14,820 m³</span>
-            <span className="text-slate-300 font-light text-[11px]">CALCULATED DENSITY: 1.65 t/m³ · TONNAGE: 24,453 TONNES</span>
+          <div className="absolute bottom-4 left-4 right-4 bg-brand-void/90 backdrop-blur-md p-3.5 rounded-sm border border-white/15 text-xs text-white">
+            <span className="text-brand-pink font-medium block">Volume &amp; Bulk Density Computation</span>
+            <span className="text-slate-300 font-light text-xs">Laser-calibrated aerial photogrammetry for financial stock audits and civil tracking.</span>
           </div>
         </div>
 
         <div className="lg:col-span-5 space-y-3 text-xs">
-          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1">
-            <span className="font-mono text-brand-pink uppercase tracking-widest text-[10px]">APPLICATION 01</span>
-            <h4 className="font-semibold text-white">Bulk Material &amp; Aggregate Stockpiles</h4>
-            <p className="text-slate-300 font-light">Eliminate high-risk physical climbing on shifting heaps. Precise laser-calibrated aerial photogrammetry generates certified tonnage audits.</p>
+          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1.5">
+            <span className="text-brand-pink uppercase tracking-widest text-[11px] font-medium block">Application 01</span>
+            <h4 className="font-medium text-white text-sm">Bulk Material &amp; Aggregate Stockpiles</h4>
+            <p className="text-slate-300 font-light leading-relaxed">Eliminate high-risk physical climbing on shifting heaps. Precise laser-calibrated aerial photogrammetry generates certified tonnage audits.</p>
           </div>
-          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1">
-            <span className="font-mono text-amber-400 uppercase tracking-widest text-[10px]">APPLICATION 02</span>
-            <h4 className="font-semibold text-white">Civil Earthworks Cut / Fill Balance</h4>
-            <p className="text-slate-300 font-light">Compare design CAD surfaces against current excavation levels to calculate exact import/export volumes, preventing subcontractor overcharging.</p>
+          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1.5">
+            <span className="text-amber-400 uppercase tracking-widest text-[11px] font-medium block">Application 02</span>
+            <h4 className="font-medium text-white text-sm">Civil Earthworks Cut / Fill Balance</h4>
+            <p className="text-slate-300 font-light leading-relaxed">Compare design CAD surfaces against current excavation levels to calculate exact import/export volumes, preventing subcontractor overcharging.</p>
           </div>
         </div>
       </div>
@@ -592,18 +592,18 @@ export function ProofVolumetricSurveys() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   10. AERIAL PHOTOGRAPHY & 6K FILM PROOF: ARCHITECTURAL CINEMATOGRAPHY
+   10. AERIAL PHOTOGRAPHY & 6K FILM: ARCHITECTURAL CINEMATOGRAPHY
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofAerialPhotography() {
   return (
-    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
+    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">CINEMATIC SHOWCASE</span>
-          <h3 className="text-xl font-light text-white">6K Broadcast Architectural Cinematography</h3>
+          <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">CINEMATIC REALITY</span>
+          <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">6K Broadcast Architectural Cinematography</h3>
         </div>
-        <span className="text-xs font-mono text-brand-pink bg-brand-pink/10 px-3 py-1 rounded-sm border border-brand-pink/20">
-          PRORES 422 HQ / RAW 48MP
+        <span className="text-xs text-brand-pink bg-brand-pink/10 px-3 py-1 rounded-sm border border-brand-pink/20 font-medium">
+          4K/6K Color Graded
         </span>
       </div>
 
@@ -619,9 +619,9 @@ export function ProofAerialPhotography() {
           <source src="/video/drone/photography.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
-        <div className="absolute bottom-4 left-4 right-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-white bg-black/60 backdrop-blur-md p-3 rounded-sm border border-white/15">
-          <span>COMMERCIAL REAL ESTATE &amp; PORTFOLIO MARKETING</span>
-          <span className="text-brand-pink">COLOR GRADED 4K/6K MASTERS</span>
+        <div className="absolute bottom-4 left-4 right-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-white bg-black/60 backdrop-blur-md p-3 rounded-sm border border-white/15">
+          <span className="font-medium">Commercial Real Estate &amp; Portfolio Marketing</span>
+          <span className="text-brand-pink font-light">High-Resolution RAW Stills &amp; Film</span>
         </div>
       </div>
     </div>
@@ -629,18 +629,18 @@ export function ProofAerialPhotography() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   11. EMERGENCY & INSURANCE SURVEYS PROOF: RAPID DAMAGE EVIDENCE DOSSIER
+   11. EMERGENCY & INSURANCE SURVEYS: RAPID DAMAGE ASSESSMENT
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofEmergencyInsurance() {
   return (
-    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
+    <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6 font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
-          <h3 className="text-xl font-light text-white">Rapid Storm Damage Triage &amp; Insurer Evidence Dossier</h3>
+          <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">RAPID INCIDENT RESPONSE</span>
+          <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight">Rapid Storm Damage Triage &amp; Loss Adjuster Dossier</h3>
         </div>
-        <span className="text-xs font-mono text-red-400 bg-red-500/10 px-3 py-1 rounded-sm border border-red-500/20">
-          RAPID EMERGENCY RESPONSE
+        <span className="text-xs text-red-400 bg-red-500/10 px-3 py-1 rounded-sm border border-red-500/20 font-medium">
+          Emergency Response
         </span>
       </div>
 
@@ -655,21 +655,21 @@ export function ProofEmergencyInsurance() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
           <div className="absolute bottom-4 left-4 right-4 bg-brand-void/90 backdrop-blur-md p-3.5 rounded-sm border border-white/15 text-xs">
-            <span className="font-mono text-red-400 font-semibold block">EVIDENCE BUNDLE: METADATA &amp; GPS-TIMESTAMPED</span>
-            <p className="text-slate-300 font-light text-[11px] pt-1">Safe remote visual access into structurally unsafe building areas prior to physical scaffolding.</p>
+            <span className="text-red-400 font-medium block">Timestamped Evidence Dossier</span>
+            <p className="text-slate-300 font-light text-xs pt-1">Safe remote visual access into structurally unsafe building areas prior to physical scaffolding.</p>
           </div>
         </div>
 
         <div className="lg:col-span-5 space-y-3 text-xs">
-          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1">
-            <span className="font-mono text-brand-pink uppercase tracking-widest text-[10px]">STEP 01</span>
-            <h4 className="font-semibold text-white">Safe High-Speed Aerial Triage</h4>
-            <p className="text-slate-300 font-light">Inspect dislodged roof sheets, shattered skylights, and collapsed gutters from a safe standoff distance without putting staff onto fragile roofs.</p>
+          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1.5">
+            <span className="text-brand-pink uppercase tracking-widest text-[11px] font-medium block">Step 01</span>
+            <h4 className="font-medium text-white text-sm">Safe Aerial Damage Triage</h4>
+            <p className="text-slate-300 font-light leading-relaxed">Inspect dislodged roof sheets, shattered skylights, and collapsed gutters from a safe standoff distance without putting staff onto fragile roofs.</p>
           </div>
-          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1">
-            <span className="font-mono text-emerald-400 uppercase tracking-widest text-[10px]">STEP 02</span>
-            <h4 className="font-semibold text-white">EntireFM 24/7 Emergency Make-Safe</h4>
-            <p className="text-slate-300 font-light">Direct dispatch of roofing and fabric engineers to secure temporary tarpaulins, remove dangerous cladding, and prepare permanent repair quotes.</p>
+          <div className="p-4 rounded-sm bg-white/5 border border-white/10 space-y-1.5">
+            <span className="text-emerald-400 uppercase tracking-widest text-[11px] font-medium block">Step 02</span>
+            <h4 className="font-medium text-white text-sm">EntireFM 24/7 Emergency Make-Safe</h4>
+            <p className="text-slate-300 font-light leading-relaxed">Direct dispatch of roofing and fabric engineers to secure temporary tarpaulins, remove dangerous cladding, and prepare permanent repair scopes.</p>
           </div>
         </div>
       </div>

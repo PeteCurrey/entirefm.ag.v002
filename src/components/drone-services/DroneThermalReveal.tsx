@@ -81,8 +81,8 @@ export function DroneThermalReveal() {
                 className="object-cover object-center filter brightness-[0.9] contrast-[1.05]"
                 sizes="100vw"
               />
-              <div className="absolute top-6 left-6 z-10 px-4 py-1.5 rounded-sm bg-brand-void/80 backdrop-blur-md border border-white/15 font-mono text-xs text-white">
-                VISIBLE SPECTRUM (OPTICAL RGB)
+              <div className="absolute top-6 left-6 z-10 px-4 py-1.5 rounded-sm bg-brand-void/80 backdrop-blur-md border border-white/15 text-xs font-medium uppercase tracking-wider text-white">
+                Visible Spectrum (RGB)
               </div>
             </div>
 
@@ -101,8 +101,8 @@ export function DroneThermalReveal() {
               {/* Thermal color map shader */}
               <div className="absolute inset-0 bg-gradient-to-tr from-[#020024] via-[#5c0e8a] to-[#ff7b00] mix-blend-color opacity-85 pointer-events-none" />
 
-              <div className="absolute top-6 left-6 z-10 px-4 py-1.5 rounded-sm bg-brand-void/90 backdrop-blur-md border border-brand-pink/40 font-mono text-xs text-brand-pink">
-                FLIR RADIOMETRIC THERMAL (DELTA-T)
+              <div className="absolute top-6 left-6 z-10 px-4 py-1.5 rounded-sm bg-brand-void/90 backdrop-blur-md border border-brand-pink/40 text-xs font-medium uppercase tracking-wider text-brand-pink">
+                Radiometric Infrared Thermal
               </div>
             </div>
 
@@ -117,12 +117,12 @@ export function DroneThermalReveal() {
             </div>
 
             {/* Bottom Helper Indicator */}
-            <div className="absolute bottom-6 inset-x-6 z-20 flex items-center justify-between pointer-events-none text-xs text-slate-300 font-mono">
+            <div className="absolute bottom-6 inset-x-6 z-20 flex items-center justify-between pointer-events-none text-xs text-slate-300 font-light">
               <span className="bg-brand-void/80 backdrop-blur-md px-3 py-1 rounded-sm border border-white/10">
-                DRAG SLIDER TO REVEAL THERMAL MOISTURE
+                Drag slider to reveal thermal layer
               </span>
               <span className="bg-brand-void/80 backdrop-blur-md px-3 py-1 rounded-sm border border-white/10 hidden sm:inline-block">
-                BS EN 13187 STANDARDS COMPLIANT
+                BS EN 13187 Standards Compliant
               </span>
             </div>
           </div>

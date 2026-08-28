@@ -7,10 +7,7 @@ import {
   RotateCcw, 
   Box, 
   Compass, 
-  Eye, 
-  Sparkles,
   AlertCircle,
-  Layers,
   HelpCircle
 } from 'lucide-react';
 
@@ -109,7 +106,7 @@ export function GaussianSplatViewer({
         scale: [1, 1, 1],
         splatAlphaRemovalThreshold: 1,
         showLoadingUI: false, // We use our bespoke luxury EntireFM UI
-        onProgress: (percentComplete: number, percentLabel: string, loaderStatus: any) => {
+        onProgress: (percentComplete: number) => {
           setDownloadProgress(Math.max(5, Math.min(99, Math.round(percentComplete))));
           if (percentComplete >= 95) {
             setLoadingState('processing');
@@ -216,19 +213,19 @@ export function GaussianSplatViewer({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full aspect-[16/10] sm:aspect-[16/9] bg-[#060A14] rounded-sm overflow-hidden border border-white/15 shadow-2xl select-none group ${className}`}
+      className={`relative w-full aspect-[16/10] sm:aspect-[16/9] bg-[#060A14] rounded-sm overflow-hidden border border-white/15 shadow-2xl select-none group font-sans ${className}`}
       tabIndex={0}
-      aria-label={`${title} - Interactive 3D drone reality capture model. Use mouse to orbit and scroll to zoom.`}
+      aria-label={`${title} - Interactive EntireFM 3D drone reality capture model. Use mouse to orbit and scroll to zoom.`}
     >
       {/* ── Overlay: Top Left Metadata ──────────────────────────────────── */}
       <div className="absolute top-4 left-4 z-20 pointer-events-none flex flex-col gap-1">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 shadow-md">
           <span className="h-2 w-2 rounded-full bg-brand-pink animate-pulse" />
-          <span className="font-mono text-xs font-semibold uppercase tracking-wider text-white">
+          <span className="text-xs font-medium uppercase tracking-wider text-white">
             {title}
           </span>
         </div>
-        <span className="text-[11px] font-mono text-slate-400 bg-brand-void/70 backdrop-blur-sm px-2.5 py-0.5 rounded-sm border border-white/10 w-fit">
+        <span className="text-[11px] text-slate-300 font-light bg-brand-void/70 backdrop-blur-sm px-2.5 py-0.5 rounded-sm border border-white/10 w-fit">
           {subtitle}
         </span>
       </div>
@@ -238,7 +235,7 @@ export function GaussianSplatViewer({
         <button
           onClick={() => setShowHelp((prev) => !prev)}
           title="Interaction Guide"
-          className="p-2.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md"
+          className="p-2.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md cursor-pointer"
           aria-label="Toggle navigation help"
         >
           <HelpCircle className="h-4 w-4" />
@@ -248,7 +245,7 @@ export function GaussianSplatViewer({
           onClick={handleResetView}
           disabled={loadingState !== 'ready'}
           title="Reset Camera View"
-          className="p-2.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
+          className="p-2.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
           aria-label="Reset camera view"
         >
           <RotateCcw className="h-4 w-4" />
@@ -257,7 +254,7 @@ export function GaussianSplatViewer({
         <button
           onClick={toggleFullscreen}
           title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
-          className="p-2.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md"
+          className="p-2.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 text-slate-300 hover:text-white hover:border-brand-pink transition-all shadow-md cursor-pointer"
           aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
         >
           {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
@@ -265,39 +262,39 @@ export function GaussianSplatViewer({
       </div>
 
       {/* ── Overlay: Bottom Interaction Bar ─────────────────────────────── */}
-      <div className="absolute bottom-4 inset-x-4 z-20 pointer-events-none flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-slate-300">
+      <div className="absolute bottom-4 inset-x-4 z-20 pointer-events-none flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-300 font-light">
         <div className="bg-brand-void/85 backdrop-blur-md px-3.5 py-1.5 rounded-sm border border-white/15 flex items-center gap-4">
-          <span className="flex items-center gap-1.5 text-white">
-            <span className="text-brand-pink font-bold">DRAG:</span> Orbit Scene
+          <span className="flex items-center gap-1.5 text-white font-normal">
+            <span className="text-brand-pink font-medium">DRAG:</span> Orbit Scene
           </span>
           <span className="hidden sm:inline text-white/20">•</span>
-          <span className="hidden sm:flex items-center gap-1.5 text-white">
-            <span className="text-brand-pink font-bold">SCROLL:</span> Zoom
+          <span className="hidden sm:flex items-center gap-1.5 text-white font-normal">
+            <span className="text-brand-pink font-medium">SCROLL:</span> Zoom
           </span>
           <span className="hidden sm:inline text-white/20">•</span>
-          <span className="hidden sm:flex items-center gap-1.5 text-white">
-            <span className="text-brand-pink font-bold">RIGHT-CLICK:</span> Pan
+          <span className="hidden sm:flex items-center gap-1.5 text-white font-normal">
+            <span className="text-brand-pink font-medium">RIGHT-CLICK:</span> Pan
           </span>
         </div>
 
-        <div className="bg-brand-void/85 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/15 flex items-center gap-2 text-emerald-400">
+        <div className="bg-brand-void/85 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/15 flex items-center gap-2 text-emerald-400 font-medium text-[11px] uppercase tracking-wider">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
-          <span>REAL-TIME RADIANCE FIELD RENDER</span>
+          <span>Interactive EntireFM 3D Engine</span>
         </div>
       </div>
 
       {/* ── Help Tooltip Modal ──────────────────────────────────────────── */}
       {showHelp && (
         <div className="absolute top-16 right-4 z-30 w-72 p-4 rounded-sm bg-brand-void/95 backdrop-blur-lg border border-brand-pink/40 shadow-2xl text-xs space-y-2.5 text-slate-200">
-          <div className="flex items-center justify-between font-mono text-white border-b border-white/10 pb-1.5">
-            <span className="text-brand-pink font-semibold">NAVIGATION GUIDE</span>
-            <button onClick={() => setShowHelp(false)} className="text-slate-400 hover:text-white">✕</button>
+          <div className="flex items-center justify-between text-white border-b border-white/10 pb-1.5">
+            <span className="text-brand-pink font-medium uppercase tracking-wider text-[11px]">NAVIGATION GUIDE</span>
+            <button onClick={() => setShowHelp(false)} className="text-slate-400 hover:text-white cursor-pointer">✕</button>
           </div>
-          <div className="space-y-1.5 text-[11px] font-mono">
-            <p><strong className="text-white">Left Mouse / 1-Finger Touch:</strong> Rotate and orbit around the structure.</p>
-            <p><strong className="text-white">Mouse Wheel / Pinch:</strong> Smooth zoom in and out.</p>
-            <p><strong className="text-white">Right Mouse / 2-Finger Touch:</strong> Pan the camera position.</p>
-            <p><strong className="text-white">Reset Button:</strong> Return to initial aerial 3/4 perspective.</p>
+          <div className="space-y-1.5 text-xs font-light">
+            <p><strong className="text-white font-normal">Left Mouse / 1-Finger Touch:</strong> Rotate and orbit around the structure.</p>
+            <p><strong className="text-white font-normal">Mouse Wheel / Pinch:</strong> Smooth zoom in and out.</p>
+            <p><strong className="text-white font-normal">Right Mouse / 2-Finger Touch:</strong> Pan the camera position.</p>
+            <p><strong className="text-white font-normal">Reset Button:</strong> Return to initial aerial 3/4 perspective.</p>
           </div>
         </div>
       )}
@@ -313,7 +310,7 @@ export function GaussianSplatViewer({
           </div>
 
           <div className="space-y-2 max-w-md">
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-pink block font-semibold">
+            <span className="text-xs uppercase tracking-[0.2em] text-brand-pink block font-medium">
               ENTIREFM 3D · DIGITAL TWIN CAPTURE
             </span>
             <h4 className="text-xl sm:text-2xl font-light text-white tracking-tight">
@@ -334,8 +331,8 @@ export function GaussianSplatViewer({
             />
           </div>
 
-          <div className="text-[11px] font-mono text-slate-500">
-            EntireFM 3D Spatial Engine · WebGL / WebGPU
+          <div className="text-xs text-slate-400 font-light">
+            EntireFM 3D Spatial Engine · WebGL Hardware Accelerated
           </div>
         </div>
       )}
@@ -357,7 +354,7 @@ export function GaussianSplatViewer({
               isInitializedRef.current = false;
               initViewer();
             }}
-            className="px-4 py-2 rounded-sm bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-mono text-white transition-colors"
+            className="px-4 py-2 rounded-sm bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-medium text-white transition-colors cursor-pointer"
           >
             Retry 3D Initialisation
           </button>

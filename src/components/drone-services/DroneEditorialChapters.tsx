@@ -192,7 +192,7 @@ export function DroneEditorialChapters() {
 
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-void/80 via-transparent to-transparent pointer-events-none" />
 
-                    <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-sm bg-brand-void/80 backdrop-blur-md border border-white/15 text-[11px] font-mono text-slate-300">
+                    <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-sm bg-brand-void/80 backdrop-blur-md border border-white/15 text-[11px] font-medium tracking-wider text-slate-300">
                       CHAPTER {chapter.number}
                     </div>
                   </div>
@@ -201,7 +201,7 @@ export function DroneEditorialChapters() {
                 {/* Narrative & Routes Column */}
                 <div className={`lg:col-span-5 space-y-6 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
                   <div className="space-y-2">
-                    <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block font-medium">
+                    <span className="text-xs text-brand-pink uppercase tracking-widest block font-medium">
                       {chapter.category}
                     </span>
                     <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extralight text-white leading-tight">
