@@ -7,19 +7,19 @@ import { TrustBar } from '@/components/trust/TrustBar';
 import { FAQAccordion } from '@/components/content/CapabilityList';
 import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
 
-// Flagship Drone Experience Components (13 Sections)
+// Cinematic & Editorial Drone Components
 import { DroneHeroCinematic } from '@/components/drone-services/DroneHeroCinematic';
-import { DroneStorySequence } from '@/components/drone-services/DroneStorySequence';
-import { DroneInteractiveInspection } from '@/components/drone-services/DroneInteractiveInspection';
-import { DroneMultiSpectrumView } from '@/components/drone-services/DroneMultiSpectrumView';
-import { Drone3DDigitalTwin } from '@/components/drone-services/Drone3DDigitalTwin';
-import { DroneCapabilityChapters } from '@/components/drone-services/DroneCapabilityChapters';
-import { DroneRemediationComparison } from '@/components/drone-services/DroneRemediationComparison';
-import { DronePackagesSelector } from '@/components/drone-services/DronePackagesSelector';
-import { DronePpmTimeline } from '@/components/drone-services/DronePpmTimeline';
-import { DroneCafmPlatform } from '@/components/drone-services/DroneCafmPlatform';
-import { DroneDeliverableLab } from '@/components/drone-services/DroneDeliverableLab';
-import { DroneFlightGovernance } from '@/components/drone-services/DroneFlightGovernance';
+import { DroneCoreProposition } from '@/components/drone-services/DroneCoreProposition';
+import { DroneRoofFilmSection } from '@/components/drone-services/DroneRoofFilmSection';
+import { DroneAerialRepairStory } from '@/components/drone-services/DroneAerialRepairStory';
+import { DroneEditorialChapters } from '@/components/drone-services/DroneEditorialChapters';
+import { DroneThermalReveal } from '@/components/drone-services/DroneThermalReveal';
+import { DroneGaussianSplatExperience } from '@/components/drone-services/DroneGaussianSplatExperience';
+import { DroneDigitalTwinSection } from '@/components/drone-services/DroneDigitalTwinSection';
+import { DroneServiceDirectory } from '@/components/drone-services/DroneServiceDirectory';
+import { DronePpmSeasons } from '@/components/drone-services/DronePpmSeasons';
+import { DroneCafmAction } from '@/components/drone-services/DroneCafmAction';
+import { DronePeopleGovernance } from '@/components/drone-services/DronePeopleGovernance';
 import { DroneFinalHeroCta } from '@/components/drone-services/DroneFinalHeroCta';
 
 import { 
@@ -28,8 +28,7 @@ import {
   Truck, 
   GraduationCap, 
   Store, 
-  Construction,
-  ShieldCheck
+  Construction
 } from 'lucide-react';
 import type { RouteRecord, ContentRecord } from '@/lib/routes/route-schema';
 
@@ -73,89 +72,87 @@ const SECTORS = [
 
 export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-brand-void text-white selection:bg-brand-pink selection:text-white">
+    <div className="min-h-screen flex flex-col bg-brand-void text-slate-900 selection:bg-brand-pink selection:text-white">
       <Header />
 
       <main id="main" className="flex-grow">
         {/* ========================================================================= */}
-        {/* 01 — CINEMATIC FULL-VIEWPORT HERO */}
+        {/* 01 — DARK CINEMATIC HERO */}
         {/* ========================================================================= */}
         <DroneHeroCinematic />
 
-        {/* Global Trust Bar */}
+        {/* Corporate Trust Bar */}
         <TrustBar />
 
         {/* ========================================================================= */}
-        {/* 02 — THE ENTIREFM AERIAL-TO-REPAIR STORY */}
+        {/* 02 — LIGHT CORPORATE SECTION: CORE PROPOSITION */}
         {/* ========================================================================= */}
-        <DroneStorySequence />
+        <DroneCoreProposition />
 
         {/* ========================================================================= */}
-        {/* 03 — INTERACTIVE BUILDING INSPECTION */}
+        {/* 03 — FULL-BLEED ROOF INSPECTION FILM */}
         {/* ========================================================================= */}
-        <DroneInteractiveInspection />
+        <DroneRoofFilmSection />
 
         {/* ========================================================================= */}
-        {/* 04 — MULTI-SPECTRUM VIEW */}
+        {/* 04 — LIGHT EDITORIAL SECTION: AERIAL → REPAIR STORY */}
         {/* ========================================================================= */}
-        <DroneMultiSpectrumView />
+        <DroneAerialRepairStory />
 
         {/* ========================================================================= */}
-        {/* 05 — IMMERSIVE 3D / GAUSSIAN SPLAT EXPERIENCE */}
+        {/* 05 — DARK CINEMATIC CAPABILITY CHAPTERS */}
         {/* ========================================================================= */}
-        <Drone3DDigitalTwin />
+        <DroneEditorialChapters />
 
         {/* ========================================================================= */}
-        {/* 06 — CINEMATIC CAPABILITY CHAPTERS */}
+        {/* 06 — INTERACTIVE MULTI-SPECTRUM THERMAL REVEAL */}
         {/* ========================================================================= */}
-        <DroneCapabilityChapters />
+        <DroneThermalReveal />
 
         {/* ========================================================================= */}
-        {/* 07 — BEFORE → REMEDIATE → AFTER */}
+        {/* 07 — IMMERSIVE 3D / GAUSSIAN SPLAT EXPERIENCE */}
         {/* ========================================================================= */}
-        <DroneRemediationComparison />
+        <DroneGaussianSplatExperience />
 
         {/* ========================================================================= */}
-        {/* 08 — COMMERCIAL DRONE PACKAGES */}
+        {/* 08 — LIGHT CORPORATE: BUILDING DIGITAL TWIN */}
         {/* ========================================================================= */}
-        <DronePackagesSelector />
+        <DroneDigitalTwinSection />
 
         {/* ========================================================================= */}
-        {/* 09 — DRONE PPM / CONDITION HISTORY */}
+        {/* 09 — WHITE EDITORIAL SERVICE DIRECTORY (ALL 11 SUB-SERVICES) */}
         {/* ========================================================================= */}
-        <DronePpmTimeline />
+        <DroneServiceDirectory />
 
         {/* ========================================================================= */}
-        {/* 10 — ENTIRECAFM INTEGRATION */}
+        {/* 10 — LIGHT CORPORATE PPM TIMELINE (4 SEASONS) */}
         {/* ========================================================================= */}
-        <DroneCafmPlatform />
+        <DronePpmSeasons />
 
         {/* ========================================================================= */}
-        {/* 11 — TECHNICAL DELIVERABLE LAB */}
+        {/* 11 — ENTIRECAFM OPERATIONAL PLATFORM */}
         {/* ========================================================================= */}
-        <DroneDeliverableLab />
+        <DroneCafmAction />
 
         {/* ========================================================================= */}
-        {/* 12 — FLIGHT OPERATIONS / GOVERNANCE */}
+        {/* 12 — PEOPLE, FIELD TEAMS & CORPORATE GOVERNANCE */}
         {/* ========================================================================= */}
-        <DroneFlightGovernance />
+        <DronePeopleGovernance />
 
         {/* ========================================================================= */}
         {/* SECTOR APPLICATIONS */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-brand-carbon border-b border-brand-edge-dark">
+        <section className="py-24 bg-slate-50 border-b border-slate-200">
           <div className="container-custom space-y-12">
             <div className="max-w-3xl space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.08] border border-white/15">
-                <span className="h-2 w-2 rounded-full bg-brand-pink" />
-                <span className="font-mono text-xs uppercase tracking-wider text-brand-pink font-medium">
-                  SECTOR APPLICATIONS
-                </span>
+              <div className="inline-flex items-center gap-2 text-brand-pink text-xs uppercase tracking-[0.2em] font-semibold">
+                <span className="w-6 h-px bg-brand-pink" />
+                <span>SECTOR APPLICATIONS</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-white">
+              <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight text-slate-900">
                 Commercial Environments We Support
               </h2>
-              <p className="text-slate-300 text-sm sm:text-base font-light leading-relaxed">
+              <p className="text-slate-600 text-sm sm:text-base font-light leading-relaxed">
                 Tailored flight profiles, risk assessments, and reporting methodologies engineered for complex commercial, industrial, logistics, and institutional real estate portfolios across the UK.
               </p>
             </div>
@@ -166,15 +163,15 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
                 return (
                   <div
                     key={idx}
-                    className="p-6 rounded-sm bg-brand-void/80 border border-brand-edge-dark space-y-3 hover:border-brand-pink transition-colors"
+                    className="p-6 rounded-sm bg-white border border-slate-200 space-y-3 hover:border-brand-pink transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-sm bg-brand-pink/15 border border-brand-pink/30 flex items-center justify-center text-brand-pink">
+                      <div className="w-8 h-8 rounded-sm bg-brand-pink/10 border border-brand-pink/20 flex items-center justify-center text-brand-pink">
                         <Icon className="w-4 h-4" />
                       </div>
-                      <h3 className="text-base font-light text-white">{sec.title}</h3>
+                      <h3 className="text-base font-medium text-slate-900">{sec.title}</h3>
                     </div>
-                    <p className="text-xs sm:text-[13px] text-slate-300 leading-relaxed font-light">
+                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-light">
                       {sec.desc}
                     </p>
                   </div>
@@ -185,18 +182,18 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
         </section>
 
         {/* ========================================================================= */}
-        {/* TECHNICAL FAQS (Server-rendered & Indexable) */}
+        {/* AUTHORITATIVE FAQS (Server-Rendered & Semantic) */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-brand-void border-b border-brand-edge-dark">
+        <section className="py-24 bg-white border-b border-slate-200 text-slate-900">
           <div className="container-custom max-w-4xl space-y-10">
             <div className="text-center space-y-3">
-              <span className="font-mono text-xs uppercase tracking-wider text-brand-pink font-medium">
+              <span className="text-xs uppercase tracking-[0.2em] text-brand-pink font-semibold">
                 FREQUENTLY ASKED QUESTIONS
               </span>
-              <h2 className="text-3xl sm:text-4xl font-extralight text-white">
+              <h2 className="text-3xl sm:text-4xl font-extralight text-slate-900">
                 Commercial Drone Services FAQ
               </h2>
-              <p className="text-sm text-slate-300 font-light max-w-2xl mx-auto">
+              <p className="text-sm text-slate-600 font-light max-w-2xl mx-auto">
                 Authoritative technical details on UK CAA regulations, weather limits, engineering deliverables, and EntireFM physical remedial execution.
               </p>
             </div>
@@ -206,12 +203,12 @@ export function TemplateDroneHub({ route, content }: TemplateDroneHubProps) {
         </section>
 
         {/* ========================================================================= */}
-        {/* 13 — FINAL HERO CTA */}
+        {/* 13 — FINAL CINEMATIC CTA */}
         {/* ========================================================================= */}
         <DroneFinalHeroCta />
 
         {/* ========================================================================= */}
-        {/* CONVERSION SECTION */}
+        {/* CONVERSION CONSULTATION SECTION */}
         {/* ========================================================================= */}
         <ServiceConversionSection
           serviceName="Drone Services"

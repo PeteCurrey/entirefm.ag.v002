@@ -8,7 +8,6 @@ import { Footer } from '@/components/layout/Footer';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ServiceConversionSection } from '@/components/services/ServiceConversionSection';
 import { FAQAccordion } from '@/components/content/CapabilityList';
-import { DroneSampleOutputs } from '@/components/drone-services/DroneSampleOutputs';
 import { 
   CheckCircle2, 
   ArrowRight, 
@@ -534,10 +533,6 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
           </div>
         </section>
 
-        {/* ========================================================================= */}
-        {/* 5. INTERACTIVE TECHNICAL OUTPUT DEMONSTRATOR */}
-        {/* ========================================================================= */}
-        <DroneSampleOutputs />
 
         {/* ========================================================================= */}
         {/* 6. WHAT YOU RECEIVE (TECHNICAL DELIVERABLES) */}
