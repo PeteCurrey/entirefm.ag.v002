@@ -197,7 +197,7 @@ export function CookieConsentBanner() {
       }`}
     >
       <div
-        className={`w-full bg-white text-slate-800 border border-slate-200/90 rounded-lg shadow-[0_10px_35px_-5px_rgba(11,18,32,0.14),0_2px_8px_-1px_rgba(11,18,32,0.06)] overflow-hidden transition-all duration-250 ease-out font-sans ${
+        className={`w-full bg-white text-slate-800 border border-slate-200/90 rounded-sm shadow-[0_10px_35px_-5px_rgba(11,18,32,0.14),0_2px_8px_-1px_rgba(11,18,32,0.06)] overflow-hidden transition-all duration-250 ease-out font-sans ${
           isExpanded
             ? 'sm:w-[450px] max-w-[calc(100vw-32px)] max-h-[85vh] overflow-y-auto'
             : 'sm:w-[370px] max-w-[calc(100vw-32px)]'
@@ -224,14 +224,14 @@ export function CookieConsentBanner() {
               <button
                 type="button"
                 onClick={handleAcceptAll}
-                className="flex-1 inline-flex items-center justify-center rounded-md bg-[#ED3899] px-3.5 py-2 text-xs font-medium text-white shadow-xs transition-colors hover:bg-[#D92584] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ED3899] cursor-pointer"
+                className="flex-1 inline-flex items-center justify-center rounded-sm bg-[#ED3899] px-3.5 py-2 text-xs font-medium text-white shadow-xs transition-colors hover:bg-[#D92584] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ED3899] cursor-pointer"
               >
                 Accept all
               </button>
               <button
                 type="button"
                 onClick={handleRejectOptional}
-                className="flex-1 inline-flex items-center justify-center rounded-md border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400 cursor-pointer"
+                className="flex-1 inline-flex items-center justify-center rounded-sm border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400 cursor-pointer"
               >
                 Reject optional
               </button>
@@ -266,7 +266,7 @@ export function CookieConsentBanner() {
               <button
                 type="button"
                 onClick={handleDismiss}
-                className="rounded-md p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors focus-visible:outline-2 focus-visible:outline-slate-400 cursor-pointer"
+                className="rounded-sm p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors focus-visible:outline-2 focus-visible:outline-slate-400 cursor-pointer"
                 aria-label="Close preferences"
               >
                 <X className="h-4 w-4" />
@@ -370,7 +370,7 @@ export function CookieConsentBanner() {
               <button
                 type="button"
                 onClick={handleSavePreferences}
-                className="w-full inline-flex items-center justify-center rounded-md bg-slate-900 px-4 py-2 text-xs font-medium text-white shadow-xs transition-colors hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 cursor-pointer"
+                className="w-full inline-flex items-center justify-center rounded-sm bg-slate-900 px-4 py-2 text-xs font-medium text-white shadow-xs transition-colors hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 cursor-pointer"
               >
                 Save preferences
               </button>
