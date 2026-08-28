@@ -4,6 +4,9 @@ import { listEditions } from '@/server/lobby-daily/store';
 import { runDailyDraftGeneration } from '@/server/lobby-daily/scheduler';
 import { Mail, Calendar, ArrowRight, ShieldCheck, Clock } from 'lucide-react';
 
+// Always server-rendered — fetches live edition data from Supabase on every request
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'The Lobby Daily — UK Facilities Management Executive Briefing | EntireFM',
   description:
