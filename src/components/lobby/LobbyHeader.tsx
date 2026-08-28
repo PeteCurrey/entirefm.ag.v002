@@ -10,7 +10,7 @@ export function LobbyHeader() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentDateStr, setCurrentDateStr] = useState<string>('Thursday, 27 August 2026');
+  const [currentDateStr, setCurrentDateStr] = useState<string>('Friday, 28 August 2026');
 
   useEffect(() => {
     try {
@@ -74,49 +74,67 @@ export function LobbyHeader() {
     },
   ];
 
-  const isLobbyHome = pathname === '/lobby';
-  const isSolid = !isLobbyHome || scrolled || mobileMenuOpen;
+  // Route canvas detection: Dark hero pages vs Light canvas pages
+  const isDarkHeroPage = pathname === '/lobby' || pathname.startsWith('/lobby/rooms');
+
+  // Scrolled state styles
+  const isScrolled = scrolled || mobileMenuOpen;
+
+  // Active theme: 'dark' on dark hero pages; 'light' on light canvas pages
+  const theme = isDarkHeroPage ? 'dark' : 'light';
+  const isLight = theme === 'light';
 
   return (
     <>
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 font-sans ${
-          isSolid
-            ? 'bg-[#080C14]/95 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
-            : 'bg-transparent border-b border-white/[0.08]'
+          !isScrolled
+            ? 'bg-transparent border-b border-transparent'
+            : isLight
+            ? 'bg-white/80 backdrop-blur-xl border-b border-neutral-200/80 shadow-2xs text-neutral-900'
+            : 'bg-[#07090E]/85 backdrop-blur-xl border-b border-white/10 shadow-md text-white'
         }`}
       >
-        {/* Top gradient scrim: Only on Lobby Home hero when at top of page */}
-        {isLobbyHome && !scrolled && !mobileMenuOpen && (
+        {/* Top subtle gradient scrim only on dark hero home when at very top of page */}
+        {isDarkHeroPage && !isScrolled && (
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#060911]/90 via-[#060911]/60 to-transparent"
+            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/80 via-black/40 to-transparent"
           />
         )}
 
-        <div className="container-wide flex items-center justify-between h-16 sm:h-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 sm:h-20">
+          
           {/* Left: Return to EntireFM & The Lobby brand mark */}
-          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-light text-brand-mist/90">
+          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-light">
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-light text-brand-mist/90 hover:text-white transition-colors group py-1"
+              className={`inline-flex items-center gap-1.5 text-xs sm:text-sm font-light transition-colors group py-1 ${
+                isLight
+                  ? 'text-neutral-600 hover:text-neutral-900'
+                  : 'text-neutral-300 hover:text-white'
+              }`}
               aria-label="Return to EntireFM main site"
             >
               <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
               <span>EntireFM.com</span>
             </Link>
 
-            <span className="text-white/20">|</span>
+            <span className={isLight ? 'text-neutral-300' : 'text-white/20'}>|</span>
 
             <Link
               href="/lobby"
-              className="flex items-center gap-2 tracking-wider text-sm sm:text-base font-light text-white uppercase hover:text-brand-electric-bright transition-colors"
+              className={`flex items-center gap-2 tracking-wider text-sm sm:text-base font-light uppercase transition-colors ${
+                isLight
+                  ? 'text-neutral-900 hover:text-brand-electric'
+                  : 'text-white hover:text-brand-electric-bright'
+              }`}
             >
-              <span>THE <span className="font-normal text-white">LOBBY</span></span>
+              <span>THE <span className={`font-normal ${isLight ? 'text-neutral-900' : 'text-white'}`}>LOBBY</span></span>
             </Link>
 
-            <span className="hidden xl:inline-block text-white/20">|</span>
-            <time className="hidden xl:inline-block tracking-wide text-brand-mist/75 font-light text-xs">
+            <span className={`hidden xl:inline-block ${isLight ? 'text-neutral-300' : 'text-white/20'}`}>|</span>
+            <time className={`hidden xl:inline-block tracking-wide font-extralight text-xs ${isLight ? 'text-neutral-500' : 'text-neutral-400'}`}>
               {currentDateStr}
             </time>
           </div>
@@ -133,14 +151,18 @@ export function LobbyHeader() {
                     className={`transition-colors flex items-center gap-1.5 py-1 ${
                       link.active
                         ? link.highlight
-                          ? 'text-brand-electric-bright font-normal border-b-2 border-brand-electric-bright'
-                          : 'text-white font-normal border-b-2 border-white'
+                          ? 'text-brand-electric font-medium border-b-2 border-brand-electric'
+                          : isLight
+                          ? 'text-neutral-900 font-medium border-b-2 border-neutral-900'
+                          : 'text-white font-medium border-b-2 border-white'
                         : link.highlight
-                        ? 'text-brand-electric-bright hover:text-white font-light'
-                        : 'text-brand-mist/90 hover:text-white font-light'
+                        ? 'text-brand-electric hover:underline font-light'
+                        : isLight
+                        ? 'text-neutral-600 hover:text-neutral-900 font-light'
+                        : 'text-neutral-300 hover:text-white font-light'
                     }`}
                   >
-                    {link.highlight && <Icon className="w-3.5 h-3.5 text-brand-electric-bright" />}
+                    {link.highlight && <Icon className="w-3.5 h-3.5 text-brand-electric" />}
                     <span>{link.label}</span>
                   </Link>
                 );
@@ -148,13 +170,17 @@ export function LobbyHeader() {
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-3">
-              <MemberNavControl />
+              <MemberNavControl theme={theme} />
 
               {/* Mobile Menu Button */}
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-md text-brand-mist hover:text-white hover:bg-white/10 transition-colors"
+                className={`lg:hidden p-2 rounded-md transition-colors ${
+                  isLight
+                    ? 'text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100'
+                    : 'text-neutral-300 hover:text-white hover:bg-white/10'
+                }`}
                 aria-expanded={mobileMenuOpen}
                 aria-label="Toggle Lobby navigation menu"
               >
@@ -166,8 +192,14 @@ export function LobbyHeader() {
 
         {/* Mobile Dropdown Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-[#080C14] border-t border-white/10 px-4 pt-4 pb-8 space-y-4 shadow-2xl animate-fadeIn">
-            <div className="text-xs font-mono uppercase tracking-wider text-neutral-400 px-2 pb-1 border-b border-white/10">
+          <div
+            className={`lg:hidden border-t px-4 pt-4 pb-8 space-y-4 shadow-2xl animate-fadeIn ${
+              isLight
+                ? 'bg-white/95 backdrop-blur-xl border-neutral-200 text-neutral-900'
+                : 'bg-[#080C14]/95 backdrop-blur-xl border-white/10 text-white'
+            }`}
+          >
+            <div className={`text-xs font-mono uppercase tracking-wider px-2 pb-1 border-b ${isLight ? 'text-neutral-400 border-neutral-100' : 'text-neutral-400 border-white/10'}`}>
               Lobby Intelligence &amp; Desk
             </div>
 
@@ -181,8 +213,12 @@ export function LobbyHeader() {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-[6px] text-sm font-extralight transition-colors ${
                       link.active
-                        ? 'bg-white/10 text-white font-light'
-                        : 'text-brand-mist hover:bg-white/5 hover:text-white'
+                        ? isLight
+                          ? 'bg-neutral-100 text-neutral-900 font-light'
+                          : 'bg-white/10 text-white font-light'
+                        : isLight
+                        ? 'text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900'
+                        : 'text-neutral-300 hover:bg-white/5 hover:text-white'
                     }`}
                   >
                     <Icon className={`w-4 h-4 ${link.highlight ? 'text-brand-electric' : 'text-neutral-400'}`} />
@@ -191,21 +227,29 @@ export function LobbyHeader() {
                 );
               })}
 
-              <div className="pt-2 border-t border-white/10 mt-2">
+              <div className={`pt-2 border-t mt-2 ${isLight ? 'border-neutral-100' : 'border-white/10'}`}>
                 <Link
                   href="/lobby/me/research"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-[6px] text-sm font-extralight text-brand-mist hover:bg-white/5 hover:text-white"
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-[6px] text-sm font-extralight ${
+                    isLight
+                      ? 'text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900'
+                      : 'text-neutral-300 hover:bg-white/5 hover:text-white'
+                  }`}
                 >
-                  <BookOpen className="w-4 h-4 text-purple-400" />
+                  <BookOpen className="w-4 h-4 text-purple-500" />
                   <span>My Research Library</span>
                 </Link>
                 <Link
                   href="/lobby/me"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-[6px] text-sm font-extralight text-brand-mist hover:bg-white/5 hover:text-white"
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-[6px] text-sm font-extralight ${
+                    isLight
+                      ? 'text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900'
+                      : 'text-neutral-300 hover:bg-white/5 hover:text-white'
+                  }`}
                 >
-                  <Layers className="w-4 h-4 text-emerald-400" />
+                  <Layers className="w-4 h-4 text-emerald-500" />
                   <span>My Workspace</span>
                 </Link>
               </div>

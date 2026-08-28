@@ -45,7 +45,23 @@ export default async function ContractorDashboardPage() {
 
   const isViewAs = !!session.viewAsContext?.isViewAs;
   if (session.orgType !== 'CONTRACTOR' && !isViewAs && session.orgType !== 'ENTIREFM') {
-    redirect('/login?error=forbidden_contractor');
+    if ((session.orgType as string) === 'SUPPLIER') {
+      const { getSupplierUserByAuthId, getSupplierOrganisationById } = await import(
+        '@/server/suppliers/supplier-auth-store'
+      );
+      const authUserId = session.personId || session.authUserId || '';
+      const supplierUser = await getSupplierUserByAuthId(authUserId);
+      const supplierOrg = supplierUser?.organisation_id
+        ? await getSupplierOrganisationById(supplierUser.organisation_id)
+        : null;
+      const isApprovedSupplier = supplierOrg?.lifecycleStatus === 'APPROVED';
+
+      if (!isApprovedSupplier) {
+        redirect('/supplier-portal?notice=under_review');
+      }
+    } else {
+      redirect('/login?error=forbidden_contractor');
+    }
   }
 
   const providerOrgId = session.orgId;
@@ -125,6 +141,82 @@ export default async function ContractorDashboardPage() {
           </Link>
         </div>
       </div>
+
+      {/* 1b. Restrained Onboarding Progress Checklist for Newly Approved Partners */}
+      {operatives.length === 0 && (
+        <div className="rounded-2xl border border-brand-electric/30 bg-brand-carbon/60 p-6 space-y-4 shadow-lg">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="space-y-1">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-brand-electric-bright font-bold">
+                PARTNER ONBOARDING ESSENTIALS
+              </span>
+              <h3 className="text-base font-light text-white">
+                Welcome to the EntireFM Contractor Network
+              </h3>
+              <p className="text-xs text-brand-mist/70 font-light">
+                Your supplier application has been approved. Complete these initial setup milestones to enable automated work dispatch.
+              </p>
+            </div>
+            <span className="text-xs font-mono text-emerald-400 font-bold px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20 self-start sm:self-auto">
+              ✓ Approved Partner
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+            <Link
+              href="/contractor/workforce"
+              className="p-3.5 rounded-xl border border-brand-edge-dark bg-brand-void/60 hover:border-brand-electric/50 transition-all space-y-1 block group"
+            >
+              <div className="flex items-center justify-between text-xs text-white font-medium">
+                <span>1. Add Workforce</span>
+                <ArrowRight className="w-3.5 h-3.5 text-brand-mist/50 group-hover:text-brand-electric transition-colors" />
+              </div>
+              <p className="text-[11px] text-brand-mist/60 font-light">
+                Register engineers and assign trade qualifications.
+              </p>
+            </Link>
+
+            <Link
+              href="/contractor/compliance"
+              className="p-3.5 rounded-xl border border-brand-edge-dark bg-brand-void/60 hover:border-brand-electric/50 transition-all space-y-1 block group"
+            >
+              <div className="flex items-center justify-between text-xs text-white font-medium">
+                <span>2. Review Compliance</span>
+                <ArrowRight className="w-3.5 h-3.5 text-brand-mist/50 group-hover:text-brand-electric transition-colors" />
+              </div>
+              <p className="text-[11px] text-brand-mist/60 font-light">
+                Verify insurance policies and statutory certifications.
+              </p>
+            </Link>
+
+            <Link
+              href="/contractor/rams"
+              className="p-3.5 rounded-xl border border-brand-edge-dark bg-brand-void/60 hover:border-brand-electric/50 transition-all space-y-1 block group"
+            >
+              <div className="flex items-center justify-between text-xs text-white font-medium">
+                <span>3. RAMS &amp; Job Packs</span>
+                <ArrowRight className="w-3.5 h-3.5 text-brand-mist/50 group-hover:text-brand-electric transition-colors" />
+              </div>
+              <p className="text-[11px] text-brand-mist/60 font-light">
+                Review safety templates and automated job packs.
+              </p>
+            </Link>
+
+            <Link
+              href="/contractor/intelligence"
+              className="p-3.5 rounded-xl border border-brand-edge-dark bg-brand-void/60 hover:border-brand-electric/50 transition-all space-y-1 block group"
+            >
+              <div className="flex items-center justify-between text-xs text-white font-medium">
+                <span>4. Intelligence &amp; Watch</span>
+                <ArrowRight className="w-3.5 h-3.5 text-brand-mist/50 group-hover:text-brand-electric transition-colors" />
+              </div>
+              <p className="text-[11px] text-brand-mist/60 font-light">
+                Personalised regulatory updates and trade surveillance.
+              </p>
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* Critical Restriction Warning */}
       {isRestricted && (

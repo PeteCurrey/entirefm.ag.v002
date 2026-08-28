@@ -210,7 +210,7 @@ export default async function AuthenticatedSupplierPortalLayout({
       </aside>
 
       {/* Main Authenticated Workspace Area */}
-      <main className="flex-1 p-6 sm:p-10 max-w-6xl">
+      <main className="flex-1 min-w-0 w-full p-4 sm:p-6 lg:p-8 xl:p-10">
         {children}
       </main>
     </div>

@@ -788,6 +788,9 @@ export function requireContractorSession(session: UserSession | null): UserSessi
     throw new Error('UNAUTHENTICATED: Sign in required');
   }
   if (session.orgType !== 'CONTRACTOR' && !session.viewAsContext) {
+    if ((session.orgType as string) === 'SUPPLIER') {
+      throw new Error('FORBIDDEN: Your supplier application is currently under review. Operational contractor features become available once your organisation has been approved.');
+    }
     throw new Error('FORBIDDEN: /contractor is restricted to approved contractor organisations');
   }
   if (session.role === 'ENGINEER' || session.role === 'CONTRACTOR_ENGINEER') {

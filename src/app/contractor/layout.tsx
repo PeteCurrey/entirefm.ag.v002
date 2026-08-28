@@ -43,8 +43,8 @@ export default async function ContractorLayout({ children }: { children: React.R
       const isApprovedSupplier = supplierOrg?.lifecycleStatus === 'APPROVED';
 
       if (!isApprovedSupplier) {
-        // Still in application stage — send to application portal
-        redirect('/supplier-portal');
+        // Still in application stage — send to application portal with explanation
+        redirect('/supplier-portal?notice=under_review');
       }
       // Approved — fall through to render contractor portal
     } else {
