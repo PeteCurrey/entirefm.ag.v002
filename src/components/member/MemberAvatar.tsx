@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | number;
@@ -53,6 +53,12 @@ export function MemberAvatar({
 }: MemberAvatarProps) {
   const [imageError, setImageError] = useState(false);
 
+  // Reset error state whenever the source URL changes so a freshly uploaded
+  // avatar always gets a clean render attempt instead of staying on initials.
+  useEffect(() => {
+    setImageError(false);
+  }, [avatarUrl]);
+
   const isNumeric = typeof size === 'number';
   const sizeConfig = !isNumeric ? SIZE_MAP[size] || SIZE_MAP.md : null;
   const dimensionPx = isNumeric ? size : sizeConfig!.px;
@@ -93,7 +99,11 @@ export function MemberAvatar({
           width={dimensionPx}
           height={dimensionPx}
           priority={priority}
-          unoptimized={avatarUrl?.startsWith('data:') || avatarUrl?.includes('localhost')}
+          unoptimized={
+            avatarUrl?.startsWith('data:') ||
+            avatarUrl?.includes('localhost') ||
+            avatarUrl?.startsWith('/api/')
+          }
           onError={() => setImageError(true)}
           className="w-full h-full object-cover rounded-full"
         />

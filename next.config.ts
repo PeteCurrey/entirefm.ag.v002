@@ -17,6 +17,17 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  images: {
+    remotePatterns: [
+      // Supabase Storage — member profile avatars and any other stored media
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
+  },
+
   async redirects() {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const redirectRegistry = require('./config/production-redirects.json') as {
