@@ -52,22 +52,22 @@
     --brand-pink: #ed3899;
     --brand-magenta: #c026d3;
     --hero-pink-gradient: linear-gradient(100deg, #ff3e9d 0%, #ed3899 50%, #c026d3 100%);
+
+    /* ── EntireFM Canonical Typography Tokens ──────────────────────────── */
+    /* These are the single source of truth for font-weight decisions.
+       Use these tokens rather than Tailwind utility classes wherever possible.
+       Tailwind classes are used for one-off overrides ONLY.                  */
+    --font-entirefm: 'Work Sans', system-ui, -apple-system, sans-serif;
+
+    --font-weight-display:    200; /* ExtraLight — hero headings, KPI numbers */
+    --font-weight-heading:    200; /* ExtraLight — h1/h2/h3, section titles    */
+    --font-weight-subheading: 300; /* Light — h4/h5, card titles, intros       */
+    --font-weight-body:       300; /* Light — paragraphs, editorial copy       */
+    --font-weight-data:       400; /* Regular — dense tables, operational rows */
+    --font-weight-control:    400; /* Regular — form inputs, selects           */
+    --font-weight-emphasis:   500; /* Medium — active tabs, status labels      */
+    --font-weight-critical:   600; /* SemiBold — rare: critical alerts only    */
   }
-
-  /* ── EntireFM Canonical Typography Tokens ──────────────────────────── */
-  /* These are the single source of truth for font-weight decisions.
-     Use these tokens rather than Tailwind utility classes wherever possible.
-     Tailwind classes are used for one-off overrides ONLY.                  */
-  --font-entirefm: Work Sans, system-ui, -apple-system, sans-serif;
-
-  --font-weight-display:    200; /* ExtraLight — hero headings, KPI numbers */
-  --font-weight-heading:    200; /* ExtraLight — h1/h2/h3, section titles    */
-  --font-weight-subheading: 300; /* Light — h4/h5, card titles, intros       */
-  --font-weight-body:       300; /* Light — paragraphs, editorial copy       */
-  --font-weight-data:       400; /* Regular — dense tables, operational rows */
-  --font-weight-control:    400; /* Regular — form inputs, selects           */
-  --font-weight-emphasis:   500; /* Medium — active tabs, status labels      */
-  --font-weight-critical:   600; /* SemiBold — rare: critical alerts only    */
 
   * {
     border-color: theme('colors.brand.edge');
