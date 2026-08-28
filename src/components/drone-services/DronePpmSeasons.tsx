@@ -11,28 +11,28 @@ const SEASONS = [
     month: 'April Survey',
     focus: 'Post-Winter Freeze-Thaw Audit',
     deliverable: 'Membrane lap seam expansion checks, valley gutter clearance, and masonry spalling review after seasonal frost cycles.',
-    image: '/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp',
+    image: '/images/drone/sectors/facilities.png',
   },
   {
     season: 'SUMMER',
     month: 'July Survey',
     focus: 'Solar PV & Thermal Stress Check',
     deliverable: 'Radiometric inspection of rooftop solar arrays during peak irradiance and inspection of vegetation growth in high-level parapets.',
-    image: '/images/editorial/entirefm-hvac-thermal-survey-2000w.webp',
+    image: '/images/drone/nav/thermal.png',
   },
   {
     season: 'AUTUMN',
     month: 'October Survey',
     focus: 'Pre-Winter Envelope Preparation',
     deliverable: 'Comprehensive gutter silt vacuum audit, rainwater outlet inspection, and building envelope mastic joint weather-tightness verification.',
-    image: '/images/editorial/entirefm-hero-headquarters-2560w.webp',
+    image: '/images/drone/sectors/infrastructure.png',
   },
   {
     season: 'WINTER',
     month: 'January Survey',
     focus: 'Cold-Bridge & Insulation Thermography',
     deliverable: 'Sub-zero building envelope thermography identifying heating loss, missing cavity insulation, and mechanical plant thermal efficiency.',
-    image: '/images/editorial/entirefm-external-distribution-dusk-2000w.webp',
+    image: '/images/editorial/entirefm-manchester-castlefield-night-2560w.webp',
   },
 ];
 

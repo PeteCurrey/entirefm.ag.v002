@@ -31,7 +31,7 @@ const SERVICES: ServiceItem[] = [
     category: 'Waterproofing & Drainage',
     href: '/services/drone-services/roof-inspections',
     summary: 'Sub-centimetre optical mapping of single-ply membranes, standing water, flashing splits, and valley gutter silt.',
-    previewImage: '/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp',
+    previewImage: '/images/drone/nav/inspection.png',
   },
   {
     id: 'facade-inspections',
@@ -39,7 +39,7 @@ const SERVICES: ServiceItem[] = [
     category: 'Vertical Fabric',
     href: '/services/drone-services/facade-inspections',
     summary: 'Multi-storey elevation inspections evaluating curtain wall glazing gaskets, rain-screen panels, and vertical mastic expansion joints.',
-    previewImage: '/images/editorial/entirefm-hero-headquarters-2560w.webp',
+    previewImage: '/images/editorial/building-safety-facade-inspection.jpg',
   },
   {
     id: 'thermal-imaging',
@@ -56,7 +56,7 @@ const SERVICES: ServiceItem[] = [
     category: 'Renewable Assets',
     href: '/services/drone-services/solar-panel-surveys',
     summary: 'String-level radiometric scans detecting micro-cracks, bypass diode failures, and hotspot cell degradation.',
-    previewImage: '/images/drone/thermal_poster.jpg',
+    previewImage: '/images/drone/nav/thermal.png',
   },
   {
     id: 'surveying-and-mapping',
@@ -90,7 +90,7 @@ const SERVICES: ServiceItem[] = [
     category: 'Civil & Groundworks',
     href: '/services/drone-services/volumetric-surveys',
     summary: 'Accurate 3D stockpile calculations, quarry assessments, and digital terrain modeling.',
-    previewImage: '/images/drone/surveying_poster.png',
+    previewImage: '/images/drone/nav/surveying.png',
   },
   {
     id: 'aerial-photography',
@@ -107,7 +107,7 @@ const SERVICES: ServiceItem[] = [
     category: 'Storm & Incident Response',
     href: '/services/drone-services/insurance-claim-surveys',
     summary: 'Rapid post-storm deployment providing timestamped photographic evidence packs for loss adjusters.',
-    previewImage: '/images/editorial/entirefm-external-distribution-dusk-2000w.webp',
+    previewImage: '/images/drone/sectors/infrastructure.png',
   },
 ];
 

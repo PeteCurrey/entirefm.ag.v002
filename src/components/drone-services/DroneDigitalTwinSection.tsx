@@ -42,8 +42,8 @@ export function DroneDigitalTwinSection() {
           {/* Visual 1: Heritage & Commercial BIM */}
           <div className="relative rounded-sm overflow-hidden bg-slate-950 min-h-[400px] flex flex-col justify-end p-8 sm:p-10 shadow-md group">
             <Image
-              src="/images/drone/gaussian-splat/heritage-house.jpg"
-              alt="3D Reality capture of complex commercial estate"
+              src="/images/editorial/entirefm-london-aerial-poster-2560w.webp"
+              alt="High-altitude aerial capture of commercial city assets"
               fill
               className="object-cover object-center filter brightness-[0.80] contrast-[1.05] transition-transform duration-700 group-hover:scale-105"
               sizes="(max-width: 1024px) 100vw, 50vw"

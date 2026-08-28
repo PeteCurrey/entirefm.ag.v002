@@ -75,8 +75,8 @@ export function DroneThermalReveal() {
             {/* Background: Visible RGB Spectrum Layer */}
             <div className="absolute inset-0">
               <Image
-                src="/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp"
-                alt="Visible RGB high-resolution commercial roof inspection"
+                src="/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp"
+                alt="Visible RGB high-resolution commercial rooftop and HVAC condenser plant deck"
                 fill
                 className="object-cover object-center filter brightness-[0.9] contrast-[1.05]"
                 sizes="100vw"

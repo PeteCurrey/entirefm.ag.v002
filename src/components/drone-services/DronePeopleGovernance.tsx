@@ -2,52 +2,61 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { ShieldCheck, Users, HardHat, FileCheck2, Plane, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Users, HardHat, FileCheck2, Plane, CheckCircle2, Wrench, Eye, Database } from 'lucide-react';
 
-const TEAM_PROFILES = [
+const OPERATIONAL_ROLES = [
   {
-    name: 'Dan Wright',
-    role: 'Chief Commercial Remote Pilot & Aviation Lead',
-    bio: 'Oversees commercial airspace authorisations, complex urban flight planning, and multi-sensor photogrammetry standards.',
-    image: '/images/drone/team/dan.jpg',
+    role: 'Commercial Remote Pilot',
+    discipline: 'Aviation & Flight Planning',
+    desc: 'Plans flight trajectories, oversees NOTAMs, obtains airport FRZ clearances, and conducts high-resolution multi-sensor data capture in strict compliance with CAA regulations.',
+    icon: Plane,
   },
   {
-    name: 'James Harrison',
-    role: 'Head of Building Fabric & Surveying',
-    bio: 'Chartered building surveyor translating raw orthomosaics and thermal datasets into actionable remedial specifications.',
-    image: '/images/drone/team/james.jpg',
+    role: 'Building Surveyor & Technical Review',
+    discipline: 'Defect Interpretation',
+    desc: 'Chartered building surveying specialists who interpret raw orthomosaics, photogrammetry, and radiometric thermal datasets to formulate precise RAG-rated condition dossiers.',
+    icon: Eye,
   },
   {
-    name: 'Rachel Davies',
-    role: 'FM Operations & Estate Mobilisation Lead',
-    bio: 'Coordinates tenant notifications, site RAMS, ground cordons, and seamless EntireCAFM work order dispatch.',
-    image: '/images/drone/team/rachel.jpg',
+    role: 'FM Operations & Site Lead',
+    discipline: 'Access & Health/Safety',
+    desc: 'Coordinates site-specific RAMS, building access permits, tenant communications, exclusion zones, and seamless transition into the client CAFM platform.',
+    icon: Users,
   },
   {
-    name: 'Sarah Evans',
-    role: 'Technical Data & Geospatial Analyst',
-    bio: 'Specialises in 3D reality mesh point clouds, GIS coordinate systems, and radiometric thermal delta-T calibration.',
-    image: '/images/drone/team/sarah.jpg',
+    role: 'Self-Delivered Specialist Trades',
+    discipline: 'Physical Remediation',
+    desc: 'EntireFM directly-employed commercial roofers, rope-access technicians, HVAC engineers, and mastic specialists dispatched to execute required repairs.',
+    icon: Wrench,
+  },
+  {
+    role: 'Geospatial & Data Analyst',
+    discipline: 'Spatial Engineering & BIM',
+    desc: 'Processes dense 3D point clouds, georeferenced CAD orthomosaics, volumetric calculations, and digital twin exports for estate records.',
+    icon: Database,
   },
 ];
 
 const GOVERNANCE_PILLARS = [
   {
+    number: '01',
     title: 'Site Risk Assessment & RAMS',
-    desc: 'Site-specific Risk Assessments and Method Statements issued to principal contractors and facilities directors before flight.',
+    desc: 'Site-specific Risk Assessments and Method Statements issued to principal contractors and estate managers prior to every commercial deployment.',
   },
   {
-    title: 'Airspace & CAA Compliance',
-    desc: 'Strict operation within UK Civil Aviation Authority commercial authorisations, FRZ airport clearances, and NOTAM reviews.',
+    number: '02',
+    title: 'CAA Commercial Compliance',
+    desc: 'Commercial operations conducted strictly within UK Civil Aviation Authority authorizations, active airspace checks, and emergency safety cordons.',
   },
   {
-    title: 'Aviation Third-Party Insurance',
-    desc: 'Comprehensive aviation public liability insurance compliant with Regulation (EC) 785/2004 for commercial operations.',
+    number: '03',
+    title: 'Commercial Aviation Insurance',
+    desc: 'Full aviation public liability insurance compliant with UK & European regulation (EC) 785/2004, tailored for high-value commercial real estate.',
   },
   {
-    title: 'Tenant & Public Safety Cordons',
-    desc: 'Dedicated safety marshals, exclusion zones, and out-of-hours scheduling to protect building occupants and ground transport.',
+    number: '04',
+    title: 'Tenant & Public Safety Protocol',
+    desc: 'Trained ground safety marshals, exclusion zones, and out-of-hours scheduling to safeguard tenants, public highways, and ground transport.',
   },
 ];
 
@@ -59,52 +68,100 @@ export function DronePeopleGovernance() {
     >
       <div className="container-custom space-y-24">
         
-        {/* Section 1: The People Behind the Flight */}
+        {/* Section 1: The People Behind the Flight — Capability-Led Presentation */}
         <div className="space-y-16">
-          <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 text-brand-pink text-xs uppercase tracking-[0.2em] font-semibold">
-              <Users className="h-4 w-4" />
-              <span>THE SPECIALIST TEAM</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+            <div className="lg:col-span-7 space-y-4">
+              <div className="inline-flex items-center gap-2 text-brand-pink text-xs uppercase tracking-[0.2em] font-semibold">
+                <Users className="h-4 w-4" />
+                <span>THE DELIVERY TEAM</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-slate-900 leading-[1.1]">
+                The people behind <br />
+                <span className="font-normal text-slate-950">
+                  the flight.
+                </span>
+              </h2>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-slate-900 leading-[1.1]">
-              The people behind <br />
-              <span className="font-normal text-slate-950">
-                the flight.
-              </span>
-            </h2>
-
-            <p className="text-base sm:text-lg text-slate-600 font-light leading-relaxed">
-              EntireFM is a service business powered by experienced pilots, chartered surveyors, project managers, and trade engineers who ensure every flight delivers tangible engineering outcomes.
-            </p>
+            <div className="lg:col-span-5 text-slate-600 text-base sm:text-lg font-light leading-relaxed">
+              <p>
+                EntireFM is an engineering and facilities management business. Behind every flight is a multidisciplinary chain of qualified pilots, technical surveyors, and physical trade specialists who ensure aerial data converts into real estate integrity.
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {TEAM_PROFILES.map((member, idx) => (
-              <div key={idx} className="space-y-4 group">
-                <div className="relative aspect-[4/5] rounded-sm overflow-hidden bg-slate-950 shadow-md">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover object-center filter brightness-[0.95] contrast-[1.05] transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
-                </div>
+          {/* Genuine Operational Photography Pair */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="relative rounded-sm overflow-hidden bg-slate-950 min-h-[340px] p-8 flex flex-col justify-end text-white shadow-md">
+              <Image
+                src="/images/editorial/entirefm-engineers-office-testing-2000w.webp"
+                alt="EntireFM technical surveying and diagnostic engineering review"
+                fill
+                className="object-cover object-center filter brightness-[0.80] contrast-[1.05]"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+              <div className="relative z-10 space-y-1">
+                <span className="text-xs font-mono uppercase tracking-widest text-brand-pink block">
+                  TECHNICAL DIAGNOSIS
+                </span>
+                <h3 className="text-xl font-light">
+                  Chartered Surveying &amp; Data Review
+                </h3>
+                <p className="text-xs text-slate-300 font-light max-w-md">
+                  Every high-resolution capture is reviewed by qualified property professionals to define scope and severity.
+                </p>
+              </div>
+            </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-base font-semibold text-slate-900">
-                    {member.name}
-                  </h3>
-                  <div className="text-xs text-brand-pink font-medium">
-                    {member.role}
+            <div className="relative rounded-sm overflow-hidden bg-slate-950 min-h-[340px] p-8 flex flex-col justify-end text-white shadow-md">
+              <Image
+                src="/images/editorial/entirefm-entirefm-premises-vans-2000w.webp"
+                alt="EntireFM mobile engineering fleet and trade mobilisation"
+                fill
+                className="object-cover object-center filter brightness-[0.80] contrast-[1.05]"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+              <div className="relative z-10 space-y-1">
+                <span className="text-xs font-mono uppercase tracking-widest text-brand-pink block">
+                  FIELD MOBILISATION
+                </span>
+                <h3 className="text-xl font-light">
+                  Direct Trade Fleet &amp; Physical Remediation
+                </h3>
+                <p className="text-xs text-slate-300 font-light max-w-md">
+                  Self-delivered mobile engineering teams dispatched directly to commercial properties nationwide.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Operational Capability Chain Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 pt-4">
+            {OPERATIONAL_ROLES.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div key={idx} className="p-6 rounded-sm bg-slate-50 border border-slate-200 space-y-3">
+                  <div className="w-8 h-8 rounded-sm bg-brand-pink/10 flex items-center justify-center text-brand-pink">
+                    <Icon className="h-4 w-4" />
                   </div>
-                  <p className="text-xs text-slate-500 font-light leading-relaxed pt-1">
-                    {member.bio}
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 block font-medium">
+                      {item.discipline}
+                    </span>
+                    <h4 className="text-sm font-semibold text-slate-900">
+                      {item.role}
+                    </h4>
+                  </div>
+                  <p className="text-xs text-slate-600 font-light leading-relaxed">
+                    {item.desc}
                   </p>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -128,9 +185,7 @@ export function DronePeopleGovernance() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {GOVERNANCE_PILLARS.map((gov, gIdx) => (
               <div key={gIdx} className="p-6 rounded-sm bg-slate-50 border border-slate-200 space-y-2.5">
-                <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-                  <span>0{gIdx + 1}</span>
-                </div>
+                <span className="text-xs font-mono text-slate-400 font-medium">{gov.number}</span>
                 <h4 className="text-sm font-semibold text-slate-900">
                   {gov.title}
                 </h4>

@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Layers, Flame, Map, Construction, AlertTriangle, Box } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface Chapter {
   number: string;
@@ -95,6 +95,44 @@ const CHAPTERS: Chapter[] = [
   },
 ];
 
+function ChapterVideo({ src, poster }: { src: string; poster: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      loop
+      muted
+      playsInline
+      poster={poster}
+      className="w-full h-full object-cover object-center filter brightness-[0.80] contrast-[1.05] transition-transform duration-700 group-hover:scale-105"
+    >
+      <source src={src} type="video/mp4" />
+    </video>
+  );
+}
+
 export function DroneEditorialChapters() {
   return (
     <section 
@@ -141,22 +179,13 @@ export function DroneEditorialChapters() {
                 <div className={`lg:col-span-7 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
                   <div className="relative rounded-sm overflow-hidden bg-brand-carbon aspect-[16/10] shadow-2xl border border-white/10 group">
                     {chapter.mediaType === 'video' && chapter.videoSrc ? (
-                      <video
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        poster={chapter.imageSrc}
-                        className="w-full h-full object-cover object-center filter brightness-[0.75] contrast-[1.1] transition-transform duration-700 group-hover:scale-105"
-                      >
-                        <source src={chapter.videoSrc} type="video/mp4" />
-                      </video>
+                      <ChapterVideo src={chapter.videoSrc} poster={chapter.imageSrc} />
                     ) : (
                       <Image
                         src={chapter.imageSrc}
                         alt={chapter.title}
                         fill
-                        className="object-cover object-center filter brightness-[0.75] contrast-[1.1] transition-transform duration-700 group-hover:scale-105"
+                        className="object-cover object-center filter brightness-[0.80] contrast-[1.05] transition-transform duration-700 group-hover:scale-105"
                         sizes="(max-width: 1024px) 100vw, 60vw"
                       />
                     )}
