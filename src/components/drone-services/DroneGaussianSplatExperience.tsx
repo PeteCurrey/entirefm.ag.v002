@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { 
   Box, 
   ArrowRight,
@@ -13,7 +14,21 @@ import {
   Eye,
   Sparkles
 } from 'lucide-react';
-import { GaussianSplatViewer } from './GaussianSplatViewer';
+
+const GaussianSplatViewer = dynamic(
+  () => import('./GaussianSplatViewer').then((mod) => mod.GaussianSplatViewer),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full aspect-[16/10] sm:aspect-[16/9] bg-[#060A14] rounded-sm flex flex-col items-center justify-center border border-white/15 p-6 text-center space-y-4">
+        <div className="w-10 h-10 rounded-full border border-brand-pink/30 border-t-brand-pink animate-spin" />
+        <span className="text-xs uppercase tracking-widest text-slate-300 font-light">
+          Loading EntireFM 3D Engine…
+        </span>
+      </div>
+    ),
+  }
+);
 
 const REALITY_FORMATS = [
   { format: 'EntireFM 3D Digital Twin (.ksplat / .splat)', desc: 'Radiance field rendering preserving photorealistic lighting and complex geometry for real-time web walkthroughs.' },

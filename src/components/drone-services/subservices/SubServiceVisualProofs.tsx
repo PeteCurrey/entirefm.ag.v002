@@ -20,7 +20,22 @@ import {
   Activity,
   HardHat
 } from 'lucide-react';
-import { GaussianSplatViewer } from '../GaussianSplatViewer';
+import dynamic from 'next/dynamic';
+
+const GaussianSplatViewer = dynamic(
+  () => import('../GaussianSplatViewer').then((mod) => mod.GaussianSplatViewer),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full aspect-[16/10] sm:aspect-[16/9] bg-[#060A14] rounded-sm flex flex-col items-center justify-center border border-white/15 p-6 text-center space-y-4">
+        <div className="w-10 h-10 rounded-full border border-brand-pink/30 border-t-brand-pink animate-spin" />
+        <span className="text-xs uppercase tracking-widest text-slate-300 font-light">
+          Loading EntireFM 3D Model…
+        </span>
+      </div>
+    ),
+  }
+);
 
 /* ─────────────────────────────────────────────────────────────────────────────
    01. GENERAL DRONE INSPECTIONS: MULTI-ZONE OPTICAL INSPECTION
