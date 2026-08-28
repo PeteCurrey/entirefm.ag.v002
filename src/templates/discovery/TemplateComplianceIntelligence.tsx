@@ -27,6 +27,7 @@ import type {
   RegulatorActivityItem,
   HorizonTimelineMilestone,
 } from '@/server/compliance/compliance-store';
+import { LobbyContentLoadingState } from '@/components/lobby/LobbyContentLoadingState';
 
 const DISCIPLINES = [
   { id: 'all', label: 'All Disciplines' },
@@ -53,29 +54,35 @@ export function TemplateComplianceIntelligence() {
   const [activeJurisdiction, setActiveJurisdiction] = useState('All UK');
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [followedDisciplines, setFollowedDisciplines] = useState<string[]>([]);
   const [alertSuccess, setAlertSuccess] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function loadCompliance() {
-      try {
-        const jurisdictionParam = activeJurisdiction === 'All UK' ? 'all' : activeJurisdiction;
-        const res = await fetch(
-          `/api/lobby/compliance?discipline=${activeDiscipline}&jurisdiction=${encodeURIComponent(
-            jurisdictionParam
-          )}`
-        );
-        const data = await res.json();
-        setRecords(data.records || []);
-        setConsultations(data.consultations || []);
-        setHorizon(data.horizon || []);
-        setRegulators(data.regulators || []);
-      } catch (err) {
-        console.error('Error loading compliance records:', err);
-      } finally {
-        setLoading(false);
-      }
+  const loadCompliance = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const jurisdictionParam = activeJurisdiction === 'All UK' ? 'all' : activeJurisdiction;
+      const res = await fetch(
+        `/api/lobby/compliance?discipline=${activeDiscipline}&jurisdiction=${encodeURIComponent(
+          jurisdictionParam
+        )}`
+      );
+      if (!res.ok) throw new Error('Failed to load compliance feed');
+      const data = await res.json();
+      setRecords(data.records || []);
+      setConsultations(data.consultations || []);
+      setHorizon(data.horizon || []);
+      setRegulators(data.regulators || []);
+    } catch (err: any) {
+      console.error('Error loading compliance records:', err);
+      setError(err.message || 'Unable to retrieve compliance intelligence.');
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
     loadCompliance();
   }, [activeDiscipline, activeJurisdiction]);
 
@@ -187,9 +194,17 @@ export function TemplateComplianceIntelligence() {
         </div>
       </header>
 
-      {/* ── 2. THE CHANGE THAT MATTERS (Lead Compliance Feature - Dark Cinematic Split) ── */}
-      {leadRecord && (
-        <section className="bg-[#07090E] text-white overflow-hidden relative border-b border-neutral-800">
+      {loading || error ? (
+        <LobbyContentLoadingState
+          variant="compliance"
+          error={error}
+          onRetry={loadCompliance}
+        />
+      ) : (
+        <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+          {/* ── 2. THE CHANGE THAT MATTERS (Lead Compliance Feature - Dark Cinematic Split) ── */}
+          {leadRecord && (
+            <section className="bg-[#07090E] text-white overflow-hidden relative border-b border-neutral-800">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 min-h-[480px]">
             
             {/* Left: Cinematic Image Container */}
@@ -727,6 +742,8 @@ export function TemplateComplianceIntelligence() {
           </div>
         </div>
       </section>
+        </div>
+      )}
 
       <Footer />
     </div>

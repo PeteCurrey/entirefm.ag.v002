@@ -23,6 +23,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import type { ProcurementOpportunity, FMTradeCategory } from '@/server/intelligence/types';
+import { LobbyContentLoadingState } from '@/components/lobby/LobbyContentLoadingState';
 
 export function TemplateOpportunities() {
   const [tenders, setTenders] = useState<ProcurementOpportunity[]>([]);
@@ -33,24 +34,39 @@ export function TemplateOpportunities() {
     closingSoon: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'all' | 'closing_soon' | 'frameworks' | 'awards'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedRegion, setSelectedRegion] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [savedIds, setSavedIds] = useState<Set<string>>(new Set());
 
-  useEffect(() => {
+  const fetchOpportunities = () => {
+    setLoading(true);
+    setError(null);
     fetch(`/api/lobby/intelligence/opportunities?view=${activeTab === 'awards' ? 'awards' : 'all'}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to load procurement opportunities feed');
+        return res.json();
+      })
       .then((json) => {
         if (json.success) {
           setTenders(json.tenders || []);
           setAwards(json.awards || []);
           if (json.counts) setCounts(json.counts);
+        } else {
+          throw new Error('Invalid procurement opportunities response');
         }
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((err) => {
+        setError(err.message || 'Unable to retrieve procurement intelligence.');
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchOpportunities();
   }, [activeTab]);
 
   function toggleSave(id: string) {
@@ -203,10 +219,15 @@ export function TemplateOpportunities() {
         </div>
       </header>
 
-      {/* ─── MAIN PROCUREMENT BODY ─── */}
-      <main className="space-y-16 sm:space-y-24 py-12 sm:py-16">
-        
-        {/* ─── 2. NOTABLE OPPORTUNITY (Dominant Lead Feature) ─── */}
+      {loading || error ? (
+        <LobbyContentLoadingState
+          variant="procurement"
+          error={error}
+          onRetry={fetchOpportunities}
+        />
+      ) : (
+        <main className="space-y-16 sm:space-y-24 py-12 sm:py-16 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          {/* ─── 2. NOTABLE OPPORTUNITY (Dominant Lead Feature) ─── */}
         {featuredOpportunity && activeTab !== 'awards' && (
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="border-b border-neutral-200 pb-3 flex items-baseline justify-between">
@@ -647,6 +668,7 @@ export function TemplateOpportunities() {
           </div>
         </section>
       </main>
+      )}
 
       <Footer />
     </div>

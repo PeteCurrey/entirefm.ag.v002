@@ -4,13 +4,9 @@ import { opportunityStore } from '@/server/intelligence/opportunity-store';
 import { ingestionOrchestrator } from '@/server/intelligence/ingestion-orchestrator';
 
 export async function GET() {
-  // If store is empty, trigger a background initialisation sync
+  // If store is empty, trigger a background non-blocking initialisation sync
   if (intelligenceStore.getCounts().totalItems === 0) {
-    try {
-      await ingestionOrchestrator.runFullIngestion();
-    } catch {
-      // Handled gracefully
-    }
+    ingestionOrchestrator.runFullIngestion().catch(() => {});
   }
 
   // Format today's date in London timezone
@@ -251,19 +247,26 @@ export async function GET() {
     image: '/images/editorial/entirefm-site-arrival-1200w.webp',
   };
 
-  return NextResponse.json({
-    success: true,
-    data: {
-      dateFormatted,
-      timeFormatted,
-      threeThingsThatMatter,
-      whatChanged,
-      whoWonWhat,
-      onTheHorizon,
-      fromTheIndustry,
-      theConversation,
-      oneUsefulThing,
+  return NextResponse.json(
+    {
+      success: true,
+      data: {
+        dateFormatted,
+        timeFormatted,
+        threeThingsThatMatter,
+        whatChanged,
+        whoWonWhat,
+        onTheHorizon,
+        fromTheIndustry,
+        theConversation,
+        oneUsefulThing,
+      },
+      generatedAt: now.toISOString(),
     },
-    generatedAt: now.toISOString(),
-  });
+    {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+      },
+    }
+  );
 }

@@ -18,6 +18,7 @@ import {
   Building2,
   Clock,
 } from 'lucide-react';
+import { LobbyContentLoadingState } from '@/components/lobby/LobbyContentLoadingState';
 
 interface TodayPayload {
   dateFormatted: string;
@@ -130,17 +131,32 @@ interface TodayPayload {
 export function TemplateLobbyToday() {
   const [data, setData] = useState<TodayPayload | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchToday = () => {
+    setLoading(true);
+    setError(null);
     fetch('/api/lobby/intelligence/today')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to load briefing feed');
+        return res.json();
+      })
       .then((json) => {
         if (json.success && json.data) {
           setData(json.data);
+        } else {
+          throw new Error('Invalid briefing response');
         }
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((err) => {
+        setError(err.message || 'Unable to retrieve today’s briefing.');
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchToday();
   }, []);
 
   return (
@@ -189,12 +205,14 @@ export function TemplateLobbyToday() {
         </div>
       </header>
 
-      {loading ? (
-        <div className="max-w-7xl mx-auto py-20 px-4 text-center text-neutral-500 font-light text-sm">
-          Loading today&apos;s executive FM briefing...
-        </div>
+      {loading || error ? (
+        <LobbyContentLoadingState
+          variant="today"
+          error={error}
+          onRetry={fetchToday}
+        />
       ) : data ? (
-        <main className="space-y-16 sm:space-y-24 py-12 sm:py-16">
+        <main className="space-y-16 sm:space-y-24 py-12 sm:py-16 animate-in fade-in slide-in-from-bottom-2 duration-300">
           
           {/* ── 2. THREE THINGS THAT MATTER TODAY (Image-Led Editorial Layer) ── */}
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">

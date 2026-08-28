@@ -10,7 +10,10 @@ export async function GET(request: Request) {
 
   if (view === 'awards') {
     const awards = opportunityStore.getContractAwards(30);
-    return NextResponse.json({ success: true, awards });
+    return NextResponse.json(
+      { success: true, awards },
+      { headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' } }
+    );
   }
 
   const tenders = opportunityStore.getActiveTenders({
@@ -23,11 +26,18 @@ export async function GET(request: Request) {
   const awards = opportunityStore.getContractAwards(10);
   const counts = opportunityStore.getCounts();
 
-  return NextResponse.json({
-    success: true,
-    tenders,
-    awards,
-    counts,
-    timestamp: new Date().toISOString(),
-  });
+  return NextResponse.json(
+    {
+      success: true,
+      tenders,
+      awards,
+      counts,
+      timestamp: new Date().toISOString(),
+    },
+    {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+      },
+    }
+  );
 }

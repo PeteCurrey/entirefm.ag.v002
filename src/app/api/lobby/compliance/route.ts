@@ -14,15 +14,22 @@ export async function GET(request: Request) {
 
   const records = getComplianceRecords({ discipline, status, jurisdiction });
 
-  return NextResponse.json({
-    records,
-    consultations: OPEN_CONSULTATIONS,
-    horizon: HORIZON_TIMELINE,
-    regulators: REGULATOR_ACTIVITY,
-    stats: {
-      total: records.length,
-      statutoryLaw: records.filter((r) => r.classification === 'Statutory Law').length,
-      upcomingDeadlines: records.filter((r) => r.status === 'upcoming').length,
+  return NextResponse.json(
+    {
+      records,
+      consultations: OPEN_CONSULTATIONS,
+      horizon: HORIZON_TIMELINE,
+      regulators: REGULATOR_ACTIVITY,
+      stats: {
+        total: records.length,
+        statutoryLaw: records.filter((r) => r.classification === 'Statutory Law').length,
+        upcomingDeadlines: records.filter((r) => r.status === 'upcoming').length,
+      },
     },
-  });
+    {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+      },
+    }
+  );
 }

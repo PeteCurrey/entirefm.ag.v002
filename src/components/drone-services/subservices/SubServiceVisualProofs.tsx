@@ -20,6 +20,7 @@ import {
   Activity,
   HardHat
 } from 'lucide-react';
+import { GaussianSplatViewer } from '../GaussianSplatViewer';
 
 /* ─────────────────────────────────────────────────────────────────────────────
    01. GENERAL DRONE INSPECTIONS PROOF: SELECTABLE STRUCTURAL BUILDING ZONES
@@ -515,8 +516,6 @@ export function ProofConstructionTimeline() {
    08. DIGITAL TWIN & 3D CAPTURE PROOF: GAUSSIAN SPLAT & POINT CLOUD MODELS
 ───────────────────────────────────────────────────────────────────────────── */
 export function ProofDigitalTwin3D() {
-  const [activeModel, setActiveModel] = useState<'casa' | 'heritage'>('casa');
-
   return (
     <div className="rounded-sm overflow-hidden bg-brand-carbon border border-white/15 p-6 sm:p-8 space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
@@ -524,42 +523,20 @@ export function ProofDigitalTwin3D() {
           <span className="text-xs font-mono text-brand-pink uppercase tracking-widest block">INTERACTIVE PROOF</span>
           <h3 className="text-xl font-light text-white">3D Gaussian Splatting &amp; Navigable Spatial Twin</h3>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setActiveModel('casa')}
-            className={`px-3 py-1 rounded-sm text-xs font-mono transition-all border ${
-              activeModel === 'casa' ? 'bg-brand-pink border-brand-pink text-white' : 'bg-white/5 border-white/10 text-slate-300'
-            }`}
-          >
-            CASA HOTEL
-          </button>
-          <button
-            onClick={() => setActiveModel('heritage')}
-            className={`px-3 py-1 rounded-sm text-xs font-mono transition-all border ${
-              activeModel === 'heritage' ? 'bg-brand-pink border-brand-pink text-white' : 'bg-white/5 border-white/10 text-slate-300'
-            }`}
-          >
-            HERITAGE COMPLEX
-          </button>
-        </div>
+        <span className="text-xs font-mono text-brand-pink bg-brand-pink/10 px-3 py-1 rounded-sm border border-brand-pink/20">
+          540,274 SPATIAL SPLATS
+        </span>
       </div>
 
-      <div className="relative aspect-[16/9] rounded-sm overflow-hidden bg-slate-950 border border-white/10 shadow-2xl">
-        <Image
-          src={activeModel === 'casa' ? '/images/drone/gaussian-splat/casa-hotel.jpg' : '/images/drone/gaussian-splat/heritage-house.jpg'}
-          alt="3D Gaussian Splat reality capture"
-          fill
-          className="object-cover object-center filter brightness-[0.9] contrast-[1.05]"
-          sizes="(max-width: 1200px) 100vw, 1200px"
+      <div className="w-full">
+        <GaussianSplatViewer
+          splatUrl="/assets/gaussian-splats/04_05_2026.ksplat"
+          splatCount={540274}
+          title="LIVE 3D DIGITAL TWIN · GAUSSIAN SPLAT"
+          subtitle="Directly Navigable Radiance Field · Polycam Capture"
+          initialCameraPosition={[0, 3.5, 6.5]}
+          initialCameraLookAt={[0, 0.8, 0]}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
-        <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-sm bg-black/70 backdrop-blur-md border border-white/15 text-xs font-mono text-white">
-          MODEL: {activeModel === 'casa' ? 'CASA HOTEL COMMERCIAL ESTATE' : 'HERITAGE HOUSE COMPLEX'}
-        </div>
-        <div className="absolute bottom-4 inset-x-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-slate-300 bg-black/70 backdrop-blur-md p-3 rounded-sm border border-white/15">
-          <span>DELIVERABLES: .SPLAT · .PLY · .LAS · .IFC (BIM READY)</span>
-          <span className="text-brand-pink">ENTIRECAFM SITE-360 SYNC</span>
-        </div>
       </div>
     </div>
   );
