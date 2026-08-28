@@ -28,7 +28,7 @@ const CHAPTERS: Chapter[] = [
     links: [
       { label: 'Commercial Drone Inspections', href: '/services/drone-services/drone-inspections' },
       { label: 'Roof & Gutter Inspections', href: '/services/drone-services/roof-inspections' },
-      { label: 'Façade & Building Envelope', href: '/services/drone-services/facade-inspections' },
+      { label: 'Building Envelope & Façade', href: '/services/drone-services/building-envelope-inspections' },
     ],
   },
   {
@@ -41,7 +41,7 @@ const CHAPTERS: Chapter[] = [
     imageSrc: '/images/drone/thermal_poster.jpg',
     links: [
       { label: 'Thermal Imaging Surveys', href: '/services/drone-services/thermal-imaging' },
-      { label: 'Solar PV Farm & Roof Surveys', href: '/services/drone-services/solar-panel-surveys' },
+      { label: 'Solar PV Farm & Rooftop Surveys', href: '/services/drone-services/solar-pv-inspections' },
     ],
   },
   {
@@ -53,7 +53,7 @@ const CHAPTERS: Chapter[] = [
     videoSrc: '/video/drone/surveying.mp4',
     imageSrc: '/images/drone/surveying_poster.png',
     links: [
-      { label: 'Surveying & Geospatial Mapping', href: '/services/drone-services/surveying-and-mapping' },
+      { label: 'Surveying & Geospatial Mapping', href: '/services/drone-services/surveying-mapping' },
       { label: 'Volumetric & Earthworks Surveys', href: '/services/drone-services/volumetric-surveys' },
     ],
   },
@@ -77,7 +77,7 @@ const CHAPTERS: Chapter[] = [
     mediaType: 'image',
     imageSrc: '/images/editorial/entirefm-external-distribution-dusk-2000w.webp',
     links: [
-      { label: 'Emergency & Insurance Claim Surveys', href: '/services/drone-services/insurance-claim-surveys' },
+      { label: 'Emergency & Insurance Claim Surveys', href: '/services/drone-services/emergency-insurance-surveys' },
     ],
   },
   {
@@ -90,7 +90,7 @@ const CHAPTERS: Chapter[] = [
     imageSrc: '/images/drone/photography_poster.png',
     links: [
       { label: 'Digital Twin & 3D Spatial Capture', href: '/services/drone-services/digital-twin-3d-capture' },
-      { label: 'High-Level Aerial Photography & Video', href: '/services/drone-services/aerial-photography' },
+      { label: 'High-Level Aerial Photography & Video', href: '/services/drone-services/aerial-photography-video' },
     ],
   },
 ];
