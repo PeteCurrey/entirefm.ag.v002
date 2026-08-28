@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Download,
   FileSpreadsheet,
@@ -11,7 +12,6 @@ import {
   CheckSquare,
   ArrowRight,
   ShieldCheck,
-  Sparkles,
   Info,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
@@ -19,6 +19,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
+import { NewsletterSignupSection } from '@/components/newsletter/NewsletterSignupSection';
 import type { TemplateProps } from '../types';
 
 interface DocumentItem {
@@ -39,7 +40,7 @@ const DOCUMENTS: DocumentItem[] = [
     category: 'Registers & Schedules',
     format: 'CSV',
     filename: 'EntireFM_Asset_Register_Master_Template_2026.csv',
-    description: 'Standardised UK asset register format with 12 structured columns for equipment tagging, location, condition, and maintenance cycles.',
+    description: 'Standardised UK asset register format with 14 structured columns for equipment tagging, location hierarchy, condition grading, and maintenance cycles.',
     mimeType: 'text/csv;charset=utf-8',
     contentGenerator: () => {
       const headers = [
@@ -255,118 +256,157 @@ export function TemplateDocumentVault({ route, content }: TemplateProps) {
   };
 
   return (
-    <>
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
       <Header />
-      <main className="min-h-screen bg-brand-void text-white">
-        {/* Hero */}
-        <section className="relative overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20 border-b border-brand-edge-dark">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-[15%] -top-[30%] h-[36rem] w-[36rem] rounded-full opacity-20 blur-[130px]"
-            style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 70%)' }}
-          />
 
-          <div className="container-custom relative">
-            <Breadcrumbs items={breadcrumbs} className="mb-6" />
-            <div className="max-w-3xl">
-              <span className="eyebrow eyebrow-dark inline-block mb-3">Downloadable FM Resources</span>
-              <h1 className="text-display-md text-white font-light tracking-tight">
-                FM Document Vault
+      <main id="main" className="flex-grow">
+        {/* ========================================================================= */}
+        {/* 1. CINEMATIC HERO (85svh)                                                 */}
+        {/* ========================================================================= */}
+        <section className="relative min-h-[85svh] lg:min-h-[88svh] flex items-center justify-center bg-[#060A14] overflow-hidden pt-28 pb-16 sm:py-24 border-b border-brand-edge-dark">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/editorial/entirefm-client-review-2000w.webp"
+              alt="EntireFM Document Vault — Operational Templates & Logbooks"
+              fill
+              priority
+              className="w-full h-full object-cover object-center filter brightness-[0.32] contrast-[1.1]"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/80 to-[#060A14]/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/90 to-transparent" />
+          </div>
+
+          <div className="container-custom relative z-10 w-full">
+            <div className="max-w-4xl space-y-6">
+              
+              <div className="mb-2">
+                <Breadcrumbs items={breadcrumbs} className="text-slate-300 font-light text-xs" />
+              </div>
+
+              <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-sm bg-white/10 backdrop-blur-md border border-white/15">
+                <span className="w-2 h-2 rounded-full bg-brand-pink" />
+                <span className="text-xs uppercase tracking-widest text-white/90 font-medium">
+                  Free Operational Downloads
+                </span>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.06]">
+                FM Document Vault: <br />
+                <span className="font-light text-hero-pink">
+                  Templates &amp; Logbooks.
+                </span>
               </h1>
-              <p className="mt-4 text-base sm:text-lg leading-relaxed text-brand-mist/75">
-                Clean, functional facilities management spreadsheets, asset registers, compliance logbooks, and contractor induction forms. 100% free and ungated.
+
+              <p className="text-base sm:text-xl text-slate-200 font-light leading-relaxed max-w-3xl">
+                Ready-to-use CSV registers, statutory compliance log sheets, tender briefs, and contractor induction checklists for commercial facilities managers and duty holders.
               </p>
+
+              <div className="flex flex-wrap items-center gap-6 pt-4 text-xs text-slate-300 font-light border-t border-white/15">
+                <span className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+                  Instant Direct Download
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+                  No Email Wall Required
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+                  SFG20 &amp; ACOP L8 Formatted
+                </span>
+              </div>
+
             </div>
           </div>
         </section>
 
-        {/* Documents Grid Section */}
-        <section className="py-16 bg-brand-carbon">
-          <div className="container-custom">
-            {/* Category Filter */}
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-              <div className="flex flex-wrap items-center gap-2">
+        <TrustBar />
+
+        {/* ========================================================================= */}
+        {/* 2. DOCUMENT REPOSITORY TABLE                                              */}
+        {/* ========================================================================= */}
+        <section className="py-24 bg-white text-slate-900 border-b border-slate-200">
+          <div className="container-custom space-y-12">
+            
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-6">
+              <div className="space-y-2">
+                <span className="text-xs uppercase tracking-wider text-brand-pink font-medium block">
+                  Document Repository
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-extralight text-slate-900 tracking-tight">
+                  Available Templates &amp; Logbooks
+                </h2>
+              </div>
+
+              {/* Category Filter */}
+              <div className="flex flex-wrap gap-2">
                 {['ALL', 'Registers & Schedules', 'Compliance Logbooks', 'Procurement & Operations'].map((cat) => (
                   <button
                     key={cat}
-                    type="button"
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-sm text-xs font-normal transition-colors ${
+                    className={`px-3.5 py-2 rounded-sm text-xs font-medium transition-all ${
                       selectedCategory === cat
-                        ? 'bg-brand-electric-bright text-white'
-                        : 'bg-brand-graphite border border-brand-edge-dark text-brand-mist/60 hover:text-white'
+                        ? 'bg-brand-pink text-white shadow-sm'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
                     {cat === 'ALL' ? 'All Templates' : cat}
                   </button>
                 ))}
               </div>
-              <span className="text-xs text-brand-mist/50">
-                {filteredDocs.length} Verified Templates Available
-              </span>
             </div>
 
-            {/* Document Cards */}
-            <div className="grid gap-6 md:grid-cols-2">
+            {/* Document Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {filteredDocs.map((doc) => (
                 <div
                   key={doc.id}
-                  className="rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 flex flex-col justify-between hover:border-brand-electric/40 transition-colors"
+                  className="p-8 rounded-sm border border-slate-200 bg-slate-50 flex flex-col justify-between space-y-6 shadow-sm hover:border-brand-pink transition-all"
                 >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="text-[10px] uppercase font-light font-mono px-2 py-0.5 rounded bg-white/[0.05] border border-white/10 text-brand-electric-bright">
-                        {doc.format}
-                      </span>
-                      <span className="text-[11px] text-brand-mist/50 font-normal">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+                      <span className="px-2.5 py-1 rounded-sm bg-white border border-slate-200 text-[10px] font-medium uppercase tracking-wider text-slate-600">
                         {doc.category}
+                      </span>
+                      <span className="text-xs font-medium text-brand-pink uppercase tracking-wider">
+                        {doc.format} Format
                       </span>
                     </div>
 
-                    <h3 className="text-base font-light text-white leading-snug">
+                    <h3 className="text-2xl font-light text-slate-900 leading-snug">
                       {doc.title}
                     </h3>
-                    <p className="mt-2 text-xs text-brand-mist/75 leading-relaxed">
+
+                    <p className="text-sm text-slate-600 font-light leading-relaxed">
                       {doc.description}
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-brand-edge-dark flex items-center justify-between">
-                    <span className="text-[11px] font-mono text-brand-mist/40 truncate max-w-[220px]">
+                  <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
+                    <button
+                      onClick={() => handleDownload(doc)}
+                      className="inline-flex items-center gap-2 bg-brand-pink hover:bg-brand-pink/90 text-white text-xs uppercase tracking-widest font-medium py-3 px-5 rounded-sm transition-all shadow-sm"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Download {doc.format}</span>
+                    </button>
+                    <span className="text-[11px] text-slate-400 font-light truncate max-w-[160px]">
                       {doc.filename}
                     </span>
-                    <button
-                      type="button"
-                      onClick={() => handleDownload(doc)}
-                      className="btn-primary py-2 px-3 text-xs inline-flex items-center gap-1.5 shrink-0"
-                    >
-                      <Download className="h-3.5 w-3.5" />
-                      Download
-                    </button>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Ungated Assurance */}
-            <div className="mt-12 rounded-sm bg-white/[0.02] border border-brand-edge-dark p-6 text-xs text-brand-mist/60 leading-relaxed">
-              <div className="flex items-start gap-3">
-                <Info className="h-5 w-5 text-brand-electric-bright shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-light text-white">Genuine Ungated Downloads</h4>
-                  <p className="mt-1">
-                    Every document in this vault is generated dynamically as real CSV or Markdown files. You do not need to register, provide an email address, or request sales permission to download and use these templates across your estates.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
-        <TrustBar />
+        <NewsletterSignupSection />
         <ProposalSection />
       </main>
+
       <Footer />
-    </>
+    </div>
   );
 }

@@ -1,78 +1,52 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Phone } from 'lucide-react';
+import { ArrowRight, PhoneCall } from 'lucide-react';
 
 interface ConversionBridgeProps {
   headline: string;
   body: string;
   ctaPrimary: { label: string; href: string };
   ctaSecondary?: { label: string; href: string };
-  accent?: 'blue' | 'emerald' | 'amber' | 'violet';
+  accent?: 'pink' | 'blue' | 'emerald' | 'amber' | 'violet';
 }
-
-const ACCENT_STYLES: Record<string, { border: string; btn: string; glow: string }> = {
-  blue: {
-    border: 'border-blue-500/25',
-    btn: 'bg-brand-electric hover:bg-blue-500',
-    glow: 'bg-blue-600/5',
-  },
-  emerald: {
-    border: 'border-emerald-500/25',
-    btn: 'bg-emerald-600 hover:bg-emerald-500',
-    glow: 'bg-emerald-600/5',
-  },
-  amber: {
-    border: 'border-amber-500/25',
-    btn: 'bg-amber-600 hover:bg-amber-500',
-    glow: 'bg-amber-600/5',
-  },
-  violet: {
-    border: 'border-violet-500/25',
-    btn: 'bg-violet-600 hover:bg-violet-500',
-    glow: 'bg-violet-600/5',
-  },
-};
 
 export function ResultsConversionBridge({
   headline,
   body,
   ctaPrimary,
   ctaSecondary,
-  accent = 'blue',
+  accent = 'pink',
 }: ConversionBridgeProps) {
-  const cls = ACCENT_STYLES[accent] ?? ACCENT_STYLES.blue;
-
   return (
-    <div
-      className={`relative overflow-hidden rounded-sm border ${cls.border} bg-brand-graphite p-8 print:hidden`}
-    >
-      {/* Subtle background tint */}
-      <div className={`absolute inset-0 ${cls.glow} pointer-events-none`} />
-
-      <div className="relative flex flex-col sm:flex-row sm:items-center gap-6 justify-between">
-        <div className="space-y-2 max-w-xl">
-          <p className="text-[10px] font-mono uppercase tracking-widest text-brand-mist/40 font-light">
-            Ready to act on this?
-          </p>
-          <h3 className="text-lg font-light text-white leading-snug">{headline}</h3>
-          <p className="text-sm text-brand-mist/65 leading-relaxed">{body}</p>
+    <div className="relative overflow-hidden rounded-sm border border-brand-edge-dark bg-brand-carbon p-8 sm:p-10 font-sans print:hidden">
+      <div className="relative flex flex-col lg:flex-row lg:items-center gap-8 justify-between">
+        <div className="space-y-3 max-w-2xl">
+          <div className="inline-flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+            <span className="text-[11px] uppercase tracking-widest text-brand-pink font-medium">
+              Operational Next Steps
+            </span>
+          </div>
+          <h3 className="text-xl sm:text-2xl font-light text-white leading-snug tracking-tight">{headline}</h3>
+          <p className="text-sm text-slate-300 font-light leading-relaxed">{body}</p>
         </div>
 
-        <div className="flex flex-col sm:items-end gap-3 shrink-0">
+        <div className="flex flex-wrap items-center gap-4 shrink-0">
           <Link
             href={ctaPrimary.href}
-            className={`inline-flex items-center gap-2 ${cls.btn} text-white text-sm font-normal px-5 py-3 rounded-sm transition-colors whitespace-nowrap`}
+            className="inline-flex items-center gap-2 bg-brand-pink hover:bg-brand-pink/90 text-white text-sm font-medium px-6 py-3.5 rounded-sm transition-all hover:scale-[1.02] shadow-elevated whitespace-nowrap"
           >
-            {ctaPrimary.label}
+            <span>{ctaPrimary.label}</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
           {ctaSecondary && (
             <Link
               href={ctaSecondary.href}
-              className="inline-flex items-center gap-1.5 text-xs text-brand-mist/60 hover:text-brand-mist transition-colors"
+              className="inline-flex items-center gap-2 border border-white/20 bg-white/10 hover:bg-white/20 text-white text-sm font-normal px-5 py-3.5 rounded-sm transition-all"
             >
-              <Phone className="h-3 w-3" />
-              {ctaSecondary.label}
+              <span>{ctaSecondary.label}</span>
             </Link>
           )}
         </div>

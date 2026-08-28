@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight, Clock } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
+import { TrustBar } from '@/components/trust/TrustBar';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { POSTS_BY_DATE, POST_BY_PATH, readingTime } from '@/content/blog/posts';
 import { PRIMARY_NAV, FOOTER_NAV } from '@/config/navigation';
@@ -14,32 +15,9 @@ import editorial from '@/config/location-images.json';
 import { NewsletterSignupSection, NewsletterInlineCard } from '@/components/newsletter/NewsletterSignupSection';
 import type { TemplateProps } from './types';
 
-/**
- * ARTICLES AND THE BLOG INDEX
- * ===========================
- * One template, two modes: the index when the route is a blog listing, the
- * article otherwise.
- *
- * WHAT THIS REPLACED
- * ------------------
- * The previous version rendered `badge-gold` — a class from the discarded gold
- * design system that nothing defines — used `text-slate-*` outside the brand
- * palette, titleised its related links from the slug, and showed a byline with
- * no date because no date existed in the data.
- *
- * DATES ARE SHOWN, NOT JUST EMITTED
- * ---------------------------------
- * Publication and revision dates appear on the page as well as in the Article
- * schema. An article about statutory obligations that does not say when it was
- * written is asking to be trusted on a subject where currency is the whole
- * question — and the reader has no way to check whether it predates a change
- * in the legislation it describes.
- */
-
 type EditorialManifest = { editorial: Record<string, { src: string; alt: string }> };
 const IMAGES = (editorial as EditorialManifest).editorial ?? {};
 
-/** Real page names for internal links, rather than a titleised slug. */
 const NAV_LABELS: Record<string, string> = Object.fromEntries(
   [
     ...PRIMARY_NAV.flatMap((s) => s.columns.flatMap((c) => c.links)),
@@ -95,91 +73,125 @@ function BlogIndex({ route, content }: TemplateProps) {
   const regularPosts = selectedCategory === 'All Topics' ? filteredPosts.slice(1) : filteredPosts;
 
   return (
-    <div className="flex min-h-screen flex-col bg-white">
-      <Header solid />
-      <main id="main" className="flex-1">
-        <Breadcrumbs items={breadcrumbs} />
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
+      <Header />
 
-        {/* Editorial Hero Header */}
-        <section className="on-dark relative isolate overflow-hidden bg-brand-graphite pt-20 pb-16 sm:pt-24 sm:pb-20 border-b border-brand-edge-dark">
-          <div className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
-          <div className="container-custom relative max-w-4xl">
-            <p className="eyebrow eyebrow-dark">INSIGHTS</p>
-            <h1 className="mt-4 text-display-lg text-white">Facilities Management Insights</h1>
-            <p className="mt-5 text-[1.125rem] leading-relaxed text-brand-mist/85 font-light">
-              Practical thinking on buildings, maintenance, compliance, technology and the changing FM profession.
-            </p>
+      <main id="main" className="flex-grow">
+        {/* ========================================================================= */}
+        {/* 1. CINEMATIC HERO (85svh)                                                 */}
+        {/* ========================================================================= */}
+        <section className="relative min-h-[85svh] lg:min-h-[88svh] flex items-center justify-center bg-[#060A14] overflow-hidden pt-28 pb-16 sm:py-24 border-b border-brand-edge-dark">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/editorial/entirefm-client-review-2000w.webp"
+              alt="EntireFM Insights and Articles"
+              fill
+              priority
+              className="w-full h-full object-cover object-center filter brightness-[0.32] contrast-[1.1]"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/80 to-[#060A14]/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/90 to-transparent" />
+          </div>
 
-            {/* Category Filter Pills */}
-            <div className="mt-8 flex flex-wrap gap-2 pt-6 border-t border-white/10">
-              {BLOG_TOPICS.map((topic) => {
-                const active = selectedCategory === topic;
-                return (
-                  <button
-                    key={topic}
-                    onClick={() => setSelectedCategory(topic)}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-normal transition-all ${
-                      active
-                        ? 'bg-brand-electric text-brand-void font-light shadow-sm'
-                        : 'bg-white/5 text-brand-mist hover:bg-white/10 hover:text-white border border-white/10'
-                    }`}
-                  >
-                    {topic}
-                  </button>
-                );
-              })}
+          <div className="container-custom relative z-10 w-full">
+            <div className="max-w-4xl space-y-6">
+              
+              <div className="mb-2">
+                <Breadcrumbs items={breadcrumbs} className="text-slate-300 font-light text-xs" />
+              </div>
+
+              <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-sm bg-white/10 backdrop-blur-md border border-white/15">
+                <span className="w-2 h-2 rounded-full bg-brand-pink" />
+                <span className="text-xs uppercase tracking-widest text-white/90 font-medium">
+                  Editorial Insights &amp; Analysis
+                </span>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.06]">
+                Facilities Management <br />
+                <span className="font-light text-hero-pink">
+                  Insights &amp; Analysis.
+                </span>
+              </h1>
+
+              <p className="text-base sm:text-xl text-slate-200 font-light leading-relaxed max-w-3xl">
+                Practical, engineer-led analysis on commercial property maintenance, statutory compliance governance, HVAC technology, and the evolving UK facilities management landscape.
+              </p>
+
+              {/* Category Filter Pills */}
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-white/15">
+                {BLOG_TOPICS.map((topic) => {
+                  const active = selectedCategory === topic;
+                  return (
+                    <button
+                      key={topic}
+                      onClick={() => setSelectedCategory(topic)}
+                      className={`px-3.5 py-2 rounded-sm text-xs font-medium transition-all ${
+                        active
+                          ? 'bg-brand-pink text-white shadow-elevated'
+                          : 'bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      {topic}
+                    </button>
+                  );
+                })}
+              </div>
+
             </div>
           </div>
         </section>
 
-        {/* Featured Lead Story (Only shown when viewing 'All Topics') */}
+        <TrustBar />
+
+        {/* ========================================================================= */}
+        {/* 2. FEATURED LEAD ARTICLE                                                  */}
+        {/* ========================================================================= */}
         {selectedCategory === 'All Topics' && featuredPost && (
-          <section className="bg-brand-carbon border-b border-brand-edge-dark py-12 sm:py-16">
+          <section className="py-20 bg-white text-slate-900 border-b border-slate-200">
             <div className="container-custom">
-              <div className="mb-4">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-pink-400 font-light">
-                  Featured Analysis
-                </span>
-              </div>
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-brand-graphite border border-brand-edge-dark rounded-sm overflow-hidden p-6 sm:p-8 group hover:border-pink-500/40 transition-all">
-                <div className="lg:col-span-6 relative aspect-[16/10] overflow-hidden rounded-sm bg-brand-void">
-                  {IMAGES[featuredPost.imageKey] && (
-                    <Image
-                      src={IMAGES[featuredPost.imageKey].src}
-                      alt={featuredPost.title}
-                      fill
-                      priority
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-700 ease-brand group-hover:scale-105"
-                    />
-                  )}
-                </div>
-                <div className="lg:col-span-6 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-brand-mist/60 mb-3 font-mono">
-                      <span className="text-pink-400 font-light">{featuredPost.category}</span>
-                      <span>·</span>
-                      <time dateTime={featuredPost.published}>{longDate(featuredPost.published)}</time>
-                      <span>·</span>
-                      <span>{readingTime(featuredPost)} min read</span>
+              <div className="rounded-sm border border-slate-200 bg-slate-50 overflow-hidden shadow-elevated">
+                <div className="grid grid-cols-1 lg:grid-cols-12">
+                  <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-between space-y-6">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-slate-500 font-medium">
+                        <span className="text-brand-pink">{featuredPost.category}</span>
+                        <span>·</span>
+                        <time dateTime={featuredPost.published}>{longDate(featuredPost.published)}</time>
+                        <span>·</span>
+                        <span>{readingTime(featuredPost)} min read</span>
+                      </div>
+                      <h2 className="text-3xl sm:text-4xl font-extralight text-slate-900 tracking-tight leading-tight">
+                        <Link href={featuredPost.path} className="hover:text-brand-pink transition-colors">
+                          {featuredPost.title}
+                        </Link>
+                      </h2>
+                      <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-light">
+                        {featuredPost.dek}
+                      </p>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl font-extralight text-white leading-tight group-hover:text-pink-300 transition-colors">
-                      <Link href={featuredPost.path}>
-                        {featuredPost.title}
+                    <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
+                      <span className="text-xs text-slate-500 font-light">By EntireFM Technical Team</span>
+                      <Link
+                        href={featuredPost.path}
+                        className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-medium text-brand-pink hover:text-slate-900 transition-colors"
+                      >
+                        <span>Read Full Analysis</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
-                    </h2>
-                    <p className="mt-4 text-sm sm:text-base leading-relaxed text-brand-mist/80">
-                      {featuredPost.dek}
-                    </p>
+                    </div>
                   </div>
-                  <div className="mt-6 pt-6 border-t border-brand-edge-dark flex items-center justify-between">
-                    <span className="text-xs text-brand-mist/60">By EntireFM Technical Team</span>
-                    <Link
-                      href={featuredPost.path}
-                      className="inline-flex items-center gap-2 text-xs font-normal text-pink-400 group-hover:text-pink-300 transition-colors"
-                    >
-                      Read full analysis <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
+                  <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-full bg-slate-950">
+                    {IMAGES[featuredPost.imageKey] && (
+                      <Image
+                        src={IMAGES[featuredPost.imageKey].src}
+                        alt={featuredPost.title}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        className="object-cover"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -187,110 +199,77 @@ function BlogIndex({ route, content }: TemplateProps) {
           </section>
         )}
 
-        {/* Regular Article Grid */}
-        <section className="section bg-white py-16">
-          <div className="container-custom">
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-brand-edge">
-              <h3 className="text-base font-light text-brand-graphite">
-                {selectedCategory === 'All Topics' ? 'Latest Articles & Guides' : `${selectedCategory} (${filteredPosts.length})`}
+        {/* ========================================================================= */}
+        {/* 3. ARTICLES GRID                                                          */}
+        {/* ========================================================================= */}
+        <section className="py-24 bg-[#0B1220] text-white border-b border-brand-edge-dark">
+          <div className="container-custom space-y-12">
+            
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <h3 className="text-2xl font-light text-white tracking-tight">
+                {selectedCategory === 'All Topics' ? 'Latest Publications' : `${selectedCategory} (${filteredPosts.length})`}
               </h3>
-              <span className="text-xs text-brand-slate font-mono">
-                Showing {regularPosts.length} {regularPosts.length === 1 ? 'article' : 'articles'}
+              <span className="text-xs text-slate-400 font-light">
+                {regularPosts.length} {regularPosts.length === 1 ? 'Article' : 'Articles'}
               </span>
             </div>
 
-            <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {regularPosts.map((post, i) => {
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {regularPosts.map((post) => {
                 const image = IMAGES[post.imageKey];
                 return (
-                  <li
+                  <Link
                     key={post.path}
-                    data-reveal
-                    style={{ '--reveal-delay': `${(i % 3) * 80}ms` } as React.CSSProperties}
+                    href={post.path}
+                    className="group rounded-sm bg-brand-carbon border border-brand-edge-dark overflow-hidden hover:border-brand-pink transition-all flex flex-col justify-between shadow-elevated space-y-6"
                   >
-                    <Link href={post.path} className="group block h-full flex flex-col justify-between p-5 rounded-sm border border-brand-edge hover:border-brand-electric/60 hover:shadow-md transition-all">
-                      <div>
-                        <div className="relative aspect-[16/10] overflow-hidden rounded-sm bg-brand-carbon mb-4">
-                          {image && (
-                            <Image
-                              src={image.src}
-                              alt=""
-                              fill
-                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                              className="object-cover transition-transform duration-[900ms] ease-brand group-hover:scale-[1.06]"
-                            />
-                          )}
+                    <div>
+                      <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
+                        {image && (
+                          <Image
+                            src={image.src}
+                            alt={post.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                          />
+                        )}
+                        <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 rounded-sm text-[10px] text-brand-pink border border-white/15 font-medium uppercase tracking-wider">
+                          {post.category}
                         </div>
-                        <p className="flex items-center gap-2 text-[10.5px] uppercase tracking-[0.14em] text-brand-silver font-mono">
-                          <span className="text-brand-electric font-light">{post.category}</span>
-                          <span aria-hidden="true">·</span>
+                      </div>
+
+                      <div className="p-6 sm:p-8 space-y-3">
+                        <div className="flex items-center gap-2 text-xs text-slate-400 font-light">
                           <time dateTime={post.published}>{longDate(post.published)}</time>
-                        </p>
-                        <h2 className="mt-2.5 text-[1.125rem] font-extralight leading-snug tracking-[-0.02em] text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
+                          <span>·</span>
+                          <span>{readingTime(post)} min</span>
+                        </div>
+                        <h4 className="text-xl font-light text-white group-hover:text-brand-pink transition-colors leading-snug">
                           {post.title}
-                        </h2>
-                        <p className="mt-2 text-[13px] leading-relaxed text-brand-slate line-clamp-3">
+                        </h4>
+                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light line-clamp-3">
                           {post.dek}
                         </p>
                       </div>
-                      <div className="mt-5 pt-3 border-t border-brand-edge flex items-center justify-between text-[12px]">
-                        <span className="text-brand-silver font-mono">{readingTime(post)} min read</span>
-                        <span className="inline-flex items-center gap-1 font-light text-brand-graphite group-hover:text-brand-electric transition-colors">
-                          Read article
-                          <ArrowUpRight className="h-3.5 w-3.5" />
-                        </span>
-                      </div>
-                    </Link>
-                  </li>
+                    </div>
+
+                    <div className="px-6 pb-6 sm:px-8 sm:pb-8 pt-4 border-t border-brand-edge-dark flex items-center justify-between text-xs text-slate-400 font-light">
+                      <span>Read article</span>
+                      <ArrowRight className="h-3.5 w-3.5 text-brand-pink group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </Link>
                 );
               })}
-            </ul>
+            </div>
+
           </div>
         </section>
 
-        {/* Evergreen Guides & Resources Banner */}
-        <section className="bg-brand-carbon border-t border-brand-edge-dark py-16 text-white">
-          <div className="container-custom">
-            <div className="max-w-3xl mb-8">
-              <span className="eyebrow eyebrow-dark">Evergreen Knowledge Estate</span>
-              <h2 className="text-2xl font-extralight text-white mt-2">
-                Looking for Tools, Glossaries or Compliance Guides?
-              </h2>
-              <p className="text-xs text-brand-mist/70 mt-1">
-                EntireFM provides free, ungated tools and technical guidance for facilities leaders.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Link href="/resources/ai-in-facilities-management" className="p-4 rounded-sm bg-brand-graphite border border-brand-edge-dark hover:border-pink-500/50 transition-all block group">
-                <span className="text-[10px] uppercase font-light text-pink-400 font-mono">Resource Pillar</span>
-                <h4 className="text-sm font-normal text-white mt-1 group-hover:text-pink-300">AI in Facilities Management →</h4>
-                <p className="text-xs text-brand-mist/60 mt-1">Complete practical whitepaper on ML, CAFM, and predictive maintenance.</p>
-              </Link>
-              <Link href="/tools/ppm-schedule-builder" className="p-4 rounded-sm bg-brand-graphite border border-brand-edge-dark hover:border-brand-electric/50 transition-all block group">
-                <span className="text-[10px] uppercase font-light text-emerald-400 font-mono">Interactive Tool</span>
-                <h4 className="text-sm font-normal text-white mt-1 group-hover:text-brand-electric-bright">PPM Schedule Builder →</h4>
-                <p className="text-xs text-brand-mist/60 mt-1">Generate an asset-led planned preventative maintenance matrix.</p>
-              </Link>
-              <Link href="/compliance" className="p-4 rounded-sm bg-brand-graphite border border-brand-edge-dark hover:border-brand-electric/50 transition-all block group">
-                <span className="text-[10px] uppercase font-light text-blue-400 font-mono">Statutory Hub</span>
-                <h4 className="text-sm font-normal text-white mt-1 group-hover:text-brand-electric-bright">Compliance Centre →</h4>
-                <p className="text-xs text-brand-mist/60 mt-1">Clear guidance separating legal statutory requirements from standards.</p>
-              </Link>
-              <Link href="/facilities-management-glossary" className="p-4 rounded-sm bg-brand-graphite border border-brand-edge-dark hover:border-brand-electric/50 transition-all block group">
-                <span className="text-[10px] uppercase font-light text-amber-400 font-mono">Reference</span>
-                <h4 className="text-sm font-normal text-white mt-1 group-hover:text-brand-electric-bright">FM Glossary A–Z →</h4>
-                <p className="text-xs text-brand-mist/60 mt-1">Plain-English definitions of over 50 essential FM technical terms.</p>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <ProposalSection
-          headline="Request a facilities management review"
-          subheadline="A survey of what your estate is obliged to do, what it currently evidences, and where the gap is."
-        />
+        <NewsletterSignupSection />
+        <ProposalSection />
       </main>
+
       <Footer />
     </div>
   );
@@ -315,23 +294,62 @@ function Article({ route, content }: TemplateProps) {
   const others = POSTS_BY_DATE.filter((p) => p.path !== route.path).slice(0, 3);
 
   return (
-    <div className="flex min-h-screen flex-col bg-white">
-      <Header solid />
-      <main id="main" className="flex-1">
-        <Breadcrumbs items={breadcrumbs} />
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
+      <Header />
 
-        <article>
-          <header className="on-dark relative isolate overflow-hidden bg-brand-graphite py-16 sm:py-20">
-            <div className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
-            <div className="container-custom relative max-w-3xl">
-              <p className="eyebrow eyebrow-dark">{content.eyebrow}</p>
-              <h1 className="mt-5 text-display-lg text-white">{content.h1}</h1>
-              <p className="mt-6 text-[1.0625rem] leading-relaxed text-brand-mist/75">
+      <main id="main" className="flex-grow">
+        {/* ========================================================================= */}
+        {/* 1. CINEMATIC ARTICLE HERO (85svh)                                         */}
+        {/* ========================================================================= */}
+        <section className="relative min-h-[85svh] lg:min-h-[88svh] flex items-center justify-center bg-[#060A14] overflow-hidden pt-28 pb-16 sm:py-24 border-b border-brand-edge-dark">
+          <div className="absolute inset-0 z-0">
+            {image ? (
+              <Image
+                src={image.src}
+                alt={image.alt || content.h1}
+                fill
+                priority
+                className="w-full h-full object-cover object-center filter brightness-[0.32] contrast-[1.1]"
+                sizes="100vw"
+              />
+            ) : (
+              <Image
+                src="/images/editorial/entirefm-client-review-2000w.webp"
+                alt={content.h1}
+                fill
+                priority
+                className="w-full h-full object-cover object-center filter brightness-[0.32] contrast-[1.1]"
+                sizes="100vw"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/80 to-[#060A14]/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/90 to-transparent" />
+          </div>
+
+          <div className="container-custom relative z-10 w-full">
+            <div className="max-w-4xl space-y-6">
+              
+              <div className="mb-2">
+                <Breadcrumbs items={breadcrumbs} className="text-slate-300 font-light text-xs" />
+              </div>
+
+              <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-sm bg-white/10 backdrop-blur-md border border-white/15">
+                <span className="w-2 h-2 rounded-full bg-brand-pink" />
+                <span className="text-xs uppercase tracking-widest text-white/90 font-medium">
+                  {content.eyebrow || 'Technical Analysis'}
+                </span>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.06]">
+                {content.h1}
+              </h1>
+
+              <p className="text-base sm:text-xl text-slate-200 font-light leading-relaxed max-w-3xl">
                 {content.heroIntro}
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/12 pt-5 text-[12.5px] text-brand-mist/60">
-                <span className="font-normal text-white">EntireFM</span>
+              <div className="flex flex-wrap items-center gap-6 pt-4 text-xs text-slate-300 font-light border-t border-white/15">
+                <span className="text-white font-medium">EntireFM Technical Team</span>
                 {published && (
                   <span>
                     Published <time dateTime={published}>{longDate(published)}</time>
@@ -343,125 +361,141 @@ function Article({ route, content }: TemplateProps) {
                   </span>
                 )}
                 {minutes && (
-                  <span className="inline-flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5" />
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="h-3.5 w-3.5 text-brand-pink" />
                     {minutes} min read
                   </span>
                 )}
               </div>
-            </div>
-          </header>
 
-          {image && (
-            <div className="relative aspect-[21/9] w-full overflow-hidden bg-brand-carbon">
-              <Image src={image.src} alt={image.alt} fill sizes="100vw" className="object-cover" priority />
             </div>
-          )}
+          </div>
+        </section>
 
-          <div className="section-tight bg-white">
-            <div className="container-custom max-w-[46rem]">
+        <TrustBar />
+
+        {/* ========================================================================= */}
+        {/* 2. LONG-FORM ARTICLE READING FLOW                                         */}
+        {/* ========================================================================= */}
+        <section className="py-24 bg-white text-slate-900 border-b border-slate-200">
+          <div className="container-custom max-w-3xl space-y-16">
+            
+            <div className="space-y-12">
               {content.sections?.map((section, i) => (
-                <section key={i} className={i === 0 ? '' : 'mt-11'} data-reveal>
+                <div key={i} className="space-y-4">
                   {section.heading && (
-                    <h2 className="text-display-sm text-brand-graphite">{section.heading}</h2>
+                    <h2 className="text-2xl sm:text-4xl font-extralight tracking-tight text-slate-900 leading-tight">
+                      {section.heading}
+                    </h2>
                   )}
                   {section.body && (
-                    <p
-                      className={`text-[1.0625rem] leading-[1.75] text-brand-slate ${
-                        section.heading ? 'mt-4' : i === 0 ? 'text-[1.1875rem] leading-[1.7]' : ''
-                      }`}
-                    >
+                    <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-light">
                       {section.body}
                     </p>
                   )}
                   {section.bullets && section.bullets.length > 0 && (
-                    <ul className="mt-5 space-y-3">
+                    <ul className="space-y-2.5 pt-2">
                       {section.bullets.map((b) => (
-                        <li
-                          key={b}
-                          className="flex gap-3 text-[15px] leading-relaxed text-brand-slate"
-                        >
-                          <span
-                            aria-hidden="true"
-                            className="mt-[10px] h-1 w-1 shrink-0 rounded-full bg-brand-electric"
-                          />
-                          {b}
+                        <li key={b} className="flex items-start gap-2.5 text-sm sm:text-base text-slate-700 font-light">
+                          <span className="w-1.5 h-1.5 rounded-full bg-brand-pink mt-2 shrink-0" />
+                          <span>{b}</span>
                         </li>
                       ))}
                     </ul>
                   )}
-                </section>
-              ))}
-
-              {content.relatedRoutes && content.relatedRoutes.length > 0 && (
-                <div className="mt-14 border-t border-brand-edge pt-8">
-                  <p className="eyebrow">Referenced in this article</p>
-                  <ul className="mt-5 flex flex-wrap gap-2">
-                    {content.relatedRoutes.map((href) => (
-                      <li key={href}>
-                        <Link
-                          href={href}
-                          className="inline-flex items-center gap-1.5 rounded-sm border border-brand-edge px-3 py-2 text-[12.5px] text-brand-slate transition-colors hover:border-brand-electric/60 hover:text-brand-electric"
-                        >
-                          {label(href)}
-                          <ArrowUpRight className="h-3 w-3" />
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
-              )}
-
-              {/* In-Article Newsletter Briefing Card */}
-              <NewsletterInlineCard
-                title="Read EntireFM without checking EntireFM"
-                subtitle="A concise weekly briefing covering the facilities management developments worth knowing about."
-                signupPage={route.path}
-              />
+              ))}
             </div>
-          </div>
 
-          {others.length > 0 && (
-            <section className="section-tight border-t border-brand-edge bg-brand-surface">
-              <div className="container-custom">
-                <p className="eyebrow">More reading</p>
-                <ul className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3">
-                  {others.map((other) => (
-                    <li key={other.path}>
-                      <Link href={other.path} className="group block">
-                        <p className="text-[10.5px] uppercase tracking-[0.16em] text-brand-electric">
-                          {other.category}
-                        </p>
-                        <h3 className="mt-2 text-[1rem] font-light leading-snug tracking-[-0.02em] text-brand-graphite transition-colors duration-300 group-hover:text-brand-electric">
-                          {other.title}
-                        </h3>
-                        <p className="mt-2 text-[13px] leading-relaxed text-brand-silver">
-                          {other.dek}
-                        </p>
-                      </Link>
-                    </li>
+            {content.relatedRoutes && content.relatedRoutes.length > 0 && (
+              <div className="pt-10 border-t border-slate-200 space-y-4">
+                <span className="text-xs uppercase tracking-widest text-brand-pink font-medium block">
+                  Referenced in this article
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {content.relatedRoutes.map((href) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-sm border border-slate-200 bg-slate-50 text-xs font-light text-slate-700 hover:border-brand-pink hover:text-brand-pink transition-all"
+                    >
+                      <span>{label(href)}</span>
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
                   ))}
-                </ul>
-                <Link href="/blog" className="link-underline mt-9 inline-flex text-sm">
-                  All articles
+                </div>
+              </div>
+            )}
+
+            {/* In-Article Newsletter Briefing Card */}
+            <NewsletterInlineCard
+              title="Read EntireFM Without Checking EntireFM"
+              subtitle="A concise weekly briefing covering the facilities management developments worth knowing about."
+              signupPage={route.path}
+            />
+
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 3. RELATED READING                                                        */}
+        {/* ========================================================================= */}
+        {others.length > 0 && (
+          <section className="py-24 bg-[#0B1220] text-white border-b border-brand-edge-dark">
+            <div className="container-custom space-y-12">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <h3 className="text-2xl font-light text-white tracking-tight">
+                  Further Reading &amp; Analysis
+                </h3>
+                <Link
+                  href="/blog"
+                  className="inline-flex items-center gap-1 text-xs uppercase tracking-wider font-medium text-brand-pink hover:text-white transition-colors"
+                >
+                  <span>All Articles</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
-            </section>
-          )}
-        </article>
 
-        {/* Blog Article Footer Newsletter Signup */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {others.map((other) => (
+                  <Link
+                    key={other.path}
+                    href={other.path}
+                    className="p-8 rounded-sm bg-brand-carbon border border-brand-edge-dark hover:border-brand-pink transition-all space-y-3 flex flex-col justify-between shadow-elevated"
+                  >
+                    <div className="space-y-2">
+                      <span className="text-[11px] uppercase tracking-wider text-brand-pink font-medium block">
+                        {other.category}
+                      </span>
+                      <h4 className="text-xl font-light text-white leading-snug">
+                        {other.title}
+                      </h4>
+                      <p className="text-xs text-slate-300 font-light leading-relaxed line-clamp-3">
+                        {other.dek}
+                      </p>
+                    </div>
+                    <div className="pt-4 border-t border-brand-edge-dark text-xs text-slate-400 font-light flex items-center justify-between">
+                      <span>Read article</span>
+                      <ArrowRight className="h-3.5 w-3.5 text-brand-pink" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         <NewsletterSignupSection
           signupPage={route.path}
           sourceContext="article_footer"
         />
 
         <ProposalSection
-          headline="Request a facilities management review"
-          subheadline="A survey of what your estate is obliged to do, what it currently evidences, and where the gap is."
+          headline="Request a Facilities Management Review"
+          subheadline="A detailed survey of what your commercial estate is obliged to deliver, what is evidenced, and where the risk gaps lie."
         />
       </main>
+
       <Footer />
     </div>
   );

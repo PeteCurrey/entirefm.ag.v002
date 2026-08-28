@@ -2,23 +2,13 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Search,
-  Wrench,
-  ShieldCheck,
-  BookOpen,
-  FileText,
-  Activity,
-  CalendarCheck,
-  TrendingUp,
   ArrowRight,
   ArrowUpRight,
-  Sparkles,
-  Layers,
-  GraduationCap,
-  Download,
-  Video,
   ChevronRight,
+  Clock,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -57,6 +47,7 @@ const ALL_SEARCHABLE_RESOURCES: SearchableResource[] = [
   // Knowledge & Learning
   { title: 'FM Glossary A–Z', href: '/facilities-management-glossary', category: 'Glossary', type: 'Glossary', description: 'Plain-English definitions of over 50 essential FM technical terms from PPM to CAFM.' },
   { title: 'FM Intelligence & Market Trends 2026', href: '/fm-intelligence', category: 'Industry Intelligence', type: 'Guide', description: 'Curated quarterly market analysis, engineering wage rates, and regulatory updates.' },
+  
   // AI in FM
   { title: 'AI in Facilities Management: Practical Guide', href: '/resources/ai-in-facilities-management', category: 'AI & Technology', type: 'Guide', description: 'Comprehensive guide to AI in commercial FM: predictive maintenance, CAFM automation, energy tuning and governance.' },
   { title: 'AI Predictive Maintenance Guide', href: '/resources/ai-in-facilities-management/predictive-maintenance', category: 'AI & Technology', type: 'Guide', description: 'Condition-based monitoring, IoT vibration sensors, BMS telemetry, and PPM optimization.' },
@@ -66,23 +57,12 @@ const ALL_SEARCHABLE_RESOURCES: SearchableResource[] = [
   { title: 'Is Your FM Data Ready for AI?', href: '/resources/ai-in-facilities-management/fm-data-readiness', category: 'AI & Technology', type: 'Guide', description: 'Asset register quality, spatial hierarchy, failure coding, and the 5-step AI readiness pathway.' },
 ];
 
-const TAXONOMY_CATEGORIES = [
-  'All Topics',
-  'AI & Technology',
-  'FM Fundamentals',
-  'Maintenance & PPM',
-  'Compliance & Safety',
-  'Engineering',
-  'Procurement',
-];
-
 export function TemplateResourcesHub({ route, content }: TemplateProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTopic, setSelectedTopic] = useState('All Topics');
 
   const breadcrumbs = [
     { name: 'Home', url: '/' },
-    { name: 'Resources', url: '/resources' },
+    { name: 'Resources & Knowledge', url: '/resources' },
   ];
 
   const searchResults = useMemo(() => {
@@ -98,45 +78,68 @@ export function TemplateResourcesHub({ route, content }: TemplateProps) {
   }, [searchQuery]);
 
   return (
-    <>
+    <div className="bg-[#060A14] text-white min-h-screen font-sans selection:bg-brand-pink selection:text-white">
       <Header />
-      <main className="min-h-screen bg-brand-void text-white">
-        {/* 1. STRONG HERO WITH SEARCH FIELD */}
-        <section className="relative overflow-hidden pt-32 pb-20 sm:pt-36 sm:pb-24 border-b border-brand-edge-dark">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-[15%] -top-[30%] h-[40rem] w-[40rem] rounded-full opacity-20 blur-[130px]"
-            style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 70%)' }}
-          />
-          <div aria-hidden="true" className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
 
-          <div className="container-custom relative">
-            <Breadcrumbs items={breadcrumbs} className="mb-6" />
-            <div className="max-w-3xl">
-              <span className="eyebrow eyebrow-dark inline-block mb-3">Knowledge & Tools Ecosystem</span>
-              <h1 className="text-display-md text-white font-light tracking-tight">
-                Resources for People Responsible for Buildings
+      <main id="main" className="flex-grow">
+        {/* ========================================================================= */}
+        {/* 1. CINEMATIC FULL-VIEWPORT HERO (min-h-[85svh])                           */}
+        {/* ========================================================================= */}
+        <section className="relative min-h-[85svh] lg:min-h-[88svh] flex items-center justify-center bg-[#060A14] overflow-hidden pt-28 pb-16 sm:py-24 border-b border-brand-edge-dark">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/editorial/entirefm-client-review-2000w.webp"
+              alt="EntireFM technical facilities management resources and intelligence"
+              fill
+              priority
+              className="w-full h-full object-cover object-center filter brightness-[0.35] contrast-[1.1]"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/80 to-[#060A14]/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/90 to-transparent" />
+          </div>
+
+          <div className="container-custom relative z-10 w-full">
+            <div className="max-w-4xl space-y-6">
+              
+              <div className="mb-2">
+                <Breadcrumbs items={breadcrumbs} className="text-slate-300 font-light text-xs" />
+              </div>
+
+              <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-sm bg-white/10 backdrop-blur-md border border-white/15">
+                <span className="w-2 h-2 rounded-full bg-brand-pink" />
+                <span className="text-xs uppercase tracking-widest text-white/90 font-medium">
+                  Knowledge &amp; Intelligence Ecosystem
+                </span>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.06]">
+                Facilities Management <br />
+                <span className="font-light text-hero-pink">
+                  Intelligence &amp; Guidance.
+                </span>
               </h1>
-              <p className="mt-4 text-lg leading-relaxed text-brand-mist/75">
-                Practical engineering tools, statutory compliance guides, plain-English terminology, and operational templates designed for facilities managers, property directors, and estate teams.
+
+              <p className="text-base sm:text-xl text-slate-200 font-light leading-relaxed max-w-3xl">
+                Engineering guides, statutory compliance frameworks, operational calculators, and market intelligence engineered for people responsible for commercial buildings and estate portfolios across the UK.
               </p>
 
               {/* Search Bar */}
-              <div className="mt-8 relative max-w-2xl">
+              <div className="pt-2 relative max-w-2xl">
                 <div className="relative flex items-center">
-                  <Search className="absolute left-4 h-5 w-5 text-brand-mist/50" />
+                  <Search className="absolute left-4 h-5 w-5 text-slate-400" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search tools, compliance topics, glossary terms, or guides..."
-                    className="w-full h-13 rounded-sm border border-brand-edge-dark bg-brand-graphite pl-12 pr-4 text-sm text-white placeholder-brand-mist/40 shadow-glow-sm focus:border-brand-electric/80 focus:outline-none"
+                    placeholder="Search engineering guides, compliance topics, glossary terms, or tools..."
+                    className="w-full h-14 rounded-sm border border-white/20 bg-brand-carbon/90 backdrop-blur-md pl-12 pr-12 text-sm text-white placeholder-slate-400 focus:border-brand-pink focus:outline-none shadow-elevated"
                   />
                   {searchQuery && (
                     <button
                       type="button"
                       onClick={() => setSearchQuery('')}
-                      className="absolute right-4 text-xs text-brand-mist/50 hover:text-white"
+                      className="absolute right-4 text-xs text-slate-400 hover:text-white font-medium"
                     >
                       Clear
                     </button>
@@ -145,476 +148,355 @@ export function TemplateResourcesHub({ route, content }: TemplateProps) {
 
                 {/* Instant Search Results Dropdown */}
                 {searchResults.length > 0 && (
-                  <div className="absolute top-full mt-2 inset-x-0 z-50 rounded-sm border border-brand-edge-dark bg-brand-carbon p-3 shadow-glow-lg max-h-96 overflow-y-auto">
-                    <p className="text-[11px] font-normal text-brand-mist/50 uppercase tracking-wider px-3 py-1">
+                  <div className="absolute top-full mt-2 inset-x-0 z-50 rounded-sm border border-brand-edge-dark bg-[#0B1220] p-4 shadow-elevated max-h-96 overflow-y-auto">
+                    <p className="text-[11px] font-medium text-brand-pink uppercase tracking-wider px-3 py-1 mb-2 border-b border-white/10">
                       Search Results ({searchResults.length})
                     </p>
-                    <div className="space-y-1 mt-1">
+                    <div className="space-y-1">
                       {searchResults.map((item) => (
                         <Link
                           key={item.href}
                           href={item.href}
-                          className="flex items-start justify-between p-3 rounded-sm hover:bg-white/[0.05] transition-colors group"
+                          className="flex items-start justify-between p-3 rounded-sm hover:bg-white/[0.06] transition-colors group"
                         >
-                          <div>
+                          <div className="space-y-1">
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-normal text-white group-hover:text-brand-electric-bright transition-colors">
+                              <span className="text-sm font-medium text-white group-hover:text-brand-pink transition-colors">
                                 {item.title}
                               </span>
-                              <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-white/[0.06] text-brand-mist/60">
+                              <span className="text-[10px] uppercase font-medium px-2 py-0.5 rounded-sm bg-white/10 text-slate-300">
                                 {item.type}
                               </span>
                             </div>
-                            <p className="text-xs text-brand-mist/65 mt-0.5">{item.description}</p>
+                            <p className="text-xs text-slate-300 font-light leading-relaxed">{item.description}</p>
                           </div>
-                          <ChevronRight className="h-4 w-4 text-brand-mist/40 group-hover:text-brand-electric-bright group-hover:translate-x-0.5 transition-all mt-1" />
+                          <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-brand-pink group-hover:translate-x-0.5 transition-all mt-1 shrink-0" />
                         </Link>
                       ))}
                     </div>
                   </div>
                 )}
               </div>
+
             </div>
           </div>
         </section>
 
-        {/* 2. FEATURED INTERACTIVE TOOLS */}
-        <section className="py-20 bg-brand-carbon border-b border-brand-edge-dark">
-          <div className="container-custom">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-              <div>
-                <span className="eyebrow eyebrow-dark">Interactive Planning</span>
-                <h2 className="mt-2 text-2xl font-extralight text-white sm:text-3xl">
-                  Featured Facilities Management Tools
-                </h2>
+        <TrustBar />
+
+        {/* ========================================================================= */}
+        {/* 2. THE 6 PRIMARY KNOWLEDGE ECOSYSTEM PILLARS                              */}
+        {/* ========================================================================= */}
+        <section className="py-24 bg-white text-slate-900 border-b border-slate-200">
+          <div className="container-custom space-y-16">
+            <div className="max-w-3xl space-y-3">
+              <div className="inline-flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
+                  Knowledge Ecosystem
+                </span>
               </div>
-              <Link href="/tools" className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-electric-bright hover:underline">
-                View all 6 FM tools & calculators <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-3">
-              {/* Tool 1: PPM Schedule Builder */}
-              <div className="group rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 flex flex-col justify-between hover:border-brand-electric/50 transition-colors">
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-white/[0.05] text-brand-electric-bright border border-white/10">
-                      <Wrench className="h-5 w-5" />
-                    </span>
-                    <span className="text-[11px] font-mono text-brand-electric-bright font-light">
-                      Asset-Led Matrix
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-light text-white group-hover:text-brand-electric-bright transition-colors">
-                    PPM Schedule Builder
-                  </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-brand-mist/70">
-                    Build a bespoke maintenance schedule around your installed assets with verified statutory, standard, and practice basis.
-                  </p>
-                </div>
-                <div className="mt-6 pt-4 border-t border-brand-edge-dark flex items-center justify-between">
-                  <span className="text-[11px] text-brand-mist/50">CSV & Print Export</span>
-                  <Link href="/tools/ppm-schedule-builder" className="btn-primary py-2 px-3 text-xs">
-                    Launch Builder <ArrowRight className="h-3 w-3 btn-arrow" />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Tool 2: Building Health Check */}
-              <div className="group rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 flex flex-col justify-between hover:border-brand-electric/50 transition-colors">
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-white/[0.05] text-emerald-400 border border-white/10">
-                      <Activity className="h-5 w-5" />
-                    </span>
-                    <span className="text-[11px] font-mono text-emerald-400 font-light">
-                      Diagnostic Tool
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-light text-white group-hover:text-emerald-400 transition-colors">
-                    FM Building Health Check
-                  </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-brand-mist/70">
-                    Evaluate your estate across 7 statutory maintenance areas to highlight documentation gaps and operational risk points.
-                  </p>
-                </div>
-                <div className="mt-6 pt-4 border-t border-brand-edge-dark flex items-center justify-between">
-                  <span className="text-[11px] text-brand-mist/50">3-Min Assessment</span>
-                  <Link href="/tools/fm-health-check" className="btn-primary py-2 px-3 text-xs">
-                    Start Health Check <ArrowRight className="h-3 w-3 btn-arrow" />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Tool 3: Tender Brief Generator */}
-              <div className="group rounded-sm border border-brand-edge-dark bg-brand-graphite p-6 flex flex-col justify-between hover:border-brand-electric/50 transition-colors">
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-white/[0.05] text-amber-400 border border-white/10">
-                      <FileText className="h-5 w-5" />
-                    </span>
-                    <span className="text-[11px] font-mono text-amber-400 font-light">
-                      RFP Generator
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-light text-white group-hover:text-amber-400 transition-colors">
-                    Tender Brief Generator
-                  </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-brand-mist/70">
-                    Generate a structured Facilities Management tender brief and RFP specification to issue to prospective contractors.
-                  </p>
-                </div>
-                <div className="mt-6 pt-4 border-t border-brand-edge-dark flex items-center justify-between">
-                  <span className="text-[11px] text-brand-mist/50">Markdown & PDF</span>
-                  <Link href="/tools/tender-brief" className="btn-primary py-2 px-3 text-xs">
-                    Generate Brief <ArrowRight className="h-3 w-3 btn-arrow" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 3. COMPLIANCE & SAFETY PATHWAY */}
-        <section className="py-20 bg-brand-graphite border-b border-brand-edge-dark">
-          <div className="container-custom">
-            <div className="grid gap-12 lg:grid-cols-12 items-center">
-              <div className="lg:col-span-5">
-                <span className="eyebrow eyebrow-dark">Statutory Authority</span>
-                <h2 className="mt-3 text-2xl sm:text-3xl font-extralight text-white">
-                  Compliance Centre: What the Law Actually Requires
-                </h2>
-                <p className="mt-4 text-sm leading-relaxed text-brand-mist/70">
-                  Most FM websites present common habits as though they were statutory obligations. The EntireFM Compliance Centre separates legal statutes, recognised standards, industry practices, and risk-based frequencies across non-domestic property.
-                </p>
-                <div className="mt-6">
-                  <Link href="/compliance" className="btn-primary py-2.5 px-4 text-xs inline-flex">
-                    Explore Compliance Centre <ArrowRight className="h-3.5 w-3.5 btn-arrow" />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="lg:col-span-7 grid gap-3 sm:grid-cols-2">
-                <Link
-                  href="/compliance/fire-risk-assessment"
-                  className="p-4 rounded-sm border border-brand-edge-dark bg-brand-carbon hover:border-brand-electric/50 transition-colors block group"
-                >
-                  <span className="text-[10px] uppercase font-light text-rose-400 font-mono">RRO 2005 Article 9</span>
-                  <h4 className="text-sm font-normal text-white mt-1 group-hover:text-brand-electric-bright transition-colors">
-                    Fire Risk Assessment →
-                  </h4>
-                  <p className="text-xs text-brand-mist/60 mt-1">Review triggers, recorded findings, and responsible person duties.</p>
-                </Link>
-
-                <Link
-                  href="/compliance/fixed-wire-testing-eicr"
-                  className="p-4 rounded-sm border border-brand-edge-dark bg-brand-carbon hover:border-brand-electric/50 transition-colors block group"
-                >
-                  <span className="text-[10px] uppercase font-light text-blue-400 font-mono">EAWR 1989 / BS 7671</span>
-                  <h4 className="text-sm font-normal text-white mt-1 group-hover:text-brand-electric-bright transition-colors">
-                    Fixed Wire Testing (EICR) →
-                  </h4>
-                  <p className="text-xs text-brand-mist/60 mt-1">Periodic inspection intervals, C1/C2 classifications, and schedules.</p>
-                </Link>
-
-                <Link
-                  href="/compliance/emergency-lighting-testing"
-                  className="p-4 rounded-sm border border-brand-edge-dark bg-brand-carbon hover:border-brand-electric/50 transition-colors block group"
-                >
-                  <span className="text-[10px] uppercase font-light text-amber-400 font-mono">BS 5266-1</span>
-                  <h4 className="text-sm font-normal text-white mt-1 group-hover:text-brand-electric-bright transition-colors">
-                    Emergency Lighting Testing →
-                  </h4>
-                  <p className="text-xs text-brand-mist/60 mt-1">Monthly function tests vs annual 3-hour full duration discharge.</p>
-                </Link>
-
-                <Link
-                  href="/compliance/legionella-water-hygiene"
-                  className="p-4 rounded-sm border border-brand-edge-dark bg-brand-carbon hover:border-brand-electric/50 transition-colors block group"
-                >
-                  <span className="text-[10px] uppercase font-light text-emerald-400 font-mono">ACOP L8 / HSG274</span>
-                  <h4 className="text-sm font-normal text-white mt-1 group-hover:text-brand-electric-bright transition-colors">
-                    Legionella & Water Hygiene →
-                  </h4>
-                  <p className="text-xs text-brand-mist/60 mt-1">Written scheme of control, sentinel temperatures, and 5-year records.</p>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 3b. AI & THE FUTURE OF FM */}
-        <section className="py-20 bg-gradient-to-b from-brand-graphite to-brand-void border-b border-brand-edge-dark relative overflow-hidden">
-          <div className="absolute right-0 top-0 w-96 h-96 bg-pink-500/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="container-custom relative z-10">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-              <div className="max-w-2xl">
-                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-normal uppercase tracking-wider bg-pink-500/10 text-pink-400 border border-pink-500/20 mb-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-pink-500 animate-pulse" />
-                  Engineering & Operational Technology
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extralight text-white">
-                  AI & the Future of Facilities Management
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed text-brand-mist/70">
-                  Practical, fluff-free guidance on machine learning, CAFM automation, predictive maintenance, and data readiness for UK commercial building operators.
-                </p>
-              </div>
-              <Link
-                href="/resources/ai-in-facilities-management"
-                className="btn-primary py-2.5 px-4 text-xs inline-flex shrink-0 items-center gap-1.5"
-              >
-                Explore AI Pillar Hub <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <Link
-                href="/resources/ai-in-facilities-management"
-                className="p-6 rounded-xl border border-pink-500/30 bg-pink-950/20 hover:border-pink-500/60 transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <span className="text-[10px] font-mono uppercase font-light text-pink-400">Pillar Whitepaper</span>
-                  <h3 className="text-base font-light text-white mt-1 group-hover:text-pink-300 transition-colors">
-                    AI in Facilities Management: Complete Guide
-                  </h3>
-                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
-                    Demystifying ML, NLP, digital twins, and autonomous agents with an interactive request-to-resolution work order diagram.
-                  </p>
-                </div>
-                <div className="mt-6 pt-3 border-t border-pink-500/20 text-xs font-normal text-pink-400 group-hover:text-pink-300 flex items-center justify-between">
-                  <span>Read Complete Guide</span>
-                  <span>→</span>
-                </div>
-              </Link>
-
-              <Link
-                href="/resources/ai-in-facilities-management/predictive-maintenance"
-                className="p-6 rounded-xl border border-brand-edge-dark bg-brand-graphite hover:border-pink-500/40 transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <span className="text-[10px] font-mono uppercase font-light text-slate-400">Plant Reliability</span>
-                  <h3 className="text-base font-light text-white mt-1 group-hover:text-pink-300 transition-colors">
-                    Predictive Maintenance
-                  </h3>
-                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
-                    How IoT vibration sensors, BMS telemetry, and failure pattern models optimize critical plant alongside statutory PPM.
-                  </p>
-                </div>
-                <div className="mt-6 pt-3 border-t border-brand-edge-dark text-xs font-normal text-slate-400 group-hover:text-pink-400 flex items-center justify-between">
-                  <span>Explore Guide</span>
-                  <span>→</span>
-                </div>
-              </Link>
-
-              <Link
-                href="/resources/ai-in-facilities-management/ai-cafm"
-                className="p-6 rounded-xl border border-brand-edge-dark bg-brand-graphite hover:border-pink-500/40 transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <span className="text-[10px] font-mono uppercase font-light text-slate-400">Software Architecture</span>
-                  <h3 className="text-base font-light text-white mt-1 group-hover:text-pink-300 transition-colors">
-                    AI + CAFM Systems
-                  </h3>
-                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
-                    Natural language search, automated scheduling, predictive SLA risk scoring, and EntireCAFM software.
-                  </p>
-                </div>
-                <div className="mt-6 pt-3 border-t border-brand-edge-dark text-xs font-normal text-slate-400 group-hover:text-pink-400 flex items-center justify-between">
-                  <span>Explore Guide</span>
-                  <span>→</span>
-                </div>
-              </Link>
-
-              <Link
-                href="/resources/ai-in-facilities-management/fm-data-readiness"
-                className="p-6 rounded-xl border border-brand-edge-dark bg-brand-graphite hover:border-pink-500/40 transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <span className="text-[10px] font-mono uppercase font-light text-slate-400">Asset Data Hygiene</span>
-                  <h3 className="text-base font-light text-white mt-1 group-hover:text-pink-300 transition-colors">
-                    FM Data Readiness
-                  </h3>
-                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
-                    Asset register auditing, spatial hierarchy, standardized failure coding, and the 5-step AI readiness pathway.
-                  </p>
-                </div>
-                <div className="mt-6 pt-3 border-t border-brand-edge-dark text-xs font-normal text-slate-400 group-hover:text-pink-400 flex items-center justify-between">
-                  <span>Explore Guide</span>
-                  <span>→</span>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* 4. KNOWLEDGE & INTELLIGENCE PILLARS (Glossary, Academy, Document Vault, Intelligence, Building Walk) */}
-        <section className="py-20 bg-brand-carbon border-b border-brand-edge-dark">
-          <div className="container-custom">
-            <div className="max-w-2xl mb-12">
-              <span className="eyebrow eyebrow-dark">Knowledge Ecosystem</span>
-              <h2 className="mt-2 text-2xl font-extralight text-white sm:text-3xl">
-                Learning, Intelligence & Operational Resources
+              <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-slate-900 leading-tight">
+                Authoritative Industry Resources
               </h2>
-              <p className="mt-2 text-sm text-brand-mist/60">
-                Explore plain-English terminology, downloadable templates, market intelligence, and plantroom walkthroughs.
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-light">
+                An interconnected digital intelligence platform designed to support commercial property directors, facilities managers, and engineering teams.
               </p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {/* FM Glossary */}
-              <div className="p-6 rounded-sm border border-brand-edge-dark bg-brand-graphite flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <BookOpen className="h-5 w-5 text-brand-electric-bright" />
-                    <span className="text-xs uppercase tracking-wider font-light text-brand-mist/50">Reference</span>
-                  </div>
-                  <h3 className="text-base font-light text-white">FM Glossary A–Z</h3>
-                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
-                    Don’t know your PPM from your EICR? Plain-English definitions of over 50 essential FM technical terms from asset registers to statutory testing.
+            {/* Asymmetric 6-Pillar Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              
+              {/* Pillar 1: FM Guides Library */}
+              <Link
+                href="/resources/guides"
+                className="group p-8 rounded-sm bg-slate-50 border border-slate-200 hover:border-brand-pink transition-all flex flex-col justify-between shadow-sm space-y-6"
+              >
+                <div className="space-y-3">
+                  <span className="text-xs text-brand-pink uppercase tracking-widest font-medium block">
+                    Pillar 01 · Reference Library
+                  </span>
+                  <h3 className="text-2xl font-light text-slate-900 group-hover:text-brand-pink transition-colors">
+                    FM Guides Library
+                  </h3>
+                  <p className="text-sm text-slate-600 font-light leading-relaxed">
+                    Comprehensive, long-form technical guides on planned maintenance (PPM), asset registers, tender procurement, and statutory compliance.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-brand-edge-dark">
-                  <Link href="/facilities-management-glossary" className="text-xs font-normal text-brand-electric-bright inline-flex items-center gap-1 hover:underline">
-                    Open FM Glossary <ArrowUpRight className="h-3 w-3" />
-                  </Link>
+                <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-brand-pink font-medium">
+                  <span>Explore 18+ Technical Guides</span>
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
-              </div>
+              </Link>
 
-              {/* FM Intelligence */}
-              <div className="p-6 rounded-sm border border-brand-edge-dark bg-brand-graphite flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <TrendingUp className="h-5 w-5 text-brand-electric-bright" />
-                    <span className="text-xs uppercase tracking-wider font-light text-brand-mist/50">Market Intelligence</span>
-                  </div>
-                  <h3 className="text-base font-light text-white">FM Intelligence 2026</h3>
-                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
-                    Verified commercial benchmarks, regulatory shifts under the Building Safety Act, engineering labour trends, and operational data.
+              {/* Pillar 2: Interactive FM Tools */}
+              <Link
+                href="/tools"
+                className="group p-8 rounded-sm bg-slate-50 border border-slate-200 hover:border-brand-pink transition-all flex flex-col justify-between shadow-sm space-y-6"
+              >
+                <div className="space-y-3">
+                  <span className="text-xs text-brand-pink uppercase tracking-widest font-medium block">
+                    Pillar 02 · Operational Calculators
+                  </span>
+                  <h3 className="text-2xl font-light text-slate-900 group-hover:text-brand-pink transition-colors">
+                    Interactive Tools &amp; Calculators
+                  </h3>
+                  <p className="text-sm text-slate-600 font-light leading-relaxed">
+                    Interactive PPM schedule builders, building health checks, compliance calendars, and tender brief generators.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-brand-edge-dark">
-                  <Link href="/fm-intelligence" className="text-xs font-normal text-brand-electric-bright inline-flex items-center gap-1 hover:underline">
-                    Read 2026 Analysis <ArrowUpRight className="h-3 w-3" />
-                  </Link>
+                <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-brand-pink font-medium">
+                  <span>Launch 6 Free Calculators</span>
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
-              </div>
+              </Link>
 
-              {/* EntireFM Academy */}
-              <div className="p-6 rounded-sm border border-brand-edge-dark bg-brand-graphite flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <GraduationCap className="h-5 w-5 text-brand-electric-bright" />
-                    <span className="text-xs uppercase tracking-wider font-light text-brand-mist/50">Training</span>
-                  </div>
-                  <h3 className="text-base font-light text-white">EntireFM Academy</h3>
-                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
-                    Free operational learning modules on statutory maintenance, building services engineering fundamentals, and contract oversight.
+              {/* Pillar 3: AI & Operational Technology */}
+              <Link
+                href="/resources/ai-in-facilities-management"
+                className="group p-8 rounded-sm bg-slate-50 border border-slate-200 hover:border-brand-pink transition-all flex flex-col justify-between shadow-sm space-y-6"
+              >
+                <div className="space-y-3">
+                  <span className="text-xs text-brand-pink uppercase tracking-widest font-medium block">
+                    Pillar 03 · Operational Technology
+                  </span>
+                  <h3 className="text-2xl font-light text-slate-900 group-hover:text-brand-pink transition-colors">
+                    AI in Facilities Management
+                  </h3>
+                  <p className="text-sm text-slate-600 font-light leading-relaxed">
+                    Demystifying predictive maintenance, IoT telemetry, vector CAFM search, and automated work order triage with strict human safety boundaries.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-brand-edge-dark">
-                  <Link href="/academy" className="text-xs font-normal text-brand-electric-bright inline-flex items-center gap-1 hover:underline">
-                    Browse Curriculum <ArrowUpRight className="h-3 w-3" />
-                  </Link>
+                <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-brand-pink font-medium">
+                  <span>Explore AI Whitepapers</span>
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
-              </div>
+              </Link>
 
-              {/* Document Vault */}
-              <div className="p-6 rounded-sm border border-brand-edge-dark bg-brand-graphite flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Download className="h-5 w-5 text-brand-electric-bright" />
-                    <span className="text-xs uppercase tracking-wider font-light text-brand-mist/50">Downloads</span>
-                  </div>
-                  <h3 className="text-base font-light text-white">FM Document Vault</h3>
-                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
-                    Verified, downloadable CSV asset registers, PPM matrix templates, compliance logbooks, and contractor induction checklists.
+              {/* Pillar 4: Statutory Compliance Centre */}
+              <Link
+                href="/compliance"
+                className="group p-8 rounded-sm bg-slate-50 border border-slate-200 hover:border-brand-pink transition-all flex flex-col justify-between shadow-sm space-y-6"
+              >
+                <div className="space-y-3">
+                  <span className="text-xs text-brand-pink uppercase tracking-widest font-medium block">
+                    Pillar 04 · Statutory Authority
+                  </span>
+                  <h3 className="text-2xl font-light text-slate-900 group-hover:text-brand-pink transition-colors">
+                    Statutory Compliance Centre
+                  </h3>
+                  <p className="text-sm text-slate-600 font-light leading-relaxed">
+                    Authoritative guidance separating UK legal obligations from British Standards across Fire Safety, Fixed Wire Testing (EICR), Legionella, and Gas.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-brand-edge-dark">
-                  <Link href="/resources/document-vault" className="text-xs font-normal text-brand-electric-bright inline-flex items-center gap-1 hover:underline">
-                    Access Downloads <ArrowUpRight className="h-3 w-3" />
-                  </Link>
+                <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-brand-pink font-medium">
+                  <span>View Legal Mandates</span>
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
-              </div>
+              </Link>
 
-              {/* The Building Walk */}
-              <div className="p-6 rounded-sm border border-brand-edge-dark bg-brand-graphite flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Video className="h-5 w-5 text-brand-electric-bright" />
-                    <span className="text-xs uppercase tracking-wider font-light text-brand-mist/50">Site Surveys</span>
-                  </div>
-                  <h3 className="text-base font-light text-white">The Building Walk</h3>
-                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
-                    Step-by-step engineering walkthroughs of plantrooms, switchrooms, chiller decks, and commercial estate roofs.
+              {/* Pillar 5: FM Glossary A–Z */}
+              <Link
+                href="/facilities-management-glossary"
+                className="group p-8 rounded-sm bg-slate-50 border border-slate-200 hover:border-brand-pink transition-all flex flex-col justify-between shadow-sm space-y-6"
+              >
+                <div className="space-y-3">
+                  <span className="text-xs text-brand-pink uppercase tracking-widest font-medium block">
+                    Pillar 05 · Technical Dictionary
+                  </span>
+                  <h3 className="text-2xl font-light text-slate-900 group-hover:text-brand-pink transition-colors">
+                    FM Glossary A–Z
+                  </h3>
+                  <p className="text-sm text-slate-600 font-light leading-relaxed">
+                    Plain-English definitions and statutory references for over 50 essential FM technical terms, from SFG20 and CAFM to LOLER and EICR.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-brand-edge-dark">
-                  <Link href="/building-walk" className="text-xs font-normal text-brand-electric-bright inline-flex items-center gap-1 hover:underline">
-                    Explore Walkthroughs <ArrowUpRight className="h-3 w-3" />
-                  </Link>
+                <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-brand-pink font-medium">
+                  <span>Browse Terminology</span>
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
-              </div>
+              </Link>
 
-              {/* Case Studies */}
-              <div className="p-6 rounded-sm border border-brand-edge-dark bg-brand-graphite flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Layers className="h-5 w-5 text-brand-electric-bright" />
-                    <span className="text-xs uppercase tracking-wider font-light text-brand-mist/50">Real Estates</span>
-                  </div>
-                  <h3 className="text-base font-light text-white">Case Studies</h3>
-                  <p className="text-xs text-brand-mist/70 mt-2 leading-relaxed">
-                    Anonymised profiles of real-world commercial estates, motorway services, clinical buildings, and industrial complexes.
+              {/* Pillar 6: FM Intelligence 2026 */}
+              <Link
+                href="/fm-intelligence"
+                className="group p-8 rounded-sm bg-slate-50 border border-slate-200 hover:border-brand-pink transition-all flex flex-col justify-between shadow-sm space-y-6"
+              >
+                <div className="space-y-3">
+                  <span className="text-xs text-brand-pink uppercase tracking-widest font-medium block">
+                    Pillar 06 · Market Research
+                  </span>
+                  <h3 className="text-2xl font-light text-slate-900 group-hover:text-brand-pink transition-colors">
+                    FM Intelligence 2026
+                  </h3>
+                  <p className="text-sm text-slate-600 font-light leading-relaxed">
+                    Quarterly commercial benchmarks, Building Safety Act enforcement trends, engineering wage indices, and energy optimization metrics.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-brand-edge-dark">
-                  <Link href="/case-studies" className="text-xs font-normal text-brand-electric-bright inline-flex items-center gap-1 hover:underline">
-                    View Case Studies <ArrowUpRight className="h-3 w-3" />
-                  </Link>
+                <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-brand-pink font-medium">
+                  <span>Read Market Analysis</span>
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
-              </div>
+              </Link>
+
             </div>
           </div>
         </section>
 
-        {/* 5. ARTICLES & EDITORIAL GUIDES */}
-        <section className="py-20 bg-brand-graphite">
-          <div className="container-custom">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-              <div>
-                <span className="eyebrow eyebrow-dark">Editorial Guides</span>
-                <h2 className="mt-2 text-2xl font-extralight text-white sm:text-3xl">
-                  Technical Articles & Insights
+        {/* ========================================================================= */}
+        {/* 3. FEATURED INTERACTIVE PLANNING SUITE                                    */}
+        {/* ========================================================================= */}
+        <section className="py-24 bg-[#0B1220] text-white border-b border-brand-edge-dark">
+          <div className="container-custom space-y-16">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+              <div className="max-w-2xl space-y-3">
+                <div className="inline-flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
+                    Interactive Suite
+                  </span>
+                </div>
+                <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-white leading-tight">
+                  Estate Planning Tools
                 </h2>
+                <p className="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
+                  Free browser-based diagnostics, cost estimators, and schedule generators built on verified SFG20 and UK statutory frequencies.
+                </p>
               </div>
-              <Link href="/blog" className="text-xs font-normal text-brand-electric-bright hover:underline">
-                View all articles ({POSTS_BY_DATE.length}) →
+              <Link
+                href="/tools"
+                className="inline-flex items-center gap-2 text-sm font-medium text-brand-pink hover:text-white transition-colors"
+              >
+                <span>View all 6 FM tools &amp; calculators</span>
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-3">
-              {POSTS_BY_DATE.slice(0, 6).map((post) => (
+            {/* Numbered Row Format instead of generic SaaS cards */}
+            <div className="divide-y divide-white/10 border-t border-b border-white/10">
+              
+              <div className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center hover:bg-white/[0.02] transition-colors px-2 sm:px-4">
+                <div className="lg:col-span-1 text-2xl font-extralight text-brand-pink">01</div>
+                <div className="lg:col-span-4 space-y-1">
+                  <h3 className="text-xl font-light text-white">PPM Schedule Builder</h3>
+                  <span className="text-xs uppercase tracking-wider text-slate-400 font-medium block">Asset-Led Maintenance Matrix</span>
+                </div>
+                <div className="lg:col-span-5 text-sm text-slate-300 font-light leading-relaxed">
+                  Build a bespoke maintenance schedule around your installed assets with verified statutory, standard, and practice basis.
+                </div>
+                <div className="lg:col-span-2 text-right">
+                  <Link href="/tools/ppm-schedule-builder" className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-pink hover:text-white transition-colors">
+                    <span>Launch Builder</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center hover:bg-white/[0.02] transition-colors px-2 sm:px-4">
+                <div className="lg:col-span-1 text-2xl font-extralight text-brand-pink">02</div>
+                <div className="lg:col-span-4 space-y-1">
+                  <h3 className="text-xl font-light text-white">FM Building Health Check</h3>
+                  <span className="text-xs uppercase tracking-wider text-slate-400 font-medium block">3-Minute Risk Audit</span>
+                </div>
+                <div className="lg:col-span-5 text-sm text-slate-300 font-light leading-relaxed">
+                  Evaluate your estate across 7 statutory maintenance areas to highlight documentation gaps and operational risk points.
+                </div>
+                <div className="lg:col-span-2 text-right">
+                  <Link href="/tools/fm-health-check" className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-pink hover:text-white transition-colors">
+                    <span>Start Audit</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center hover:bg-white/[0.02] transition-colors px-2 sm:px-4">
+                <div className="lg:col-span-1 text-2xl font-extralight text-brand-pink">03</div>
+                <div className="lg:col-span-4 space-y-1">
+                  <h3 className="text-xl font-light text-white">Compliance Calendar Builder</h3>
+                  <span className="text-xs uppercase tracking-wider text-slate-400 font-medium block">12-Month Testing Roadmap</span>
+                </div>
+                <div className="lg:col-span-5 text-sm text-slate-300 font-light leading-relaxed">
+                  Generate a synchronized statutory testing schedule with direct calendar file export for Outlook and Google Calendar.
+                </div>
+                <div className="lg:col-span-2 text-right">
+                  <Link href="/tools/compliance-calendar" className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-pink hover:text-white transition-colors">
+                    <span>Build Calendar</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center hover:bg-white/[0.02] transition-colors px-2 sm:px-4">
+                <div className="lg:col-span-1 text-2xl font-extralight text-brand-pink">04</div>
+                <div className="lg:col-span-4 space-y-1">
+                  <h3 className="text-xl font-light text-white">Tender Brief Generator</h3>
+                  <span className="text-xs uppercase tracking-wider text-slate-400 font-medium block">RFP Specification Creator</span>
+                </div>
+                <div className="lg:col-span-5 text-sm text-slate-300 font-light leading-relaxed">
+                  Draft a comprehensive, structured Facilities Management tender brief and RFP specification to issue to prospective contractors.
+                </div>
+                <div className="lg:col-span-2 text-right">
+                  <Link href="/tools/tender-brief" className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-pink hover:text-white transition-colors">
+                    <span>Create RFP</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 4. EDITORIAL KNOWLEDGE STRIP                                              */}
+        {/* ========================================================================= */}
+        <section className="py-24 bg-white text-slate-900 border-b border-slate-200">
+          <div className="container-custom space-y-16">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+              <div className="max-w-2xl space-y-3">
+                <div className="inline-flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
+                    Editorial Analysis
+                  </span>
+                </div>
+                <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-slate-900 leading-tight">
+                  Technical Articles &amp; Insights
+                </h2>
+                <p className="text-slate-600 text-base sm:text-lg font-light leading-relaxed">
+                  Written by licensed building services engineers and senior FM practitioners.
+                </p>
+              </div>
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-sm font-medium text-brand-pink hover:text-slate-900 transition-colors"
+              >
+                <span>View all articles ({POSTS_BY_DATE.length})</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {POSTS_BY_DATE.slice(0, 3).map((post) => (
                 <Link
                   key={post.path}
                   href={post.path}
-                  className="group rounded-sm border border-brand-edge-dark bg-brand-carbon p-6 flex flex-col justify-between hover:border-brand-electric/50 transition-colors"
+                  className="group p-8 rounded-sm bg-slate-50 border border-slate-200 hover:border-brand-pink transition-all flex flex-col justify-between shadow-sm space-y-6"
                 >
-                  <div>
-                    <span className="text-[11px] font-mono text-brand-electric-bright uppercase">
+                  <div className="space-y-3">
+                    <span className="text-[11px] font-medium uppercase tracking-wider text-brand-pink block">
                       {post.published}
                     </span>
-                    <h3 className="text-base font-light text-white mt-2 group-hover:text-brand-electric-bright transition-colors">
+                    <h3 className="text-xl font-light text-slate-900 group-hover:text-brand-pink transition-colors leading-snug">
                       {post.title}
                     </h3>
-                    <p className="text-xs text-brand-mist/70 mt-2 line-clamp-3 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-600 font-light leading-relaxed line-clamp-3">
                       {post.dek}
                     </p>
                   </div>
-                  <div className="mt-6 pt-4 border-t border-brand-edge-dark flex items-center justify-between text-xs text-brand-mist/50">
-                    <span>{Math.max(3, Math.round(post.sections.length * 1.5))} min read</span>
-                    <span className="text-brand-electric-bright group-hover:translate-x-0.5 transition-transform">Read guide →</span>
+                  <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-brand-pink font-medium">
+                    <span>Read Article</span>
+                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </Link>
               ))}
@@ -622,11 +504,12 @@ export function TemplateResourcesHub({ route, content }: TemplateProps) {
           </div>
         </section>
 
+        {/* Newsletter & Conversion */}
         <NewsletterSignupSection />
-        <TrustBar />
         <ProposalSection />
       </main>
+
       <Footer />
-    </>
+    </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
@@ -13,14 +14,8 @@ import {
   Search,
   BookOpen,
   ArrowRight,
-  ArrowUpRight,
   MapPin,
-  CheckCircle2,
   Filter,
-  Layers,
-  ShieldCheck,
-  Wrench,
-  Cpu,
 } from 'lucide-react';
 
 export function TemplateGlossaryNational() {
@@ -89,77 +84,105 @@ export function TemplateGlossaryNational() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-white">
-      <Header solid />
-      <main id="main" className="flex-1">
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
+      <Header />
+
+      <main id="main" className="flex-grow">
         {/* Schema Script */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
         />
 
-        {/* Hero Section */}
-        <section className="on-dark relative isolate flex w-full flex-col overflow-hidden bg-brand-graphite pt-[calc(var(--header-h)+1rem)] pb-16 sm:pb-20">
-          <div className="container-custom">
-            <Breadcrumbs items={breadcrumbs} />
+        {/* ========================================================================= */}
+        {/* 1. CINEMATIC HERO (85svh)                                                 */}
+        {/* ========================================================================= */}
+        <section className="relative min-h-[85svh] lg:min-h-[88svh] flex items-center justify-center bg-[#060A14] overflow-hidden pt-28 pb-16 sm:py-24 border-b border-brand-edge-dark">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/editorial/entirefm-client-review-2000w.webp"
+              alt="Facilities Management Glossary — Technical Dictionary"
+              fill
+              priority
+              className="w-full h-full object-cover object-center filter brightness-[0.32] contrast-[1.1]"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/80 to-[#060A14]/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/90 to-transparent" />
+          </div>
 
-            <div className="max-w-4xl mt-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-white/[0.07] border border-white/15 backdrop-blur-sm mb-6">
-                <BookOpen className="h-4 w-4 text-brand-pink-light" />
-                <span className="text-xs font-normal uppercase tracking-wider text-brand-pink-light">
-                  TECHNICAL REFERENCE & DIRECTORY
+          <div className="container-custom relative z-10 w-full">
+            <div className="max-w-4xl space-y-6">
+              
+              <div className="mb-2">
+                <Breadcrumbs items={breadcrumbs} className="text-slate-300 font-light text-xs" />
+              </div>
+
+              <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-sm bg-white/10 backdrop-blur-md border border-white/15">
+                <span className="w-2 h-2 rounded-full bg-brand-pink" />
+                <span className="text-xs uppercase tracking-widest text-white/90 font-medium">
+                  Technical Reference Dictionary
                 </span>
               </div>
 
-              <h1 className="text-display-xl text-white">
-                Facilities Management Glossary: <span className="text-hero-pink">FM Terms Explained</span>
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.06]">
+                Facilities Management <br />
+                <span className="font-light text-hero-pink">
+                  Glossary &amp; Terminology.
+                </span>
               </h1>
 
-              <p className="mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-brand-mist/80">
-                Plain-English explanations of commercial facilities management, M&E engineering, SFG20 planned preventative maintenance, and statutory compliance terminology for property directors and estate managers.
+              <p className="text-base sm:text-xl text-slate-200 font-light leading-relaxed max-w-3xl">
+                Plain-English technical definitions of commercial building engineering, SFG20 planned preventative maintenance, statutory compliance legislation, and estate management standards.
               </p>
 
               {/* Live Search Input */}
-              <div className="mt-8 relative max-w-2xl">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-mist/50" />
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search FM terms (e.g. PPM, SFG20, EICR, CAFM, TM44, BMS)..."
-                  className="w-full pl-12 pr-4 py-3.5 rounded-sm bg-brand-carbon border border-white/15 text-white text-sm placeholder:text-brand-mist/40 focus:border-brand-pink focus:ring-1 focus:ring-brand-pink transition-all outline-none"
-                />
-                {searchTerm && (
-                  <button
-                    onClick={() => setSearchTerm('')}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-brand-mist/60 hover:text-white"
-                  >
-                    Clear
-                  </button>
-                )}
+              <div className="pt-2 relative max-w-2xl">
+                <div className="relative flex items-center">
+                  <Search className="absolute left-4 h-5 w-5 text-slate-400" />
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Search FM terms (e.g. PPM, SFG20, EICR, CAFM, TM44, BMS, ACOP L8)..."
+                    className="w-full h-14 rounded-sm border border-white/20 bg-brand-carbon/90 backdrop-blur-md pl-12 pr-12 text-sm text-white placeholder-slate-400 focus:border-brand-pink focus:outline-none shadow-elevated"
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={() => setSearchTerm('')}
+                      className="absolute right-4 text-xs text-slate-400 hover:text-white font-medium"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
               </div>
+
             </div>
           </div>
         </section>
 
         <TrustBar />
 
-        {/* Filter Controls & A-Z Navigation */}
-        <section className="bg-brand-surface border-b border-brand-edge py-6 sticky top-[var(--header-h)] z-20 shadow-subtle backdrop-blur-md bg-white/95">
+        {/* ========================================================================= */}
+        {/* 2. STICKY A-Z ALPHA BAR & CATEGORY SELECTOR                               */}
+        {/* ========================================================================= */}
+        <section className="bg-white border-b border-slate-200 py-4 sticky top-[var(--header-h)] z-20 shadow-sm backdrop-blur-md">
           <div className="container-custom">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              
               {/* A-Z Alpha Bar */}
-              <div className="flex items-center gap-1.5 flex-wrap">
+              <div className="flex items-center gap-1 flex-wrap">
                 <button
                   type="button"
                   onClick={() => {
                     setSelectedLetter(null);
                     setSelectedCategory(null);
                   }}
-                  className={`px-3 py-1.5 rounded-sm text-xs font-normal uppercase transition-colors ${
+                  className={`px-3 py-1.5 rounded-sm text-xs font-medium uppercase transition-colors ${
                     selectedLetter === null && selectedCategory === null
-                      ? 'bg-brand-pink text-white'
-                      : 'bg-white border border-brand-edge text-brand-graphite hover:border-brand-pink/50'
+                      ? 'bg-brand-pink text-white shadow-sm'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
                   All ({NATIONAL_GLOSSARY_TERMS.length})
@@ -169,10 +192,10 @@ export function TemplateGlossaryNational() {
                     key={letter}
                     type="button"
                     onClick={() => setSelectedLetter(selectedLetter === letter ? null : letter)}
-                    className={`w-7 h-7 rounded-sm text-xs font-normal uppercase flex items-center justify-center transition-colors ${
+                    className={`w-7 h-7 rounded-sm text-xs font-medium uppercase flex items-center justify-center transition-colors ${
                       selectedLetter === letter
-                        ? 'bg-brand-pink text-white'
-                        : 'bg-white border border-brand-edge text-brand-graphite hover:border-brand-pink/50'
+                        ? 'bg-brand-pink text-white shadow-sm'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
                     {letter}
@@ -186,7 +209,7 @@ export function TemplateGlossaryNational() {
                 <select
                   value={selectedCategory || ''}
                   onChange={(e) => setSelectedCategory(e.target.value ? e.target.value : null)}
-                  className="w-full md:w-auto text-xs px-3 py-1.5 rounded-sm border border-brand-edge bg-white text-brand-graphite font-light focus:border-brand-pink focus:outline-none"
+                  className="w-full md:w-auto text-xs px-3 py-2 rounded-sm border border-slate-200 bg-slate-50 text-slate-900 font-light focus:border-brand-pink focus:outline-none"
                 >
                   <option value="">All Categories ({categories.length})</option>
                   {categories.map((c) => (
@@ -196,56 +219,62 @@ export function TemplateGlossaryNational() {
                   ))}
                 </select>
               </div>
+
             </div>
           </div>
         </section>
 
-        {/* Glossary Terms List */}
-        <section className="section bg-white">
-          <div className="container-custom">
-            <div className="mb-6 flex items-center justify-between">
-              <p className="text-xs font-normal uppercase tracking-wider text-slate-500">
-                Showing {filteredTerms.length} of {NATIONAL_GLOSSARY_TERMS.length} facilities management definitions
-              </p>
+        {/* ========================================================================= */}
+        {/* 3. TECHNICAL GLOSSARY DEFINITIONS                                         */}
+        {/* ========================================================================= */}
+        <section className="py-20 bg-white text-slate-900 border-b border-slate-200">
+          <div className="container-custom space-y-12">
+            
+            <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+              <span className="text-xs font-medium uppercase tracking-wider text-slate-500">
+                Displaying {filteredTerms.length} of {NATIONAL_GLOSSARY_TERMS.length} verified facilities management definitions
+              </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {filteredTerms.map((item) => (
                 <article
                   key={item.slug}
                   id={item.slug}
-                  className="p-6 sm:p-7 rounded-sm border border-brand-edge bg-white hover:border-brand-pink/40 hover:shadow-card transition-all duration-300 flex flex-col justify-between"
+                  className="p-8 rounded-sm border border-slate-200 bg-slate-50 hover:border-brand-pink transition-all flex flex-col justify-between space-y-6 shadow-sm"
                 >
                   <div className="space-y-4">
-                    <div className="flex items-start justify-between gap-4">
-                      <h2 className="text-xl sm:text-2xl font-extralight text-brand-graphite tracking-tight">
+                    <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
+                      <h2 className="text-2xl font-light text-slate-900 tracking-tight">
                         {item.term}
                       </h2>
-                      <span className="px-2.5 py-1 rounded-sm bg-brand-surface border border-brand-edge text-[10px] font-normal uppercase tracking-wider text-slate-600 shrink-0">
+                      <span className="px-2.5 py-1 rounded-sm bg-white border border-slate-200 text-[10px] font-medium uppercase tracking-wider text-slate-600 shrink-0">
                         {item.category}
                       </span>
                     </div>
 
-                    <p className="text-sm font-normal text-brand-graphite leading-relaxed">
+                    <p className="text-base font-normal text-slate-900 leading-relaxed">
                       {item.shortDefinition}
                     </p>
 
-                    <div className="text-xs sm:text-[13px] leading-relaxed text-slate-600 border-t border-brand-edge/60 pt-3">
+                    <div className="text-sm leading-relaxed text-slate-600 font-light pt-2">
                       <p>{item.detailedExplanation}</p>
                     </div>
 
-                    <div className="p-3.5 rounded-sm bg-brand-surface/70 border border-brand-edge text-xs leading-relaxed text-slate-700">
-                      <span className="font-light text-brand-graphite block mb-1">Why it matters for commercial estates:</span>
-                      {item.whyItMatters}
+                    <div className="p-4 rounded-sm bg-white border border-slate-200 text-xs sm:text-[13px] leading-relaxed text-slate-700 space-y-1">
+                      <span className="font-medium text-slate-900 block text-xs uppercase tracking-wider">
+                        Operational Significance:
+                      </span>
+                      <p className="font-light">{item.whyItMatters}</p>
                     </div>
 
                     {item.relatedTerms.length > 0 && (
                       <div className="pt-2 flex flex-wrap items-center gap-1.5">
-                        <span className="text-[11px] font-normal text-slate-500 mr-1">Related terms:</span>
+                        <span className="text-xs font-medium text-slate-500 mr-1">Related Terms:</span>
                         {item.relatedTerms.map((rt) => (
                           <span
                             key={rt}
-                            className="px-2 py-0.5 rounded-sm bg-slate-100 text-[11px] text-slate-700 font-mono"
+                            className="px-2 py-0.5 rounded-sm bg-slate-200 text-[11px] text-slate-800 font-light"
                           >
                             {rt}
                           </span>
@@ -255,15 +284,15 @@ export function TemplateGlossaryNational() {
                   </div>
 
                   {item.serviceLink && (
-                    <div className="mt-6 pt-4 border-t border-brand-edge flex items-center justify-between">
+                    <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs">
                       <Link
                         href={item.serviceLink.href}
-                        className="inline-flex items-center gap-1.5 text-xs font-normal text-brand-pink hover:text-brand-magenta transition-colors"
+                        className="inline-flex items-center gap-1.5 text-brand-pink hover:text-slate-900 font-medium transition-colors"
                       >
                         <span>{item.serviceLink.label}</span>
                         <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
-                      <span className="text-[11px] text-slate-400">EntireFM Capability</span>
+                      <span className="text-[11px] text-slate-400 font-light">EntireFM Delivery</span>
                     </div>
                   )}
                 </article>
@@ -271,11 +300,11 @@ export function TemplateGlossaryNational() {
             </div>
 
             {filteredTerms.length === 0 && (
-              <div className="p-12 text-center border border-dashed border-brand-edge rounded-sm bg-brand-surface">
-                <BookOpen className="h-8 w-8 text-slate-400 mx-auto mb-3" />
-                <h3 className="text-lg font-light text-brand-graphite">No glossary definitions found</h3>
-                <p className="text-xs text-slate-600 mt-1 max-w-md mx-auto">
-                  No term matches your current search or category filter. Try clearing filters to explore the full A–Z directory.
+              <div className="p-16 text-center border border-slate-200 rounded-sm bg-slate-50 space-y-4">
+                <BookOpen className="h-10 w-10 text-slate-400 mx-auto" />
+                <h3 className="text-xl font-light text-slate-900">No definitions found</h3>
+                <p className="text-sm text-slate-600 font-light max-w-md mx-auto">
+                  No term matches your active search or filter. Reset your criteria to inspect the full dictionary.
                 </p>
                 <button
                   type="button"
@@ -284,52 +313,56 @@ export function TemplateGlossaryNational() {
                     setSelectedLetter(null);
                     setSelectedCategory(null);
                   }}
-                  className="btn-primary mt-4 py-2 px-4 text-xs font-normal"
+                  className="bg-brand-pink text-white text-xs uppercase tracking-wider font-medium px-5 py-2.5 rounded-sm"
                 >
-                  Reset filters
+                  Reset Filters
                 </button>
               </div>
             )}
           </div>
         </section>
 
-        {/* Regional Location Directory Section */}
-        <section className="section bg-brand-surface border-t border-brand-edge">
-          <div className="container-custom">
-            <div className="max-w-3xl mb-12">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white border border-brand-edge mb-4">
-                <MapPin className="h-3.5 w-3.5 text-brand-pink" />
-                <span className="text-[11px] font-normal uppercase tracking-wider text-brand-graphite">
-                  REGIONAL FM STANDARDS
+        {/* ========================================================================= */}
+        {/* 4. REGIONAL GLOSSARY DIRECTORY                                            */}
+        {/* ========================================================================= */}
+        <section className="py-24 bg-[#0B1220] text-white border-b border-brand-edge-dark">
+          <div className="container-custom space-y-16">
+            <div className="max-w-3xl space-y-3">
+              <div className="inline-flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
+                  Regional Standards &amp; Context
                 </span>
               </div>
-              <h2 className="text-display-md text-brand-graphite font-extralight tracking-tight">
-                Facilities Management Terminology by Location
+              <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-white leading-tight">
+                Facilities Terminology by UK Location
               </h2>
-              <p className="mt-4 text-[15px] leading-relaxed text-slate-600">
-                Explore dedicated regional glossary pages explaining how building services, heritage constraints, ULEZ transport regulations, and manufacturing requirements impact FM delivery in specific UK cities.
+              <p className="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
+                Explore dedicated regional glossary guides explaining how local building services, heritage restrictions, ULEZ transport regulations, and manufacturing requirements impact FM delivery in specific UK cities.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {Object.entries(locationsByRegion).map(([regionName, cityList]) => (
                 <div
                   key={regionName}
-                  className="p-6 rounded-sm bg-white border border-brand-edge shadow-subtle space-y-4"
+                  className="p-8 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-6 shadow-elevated"
                 >
-                  <h3 className="text-base font-light text-brand-graphite uppercase tracking-wider border-b border-brand-edge pb-2 flex items-center justify-between">
-                    <span>{regionName}</span>
-                    <span className="text-xs font-mono text-brand-pink">({cityList.length})</span>
-                  </h3>
-                  <ul className="space-y-2">
+                  <div className="border-b border-brand-edge-dark pb-3 flex items-center justify-between">
+                    <h3 className="text-base font-light text-white uppercase tracking-wider">
+                      {regionName}
+                    </h3>
+                    <span className="text-xs text-brand-pink font-medium">({cityList.length} Cities)</span>
+                  </div>
+                  <ul className="space-y-2.5">
                     {cityList.map((c) => (
                       <li key={c.slug}>
                         <Link
                           href={`/facilities-management-glossary-${c.slug}`}
-                          className="group flex items-center justify-between text-xs sm:text-[13px] font-normal text-slate-700 hover:text-brand-pink transition-colors py-1"
+                          className="group flex items-center justify-between text-xs sm:text-sm text-slate-300 hover:text-brand-pink transition-colors py-1 font-light"
                         >
                           <span>{c.city} FM Glossary</span>
-                          <ArrowRight className="h-3 w-3 text-slate-400 group-hover:text-brand-pink group-hover:translate-x-0.5 transition-all" />
+                          <ArrowRight className="h-3 w-3 text-slate-500 group-hover:text-brand-pink group-hover:translate-x-0.5 transition-all" />
                         </Link>
                       </li>
                     ))}
@@ -341,10 +374,11 @@ export function TemplateGlossaryNational() {
         </section>
 
         <ProposalSection
-          headline="Discuss your estate's maintenance and compliance requirements"
-          subheadline="Speak to our technical team about single-site contracts, multi-property portfolios, or comprehensive statutory compliance reviews."
+          headline="Discuss Your Estate's Maintenance and Compliance Requirements"
+          subheadline="Speak with our technical engineering team about multi-property portfolios, PPM schedules, or statutory risk audits."
         />
       </main>
+
       <Footer />
     </div>
   );

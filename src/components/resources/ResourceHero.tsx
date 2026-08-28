@@ -1,8 +1,10 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { Clock, ShieldCheck, Cpu, ArrowRight, Layers, FileText } from 'lucide-react';
+import { Clock, ShieldCheck, ArrowRight, Layers, FileText, CheckCircle2 } from 'lucide-react';
 
 interface ResourceHeroProps {
   breadcrumbs: { name: string; url: string }[];
@@ -18,6 +20,7 @@ interface ResourceHeroProps {
   imageSrc?: string;
   imageAlt?: string;
   systemMetrics?: { label: string; value: string; status?: 'normal' | 'active' | 'warning' }[];
+  className?: string;
 }
 
 export function ResourceHero({
@@ -27,132 +30,91 @@ export function ResourceHero({
   title,
   intro,
   readingTime = '12 min read',
-  technicalTier = 'Level 3 · Operations & Engineering',
-  audience = 'Estates Directors, FM Heads & Operations Teams',
-  standard = '2026 Authoritative Standard',
-  visualType = 'telemetry',
-  imageSrc,
+  technicalTier = 'Strategic & Operational Intelligence',
+  audience = 'Estates Directors, FM Leads & Operations Teams',
+  standard = 'UK Statutory & SFG20 Standards',
+  imageSrc = '/images/editorial/entirefm-client-review-2000w.webp',
   imageAlt,
   systemMetrics = [
-    { label: 'System Protocol', value: 'BACnet / Modbus / MQTT', status: 'normal' },
-    { label: 'CAFM Synchronization', value: 'Real-Time Event Bus', status: 'active' },
-    { label: 'Security Boundary', value: 'Air-Gapped Life Safety', status: 'normal' },
+    { label: 'Asset Integration', value: 'BMS Telemetry & CAFM Bus' },
+    { label: 'Maintenance Standard', value: 'SFG20 & Statutory Mandates' },
+    { label: 'Safety Governance', value: 'Certified Human Verification' },
   ],
+  className = '',
 }: ResourceHeroProps) {
   return (
-    <section className="relative pt-28 pb-16 lg:pb-24 overflow-hidden bg-gradient-to-b from-[#060c16] via-[#0b1320] to-[#0f172a] border-b border-slate-800 text-white">
-      {/* Background Subtle Blueprint Grid */}
-      <div className="absolute inset-0 opacity-[0.07] bg-[radial-gradient(#f43f5e_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none" />
-      
-      {/* Faint Technical Ambient Glow */}
-      <div className="absolute top-1/4 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-10 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+    <section className={`relative min-h-[85svh] lg:min-h-[88svh] flex items-center justify-center bg-[#060A14] text-white overflow-hidden pt-28 pb-16 sm:py-24 border-b border-brand-edge-dark font-sans ${className}`}>
+      {/* Background Architectural Canvas with Subtle Contrast Overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={imageSrc}
+          alt={imageAlt || title}
+          fill
+          priority
+          sizes="100vw"
+          className="w-full h-full object-cover object-center filter brightness-[0.38] contrast-[1.08]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/80 to-[#060A14]/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/90 to-transparent" />
+      </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="mb-6">
-          <Breadcrumbs items={breadcrumbs} />
-        </div>
+      <div className="container-custom relative z-10 w-full">
+        <div className="max-w-4xl space-y-6">
+          
+          {/* Breadcrumb Strip */}
+          <div className="mb-2">
+            <Breadcrumbs items={breadcrumbs} className="text-slate-300 font-light text-xs" />
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Editorial & Metadata */}
-          <div className="lg:col-span-7 xl:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full text-xs font-normal uppercase tracking-wider bg-pink-500/10 text-pink-400 border border-pink-500/20">
-              <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
-              <Link href={categoryHref} className="hover:underline">
-                {category}
-              </Link>
+          {/* Eyebrow Pill */}
+          <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-sm bg-white/10 backdrop-blur-md border border-white/15">
+            <span className="w-2 h-2 rounded-full bg-brand-pink" />
+            <Link href={categoryHref} className="text-xs uppercase tracking-widest text-white/90 font-medium hover:text-white transition-colors">
+              {category}
+            </Link>
+          </div>
+
+          {/* Headline — Work Sans Extra Light */}
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.06]">
+            {title}
+          </h1>
+
+          {/* Intro Narrative */}
+          <p className="text-base sm:text-xl text-slate-200 font-light leading-relaxed max-w-3xl">
+            {intro}
+          </p>
+
+          {/* Structural Metadata Strip — Pure Work Sans, No Monospace */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-white/15">
+            <div className="p-4 rounded-sm bg-white/[0.04] backdrop-blur-md border border-white/10 space-y-1">
+              <span className="text-[11px] uppercase tracking-wider text-slate-400 font-medium block">
+                Reading Duration
+              </span>
+              <span className="text-sm font-normal text-white flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-brand-pink" />
+                {readingTime}
+              </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-white leading-[1.15] font-sans">
-              {title}
-            </h1>
+            <div className="p-4 rounded-sm bg-white/[0.04] backdrop-blur-md border border-white/10 space-y-1">
+              <span className="text-[11px] uppercase tracking-wider text-slate-400 font-medium block">
+                Target Audience
+              </span>
+              <span className="text-sm font-normal text-slate-200 truncate block">
+                {audience}
+              </span>
+            </div>
 
-            <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-2xl">
-              {intro}
-            </p>
-
-            {/* Technical Metadata Matrix */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-6 border-t border-slate-800/80 text-xs font-mono">
-              <div className="bg-slate-900/80 border border-slate-800/80 p-3 rounded-md">
-                <span className="text-slate-500 block uppercase text-[10px] tracking-wider mb-1">Depth</span>
-                <span className="text-slate-200 font-normal">{technicalTier}</span>
-              </div>
-              <div className="bg-slate-900/80 border border-slate-800/80 p-3 rounded-md">
-                <span className="text-slate-500 block uppercase text-[10px] tracking-wider mb-1">Audience</span>
-                <span className="text-slate-200 font-normal truncate block">{audience}</span>
-              </div>
-              <div className="bg-slate-900/80 border border-slate-800/80 p-3 rounded-md col-span-2 sm:col-span-1">
-                <span className="text-slate-500 block uppercase text-[10px] tracking-wider mb-1">Standard</span>
-                <span className="text-pink-400 font-normal">{standard}</span>
-              </div>
+            <div className="p-4 rounded-sm bg-white/[0.04] backdrop-blur-md border border-white/10 space-y-1">
+              <span className="text-[11px] uppercase tracking-wider text-slate-400 font-medium block">
+                Compliance Standard
+              </span>
+              <span className="text-sm font-normal text-brand-pink truncate block">
+                {standard}
+              </span>
             </div>
           </div>
 
-          {/* Right Column: Visual Counterpart */}
-          <div className="lg:col-span-5 xl:col-span-5">
-            {imageSrc ? (
-              <div className="relative rounded-xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-950 group">
-                <div className="aspect-[4/3] relative">
-                  <Image
-                    src={imageSrc}
-                    alt={imageAlt || title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 45vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
-                </div>
-                {/* Live Overlaid Telemetry Pill */}
-                <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-lg p-3 text-xs font-mono flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                    <span className="text-slate-300">EntireFM Live Telemetry</span>
-                  </div>
-                  <span className="text-pink-400 text-[10px] font-normal">24/7 ACTIVE</span>
-                </div>
-              </div>
-            ) : (
-              <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-5 shadow-2xl relative overflow-hidden">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4 text-xs font-mono text-slate-400">
-                  <div className="flex items-center gap-2">
-                    <Cpu className="w-3.5 h-3.5 text-pink-400" />
-                    <span>OPERATIONAL TELEMETRY DESK</span>
-                  </div>
-                  <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] font-normal">
-                    CONNECTED
-                  </span>
-                </div>
-
-                {/* Animated Technical Canvas Simulation */}
-                <div className="space-y-3 font-mono text-xs">
-                  {systemMetrics.map((m, idx) => (
-                    <div key={idx} className="p-2.5 rounded bg-slate-950 border border-slate-800/80 flex items-center justify-between">
-                      <span className="text-slate-400">{m.label}</span>
-                      <span className={`font-light ${m.status === 'active' ? 'text-pink-400' : 'text-slate-200'}`}>
-                        {m.value}
-                      </span>
-                    </div>
-                  ))}
-
-                  <div className="pt-2">
-                    <div className="flex justify-between text-[11px] text-slate-400 mb-1">
-                      <span>BMS Data Stream Quality</span>
-                      <span className="text-pink-400 font-light">99.8% Nominal</span>
-                    </div>
-                    <div className="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden border border-slate-800">
-                      <div className="bg-gradient-to-r from-blue-500 to-pink-500 h-1.5 rounded-full w-[94%]" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-500 font-mono">
-                  <span>LATENCY: 14ms</span>
-                  <span>SFG20 COMPLIANT LOGIC</span>
-                </div>
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </section>

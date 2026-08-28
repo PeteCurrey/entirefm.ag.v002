@@ -70,8 +70,8 @@ function UnsubscribeForm() {
   return (
     <div className="bg-white border border-brand-edge rounded-sm p-8 shadow-sm">
       <div className="text-center mb-6">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-pink-500 font-light">
-          THE FM BRIEFING · PREFERENCE CENTRE
+        <span className="text-[10px] uppercase tracking-widest text-brand-pink font-medium">
+          The FM Briefing · Preference Centre
         </span>
         <h1 className="text-2xl font-extralight text-brand-graphite mt-2">
           Unsubscribe &amp; Preferences
@@ -108,14 +108,14 @@ function UnsubscribeForm() {
           </p>
 
           {subscriberEmail && (
-            <div className="p-3 bg-brand-foam rounded border border-brand-edge text-xs font-mono text-brand-graphite flex items-center gap-2">
+            <div className="p-3 bg-brand-foam rounded-sm border border-brand-edge text-xs text-brand-graphite flex items-center gap-2">
               <Mail className="h-4 w-4 text-brand-silver" />
               {subscriberEmail}
             </div>
           )}
 
           {status === 'error' && (
-            <div className="p-3 bg-red-50 text-red-700 text-xs rounded border border-red-200 flex items-start gap-2">
+            <div className="p-3 bg-red-50 text-red-700 text-xs rounded-sm border border-red-200 flex items-start gap-2">
               <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
               <span>{errorMessage}</span>
             </div>
@@ -125,14 +125,14 @@ function UnsubscribeForm() {
             <button
               onClick={handleUnsubscribe}
               disabled={loading}
-              className="w-full bg-red-600 hover:bg-red-700 text-white font-normal text-xs py-2.5 px-4 rounded transition-colors disabled:opacity-50"
+              className="w-full bg-red-600 hover:bg-red-700 text-white font-medium text-xs py-2.5 px-4 rounded-sm transition-colors disabled:opacity-50"
             >
               {loading ? 'Processing...' : 'Confirm Unsubscribe'}
             </button>
 
             <Link
               href="/fm-briefing"
-              className="w-full text-center border border-brand-edge hover:bg-brand-foam text-brand-graphite font-normal text-xs py-2.5 px-4 rounded transition-colors"
+              className="w-full text-center border border-brand-edge hover:bg-brand-foam text-brand-graphite font-medium text-xs py-2.5 px-4 rounded-sm transition-colors"
             >
               Cancel &amp; Keep Subscription
             </Link>
@@ -153,7 +153,7 @@ export function TemplateUnsubscribe({ route }: TemplateProps) {
       <Header solid />
       <main id="main" className="flex-1 py-20 sm:py-24 bg-brand-foam flex items-center justify-center">
         <div className="container-custom max-w-lg">
-          <Suspense fallback={<div className="p-8 text-center text-xs font-mono text-slate-500">Loading preference centre...</div>}>
+          <Suspense fallback={<div className="p-8 text-center text-xs text-slate-500 font-light">Loading preference centre...</div>}>
             <UnsubscribeForm />
           </Suspense>
         </div>

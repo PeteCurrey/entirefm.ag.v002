@@ -2,9 +2,12 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
+import { TrustBar } from '@/components/trust/TrustBar';
+import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import {
   CheckCircle2,
   Mail,
@@ -13,7 +16,6 @@ import {
   BookOpen,
   ArrowRight,
   Clock,
-  Building2,
   Wrench,
 } from 'lucide-react';
 import type { TemplateProps } from '../types';
@@ -71,93 +73,121 @@ export function TemplateFmBriefing({ route, content }: TemplateProps) {
 
   const pillars = [
     {
-      icon: Clock,
+      num: '01',
       title: 'The Week That Matters',
-      desc: 'Important FM industry developments and regulatory updates distilled without having to monitor 40 different trade sources.',
+      desc: 'Critical FM industry developments, statutory regulatory deadlines, and building safety rulings distilled from over 40 trade sources into essential bullet briefings.',
     },
     {
-      icon: Wrench,
-      title: 'Practical Maintenance & Compliance',
-      desc: 'Tested engineering insight on SFG20 planned maintenance, EICR fixed wire testing, ACOP L8 water hygiene, and fire safety duties.',
+      num: '02',
+      title: 'Engineering & Compliance Deep-Dive',
+      desc: 'Tested engineering insight on SFG20 planned maintenance, EICR fixed wire testing, ACOP L8 water hygiene, and Fire Safety Order responsible person duties.',
     },
     {
-      icon: Zap,
-      title: 'Technology Without the Hype',
-      desc: 'Objective analysis of AI, CAFM systems, predictive IoT sensors, and smart buildings—grounded in real UK commercial property operations.',
+      num: '03',
+      title: 'Operational Technology & AI Reality',
+      desc: 'Objective analysis of AI, CAFM software, predictive IoT sensors, and smart buildings—grounded in real UK commercial property operations.',
     },
     {
-      icon: BookOpen,
-      title: 'Useful Tools & Templates',
+      num: '04',
+      title: 'Practical Tools & Templates',
       desc: 'Direct access to free EntireFM asset registers, PPM schedule builders, tender specifications, and statutory inspection calendars.',
     },
   ];
 
   return (
-    <div className="flex min-h-screen flex-col bg-white">
-      <Header solid />
-      <main id="main" className="flex-1">
-        <Breadcrumbs items={breadcrumbs} />
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
+      <Header />
 
-        {/* HERO SECTION */}
-        <section className="on-dark relative isolate overflow-hidden bg-brand-graphite pt-20 pb-16 sm:pt-24 sm:pb-24 border-b border-brand-edge-dark">
-          <div className="facet-rule pointer-events-none absolute inset-0 opacity-40" />
-          <div className="container-custom relative max-w-5xl">
+      <main id="main" className="flex-grow">
+        {/* ========================================================================= */}
+        {/* 1. CINEMATIC HERO (85svh)                                                 */}
+        {/* ========================================================================= */}
+        <section className="relative min-h-[85svh] lg:min-h-[88svh] flex items-center justify-center bg-[#060A14] overflow-hidden pt-28 pb-16 sm:py-24 border-b border-brand-edge-dark">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/editorial/entirefm-hero-headquarters-2560w.webp"
+              alt="The FM Briefing — Business Intelligence Publication"
+              fill
+              priority
+              className="w-full h-full object-cover object-center filter brightness-[0.32] contrast-[1.12]"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/80 to-[#060A14]/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/90 to-transparent" />
+          </div>
+
+          <div className="container-custom relative z-10 w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              <div className="lg:col-span-7">
-                <span className="eyebrow eyebrow-dark">RECURRING FM PUBLICATION</span>
-                <h1 className="mt-4 text-4xl sm:text-5xl font-light text-white tracking-tight leading-tight">
-                  THE FM BRIEFING
+              
+              {/* Left Editorial Copy */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="mb-2">
+                  <Breadcrumbs items={breadcrumbs} className="text-slate-300 font-light text-xs" />
+                </div>
+
+                <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-sm bg-white/10 backdrop-blur-md border border-white/15">
+                  <span className="w-2 h-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs uppercase tracking-widest text-white/90 font-medium">
+                    Weekly Intelligence Publication
+                  </span>
+                </div>
+
+                <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.06]">
+                  The FM Briefing.
                 </h1>
-                <p className="mt-3 text-lg font-light text-pink-400">
-                  Practical intelligence for people responsible for buildings.
-                </p>
-                <p className="mt-4 text-base text-brand-mist/85 leading-relaxed">
-                  A concise weekly editorial publication covering maintenance, statutory compliance, building engineering, AI &amp; technology, and commercial estate operations.
+
+                <p className="text-base sm:text-xl text-slate-200 font-light leading-relaxed max-w-2xl">
+                  A concise, practitioner-written weekly editorial digest covering commercial building maintenance, statutory compliance, engineering standards, and estate intelligence.
                 </p>
 
-                <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-xs text-brand-mist/70 font-mono">
-                  <span className="flex items-center gap-1.5">
-                    <ShieldCheck className="h-4 w-4 text-pink-400" />
-                    Weekly Tuesday cadence
+                <div className="flex flex-wrap items-center gap-6 pt-4 text-xs text-slate-300 font-light border-t border-white/15">
+                  <span className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+                    Every Tuesday Morning
                   </span>
-                  <span className="flex items-center gap-1.5">
-                    <ShieldCheck className="h-4 w-4 text-pink-400" />
-                    No marketing fluff
+                  <span className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+                    Zero Vendor Fluff
                   </span>
-                  <span className="flex items-center gap-1.5">
-                    <ShieldCheck className="h-4 w-4 text-pink-400" />
-                    One-click unsubscribe
+                  <span className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+                    One-Click Unsubscribe
                   </span>
                 </div>
               </div>
 
-              {/* SIGNUP BOX */}
+              {/* Right Signup Box */}
               <div className="lg:col-span-5">
-                <div className="bg-brand-carbon border border-brand-edge-dark rounded-sm p-6 sm:p-8 shadow-2xl">
+                <div className="bg-brand-carbon border border-brand-edge-dark rounded-sm p-8 sm:p-10 shadow-elevated">
                   {status === 'success' ? (
-                    <div className="text-center py-6">
-                      <CheckCircle2 className="h-12 w-12 text-pink-400 mx-auto mb-3" />
-                      <h3 className="text-xl font-light text-white">Subscription Confirmed</h3>
-                      <p className="text-sm text-brand-mist/80 mt-2 leading-relaxed">
-                        Thank you for subscribing. You will receive the upcoming edition of The FM Briefing in your inbox.
+                    <div className="text-center py-8 space-y-4">
+                      <CheckCircle2 className="h-12 w-12 text-brand-pink mx-auto" />
+                      <h3 className="text-2xl font-light text-white">Subscription Confirmed</h3>
+                      <p className="text-sm text-slate-300 leading-relaxed font-light">
+                        Thank you. The upcoming Tuesday edition of The FM Briefing will be delivered directly to your inbox.
                       </p>
-                      <Link
-                        href="/blog"
-                        className="mt-6 inline-flex items-center gap-2 text-xs font-normal text-pink-400 hover:text-pink-300"
-                      >
-                        Read latest published insights &rarr;
-                      </Link>
+                      <div className="pt-4">
+                        <Link
+                          href="/blog"
+                          className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-medium text-brand-pink hover:text-white transition-colors"
+                        >
+                          <span>Explore Latest Published Articles</span>
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </Link>
+                      </div>
                     </div>
                   ) : (
-                    <div>
-                      <h3 className="text-lg font-light text-white mb-1">Get the Briefing</h3>
-                      <p className="text-xs text-brand-mist/70 mb-5">
-                        Free weekly delivery. Marketing subscription is distinct from operational enquiries.
-                      </p>
+                    <div className="space-y-6">
+                      <div className="space-y-1.5">
+                        <h3 className="text-2xl font-light text-white tracking-tight">Subscribe to the Briefing</h3>
+                        <p className="text-xs text-slate-400 font-light">
+                          Free weekly editorial publication. Unsubscribe at any time.
+                        </p>
+                      </div>
 
-                      <form onSubmit={handleSubmit} className="space-y-3">
-                        <div>
-                          <label className="block text-xs font-normal text-brand-mist/80 mb-1">
+                      <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="space-y-1">
+                          <label className="block text-xs uppercase tracking-wider font-medium text-slate-300">
                             Work Email Address *
                           </label>
                           <input
@@ -166,153 +196,176 @@ export function TemplateFmBriefing({ route, content }: TemplateProps) {
                             placeholder="name@company.co.uk"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full bg-brand-void border border-brand-edge-dark rounded px-3.5 py-2.5 text-sm text-white placeholder:text-brand-mist/40 focus:border-pink-500 focus:outline-none"
+                            className="w-full bg-black/40 border border-brand-edge-dark rounded-sm px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-brand-pink focus:outline-none"
                           />
                         </div>
 
-                        <div>
-                          <label className="block text-xs font-normal text-brand-mist/80 mb-1">
-                            First Name <span className="text-brand-mist/50">(Optional)</span>
-                          </label>
-                          <input
-                            type="text"
-                            placeholder="e.g. Sarah"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                            className="w-full bg-brand-void border border-brand-edge-dark rounded px-3 py-2 text-xs text-white placeholder:text-brand-mist/40 focus:border-pink-500 focus:outline-none"
-                          />
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-2">
-                          <div>
-                            <label className="block text-xs font-normal text-brand-mist/80 mb-1">
-                              Company <span className="text-brand-mist/50">(Optional)</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="space-y-1">
+                            <label className="block text-[11px] uppercase tracking-wider font-medium text-slate-400">
+                              First Name
                             </label>
                             <input
                               type="text"
-                              placeholder="e.g. Acme Real Estate"
-                              value={company}
-                              onChange={(e) => setCompany(e.target.value)}
-                              className="w-full bg-brand-void border border-brand-edge-dark rounded px-3 py-2 text-xs text-white placeholder:text-brand-mist/40 focus:border-pink-500 focus:outline-none"
+                              placeholder="e.g. Sarah"
+                              value={firstName}
+                              onChange={(e) => setFirstName(e.target.value)}
+                              className="w-full bg-black/40 border border-brand-edge-dark rounded-sm px-3.5 py-2.5 text-xs text-white placeholder:text-slate-500 focus:border-brand-pink focus:outline-none"
                             />
                           </div>
-                          <div>
-                            <label className="block text-xs font-normal text-brand-mist/80 mb-1">
-                              Role <span className="text-brand-mist/50">(Optional)</span>
+
+                          <div className="space-y-1">
+                            <label className="block text-[11px] uppercase tracking-wider font-medium text-slate-400">
+                              Company
                             </label>
                             <input
                               type="text"
-                              placeholder="e.g. Facilities Manager"
-                              value={role}
-                              onChange={(e) => setRole(e.target.value)}
-                              className="w-full bg-brand-void border border-brand-edge-dark rounded px-3 py-2 text-xs text-white placeholder:text-brand-mist/40 focus:border-pink-500 focus:outline-none"
+                              placeholder="e.g. British Land"
+                              value={company}
+                              onChange={(e) => setCompany(e.target.value)}
+                              className="w-full bg-black/40 border border-brand-edge-dark rounded-sm px-3.5 py-2.5 text-xs text-white placeholder:text-slate-500 focus:border-brand-pink focus:outline-none"
                             />
                           </div>
                         </div>
 
                         {status === 'error' && (
-                          <p className="text-xs text-red-400 mt-2">{errorMessage}</p>
+                          <p className="text-xs text-rose-400 font-light">{errorMessage}</p>
                         )}
 
                         <button
                           type="submit"
                           disabled={status === 'loading'}
-                          className="w-full mt-2 bg-pink-500 hover:bg-pink-600 text-white font-normal text-xs py-3 px-4 rounded transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                          className="w-full bg-brand-pink hover:bg-brand-pink/90 text-white text-xs uppercase tracking-widest font-medium py-3.5 px-6 rounded-sm transition-all hover:scale-[1.02] shadow-elevated flex items-center justify-center gap-2 disabled:opacity-50"
                         >
                           {status === 'loading' ? (
-                            'Subscribing...'
+                            'Confirming...'
                           ) : (
                             <>
-                              Get The FM Briefing <ArrowRight className="h-4 w-4" />
+                              <span>Get The FM Briefing</span>
+                              <ArrowRight className="h-3.5 w-3.5" />
                             </>
                           )}
                         </button>
 
-                        <p className="text-[10px] text-brand-mist/50 text-center mt-2 leading-normal">
-                          We respect your inbox. No spam. One-click unsubscribe link in every issue.
+                        <p className="text-[11px] text-slate-500 text-center leading-normal font-light">
+                          Strict privacy. We never share subscriber records.
                         </p>
                       </form>
                     </div>
                   )}
                 </div>
               </div>
+
             </div>
           </div>
         </section>
 
-        {/* VALUE PROPOSITION PILLARS */}
-        <section className="py-16 bg-white">
-          <div className="container-custom max-w-5xl">
-            <div className="max-w-2xl mb-12">
-              <span className="eyebrow">EDITORIAL VALUE</span>
-              <h2 className="text-display-sm text-brand-graphite mt-2">
-                What you receive in every issue
+        <TrustBar />
+
+        {/* ========================================================================= */}
+        {/* 2. EDITORIAL PILLARS (VALUE PROPOSITION)                                  */}
+        {/* ========================================================================= */}
+        <section className="py-24 bg-white text-slate-900 border-b border-slate-200">
+          <div className="container-custom space-y-16">
+            <div className="max-w-3xl space-y-3">
+              <div className="inline-flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
+                  Editorial Structure
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-slate-900 leading-tight">
+                What You Receive in Every Issue
               </h2>
-              <p className="text-sm text-brand-slate mt-2 leading-relaxed">
-                The FM Briefing is engineered for estate directors, facilities managers, property operations heads, and building engineers who need actionable signal, not vendor noise.
+              <p className="text-slate-600 text-base sm:text-lg font-light leading-relaxed">
+                The FM Briefing is engineered for estate directors, facilities managers, property operations heads, and building engineers who require actionable insight without marketing noise.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {pillars.map((p, idx) => {
-                const Icon = p.icon;
-                return (
-                  <div key={idx} className="p-6 rounded border border-brand-edge bg-brand-foam/30 flex gap-4 items-start">
-                    <div className="p-2.5 rounded bg-brand-carbon text-pink-400 shrink-0">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-light text-brand-graphite">{p.title}</h3>
-                      <p className="text-xs text-brand-slate mt-1.5 leading-relaxed">{p.desc}</p>
-                    </div>
-                  </div>
-                );
-              })}
+              {pillars.map((p, idx) => (
+                <div key={idx} className="p-8 sm:p-10 rounded-sm border border-slate-200 bg-slate-50 space-y-4 shadow-sm">
+                  <span className="text-2xl font-extralight text-brand-pink block">{p.num}</span>
+                  <h3 className="text-2xl font-light text-slate-900 leading-snug">{p.title}</h3>
+                  <p className="text-sm text-slate-600 font-light leading-relaxed">{p.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* SAMPLE BRIEFING PREVIEW */}
-        <section className="py-16 bg-brand-foam border-t border-brand-edge">
-          <div className="container-custom max-w-4xl">
-            <div className="text-center max-w-2xl mx-auto mb-10">
-              <span className="eyebrow">EDITORIAL SAMPLE</span>
-              <h2 className="text-display-sm text-brand-graphite mt-2">
-                The Briefing Structure
+        {/* ========================================================================= */}
+        {/* 3. SAMPLE BRIEFING PREVIEW                                                */}
+        {/* ========================================================================= */}
+        <section className="py-24 bg-[#0B1220] text-white border-b border-brand-edge-dark">
+          <div className="container-custom max-w-4xl space-y-12">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <div className="inline-flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
+                  Editorial Layout Preview
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extralight text-white tracking-tight">
+                The 5-Minute Tuesday Reading Flow
               </h2>
-              <p className="text-xs text-brand-slate mt-1">
-                Each weekly edition follows a structured, easy-to-scan 5-minute reading format.
+              <p className="text-sm text-slate-300 font-light">
+                Each weekly edition follows a disciplined, scannable format designed for high-velocity reading.
               </p>
             </div>
 
-            <div className="bg-white border border-brand-edge rounded p-6 sm:p-8 shadow-sm space-y-6">
-              <div className="border-b border-brand-edge pb-4">
-                <span className="text-[10px] uppercase font-light text-pink-500 font-mono">1. THIS WEEK IN FM</span>
-                <h4 className="text-sm font-normal text-brand-graphite mt-1">Key regulatory dates &amp; market changes</h4>
-                <p className="text-xs text-brand-slate mt-1">Concise summary of statutory updates from HSE, CIBSE, and BESA.</p>
+            <div className="bg-brand-carbon border border-brand-edge-dark rounded-sm p-8 sm:p-12 shadow-elevated space-y-8">
+              
+              <div className="border-b border-brand-edge-dark pb-6 space-y-2">
+                <span className="text-xs uppercase tracking-widest text-brand-pink font-medium block">
+                  1. THIS WEEK IN FM · REGULATORY &amp; MARKET ROUNDUP
+                </span>
+                <h4 className="text-lg font-light text-white">Statutory deadlines, HSE directives, and commercial benchmarks</h4>
+                <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+                  Concise summaries of active policy updates from the Building Safety Regulator, CIBSE Technical Directives, and BESA wage agreements.
+                </p>
               </div>
 
-              <div className="border-b border-brand-edge pb-4">
-                <span className="text-[10px] uppercase font-light text-pink-500 font-mono">2. TECHNICAL DEEP DIVE</span>
-                <h4 className="text-sm font-normal text-brand-graphite mt-1">Featured engineering or PPM analysis</h4>
-                <p className="text-xs text-brand-slate mt-1">In-depth breakdown of asset lifecycle, predictive monitoring, or EICR compliance.</p>
+              <div className="border-b border-brand-edge-dark pb-6 space-y-2">
+                <span className="text-xs uppercase tracking-widest text-brand-pink font-medium block">
+                  2. ENGINEERING DEEP DIVE · ASSET DISCIPLINE
+                </span>
+                <h4 className="text-lg font-light text-white">Featured plant condition or maintenance methodology</h4>
+                <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+                  In-depth breakdown of HVAC lifecycle management, vibration anomaly thresholds, or commercial fixed wire testing (EICR) scope boundaries.
+                </p>
               </div>
 
-              <div className="border-b border-brand-edge pb-4">
-                <span className="text-[10px] uppercase font-light text-blue-500 font-mono">3. PRACTICAL FM TOOL</span>
-                <h4 className="text-sm font-normal text-brand-graphite mt-1">Rotating calculator, matrix, or checklist</h4>
-                <p className="text-xs text-brand-slate mt-1">Direct link to interactive schedule builders and downloadable document templates.</p>
+              <div className="border-b border-brand-edge-dark pb-6 space-y-2">
+                <span className="text-xs uppercase tracking-widest text-blue-400 font-medium block">
+                  3. OPERATIONAL TOOL OF THE WEEK
+                </span>
+                <h4 className="text-lg font-light text-white">Interactive calculator, asset matrix, or tender template</h4>
+                <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+                  Direct access to interactive schedule builders, CSV asset registers, and statutory compliance calendars.
+                </p>
               </div>
 
-              <div>
-                <span className="text-[10px] uppercase font-light text-emerald-500 font-mono">4. ONE THING TO THINK ABOUT</span>
-                <h4 className="text-sm font-normal text-brand-graphite mt-1">Short editorial takeaway for estate teams</h4>
-                <p className="text-xs text-brand-slate mt-1">A provocative, practical observation on commercial FM contracts and risk management.</p>
+              <div className="space-y-2">
+                <span className="text-xs uppercase tracking-widest text-emerald-400 font-medium block">
+                  4. THE STRATEGIC TAKEAWAY
+                </span>
+                <h4 className="text-lg font-light text-white">Practical observation for property directors &amp; managing agents</h4>
+                <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+                  A high-impact operational perspective on contract risk, SLA structure, or vendor accountability across UK commercial portfolios.
+                </p>
               </div>
+
             </div>
           </div>
         </section>
+
+        <ProposalSection
+          headline="Looking for Professional Facilities Management for Your Estate?"
+          subheadline="EntireFM delivers proactive planned maintenance, building engineering, and compliance management across the UK."
+        />
       </main>
+
       <Footer />
     </div>
   );

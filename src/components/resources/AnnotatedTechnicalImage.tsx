@@ -23,13 +23,13 @@ interface AnnotatedTechnicalImageProps {
 export function AnnotatedTechnicalImage({
   imageSrc,
   imageAlt,
-  caption = 'Commercial Mechanical Plant Inspection — Live Telemetry and Condition Monitoring Overlay',
+  caption = 'Commercial Mechanical Plant Inspection — Asset Diagnostics and Condition Monitoring Overlay',
   hotspots = [
     {
       id: 'h1',
       top: '32%',
       left: '28%',
-      label: 'Compressor Bearing',
+      label: 'Compressor Bearing Assembly',
       telemetryType: 'Piezoelectric Vibration Sensor',
       description: 'Monitors tri-axial velocity (RMS) against ISO 10816-3 threshold limits.',
       value: '1.2 mm/s · Nominal',
@@ -38,7 +38,7 @@ export function AnnotatedTechnicalImage({
       id: 'h2',
       top: '55%',
       left: '68%',
-      label: 'Chilled Water Return',
+      label: 'Chilled Water Return Header',
       telemetryType: 'BMS Immersion Temperature Sensor',
       description: 'Measures delta-T (ΔT) to verify chiller thermodynamic efficiency.',
       value: '11.8°C (Target: 12.0°C)',
@@ -47,8 +47,8 @@ export function AnnotatedTechnicalImage({
       id: 'h3',
       top: '72%',
       left: '42%',
-      label: 'Modulating Actuator',
-      telemetryType: '24V BACnet Control Valve',
+      label: 'Modulating 24V Control Valve',
+      telemetryType: 'BACnet Modulating Actuator',
       description: 'Tracks valve stroke percentage against actual cooling load demand.',
       value: '42% Modulating Flow',
     },
@@ -57,15 +57,15 @@ export function AnnotatedTechnicalImage({
   const [activeHotspot, setActiveHotspot] = useState<Hotspot | null>(hotspots[0] || null);
 
   return (
-    <div className="my-14 rounded-2xl bg-slate-950 border border-slate-800 p-4 sm:p-6 shadow-2xl">
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-800 text-xs font-mono">
-        <span className="text-slate-400">INTERACTIVE ASSET TELEMETRY MAP</span>
-        <span className="text-pink-400 font-light">CLICK NODES TO INSPECT</span>
+    <div className="my-14 rounded-sm bg-brand-carbon/60 border border-brand-edge-dark p-6 sm:p-8 shadow-elevated font-sans">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-6 pb-4 border-b border-brand-edge-dark text-xs">
+        <span className="text-slate-300 uppercase tracking-wider font-medium">Interactive Asset Telemetry Map</span>
+        <span className="text-brand-pink font-medium">Select Nodes to Inspect Condition</span>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         {/* Main Image with Hotspots */}
-        <div className="lg:col-span-8 relative aspect-[16/10] rounded-xl overflow-hidden border border-slate-800 bg-slate-900">
+        <div className="lg:col-span-8 relative aspect-[16/10] rounded-sm overflow-hidden border border-brand-edge-dark bg-brand-carbon">
           <Image
             src={imageSrc}
             alt={imageAlt}
@@ -73,7 +73,7 @@ export function AnnotatedTechnicalImage({
             sizes="(max-width: 1024px) 100vw, 60vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-slate-950/30 pointer-events-none" />
+          <div className="absolute inset-0 bg-black/25 pointer-events-none" />
 
           {/* Render Hotspot Pins */}
           {hotspots.map((spot) => {
@@ -83,17 +83,17 @@ export function AnnotatedTechnicalImage({
                 key={spot.id}
                 onClick={() => setActiveHotspot(spot)}
                 style={{ top: spot.top, left: spot.left }}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-20 focus:outline-none`}
+                className="absolute -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-20 focus:outline-none"
                 aria-label={`Inspect ${spot.label}`}
               >
-                <span className={`flex h-6 w-6 items-center justify-center rounded-full border transition-all ${
+                <span className={`flex h-7 w-7 items-center justify-center rounded-full border transition-all ${
                   isSelected
-                    ? 'bg-pink-500 border-white text-white shadow-lg shadow-pink-500/50 scale-125'
-                    : 'bg-slate-950/90 border-pink-400 text-pink-300 hover:scale-110'
+                    ? 'bg-brand-pink border-white text-white shadow-lg shadow-brand-pink/50 scale-110'
+                    : 'bg-brand-carbon/90 border-brand-pink text-white hover:scale-110'
                 }`}>
-                  <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
+                  <span className="h-2 w-2 rounded-full bg-white" />
                 </span>
-                <span className="hidden sm:block absolute top-7 left-1/2 -translate-x-1/2 bg-slate-950/90 border border-slate-700 px-2 py-0.5 rounded text-[10px] font-mono text-white whitespace-nowrap shadow-md pointer-events-none">
+                <span className="hidden sm:block absolute top-8 left-1/2 -translate-x-1/2 bg-black/90 border border-white/15 px-2 py-0.5 rounded-sm text-[11px] text-white whitespace-nowrap shadow-md pointer-events-none font-medium">
                   {spot.label}
                 </span>
               </button>
@@ -102,38 +102,38 @@ export function AnnotatedTechnicalImage({
         </div>
 
         {/* Hotspot Data Card */}
-        <div className="lg:col-span-4 p-5 rounded-xl bg-slate-900 border border-slate-800 space-y-4 font-mono">
+        <div className="lg:col-span-4 p-6 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-4">
           {activeHotspot ? (
             <>
-              <div>
-                <span className="text-[10px] text-pink-400 uppercase tracking-wider block mb-1">
+              <div className="space-y-1.5">
+                <span className="text-[11px] text-brand-pink uppercase tracking-wider block font-medium">
                   {activeHotspot.telemetryType}
                 </span>
-                <h4 className="text-base font-light text-white mb-2">
+                <h4 className="text-lg font-light text-white leading-snug">
                   {activeHotspot.label}
                 </h4>
-                <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed pt-1">
                   {activeHotspot.description}
                 </p>
               </div>
 
-              <div className="p-3 rounded bg-slate-950 border border-slate-800/90">
-                <span className="text-[10px] text-slate-500 block uppercase">Telemetry Status</span>
-                <span className="text-xs font-normal text-emerald-400">{activeHotspot.value}</span>
+              <div className="p-4 rounded-sm bg-black/40 border border-brand-edge-dark space-y-1">
+                <span className="text-[10px] text-slate-400 block uppercase tracking-wider font-medium">Telemetry Status</span>
+                <span className="text-sm font-medium text-emerald-400">{activeHotspot.value}</span>
               </div>
             </>
           ) : (
-            <p className="text-xs text-slate-400">Select an asset node on the image to view real-time telemetry parameters.</p>
+            <p className="text-xs text-slate-400 font-light">Select an asset node on the image to view real-time telemetry parameters.</p>
           )}
 
-          <div className="pt-2 text-[10px] text-slate-500 border-t border-slate-800/80">
+          <div className="pt-3 text-[11px] text-slate-400 border-t border-brand-edge-dark font-light">
             Protocol: BACnet IP Gateway via EntireCAFM Connector
           </div>
         </div>
       </div>
 
       {caption && (
-        <p className="text-xs font-mono text-slate-400 mt-4 text-center italic">
+        <p className="text-xs text-slate-400 mt-6 text-center font-light">
           {caption}
         </p>
       )}

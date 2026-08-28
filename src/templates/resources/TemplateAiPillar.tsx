@@ -11,15 +11,13 @@ import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { NewsletterSignupSection } from '@/components/newsletter/NewsletterSignupSection';
 import { ResourceHero } from '@/components/resources/ResourceHero';
 import { ResourceSectionNav } from '@/components/resources/ResourceSectionNav';
-import { EditorialImageBreak } from '@/components/resources/EditorialImageBreak';
 import { ProcessFlow, CafmLayeredArchitecture } from '@/components/resources/TechnicalDiagram';
-import { TelemetryChart } from '@/components/resources/TelemetryChart';
 import { ComparisonVisual } from '@/components/resources/ComparisonVisual';
 import { CapabilityMatrix } from '@/components/resources/CapabilityMatrix';
 import { ExecutiveSummary } from '@/components/resources/ExecutiveSummary';
 import { AnnotatedTechnicalImage } from '@/components/resources/AnnotatedTechnicalImage';
 import { RelatedResourceGrid } from '@/components/resources/RelatedResourceGrid';
-import { CheckCircle2, Cpu, Wrench, Shield, ArrowRight, UserCheck, HardHat, FileCheck, Layers } from 'lucide-react';
+import { ArrowRight, HardHat, ShieldCheck } from 'lucide-react';
 
 interface TemplateAiPillarProps {
   route: RouteRecord;
@@ -128,48 +126,43 @@ const WORK_ORDER_STEPS: WorkOrderStep[] = [
 const AI_TECHNOLOGIES_SPECTRUM = [
   {
     name: 'Predictive Analytics & Anomaly Detection',
-    maturity: 'Established Practice',
     maturityTier: 'High (Production)',
     category: 'Telemetry & Vibration',
-    description: 'Time-series mathematical forecasting and FFT harmonic vibration analysis identifying equipment degradation before failure.',
+    description: 'Time-series mathematical forecasting and FFT harmonic vibration analysis identifying equipment degradation before physical failure occurs.',
     application: 'Chiller compressors, AHU supply fans, primary heating pumps, and condenser banks.',
-    accent: 'border-emerald-500/40 bg-emerald-950/20 text-emerald-300',
+    accent: 'border-emerald-500/40 bg-brand-carbon text-emerald-300',
   },
   {
     name: 'Natural Language Processing (NLP / LLMs)',
-    maturity: 'Operational Standard',
     maturityTier: 'High (Production)',
     category: 'Helpdesk & Documents',
     description: 'Extracting structured trade categories, room coordinates, and SLA urgency tags from raw occupant emails and PDF inspection logs.',
     application: 'Helpdesk triage, spatial CAFM mapping, and contractor certificate OCR ingestion.',
-    accent: 'border-blue-500/40 bg-blue-950/20 text-blue-300',
+    accent: 'border-blue-500/40 bg-brand-carbon text-blue-300',
   },
   {
     name: 'Computer Vision & Thermography',
-    maturity: 'Operational Standard',
-    maturityTier: 'Medium-High (Active)',
+    maturityTier: 'Active Operational',
     category: 'Visual & Radiometric',
-    description: 'Convolutional neural networks analyzing drone photogrammetry, facade imagery, and switchgear thermal scans for defect heat spots.',
+    description: 'Convolutional neural networks analyzing drone photogrammetry, facade imagery, and switchgear thermal scans for defect hotspots.',
     application: 'Roof leak mapping, cladding inspections, and electrical distribution hotspot detection.',
-    accent: 'border-pink-500/40 bg-pink-950/20 text-pink-300',
+    accent: 'border-brand-pink/40 bg-brand-carbon text-brand-pink',
   },
   {
     name: 'Autonomous Task Agents',
-    maturity: 'Supervised Emerging',
-    maturityTier: 'Medium (Human-in-the-Loop)',
+    maturityTier: 'Human-in-the-Loop Supervised',
     category: 'Workflow Automation',
     description: 'Chained algorithmic agents executing multi-step administrative tasks like contractor insurance chasing and SLA countdown monitoring.',
     application: 'Supply-chain compliance chasing, invoice matching, and PPM schedule auto-levelling.',
-    accent: 'border-amber-500/40 bg-amber-950/20 text-amber-300',
+    accent: 'border-amber-500/40 bg-brand-carbon text-amber-300',
   },
   {
     name: 'Digital Twins & Dynamic BIM',
-    maturity: 'High-Capital Specialist',
-    maturityTier: 'Specialist Estates',
+    maturityTier: 'Specialist Capital Estates',
     category: 'Spatial & Telemetry',
     description: 'Real-time 3D spatial models unifying static BIM geometry with live IoT sensor telemetry and historical maintenance work orders.',
     application: 'Complex hospital campuses, mission-critical datacentres, and multi-tenant headquarters.',
-    accent: 'border-purple-500/40 bg-purple-950/20 text-purple-300',
+    accent: 'border-purple-500/40 bg-brand-carbon text-purple-300',
   },
 ];
 
@@ -179,7 +172,7 @@ const SUPPORTING_GUIDES = [
     href: '/resources/ai-in-facilities-management/predictive-maintenance',
     category: 'Condition Monitoring',
     description: 'Condition-based monitoring, IoT vibration sensors, BMS telemetry, and PPM optimization across commercial chillers and pumps.',
-    imageSrc: '/images/editorial/entirefm-hvac-rooftop-condensers-1280w.webp',
+    imageSrc: '/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp',
     readingTime: '9 min read',
   },
   {
@@ -243,7 +236,7 @@ const SUPPORTING_GUIDES = [
     href: '/resources/ai-in-facilities-management/ai-governance',
     category: 'Risk & Cybersecurity',
     description: 'Air-gapping life-safety building plant, cryptographic audit logging, and human-in-the-loop permission matrices.',
-    imageSrc: '/images/editorial/entirefm-switchgear-inspection-1200w.webp',
+    imageSrc: '/images/editorial/entirefm-switchgear-inspection-2000w.webp',
     readingTime: '9 min read',
   },
   {
@@ -251,7 +244,7 @@ const SUPPORTING_GUIDES = [
     href: '/resources/ai-in-facilities-management/ai-agents',
     category: 'Automation',
     description: 'Multi-step autonomous agents for contractor accreditation chasing, invoice reconciliation, and schedule leveling.',
-    imageSrc: '/images/editorial/entirefm-site-arrival-2000w.webp',
+    imageSrc: '/images/editorial/entirefm-external-distribution-dusk-2000w.webp',
     readingTime: '10 min read',
   },
 ];
@@ -279,10 +272,11 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
   ];
 
   return (
-    <div className="bg-[#080e18] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-pink-500 selection:text-white">
-      <Header solid />
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
+      <Header />
+
       <main id="main" className="flex-grow">
-        {/* 1. EDITORIAL RESOURCE HERO */}
+        {/* 1. EDITORIAL RESOURCE HERO (85svh) */}
         <ResourceHero
           breadcrumbs={breadcrumbs}
           category="AI &amp; Engineering Intelligence"
@@ -290,28 +284,23 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
           title="AI in Facilities Management: Practical Engineering &amp; Operational Reality"
           intro="A comprehensive, engineering-led examination of artificial intelligence in commercial estate management — moving beyond software vendor hype into real-world plant telemetry, CAFM automation, and statutory compliance."
           readingTime="14 min read"
-          technicalTier="Level 3 · Strategy &amp; Engineering"
+          technicalTier="Level 3 · Strategic Intelligence"
           audience="Estates Directors, Commercial Landlords &amp; Operations Teams"
-          standard="2026 Authoritative Standard"
-          visualType="telemetry"
-          systemMetrics={[
-            { label: 'BMS Telemetry Protocol', value: 'BACnet / Modbus TCP', status: 'normal' },
-            { label: 'EntireCAFM Dispatch Bus', value: 'Zero-Latency Event Stream', status: 'active' },
-            { label: 'OT Safety Guardrail', value: 'Air-Gapped Life Safety', status: 'normal' },
-          ]}
+          standard="UK Statutory &amp; SFG20 Standards"
+          imageSrc="/images/editorial/entirefm-client-review-2000w.webp"
         />
 
-        {/* 2. TRUST & ACCREDITATION STRIP */}
         <TrustBar />
 
-        {/* 3. MAIN CONTENT CONTAINER WITH STICKY NAVIGATION */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* 2. MAIN CONTENT WITH STICKY NAVIGATION */}
+        <div className="container-custom py-20">
           <div className="flex gap-12 items-start">
-            {/* Sticky Desktop Navigation Rail */}
+            {/* Sticky Navigation */}
             <ResourceSectionNav sections={PAGE_SECTIONS} />
 
-            {/* Main Reading Flow */}
-            <div className="flex-1 min-w-0 space-y-16">
+            {/* Main Column */}
+            <div className="flex-1 min-w-0 space-y-20">
+              
               {/* SECTION 01: EXECUTIVE SUMMARY */}
               <section id="summary" className="scroll-mt-32">
                 <ExecutiveSummary
@@ -328,13 +317,16 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                 />
               </section>
 
-              {/* SECTION 02: TECHNOLOGY LANDSCAPE SPECTRUM */}
+              {/* SECTION 02: TECHNOLOGY LANDSCAPE */}
               <section id="landscape" className="scroll-mt-32 space-y-6">
-                <div>
-                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
-                    Technology Demystification
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-extralight text-white mb-3">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                    <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
+                      Technology Demystification
+                    </span>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-extralight text-white tracking-tight">
                     What AI Actually Means in Building Operations
                   </h2>
                   <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
@@ -342,54 +334,57 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                   </p>
                 </div>
 
-                {/* Visual Technology Spectrum */}
-                <div className="space-y-3 pt-2">
+                <div className="space-y-4 pt-2">
                   {AI_TECHNOLOGIES_SPECTRUM.map((tech, idx) => (
                     <div
                       key={idx}
-                      className={`p-5 rounded-xl border ${tech.accent} transition-all hover:scale-[1.01]`}
+                      className={`p-6 sm:p-8 rounded-sm border ${tech.accent} space-y-3 shadow-sm`}
                     >
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                        <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-pink-500" />
-                          <h3 className="font-light text-base text-white">{tech.name}</h3>
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex items-center gap-2.5">
+                          <span className="w-2 h-2 rounded-full bg-brand-pink" />
+                          <h3 className="font-light text-lg text-white">{tech.name}</h3>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-400">
+                          <span className="text-[10px] uppercase font-medium px-2.5 py-0.5 rounded-sm bg-black/40 border border-white/10 text-slate-300">
                             {tech.category}
                           </span>
-                          <span className="text-[10px] font-mono font-light text-pink-300">
+                          <span className="text-[10px] uppercase font-medium px-2.5 py-0.5 rounded-sm bg-brand-pink/10 border border-brand-pink/30 text-brand-pink">
                             {tech.maturityTier}
                           </span>
                         </div>
                       </div>
-                      <p className="text-xs sm:text-sm text-slate-300 mb-2 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
                         {tech.description}
                       </p>
-                      <div className="text-xs font-mono text-slate-400 pt-2 border-t border-slate-800/80">
-                        <span className="text-slate-500">FM Target Assets:</span> <strong className="text-slate-200 font-normal">{tech.application}</strong>
+                      <div className="text-xs text-slate-400 pt-3 border-t border-brand-edge-dark font-light">
+                        <span className="text-slate-400 font-medium">Target Assets: </span>
+                        <span className="text-slate-200">{tech.application}</span>
                       </div>
                     </div>
                   ))}
                 </div>
               </section>
 
-              {/* SECTION 03: REAL-WORLD ENGINEERING VISUAL BREAK */}
+              {/* SECTION 03: PLANT TELEMETRY OVERLAY */}
               <section id="telemetry" className="scroll-mt-32">
                 <AnnotatedTechnicalImage
-                  imageSrc="/images/editorial/entirefm-hvac-rooftop-condensers-1920w.webp"
+                  imageSrc="/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp"
                   imageAlt="EntireFM engineers inspecting commercial rooftop chiller and condenser plant with live telemetry overlay"
                   caption="Primary Commercial Chiller Plant (450kW) — Vibration velocity and thermodynamic delta-T telemetry nodes attached to EntireCAFM event bus."
                 />
               </section>
 
-              {/* SECTION 04: FLAGSHIP INTERACTIVE WORK ORDER WALKTHROUGH */}
+              {/* SECTION 04: WORK ORDER WORKFLOW */}
               <section id="workflow" className="scroll-mt-32 space-y-6">
-                <div>
-                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
-                    Flagship Interactive Simulation
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-extralight text-white mb-3">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                    <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
+                      Operational Architecture
+                    </span>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-extralight text-white tracking-tight">
                     The AI-Enabled Work Order: Request to Resolution
                   </h2>
                   <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
@@ -398,20 +393,20 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                 </div>
 
                 {/* Step Selector Horizontal Strip */}
-                <div className="p-2 rounded-xl bg-slate-950 border border-slate-800 flex overflow-x-auto gap-1.5 scrollbar-none">
+                <div className="p-2 rounded-sm bg-brand-carbon border border-brand-edge-dark flex overflow-x-auto gap-2 scrollbar-none">
                   {WORK_ORDER_STEPS.map((step) => {
                     const isSelected = activeStep === step.id;
                     return (
                       <button
                         key={step.id}
                         onClick={() => setActiveStep(step.id)}
-                        className={`flex-1 min-w-[130px] p-2.5 rounded-lg text-left transition-all text-xs font-mono ${
+                        className={`flex-1 min-w-[140px] p-3 rounded-sm text-left transition-all text-xs ${
                           isSelected
-                            ? 'bg-pink-950 text-pink-300 border border-pink-500/50 shadow-md font-light'
-                            : 'bg-slate-900/60 text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                            ? 'bg-brand-pink text-white font-medium shadow-elevated'
+                            : 'bg-black/30 text-slate-300 hover:bg-white/10 hover:text-white font-light'
                         }`}
                       >
-                        <span className={`block text-[10px] ${isSelected ? 'text-pink-400' : 'text-slate-500'}`}>
+                        <span className={`block text-[10px] uppercase ${isSelected ? 'text-white/80' : 'text-slate-500'}`}>
                           Step 0{step.id}
                         </span>
                         <span className="truncate block mt-0.5">{step.actor}</span>
@@ -420,27 +415,27 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                   })}
                 </div>
 
-                {/* Active Step Showcase Card */}
-                <div className="p-6 sm:p-8 rounded-2xl bg-slate-950 border border-slate-800 shadow-xl space-y-6">
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-4">
-                    <div>
-                      <span className="text-xs font-mono font-light text-pink-400 uppercase tracking-widest block">
+                {/* Active Step Card */}
+                <div className="p-8 sm:p-10 rounded-sm bg-brand-carbon border border-brand-edge-dark shadow-elevated space-y-6">
+                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-brand-edge-dark pb-6">
+                    <div className="space-y-1">
+                      <span className="text-xs font-medium text-brand-pink uppercase tracking-widest block">
                         {currentStepData.stage}
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-extralight text-white mt-1">
+                      <h3 className="text-xl sm:text-2xl font-light text-white">
                         {currentStepData.title}
                       </h3>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-mono text-slate-400">Executing Actor:</span>
-                      <span className={`text-xs font-mono font-light px-2.5 py-1 rounded border uppercase ${
+                      <span className="text-xs text-slate-400 font-light">Actor:</span>
+                      <span className={`text-xs font-medium px-3 py-1 rounded-sm border uppercase tracking-wider ${
                         currentStepData.actorType === 'ai'
-                          ? 'bg-pink-950 text-pink-300 border-pink-700'
+                          ? 'bg-brand-pink/10 text-brand-pink border-brand-pink/30'
                           : currentStepData.actorType === 'checkpoint'
                           ? 'bg-amber-950 text-amber-300 border-amber-600'
                           : currentStepData.actorType === 'human'
                           ? 'bg-blue-950 text-blue-300 border-blue-700'
-                          : 'bg-slate-900 text-slate-300 border-slate-700'
+                          : 'bg-white/10 text-slate-300 border-white/15'
                       }`}>
                         {currentStepData.actor}
                       </span>
@@ -448,16 +443,16 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                   </div>
 
                   <div className="space-y-4">
-                    <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-light">
+                    <p className="text-base text-slate-200 leading-relaxed font-light">
                       {currentStepData.description}
                     </p>
-                    <p className="text-xs sm:text-sm text-slate-400 leading-relaxed bg-slate-900/80 p-4 rounded-xl border border-slate-800/80">
-                      <strong>Technical Mechanism:</strong> {currentStepData.detail}
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed bg-black/40 p-4 rounded-sm border border-brand-edge-dark font-light">
+                      <strong className="text-white font-medium">Technical Mechanism: </strong>{currentStepData.detail}
                     </p>
                   </div>
 
                   {currentStepData.checkpoint && (
-                    <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-500/50 flex items-start gap-3 text-amber-200 text-xs font-mono">
+                    <div className="p-4 rounded-sm bg-amber-950/30 border border-amber-500/50 flex items-start gap-3 text-amber-200 text-xs font-light">
                       <HardHat className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                       <span>{currentStepData.checkpoint}</span>
                     </div>
@@ -466,29 +461,29 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                   {currentStepData.systemData && currentStepData.systemData.length > 0 && (
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
                       {currentStepData.systemData.map((d, idx) => (
-                        <div key={idx} className="p-3 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono">
-                          <span className="text-slate-500 block text-[10px] uppercase">{d.label}</span>
-                          <span className="text-pink-300 font-light mt-0.5 block">{d.value}</span>
+                        <div key={idx} className="p-3.5 rounded-sm bg-black/40 border border-brand-edge-dark text-xs">
+                          <span className="text-slate-400 block text-[10px] uppercase font-medium">{d.label}</span>
+                          <span className="text-brand-pink font-light mt-0.5 block">{d.value}</span>
                         </div>
                       ))}
                     </div>
                   )}
 
-                  <div className="flex items-center justify-between pt-4 border-t border-slate-800/80">
+                  <div className="flex items-center justify-between pt-6 border-t border-brand-edge-dark text-xs">
                     <button
                       onClick={() => setActiveStep(Math.max(1, activeStep - 1))}
                       disabled={activeStep === 1}
-                      className="px-4 py-2 rounded bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none"
+                      className="px-4 py-2.5 rounded-sm bg-white/5 border border-white/10 text-slate-300 hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none font-medium"
                     >
                       &larr; Previous Stage
                     </button>
-                    <span className="text-xs font-mono text-slate-500">
+                    <span className="text-slate-400 font-light">
                       Step {activeStep} of {WORK_ORDER_STEPS.length}
                     </span>
                     <button
                       onClick={() => setActiveStep(Math.min(WORK_ORDER_STEPS.length, activeStep + 1))}
                       disabled={activeStep === WORK_ORDER_STEPS.length}
-                      className="px-4 py-2 rounded bg-pink-600 hover:bg-pink-500 text-xs font-mono font-light text-white disabled:opacity-30 disabled:pointer-events-none"
+                      className="px-4 py-2.5 rounded-sm bg-brand-pink hover:bg-brand-pink/90 text-white font-medium disabled:opacity-30 disabled:pointer-events-none"
                     >
                       Next Stage &rarr;
                     </button>
@@ -501,7 +496,7 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                 <CapabilityMatrix />
               </section>
 
-              {/* SECTION 06: CAFM LAYERED ARCHITECTURE */}
+              {/* SECTION 06: CAFM ARCHITECTURE */}
               <section id="architecture" className="scroll-mt-32">
                 <CafmLayeredArchitecture />
               </section>
@@ -515,13 +510,16 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                 />
               </section>
 
-              {/* SECTION 08: 5-STEP IMPLEMENTATION ROADMAP */}
+              {/* SECTION 08: IMPLEMENTATION ROADMAP */}
               <section id="roadmap" className="scroll-mt-32 space-y-6">
-                <div>
-                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
-                    Pragmatic Deployment Pathway
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-extralight text-white mb-3">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                    <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
+                      Pragmatic Deployment Pathway
+                    </span>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-extralight text-white tracking-tight">
                     The 5-Step FM AI Readiness Roadmap
                   </h2>
                   <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
@@ -529,7 +527,7 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                   {[
                     { num: '01', title: 'Asset Data Cleanse', desc: 'Standardize asset taxonomy, tag primary plant, and align maintenance tasks to SFG20 specifications.' },
                     { num: '02', title: 'Helpdesk Normalization', desc: 'Implement structured intake forms and train NLP models on historical ticket categories.' },
@@ -537,39 +535,38 @@ export function TemplateAiPillar({ route, content }: TemplateAiPillarProps) {
                     { num: '04', title: 'Document Digitization', desc: 'Convert legacy PDF certificates (Gas, EICR, LOLER) into structured searchable compliance data.' },
                     { num: '05', title: 'Governance & Audits', desc: 'Establish air-gapped OT controls and define human-in-the-loop sign-off matrices.' },
                   ].map((step, idx) => (
-                    <div key={idx} className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex flex-col justify-between">
+                    <div key={idx} className="p-6 rounded-sm bg-brand-carbon border border-brand-edge-dark flex flex-col justify-between space-y-4">
                       <div>
-                        <span className="text-lg font-mono font-light text-pink-400 block mb-2">{step.num}</span>
-                        <h4 className="text-xs font-normal text-white mb-2 leading-snug">{step.title}</h4>
-                        <p className="text-[11px] text-slate-400 leading-relaxed">{step.desc}</p>
+                        <span className="text-xl font-extralight text-brand-pink block mb-2">{step.num}</span>
+                        <h4 className="text-base font-light text-white mb-2 leading-snug">{step.title}</h4>
+                        <p className="text-xs text-slate-400 leading-relaxed font-light">{step.desc}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               </section>
 
-              {/* SECTION 09: SPECIALIST SUPPORTING GUIDES */}
+              {/* SECTION 09: SPECIALIST GUIDES */}
               <section id="guides" className="scroll-mt-32">
                 <RelatedResourceGrid
-                  eyebrow="Specialist Technical Guides"
+                  eyebrow="Specialist Technical Series"
                   title="Explore the Complete FM AI Knowledge Series"
                   intro="In-depth architectural guides detailing specific applications of machine learning, condition monitoring, and CAFM engineering."
                   resources={SUPPORTING_GUIDES}
                 />
               </section>
+
             </div>
           </div>
         </div>
 
-        {/* 4. CONVERSION & PROPOSAL SECTION */}
         <ProposalSection
           headline="Discuss an AI-Enabled Maintenance Contract for Your Estate"
           subheadline="Speak directly with our technical operations team about deploying EntireCAFM, condition monitoring, and planned preventative maintenance across your commercial property portfolio."
         />
-
-        {/* 5. NEWSLETTER SIGNUP */}
         <NewsletterSignupSection />
       </main>
+
       <Footer />
     </div>
   );

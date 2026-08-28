@@ -260,7 +260,7 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                       <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
-                        <span className="text-[10.5px] font-mono uppercase tracking-wider text-brand-pink-light font-light bg-slate-950/70 backdrop-blur-sm px-2.5 py-1 rounded-sm border border-white/10">
+                        <span className="text-[10.5px] uppercase tracking-wider text-brand-pink-light font-medium bg-slate-950/70 backdrop-blur-sm px-2.5 py-1 rounded-sm border border-white/10">
                           {sector.badge}
                         </span>
                       </div>
@@ -277,8 +277,8 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
                         </p>
 
                         <div className="pt-4 border-t border-slate-100 space-y-2">
-                          <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400 block font-light">
-                            OPERATIONAL PRIORITIES //
+                          <span className="text-[10.5px] uppercase tracking-wider text-slate-400 block font-medium">
+                            Operational Priorities:
                           </span>
                           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {sector.priorities.map((p, idx) => (
@@ -365,8 +365,8 @@ export function TemplateSectorsHub({ route, content }: TemplateSectorsHubProps) 
               <div className="max-w-2xl space-y-3">
                 <div className="inline-flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-light">
-                    PROCUREMENT &amp; TENDER PLANNING
+                  <span className="text-[11px] uppercase tracking-wider text-emerald-400 font-medium">
+                    Procurement &amp; Tender Planning
                   </span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-extralight text-white tracking-tight">

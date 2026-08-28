@@ -16,7 +16,7 @@ import { TelemetryChart } from '@/components/resources/TelemetryChart';
 import { ComparisonVisual } from '@/components/resources/ComparisonVisual';
 import { ExecutiveSummary } from '@/components/resources/ExecutiveSummary';
 import { RelatedResourceGrid } from '@/components/resources/RelatedResourceGrid';
-import { CheckCircle2, ArrowRight, ShieldCheck, Cpu, Wrench, HardHat, FileText, Layers, Search, AlertTriangle } from 'lucide-react';
+import { ArrowRight, Search, ShieldCheck } from 'lucide-react';
 
 interface TemplateAiGuideProps {
   route: RouteRecord;
@@ -29,8 +29,8 @@ const ALL_OTHER_GUIDES = [
     title: 'AI Predictive Maintenance Guide',
     href: '/resources/ai-in-facilities-management/predictive-maintenance',
     category: 'Condition Monitoring',
-    description: 'Condition-based monitoring, IoT vibration sensors, BMS telemetry, and PPM optimization.',
-    imageSrc: '/images/editorial/entirefm-hvac-rooftop-condensers-1280w.webp',
+    description: 'Condition-based monitoring, IoT vibration sensors, BMS telemetry, and PPM optimization across commercial chillers and pumps.',
+    imageSrc: '/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp',
   },
   {
     pathKey: 'ai-cafm',
@@ -94,7 +94,7 @@ const ALL_OTHER_GUIDES = [
     href: '/resources/ai-in-facilities-management/ai-governance',
     category: 'Risk & Cybersecurity',
     description: 'Air-gapping life-safety building plant, cryptographic audit logging, and human-in-the-loop permission matrices.',
-    imageSrc: '/images/editorial/entirefm-switchgear-inspection-1200w.webp',
+    imageSrc: '/images/editorial/entirefm-switchgear-inspection-2000w.webp',
   },
   {
     pathKey: 'ai-agents',
@@ -102,101 +102,93 @@ const ALL_OTHER_GUIDES = [
     href: '/resources/ai-in-facilities-management/ai-agents',
     category: 'Automation',
     description: 'Multi-step autonomous agents for contractor accreditation chasing, invoice reconciliation, and schedule leveling.',
-    imageSrc: '/images/editorial/entirefm-site-arrival-2000w.webp',
+    imageSrc: '/images/editorial/entirefm-external-distribution-dusk-2000w.webp',
   },
 ];
 
 export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
   const path = route.path;
-
-  // Identify specific guide
-  const isPredictive = path.includes('predictive-maintenance');
-  const isHelpdesk = path.includes('ai-helpdesk-work-orders');
-  const isCafm = path.includes('ai-cafm');
-  const isEnergy = path.includes('energy-optimisation');
-  const isDigitalTwins = path.includes('digital-twins');
-  const isAgents = path.includes('ai-agents');
-  const isVision = path.includes('computer-vision');
-  const isCompliance = path.includes('ai-compliance');
-  const isData = path.includes('fm-data-readiness');
-  const isGovernance = path.includes('ai-governance');
-
-  const currentPathSegment = path.split('/').pop() || '';
-  const relatedGuides = ALL_OTHER_GUIDES.filter(g => !path.includes(g.pathKey)).slice(0, 3);
+  const currentSlug = path.split('/').pop() || '';
 
   const breadcrumbs = content.breadcrumbs || [
     { name: 'Home', url: '/' },
     { name: 'Resources', url: '/resources' },
     { name: 'AI in FM', url: '/resources/ai-in-facilities-management' },
-    { name: content.h1, url: route.path },
+    { name: content.title, url: route.path },
   ];
 
+  const relatedGuides = ALL_OTHER_GUIDES.filter((g) => g.pathKey !== currentSlug).slice(0, 3);
+
+  // Topic specific flags
+  const isPredictive = currentSlug === 'predictive-maintenance';
+  const isCafm = currentSlug === 'ai-cafm';
+  const isHelpdesk = currentSlug === 'ai-helpdesk-work-orders';
+  const isEnergy = currentSlug === 'energy-optimisation';
+  const isDigitalTwins = currentSlug === 'digital-twins';
+  const isVision = currentSlug === 'computer-vision';
+  const isCompliance = currentSlug === 'ai-compliance';
+  const isData = currentSlug === 'fm-data-readiness';
+  const isGovernance = currentSlug === 'ai-governance';
+  const isAgents = currentSlug === 'ai-agents';
+
   return (
-    <div className="bg-[#080e18] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-pink-500 selection:text-white">
-      <Header solid />
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
+      <Header />
+
       <main id="main" className="flex-grow">
-        {/* 1. RESOURCE HERO WITH EDITORIAL SPLIT */}
+        {/* 1. RESOURCE HERO (85svh) */}
         <ResourceHero
           breadcrumbs={breadcrumbs}
-          category={content.eyebrow || 'AI &amp; Engineering Intelligence'}
+          category="AI in Facilities Management Series"
           categoryHref="/resources/ai-in-facilities-management"
-          title={content.h1}
+          title={content.h1 || content.title}
           intro={content.heroIntro || content.metaDescription}
           readingTime="10 min read"
-          technicalTier="Level 3 · Engineering &amp; Operations"
-          audience="Estates Directors &amp; Operations Leads"
-          standard="2026 Authoritative Standard"
+          technicalTier="Level 3 · Practical Engineering"
+          audience="Property Directors, Facilities Managers &amp; Engineers"
+          standard="UK Statutory &amp; SFG20 Standards"
+          imageSrc={
+            isPredictive
+              ? '/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp'
+              : isDigitalTwins
+              ? '/images/editorial/entirefm-switchroom-survey-2000w.webp'
+              : '/images/editorial/entirefm-client-review-2000w.webp'
+          }
         />
 
-        {/* 2. TRUST STRIP */}
         <TrustBar />
 
-        {/* 3. CORE ARTICLE FLOW */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="max-w-4xl mx-auto space-y-16">
+        {/* 2. MAIN TECHNICAL BODY */}
+        <div className="container-custom py-20">
+          <div className="max-w-5xl mx-auto space-y-16">
             
-            {/* 3A. EXECUTIVE SUMMARY DIGEST */}
-            <ExecutiveSummary
-              title={`Key Takeaways: ${content.h1.split('—')[0] || content.h1}`}
-              badge="Executive Briefing"
-              takeaways={[
-                content.heroIntro || 'Core operational methodology and practical engineering implementation.',
-                'Implementation must maintain human safety gatekeepers and certified trade sign-off on site.',
-                'Integration with EntireCAFM provides continuous digital audit trails for compliance reporting.',
-              ]}
-              statutoryReference="Building Safety Act 2022 · SFG20 Task Standards · BS 7671"
-              operationalOutcome="Enhanced statutory compliance assurance · Measurable reduction in unforecasted reactive expenditure"
-            />
-
-            {/* 3B. TOPIC-SPECIFIC TECHNICAL VISUAL INTERRUPTIONS */}
-
             {/* TOPIC 1: PREDICTIVE MAINTENANCE */}
             {isPredictive && (
               <div className="space-y-12">
                 <TelemetryChart
                   type="vibration-waveform"
-                  title="Condition Monitoring Telemetry &amp; Anomaly Waveform"
-                  subtitle="Illustrative high-frequency bearing vibration FFT trend: baseline normal vs harmonic deviation."
-                  assetContext="Primary Rotating Plant: 450kW Water-Cooled Chiller (CH-01) · Piezoelectric Sensor RMS"
+                  title="Vibration Harmonic Analysis &amp; Bearing Wear Telemetry"
+                  subtitle="How continuous high-frequency vibration tracking identifies mechanical degradation 4–6 weeks prior to thermal breakdown."
+                  assetContext="Target Asset: Primary Rooftop Water Chiller (450kW) · Bearing Velocity RMS"
                 />
 
                 <ComparisonVisual
-                  type="custom"
-                  title="Preventative (PPM) vs Predictive (PdM) Maintenance"
-                  subtitle="How calendar-based statutory maintenance interfaces with condition-based telemetry."
-                  leftTitle="Planned Preventative (PPM)"
-                  leftBadge="Calendar / Mandatory"
+                  type="ppm-vs-pdm"
+                  title="Calendar Planned Maintenance vs Predictive Condition Monitoring"
+                  subtitle="Why combining statutory PPM compliance with real-time condition monitoring eliminates unexpected catastrophic plant failures."
+                  leftTitle="Calendar PPM Only (SFG20 Base)"
+                  leftBadge="Statutory Baseline"
                   leftPoints={[
-                    'Fixed calendar inspection intervals (e.g. Monthly, Quarterly, Annual)',
-                    'Mandatory under UK statutory health & safety law (LOLER, Gas Safe, EICR)',
-                    'Predictable fixed-cost contractual expenditure model',
-                    'Maintains manufacturer baseline warranty compliance across all building plant',
+                    'Fixed quarterly or bi-annual mechanical inspection intervals',
+                    'Cannot detect sudden mechanical fatigue between service dates',
+                    'Often replaces functional components prematurely based strictly on hours',
+                    'Zero telemetry warning before sudden motor bearing seizure occurs',
                   ]}
-                  rightTitle="Predictive Maintenance (PdM)"
-                  rightBadge="Condition / Telemetry"
+                  rightTitle="PPM + Predictive Telemetry"
+                  rightBadge="Condition Monitoring"
                   rightPoints={[
-                    'Triggered by real-time sensor deviation (vibration, delta-T, current harmonic)',
-                    'Focuses on high-value, high-consequence critical rotating plant',
+                    'Continuous 24/7 vibration, temperature, and current draw monitoring',
+                    'Dynamic automated work-order generation when vibration exceeds ISO limits',
                     'Exposes mechanical deterioration weeks before catastrophic failure',
                     'Eliminates unnecessary intrusive teardowns of healthy operating plant',
                   ]}
@@ -204,7 +196,7 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
 
                 <EditorialImageBreak
                   layout="split-60-40"
-                  imageSrc="/images/editorial/entirefm-hvac-rooftop-condensers-1280w.webp"
+                  imageSrc="/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp"
                   imageAlt="EntireFM HVAC engineers inspecting commercial rooftop condenser and chiller plant"
                   eyebrow="Plant Criticality Framework"
                   title="Where Predictive Maintenance Makes Financial Sense"
@@ -224,37 +216,37 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
               <div className="space-y-12">
                 <CafmLayeredArchitecture />
 
-                {/* Natural Language Vector Search Simulation */}
-                <div className="p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl space-y-4">
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <div className="flex items-center gap-2 text-pink-400 text-xs font-mono">
+                {/* Natural Language Vector Search Demonstration */}
+                <div className="p-8 sm:p-10 bg-brand-carbon border border-brand-edge-dark rounded-sm space-y-4 font-sans">
+                  <div className="flex items-center justify-between border-b border-brand-edge-dark pb-4">
+                    <div className="flex items-center gap-2 text-brand-pink text-xs uppercase tracking-wider font-medium">
                       <Search className="w-4 h-4" />
-                      <span>ENTIRECAFM VECTOR SEARCH DEMONSTRATION</span>
+                      <span>EntireCAFM Natural Language Vector Search Engine</span>
                     </div>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-700">
-                      LIVE NLP ENGINE
+                    <span className="text-[10px] uppercase font-medium px-2.5 py-1 rounded-sm bg-brand-pink/10 text-brand-pink border border-brand-pink/30">
+                      Live NLP Query
                     </span>
                   </div>
 
-                  <div className="p-3 bg-slate-900 rounded-lg border border-slate-700 text-xs font-mono text-slate-200">
-                    <span className="text-slate-500 block text-[10px] mb-1">Natural Language Query:</span>
+                  <div className="p-4 bg-black/40 rounded-sm border border-white/10 text-sm text-slate-200 font-light">
+                    <span className="text-slate-400 block text-xs uppercase font-medium mb-1">Natural Language Query:</span>
                     "Show all commercial chillers due F-Gas inspection in Q3 with outstanding remedial quotes over £500"
                   </div>
 
-                  <div className="p-4 bg-slate-900/60 rounded-lg border border-slate-800 text-xs font-mono space-y-2">
-                    <span className="text-pink-400 font-light text-[11px] block">Query Execution Graph:</span>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
-                      <div className="p-2 rounded bg-slate-950 border border-slate-800">
-                        <span className="text-slate-500 block">1. Asset Filter</span>
-                        <span className="text-slate-300">Category: HVAC Chiller (18 matched)</span>
+                  <div className="p-4 bg-black/30 rounded-sm border border-brand-edge-dark text-xs space-y-3 font-light">
+                    <span className="text-brand-pink font-medium text-xs block uppercase tracking-wider">Query Execution Pipeline:</span>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="p-3 rounded-sm bg-brand-carbon border border-brand-edge-dark">
+                        <span className="text-slate-400 block text-[10px] uppercase font-medium">1. Asset Filter</span>
+                        <span className="text-slate-200">Category: HVAC Chiller (18 matched)</span>
                       </div>
-                      <div className="p-2 rounded bg-slate-950 border border-slate-800">
-                        <span className="text-slate-500 block">2. Compliance Schedule</span>
-                        <span className="text-slate-300">F-Gas Regulation Due: Jul–Sep 2026</span>
+                      <div className="p-3 rounded-sm bg-brand-carbon border border-brand-edge-dark">
+                        <span className="text-slate-400 block text-[10px] uppercase font-medium">2. Compliance Schedule</span>
+                        <span className="text-slate-200">F-Gas Regulation Due: Jul–Sep 2026</span>
                       </div>
-                      <div className="p-2 rounded bg-slate-950 border border-slate-800">
-                        <span className="text-slate-500 block">3. Remedial Cross-Match</span>
-                        <span className="text-slate-300">3 quotes flagged &gt; £500 (Total: £2,140)</span>
+                      <div className="p-3 rounded-sm bg-brand-carbon border border-brand-edge-dark">
+                        <span className="text-slate-400 block text-[10px] uppercase font-medium">3. Remedial Cross-Match</span>
+                        <span className="text-slate-200">3 quotes flagged &gt; £500 (Total: £2,140)</span>
                       </div>
                     </div>
                   </div>
@@ -330,26 +322,26 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
             {isDigitalTwins && (
               <div className="space-y-12">
                 {/* Spatial Hierarchy Blueprint */}
-                <div className="p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl space-y-4">
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light">
+                <div className="p-8 sm:p-10 bg-brand-carbon border border-brand-edge-dark rounded-sm space-y-4 font-sans">
+                  <div className="flex items-center justify-between border-b border-brand-edge-dark pb-4">
+                    <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
                       Spatial Data Architecture
                     </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800">
-                      BIM / CAFM HIERARCHY
+                    <span className="text-[10px] uppercase font-medium px-2.5 py-1 rounded-sm bg-black/40 border border-white/10 text-slate-300">
+                      BIM / CAFM Spatial Hierarchy
                     </span>
                   </div>
 
-                  <div className="p-4 bg-slate-900 rounded-xl border border-slate-800 font-mono text-xs text-slate-300 space-y-2">
-                    <div className="text-pink-400 font-light">Estate: Commercial Portfolio North</div>
-                    <div className="pl-4 text-slate-300">└ Site: Manchester City Tower</div>
-                    <div className="pl-8 text-slate-400">└ Building: Block A (Commercial Offices)</div>
-                    <div className="pl-12 text-slate-400">└ Level: Floor 04 (Executive Suite)</div>
+                  <div className="p-6 bg-black/40 rounded-sm border border-brand-edge-dark text-xs sm:text-sm text-slate-300 space-y-2 font-light">
+                    <div className="text-brand-pink font-medium">Estate: Commercial Portfolio North</div>
+                    <div className="pl-4 text-slate-200">└ Site: Manchester City Tower</div>
+                    <div className="pl-8 text-slate-300">└ Building: Block A (Commercial Offices)</div>
+                    <div className="pl-12 text-slate-300">└ Level: Floor 04 (Executive Suite)</div>
                     <div className="pl-16 text-slate-400">└ Space: Plantroom L04-North</div>
-                    <div className="pl-20 text-emerald-400 font-light">└ Asset: AHU-04-01 (Air Handling Unit)</div>
-                    <div className="pl-24 text-slate-500">├ Sub-Component: Supply Fan Motor (7.5kW) [Telemetry: 1.2 mm/s]</div>
-                    <div className="pl-24 text-slate-500">├ Sub-Component: Chilled Water Coil [BMS: Valve 45%]</div>
-                    <div className="pl-24 text-slate-500">└ Sub-Component: Filter Bank G4 [Diff Pressure: 140 Pa]</div>
+                    <div className="pl-20 text-emerald-400 font-medium">└ Asset: AHU-04-01 (Air Handling Unit)</div>
+                    <div className="pl-24 text-slate-400">├ Sub-Component: Supply Fan Motor (7.5kW) [Telemetry: 1.2 mm/s]</div>
+                    <div className="pl-24 text-slate-400">├ Sub-Component: Chilled Water Coil [BMS: Valve 45%]</div>
+                    <div className="pl-24 text-slate-400">└ Sub-Component: Filter Bank G4 [Diff Pressure: 140 Pa]</div>
                   </div>
                 </div>
 
@@ -460,7 +452,7 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
 
                 <EditorialImageBreak
                   layout="split-60-40"
-                  imageSrc="/images/editorial/entirefm-switchgear-inspection-1200w.webp"
+                  imageSrc="/images/editorial/entirefm-switchgear-inspection-2000w.webp"
                   imageAlt="Two EntireFM certified engineers inspecting high-voltage switchgear plant room"
                   eyebrow="Operational Safety"
                   title="Air-Gapping Life-Safety Infrastructure"
@@ -487,7 +479,7 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
 
                 <EditorialImageBreak
                   layout="split-60-40"
-                  imageSrc="/images/editorial/entirefm-site-arrival-2000w.webp"
+                  imageSrc="/images/editorial/entirefm-external-distribution-dusk-2000w.webp"
                   imageAlt="EntireFM branded service van arriving on commercial site at dusk"
                   eyebrow="Supply Chain Coordination"
                   title="Automating Administrative Drag in Contractor Management"
@@ -497,11 +489,14 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
               </div>
             )}
 
-            {/* 3C. CORE ARTICLE EDITORIAL SECTIONS (PRESERVED CONTENT) */}
-            <div className="space-y-10 pt-8 border-t border-slate-800">
+            {/* CORE ARTICLE EDITORIAL SECTIONS (PRESERVED CONTENT) */}
+            <div className="space-y-12 pt-12 border-t border-brand-edge-dark">
               {(content.sections || []).map((sec, idx) => (
                 <div key={idx} className="space-y-4">
-                  <h2 className="text-xl sm:text-2xl font-extralight text-white tracking-tight">
+                  <span className="text-xs uppercase tracking-widest text-brand-pink font-medium block">
+                    Section 0{idx + 1}
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-extralight text-white tracking-tight">
                     {sec.heading}
                   </h2>
                   <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
@@ -510,8 +505,8 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
                   {sec.bullets && sec.bullets.length > 0 && (
                     <ul className="space-y-2.5 pt-2">
                       {sec.bullets.map((b, bIdx) => (
-                        <li key={bIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
-                          <span className="w-1.5 h-1.5 rounded-full bg-pink-500 mt-2 shrink-0" />
+                        <li key={bIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200 font-light">
+                          <span className="w-1.5 h-1.5 rounded-full bg-brand-pink mt-2 shrink-0" />
                           <span>{b}</span>
                         </li>
                       ))}
@@ -521,7 +516,7 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
               ))}
             </div>
 
-            {/* 3D. RELATED GUIDES CROSS-LINKING */}
+            {/* RELATED GUIDES CROSS-LINKING */}
             <RelatedResourceGrid
               eyebrow="Supporting Research"
               title="Related Engineering &amp; Technology Guides"
@@ -531,15 +526,14 @@ export function TemplateAiGuide({ route, content }: TemplateAiGuideProps) {
           </div>
         </div>
 
-        {/* 4. CONVERSION PROPOSAL SECTION */}
+        {/* CONVERSION PROPOSAL SECTION */}
         <ProposalSection
           headline="Discuss Technical Facilities Management for Your Property Portfolio"
           subheadline="Speak with our engineering and operations team about deploying structured planned maintenance, EntireCAFM software, and statutory compliance management across your buildings."
         />
-
-        {/* 5. NEWSLETTER */}
         <NewsletterSignupSection />
       </main>
+
       <Footer />
     </div>
   );

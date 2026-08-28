@@ -37,25 +37,25 @@ export function ResourceSectionNav({ sections }: ResourceSectionNavProps) {
   }, [sections]);
 
   return (
-    <aside className="hidden xl:block sticky top-28 w-64 space-y-4 text-xs font-mono shrink-0">
-      <div className="p-4 bg-slate-950/90 border border-slate-800 rounded-xl backdrop-blur-md">
-        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-light block mb-3 border-b border-slate-800/80 pb-2">
-          Page Navigation
+    <aside className="hidden xl:block sticky top-28 w-64 space-y-4 text-xs font-sans shrink-0">
+      <div className="p-5 bg-brand-carbon border border-brand-edge-dark rounded-sm shadow-elevated">
+        <span className="text-[11px] uppercase tracking-widest text-slate-400 font-medium block mb-3 border-b border-brand-edge-dark pb-2">
+          Contents Directory
         </span>
-        <nav className="space-y-1.5">
+        <nav className="space-y-1">
           {sections.map((sec) => {
             const isActive = activeId === sec.id;
             return (
               <a
                 key={sec.id}
                 href={`#${sec.id}`}
-                className={`flex items-center gap-2 px-2.5 py-1.5 rounded transition-all group ${
+                className={`flex items-center gap-2.5 px-3 py-2 rounded-sm transition-all group ${
                   isActive
-                    ? 'bg-pink-950/60 text-pink-300 border border-pink-500/30 font-light'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                    ? 'bg-brand-pink/10 text-brand-pink font-medium border-l-2 border-brand-pink'
+                    : 'text-slate-300 hover:text-white hover:bg-white/[0.04] font-light'
                 }`}
               >
-                <span className={`text-[10px] ${isActive ? 'text-pink-400' : 'text-slate-600'}`}>
+                <span className={`text-[11px] ${isActive ? 'text-brand-pink font-semibold' : 'text-slate-500'}`}>
                   {sec.number}
                 </span>
                 <span className="truncate">{sec.label}</span>

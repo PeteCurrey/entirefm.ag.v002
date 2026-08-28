@@ -2,19 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
-  GraduationCap,
   BookOpen,
   CheckCircle2,
   Clock,
   ArrowRight,
   ShieldCheck,
-  Wrench,
-  Zap,
-  Flame,
-  Droplets,
-  Layers,
-  Sparkles,
   Award,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
@@ -104,19 +98,6 @@ const ACADEMY_MODULES: CourseModule[] = [
   },
 ];
 
-function getLevelBadgeClass(level: string) {
-  switch (level) {
-    case 'Foundational':
-      return 'bg-blue-500/10 text-blue-300 border-blue-500/30';
-    case 'Intermediate':
-      return 'bg-amber-500/10 text-amber-300 border-amber-500/30';
-    case 'Operational':
-      return 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30';
-    default:
-      return 'bg-blue-500/10 text-blue-300 border-blue-500/30';
-  }
-}
-
 export function TemplateAcademy({ route, content }: TemplateProps) {
   const [completedModules, setCompletedModules] = useState<string[]>([]);
 
@@ -146,131 +127,164 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Resources', url: '/resources' },
-    { name: 'Academy', url: '/academy' },
+    { name: 'EntireFM Academy', url: '/academy' },
   ];
 
   const totalModules = ACADEMY_MODULES.length;
   const completedCount = completedModules.length;
 
   return (
-    <>
+    <div className="bg-[#060A14] text-white min-h-screen font-sans selection:bg-brand-pink selection:text-white">
       <Header />
-      <main className="min-h-screen bg-brand-void text-white">
-        {/* Hero */}
-        <section className="relative overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20 border-b border-brand-edge-dark">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-[15%] -top-[30%] h-[36rem] w-[36rem] rounded-full opacity-20 blur-[130px]"
-            style={{ background: 'radial-gradient(circle, #4F46E5 0%, transparent 70%)' }}
-          />
 
-          <div className="container-custom relative">
-            <Breadcrumbs items={breadcrumbs} className="mb-6" />
-            <div className="max-w-3xl">
-              <span className="eyebrow eyebrow-dark inline-block mb-3">Operational Learning</span>
-              <h1 className="text-display-md text-white font-light tracking-tight">
-                EntireFM Academy — Practical Facilities Learning
-              </h1>
-              <p className="mt-4 text-base sm:text-lg leading-relaxed text-brand-mist/75">
-                Free, practical operational learning modules covering statutory maintenance compliance, building services engineering basics, and estate contract oversight.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-4 text-xs text-brand-mist/60">
-                <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5">
-                  <BookOpen className="h-3.5 w-3.5 text-brand-electric-bright" />
-                  100% Free Open Access
-                </span>
-                <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5">
-                  <ShieldCheck className="h-3.5 w-3.5 text-brand-electric-bright" />
-                  Verified UK Engineering Standards
-                </span>
-                {completedCount > 0 && (
-                  <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 px-3 py-1.5 font-medium">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                    {completedCount} of {totalModules} Completed
-                  </span>
-                )}
+      <main id="main" className="flex-grow">
+        {/* ========================================================================= */}
+        {/* 1. CINEMATIC HERO (85svh)                                                 */}
+        {/* ========================================================================= */}
+        <section className="relative min-h-[85svh] lg:min-h-[88svh] flex items-center justify-center bg-[#060A14] overflow-hidden pt-28 pb-16 sm:py-24 border-b border-brand-edge-dark">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/editorial/entirefm-client-review-2000w.webp"
+              alt="EntireFM Academy — Professional Facilities Management Learning"
+              fill
+              priority
+              className="w-full h-full object-cover object-center filter brightness-[0.32] contrast-[1.1]"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/80 to-[#060A14]/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/90 to-transparent" />
+          </div>
+
+          <div className="container-custom relative z-10 w-full">
+            <div className="max-w-4xl space-y-6">
+              
+              <div className="mb-2">
+                <Breadcrumbs items={breadcrumbs} className="text-slate-300 font-light text-xs" />
               </div>
+
+              <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-sm bg-white/10 backdrop-blur-md border border-white/15">
+                <span className="w-2 h-2 rounded-full bg-brand-pink" />
+                <span className="text-xs uppercase tracking-widest text-white/90 font-medium">
+                  Professional Development &amp; Operations
+                </span>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.06]">
+                EntireFM Academy.
+              </h1>
+
+              <p className="text-base sm:text-xl text-slate-200 font-light leading-relaxed max-w-3xl">
+                Engineering-grounded operational modules covering statutory maintenance compliance, building services engineering fundamentals, and commercial estate contract management.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-6 pt-4 text-xs text-slate-300 font-light border-t border-white/15">
+                <span className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+                  Free Open Access Curriculum
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+                  Practitioner-Led Modules
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+                  Aligned to SFG20 &amp; CIBSE
+                </span>
+              </div>
+
             </div>
           </div>
         </section>
 
-        {/* Course Modules Grid */}
-        <section className="py-16 bg-brand-carbon">
-          <div className="container-custom">
-            <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
-              <div>
-                <span className="eyebrow eyebrow-dark">Curriculum Pathway</span>
-                <h2 className="mt-2 text-2xl font-extralight text-white sm:text-3xl">
-                  Core Operational Modules
+        <TrustBar />
+
+        {/* ========================================================================= */}
+        {/* 2. CORE CURRICULUM MODULES                                                */}
+        {/* ========================================================================= */}
+        <section className="py-24 bg-white text-slate-900 border-b border-slate-200">
+          <div className="container-custom space-y-16">
+            
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div className="max-w-2xl space-y-3">
+                <div className="inline-flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs uppercase tracking-wider text-brand-pink font-medium">
+                    Operational Modules
+                  </span>
+                </div>
+                <h2 className="text-3xl sm:text-5xl font-extralight tracking-tight text-slate-900 leading-tight">
+                  Curriculum Pathway
                 </h2>
-                <p className="text-xs text-brand-mist/60 mt-1 max-w-xl">
-                  Designed for property managers and building custodians wanting direct, engineering-grounded technical knowledge.
+                <p className="text-slate-600 text-base sm:text-lg font-light leading-relaxed">
+                  Designed for property managers, estate directors, and building custodians requiring direct, engineering-grounded technical knowledge.
                 </p>
               </div>
 
-              {/* Learning Progress Indicator */}
-              <div className="p-3.5 rounded-sm bg-brand-graphite border border-brand-edge-dark text-xs flex items-center gap-3">
-                <div className="flex items-center gap-2">
-                  <Award className="h-4 w-4 text-brand-electric-bright" />
-                  <span className="text-brand-mist/80 font-normal">Progress:</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-24 h-2 bg-brand-void rounded-full overflow-hidden border border-brand-edge-dark">
-                    <div
-                      className="h-full bg-brand-electric transition-all duration-300"
-                      style={{ width: `${(completedCount / totalModules) * 100}%` }}
-                    />
-                  </div>
-                  <span className="font-mono text-brand-electric-bright font-light">
-                    {completedCount}/{totalModules}
+              {/* Progress Indicator */}
+              <div className="p-4 rounded-sm bg-slate-50 border border-slate-200 text-xs flex items-center gap-4 shrink-0 shadow-sm">
+                <div className="space-y-1">
+                  <span className="text-[11px] uppercase tracking-wider text-slate-500 font-medium block">
+                    Learning Progress
                   </span>
+                  <span className="text-sm font-light text-slate-900">
+                    {completedCount} of {totalModules} Modules Completed
+                  </span>
+                </div>
+                <div className="w-24 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-brand-pink transition-all duration-500"
+                    style={{ width: `${(completedCount / totalModules) * 100}%` }}
+                  />
                 </div>
               </div>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2">
+            {/* Modules Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {ACADEMY_MODULES.map((mod) => {
                 const isCompleted = completedModules.includes(mod.id);
                 return (
                   <div
                     key={mod.id}
-                    className={`rounded-sm border p-6 sm:p-8 flex flex-col justify-between transition-all ${
+                    className={`p-8 sm:p-10 rounded-sm border flex flex-col justify-between transition-all space-y-8 shadow-sm ${
                       isCompleted
-                        ? 'border-emerald-500/40 bg-brand-graphite/90 ring-1 ring-emerald-500/20'
-                        : 'border-brand-edge-dark bg-brand-graphite hover:border-brand-electric/40'
+                        ? 'border-emerald-500/40 bg-emerald-50/20'
+                        : 'border-slate-200 bg-slate-50'
                     }`}
                   >
-                    <div>
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <div className="flex items-center gap-2">
-                          <span className="text-[11px] font-mono text-brand-electric-bright font-light uppercase tracking-wider">
+                    <div className="space-y-6">
+                      <div className="flex items-center justify-between gap-2 border-b border-slate-200 pb-4">
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
                             {mod.moduleNumber}
                           </span>
-                          <span className={`px-2 py-0.5 rounded-sm border text-[10px] font-mono font-light ${getLevelBadgeClass(mod.level)}`}>
+                          <span className="px-2.5 py-0.5 rounded-sm border text-[11px] font-medium uppercase tracking-wider bg-white border-slate-200 text-slate-700">
                             {mod.level}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 text-[11px] text-brand-mist/50">
+                        <div className="flex items-center gap-1.5 text-xs text-slate-500 font-light">
                           <Clock className="h-3.5 w-3.5" />
                           <span>{mod.duration}</span>
                         </div>
                       </div>
 
-                      <h3 className="text-lg font-light text-white leading-snug">
-                        {mod.title}
-                      </h3>
-                      <p className="mt-2 text-xs text-brand-mist/75 leading-relaxed">
-                        {mod.overview}
-                      </p>
+                      <div className="space-y-2">
+                        <h3 className="text-2xl font-light text-slate-900 leading-snug">
+                          {mod.title}
+                        </h3>
+                        <p className="text-sm text-slate-600 font-light leading-relaxed">
+                          {mod.overview}
+                        </p>
+                      </div>
 
-                      <div className="mt-5 pt-4 border-t border-brand-edge-dark">
-                        <h4 className="text-[11px] font-normal uppercase tracking-wider text-brand-mist/40 mb-2">
-                          Core Learning Points:
+                      <div className="space-y-3 pt-2">
+                        <h4 className="text-xs uppercase tracking-wider font-medium text-slate-500">
+                          Core Technical Learning Points:
                         </h4>
-                        <ul className="space-y-1.5 text-xs text-brand-mist/80">
+                        <ul className="space-y-2 text-xs sm:text-sm text-slate-700 font-light">
                           {mod.keyTopics.map((topic, idx) => (
-                            <li key={idx} className="flex items-start gap-2">
-                              <span className="h-1 w-1 rounded-full bg-brand-electric-bright shrink-0 mt-1.5" />
+                            <li key={idx} className="flex items-start gap-2.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-brand-pink mt-1.5 shrink-0" />
                               <span>{topic}</span>
                             </li>
                           ))}
@@ -278,25 +292,26 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
                       </div>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-brand-edge-dark flex flex-wrap items-center justify-between gap-3 text-xs">
+                    <div className="pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4 text-xs">
                       <button
                         type="button"
                         onClick={() => toggleModuleCompletion(mod.id)}
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[11px] font-normal transition-colors border ${
+                        className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-sm text-xs font-medium transition-colors border ${
                           isCompleted
-                            ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/30'
-                            : 'bg-white/[0.04] text-brand-mist/70 border-brand-edge-dark hover:border-brand-edge-light hover:text-white'
+                            ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                            : 'bg-white text-slate-700 border-slate-300 hover:border-brand-pink hover:text-brand-pink'
                         }`}
                       >
-                        <CheckCircle2 className={`h-3.5 w-3.5 ${isCompleted ? 'text-emerald-400' : 'text-brand-mist/40'}`} />
-                        <span>{isCompleted ? 'Completed' : 'Mark Complete'}</span>
+                        <CheckCircle2 className="h-3.5 w-3.5" />
+                        <span>{isCompleted ? 'Completed' : 'Mark as Completed'}</span>
                       </button>
 
                       <Link
                         href={mod.relatedTool.href}
-                        className="text-brand-electric-bright font-light hover:underline inline-flex items-center gap-1 shrink-0"
+                        className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-medium text-brand-pink hover:text-slate-900 transition-colors"
                       >
-                        Practice Tool: {mod.relatedTool.label} <ArrowRight className="h-3 w-3" />
+                        <span>Interactive Tool: {mod.relatedTool.label}</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
                     </div>
                   </div>
@@ -305,20 +320,21 @@ export function TemplateAcademy({ route, content }: TemplateProps) {
             </div>
 
             {/* Honest Accreditation Notice */}
-            <div className="mt-12 rounded-sm bg-white/[0.02] border border-brand-edge-dark p-6 text-xs text-brand-mist/60 leading-relaxed">
-              <h4 className="font-light text-white mb-1">About EntireFM Academy</h4>
-              <p>
+            <div className="rounded-sm bg-slate-50 border border-slate-200 p-8 text-xs text-slate-600 leading-relaxed space-y-2">
+              <h4 className="font-medium text-slate-900 uppercase tracking-wider text-xs">About EntireFM Academy</h4>
+              <p className="font-light">
                 EntireFM Academy is created and maintained by EntireFM's senior engineering and compliance personnel to elevate facilities management standards across UK commercial property. These modules are practical operational guides and do not confer academic degree credits or formal NVQ accreditations.
               </p>
             </div>
+
           </div>
         </section>
 
         <NewsletterSignupSection />
-        <TrustBar />
         <ProposalSection />
       </main>
+
       <Footer />
-    </>
+    </div>
   );
 }

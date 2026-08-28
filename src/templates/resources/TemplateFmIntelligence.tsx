@@ -4,19 +4,12 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
+  ArrowRight,
   TrendingUp,
   ShieldCheck,
   Zap,
   Building2,
-  Calendar,
-  ExternalLink,
-  ArrowRight,
-  Info,
-  Layers,
-  Sparkles,
   FileText,
-  Activity,
-  Cpu,
 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -89,21 +82,6 @@ const BRIEFINGS: IntelligenceBriefing[] = [
   },
 ];
 
-function getTagBadgeClass(tag: string) {
-  switch (tag) {
-    case 'Statutory Safety':
-      return 'bg-rose-500/10 text-rose-300 border-rose-500/30';
-    case 'F-Gas & HVAC':
-      return 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30';
-    case 'Electrical Safety':
-      return 'bg-blue-500/10 text-blue-300 border-blue-500/30';
-    case 'Water Hygiene':
-      return 'bg-sky-500/10 text-sky-300 border-sky-500/30';
-    default:
-      return 'bg-blue-500/10 text-blue-300 border-blue-500/30';
-  }
-}
-
 export function TemplateFmIntelligence({ route, content }: TemplateProps) {
   const breadcrumbs = content.breadcrumbs || [
     { name: 'Home', url: '/' },
@@ -112,33 +90,34 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
   ];
 
   return (
-    <div className="bg-brand-void text-white min-h-screen flex flex-col font-sans selection:bg-brand-electric selection:text-white">
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
       <Header />
+
       <main id="main" className="flex-grow">
-        {/* 1. RESOURCE HERO */}
+        {/* 1. RESOURCE HERO (85svh) */}
         <ResourceHero
           breadcrumbs={breadcrumbs}
-          category="Market Intelligence &amp; Standards"
+          category="Market Intelligence &amp; Industry Standards"
           categoryHref="/resources"
-          title="UK Facilities Management Intelligence (2026)"
-          intro="Curated regulatory briefings, statutory safety developments, engineering labour benchmarks, and estate management trends across the UK commercial property sector."
+          title="UK Facilities Management Intelligence &amp; Market Digest (2026)"
+          intro="Curated regulatory briefings, statutory safety developments, engineering labour benchmarks, and commercial property operating trends across the UK built environment."
           readingTime="Quarterly Intelligence Digest"
-          technicalTier="Level 3 · Strategic Intelligence"
+          technicalTier="Level 3 · Strategic Research"
           audience="Property Directors, Facilities Managers &amp; Asset Owners"
           standard="HSE, BESA, CIBSE &amp; BSI Standards"
+          imageSrc="/images/editorial/entirefm-client-review-2000w.webp"
         />
 
-        {/* 2. TRUST BAR */}
         <TrustBar />
 
-        {/* 3. MACRO INDICATORS & REGULATORY DIGEST */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* 2. RESEARCH DIGEST BODY */}
+        <div className="container-custom py-20">
           <div className="max-w-5xl mx-auto space-y-16">
             
-            {/* 3A. EXECUTIVE SUMMARY */}
+            {/* 2A. EXECUTIVE RESEARCH SUMMARY */}
             <ExecutiveSummary
-              title="2026 Market Intelligence Briefing"
-              badge="Q3 Digest"
+              title="2026 Strategic Market Intelligence Briefing"
+              badge="Q3 2026 Digest"
               takeaways={[
                 'Commercial building owners face intensifying statutory enforcement under the Building Safety Act, with digital auditability replacing fragmented paper archives.',
                 'Specialist engineering skills (Gas Safe, F-Gas, HV Electrical) remain constrained nationally, making long-term contractual retainers substantially more cost-effective than spot-market emergency callouts.',
@@ -148,60 +127,63 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
               operationalOutcome="100% statutory compliance audit readiness · Proactive lifecycle asset management"
             />
 
-            {/* 3B. MACRO KPI DATA CARDS */}
-            <div className="space-y-6">
-              <div>
-                <span className="eyebrow eyebrow-dark block mb-1">
-                  Macro Sector Indicators
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-extralight text-white tracking-tight">
-                  2026 Commercial FM Operating Environment
+            {/* 2B. MACRO KPI BENCHMARKS */}
+            <div className="space-y-8">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
+                    Macro Sector Indicators
+                  </span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-extralight text-white tracking-tight">
+                  2026 Commercial Operating Environment
                 </h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="p-6 rounded-sm bg-brand-graphite border border-brand-edge-dark space-y-3">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-rose-400 font-light">
+                <div className="p-8 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-4 shadow-elevated">
+                  <span className="text-xs uppercase tracking-wider text-rose-400 font-medium block">
                     Statutory Governance
                   </span>
-                  <h3 className="text-lg font-light text-white">Digital Golden-Thread Mandate</h3>
-                  <p className="text-xs text-brand-mist/75 leading-relaxed font-light">
+                  <h3 className="text-xl font-light text-white leading-snug">Digital Golden-Thread Mandate</h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                     Regulatory transitions place higher legal evidentiary value on contemporaneous CAFM logs, making manual paperwork an immediate compliance audit liability.
                   </p>
-                  <div className="pt-3 border-t border-brand-edge-dark text-[10px] font-mono text-brand-mist/50">
+                  <div className="pt-4 border-t border-brand-edge-dark text-xs text-slate-400 font-light">
                     Source: Building Safety Act 2022 Implementation
                   </div>
                 </div>
 
-                <div className="p-6 rounded-sm bg-brand-graphite border border-brand-edge-dark space-y-3">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-blue-400 font-light">
+                <div className="p-8 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-4 shadow-elevated">
+                  <span className="text-xs uppercase tracking-wider text-blue-400 font-medium block">
                     Labour &amp; Engineering
                   </span>
-                  <h3 className="text-lg font-light text-white">Certified Engineer Wage Indices</h3>
-                  <p className="text-xs text-brand-mist/75 leading-relaxed font-light">
+                  <h3 className="text-xl font-light text-white leading-snug">Certified Engineer Wage Indices</h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                     Commercial Gas Safe and F-Gas engineers remain in acute high national demand, increasing the financial advantage of contracted service delivery over spot callouts.
                   </p>
-                  <div className="pt-3 border-t border-brand-edge-dark text-[10px] font-mono text-brand-mist/50">
+                  <div className="pt-4 border-t border-brand-edge-dark text-xs text-slate-400 font-light">
                     Source: BESA / ONS Engineering Wage Indices
                   </div>
                 </div>
 
-                <div className="p-6 rounded-sm bg-brand-graphite border border-brand-edge-dark space-y-3">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-light">
+                <div className="p-8 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-4 shadow-elevated">
+                  <span className="text-xs uppercase tracking-wider text-emerald-400 font-medium block">
                     Energy &amp; Sustainability
                   </span>
-                  <h3 className="text-lg font-light text-white">Dynamic BMS Setpoint Optimization</h3>
-                  <p className="text-xs text-brand-mist/75 leading-relaxed font-light">
+                  <h3 className="text-xl font-light text-white leading-snug">Dynamic BMS Setpoint Optimization</h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                     Occupancy-driven deadband adjustments and weather degree-day forecasting deliver 12–18% measurable reduction in peak HVAC electrical consumption.
                   </p>
-                  <div className="pt-3 border-t border-brand-edge-dark text-[10px] font-mono text-brand-mist/50">
+                  <div className="pt-4 border-t border-brand-edge-dark text-xs text-slate-400 font-light">
                     Source: CIBSE Energy Assessment Benchmarks
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* 3C. EDITORIAL PHOTO BREAK */}
+            {/* 2C. EDITORIAL PHOTO BREAK */}
             <EditorialImageBreak
               layout="split-60-40"
               imageSrc="/images/editorial/entirefm-client-review-2000w.webp"
@@ -212,13 +194,16 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
               technicalCaption="Client Operations Review — Real-time CAFM compliance verification."
             />
 
-            {/* 3D. REGULATORY BRIEFINGS BREAKDOWN */}
-            <div className="space-y-6">
-              <div>
-                <span className="eyebrow eyebrow-dark block mb-1">
-                  Active Directives
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-extralight text-white tracking-tight">
+            {/* 2D. REGULATORY DIRECTIVES BREAKDOWN */}
+            <div className="space-y-8">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                  <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
+                    Active Directives
+                  </span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-extralight text-white tracking-tight">
                   Regulatory Briefings &amp; Action Directives
                 </h2>
               </div>
@@ -227,52 +212,52 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
                 {BRIEFINGS.map((b, idx) => (
                   <div
                     key={idx}
-                    className="p-6 sm:p-8 rounded-sm bg-brand-graphite border border-brand-edge-dark space-y-6 shadow-xl"
+                    className="p-8 sm:p-10 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-6 shadow-elevated"
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-brand-edge-dark pb-4">
-                      <div className="flex items-center gap-2">
-                        <span className={`px-2.5 py-0.5 rounded-sm border text-xs font-mono font-light ${getTagBadgeClass(b.tag)}`}>
+                    <div className="flex flex-wrap items-center justify-between gap-4 border-b border-brand-edge-dark pb-4">
+                      <div className="flex items-center gap-3">
+                        <span className="px-3 py-1 rounded-sm border text-xs font-medium uppercase tracking-wider bg-brand-pink/10 text-brand-pink border-brand-pink/30">
                           {b.tag}
                         </span>
-                        <span className="text-xs font-mono text-brand-mist/60">{b.date}</span>
+                        <span className="text-xs text-slate-300 font-light">{b.date}</span>
                       </div>
-                      <span className="text-xs font-mono text-brand-mist/40">{b.source}</span>
+                      <span className="text-xs text-slate-400 font-light">{b.source}</span>
                     </div>
 
-                    <div>
-                      <h3 className="text-xl sm:text-2xl font-extralight text-white mb-3">
+                    <div className="space-y-2">
+                      <h3 className="text-xl sm:text-2xl font-light text-white">
                         {b.title}
                       </h3>
-                      <p className="text-sm text-brand-mist/80 leading-relaxed font-light">
+                      <p className="text-sm text-slate-300 leading-relaxed font-light">
                         {b.summary}
                       </p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                      <div className="p-4 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-1">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 font-light block">
+                      <div className="p-4 rounded-sm bg-black/40 border border-brand-edge-dark space-y-1.5">
+                        <span className="text-[11px] uppercase tracking-wider text-amber-400 font-medium block">
                           Impact on Property Owners
                         </span>
-                        <p className="text-xs text-brand-mist/75 leading-relaxed">
+                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                           {b.impactOnClients}
                         </p>
                       </div>
 
-                      <div className="p-4 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-1">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-light block">
+                      <div className="p-4 rounded-sm bg-black/40 border border-brand-edge-dark space-y-1.5">
+                        <span className="text-[11px] uppercase tracking-wider text-emerald-400 font-medium block">
                           Recommended Action
                         </span>
-                        <p className="text-xs text-brand-mist/75 leading-relaxed">
+                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                           {b.recommendedAction}
                         </p>
                       </div>
                     </div>
 
-                    <div className="pt-2 flex items-center justify-between text-xs font-mono border-t border-brand-edge-dark">
-                      <span className="text-brand-mist/50">Related Capability:</span>
+                    <div className="pt-4 flex items-center justify-between text-xs border-t border-brand-edge-dark">
+                      <span className="text-slate-400 font-light">Relevant Capability:</span>
                       <Link
                         href={b.relevantServiceUrl}
-                        className="inline-flex items-center gap-1.5 text-brand-electric-bright hover:text-white font-light transition-colors"
+                        className="inline-flex items-center gap-1.5 text-brand-pink hover:text-white font-medium transition-colors"
                       >
                         <span>{b.relevantServiceName}</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -283,7 +268,7 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
               </div>
             </div>
 
-            {/* 3E. CROSS-LINKING TO KNOWLEDGE ECOSYSTEM */}
+            {/* 2E. CROSS-LINKING TO KNOWLEDGE ECOSYSTEM */}
             <RelatedResourceGrid
               eyebrow="Knowledge Network"
               title="Related Strategic Resources &amp; Planning Tools"
@@ -308,22 +293,23 @@ export function TemplateFmIntelligence({ route, content }: TemplateProps) {
                   href: '/tools/fm-roi-calculator',
                   category: 'Commercial Strategy',
                   description: 'Compare multiple uncoordinated contractors against a single accountable delivery contract.',
-                  imageSrc: '/images/editorial/entirefm-hero-headquarters-2560w.webp',
+                  imageSrc: '/images/editorial/entirefm-client-review-2000w.webp',
                 },
               ]}
             />
           </div>
         </div>
 
-        {/* 4. NEWSLETTER SIGNUP */}
+        {/* 3. NEWSLETTER SIGNUP */}
         <NewsletterSignupSection />
 
-        {/* 5. CONVERSION PROPOSAL */}
+        {/* 4. CONVERSION PROPOSAL */}
         <ProposalSection
           headline="Request an Estate Compliance &amp; Operations Audit"
           subheadline="Speak with our technical engineering consultants about reviewing your commercial property maintenance schedules, statutory risk profiles, and CAFM reporting."
         />
       </main>
+
       <Footer />
     </div>
   );

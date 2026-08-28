@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Wrench, Headset, Bolt, ShieldCheck, Server, Lock } from 'lucide-react';
+import { ArrowRight, Wrench, Headset, Zap, ShieldCheck, Database, Lock } from 'lucide-react';
 
 interface UseCaseCategory {
   id: string;
@@ -34,7 +34,7 @@ const MATRIX_DATA: UseCaseCategory[] = [
     ],
     operationalImpact: 'Prevents catastrophic unforecasted plant shutdowns, mitigates out-of-hours emergency premium fees, and extends capital equipment operating lifespan by 15–25%.',
     relatedGuideUrl: '/resources/ai-in-facilities-management/predictive-maintenance',
-    relatedGuideTitle: 'Explore Predictive Maintenance Guide →',
+    relatedGuideTitle: 'Explore Predictive Maintenance Guide',
     systemIntegration: 'BACnet IP / MQTT / SFG20 Task Library',
   },
   {
@@ -52,7 +52,7 @@ const MATRIX_DATA: UseCaseCategory[] = [
     ],
     operationalImpact: 'Reduces helpdesk ticket triage time from 4 minutes to under 8 seconds while eliminating misallocated contractor callout fees.',
     relatedGuideUrl: '/resources/ai-in-facilities-management/ai-helpdesk-work-orders',
-    relatedGuideTitle: 'Explore AI Helpdesk & Dispatch Guide →',
+    relatedGuideTitle: 'Explore AI Helpdesk & Dispatch Guide',
     systemIntegration: 'REST Webhooks / WhatsApp API / CAFM Dispatch',
   },
   {
@@ -70,7 +70,7 @@ const MATRIX_DATA: UseCaseCategory[] = [
     ],
     operationalImpact: 'Yields 12–18% verifiable HVAC electrical and gas consumption savings without compromising tenant comfort bounds.',
     relatedGuideUrl: '/resources/ai-in-facilities-management/energy-optimisation',
-    relatedGuideTitle: 'Explore Energy Optimization Guide →',
+    relatedGuideTitle: 'Explore Energy Optimization Guide',
     systemIntegration: 'Trend / Tridium Niagara / Modbus TCP',
   },
   {
@@ -88,7 +88,7 @@ const MATRIX_DATA: UseCaseCategory[] = [
     ],
     operationalImpact: 'Guarantees 100% compliance audit readiness and eliminates the risk of missed annual statutory inspection deadlines.',
     relatedGuideUrl: '/resources/ai-in-facilities-management/ai-compliance',
-    relatedGuideTitle: 'Explore AI Compliance Guide →',
+    relatedGuideTitle: 'Explore AI Compliance Guide',
     systemIntegration: 'PDF Document OCR / Statutory Register / SFG20',
   },
   {
@@ -106,7 +106,7 @@ const MATRIX_DATA: UseCaseCategory[] = [
     ],
     operationalImpact: 'Cuts commercial administrative overhead by over 30% and gives property owners instant clarity on asset health and expenditure.',
     relatedGuideUrl: '/resources/ai-in-facilities-management/ai-cafm',
-    relatedGuideTitle: 'Explore EntireCAFM Technology Guide →',
+    relatedGuideTitle: 'Explore EntireCAFM Technology Guide',
     systemIntegration: 'EntireCAFM Core / Vector Embeddings / PostgreSQL',
   },
   {
@@ -124,7 +124,7 @@ const MATRIX_DATA: UseCaseCategory[] = [
     ],
     operationalImpact: 'Protects building infrastructure from cyber vulnerabilities and guarantees compliance with UK GDPR and Building Safety Act standards.',
     relatedGuideUrl: '/resources/ai-in-facilities-management/ai-governance',
-    relatedGuideTitle: 'Explore AI Governance Guide →',
+    relatedGuideTitle: 'Explore AI Governance Guide',
     systemIntegration: 'OT Firewall / Cryptographic Ledger / ISO 27001',
   },
 ];
@@ -135,40 +135,43 @@ export function CapabilityMatrix() {
 
   const renderIcon = (name: string) => {
     switch (name) {
-      case 'wrench': return <Wrench className="w-4 h-4" />;
-      case 'headset': return <Headset className="w-4 h-4" />;
-      case 'bolt': return <Bolt className="w-4 h-4" />;
-      case 'shield': return <ShieldCheck className="w-4 h-4" />;
-      case 'server': return <Server className="w-4 h-4" />;
-      case 'lock': return <Lock className="w-4 h-4" />;
-      default: return <Wrench className="w-4 h-4" />;
+      case 'wrench': return <Wrench className="w-3.5 h-3.5" />;
+      case 'headset': return <Headset className="w-3.5 h-3.5" />;
+      case 'bolt': return <Zap className="w-3.5 h-3.5" />;
+      case 'shield': return <ShieldCheck className="w-3.5 h-3.5" />;
+      case 'server': return <Database className="w-3.5 h-3.5" />;
+      case 'lock': return <Lock className="w-3.5 h-3.5" />;
+      default: return <Wrench className="w-3.5 h-3.5" />;
     }
   };
 
   return (
-    <div className="my-16 p-6 sm:p-10 bg-slate-950 border border-slate-800 rounded-2xl text-white">
-      <div className="max-w-3xl mb-8">
-        <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
-          Estate Capability Explorer
-        </span>
-        <h3 className="text-2xl sm:text-3xl font-extralight text-white mb-2">
-          AI &amp; Automation Discipline Matrix
+    <div className="my-16 p-8 sm:p-12 bg-brand-carbon/60 border border-brand-edge-dark rounded-sm text-white font-sans">
+      <div className="max-w-3xl mb-8 space-y-3">
+        <div className="inline-flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-brand-pink" />
+          <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
+            Estate Capability Matrix
+          </span>
+        </div>
+        <h3 className="text-2xl sm:text-4xl font-extralight text-white tracking-tight">
+          Operational Technology &amp; Automation Architecture
         </h3>
-        <p className="text-xs sm:text-sm text-slate-400">
+        <p className="text-sm text-slate-300 font-light leading-relaxed">
           Select a facilities management discipline below to inspect specific technical capabilities, system integrations, and verified operational outcomes.
         </p>
       </div>
 
       {/* Tab Navigation Strip */}
-      <div className="flex flex-wrap gap-2 border-b border-slate-800 pb-4 mb-8">
+      <div className="flex flex-wrap gap-2 border-b border-brand-edge-dark pb-4 mb-8">
         {MATRIX_DATA.map((cat) => (
           <button
             key={cat.id}
             onClick={() => setActiveTab(cat.id)}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-mono transition-all ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-sm text-xs font-medium transition-all ${
               activeTab === cat.id
-                ? 'bg-pink-950 text-pink-300 border border-pink-500/50 shadow-md'
-                : 'bg-slate-900/80 text-slate-400 border border-slate-800 hover:bg-slate-800 hover:text-slate-200'
+                ? 'bg-brand-pink text-white shadow-elevated'
+                : 'bg-brand-carbon text-slate-300 border border-brand-edge-dark hover:bg-white/10 hover:text-white'
             }`}
           >
             {renderIcon(cat.iconName)}
@@ -181,29 +184,29 @@ export function CapabilityMatrix() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left 7 cols: Capabilities and Details */}
         <div className="lg:col-span-7 space-y-6">
-          <div>
-            <span className="text-xs font-mono uppercase tracking-wider text-pink-400 font-light block mb-1">
+          <div className="space-y-2">
+            <span className="text-xs uppercase tracking-widest text-brand-pink font-medium block">
               {activeCategory.name}
             </span>
-            <h4 className="text-xl sm:text-2xl font-extralight text-white mb-3">
+            <h4 className="text-xl sm:text-2xl font-light text-white tracking-tight leading-snug">
               {activeCategory.headline}
             </h4>
-            <p className="text-sm text-slate-300 leading-relaxed font-light">
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-light pt-1">
               {activeCategory.overview}
             </p>
           </div>
 
-          <div>
-            <h5 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-light mb-3">
-              Specific Engineering Capabilities
+          <div className="pt-2">
+            <h5 className="text-xs uppercase tracking-wider text-slate-400 font-medium mb-3">
+              Engineering Capabilities
             </h5>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {activeCategory.technicalCapabilities.map((cap, idx) => (
                 <div
                   key={idx}
-                  className="p-3 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 leading-relaxed flex items-start gap-2"
+                  className="p-4 rounded-sm bg-brand-carbon border border-brand-edge-dark text-xs sm:text-[13px] text-slate-200 leading-relaxed flex items-start gap-2.5 font-light"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-pink-500 mt-1.5 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-pink mt-1.5 shrink-0" />
                   <span>{cap}</span>
                 </div>
               ))}
@@ -212,29 +215,30 @@ export function CapabilityMatrix() {
         </div>
 
         {/* Right 5 cols: Operational Outcome & CTA Card */}
-        <div className="lg:col-span-5 p-6 rounded-xl bg-slate-900 border border-slate-800 space-y-6">
-          <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block mb-1">
+        <div className="lg:col-span-5 p-6 rounded-sm bg-brand-carbon border border-brand-edge-dark space-y-6">
+          <div className="space-y-2">
+            <span className="text-[11px] uppercase tracking-wider text-slate-400 font-medium block">
               Verified Commercial Impact
             </span>
-            <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-mono">
+            <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-light">
               {activeCategory.operationalImpact}
             </p>
           </div>
 
-          <div className="pt-4 border-t border-slate-800 text-xs font-mono">
-            <span className="text-slate-500 block text-[10px] uppercase tracking-wider mb-1">
+          <div className="pt-4 border-t border-brand-edge-dark space-y-1">
+            <span className="text-slate-400 block text-[11px] uppercase tracking-wider font-medium">
               Core Protocol &amp; Integrations
             </span>
-            <span className="text-pink-300 font-light">{activeCategory.systemIntegration}</span>
+            <span className="text-brand-pink font-light text-xs sm:text-sm block">{activeCategory.systemIntegration}</span>
           </div>
 
           <div className="pt-2">
             <Link
               href={activeCategory.relatedGuideUrl}
-              className="inline-flex items-center gap-2 text-xs font-normal text-pink-400 hover:text-pink-300 transition-colors"
+              className="inline-flex items-center gap-2 text-xs font-medium text-brand-pink hover:text-white transition-colors"
             >
-              {activeCategory.relatedGuideTitle}
+              <span>{activeCategory.relatedGuideTitle}</span>
+              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>

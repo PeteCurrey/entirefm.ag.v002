@@ -1,159 +1,144 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import {
-  Wrench,
-  Zap,
-  Flame,
-  Droplets,
-  Layers,
-  ArrowRight,
-  ShieldCheck,
-  AlertTriangle,
-  CheckCircle2,
-  Eye,
-  Info,
-  HardHat,
-  Search,
-  Building,
-} from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { TrustBar } from '@/components/trust/TrustBar';
 import { ProposalSection } from '@/components/conversion/PhoneCTA';
 import { ResourceHero } from '@/components/resources/ResourceHero';
-import { EditorialImageBreak } from '@/components/resources/EditorialImageBreak';
 import { AnnotatedTechnicalImage } from '@/components/resources/AnnotatedTechnicalImage';
+import { CheckCircle2, AlertTriangle, HardHat, ShieldCheck, ArrowRight } from 'lucide-react';
 import type { TemplateProps } from '../types';
 
 interface WalkthroughItem {
   id: string;
   title: string;
-  locationType: string;
   focusArea: string;
-  summary: string;
+  locationType: string;
   imageSrc: string;
   imageAlt: string;
-  statutoryStandard: string;
+  summary: string;
   keyCheckpoints: string[];
   commonDefects: string[];
+  statutoryStandard: string;
   recommendedInterval: string;
   fieldAction: string;
 }
 
 const WALKTHROUGHS: WalkthroughItem[] = [
   {
-    id: 'walk-boilerhouse',
-    title: 'The Commercial Boiler House & Gas Safety Walkthrough',
-    locationType: 'Basement / Ground Floor Plantrooms',
-    focusArea: 'Commercial Gas & Heating Plant',
-    summary: 'A step-by-step survey of commercial gas boilers, flue dilution systems, pressurisation units, and gas proving interlocks.',
-    imageSrc: '/images/editorial/entirefm-plumbing-booster-set-2000w.webp',
-    imageAlt: 'EntireFM engineer inspecting commercial boilerhouse and pressurisation pump set',
-    statutoryStandard: 'Gas Safety (Installation & Use) Regs 1998 · Reg 35',
+    id: 'chiller-plantroom',
+    title: 'The Commercial Chiller & Cooling Plant Walkthrough',
+    focusArea: 'HVAC & Refrigeration',
+    locationType: 'Rooftop Plant Deck / Basement Plantroom',
+    imageSrc: '/images/editorial/entirefm-hvac-rooftop-condensers-2560w.webp',
+    imageAlt: 'Two EntireFM HVAC technicians carrying out diagnostic inspection on rooftop commercial chiller condenser bank',
+    summary: 'A structured engineering walk inspecting primary chillers, condenser coil banks, compressor oil levels, and refrigerant sight glasses.',
     keyCheckpoints: [
-      'Gas proving system and automatic isolation solenoid valve operation',
-      'Flue route integrity and mechanical ventilation interlocks',
-      'Expansion vessel pre-charge pressure and safety relief valve discharge lines',
-      'Circulation pump mechanical seals, anti-vibration bellows, and delta-T balance',
+      'Visual check of compressor vibration damping springs and mounting integrity',
+      'Inspection of condenser coil fins for airborne debris or corrosion',
+      'Refrigerant sight glass moisture indicator verification (F-Gas compliance)',
+      'Chilled water flow/return temperature differential (Delta-T verification)',
     ],
     commonDefects: [
-      'Failed ventilation interlock pressure switches bypassed with temporary electrical jumpers',
-      'Waterlogged expansion vessels causing system over-pressurisation and PRV weeping',
-      'Corroded flue joints with signs of carbon and acidic condensate staining',
+      'Micro-fractures in flexible braided pipe connections causing minor weeping',
+      'Corrosion on condenser coil casing leading to reduced thermodynamic heat transfer',
+      'Excessive compressor harmonic vibration indicating early bearing fatigue',
     ],
-    recommendedInterval: 'Monthly internal visual / Annual certified service (CP15)',
-    fieldAction: 'Log pressure readings to digital asset log; isolate immediately if gas odor or flue spillage is detected.',
+    statutoryStandard: 'UK F-Gas Regulations · BS EN 378 · SFG20 Task Schedule',
+    recommendedInterval: 'Monthly inspection + 6-Monthly statutory F-Gas leak testing',
+    fieldAction: 'Log suction pressure, discharge pressure, and compressor current draw directly into EntireCAFM mobile app with timestamped photo of gauge cluster.',
   },
   {
-    id: 'walk-switchroom',
-    title: 'Main LV Switchroom & Distribution Survey',
-    locationType: 'Dedicated Electrical Switchrooms',
-    focusArea: 'Electrical Infrastructure & Switchgear',
-    summary: 'What certified electricians inspect across main incoming panels, sub-distribution boards, busbars, and earth bonding.',
+    id: 'switchgear-inspection',
+    title: 'The Main Electrical Switchroom & Distribution Survey',
+    focusArea: 'Electrical & Life Safety',
+    locationType: 'Sub-Basement LV Switchroom',
     imageSrc: '/images/editorial/entirefm-switchgear-inspection-2000w.webp',
-    imageAlt: 'EntireFM engineers inspecting low-voltage commercial switchgear panel',
-    statutoryStandard: 'Electricity at Work Regulations 1989 · BS 7671 (EICR)',
+    imageAlt: 'EntireFM certified electrical engineers in high-visibility PPE surveying commercial switchboard panel meters',
+    summary: 'A non-intrusive thermal and visual survey of the main low-voltage (LV) switchboard, sub-distribution panels, and emergency changeover switches.',
     keyCheckpoints: [
-      'Thermal imaging of incoming cable terminations and busbar joints under full load',
-      'RCD and RCBO trip testing and earth fault loop impedance verification',
-      'Switchroom environmental controls (adequate ventilation, no moisture, zero storage)',
-      'Contemporaneous circuit charts and distribution board terminal labelling',
+      'Infrared thermography scan for loose busbar connections or unbalanced phases',
+      'Verification of rubber insulation matting and emergency resuscitation signage',
+      'RCD / RCBO test button trip verification and circuit breaker labelling clarity',
+      'Inspection of cable entry glands for vermin ingress or physical chafing',
     ],
     commonDefects: [
-      'High-resistance thermal hot spots on main incomer lug terminations due to torque relaxation',
-      'Unlabelled breakers leading to emergency isolation confusion during incidents',
-      'Unauthorized storage of combustible cardboard and cleaning equipment in switchroom aisles',
+      'Phase imbalance causing elevated neutral conductor thermal buildup',
+      'Unlabelled or incorrectly marked circuit breakers preventing rapid emergency isolation',
+      'Missing or expired calibration seals on analogue metering instruments',
     ],
-    recommendedInterval: 'Quarterly visual / Annual thermographic survey / 5-Yr EICR',
-    fieldAction: 'Perform non-contact infrared radiometric scan; flag any terminal exceeding 65°C for urgent retorquing.',
+    statutoryStandard: 'Electricity at Work Regulations 1989 · BS 7671 (18th Edition)',
+    recommendedInterval: 'Annual thermographic survey + 5-Year periodic EICR testing',
+    fieldAction: 'Record maximum phase temperature delta (>15°C delta requires immediate priority investigation). Upload thermal scan radiometric files to CAFM vault.',
   },
   {
-    id: 'walk-rooftop-chillers',
-    title: 'Rooftop Plant Deck & Chiller Inspection',
-    locationType: 'Commercial Building Roof Decks',
-    focusArea: 'HVAC, Chillers & VRF Systems',
-    summary: 'Evaluating air-cooled chillers, condenser coils, VRF fan units, ductwork insulation, and rooftop safe access walkways.',
-    imageSrc: '/images/editorial/entirefm-hvac-rooftop-condensers-1920w.webp',
-    imageAlt: 'Two EntireFM engineers inspecting rooftop chiller condenser coils at dusk',
-    statutoryStandard: 'EU/UK F-Gas Regulations 517/2014 · SFG20 Task Guides',
+    id: 'boiler-plantroom',
+    title: 'The Commercial Heating & Boiler House Inspection',
+    focusArea: 'Heating & Gas Safety',
+    locationType: 'Central Heating Plantroom',
+    imageSrc: '/images/editorial/entirefm-client-review-2000w.webp',
+    imageAlt: 'EntireFM senior gas engineer reviewing commercial heating system operating pressures and expansion vessel charge',
+    summary: 'Systematic safety survey covering commercial gas boilers, flue dilution systems, expansion vessels, pressurisation units, and primary circulating pumps.',
     keyCheckpoints: [
-      'Condenser coil condition (free of debris, bird guano, atmospheric corrosion, fin damage)',
-      'Refrigerant circuit operating pressures and digital F-Gas logbook verification',
-      'Vibration spring mounts, anti-vibration bellows, and secondary structural pipe supports',
-      'Roof edge protection, certified latchway systems, and matted walking routes',
+      'Gas safety slam-shut solenoid valve interlock test with fire alarm system',
+      'Pressurisation unit vessel pre-charge verification and cold-fill pressure check',
+      'Flue integrity, draft stabilizer operation, and ventilation air intake louver clearance',
+      'Primary pump seal condition, coupling alignment, and bearing acoustic check',
     ],
     commonDefects: [
-      'Collapsed condenser fins restricting airflow and elevating compressor head pressure',
-      'Deteriorated external Armaflex insulation exposing copper pipe to UV degradation',
-      'Loose anti-vibration mounts transmitting structural acoustic hum into top-floor offices',
+      'Waterlogged expansion vessels causing cyclic pressure relief discharge',
+      'Faulty mechanical air vents allowing micro-bubbles to accelerate internal pipe corrosion',
+      'Obstructed combustion air intake louvers restricting burner air-fuel ratio',
     ],
-    recommendedInterval: 'Quarterly engineering inspection / 6-Monthly F-Gas leak checks',
-    fieldAction: 'Clean condenser coils with low-pressure chemical wash; verify electronic leak detector calibration.',
+    statutoryStandard: 'Gas Safety (Installation & Use) Regulations · CIBSE Guide B',
+    recommendedInterval: 'Annual CP15 commercial gas safety certification + quarterly servicing',
+    fieldAction: 'Verify gas booster safety interlocks, record boiler modulation setpoints, and confirm automatic purge cycle prior to burner ignition.',
   },
   {
-    id: 'walk-water-hygiene',
-    title: 'Water Services & Legionella Sentinel Check',
-    locationType: 'Water Storage Tanks & Sentinel Outlets',
-    focusArea: 'Water Hygiene & ACOP L8 Compliance',
-    summary: 'Essential checks across cold water storage tanks (CWST), calorifiers, TMVs, and sentinel hot and cold taps.',
-    imageSrc: '/images/editorial/entirefm-plumbing-pressure-test-2000w.webp',
-    imageAlt: 'EntireFM engineer checking plumbing and water hygiene pipework pressure in plantroom',
-    statutoryStandard: 'ACOP L8 · HSG274 Parts 1-3 · Water Fittings Regulations',
+    id: 'riser-shaft-water',
+    title: 'The Vertical Services Riser & Water Hygiene Survey',
+    focusArea: 'Water Hygiene & Building Fabric',
+    locationType: 'Floor-by-Floor Mechanical Risers',
+    imageSrc: '/images/editorial/entirefm-switchroom-survey-2000w.webp',
+    imageAlt: 'EntireFM building surveyor inspecting fire stopping collars and pipe insulation inside vertical service riser',
+    summary: 'Multi-discipline walk inspecting domestic water supply risers, drainage stacks, fire-stopping intumescent collars, and pipe insulation thermal integrity.',
     keyCheckpoints: [
-      'Cold water storage tank temperature (< 20°C) and tight-fitting screened insect lids',
-      'Calorifier flow (> 60°C) and return (> 50°C) water temperatures',
-      'Sentinel tap temperatures measured after 1 minute (cold < 20°C) and 1 minute (hot > 50°C)',
-      'Quarterly descaling of showerheads and aerator nozzles across multi-tenant amenities',
+      'Intumescent fire collar and acoustic batt fire-stopping integrity at floor slab penetrations',
+      'Trace heating operation on exposed cold water supply pipes (frost protection)',
+      'Dead-leg identification on disused branch pipework (Legionella risk prevention)',
+      'Thermal insulation integrity on chilled water and domestic hot water pipework',
     ],
     commonDefects: [
-      'Cold water tank thermal gain due to uninsulated supply pipework in warm plantrooms',
-      'Calorifier temperature stratification allowing lower zones to fall below 50°C',
-      'Little-used outlets forming stagnant dead-legs without weekly flushing regimes',
+      'Damaged fire stopping following tenant fit-out contractors running data cabling',
+      'Uninsulated cold water pipework causing condensation dripping onto lower electrical trays',
+      'Stagnant dead-legs created after removal of kitchen tea points during layout reconfigurations',
     ],
-    recommendedInterval: 'Monthly temperature logging / 6-Monthly tank inspection / Annual calorifier purge',
-    fieldAction: 'Record calibrated digital immersion probe temperatures directly into the CAFM compliance register.',
+    statutoryStandard: 'ACOP L8 / HSG274 · Building Safety Act (Fire Separation)',
+    recommendedInterval: '6-Monthly fire barrier inspection + monthly water hygiene temperature checks',
+    fieldAction: 'Photograph any non-compliant compartmentation breaches and log urgent remedial work order under Building Safety Act compliance records.',
   },
 ];
 
 export function TemplateBuildingWalk({ route, content }: TemplateProps) {
-  const [activeTab, setActiveTab] = useState<string>('walk-boilerhouse');
+  const [activeTab, setActiveTab] = useState<string>('chiller-plantroom');
   const activeWalk = WALKTHROUGHS.find((w) => w.id === activeTab) || WALKTHROUGHS[0];
 
-  const breadcrumbs = content.breadcrumbs || [
+  const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Resources', url: '/resources' },
-    { name: 'Building Walkthroughs', url: '/building-walk' },
+    { name: 'Building Walk', url: '/building-walk' },
   ];
 
   return (
-    <div className="bg-[#080e18] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-pink-500 selection:text-white">
-      <Header solid />
+    <div className="bg-[#060A14] text-white min-h-screen flex flex-col font-sans selection:bg-brand-pink selection:text-white">
+      <Header />
+
       <main id="main" className="flex-grow">
-        {/* 1. RESOURCE HERO */}
+        {/* ========================================================================= */}
+        {/* 1. RESOURCE HERO (85svh)                                                 */}
+        {/* ========================================================================= */}
         <ResourceHero
           breadcrumbs={breadcrumbs}
           category="Engineering Field Manual"
@@ -164,21 +149,26 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
           technicalTier="Level 2 · Practical Engineering"
           audience="Property Managers, Building Owners &amp; Site Teams"
           standard="SFG20 &amp; CIBSE Maintenance Guides"
+          imageSrc="/images/editorial/entirefm-client-review-2000w.webp"
         />
 
-        {/* 2. TRUST BAR */}
         <TrustBar />
 
-        {/* 3. MAIN INTERACTIVE FIELD MANUAL */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="max-w-5xl mx-auto space-y-12">
+        {/* ========================================================================= */}
+        {/* 2. MAIN INTERACTIVE FIELD MANUAL                                          */}
+        {/* ========================================================================= */}
+        <div className="container-custom py-20">
+          <div className="max-w-5xl mx-auto space-y-16">
             
             {/* Header intro */}
-            <div className="text-center max-w-3xl mx-auto">
-              <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-2">
-                On-Site Engineering Inspection Protocols
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-extralight text-white mb-4">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-brand-pink" />
+                <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
+                  On-Site Inspection Protocols
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extralight text-white tracking-tight">
                 Interactive Plantroom &amp; Asset Survey Manual
               </h2>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-light">
@@ -194,21 +184,21 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
                   <button
                     key={w.id}
                     onClick={() => setActiveTab(w.id)}
-                    className={`p-4 rounded-xl text-left border transition-all flex flex-col justify-between ${
+                    className={`p-5 rounded-sm text-left border transition-all flex flex-col justify-between space-y-4 shadow-sm ${
                       isSelected
-                        ? 'bg-pink-950/70 border-pink-500 text-pink-300 shadow-xl shadow-pink-500/10'
-                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:bg-slate-800/80 hover:text-slate-200'
+                        ? 'bg-brand-carbon border-brand-pink text-white shadow-elevated'
+                        : 'bg-brand-carbon/60 border-brand-edge-dark text-slate-400 hover:bg-brand-carbon hover:text-slate-200'
                     }`}
                   >
-                    <div>
-                      <span className={`text-[10px] font-mono uppercase tracking-wider block mb-1 ${isSelected ? 'text-pink-400 font-light' : 'text-slate-500'}`}>
+                    <div className="space-y-1.5">
+                      <span className={`text-[10px] uppercase font-medium tracking-wider block ${isSelected ? 'text-brand-pink' : 'text-slate-500'}`}>
                         {w.focusArea}
                       </span>
-                      <h3 className="text-xs sm:text-sm font-normal text-white leading-snug line-clamp-2">
+                      <h3 className="text-xs sm:text-sm font-light text-white leading-snug line-clamp-2">
                         {w.title.replace('The ', '').replace(' Walkthrough', '').replace(' Survey', '')}
                       </h3>
                     </div>
-                    <span className="text-[10px] font-mono text-slate-500 mt-3 block">
+                    <span className="text-[10px] text-slate-500 font-light block">
                       {w.locationType.split('/')[0]}
                     </span>
                   </button>
@@ -217,68 +207,68 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
             </div>
 
             {/* Active Walk Showcase Card */}
-            <div className="p-6 sm:p-10 rounded-2xl bg-slate-950 border border-slate-800 shadow-2xl space-y-8">
-              {/* Card Header & Photo */}
+            <div className="p-8 sm:p-12 rounded-sm bg-brand-carbon border border-brand-edge-dark shadow-elevated space-y-8">
+              
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-6 space-y-4">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-700 text-xs font-mono font-light">
+                  <div className="flex items-center gap-3">
+                    <span className="px-3 py-1 rounded-sm bg-brand-pink/10 text-brand-pink border border-brand-pink/30 text-xs font-medium uppercase tracking-wider">
                       {activeWalk.focusArea}
                     </span>
-                    <span className="text-xs font-mono text-slate-400">
+                    <span className="text-xs text-slate-400 font-light">
                       {activeWalk.locationType}
                     </span>
                   </div>
 
-                  <h3 className="text-2xl sm:text-3xl font-extralight text-white leading-tight">
+                  <h3 className="text-2xl sm:text-3xl font-light text-white leading-tight">
                     {activeWalk.title}
                   </h3>
 
-                  <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
+                  <p className="text-sm text-slate-300 font-light leading-relaxed">
                     {activeWalk.summary}
                   </p>
 
-                  <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 text-xs font-mono text-slate-400 space-y-1">
+                  <div className="p-4 bg-black/40 rounded-sm border border-brand-edge-dark text-xs text-slate-300 space-y-1.5 font-light">
                     <div>
-                      <span className="text-slate-500">Statutory Standard:</span>{' '}
-                      <strong className="text-pink-300">{activeWalk.statutoryStandard}</strong>
+                      <span className="text-slate-400 font-medium">Statutory Standard: </span>
+                      <span className="text-brand-pink">{activeWalk.statutoryStandard}</span>
                     </div>
                     <div>
-                      <span className="text-slate-500">Recommended Interval:</span>{' '}
-                      <strong className="text-slate-200">{activeWalk.recommendedInterval}</strong>
+                      <span className="text-slate-400 font-medium">Recommended Interval: </span>
+                      <span className="text-white">{activeWalk.recommendedInterval}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="lg:col-span-6 relative aspect-[16/10] rounded-xl overflow-hidden border border-slate-800 bg-slate-900 shadow-xl group">
+                <div className="lg:col-span-6 relative aspect-[16/10] rounded-sm overflow-hidden border border-brand-edge-dark bg-slate-950 shadow-elevated">
                   <Image
                     src={activeWalk.imageSrc}
                     alt={activeWalk.imageAlt}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
-                  <div className="absolute bottom-3 left-3 right-3 p-2 bg-slate-950/90 backdrop-blur-md rounded border border-slate-700 text-[10px] font-mono text-slate-300 flex items-center justify-between">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 p-2 bg-black/80 backdrop-blur-md rounded-sm border border-white/10 text-[11px] text-slate-300 flex items-center justify-between font-light">
                     <span>EntireFM Certified Field Survey</span>
-                    <span className="text-pink-400 font-light">VERIFIED ON SITE</span>
+                    <span className="text-brand-pink font-medium uppercase tracking-wider">Verified On Site</span>
                   </div>
                 </div>
               </div>
 
               {/* Checkpoints & Common Defects Split */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-slate-800">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-brand-edge-dark">
                 {/* Key Inspection Points */}
-                <div className="p-6 rounded-xl bg-slate-900 border border-slate-800 space-y-4">
+                <div className="p-6 rounded-sm bg-black/30 border border-brand-edge-dark space-y-4">
                   <div className="flex items-center gap-2 text-emerald-400">
                     <CheckCircle2 className="w-4 h-4" />
-                    <h4 className="font-normal text-sm uppercase tracking-wider text-white">
+                    <h4 className="font-medium text-xs uppercase tracking-wider text-white">
                       Mandatory Engineer Checkpoints
                     </h4>
                   </div>
                   <ul className="space-y-3">
                     {activeWalk.keyCheckpoints.map((cp, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
                         <span>{cp}</span>
                       </li>
@@ -287,16 +277,16 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
                 </div>
 
                 {/* Common Defects Discovered */}
-                <div className="p-6 rounded-xl bg-amber-950/20 border border-amber-500/30 space-y-4">
+                <div className="p-6 rounded-sm bg-black/30 border border-brand-edge-dark space-y-4">
                   <div className="flex items-center gap-2 text-amber-400">
                     <AlertTriangle className="w-4 h-4" />
-                    <h4 className="font-normal text-sm uppercase tracking-wider text-white">
-                      Common Hidden Defects Found on Site
+                    <h4 className="font-medium text-xs uppercase tracking-wider text-white">
+                      Common Defects Found on Site
                     </h4>
                   </div>
                   <ul className="space-y-3">
                     {activeWalk.commonDefects.map((df, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0" />
                         <span>{df}</span>
                       </li>
@@ -306,18 +296,18 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
               </div>
 
               {/* Field Action Directive */}
-              <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 flex items-start gap-3 text-xs font-mono text-slate-300">
-                <HardHat className="w-4 h-4 text-pink-400 shrink-0 mt-0.5" />
+              <div className="p-4 rounded-sm bg-black/40 border border-brand-edge-dark flex items-start gap-3 text-xs text-slate-300 font-light">
+                <HardHat className="w-4 h-4 text-brand-pink shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-pink-400 font-light uppercase tracking-wider block mb-0.5">
-                    Field Engineering Procedure:
+                  <span className="text-brand-pink font-medium uppercase tracking-wider block mb-0.5">
+                    Field Engineering Protocol:
                   </span>
                   <span>{activeWalk.fieldAction}</span>
                 </div>
               </div>
             </div>
 
-            {/* Annotated Rooftop Survey Photo Break */}
+            {/* Annotated Technical Image Break */}
             <AnnotatedTechnicalImage
               imageSrc="/images/editorial/entirefm-sheffield-rooftop-survey-1920w.webp"
               imageAlt="Two EntireFM engineering staff conducting structural and HVAC plant survey on commercial rooftop"
@@ -326,12 +316,13 @@ export function TemplateBuildingWalk({ route, content }: TemplateProps) {
           </div>
         </div>
 
-        {/* 4. CONVERSION PROPOSAL SECTION */}
+        {/* 3. CONVERSION PROPOSAL SECTION */}
         <ProposalSection
           headline="Schedule a Comprehensive Building Asset Survey"
           subheadline="Book an on-site mechanical, electrical, and statutory compliance walk with our certified engineering surveyors for your commercial property."
         />
       </main>
+
       <Footer />
     </div>
   );

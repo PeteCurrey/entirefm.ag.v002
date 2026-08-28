@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Check, X, Shield, Cpu, User, AlertTriangle } from 'lucide-react';
+import { Cpu, User } from 'lucide-react';
 
 interface ComparisonVisualProps {
   type?: 'ai-vs-human' | 'ppm-vs-pdm' | 'legacy-vs-entirecafm' | 'custom';
@@ -44,69 +46,72 @@ export function ComparisonVisual({
     ];
 
     return (
-      <div className="my-12 p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl">
-        <div className="max-w-3xl mb-8">
-          <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-light block mb-1">
-            Safety & Operational Boundary
-          </span>
-          <h3 className="text-xl sm:text-2xl font-extralight text-white mb-2">
+      <div className="my-12 p-8 sm:p-12 bg-brand-carbon/60 border border-brand-edge-dark rounded-sm text-white font-sans">
+        <div className="max-w-3xl mb-8 space-y-2">
+          <div className="inline-flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-brand-pink" />
+            <span className="text-xs uppercase tracking-widest text-brand-pink font-medium">
+              Safety &amp; Operational Boundary
+            </span>
+          </div>
+          <h3 className="text-2xl sm:text-4xl font-extralight text-white tracking-tight">
             {title}
           </h3>
-          <p className="text-xs sm:text-sm text-slate-400">
+          <p className="text-sm text-slate-300 font-light leading-relaxed">
             {subtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* AI Can Column */}
-          <div className="p-6 rounded-xl bg-pink-950/15 border border-pink-500/30 flex flex-col justify-between">
+          <div className="p-8 rounded-sm bg-brand-carbon border border-brand-pink/30 flex flex-col justify-between space-y-6">
             <div>
-              <div className="flex items-center justify-between gap-2 mb-4 border-b border-pink-500/20 pb-3">
-                <div className="flex items-center gap-2 text-pink-400">
+              <div className="flex items-center justify-between gap-2 mb-6 border-b border-brand-edge-dark pb-4">
+                <div className="flex items-center gap-2.5 text-brand-pink">
                   <Cpu className="w-4 h-4" />
-                  <h4 className="font-light text-base text-white">AI Capabilities</h4>
+                  <h4 className="font-light text-lg text-white">AI Capabilities</h4>
                 </div>
-                <span className="text-[10px] font-mono font-light uppercase tracking-wider px-2 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-700">
+                <span className="text-[10px] font-medium uppercase tracking-wider px-2.5 py-1 rounded-sm bg-brand-pink/10 text-brand-pink border border-brand-pink/30">
                   Algorithms &amp; Models
                 </span>
               </div>
-              <ul className="space-y-3 text-xs sm:text-sm text-slate-300">
+              <ul className="space-y-3.5 text-xs sm:text-sm text-slate-200 font-light">
                 {aiCapabilities.map((cap, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-pink-400 mt-2 shrink-0" />
+                  <li key={idx} className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-pink mt-1.5 shrink-0" />
                     <span>{cap}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="mt-6 pt-3 border-t border-pink-500/20 text-[11px] font-mono text-pink-300/80">
-              Role: Triage, calculation, pattern recognition, and administrative speed.
+            <div className="pt-4 border-t border-brand-edge-dark text-xs text-slate-400 font-light">
+              <strong className="text-white font-medium">Role:</strong> Triage, calculation, pattern recognition, and administrative velocity.
             </div>
           </div>
 
           {/* Humans Must Column */}
-          <div className="p-6 rounded-xl bg-blue-950/15 border border-blue-500/30 flex flex-col justify-between">
+          <div className="p-8 rounded-sm bg-brand-carbon border border-blue-500/30 flex flex-col justify-between space-y-6">
             <div>
-              <div className="flex items-center justify-between gap-2 mb-4 border-b border-blue-500/20 pb-3">
-                <div className="flex items-center gap-2 text-blue-400">
+              <div className="flex items-center justify-between gap-2 mb-6 border-b border-brand-edge-dark pb-4">
+                <div className="flex items-center gap-2.5 text-blue-400">
                   <User className="w-4 h-4" />
-                  <h4 className="font-light text-base text-white">Human Engineering Mandate</h4>
+                  <h4 className="font-light text-lg text-white">Human Engineering Mandate</h4>
                 </div>
-                <span className="text-[10px] font-mono font-light uppercase tracking-wider px-2 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-700">
+                <span className="text-[10px] font-medium uppercase tracking-wider px-2.5 py-1 rounded-sm bg-blue-950 text-blue-300 border border-blue-700">
                   Certified Engineers
                 </span>
               </div>
-              <ul className="space-y-3 text-xs sm:text-sm text-slate-300">
+              <ul className="space-y-3.5 text-xs sm:text-sm text-slate-200 font-light">
                 {humanMandates.map((man, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0" />
+                  <li key={idx} className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" />
                     <span>{man}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="mt-6 pt-3 border-t border-blue-500/20 text-[11px] font-mono text-blue-300/80">
-              Role: Physical execution, statutory safety compliance, and legal liability.
+            <div className="pt-4 border-t border-brand-edge-dark text-xs text-slate-400 font-light">
+              <strong className="text-white font-medium">Role:</strong> Physical execution, statutory safety compliance, and legal liability.
             </div>
           </div>
         </div>
@@ -116,37 +121,37 @@ export function ComparisonVisual({
 
   // Custom / General 2-column comparison
   return (
-    <div className="my-12 p-6 sm:p-8 bg-slate-950 border border-slate-800 rounded-2xl">
-      <div className="max-w-2xl mb-8">
-        <h3 className="text-xl sm:text-2xl font-extralight text-white mb-2">{title}</h3>
-        <p className="text-xs sm:text-sm text-slate-400">{subtitle}</p>
+    <div className="my-12 p-8 sm:p-12 bg-brand-carbon/60 border border-brand-edge-dark rounded-sm font-sans">
+      <div className="max-w-2xl mb-8 space-y-2">
+        <h3 className="text-2xl sm:text-3xl font-extralight text-white tracking-tight">{title}</h3>
+        <p className="text-sm text-slate-300 font-light leading-relaxed">{subtitle}</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="p-6 rounded-xl bg-slate-900 border border-slate-800">
-          <div className="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
-            <h4 className="font-light text-base text-white">{leftTitle || 'Method A'}</h4>
-            {leftBadge && <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">{leftBadge}</span>}
+        <div className="p-8 rounded-sm bg-brand-carbon border border-brand-edge-dark">
+          <div className="flex items-center justify-between mb-4 border-b border-brand-edge-dark pb-3">
+            <h4 className="font-light text-lg text-white">{leftTitle || 'Method A'}</h4>
+            {leftBadge && <span className="text-[10px] uppercase tracking-wider font-medium px-2 py-0.5 rounded-sm bg-white/10 text-slate-300">{leftBadge}</span>}
           </div>
-          <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300">
+          <ul className="space-y-3 text-xs sm:text-sm text-slate-300 font-light">
             {(leftPoints || []).map((pt, idx) => (
-              <li key={idx} className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2 shrink-0" />
+              <li key={idx} className="flex items-start gap-2.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-1.5 shrink-0" />
                 <span>{pt}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="p-6 rounded-xl bg-pink-950/20 border border-pink-500/30">
-          <div className="flex items-center justify-between mb-4 border-b border-pink-500/20 pb-3">
-            <h4 className="font-light text-base text-white">{rightTitle || 'Method B'}</h4>
-            {rightBadge && <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-700">{rightBadge}</span>}
+        <div className="p-8 rounded-sm bg-brand-carbon border border-brand-pink/30">
+          <div className="flex items-center justify-between mb-4 border-b border-brand-edge-dark pb-3">
+            <h4 className="font-light text-lg text-white">{rightTitle || 'Method B'}</h4>
+            {rightBadge && <span className="text-[10px] uppercase tracking-wider font-medium px-2 py-0.5 rounded-sm bg-brand-pink/10 text-brand-pink border border-brand-pink/30">{rightBadge}</span>}
           </div>
-          <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300">
+          <ul className="space-y-3 text-xs sm:text-sm text-slate-300 font-light">
             {(rightPoints || []).map((pt, idx) => (
-              <li key={idx} className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-pink-400 mt-2 shrink-0" />
+              <li key={idx} className="flex items-start gap-2.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-pink mt-1.5 shrink-0" />
                 <span>{pt}</span>
               </li>
             ))}
