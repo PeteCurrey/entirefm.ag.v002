@@ -31,9 +31,14 @@ export function GaussianSplatViewer({
   className = '',
   autoLoad = true,
 }: GaussianSplatViewerProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  // outerRef — outer wrapper div (for IntersectionObserver + fullscreen)
+  const outerRef = useRef<HTMLDivElement>(null);
+  // canvasRef — inner div used as the GaussianSplats3D rootElement
+  // Kept isolated from overlay children so offsetWidth/offsetHeight is correct
+  const canvasRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<any>(null);
   const isInitializedRef = useRef<boolean>(false);
+  const rafRef = useRef<number | null>(null);
 
   const [loadingState, setLoadingState] = useState<'idle' | 'connecting' | 'downloading' | 'processing' | 'ready' | 'error'>('idle');
   const [downloadProgress, setDownloadProgress] = useState<number>(0);
@@ -61,36 +66,55 @@ export function GaussianSplatViewer({
 
   // Initialize Viewer
   const initViewer = useCallback(async () => {
-    if (isInitializedRef.current || !containerRef.current || !isWebGlSupported) return;
+    if (isInitializedRef.current || !canvasRef.current || !isWebGlSupported) return;
     isInitializedRef.current = true;
+
+    // Wait for one rAF so the browser has painted layout and offsetWidth is real
+    await new Promise<void>((resolve) => {
+      rafRef.current = requestAnimationFrame(() => {
+        requestAnimationFrame(() => resolve());
+      });
+    });
+
+    if (!canvasRef.current) return;
+
+    // Sanity check: ensure the canvas root has real pixel dimensions before continuing
+    // If still 0, something is wrong with the parent layout — abort cleanly
+    const rootW = canvasRef.current.offsetWidth;
+    const rootH = canvasRef.current.offsetHeight;
+    if (rootW < 10 || rootH < 10) {
+      // Retry once more after a short delay to give layout more time
+      await new Promise<void>((r) => setTimeout(r, 200));
+      if (!canvasRef.current) return;
+      if (canvasRef.current.offsetWidth < 10) {
+        isInitializedRef.current = false;
+        return;
+      }
+    }
 
     try {
       setLoadingState('connecting');
       setDownloadProgress(10);
 
-      // Dynamic import of GaussianSplats3D library
       const GaussianSplats3D = await import('@mkkellogg/gaussian-splats-3d');
 
-      if (!containerRef.current) return;
+      if (!canvasRef.current) return;
 
-      // Ensure root element has minimum dimensions before initializing
-      const width = containerRef.current.clientWidth || 800;
-      const height = containerRef.current.clientHeight || 500;
-
-      // Instantiate Viewer with robust cross-browser settings and full SH Degree 1
+      // Viewer rootElement = canvasRef (the isolated inner div, not the outer wrapper)
+      // This ensures offsetWidth/offsetHeight used by getRenderDimensions() is correct
       const viewer = new GaussianSplats3D.Viewer({
-        rootElement: containerRef.current,
+        rootElement: canvasRef.current,
         cameraUp: [0, 1, 0],
         initialCameraPosition: initialCameraPosition,
         initialCameraLookAt: initialCameraLookAt,
         selfDrivenMode: true,
         useBuiltInControls: true,
-        ignoreDevicePixelRatio: false,
-        halfPrecisionCovariancesOnGPU: false, // Standard 32-bit floats for 100% WebGL compatibility
-        gpuAcceleratedSort: false,           // CPU WASM SIMD sort: 100% reliable across all devices
-        sharedMemoryForWorkers: false,       // Allows execution without COOP/COEP isolation headers
-        integerBasedSort: false,             // High precision sorting
-        sphericalHarmonicsDegree: 1,         // Full SH degree 1 view-dependent reflections & sharpness
+        ignoreDevicePixelRatio: false,          // Use native DPR for crisp rendering on Retina/HiDPI
+        halfPrecisionCovariancesOnGPU: false,   // 32-bit floats: 100% WebGL compatibility
+        gpuAcceleratedSort: false,              // CPU WASM SIMD sort: reliable across all devices
+        sharedMemoryForWorkers: false,          // No COOP/COEP headers required
+        integerBasedSort: false,                // High-precision depth sorting
+        sphericalHarmonicsDegree: 1,            // SH degree 1: view-dependent colour & reflections
         splatRenderMode: GaussianSplats3D.SplatRenderMode.ThreeD,
         sceneRevealMode: GaussianSplats3D.SceneRevealMode.Instant,
         dynamicScene: false,
@@ -104,53 +128,53 @@ export function GaussianSplatViewer({
 
       setLoadingState('downloading');
 
-      // Load KSplat asset
       await viewer.addSplatScene(splatUrl, {
         format: GaussianSplats3D.SceneFormat.KSplat,
-        rotation: [0, 0, 0, 1], // Standard coordinate alignment
+        rotation: [0, 0, 0, 1],
         position: [0, 0, 0],
         scale: [1, 1, 1],
         splatAlphaRemovalThreshold: 1,
-        showLoadingUI: false, // Bespoke EntireFM progress UI
+        showLoadingUI: false,
         progressiveLoad: false,
         onProgress: (percentComplete: number) => {
           if (typeof percentComplete === 'number' && !isNaN(percentComplete) && isFinite(percentComplete)) {
             const clamped = Math.max(5, Math.min(99, Math.round(percentComplete)));
             setDownloadProgress(clamped);
-            if (clamped >= 95) {
-              setLoadingState('processing');
-            }
+            if (clamped >= 95) setLoadingState('processing');
           } else {
-            // Smooth progress ticker fallback when Content-Length is omitted by server
             setDownloadProgress((prev) => {
               const cur = typeof prev === 'number' && !isNaN(prev) ? prev : 10;
-              const next = Math.min(92, cur + 15);
-              return next;
+              return Math.min(92, cur + 15);
             });
           }
         },
       });
 
-      // Start render loop
+      // Start the render loop — the library's internal ResizeObserver on rootElement handles sizing
       viewer.start();
 
-      // Sync renderer size & camera aspect ratio immediately
-      if (containerRef.current && viewer.renderer && viewer.camera) {
-        const w = containerRef.current.clientWidth || width;
-        const h = containerRef.current.clientHeight || height;
-        viewer.renderer.setSize(w, h);
-        if (viewer.camera.isPerspectiveCamera) {
-          viewer.camera.aspect = w / h;
-          viewer.camera.updateProjectionMatrix();
-        }
-        viewer.forceRenderNextFrame();
-      }
+      // Pulse a resize on the next rAF so the library's ResizeObserver fires once more
+      // with the post-load final container dimensions (loading overlay is still covering it)
+      requestAnimationFrame(() => {
+        if (!canvasRef.current || !viewerRef.current) return;
+        const ev = new Event('resize');
+        // Trigger the library's ResizeObserver by dispatching a synthetic resize
+        // The cleanest way: temporarily resize then restore
+        const origWidth = canvasRef.current.style.width;
+        canvasRef.current.style.width = (canvasRef.current.offsetWidth + 1) + 'px';
+        requestAnimationFrame(() => {
+          if (!canvasRef.current) return;
+          canvasRef.current.style.width = origWidth;
+          viewerRef.current?.forceRenderNextFrame?.();
+        });
+      });
 
       setDownloadProgress(100);
       setLoadingState('ready');
 
     } catch (err: any) {
       console.error('GaussianSplatViewer load error:', err);
+      isInitializedRef.current = false;
       setLoadingState('error');
       setErrorMessage(err?.message || 'Failed to load EntireFM 3D asset.');
     }
@@ -158,7 +182,7 @@ export function GaussianSplatViewer({
 
   // Lazy load when near viewport via IntersectionObserver
   useEffect(() => {
-    if (!autoLoad || !containerRef.current) return;
+    if (!autoLoad || !outerRef.current) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -170,24 +194,21 @@ export function GaussianSplatViewer({
               viewerRef.current.start();
             }
           } else if (viewerRef.current && isInitializedRef.current) {
-            // Pause render loop when offscreen to conserve GPU resources
             viewerRef.current.stop();
           }
         });
       },
-      { threshold: 0.05, rootMargin: '250px' }
+      { threshold: 0.05, rootMargin: '200px' }
     );
 
-    observer.observe(containerRef.current);
-
-    return () => {
-      observer.disconnect();
-    };
+    observer.observe(outerRef.current);
+    return () => observer.disconnect();
   }, [autoLoad, initViewer]);
 
   // Clean up on component unmount
   useEffect(() => {
     return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       if (viewerRef.current) {
         try {
           viewerRef.current.stop();
@@ -201,34 +222,21 @@ export function GaussianSplatViewer({
     };
   }, []);
 
-  // Handle Fullscreen
+  // Handle Fullscreen — trigger a resize so the library resizes the canvas
   const toggleFullscreen = useCallback(() => {
-    if (!containerRef.current) return;
-
+    if (!outerRef.current) return;
     if (!document.fullscreenElement) {
-      containerRef.current.requestFullscreen?.().then(() => {
-        setIsFullscreen(true);
-      }).catch(() => {});
+      outerRef.current.requestFullscreen?.().catch(() => {});
     } else {
-      document.exitFullscreen?.().then(() => {
-        setIsFullscreen(false);
-      }).catch(() => {});
+      document.exitFullscreen?.().catch(() => {});
     }
   }, []);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
-      if (viewerRef.current && containerRef.current) {
-        const w = containerRef.current.clientWidth;
-        const h = containerRef.current.clientHeight;
-        viewerRef.current.renderer?.setSize(w, h);
-        if (viewerRef.current.camera?.isPerspectiveCamera) {
-          viewerRef.current.camera.aspect = w / h;
-          viewerRef.current.camera.updateProjectionMatrix();
-        }
-        viewerRef.current.forceRenderNextFrame();
-      }
+      // Let the library's own ResizeObserver handle canvas resize
+      viewerRef.current?.forceRenderNextFrame?.();
     };
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
@@ -247,11 +255,13 @@ export function GaussianSplatViewer({
         viewer.camera.position.set(initialCameraPosition[0], initialCameraPosition[1], initialCameraPosition[2]);
         viewer.camera.up.set(0, 1, 0);
         viewer.camera.lookAt(initialCameraLookAt[0], initialCameraLookAt[1], initialCameraLookAt[2]);
-        if (viewer.camera.isPerspectiveCamera && containerRef.current) {
-          const w = containerRef.current.clientWidth || 800;
-          const h = containerRef.current.clientHeight || 500;
-          viewer.camera.aspect = w / h;
-          viewer.camera.updateProjectionMatrix();
+        if (viewer.camera.isPerspectiveCamera && canvasRef.current) {
+          const w = canvasRef.current.offsetWidth;
+          const h = canvasRef.current.offsetHeight;
+          if (w > 0 && h > 0) {
+            viewer.camera.aspect = w / h;
+            viewer.camera.updateProjectionMatrix();
+          }
         }
       }
       viewer.forceRenderNextFrame();
@@ -266,11 +276,18 @@ export function GaussianSplatViewer({
 
   return (
     <div
-      ref={containerRef}
+      ref={outerRef}
       className={`relative w-full min-h-[420px] aspect-[16/10] sm:aspect-[16/9] bg-[#060A14] rounded-sm overflow-hidden border border-white/15 shadow-2xl select-none group font-sans ${className}`}
       tabIndex={0}
       aria-label={`${title} - Interactive EntireFM 3D drone reality capture model. Use mouse to orbit and scroll to zoom.`}
     >
+      {/* ── Inner canvas root (isolated from overlay children so offsetWidth is correct) ── */}
+      <div
+        ref={canvasRef}
+        className="absolute inset-0"
+        style={{ zIndex: 0 }}
+      />
+
       {/* ── Overlay: Top Left Metadata ──────────────────────────────────── */}
       <div className="absolute top-4 left-4 z-20 pointer-events-none flex flex-col gap-1">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-brand-void/85 backdrop-blur-md border border-white/15 shadow-md">
@@ -377,7 +394,6 @@ export function GaussianSplatViewer({
             </p>
           </div>
 
-          {/* Luxury Thin Progress Bar */}
           <div className="w-full max-w-xs h-1 bg-white/10 rounded-full overflow-hidden">
             <div 
               className="h-full bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-electric transition-all duration-300 ease-out"
@@ -406,7 +422,10 @@ export function GaussianSplatViewer({
           <button
             onClick={() => {
               isInitializedRef.current = false;
-              initViewer();
+              setLoadingState('idle');
+              setErrorMessage(null);
+              setDownloadProgress(0);
+              setTimeout(() => initViewer(), 100);
             }}
             className="px-4 py-2 rounded-sm bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-medium text-white transition-colors cursor-pointer"
           >
