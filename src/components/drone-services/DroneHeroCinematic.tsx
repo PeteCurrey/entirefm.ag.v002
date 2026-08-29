@@ -3,7 +3,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, ChevronDown, Volume2, VolumeX, Play, Pause } from 'lucide-react';
+import { ArrowRight, Volume2, VolumeX, Play, Pause } from 'lucide-react';
+import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 
 export function DroneHeroCinematic() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -36,13 +37,19 @@ export function DroneHeroCinematic() {
     setIsMuted(!isMuted);
   };
 
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services' },
+    { name: 'Drone Services', url: '/services/drone-services' },
+  ];
+
   return (
     <section 
       aria-label="Drone Services Cinematic Hero"
-      className="relative min-h-[calc(100svh-80px)] lg:min-h-[calc(100dvh-80px)] flex items-center justify-center bg-brand-void text-white overflow-hidden"
+      className="on-dark relative isolate flex min-h-[100svh] min-h-[36rem] sm:min-h-[42rem] lg:min-h-screen w-full flex-col justify-between overflow-hidden bg-brand-void lg:[height:100svh]"
     >
       {/* Full-Bleed Background Video */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute inset-0 -z-20 overflow-hidden">
         {!prefersReducedMotion ? (
           <video
             ref={videoRef}
@@ -51,7 +58,7 @@ export function DroneHeroCinematic() {
             muted={isMuted}
             playsInline
             poster="/images/drone/hero_poster.jpg"
-            className="w-full h-full object-cover object-center filter brightness-[0.60] contrast-[1.1] scale-105 transition-transform duration-1000"
+            className="w-full h-full object-cover object-center filter brightness-[0.55] contrast-[1.1] scale-105 transition-transform duration-1000"
           >
             <source src="/video/drone/hero.mp4" type="video/mp4" />
           </video>
@@ -61,18 +68,33 @@ export function DroneHeroCinematic() {
             alt="Commercial building aerial survey"
             fill
             priority
-            className="object-cover object-center filter brightness-[0.60] contrast-[1.1]"
+            className="object-cover object-center filter brightness-[0.55] contrast-[1.1]"
             sizes="100vw"
           />
         )}
-
-        {/* Elegant Architectural Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-void via-brand-void/40 to-brand-void/70 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_rgba(6,10,20,0.6)_100%)] pointer-events-none" />
       </div>
 
+      {/* Multi-stop dark gradient overlays */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            'linear-gradient(96deg, rgba(6,10,20,0.96) 0%, rgba(6,10,20,0.88) 42%, rgba(6,10,20,0.65) 78%, rgba(6,10,20,0.45) 100%)',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 -z-10 h-36"
+        style={{ background: 'linear-gradient(to top, rgba(6,10,20,1), transparent)' }}
+      />
+      <div
+        aria-hidden="true"
+        className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-30"
+      />
+
       {/* Video Control Bar */}
-      <div className="absolute top-24 right-6 sm:right-12 z-20 hidden sm:flex items-center gap-2 bg-brand-void/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-xs text-slate-300">
+      <div className="absolute top-[calc(var(--header-h)+0.5rem)] right-4 sm:right-8 lg:right-12 z-20 hidden sm:flex items-center gap-2 bg-brand-void/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-xs text-slate-300">
         <button
           onClick={togglePlay}
           className="hover:text-white transition-colors p-1"
@@ -90,82 +112,91 @@ export function DroneHeroCinematic() {
         </button>
       </div>
 
-      {/* Main Hero Content */}
-      <div className="container-custom relative z-10 w-full pt-28 pb-20 sm:py-32 flex flex-col justify-center min-h-[85vh]">
-        <div className="max-w-4xl space-y-8">
+      {/* Breadcrumbs offset past header — Exactly matching M&E page */}
+      <div className="relative pt-[calc(var(--header-h)+0.25rem)]">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
+      {/* Main Hero Content — Aligned to container-wide grid */}
+      <div className="container-wide relative flex flex-1 flex-col justify-center py-6 sm:py-8 pb-10 sm:pb-14">
+        <div className="max-w-3xl">
           
-          {/* Refined Eyebrow */}
-          <div className="inline-flex items-center gap-3">
-            <span className="h-2 w-2 rounded-full bg-brand-pink" />
-            <span className="text-xs uppercase tracking-[0.25em] font-medium text-slate-300">
+          {/* Eyebrow badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/[0.07] border border-white/15 backdrop-blur-sm mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-pink animate-pulse" />
+            <span className="text-[10px] sm:text-[11px] font-normal uppercase tracking-wider text-brand-pink-light">
               AERIAL ASSET INTELLIGENCE
             </span>
           </div>
 
           {/* Primary Editorial Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight tracking-[-0.03em] text-white leading-[1.08]">
-            Drone Inspection, <br />
-            Surveying &amp; <br />
-            <span className="font-light text-hero-pink">
+          <h1 className="text-display-xl text-white">
+            Drone Inspection, Surveying &amp;{' '}
+            <span className="text-hero-pink">
               Asset Intelligence.
             </span>
           </h1>
 
           {/* Body Narrative */}
-          <p className="text-lg sm:text-xl text-slate-200 font-light leading-relaxed max-w-2xl">
+          <p className="mt-4 max-w-2xl text-sm sm:text-base lg:text-[1.0625rem] leading-relaxed text-brand-mist/85 font-light">
             Commercial aerial inspection connected directly to the engineers, surveyors, and trade specialists who maintain, repair, and manage the building.
           </p>
 
           {/* Action CTAs */}
-          <div className="flex flex-wrap items-center gap-4 pt-4">
+          <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link
               href="/tools/drone-inspection-planner"
-              className="inline-flex items-center justify-center gap-2.5 rounded-sm bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-magenta px-8 py-4 text-sm font-medium text-white shadow-elevated hover:shadow-glow-pink hover:scale-[1.02] transition-all duration-300 group"
+              className="btn-hero-pink w-full sm:w-auto text-center justify-center"
             >
               <span>Plan a Drone Inspection</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="btn-arrow h-4 w-4" />
             </Link>
 
-            <Link
+            <a
               href="#capabilities"
-              className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/25 bg-white/10 backdrop-blur-md px-7 py-4 text-sm font-normal text-white hover:bg-white/20 hover:border-white/40 transition-all duration-200"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#capabilities')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="btn-ghost-light w-full sm:w-auto text-center justify-center"
             >
               <span>Explore Capabilities</span>
-            </Link>
+            </a>
           </div>
-
-          {/* Understated Proof Points */}
-          <div className="pt-8 border-t border-white/15 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs tracking-wider text-slate-300 font-light">
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-              Roof &amp; Façade Inspections
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-              Radiometric Thermal Surveys
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-              Orthomosaic GIS &amp; Topography
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-              Construction Milestones
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-              Photogrammetry &amp; Digital Twins
-            </span>
-          </div>
-
         </div>
+
+        {/* Proof / Service Facts Row (Glass Cards matching M&E page design) */}
+        <dl className="mt-8 grid max-w-5xl grid-cols-1 gap-2.5 sm:grid-cols-3 lg:gap-3.5">
+          <div className="group rounded-sm border border-white/[0.09] bg-white/[0.06] p-3.5 sm:p-4 lg:p-5 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]">
+            <dt className="text-base sm:text-lg font-light tracking-tight text-white transition-colors duration-500 group-hover:text-brand-pink-light">
+              CAA Certified Pilots
+            </dt>
+            <dd className="mt-1 text-[10px] sm:text-[10.5px] font-normal uppercase tracking-[0.14em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
+              Approved Commercial Flight Operations
+            </dd>
+          </div>
+
+          <div className="group rounded-sm border border-white/[0.09] bg-white/[0.06] p-3.5 sm:p-4 lg:p-5 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]">
+            <dt className="text-base sm:text-lg font-light tracking-tight text-white transition-colors duration-500 group-hover:text-brand-pink-light">
+              Direct Trade Remediation
+            </dt>
+            <dd className="mt-1 text-[10px] sm:text-[10.5px] font-normal uppercase tracking-[0.14em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
+              Integrated M&amp;E &amp; Roofing Teams
+            </dd>
+          </div>
+
+          <div className="group rounded-sm border border-white/[0.09] bg-white/[0.06] p-3.5 sm:p-4 lg:p-5 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]">
+            <dt className="text-base sm:text-lg font-light tracking-tight text-white transition-colors duration-500 group-hover:text-brand-pink-light">
+              Nationwide Deployment
+            </dt>
+            <dd className="mt-1 text-[10px] sm:text-[10.5px] font-normal uppercase tracking-[0.14em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
+              Rapid UK Multi-Site Coverage
+            </dd>
+          </div>
+        </dl>
       </div>
 
-      {/* Subtle Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity">
-        <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400">Scroll</span>
-        <ChevronDown className="h-4 w-4 text-slate-300 animate-bounce" />
-      </div>
+      <div aria-hidden="true" className="rule-hero-pink absolute inset-x-0 bottom-0" />
     </section>
   );
 }

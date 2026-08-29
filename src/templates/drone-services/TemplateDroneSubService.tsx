@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { TrustBar } from '@/components/trust/TrustBar';
+import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { DroneServiceFaq } from '@/components/drone-services/DroneServiceFaq';
 import { 
   CheckCircle2, 
@@ -406,10 +407,14 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
 
       <main id="main" className="flex-grow">
         {/* ========================================================================= */}
-        {/* 1. CINEMATIC FULL-VIEWPORT HERO (min-h-[calc(100svh-80px)])               */}
+        {/* 1. CINEMATIC FULL-VIEWPORT HERO (100svh matching M&E benchmark)           */}
         {/* ========================================================================= */}
-        <section className="relative min-h-[calc(100svh-80px)] lg:min-h-[calc(100dvh-80px)] flex items-center justify-center bg-[#060A14] overflow-hidden pt-24 pb-16 sm:py-24 border-b border-brand-edge-dark">
-          <div className="absolute inset-0 z-0">
+        <section 
+          aria-label={`${content.h1} Hero`}
+          className="on-dark relative isolate flex min-h-[100svh] min-h-[36rem] sm:min-h-[42rem] lg:min-h-screen w-full flex-col justify-between overflow-hidden bg-[#060A14] lg:[height:100svh]"
+        >
+          {/* Photographic / Video Background */}
+          <div className="absolute inset-0 -z-20 overflow-hidden">
             {config.videoSrc ? (
               <video
                 autoPlay
@@ -435,90 +440,125 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                 sizes="100vw"
               />
             )}
-            {path === '/services/drone-services/digital-twin-3d-capture' ? (
-              <>
-                <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/45 to-black/20" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#060A14]/85 via-[#060A14]/45 to-transparent" />
-              </>
-            ) : (
-              <>
-                <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/70 to-black/40" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/85 to-transparent" />
-              </>
-            )}
           </div>
 
-          <div className="container-custom relative z-10 w-full">
-            <div className="max-w-3xl space-y-6">
-              
-              {/* Subtle Breadcrumb Strip */}
-              <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-300 font-light">
-                {breadcrumbs.map((b, bIdx) => (
-                  <React.Fragment key={bIdx}>
-                    {bIdx > 0 && <span className="text-white/20">/</span>}
-                    {bIdx === breadcrumbs.length - 1 ? (
-                      <span className="text-brand-pink font-normal truncate max-w-[240px]">{b.name}</span>
-                    ) : (
-                      <Link href={b.url} className="hover:text-white transition-colors">
-                        {b.name}
-                      </Link>
-                    )}
-                  </React.Fragment>
-                ))}
-              </nav>
+          {/* Multi-stop dark gradient overlays */}
+          {path === '/services/drone-services/digital-twin-3d-capture' ? (
+            <>
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 -z-10"
+                style={{
+                  background:
+                    'linear-gradient(96deg, rgba(6,10,20,0.85) 0%, rgba(6,10,20,0.55) 45%, rgba(6,10,20,0.30) 78%, rgba(6,10,20,0.15) 100%)',
+                }}
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 -z-10 h-36"
+                style={{ background: 'linear-gradient(to top, rgba(6,10,20,0.9), transparent)' }}
+              />
+            </>
+          ) : (
+            <>
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 -z-10"
+                style={{
+                  background:
+                    'linear-gradient(96deg, rgba(6,10,20,0.96) 0%, rgba(6,10,20,0.90) 42%, rgba(6,10,20,0.68) 78%, rgba(6,10,20,0.48) 100%)',
+                }}
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 -z-10 h-36"
+                style={{ background: 'linear-gradient(to top, rgba(6,10,20,1), transparent)' }}
+              />
+            </>
+          )}
+          <div
+            aria-hidden="true"
+            className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-30"
+          />
 
-              {/* Eyebrow Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/10 backdrop-blur-md border border-white/15">
+          {/* Breadcrumbs offset past header — Exactly matching M&E page */}
+          <div className="relative pt-[calc(var(--header-h)+0.25rem)]">
+            <Breadcrumbs items={breadcrumbs} />
+          </div>
+
+          {/* Hero Content — Aligned to container-wide grid */}
+          <div className="container-wide relative flex flex-1 flex-col justify-center py-6 sm:py-8 pb-10 sm:pb-14">
+            <div className="max-w-3xl">
+              
+              {/* Eyebrow badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/[0.07] border border-white/15 backdrop-blur-sm mb-4">
                 <Plane className="h-3.5 w-3.5 text-brand-pink" />
-                <span className="text-xs uppercase tracking-widest text-white/90 font-medium">
+                <span className="text-[10px] sm:text-[11px] font-normal uppercase tracking-wider text-brand-pink-light">
                   {config.heroBadge}
                 </span>
               </div>
 
-              {/* H1 Headline — Work Sans Extra Light */}
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extralight tracking-tight text-white leading-[1.05]">
+              {/* Single clear H1 */}
+              <h1 className="text-display-xl text-white">
                 {content.h1}
               </h1>
 
               {/* Hero Intro */}
-              <p className="text-base sm:text-xl text-slate-200 leading-relaxed font-light max-w-2xl">
+              <p className="mt-4 max-w-2xl text-sm sm:text-base lg:text-[1.0625rem] leading-relaxed text-brand-mist/85 font-light">
                 {content.heroIntro}
               </p>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
+              <div className="mt-6 flex flex-wrap items-center gap-3">
                 <Link
                   href="/contact-us"
-                  className="inline-flex items-center justify-center gap-2 rounded-sm bg-brand-pink px-8 py-4 text-sm font-medium text-white shadow-elevated hover:bg-brand-pink/90 transition-all hover:scale-[1.02]"
+                  className="btn-hero-pink w-full sm:w-auto text-center justify-center"
                 >
                   <span>{config.ctaButtonText}</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="btn-arrow h-4 w-4" />
                 </Link>
+
                 <Link
                   href="/services/drone-services"
-                  className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 bg-white/10 backdrop-blur-md px-7 py-4 text-sm font-medium text-white hover:bg-white/20 transition-all"
+                  className="btn-ghost-light w-full sm:w-auto text-center justify-center"
                 >
                   <span>All Drone Services</span>
                 </Link>
               </div>
-
-              {/* Governance Proof Strip */}
-              <div className="pt-6 border-t border-white/15 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-slate-300 font-light">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  UK CAA Operational Authorisation
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  Site-Specific RAMS &amp; Risk Mitigation
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  Direct Self-Delivered Trade Remediation
-                </span>
-              </div>
             </div>
+
+            {/* Proof / Service Facts Row (Glass Cards matching M&E design) */}
+            <dl className="mt-8 grid max-w-5xl grid-cols-1 gap-2.5 sm:grid-cols-3 lg:gap-3.5">
+              <div className="group rounded-sm border border-white/[0.09] bg-white/[0.06] p-3.5 sm:p-4 lg:p-5 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]">
+                <dt className="text-base sm:text-lg font-light tracking-tight text-white transition-colors duration-500 group-hover:text-brand-pink-light">
+                  CAA Certified Pilots
+                </dt>
+                <dd className="mt-1 text-[10px] sm:text-[10.5px] font-normal uppercase tracking-[0.14em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
+                  Approved UK Flight Operations
+                </dd>
+              </div>
+
+              <div className="group rounded-sm border border-white/[0.09] bg-white/[0.06] p-3.5 sm:p-4 lg:p-5 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]">
+                <dt className="text-base sm:text-lg font-light tracking-tight text-white transition-colors duration-500 group-hover:text-brand-pink-light">
+                  Direct Trade Remediation
+                </dt>
+                <dd className="mt-1 text-[10px] sm:text-[10.5px] font-normal uppercase tracking-[0.14em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
+                  Self-Delivered EntireFM Engineering
+                </dd>
+              </div>
+
+              <div className="group rounded-sm border border-white/[0.09] bg-white/[0.06] p-3.5 sm:p-4 lg:p-5 backdrop-blur-xl transition-all duration-500 ease-brand hover:border-white/20 hover:bg-white/[0.11]">
+                <dt className="text-base sm:text-lg font-light tracking-tight text-white transition-colors duration-500 group-hover:text-brand-pink-light">
+                  Digital CAFM Reporting
+                </dt>
+                <dd className="mt-1 text-[10px] sm:text-[10.5px] font-normal uppercase tracking-[0.14em] text-brand-mist/65 transition-colors duration-500 group-hover:text-brand-mist/90">
+                  High-Resolution Asset Inspection Logs
+                </dd>
+              </div>
+            </dl>
           </div>
+
+          <div aria-hidden="true" className="rule-hero-pink absolute inset-x-0 bottom-0" />
         </section>
 
         <TrustBar />
