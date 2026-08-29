@@ -77,7 +77,7 @@ export function GaussianSplatViewer({
       const width = containerRef.current.clientWidth || 800;
       const height = containerRef.current.clientHeight || 500;
 
-      // Instantiate Viewer with robust cross-browser settings
+      // Instantiate Viewer with robust cross-browser settings and full SH Degree 1
       const viewer = new GaussianSplats3D.Viewer({
         rootElement: containerRef.current,
         cameraUp: [0, 1, 0],
@@ -90,12 +90,13 @@ export function GaussianSplatViewer({
         gpuAcceleratedSort: false,           // CPU WASM SIMD sort: 100% reliable across all devices
         sharedMemoryForWorkers: false,       // Allows execution without COOP/COEP isolation headers
         integerBasedSort: false,             // High precision sorting
+        sphericalHarmonicsDegree: 1,         // Full SH degree 1 view-dependent reflections & sharpness
         splatRenderMode: GaussianSplats3D.SplatRenderMode.ThreeD,
         sceneRevealMode: GaussianSplats3D.SceneRevealMode.Instant,
         dynamicScene: false,
         webXRMode: GaussianSplats3D.WebXRMode.None,
         logLevel: GaussianSplats3D.LogLevel.None,
-        antialiased: false,
+        antialiased: true,
         focalAdjustment: 1.0,
       });
 
