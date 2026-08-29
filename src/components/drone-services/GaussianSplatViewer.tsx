@@ -6,7 +6,6 @@ import {
   Minimize2, 
   RotateCcw, 
   Box, 
-  Compass, 
   AlertCircle,
   HelpCircle
 } from 'lucide-react';
@@ -27,8 +26,8 @@ export function GaussianSplatViewer({
   splatCount = 540274,
   title = 'LIVE 3D SURVEY · ENTIREFM 3D',
   subtitle = 'Captured by EntireFM Drone Services · EntireFM 3D Spatial Model',
-  initialCameraPosition = [0, 3.5, 6.5],
-  initialCameraLookAt = [0, 0.8, 0],
+  initialCameraPosition = [0, 2.5, 6.0],
+  initialCameraLookAt = [0, -0.2, 0],
   className = '',
   autoLoad = true,
 }: GaussianSplatViewerProps) {
@@ -67,14 +66,18 @@ export function GaussianSplatViewer({
 
     try {
       setLoadingState('connecting');
-      setDownloadProgress(5);
+      setDownloadProgress(10);
 
       // Dynamic import of GaussianSplats3D library
       const GaussianSplats3D = await import('@mkkellogg/gaussian-splats-3d');
 
       if (!containerRef.current) return;
 
-      // Instantiate Viewer with tailored camera & performance parameters
+      // Ensure root element has minimum dimensions before initializing
+      const width = containerRef.current.clientWidth || 800;
+      const height = containerRef.current.clientHeight || 500;
+
+      // Instantiate Viewer with robust cross-browser settings
       const viewer = new GaussianSplats3D.Viewer({
         rootElement: containerRef.current,
         cameraUp: [0, 1, 0],
@@ -83,39 +86,65 @@ export function GaussianSplatViewer({
         selfDrivenMode: true,
         useBuiltInControls: true,
         ignoreDevicePixelRatio: false,
-        halfPrecisionCovariancesOnGPU: true, // Memory optimization
-        gpuAcceleratedSort: true,
-        integerBasedSort: true,
+        halfPrecisionCovariancesOnGPU: false, // Standard 32-bit floats for 100% WebGL compatibility
+        gpuAcceleratedSort: false,           // CPU WASM SIMD sort: 100% reliable across all devices
+        sharedMemoryForWorkers: false,       // Allows execution without COOP/COEP isolation headers
+        integerBasedSort: false,             // High precision sorting
         splatRenderMode: GaussianSplats3D.SplatRenderMode.ThreeD,
-        sharedMemoryForWorkers: false,
+        sceneRevealMode: GaussianSplats3D.SceneRevealMode.Instant,
         dynamicScene: false,
         webXRMode: GaussianSplats3D.WebXRMode.None,
         logLevel: GaussianSplats3D.LogLevel.None,
+        antialiased: false,
+        focalAdjustment: 1.0,
       });
 
       viewerRef.current = viewer;
 
       setLoadingState('downloading');
 
-      // Load the KSplat file with rotation around X axis (Math.PI) to invert Polycam's Y-down axis
-      // Quaternion for 180° rotation around X-axis: [1, 0, 0, 0]
+      // Load KSplat asset
       await viewer.addSplatScene(splatUrl, {
         format: GaussianSplats3D.SceneFormat.KSplat,
-        rotation: [1, 0, 0, 0],
+        rotation: [0, 0, 0, 1], // Standard coordinate alignment
         position: [0, 0, 0],
         scale: [1, 1, 1],
         splatAlphaRemovalThreshold: 1,
-        showLoadingUI: false, // We use our bespoke luxury EntireFM UI
+        showLoadingUI: false, // Bespoke EntireFM progress UI
+        progressiveLoad: false,
         onProgress: (percentComplete: number) => {
-          setDownloadProgress(Math.max(5, Math.min(99, Math.round(percentComplete))));
-          if (percentComplete >= 95) {
-            setLoadingState('processing');
+          if (typeof percentComplete === 'number' && !isNaN(percentComplete) && isFinite(percentComplete)) {
+            const clamped = Math.max(5, Math.min(99, Math.round(percentComplete)));
+            setDownloadProgress(clamped);
+            if (clamped >= 95) {
+              setLoadingState('processing');
+            }
+          } else {
+            // Smooth progress ticker fallback when Content-Length is omitted by server
+            setDownloadProgress((prev) => {
+              const cur = typeof prev === 'number' && !isNaN(prev) ? prev : 10;
+              const next = Math.min(92, cur + 15);
+              return next;
+            });
           }
         },
       });
 
-      // Start the render loop
+      // Start render loop
       viewer.start();
+
+      // Sync renderer size & camera aspect ratio immediately
+      if (containerRef.current && viewer.renderer && viewer.camera) {
+        const w = containerRef.current.clientWidth || width;
+        const h = containerRef.current.clientHeight || height;
+        viewer.renderer.setSize(w, h);
+        if (viewer.camera.isPerspectiveCamera) {
+          viewer.camera.aspect = w / h;
+          viewer.camera.updateProjectionMatrix();
+        }
+        viewer.forceRenderNextFrame();
+      }
+
       setDownloadProgress(100);
       setLoadingState('ready');
 
@@ -145,7 +174,7 @@ export function GaussianSplatViewer({
           }
         });
       },
-      { threshold: 0.1, rootMargin: '200px' }
+      { threshold: 0.05, rootMargin: '250px' }
     );
 
     observer.observe(containerRef.current);
@@ -189,6 +218,16 @@ export function GaussianSplatViewer({
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
+      if (viewerRef.current && containerRef.current) {
+        const w = containerRef.current.clientWidth;
+        const h = containerRef.current.clientHeight;
+        viewerRef.current.renderer?.setSize(w, h);
+        if (viewerRef.current.camera?.isPerspectiveCamera) {
+          viewerRef.current.camera.aspect = w / h;
+          viewerRef.current.camera.updateProjectionMatrix();
+        }
+        viewerRef.current.forceRenderNextFrame();
+      }
     };
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
@@ -196,24 +235,38 @@ export function GaussianSplatViewer({
 
   // Reset Camera View
   const handleResetView = useCallback(() => {
-    if (!viewerRef.current || !viewerRef.current.controls) return;
+    if (!viewerRef.current) return;
     try {
-      const controls = viewerRef.current.controls;
-      controls.target.set(initialCameraLookAt[0], initialCameraLookAt[1], initialCameraLookAt[2]);
-      if (viewerRef.current.camera) {
-        viewerRef.current.camera.position.set(initialCameraPosition[0], initialCameraPosition[1], initialCameraPosition[2]);
-        viewerRef.current.camera.lookAt(initialCameraLookAt[0], initialCameraLookAt[1], initialCameraLookAt[2]);
+      const viewer = viewerRef.current;
+      if (viewer.controls) {
+        viewer.controls.target.set(initialCameraLookAt[0], initialCameraLookAt[1], initialCameraLookAt[2]);
+        viewer.controls.update();
       }
-      controls.update();
+      if (viewer.camera) {
+        viewer.camera.position.set(initialCameraPosition[0], initialCameraPosition[1], initialCameraPosition[2]);
+        viewer.camera.up.set(0, 1, 0);
+        viewer.camera.lookAt(initialCameraLookAt[0], initialCameraLookAt[1], initialCameraLookAt[2]);
+        if (viewer.camera.isPerspectiveCamera && containerRef.current) {
+          const w = containerRef.current.clientWidth || 800;
+          const h = containerRef.current.clientHeight || 500;
+          viewer.camera.aspect = w / h;
+          viewer.camera.updateProjectionMatrix();
+        }
+      }
+      viewer.forceRenderNextFrame();
     } catch (e) {
       console.warn('Could not reset camera controls:', e);
     }
   }, [initialCameraPosition, initialCameraLookAt]);
 
+  const displayPercent = typeof downloadProgress === 'number' && !isNaN(downloadProgress) && downloadProgress > 0
+    ? downloadProgress
+    : 45;
+
   return (
     <div
       ref={containerRef}
-      className={`relative w-full aspect-[16/10] sm:aspect-[16/9] bg-[#060A14] rounded-sm overflow-hidden border border-white/15 shadow-2xl select-none group font-sans ${className}`}
+      className={`relative w-full min-h-[420px] aspect-[16/10] sm:aspect-[16/9] bg-[#060A14] rounded-sm overflow-hidden border border-white/15 shadow-2xl select-none group font-sans ${className}`}
       tabIndex={0}
       aria-label={`${title} - Interactive EntireFM 3D drone reality capture model. Use mouse to orbit and scroll to zoom.`}
     >
@@ -315,7 +368,7 @@ export function GaussianSplatViewer({
             </span>
             <h4 className="text-xl sm:text-2xl font-light text-white tracking-tight">
               {loadingState === 'connecting' && 'Connecting to 3D Stream…'}
-              {loadingState === 'downloading' && `Downloading EntireFM 3D Model (${downloadProgress}%)`}
+              {loadingState === 'downloading' && `Downloading EntireFM 3D Model (${displayPercent}%)`}
               {loadingState === 'processing' && 'Synthesizing EntireFM 3D Spatial Capture…'}
             </h4>
             <p className="text-xs text-slate-400 font-light leading-relaxed">
@@ -327,7 +380,7 @@ export function GaussianSplatViewer({
           <div className="w-full max-w-xs h-1 bg-white/10 rounded-full overflow-hidden">
             <div 
               className="h-full bg-gradient-to-r from-brand-pink via-brand-pink-mid to-brand-electric transition-all duration-300 ease-out"
-              style={{ width: `${downloadProgress}%` }}
+              style={{ width: `${displayPercent}%` }}
             />
           </div>
 

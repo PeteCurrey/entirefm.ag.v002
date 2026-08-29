@@ -271,7 +271,6 @@ const SERVICE_CONFIGS: Record<string, ServiceMediaConfig> = {
   },
 
   '/services/drone-services/digital-twin-3d-capture': {
-    videoSrc: '/video/drone/photography.mp4',
     heroPoster: '/images/drone/gaussian-splat/casa-hotel.jpg',
     heroBadge: 'ENTIREFM 3D DIGITAL TWIN & BIM',
     ctaTitle: 'Build a Navigable 3D Digital Twin of Your Building',
@@ -428,12 +427,25 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                 alt={content.title}
                 fill
                 priority
-                className="w-full h-full object-cover object-center filter brightness-[0.55] contrast-[1.05]"
+                className={`w-full h-full object-cover object-center ${
+                  path === '/services/drone-services/digital-twin-3d-capture'
+                    ? 'filter brightness-[0.78] contrast-[1.08]'
+                    : 'filter brightness-[0.55] contrast-[1.05]'
+                }`}
                 sizes="100vw"
               />
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/70 to-black/40" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/85 to-transparent" />
+            {path === '/services/drone-services/digital-twin-3d-capture' ? (
+              <>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/45 to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#060A14]/85 via-[#060A14]/45 to-transparent" />
+              </>
+            ) : (
+              <>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#060A14] via-[#060A14]/70 to-black/40" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#060A14] via-[#060A14]/85 to-transparent" />
+              </>
+            )}
           </div>
 
           <div className="container-custom relative z-10 w-full">

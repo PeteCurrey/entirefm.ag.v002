@@ -28,6 +28,19 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  async headers() {
+    return [
+      {
+        source: '/assets/gaussian-splats/:path*',
+        headers: [
+          { key: 'Content-Type', value: 'application/octet-stream' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+    ];
+  },
+
   async redirects() {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const redirectRegistry = require('./config/production-redirects.json') as {
@@ -58,12 +71,21 @@ const nextConfig: NextConfig = {
       }
     }
 
-    // Next.js redirects() expects { source, destination, permanent } objects
-    return redirects.map(r => ({
-      source: r.source,
-      destination: r.destination,
-      permanent: r.statusCode === 301,
-    }));
+    // Next.js redirects() accepts { source, destination, statusCode } or { source, destination, permanent }
+    return redirects.map(r => {
+      if (r.statusCode) {
+        return {
+          source: r.source,
+          destination: r.destination,
+          statusCode: r.statusCode,
+        };
+      }
+      return {
+        source: r.source,
+        destination: r.destination,
+        permanent: true,
+      };
+    });
   },
 };
 
