@@ -84,6 +84,8 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
     ? cityImages[0].alt
     : `EntireFM commercial facilities management and engineering operations in ${geo.name}`;
 
+  const isLondon = slug === 'london';
+
   return (
     <div className="min-h-screen bg-[#FBFBFA] text-[#101010] antialiased selection:bg-[#EA580C] selection:text-white">
       <Header solid />
@@ -102,7 +104,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C]">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#EA580C] animate-pulse" />
-                    {geo.name.toUpperCase()} REGIONAL HUB
+                    {content.eyebrow || (isLondon ? 'ENTIREFM LONDON · REGIONAL OPERATIONS HUB' : `${geo.name.toUpperCase()} REGIONAL HUB`)}
                   </span>
                   <span className="font-mono text-[11px] text-[#686866]">
                     {geo.region}
@@ -110,14 +112,30 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                 </div>
 
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extralight tracking-tight text-[#101010] leading-[1.12]">
-                  Facilities Management &amp;{' '}
-                  <span className="font-extralight block mt-1">
-                    Engineering in {geo.name}
-                  </span>
+                  {content.h1 ? (
+                    content.h1
+                  ) : isLondon ? (
+                    <>
+                      EntireFM London{' '}
+                      <span className="font-extralight block mt-1">
+                        Regional Operations
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      Facilities Management &amp;{' '}
+                      <span className="font-extralight block mt-1">
+                        Engineering in {geo.name}
+                      </span>
+                    </>
+                  )}
                 </h1>
 
                 <p className="text-[15.5px] sm:text-[16.5px] text-[#4B5563] leading-relaxed pt-1">
-                  {geo.tagline}. EntireFM provides integrated Hard FM, statutory PPM, mechanical &amp; electrical engineering, commercial cleaning, and building fabric care across {geo.name}&apos;s commercial property estate.
+                  {content.heroIntro || (isLondon
+                    ? "Explore EntireFM's London operational coverage, engineering services, local FM delivery model and support for commercial properties across Greater London."
+                    : `${geo.tagline}. EntireFM provides integrated Hard FM, statutory PPM, mechanical & electrical engineering, commercial cleaning, and building fabric care across ${geo.name}'s commercial property estate.`
+                  )}
                 </p>
 
                 {/* Primary Contact & Navigation CTAs */}
@@ -169,7 +187,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                     />
                   </div>
                   <div className="mt-2.5 px-2 flex items-center justify-between font-mono text-[10.5px] text-[#686866]">
-                    <span>{geo.name} Operations Area</span>
+                    <span>{isLondon ? 'Greater London Operational Footprint' : `${geo.name} Operations Area`}</span>
                     <span className="text-[#059669] font-medium flex items-center gap-1">
                       <span className="h-1.5 w-1.5 rounded-full bg-[#059669]" />
                       Active Regional Coverage
@@ -179,6 +197,37 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
               </div>
             </div>
           </section>
+
+          {/* ── PROMINENT CONTEXTUAL LINK TO LONDON FLAGSHIP ───────────── */}
+          {isLondon && (
+            <section className="mb-14">
+              <div className="rounded-[14px] border-2 border-[#EA580C]/25 bg-white p-6 sm:p-7 shadow-[0_4px_20px_rgba(234,88,12,0.06)] flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+                <div className="space-y-1.5 max-w-2xl">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-[4px] bg-[#EA580C]/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-[#EA580C] uppercase tracking-wider">
+                      Commercial Flagship
+                    </span>
+                    <span className="font-mono text-[11px] text-[#686866]">
+                      Broad London Proposition
+                    </span>
+                  </div>
+                  <h2 className="text-[17px] sm:text-[19px] font-normal text-[#101010] tracking-tight">
+                    Looking for our Primary Facilities Management London Proposition?
+                  </h2>
+                  <p className="text-[13.5px] text-[#4B5563] leading-relaxed">
+                    This page details EntireFM’s regional coverage, engineering footprint, and operational delivery across Greater London. For our broad commercial FM scope, single-source contracting model, and planned preventative maintenance service, visit our flagship page:
+                  </p>
+                </div>
+                <Link
+                  href="/facilities-management-london"
+                  className="inline-flex items-center gap-2 rounded-[8px] bg-[#101010] px-5 py-3 text-[13px] font-medium text-white hover:bg-[#EA580C] transition-all shrink-0 shadow-sm group"
+                >
+                  <span>Facilities Management London</span>
+                  <ArrowRight className="h-4 w-4 text-[#EA580C] group-hover:text-white transition-colors" />
+                </Link>
+              </div>
+            </section>
+          )}
 
           {/* Trust Bar */}
           <div className="mb-14">
@@ -190,10 +239,10 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-3xl mb-8">
                 <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
-                  COMMERCIAL PROFILE
+                  {isLondon ? 'REGIONAL OPERATIONS & LOGISTICS' : 'COMMERCIAL PROFILE'}
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
-                  Operating in {geo.name}&apos;s Commercial Property Environment
+                  {isLondon ? "Operating Across London's Commercial Property Environment" : `Operating in ${geo.name}'s Commercial Property Environment`}
                 </h2>
                 <p className="text-[14px] text-[#4B5563] mt-2 leading-relaxed">
                   {geo.operatingContext}
@@ -206,7 +255,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                   <div className="flex items-center gap-2 mb-3">
                     <Building2 className="h-4 w-4 text-[#EA580C]" />
                     <h3 className="text-[14px] font-normal text-[#101010]">
-                      Predominant Property Stock &amp; Assets
+                      {isLondon ? 'London Property Environments Supported' : 'Predominant Property Stock & Assets'}
                     </h3>
                   </div>
                   <ul className="space-y-2">
@@ -223,7 +272,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                   <div className="flex items-center gap-2 mb-3">
                     <Wrench className="h-4 w-4 text-[#2563EB]" />
                     <h3 className="text-[14px] font-normal text-[#101010]">
-                      Operational &amp; Engineering Priorities
+                      {isLondon ? 'London Operational & Logistics Management' : 'Operational & Engineering Priorities'}
                     </h3>
                   </div>
                   <ul className="space-y-2">
@@ -239,15 +288,15 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
             </div>
           </section>
 
-          {/* ── 3. SERVICES IN CITY & LEGACY PAGES ────────────────────── */}
+          {/* ── 3. SERVICES IN CITY & GATEWAY INTO SERVICE ESTATE ─────── */}
           <section className="mb-16">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
               <div>
                 <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
-                  LOCAL DELIVERY
+                  {isLondon ? 'LONDON REGIONAL GATEWAY' : 'LOCAL DELIVERY'}
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
-                  Facilities Management Services in {geo.name}
+                  {isLondon ? 'London Service Estate & Engineering Gateway' : `Facilities Management Services in ${geo.name}`}
                 </h2>
               </div>
               <Link
@@ -285,7 +334,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
             {geo.legacyUrls.length > 0 && (
               <div className="mt-8 rounded-[12px] border border-[#E4E4E1] bg-[#FBFBFA] p-5">
                 <p className="font-mono text-[10.5px] font-normal uppercase tracking-wider text-[#686866] mb-3">
-                  Dedicated {geo.name} Service &amp; Sector Landing Pages
+                  {isLondon ? 'London Service & Discipline Specific Pages' : `Dedicated ${geo.name} Service & Sector Landing Pages`}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {geo.legacyUrls.map((url) => {
@@ -317,7 +366,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                   SECTOR EXPERTISE
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
-                  Commercial Sectors Serviced Across {geo.name}
+                  {isLondon ? 'Commercial Sectors Supported Across Greater London' : `Commercial Sectors Serviced Across ${geo.name}`}
                 </h2>
               </div>
 
@@ -393,10 +442,10 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
             <div className="rounded-[16px] border border-[#E4E4E1] bg-white p-6 sm:p-8 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
               <div className="max-w-2xl mb-6">
                 <span className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-2.5 py-0.5 font-mono text-[10.5px] font-normal text-[#C2410C] mb-2">
-                  AREAS COVERED
+                  {isLondon ? 'REGIONAL FOOTPRINT' : 'AREAS COVERED'}
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
-                  {geo.name} Commercial Districts &amp; Corridors
+                  {isLondon ? 'London Service Areas & Commercial Corridors' : `${geo.name} Commercial Districts & Corridors`}
                 </h2>
                 <p className="text-[13.5px] text-[#686866] mt-1">
                   {geo.travelCorridors}
@@ -425,7 +474,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                   FREQUENTLY ASKED QUESTIONS
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extralight text-[#101010] tracking-tight">
-                  Facilities Management in {geo.name}
+                  {isLondon ? 'EntireFM London Regional Operations — FAQ' : `Facilities Management in ${geo.name}`}
                 </h2>
               </div>
 
@@ -469,7 +518,7 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
                     className="inline-flex items-center gap-1.5 rounded-[8px] border border-[#E4E4E1] bg-white px-3 py-2 text-[12px] font-normal text-[#374151] hover:border-[#EA580C] hover:text-[#EA580C] transition-colors"
                   >
                     <MapPin className="h-3 w-3 text-[#9B9B97]" />
-                    <span>{otherGeo.name} Facilities Management</span>
+                    <span>{otherSlug === 'london' ? 'London Regional Operations' : `${otherGeo.name} Regional Operations`}</span>
                   </Link>
                 ))}
             </div>
@@ -477,9 +526,9 @@ export function TemplateCityHub({ route, content }: TemplateCityHubProps) {
 
           {/* ── 9. DEDICATED REGIONAL PROPOSAL CTA ─────────────────────── */}
           <ProposalSection
-            defaultService={`Total Facilities Management (${geo.name})`}
+            defaultService={isLondon ? 'London Regional FM & Engineering' : `Total Facilities Management (${geo.name})`}
             defaultLocation={geo.name}
-            headline={`Request a Commercial FM Proposal in ${geo.name}`}
+            headline={isLondon ? 'Request a London Regional Operations Review' : `Request a Commercial FM Proposal in ${geo.name}`}
             subheadline={`Connect directly with our ${geo.name} operations desk via ${geo.email} for a comprehensive estate review and tailored facilities quotation.`}
           />
 

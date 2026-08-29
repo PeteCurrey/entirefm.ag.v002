@@ -317,11 +317,11 @@ const INTERNAL_LINK_MAP: Record<string, InternalLink[]> = {
   ],
 
   '/locations/london': [
-    { path: '/facilities-management-london', label: 'Facilities Management London (Flagship)', context: 'related-location' },
-    { path: '/facilities-management-services-london', label: 'London FM Services Directory', context: 'related-service' },
+    { path: '/facilities-management-london', label: 'Facilities Management London', context: 'related-location' },
+    { path: '/facilities-management-services-london', label: 'Facilities Management Services in London', context: 'related-service' },
     { path: '/fm-london', label: 'Outsourced FM London', context: 'related-location' },
-    { path: '/london-facilities-management', label: 'London FM (Multi-Site Estates)', context: 'related-location' },
-    { path: '/locations/london/services', label: 'London Regional Services', context: 'related-service' },
+    { path: '/london-facilities-management', label: 'Multi-Site FM London', context: 'related-location' },
+    { path: '/locations/london/services', label: 'London Service Catalogue', context: 'related-service' },
   ],
 
   '/locations/london/services': [

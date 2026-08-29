@@ -180,7 +180,7 @@ export const PROTECTED_GEO_REGISTRY: ProtectedGeoRoute[] = [
     routeType: 'location',
     tier: 'TIER_1',
     legacy: false,
-    intent: 'EntireFM London regional headquarters, capability overview, and local authority hub',
+    intent: 'EntireFM London regional operations hub, service coverage, and local engineering model',
     indexable: true,
     expectedCanonical: 'self',
     statusRequired: 200,
