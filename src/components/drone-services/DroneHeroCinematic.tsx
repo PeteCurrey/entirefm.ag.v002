@@ -58,7 +58,7 @@ export function DroneHeroCinematic() {
             muted={isMuted}
             playsInline
             poster="/images/drone/hero_poster.jpg"
-            className="w-full h-full object-cover object-center filter brightness-[0.55] contrast-[1.1] scale-105 transition-transform duration-1000"
+            className="w-full h-full object-cover object-center filter brightness-[0.78] contrast-[1.08] scale-105 transition-transform duration-1000"
           >
             <source src="/video/drone/hero.mp4" type="video/mp4" />
           </video>
@@ -68,25 +68,25 @@ export function DroneHeroCinematic() {
             alt="Commercial building aerial survey"
             fill
             priority
-            className="object-cover object-center filter brightness-[0.55] contrast-[1.1]"
+            className="object-cover object-center filter brightness-[0.78] contrast-[1.08]"
             sizes="100vw"
           />
         )}
       </div>
 
-      {/* Multi-stop dark gradient overlays */}
+      {/* Uniform overlay matching digital-twin lightness */}
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'linear-gradient(96deg, rgba(6,10,20,0.96) 0%, rgba(6,10,20,0.88) 42%, rgba(6,10,20,0.65) 78%, rgba(6,10,20,0.45) 100%)',
+            'linear-gradient(96deg, rgba(6,10,20,0.85) 0%, rgba(6,10,20,0.55) 45%, rgba(6,10,20,0.30) 78%, rgba(6,10,20,0.15) 100%)',
         }}
       />
       <div
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 -z-10 h-36"
-        style={{ background: 'linear-gradient(to top, rgba(6,10,20,1), transparent)' }}
+        style={{ background: 'linear-gradient(to top, rgba(6,10,20,0.9), transparent)' }}
       />
       <div
         aria-hidden="true"

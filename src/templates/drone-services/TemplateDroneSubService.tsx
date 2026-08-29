@@ -422,7 +422,7 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                 muted
                 playsInline
                 poster={config.heroPoster}
-                className="w-full h-full object-cover object-center filter brightness-[0.55] contrast-[1.05]"
+                className="w-full h-full object-cover object-center filter brightness-[0.78] contrast-[1.08]"
               >
                 <source src={config.videoSrc} type="video/mp4" />
               </video>
@@ -432,50 +432,28 @@ export function TemplateDroneSubService({ route, content }: TemplateDroneSubServ
                 alt={content.title}
                 fill
                 priority
-                className={`w-full h-full object-cover object-center ${
-                  path === '/services/drone-services/digital-twin-3d-capture'
-                    ? 'filter brightness-[0.78] contrast-[1.08]'
-                    : 'filter brightness-[0.55] contrast-[1.05]'
-                }`}
+                className="w-full h-full object-cover object-center filter brightness-[0.78] contrast-[1.08]"
                 sizes="100vw"
               />
             )}
           </div>
 
-          {/* Multi-stop dark gradient overlays */}
-          {path === '/services/drone-services/digital-twin-3d-capture' ? (
-            <>
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 -z-10"
-                style={{
-                  background:
-                    'linear-gradient(96deg, rgba(6,10,20,0.85) 0%, rgba(6,10,20,0.55) 45%, rgba(6,10,20,0.30) 78%, rgba(6,10,20,0.15) 100%)',
-                }}
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 -z-10 h-36"
-                style={{ background: 'linear-gradient(to top, rgba(6,10,20,0.9), transparent)' }}
-              />
-            </>
-          ) : (
-            <>
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 -z-10"
-                style={{
-                  background:
-                    'linear-gradient(96deg, rgba(6,10,20,0.96) 0%, rgba(6,10,20,0.90) 42%, rgba(6,10,20,0.68) 78%, rgba(6,10,20,0.48) 100%)',
-                }}
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 -z-10 h-36"
-                style={{ background: 'linear-gradient(to top, rgba(6,10,20,1), transparent)' }}
-              />
-            </>
-          )}
+          {/* Uniform overlay matching digital-twin lightness across all drone pages */}
+          <>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -z-10"
+              style={{
+                background:
+                  'linear-gradient(96deg, rgba(6,10,20,0.85) 0%, rgba(6,10,20,0.55) 45%, rgba(6,10,20,0.30) 78%, rgba(6,10,20,0.15) 100%)',
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 bottom-0 -z-10 h-36"
+              style={{ background: 'linear-gradient(to top, rgba(6,10,20,0.9), transparent)' }}
+            />
+          </>
           <div
             aria-hidden="true"
             className="facet-rule pointer-events-none absolute inset-0 -z-10 opacity-30"
