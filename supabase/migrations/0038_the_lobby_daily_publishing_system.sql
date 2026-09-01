@@ -243,25 +243,29 @@ DO $$ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE policyname = 'service_role_lobby_editions' AND tablename = 'lobby_daily_editions'
   ) THEN
-    CREATE POLICY service_role_lobby_editions ON public.lobby_daily_editions FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_lobby_editions ON public.lobby_daily_editions;
+CREATE POLICY service_role_lobby_editions ON public.lobby_daily_editions FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
   
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE policyname = 'service_role_lobby_candidates' AND tablename = 'lobby_daily_candidates'
   ) THEN
-    CREATE POLICY service_role_lobby_candidates ON public.lobby_daily_candidates FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_lobby_candidates ON public.lobby_daily_candidates;
+CREATE POLICY service_role_lobby_candidates ON public.lobby_daily_candidates FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
   
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE policyname = 'service_role_lobby_delivery_logs' AND tablename = 'lobby_daily_delivery_logs'
   ) THEN
-    CREATE POLICY service_role_lobby_delivery_logs ON public.lobby_daily_delivery_logs FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_lobby_delivery_logs ON public.lobby_daily_delivery_logs;
+CREATE POLICY service_role_lobby_delivery_logs ON public.lobby_daily_delivery_logs FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
 
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE policyname = 'service_role_lobby_settings' AND tablename = 'lobby_daily_settings'
   ) THEN
-    CREATE POLICY service_role_lobby_settings ON public.lobby_daily_settings FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_lobby_settings ON public.lobby_daily_settings;
+CREATE POLICY service_role_lobby_settings ON public.lobby_daily_settings FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
 END $$;
 

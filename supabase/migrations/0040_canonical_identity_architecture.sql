@@ -179,15 +179,19 @@ ALTER TABLE public.user_identity_audit_log ENABLE ROW LEVEL SECURITY;
 DO $$
 BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'service_role_user_identities' AND tablename = 'user_identities') THEN
-    CREATE POLICY service_role_user_identities ON public.user_identities FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_user_identities ON public.user_identities;
+CREATE POLICY service_role_user_identities ON public.user_identities FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'service_role_lobby_members' AND tablename = 'lobby_members') THEN
-    CREATE POLICY service_role_lobby_members ON public.lobby_members FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_lobby_members ON public.lobby_members;
+CREATE POLICY service_role_lobby_members ON public.lobby_members FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'service_role_operational_identities' AND tablename = 'operational_identities') THEN
-    CREATE POLICY service_role_operational_identities ON public.operational_identities FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_operational_identities ON public.operational_identities;
+CREATE POLICY service_role_operational_identities ON public.operational_identities FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'service_role_identity_audit' AND tablename = 'user_identity_audit_log') THEN
-    CREATE POLICY service_role_identity_audit ON public.user_identity_audit_log FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_identity_audit ON public.user_identity_audit_log;
+CREATE POLICY service_role_identity_audit ON public.user_identity_audit_log FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
 END $$;

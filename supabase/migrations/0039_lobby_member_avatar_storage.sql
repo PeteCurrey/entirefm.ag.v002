@@ -71,7 +71,8 @@ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE policyname = 'public_view_lobby_members' AND tablename = 'lobby_members'
   ) THEN
-    CREATE POLICY public_view_lobby_members ON public.lobby_members
+    DROP POLICY IF EXISTS public_view_lobby_members ON public.lobby_members;
+CREATE POLICY public_view_lobby_members ON public.lobby_members
       FOR SELECT
       USING (member_status = 'active' AND profile_visibility IN ('public', 'members_only'));
   END IF;
@@ -79,7 +80,8 @@ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE policyname = 'service_role_lobby_members' AND tablename = 'lobby_members'
   ) THEN
-    CREATE POLICY service_role_lobby_members ON public.lobby_members
+    DROP POLICY IF EXISTS service_role_lobby_members ON public.lobby_members;
+CREATE POLICY service_role_lobby_members ON public.lobby_members
       FOR ALL TO service_role
       USING (true)
       WITH CHECK (true);
@@ -88,7 +90,8 @@ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE policyname = 'members_manage_own_profile' AND tablename = 'lobby_members'
   ) THEN
-    CREATE POLICY members_manage_own_profile ON public.lobby_members
+    DROP POLICY IF EXISTS members_manage_own_profile ON public.lobby_members;
+CREATE POLICY members_manage_own_profile ON public.lobby_members
       FOR ALL
       TO authenticated
       USING (auth.uid() = auth_user_id)
@@ -100,11 +103,10 @@ END $$;
 -- 3. SUPABASE STORAGE BUCKET: profile-avatars
 -- ============================================================================
 
--- Create storage bucket if storage schema exists
+-- Insert bucket if storage schema is available
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'storage') THEN
-    -- Insert bucket if not already present
     INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
     VALUES (
       'profile-avatars',
@@ -118,73 +120,49 @@ BEGIN
       file_size_limit = 10485760,
       allowed_mime_types = ARRAY['image/jpeg', 'image/png', 'image/webp'];
 
-    -- Enable RLS on storage.objects
-    ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
-  END IF;
-END $$;
+    -- Policies on storage.objects
+    DROP POLICY IF EXISTS profile_avatars_public_read ON storage.objects;
+    CREATE POLICY profile_avatars_public_read ON storage.objects
+      FOR SELECT
+      USING (bucket_id = 'profile-avatars');
 
--- Storage Policies:
--- 1. Public Read: Anyone can view profile avatars
--- 2. Authenticated Insert: Member can upload ONLY into folder matching their auth.uid()
--- 3. Authenticated Update: Member can update ONLY in their own folder
--- 4. Authenticated Delete: Member can delete ONLY from their own folder
-DO $$
-BEGIN
-  IF EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'storage') THEN
-    
-    -- Public Read
-    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'profile_avatars_public_read' AND tablename = 'objects') THEN
-      CREATE POLICY profile_avatars_public_read ON storage.objects
-        FOR SELECT
-        USING (bucket_id = 'profile-avatars');
-    END IF;
+    DROP POLICY IF EXISTS profile_avatars_owner_insert ON storage.objects;
+    CREATE POLICY profile_avatars_owner_insert ON storage.objects
+      FOR INSERT
+      TO authenticated
+      WITH CHECK (
+        bucket_id = 'profile-avatars' AND
+        (storage.foldername(name))[1] = auth.uid()::text
+      );
 
-    -- Owner Insert (folder must equal auth.uid())
-    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'profile_avatars_owner_insert' AND tablename = 'objects') THEN
-      CREATE POLICY profile_avatars_owner_insert ON storage.objects
-        FOR INSERT
-        TO authenticated
-        WITH CHECK (
-          bucket_id = 'profile-avatars' AND
-          (storage.foldername(name))[1] = auth.uid()::text
-        );
-    END IF;
+    DROP POLICY IF EXISTS profile_avatars_owner_update ON storage.objects;
+    CREATE POLICY profile_avatars_owner_update ON storage.objects
+      FOR UPDATE
+      TO authenticated
+      USING (
+        bucket_id = 'profile-avatars' AND
+        (storage.foldername(name))[1] = auth.uid()::text
+      )
+      WITH CHECK (
+        bucket_id = 'profile-avatars' AND
+        (storage.foldername(name))[1] = auth.uid()::text
+      );
 
-    -- Owner Update
-    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'profile_avatars_owner_update' AND tablename = 'objects') THEN
-      CREATE POLICY profile_avatars_owner_update ON storage.objects
-        FOR UPDATE
-        TO authenticated
-        USING (
-          bucket_id = 'profile-avatars' AND
-          (storage.foldername(name))[1] = auth.uid()::text
-        )
-        WITH CHECK (
-          bucket_id = 'profile-avatars' AND
-          (storage.foldername(name))[1] = auth.uid()::text
-        );
-    END IF;
+    DROP POLICY IF EXISTS profile_avatars_owner_delete ON storage.objects;
+    CREATE POLICY profile_avatars_owner_delete ON storage.objects
+      FOR DELETE
+      TO authenticated
+      USING (
+        bucket_id = 'profile-avatars' AND
+        (storage.foldername(name))[1] = auth.uid()::text
+      );
 
-    -- Owner Delete
-    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'profile_avatars_owner_delete' AND tablename = 'objects') THEN
-      CREATE POLICY profile_avatars_owner_delete ON storage.objects
-        FOR DELETE
-        TO authenticated
-        USING (
-          bucket_id = 'profile-avatars' AND
-          (storage.foldername(name))[1] = auth.uid()::text
-        );
-    END IF;
-
-    -- Service role bypass
-    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'profile_avatars_service_role_all' AND tablename = 'objects') THEN
-      CREATE POLICY profile_avatars_service_role_all ON storage.objects
-        FOR ALL
-        TO service_role
-        USING (bucket_id = 'profile-avatars')
-        WITH CHECK (bucket_id = 'profile-avatars');
-    END IF;
-
+    DROP POLICY IF EXISTS profile_avatars_service_role_all ON storage.objects;
+    CREATE POLICY profile_avatars_service_role_all ON storage.objects
+      FOR ALL
+      TO service_role
+      USING (bucket_id = 'profile-avatars')
+      WITH CHECK (bucket_id = 'profile-avatars');
   END IF;
 END $$;
 

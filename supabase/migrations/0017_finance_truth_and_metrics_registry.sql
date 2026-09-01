@@ -65,16 +65,16 @@ create table if not exists public.finance_segregation_policies (
 
 alter table public.finance_segregation_policies enable row level security;
 
-create policy "EntireFM finance read segregation_policies"
-  on public.finance_segregation_policies for select
+DROP POLICY IF EXISTS "EntireFM finance read segregation_policies" ON public.finance_segregation_policies;
+CREATE POLICY "EntireFM finance read segregation_policies" ON public.finance_segregation_policies for select
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance insert segregation_policies"
-  on public.finance_segregation_policies for insert
+DROP POLICY IF EXISTS "EntireFM finance insert segregation_policies" ON public.finance_segregation_policies;
+CREATE POLICY "EntireFM finance insert segregation_policies" ON public.finance_segregation_policies for insert
   with check (auth.role() = 'authenticated');
 
-create policy "EntireFM finance update segregation_policies"
-  on public.finance_segregation_policies for update
+DROP POLICY IF EXISTS "EntireFM finance update segregation_policies" ON public.finance_segregation_policies;
+CREATE POLICY "EntireFM finance update segregation_policies" ON public.finance_segregation_policies for update
   using (auth.role() = 'authenticated');
 
 -- ============================================================
@@ -107,16 +107,16 @@ create table if not exists public.supplier_bank_detail_verifications (
 
 alter table public.supplier_bank_detail_verifications enable row level security;
 
-create policy "EntireFM finance read bank_verifications"
-  on public.supplier_bank_detail_verifications for select
+DROP POLICY IF EXISTS "EntireFM finance read bank_verifications" ON public.supplier_bank_detail_verifications;
+CREATE POLICY "EntireFM finance read bank_verifications" ON public.supplier_bank_detail_verifications for select
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance insert bank_verifications"
-  on public.supplier_bank_detail_verifications for insert
+DROP POLICY IF EXISTS "EntireFM finance insert bank_verifications" ON public.supplier_bank_detail_verifications;
+CREATE POLICY "EntireFM finance insert bank_verifications" ON public.supplier_bank_detail_verifications for insert
   with check (auth.role() = 'authenticated');
 
-create policy "EntireFM finance update bank_verifications"
-  on public.supplier_bank_detail_verifications for update
+DROP POLICY IF EXISTS "EntireFM finance update bank_verifications" ON public.supplier_bank_detail_verifications;
+CREATE POLICY "EntireFM finance update bank_verifications" ON public.supplier_bank_detail_verifications for update
   using (auth.role() = 'authenticated');
 
 -- ============================================================
@@ -153,12 +153,12 @@ create table if not exists public.document_extraction_corrections (
 
 alter table public.document_extraction_corrections enable row level security;
 
-create policy "EntireFM finance read extraction_corrections"
-  on public.document_extraction_corrections for select
+DROP POLICY IF EXISTS "EntireFM finance read extraction_corrections" ON public.document_extraction_corrections;
+CREATE POLICY "EntireFM finance read extraction_corrections" ON public.document_extraction_corrections for select
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance insert extraction_corrections"
-  on public.document_extraction_corrections for insert
+DROP POLICY IF EXISTS "EntireFM finance insert extraction_corrections" ON public.document_extraction_corrections;
+CREATE POLICY "EntireFM finance insert extraction_corrections" ON public.document_extraction_corrections for insert
   with check (auth.role() = 'authenticated');
 
 -- ============================================================
@@ -183,8 +183,8 @@ create table if not exists public.financial_metric_definitions (
 
 alter table public.financial_metric_definitions enable row level security;
 
-create policy "EntireFM read financial_metric_definitions"
-  on public.financial_metric_definitions for select
+DROP POLICY IF EXISTS "EntireFM read financial_metric_definitions" ON public.financial_metric_definitions;
+CREATE POLICY "EntireFM read financial_metric_definitions" ON public.financial_metric_definitions for select
   using (auth.role() = 'authenticated');
 
 -- ============================================================

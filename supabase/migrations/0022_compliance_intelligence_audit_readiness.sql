@@ -263,10 +263,17 @@ ALTER TABLE public.compliance_rule_impact_assessments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.compliance_mobilisation_gaps ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.compliance_kpi_registry ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Service role full access on compliance_evidence_validations" ON public.compliance_evidence_validations;
 CREATE POLICY "Service role full access on compliance_evidence_validations" ON public.compliance_evidence_validations FOR ALL USING (true);
+DROP POLICY IF EXISTS "Service role full access on compliance_audit_snapshots" ON public.compliance_audit_snapshots;
 CREATE POLICY "Service role full access on compliance_audit_snapshots" ON public.compliance_audit_snapshots FOR ALL USING (true);
+DROP POLICY IF EXISTS "Service role full access on compliance_audit_packs" ON public.compliance_audit_packs;
 CREATE POLICY "Service role full access on compliance_audit_packs" ON public.compliance_audit_packs FOR ALL USING (true);
+DROP POLICY IF EXISTS "Service role full access on compliance_audit_pack_items" ON public.compliance_audit_pack_items;
 CREATE POLICY "Service role full access on compliance_audit_pack_items" ON public.compliance_audit_pack_items FOR ALL USING (true);
+DROP POLICY IF EXISTS "Service role full access on compliance_rule_impact_assessments" ON public.compliance_rule_impact_assessments;
 CREATE POLICY "Service role full access on compliance_rule_impact_assessments" ON public.compliance_rule_impact_assessments FOR ALL USING (true);
+DROP POLICY IF EXISTS "Service role full access on compliance_mobilisation_gaps" ON public.compliance_mobilisation_gaps;
 CREATE POLICY "Service role full access on compliance_mobilisation_gaps" ON public.compliance_mobilisation_gaps FOR ALL USING (true);
+DROP POLICY IF EXISTS "Service role full access on compliance_kpi_registry" ON public.compliance_kpi_registry;
 CREATE POLICY "Service role full access on compliance_kpi_registry" ON public.compliance_kpi_registry FOR ALL USING (true);

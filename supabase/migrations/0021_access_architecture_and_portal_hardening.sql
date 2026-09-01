@@ -66,8 +66,10 @@ create index if not exists idx_access_audit_org on public.access_audit_logs (tar
 alter table public.invitations enable row level security;
 alter table public.access_audit_logs enable row level security;
 
-create policy "Service role full access on invitations" on public.invitations
+DROP POLICY IF EXISTS "Service role full access on invitations" ON public.invitations;
+CREATE POLICY "Service role full access on invitations" ON public.invitations
   for all using (true);
 
-create policy "Service role full access on access_audit_logs" on public.access_audit_logs
+DROP POLICY IF EXISTS "Service role full access on access_audit_logs" ON public.access_audit_logs;
+CREATE POLICY "Service role full access on access_audit_logs" ON public.access_audit_logs
   for all using (true);

@@ -147,6 +147,7 @@ ALTER TABLE public.supplier_documents ENABLE ROW LEVEL SECURITY;
 DO $$
 BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'service_role_supplier_documents' AND tablename = 'supplier_documents') THEN
-    CREATE POLICY service_role_supplier_documents ON public.supplier_documents FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_supplier_documents ON public.supplier_documents;
+CREATE POLICY service_role_supplier_documents ON public.supplier_documents FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
 END $$;

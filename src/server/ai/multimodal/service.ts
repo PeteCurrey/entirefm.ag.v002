@@ -5,16 +5,19 @@
  *
  * Capabilities:
  *   - Multimodal evidence analysis (Images, Video, PDF/Documents, Audio)
- *   - Powered by Firebase AI Logic / Google Gemini (gemini-2.5-flash)
+ *   - Powered by Firebase AI Logic (GoogleAIBackend → Gemini Developer API)
+ *   - Model configurable via MULTIMODAL_AI_MODEL env var (not hard-coded)
+ *   - Payload size guard: rejects evidence bundles > 18 MB before AI invocation
+ *   - site_id is mandatory — callers must validate before calling analyze()
  *   - Structured output extraction with strict Zod validation
- *   - Estate Asset identification & matching against live client asset register
+ *   - Estate asset identification & matching against live client asset register
  *   - Complete audit trail logging (ai_runs, ai_cost_records)
  *   - Deterministic rule fallback ensuring 100% CAFM uptime even if AI is offline
  */
 
 import { dbQuery } from '../../db/client';
-import { getGeminiApiKey } from '../models/providers/gemini';
 import { wrapUntrustedEvidence } from '../models/router';
+import { getFirebaseAIModel, getMultimodalModelName, type Part } from '../firebase/client';
 import {
   AssetMatchCandidate,
   EstateAssetSummary,
@@ -26,6 +29,14 @@ import {
   MultimodalJobAssessment,
   MultimodalJobAssessmentSchema,
 } from './types';
+
+// ─── CONSTANTS ─────────────────────────────────────────────────────────────────
+
+/** Max total base64 payload size in bytes before we reject the request */
+const MAX_PAYLOAD_BYTES = 18 * 1024 * 1024; // 18 MB
+
+/** Max individual evidence items passed to the model */
+const MAX_EVIDENCE_ITEMS = 10;
 
 // ─── DETERMINISTIC FALLBACK HEURISTIC ─────────────────────────────────────────
 
@@ -161,32 +172,29 @@ export function generateDeterministicMultimodalAssessment(
   };
 }
 
-// ─── MULTIMODAL GEMINI INTEGRATION ────────────────────────────────────────────
+// ─── PAYLOAD SIZE GUARD ────────────────────────────────────────────────────────
 
-export class MultimodalJobAnalysisService {
-  /**
-   * Main entry point to analyze multimodal evidence and return structured CAFM job assessment.
-   */
-  public static async analyze(request: MultimodalAnalysisRequest): Promise<MultimodalAnalysisResponse> {
-    const startMs = Date.now();
-    const apiKey = getGeminiApiKey();
-    const modelName = 'gemini-2.5-flash';
-
-    // If Gemini is not configured, gracefully fall back to deterministic assessment
-    if (!apiKey) {
-      const fallbackAssessment = generateDeterministicMultimodalAssessment(request);
-      return {
-        success: true,
-        assessment: fallbackAssessment,
-        modelProvider: 'DETERMINISTIC',
-        modelName: 'entirefm-cafm-rules-engine',
-        isFallback: true,
-        latencyMs: Date.now() - startMs,
-      };
+/**
+ * Calculates total base64 payload bytes for the evidence items.
+ * Returns { totalBytes, oversized: true } if exceeds MAX_PAYLOAD_BYTES.
+ */
+function checkPayloadSize(evidence: MultimodalEvidenceItem[]): { totalBytes: number; oversized: boolean } {
+  let totalBytes = 0;
+  for (const item of evidence) {
+    if (item.base64Data) {
+      // base64 encodes 3 bytes as 4 chars; approximate decoded byte size
+      const b64 = item.base64Data.includes(',') ? item.base64Data.split(',')[1] : item.base64Data;
+      totalBytes += Math.ceil((b64.length * 3) / 4);
+    } else if (item.sizeBytes) {
+      totalBytes += item.sizeBytes;
     }
+  }
+  return { totalBytes, oversized: totalBytes > MAX_PAYLOAD_BYTES };
+}
 
-    try {
-      const systemInstruction = `You are the EntireFM Senior Facilities Management Multimodal AI Assessment Specialist.
+// ─── SYSTEM INSTRUCTION ────────────────────────────────────────────────────────
+
+const SYSTEM_INSTRUCTION = `You are the EntireFM Senior Facilities Management Multimodal AI Assessment Specialist.
 You analyze user problem descriptions, photographs, video clips, technical drawings/PDFs, and voice notes to provide an authoritative, structured job assessment for a CAFM (Computer-Aided Facility Management) system.
 
 Governance & Rules:
@@ -226,6 +234,55 @@ JSON Schema format:
   "error_codes": ["List of error codes displayed on screens/panels"] or null
 }`;
 
+// ─── MULTIMODAL FIREBASE AI LOGIC INTEGRATION ──────────────────────────────────
+
+export class MultimodalJobAnalysisService {
+  /**
+   * Main entry point to analyze multimodal evidence and return structured CAFM job assessment.
+   *
+   * Uses Firebase AI Logic (GoogleAIBackend). Falls back to deterministic assessment if
+   * Firebase AI is not configured or returns an error.
+   */
+  public static async analyze(request: MultimodalAnalysisRequest): Promise<MultimodalAnalysisResponse> {
+    const startMs = Date.now();
+    const modelName = getMultimodalModelName();
+
+    // ── Payload size guard ─────────────────────────────────────────────────────
+    if (request.evidence.length > 0) {
+      const { totalBytes, oversized } = checkPayloadSize(request.evidence);
+      if (oversized) {
+        console.warn(
+          `[MULTIMODAL_AI] Payload size ${(totalBytes / 1024 / 1024).toFixed(1)} MB exceeds ${MAX_PAYLOAD_BYTES / 1024 / 1024} MB limit — falling back to deterministic`
+        );
+        const fallback = generateDeterministicMultimodalAssessment(request);
+        return {
+          success: false,
+          assessment: fallback,
+          modelProvider: 'DETERMINISTIC',
+          modelName: 'entirefm-cafm-rules-engine',
+          isFallback: true,
+          latencyMs: Date.now() - startMs,
+          error: `Evidence payload (${(totalBytes / 1024 / 1024).toFixed(1)} MB) exceeds maximum allowed size of ${MAX_PAYLOAD_BYTES / 1024 / 1024} MB`,
+        };
+      }
+    }
+
+    // ── Firebase AI Logic model ────────────────────────────────────────────────
+    const model = getFirebaseAIModel(SYSTEM_INSTRUCTION);
+
+    if (!model) {
+      const fallbackAssessment = generateDeterministicMultimodalAssessment(request);
+      return {
+        success: true,
+        assessment: fallbackAssessment,
+        modelProvider: 'DETERMINISTIC',
+        modelName: 'entirefm-cafm-rules-engine',
+        isFallback: true,
+        latencyMs: Date.now() - startMs,
+      };
+    }
+
+    try {
       // Construct prompt with estate asset context if available
       let promptText = `Analyze this maintenance issue and uploaded evidence:\n\n`;
       promptText += wrapUntrustedEvidence('user_description', request.userDescription || 'No description provided');
@@ -251,11 +308,12 @@ JSON Schema format:
         );
       }
 
-      // Build Gemini parts: prompt text followed by inline multimodal data
-      const parts: Array<Record<string, any>> = [{ text: promptText }];
+      // Build Firebase AI Logic content parts
+      const parts: Part[] = [{ text: promptText }];
 
-      // Filter and include inline media parts (limit to 10 media files, max 20MB per file)
-      for (const item of request.evidence) {
+      // Filter and include inline media parts (limit to MAX_EVIDENCE_ITEMS files)
+      const evidenceItems = request.evidence.slice(0, MAX_EVIDENCE_ITEMS);
+      for (const item of evidenceItems) {
         if (item.base64Data) {
           // Normalize base64 string (strip data URL prefix if present)
           const base64Clean = item.base64Data.includes(',')
@@ -283,55 +341,25 @@ JSON Schema format:
         }
       }
 
-      const payload = {
-        systemInstruction: {
-          parts: [{ text: systemInstruction }],
-        },
+      // Call Firebase AI Logic with user content parts
+      const result = await model.generateContent({
         contents: [
           {
             role: 'user',
             parts,
           },
         ],
-        generationConfig: {
-          temperature: 0.1,
-          maxOutputTokens: 2500,
-          responseMimeType: 'application/json',
-        },
-      };
-
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        }
-      );
+      });
 
       const latencyMs = Date.now() - startMs;
+      const response = result.response;
+      const rawText = response.text() || '{}';
 
-      if (!res.ok) {
-        const errText = await res.text().catch(() => '');
-        console.warn(`[MULTIMODAL_AI] Gemini API error HTTP ${res.status}:`, errText);
-        const fallback = generateDeterministicMultimodalAssessment(request);
-        return {
-          success: true,
-          assessment: fallback,
-          modelProvider: 'GEMINI_FALLBACK',
-          modelName,
-          isFallback: true,
-          latencyMs,
-          error: `Gemini API returned ${res.status}`,
-        };
-      }
-
-      const data = (await res.json()) as any;
-      const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
-
-      const promptTokens = data?.usageMetadata?.promptTokenCount ?? 0;
-      const completionTokens = data?.usageMetadata?.candidatesTokenCount ?? 0;
-      const totalTokens = data?.usageMetadata?.totalTokenCount ?? promptTokens + completionTokens;
+      // Token usage from Firebase AI Logic response metadata
+      const usageMeta = (response as any).usageMetadata;
+      const promptTokens = usageMeta?.promptTokenCount ?? 0;
+      const completionTokens = usageMeta?.candidatesTokenCount ?? 0;
+      const totalTokens = usageMeta?.totalTokenCount ?? promptTokens + completionTokens;
 
       const costUsd = (promptTokens * 0.075 + completionTokens * 0.3) / 1_000_000;
       const costGbp = Math.round(costUsd * 0.79 * 1_000_000) / 1_000_000;
@@ -391,7 +419,7 @@ JSON Schema format:
       return {
         success: true,
         assessment: validatedAssessment,
-        modelProvider: 'GEMINI',
+        modelProvider: 'FIREBASE_AI_LOGIC',
         modelName,
         isFallback: false,
         tokensUsed: totalTokens,
@@ -446,7 +474,7 @@ JSON Schema format:
             started_at: new Date(Date.now() - params.latencyMs).toISOString(),
             completed_at: new Date().toISOString(),
             output_result: {
-              provider: 'GEMINI',
+              provider: 'FIREBASE_AI_LOGIC',
               model: params.modelName,
               summary: params.output?.issue_summary,
               category: params.output?.category,

@@ -334,60 +334,60 @@ alter table public.finance_tolerance_policies enable row level security;
 alter table public.accounting_sync_logs enable row level security;
 alter table public.finance_mailbox_intake enable row level security;
 
-create policy "EntireFM finance read credit_notes"
-  on public.credit_notes for select
+DROP POLICY IF EXISTS "EntireFM finance read credit_notes" ON public.credit_notes;
+CREATE POLICY "EntireFM finance read credit_notes" ON public.credit_notes for select
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance insert credit_notes"
-  on public.credit_notes for insert
+DROP POLICY IF EXISTS "EntireFM finance insert credit_notes" ON public.credit_notes;
+CREATE POLICY "EntireFM finance insert credit_notes" ON public.credit_notes for insert
   with check (auth.role() = 'authenticated');
 
-create policy "EntireFM finance update credit_notes"
-  on public.credit_notes for update
+DROP POLICY IF EXISTS "EntireFM finance update credit_notes" ON public.credit_notes;
+CREATE POLICY "EntireFM finance update credit_notes" ON public.credit_notes for update
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance read credit_note_lines"
-  on public.credit_note_lines for select
+DROP POLICY IF EXISTS "EntireFM finance read credit_note_lines" ON public.credit_note_lines;
+CREATE POLICY "EntireFM finance read credit_note_lines" ON public.credit_note_lines for select
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance insert credit_note_lines"
-  on public.credit_note_lines for insert
+DROP POLICY IF EXISTS "EntireFM finance insert credit_note_lines" ON public.credit_note_lines;
+CREATE POLICY "EntireFM finance insert credit_note_lines" ON public.credit_note_lines for insert
   with check (auth.role() = 'authenticated');
 
-create policy "EntireFM finance read tolerance_policies"
-  on public.finance_tolerance_policies for select
+DROP POLICY IF EXISTS "EntireFM finance read tolerance_policies" ON public.finance_tolerance_policies;
+CREATE POLICY "EntireFM finance read tolerance_policies" ON public.finance_tolerance_policies for select
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance insert tolerance_policies"
-  on public.finance_tolerance_policies for insert
+DROP POLICY IF EXISTS "EntireFM finance insert tolerance_policies" ON public.finance_tolerance_policies;
+CREATE POLICY "EntireFM finance insert tolerance_policies" ON public.finance_tolerance_policies for insert
   with check (auth.role() = 'authenticated');
 
-create policy "EntireFM finance update tolerance_policies"
-  on public.finance_tolerance_policies for update
+DROP POLICY IF EXISTS "EntireFM finance update tolerance_policies" ON public.finance_tolerance_policies;
+CREATE POLICY "EntireFM finance update tolerance_policies" ON public.finance_tolerance_policies for update
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance read accounting_sync_logs"
-  on public.accounting_sync_logs for select
+DROP POLICY IF EXISTS "EntireFM finance read accounting_sync_logs" ON public.accounting_sync_logs;
+CREATE POLICY "EntireFM finance read accounting_sync_logs" ON public.accounting_sync_logs for select
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance insert accounting_sync_logs"
-  on public.accounting_sync_logs for insert
+DROP POLICY IF EXISTS "EntireFM finance insert accounting_sync_logs" ON public.accounting_sync_logs;
+CREATE POLICY "EntireFM finance insert accounting_sync_logs" ON public.accounting_sync_logs for insert
   with check (auth.role() = 'authenticated');
 
-create policy "EntireFM finance update accounting_sync_logs"
-  on public.accounting_sync_logs for update
+DROP POLICY IF EXISTS "EntireFM finance update accounting_sync_logs" ON public.accounting_sync_logs;
+CREATE POLICY "EntireFM finance update accounting_sync_logs" ON public.accounting_sync_logs for update
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance read mailbox_intake"
-  on public.finance_mailbox_intake for select
+DROP POLICY IF EXISTS "EntireFM finance read mailbox_intake" ON public.finance_mailbox_intake;
+CREATE POLICY "EntireFM finance read mailbox_intake" ON public.finance_mailbox_intake for select
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance insert mailbox_intake"
-  on public.finance_mailbox_intake for insert
+DROP POLICY IF EXISTS "EntireFM finance insert mailbox_intake" ON public.finance_mailbox_intake;
+CREATE POLICY "EntireFM finance insert mailbox_intake" ON public.finance_mailbox_intake for insert
   with check (auth.role() = 'authenticated');
 
-create policy "EntireFM finance update mailbox_intake"
-  on public.finance_mailbox_intake for update
+DROP POLICY IF EXISTS "EntireFM finance update mailbox_intake" ON public.finance_mailbox_intake;
+CREATE POLICY "EntireFM finance update mailbox_intake" ON public.finance_mailbox_intake for update
   using (auth.role() = 'authenticated');
 
 -- ============================================================

@@ -140,15 +140,19 @@ ALTER TABLE public.supplier_invitations ENABLE ROW LEVEL SECURITY;
 DO $$
 BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'service_role_supplier_users' AND tablename = 'supplier_users') THEN
-    CREATE POLICY service_role_supplier_users ON public.supplier_users FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_supplier_users ON public.supplier_users;
+CREATE POLICY service_role_supplier_users ON public.supplier_users FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'service_role_supplier_orgs' AND tablename = 'supplier_organisations') THEN
-    CREATE POLICY service_role_supplier_orgs ON public.supplier_organisations FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_supplier_orgs ON public.supplier_organisations;
+CREATE POLICY service_role_supplier_orgs ON public.supplier_organisations FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'service_role_supplier_drafts' AND tablename = 'supplier_application_drafts') THEN
-    CREATE POLICY service_role_supplier_drafts ON public.supplier_application_drafts FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_supplier_drafts ON public.supplier_application_drafts;
+CREATE POLICY service_role_supplier_drafts ON public.supplier_application_drafts FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'service_role_supplier_invitations' AND tablename = 'supplier_invitations') THEN
-    CREATE POLICY service_role_supplier_invitations ON public.supplier_invitations FOR ALL TO service_role USING (true) WITH CHECK (true);
+    DROP POLICY IF EXISTS service_role_supplier_invitations ON public.supplier_invitations;
+CREATE POLICY service_role_supplier_invitations ON public.supplier_invitations FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
 END $$;

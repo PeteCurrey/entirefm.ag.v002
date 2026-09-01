@@ -86,39 +86,41 @@ export async function evaluateOperativeEligibility(
   // ─────────────────────────────────────────────────────────────
   // LAYER 1: CONTRACTOR ORGANISATION COMPLIANCE
   // ─────────────────────────────────────────────────────────────
-  let contractorComplianceStatus = 'COMPLIANT';
-  try {
-    const orgSummary = await evaluateContractorCompliance(operative.contractorOrgId, session);
-    contractorComplianceStatus = orgSummary.operationalStatus;
-
-    if (orgSummary.operationalStatus === 'RESTRICTED') {
-      failedChecks.push({
-        code: 'ORG_COMPLIANCE_RESTRICTED',
-        title: 'Contractor Organisation Compliance Restricted',
-        detail: 'Contractor has expired statutory insurances (e.g. Public Liability) blocking all field work dispatch.',
-        isHardBlock: true,
-      });
-      missingRequirements.push({
-        type: 'COMPLIANCE',
-        name: 'Contractor Organisation Public Liability / Statutory Insurance',
-        code: 'ORG_INSURANCE_EXPIRED',
-      });
-    } else if (orgSummary.operationalStatus === 'SUSPENDED') {
-      failedChecks.push({
-        code: 'ORG_SUSPENDED',
-        title: 'Contractor Organisation Suspended',
-        detail: 'Organisation is under active administrative or compliance suspension.',
-        isHardBlock: true,
-      });
-    } else {
-      passedChecks.push({
-        code: 'ORG_COMPLIANCE_VALID',
-        title: 'Contractor Organisation In Good Standing',
-        detail: `Status: ${orgSummary.operationalStatus} (${orgSummary.complianceScorePct}% compliant)`,
-      });
+  let contractorComplianceStatus = (operative as any).contractorComplianceStatus || 'COMPLIANT';
+  if (!(operative as any).contractorComplianceStatus) {
+    try {
+      const orgSummary = await evaluateContractorCompliance(operative.contractorOrgId, session);
+      contractorComplianceStatus = orgSummary.operationalStatus;
+    } catch (err) {
+      // If compliance service query fails in standalone tests, default to operative status
     }
-  } catch (err) {
-    // If compliance service query fails in standalone tests, default to checking operative layer
+  }
+
+  if (contractorComplianceStatus === 'RESTRICTED') {
+    failedChecks.push({
+      code: 'ORG_COMPLIANCE_RESTRICTED',
+      title: 'Contractor Organisation Compliance Restricted',
+      detail: 'Contractor has expired statutory insurances (e.g. Public Liability) blocking all field work dispatch.',
+      isHardBlock: true,
+    });
+    missingRequirements.push({
+      type: 'COMPLIANCE',
+      name: 'Contractor Organisation Public Liability / Statutory Insurance',
+      code: 'ORG_INSURANCE_EXPIRED',
+    });
+  } else if (contractorComplianceStatus === 'SUSPENDED') {
+    failedChecks.push({
+      code: 'ORG_SUSPENDED',
+      title: 'Contractor Organisation Suspended',
+      detail: 'Organisation is under active administrative or compliance suspension.',
+      isHardBlock: true,
+    });
+  } else {
+    passedChecks.push({
+      code: 'ORG_COMPLIANCE_VALID',
+      title: 'Contractor Organisation In Good Standing',
+      detail: `Status: ${contractorComplianceStatus}`,
+    });
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -289,7 +291,7 @@ export async function evaluateOperativeEligibility(
 
   for (const trainCode of reqTraining) {
     const courseDef = CANONICAL_TRAINING_COURSES.find((c) => c.code === trainCode);
-    const heldTraining = (operative as any).trainingRecords?.find((t: any) => t.code === trainCode);
+    const heldTraining = (operative as any).trainingRecords?.find((t: any) => t.code === trainCode || t.courseCode === trainCode);
 
     if (heldTraining && heldTraining.status === 'EXPIRED') {
       failedChecks.push({

@@ -43,6 +43,7 @@ export default async function ClientsLayout({ children }: { children: React.Reac
     { name: 'Overview', href: '/clients' },
     { name: 'Log a Job', href: '/clients/log-a-job', highlight: true },
     { name: 'Jobs', href: '/clients/work-orders' },
+    { name: 'Estate Performance', href: '/clients/performance' },
     { name: 'Sites', href: '/clients/sites' },
     { name: 'Assets', href: '/clients/assets' },
     { name: 'Planned Maintenance', href: '/clients/ppm' },

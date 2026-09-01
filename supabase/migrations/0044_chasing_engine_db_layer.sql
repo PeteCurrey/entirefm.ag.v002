@@ -57,6 +57,33 @@ create table if not exists public.communication_messages (
 comment on table public.communication_messages
   is 'Durable, idempotent store for all outbound communications. Survives serverless cold starts.';
 
+-- Defensive column guards: if this table pre-existed from a partial schema run,
+-- ensure every column used by indexes below is present.
+alter table public.communication_messages
+  add column if not exists thread_id            text,
+  add column if not exists work_order_id        text,
+  add column if not exists sender_name          text,
+  add column if not exists sender_email         text,
+  add column if not exists reply_to_email       text,
+  add column if not exists channel              text not null default 'EMAIL',
+  add column if not exists visibility           text not null default 'INTERNAL_ONLY',
+  add column if not exists body                 text,
+  add column if not exists is_incoming          boolean not null default false,
+  add column if not exists is_ai_generated      boolean not null default false,
+  add column if not exists idempotency_key      text,
+  add column if not exists delivery_state       text not null default 'INTERFACE_ONLY',
+  add column if not exists provider             text not null default 'INTERFACE_ONLY',
+  add column if not exists provider_message_id  text,
+  add column if not exists recipient_email      text,
+  add column if not exists queued_at            timestamptz,
+  add column if not exists sent_at              timestamptz,
+  add column if not exists delivered_at         timestamptz,
+  add column if not exists failed_at            timestamptz,
+  add column if not exists bounced_at           timestamptz,
+  add column if not exists failure_reason       text,
+  add column if not exists bounce_details       jsonb,
+  add column if not exists created_at           timestamptz not null default now();
+
 -- Indexes
 create index if not exists idx_comm_messages_thread
   on public.communication_messages (thread_id, created_at desc);
@@ -72,7 +99,7 @@ create index if not exists idx_comm_messages_provider_msg_id
 -- RLS
 alter table public.communication_messages enable row level security;
 
-create policy "Service role has full access to communication_messages"
-  on public.communication_messages
+DROP POLICY IF EXISTS "Service role has full access to communication_messages" ON public.communication_messages;
+CREATE POLICY "Service role has full access to communication_messages" ON public.communication_messages
   for all
   using (true);

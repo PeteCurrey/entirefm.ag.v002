@@ -57,6 +57,9 @@ export default async function ContractorLayout({ children }: { children: React.R
   const navLinks = [
     { name: 'Dashboard', href: '/contractor' },
     { name: 'Work Queue', href: '/contractor/work' },
+    { name: 'Job Packs', href: '/contractor/job-packs' },
+    { name: 'Customers', href: '/contractor/customers' },
+    { name: 'Business Documents', href: '/contractor/templates' },
     { name: 'Workforce & Matrix', href: '/contractor/workforce' },
     { name: 'Compliance', href: '/contractor/compliance' },
     { name: 'Intelligence', href: '/contractor/intelligence' },

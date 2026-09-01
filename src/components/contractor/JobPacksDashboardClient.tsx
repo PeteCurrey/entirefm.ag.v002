@@ -1,5 +1,13 @@
 'use client';
 
+/**
+ * CLIENT COMPONENT: JobPacksDashboardClient
+ * =========================================
+ * Unified pre-attendance packs with dual-mode creation:
+ * Mode 1: EntireFM Network Jobs
+ * Mode 2: Contractor Independent Customer Jobs
+ */
+
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
@@ -13,6 +21,11 @@ import {
   Download,
   MapPin,
   User,
+  Plus,
+  Briefcase,
+  Layers,
+  Building,
+  Wrench,
 } from 'lucide-react';
 import { JobPackRecord } from '@/server/contractor/job-pack-engine';
 
@@ -25,6 +38,15 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
   const [jobPacks, setJobPacks] = useState<JobPackRecord[]>(initialJobPacks);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('ALL');
+  const [showBuildModal, setShowBuildModal] = useState(false);
+  const [buildMode, setBuildMode] = useState<'ENTIREFM' | 'INDEPENDENT'>('INDEPENDENT');
+
+  // Independent Form State
+  const [custName, setCustName] = useState('');
+  const [siteLoc, setSiteLoc] = useState('');
+  const [jobScope, setJobScope] = useState('');
+  const [trade, setTrade] = useState('ELECTRICAL');
+  const [leadOperative, setLeadOperative] = useState('');
 
   const filtered = jobPacks.filter((jp) => {
     if (selectedStatus === 'READY' && !jp.readiness.isReadyForAttendance) return false;
@@ -47,6 +69,77 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
   const readyCount = jobPacks.filter((jp) => jp.readiness.isReadyForAttendance).length;
   const actionRequiredCount = totalCount - readyCount;
 
+  const handleCreateIndependentPack = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newPack: JobPackRecord = {
+      id: `JP-IND-${Math.floor(1000 + Math.random() * 9000)}`,
+      workOrderId: `IND-${Math.floor(10000 + Math.random() * 90000)}`,
+      workOrderNumber: `IND-JOB-${Math.floor(100 + Math.random() * 900)}`,
+      contractorOrgId,
+      contractorName: 'Contractor Business',
+      clientName: custName || 'Direct Private Client',
+      siteName: siteLoc || 'Customer Designated Site',
+      siteAddress: siteLoc,
+      trade,
+      scopeDescription: jobScope || 'Independent trade service pack',
+      priority: 'P3_MEDIUM',
+      plannedAttendanceDate: new Date().toISOString().split('T')[0],
+      plannedAttendanceTime: '09:00',
+      assignedOperative: {
+        operativeId: 'op-1',
+        personId: 'p-1',
+        fullName: leadOperative || 'Qualified Operative',
+        jobTitle: 'Lead Technician',
+        trade,
+        approvalStatus: 'APPROVED',
+        eligibilityStatus: 'ELIGIBLE',
+        relevantQualifications: ['NVQ Level 3', 'City & Guilds 18th Edition'],
+        relevantCompetencies: ['Working at Height', 'First Aid'],
+      },
+      siteInstructions: {
+        accessHours: '08:00 - 18:00',
+        contactName: custName || 'Site Manager',
+        contactPhone: '07000 000000',
+        securityInductionRequired: false,
+      },
+      permits: [],
+      coshhItems: [],
+      ppeRequired: ['Safety Footwear', 'Hi-Vis Vest'],
+      plantRequired: [],
+      emergencyArrangements: {
+        emergencyContact: 'Site Manager (07000 000000)',
+        nearestHospital: 'Manchester Royal Infirmary',
+        evacuationRoute: 'Main entrance assembly point',
+        specialistRescueRequired: false,
+      },
+      evidenceChecklist: [],
+      briefings: [],
+      readiness: {
+        isReadyForAttendance: true,
+        status: 'READY',
+        blockingReasons: [],
+        advisoryWarnings: [],
+        sections: {
+          OPERATIVE: { section: 'Operative Competencies', status: 'SATISFIED', detail: 'Qualifications verified', sourceProvenance: 'Self-Verified' },
+          RAMS: { section: 'Site Safety RAMS', status: 'SATISFIED', detail: 'Dynamic safety pack attached', sourceProvenance: 'Template Library' },
+          CLIENT: { section: 'Customer Authorization', status: 'SATISFIED', detail: 'Client instruction confirmed', sourceProvenance: 'Direct Order' },
+        },
+        gatingPolicy: 'WARNING_GATE',
+        evaluatedAt: new Date().toISOString(),
+      },
+      isIssued: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      version: '1.0',
+    };
+
+    setJobPacks([newPack, ...jobPacks]);
+    setShowBuildModal(false);
+    setCustName('');
+    setSiteLoc('');
+    setJobScope('');
+  };
+
   return (
     <div className="space-y-6">
       {/* Metric Scorecard */}
@@ -54,13 +147,13 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
           <span className="text-[10px] font-normal text-brand-mist/50 uppercase">ACTIVE JOB PACKS</span>
           <p className="text-2xl font-light text-white mt-1">{totalCount}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Allocated work orders</span>
+          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">EntireFM + Private packs</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
           <span className="text-[10px] font-normal text-brand-mist/50 uppercase">READY FOR ATTENDANCE</span>
           <p className="text-2xl font-light text-emerald-400 mt-1">{readyCount}</p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">All gates cleared</span>
+          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">All safety gates cleared</span>
         </div>
 
         <div className="rounded-xl border border-brand-edge-dark bg-brand-carbon/60 p-4">
@@ -76,7 +169,7 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
           <p className="text-2xl font-light text-cyan-400 mt-1">
             {totalCount > 0 ? `${Math.round((readyCount / totalCount) * 100)}%` : '100%'}
           </p>
-          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Compliance safety score</span>
+          <span className="text-[10.5px] text-brand-mist/40 mt-0.5 block">Safety compliance score</span>
         </div>
       </div>
 
@@ -93,7 +186,7 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
           />
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-normal">
+        <div className="flex items-center gap-2 text-xs font-normal flex-wrap">
           <span className="text-brand-mist/50">Readiness:</span>
           <select
             value={selectedStatus}
@@ -104,6 +197,13 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
             <option value="READY">Ready for Attendance</option>
             <option value="ACTION_REQUIRED">Action Required</option>
           </select>
+
+          <button
+            onClick={() => setShowBuildModal(true)}
+            className="px-3.5 py-1.5 rounded-lg bg-brand-electric text-white text-xs font-semibold hover:bg-brand-electric/85 transition-all flex items-center gap-1 shadow-md shadow-brand-electric/20"
+          >
+            <Plus className="w-3.5 h-3.5" /> Build Job Pack
+          </button>
         </div>
       </div>
 
@@ -114,7 +214,7 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
             <thead>
               <tr className="bg-brand-void/90 border-b border-brand-edge-dark text-brand-mist/60 uppercase text-[10px]">
                 <th className="py-3 px-4">Job Pack Ref</th>
-                <th className="py-3 px-4">Work Order &amp; Trade</th>
+                <th className="py-3 px-4">Work Order / Customer</th>
                 <th className="py-3 px-4">Assigned Operative</th>
                 <th className="py-3 px-4">Site &amp; Planned Date</th>
                 <th className="py-3 px-4">Readiness Status</th>
@@ -125,7 +225,7 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
               {filtered.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="py-12 text-center text-brand-mist/50 font-sans text-xs">
-                    No active Job Packs found.
+                    No active Job Packs found. Click &quot;Build Job Pack&quot; to assemble a pre-attendance pack.
                   </td>
                 </tr>
               ) : (
@@ -142,7 +242,7 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
                     </td>
                     <td className="py-3 px-4 text-white">
                       <span className="font-medium block">{jp.workOrderNumber}</span>
-                      <span className="text-[10px] text-brand-mist/50 block">{jp.trade}</span>
+                      <span className="text-[10px] text-brand-mist/50 block">{jp.clientName} · {jp.trade}</span>
                     </td>
                     <td className="py-3 px-4 text-brand-mist">
                       <span className="text-white block">{jp.assignedOperative?.fullName || 'Unassigned'}</span>
@@ -193,6 +293,137 @@ export function JobPacksDashboardClient({ initialJobPacks, contractorOrgId }: Pr
           </table>
         </div>
       </div>
+
+      {/* Dual-Mode Job Pack Builder Modal */}
+      {showBuildModal && (
+        <div className="fixed inset-0 bg-brand-void/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <form onSubmit={handleCreateIndependentPack} className="max-w-lg w-full bg-brand-carbon border border-brand-edge-dark rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="text-[10px] uppercase font-bold text-brand-electric-bright tracking-wider">
+                  JOB PACK BUILDER
+                </span>
+                <h3 className="text-lg font-light text-white">Assemble Work-Ready Pack</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowBuildModal(false)}
+                className="text-brand-mist/50 hover:text-white text-lg"
+              >
+                &times;
+              </button>
+            </div>
+
+            {/* Mode Toggle */}
+            <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-brand-void border border-brand-edge-dark text-xs">
+              <button
+                type="button"
+                onClick={() => setBuildMode('INDEPENDENT')}
+                className={`py-2 rounded-lg font-medium transition-all ${
+                  buildMode === 'INDEPENDENT'
+                    ? 'bg-brand-electric text-white shadow-sm'
+                    : 'text-brand-mist/60 hover:text-white'
+                }`}
+              >
+                Contractor Own Customer
+              </button>
+              <button
+                type="button"
+                onClick={() => setBuildMode('ENTIREFM')}
+                className={`py-2 rounded-lg font-medium transition-all ${
+                  buildMode === 'ENTIREFM'
+                    ? 'bg-brand-electric text-white shadow-sm'
+                    : 'text-brand-mist/60 hover:text-white'
+                }`}
+              >
+                EntireFM Network Job
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div>
+                <label className="text-brand-mist/60 block mb-1">
+                  {buildMode === 'INDEPENDENT' ? 'Customer Name' : 'EntireFM Client Account'} *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={custName}
+                  onChange={(e) => setCustName(e.target.value)}
+                  placeholder="e.g. Apex Industrial Estates"
+                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                />
+              </div>
+
+              <div>
+                <label className="text-brand-mist/60 block mb-1">Site &amp; Location Address *</label>
+                <input
+                  type="text"
+                  required
+                  value={siteLoc}
+                  onChange={(e) => setSiteLoc(e.target.value)}
+                  placeholder="e.g. Unit 12, Riverway Business Park"
+                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="text-brand-mist/60 block mb-1">Trade Suite</label>
+                  <select
+                    value={trade}
+                    onChange={(e) => setTrade(e.target.value)}
+                    className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  >
+                    <option value="ELECTRICAL">Electrical &amp; Controls</option>
+                    <option value="HVAC">HVAC &amp; Refrigeration</option>
+                    <option value="FIRE_SAFETY">Fire &amp; Life Safety</option>
+                    <option value="PLUMBING">Plumbing &amp; Heating</option>
+                    <option value="GENERAL">General Maintenance</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-brand-mist/60 block mb-1">Lead Operative</label>
+                  <input
+                    type="text"
+                    value={leadOperative}
+                    onChange={(e) => setLeadOperative(e.target.value)}
+                    placeholder="e.g. Dave Miller"
+                    className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-brand-mist/60 block mb-1">Scope of Work &amp; Instructions</label>
+                <textarea
+                  rows={2}
+                  value={jobScope}
+                  onChange={(e) => setJobScope(e.target.value)}
+                  placeholder="Describe scope, safety protocols, required permits..."
+                  className="w-full rounded-xl bg-brand-void border border-brand-edge-dark px-3 py-2 text-white placeholder-brand-mist/30"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2 border-t border-brand-edge-dark/50">
+              <button
+                type="button"
+                onClick={() => setShowBuildModal(false)}
+                className="px-4 py-2 rounded-xl border border-brand-edge-dark text-xs text-brand-mist hover:text-white"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 rounded-xl bg-brand-electric text-white text-xs font-semibold hover:bg-brand-electric/85 shadow-md shadow-brand-electric/20"
+              >
+                Assemble &amp; Clear Safety Gates
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

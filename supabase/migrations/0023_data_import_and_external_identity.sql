@@ -230,7 +230,8 @@ ALTER TABLE public.data_import_issues ENABLE ROW LEVEL SECURITY;
 -- Service role bypasses RLS
 -- Internal Admin Access Policy
 DO $$ BEGIN
-  CREATE POLICY data_import_batches_admin_all ON public.data_import_batches
+  DROP POLICY IF EXISTS data_import_batches_admin_all ON public.data_import_batches;
+CREATE POLICY data_import_batches_admin_all ON public.data_import_batches
     FOR ALL USING (
       EXISTS (
         SELECT 1 FROM public.organisation_memberships m
@@ -242,7 +243,8 @@ DO $$ BEGIN
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 DO $$ BEGIN
-  CREATE POLICY data_import_files_admin_all ON public.data_import_files
+  DROP POLICY IF EXISTS data_import_files_admin_all ON public.data_import_files;
+CREATE POLICY data_import_files_admin_all ON public.data_import_files
     FOR ALL USING (
       EXISTS (
         SELECT 1 FROM public.organisation_memberships m
@@ -254,7 +256,8 @@ DO $$ BEGIN
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 DO $$ BEGIN
-  CREATE POLICY data_import_rows_admin_all ON public.data_import_rows
+  DROP POLICY IF EXISTS data_import_rows_admin_all ON public.data_import_rows;
+CREATE POLICY data_import_rows_admin_all ON public.data_import_rows
     FOR ALL USING (
       EXISTS (
         SELECT 1 FROM public.organisation_memberships m
@@ -266,7 +269,8 @@ DO $$ BEGIN
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 DO $$ BEGIN
-  CREATE POLICY data_import_mappings_admin_all ON public.data_import_mappings
+  DROP POLICY IF EXISTS data_import_mappings_admin_all ON public.data_import_mappings;
+CREATE POLICY data_import_mappings_admin_all ON public.data_import_mappings
     FOR ALL USING (
       EXISTS (
         SELECT 1 FROM public.organisation_memberships m
@@ -278,7 +282,8 @@ DO $$ BEGIN
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 DO $$ BEGIN
-  CREATE POLICY data_import_issues_admin_all ON public.data_import_issues
+  DROP POLICY IF EXISTS data_import_issues_admin_all ON public.data_import_issues;
+CREATE POLICY data_import_issues_admin_all ON public.data_import_issues
     FOR ALL USING (
       EXISTS (
         SELECT 1 FROM public.organisation_memberships m

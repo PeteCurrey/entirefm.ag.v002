@@ -94,6 +94,9 @@ alter table public.sla_tracking enable row level security;
 alter table public.evidence_gate_rules enable row level security;
 
 -- Policies
-create policy "Service role has full access to contract_sites" on public.contract_sites for all using (true);
-create policy "Service role has full access to sla_tracking" on public.sla_tracking for all using (true);
-create policy "Service role has full access to evidence_gate_rules" on public.evidence_gate_rules for all using (true);
+DROP POLICY IF EXISTS "Service role has full access to contract_sites" ON public.contract_sites;
+CREATE POLICY "Service role has full access to contract_sites" ON public.contract_sites for all using (true);
+DROP POLICY IF EXISTS "Service role has full access to sla_tracking" ON public.sla_tracking;
+CREATE POLICY "Service role has full access to sla_tracking" ON public.sla_tracking for all using (true);
+DROP POLICY IF EXISTS "Service role has full access to evidence_gate_rules" ON public.evidence_gate_rules;
+CREATE POLICY "Service role has full access to evidence_gate_rules" ON public.evidence_gate_rules for all using (true);

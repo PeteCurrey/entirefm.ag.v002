@@ -39,7 +39,9 @@ BEGIN
     WHERE policyname = 'service_role_registration_intents'
       AND tablename  = 'supplier_registration_intents'
   ) THEN
-    CREATE POLICY service_role_registration_intents
+    DROP POLICY IF EXISTS service_role_registration_intents
+      ON public.supplier_registration_intents;
+CREATE POLICY service_role_registration_intents
       ON public.supplier_registration_intents
       FOR ALL TO service_role
       USING (true) WITH CHECK (true);

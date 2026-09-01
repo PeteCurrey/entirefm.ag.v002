@@ -145,8 +145,7 @@ END;
 $$;
 
 DROP TRIGGER IF EXISTS on_auth_user_sync ON auth.users;
-CREATE TRIGGER on_auth_user_sync
-  AFTER INSERT OR UPDATE OF email, email_confirmed_at, raw_user_meta_data, last_sign_in_at ON auth.users
+CREATE TRIGGER on_auth_user_sync AFTER INSERT OR UPDATE OF email, email_confirmed_at, raw_user_meta_data, last_sign_in_at ON auth.users
   FOR EACH ROW
   EXECUTE FUNCTION public.handle_auth_user_sync();
 
@@ -195,21 +194,24 @@ BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE tablename = 'user_identities' AND policyname = 'user_identities_self_select'
   ) THEN
-    CREATE POLICY user_identities_self_select ON public.user_identities
+    DROP POLICY IF EXISTS user_identities_self_select ON public.user_identities;
+CREATE POLICY user_identities_self_select ON public.user_identities
       FOR SELECT USING (auth.uid() = auth_user_id);
   END IF;
 
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE tablename = 'user_identities' AND policyname = 'user_identities_self_update'
   ) THEN
-    CREATE POLICY user_identities_self_update ON public.user_identities
+    DROP POLICY IF EXISTS user_identities_self_update ON public.user_identities;
+CREATE POLICY user_identities_self_update ON public.user_identities
       FOR UPDATE USING (auth.uid() = auth_user_id);
   END IF;
 
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies WHERE tablename = 'user_identities' AND policyname = 'user_identities_service_role'
   ) THEN
-    CREATE POLICY user_identities_service_role ON public.user_identities
+    DROP POLICY IF EXISTS user_identities_service_role ON public.user_identities;
+CREATE POLICY user_identities_service_role ON public.user_identities
       FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
 END $$;

@@ -497,9 +497,8 @@ begin
 end;
 $$ language plpgsql;
 
-drop trigger if exists trg_audit_events_immutable on public.audit_events;
-create trigger trg_audit_events_immutable
-before update or delete on public.audit_events
+DROP TRIGGER IF EXISTS trg_audit_events_immutable ON public.audit_events;
+CREATE TRIGGER trg_audit_events_immutable before update or delete ON public.audit_events
 for each row execute function public.prevent_audit_mutation();
 
 -- ============================================================================
@@ -559,11 +558,19 @@ alter table public.workflow_step_runs enable row level security;
 
 -- Canonical RLS Policies: Service role always has full access
 -- Read access restricted to authenticated user's active organisations
-create policy "Service role has full access to membership_scopes" on public.membership_scopes for all using (true);
-create policy "Service role has full access to work_assignments" on public.work_assignments for all using (true);
-create policy "Service role has full access to provider_locations" on public.provider_locations for all using (true);
-create policy "Service role has full access to field_captures" on public.field_captures for all using (true);
-create policy "Service role has full access to observations" on public.observations for all using (true);
-create policy "Service role has full access to defects" on public.defects for all using (true);
-create policy "Service role has full access to recommendations" on public.recommendations for all using (true);
-create policy "Service role has full access to approvals" on public.approvals for all using (true);
+DROP POLICY IF EXISTS "Service role has full access to membership_scopes" ON public.membership_scopes;
+CREATE POLICY "Service role has full access to membership_scopes" ON public.membership_scopes for all using (true);
+DROP POLICY IF EXISTS "Service role has full access to work_assignments" ON public.work_assignments;
+CREATE POLICY "Service role has full access to work_assignments" ON public.work_assignments for all using (true);
+DROP POLICY IF EXISTS "Service role has full access to provider_locations" ON public.provider_locations;
+CREATE POLICY "Service role has full access to provider_locations" ON public.provider_locations for all using (true);
+DROP POLICY IF EXISTS "Service role has full access to field_captures" ON public.field_captures;
+CREATE POLICY "Service role has full access to field_captures" ON public.field_captures for all using (true);
+DROP POLICY IF EXISTS "Service role has full access to observations" ON public.observations;
+CREATE POLICY "Service role has full access to observations" ON public.observations for all using (true);
+DROP POLICY IF EXISTS "Service role has full access to defects" ON public.defects;
+CREATE POLICY "Service role has full access to defects" ON public.defects for all using (true);
+DROP POLICY IF EXISTS "Service role has full access to recommendations" ON public.recommendations;
+CREATE POLICY "Service role has full access to recommendations" ON public.recommendations for all using (true);
+DROP POLICY IF EXISTS "Service role has full access to approvals" ON public.approvals;
+CREATE POLICY "Service role has full access to approvals" ON public.approvals for all using (true);

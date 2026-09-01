@@ -47,7 +47,8 @@ CREATE INDEX IF NOT EXISTS idx_import_dup_decisions_row  ON public.data_import_d
 ALTER TABLE public.data_import_duplicate_decisions ENABLE ROW LEVEL SECURITY;
 
 DO $$ BEGIN
-  CREATE POLICY import_dup_decisions_admin_all ON public.data_import_duplicate_decisions
+  DROP POLICY IF EXISTS import_dup_decisions_admin_all ON public.data_import_duplicate_decisions;
+CREATE POLICY import_dup_decisions_admin_all ON public.data_import_duplicate_decisions
     FOR ALL USING (
       EXISTS (
         SELECT 1 FROM public.organisation_memberships m

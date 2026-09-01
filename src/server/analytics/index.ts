@@ -555,8 +555,9 @@ export async function getWebsiteAnalytics(
     const pageMetric = topPages.find((p) => p.path === tool.path);
     const leadsWithTool = currentLeads.filter((l) => l.form_id === tool.toolId || l.conversion_page === tool.path || (l.assisted_pages || []).includes(tool.path));
     const views = pageMetric?.views || pageMetric?.sessions || 0;
-    const starts = Math.round(views * 0.65);
-    const completions = Math.round(views * 0.42);
+    // Real verified sessions and actual completed enquiries with zero synthetic multipliers
+    const starts = views;
+    const completions = leadsWithTool.length;
     const enquiries = leadsWithTool.length;
 
     return {

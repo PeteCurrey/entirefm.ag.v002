@@ -215,17 +215,27 @@ ALTER TABLE public.report_signatures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.report_exports ENABLE ROW LEVEL SECURITY;
 
 -- Service role has full unrestricted access
+DROP POLICY IF EXISTS service_role_report_templates ON public.report_templates;
 CREATE POLICY service_role_report_templates ON public.report_templates FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS service_role_report_template_versions ON public.report_template_versions;
 CREATE POLICY service_role_report_template_versions ON public.report_template_versions FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS service_role_report_instances ON public.report_instances;
 CREATE POLICY service_role_report_instances ON public.report_instances FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS service_role_report_responses ON public.report_responses;
 CREATE POLICY service_role_report_responses ON public.report_responses FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS service_role_report_repeatable_rows ON public.report_repeatable_rows;
 CREATE POLICY service_role_report_repeatable_rows ON public.report_repeatable_rows FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS service_role_report_attachments ON public.report_attachments;
 CREATE POLICY service_role_report_attachments ON public.report_attachments FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS service_role_report_signatures ON public.report_signatures;
 CREATE POLICY service_role_report_signatures ON public.report_signatures FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS service_role_report_exports ON public.report_exports;
 CREATE POLICY service_role_report_exports ON public.report_exports FOR ALL TO service_role USING (true) WITH CHECK (true);
 
 -- Authenticated Users Read Policies (Controlled by application layer & tenant isolation)
+DROP POLICY IF EXISTS authenticated_read_templates ON public.report_templates;
 CREATE POLICY authenticated_read_templates ON public.report_templates FOR SELECT TO authenticated USING (is_active = true);
+DROP POLICY IF EXISTS authenticated_read_template_versions ON public.report_template_versions;
 CREATE POLICY authenticated_read_template_versions ON public.report_template_versions FOR SELECT TO authenticated USING (is_active = true);
 
 -- ─────────────────────────────────────────────────────────────

@@ -231,6 +231,11 @@ export default function AiLogAJobClient({ clientName, initialSites, initialAsset
 
   // Trigger AI Analysis
   const handleAnalyze = async () => {
+    if (!selectedSiteId) {
+      alert('Please select a site before analysing with AI so the assessment can be grounded in your site asset register.');
+      return;
+    }
+
     if (!description && evidenceList.length === 0) {
       alert('Please enter a description or upload at least one photo, video, or document.');
       return;

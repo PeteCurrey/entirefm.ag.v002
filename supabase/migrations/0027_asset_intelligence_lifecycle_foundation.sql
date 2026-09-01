@@ -267,20 +267,26 @@ ALTER TABLE public.asset_telemetry_sources      ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.repeat_failure_policies      ENABLE ROW LEVEL SECURITY;
 
 -- Service role bypass (following existing pattern — application uses service role key)
+DROP POLICY IF EXISTS "service_role_bypass" ON public.asset_condition_assessments;
 CREATE POLICY "service_role_bypass" ON public.asset_condition_assessments
   FOR ALL TO service_role USING (true) WITH CHECK (true);
 
+DROP POLICY IF EXISTS "service_role_bypass" ON public.asset_failure_events;
 CREATE POLICY "service_role_bypass" ON public.asset_failure_events
   FOR ALL TO service_role USING (true) WITH CHECK (true);
 
+DROP POLICY IF EXISTS "service_role_bypass" ON public.asset_intelligence_signals;
 CREATE POLICY "service_role_bypass" ON public.asset_intelligence_signals
   FOR ALL TO service_role USING (true) WITH CHECK (true);
 
+DROP POLICY IF EXISTS "service_role_bypass" ON public.asset_replacement_reviews;
 CREATE POLICY "service_role_bypass" ON public.asset_replacement_reviews
   FOR ALL TO service_role USING (true) WITH CHECK (true);
 
+DROP POLICY IF EXISTS "service_role_bypass" ON public.asset_telemetry_sources;
 CREATE POLICY "service_role_bypass" ON public.asset_telemetry_sources
   FOR ALL TO service_role USING (true) WITH CHECK (true);
 
+DROP POLICY IF EXISTS "service_role_bypass" ON public.repeat_failure_policies;
 CREATE POLICY "service_role_bypass" ON public.repeat_failure_policies
   FOR ALL TO service_role USING (true) WITH CHECK (true);

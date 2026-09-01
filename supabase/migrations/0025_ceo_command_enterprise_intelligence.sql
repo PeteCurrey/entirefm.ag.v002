@@ -132,23 +132,23 @@ ALTER TABLE ceo_tool_runs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE executive_briefs ENABLE ROW LEVEL SECURITY;
 
 -- Service role bypass (for server-side API operations)
-CREATE POLICY "service_role_bypass_enterprise_metrics"
-  ON enterprise_metric_definitions FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "service_role_bypass_enterprise_metrics" ON enterprise_metric_definitions;
+CREATE POLICY "service_role_bypass_enterprise_metrics" ON enterprise_metric_definitions FOR ALL TO service_role USING (true) WITH CHECK (true);
 
-CREATE POLICY "service_role_bypass_enterprise_signals"
-  ON enterprise_signals FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "service_role_bypass_enterprise_signals" ON enterprise_signals;
+CREATE POLICY "service_role_bypass_enterprise_signals" ON enterprise_signals FOR ALL TO service_role USING (true) WITH CHECK (true);
 
-CREATE POLICY "service_role_bypass_ceo_sessions"
-  ON ceo_query_sessions FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "service_role_bypass_ceo_sessions" ON ceo_query_sessions;
+CREATE POLICY "service_role_bypass_ceo_sessions" ON ceo_query_sessions FOR ALL TO service_role USING (true) WITH CHECK (true);
 
-CREATE POLICY "service_role_bypass_ceo_messages"
-  ON ceo_query_messages FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "service_role_bypass_ceo_messages" ON ceo_query_messages;
+CREATE POLICY "service_role_bypass_ceo_messages" ON ceo_query_messages FOR ALL TO service_role USING (true) WITH CHECK (true);
 
-CREATE POLICY "service_role_bypass_ceo_tool_runs"
-  ON ceo_tool_runs FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "service_role_bypass_ceo_tool_runs" ON ceo_tool_runs;
+CREATE POLICY "service_role_bypass_ceo_tool_runs" ON ceo_tool_runs FOR ALL TO service_role USING (true) WITH CHECK (true);
 
-CREATE POLICY "service_role_bypass_executive_briefs"
-  ON executive_briefs FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "service_role_bypass_executive_briefs" ON executive_briefs;
+CREATE POLICY "service_role_bypass_executive_briefs" ON executive_briefs FOR ALL TO service_role USING (true) WITH CHECK (true);
 
 -- ============================================================
 -- INDEXES

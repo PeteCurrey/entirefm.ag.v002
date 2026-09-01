@@ -1,48 +1,55 @@
-import { NextResponse } from 'next/server';
+/**
+ * API ROUTE: /api/contractor/documents
+ * ====================================
+ * Manages contractor business documents and form submissions.
+ */
+
+import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentSession } from '@/server/identity';
-import { listVaultDocuments, VaultCategory, DocumentVerificationState } from '@/server/contractor/document-vault-service';
+import { listContractorDocuments, saveContractorDocument } from '@/server/contractor/document-engine';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(request: Request) {
+export async function GET(req: NextRequest) {
   try {
     const session = await getCurrentSession();
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { searchParams } = new URL(request.url);
-    const orgId = searchParams.get('orgId') || session.orgId;
-    const category = (searchParams.get('category') || 'ALL') as VaultCategory | 'ALL';
-    const verification = (searchParams.get('verification') || 'ALL') as DocumentVerificationState | 'ALL';
-    const expiryWindow = (searchParams.get('expiryWindow') || 'ALL') as any;
-    const searchQuery = searchParams.get('q') || undefined;
-    const includeSuperseded = searchParams.get('includeSuperseded') === 'true';
+    const orgId = req.nextUrl.searchParams.get('org_id') || session.orgId;
+    const docs = await listContractorDocuments(orgId, session);
 
-    // Tenant isolation check
-    if (session.orgType === 'CONTRACTOR' && !session.viewAsContext && session.orgId !== orgId) {
-      return NextResponse.json({ error: 'Forbidden: Cannot access other contractor documents' }, { status: 403 });
+    return NextResponse.json({ success: true, documents: docs });
+  } catch (err: any) {
+    console.error('[API_DOCS_GET_ERROR]', err);
+    return NextResponse.json({ error: err?.message || 'Server error' }, { status: 500 });
+  }
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const session = await getCurrentSession();
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (!orgId) {
-      return NextResponse.json({ error: 'Contractor organisation ID required' }, { status: 400 });
-    }
-
-    const documents = await listVaultDocuments(
+    const body = await req.json();
+    const result = await saveContractorDocument(
       {
-        contractorOrgId: orgId,
-        category,
-        verificationState: verification,
-        expiryWindow,
-        searchQuery,
-        includeSuperseded,
+        ...body,
+        contractor_org_id: body.contractor_org_id || session.orgId,
       },
       session
     );
 
-    return NextResponse.json({ success: true, documents });
+    if (!result.success) {
+      return NextResponse.json({ error: result.error || 'Failed to save document' }, { status: 400 });
+    }
+
+    return NextResponse.json({ success: true, document: result.document });
   } catch (err: any) {
-    console.error('[API_VAULT_DOCUMENTS] Error:', err);
-    return NextResponse.json({ error: err.message || 'Internal server error' }, { status: 500 });
+    console.error('[API_DOCS_POST_ERROR]', err);
+    return NextResponse.json({ error: err?.message || 'Server error' }, { status: 500 });
   }
 }

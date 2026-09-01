@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS platform_integration_configs (
 
 ALTER TABLE platform_integration_configs ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "service_role_bypass_platform_integration_configs"
-  ON platform_integration_configs FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "service_role_bypass_platform_integration_configs" ON platform_integration_configs;
+CREATE POLICY "service_role_bypass_platform_integration_configs" ON platform_integration_configs FOR ALL TO service_role USING (true) WITH CHECK (true);
 
 -- Seed canonical accounting connector states
 INSERT INTO platform_integration_configs (name, type, state, note, is_active) VALUES

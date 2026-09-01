@@ -56,16 +56,16 @@ create index if not exists idx_rev_exposure_contract
 
 alter table public.revenue_exposures enable row level security;
 
-create policy "EntireFM finance read revenue_exposures"
-  on public.revenue_exposures for select
+DROP POLICY IF EXISTS "EntireFM finance read revenue_exposures" ON public.revenue_exposures;
+CREATE POLICY "EntireFM finance read revenue_exposures" ON public.revenue_exposures for select
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance insert revenue_exposures"
-  on public.revenue_exposures for insert
+DROP POLICY IF EXISTS "EntireFM finance insert revenue_exposures" ON public.revenue_exposures;
+CREATE POLICY "EntireFM finance insert revenue_exposures" ON public.revenue_exposures for insert
   with check (auth.role() = 'authenticated');
 
-create policy "EntireFM finance update revenue_exposures"
-  on public.revenue_exposures for update
+DROP POLICY IF EXISTS "EntireFM finance update revenue_exposures" ON public.revenue_exposures;
+CREATE POLICY "EntireFM finance update revenue_exposures" ON public.revenue_exposures for update
   using (auth.role() = 'authenticated');
 
 -- ============================================================
@@ -102,16 +102,16 @@ create index if not exists idx_cost_attr_supplier_inv
 
 alter table public.cost_attributions enable row level security;
 
-create policy "EntireFM finance read cost_attributions"
-  on public.cost_attributions for select
+DROP POLICY IF EXISTS "EntireFM finance read cost_attributions" ON public.cost_attributions;
+CREATE POLICY "EntireFM finance read cost_attributions" ON public.cost_attributions for select
   using (auth.role() = 'authenticated');
 
-create policy "EntireFM finance insert cost_attributions"
-  on public.cost_attributions for insert
+DROP POLICY IF EXISTS "EntireFM finance insert cost_attributions" ON public.cost_attributions;
+CREATE POLICY "EntireFM finance insert cost_attributions" ON public.cost_attributions for insert
   with check (auth.role() = 'authenticated');
 
-create policy "EntireFM finance update cost_attributions"
-  on public.cost_attributions for update
+DROP POLICY IF EXISTS "EntireFM finance update cost_attributions" ON public.cost_attributions;
+CREATE POLICY "EntireFM finance update cost_attributions" ON public.cost_attributions for update
   using (auth.role() = 'authenticated');
 
 -- ============================================================

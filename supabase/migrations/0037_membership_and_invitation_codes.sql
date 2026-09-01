@@ -50,7 +50,9 @@ BEGIN
     WHERE policyname = 'service_role_invitation_codes'
       AND tablename  = 'entirefm_invitation_codes'
   ) THEN
-    CREATE POLICY service_role_invitation_codes
+    DROP POLICY IF EXISTS service_role_invitation_codes
+      ON public.entirefm_invitation_codes;
+CREATE POLICY service_role_invitation_codes
       ON public.entirefm_invitation_codes
       FOR ALL TO service_role
       USING (true) WITH CHECK (true);
@@ -87,7 +89,9 @@ BEGIN
     WHERE policyname = 'service_role_invitation_redemptions'
       AND tablename  = 'entirefm_invitation_redemptions'
   ) THEN
-    CREATE POLICY service_role_invitation_redemptions
+    DROP POLICY IF EXISTS service_role_invitation_redemptions
+      ON public.entirefm_invitation_redemptions;
+CREATE POLICY service_role_invitation_redemptions
       ON public.entirefm_invitation_redemptions
       FOR ALL TO service_role
       USING (true) WITH CHECK (true);

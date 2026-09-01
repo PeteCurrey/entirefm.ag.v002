@@ -10,6 +10,10 @@ create index if not exists idx_work_orders_asset_id
   where asset_id is not null;
 
 -- Critical 2: supplier_invoice_lines.work_order_id
+-- Guard: column added by 0016 via ALTER TABLE; ensure it exists before indexing
+alter table public.supplier_invoice_lines
+  add column if not exists work_order_id uuid references public.work_orders(id);
+
 create index if not exists idx_supplier_invoice_lines_work_order_id
   on public.supplier_invoice_lines (work_order_id)
   where work_order_id is not null;

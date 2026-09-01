@@ -47,6 +47,13 @@ export async function POST(req: NextRequest) {
       correlation_id?: string;
     };
 
+    if (!site_id || typeof site_id !== 'string' || !site_id.trim()) {
+      return NextResponse.json(
+        { error: 'site_id is mandatory for multimodal job analysis to ensure asset register grounding and tenant isolation.' },
+        { status: 400 }
+      );
+    }
+
     if (!description && (!evidence || evidence.length === 0)) {
       return NextResponse.json(
         { error: 'Please provide either a problem description or upload media evidence to analyze.' },
@@ -57,11 +64,10 @@ export async function POST(req: NextRequest) {
     let siteName: string | undefined = undefined;
     let availableAssets: EstateAssetSummary[] = [];
 
-    // If site_id is provided, verify scope & retrieve site name and asset register
-    if (site_id) {
-      const { data: sites } = await dbQuery<any[]>(
-        `sites?id=eq.${encodeURIComponent(site_id)}&select=id,name,organisation_id`
-      );
+    // Verify scope & retrieve site name and asset register
+    const { data: sites } = await dbQuery<any[]>(
+      `sites?id=eq.${encodeURIComponent(site_id)}&select=id,name,organisation_id`
+    );
       const site = sites?.[0];
 
       if (!site) {
@@ -98,7 +104,6 @@ export async function POST(req: NextRequest) {
           serial_number: a.serial_number,
         }));
       }
-    }
 
     // Call Multimodal AI Specialist Service
     const analysisResult = await MultimodalJobAnalysisService.analyze({
