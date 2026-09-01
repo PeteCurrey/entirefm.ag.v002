@@ -250,14 +250,21 @@ async function runTests() {
 
   // ─── Scenario 7: PPM Work Order Generation & Gating ──────────────
   console.log('\n--- 7. PPM Work Order Generator Safety ---');
-  const genWOs = await generatePPMWorkOrders(30, adminSession);
-  assert(typeof genWOs.generated === 'number', 'PPM Work Order generator runs safely');
-  assert(Array.isArray(genWOs.errors), 'Errors array returned for operational visibility');
+  const genWOsHuman = await generatePPMWorkOrders(30, { id: adminSession.personId, type: 'HUMAN' });
+  assert(typeof genWOsHuman.generated === 'number', 'PPM Work Order generator runs safely with HUMAN actor');
+  assert(Array.isArray(genWOsHuman.errors), 'Errors array returned for operational visibility');
+
+  const genWOsCron = await generatePPMWorkOrders(30, { type: 'CRON' });
+  assert(typeof genWOsCron.generated === 'number', 'PPM Work Order generator runs safely with CRON actor (no session needed)');
+  assert(Array.isArray(genWOsCron.errors), 'CRON actor errors array returned');
 
   // ─── Scenario 8: Missed Occurrences Cron Evaluation ──────────────
   console.log('\n--- 8. Missed Occurrences Evaluation ---');
-  const missedRes = await checkMissedOccurrences(adminSession);
-  assert(typeof missedRes.missedCount === 'number', 'Missed occurrences evaluated deterministically');
+  const missedResHuman = await checkMissedOccurrences({ id: adminSession.personId, type: 'HUMAN' });
+  assert(typeof missedResHuman.missedCount === 'number', 'Missed occurrences evaluated deterministically for HUMAN actor');
+
+  const missedResCron = await checkMissedOccurrences({ type: 'CRON' });
+  assert(typeof missedResCron.missedCount === 'number', 'Missed occurrences evaluated deterministically for CRON actor');
 
   // ─── Scenario 9: Rollback Lineage & Safe Archiving ───────────────
   console.log('\n--- 9. Import Batch Rollback Lineage ---');

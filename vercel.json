@@ -29,6 +29,14 @@
     {
       "path": "/api/cron/chasing/sweep",
       "schedule": "*/15 6-19 * * 1-5"
+    },
+    {
+      "path": "/api/cron/ppm/generate",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cron/ppm/check-missed",
+      "schedule": "15 3 * * *"
     }
   ]
 }
