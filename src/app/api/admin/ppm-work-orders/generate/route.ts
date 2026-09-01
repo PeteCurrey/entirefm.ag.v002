@@ -9,6 +9,6 @@ export async function POST(request: NextRequest) {
   if (!session) return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
   let body: any = {};
   try { body = await request.json(); } catch { /* leadDays optional */ }
-  const result = await generatePPMWorkOrders(body.leadDays ?? 30, session);
+  const result = await generatePPMWorkOrders(body.leadDays ?? 30, { id: session.personId, type: 'HUMAN' });
   return NextResponse.json({ generated: result.generated, skipped: result.skipped, errors: result.errors });
 }

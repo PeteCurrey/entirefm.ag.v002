@@ -1121,17 +1121,18 @@ export async function generateOccurrences(
 /**
  * generatePPMWorkOrders — Deterministic. Idempotent.
  * Finds occurrences entering their lead window and creates PPM Work Orders.
+ *
+ * @param leadDays  How many days ahead to look for upcoming occurrences.
+ * @param actor     Who or what is triggering generation. Pass { type: 'HUMAN', id: personId }
+ *                  from the admin API route, or { type: 'CRON' } from the scheduled cron.
  */
 export async function generatePPMWorkOrders(
   leadDays: number = 30,
-  session: UserSession
+  actor: { id?: string; type: 'HUMAN' | 'CRON' }
 ): Promise<{ generated: number; skipped: number; errors: string[] }> {
-  if (!session) return { generated: 0, skipped: 0, errors: ['Authentication required'] };
-
   const leadDate = new Date();
   leadDate.setDate(leadDate.getDate() + leadDays);
   const leadDateStr = leadDate.toISOString().split('T')[0];
-  const todayStr = new Date().toISOString().split('T')[0];
 
   // Find PLANNED occurrences where window_start_date <= today+leadDays and no work_order yet
   const { data: occurrences } = await dbQuery<MaintenanceOccurrence[]>(
@@ -1193,8 +1194,8 @@ export async function generatePPMWorkOrders(
         event_type: 'PPM_WORK_ORDER_GENERATED',
         object_type: 'maintenance_occurrences',
         object_id: occ.id,
-        actor_id: session.personId,
-        actor_type: 'SYSTEM',
+        actor_id: actor.id,
+        actor_type: actor.type === 'CRON' ? 'CRON' : 'HUMAN',
         after_state: { workOrderId, occurrenceCode: occ.occurrence_code },
       });
       generated++;
@@ -1245,9 +1246,8 @@ export async function evaluateOccurrenceSatisfaction(
 }
 
 export async function checkMissedOccurrences(
-  session: UserSession
+  actor: { id?: string; type: 'HUMAN' | 'CRON' } = { type: 'CRON' }
 ): Promise<{ missedCount: number }> {
-  if (!session) return { missedCount: 0 };
   const todayStr = new Date().toISOString().split('T')[0];
 
   const { data: overdue } = await dbQuery<MaintenanceOccurrence[]>(
@@ -1264,8 +1264,8 @@ export async function checkMissedOccurrences(
       event_type: 'PPM_EXCEPTION_CREATED',
       object_type: 'maintenance_occurrences',
       object_id: occ.id,
-      actor_id: session.personId,
-      actor_type: 'SYSTEM',
+      actor_id: actor.id,
+      actor_type: actor.type === 'CRON' ? 'CRON' : 'HUMAN',
       after_state: { status: 'MISSED', reason: 'Window passed without completion' },
     });
     missedCount++;

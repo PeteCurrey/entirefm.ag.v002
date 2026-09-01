@@ -42,7 +42,12 @@ export function OrgSetupForm() {
         }),
       });
 
-      const data = await res.json();
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = { success: false, error: 'Unexpected server response. Please try again.' };
+      }
 
       if (data.success) {
         // Direct navigation ensures fresh cookie transmission and full server component render
@@ -58,7 +63,7 @@ export function OrgSetupForm() {
         setIsDuplicate(true);
         setError(data.error || 'This organisation may already have an EntireFM supplier account.');
       } else {
-        setError(data.error || 'Organisation setup failed. Please try again.');
+        setError(data.error || 'Organisation setup failed. Please check your details and try again.');
       }
       setIsSubmitting(false);
     } catch {

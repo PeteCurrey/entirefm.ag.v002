@@ -382,6 +382,8 @@ function mapUserRecordToDb(user: SupplierUserRecord): Record<string, any> {
     role: user.role,
     status: user.status,
     email_verified: user.email_verified,
+    registration_source: 'CONTRACTOR_ONBOARDING',
+    application_type: 'CONTRACTOR',
     created_at: user.created_at,
     updated_at: user.updated_at,
   };
@@ -412,6 +414,7 @@ function mapOrgRecordToDb(org: SupplierOrganisationRecord): Record<string, any> 
     owner_id: org.ownerId,
     application_reference: org.applicationReference,
     lifecycle_status: org.lifecycleStatus,
+    registration_source: 'CONTRACTOR_ONBOARDING',
     created_at: org.createdAt,
     updated_at: org.updatedAt,
   };
@@ -918,6 +921,13 @@ export async function validateSupplierAuthUser(
     if (!localUser) {
       return { valid: false, reason: 'AUTH_USER_NOT_FOUND', authUser: null, supplierUser: null, isVerified: false };
     }
+    if (!localUser.organisation_id) {
+      const ownedOrg = await getSupplierOrganisationByOwnerId(authUserId);
+      if (ownedOrg) {
+        localUser.organisation_id = ownedOrg.id;
+        await setSupplierUserOrganisation(authUserId, ownedOrg.id);
+      }
+    }
     return {
       valid: localUser.status === 'ACTIVE',
       reason: localUser.status === 'ACTIVE' ? 'VALID' : 'SUSPENDED',
@@ -957,6 +967,15 @@ export async function validateSupplierAuthUser(
     await setSupplierUserEmailVerified(authUserId, true);
   }
 
+  // Auto-heal organisation linkage if missing on user
+  if (supplierUser && !supplierUser.organisation_id) {
+    const ownedOrg = await getSupplierOrganisationByOwnerId(authUserId);
+    if (ownedOrg) {
+      supplierUser.organisation_id = ownedOrg.id;
+      await setSupplierUserOrganisation(authUserId, ownedOrg.id);
+    }
+  }
+
   if (supplierUser && supplierUser.status === 'SUSPENDED') {
     return { valid: false, reason: 'SUSPENDED', authUser, supplierUser, isVerified };
   }
@@ -979,6 +998,31 @@ export interface CreateOrganisationResult {
   error?: string;
 }
 
+export async function getSupplierOrganisationByOwnerId(
+  ownerAuthUserId: string
+): Promise<SupplierOrganisationRecord | null> {
+  if (!ownerAuthUserId) return null;
+
+  if (isDbConfigured()) {
+    const { data, error } = await dbQuery<any[]>(
+      `supplier_organisations?owner_id=eq.${encodeURIComponent(ownerAuthUserId)}&limit=1`
+    );
+    if (!error && data && data.length > 0) {
+      const record = mapDbOrgToRecord(data[0]);
+      supplierOrganisations.set(record.id, record);
+      return record;
+    }
+  }
+
+  for (const org of supplierOrganisations.values()) {
+    if (org.ownerId === ownerAuthUserId) {
+      return org;
+    }
+  }
+
+  return null;
+}
+
 export async function createSupplierOrganisation(
   ownerAuthUserId: string,
   legalName: string,
@@ -994,9 +1038,21 @@ export async function createSupplierOrganisation(
   if (existingUser?.organisation_id) {
     const existingOrg = await getSupplierOrganisationById(existingUser.organisation_id);
     if (existingOrg) {
+      if (normTradingName && !existingOrg.tradingName) existingOrg.tradingName = normTradingName;
+      if (normCompanyNumber && !existingOrg.companyNumber) existingOrg.companyNumber = normCompanyNumber;
       await getOrCreateApplicationDraft(existingOrg.id);
       return { success: true, organisation: existingOrg };
     }
+  }
+
+  // 1b. Check if an organisation already exists for this owner
+  const ownedOrg = await getSupplierOrganisationByOwnerId(ownerAuthUserId);
+  if (ownedOrg) {
+    if (normTradingName && !ownedOrg.tradingName) ownedOrg.tradingName = normTradingName;
+    if (normCompanyNumber && !ownedOrg.companyNumber) ownedOrg.companyNumber = normCompanyNumber;
+    await setSupplierUserOrganisation(ownerAuthUserId, ownedOrg.id);
+    await getOrCreateApplicationDraft(ownedOrg.id);
+    return { success: true, organisation: ownedOrg };
   }
 
   // 2. Duplicate check by Companies House number
@@ -1328,9 +1384,23 @@ export async function resolveResumeDestination(authUserId: string): Promise<Resu
     user = authState.supplierUser || null;
   }
   if (!user) return '/supplier-portal/register';
-  if (!user.organisation_id) return '/supplier-portal/org-setup';
+  
+  let orgId = user.organisation_id;
+  if (!orgId) {
+    const ownedOrg = await getSupplierOrganisationByOwnerId(authUserId);
+    if (ownedOrg) {
+      orgId = ownedOrg.id;
+      user.organisation_id = ownedOrg.id;
+      await setSupplierUserOrganisation(authUserId, ownedOrg.id);
+    }
+  }
 
-  const org = await getSupplierOrganisationById(user.organisation_id);
+  if (!orgId) return '/supplier-portal/org-setup';
+
+  let org = await getSupplierOrganisationById(orgId);
+  if (!org) {
+    org = await getSupplierOrganisationByOwnerId(authUserId);
+  }
   if (!org) return '/supplier-portal/org-setup';
 
   switch (org.lifecycleStatus) {

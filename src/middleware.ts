@@ -24,11 +24,11 @@ export function middleware(request: NextRequest) {
   const hostname = host.split(':')[0].toLowerCase();
   const { pathname, search } = request.nextUrl;
 
-  // 1. Non-WWW to WWW 301 Permanent Redirect
+  // 1. Non-WWW to WWW 308 Permanent Redirect (Preserves HTTP Method & Body on API / Form submissions)
   if (hostname === 'entirefm.com') {
     const destination = `https://${PRODUCTION_HOSTNAME}${pathname}${search}`;
     return NextResponse.redirect(destination, {
-      status: 301,
+      status: 308,
       headers: {
         'Cache-Control': 'public, max-age=31536000, immutable',
       },

@@ -21,8 +21,10 @@ import {
 import { getCurrentSession } from '@/server/identity';
 import {
   getSupplierOrganisationById,
+  getSupplierOrganisationByOwnerId,
   getPortalStatusDisplay,
   validateSupplierAuthUser,
+  setSupplierUserOrganisation,
 } from '@/server/suppliers/supplier-auth-store';
 
 export const metadata = {
@@ -50,16 +52,22 @@ export default async function AuthenticatedSupplierPortalLayout({
   }
 
   // 2. Organisation Context Resolution (Fail-Closed, Canonical Authority First)
-  const effectiveOrgId =
+  let effectiveOrgId =
     authState.supplierUser?.organisation_id ||
     (session.orgId && session.orgId !== session.personId ? session.orgId : null);
 
-  if (!effectiveOrgId) {
-    redirect('/supplier-portal/org-setup');
+  let org = effectiveOrgId ? await getSupplierOrganisationById(effectiveOrgId) : null;
+  if (!org && authState.authUser?.id) {
+    org = await getSupplierOrganisationByOwnerId(authState.authUser.id);
+    if (org) {
+      effectiveOrgId = org.id;
+      if (authState.supplierUser && !authState.supplierUser.organisation_id) {
+        await setSupplierUserOrganisation(authState.authUser.id, org.id);
+      }
+    }
   }
 
-  const org = await getSupplierOrganisationById(effectiveOrgId);
-  if (!org) {
+  if (!effectiveOrgId || !org) {
     redirect('/supplier-portal/org-setup');
   }
 

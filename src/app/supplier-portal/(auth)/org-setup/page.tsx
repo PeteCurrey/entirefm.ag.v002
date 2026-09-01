@@ -19,6 +19,7 @@ import {
   validateSupplierAuthUser,
   resolveResumeDestination,
   getSupplierOrganisationById,
+  getSupplierOrganisationByOwnerId,
 } from '@/server/suppliers/supplier-auth-store';
 import { OrgSetupForm } from './org-setup-form';
 
@@ -46,13 +47,19 @@ export default async function OrgSetupPage() {
   }
 
   // 4. Existing Organisation Guard (Redirect away only if a valid organisation actually exists)
-  if (authState.supplierUser?.organisation_id) {
-    const org = await getSupplierOrganisationById(authState.supplierUser.organisation_id);
-    if (org) {
-      const dest = await resolveResumeDestination(authState.authUser.id);
-      if (dest !== '/supplier-portal/org-setup') {
-        redirect(dest);
-      }
+  const existingOrgId =
+    authState.supplierUser?.organisation_id ||
+    (session.orgId && session.orgId !== session.personId ? session.orgId : null);
+
+  let existingOrg = existingOrgId ? await getSupplierOrganisationById(existingOrgId) : null;
+  if (!existingOrg && authState.authUser?.id) {
+    existingOrg = await getSupplierOrganisationByOwnerId(authState.authUser.id);
+  }
+
+  if (existingOrg) {
+    const dest = await resolveResumeDestination(authState.authUser.id);
+    if (dest !== '/supplier-portal/org-setup') {
+      redirect(dest);
     }
   }
 
