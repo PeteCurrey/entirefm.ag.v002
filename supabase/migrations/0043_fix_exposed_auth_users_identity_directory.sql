@@ -6,9 +6,16 @@
 -- with public.user_identities (a dedicated profiles table with strict RLS and trigger sync).
 -- ============================================================================
 
--- 1. EXTEND public.user_identities WITH REQUIRED IDENTITY COLUMNS
+-- 1. HARDEN & EXTEND public.user_identities CONSTRAINTS & COLUMNS
 DO $$
 BEGIN
+  -- Make person_id nullable if it was previously NOT NULL
+  ALTER TABLE public.user_identities ALTER COLUMN person_id DROP NOT NULL;
+
+  -- Drop legacy unique constraint on email (auth_user_id is the canonical unique key)
+  ALTER TABLE public.user_identities DROP CONSTRAINT IF EXISTS user_identities_email_key;
+
+  -- Add email_verified column if missing
   IF NOT EXISTS (
     SELECT 1 FROM information_schema.columns 
     WHERE table_name = 'user_identities' AND column_name = 'email_verified'
@@ -16,15 +23,33 @@ BEGIN
     ALTER TABLE public.user_identities ADD COLUMN email_verified boolean NOT NULL DEFAULT false;
   END IF;
 
+  -- Add last_sign_in_at column if missing
   IF NOT EXISTS (
     SELECT 1 FROM information_schema.columns 
     WHERE table_name = 'user_identities' AND column_name = 'last_sign_in_at'
   ) THEN
     ALTER TABLE public.user_identities ADD COLUMN last_sign_in_at timestamptz;
   END IF;
+
+  -- Add primary_email_snapshot column if missing
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns 
+    WHERE table_name = 'user_identities' AND column_name = 'primary_email_snapshot'
+  ) THEN
+    ALTER TABLE public.user_identities ADD COLUMN primary_email_snapshot text;
+  END IF;
 END $$;
 
--- 2. BACKFILL public.user_identities FROM auth.users
+-- 2. LINK EXISTING UNLINKED user_identities ROWS BY EMAIL FIRST
+UPDATE public.user_identities ui
+SET auth_user_id = u.id,
+    email_verified = (u.email_confirmed_at IS NOT NULL),
+    last_sign_in_at = u.last_sign_in_at
+FROM auth.users u
+WHERE ui.auth_user_id IS NULL 
+  AND lower(ui.email) = lower(u.email);
+
+-- 3. BACKFILL / UPSERT ALL auth.users INTO public.user_identities
 INSERT INTO public.user_identities (
   auth_user_id,
   email,
@@ -62,7 +87,7 @@ ON CONFLICT (auth_user_id) DO UPDATE SET
   last_sign_in_at = EXCLUDED.last_sign_in_at,
   updated_at = now();
 
--- 3. CREATE AUTOMATIC SYNC TRIGGER FROM auth.users TO public.user_identities
+-- 4. CREATE AUTOMATIC SYNC TRIGGER FROM auth.users TO public.user_identities
 CREATE OR REPLACE FUNCTION public.handle_auth_user_sync()
 RETURNS trigger
 LANGUAGE plpgsql
@@ -125,7 +150,7 @@ CREATE TRIGGER on_auth_user_sync
   FOR EACH ROW
   EXECUTE FUNCTION public.handle_auth_user_sync();
 
--- 4. RECREATE SECURE ADMIN DIRECTORY VIEW WITHOUT auth.users
+-- 5. RECREATE SECURE ADMIN DIRECTORY VIEW WITHOUT auth.users
 DROP VIEW IF EXISTS public.admin_user_identity_directory CASCADE;
 
 CREATE OR REPLACE VIEW public.admin_user_identity_directory
@@ -158,11 +183,11 @@ LEFT JOIN public.lobby_members lm ON lm.auth_user_id = ui.auth_user_id
 LEFT JOIN public.operational_identities oi ON oi.auth_user_id = ui.auth_user_id
 LEFT JOIN public.supplier_organisations so ON so.owner_id = ui.auth_user_id;
 
--- 5. SECURE PRIVILEGES: Revoke public/anon/authenticated access to directory view
+-- 6. SECURE PRIVILEGES: Revoke public/anon/authenticated access to directory view
 REVOKE ALL ON public.admin_user_identity_directory FROM anon, authenticated, public;
 GRANT SELECT ON public.admin_user_identity_directory TO service_role;
 
--- 6. STRICT ROW LEVEL SECURITY ON public.user_identities
+-- 7. STRICT ROW LEVEL SECURITY ON public.user_identities
 ALTER TABLE public.user_identities ENABLE ROW LEVEL SECURITY;
 
 DO $$
