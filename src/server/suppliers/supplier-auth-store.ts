@@ -1427,6 +1427,7 @@ export async function getApplicationDraft(
 // ── Resume Logic ──────────────────────────────────────────────────────────────
 
 export type ResumeDestination =
+  | '/contractor'
   | '/supplier-portal/register'
   | '/supplier-portal/org-setup'
   | '/supplier-portal/onboarding'
@@ -1436,11 +1437,30 @@ export type ResumeDestination =
 export async function resolveResumeDestination(authUserId: string): Promise<ResumeDestination> {
   let user = await getSupplierUserByAuthId(authUserId);
   if (!user) {
+    // Domain user row may have been deleted (cleanup/re-registration).
+    // Check by owner_id first before falling back to registration.
+    const ownedOrgDirect = await getSupplierOrganisationByOwnerId(authUserId);
+    if (ownedOrgDirect) {
+      // User has an org but their domain row was deleted — route based on org status
+      switch (ownedOrgDirect.lifecycleStatus) {
+        case 'APPROVED':
+          return '/contractor';
+        case 'SUBMITTED':
+        case 'UNDER_REVIEW':
+        case 'CONDITIONAL_APPROVAL':
+        case 'DECLINED':
+          return '/supplier-portal';
+        case 'INFORMATION_REQUIRED':
+          return '/supplier-portal/actions';
+        default:
+          return '/supplier-portal/onboarding';
+      }
+    }
     const authState = await validateSupplierAuthUser(authUserId);
     user = authState.supplierUser || null;
   }
   if (!user) return '/supplier-portal/register';
-  
+
   let orgId = user.organisation_id;
   if (!orgId) {
     const ownedOrg = await getSupplierOrganisationByOwnerId(authUserId);
@@ -1460,6 +1480,8 @@ export async function resolveResumeDestination(authUserId: string): Promise<Resu
   if (!org) return '/supplier-portal/org-setup';
 
   switch (org.lifecycleStatus) {
+    case 'APPROVED':
+      return '/contractor';
     case 'REGISTERED':
     case 'DRAFT':
     case 'PAYMENT_PENDING':
@@ -1469,7 +1491,6 @@ export async function resolveResumeDestination(authUserId: string): Promise<Resu
     case 'SUBMITTED':
     case 'UNDER_REVIEW':
     case 'CONDITIONAL_APPROVAL':
-    case 'APPROVED':
     case 'DECLINED':
       return '/supplier-portal';
     default:

@@ -11,6 +11,9 @@ import { supabaseSignIn } from '@/server/auth/supabase-auth';
 import {
   createOrLinkSupplierUser,
   getSupplierUserByAuthId,
+  getSupplierOrganisationByOwnerId,
+  getSupplierOrganisationById,
+  setSupplierUserOrganisation,
   resolveResumeDestination,
 } from '@/server/suppliers/supplier-auth-store';
 import {
@@ -87,7 +90,28 @@ export async function POST(request: Request) {
       );
     }
 
-    // 3. Build Unified Session
+    // 3. Resolve org — check by owner_id if user has no linked org
+    //    This handles cases where the supplier_users row was deleted and recreated
+    //    (e.g. test cleanup), but the supplier_organisations row still exists.
+    let resolvedOrgId = supplierUser.organisation_id;
+    let resolvedOrgName = 'Supplier Organisation';
+
+    if (!resolvedOrgId) {
+      const ownedOrg = await getSupplierOrganisationByOwnerId(authUser.id);
+      if (ownedOrg) {
+        resolvedOrgId = ownedOrg.id;
+        resolvedOrgName = ownedOrg.tradingName || ownedOrg.legalName || resolvedOrgName;
+        await setSupplierUserOrganisation(authUser.id, ownedOrg.id);
+        supplierUser.organisation_id = ownedOrg.id;
+      }
+    } else {
+      const org = await getSupplierOrganisationById(resolvedOrgId);
+      if (org) {
+        resolvedOrgName = org.tradingName || org.legalName || resolvedOrgName;
+      }
+    }
+
+    // 4. Build Unified Session
     // orgType MUST be 'SUPPLIER' — middleware gates /supplier-portal/* on this value
     const session = {
       personId: authUser.id,
@@ -95,10 +119,10 @@ export async function POST(request: Request) {
       email: supplierUser.email,
       name: `${supplierUser.first_name} ${supplierUser.last_name}`.trim(),
       role: supplierUser.role,
-      orgId: supplierUser.organisation_id || authUser.id,
-      orgName: 'Supplier Organisation',
+      orgId: resolvedOrgId || authUser.id,
+      orgName: resolvedOrgName,
       orgType: 'SUPPLIER' as const,
-      activeApplication: 'CONTRACTOR' as const, // Closest available ApplicationPortal enum value for portal routing
+      activeApplication: 'CONTRACTOR' as const,
       permissions: getRolePermissions(supplierUser.role as any),
       scopes: [],
       expiresAt: Date.now() + SUPPLIER_SESSION_MAX_AGE * 1000,
@@ -106,14 +130,14 @@ export async function POST(request: Request) {
 
     const token = createSessionToken(session as any);
 
-    // 4. Resolve lifecycle-aware destination
+    // 5. Resolve lifecycle-aware destination
     const destination = redirectParam || (await resolveResumeDestination(authUser.id));
 
     console.info('[SUPPLIER_AUTH] Login success: role resolved, routing to lifecycle destination', {
       email,
       orgType: 'SUPPLIER',
       destination,
-      hasOrg: !!supplierUser.organisation_id,
+      hasOrg: !!resolvedOrgId,
     });
 
     const response = NextResponse.redirect(new URL(destination, request.url), { status: 303 });
