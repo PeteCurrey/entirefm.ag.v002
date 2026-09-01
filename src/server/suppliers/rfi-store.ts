@@ -53,27 +53,6 @@ class MemorySupplierRfiStore {
   public rfis: Map<string, SupplierRfiRecord> = new Map();
   public decisions: Map<string, SupplierApprovalDecision> = new Map();
   public processedWebhookEvents: Set<string> = new Set();
-
-  constructor() {
-    this.seedInitialRfis();
-  }
-
-  private seedInitialRfis() {
-    // Seed initial demo RFI
-    const rfi1: SupplierRfiRecord = {
-      id: 'rfi-001',
-      supplier_id: 'sup-test-01',
-      application_ref: 'SUP-260825-9921',
-      section_key: 'insurance',
-      title: 'Public Liability Schedule Indemnity Confirmation',
-      requirement_description: 'Please upload the full policy schedule showing the £10M indemnity limit and broker contact details.',
-      due_date: '2026-09-15',
-      status: 'ACTION_REQUIRED',
-      raised_by: 'Head of Compliance',
-      raised_at: '2026-08-20T10:00:00.000Z',
-    };
-    this.rfis.set(rfi1.id, rfi1);
-  }
 }
 
 const gRfi = globalThis as unknown as { __efm_supplierRfiStore?: MemorySupplierRfiStore };

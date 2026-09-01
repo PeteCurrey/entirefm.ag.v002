@@ -23,6 +23,7 @@ import {
   createSessionToken,
   getRolePermissions,
 } from '@/server/identity';
+import { sendAdminSignupAlert } from '@/server/notifications/admin-alert';
 
 const SUPPLIER_SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 const REGISTRATION_SOURCE = 'CONTRACTOR_ONBOARDING';
@@ -199,6 +200,19 @@ export async function POST(request: Request) {
       path: '/',
       maxAge: SUPPLIER_SESSION_MAX_AGE,
     });
+
+    // Dispatch Admin Notification (Moment 1: Contractor Signup Started)
+    sendAdminSignupAlert({
+      type: 'CONTRACTOR_STARTED',
+      name: `${firstName} ${lastName}`.trim(),
+      email: normEmail,
+      roleOrTrade: 'Pending Onboarding Profile',
+      actionUrl: '/admin/suppliers/applications',
+      details: {
+        'Signup Stage': 'Account Created / Awaiting Profile Setup',
+        'Email Confirmed': isEmailConfirmed ? 'Yes' : 'Pending Verification',
+      },
+    }).catch((err) => console.error('[ADMIN_ALERT_ERROR: Contractor Started]', err));
 
     return response;
   } catch (err: any) {

@@ -14,62 +14,8 @@ const OCC_STATUS_COLOURS: Record<string, string> = {
   CANCELLED: 'bg-brand-edge-dark text-brand-mist/40',
 };
 
-const MOCK_OCCURRENCES = [
-  {
-    id: 'occ-1',
-    occurrence_code: 'OCC-2026-0842',
-    planned_date: '2026-08-25T08:30:00Z',
-    window_start_date: '2026-08-24T00:00:00Z',
-    window_end_date: '2026-08-28T23:59:59Z',
-    status: 'GENERATED',
-    work_order_id: 'WO-2026-1094',
-    satisfied_at: null,
-  },
-  {
-    id: 'occ-2',
-    occurrence_code: 'OCC-2026-0843',
-    planned_date: '2026-08-27T09:00:00Z',
-    window_start_date: '2026-08-25T00:00:00Z',
-    window_end_date: '2026-08-29T23:59:59Z',
-    status: 'GENERATED',
-    work_order_id: 'WO-2026-1095',
-    satisfied_at: null,
-  },
-  {
-    id: 'occ-3',
-    occurrence_code: 'OCC-2026-0844',
-    planned_date: '2026-08-28T08:00:00Z',
-    window_start_date: '2026-08-26T00:00:00Z',
-    window_end_date: '2026-08-30T23:59:59Z',
-    status: 'PLANNED',
-    work_order_id: null,
-    satisfied_at: null,
-  },
-  {
-    id: 'occ-4',
-    occurrence_code: 'OCC-2026-0845',
-    planned_date: '2026-08-29T11:30:00Z',
-    window_start_date: '2026-08-27T00:00:00Z',
-    window_end_date: '2026-08-31T23:59:59Z',
-    status: 'PLANNED',
-    work_order_id: null,
-    satisfied_at: null,
-  },
-  {
-    id: 'occ-5',
-    occurrence_code: 'OCC-2026-0839',
-    planned_date: '2026-08-20T10:00:00Z',
-    window_start_date: '2026-08-18T00:00:00Z',
-    window_end_date: '2026-08-22T23:59:59Z',
-    status: 'SATISFIED',
-    work_order_id: 'WO-2026-1088',
-    satisfied_at: '2026-08-20T14:15:00Z',
-  },
-];
-
 export default async function PPMSchedulePage() {
-  const dbOccurrences = await listOccurrences().catch(() => []);
-  const occurrences = dbOccurrences.length > 0 ? dbOccurrences : MOCK_OCCURRENCES;
+  const occurrences = await listOccurrences().catch(() => []);
 
   return (
     <div className="space-y-8">

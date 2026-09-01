@@ -217,9 +217,13 @@ const WEBSITE_GROUPS: NavGroup[] = [
 export function AdminSidebar({
   session,
   pendingApplicationsCount = 0,
+  newLeadsCount = 0,
+  newMembersCount = 0,
 }: {
   session: UserSession;
   pendingApplicationsCount?: number;
+  newLeadsCount?: number;
+  newMembersCount?: number;
 }) {
   const pathname = usePathname();
   const isWebsiteRoute =
@@ -334,7 +338,17 @@ export function AdminSidebar({
                               (item.href !== '/admin' && pathname.startsWith(item.href));
 
                         const isApplicationsLink = item.href === '/admin/suppliers/applications';
-                        const liveCount = isApplicationsLink && pendingApplicationsCount > 0 ? pendingApplicationsCount : null;
+                        const isLeadsLink = item.href === '/admin/growth/leads';
+                        const isMembersLink = item.href === '/admin/lobby/members';
+
+                        let liveCount: number | null = null;
+                        if (isApplicationsLink && pendingApplicationsCount > 0) {
+                          liveCount = pendingApplicationsCount;
+                        } else if (isLeadsLink && newLeadsCount > 0) {
+                          liveCount = newLeadsCount;
+                        } else if (isMembersLink && newMembersCount > 0) {
+                          liveCount = newMembersCount;
+                        }
 
                         return (
                           <Link

@@ -173,31 +173,6 @@ class SupplierPerformanceMemoryStore {
         updated_at: '2026-08-25T00:00:00.000Z',
       },
     ];
-
-    // 3. Sample QBR Review for Apex HVAC
-    this.reviews.set('rev-sup-01-q2', {
-      id: 'rev-sup-01-q2',
-      supplier_id: 'sup-01',
-      review_period: 'Q2 2026',
-      review_type: 'QUARTERLY',
-      reviewer_name: 'David Wright',
-      reviewer_role: 'Head of Supply Chain Performance',
-      attendees: ['David Wright (EntireFM)', 'Marcus Vance (Apex MD)', 'Sarah Jenkins (Apex Quality)'],
-      metrics_snapshot: {
-        total_jobs: 142,
-        sla_attendance_rate: 94.8,
-        first_time_fix_rate: 88.5,
-        evidence_quality_rate: 96.0,
-        invoice_accuracy_rate: 99.1,
-        client_feedback_score: 4.8,
-      },
-      strengths: ['Flawless invoice accuracy', 'Exemplary service report photographs', 'Fast 24/7 response in Manchester'],
-      areas_for_improvement: ['Expand engineer density in Leeds corridor'],
-      decisions: ['Approved for Preferred Partner Framework allocation'],
-      relationship_tier_recommendation: 'ELEVATE_TO_PREFERRED',
-      next_review_date: '2026-11-15',
-      conducted_at: '2026-07-15T14:00:00.000Z',
-    });
   }
 }
 

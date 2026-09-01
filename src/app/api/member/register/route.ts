@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createMember } from '@/server/member/member-store';
 import { createMemberVerificationToken, sendMemberVerificationEmail } from '@/server/member/verification';
+import { sendAdminSignupAlert } from '@/server/notifications/admin-alert';
 
 function maskEmail(email: string): string {
   const [local, domain] = email.split('@');
@@ -87,6 +88,22 @@ export async function POST(request: Request) {
 
     // Dispatch branded verification email
     await sendMemberVerificationEmail(newMember.email, newMember.first_name, verificationUrl);
+
+    // Dispatch Admin Notification (New Lobby Member Registered)
+    sendAdminSignupAlert({
+      type: 'LOBBY_MEMBER_JOINED',
+      name: `${first_name} ${last_name}`.trim(),
+      email: newMember.email,
+      company: company || 'Independent',
+      roleOrTrade: job_title || 'Facilities Professional',
+      referenceId: newMember.id,
+      actionUrl: '/admin/lobby',
+      details: {
+        'Company': company || 'Not specified',
+        'Job Title': job_title || 'Not specified',
+        'Marketing Consent': marketing_consent ? 'Opted In' : 'No',
+      },
+    }).catch((err) => console.error('[ADMIN_ALERT_ERROR: Member Joined]', err));
 
     const masked = maskEmail(newMember.email);
 

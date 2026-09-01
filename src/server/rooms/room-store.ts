@@ -101,54 +101,6 @@ function seedInitialRooms() {
   ];
 
   rooms.forEach((r) => ROOMS_STORE.set(r.slug, r));
-
-  // Seed sample messages for Building Safety room
-  const bsMessages: RoomMessage[] = [
-    {
-      id: 'msg-bs-01',
-      roomId: 'room-02',
-      roomSlug: 'building-safety',
-      authorMemberId: 'mem-seed-saf-01',
-      authorName: 'Sarah Jenkins',
-      authorHeadline: 'Head of Building Safety & Compliance',
-      authorCompany: 'Prime Estate Governance',
-      authorBadge: 'Compliance Lead',
-      body: 'Quick question for those managing mixed-use commercial/residential towers: how are you recording tenant alterations that breach fire compartmentation within the 48-hour mandatory occurrence window?',
-      createdAt: new Date(Date.now() - 1000 * 60 * 45).toISOString(),
-      moderationState: 'published',
-    },
-    {
-      id: 'msg-bs-02',
-      roomId: 'room-02',
-      roomSlug: 'building-safety',
-      authorMemberId: 'mem-00000000-0000-4000-8000-000000000001',
-      authorName: 'Peter Currey',
-      authorHeadline: 'CEO | EntireFM',
-      authorCompany: 'EntireFM',
-      authorBadge: 'Founding Member',
-      isEntireFMOfficial: true,
-      body: 'We route any compartmentation compromise straight into our statutory incident log. If it directly impairs escape routes or active suppression, it gets flagged for immediate BSR notification before remedial works commence.',
-      createdAt: new Date(Date.now() - 1000 * 60 * 28).toISOString(),
-      replyToMessageId: 'msg-bs-01',
-      replyToSnippet: 'Sarah Jenkins: Quick question for those managing mixed-use commercial...',
-      moderationState: 'published',
-    },
-    {
-      id: 'msg-bs-03',
-      roomId: 'room-02',
-      roomSlug: 'building-safety',
-      authorMemberId: 'mem-seed-eng-01',
-      authorName: 'Marcus Vance',
-      authorHeadline: 'Senior Mechanical Engineer | CEng MCIBSE',
-      authorCompany: 'Vance Engineering Associates',
-      authorBadge: 'Verified Practitioner',
-      body: 'Agreed. Make sure your fire damper testing drop-test certificates are linked to the specific riser penetration reference in your Golden Thread register, not just a generic pass/fail sheet.',
-      createdAt: new Date(Date.now() - 1000 * 60 * 12).toISOString(),
-      moderationState: 'published',
-    },
-  ];
-
-  ROOM_MESSAGES.set('building-safety', bsMessages);
 }
 
 seedInitialRooms();

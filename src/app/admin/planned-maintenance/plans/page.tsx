@@ -14,67 +14,8 @@ const STATUS_COLOURS: Record<string, string> = {
   ARCHIVED: 'bg-brand-edge-dark text-brand-mist/40',
 };
 
-const MOCK_PLANS = [
-  {
-    id: 'plan-001',
-    plan_number: 'PPM-2026-001',
-    name: 'Manchester City Tower — Core M&E & Life Safety',
-    version: '3.2',
-    status: 'ACTIVE',
-    effective_from: '2026-01-01T00:00:00Z',
-    total_assets_count: 420,
-    total_requirements_count: 84,
-    approved_at: '2025-12-18T14:30:00Z',
-  },
-  {
-    id: 'plan-002',
-    plan_number: 'PPM-2026-004',
-    name: 'London Southbank Plaza — Commercial HVAC & BMS',
-    version: '2.1',
-    status: 'ACTIVE',
-    effective_from: '2026-01-15T00:00:00Z',
-    total_assets_count: 312,
-    total_requirements_count: 62,
-    approved_at: '2026-01-10T11:00:00Z',
-  },
-  {
-    id: 'plan-003',
-    plan_number: 'PPM-2026-008',
-    name: 'Birmingham Logistics Hub — High Voltage & Fire Systems',
-    version: '1.4',
-    status: 'ACTIVE',
-    effective_from: '2026-02-01T00:00:00Z',
-    total_assets_count: 188,
-    total_requirements_count: 38,
-    approved_at: '2026-01-28T09:45:00Z',
-  },
-  {
-    id: 'plan-004',
-    plan_number: 'PPM-2026-012',
-    name: 'Leeds Innovation Campus — Critical Plant & Water Hygiene',
-    version: '2.0',
-    status: 'ACTIVE',
-    effective_from: '2026-03-01T00:00:00Z',
-    total_assets_count: 254,
-    total_requirements_count: 51,
-    approved_at: '2026-02-20T16:15:00Z',
-  },
-  {
-    id: 'plan-005',
-    plan_number: 'PPM-2026-015',
-    name: 'Midlands Commercial Estates — Statutory Compliance Register',
-    version: '1.0',
-    status: 'ACTIVE',
-    effective_from: '2026-04-01T00:00:00Z',
-    total_assets_count: 254,
-    total_requirements_count: 49,
-    approved_at: '2026-03-25T10:30:00Z',
-  },
-];
-
 export default async function MaintenancePlansPage() {
-  const dbPlans = await listMaintenancePlans().catch(() => []);
-  const plans = dbPlans.length > 0 ? dbPlans : MOCK_PLANS;
+  const plans = await listMaintenancePlans().catch(() => []);
 
   return (
     <div className="space-y-8">

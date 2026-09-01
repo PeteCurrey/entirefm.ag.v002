@@ -6,6 +6,7 @@ import {
   validateSupplierAuthUser,
 } from '@/server/suppliers/supplier-auth-store';
 import { saveSupplierOnboardingDraft } from '@/server/suppliers/store';
+import { sendAdminSignupAlert } from '@/server/notifications/admin-alert';
 
 export async function POST(req: NextRequest) {
   try {
@@ -49,6 +50,25 @@ export async function POST(req: NextRequest) {
         emergency_24_7_available: updated.has247,
         typical_emergency_sla_hours: parseInt(updated.emergencySlaHours || '4', 10) || 4,
       });
+
+      // Dispatch Admin Notification (Moment 2: Full Application Submitted)
+      if (draftData?.status === 'SUBMITTED' || draftData?.lifecycleStatus === 'SUBMITTED') {
+        sendAdminSignupAlert({
+          type: 'CONTRACTOR_SUBMITTED',
+          name: updated.primaryContactName || updated.declarantName || session?.name || 'Contractor Applicant',
+          email: updated.primaryContactEmail || updated.generalEmail || session?.email || 'N/A',
+          company: updated.tradingName || updated.legalCompanyName || 'New Contractor',
+          phone: updated.primaryContactPhone || updated.mainPhone,
+          roleOrTrade: (updated.selectedServices || []).join(', ') || 'Specialist Contractor',
+          actionUrl: `/admin/suppliers/applications`,
+          details: {
+            'Application Ref': updated.applicationReference,
+            'Selected Services': (updated.selectedServices || []).join(', ') || 'None specified',
+            'Selected Regions': (updated.selectedRegions || []).join(', ') || 'National',
+            'Payment Status': updated.membershipPaymentStatus || 'PENDING',
+          },
+        }).catch((err) => console.error('[ADMIN_ALERT_ERROR: Contractor Submitted]', err));
+      }
     }
 
     return NextResponse.json({
