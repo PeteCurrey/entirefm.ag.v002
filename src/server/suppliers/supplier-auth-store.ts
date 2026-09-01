@@ -641,15 +641,8 @@ function mapDraftRecordToDb(draft: SupplierApplicationDraft): Record<string, any
     code_of_conduct: Boolean(draft.codeOfConduct),
     truthfulness_declaration: Boolean(draft.truthfulnessDeclaration),
     payment_method: draft.paymentMethod || 'CARD',
-    waiver_reason: draft.waiverReason,
-    selected_membership_tier: draft.selectedMembershipTier || null,
-    membership_standard_amount_gbp: draft.membershipStandardAmountGbp ?? 0,
-    membership_waived_amount_gbp: draft.membershipWaivedAmountGbp ?? 0,
-    membership_final_amount_gbp: draft.membershipFinalAmountGbp ?? 0,
-    invitation_code_id: draft.invitationCodeId || null,
-    membership_payment_status: draft.membershipPaymentStatus || 'UNPAID',
-    membership_payment_intent_id: draft.membershipPaymentIntentId || null,
-    membership_paid_at: draft.membershipPaidAt || null,
+    waiver_reason: draft.waiverReason || '',
+    created_at: draft.createdAt || new Date().toISOString(),
     updated_at: new Date().toISOString(),
   };
 }
@@ -682,13 +675,13 @@ function mapInvitationRecordToDb(inv: SupplierInvitationRecord): Record<string, 
   };
 }
 
-// ── Supplier User Operations (Linked to Supabase Auth & PostgREST) ────────────
+// ── User Operations ──────────────────────────────────────────────────────────
 
 export interface ProvisionSupplierUserResult {
   success: boolean;
   user?: SupplierUserRecord;
+  isNew: boolean;
   error?: string;
-  isNew?: boolean;
 }
 
 /**
@@ -714,6 +707,13 @@ export async function createOrLinkSupplierUser(
     existing.last_name = lastName.trim() || existing.last_name;
     existing.email_verified = emailVerified || existing.email_verified;
     existing.updated_at = new Date().toISOString();
+
+    if (!existing.organisation_id) {
+      const ownedOrg = await getSupplierOrganisationByOwnerId(authUserId);
+      if (ownedOrg) {
+        existing.organisation_id = ownedOrg.id;
+      }
+    }
 
     // Persist update to DB if configured
     if (isDbConfigured()) {
@@ -773,6 +773,14 @@ export async function createOrLinkSupplierUser(
     }
   }
 
+  // Check if user already owns an existing organisation
+  if (!user.organisation_id) {
+    const ownedOrg = await getSupplierOrganisationByOwnerId(authUserId);
+    if (ownedOrg) {
+      user.organisation_id = ownedOrg.id;
+    }
+  }
+
   // Persist new user to Supabase
   if (isDbConfigured()) {
     await dbQuery('supplier_users', {
@@ -811,7 +819,6 @@ export async function getSupplierUserByEmail(
   email: string
 ): Promise<SupplierUserRecord | null> {
   const normEmail = email.trim().toLowerCase();
-  if (!normEmail) return null;
 
   if (isDbConfigured()) {
     const { data, error } = await dbQuery<any[]>(
@@ -854,17 +861,32 @@ export async function setSupplierUserOrganisation(
   orgId: string
 ): Promise<void> {
   const now = new Date().toISOString();
-  if (isDbConfigured()) {
-    await dbQuery(`supplier_users?auth_user_id=eq.${encodeURIComponent(authUserId)}`, {
-      method: 'PATCH',
-      body: { organisation_id: orgId, updated_at: now },
-    });
+  let user = supplierUsersByAuthId.get(authUserId);
+  if (!user) {
+    user = await getSupplierUserByAuthId(authUserId);
   }
 
-  const user = supplierUsersByAuthId.get(authUserId);
   if (user) {
     user.organisation_id = orgId;
     user.updated_at = now;
+    supplierUsersByAuthId.set(authUserId, user);
+  }
+
+  if (isDbConfigured()) {
+    const { data: existingRows } = await dbQuery<any[]>(
+      `supplier_users?auth_user_id=eq.${encodeURIComponent(authUserId)}&limit=1`
+    );
+    if (existingRows && existingRows.length > 0) {
+      await dbQuery(`supplier_users?auth_user_id=eq.${encodeURIComponent(authUserId)}`, {
+        method: 'PATCH',
+        body: { organisation_id: orgId, updated_at: now },
+      });
+    } else if (user) {
+      await dbQuery('supplier_users', {
+        method: 'POST',
+        body: mapUserRecordToDb(user),
+      });
+    }
   }
 }
 
