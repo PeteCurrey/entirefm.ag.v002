@@ -861,7 +861,7 @@ export async function setSupplierUserOrganisation(
   orgId: string
 ): Promise<void> {
   const now = new Date().toISOString();
-  let user = supplierUsersByAuthId.get(authUserId);
+  let user: SupplierUserRecord | null | undefined = supplierUsersByAuthId.get(authUserId);
   if (!user) {
     user = await getSupplierUserByAuthId(authUserId);
   }
