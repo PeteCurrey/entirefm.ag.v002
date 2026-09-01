@@ -218,9 +218,14 @@ export function middleware(request: NextRequest) {
       }
     }
 
-    // /contractor is STRICTLY CONTRACTOR (or internal View-As)
+    // /contractor is CONTRACTOR or APPROVED SUPPLIER (or internal View-As)
     if (isPrivateContractor) {
-      if (session.orgType !== 'CONTRACTOR' && !isViewAs) {
+      const isAllowedContractorOrg =
+        session.orgType === 'CONTRACTOR' ||
+        (session.orgType as string) === 'SUPPLIER' ||
+        session.orgType === 'ENTIREFM';
+
+      if (!isAllowedContractorOrg && !isViewAs) {
         return NextResponse.redirect(new URL('/login?error=forbidden_contractor', request.url));
       }
     }

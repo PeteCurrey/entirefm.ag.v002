@@ -111,33 +111,35 @@ export async function POST(request: Request) {
       }
     }
 
-    // 4. Build Unified Session
-    // orgType MUST be 'SUPPLIER' — middleware gates /supplier-portal/* on this value
+    // 4. Resolve lifecycle-aware destination
+    const destination = redirectParam || (await resolveResumeDestination(authUser.id));
+    const isApproved = destination === '/contractor';
+
+    // 5. Build Unified Session
+    // Approved suppliers graduate to CONTRACTOR orgType for the operational portal
     const session = {
       personId: authUser.id,
       authUserId: authUser.id,
       email: supplierUser.email,
       name: `${supplierUser.first_name} ${supplierUser.last_name}`.trim(),
-      role: supplierUser.role,
+      role: isApproved ? ('CONTRACTOR_ADMIN' as const) : supplierUser.role,
       orgId: resolvedOrgId || authUser.id,
       orgName: resolvedOrgName,
-      orgType: 'SUPPLIER' as const,
+      orgType: (isApproved ? 'CONTRACTOR' : 'SUPPLIER') as any,
       activeApplication: 'CONTRACTOR' as const,
-      permissions: getRolePermissions(supplierUser.role as any),
+      permissions: getRolePermissions(isApproved ? 'CONTRACTOR_ADMIN' : (supplierUser.role as any)),
       scopes: [],
       expiresAt: Date.now() + SUPPLIER_SESSION_MAX_AGE * 1000,
     };
 
     const token = createSessionToken(session as any);
 
-    // 5. Resolve lifecycle-aware destination
-    const destination = redirectParam || (await resolveResumeDestination(authUser.id));
-
     console.info('[SUPPLIER_AUTH] Login success: role resolved, routing to lifecycle destination', {
       email,
-      orgType: 'SUPPLIER',
+      orgType: session.orgType,
       destination,
       hasOrg: !!resolvedOrgId,
+      isApproved,
     });
 
     const response = NextResponse.redirect(new URL(destination, request.url), { status: 303 });

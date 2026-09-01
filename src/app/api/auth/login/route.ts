@@ -199,11 +199,95 @@ export async function POST(request: Request) {
       return response;
     }
 
-    // No profile found in enterprise DB — credentials may be valid in Supabase
-    // but no EntireFM application profile exists.
-    // NOTE: Supplier accounts are NOT in this DB — they use /api/supplier/auth/signin.
-    // This path covers Client, Contractor, Engineer accounts only.
-    console.warn('[AUTH_LOGIN] Login failure: credentials not found in enterprise identity store', {
+    // 4. Fallback: Authenticate via Supabase Auth (for Supplier & Contractor users)
+    const { supabaseSignIn } = await import('@/server/auth/supabase-auth');
+    const { data: authSession, error: authErr } = await supabaseSignIn(emailOrUsername, password);
+
+    if (authSession?.user && !authErr) {
+      const authUser = authSession.user;
+      const {
+        getSupplierUserByAuthId,
+        getSupplierOrganisationByOwnerId,
+        getSupplierOrganisationById,
+        setSupplierUserOrganisation,
+        createOrLinkSupplierUser,
+        resolveResumeDestination,
+      } = await import('@/server/suppliers/supplier-auth-store');
+
+      let supplierUser = await getSupplierUserByAuthId(authUser.id);
+      if (!supplierUser) {
+        const meta = authUser.user_metadata || {};
+        const provResult = await createOrLinkSupplierUser(
+          authUser.id,
+          authUser.email || emailOrUsername,
+          meta.first_name || 'Supplier',
+          meta.last_name || 'User',
+          'SUPPLIER_ADMIN',
+          Boolean(authUser.email_confirmed_at)
+        );
+        supplierUser = provResult.user || null;
+      }
+
+      if (supplierUser) {
+        let resolvedOrgId = supplierUser.organisation_id;
+        let resolvedOrgName = 'Supplier Organisation';
+
+        if (!resolvedOrgId) {
+          const ownedOrg = await getSupplierOrganisationByOwnerId(authUser.id);
+          if (ownedOrg) {
+            resolvedOrgId = ownedOrg.id;
+            resolvedOrgName = ownedOrg.tradingName || ownedOrg.legalName || resolvedOrgName;
+            await setSupplierUserOrganisation(authUser.id, ownedOrg.id);
+            supplierUser.organisation_id = ownedOrg.id;
+          }
+        } else {
+          const org = await getSupplierOrganisationById(resolvedOrgId);
+          if (org) {
+            resolvedOrgName = org.tradingName || org.legalName || resolvedOrgName;
+          }
+        }
+
+        const destination = await resolveResumeDestination(authUser.id);
+        const isApproved = destination === '/contractor';
+
+        const session = {
+          personId: authUser.id,
+          authUserId: authUser.id,
+          email: supplierUser.email,
+          name: `${supplierUser.first_name} ${supplierUser.last_name}`.trim() || supplierUser.email,
+          role: (isApproved ? 'CONTRACTOR_ADMIN' : supplierUser.role) as RoleCode,
+          orgId: resolvedOrgId || authUser.id,
+          orgName: resolvedOrgName,
+          orgType: (isApproved ? 'CONTRACTOR' : 'SUPPLIER') as OrgType,
+          activeApplication: 'CONTRACTOR' as ApplicationPortal,
+          permissions: getRolePermissions(isApproved ? 'CONTRACTOR_ADMIN' : (supplierUser.role as any)),
+          scopes: [],
+          expiresAt: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        };
+
+        const token = createSessionToken(session as any);
+        const response = NextResponse.redirect(new URL(destination, request.url), { status: 303 });
+
+        response.cookies.set(AUTH_COOKIE_NAME, token, {
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+          path: '/',
+          maxAge: 60 * 60 * 24 * 7,
+        });
+
+        console.info('[AUTH_LOGIN] Supabase supplier/contractor login success', {
+          email: emailOrUsername,
+          isApproved,
+          destination,
+        });
+
+        return response;
+      }
+    }
+
+    // No profile found in enterprise DB or Supabase Auth
+    console.warn('[AUTH_LOGIN] Login failure: credentials not found in identity store', {
       email: emailOrUsername,
     });
     await new Promise((r) => setTimeout(r, 400));
