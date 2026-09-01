@@ -1,5 +1,5 @@
 /**
- * COMPLIANCE CENTRE — TOPIC DATA
+ * COMPLIANCE CENTRE, TOPIC DATA
  * ==============================
  * The distinction this whole section exists to make:
  *
@@ -10,7 +10,7 @@
  *
  * Almost every FM website states an interval as though it were the law.
  * Usually it is not. "Emergency lighting must be tested annually" is a
- * standard, not a statute. "PAT testing every year" is neither — it is a
+ * standard, not a statute. "PAT testing every year" is neither, it is a
  * habit. Buyers get caught out by this, and being the site that separates the
  * four is worth more than being the site with the most pages.
  *
@@ -21,7 +21,7 @@
  * matters. Frequencies described as PRACTICE are what competent providers
  * commonly do, not obligations.
  *
- * This is general information, not legal advice — every page carries that
+ * This is general information, not legal advice, every page carries that
  * notice, and it is not boilerplate: a duty holder who relies on a web page
  * instead of a competent assessment has not discharged anything.
  */
@@ -32,7 +32,7 @@ export interface Requirement {
   level: RequirementLevel;
   /** The obligation or interval, stated plainly. */
   statement: string;
-  /** Where it comes from — the Act, Regulation, ACOP or standard. */
+  /** Where it comes from, the Act, Regulation, ACOP or standard. */
   source: string;
   /** Why it is at this level rather than the one above. */
   note?: string;
@@ -47,7 +47,7 @@ export interface ComplianceTopic {
   metaTitle: string;
   metaDescription: string;
   h1: string;
-  /** One-sentence answer, placed first — extractable for snippets and AI. */
+  /** One-sentence answer, placed first, extractable for snippets and AI. */
   answer: string;
   intro: string;
   /** Who carries the duty in law. */
@@ -74,14 +74,14 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
     shortName: 'Fire risk assessment',
     metaTitle: 'Fire Risk Assessment Requirements | Frequency & Duties | EntireFM',
     metaDescription:
-      'What the law actually requires for fire risk assessment in commercial buildings — who is responsible, how often to review, what records prove compliance.',
+      'What the law actually requires for fire risk assessment in commercial buildings, who is responsible, how often to review, what records prove compliance.',
     h1: 'Fire risk assessment: what the law requires',
     answer:
-      'A suitable and sufficient fire risk assessment is a legal requirement for virtually every non-domestic building in England and Wales. There is no statutory review interval — the assessment must be kept up to date, and reviewed whenever there is reason to suspect it is no longer valid or the premises have changed significantly.',
+      'A suitable and sufficient fire risk assessment is a legal requirement for virtually every non-domestic building in England and Wales. There is no statutory review interval, the assessment must be kept up to date, and reviewed whenever there is reason to suspect it is no longer valid or the premises have changed significantly.',
     intro:
-      'Fire safety is the compliance area where the gap between what people believe and what the law says is widest. The most common belief — that a fire risk assessment must be redone annually — appears nowhere in the legislation. What the law requires is that the assessment remains valid, which is a higher bar than an annual tick.',
+      'Fire safety is the compliance area where the gap between what people believe and what the law says is widest. The most common belief, that a fire risk assessment must be redone annually, appears nowhere in the legislation. What the law requires is that the assessment remains valid, which is a higher bar than an annual tick.',
     dutyHolder:
-      'The Responsible Person under the Regulatory Reform (Fire Safety) Order 2005 — in most commercial premises the employer, or whoever has control of the premises. In multi-occupied buildings there can be more than one, and they must co-operate.',
+      'The Responsible Person under the Regulatory Reform (Fire Safety) Order 2005, in most commercial premises the employer, or whoever has control of the premises. In multi-occupied buildings there can be more than one, and they must co-operate.',
     requirements: [
       {
         level: 'LEGAL',
@@ -125,9 +125,9 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       'Supporting logs: alarm tests, emergency lighting, extinguisher servicing, drills',
     ],
     consequences:
-      'Enforcement sits with the local fire and rescue authority, which can issue alterations, enforcement or prohibition notices — the last of which can close a building immediately. Offences under the Order can carry unlimited fines and, for serious breaches, imprisonment. Insurers also treat a missing or stale assessment as a material issue.',
+      'Enforcement sits with the local fire and rescue authority, which can issue alterations, enforcement or prohibition notices, the last of which can close a building immediately. Offences under the Order can carry unlimited fines and, for serious breaches, imprisonment. Insurers also treat a missing or stale assessment as a material issue.',
     commonFailings: [
-      'An assessment that exists but was never acted on — findings listed, actions never closed',
+      'An assessment that exists but was never acted on, findings listed, actions never closed',
       'No review after a layout change, a change of use, or new occupancy',
       'Assessor competence not evidenced, particularly in complex or higher-risk buildings',
       'Multi-occupied buildings where each Responsible Person assumes another has done it',
@@ -142,7 +142,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         question: 'Who is legally responsible for the fire risk assessment?',
         answer:
-          'The Responsible Person — usually the employer or whoever controls the premises. The duty can be delegated in practice to a competent assessor, but the legal responsibility cannot be transferred.',
+          'The Responsible Person, usually the employer or whoever controls the premises. The duty can be delegated in practice to a competent assessor, but the legal responsibility cannot be transferred.',
       },
       {
         question: 'Does the assessment have to be written down?',
@@ -166,10 +166,10 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
     shortName: 'Emergency lighting',
     metaTitle: 'Emergency Lighting Testing Frequency | BS 5266 | EntireFM',
     metaDescription:
-      'Emergency lighting testing explained — monthly function tests, annual full-duration tests, what BS 5266 requires and what the law requires.',
+      'Emergency lighting testing explained, monthly function tests, annual full-duration tests, what BS 5266 requires and what the law requires.',
     h1: 'Emergency lighting testing: monthly, annual, and why both',
     answer:
-      'Emergency lighting should be function-tested monthly and given a full rated-duration test — normally three hours — annually, under BS 5266-1. The law requires the system to be maintained in efficient working order; the testing regime is how that duty is discharged and evidenced.',
+      'Emergency lighting should be function-tested monthly and given a full rated-duration test, normally three hours, annually, under BS 5266-1. The law requires the system to be maintained in efficient working order; the testing regime is how that duty is discharged and evidenced.',
     intro:
       'Emergency lighting is where the difference between a standard and a statute is most useful to understand. No Act names a monthly test. What the law demands is that safety equipment works; BS 5266 is the recognised way of proving it does, and departing from it means explaining what you did instead.',
     dutyHolder:
@@ -191,7 +191,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         level: 'STANDARD',
         statement:
-          'Annually: a full-duration discharge test for the system\'s rated period — three hours in most commercial premises.',
+          'Annually: a full-duration discharge test for the system\'s rated period, three hours in most commercial premises.',
         source: 'BS 5266-1',
         note: 'This is the test that actually proves the batteries. A monthly flick test does not.',
       },
@@ -213,14 +213,14 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       'Certification following the annual duration test',
       'Defect records showing what failed and when it was rectified',
       'Design documentation showing the required duration and coverage',
-      'For automatic test systems, the exported results — and evidence someone reviewed them',
+      'For automatic test systems, the exported results, and evidence someone reviewed them',
     ],
     consequences:
-      'Enforcement mirrors fire safety generally: alterations, enforcement and prohibition notices, and prosecution for serious breaches. The practical consequence is worse — emergency lighting is only ever needed in the minutes when nothing else is working.',
+      'Enforcement mirrors fire safety generally: alterations, enforcement and prohibition notices, and prosecution for serious breaches. The practical consequence is worse, emergency lighting is only ever needed in the minutes when nothing else is working.',
     commonFailings: [
       'Monthly tests recorded but the annual duration test skipped, so degraded batteries go undetected',
       'Duration test cut short once luminaires are seen to illuminate, which proves nothing about the rated period',
-      'Automatic test systems installed and then never reviewed — the data exists, nobody reads it',
+      'Automatic test systems installed and then never reviewed, the data exists, nobody reads it',
       'Alterations and partitioning that leave escape routes without coverage, with no re-design',
       'Failed luminaires logged repeatedly across visits and never replaced',
     ],
@@ -260,11 +260,11 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       'How often commercial fixed wire testing and EICR are needed, what the law actually requires, and what an EICR report has to show.',
     h1: 'Fixed wire testing and EICR: what the interval really depends on',
     answer:
-      'There is no single legal interval for commercial fixed wire testing. The law requires electrical systems to be maintained so as to prevent danger; an Electrical Installation Condition Report is the recognised means of assessing that, and IET guidance suggests a maximum of five years for most commercial premises — shorter for higher-risk environments.',
+      'There is no single legal interval for commercial fixed wire testing. The law requires electrical systems to be maintained so as to prevent danger; an Electrical Installation Condition Report is the recognised means of assessing that, and IET guidance suggests a maximum of five years for most commercial premises, shorter for higher-risk environments.',
     intro:
       'Most FM providers will tell you commercial EICR is "every five years". That is a guidance maximum for many premises, not a statute, and for some environments it is far too long. Getting the interval right means starting from the installation and its use, not from a number.',
     dutyHolder:
-      'The duty holder under the Electricity at Work Regulations 1989 — normally the employer or whoever controls the installation. In let property the responsibility follows the terms of the lease and should be confirmed in writing.',
+      'The duty holder under the Electricity at Work Regulations 1989, normally the employer or whoever controls the installation. In let property the responsibility follows the terms of the lease and should be confirmed in writing.',
     requirements: [
       {
         level: 'LEGAL',
@@ -289,7 +289,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         level: 'RISK',
         statement:
-          'Shorter intervals apply where the environment demands it — industrial installations, wet or corrosive conditions, construction sites, swimming pools, and premises open to the public.',
+          'Shorter intervals apply where the environment demands it, industrial installations, wet or corrosive conditions, construction sites, swimming pools, and premises open to the public.',
         source: 'IET Guidance Note 3, risk-based assessment',
       },
       {
@@ -300,14 +300,14 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       },
     ],
     evidence: [
-      'The EICR itself, with schedules of inspections and test results — not just the summary page',
+      'The EICR itself, with schedules of inspections and test results, not just the summary page',
       'A clear satisfactory or unsatisfactory outcome',
       'Remedial records closing out every C1 and C2 observation',
       'Minor works or installation certificates for subsequent alterations',
       'The inspector\'s competence and scheme registration',
     ],
     consequences:
-      'Breaches of the Electricity at Work Regulations are prosecuted by the HSE and can carry unlimited fines and imprisonment. Commercially, an unsatisfactory EICR left unresolved tends to surface at the worst moment — during a sale, a lease renewal or an insurance claim.',
+      'Breaches of the Electricity at Work Regulations are prosecuted by the HSE and can carry unlimited fines and imprisonment. Commercially, an unsatisfactory EICR left unresolved tends to surface at the worst moment, during a sale, a lease renewal or an insurance claim.',
     commonFailings: [
       'Treating five years as a default rather than assessing the installation and its environment',
       'Accepting a summary page without the schedules of test results behind it',
@@ -334,7 +334,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         question: 'Who is responsible in a leased building?',
         answer:
-          'It depends on the lease and on who controls the installation. Landlord and tenant frequently each assume the other holds the duty for the same distribution board — which is exactly how installations go untested for a decade. Confirm it in writing.',
+          'It depends on the lease and on who controls the installation. Landlord and tenant frequently each assume the other holds the duty for the same distribution board, which is exactly how installations go untested for a decade. Confirm it in writing.',
       },
     ],
     relatedServices: ['/mechanical-electrical', '/ppm', '/building-inspecting-testing'],
@@ -348,12 +348,12 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
     shortName: 'Legionella (L8)',
     metaTitle: 'Legionella Risk Assessment & Water Hygiene | ACOP L8 | EntireFM',
     metaDescription:
-      'Legionella control explained — what ACOP L8 requires, how often to assess and monitor, who holds the duty and what records prove control.',
+      'Legionella control explained, what ACOP L8 requires, how often to assess and monitor, who holds the duty and what records prove control.',
     h1: 'Legionella control: the duty, the assessment and the records',
     answer:
       'Anyone in control of premises must assess and control the risk of exposure to Legionella. There is no statutory testing interval; the risk assessment sets the monitoring regime, and ACOP L8 with HSG274 sets out how to do it. Monthly temperature monitoring is common practice in many systems, not a legal frequency.',
     intro:
-      'Legionella is the compliance area where a generic schedule is most obviously inadequate. Two buildings of the same size can need entirely different regimes depending on their water systems, occupancy pattern and dead legs. The assessment is not paperwork before the work — it is the thing that determines the work.',
+      'Legionella is the compliance area where a generic schedule is most obviously inadequate. Two buildings of the same size can need entirely different regimes depending on their water systems, occupancy pattern and dead legs. The assessment is not paperwork before the work, it is the thing that determines the work.',
     dutyHolder:
       'The employer or person in control of the premises, under the Health and Safety at Work etc. Act 1974 and COSHH Regulation 6. A named Responsible Person for water safety should be appointed and competent.',
     requirements: [
@@ -368,7 +368,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
         statement:
           'Follow the Approved Code of Practice: appoint a responsible person, prepare a written scheme of control, monitor it, and keep records for at least five years.',
         source: 'ACOP L8, with technical guidance in HSG274 Parts 1–3',
-        note: 'An ACOP has special legal status — depart from it and you must show you achieved compliance another way.',
+        note: 'An ACOP has special legal status, depart from it and you must show you achieved compliance another way.',
       },
       {
         level: 'PRACTICE',
@@ -402,7 +402,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       'Legionnaires\' disease is potentially fatal and outbreaks are investigated rigorously. Prosecutions under health and safety legislation carry unlimited fines and, in the most serious cases, custodial sentences. Corporate manslaughter charges have followed outbreaks linked to poorly managed systems.',
     commonFailings: [
       'A risk assessment carried out once and never reviewed after the system changed',
-      'Monitoring performed but out-of-parameter readings not acted on — records that prove non-compliance rather than compliance',
+      'Monitoring performed but out-of-parameter readings not acted on, records that prove non-compliance rather than compliance',
       'Buildings left intermittently occupied without a flushing regime',
       'Dead legs created by refurbishment and never removed or recorded',
       'Responsibility assumed to sit with the water hygiene contractor rather than the duty holder',
@@ -440,12 +440,12 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
     shortName: 'Lifting equipment (LOLER)',
     metaTitle: 'LOLER Thorough Examination Intervals | Lifts & Lifting | EntireFM',
     metaDescription:
-      'LOLER explained — thorough examination intervals for passenger lifts and lifting equipment, who holds the duty, and what a report must contain.',
+      'LOLER explained, thorough examination intervals for passenger lifts and lifting equipment, who holds the duty, and what a report must contain.',
     h1: 'LOLER: thorough examination, and the two intervals that matter',
     answer:
-      'Lifting equipment must undergo thorough examination at least every six months where it lifts people, and at least every twelve months otherwise — or in accordance with an examination scheme drawn up by a competent person. These intervals are set in law, which makes LOLER unusual among the compliance areas on this site.',
+      'Lifting equipment must undergo thorough examination at least every six months where it lifts people, and at least every twelve months otherwise, or in accordance with an examination scheme drawn up by a competent person. These intervals are set in law, which makes LOLER unusual among the compliance areas on this site.',
     intro:
-      'LOLER is the exception that proves the rule. Where most compliance intervals are guidance dressed up as law, here the frequency really is statutory — and a passenger lift examined annually rather than six-monthly is straightforwardly in breach.',
+      'LOLER is the exception that proves the rule. Where most compliance intervals are guidance dressed up as law, here the frequency really is statutory, and a passenger lift examined annually rather than six-monthly is straightforwardly in breach.',
     dutyHolder:
       'The employer or person in control of the lifting equipment, under LOLER 1998. In multi-tenanted buildings this normally falls to the landlord or managing agent for common-parts lifts.',
     requirements: [
@@ -493,7 +493,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
     commonFailings: [
       'Passenger lifts examined every twelve months instead of every six',
       'Treating the maintenance contractor\'s service visit as the thorough examination',
-      'Lifting accessories — slings, eyebolts, beams — omitted from the register entirely',
+      'Lifting accessories, slings, eyebolts, beams, omitted from the register entirely',
       'Defects in reports not tracked to closure',
       'No register of lifting equipment, so nobody knows what should be examined',
     ],
@@ -516,7 +516,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         question: 'Who is responsible in a multi-tenanted building?',
         answer:
-          'Whoever controls the equipment — typically the landlord or managing agent for common-parts lifts, and the tenant for lifting equipment within their demise. As always, confirm it against the lease rather than assuming.',
+          'Whoever controls the equipment, typically the landlord or managing agent for common-parts lifts, and the tenant for lifting equipment within their demise. As always, confirm it against the lease rather than assuming.',
       },
     ],
     relatedServices: ['/mechanical-electrical', '/ppm', '/mobile-crane-hire'],
@@ -530,19 +530,19 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
     shortName: 'Asbestos',
     metaTitle: 'Duty to Manage Asbestos | Surveys & Registers | EntireFM',
     metaDescription:
-      'The duty to manage asbestos in non-domestic premises — surveys, the asbestos register, management plans, re-inspection and who holds the duty.',
+      'The duty to manage asbestos in non-domestic premises, surveys, the asbestos register, management plans, re-inspection and who holds the duty.',
     h1: 'The duty to manage asbestos, and what it actually involves',
     answer:
       'Anyone with responsibility for the maintenance or repair of non-domestic premises has a legal duty to manage asbestos. That means finding out whether asbestos is present, recording it, assessing the risk, preparing a written management plan, and keeping the information up to date and available to anyone who might disturb it.',
     intro:
-      'Asbestos is the compliance area most often reduced to a single document sitting in a drawer. The register is necessary but it is not the duty — the duty is that the information is current, acted upon, and in the hands of the people about to drill into a wall.',
+      'Asbestos is the compliance area most often reduced to a single document sitting in a drawer. The register is necessary but it is not the duty, the duty is that the information is current, acted upon, and in the hands of the people about to drill into a wall.',
     dutyHolder:
-      'The dutyholder under Regulation 4 of the Control of Asbestos Regulations 2012 — whoever has an obligation for the maintenance or repair of the premises, whether by contract, tenancy or ownership. Where nobody has that obligation, it falls to whoever controls the premises.',
+      'The dutyholder under Regulation 4 of the Control of Asbestos Regulations 2012, whoever has an obligation for the maintenance or repair of the premises, whether by contract, tenancy or ownership. Where nobody has that obligation, it falls to whoever controls the premises.',
     requirements: [
       {
         level: 'LEGAL',
         statement:
-          'Take reasonable steps to determine whether asbestos is present, its location, amount and condition — and presume it is present unless there is strong evidence otherwise.',
+          'Take reasonable steps to determine whether asbestos is present, its location, amount and condition, and presume it is present unless there is strong evidence otherwise.',
         source: 'Control of Asbestos Regulations 2012, Regulation 4',
       },
       {
@@ -556,7 +556,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
         statement:
           'Review and monitor the plan, and make the information available to anyone liable to disturb the asbestos.',
         source: 'Control of Asbestos Regulations 2012, Regulation 4',
-        note: 'This last part is the one most often missed — a register nobody gives to the contractor achieves nothing.',
+        note: 'This last part is the one most often missed, a register nobody gives to the contractor achieves nothing.',
       },
       {
         level: 'PRACTICE',
@@ -572,7 +572,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       },
     ],
     evidence: [
-      'The asbestos survey report — management, refurbishment or demolition as appropriate',
+      'The asbestos survey report, management, refurbishment or demolition as appropriate',
       'A current asbestos register naming locations, materials and condition',
       'The written asbestos management plan, with named responsibilities',
       'Re-inspection records tracking material condition over time',
@@ -620,14 +620,14 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
     shortName: 'Commercial gas safety',
     metaTitle: 'Commercial Gas Safety Requirements | Duties & Frequency | EntireFM',
     metaDescription:
-      'What the law requires for gas safety in commercial premises — why the annual certificate is a domestic letting duty, and what non-domestic buildings must actually do.',
+      'What the law requires for gas safety in commercial premises, why the annual certificate is a domestic letting duty, and what non-domestic buildings must actually do.',
     h1: 'Commercial gas safety: the certificate that is not required',
     answer:
       'In non-domestic premises there is no statutory annual gas certificate. The legal duty is that gas appliances, pipework and flues under your control are maintained in a safe condition, and that anyone working on them is registered. The familiar annual check with a dated record is a duty on landlords of domestic rented property, and it is routinely assumed to apply to commercial buildings when it does not.',
     intro:
-      'Gas is where a duty that genuinely exists gets attached to the wrong buildings. Almost everyone in property has heard of the annual gas safety certificate, and almost everyone assumes it covers their office, factory or retail unit. What actually applies to commercial premises is a continuing duty to maintain — harder to evidence than a dated certificate, and far easier to let slip, because nothing arrives in the post to prompt it.',
+      'Gas is where a duty that genuinely exists gets attached to the wrong buildings. Almost everyone in property has heard of the annual gas safety certificate, and almost everyone assumes it covers their office, factory or retail unit. What actually applies to commercial premises is a continuing duty to maintain, harder to evidence than a dated certificate, and far easier to let slip, because nothing arrives in the post to prompt it.',
     dutyHolder:
-      'Under the Gas Safety (Installation and Use) Regulations 1998 the duty to maintain non-domestic gas fittings falls on the employer or self-employed person in control of the premises. Where a building is let, the duty follows control rather than title, so a full repairing lease can move it to the tenant — the lease has to be read, not assumed. The separate annual duty under regulation 36 sits with landlords of relevant domestic premises, which catches mixed-use estates with flats above.',
+      'Under the Gas Safety (Installation and Use) Regulations 1998 the duty to maintain non-domestic gas fittings falls on the employer or self-employed person in control of the premises. Where a building is let, the duty follows control rather than title, so a full repairing lease can move it to the tenant, the lease has to be read, not assumed. The separate annual duty under regulation 36 sits with landlords of relevant domestic premises, which catches mixed-use estates with flats above.',
     requirements: [
       {
         level: 'LEGAL',
@@ -639,7 +639,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         level: 'LEGAL',
         statement:
-          'Anyone carrying out work on a gas fitting must be competent and registered with the approved body — currently Gas Safe Register.',
+          'Anyone carrying out work on a gas fitting must be competent and registered with the approved body, currently Gas Safe Register.',
         source: 'Gas Safety (Installation and Use) Regulations 1998, Regulation 3',
         note: 'This is a duty on the person or business doing the work. It says nothing about the building owner holding any registration themselves.',
       },
@@ -659,15 +659,15 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         level: 'STANDARD',
         statement:
-          'Commercial installation, testing, purging and commissioning work follows the IGEM Utilization Procedures — principally IGEM/UP/1B for testing and purging and IGEM/UP/2 for installation pipework.',
-        source: 'IGEM Utilization Procedures',
+          'Commercial installation, testing, purging and commissioning work follows the IGEM Utilisation Procedures, principally IGEM/UP/1B for testing and purging and IGEM/UP/2 for installation pipework.',
+        source: 'IGEM Utilisation Procedures',
       },
       {
         level: 'PRACTICE',
         statement:
           'An annual commercial gas inspection, recorded on the relevant CP-series certificate, is what most competent providers do and what most insurers expect to see.',
         source: 'Common industry practice',
-        note: 'Sensible and near-universal — and not the same thing as a legal interval. The law asks whether the installation is safe, not whether it was inspected within the last twelve months.',
+        note: 'Sensible and near-universal, and not the same thing as a legal interval. The law asks whether the installation is safe, not whether it was inspected within the last twelve months.',
       },
       {
         level: 'RISK',
@@ -708,7 +708,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         question: 'Does the engineer have to be registered?',
         answer:
-          'Yes. Anyone carrying out work on a gas fitting must be competent and registered with the approved body. That is a duty on the person or business doing the work, and the registration number belongs on every certificate you keep — a certificate without one proves very little.',
+          'Yes. Anyone carrying out work on a gas fitting must be competent and registered with the approved body. That is a duty on the person or business doing the work, and the registration number belongs on every certificate you keep, a certificate without one proves very little.',
       },
       {
         question: 'What about commercial catering equipment?',
@@ -727,12 +727,12 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
     shortName: 'F-Gas compliance',
     metaTitle: 'F-Gas Regulations UK | Leak Check Frequency & Duties | EntireFM',
     metaDescription:
-      'F-Gas duties for air conditioning and refrigeration in Great Britain — who counts as the operator, how leak check intervals follow CO2 equivalent, and what records to keep.',
+      'F-Gas duties for air conditioning and refrigeration in Great Britain, who counts as the operator, how leak check intervals follow CO2 equivalent, and what records to keep.',
     h1: 'F-Gas: an interval that genuinely is the law',
     answer:
-      'F-Gas leak checking is one of the few compliance intervals set by legislation rather than guidance, and it is not a fixed period — it is calculated from the CO2 equivalent of the refrigerant charge in each individual system. Five tonnes CO2e or more requires a check at least every twelve months, fifty tonnes at least every six, and five hundred tonnes at least every three with an automatic leak detection system fitted. Where such a system is installed, each of those periods doubles. The duty sits with the operator of the equipment, which is normally the building owner or occupier — not the maintenance contractor.',
+      'F-Gas leak checking is one of the few compliance intervals set by legislation rather than guidance, and it is not a fixed period, it is calculated from the CO2 equivalent of the refrigerant charge in each individual system. Five tonnes CO2e or more requires a check at least every twelve months, fifty tonnes at least every six, and five hundred tonnes at least every three with an automatic leak detection system fitted. Where such a system is installed, each of those periods doubles. The duty sits with the operator of the equipment, which is normally the building owner or occupier, not the maintenance contractor.',
     intro:
-      'F-Gas is the mirror image of the rest of this section. Elsewhere the problem is guidance being quoted as law; here a genuine legal interval gets treated as somebody else’s business. Two things follow. The duty stays with you when the maintenance contract changes hands, and an interval you cannot state from memory is an interval you probably are not meeting — because it depends on a charge figure most duty holders have never been given.',
+      'F-Gas is the mirror image of the rest of this section. Elsewhere the problem is guidance being quoted as law; here a genuine legal interval gets treated as somebody else’s business. Two things follow. The duty stays with you when the maintenance contract changes hands, and an interval you cannot state from memory is an interval you probably are not meeting, because it depends on a charge figure most duty holders have never been given.',
     dutyHolder:
       'The operator: the person with actual power over the technical functioning of the equipment. In practice that is the building owner, or the occupier who controls the plant. It is not transferred by employing an air conditioning contractor, however well certificated they are. Where no one with actual control can be identified, the duty falls back to the owner.',
     requirements: [
@@ -748,7 +748,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
         statement:
           'Fifty tonnes CO2 equivalent or more: at least every six months. Five hundred tonnes or more: at least every three months, and an automatic leak detection system is mandatory.',
         source: 'Retained Regulation (EU) No 517/2014, Articles 4 and 5',
-        note: 'Each interval doubles where a leak detection system is fitted — and the detection system itself must then be checked at least every twelve months.',
+        note: 'Each interval doubles where a leak detection system is fitted, and the detection system itself must then be checked at least every twelve months.',
       },
       {
         level: 'LEGAL',
@@ -821,14 +821,14 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
           'It depends on the CO2 equivalent charge of each system rather than on the calendar. Five tonnes CO2e or more requires checks at least every twelve months, fifty tonnes at least every six months, and five hundred tonnes at least every three months with an automatic leak detection system fitted. Where a working leak detection system is installed, each of those periods doubles.',
       },
       {
-        question: 'Who is legally responsible — us or our maintenance contractor?',
+        question: 'Who is legally responsible: us or our maintenance contractor?',
         answer:
           'The operator, meaning whoever has actual power over the technical functioning of the equipment. That is normally the building owner or the occupier controlling the plant. Employing a certificated contractor is how the duty gets discharged; it is not how it gets transferred.',
       },
       {
         question: 'How do I work out the CO2 equivalent of a system?',
         answer:
-          'Multiply the refrigerant charge in tonnes by the global warming potential of that refrigerant. A system holding 10kg of R410A, which has a GWP of 2088, is 0.01 x 2088 = 20.88 tonnes CO2e — above the five tonne threshold, so at least twelve-monthly checking, and below fifty tonnes, so not six-monthly. The charge should be on the equipment label or the commissioning record.',
+          'Multiply the refrigerant charge in tonnes by the global warming potential of that refrigerant. A system holding 10kg of R410A, which has a GWP of 2088, is 0.01 x 2088 = 20.88 tonnes CO2e (above the five tonne threshold, requiring at least twelve-monthly checking, and below fifty tonnes, so not six-monthly). The charge should be on the equipment label or the commissioning record.',
       },
       {
         question: 'Is R22 covered by the F-Gas rules?',
@@ -838,7 +838,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         question: 'Do small split air conditioning units need leak checks?',
         answer:
-          'Only where they reach the five tonne CO2e threshold, and hermetically sealed equipment below ten tonnes CO2e that is labelled as such is exempt. Plenty of small splits fall below the line — but that is a conclusion you reach from the charge figure, not a starting assumption.',
+          'Only where they reach the five tonne CO2e threshold, and hermetically sealed equipment below ten tonnes CO2e that is labelled as such is exempt. Plenty of small splits fall below the line, but that is a conclusion you reach from the charge figure, not a starting assumption.',
       },
     ],
     relatedServices: ['/hvac-contractor', '/mechanical-electrical', '/ppm'],
@@ -852,14 +852,14 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
     shortName: 'Work at height',
     metaTitle: 'Work at Height Regulations | Duties, Myths & Inspection | EntireFM',
     metaDescription:
-      'What the Work at Height Regulations 2005 actually require — there is no two-metre rule, ladders are not banned, and the duty reaches whoever controls the work.',
+      'What the Work at Height Regulations 2005 actually require: there is no two-metre rule, ladders are not banned, and the duty reaches whoever controls the work.',
     h1: 'Work at height: there is no two-metre rule',
     answer:
       'The Work at Height Regulations 2005 apply wherever a person could fall a distance liable to cause personal injury. There is no minimum height, no two-metre threshold, and no ban on ladders. What the law requires is a hierarchy: avoid work at height where the job can be done another way, prevent falls where it cannot, and minimise the distance and consequences of a fall where a risk still remains.',
     intro:
-      'Two beliefs do most of the damage here. The first is that the Regulations start at two metres, which leaves low-level work — standing on a chair to change a lamp, stepping onto a loading bay edge — treated as outside the rules entirely. The second is that ladders are banned, which is not only untrue but counterproductive, because it pushes people into hiring access equipment for two-minute jobs and improvising when they cannot get it. Neither belief appears anywhere in the legislation.',
+      'Two beliefs do most of the damage here. The first is that the Regulations start at two metres, which leaves low-level work  (standing on a chair to change a lamp, stepping onto a loading bay edge) treated as outside the rules entirely. The second is that ladders are banned, which is not only untrue but counterproductive, because it pushes people into hiring access equipment for two-minute jobs and improvising when they cannot get it. Neither belief appears anywhere in the legislation.',
     dutyHolder:
-      'Employers, the self-employed, and — the part that matters most in facilities management — any person who controls the work of others. Instructing a contractor to clear a gutter or survey a roof makes you a duty holder to the extent of what you control, including the information you give them about the building. Premises duties for roof access and fragile surfaces sit alongside this under the Workplace Regulations and occupiers’ liability.',
+      'Employers, the self-employed, and, the part that matters most in facilities management, any person who controls the work of others. Instructing a contractor to clear a gutter or survey a roof makes you a duty holder to the extent of what you control, including the information you give them about the building. Premises duties for roof access and fragile surfaces sit alongside this under the Workplace Regulations and occupiers’ liability.',
     requirements: [
       {
         level: 'LEGAL',
@@ -904,7 +904,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         level: 'STANDARD',
         statement:
-          'Fall arrest harnesses and lanyards need a pre-use check every time they are worn, plus a detailed inspection by a competent person at the interval the manufacturer sets — commonly no more than twelve months, and shorter in arduous use.',
+          'Fall arrest harnesses and lanyards need a pre-use check every time they are worn, plus a detailed inspection by a competent person at the interval the manufacturer sets  (commonly no more than twelve months, and shorter in arduous use).',
         source: 'Manufacturer instructions; HSE guidance INDG367',
       },
       {
@@ -929,7 +929,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       'Thorough examination reports for MEWPs and anything else used to lift people',
       'Harness and lanyard inspection records, with pre-use checks recorded where the system requires it',
       'Test and certification records for anchor points and mansafe systems',
-      'Contractor competence records — and evidence they were told what is on the roof before they went up',
+      'Contractor competence records, plus evidence they were told what is on the roof before they went up',
     ],
     consequences:
       'Falls from height remain the single largest cause of workplace fatalities in Great Britain, and enforcement reflects that. HSE can issue improvement and prohibition notices, and sentencing guidelines set fines against turnover rather than against the harm that happened to be avoided. Where a client controlled the work and told a contractor nothing about a fragile roof, liability does not stop at the contractor.',
@@ -956,7 +956,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         question: 'How often must scaffolding be inspected?',
         answer:
-          'Before it is first used, at intervals not exceeding seven days while it remains in place, and after any event liable to have affected its strength or stability — severe weather, an impact, or an alteration. That seven-day interval is written into the Regulations, which makes it unusual in this field.',
+          'Before it is first used, at intervals not exceeding seven days while it remains in place, and after any event liable to have affected its strength or stability  (such as severe weather, an impact, or an alteration). That seven-day interval is written into the Regulations, which makes it unusual in this field.',
       },
       {
         question: 'Does the duty apply to us if a contractor does the work?',
@@ -966,7 +966,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         question: 'How often should a safety harness be inspected?',
         answer:
-          'A pre-use check every time it is worn, plus a detailed inspection by a competent person at the interval the manufacturer specifies — commonly no more than twelve months, and shortened for frequent or arduous use. That comes from the manufacturer and from guidance, not from a stated legal interval.',
+          'A pre-use check every time it is worn, plus a detailed inspection by a competent person at the interval the manufacturer specifies  (commonly no more than twelve months, and shortened for frequent or arduous use). That comes from the manufacturer and from guidance, not from a stated legal interval.',
       },
     ],
     relatedServices: ['/aerial-drone-building-inspection', '/building-maintenance', '/mobile-crane-hire'],
@@ -983,9 +983,9 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       'PAT testing is not named in UK legislation and has no legal interval. What the Electricity at Work Regulations actually require, and how intervals should be set by risk.',
     h1: 'PAT testing: the requirement that is not in the law',
     answer:
-      'The phrase "PAT testing" appears in no UK legislation, and no statute sets an interval for it. What the law requires is that electrical systems and work equipment are maintained so as to prevent danger. Inspection and testing is one recognised way of demonstrating that, and the intervals everyone quotes come from an IET code of practice which sets them by risk — with HSE stating plainly that in low-risk offices, routine testing of every appliance is rarely necessary.',
+      'The phrase "PAT testing" appears in no UK legislation, and no statute sets an interval for it. What the law requires is that electrical systems and work equipment are maintained so as to prevent danger. Inspection and testing is one recognised way of demonstrating that, and the intervals everyone quotes come from an IET code of practice which sets them by risk, with HSE stating plainly that in low-risk offices, routine testing of every appliance is rarely necessary.',
     intro:
-      'This is the clearest example in the whole section of habit hardening into assumed law. Annual testing of everything in the building is widely purchased, widely invoiced, and required by no statute. Meanwhile the checks that actually find faults — someone looking at a cable before plugging it in, a formal visual inspection of the plug and flex — cost almost nothing, catch most defects, and are the part most often skipped.',
+      'This is the clearest example in the whole section of habit hardening into assumed law. Annual testing of everything in the building is widely purchased, widely invoiced, and required by no statute. Meanwhile the checks that actually find faults  (such as checking a cable before plugging it in, or a formal visual inspection of the plug and flex) cost almost nothing, catch most defects, and are the part most often skipped.',
     dutyHolder:
       'The employer, and any person in control of premises to the extent of matters within their control, under the Electricity at Work Regulations 1989. In a multi-let building that divides: the landlord for common parts and for equipment supplied to tenants, each occupier for their own. Equipment brought in by a contractor stays their employer’s responsibility, though a building can reasonably require evidence before it comes through the door.',
     requirements: [
@@ -1014,7 +1014,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
         statement:
           'Suggested starting intervals for user checks, formal visual inspection, and combined inspection and testing come from the IET Code of Practice for In-Service Inspection and Testing of Electrical Equipment.',
         source: 'IET Code of Practice for In-Service Inspection and Testing of Electrical Equipment',
-        note: 'Explicitly a starting point to be adjusted by risk and by what the results keep showing — not a schedule to be applied unchanged for a decade.',
+        note: 'Explicitly a starting point to be adjusted by risk and ongoing results, not a schedule to be applied unchanged for a decade.',
       },
       {
         level: 'RISK',
@@ -1034,7 +1034,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
     evidence: [
       'An equipment register, so it is possible to say what was covered and what was not',
       'A record of the interval chosen for each category of equipment, and the reasoning behind it',
-      'Formal visual inspection records — the part that finds the majority of faults',
+      'Formal visual inspection records: the part that finds the majority of faults',
       'Combined inspection and test results showing measured values, not simply pass or fail',
       'Fault, repair and removal-from-service records',
       'For hired or contractor-supplied equipment, evidence obtained at the point it arrived on site',
@@ -1073,7 +1073,7 @@ export const COMPLIANCE_TOPICS: ComplianceTopic[] = [
       {
         question: 'Who is responsible in a multi-let building?',
         answer:
-          'It divides with control. The landlord holds it for common parts and any equipment supplied to tenants, each occupier holds it for their own equipment, and contractors remain responsible for what they bring on site — though the building can require evidence before it arrives.',
+          'It divides with control. The landlord holds it for common parts and any equipment supplied to tenants, each occupier holds it for their own equipment, and contractors remain responsible for what they bring on site , though the building can require evidence before it arrives.',
       },
     ],
     relatedServices: ['/mechanical-electrical', '/building-inspecting-testing', '/ppm'],
@@ -1103,7 +1103,7 @@ export const REQUIREMENT_LEVELS: Record<
   PRACTICE: {
     label: 'Typical practice',
     description:
-      'What competent providers commonly do. Sensible, widely adopted — and frequently mistaken for law.',
+      'What competent providers commonly do. Sensible and widely adopted, but frequently mistaken for law.',
     tone: 'practice',
   },
   RISK: {

@@ -8,7 +8,7 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 const record: ContentRecord = {
   "path": "/soft-facilities-management-london",
   "title": "Soft Facilities Management London | Workplace & Cleaning Services | EntireFM",
-  "metaDescription": "Professional Soft FM services across London commercial property — commercial cleaning, grounds care, security, washroom management, and workplace support.",
+  "metaDescription": "Professional Soft FM services across London commercial property: commercial cleaning, grounds care, security, washroom management, and workplace support.",
   "h1": "Soft Facilities Management in London",
   "eyebrow": "Workplace & Environmental Care",
   "heroIntro": "EntireFM delivers high-standard Soft Facilities Management tailored to commercial offices, business centres, retail destinations, and multi-tenant estates across London.",

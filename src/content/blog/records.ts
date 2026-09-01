@@ -91,7 +91,7 @@ function indexRecord(path: string, h1: string, title: string, intro: string): Co
     path,
     title,
     metaDescription:
-      'Articles on facilities management, statutory compliance and building engineering from EntireFM — what the law requires, what standards advise, and what actually happens on site.',
+      'Articles on facilities management, statutory compliance and building engineering from EntireFM: what the law requires, what standards advise, and what actually happens on site.',
     h1,
     eyebrow: 'Insight',
     heroIntro: intro,
@@ -141,7 +141,7 @@ export const BLOG_CONTENT: Record<string, ContentRecord> = {
     '/blog',
     'Insight',
     'Blog | Facilities Management & Compliance Insight | EntireFM',
-    'Articles on facilities management, statutory compliance and building engineering — including where the industry states a habit as though it were the law.'
+    'Articles on facilities management, statutory compliance and building engineering, including where the industry states a habit as though it were the law.'
   ),
   '/facilities-management-blog': indexRecord(
     '/facilities-management-blog',

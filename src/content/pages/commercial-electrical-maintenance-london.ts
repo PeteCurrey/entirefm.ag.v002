@@ -8,7 +8,7 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 const record: ContentRecord = {
   "path": "/commercial-electrical-maintenance-london",
   "title": "Commercial Electrical Maintenance London | Switchgear & Lighting | EntireFM",
-  "metaDescription": "Certified commercial electrical maintenance across London — switchgear servicing, distribution board testing, emergency lighting, and electrical compliance.",
+  "metaDescription": "Certified commercial electrical maintenance across London: switchgear servicing, distribution board testing, emergency lighting, and electrical compliance.",
   "h1": "Commercial Electrical Maintenance in London",
   "eyebrow": "Electrical Engineering & Compliance",
   "heroIntro": "EntireFM delivers certified commercial electrical maintenance for offices, multi-tenant developments, data centres, and industrial estates across London.",

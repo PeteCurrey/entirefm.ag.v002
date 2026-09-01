@@ -8,7 +8,7 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 const record: ContentRecord = {
   "path": "/office-cleaning-london",
   "title": "Commercial Office Cleaning London | Corporate Workspace Care | EntireFM",
-  "metaDescription": "High-standard corporate office cleaning across London — scheduled daily contracts, supervisor KPI scoring, eco-friendly COSHH products, and daytime janitorial support.",
+  "metaDescription": "High-standard corporate office cleaning across London: scheduled daily contracts, supervisor KPI scoring, eco-friendly COSHH products, and daytime janitorial support.",
   "h1": "Commercial Office Cleaning in London",
   "eyebrow": "Corporate Workspace Care",
   "heroIntro": "EntireFM delivers reliable, high-standard commercial office cleaning tailored to headquarters, financial institutions, tech workspaces, and multi-tenant business centres throughout London.",
@@ -46,7 +46,7 @@ const record: ContentRecord = {
     },
     {
       "heading": "Sustainable Cleaning & Full COSHH Compliance",
-      "body": "We utilize non-toxic, eco-friendly cleaning formulations, modern microfibre technology, and energy-efficient HEPA-filter vacuums to enhance indoor air quality and support client sustainability targets."
+      "body": "We utilise non-toxic, eco-friendly cleaning formulations, modern microfibre technology, and energy-efficient HEPA-filter vacuums to enhance indoor air quality and support client sustainability targets."
     }
   ],
   "capabilities": [

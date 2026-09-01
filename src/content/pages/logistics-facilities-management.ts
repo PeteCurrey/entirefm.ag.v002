@@ -59,7 +59,7 @@ const record: ContentRecord = {
     },
     {
       "name": "High-Bay LED Lighting & Emergency Lux Audits",
-      "description": "Racking aisle lighting maintenance, sensor optimization, and annual emergency lighting battery discharge testing.",
+      "description": "Racking aisle lighting maintenance, sensor optimisation, and annual emergency lighting battery discharge testing.",
       "tag": "High-Bay Lighting"
     },
     {

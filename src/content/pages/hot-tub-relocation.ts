@@ -49,7 +49,7 @@ const record: ContentRecord = {
   "capabilities": [
     {
       "name": "Precision Mobile Crane Spas Lifting",
-      "description": "Contract lifting over walls, fences, and onto raised decks using specialized lifting straps and spreader bars.",
+      "description": "Contract lifting over walls, fences, and onto raised decks using specialised lifting straps and spreader bars.",
       "tag": "Crane Lifting"
     },
     {
@@ -59,7 +59,7 @@ const record: ContentRecord = {
     },
     {
       "name": "Specialist Air-Ride Spa Transport",
-      "description": "Custom trailers and spa sledges designed to transport heavy fiberglass shells without structural flexing or shell damage.",
+      "description": "Custom trailers and spa sledges designed to transport heavy fibreglass shells without structural flexing or shell damage.",
       "tag": "Transport"
     },
     {
@@ -72,7 +72,7 @@ const record: ContentRecord = {
   "faqs": [
     {
       "question": "Can a hot tub be lifted over a building with a crane?",
-      "answer": "Yes. We utilize compact truck-mounted cranes and mobile cranes to lift hot tubs over rooftops, boundary walls, and into courtyard gardens safely."
+      "answer": "Yes. We utilise compact truck-mounted cranes and mobile cranes to lift hot tubs over rooftops, boundary walls, and into courtyard gardens safely."
     }
   ],
   "breadcrumbs": [

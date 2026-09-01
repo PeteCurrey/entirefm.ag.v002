@@ -54,11 +54,11 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
     sections: [
       {
         heading: 'SFG20-Aligned Statutory Maintenance for London Estates',
-        body: 'Operating high-density commercial property in the City of London, Canary Wharf, and the West End demands uncompromising maintenance discipline. EntireFM builds asset-specific 52-week PPM schedules that satisfy all statutory obligations—from F-Gas regulations and BS 7671 electrical testing to ACoP L8 water hygiene and TM44 energy inspections.',
+        body: 'Operating high-density commercial property in the City of London, Canary Wharf, and the West End demands uncompromising maintenance discipline. EntireFM builds asset-specific 52-week PPM schedules that satisfy all statutory obligations, from F-Gas regulations and BS 7671 electrical testing to ACoP L8 water hygiene and TM44 energy inspections.',
       },
       {
         heading: 'Minimising Disruption Across London Workplace Environments',
-        body: 'Our qualified engineering fleet operates 24/7/365 with scheduled out-of-hours, weekend, and early-morning servicing windows. We maintain critical plant—including roof-mounted chillers, VRV heat pumps, AHU filter banks, and central switchgear—without disrupting daytime tenant operations or breaching noise constraints in mixed-use London boroughs.',
+        body: 'Our qualified engineering fleet operates 24/7/365 with scheduled out-of-hours, weekend, and early-morning servicing windows. We maintain critical plant (including roof-mounted chillers, VRV heat pumps, AHU filter banks, and central switchgear) without disrupting daytime tenant operations or breaching noise constraints in mixed-use London boroughs.',
       },
       {
         heading: 'Digital Compliance Vault & Asset Lifecycle Reporting',
@@ -743,7 +743,7 @@ export const BATCH1_GEO_CONTENT: Record<string, ContentRecord> = {
       },
       {
         question: 'How do you help Leeds commercial properties reduce energy consumption?',
-        answer: 'Our PPM visits include HVAC filter changes, sensor calibration, BMS scheduling reviews, and burner tuning—all of which significantly improve plant efficiency and reduce utility costs.',
+        answer: 'Our PPM visits include HVAC filter changes, sensor calibration, BMS scheduling reviews, and burner tuning, all of which significantly improve plant efficiency and reduce utility costs.',
       },
     ],
     breadcrumbs: [

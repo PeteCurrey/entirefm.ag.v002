@@ -5,8 +5,8 @@ import { listClientAccounts, createClientAccount } from '@/server/estate';
 export async function GET() {
   try {
     const session = await getCurrentSession();
-    if (!session) {
-      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    if (!session || session.orgType !== 'ENTIREFM') {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
     const clients = await listClientAccounts();
     return NextResponse.json({ success: true, clients });
@@ -18,8 +18,8 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const session = await getCurrentSession();
-    if (!session) {
-      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    if (!session || session.orgType !== 'ENTIREFM') {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
     const body = await request.json();

@@ -8,7 +8,7 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 const record: ContentRecord = {
   "path": "/commercial-plumbing-london",
   "title": "Commercial Plumbing Maintenance London | Plant & Pipework | EntireFM",
-  "metaDescription": "B2B commercial plumbing maintenance across London — booster sets, plant room pipework, commercial water heaters, drainage, and emergency leak repairs.",
+  "metaDescription": "B2B commercial plumbing maintenance across London: booster sets, plant room pipework, commercial water heaters, drainage, and emergency leak repairs.",
   "h1": "Commercial Plumbing Maintenance in London",
   "eyebrow": "Commercial Public Health Engineering",
   "heroIntro": "EntireFM delivers commercial plumbing, plant-room pipework servicing, and reactive drainage solutions for business premises throughout London.",

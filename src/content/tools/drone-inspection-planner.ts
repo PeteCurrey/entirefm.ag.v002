@@ -46,7 +46,7 @@ export const droneInspectionPlannerRecord: ContentRecord = {
   capabilities: [
     {
       name: 'Deterministic Service Matching',
-      description: 'Matches your building archetype and defect profile against 11 specialized Drone Services and 7 outcome-led inspection packs.',
+      description: 'Matches your building archetype and defect profile against 11 specialised Drone Services and 7 outcome-led inspection packs.',
       tag: 'Smart Matching',
     },
     {
@@ -69,7 +69,7 @@ export const droneInspectionPlannerRecord: ContentRecord = {
   faqs: [
     {
       question: 'Is this planner an instant quotation calculator?',
-      answer: 'No. Commercial drone inspections require site-specific risk assessment, airspace authorization, and operational planning. The planner provides a structured technical recommendation and qualitative scope, which our aviation operations team then reviews to provide a formal proposal.',
+      answer: 'No. Commercial drone inspections require site-specific risk assessment, airspace authorisation, and operational planning. The planner provides a structured technical recommendation and qualitative scope, which our aviation operations team then reviews to provide a formal proposal.',
     },
     {
       question: 'How does EntireFM use the answers I submit?',

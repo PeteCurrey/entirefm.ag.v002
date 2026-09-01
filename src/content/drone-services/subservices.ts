@@ -60,12 +60,12 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
       { name: 'High-Level Visual Audits', description: '4K/8K optical capture of inaccessible structural elements, towers, spires, and high-rise facades.', tag: 'OPTICAL ZOOM' },
       { name: 'Rooftop Plant & Deck Surveys', description: 'Inspection of AHUs, chillers, pipework bridges, louvres, and duct penetrations across complex roofscapes.', tag: 'PLANT ASSETS' },
       { name: 'Structural Anomaly Mapping', description: 'Close-range documentation of spalling masonry, corroded structural steel, loose fixings, and storm impact.', tag: 'STRUCTURAL AUDIT' },
-      { name: 'Defect Condition Scoring', description: 'Standardized RAG condition grading categorized by urgency, asset risk, and recommended remediation timeline.', tag: 'CONDITION MATRIX' },
+      { name: 'Defect Condition Scoring', description: 'Standardised RAG condition grading categorised by urgency, asset risk, and recommended remediation timeline.', tag: 'CONDITION MATRIX' },
     ],
     faqs: [
       {
         question: 'What types of commercial buildings can be inspected by drone?',
-        answer: 'EntireFM inspects a comprehensive spectrum of commercial property across the UK, including multi-storey office towers, distribution centers, logistics hubs, retail parks, manufacturing facilities, hospitals, and educational campuses. Inaccessible architectural spires, high-level plant decks, and industrial stacks are surveyed with zero operational downtime.',
+        answer: 'EntireFM inspects a comprehensive spectrum of commercial property across the UK, including multi-storey office towers, distribution centres, logistics hubs, retail parks, manufacturing facilities, hospitals, and educational campuses. Inaccessible architectural spires, high-level plant decks, and industrial stacks are surveyed with zero operational downtime.',
       },
       {
         question: 'What defects can a visual drone inspection identify?',
@@ -73,7 +73,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
       },
       {
         question: 'Can drone surveys replace scaffolding or MEWP access?',
-        answer: 'Drone inspections replace the need for costly scaffolding or powered access during the diagnostic and appraisal stages. If physical repairs are subsequently required, drone data provides exact spatial coordinates so rope access technicians or cradles can be deployed directly to the defect location, minimizing total access expenditure.',
+        answer: 'Drone inspections replace the need for costly scaffolding or powered access during the diagnostic and appraisal stages. If physical repairs are subsequently required, drone data provides exact spatial coordinates so rope access technicians or cradles can be deployed directly to the defect location, minimising total access expenditure.',
       },
       {
         question: 'What deliverables does the client receive after an inspection?',
@@ -160,7 +160,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
       },
       {
         question: 'What survey outputs are provided?',
-        answer: 'Deliverables include a high-resolution 2D orthomosaic map of the entire roof deck, categorized photo defect schedules, and a prioritized remedial schedule with fixed pricing for EntireFM in-house roofing repairs.',
+        answer: 'Deliverables include a high-resolution 2D orthomosaic map of the entire roof deck, categorised photo defect schedules, and a prioritised remedial schedule with fixed pricing for EntireFM in-house roofing repairs.',
       },
       {
         question: 'Can EntireFM complete the identified roof repairs?',
@@ -239,7 +239,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
       },
       {
         question: 'How are façade defects recorded and indexed?',
-        answer: 'Every defect is logged against a zoned elevation matrix—referencing compass elevation (North, South, East, West), structural bay numbers, and floor levels—enabling immediate navigation for surveying and maintenance teams.',
+        answer: 'Every defect is logged against a zoned elevation matrix, referencing compass elevation (North, South, East, West), structural bay numbers, and floor levels to enable immediate navigation for surveying and maintenance teams.',
       },
       {
         question: 'When might physical rope access still be required?',
@@ -318,7 +318,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
       },
       {
         question: 'When should thermal drone surveys be undertaken?',
-        answer: 'Thermal surveys require specific environmental conditions—typically clear, dry conditions after sunset with an established indoor-to-outdoor temperature differential (delta-T), compliant with BS EN 13187 building thermography standards.',
+        answer: 'Thermal surveys require specific environmental conditions (typically clear, dry conditions after sunset with an established indoor-to-outdoor temperature differential (delta-T)), compliant with BS EN 13187 building thermography standards.',
       },
       {
         question: 'Can thermal imaging identify building envelope heat loss?',
@@ -388,7 +388,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
       { name: 'Cell-Level Hotspot Detection', description: 'Identifying localized resistive cell faults, micro-cracks, and semiconductor degradation.', tag: 'HOTSPOT AUDIT' },
       { name: 'Bypass Diode & String Failure', description: 'Detecting open-circuit bypass diodes causing one-third module loss and string disconnects.', tag: 'STRING DIAGNOSTICS' },
       { name: 'Soiling & Shading Impact', description: 'Quantifying generation losses caused by bird fouling, industrial dust, and vegetation overgrowth.', tag: 'SOILING AUDIT' },
-      { name: 'IEC 62446-3 Reporting', description: 'Standardized defect classification meeting statutory warranty and insurance compliance standards.', tag: 'COMPLIANCE' },
+      { name: 'IEC 62446-3 Reporting', description: 'Standardised defect classification meeting statutory warranty and insurance compliance standards.', tag: 'COMPLIANCE' },
     ],
     faqs: [
       {
@@ -441,7 +441,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
   '/services/drone-services/surveying-mapping': {
     path: '/services/drone-services/surveying-mapping',
     title: 'Drone Surveying & Topographic Mapping | Orthomosaics | EntireFM',
-    metaDescription: 'Survey-grade drone mapping, 2D orthomosaics, and digital terrain modeling across the UK. RTK positioning, CAD/GIS integration, and topographic datasets.',
+    metaDescription: 'Survey-grade drone mapping, 2D orthomosaics, and digital terrain modelling across the UK. RTK positioning, CAD/GIS integration, and topographic datasets.',
     h1: 'Drone Surveying & Geospatial Mapping',
     eyebrow: 'GEOSPATIAL ORTHOMOSAICS & GIS',
     heroIntro: 'Millimeter-accurate 2D orthomosaic maps, Digital Elevation Models (DEM), and CAD/GIS vectors captured with RTK satellite precision for estate masterplanning.',
@@ -484,7 +484,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
       },
       {
         question: 'When are Ground Control Points (GCPs) or RTK positioning used?',
-        answer: 'RTK (Real-Time Kinematic) and surveyed ground control targets are utilized whenever millimetric georeferencing, British National Grid (OSGB36) alignment, or legal boundary verification is required.',
+        answer: 'RTK (Real-Time Kinematic) and surveyed ground control targets are utilised whenever millimetric georeferencing, British National Grid (OSGB36) alignment, or legal boundary verification is required.',
       },
       {
         question: 'What survey datasets and outputs can be delivered?',
@@ -559,7 +559,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
     faqs: [
       {
         question: 'How often can a construction site be captured?',
-        answer: 'Capture frequencies are customized to project velocity—typically weekly, bi-weekly, or monthly—providing a continuous visual audit across groundworks, structural framing, envelope sealing, and fit-out phases.',
+        answer: 'Capture frequencies are customised to project velocity (typically weekly, bi-weekly, or monthly) to provide a continuous visual audit across groundworks, structural framing, envelope sealing, and fit-out phases.',
       },
       {
         question: 'Can flights repeat identical viewpoints over time?',
@@ -646,7 +646,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
       },
       {
         question: 'How is a navigable 3D model created?',
-        answer: 'Industrial drones fly structured orbital and oblique flight paths around the building, capturing overlapping high-resolution imagery. Advanced photogrammetry and radiance field synthesis reconstruct the physical geometry and surface textures into a web-optimized 3D spatial asset.',
+        answer: 'Industrial drones fly structured orbital and oblique flight paths around the building, capturing overlapping high-resolution imagery. Advanced photogrammetry and radiance field synthesis reconstruct the physical geometry and surface textures into a web-optimised 3D spatial asset.',
       },
       {
         question: 'What can the EntireFM 3D model be used for?',
@@ -718,14 +718,14 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
     requiredSections: ['hero', 'scope', 'applications', 'defects', 'deliverables', 'remediation', 'visualizer', 'faq', 'conversion'],
     capabilities: [
       { name: 'Stockpile Volume & Tonnage', description: 'Laser-calibrated photogrammetry calculating exact cubic volumes (m³) and density-adjusted tonnages.', tag: 'STOCKPILE AUDIT' },
-      { name: 'Cut / Fill Balance Mapping', description: 'Color-coded differential heatmaps quantifying earth movement between baseline and design levels.', tag: 'CUT & FILL' },
+      { name: 'Cut / Fill Balance Mapping', description: 'Colour-coded differential heatmaps quantifying earth movement between baseline and design levels.', tag: 'CUT & FILL' },
       { name: 'Quarry Void & Pit Analysis', description: 'Tracking monthly extraction rates, remaining void capacities, and bench stability metrics.', tag: 'QUARRY AUDIT' },
       { name: 'Civil Software Export', description: 'Delivering LandXML, DXF contours, and 3D surface meshes ready for civil design software.', tag: 'CAD EXPORTS' },
     ],
     faqs: [
       {
         question: 'What materials and environments can be volumetrically measured?',
-        answer: 'We measure stockpiles of sand, gravel, crushed stone, coal, scrap metal, timber, biomass, and recycled aggregates across quarries, recycling centers, ports, and construction sites without requiring hazardous physical climbing.',
+        answer: 'We measure stockpiles of sand, gravel, crushed stone, coal, scrap metal, timber, biomass, and recycled aggregates across quarries, recycling centres, ports, and construction sites without requiring hazardous physical climbing.',
       },
       {
         question: 'How are stockpile volumes and tonnages calculated?',
@@ -741,7 +741,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
       },
       {
         question: 'What data formats and reporting outputs are delivered?',
-        answer: 'Clients receive certified volumetric certificates (PDF), color-coded cut/fill differential heatmaps, 3D surface mesh files, and LandXML contour exports ready for civil engineering analysis.',
+        answer: 'Clients receive certified volumetric certificates (PDF), colour-coded cut/fill differential heatmaps, 3D surface mesh files, and LandXML contour exports ready for civil engineering analysis.',
       },
       {
         question: 'What factors influence volumetric measurement accuracy?',
@@ -777,7 +777,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
     h1: 'High-Level Aerial Photography & 6K Cinematography',
     eyebrow: 'ARCHITECTURAL MEDIA',
     heroIntro: 'Broadcast-standard 6K aerial cinematography, golden-hour architectural photography, and marketing media for commercial property portfolios and developers.',
-    heroDescription: 'Showcasing commercial real estate requires cinematography-grade aerial production. EntireFM captures stabilized ProRes 4K/6K video reels and 48MP+ optical stills tailored for investment presentations, ESG reports, and commercial leasing brochures.',
+    heroDescription: 'Showcasing commercial real estate requires cinematography-grade aerial production. EntireFM captures stabilised ProRes 4K/6K video reels and 48MP+ optical stills tailored for investment presentations, ESG reports, and commercial leasing brochures.',
     heroImage: '/images/drone/photography_poster.png',
     historicIntent: 'Commercial aerial photography and 6K video drone production UK',
     primaryIntent: 'commercial aerial photography video',
@@ -800,7 +800,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
     ],
     requiredSections: ['hero', 'scope', 'applications', 'defects', 'deliverables', 'remediation', 'visualizer', 'faq', 'conversion'],
     capabilities: [
-      { name: '6K Broadcast Cinematography', description: 'Stabilized ProRes video reels with smooth architectural orbits, tracking shots, and reveal sequences.', tag: 'CINEMATOGRAPHY' },
+      { name: '6K Broadcast Cinematography', description: 'Stabilised ProRes video reels with smooth architectural orbits, tracking shots, and reveal sequences.', tag: 'CINEMATOGRAPHY' },
       { name: 'High-Resolution RAW Stills', description: '48MP/100MP retouched photography capturing estate architecture, landscaping, and transport links.', tag: 'OPTICAL STILLS' },
       { name: 'Multi-Site Portfolio Packages', description: 'Coordinated nationwide filming schedules providing consistent visual assets across property funds.', tag: 'PORTFOLIO REELS' },
       { name: 'Web & Social Cutdowns', description: 'Bespoke video edits formatted for investor pitch decks, corporate websites, and social campaigns.', tag: 'MARKETING EDITS' },
@@ -808,11 +808,11 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
     faqs: [
       {
         question: 'What types of commercial property can be filmed?',
-        answer: 'We film commercial office parks, landmark skyscrapers, industrial distribution centers, retail developments, infrastructure assets, and residential development schemes across the UK.',
+        answer: 'We film commercial office parks, landmark skyscrapers, industrial distribution centres, retail developments, infrastructure assets, and residential development schemes across the UK.',
       },
       {
         question: 'Can EntireFM produce footage for commercial portfolio marketing?',
-        answer: 'Yes. We produce broadcast-ready 4K and 6K video reels, stabilized tracking shots, golden-hour stills, and branded motion graphics tailored for commercial real estate marketing, investor presentations, and leasing brochures.',
+        answer: 'Yes. We produce broadcast-ready 4K and 6K video reels, stabilised tracking shots, golden-hour stills, and branded motion graphics tailored for commercial real estate marketing, investor presentations, and leasing brochures.',
       },
       {
         question: 'Can aerial production cover multiple sites nationwide?',
@@ -820,14 +820,14 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
       },
       {
         question: 'What video resolutions and camera payloads are available?',
-        answer: 'We deploy professional cinema payloads capturing up to 6K RAW and 10-bit ProRes video alongside 48MP to 100MP optical stills, delivering exceptional dynamic range and color fidelity.',
+        answer: 'We deploy professional cinema payloads capturing up to 6K RAW and 10-bit ProRes video alongside 48MP to 100MP optical stills, delivering exceptional dynamic range and colour fidelity.',
       },
       {
         question: 'Can filming take place during active construction and after completion?',
         answer: 'Yes. We create milestone filming programmes documenting early groundworks, structural erection, envelope cladding, and final pristine handover for developer marketing archives.',
       },
       {
-        question: 'What deliverables and license rights are supplied?',
+        question: 'What deliverables and licence rights are supplied?',
         answer: 'Deliverables include graded 4K/6K master video files, web and social cutdowns, high-resolution RAW stills, and full commercial usage rights for digital, print, and broadcast distribution.',
       },
     ],
@@ -859,7 +859,7 @@ export const droneSubservicesRecords: Record<string, ContentRecord> = {
     metaDescription: 'Rapid emergency drone inspections following storm events, fires, and structural damage. Geotagged evidence bundles for loss adjusters and insurers.',
     h1: 'Emergency Storm & Insurance Claim Drone Surveys',
     eyebrow: 'RAPID INCIDENT RESPONSE',
-    heroIntro: 'Rapid aerial damage assessment and geotagged evidence bundles following storm events, fire, impact, or structural failure—with direct 24/7 make-safe mobilization.',
+    heroIntro: 'Rapid aerial damage assessment and geotagged evidence bundles following storm events, fire, impact, or structural failure, with direct 24/7 make-safe mobilisation.',
     heroDescription: 'Following severe weather or structural incidents, inspecting damaged roofs on foot is life-threatening. EntireFM deploys rapid-response drone crews to survey unstable structures from a safe standoff distance, providing loss-adjuster evidence packs and dispatching make-safe trade teams.',
     heroImage: '/images/editorial/entirefm-external-distribution-dusk-2000w.webp',
     historicIntent: 'Emergency drone inspection storm damage and insurance loss adjuster survey UK',

@@ -12,7 +12,7 @@ const record: ContentRecord = {
   "path": "/hvac-contractor",
   "title": "Commercial HVAC Contractor | Heating, Ventilation & Air Conditioning | Entire FM",
   "metaDescription": "Specialist commercial HVAC contractor providing heating, ventilation, VRV/VRF air conditioning maintenance, F-Gas compliance, and TM44 inspections nationwide.",
-  "h1": "Commercial HVAC Contractor — Heating, Ventilation & Air Conditioning",
+  "h1": "Commercial HVAC Contractor: Heating, Ventilation & Air Conditioning",
   "eyebrow": "Climate & Environmental Engineering",
   "heroIntro": "Certified commercial HVAC contractor delivering installation, planned maintenance, and rapid emergency repairs for commercial heating, chillers, air handling units, and VRV/VRF air conditioning systems.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",

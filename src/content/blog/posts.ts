@@ -80,7 +80,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaDescription:
       'A plain definition of facilities management, what facilities managers actually do, and where the boundary sits between hard services, soft services and everything else.',
     h1: 'What is facilities management?',
-    dek: 'A question we are asked more often than you would expect — usually by someone who has just been made responsible for it.',
+    dek: 'A question we are asked more often than you would expect, usually by someone who has just been made responsible for it.',
     published: '2020-01-05',
     updated: REWRITTEN,
     category: 'Explainer',
@@ -96,7 +96,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'What a facilities manager actually does',
-        body: 'Facilities managers arrive in the profession by an unusual variety of routes — engineering, property, operations, health and safety, sometimes catering — and their job titles vary as much as their backgrounds. What they share is responsibility for the systems that make a building work together, and for what is often an organisation\'s largest asset after its people.',
+        body: 'Facilities managers arrive in the profession by an unusual variety of routes (engineering, property, operations, health and safety, sometimes catering), and their job titles vary as much as their backgrounds. What they share is responsibility for the systems that make a building work together, and for what is often an organisation\'s largest asset after its people.',
         bullets: [
           'Occupancy and the human factors of how a space is used',
           'Operations and maintenance, planned and reactive',
@@ -110,11 +110,11 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'Hard services and soft services',
-        body: 'The services inside a facilities management contract are conventionally split in two. Hard services are the physical systems — mechanical and electrical, HVAC, plumbing and drainage, fire systems, building fabric, lifts. They are usually statutory, usually technical, and their failure tends to stop the building. Soft services are the services delivered to the people in it — cleaning, security, grounds, waste, front of house. They rarely close a building, but they are what occupants judge it by.',
+        body: 'The services inside a facilities management contract are conventionally split in two. Hard services are the physical systems: mechanical and electrical, HVAC, plumbing and drainage, fire systems, building fabric, lifts. They are usually statutory, usually technical, and their failure tends to stop the building. Soft services are the services delivered to the people in it: cleaning, security, grounds, waste, front of house. They rarely close a building, but they are what occupants judge it by.',
       },
       {
         heading: 'Where the definition stops being useful',
-        body: 'The categories matter less than the interfaces between them. Most of the expensive failures in facilities management happen in the gap between two suppliers who each believed the other held the certificate: the fire alarm contractor who tests the panel but not the door releases, the cleaning contractor who reports a leak to nobody, the maintenance provider whose asset register does not include the plant the landlord installed. Integration is not a nice-to-have in the definition — it is the entire point of it.',
+        body: 'The categories matter less than the interfaces between them. Most of the expensive failures in facilities management happen in the gap between two suppliers who each believed the other held the certificate: the fire alarm contractor who tests the panel but not the door releases, the cleaning contractor who reports a leak to nobody, the maintenance provider whose asset register does not include the plant the landlord installed. Integration is not a nice-to-have in the definition; it is the entire point of it.',
       },
       {
         heading: 'Single service, bundled or total FM',
@@ -131,7 +131,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'A guide to facilities management: functions, importance and practice',
     metaTitle: 'Guide to Facilities Management | Functions & Best Practice | EntireFM',
     metaDescription:
-      'A fuller guide to facilities management — the core functions, why it matters commercially, the standards that govern it, and what good practice looks like.',
+      'A fuller guide to facilities management covering the core functions, why it matters commercially, the standards that govern it, and what good practice looks like.',
     h1: 'A guide to facilities management',
     dek: 'The longer answer: what the function covers, what it is measured on, and what separates a maintenance contract that works from one that merely exists.',
     published: '2024-07-04',
@@ -157,7 +157,7 @@ export const BLOG_POSTS: BlogPost[] = [
           'Space and occupancy management',
           'Energy and environmental performance',
           'Supplier and subcontractor management',
-          'Financial control — budget, forecast, and the variance conversation',
+          'Financial control: budget, forecast, and the variance conversation',
         ],
       },
       {
@@ -178,7 +178,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'The questions worth asking a provider',
-        body: 'Three questions separate providers quickly. Which parts of this scope do you deliver directly and which do you subcontract — and will you put that in writing? How did you arrive at these response times for this site? And: when a statutory test fails, what happens next, and who owns closing it out? The answers are more revealing than any case study.',
+        body: 'Three questions separate providers quickly. Which parts of this scope do you deliver directly and which do you subcontract, and will you put that in writing? How did you arrive at these response times for this site? And: when a statutory test fails, what happens next, and who owns closing it out? The answers are more revealing than any case study.',
       },
     ],
     related: ['/ppm', '/services', '/compliance', '/contact-us'],
@@ -201,7 +201,7 @@ export const BLOG_POSTS: BlogPost[] = [
     imageKey: 'distribution-board-testing',
     sections: [
       {
-        body: 'Hard services are the physical systems of a building — the things that are bolted to it and that stop working. Mechanical and electrical installations, heating and ventilation, plumbing and drainage, fire detection and suppression, building fabric, and lifting equipment.',
+        body: 'Hard services are the physical systems of a building: the things that are bolted to it and that stop working. Mechanical and electrical installations, heating and ventilation, plumbing and drainage, fire detection and suppression, building fabric, and lifting equipment.',
       },
       {
         heading: 'Why the distinction exists',
@@ -221,7 +221,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'The practical consequence',
-        body: 'When you read a proposal, look at where the statutory obligations sit. A hard services scope that does not name the testing regimes it covers — fixed wire, emergency lighting, fire alarm, water hygiene, lifting equipment — is not a scope. It is a price.',
+        body: 'When you read a proposal, look at where the statutory obligations sit. A hard services scope that does not name the testing regimes it covers (fixed wire, emergency lighting, fire alarm, water hygiene, lifting equipment) is not a scope. It is a price.',
       },
     ],
     related: ['/hard-services', '/mechanical-electrical', '/compliance'],
@@ -236,7 +236,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaDescription:
       'What hard services cover, the statutory regimes attached to each, where managing them goes wrong, and the practices that keep a technical estate compliant.',
     h1: 'Hard services in facilities management',
-    dek: 'The systems that keep a building standing, running and legal — and the obligations attached to each of them.',
+    dek: 'The systems that keep a building standing, running and legal, and the obligations attached to each of them.',
     published: '2024-07-06',
     updated: REWRITTEN,
     category: 'Guide',
@@ -244,11 +244,11 @@ export const BLOG_POSTS: BlogPost[] = [
     imageKey: 'switchgear-inspection',
     sections: [
       {
-        body: 'Hard services are the tangible, physical services that maintain a building\'s infrastructure. Unlike soft services, which address how a building is used, hard services address whether it works at all — and most of them carry statutory obligations that do not move when a budget does.',
+        body: 'Hard services are the tangible, physical services that maintain a building\'s infrastructure. Unlike soft services, which address how a building is used, hard services address whether it works at all, and most of them carry statutory obligations that do not move when a budget does.',
       },
       {
         heading: 'Building fabric and structure',
-        body: 'The upkeep of the structural elements: roofing, cladding, external envelope, doors and windows. Fabric maintenance is the most commonly deferred category in facilities management and the most expensive to defer, because water ingress does not stay a fabric problem — it becomes an electrical problem, then a mould problem, then a business continuity problem.',
+        body: 'The upkeep of the structural elements: roofing, cladding, external envelope, doors and windows. Fabric maintenance is the most commonly deferred category in facilities management and the most expensive to defer, because water ingress does not stay a fabric problem: it becomes an electrical problem, then a mould problem, then a business continuity problem.',
       },
       {
         heading: 'Electrical services',
@@ -256,15 +256,15 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'Plumbing, drainage and water systems',
-        body: 'Water supply, drainage, and — the part most often underestimated — water hygiene. The Approved Code of Practice L8 requires a written scheme of control for Legionella risk. It sets no monitoring interval; the scheme does. A site running to a generic monthly regime with no written scheme behind it has bought testing, not compliance.',
+        body: 'Water supply, drainage, and (the part most often underestimated) water hygiene. The Approved Code of Practice L8 requires a written scheme of control for Legionella risk. It sets no monitoring interval; the scheme does. A site running to a generic monthly regime with no written scheme behind it has bought testing, not compliance.',
       },
       {
         heading: 'Heating, ventilation and air conditioning',
-        body: 'HVAC covers comfort, air quality and, increasingly, the largest single component of an estate\'s energy bill. Systems containing fluorinated gases carry leak-checking obligations that are genuinely set in law and calculated per system from the CO2 equivalent of the refrigerant charge — one of the few intervals in facilities management that is a legal maximum rather than an industry habit.',
+        body: 'HVAC covers comfort, air quality and, increasingly, the largest single component of an estate\'s energy bill. Systems containing fluorinated gases carry leak-checking obligations that are genuinely set in law and calculated per system from the CO2 equivalent of the refrigerant charge; this is one of the few intervals in facilities management that is a legal maximum rather than an industry habit.',
       },
       {
         heading: 'Fire safety systems',
-        body: 'Detection, alarms, emergency lighting, extinguishers and suppression. Under the Regulatory Reform (Fire Safety) Order 2005 the Responsible Person must maintain the relevant fire precautions in efficient working order. The familiar intervals — weekly alarm test, monthly emergency lighting function test, annual duration test — come from British Standards, principally BS 5839 and BS 5266, not from the Order itself.',
+        body: 'Detection, alarms, emergency lighting, extinguishers and suppression. Under the Regulatory Reform (Fire Safety) Order 2005 the Responsible Person must maintain the relevant fire precautions in efficient working order. The familiar intervals (weekly alarm test, monthly emergency lighting function test, annual duration test) come from British Standards, principally BS 5839 and BS 5266, not from the Order itself.',
       },
       {
         heading: 'Lifts and lifting equipment',
@@ -275,7 +275,7 @@ export const BLOG_POSTS: BlogPost[] = [
         bullets: [
           'No asset register, so nobody can say what should have been maintained',
           'Statutory testing and planned maintenance treated as one list, when they are legally different obligations',
-          'Failed tests logged and never closed out — the certificate exists, the remedial does not',
+          'Failed tests logged and never closed out: the certificate exists, but the remedial does not',
           'Intervals inherited from a previous contract with nobody knowing why they were set',
           'Landlord and tenant plant maintained by different suppliers with no shared record',
           'Recurring faults repaired repeatedly instead of being escalated to a replacement decision',
@@ -302,7 +302,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Why regular maintenance and inspection actually pays',
     metaTitle: 'Why Regular Maintenance & Inspections Matter | EntireFM',
     metaDescription:
-      'The commercial case for planned maintenance over reactive repair — what deferring maintenance really costs, and how to tell whether a regime is working.',
+      'The commercial case for planned maintenance over reactive repair: what deferring maintenance really costs, and how to tell whether a regime is working.',
     h1: 'The importance of regular maintenance and inspections',
     dek: 'Planned maintenance is the easiest line to cut and the most expensive one to have cut. Here is where the money actually goes.',
     published: '2024-08-17',
@@ -318,7 +318,7 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: 'What deferring maintenance actually costs',
         bullets: [
           'Reactive call-outs at premium rates, often out of hours, often on the same asset repeatedly',
-          'Shortened asset life — plant that should have reached fifteen years failing at nine',
+          'Shortened asset life: plant that should have reached fifteen years failing at nine',
           'Business interruption, which is almost never counted against the maintenance budget that caused it',
           'Compliance exposure, where a missed statutory test becomes an enforcement matter',
           'Insurance and warranty positions weakened by an absent maintenance record',
@@ -327,7 +327,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'Inspection is not the same as maintenance',
-        body: 'They are often bundled and they do different jobs. Maintenance is intervention — servicing, replacing, adjusting. Inspection is information — condition, compliance status, remaining life. An estate with good maintenance and poor inspection is well looked after and cannot prove it. An estate with good inspection and poor maintenance knows exactly how bad things are getting.',
+        body: 'They are often bundled and they do different jobs. Maintenance is intervention (servicing, replacing, adjusting), whereas inspection is information (condition, compliance status, remaining life). An estate with good maintenance and poor inspection is well looked after and cannot prove it. An estate with good inspection and poor maintenance knows exactly how bad things are getting.',
       },
       {
         heading: 'Setting intervals honestly',
@@ -358,7 +358,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Facilities management across sectors: what changes, and what does not',
     metaTitle: 'FM Across Sectors | Similarities, Differences & Agility | EntireFM',
     metaDescription:
-      'The trades barely change between a warehouse and a clinical building. What changes is what failure costs — and that is what should shape the maintenance plan.',
+      'The trades barely change between a warehouse and a clinical building. What changes is what failure costs, and that is what should shape the maintenance plan.',
     h1: 'Facilities management in different sectors',
     dek: 'Similarities, differences, and why the same scope of work needs a different plan in each.',
     published: '2024-09-12',
@@ -373,7 +373,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: 'What stays the same',
         bullets: [
-          'The statutory regimes — electrical, fire, water, gas, lifting — apply across sectors',
+          'The statutory regimes (electrical, fire, water, gas, lifting) apply across sectors',
           'The trades and the competencies required to carry them out',
           'The need for an asset register and a maintenance plan built from it',
           'The evidence obligations: a certificate is a certificate wherever it is issued',
@@ -391,11 +391,11 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'Why agility is the actual requirement',
-        body: 'A provider working across sectors cannot run one operating model. The value is not in having a model for each — it is in being able to tell quickly which constraints apply to a new site and to reshape the plan around them. Most contracts that go wrong do so because a provider imposed the rhythm that worked on its last client onto an estate that runs differently.',
+        body: 'A provider working across sectors cannot run one operating model. The value is not in having a model for each; it is in being able to tell quickly which constraints apply to a new site and to reshape the plan around them. Most contracts that go wrong do so because a provider imposed the rhythm that worked on its last client onto an estate that runs differently.',
       },
       {
         heading: 'The question that sets the plan',
-        body: 'It is not "what type of building is this". It is "what happens here when something fails". The answer determines the priority bands, the access strategy, the spares policy and the escalation route — and it is a better starting point than any sector label.',
+        body: 'It is not "what type of building is this". It is "what happens here when something fails". The answer determines the priority bands, the access strategy, the spares policy and the escalation route, which is a better starting point than any sector label.',
       },
     ],
     related: ['/sectors', '/industrial-facilities-management', '/healthcare-facilities-management', '/ppm'],
@@ -408,7 +408,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Keeping Birmingham moving',
     metaTitle: 'Facilities Management in Birmingham | EntireFM',
     metaDescription:
-      'Facilities management across Birmingham and the wider West Midlands — city-centre offices, industrial estates and the logistics corridor around the motorway network.',
+      'Facilities management across Birmingham and the wider West Midlands: city-centre offices, industrial estates and the logistics corridor around the motorway network.',
     h1: 'Keeping Birmingham moving',
     dek: 'Why the West Midlands asks more of a maintenance plan than its size alone suggests.',
     published: '2019-09-24',
@@ -418,7 +418,7 @@ export const BLOG_POSTS: BlogPost[] = [
     imageKey: 'external-distribution-dusk',
     sections: [
       {
-        body: 'Birmingham packs an unusual range of building types into a short radius. Grade A city-centre offices, Victorian stock still in commercial use, industrial estates from every decade since the war, and — within twenty minutes of the centre — some of the densest logistics property in the country.',
+        body: 'Birmingham packs an unusual range of building types into a short radius. Grade A city-centre offices, Victorian stock still in commercial use, industrial estates from every decade since the war, as well as some of the densest logistics property in the country within twenty minutes of the centre.',
       },
       {
         heading: 'What that means for maintenance',
@@ -446,7 +446,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Facilities management in Lincoln and Lincolnshire',
     metaTitle: 'Facilities Management in Lincoln | EntireFM',
     metaDescription:
-      'Facilities management across Lincoln and Lincolnshire — a dispersed county where honest response times matter more than a headline coverage claim.',
+      'Facilities management across Lincoln and Lincolnshire: a dispersed county where honest response times matter more than a headline coverage claim.',
     h1: 'Facilities management in Lincoln and Lincolnshire',
     dek: 'A dispersed county, a long travel geometry, and why that changes what a response time should say.',
     published: '2019-08-21',
@@ -456,7 +456,7 @@ export const BLOG_POSTS: BlogPost[] = [
     imageKey: 'site-arrival',
     sections: [
       {
-        body: 'Lincolnshire is the second largest county in England and one of the least densely built. Commercial property is spread across market towns, agricultural and food processing sites, and the city itself — and the distance between them is the defining operational fact.',
+        body: 'Lincolnshire is the second largest county in England and one of the least densely built. Commercial property is spread across market towns, agricultural and food processing sites, and the city itself, where the distance between them is the defining operational fact.',
       },
       {
         heading: 'Why coverage claims matter more here',
@@ -530,7 +530,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaTitle: 'Predictive Maintenance vs PPM: Does AI Replace Planned Maintenance? | EntireFM',
     metaDescription: 'Why predictive maintenance and condition monitoring enhance planned preventative maintenance rather than eliminating it. Engineering analysis for FM teams.',
     h1: 'Predictive Maintenance vs PPM: Does AI Replace Planned Maintenance?',
-    dek: 'Why the debate between planned preventative maintenance and AI predictive monitoring is based on a false dichotomy—and how top estates combine both.',
+    dek: 'Why the debate between planned preventative maintenance and AI predictive monitoring is based on a false dichotomy, and how top estates combine both.',
     published: '2026-08-23',
     updated: '2026-08-23',
     category: 'Maintenance & PPM',
@@ -542,7 +542,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'The fundamental difference in methodology',
-        body: 'Preventative maintenance operates on time-based or run-hour intervals—servicing an air handling unit every quarter or testing emergency lights every month regardless of perceived condition. Predictive maintenance continuously measures operational variables (vibration spectrums, thermal delta-T, electrical harmonic distortion) to identify the specific onset of physical degradation.',
+        body: 'Preventative maintenance operates on time-based or run-hour intervals, such as servicing an air handling unit every quarter or testing emergency lights every month regardless of perceived condition. Predictive maintenance continuously measures operational variables (vibration spectrums, thermal delta-T, electrical harmonic distortion) to identify the specific onset of physical degradation.',
       },
       {
         heading: 'The statutory barrier to eliminating PPM',
@@ -556,7 +556,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'The hybrid maintenance model',
-        body: 'The most effective commercial strategy uses PPM as the compliance and fabric baseline, while deploying IoT sensors and predictive algorithms selectively on high-capital plant—such as centrifugal chillers, main boiler burners, and primary water pumps—where unexpected failure carries severe financial or operational consequences.',
+        body: 'The most effective commercial strategy uses PPM as the compliance and fabric baseline, while deploying IoT sensors and predictive algorithms selectively on high-capital plant (such as centrifugal chillers, main boiler burners, and primary water pumps), where unexpected failure carries severe financial or operational consequences.',
       },
     ],
     related: [
@@ -575,7 +575,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaTitle: 'Can AI Run an FM Helpdesk? Automation & Human Safeguards | EntireFM',
     metaDescription: 'Evaluating the reality of AI in FM service desk operations. Ticket intake, classification, trade dispatch, and why human escalations remain essential.',
     h1: 'Can AI Run an FM Helpdesk?',
-    dek: 'Examining what automated intake and machine triage can achieve across high-volume service desks—and why human coordinators remain vital for estate safety.',
+    dek: 'Examining what automated intake and machine triage can achieve across high-volume service desks, and why human coordinators remain vital for estate safety.',
     published: '2026-08-23',
     updated: '2026-08-23',
     category: 'AI & Technology',
@@ -583,7 +583,7 @@ export const BLOG_POSTS: BlogPost[] = [
     imageKey: 'switchroom-survey',
     sections: [
       {
-        body: 'The facilities management helpdesk is the operational frontline of any commercial estate. Processing hundreds of occupant requests daily—ranging from minor comfort complaints to emergency pipe bursts—helpdesks are prime candidates for AI workflow automation. But can language models and automated routing run an FM helpdesk autonomously?',
+        body: 'The facilities management helpdesk is the operational frontline of any commercial estate. Processing hundreds of occupant requests daily (ranging from minor comfort complaints to emergency pipe bursts), helpdesks are prime candidates for AI workflow automation. But can language models and automated routing run an FM helpdesk autonomously?',
       },
       {
         heading: 'Where AI excels in service desk operations',
@@ -596,7 +596,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'Why human duty managers remain irreplaceable',
-        body: 'Despite advanced automation, human coordinators remain critical for three core reasons: emergency risk recognition, commercial authorization, and client communication. An occupant reporting a "slight hissing noise in the basement boiler room" might be classified as a minor acoustic complaint by a naive language model, whereas an experienced human coordinator immediately recognizes the potential for a catastrophic steam or gas leak and initiates emergency site protocols.',
+        body: 'Despite advanced automation, human coordinators remain critical for three core reasons: emergency risk recognition, commercial authorisation, and client communication. An occupant reporting a "slight hissing noise in the basement boiler room" might be classified as a minor acoustic complaint by a naive language model, whereas an experienced human coordinator immediately recognises the potential for a catastrophic steam or gas leak and initiates emergency site protocols.',
       },
     ],
     related: [
@@ -663,7 +663,7 @@ export const BLOG_POSTS: BlogPost[] = [
     imageKey: 'switchroom-survey',
     sections: [
       {
-        body: 'Every major facilities management technology initiative begins with high ambitions, but a significant portion stall or fail during deployment. In the vast majority of cases, the failure is not caused by algorithmic limitations—it is caused by dirty, incomplete, and unstructured asset data in the legacy CAFM.',
+        body: 'Every major facilities management technology initiative begins with high ambitions, but a significant portion stall or fail during deployment. In the vast majority of cases, the failure is not caused by algorithmic limitations; it is caused by dirty, incomplete, and unstructured asset data in the legacy CAFM.',
       },
       {
         heading: 'The four chronic data problems in commercial estates',
@@ -704,7 +704,7 @@ export const BLOG_POSTS: BlogPost[] = [
     imageKey: 'client-review',
     sections: [
       {
-        body: 'For three decades, Computer-Aided Facility Management (CAFM) systems have served primarily as digital filing cabinets—storing asset records, logging work order dates, and recording contractor invoices. While effective for historical record-keeping, legacy CAFM platforms require intensive manual data entry and offer minimal operational foresight.',
+        body: 'For three decades, Computer-Aided Facility Management (CAFM) systems have served primarily as digital filing cabinets, storing asset records, logging work order dates, and recording contractor invoices. While effective for historical record-keeping, legacy CAFM platforms require intensive manual data entry and offer minimal operational foresight.',
       },
       {
         heading: 'The shift from passive storage to active assistance',
@@ -717,7 +717,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'EntireCAFM: Designed by engineers for real estate operations',
-        body: 'At EntireFM, our software strategy focuses on practical field utility rather than abstract complexity. EntireCAFM connects mobile engineering teams, 24/7 helpdesk dispatchers, and estate directors in real time—ensuring complete compliance visibility without administrative overhead.',
+        body: 'At EntireFM, our software strategy focuses on practical field utility rather than abstract complexity. EntireCAFM connects mobile engineering teams, 24/7 helpdesk dispatchers, and estate directors in real time, ensuring complete compliance visibility without administrative overhead.',
       },
     ],
     related: [
@@ -744,7 +744,7 @@ export const BLOG_POSTS: BlogPost[] = [
     imageKey: 'commercial-facade-angle',
     sections: [
       {
-        body: 'Few concepts in proptech generate as much visual excitement as the "Digital Twin"—a photorealistic 3D virtual model of a building pulsing with real-time sensor data. However, for many commercial estate directors, digital twin projects have proven to be expensive, difficult to maintain, and disconnected from day-to-day maintenance realities.',
+        body: 'Few concepts in proptech generate as much visual excitement as the "Digital Twin": a photorealistic 3D virtual model of a building pulsing with real-time sensor data. However, for many commercial estate directors, digital twin projects have proven to be expensive, difficult to maintain, and disconnected from day-to-day maintenance realities.',
       },
       {
         heading: 'Where digital twins genuinely make financial sense',
@@ -797,7 +797,7 @@ export const BLOG_POSTS: BlogPost[] = [
           '5. Can we enforce mandatory human approval gates on high-consequence actions such as contractor dispatch and SLA completion?',
           '6. How does the system prevent language model hallucinations when extracting statutory compliance dates from PDF certificates?',
           '7. Is every algorithmic recommendation and human override recorded in an immutable, exportable audit log?',
-          '8. What are the integration prerequisites—and what happens if our asset register has data gaps?',
+          '8. What are the integration prerequisites, and what happens if our asset register has data gaps?',
           '9. If we terminate the contract, in what format will our historical data and trained operational parameters be returned?',
           '10. What is the vendor service level agreement regarding algorithmic uptime and response latency during emergency intake events?',
         ],
@@ -860,7 +860,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaTitle: 'How to Change FM Provider Smoothly | Mobilisation Guide | EntireFM',
     metaDescription: 'A step-by-step roadmap for switching commercial facilities management contractors. TUPE, asset audits, CAFM handover, and compliance continuity.',
     h1: 'How to Change Facilities Management Provider Without Disrupting the Estate',
-    dek: 'A practical commercial guide to transitioning facilities contractors smoothly—protecting statutory compliance, managing staff transfers, and verifying asset data.',
+    dek: 'A practical commercial guide to transitioning facilities contractors smoothly: protecting statutory compliance, managing staff transfers, and verifying asset data.',
     published: '2026-08-23',
     updated: '2026-08-23',
     category: 'FM Strategy',
@@ -906,7 +906,7 @@ export const BLOG_POSTS: BlogPost[] = [
     imageKey: 'switchroom-survey',
     sections: [
       {
-        body: 'The success of a long-term facilities management partnership is largely determined during the pre-commencement mobilisation window. Overlooking basic operational details—such as plantroom access keys, lone worker protocols, or asbestos register handovers—creates immediate friction on Day One.',
+        body: 'The success of a long-term facilities management partnership is largely determined during the pre-commencement mobilisation window. Overlooking basic operational details (such as plantroom access keys, lone worker protocols, or asbestos register handovers) creates immediate friction on Day One.',
       },
       {
         heading: 'The Day One operational readiness checklist',
@@ -944,11 +944,11 @@ export const BLOG_POSTS: BlogPost[] = [
     imageKey: 'rooftop-plant-night',
     sections: [
       {
-        body: 'Every facilities professional knows that purely reactive maintenance is financially unsustainable—emergency callout premiums, out-of-hours labour rates, and expedited parts shipping cost significantly more than planned servicing. However, an equally common yet rarely discussed financial trap is over-servicing: applying exhaustive monthly preventative maintenance to non-critical, easily replaceable assets.',
+        body: 'Every facilities professional knows that purely reactive maintenance is financially unsustainable; emergency callout premiums, out-of-hours labour rates, and expedited parts shipping cost significantly more than planned servicing. However, an equally common yet rarely discussed financial trap is over-servicing: applying exhaustive monthly preventative maintenance to non-critical, easily replaceable assets.',
       },
       {
         heading: 'The risk-criticality framework',
-        body: 'To optimize maintenance spend, building assets should be classified into three operational tiers:',
+        body: 'To optimise maintenance spend, building assets should be classified into three operational tiers:',
         bullets: [
           'Tier 1: High Criticality / Statutory (Intensive PPM): Plant whose failure threatens life safety, violates UK law, or halts core business operations (fire systems, main chillers, passenger lifts). Must receive rigorous scheduled maintenance.',
           'Tier 2: Medium Criticality (Balanced PPM / Condition-Led): Equipment where failure causes inconvenience or localized discomfort (extract fans, standard split AC units, secondary circulation pumps). Service semi-annually or trigger via basic sensor thresholds.',
@@ -972,7 +972,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaTitle: 'What Is an Asset Register in FM? Complete Guide | EntireFM',
     metaDescription: 'Understanding the asset register: structure, hierarchy, naming standards, and lifecycle tracking in commercial facilities management.',
     h1: 'What Is an Asset Register and Why Does Facilities Management Depend on It?',
-    dek: 'A foundational look at the single most important document in facilities management—and why building operations stall without an accurate asset inventory.',
+    dek: 'A foundational look at the single most important document in facilities management, and why building operations stall without an accurate asset inventory.',
     published: '2026-08-23',
     updated: '2026-08-23',
     category: 'FM Strategy',
@@ -1010,9 +1010,9 @@ export const BLOG_POSTS: BlogPost[] = [
     path: '/post/hard-fm-vs-soft-fm-scope-boundaries',
     title: 'Hard FM vs Soft FM: Where Does One End and the Other Begin?',
     metaTitle: 'Hard FM vs Soft FM: Differences & Interfaces | EntireFM',
-    metaDescription: 'A clear guide to the differences between hard facilities management and soft services—and why managing the interface between them prevents costly building failures.',
+    metaDescription: 'A clear guide to the differences between hard facilities management and soft services, and why managing the interface between them prevents costly building failures.',
     h1: 'Hard FM vs Soft FM: Where Does One End and the Other Begin?',
-    dek: 'Examining the technical, legal, and operational distinctions between building engineering and workplace services—and why the interface between them matters most.',
+    dek: 'Examining the technical, legal, and operational distinctions between building engineering and workplace services, and why the interface between them matters most.',
     published: '2026-08-23',
     updated: '2026-08-23',
     category: 'FM Strategy',
@@ -1024,7 +1024,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'Defining the boundary',
-        body: 'Hard FM covers the physical, immovable building fabric and engineered systems—mechanical, electrical, plumbing, HVAC, fire detection, and structural elements. Soft FM encompasses services provided directly to the human occupants—commercial cleaning, security, grounds maintenance, waste management, and front-of-house concierge.',
+        body: 'Hard FM covers the physical, immovable building fabric and engineered systems: mechanical, electrical, plumbing, HVAC, fire detection, and structural elements. Soft FM encompasses services provided directly to the human occupants: commercial cleaning, security, grounds maintenance, waste management, and front-of-house concierge.',
       },
       {
         heading: 'The high-risk operational interfaces',

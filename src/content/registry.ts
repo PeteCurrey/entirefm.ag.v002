@@ -433,7 +433,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       },
       {
         "name": "Baggage Handling & Conveyor Power Distribution",
-        "description": "PPM maintenance for electrical feeds, motor control centers (MCC), and emergency stop safety loops.",
+        "description": "PPM maintenance for electrical feeds, motor control centres (MCC), and emergency stop safety loops.",
         "tag": "Conveyor Power"
       },
       {
@@ -2204,7 +2204,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   "/commercial-building-maintenance-london": {
     "path": "/commercial-building-maintenance-london",
     "title": "Commercial Building Maintenance London | Fabric & Planned Repairs | EntireFM",
-    "metaDescription": "Planned and reactive building fabric maintenance across London commercial estates — roofing, doors, glazing, drainage, and property preservation.",
+    "metaDescription": "Planned and reactive building fabric maintenance across London commercial estates: roofing, doors, glazing, drainage, and property preservation.",
     "h1": "Commercial Building Maintenance in London",
     "eyebrow": "Fabric Maintenance & Property Preservation",
     "heroIntro": "EntireFM provides complete building fabric maintenance and proactive property upkeep for commercial landlords, corporate occupiers, and managing agents across London.",
@@ -3183,7 +3183,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   "/commercial-electrical-maintenance-london": {
     "path": "/commercial-electrical-maintenance-london",
     "title": "Commercial Electrical Maintenance London | Switchgear & Lighting | EntireFM",
-    "metaDescription": "Certified commercial electrical maintenance across London — switchgear servicing, distribution board testing, emergency lighting, and electrical compliance.",
+    "metaDescription": "Certified commercial electrical maintenance across London: switchgear servicing, distribution board testing, emergency lighting, and electrical compliance.",
     "h1": "Commercial Electrical Maintenance in London",
     "eyebrow": "Electrical Engineering & Compliance",
     "heroIntro": "EntireFM delivers certified commercial electrical maintenance for offices, multi-tenant developments, data centres, and industrial estates across London.",
@@ -3484,7 +3484,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   "/commercial-plumbing-london": {
     "path": "/commercial-plumbing-london",
     "title": "Commercial Plumbing Maintenance London | Plant & Pipework | EntireFM",
-    "metaDescription": "B2B commercial plumbing maintenance across London — booster sets, plant room pipework, commercial water heaters, drainage, and emergency leak repairs.",
+    "metaDescription": "B2B commercial plumbing maintenance across London: booster sets, plant room pipework, commercial water heaters, drainage, and emergency leak repairs.",
     "h1": "Commercial Plumbing Maintenance in London",
     "eyebrow": "Commercial Public Health Engineering",
     "heroIntro": "EntireFM delivers commercial plumbing, plant-room pipework servicing, and reactive drainage solutions for business premises throughout London.",
@@ -4751,7 +4751,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Specialist Industrial & Heavy Plant Cleaning",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for copy of industrial cleaning",
@@ -6775,7 +6775,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "sections": [
       {
         "heading": "Maintaining Safe, Hygienic Environments for Patient Care",
-        "body": "Healthcare buildings require heightened hygiene, clean indoor air, and flawless compliance documentation. EntireFM provides specialized non-clinical estate support tailored to medical practices and health centres."
+        "body": "Healthcare buildings require heightened hygiene, clean indoor air, and flawless compliance documentation. EntireFM provides specialised non-clinical estate support tailored to medical practices and health centres."
       }
     ],
     "capabilities": [
@@ -6936,7 +6936,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Estate & Factory Facilities Management",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for facilities management for/industrial facilities management",
@@ -7171,7 +7171,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       },
       {
         "name": "High-Bay LED Lighting & Emergency Lux Audits",
-        "description": "Racking aisle lighting maintenance, sensor optimization, and annual emergency lighting battery discharge testing.",
+        "description": "Racking aisle lighting maintenance, sensor optimisation, and annual emergency lighting battery discharge testing.",
         "tag": "High-Bay Lighting"
       },
       {
@@ -7931,7 +7931,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       },
       {
         "name": "High-Bay LED Lighting & Emergency Lux Audits",
-        "description": "Racking aisle lighting maintenance, sensor optimization, and annual emergency lighting battery discharge testing.",
+        "description": "Racking aisle lighting maintenance, sensor optimisation, and annual emergency lighting battery discharge testing.",
         "tag": "High-Bay Lighting"
       },
       {
@@ -8548,11 +8548,11 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   "/facilities-management-london": {
     "path": "/facilities-management-london",
     "title": "Facilities Management London | Commercial FM Services | Entire FM",
-    "metaDescription": "Commercial facilities management in London — planned preventative maintenance, M&E engineering, statutory compliance and reactive cover across Greater London.",
+    "metaDescription": "Commercial facilities management in London: planned preventative maintenance, M&E engineering, statutory compliance and reactive cover across Greater London.",
     "h1": "Facilities Management in London",
     "eyebrow": "London Regional Operations",
     "heroIntro": "London commercial property carries the tightest access rules, the heaviest compliance load and the least tolerance for disruption of any UK market.",
-    "heroDescription": "EntireFM maintains commercial property across London — planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover, scheduled around the constraints that apply here rather than a national template.",
+    "heroDescription": "EntireFM maintains commercial property across London, delivering planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover scheduled around local site constraints.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for facilities management london",
     "primaryIntent": "facilities management london",
@@ -11362,7 +11362,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "sections": [
       {
         "heading": "Consolidating Fragmented Trade Suppliers Under Single Accountability",
-        "body": "Managing a spread of separate contractors — mechanical engineers, electrical contractors, cleaning agencies, fire technicians, and water hygiene providers — inflates administrative overhead and creates dangerous compliance blindspots. EntireFM replaces fragmented supply with a single accountable contract, ensuring full operational ownership across all London premises with zero responsibility shifting between subcontractors."
+        "body": "Managing a spread of separate contractors (such as mechanical engineers, electrical contractors, cleaning agencies, fire technicians, and water hygiene providers) inflates administrative overhead and creates dangerous compliance blindspots. EntireFM replaces fragmented supply with a single accountable contract, ensuring full operational ownership across all London premises with zero responsibility shifting between subcontractors."
       },
       {
         "heading": "Integrated Hard and Soft FM Delivery Across London Estates",
@@ -11431,7 +11431,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       },
       {
         "question": "How does EntireFM's outsourced model support multi-site London estates?",
-        "answer": "We provide portfolio-wide asset registers, consistent PPM standards, centralized helpdesk dispatch, and property-by-property cost reconciliation across all London and M25 locations."
+        "answer": "We provide portfolio-wide asset registers, consistent PPM standards, centralised helpdesk dispatch, and property-by-property cost reconciliation across all London and M25 locations."
       }
     ],
     "breadcrumbs": [
@@ -13422,7 +13422,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "sections": [
       {
         "heading": "Maintaining Safe, Hygienic Environments for Patient Care",
-        "body": "Healthcare buildings require heightened hygiene, clean indoor air, and flawless compliance documentation. EntireFM provides specialized non-clinical estate support tailored to medical practices and health centres."
+        "body": "Healthcare buildings require heightened hygiene, clean indoor air, and flawless compliance documentation. EntireFM provides specialised non-clinical estate support tailored to medical practices and health centres."
       }
     ],
     "capabilities": [
@@ -13805,7 +13805,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "capabilities": [
       {
         "name": "Precision Mobile Crane Spas Lifting",
-        "description": "Contract lifting over walls, fences, and onto raised decks using specialized lifting straps and spreader bars.",
+        "description": "Contract lifting over walls, fences, and onto raised decks using specialised lifting straps and spreader bars.",
         "tag": "Crane Lifting"
       },
       {
@@ -13815,7 +13815,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       },
       {
         "name": "Specialist Air-Ride Spa Transport",
-        "description": "Custom trailers and spa sledges designed to transport heavy fiberglass shells without structural flexing or shell damage.",
+        "description": "Custom trailers and spa sledges designed to transport heavy fibreglass shells without structural flexing or shell damage.",
         "tag": "Transport"
       },
       {
@@ -13828,7 +13828,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "faqs": [
       {
         "question": "Can a hot tub be lifted over a building with a crane?",
-        "answer": "Yes. We utilize compact truck-mounted cranes and mobile cranes to lift hot tubs over rooftops, boundary walls, and into courtyard gardens safely."
+        "answer": "Yes. We utilise compact truck-mounted cranes and mobile cranes to lift hot tubs over rooftops, boundary walls, and into courtyard gardens safely."
       }
     ],
     "breadcrumbs": [
@@ -13958,7 +13958,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "path": "/hvac-contractor",
     "title": "Commercial HVAC Contractor | Heating, Ventilation & Air Conditioning | Entire FM",
     "metaDescription": "Specialist commercial HVAC contractor providing heating, ventilation, VRV/VRF air conditioning maintenance, F-Gas compliance, and TM44 inspections nationwide.",
-    "h1": "Commercial HVAC Contractor — Heating, Ventilation & Air Conditioning",
+    "h1": "Commercial HVAC Contractor: Heating, Ventilation & Air Conditioning",
     "eyebrow": "Climate & Environmental Engineering",
     "heroIntro": "Certified commercial HVAC contractor delivering installation, planned maintenance, and rapid emergency repairs for commercial heating, chillers, air handling units, and VRV/VRF air conditioning systems.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
@@ -14072,7 +14072,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   "/hvac-london": {
     "path": "/hvac-london",
     "title": "Commercial HVAC Maintenance London | Chillers & Air Conditioning | EntireFM",
-    "metaDescription": "Commercial HVAC servicing across London — chillers, VRF/VRV air conditioning, AHUs, heat pumps, F-Gas inspections, TM44 compliance, and emergency breakdown attendance.",
+    "metaDescription": "Commercial HVAC servicing across London: chillers, VRF/VRV air conditioning, AHUs, heat pumps, F-Gas inspections, TM44 compliance, and emergency breakdown attendance.",
     "h1": "Commercial HVAC & Air Conditioning in London",
     "eyebrow": "Commercial Climate Engineering",
     "heroIntro": "EntireFM provides comprehensive commercial HVAC, air conditioning, and ventilation maintenance for corporate offices, retail spaces, and commercial buildings across London.",
@@ -14186,7 +14186,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Cleaning & Plant Decontamination in Birmingham",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for industrial cleaning birmingham",
@@ -14281,7 +14281,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Cleaning & Plant Decontamination in Chesterfield",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for industrial cleaning chesterfield",
@@ -14376,7 +14376,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Cleaning & Plant Decontamination in Derby",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for industrial cleaning derby",
@@ -14471,7 +14471,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Cleaning & Plant Decontamination in Leeds",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for industrial cleaning leeds",
@@ -14566,7 +14566,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Cleaning & Plant Decontamination in Lincoln",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for industrial cleaning lincoln",
@@ -14658,7 +14658,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   "/industrial-cleaning-london": {
     "path": "/industrial-cleaning-london",
     "title": "Industrial Cleaning London | Warehouses & Plant Decontamination | EntireFM",
-    "metaDescription": "Specialist industrial cleaning across London and Park Royal corridors — warehouse scrubbing, high-level structural cleaning, plant degreasing, and shutdown decontamination.",
+    "metaDescription": "Specialist industrial cleaning across London and Park Royal corridors: warehouse scrubbing, high-level structural cleaning, plant degreasing, and shutdown decontamination.",
     "h1": "Industrial Cleaning & Plant Maintenance in London",
     "eyebrow": "Heavy-Duty Industrial Cleaning",
     "heroIntro": "EntireFM provides specialist industrial cleaning for logistics hubs, distribution centres, manufacturing units, and commercial trade parks across London and the M25 corridor.",
@@ -14770,7 +14770,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Cleaning & Plant Decontamination in Manchester",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for industrial cleaning manchester",
@@ -14865,7 +14865,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Cleaning & Plant Decontamination in Nottingham",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for industrial cleaning nottingham",
@@ -14960,7 +14960,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Cleaning & Plant Decontamination in Sheffield",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for industrial cleaning sheffield",
@@ -15055,7 +15055,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Cleaning & Factory Decontamination Services",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for industrial cleaning",
@@ -15150,7 +15150,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Facilities Management & Manufacturing Plant Maintenance",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for industrial facilities management",
@@ -15245,7 +15245,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
     "h1": "Industrial Facilities Management & Factory Maintenance in Lincoln",
     "eyebrow": "Industrial Sector Scope",
-    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+    "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
     "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for industrial fm lincoln",
@@ -16335,7 +16335,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       },
       {
         "name": "High-Bay LED Lighting & Emergency Lux Audits",
-        "description": "Racking aisle lighting maintenance, sensor optimization, and annual emergency lighting battery discharge testing.",
+        "description": "Racking aisle lighting maintenance, sensor optimisation, and annual emergency lighting battery discharge testing.",
         "tag": "High-Bay Lighting"
       },
       {
@@ -16480,7 +16480,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "metaDescription": "Multi-site facilities management across London and Greater London. Consistent standards, one reporting line and coordinated maintenance across every site.",
     "h1": "London Facilities Management for Multi-Site Estates",
     "eyebrow": "Estate Portfolio Management",
-    "heroIntro": "Managing multiple commercial properties across London creates distinct operational challenges — maintaining consistent standards, unified compliance, and transparent service-charge accounting across disparate sites.",
+    "heroIntro": "Managing multiple commercial properties across London creates distinct operational challenges, requiring consistent standards, unified compliance, and transparent service-charge accounting across disparate sites.",
     "heroDescription": "EntireFM partners with commercial landlords, managing agents, and multi-location operators across Greater London and the M25 corridor, delivering coordinated Hard & Soft FM under a unified service model.",
     "heroImage": "/branding/EntireFM Branding 001.png",
     "historicIntent": "Historic commercial search intent for london facilities management",
@@ -17212,7 +17212,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
     "sections": [
       {
         "heading": "Total Mechanical & Electrical Asset Lifecycle Care",
-        "body": "EntireFM acts as the primary M&E contractor for commercial property owners, managing agents, and facility directors. Our multi-skilled engineering teams take complete responsibility for building services, ensuring continuous operational availability, statutory safety certification, and optimized energy efficiency.",
+        "body": "EntireFM acts as the primary M&E contractor for commercial property owners, managing agents, and facility directors. Our multi-skilled engineering teams take complete responsibility for building services, ensuring continuous operational availability, statutory safety certification, and optimised energy efficiency.",
         "bullets": [
           "Full statutory compliance management with digital certification via our CAFM portal",
           "Direct engineering delivery model reducing sub-contractor markups and response delays",
@@ -18064,7 +18064,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   "/office-cleaning-london": {
     "path": "/office-cleaning-london",
     "title": "Commercial Office Cleaning London | Corporate Workspace Care | EntireFM",
-    "metaDescription": "High-standard corporate office cleaning across London — scheduled daily contracts, supervisor KPI scoring, eco-friendly COSHH products, and daytime janitorial support.",
+    "metaDescription": "High-standard corporate office cleaning across London: scheduled daily contracts, supervisor KPI scoring, eco-friendly COSHH products, and daytime janitorial support.",
     "h1": "Commercial Office Cleaning in London",
     "eyebrow": "Corporate Workspace Care",
     "heroIntro": "EntireFM delivers reliable, high-standard commercial office cleaning tailored to headquarters, financial institutions, tech workspaces, and multi-tenant business centres throughout London.",
@@ -18102,7 +18102,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       },
       {
         "heading": "Sustainable Cleaning & Full COSHH Compliance",
-        "body": "We utilize non-toxic, eco-friendly cleaning formulations, modern microfibre technology, and energy-efficient HEPA-filter vacuums to enhance indoor air quality and support client sustainability targets."
+        "body": "We utilise non-toxic, eco-friendly cleaning formulations, modern microfibre technology, and energy-efficient HEPA-filter vacuums to enhance indoor air quality and support client sustainability targets."
       }
     ],
     "capabilities": [
@@ -22380,7 +22380,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
   "/soft-facilities-management-london": {
     "path": "/soft-facilities-management-london",
     "title": "Soft Facilities Management London | Workplace & Cleaning Services | EntireFM",
-    "metaDescription": "Professional Soft FM services across London commercial property — commercial cleaning, grounds care, security, washroom management, and workplace support.",
+    "metaDescription": "Professional Soft FM services across London commercial property: commercial cleaning, grounds care, security, washroom management, and workplace support.",
     "h1": "Soft Facilities Management in London",
     "eyebrow": "Workplace & Environmental Care",
     "heroIntro": "EntireFM delivers high-standard Soft Facilities Management tailored to commercial offices, business centres, retail destinations, and multi-tenant estates across London.",
@@ -23290,7 +23290,7 @@ export const CONTENT_DATABASE: Record<string, ContentRecord> = {
       },
       {
         "name": "High-Bay LED Lighting & Emergency Lux Audits",
-        "description": "Racking aisle lighting maintenance, sensor optimization, and annual emergency lighting battery discharge testing.",
+        "description": "Racking aisle lighting maintenance, sensor optimisation, and annual emergency lighting battery discharge testing.",
         "tag": "High-Bay Lighting"
       },
       {

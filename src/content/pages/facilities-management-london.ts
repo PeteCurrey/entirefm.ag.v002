@@ -12,11 +12,11 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 const record: ContentRecord = {
   "path": "/facilities-management-london",
   "title": "Facilities Management London | Commercial FM Services | Entire FM",
-  "metaDescription": "Commercial facilities management in London — planned preventative maintenance, M&E engineering, statutory compliance and reactive cover across Greater London.",
+  "metaDescription": "Commercial facilities management in London: planned preventative maintenance, M&E engineering, statutory compliance and reactive cover across Greater London.",
   "h1": "Facilities Management in London",
   "eyebrow": "London Regional Operations",
   "heroIntro": "London commercial property carries the tightest access rules, the heaviest compliance load and the least tolerance for disruption of any UK market.",
-  "heroDescription": "EntireFM maintains commercial property across London — planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover, scheduled around the constraints that apply here rather than a national template.",
+  "heroDescription": "EntireFM maintains commercial property across London, delivering planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover scheduled around local site constraints.",
   "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for facilities management london",
   "primaryIntent": "facilities management london",

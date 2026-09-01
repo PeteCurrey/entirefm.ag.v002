@@ -77,7 +77,7 @@ export const TIER1_CITIES: Record<string, Tier1City> = {
       { name: "King's Cross and Euston (N1C, NW1)", note: 'Recent large-floorplate development with modern BMS and high plant density.' },
       { name: 'Westminster and Victoria (SW1)', note: 'Listed and conservation-area buildings where plant replacement needs consent.' },
       { name: 'Shoreditch and Clerkenwell (EC1, EC2A)', note: 'Converted warehouses and workspace with retrofitted, often undocumented services.' },
-      { name: 'Park Royal and Greenford (NW10, UB6)', note: "London's largest industrial area — logistics, food production and trade counters." },
+      { name: 'Park Royal and Greenford (NW10, UB6)', note: "London's largest industrial area, comprising logistics, food production and trade counters." },
       { name: 'Croydon, Stratford and Hammersmith', note: 'Regional office clusters with their own out-of-town operating patterns.' },
     ],
     propertyStock: [
@@ -110,7 +110,7 @@ export const TIER1_CITIES: Record<string, Tier1City> = {
       { name: 'City centre and Spinningfields (M1, M2, M3)', note: 'Grade A offices and professional services with concierge-managed access.' },
       { name: 'Ancoats and NOMA (M4)', note: 'Mill conversions and new mixed-use, frequently with hybrid old/new services.' },
       { name: 'MediaCityUK and Salford Quays (M50)', note: 'Broadcast and tech occupiers with low tolerance for power interruption.' },
-      { name: 'Trafford Park (M17)', note: 'One of the largest industrial estates in Europe — manufacturing, logistics and distribution at scale.' },
+      { name: 'Trafford Park (M17)', note: 'One of the largest industrial estates in Europe, spanning manufacturing, logistics and distribution at scale.' },
       { name: 'Oxford Road corridor (M13, M15)', note: 'Universities, teaching hospitals and research buildings with critical environments.' },
       { name: 'Airport City and Wythenshawe (M90, M22)', note: 'Logistics, hotels and aviation-adjacent facilities running to flight schedules.' },
       { name: 'Stockport, Salford and Bury', note: 'Established trade, industrial and office parks across the wider conurbation.' },
@@ -123,7 +123,7 @@ export const TIER1_CITIES: Record<string, Tier1City> = {
       'University and hospital estates with critical and research environments',
     ],
     operatingConditions: [
-      { title: 'Mill conversions hide their services', detail: 'Plant is often retrofitted into structures never designed for it — restricted risers, awkward plant rooms and asset registers that do not match what is actually installed. Surveying properly is the difference between a working PPM plan and a fictional one.' },
+      { title: 'Mill conversions hide their services', detail: 'Plant is often retrofitted into structures never designed for it, with restricted risers, awkward plant rooms, and asset registers that do not match what is actually installed. Surveying properly is the difference between a working PPM plan and a fictional one.' },
       { title: 'Clean air and city-centre access', detail: 'Greater Manchester’s air quality measures, Metrolink routes and pedestrianised streets restrict vehicle access across the core. Loading windows shape attendance planning.' },
       { title: 'Cladding and fire-safety remediation is live work', detail: 'Many city-centre residential and mixed-use blocks are mid-remediation. FM has to work alongside remediation contractors without breaking compartmentation or invalidating fire strategy.' },
       { title: 'Trafford Park runs on uptime', detail: 'Manufacturing and distribution occupiers measure failure in production hours. Dock levellers, shutters, yard lighting, extraction and three-phase power need planned attention, not reactive callouts.' },
@@ -438,7 +438,7 @@ export const TIER1_CITIES: Record<string, Tier1City> = {
     slug: 'rotherham',
     region: 'South Yorkshire',
     searchDemand: { impressions: 1150, avgPosition: 30.0 },
-    positioning: 'Rotherham’s economy is powered by advanced engineering, metal fabrication and large-scale industrial manufacturing centered around the Don Valley.',
+    positioning: 'Rotherham’s economy is powered by advanced engineering, metal fabrication and large-scale industrial manufacturing centred around the Don Valley.',
     districts: [
       { name: 'Templeborough and Ickles (S60)', note: 'Advanced engineering, precision manufacturing and steel technology.' },
       { name: 'Parkgate and Rawmarsh (S62)', note: 'Major retail park and industrial trade corridor.' },
@@ -547,7 +547,7 @@ export const TIER1_CITIES: Record<string, Tier1City> = {
       { name: 'City centre and Winckley Square (PR1)', note: 'Professional services, legal offices and heritage commercial stock.' },
       { name: 'Preston Docks and Riversway (PR2)', note: 'Business parks, leisure facilities and maritime commercial.' },
       { name: 'Red Scar and Roman Way (PR2)', note: 'Major industrial, manufacturing and logistics close to the M6.' },
-      { name: 'Samlesbury Aerospace Enterprise Zone (PR5)', note: 'Advanced aerospace and high-security defense engineering.' },
+      { name: 'Samlesbury Aerospace Enterprise Zone (PR5)', note: 'Advanced aerospace and high-security defence engineering.' },
     ],
     propertyStock: [
       'Advanced engineering and aerospace manufacturing facilities',
@@ -556,7 +556,7 @@ export const TIER1_CITIES: Record<string, Tier1City> = {
       'Logistics and transport hubs along the M6/M55 junction',
     ],
     operatingConditions: [
-      { title: 'High-specification cleanrooms and defense security', detail: 'Stringent access protocols, air filtration and environmental validation.' },
+      { title: 'High-specification cleanrooms and defence security', detail: 'Stringent access protocols, air filtration and environmental validation.' },
       { title: 'Strategic M6 connectivity', detail: 'Distribution and commercial fleets operating round-the-clock.' },
     ],
     sectors: ['Aerospace and advanced engineering', 'Higher education and research', 'Logistics and freight', 'Professional services and civic'],
@@ -573,11 +573,11 @@ export const TIER1_CITIES: Record<string, Tier1City> = {
     districts: [
       { name: 'Pemberton and Westwood Park (WN3, WN5)', note: 'Modern commercial offices and business parks.' },
       { name: 'Locketts Bridge and South Lancashire Industrial Estate (WN4)', note: 'Logistics, heavy warehousing and manufacturing.' },
-      { name: 'Martland Park (WN5)', note: 'Food processing, manufacturing and specialized cold storage.' },
+      { name: 'Martland Park (WN5)', note: 'Food processing, manufacturing and specialised cold storage.' },
       { name: 'Town centre and Wallgate (WN1)', note: 'Commercial offices, retail and civic facilities.' },
     ],
     propertyStock: [
-      'Food-grade production facilities with specialized hygiene requirements',
+      'Food-grade production facilities with specialised hygiene requirements',
       'Large logistics distribution centres and ambient warehouses',
       'Commercial trade counters and engineering workshops',
     ],
@@ -623,7 +623,7 @@ export const TIER1_CITIES: Record<string, Tier1City> = {
     slug: 'telford',
     region: 'Shropshire and the West Midlands West',
     searchDemand: { impressions: 1050, avgPosition: 35.0 },
-    positioning: 'Telford is Shropshire’s industrial and manufacturing powerhouse, supporting automotive supply chains, plastics, electronics and defense engineering.',
+    positioning: 'Telford is Shropshire’s industrial and manufacturing powerhouse, supporting automotive supply chains, plastics, electronics and defence engineering.',
     districts: [
       { name: 'Stafford Park (TF3)', note: 'Major industrial, manufacturing and commercial trade park.' },
       { name: 'Halesfield (TF7)', note: 'Plastics, metal fabrication and heavy manufacturing.' },
@@ -637,7 +637,7 @@ export const TIER1_CITIES: Record<string, Tier1City> = {
       'Logistics distribution units along the M54 corridor',
     ],
     operatingConditions: [
-      { title: 'Manufacturing shift patterns and production uptime', detail: 'Plant room and electrical maintenance planned to minimize production stops.' },
+      { title: 'Manufacturing shift patterns and production uptime', detail: 'Plant room and electrical maintenance planned to minimise production stops.' },
       { title: 'Compressed air, extraction and power systems', detail: 'Statutory testing of pressure systems, LEV and high-voltage switchgear.' },
     ],
     sectors: ['Automotive and precision engineering', 'Plastics and industrial manufacturing', 'Commercial offices and exhibitions', 'Logistics and distribution'],
@@ -713,7 +713,7 @@ export const TIER1_CITIES: Record<string, Tier1City> = {
       'Automotive, aerospace and heavy industrial manufacturing works',
     ],
     operatingConditions: [
-      { title: 'Multi-site estate consistency and unified SLA', detail: 'Centralized CAFM reporting, consolidated compliance tracking and single contract accountability.' },
+      { title: 'Multi-site estate consistency and unified SLA', detail: 'Centralised CAFM reporting, consolidated compliance tracking and single contract accountability.' },
       { title: '24/7 reactive cover across major motorways', detail: 'Mobile engineering units deployed across M1, M6, M42 and A38 corridors.' },
     ],
     sectors: ['Logistics and distribution', 'Automotive and advanced manufacturing', 'Commercial offices and managing agents', 'Healthcare and public sector'],

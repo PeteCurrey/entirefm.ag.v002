@@ -54,7 +54,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
       },
       {
         heading: 'Separating Marketing from Operational Reality',
-        body: 'Autonomous self-healing buildings do not exist in standard commercial property. Practical AI delivers tangible value where high-volume, structured data already exists—such as triaging email work orders, spotting temperature drift across BMS sensors, and searching unstructured PDF compliance certificates. It does not replace physical engineering inspections, statutory certification, or trade craftsmanship.'
+        body: 'Autonomous self-healing buildings do not exist in standard commercial property. Practical AI delivers tangible value where high-volume, structured data already exists, such as triaging email work orders, spotting temperature drift across BMS sensors, and searching unstructured PDF compliance certificates. It does not replace physical engineering inspections, statutory certification, or trade craftsmanship.'
       }
     ],
     capabilities: [
@@ -135,7 +135,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
     h1: 'AI Predictive Maintenance in Facilities Management',
     eyebrow: 'Asset Engineering & Reliability',
     heroIntro: 'An engineering perspective on machine-learning-driven condition monitoring, failure prediction, and its true relationship with Planned Preventative Maintenance (PPM).',
-    heroDescription: 'Explore the mechanics of sensor-driven anomaly detection, vibration analysis, BMS trend parsing, and where predictive models succeed—and fail—across commercial plant.',
+    heroDescription: 'Explore the mechanics of sensor-driven anomaly detection, vibration analysis, BMS trend parsing, and where predictive models succeed (and fail) across commercial plant.',
     heroImage: '/branding/EntireFM Branding 001.png',
     historicIntent: 'Search intent for predictive maintenance algorithms, condition-based monitoring, and FM asset reliability',
     primaryIntent: 'predictive maintenance facilities management',
@@ -280,7 +280,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
     h1: 'AI and CAFM: The Evolution of Facilities Software',
     eyebrow: 'Software & Technology Architecture',
     heroIntro: 'How modern Computer-Aided Facility Management (CAFM) systems are integrating machine learning, vector search, and intelligent workflow automation.',
-    heroDescription: 'A technical evaluation of next-generation CAFM architecture—comparing legacy relational databases with modern AI-enhanced platforms that parse documents, predict SLA breaches, and automate supplier coordination.',
+    heroDescription: 'A technical evaluation of next-generation CAFM architecture, comparing legacy relational databases with modern AI-enhanced platforms that parse documents, predict SLA breaches, and automate supplier coordination.',
     heroImage: '/branding/EntireFM Branding 001.png',
     historicIntent: 'Search intent for AI CAFM software, smart facilities management platforms, and CAFM roadmap',
     primaryIntent: 'AI CAFM software',
@@ -291,7 +291,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
     sections: [
       {
         heading: 'From Passive Database to Active Operational Assistant',
-        body: 'Legacy CAFM systems operate as passive data repositories—requiring users to click through deep menu hierarchies to log tickets, find assets, or run reports. AI-enhanced CAFM transforms this into an active operational engine capable of natural-language querying ("Show all chillers due F-Gas inspection in Q3 with outstanding remedials"), proactive SLA breach warnings, and automatic contractor performance scoring.'
+        body: 'Legacy CAFM systems operate as passive data repositories, requiring users to click through deep menu hierarchies to log tickets, find assets, or run reports. AI-enhanced CAFM transforms this into an active operational engine capable of natural-language querying ("Show all chillers due F-Gas inspection in Q3 with outstanding remedials"), proactive SLA breach warnings, and automatic contractor performance scoring.'
       },
       {
         heading: 'EntireCAFM: Practical Innovation Rooted in Field Engineering',
@@ -411,7 +411,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
   '/resources/ai-in-facilities-management/digital-twins': {
     path: '/resources/ai-in-facilities-management/digital-twins',
     title: 'Digital Twins in Facilities Management: Realities & Value | Entire FM',
-    metaDescription: 'A grounded guide to digital twins in building operations. BIM models vs Digital Twins vs CAFM vs BMS vs AI—practical value vs over-engineering.',
+    metaDescription: 'A grounded guide to digital twins in building operations. BIM models vs Digital Twins vs CAFM vs BMS vs AI: practical value vs over-engineering.',
     h1: 'Digital Twins in Facilities Management',
     eyebrow: 'Building Information & Operational Models',
     heroIntro: 'De-mystifying 3D digital twins in commercial estate management: where spatial models add genuine operational value and where simpler CAFM data suffices.',
@@ -480,7 +480,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
     h1: 'AI Agents in Facilities Management',
     eyebrow: 'Autonomous Workflows & Multi-Agent Architecture',
     heroIntro: 'Beyond chatbots: how autonomous AI agents execute multi-step facilities tasks across helpdesk triage, compliance tracking, and contractor coordination.',
-    heroDescription: 'An operational guide to agentic workflows in building management—explaining goal-directed execution, API tool usage, permission boundaries, and the human oversight necessary for safe operation.',
+    heroDescription: 'An operational guide to agentic workflows in building management, explaining goal-directed execution, API tool usage, permission boundaries, and the human oversight necessary for safe operation.',
     heroImage: '/branding/EntireFM Branding 001.png',
     historicIntent: 'Search intent for autonomous AI agents in FM, automated property management workflows, and agentic CAFM',
     primaryIntent: 'AI agents facilities management',
@@ -496,7 +496,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
     sections: [
       {
         heading: 'What Separates an AI Agent from a Basic Chatbot?',
-        body: 'A standard chatbot answers questions based on a fixed context. An AI agent is given an operational objective ("Coordinate the annual fire damper inspection across 3 buildings before October 31st"), reasons through the required steps, queries the CAFM for asset counts, verifies contractor accreditations, drafts work orders, sends availability requests, and updates the compliance calendar—pausing only for human sign-off.'
+        body: 'A standard chatbot answers questions based on a fixed context. An AI agent is given an operational objective ("Coordinate the annual fire damper inspection across 3 buildings before October 31st"), reasons through the required steps, queries the CAFM for asset counts, verifies contractor accreditations, drafts work orders, sends availability requests, and updates the compliance calendar, pausing only for human sign-off.'
       },
       {
         heading: 'Strict Operational Boundaries & Safeguards',
@@ -550,7 +550,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
     h1: 'Computer Vision in Facilities Management',
     eyebrow: 'Visual AI & Condition Inspection',
     heroIntro: 'Automating visual estate condition surveys, drone roof inspections, thermal leak detection, and mechanical wear identification using convolutional neural networks.',
-    heroDescription: 'A technical exploration of computer vision in facilities engineering—from high-resolution drone photogrammetry on historic facades to automated gauge digitisation in plantrooms.',
+    heroDescription: 'A technical exploration of computer vision in facilities engineering, from high-resolution drone photogrammetry on historic facades to automated gauge digitisation in plantrooms.',
     heroImage: '/branding/EntireFM Branding 001.png',
     historicIntent: 'Search intent for computer vision building inspection, drone roof analysis AI, and thermal image defect detection',
     primaryIntent: 'computer vision facilities management',
@@ -566,7 +566,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
     sections: [
       {
         heading: 'Automating Visual Defect Recognition at Scale',
-        body: 'Building surveying traditionally requires manual inspection from cherry pickers, scaffolding, or rope access. High-resolution drone imagery combined with computer vision algorithms can scan thousands of square metres of roof membrane, cladding panels, and masonry in hours—automatically identifying spalling brickwork, missing flashing, vegetative growth, and gutter blockages with millimeter precision.'
+        body: 'Building surveying traditionally requires manual inspection from cherry pickers, scaffolding, or rope access. High-resolution drone imagery combined with computer vision algorithms can scan thousands of square metres of roof membrane, cladding panels, and masonry in hours, automatically identifying spalling brickwork, missing flashing, vegetative growth, and gutter blockages with millimetre precision.'
       },
       {
         heading: 'Thermal Imaging & Energy Leak Detection',
@@ -636,7 +636,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
     sections: [
       {
         heading: 'Where Document Intelligence Solves Compliance Headaches',
-        body: 'Commercial property estates accumulate thousands of multi-page PDF certificates annually: EICRs, fire risk assessments, gas safety records, TM44 reports, and legionella water test sheets. Document AI parses unstructured PDFs to automatically extract inspection dates, re-test due dates, engineer accreditation numbers, and C1/C2/C3 defect codes—eliminating manual data entry.'
+        body: 'Commercial property estates accumulate thousands of multi-page PDF certificates annually: EICRs, fire risk assessments, gas safety records, TM44 reports, and legionella water test sheets. Document AI parses unstructured PDFs to automatically extract inspection dates, re-test due dates, engineer accreditation numbers, and C1/C2/C3 defect codes, eliminating manual data entry.'
       },
       {
         heading: 'The Non-Negotiable Legal Competence Boundary',
@@ -717,7 +717,7 @@ export const AI_RESOURCES_CONTENT: Record<string, ContentRecord> = {
     ],
     capabilities: [
       {
-        name: 'Asset Register Standardization',
+        name: 'Asset Register Standardisation',
         description: 'Converting inconsistent spreadsheets into uniform ISO 55000-aligned asset registers with complete equipment attributes.',
         tag: 'Asset Data'
       },

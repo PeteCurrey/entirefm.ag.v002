@@ -43,7 +43,7 @@ const record: ContentRecord = {
   "sections": [
     {
       "heading": "Maintaining Safe, Hygienic Environments for Patient Care",
-      "body": "Healthcare buildings require heightened hygiene, clean indoor air, and flawless compliance documentation. EntireFM provides specialized non-clinical estate support tailored to medical practices and health centres."
+      "body": "Healthcare buildings require heightened hygiene, clean indoor air, and flawless compliance documentation. EntireFM provides specialised non-clinical estate support tailored to medical practices and health centres."
     }
   ],
   "capabilities": [

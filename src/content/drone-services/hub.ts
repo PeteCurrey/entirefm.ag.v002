@@ -10,10 +10,10 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 export const droneHubRecord: ContentRecord = {
   path: '/services/drone-services',
   title: 'Commercial Drone Services | Aerial Inspection & Surveying | EntireFM',
-  metaDescription: 'Commercial drone inspection, thermal surveying, 3D mapping and aerial asset intelligence across the UK — fully integrated with EntireFM maintenance, PPM and repair.',
+  metaDescription: 'Commercial drone inspection, thermal surveying, 3D mapping and aerial asset intelligence across the UK, fully integrated with EntireFM maintenance, PPM and repair.',
   h1: 'Drone Inspection, Surveying & Aerial Asset Intelligence',
   eyebrow: 'AERIAL ASSET INTELLIGENCE',
-  heroIntro: 'Commercial drone services for buildings, estates, infrastructure and construction — integrated directly with EntireFM maintenance, compliance and project delivery.',
+  heroIntro: 'Commercial drone services for buildings, estates, infrastructure and construction, integrated directly with EntireFM maintenance, compliance and project delivery.',
   heroDescription: 'EntireFM does not simply fly drones and hand over photographs. We inspect assets safely, identify defects, convert findings into actionable maintenance requirements, complete remedial works where required, and maintain an auditable digital record of property condition.',
   heroImage: '/images/editorial/entirefm-sheffield-rooftop-survey-2560w.webp',
   historicIntent: 'Commercial aerial drone inspections, thermal roof surveys and building envelope asset intelligence',
@@ -92,7 +92,7 @@ export const droneHubRecord: ContentRecord = {
     },
     {
       question: 'Can drone surveys completely eliminate the need for scaffolding, MEWPs, or rope access?',
-      answer: 'Drones dramatically reduce the need for initial physical access equipment, eliminating the cost, disruption, and safety risks of erecting scaffolding purely for inspection. When physical repair work is required, drone data enables precise, targeted deployment of rope access technicians, BMU cradles, or MEWPs directly to the defect location, minimizing total access expenditure and on-site contractor hours.',
+      answer: 'Drones dramatically reduce the need for initial physical access equipment, eliminating the cost, disruption, and safety risks of erecting scaffolding purely for inspection. When physical repair work is required, drone data enables precise, targeted deployment of rope access technicians, BMU cradles, or MEWPs directly to the defect location, minimising total access expenditure and on-site contractor hours.',
     },
     {
       question: 'How do drone inspections integrate into Planned Preventative Maintenance (PPM)?',
@@ -100,7 +100,7 @@ export const droneHubRecord: ContentRecord = {
     },
     {
       question: 'What weather conditions prevent commercial drone flights?',
-      answer: 'Commercial flight safety parameters require wind speeds below equipment gust thresholds (typically 20–25 knots / 28 mph), absence of active precipitation (rain, snow, sleet), and visibility sufficient to maintain Visual Line of Sight (VLOS). For thermal imaging surveys, specific environmental conditions—such as dry surfaces, solar loading delta, or overcast night transitions—are required for accurate delta-T radiometric measurements.',
+      answer: 'Commercial flight safety parameters require wind speeds below equipment gust thresholds (typically 20–25 knots / 28 mph), absence of active precipitation (rain, snow, sleet), and visibility sufficient to maintain Visual Line of Sight (VLOS). For thermal imaging surveys, specific environmental conditions (such as dry surfaces, solar loading delta, or overcast night transitions) are required for accurate delta-T radiometric measurements.',
     },
     {
       question: 'What file formats and deliverables do clients receive following an inspection?',

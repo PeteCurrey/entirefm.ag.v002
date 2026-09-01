@@ -52,7 +52,7 @@ const record: ContentRecord = {
   "sections": [
     {
       "heading": "Consolidating Fragmented Trade Suppliers Under Single Accountability",
-      "body": "Managing a spread of separate contractors — mechanical engineers, electrical contractors, cleaning agencies, fire technicians, and water hygiene providers — inflates administrative overhead and creates dangerous compliance blindspots. EntireFM replaces fragmented supply with a single accountable contract, ensuring full operational ownership across all London premises with zero responsibility shifting between subcontractors."
+      "body": "Managing a spread of separate contractors (such as mechanical engineers, electrical contractors, cleaning agencies, fire technicians, and water hygiene providers) inflates administrative overhead and creates dangerous compliance blindspots. EntireFM replaces fragmented supply with a single accountable contract, ensuring full operational ownership across all London premises with zero responsibility shifting between subcontractors."
     },
     {
       "heading": "Integrated Hard and Soft FM Delivery Across London Estates",
@@ -121,7 +121,7 @@ const record: ContentRecord = {
     },
     {
       "question": "How does EntireFM's outsourced model support multi-site London estates?",
-      "answer": "We provide portfolio-wide asset registers, consistent PPM standards, centralized helpdesk dispatch, and property-by-property cost reconciliation across all London and M25 locations."
+      "answer": "We provide portfolio-wide asset registers, consistent PPM standards, centralised helpdesk dispatch, and property-by-property cost reconciliation across all London and M25 locations."
     }
   ],
   "breadcrumbs": [

@@ -46,7 +46,7 @@ const base = (r: Partial<ContentRecord> & Pick<ContentRecord, 'path' | 'title' |
     relatedRoutes: ['/services', '/contact-us'],
     verificationRequirements: [
       'Legacy Wix URL recovered from the Wix internal page manifest',
-      'Must return 200 — never redirect, never 404',
+      'Must return 200: never redirect, never 404',
       'No claim of physical premises in any city',
     ],
     contentStatus: 'CONTENT_COMPLETE',
@@ -60,11 +60,11 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     path: '/access-control',
     title: 'Access Control Systems | Installation & Maintenance | EntireFM',
     metaDescription:
-      'Commercial access control installation, maintenance and fault response — door entry, fobs, readers, barriers and integration with fire and intruder systems.',
+      'Commercial access control installation, maintenance and fault response: door entry, fobs, readers, barriers and integration with fire and intruder systems.',
     h1: 'Commercial Access Control Systems',
     eyebrow: 'Electronic security',
     heroIntro:
-      'Access control fails quietly until the day it fails loudly — a reader that stops writing to the audit log, a fail-safe door that has quietly become fail-secure, a leaver whose fob still opens the plant room.',
+      'Access control fails quietly until the day it fails loudly: a reader that stops writing to the audit log, a fail-safe door that has quietly become fail-secure, or a leaver whose fob still opens the plant room.',
     heroDescription:
       'EntireFM installs, maintains and repairs commercial access control, and keeps it correctly interfaced with fire detection so egress works when it matters.',
     historicIntent: 'Historic access control service intent from the Wix estate',
@@ -81,7 +81,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
         bullets: [
           'Proximity, fob and card reader systems',
           'Door entry, intercom and video entry',
-          'Electronic locking — maglocks, strikes and motorised locks',
+          'Electronic locking: maglocks, strikes and motorised locks',
           'Barrier, gate and vehicle access control',
           'Integration with fire alarm systems for fail-safe release',
           'Access rights administration, audit logs and leaver management',
@@ -103,7 +103,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
       { name: 'Fire interface testing', description: 'Verification that every locked escape route door releases on alarm activation.', tag: 'Life safety' },
     ],
     faqs: [
-      { question: 'How often should access control be serviced?', answer: 'Typically twice a year for a commercial system, with the fire interface tested at least as often as the fire alarm. Frequency should follow risk and usage — a high-traffic entrance and a rarely used plant room door do not need the same interval.' },
+      { question: 'How often should access control be serviced?', answer: 'Typically twice a year for a commercial system, with the fire interface tested at least as often as the fire alarm. Frequency should follow risk and usage; a high-traffic entrance and a rarely used plant room door do not need the same interval.' },
       { question: 'Can you maintain a system you did not install?', answer: 'Yes, and that is the usual case. The first visit is a survey: what is installed, what condition it is in, whether the fire interface works, and whether the access rights on the system still match the people who should have them.' },
       { question: 'What happens if a door fails insecure?', answer: 'It is treated as an emergency. A door that will not lock is a security breach in progress, and it carries a different response priority from a door that will not open on a fob.' },
     ],
@@ -115,7 +115,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     path: '/emergency-light-testing',
     title: 'Emergency Lighting Testing | Monthly & Annual | EntireFM',
     metaDescription:
-      'Emergency lighting testing to BS 5266 — monthly function tests, annual 3-hour duration tests, certification, remedial repairs and a compliant logbook.',
+      'Emergency lighting testing to BS 5266: monthly function tests, annual 3-hour duration tests, certification, remedial repairs and a compliant logbook.',
     h1: 'Emergency Lighting Testing and Certification',
     eyebrow: 'Statutory testing',
     heroIntro:
@@ -135,7 +135,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
         body: 'BS 5266 sets two routine tests. Both must be recorded, and the record is what an enforcing authority asks for first.',
         bullets: [
           'Monthly: a short function test confirming every luminaire illuminates on loss of supply',
-          'Annual: a full-duration test — normally three hours — proving the battery holds up for its rated period',
+          'Annual: a full-duration test (normally three hours) proving the battery holds up for its rated period',
           'Both recorded in the emergency lighting logbook with defects and remedial action noted',
           'Certification issued on completion, with any non-compliance stated plainly',
         ],
@@ -157,8 +157,8 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     ],
     faqs: [
       { question: 'How often must emergency lighting be tested?', answer: 'Monthly function tests and an annual full-duration test, under BS 5266. The monthly test is brief; the annual test runs for the full rated duration, normally three hours.' },
-      { question: 'Who is responsible for emergency lighting testing?', answer: 'The Responsible Person under the Regulatory Reform (Fire Safety) Order — in most commercial buildings the employer, owner or occupier. Testing can be delegated to a contractor, but the duty cannot.' },
-      { question: 'What happens if a luminaire fails the test?', answer: 'It is recorded as a defect and repaired. A failed test is not itself a compliance breach — an unrecorded or unactioned failure is.' },
+      { question: 'Who is responsible for emergency lighting testing?', answer: 'The Responsible Person under the Regulatory Reform (Fire Safety) Order (in most commercial buildings the employer, owner or occupier). Testing can be delegated to a contractor, but the duty cannot.' },
+      { question: 'What happens if a luminaire fails the test?', answer: 'It is recorded as a defect and repaired. A failed test is not itself a compliance breach; an unrecorded or unactioned failure is.' },
       { question: 'Do self-testing systems remove the need for this?', answer: 'They reduce the labour but not the duty. Automatic test systems still need the results reviewed, recorded and acted on, and the hardware itself still needs maintaining.' },
     ],
     relatedRoutes: ['/mechanical-electrical/emergency-light-testing', '/fire-emergency-systems', '/safety-critical-emergency-systems', '/mechanical-electrical', '/ppm'],
@@ -169,11 +169,11 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     path: '/truck-mount-crane-hire',
     title: 'Truck Mount Crane Hire | Contract Lifts | EntireFM',
     metaDescription:
-      'Truck-mounted crane hire for restricted-access and street-side lifts — rooftop plant, contract lifts under BS 7121, appointed person and lift planning.',
+      'Truck-mounted crane hire for restricted-access and street-side lifts, covering rooftop plant, contract lifts under BS 7121, appointed person and lift planning.',
     h1: 'Truck Mount Crane Hire',
     eyebrow: 'Lifting operations',
     heroIntro:
-      'Truck-mounted cranes exist for the lifts that a conventional crane cannot reach — tight street frontages, restricted yards, and rooftop plant replacement where the only viable set-up point is the public highway.',
+      'Truck-mounted cranes exist for the lifts that a conventional crane cannot reach, such as tight street frontages, restricted yards, and rooftop plant replacement where the only viable set-up point is the public highway.',
     heroDescription:
       'EntireFM provides truck-mounted crane hire with lift planning, appointed person and traffic management, most often for plant replacement on occupied commercial buildings.',
     historicIntent: 'Historic truck mount crane hire intent from the Wix estate',
@@ -187,7 +187,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
       { heading: 'What we lift', body: 'Most work is plant replacement on buildings that stay occupied throughout, which makes planning and timing as important as the lift itself.', bullets: CRANE_FLEET },
       {
         heading: 'Contract lift or crane hire',
-        body: 'On a contract lift the crane provider plans the lift, supplies the appointed person and carries responsibility for the lifting operation. On a basic crane hire the client holds that duty. For most commercial clients replacing rooftop plant, a contract lift is the appropriate arrangement — and if a provider does not raise the distinction before quoting, that is worth noticing.',
+        body: 'On a contract lift the crane provider plans the lift, supplies the appointed person and carries responsibility for the lifting operation. On a basic crane hire the client holds that duty. For most commercial clients replacing rooftop plant, a contract lift is the appropriate arrangement; if a provider does not raise the distinction before quoting, that is worth noticing.',
       },
       {
         heading: 'The permits usually set the programme',
@@ -213,11 +213,11 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     path: '/sheffield',
     title: 'Crane Hire Sheffield | Contract Lifts | EntireFM',
     metaDescription:
-      'Crane hire in Sheffield for rooftop plant replacement and restricted-access lifts — contract lifts, appointed person, lift planning and traffic management.',
+      'Crane hire in Sheffield for rooftop plant replacement and restricted-access lifts, including contract lifts, appointed person, lift planning and traffic management.',
     h1: 'Crane Hire in Sheffield',
     eyebrow: 'Lifting operations',
     heroIntro:
-      'Sheffield’s gradients and constrained industrial access roads make crane positioning a real planning problem rather than a formality — the set-up point often decides whether a lift is possible at all.',
+      'Sheffield’s gradients and constrained industrial access roads make crane positioning a real planning problem rather than a formality: the set-up point often decides whether a lift is possible at all.',
     heroDescription:
       'Truck-mounted and mobile crane hire across Sheffield and South Yorkshire, most often for rooftop plant replacement on occupied commercial and industrial buildings.',
     historicIntent: 'Historic Sheffield crane hire intent from the Wix estate',
@@ -234,7 +234,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
         heading: 'Sheffield-specific constraints',
         body: 'Gradient is the recurring issue. Crane set-up needs level, load-bearing ground, and a great many Sheffield sites have neither immediately adjacent to the lift point. Older Lower Don Valley industrial buildings also frequently have unknown roof loadings and legacy structures, which needs establishing before a plant lift is planned rather than discovered on the day.',
       },
-      { heading: 'Contract lift or crane hire', body: 'For plant replacement on an occupied building, a contract lift — where EntireFM plans the lift and supplies the appointed person — is normally the correct arrangement. Basic crane hire leaves that duty with the client.' },
+      { heading: 'Contract lift or crane hire', body: 'For plant replacement on an occupied building, a contract lift (where EntireFM plans the lift and supplies the appointed person) is normally the correct arrangement. Basic crane hire leaves that duty with the client.' },
     ],
     capabilities: [
       { name: 'Contract lifts', description: 'Lift planning, appointed person and supervision under BS 7121 across Sheffield.', tag: 'BS 7121' },
@@ -243,9 +243,9 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
       { name: 'Traffic management', description: 'Road closures and permits arranged with Sheffield City Council as part of the job.', tag: 'Permits' },
     ],
     faqs: [
-      { question: 'Do you cover the whole of South Yorkshire?', answer: 'Yes — Sheffield, Rotherham, Barnsley and Doncaster, extending to Chesterfield and the north Derbyshire border.' },
+      { question: 'Do you cover the whole of South Yorkshire?', answer: 'Yes: Sheffield, Rotherham, Barnsley and Doncaster, extending to Chesterfield and the north Derbyshire border.' },
       { question: 'What do you need to know before quoting a lift?', answer: 'Weight and dimensions of the load, where it is going, what the crane can stand on, and what is between the two. A site visit usually settles all four faster than an exchange of emails.' },
-      { question: 'How far ahead should a lift be booked?', answer: 'Where a road closure or parking suspension is required, allow several weeks — the permit lead time, not crane availability, normally sets the date.' },
+      { question: 'How far ahead should a lift be booked?', answer: 'Where a road closure or parking suspension is required, allow several weeks, as the permit lead time (not crane availability) normally sets the date.' },
     ],
     relatedRoutes: ['/mobile-crane-hire/sheffield', '/mobile-crane-hire', '/truck-mount-crane-hire', '/fm-sheffield', '/facilities-management-sheffield'],
     conversionGoal: 'Generate a Sheffield crane hire or contract lift enquiry',
@@ -255,11 +255,11 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     path: '/chesterfield',
     title: 'Crane Hire Chesterfield | Contract Lifts | EntireFM',
     metaDescription:
-      'Crane hire in Chesterfield and north Derbyshire — contract lifts, rooftop plant replacement, restricted-access lifting, appointed person and lift planning.',
+      'Crane hire in Chesterfield and north Derbyshire, providing contract lifts, rooftop plant replacement, restricted-access lifting, appointed person and lift planning.',
     h1: 'Crane Hire in Chesterfield',
     eyebrow: 'Lifting operations',
     heroIntro:
-      'Chesterfield sits between the Sheffield industrial corridor and the Derbyshire county road network, which makes it a practical base for lifting work across both — and a genuinely awkward town centre to lift in.',
+      'Chesterfield sits between the Sheffield industrial corridor and the Derbyshire county road network, which makes it a practical base for lifting work across both, as well as a genuinely challenging town centre to lift in.',
     heroDescription:
       'Truck-mounted and mobile crane hire across Chesterfield and north Derbyshire, for plant replacement, industrial lifting and restricted-access work.',
     historicIntent: 'Historic Chesterfield crane hire intent from the Wix estate',
@@ -299,13 +299,13 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     path: '/arena-facilities-management-1',
     title: 'Arena & Venue Facilities Management | EntireFM',
     metaDescription:
-      'Facilities management for arenas and live venues — event-day readiness, overnight turnarounds, crowd-load plant, and maintenance that fits an immovable calendar.',
+      'Facilities management for arenas and live venues, covering event-day readiness, overnight turnarounds, crowd-load plant, and maintenance that fits an immovable calendar.',
     h1: 'Arena and Live Venue Facilities Management',
     eyebrow: 'Sector',
     heroIntro:
       'An arena cannot move its event date. That single fact changes every maintenance decision: work happens in the gaps between events, or it does not happen at all.',
     heroDescription:
-      'EntireFM maintains arenas and live venues around the event calendar — overnight turnarounds, event-day standby cover and planned work scheduled into dark periods.',
+      'EntireFM maintains arenas and live venues around the event calendar, with overnight turnarounds, event-day standby cover and planned work scheduled into dark periods.',
     historicIntent: 'Historic arena facilities management intent from the Wix estate',
     primaryIntent: 'arena facilities management',
     secondaryIntents: ['venue facilities management', 'stadium facilities management', 'event venue maintenance'],
@@ -320,7 +320,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
       },
       {
         heading: 'Plant is sized for peak, not average',
-        body: 'Ventilation, cooling and drainage in a venue are sized for a full house. They spend most of their life lightly loaded and are then asked for everything on a handful of nights, which is a demanding duty cycle and an unforgiving one — a fault that never shows at low load appears at capacity, with an audience in the building.',
+        body: 'Ventilation, cooling and drainage in a venue are sized for a full house. They spend most of their life lightly loaded and are then asked for everything on a handful of nights, which is a demanding duty cycle and an unforgiving one: a fault that never shows at low load appears at capacity, with an audience in the building.',
       },
       {
         heading: 'Event-day cover is a different service',
@@ -334,7 +334,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
       { name: 'Statutory compliance', description: 'Fire systems, emergency lighting, egress and lifting equipment kept current across the venue.', tag: 'Compliance' },
     ],
     faqs: [
-      { question: 'Can maintenance be done without closing the venue?', answer: 'Most of it, yes — scheduled into dark periods and overnight windows. Work that genuinely needs the building empty is planned into the calendar months ahead rather than requested at short notice.' },
+      { question: 'Can maintenance be done without closing the venue?', answer: 'Most of it, yes: scheduled into dark periods and overnight windows. Work that genuinely needs the building empty is planned into the calendar months ahead rather than requested at short notice.' },
       { question: 'Do you provide engineers during events?', answer: 'Yes. Event-day standby is arranged per event or as a standing arrangement across a season, depending on the venue’s pattern.' },
       { question: 'How is compliance handled with such a compressed schedule?', answer: 'By treating statutory testing as fixed and everything else as flexible. Compliance dates go into the calendar first; discretionary work fills the remaining windows.' },
     ],
@@ -346,7 +346,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     path: '/facilities-management-industries',
     title: 'Facilities Management by Industry | Sectors | EntireFM',
     metaDescription:
-      'Facilities management by industry — industrial, logistics, retail, healthcare, education, hospitality, aviation and commercial property, each with its own compliance profile.',
+      'Facilities management by industry: industrial, logistics, retail, healthcare, education, hospitality, aviation and commercial property, each with its own compliance profile.',
     h1: 'Facilities Management by Industry',
     eyebrow: 'Sector index',
     heroIntro:
@@ -364,14 +364,14 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
         heading: 'Industries we work in',
         body: 'Each sector below brings a different balance of compliance exposure, operating hours and consequence of failure.',
         bullets: [
-          'Industrial and manufacturing — process plant, LEV, high-load power, production-shift maintenance windows',
-          'Logistics and warehousing — dock levellers, shutters, yard lighting, 24-hour operation',
-          'Retail and shopping centres — public realm, trading hours, presentation standards',
-          'Healthcare and clinical — infection control, ventilation validation, continuous operation',
-          'Education — vacation turnaround, safeguarding, statutory testing at scale',
-          'Hospitality and hotels — guest experience, out-of-hours working, water hygiene',
-          'Aviation and transport — security clearance, airside constraints, timetable-driven access',
-          'Commercial offices — service-charge scrutiny, multi-tenant access, EPC and MEES obligations',
+          'Industrial and manufacturing: process plant, LEV, high-load power, production-shift maintenance windows',
+          'Logistics and warehousing: dock levellers, shutters, yard lighting, 24-hour operation',
+          'Retail and shopping centres: public realm, trading hours, presentation standards',
+          'Healthcare and clinical: infection control, ventilation validation, continuous operation',
+          'Education: vacation turnaround, safeguarding, statutory testing at scale',
+          'Hospitality and hotels: guest experience, out-of-hours working, water hygiene',
+          'Aviation and transport: security clearance, airside constraints, timetable-driven access',
+          'Commercial offices: service-charge scrutiny, multi-tenant access, EPC and MEES obligations',
         ],
       },
       {
@@ -387,7 +387,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     path: '/facilities-management-glossary',
     title: 'Facilities Management Glossary | FM Terms Explained | EntireFM',
     metaDescription:
-      'A plain-English glossary of facilities management terms — PPM, SFG20, L8, LOLER, SLA, NTE, CAFM, hard and soft services, and what each actually means in practice.',
+      'A plain-English glossary of facilities management terms: PPM, SFG20, L8, LOLER, SLA, NTE, CAFM, hard and soft services, and what each actually means in practice.',
     h1: 'Facilities Management Glossary',
     eyebrow: 'Reference',
     heroIntro:
@@ -405,40 +405,40 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
         heading: 'Contract and commercial terms',
         body: 'The terms that decide what you are actually buying.',
         bullets: [
-          'PPM — Planned Preventative Maintenance. Scheduled work intended to prevent failure, as opposed to fixing it afterwards.',
-          'Reactive maintenance — unplanned work in response to a fault. High reactive spend usually indicates weak PPM.',
-          'SLA — Service Level Agreement. The response and completion times the provider is contractually held to.',
-          'KPI — Key Performance Indicator. What gets measured and reported, which is not always the same as what matters.',
-          'NTE — Not To Exceed. A spend limit above which the provider must seek approval before proceeding.',
-          'SOR — Schedule of Rates. Pre-agreed prices for defined tasks, used to price work without a fresh quote each time.',
-          'TFM — Total Facilities Management. Hard and soft services delivered under a single contract.',
-          'Self-delivery — work carried out by the provider’s own employed staff rather than subcontracted.',
+          'PPM: Planned Preventative Maintenance. Scheduled work intended to prevent failure, as opposed to fixing it afterwards.',
+          'Reactive maintenance: unplanned work in response to a fault. High reactive spend usually indicates weak PPM.',
+          'SLA: Service Level Agreement. The response and completion times the provider is contractually held to.',
+          'KPI: Key Performance Indicator. What gets measured and reported, which is not always the same as what matters.',
+          'NTE: Not To Exceed. A spend limit above which the provider must seek approval before proceeding.',
+          'SOR: Schedule of Rates. Pre-agreed prices for defined tasks, used to price work without a fresh quote each time.',
+          'TFM: Total Facilities Management. Hard and soft services delivered under a single contract.',
+          'Self-delivery: work carried out by the provider’s own employed staff rather than subcontracted.',
         ],
       },
       {
         heading: 'Service categories',
         body: 'How FM scope is normally divided.',
         bullets: [
-          'Hard services — the building’s engineering and fabric: M&E, HVAC, fire systems, plumbing, lifts, roofing.',
-          'Soft services — services to the occupants and presentation: cleaning, security, grounds, waste, front of house.',
-          'CAFM — Computer-Aided Facilities Management. The system holding assets, jobs, schedules and history.',
-          'Asset register — the list of what is in the building, its condition and its obligations. Without one, a PPM schedule is guesswork.',
-          'Mobilisation — the transition period when a new provider takes over, surveys the estate and stands up the schedules.',
+          'Hard services: the building’s engineering and fabric: M&E, HVAC, fire systems, plumbing, lifts, roofing.',
+          'Soft services: services to the occupants and presentation: cleaning, security, grounds, waste, front of house.',
+          'CAFM: Computer-Aided Facilities Management. The system holding assets, jobs, schedules and history.',
+          'Asset register: the list of what is in the building, its condition and its obligations. Without one, a PPM schedule is guesswork.',
+          'Mobilisation: the transition period when a new provider takes over, surveys the estate and stands up the schedules.',
         ],
       },
       {
         heading: 'Compliance and statutory terms',
         body: 'The obligations that carry legal consequence.',
         bullets: [
-          'SFG20 — the industry standard maintenance specification, defining tasks and frequencies by asset type.',
-          'L8 / ACOP L8 — the HSE approved code of practice for controlling Legionella in water systems.',
-          'LOLER — Lifting Operations and Lifting Equipment Regulations. Governs thorough examination of lifts and lifting equipment.',
-          'LEV — Local Exhaust Ventilation. Extraction controlling airborne contaminants; requires thorough examination and testing.',
-          'EICR — Electrical Installation Condition Report. Periodic inspection of the fixed electrical installation.',
-          'BS 5266 — the standard governing emergency lighting, including monthly function and annual duration testing.',
-          'F-Gas — regulations covering fluorinated refrigerant gases, including leak checking and record keeping.',
-          'Responsible Person — the duty holder under fire safety legislation. The duty can be delegated in practice but not in law.',
-          'MEES — Minimum Energy Efficiency Standards. Sets the minimum EPC rating at which a property may be let.',
+          'SFG20: the industry standard maintenance specification, defining tasks and frequencies by asset type.',
+          'L8 / ACOP L8: the HSE approved code of practice for controlling Legionella in water systems.',
+          'LOLER: Lifting Operations and Lifting Equipment Regulations. Governs thorough examination of lifts and lifting equipment.',
+          'LEV: Local Exhaust Ventilation. Extraction controlling airborne contaminants; requires thorough examination and testing.',
+          'EICR: Electrical Installation Condition Report. Periodic inspection of the fixed electrical installation.',
+          'BS 5266: the standard governing emergency lighting, including monthly function and annual duration testing.',
+          'F-Gas: regulations covering fluorinated refrigerant gases, including leak checking and record keeping.',
+          'Responsible Person: the duty holder under fire safety legislation. The duty can be delegated in practice but not in law.',
+          'MEES: Minimum Energy Efficiency Standards. Sets the minimum EPC rating at which a property may be let.',
         ],
       },
     ],
@@ -468,7 +468,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     sections: [
       {
         heading: 'What a client account gives you',
-        body: 'Account access is aimed at the people who actually run the buildings — site managers, facilities coordinators and managing agents.',
+        body: 'Account access is aimed at the people who actually run the buildings: site managers, facilities coordinators and managing agents.',
         bullets: [
           'Log a job and track it through to completion',
           'View planned maintenance schedules for your sites',
@@ -490,11 +490,11 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     path: '/portal',
     title: 'Client Portal | Jobs, PPM & Compliance Records | EntireFM',
     metaDescription:
-      'The EntireFM client portal — log and track jobs, view PPM schedules, download compliance certificates and see spend and performance across your sites.',
+      'The EntireFM client portal: log and track jobs, view PPM schedules, download compliance certificates and see spend and performance across your sites.',
     h1: 'EntireFM Client Portal',
     eyebrow: 'Client access',
     heroIntro:
-      'Most FM frustration comes from not knowing where something has got to. The portal exists to remove that — job status, maintenance schedules and compliance records in one place, without having to ask.',
+      'Most FM frustration comes from not knowing where something has got to. The portal exists to remove that, bringing job status, maintenance schedules and compliance records into one place without having to ask.',
     heroDescription:
       'Available to contract clients, with access granted per site so each contact sees the buildings they are responsible for.',
     historicIntent: 'Historic client portal intent from the Wix estate',
@@ -549,11 +549,11 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
         heading: 'Popular destinations',
         body: 'If you already know roughly what you need, these are the most common starting points.',
         bullets: [
-          'Services — the full hard and soft services list',
-          'Sectors — facilities management by industry',
-          'Locations — coverage by city and region',
-          'Compliance — statutory testing and certification',
-          'Contact — enquiries, helpdesk and emergency support',
+          'Services: the full hard and soft services list',
+          'Sectors: facilities management by industry',
+          'Locations: coverage by city and region',
+          'Compliance: statutory testing and certification',
+          'Contact: enquiries, helpdesk and emergency support',
         ],
       },
     ],
@@ -561,7 +561,7 @@ export const RECOVERED_PAGES: Record<string, ContentRecord> = {
     conversionGoal: 'Route the visitor to the page they were looking for',
     verificationRequirements: [
       'Legacy Wix URL recovered from the Wix internal page manifest',
-      'Must return 200 — never redirect, never 404',
+      'Must return 200: never redirect, never 404',
       'Search results pages should not be indexed',
     ],
   }),
@@ -590,7 +590,7 @@ for (const variant of HOME_VARIANTS) {
     h1: 'Total Facilities Management and Specialist Engineering',
     eyebrow: 'EntireFM',
     heroIntro:
-      'EntireFM maintains commercial property across the UK — planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover under one contract.',
+      'EntireFM maintains commercial property across the UK, delivering planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover under one contract.',
     heroDescription:
       'Hard and soft services, coordinated through a single point of accountability.',
     historicIntent: `Historic homepage variant (${variant.label}) retained on ${variant.estate}`,
@@ -602,7 +602,7 @@ for (const variant of HOME_VARIANTS) {
     sections: [
       {
         heading: 'What EntireFM does',
-        body: 'Planned maintenance, reactive repairs, mechanical and electrical engineering, statutory compliance, cleaning and specialist services — held under one contract so responsibility for a problem does not move between suppliers while a building sits unusable.',
+        body: 'Planned maintenance, reactive repairs, mechanical and electrical engineering, statutory compliance, cleaning and specialist services, all held under one contract so responsibility for a problem does not move between suppliers while a building sits unusable.',
         bullets: [
           'Planned preventative maintenance built from a real asset survey',
           'Reactive and emergency response with agreed priority bands',
@@ -621,8 +621,8 @@ for (const variant of HOME_VARIANTS) {
     conversionGoal: 'Preserve the legacy URL and route visitors to the canonical homepage',
     verificationRequirements: [
       'Legacy Wix URL recovered from the Wix internal page manifest',
-      'Must return 200 — never redirect, never 404',
-      'Duplicate of / — expected to be held noindex by the indexation tier gate',
+      'Must return 200: never redirect, never 404',
+      'Duplicate of /: expected to be held noindex by the indexation tier gate',
     ],
   });
 }

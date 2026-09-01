@@ -14,7 +14,7 @@ const record: ContentRecord = {
   "metaDescription": "Specialist industrial facilities management for manufacturing plants, factories, and engineering works. High-bay maintenance, power distribution, and shutdown services.",
   "h1": "Industrial Cleaning & Plant Decontamination in Sheffield",
   "eyebrow": "Industrial Sector Scope",
-  "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximizing production uptime and maintaining rigorous health and safety compliance.",
+  "heroIntro": "Heavy-duty facilities management and engineering support tailored to manufacturing plants, factories, and industrial processing estates. Maximising production uptime and maintaining rigorous health and safety compliance.",
   "heroDescription": "Our multi-disciplinary engineering fleet and dedicated operations desk ensure statutory compliance, asset availability, and proactive maintenance standards.",
   "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for industrial cleaning sheffield",

@@ -8,7 +8,7 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 const record: ContentRecord = {
   "path": "/hvac-london",
   "title": "Commercial HVAC Maintenance London | Chillers & Air Conditioning | EntireFM",
-  "metaDescription": "Commercial HVAC servicing across London — chillers, VRF/VRV air conditioning, AHUs, heat pumps, F-Gas inspections, TM44 compliance, and emergency breakdown attendance.",
+  "metaDescription": "Commercial HVAC servicing across London: chillers, VRF/VRV air conditioning, AHUs, heat pumps, F-Gas inspections, TM44 compliance, and emergency breakdown attendance.",
   "h1": "Commercial HVAC & Air Conditioning in London",
   "eyebrow": "Commercial Climate Engineering",
   "heroIntro": "EntireFM provides comprehensive commercial HVAC, air conditioning, and ventilation maintenance for corporate offices, retail spaces, and commercial buildings across London.",

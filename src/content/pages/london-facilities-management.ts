@@ -15,7 +15,7 @@ const record: ContentRecord = {
   "metaDescription": "Multi-site facilities management across London and Greater London. Consistent standards, one reporting line and coordinated maintenance across every site.",
   "h1": "London Facilities Management for Multi-Site Estates",
   "eyebrow": "Estate Portfolio Management",
-  "heroIntro": "Managing multiple commercial properties across London creates distinct operational challenges — maintaining consistent standards, unified compliance, and transparent service-charge accounting across disparate sites.",
+  "heroIntro": "Managing multiple commercial properties across London creates distinct operational challenges, requiring consistent standards, unified compliance, and transparent service-charge accounting across disparate sites.",
   "heroDescription": "EntireFM partners with commercial landlords, managing agents, and multi-location operators across Greater London and the M25 corridor, delivering coordinated Hard & Soft FM under a unified service model.",
   "heroImage": "/branding/EntireFM Branding 001.png",
   "historicIntent": "Historic commercial search intent for london facilities management",

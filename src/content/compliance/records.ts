@@ -79,7 +79,7 @@ const hubRecord: ContentRecord = {
   path: '/compliance',
   title: 'Compliance Centre | Statutory Obligations Explained | EntireFM',
   metaDescription:
-    'What the law actually requires for commercial property compliance — fire, emergency lighting, EICR, Legionella, LOLER and asbestos, with law separated from guidance.',
+    'What the law actually requires for commercial property compliance across fire, emergency lighting, EICR, Legionella, LOLER and asbestos, with law separated from guidance.',
   h1: 'The Compliance Centre',
   eyebrow: 'Compliance Centre',
   heroIntro:
@@ -104,10 +104,10 @@ const hubRecord: ContentRecord = {
       heading: 'Four kinds of requirement',
       body: 'Every requirement in this section is labelled with where it comes from, because the distinction changes what you must do.',
       bullets: [
-        'Legal requirement — set out in legislation, not optional',
-        'Standard or approved code — the recognised technical basis; departing from it means justifying the alternative',
-        'Typical practice — what competent providers commonly do, and what is most often mistaken for law',
-        'Risk-based — genuinely depends on the building, its use and its condition',
+        'Legal requirement: set out in legislation, not optional',
+        'Standard or approved code: the recognised technical basis; departing from it means justifying the alternative',
+        'Typical practice: what competent providers commonly do, and what is most often mistaken for law',
+        'Risk-based: genuinely depends on the building, its use and its condition',
       ],
     },
     {

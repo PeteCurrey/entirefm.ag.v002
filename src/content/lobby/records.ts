@@ -6,7 +6,7 @@ export const LOBBY_CONTENT: Record<string, ContentRecord> = {
     title: 'The Lobby | FM Intelligence, Compliance & Engineering | EntireFM',
     metaDescription:
       'The daily briefing room for UK facilities management professionals: regulatory updates, engineering notes, compliance watch, practical tools, Q&A, and industry intelligence.',
-    h1: 'THE LOBBY — The Daily Briefing Room for Facilities Professionals',
+    h1: 'THE LOBBY: The Daily Briefing Room for Facilities Professionals',
     eyebrow: 'FM Intelligence & Editorial Authority',
     heroIntro:
       'Know what has changed. Understand what matters. Access practical tools. The Lobby is EntireFM’s editorial, regulatory intelligence, and professional knowledge destination for UK estate custodians.',

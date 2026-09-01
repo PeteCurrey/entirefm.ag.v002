@@ -125,7 +125,7 @@ function buildShortForm(city: Tier1City, registryPaths: Set<string>): ContentRec
       sections: [
         {
           heading: 'Consolidating Fragmented Trade Suppliers Under Single Accountability',
-          body: 'Managing a spread of separate contractors — mechanical engineers, electrical contractors, cleaning agencies, fire technicians, and water hygiene providers — inflates administrative overhead and creates dangerous compliance blindspots. EntireFM replaces fragmented supply with a single accountable contract, ensuring full operational ownership across all London premises with zero responsibility shifting between subcontractors.',
+          body: 'Managing a spread of separate contractors (such as mechanical engineers, electrical contractors, cleaning agencies, fire technicians, and water hygiene providers) inflates administrative overhead and creates dangerous compliance blindspots. EntireFM replaces fragmented supply with a single accountable contract, ensuring full operational ownership across all London premises with zero responsibility shifting between subcontractors.',
           bullets: [
             'Single contract and dedicated account direction for all building services',
             'Elimination of finger-pointing between separate trade contractors',
@@ -216,7 +216,7 @@ function buildShortForm(city: Tier1City, registryPaths: Set<string>): ContentRec
         },
         {
           question: 'How does EntireFM\'s outsourced model support multi-site London estates?',
-          answer: 'We provide portfolio-wide asset registers, consistent PPM standards, centralized helpdesk dispatch, and property-by-property cost reconciliation across all London and M25 locations.',
+          answer: 'We provide portfolio-wide asset registers, consistent PPM standards, centralised helpdesk dispatch, and property-by-property cost reconciliation across all London and M25 locations.',
         },
       ],
       breadcrumbs: [
@@ -238,11 +238,11 @@ function buildShortForm(city: Tier1City, registryPaths: Set<string>): ContentRec
   return {
     path,
     title: `FM ${city.name} | Outsourced Facilities Management | EntireFM`,
-    metaDescription: `Outsourced facilities management in ${city.name} under one contract — planned maintenance, reactive repairs, compliance and reporting from a single provider.`,
+    metaDescription: `Outsourced facilities management in ${city.name} under one contract: planned maintenance, reactive repairs, compliance and reporting from a single provider.`,
     h1: `FM ${city.name}: Outsourced Facilities Management Under One Contract`,
     eyebrow: 'Contracted FM',
     heroIntro: `EntireFM provides contracted facilities management to commercial property across ${city.name}, consolidating planned maintenance, reactive repairs, statutory compliance and reporting into a single accountable contract.`,
-    heroDescription: `If you are currently running ${city.name} sites through a spread of individual trade suppliers, this page covers what changes when that moves to one provider — and how the transition is handled without losing service.`,
+    heroDescription: `If you are currently running ${city.name} sites through a spread of individual trade suppliers, this page covers what changes when that moves to one provider, and how the transition is handled without losing service.`,
     heroImage: cityImage(city, 0),
     historicIntent: `Historic short-form FM provider search intent for ${city.name}`,
     primaryIntent: `fm ${city.slug}`,
@@ -266,7 +266,7 @@ function buildShortForm(city: Tier1City, registryPaths: Set<string>): ContentRec
     sections: [
       {
         heading: `What a single FM contract covers in ${city.name}`,
-        body: `One contract replaces the separate arrangements most estates accumulate — a maintenance firm, an electrical contractor, a cleaning supplier, a compliance provider and whoever attends when something fails out of hours. EntireFM holds the whole scope, so responsibility for an issue does not move between suppliers while a building sits unusable.`,
+        body: `One contract replaces the separate arrangements most estates accumulate (a maintenance firm, an electrical contractor, a cleaning supplier, a compliance provider and whoever attends when something fails out of hours). EntireFM holds the whole scope, so responsibility for an issue does not move between suppliers while a building sits unusable.`,
         bullets: CORE_SERVICES,
       },
       {
@@ -285,7 +285,7 @@ function buildShortForm(city: Tier1City, registryPaths: Set<string>): ContentRec
       {
         heading: `The local constraints that shape the contract`,
         body: `A contract priced without these produces a rate that looks competitive and an operation that cannot deliver it. Each of these is a live cost or scheduling factor in ${city.name}.`,
-        bullets: city.operatingConditions.slice(1, 4).map((c) => `${c.title} — ${c.detail.split('. ')[0]}.`),
+        bullets: city.operatingConditions.slice(1, 4).map((c) => `${c.title}: ${c.detail.split('. ')[0]}.`),
       },
       {
         heading: `How mobilisation works`,
@@ -309,7 +309,7 @@ function buildShortForm(city: Tier1City, registryPaths: Set<string>): ContentRec
     faqs: [
       {
         question: `Can EntireFM take over an existing FM contract in ${city.name}?`,
-        answer: `Yes. Most mobilisations are transitions rather than new starts. The critical part is the handover window — EntireFM surveys the estate and builds the maintenance and compliance schedules before the outgoing provider stands down, so statutory testing does not lapse in the gap.`,
+        answer: `Yes. Most mobilisations are transitions rather than new starts. The critical part is the handover window: EntireFM surveys the estate and builds the maintenance and compliance schedules before the outgoing provider stands down, so statutory testing does not lapse in the gap.`,
       },
       {
         question: 'Is there a minimum contract size?',
@@ -317,7 +317,7 @@ function buildShortForm(city: Tier1City, registryPaths: Set<string>): ContentRec
       },
       {
         question: `What drives the cost of an FM contract in ${city.name}?`,
-        answer: `Asset count and condition set the baseline, but local factors move it more than most buyers expect. In ${city.name} the significant one is that ${city.operatingConditions[0].title.toLowerCase()} — ${city.operatingConditions[0].detail.split('. ')[0].toLowerCase()}.`,
+        answer: `Asset count and condition set the baseline, but local factors move it more than most buyers expect. In ${city.name} the significant one is that ${city.operatingConditions[0].title.toLowerCase()}: ${city.operatingConditions[0].detail.split('. ')[0].toLowerCase()}.`,
       },
       {
         question: 'How are response times agreed?',
@@ -355,7 +355,7 @@ function buildHeadTerm(city: Tier1City, registryPaths: Set<string>): ContentReco
     h1: `Facilities Management in ${city.name}`,
     eyebrow: 'Commercial FM',
     heroIntro: city.positioning,
-    heroDescription: `EntireFM maintains commercial property across ${city.name} — planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover, scheduled around the constraints that apply here rather than a national template.`,
+    heroDescription: `EntireFM maintains commercial property across ${city.name}, providing planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover scheduled around local constraints.`,
     heroImage: city.slug === 'manchester' ? '/images/editorial/entirefm-entirefm-premises-vans-2000w.webp' : (cityImage(city, 1) ?? cityImage(city, 0)),
     historicIntent: `Historic head-term commercial search intent for facilities management in ${city.name}`,
     primaryIntent: `facilities management ${city.slug}`,
@@ -408,7 +408,7 @@ function buildHeadTerm(city: Tier1City, registryPaths: Set<string>): ContentReco
       },
       {
         question: `What are the main compliance obligations for commercial buildings in ${city.name}?`,
-        answer: `The statutory framework is national — fixed wire testing, emergency lighting, fire alarm and detection, water hygiene under L8, gas safety and lifting equipment among others. What changes locally is the exposure: ${city.operatingConditions[0].title.toLowerCase()} is a live factor for ${city.name} estates in a way it is not everywhere.`,
+        answer: `The statutory framework is national: fixed wire testing, emergency lighting, fire alarm and detection, water hygiene under L8, gas safety and lifting equipment among others. What changes locally is the exposure: ${city.operatingConditions[0].title.toLowerCase()} is a live factor for ${city.name} estates in a way it is not everywhere.`,
       },
       {
         question: 'How quickly can engineers attend an emergency?',
@@ -416,7 +416,7 @@ function buildHeadTerm(city: Tier1City, registryPaths: Set<string>): ContentReco
       },
       {
         question: 'Do you work on listed or conservation-area buildings?',
-        answer: 'Yes. The practical constraint is that visible external changes — plant, flues, roofing, glazing — need consent and sympathetic specification, which lengthens lead times. Planning for that up front avoids work being stopped once it has started.',
+        answer: 'Yes. The practical constraint is that visible external changes (plant, flues, roofing, glazing) need consent and sympathetic specification, which lengthens lead times. Planning for that up front avoids work being stopped once it has started.',
       },
       {
         question: 'Can you work alongside our existing in-house team?',
@@ -474,7 +474,7 @@ function buildRegional(city: Tier1City, registryPaths: Set<string>): ContentReco
       {
         heading: `Commercial districts covered across ${city.name}`,
         body: `Each part of the city presents a different operating problem. These are the areas EntireFM works in and what tends to characterise the buildings there.`,
-        bullets: city.districts.map((d) => `${d.name} — ${d.note}`),
+        bullets: city.districts.map((d) => `${d.name}: ${d.note}`),
       },
       {
         heading: `The building stock across ${city.name}`,
@@ -483,7 +483,7 @@ function buildRegional(city: Tier1City, registryPaths: Set<string>): ContentReco
       },
       {
         heading: 'Running a portfolio to one standard',
-        body: `The difficulty with a multi-site estate is not the individual buildings, it is the variance between them — different suppliers, different record-keeping, different assumptions about who holds which certificate. A single provider across the portfolio removes the variance, which is usually where the cost and the compliance risk actually sit.`,
+        body: `The difficulty with a multi-site estate is not the individual buildings, it is the variance between them: different suppliers, different record-keeping, and different assumptions about who holds which certificate. A single provider across the portfolio removes the variance, which is usually where the cost and the compliance risk actually sit.`,
         bullets: [
           'One asset register and compliance calendar covering every site',
           'Consistent PPM standards applied across the portfolio',
@@ -506,7 +506,7 @@ function buildRegional(city: Tier1City, registryPaths: Set<string>): ContentReco
     faqs: [
       {
         question: `How many sites do we need before a portfolio contract makes sense?`,
-        answer: `There is no threshold number. The question is whether the sites currently run to different standards with different suppliers — if they do, consolidation usually pays for itself in compliance certainty and management time before it shows up in the rate.`,
+        answer: `There is no threshold number. The question is whether the sites currently run to different standards with different suppliers; if they do, consolidation usually pays for itself in compliance certainty and management time before it shows up in the rate.`,
       },
       {
         question: `Do all our sites have to be inside ${city.name}?`,
@@ -542,7 +542,7 @@ function buildAreas(city: Tier1City, registryPaths: Set<string>): ContentRecord 
   return {
     path,
     title: `${city.name} FM Coverage Areas | Districts Served | EntireFM`,
-    metaDescription: `Where EntireFM delivers facilities management across ${city.name} — district by district, with the access and building constraints that apply in each.`,
+    metaDescription: `Where EntireFM delivers facilities management across ${city.name}: district by district, with the access and building constraints that apply in each.`,
     h1: `${city.name} Facilities Management Coverage Areas`,
     eyebrow: 'Coverage',
     heroIntro: `A district-by-district view of where EntireFM works across ${city.name}, and what tends to characterise the commercial buildings in each area.`,
@@ -565,7 +565,7 @@ function buildAreas(city: Tier1City, registryPaths: Set<string>): ContentRecord 
       {
         heading: `Areas covered across ${city.name}`,
         body: `EntireFM works across the following commercial districts and estates. The note against each is what tends to matter operationally when maintaining buildings there.`,
-        bullets: city.districts.map((d) => `${d.name} — ${d.note}`),
+        bullets: city.districts.map((d) => `${d.name}: ${d.note}`),
       },
       {
         heading: 'Beyond the city boundary',
@@ -573,17 +573,17 @@ function buildAreas(city: Tier1City, registryPaths: Set<string>): ContentRecord 
       },
       {
         heading: 'How coverage actually works',
-        body: `EntireFM operates nationally through regional operations. What that means in practice varies by area — some locations are staffed offices, some are storage and equipment bases, and all are supported by engineering teams working to the region. What matters commercially is not which of those sits nearest to you, but whether the response time can actually be met: those are agreed per site during mobilisation from genuine travel capability. Where a site needs guaranteed short-notice attendance, that is designed into the contract explicitly.`,
+        body: `EntireFM operates nationally through regional operations. What that means in practice varies by area: some locations are staffed offices, some are storage and equipment bases, and all are supported by engineering teams working to the region. What matters commercially is not which of those sits nearest to you, but whether the response time can actually be met: those are agreed per site during mobilisation from genuine travel capability. Where a site needs guaranteed short-notice attendance, that is designed into the contract explicitly.`,
       },
     ],
     faqs: [
       {
         question: `Is my building inside your ${city.name} coverage area?`,
-        answer: `${city.travelPattern} If a site sits outside that pattern it can usually still be covered — it just needs to be priced honestly for travel rather than absorbed into a headline response time that would not be met.`,
+        answer: `${city.travelPattern} If a site sits outside that pattern it can usually still be covered; it just needs to be priced honestly for travel rather than absorbed into a headline response time that would not be met.`,
       },
       {
         question: 'How is the region actually resourced?',
-        answer: 'Through regional operations rather than a uniform branch network — a mix of offices, storage and equipment bases, and engineering teams working to the area. Rather than publish a map of buildings, we agree the response time for your specific site and commit to it contractually, because that is the part that affects you.',
+        answer: 'Through regional operations rather than a uniform branch network, using a mix of offices, storage and equipment bases, and engineering teams working to the area. Rather than publish a map of buildings, we agree the response time for your specific site and commit to it contractually, because that is the part that affects you.',
       },
       {
         question: 'How are response times set for outlying sites?',
@@ -610,7 +610,7 @@ function buildServiceCatalogue(city: Tier1City, registryPaths: Set<string>): Con
   return {
     path,
     title: `FM Services ${city.name} | Hard & Soft Services | EntireFM`,
-    metaDescription: `The full facilities management service list available in ${city.name} — hard services, soft services, statutory compliance and specialist engineering.`,
+    metaDescription: `The full facilities management service list available in ${city.name}: hard services, soft services, statutory compliance and specialist engineering.`,
     h1: `FM Services in ${city.name}`,
     eyebrow: 'Service list',
     heroIntro: `A straightforward list of what EntireFM delivers in ${city.name}, for buyers who already know they need a provider and want to check the scope covers what they have.`,
@@ -632,7 +632,7 @@ function buildServiceCatalogue(city: Tier1City, registryPaths: Set<string>): Con
     sections: [
       {
         heading: `Hard services in ${city.name}`,
-        body: 'Engineering and building services — the systems whose failure stops a building working.',
+        body: 'Engineering and building services: the systems whose failure stops a building working.',
         bullets: [
           'Mechanical and electrical engineering',
           'HVAC, air conditioning and ventilation',

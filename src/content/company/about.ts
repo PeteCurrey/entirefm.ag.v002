@@ -42,7 +42,7 @@ const record: ContentRecord = {
   h1: 'Independently owned. Building maintenance since 2009.',
   eyebrow: 'Our story',
   heroIntro:
-    'EntireFM began in 2009 as a small building maintenance company working for local businesses and letting agents. The clients who took a chance on us then are, for the most part, still clients now — which is the only measure of this business we have ever really trusted.',
+    'EntireFM began in 2009 as a small building maintenance company working for local businesses and letting agents. The clients who took a chance on us then are, for the most part, still clients now, which is the only measure of this business we have ever really trusted.',
   heroDescription:
     'Independently owned, nationwide, and still run on the principle that facilities management is a relationship rather than a transaction.',
   historicIntent: 'Historic company and about-us intent from both Wix estates',
@@ -62,11 +62,11 @@ const record: ContentRecord = {
   sections: [
     {
       heading: 'How it started',
-      body: 'In 2009 EntireFM was a small building maintenance company working locally for businesses and letting agents. There was no growth plan and no sales function — the work came from doing the last job properly. Delivering honestly and reliably got the company noticed by larger clients, and most of those early relationships are still in place today. That is not a marketing line; it is the reason the business exists in the shape it does.',
+      body: 'In 2009 EntireFM was a small building maintenance company working locally for businesses and letting agents. There was no growth plan and no sales function; the work came from doing the last job properly. Delivering honestly and reliably got the company noticed by larger clients, and most of those early relationships are still in place today. That is not a marketing line; it is the reason the business exists in the shape it does.',
     },
     {
       heading: 'How it grew',
-      body: 'The client base widened faster than the company expected. Multinational property management and consultancy firms came first, then motorway service stations, logistics and manufacturing operations, and supermarket chains. Each brought a different operating rhythm — a service station never closes, a distribution centre measures failure in lost hours, a managing agent answers to tenants line by line — and the business learned to work to each rather than impose one model on all of them.',
+      body: 'The client base widened faster than the company expected. Multinational property management and consultancy firms came first, then motorway service stations, logistics and manufacturing operations, and supermarket chains. Each brought a different operating rhythm (a service station never closes, a distribution centre measures failure in lost hours, and a managing agent answers to tenants line by line), and the business learned to work to each rather than impose one model on all of them.',
       bullets: [
         'Multinational property management and consultancy firms',
         'Motorway service stations and roadside retail',
@@ -82,7 +82,7 @@ const record: ContentRecord = {
     },
     {
       heading: 'What that looks like in practice',
-      body: 'Values are easy to write and hard to evidence, so these are the operating commitments they translate into. Each one is checkable — ask us about any of them during procurement.',
+      body: 'Values are easy to write and hard to evidence, so these are the operating commitments they translate into. Each one is checkable: ask us about any of them during procurement.',
       bullets: [
         'A named account manager and a defined escalation route, not a general inbox',
         'Every maintenance plan built from an asset survey before a contract start date is agreed',
@@ -102,7 +102,7 @@ const record: ContentRecord = {
     },
     {
       heading: 'Where we work',
-      body: 'EntireFM maintains commercial property across the UK. The business runs nationally through regional operations — a mix of offices, storage and mobile engineering teams working to each area — with concentrations in London, the North West, Yorkshire, the Midlands and Lincolnshire. What matters commercially is not where a building sits on a map but whether the response time can actually be met, so those are set from genuine travel capability rather than from a marketing radius.',
+      body: 'EntireFM maintains commercial property across the UK. The business runs nationally through regional operations (a mix of offices, storage and mobile engineering teams working to each area), with concentrations in London, the North West, Yorkshire, the Midlands and Lincolnshire. What matters commercially is not where a building sits on a map but whether the response time can actually be met, so those are set from genuine travel capability rather than from a marketing radius.',
     },
   ],
 
@@ -114,7 +114,7 @@ const record: ContentRecord = {
     },
     {
       name: 'Independently owned',
-      description: 'No parent company and no external timetable — the operation answers to its clients.',
+      description: 'No parent company and no external timetable: the operation answers to its clients.',
       tag: 'Ownership',
     },
     {

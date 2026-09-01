@@ -31,7 +31,7 @@ const sitemapRecord: ContentRecord = {
   path: '/html-sitemap',
   title: 'Site Index | Every Page on EntireFM',
   metaDescription:
-    'A complete index of every page on the EntireFM site — services, sectors, locations, compliance guidance and articles, organised by section.',
+    'A complete index of every page on the EntireFM site, covering services, sectors, locations, compliance guidance and articles, organised by section.',
   h1: 'Site index',
   eyebrow: 'Navigation',
   heroIntro:
@@ -112,8 +112,8 @@ export const UTILITY_CONTENT: Record<string, ContentRecord> = {
     '/home',
     'EntireFM | Commercial Facilities Management Across the UK',
     'EntireFM: commercial facilities management',
-    'An entry point carried over from our previous site. EntireFM maintains commercial property across the UK — planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover, under one contract.',
-    'EntireFM is an independently owned facilities management provider, maintaining commercial property across the UK since 2009. The scope covers hard services — mechanical and electrical, HVAC, plumbing and gas, fire and emergency systems, building fabric — and soft services including cleaning, security and grounds maintenance. Work is held under a single contract so responsibility does not move between suppliers while a building sits unusable.'
+    'An entry point carried over from our previous site. EntireFM maintains commercial property across the UK, providing planned maintenance, mechanical and electrical engineering, statutory compliance and reactive cover under one contract.',
+    'EntireFM is an independently owned facilities management provider, maintaining commercial property across the UK since 2009. The scope covers hard services (mechanical and electrical, HVAC, plumbing and gas, fire and emergency systems, building fabric) and soft services including cleaning, security and grounds maintenance. Work is held under a single contract so responsibility does not move between suppliers while a building sits unusable.'
   ),
 
   '/home-1-1': entryPoint(
@@ -121,7 +121,7 @@ export const UTILITY_CONTENT: Record<string, ContentRecord> = {
     'About EntireFM | Independent FM Provider Since 2009',
     'About EntireFM',
     'A legacy address from our previous site. EntireFM began in 2009 as a small building maintenance company and now maintains commercial property nationwide through regional operations.',
-    'The business started in 2009 doing building maintenance for local companies and letting agents. It grew by reputation rather than by sales effort, and most of those first clients are still clients. The estate now includes multinational property management firms, motorway service areas, logistics and manufacturing operations, and supermarket groups — each with a different operating rhythm and a different definition of an unacceptable failure.'
+    'The business started in 2009 doing building maintenance for local companies and letting agents. It grew by reputation rather than by sales effort, and most of those first clients are still clients. The estate now includes multinational property management firms, motorway service areas, logistics and manufacturing operations, and supermarket groups, each with a different operating rhythm and a different definition of an unacceptable failure.'
   ),
 
   '/home-1-1-1': entryPoint(

@@ -66,7 +66,7 @@ export const ENGAGEMENTS: Engagement[] = [
       'Works sequenced around trading patterns rather than around engineer convenience',
       'Catering gas, extraction and interlock testing treated as one system, because that is how it fails',
       'Refrigeration leak checking scheduled against each system\'s CO2 equivalent charge, not a single site interval',
-      'Priority bands agreed per asset — a failed fryer and a failed car park light are not the same call',
+      'Priority bands agreed per asset: a failed fryer and a failed car park light are not the same call',
     ],
     outcome:
       'Statutory testing, certification and job history held in one place, so the operator can evidence compliance for the whole site without assembling it from four suppliers after the fact.',
@@ -81,7 +81,7 @@ export const ENGAGEMENTS: Engagement[] = [
     summary:
       'Dock levellers, shutters, three-phase power and yard lighting across a large-format site running to a delivery schedule.',
     situation:
-      'A distribution centre is a machine with a timetable. A dock leveller out of service does not inconvenience anyone — it removes a bay from the schedule and pushes the backlog downstream for the rest of the shift. The equipment is heavy, in constant use, and largely invisible until it stops.',
+      'A distribution centre is a machine with a timetable. A dock leveller out of service does not simply inconvenience anyone; it removes a bay from the schedule and pushes the backlog downstream for the rest of the shift. The equipment is heavy, in constant use, and largely invisible until it stops.',
     approach: [
       'Loading equipment surveyed and put on a planned regime rather than run to failure',
       'Thorough examination for lifting equipment scheduled to the statutory six and twelve month intervals',
@@ -90,7 +90,7 @@ export const ENGAGEMENTS: Engagement[] = [
       'Reactive priorities set by what the failure costs, not by how urgent the caller sounds',
     ],
     outcome:
-      'Planned attention on the assets that stop the operation, and a record that shows which ones keep coming back — which is what turns a reactive spend into a replacement decision.',
+      'Planned attention on the assets that stop the operation, and a record that shows which ones keep coming back, which is what turns a reactive spend into a replacement decision.',
     services: ['/logistics-facilities-management', '/mechanical-electrical', '/ppm'],
     imageKey: 'external-distribution-dusk',
   },
@@ -111,7 +111,7 @@ export const ENGAGEMENTS: Engagement[] = [
       'The delivery model for each service line confirmed in writing at proposal stage',
     ],
     outcome:
-      'The agent can account for what was done, when, and why it cost what it cost — without waiting on a supplier to assemble the answer.',
+      'The agent can account for what was done, when, and why it cost what it cost, without waiting on a supplier to assemble the answer.',
     services: ['/commercial-facilities-management', '/ppm', '/cleaning-services'],
     imageKey: 'engineers-office-testing',
   },
@@ -123,7 +123,7 @@ export const ENGAGEMENTS: Engagement[] = [
     summary:
       'Process plant, LEV, compressed air and high-load distribution, maintained around a production schedule rather than office hours.',
     situation:
-      'On a production site the maintenance window is whatever production says it is. Statutory obligations do not move to suit that — LEV thorough examination, pressure systems and electrical testing all have their own intervals — so the plan has to fit both, and the two are frequently in conflict.',
+      'On a production site the maintenance window is whatever production says it is. Statutory obligations do not move to suit that (LEV thorough examination, pressure systems and electrical testing all have their own intervals), so the plan has to fit both, and the two are frequently in conflict.',
     approach: [
       'Statutory intervals mapped against the production calendar before a schedule is agreed',
       'Shutdown periods used properly: the work that genuinely cannot be done live, planned months out',

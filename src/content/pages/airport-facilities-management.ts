@@ -59,7 +59,7 @@ const record: ContentRecord = {
     },
     {
       "name": "Baggage Handling & Conveyor Power Distribution",
-      "description": "PPM maintenance for electrical feeds, motor control centers (MCC), and emergency stop safety loops.",
+      "description": "PPM maintenance for electrical feeds, motor control centres (MCC), and emergency stop safety loops.",
       "tag": "Conveyor Power"
     },
     {

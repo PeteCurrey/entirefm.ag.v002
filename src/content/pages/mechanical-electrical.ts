@@ -43,7 +43,7 @@ const record: ContentRecord = {
   "sections": [
     {
       "heading": "Total Mechanical & Electrical Asset Lifecycle Care",
-      "body": "EntireFM acts as the primary M&E contractor for commercial property owners, managing agents, and facility directors. Our multi-skilled engineering teams take complete responsibility for building services, ensuring continuous operational availability, statutory safety certification, and optimized energy efficiency.",
+      "body": "EntireFM acts as the primary M&E contractor for commercial property owners, managing agents, and facility directors. Our multi-skilled engineering teams take complete responsibility for building services, ensuring continuous operational availability, statutory safety certification, and optimised energy efficiency.",
       "bullets": [
         "Full statutory compliance management with digital certification via our CAFM portal",
         "Direct engineering delivery model reducing sub-contractor markups and response delays",

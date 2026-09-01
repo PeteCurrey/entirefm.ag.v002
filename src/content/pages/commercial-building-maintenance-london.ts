@@ -8,7 +8,7 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 const record: ContentRecord = {
   "path": "/commercial-building-maintenance-london",
   "title": "Commercial Building Maintenance London | Fabric & Planned Repairs | EntireFM",
-  "metaDescription": "Planned and reactive building fabric maintenance across London commercial estates — roofing, doors, glazing, drainage, and property preservation.",
+  "metaDescription": "Planned and reactive building fabric maintenance across London commercial estates: roofing, doors, glazing, drainage, and property preservation.",
   "h1": "Commercial Building Maintenance in London",
   "eyebrow": "Fabric Maintenance & Property Preservation",
   "heroIntro": "EntireFM provides complete building fabric maintenance and proactive property upkeep for commercial landlords, corporate occupiers, and managing agents across London.",

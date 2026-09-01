@@ -8,7 +8,7 @@ import type { ContentRecord } from '@/lib/routes/route-schema';
 const record: ContentRecord = {
   "path": "/industrial-cleaning-london",
   "title": "Industrial Cleaning London | Warehouses & Plant Decontamination | EntireFM",
-  "metaDescription": "Specialist industrial cleaning across London and Park Royal corridors — warehouse scrubbing, high-level structural cleaning, plant degreasing, and shutdown decontamination.",
+  "metaDescription": "Specialist industrial cleaning across London and Park Royal corridors: warehouse scrubbing, high-level structural cleaning, plant degreasing, and shutdown decontamination.",
   "h1": "Industrial Cleaning & Plant Maintenance in London",
   "eyebrow": "Heavy-Duty Industrial Cleaning",
   "heroIntro": "EntireFM provides specialist industrial cleaning for logistics hubs, distribution centres, manufacturing units, and commercial trade parks across London and the M25 corridor.",

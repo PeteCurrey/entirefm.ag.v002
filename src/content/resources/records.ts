@@ -178,7 +178,7 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
       },
       {
         heading: '3. Digital Evidence & Remedial Management',
-        body: 'A PPM task is only complete when verified engineering evidence—such as refrigerant pressures, insulation resistance megger readings, and photos—is captured in the CAFM. Discovered defects must immediately spawn tracked remedial work orders with clear C1/C2 criticality classifications.'
+        body: 'A PPM task is only complete when verified engineering evidence (such as refrigerant pressures, insulation resistance megger readings, and photos) is captured in the CAFM. Discovered defects must immediately spawn tracked remedial work orders with clear C1/C2 criticality classifications.'
       }
     ],
     breadcrumbs: [
@@ -433,7 +433,7 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
     h1: 'Commercial FM Statutory Compliance Checker',
     eyebrow: 'Statutory Screening Audit',
     heroIntro: 'Evaluate your building compliance across 10 statutory regimes: fire safety, electrical systems, commercial gas, water hygiene, lifting equipment, working at height, and digital record retention.',
-    heroDescription: 'An authoritative, 3-minute screening instrument designed for property directors, building managers, and duty holders to identify statutory liabilities and generate prioritized remedial roadmaps.',
+    heroDescription: 'An authoritative, 3-minute screening instrument designed for property directors, building managers, and duty holders to identify statutory liabilities and generate prioritised remedial roadmaps.',
     heroImage: '/branding/EntireFM Branding 002.png',
     historicIntent: 'Historic search intent for building compliance checker and statutory facilities audit tool',
     primaryIntent: 'FM compliance checker',
@@ -795,7 +795,7 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
     requiredSections: ['hero', 'market-indicators', 'regulatory-briefing', 'operational-trends', 'citations', 'cta'],
     sections: [
       {
-        heading: 'Current UK Facilities Management Landscape — 2026 Outlook',
+        heading: 'Current UK Facilities Management Landscape: 2026 Outlook',
         body: 'The UK commercial property sector faces evolving statutory demands around building safety, energy decarbonisation, and engineering labour availability. This briefing brings together verified regulatory changes and market data to assist strategic property decisions.'
       },
       {
@@ -838,7 +838,7 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
     path: '/academy',
     title: 'EntireFM Academy | Professional Facilities Management Learning | Entire FM',
     metaDescription: 'Practical facilities management learning modules, technical engineering fundamentals, statutory compliance training and operational best practice.',
-    h1: 'EntireFM Academy — Practical Facilities Learning',
+    h1: 'EntireFM Academy: Practical Facilities Learning',
     eyebrow: 'Knowledge & Professional Training',
     heroIntro: 'Free operational learning modules covering statutory maintenance compliance, building services engineering fundamentals, and estate contract management.',
     heroDescription: 'Structured for property managers, junior facilities coordinators, and duty holders wanting plain-English technical grounding without academic fluff.',
@@ -889,10 +889,10 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
     path: '/resources/document-vault',
     title: 'FM Document Vault | Downloadable Templates & Checklists | Entire FM',
     metaDescription: 'Free downloadable facilities management templates, asset registers, compliance logbooks, PPM matrix spreadsheets and contractor evaluation forms.',
-    h1: 'FM Document Vault — Operational Templates & Tools',
+    h1: 'FM Document Vault: Operational Templates & Tools',
     eyebrow: 'Downloadable Estate Resources',
     heroIntro: 'Practical, verified FM templates, asset registers, compliance audit checklists, and logbook sheets designed for immediate operational use.',
-    heroDescription: 'Every document in the vault is a real, functional template available in CSV, spreadsheet or printable formats — with zero fake download counters or gated forms.',
+    heroDescription: 'Every document in the vault is a real, functional template available in CSV, spreadsheet or printable formats, with zero fake download counters or gated forms.',
     heroImage: '/branding/EntireFM Branding 005.png',
     historicIntent: 'Historic search intent for FM document vault and facilities management templates download',
     primaryIntent: 'FM document vault',
@@ -940,9 +940,9 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
     path: '/building-walk',
     title: 'The Building Walk | Visual Site & Plantroom Inspection Series | Entire FM',
     metaDescription: 'Explore real-world commercial estate inspection walkthroughs, plantroom surveys, common maintenance defects, and practical engineering solutions.',
-    h1: 'The Building Walk — Engineering & Site Inspection Series',
+    h1: 'The Building Walk: Engineering & Site Inspection Series',
     eyebrow: 'Practical Plantroom & Estate Walkthroughs',
-    heroIntro: 'Step-by-step technical walkthroughs of commercial offices, industrial estates, retail parks, and plantrooms — highlighting common defects, statutory risks, and engineering solutions.',
+    heroIntro: 'Step-by-step technical walkthroughs of commercial offices, industrial estates, retail parks, and plantrooms, highlighting common defects, statutory risks, and engineering solutions.',
     heroDescription: 'From distribution boards and chiller decks to boiler houses and emergency lighting routes, The Building Walk takes you on site with certified facilities engineers.',
     heroImage: '/branding/EntireFM Branding 001.png',
     historicIntent: 'Historic search intent for building walk site survey and facilities walkthrough',
@@ -990,7 +990,7 @@ export const RESOURCES_CONTENT: Record<string, ContentRecord> = {
     path: '/fm-briefing',
     title: 'The FM Briefing | Practical Facilities Management Intelligence | EntireFM',
     metaDescription: 'Get The FM Briefing: a concise weekly facilities management publication covering maintenance, compliance, engineering, and building technology.',
-    h1: 'THE FM BRIEFING — Practical Intelligence for People Responsible for Buildings',
+    h1: 'THE FM BRIEFING: Practical Intelligence for People Responsible for Buildings',
     eyebrow: 'Recurring FM Publication',
     heroIntro: 'A concise weekly editorial briefing on maintenance, statutory compliance, engineering, AI & technology, and property operations. No marketing noise.',
     heroDescription: 'Delivered every Tuesday: the week that matters in UK facilities management, practical compliance guidance, and useful operational tools.',
