@@ -17,6 +17,11 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  experimental: {
+    cpus: 2,
+    webpackMemoryOptimizations: true,
+  },
+
   images: {
     remotePatterns: [
       // Supabase Storage — member profile avatars and any other stored media
