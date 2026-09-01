@@ -1042,6 +1042,27 @@ export async function getSupplierOrganisationByOwnerId(
   return null;
 }
 
+async function canClaimExistingOrg(
+  org: SupplierOrganisationRecord,
+  currentAuthUserId: string,
+  currentUserEmail?: string
+): Promise<boolean> {
+  if (org.ownerId === currentAuthUserId) return true;
+
+  const prevOwner = await getSupplierUserByAuthId(org.ownerId);
+  if (!prevOwner) {
+    // Orphaned owner (deleted in cleanup or re-registered) -> safe to claim
+    return true;
+  }
+
+  if (currentUserEmail && prevOwner.email.toLowerCase() === currentUserEmail.toLowerCase()) {
+    // Same email account -> safe to re-link
+    return true;
+  }
+
+  return false;
+}
+
 export async function createSupplierOrganisation(
   ownerAuthUserId: string,
   legalName: string,
@@ -1053,7 +1074,9 @@ export async function createSupplierOrganisation(
   const normCompanyNumber = companyNumber?.trim() ? companyNumber.trim().toUpperCase() : null;
 
   // 1. If user already has an organisation linked, return it idempotently
-  const existingUser = await getSupplierUserByAuthId(ownerAuthUserId);
+  let existingUser = await getSupplierUserByAuthId(ownerAuthUserId);
+  const currentUserEmail = existingUser?.email;
+
   if (existingUser?.organisation_id) {
     const existingOrg = await getSupplierOrganisationById(existingUser.organisation_id);
     if (existingOrg) {
@@ -1082,9 +1105,16 @@ export async function createSupplierOrganisation(
       );
       if (matchedOrgs && matchedOrgs.length > 0) {
         const org = mapDbOrgToRecord(matchedOrgs[0]);
-        if (org.ownerId === ownerAuthUserId) {
-          if (existingUser) {
-            await setSupplierUserOrganisation(ownerAuthUserId, org.id);
+        const canClaim = await canClaimExistingOrg(org, ownerAuthUserId, currentUserEmail);
+        if (canClaim) {
+          org.ownerId = ownerAuthUserId;
+          if (normTradingName && !org.tradingName) org.tradingName = normTradingName;
+          await setSupplierUserOrganisation(ownerAuthUserId, org.id);
+          if (isDbConfigured()) {
+            await dbQuery(`supplier_organisations?id=eq.${encodeURIComponent(org.id)}`, {
+              method: 'PATCH',
+              body: { owner_id: ownerAuthUserId, updated_at: new Date().toISOString() },
+            });
           }
           await getOrCreateApplicationDraft(org.id);
           return { success: true, organisation: org };
@@ -1100,12 +1130,11 @@ export async function createSupplierOrganisation(
     // In-memory duplicate check
     for (const org of supplierOrganisations.values()) {
       if (org.companyNumber?.toUpperCase() === normCompanyNumber) {
-        if (org.ownerId === ownerAuthUserId) {
-          if (existingUser) {
-            existingUser.organisation_id = org.id;
-            existingUser.role = 'SUPPLIER_ADMIN';
-            existingUser.updated_at = new Date().toISOString();
-          }
+        const canClaim = await canClaimExistingOrg(org, ownerAuthUserId, currentUserEmail);
+        if (canClaim) {
+          org.ownerId = ownerAuthUserId;
+          if (normTradingName && !org.tradingName) org.tradingName = normTradingName;
+          await setSupplierUserOrganisation(ownerAuthUserId, org.id);
           await getOrCreateApplicationDraft(org.id);
           return { success: true, organisation: org };
         }
@@ -1125,9 +1154,17 @@ export async function createSupplierOrganisation(
     );
     if (matchedOrgs && matchedOrgs.length > 0) {
       const org = mapDbOrgToRecord(matchedOrgs[0]);
-      if (org.ownerId === ownerAuthUserId) {
-        if (existingUser) {
-          await setSupplierUserOrganisation(ownerAuthUserId, org.id);
+      const canClaim = await canClaimExistingOrg(org, ownerAuthUserId, currentUserEmail);
+      if (canClaim) {
+        org.ownerId = ownerAuthUserId;
+        if (normTradingName && !org.tradingName) org.tradingName = normTradingName;
+        if (normCompanyNumber && !org.companyNumber) org.companyNumber = normCompanyNumber;
+        await setSupplierUserOrganisation(ownerAuthUserId, org.id);
+        if (isDbConfigured()) {
+          await dbQuery(`supplier_organisations?id=eq.${encodeURIComponent(org.id)}`, {
+            method: 'PATCH',
+            body: { owner_id: ownerAuthUserId, updated_at: new Date().toISOString() },
+          });
         }
         await getOrCreateApplicationDraft(org.id);
         return { success: true, organisation: org };
@@ -1143,12 +1180,12 @@ export async function createSupplierOrganisation(
   const normNameLower = normLegalName.toLowerCase();
   for (const org of supplierOrganisations.values()) {
     if (org.legalName.trim().toLowerCase() === normNameLower) {
-      if (org.ownerId === ownerAuthUserId) {
-        if (existingUser) {
-          existingUser.organisation_id = org.id;
-          existingUser.role = 'SUPPLIER_ADMIN';
-          existingUser.updated_at = new Date().toISOString();
-        }
+      const canClaim = await canClaimExistingOrg(org, ownerAuthUserId, currentUserEmail);
+      if (canClaim) {
+        org.ownerId = ownerAuthUserId;
+        if (normTradingName && !org.tradingName) org.tradingName = normTradingName;
+        if (normCompanyNumber && !org.companyNumber) org.companyNumber = normCompanyNumber;
+        await setSupplierUserOrganisation(ownerAuthUserId, org.id);
         await getOrCreateApplicationDraft(org.id);
         return { success: true, organisation: org };
       }
