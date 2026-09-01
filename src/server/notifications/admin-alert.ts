@@ -238,3 +238,88 @@ EntireFM Internal Automated Notification · Destination: ${ADMIN_ALERT_EMAIL}
     return { success: false, error: err.message || 'Delivery exception' };
   }
 }
+
+export interface OperationalAlertPayload {
+  title: string;
+  category?: 'OPERATIONS' | 'COMPLIANCE' | 'SYSTEM' | 'FINANCE';
+  severity?: 'INFO' | 'ATTENTION' | 'WARNING' | 'CRITICAL';
+  workOrderNumber?: string;
+  workOrderId?: string;
+  reason: string;
+  details?: Record<string, string | number | boolean | undefined>;
+  actionUrl: string;
+}
+
+/**
+ * Dispatches an immediate operational escalation alert to EntireFM operators via email and in-app notification.
+ */
+export async function sendAdminOperationalAlert(
+  payload: OperationalAlertPayload
+): Promise<{ success: boolean; messageId?: string; error?: string }> {
+  // 1. Create In-App Notification Record
+  try {
+    await createNotification({
+      type: 'SLA_RISK',
+      category: payload.category || 'OPERATIONS',
+      severity: payload.severity || 'CRITICAL',
+      title: payload.title,
+      message: payload.reason,
+      entity_type: 'work_order',
+      entity_id: payload.workOrderId || payload.workOrderNumber || 'system',
+      action_url: payload.actionUrl,
+      dedupe_key: `operational-alert:${payload.workOrderId || payload.title}:${payload.workOrderNumber || ''}`,
+      metadata: {
+        ...payload.details,
+        workOrderNumber: payload.workOrderNumber,
+      },
+    });
+  } catch (err) {
+    console.error('[ADMIN_OPERATIONAL_ALERT: In-App Notification Error]', err);
+  }
+
+  // 2. Dispatch Email via Resend
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const adminEmail = getAdminAlertEmailAddress();
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.entirefm.com';
+  const fullActionUrl = payload.actionUrl.startsWith('http') ? payload.actionUrl : `${baseUrl}${payload.actionUrl}`;
+
+  const subject = `[ESCALATION] ${payload.title}`;
+  const text = `
+OPERATIONAL ESCALATION REQUIRED
+========================================
+Title: ${payload.title}
+Reason: ${payload.reason}
+${payload.workOrderNumber ? `Work Order: ${payload.workOrderNumber}\n` : ''}
+Review in Admin:
+${fullActionUrl}
+
+--
+EntireFM Operations Autopilot · Destination: ${adminEmail}
+  `.trim();
+
+  if (!resendApiKey) {
+    console.info(`[ADMIN_ALERT_DEV] Simulated operational alert to ${adminEmail}: ${subject}`);
+    return { success: true, messageId: `sim_${Date.now()}` };
+  }
+
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: FROM_EMAIL,
+        to: [adminEmail],
+        subject,
+        text,
+      }),
+    });
+
+    const data = await res.json();
+    return { success: res.ok, messageId: data?.id };
+  } catch (err: any) {
+    return { success: false, error: err?.message || String(err) };
+  }
+}

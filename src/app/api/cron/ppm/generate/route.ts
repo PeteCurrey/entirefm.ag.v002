@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { generatePPMWorkOrders } from '@/server/ppm';
+import { sendAdminOperationalAlert } from '@/server/notifications/admin-alert';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,6 +26,21 @@ export async function GET(req: Request) {
 
   try {
     const result = await generatePPMWorkOrders(30, { type: 'CRON' });
+
+    if (result.errors.length > 0) {
+      await sendAdminOperationalAlert({
+        title: `PPM Autopilot Generation Warning (${result.errors.length} errors)`,
+        category: 'OPERATIONS',
+        severity: 'WARNING',
+        reason: `PPM Work Order generator encountered errors during scheduled cron: ${result.errors.join('; ')}`,
+        actionUrl: '/admin/operations/work-orders',
+        details: {
+          generated: result.generated,
+          skipped: result.skipped,
+          errorCount: result.errors.length,
+        },
+      }).catch((e) => console.error('[PPM:generate:alert_error]', e));
+    }
 
     const elapsed = Date.now() - started;
     console.log(

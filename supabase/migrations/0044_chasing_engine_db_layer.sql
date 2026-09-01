@@ -2,7 +2,8 @@
 -- 0044: Chasing Engine — DB Persistence Layer
 -- ============================================================================
 -- 1. Add chase tracking columns to work_assignments
--- 2. Create communication_messages table (DB-backed idempotency)
+-- 2. Create index on work_orders(status) for fast sweeping
+-- 3. Create communication_messages table (DB-backed idempotency)
 -- ============================================================================
 
 -- ── 1. Extend work_assignments with chasing state ──────────────────────────
@@ -19,11 +20,17 @@ comment on column public.work_assignments.last_chase_at
 comment on column public.work_assignments.escalated_at
   is 'Timestamp when this assignment was escalated to a human operator.';
 
--- ── 2. communication_messages — DB-backed idempotent message store ─────────
+-- ── 2. Index on work_orders status for fast sweep filtering ───────────────
+
+create index if not exists idx_work_orders_status
+  on public.work_orders (status);
+
+-- ── 3. communication_messages — DB-backed idempotent message store ─────────
 
 create table if not exists public.communication_messages (
   id                   text        primary key,
   thread_id            text        not null,
+  work_order_id        text,
   sender_name          text,
   sender_email         text,
   reply_to_email       text,
@@ -53,6 +60,10 @@ comment on table public.communication_messages
 -- Indexes
 create index if not exists idx_comm_messages_thread
   on public.communication_messages (thread_id, created_at desc);
+
+create index if not exists idx_comm_messages_work_order
+  on public.communication_messages (work_order_id)
+  where work_order_id is not null;
 
 create index if not exists idx_comm_messages_provider_msg_id
   on public.communication_messages (provider_message_id)

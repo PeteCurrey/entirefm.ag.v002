@@ -57,10 +57,10 @@ export default async function ClientDashboardPage() {
         </div>
 
         <Link
-          href="/clients/report"
+          href="/clients/log-a-job"
           className="shrink-0 px-6 py-3.5 rounded-xl bg-brand-electric text-white text-sm font-semibold hover:bg-brand-electric/85 transition-all flex items-center gap-2.5 shadow-lg shadow-brand-electric/30 hover:scale-[1.02]"
         >
-          <PlusCircle className="w-5 h-5" /> Report an Issue
+          <PlusCircle className="w-5 h-5" /> Log a Job
         </Link>
       </div>
 

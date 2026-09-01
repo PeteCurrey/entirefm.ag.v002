@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { checkMissedOccurrences } from '@/server/ppm';
+import { sendAdminOperationalAlert } from '@/server/notifications/admin-alert';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,6 +26,18 @@ export async function GET(req: Request) {
 
   try {
     const result = await checkMissedOccurrences({ type: 'CRON' });
+
+    // Alert admins if any occurrences were missed — each one represents a compliance gap
+    if (result.missedCount > 0) {
+      await sendAdminOperationalAlert({
+        title: `PPM Missed Occurrences Detected (${result.missedCount})`,
+        category: 'COMPLIANCE',
+        severity: result.missedCount >= 5 ? 'CRITICAL' : 'WARNING',
+        reason: `${result.missedCount} planned maintenance occurrence(s) exceeded their window without completion. These have been flagged as MISSED and require review.`,
+        actionUrl: '/admin/operations/work-orders',
+        details: { missedCount: result.missedCount },
+      }).catch((e) => console.error('[PPM:check-missed:alert_error]', e));
+    }
 
     const elapsed = Date.now() - started;
     console.log(`[PPM:check-missed] Completed missed occurrence sweep in ${elapsed}ms: ${result.missedCount} occurrences flagged`);

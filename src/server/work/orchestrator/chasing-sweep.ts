@@ -10,6 +10,7 @@
 import { dbQuery } from '@/server/db/client';
 import { recordAuditEvent } from '@/server/audit';
 import { createNotification } from '@/server/notifications';
+import { sendAdminOperationalAlert } from '@/server/notifications/admin-alert';
 import { emitContractorCommunicationEvent, emitClientCommunicationEvent } from '@/server/communications';
 import { handleContractorDecline } from '@/server/ai/dispatch/orchestrator';
 import { evaluateJobChase, ActiveJobChaseContext } from './chasing';
@@ -277,18 +278,16 @@ export async function runChaseSweep(currentTimeMs: number = Date.now()): Promise
 
         result.auto_reassigned++;
       } else if (decision.action_recommended === 'ESCALATE_TO_HUMAN') {
-        // Escalate to human review via central notifications
-        await createNotification({
-          type: 'SLA_RISK',
+        // Escalate to human review via central operational alert (email + in-app)
+        await sendAdminOperationalAlert({
+          title: `Chasing Escalation: ${wo.work_order_number}`,
           category: 'OPERATIONS',
           severity: 'CRITICAL',
-          title: `Chasing Escalation: ${wo.work_order_number}`,
-          message: decision.escalation_reason || `Work order ${wo.work_order_number} requires human coordinator intervention.`,
-          entity_type: 'work_order',
-          entity_id: wo.id,
-          action_url: `/admin/operations/work-orders/${wo.id}`,
-          dedupe_key: `workorder:${wo.id}:chase-escalation`,
-          metadata: {
+          workOrderNumber: wo.work_order_number,
+          workOrderId: wo.id,
+          reason: decision.escalation_reason || `Work order ${wo.work_order_number} requires human coordinator intervention.`,
+          actionUrl: `/admin/operations/work-orders/${wo.id}`,
+          details: {
             reason: decision.escalation_reason,
             stage: lifecycle.stage,
             priority: wo.priority,

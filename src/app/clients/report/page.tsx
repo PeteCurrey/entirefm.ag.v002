@@ -19,27 +19,5 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function ClientReportIssuePage() {
-  const session = await getCurrentSession();
-  if (!session) redirect('/login?redirect=/clients/report');
-
-  // Fetch Authorised Sites for this Client Organisation
-  const siteScopes = session.scopes.filter((s) => s.type === 'SITE').map((s) => s.id);
-  const siteFilter = siteScopes.length > 0 ? `&id=in.(${siteScopes.map(encodeURIComponent).join(',')})` : '';
-
-  const { data: sites } = await dbQuery<any[]>(
-    `sites?organisation_id=eq.${encodeURIComponent(session.orgId)}${siteFilter}&select=id,name,site_code,city&order=name.asc`
-  );
-
-  const initialSites = (sites || []).map((s) => ({
-    id: s.id,
-    name: s.name,
-    city: s.city,
-  }));
-
-  return (
-    <ClientHelpdeskConversationalClient
-      clientName={session.orgName}
-      initialSites={initialSites}
-    />
-  );
+  redirect('/clients/log-a-job');
 }

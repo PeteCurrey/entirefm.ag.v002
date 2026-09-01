@@ -41,7 +41,7 @@ export default async function ClientsLayout({ children }: { children: React.Reac
 
   const navLinks = [
     { name: 'Overview', href: '/clients' },
-    { name: 'Report an Issue', href: '/clients/report', highlight: true },
+    { name: 'Log a Job', href: '/clients/log-a-job', highlight: true },
     { name: 'Jobs', href: '/clients/work-orders' },
     { name: 'Sites', href: '/clients/sites' },
     { name: 'Assets', href: '/clients/assets' },

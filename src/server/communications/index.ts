@@ -74,6 +74,7 @@ export interface CommunicationThread {
 export interface CommunicationMessage {
   id: string;
   thread_id: string;
+  work_order_id?: string;
   sender_person_id?: string;
   sender_name?: string;
   sender_email?: string;
@@ -419,6 +420,7 @@ export async function emitClientCommunicationEvent(params: {
     body: {
       id: msgId,
       thread_id: params.work_order_id,
+      work_order_id: params.work_order_id,
       sender_name: 'EntireFM Helpdesk Autopilot',
       sender_email: config.fromAddress,
       reply_to_email: config.replyToAddress,
@@ -524,6 +526,7 @@ export async function emitContractorCommunicationEvent(params: {
     body: {
       id: msgId,
       thread_id: params.work_order_id,
+      work_order_id: params.work_order_id,
       sender_name: 'EntireFM Dispatch Engine',
       sender_email: config.fromAddress,
       reply_to_email: config.replyToAddress,
