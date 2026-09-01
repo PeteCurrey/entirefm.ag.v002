@@ -3,8 +3,10 @@ import { OnboardingWizardClient } from '@/components/supplier-portal/OnboardingW
 import { getCurrentSession } from '@/server/identity';
 import {
   getSupplierOrganisationById,
+  getSupplierOrganisationByOwnerId,
   getOrCreateApplicationDraft,
   validateSupplierAuthUser,
+  setSupplierUserOrganisation,
 } from '@/server/suppliers/supplier-auth-store';
 
 export const metadata = {
@@ -18,9 +20,19 @@ export default async function OnboardingWizardPage() {
     ? await validateSupplierAuthUser(session.personId || session.authUserId || '')
     : null;
 
-  const orgId =
+  let orgId =
     authState?.supplierUser?.organisation_id ||
     (session?.orgId && session.orgId !== session?.personId ? session.orgId : '');
+
+  if (!orgId && authState?.authUser?.id) {
+    const ownedOrg = await getSupplierOrganisationByOwnerId(authState.authUser.id);
+    if (ownedOrg) {
+      orgId = ownedOrg.id;
+      if (authState.supplierUser && !authState.supplierUser.organisation_id) {
+        await setSupplierUserOrganisation(authState.authUser.id, ownedOrg.id);
+      }
+    }
+  }
 
   let draft = null;
   let initialLegalName = '';
@@ -29,7 +41,10 @@ export default async function OnboardingWizardPage() {
   let initialAppRef = '';
 
   if (orgId) {
-    const org = await getSupplierOrganisationById(orgId);
+    let org = await getSupplierOrganisationById(orgId);
+    if (!org && authState?.authUser?.id) {
+      org = await getSupplierOrganisationByOwnerId(authState.authUser.id);
+    }
     if (org) {
       initialLegalName = org.legalName || '';
       initialTradingName = org.tradingName || '';

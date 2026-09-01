@@ -382,8 +382,6 @@ function mapUserRecordToDb(user: SupplierUserRecord): Record<string, any> {
     role: user.role,
     status: user.status,
     email_verified: user.email_verified,
-    registration_source: 'CONTRACTOR_ONBOARDING',
-    application_type: 'CONTRACTOR',
     created_at: user.created_at,
     updated_at: user.updated_at,
   };
@@ -414,7 +412,6 @@ function mapOrgRecordToDb(org: SupplierOrganisationRecord): Record<string, any> 
     owner_id: org.ownerId,
     application_reference: org.applicationReference,
     lifecycle_status: org.lifecycleStatus,
-    registration_source: 'CONTRACTOR_ONBOARDING',
     created_at: org.createdAt,
     updated_at: org.updatedAt,
   };

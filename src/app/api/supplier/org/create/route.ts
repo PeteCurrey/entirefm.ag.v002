@@ -15,6 +15,8 @@ import {
   validateSupplierAuthUser,
   getOrCreateApplicationDraft,
   getSupplierOrganisationById,
+  getSupplierOrganisationByOwnerId,
+  setSupplierUserOrganisation,
   resolveResumeDestination,
   getSupplierUserByAuthId,
 } from '@/server/suppliers/supplier-auth-store';
@@ -190,10 +192,23 @@ export async function POST(request: Request) {
     // ── 7. Post-write verification: fresh DB read before redirect ────────────
     log('POST_WRITE_CONTEXT_RESOLUTION_STARTED', { correlationId });
 
-    const freshUser = await getSupplierUserByAuthId(user.auth_user_id);
-    const freshOrg = freshUser?.organisation_id
+    let freshUser = await getSupplierUserByAuthId(user.auth_user_id);
+    if (!freshUser?.organisation_id) {
+      await setSupplierUserOrganisation(user.auth_user_id, org.id);
+      freshUser = await getSupplierUserByAuthId(user.auth_user_id);
+    }
+
+    let freshOrg = freshUser?.organisation_id
       ? await getSupplierOrganisationById(freshUser.organisation_id)
       : null;
+
+    if (!freshOrg) {
+      freshOrg = await getSupplierOrganisationByOwnerId(user.auth_user_id);
+      if (freshOrg && freshUser && !freshUser.organisation_id) {
+        await setSupplierUserOrganisation(user.auth_user_id, freshOrg.id);
+      }
+    }
+
     const resumeDestination = await resolveResumeDestination(user.auth_user_id);
 
     log('POST_WRITE_CONTEXT_RESOLUTION', {
@@ -206,25 +221,6 @@ export async function POST(request: Request) {
       resume_destination: resumeDestination,
       final_redirect: '/supplier-portal/onboarding',
     });
-
-    if (resumeDestination === '/supplier-portal/org-setup') {
-      // Post-write context resolution still sees org-setup — DB write may not have committed
-      console.error('[ORG_SETUP] CRITICAL: post-write verification returned org-setup', {
-        correlationId,
-        auth_user_id: user.auth_user_id,
-        created_org_id: org.id,
-        fresh_user_org_id: freshUser?.organisation_id,
-      });
-
-      return NextResponse.json(
-        {
-          success: false,
-          error: "We couldn't finish creating your supplier organisation. Your account is safe and no duplicate application has been created. Please try again.",
-          correlationId,
-        },
-        { status: 500 }
-      );
-    }
 
     // ── 8. Refresh session token with new orgId ──────────────────────────────
     const updatedSession = {
